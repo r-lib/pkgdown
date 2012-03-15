@@ -97,7 +97,8 @@ parse_section <- function(x, title, ...) {
 
 #' @importFrom evaluate evaluate
 to_html.examples <- function(x, topic = "unknown", base_path, env, ...) {
-  text <- to_html.TEXT(x, ...)
+  # First element of examples tag is always empty
+  text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)
   
   replay_html(expr, base_path = base_path, name = str_c(topic, "-"))
