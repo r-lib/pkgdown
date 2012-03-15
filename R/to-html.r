@@ -51,6 +51,7 @@ to_html.NULL <- function(x, ...) character(0)
 to_html.COMMENT <- function(x, ...) character(0)
 to_html.dontshow <- function(x, ...) character(0)
 to_html.testonly <- function(x, ...) character(0)
+to_html.concept <- function(x, ...) character(0)
 
 # Various types of text ------------------------------------------------------
 
