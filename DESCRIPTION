@@ -1,4 +1,4 @@
-Package: staticdoc
+Package: staticdocs
 Type: Package
 Title: Make static html documentation for a package.
 Description: Convert package rd files to static html pages, suitable for
