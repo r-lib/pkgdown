@@ -8,7 +8,8 @@ Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: MIT
 Imports:
-    stringr
+    stringr,
+    testthat
 Collate:
     'code.r'
     'package.r'
