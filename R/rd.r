@@ -1,3 +1,9 @@
+#' Parse an rd file in to staticdocs format.
+#'
+#' Rd files are pretty printed with structural elements coloured blue, and
+#' leaves are given a short prefix: \code{"} = text, \code{'} = verbatim, and
+#' \code{>} = R code.
+#'
 #' @examples 
 #' rd <- parse_rd("geom_point", "ggplot2")
 parse_rd <- function(topic, package) {
