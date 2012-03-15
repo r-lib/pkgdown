@@ -1,5 +1,13 @@
 /* Syntax highlighting ---------------------------------------------------- */
 
+pre .input {
+  border-left: 3px solid #ccc;
+  padding-left: 0.5em;
+}
+pre .output {
+  background-color: #eee;
+}
+
 .number {color:rgb(21,20,181);}
 .functioncall {color:#264D66 ;}
 .string {color:#375D81 ;}
