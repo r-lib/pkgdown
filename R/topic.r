@@ -47,30 +47,6 @@ topic_is_internal <- function(help) {
 
 
 
-
-#' Highlight R text.
-#' Highlights R text to include links to all functions and make it easier to read
-#' @param parser_output text to be parsed and highlighted
-#' @return highlighted text
-#' @author Hadley Wickham and Barret Schloerke \email{schloerke@@gmail.com}
-#' @keywords internal
-highlight <- function(parser_output, source_link = FALSE) {
-  if (is.null(parser_output)) return("")
-  
-  # add links before being sent to be highlighted
-  parser_output <- add_function_links_into_parsed(parser_output, source_link)  
-  
-  str_c(
-    capture.output(
-      highlight::highlight( 
-        parser.output = parser_output, 
-        renderer = highlight::renderer_html(doc = F)
-      )
-    ), 
-    collapse = "\n"
-  )
-}
-
 #' Add funciton link.
 #' Add the function link to the preparsed R code
 #'

@@ -9,9 +9,10 @@ Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: MIT
 Imports:
     stringr,
-    testthat
+    testthat,
+    evaluate
 Collate:
-    'code.r'
+    'replay-html.r'
     'package.r'
     'rd.r'
     'to-html.r'

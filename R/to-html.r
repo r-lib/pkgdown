@@ -227,6 +227,15 @@ parse_items <- function(rd) {
   str_c(li, collapse = "")
 }
 
+# Examples -------------------------------------------------------------------
+
+#' @importFrom evaluate evaluate
+to_html.examples <- function(x, ...) {
+  text <- to_html.TEXT(x)
+  expr <- evaluate(text, globalenv())
+  replay_html(expr, path_prefix = "topic-name-")
+}
+
 # Simple tags that need minimal processing -----------------------------------
 
 to_html.Rd <- function(x, ...) {
