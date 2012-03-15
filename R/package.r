@@ -18,13 +18,15 @@ build_topics <- function(package, base_path) {
 
   # for each file, find name of one topic
   topics <- index$alias[!duplicated(index$file)]
-  rd <- lapply(topics, parse_rd, package = package)
-  html <- lapply(rd, to_html)
+  paths <- file.path(base_path, index$file[!duplicated(index$file)])
   
-  files <- index$file[!duplicated(index$file)]
-  paths <- file.path(base_path, files)
-
-  mapply(render_template, "topic", html, paths)
+  for (i in seq_along(topics)) {
+    rd <- parse_rd(topics[[i]], package)
+    html <- to_html(rd)
+    render_template("topic", html, paths[[i]])
+  }
+  
+  invisible(TRUE)
 }
 
 copy_bootstrap <- function(base_path) {
