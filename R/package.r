@@ -1,4 +1,6 @@
 build_package <- function(package, base_path) {
+  library(package, character.only = TRUE)
+  
   if (!file.exists(base_path)) dir.create(base_path)
   copy_bootstrap(base_path)
   
