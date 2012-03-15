@@ -22,7 +22,7 @@ build_topics <- function(package, base_path) {
   
   for (i in seq_along(topics)) {
     rd <- parse_rd(topics[[i]], package)
-    html <- to_html(rd)
+    html <- to_html(rd, env = new.env(parent = globalenv()))
     render_template("topic", html, paths[[i]])
   }
   

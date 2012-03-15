@@ -1,5 +1,5 @@
 to_html <- function(x, ...) {
-  UseMethod("to_html", x)
+  UseMethod("to_html")
 }
 
 # Parse a complete Rd file
@@ -20,29 +20,29 @@ to_html.Rd_doc <- function(x, ...) {
   out <- list()
 
   # Capture name, title and aliasess
-  out$name <- to_html(get_tag("name"))
-  out$title <- to_html(get_tag("title"))
-  out$aliases <- vapply(get_tags("alias"), to_html, character(1))
-  out$keywords <- vapply(get_tags("keyword"), to_html, character(1))
+  out$name <- to_html(get_tag("name"), ...)
+  out$title <- to_html(get_tag("title"), ...)
+  out$aliases <- vapply(get_tags("alias"), to_html, character(1), ...)
+  out$keywords <- vapply(get_tags("keyword"), to_html, character(1), ...)
 
-  out$usage <- to_html(get_tag("usage"))
-  out$arguments <- to_html(get_tag("arguments"))
-  out$author <- to_html(get_tag("author"))
+  out$usage <- to_html(get_tag("usage"), ...)
+  out$arguments <- to_html(get_tag("arguments"), ...)
+  out$author <- to_html(get_tag("author"), ...)
 
-  out$seealso <- to_html(get_tag("seealso"))
-  out$examples <- to_html(get_tag("examples"))
+  out$seealso <- to_html(get_tag("seealso"), ...)
+  out$examples <- to_html(get_tag("examples"), ...)
   
   # Everything else stays in original order, and becomes a list of sections.
   sections <- x[!(tags %in% c("name", "title", "alias", "keyword",
     "usage", "author", "seealso", "arguments", "examples"))]
-  out$sections <- to_html(sections, topic = out$name)
+  out$sections <- to_html(sections, topic = out$name, ...)
   
   out
 }
 
 # A list of elements should stay as a list
 to_html.list <- function(x, ...) {
-  lapply(x, to_html)
+  lapply(x, to_html, ...)
 }
 
 # Elements that don't return anything ----------------------------------------
@@ -56,32 +56,34 @@ to_html.testonly <- function(x, ...) character(0)
 
 # All components inside a text string should be collapsed into a single string
 to_html.TEXT <- function(x, ...) {
-  str_c(unlist(to_html.list(x)), collapse = "")
+  str_c(unlist(to_html.list(x, ...)), collapse = "")
   # Also need to do html escaping here and in to_html.RCODE
 }
 
 # If it's a character vector, we've got to the leaves of the tree
 to_html.character <- function(x, ...) x
 
-to_html.name <- function(x, ...) to_html(x[[1]])
-to_html.title <- function(x, ...) to_html.TEXT(x)
-to_html.usage <- function(x, ...) str_trim(to_html.TEXT(x))
-to_html.alias <- function(x, ...) unlist(to_html.list(x))
-to_html.keyword <- function(x, ...) unlist(to_html.list(x))
-to_html.seealso <- function(x, ...) to_html.TEXT(x)
+to_html.name <- function(x, ...) to_html(x[[1]], ...)
+to_html.title <- function(x, ...) to_html.TEXT(x, ...)
+to_html.usage <- function(x, ...) str_trim(to_html.TEXT(x, ...))
+to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
+to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
+to_html.seealso <- function(x, ...) to_html.TEXT(x, ...)
 
 
 # Sections get a element called text and an element called content, which
 # contains a list of paragraphs.
-to_html.details <- function(x, ...) parse_section(x, "Details")
-to_html.description <- function(x, ...) parse_section(x, "Description")
-to_html.value <- function(x, ...) parse_section(x, "Value")
-to_html.author <- function(x, ...) parse_section(x, "Authors")
-to_html.references <- function(x, ...) parse_section(x, "References")
-to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
+to_html.details <- function(x, ...) parse_section(x, "Details", ...)
+to_html.description <- function(x, ...) parse_section(x, "Description", ...)
+to_html.value <- function(x, ...) parse_section(x, "Value", ...)
+to_html.author <- function(x, ...) parse_section(x, "Authors", ...)
+to_html.references <- function(x, ...) parse_section(x, "References", ...)
+to_html.section <- function(x, ...) {
+  parse_section(x[[2]], to_html(x[[1]], ...))
+}
 
-parse_section <- function(x, title) {
-  text <- to_html.TEXT(x)
+parse_section <- function(x, title, ...) {
+  text <- to_html.TEXT(x, ...)
   paras <- str_trim(str_split(text, "\\n\\n")[[1]])
   
   list(title = title, contents = paras)
@@ -90,9 +92,9 @@ parse_section <- function(x, title) {
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
-to_html.examples <- function(x, topic = "unknown", ...) {
-  text <- to_html.TEXT(x)
-  expr <- evaluate(text, globalenv())
+to_html.examples <- function(x, topic = "unknown", env, ...) {
+  text <- to_html.TEXT(x, ...)
+  expr <- evaluate(text, env)
   
   replay_html(expr, path_prefix = str_c(topic, "-"))
 }
@@ -101,7 +103,7 @@ to_html.examples <- function(x, topic = "unknown", ...) {
 
 to_html.arguments <- function(x, ...) {
   items <- Filter(function(x) tag(x) == "item", x)  
-  to_html(items)
+  to_html(items, ...)
 }
 
 to_html.item <- function(x, ...) {
@@ -109,7 +111,7 @@ to_html.item <- function(x, ...) {
   # is dealt with those methods
   if (length(x) == 0) return()
   
-  list(name = to_html(x[[1]]), description = to_html.TEXT(x[[2]]))
+  list(name = to_html(x[[1]], ...), description = to_html.TEXT(x[[2]], ...))
 }
 
 # Equations ------------------------------------------------------------------
@@ -118,14 +120,14 @@ to_html.eqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
   
-  str_c("<code class = 'eq'>", to_html.list(ascii_rep), "</code>")
+  str_c("<code class = 'eq'>", to_html.list(ascii_rep, ...), "</code>")
 }
 
 to_html.deqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
   
-  str_c("<pre class = 'eq'>", to_html.list(ascii_rep), "</code>")
+  str_c("<pre class = 'eq'>", to_html.list(ascii_rep, ...), "</code>")
 }
 
 # Links ----------------------------------------------------------------------
@@ -163,19 +165,19 @@ to_html.link <- function(x, ...) {
 
 # First element of enc is the encoded version (second is the ascii version)
 to_html.enc <- function(x, ...) {
-  to_html(x[[1]])
+  to_html(x[[1]], ...)
 }
 
 to_html.dontrun <- function(x, ...) {
   str_c(
     "## <strong>Not run</strong>:", 
-    str_replace_all(to_html.TEXT(x), "\n", "\n#"), 
+    str_replace_all(to_html.TEXT(x, ...), "\n", "\n#"), 
     "## <strong>End(Not run)</strong>"
   )
 }
 
 to_html.special <- function(x, ...) {
-  txt <- to_html.TEXT(x)
+  txt <- to_html.TEXT(x, ...)
   # replace '<' and '>' with html markings avoid browser misinterpretation
   txt <- str_replace_all(txt, "<", "&#60;")
   txt <- str_replace_all(txt, ">", "&#62;")
@@ -190,21 +192,21 @@ to_html.special <- function(x, ...) {
 }
 
 to_html.method <- function(x, ...) {
-  to_html(x[[2]])
+  to_html(x[[2]], ...)
 }
 to_html.S3method <- to_html.method
 to_html.S4method <- to_html.method
 
 # Conditionals and Sexprs ----------------------------------------------------
 
-to_html.Sexpr <- function(x, ...) {
-  expr <- eval(parse(text = x[[1]]), globalenv())
+to_html.Sexpr <- function(x, env, ...) {
+  expr <- eval(parse(text = x[[1]]), env)
 
   con <- textConnection(expr)
   on.exit(close(con))
   rd <- parse_Rd(con, fragment = TRUE)
   
-  to_html(rd)
+  to_html(rd, ...)
 }
 
 to_html.if <- function(x, ...) {
@@ -243,7 +245,7 @@ to_html.tabular <- function(tabular) {
       output[i] <- str_c("</td></tr><tr><td align='", alignments[1], "'>")
       column <- 1
     } else {
-      output[i] <- to_html(rows[[i]])
+      output[i] <- to_html(rows[[i]], ...)
     }
   }
   
@@ -269,7 +271,7 @@ parse_items <- function(rd) {
   group <- cumsum(separator)
 
   items <- split(rd, group)
-  li <- vapply(items, function(x) str_c("<li>", to_html.TEXT(x), "</li>\n"),
+  li <- vapply(items, function(x) str_c("<li>", to_html.TEXT(x, ...), "</li>\n"),
     FUN.VALUE = character(1))
   
   str_c(li, collapse = "")
@@ -281,15 +283,15 @@ to_html.Rd <- function(x, ...) {
   tag <- tag(x)
   
   if (is.null(tag)) {
-    to_html.TEXT(x)
+    to_html.TEXT(x, ...)
   } else if (!is.null(tag) && tag %in% names(simple_tags)) {
     # If we can process tag with just prefix & suffix, do so
     html <- simple_tags[[tag]]
-    str_c(html[1], to_html.TEXT(x), html[2])
+    str_c(html[1], to_html.TEXT(x, ...), html[2])
   } else {
     # Otherwise we don't know about this tag
     message("Unknown tag: ", tag)
-    to_html.TEXT(x)
+    to_html.TEXT(x, ...)
   }
 }
 
