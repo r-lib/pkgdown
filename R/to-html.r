@@ -68,6 +68,8 @@ to_html.title <- function(x, ...) to_html.TEXT(x)
 to_html.usage <- function(x, ...) str_trim(to_html.TEXT(x))
 to_html.alias <- function(x, ...) unlist(to_html.list(x))
 to_html.keyword <- function(x, ...) unlist(to_html.list(x))
+to_html.seealso <- function(x, ...) to_html.TEXT(x)
+
 
 # Sections get a element called text and an element called content, which
 # contains a list of paragraphs.
@@ -75,7 +77,6 @@ to_html.details <- function(x, ...) parse_section(x, "Details")
 to_html.description <- function(x, ...) parse_section(x, "Description")
 to_html.value <- function(x, ...) parse_section(x, "Value")
 to_html.author <- function(x, ...) parse_section(x, "Authors")
-to_html.seealso <- function(x, ...) parse_section(x, "See also")
 to_html.references <- function(x, ...) parse_section(x, "References")
 to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
 
