@@ -63,7 +63,9 @@ replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id) {
 src_highlight <- function(text) {
   if (str_trim(text) == "") return("")
 
-  expr <- parser(text = text)
+  expr <- NULL
+  try(expr <- parser(text = text))
+  if (is.null(expr)) return(text)
   if (length(expr) == 0) return("")
   
   renderer <- renderer_html(doc = FALSE)

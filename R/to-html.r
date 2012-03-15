@@ -242,11 +242,11 @@ to_html.tabular <- function(x, ...) {
   cell_contents <- vapply(cells, to_html.TEXT, ..., 
     FUN.VALUE = character(1), USE.NAMES = FALSE)
   cell_contents <- str_c("<td>", cell_contents, "</td>\n")    
-  dim(cell_contents) <- c(length(cells) / length(align), length(align))
+  cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
   
-  rows <- apply(cell_contents, 1, function(x) str_c("<tr>", x, "</tr>\n"))
+  rows <- apply(cell_contents, 1, str_c, collapse = "")
   
-  str_c("<table>", str_c(rows, collapse = "\n"), "</table>")
+  str_c("<table>", str_c("<tr>", rows, "</tr>", collapse = ""), "</table>")
 }
 
 to_html.tab <- function(x, ...) character(0)

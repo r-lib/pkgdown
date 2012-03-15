@@ -23,6 +23,7 @@ build_topics <- function(package, base_path) {
   paths <- file.path(base_path, index$file[!duplicated(index$file)])
   
   for (i in seq_along(topics)) {
+    message("Generating ", basename(paths[[i]]))
     rd <- parse_rd(topics[[i]], package)
     html <- to_html(rd, 
       env = new.env(parent = globalenv()), 
