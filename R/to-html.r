@@ -26,7 +26,7 @@ to_html.Rd_doc <- function(x, ...) {
   out$keywords <- vapply(get_tags("keyword"), to_html, character(1))
 
   out$usage <- to_html(get_tag("usage"))
-  out$arugments <- to_html(get_tag("arguments"))
+  out$arguments <- to_html(get_tag("arguments"))
   out$author <- to_html(get_tag("author"))
 
   out$seealso <- to_html(get_tag("seealso"))

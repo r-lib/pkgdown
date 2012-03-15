@@ -4,6 +4,7 @@
 replay_html <- function(x, ...) UseMethod("replay_html", x)
 
 replay_html.list <- function(x, ...) {
+  browser()
   pieces <- vapply(seq_along(x), function(i) {
     replay_html(x[[i]], obj_id = i, ...)
   }, FUN.VALUE = character(1))

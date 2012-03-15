@@ -11,6 +11,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
       body {padding-top: 60px;}
+      h2 {padding-top: 20px}
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/highlight.css" rel="stylesheet">
@@ -31,7 +32,7 @@
             <ul class="nav">
               <li><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#examples">Examples</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -41,21 +42,51 @@
     <div class="container">
       <h1>{{title}}</h1>
 
-      {{#sections}}
-      <div class="{{title}}">
-        <h2>{{title}}</h2>
+      <div class="row">
+        <div class="span8">
+          <h2>Usage</h2>
+          <pre>{{{usage}}}</pre>
 
-        {{#contents}}
-        <p>{{{.}}}</p>
+          <h2>Arguments</h2>
+          <dl>
+          {{#arguments}}
+            <dt>{{name}}</dt>
+            <dd>{{{description}}}</dd>
+          {{/arguments}}
+          </dl>
+
+          {{#sections}}
+          <div class="{{title}}">
+            <h2>{{title}}</h2>
+            
+            {{#contents}}
+            <p>{{{.}}}</p>
         
-        {{/contents}}
+            {{/contents}}
 
-      </div>
-      {{/sections}}
+          </div>
+          {{/sections}}
       
-      <h2 id="examples">Examples</h2>
-      <pre class="examples">{{{ examples }}}</pre>
+          <h2 id="examples">Examples</h2>
+          <pre class="examples">{{{ examples }}}</pre>
+        </div>
+        <div class="span4">
+          <ul>
+            {{#aliases}}<li>{{.}}</li>{{/aliases}}
+          </ul>
+          <ul>
+            {{#keywords}}<li>{{.}}</li>{{/keywords}}
+          </ul>
+            
+          <h2>See also</h2>
+          {{{ seealso }}}
 
+          <h2>Author</h2>
+          {{{ author }}}
+
+          
+        </div>
+      </div>
     </div> <!-- /container -->
   </body>
 </html>
