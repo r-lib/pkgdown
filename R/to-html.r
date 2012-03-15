@@ -17,6 +17,7 @@ to_html.NULL <- function(x, ...) ""
 to_html.COMMENT <- function(x, ...) ""
 to_html.dontshow <- function(x, ...) ""
 to_html.testonly <- function(x, ...) ""
+to_html.alias <- function(x, ...) ""
 
 # Various types of text ------------------------------------------------------
 
@@ -28,6 +29,10 @@ to_html.TEXT <- function(x, ...) {
 # If it's a character vector, we've got to the leaves of the tree
 to_html.character <- function(x, ...) x
 
+to_html.name <- function(x, ...) to_html(x[[1]])
+to_html.title <- function(x, ...) to_html.TEXT(x[[1]])
+to_html.usage <- function(x, ...) to_html(x[[1]])
+
 # Sections get a element called text and an element called content, which
 # contains a list of paragraphs.
 to_html.details <- function(x, ...) parse_section(x, "Details")
@@ -35,13 +40,28 @@ to_html.description <- function(x, ...) parse_section(x, "Description")
 to_html.value <- function(x, ...) parse_section(x, "Value")
 to_html.author <- function(x, ...) parse_section(x, "Authors")
 to_html.seealso <- function(x, ...) parse_section(x, "Seealso")
-to_html.section <- function(x, ...) parse_section(x[[1]], x[[2]])
+to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
 
 parse_section <- function(x, title) {
   text <- to_html.TEXT(x)
   paras <- str_trim(str_split(text, "\\n\\n")[[1]])
   
   list(title = title, contents = paras)
+}
+
+# Arguments ------------------------------------------------------------------
+
+to_html.arguments <- function(x, ...) {
+  items <- Filter(function(x) tag(x) == "item", x)  
+  to_html(items)
+}
+
+to_html.item <- function(x, ...) {
+  # If no subelements, then is an item from a itemise or enumerate, and 
+  # is dealt with those methods
+  if (length(x) == 0) return()
+  
+  list(name = to_html(x[[1]]), description = to_html.TEXT(x[[2]]))
 }
 
 # Equations ------------------------------------------------------------------
@@ -95,7 +115,7 @@ to_html.link <- function(x, ...) {
 
 # First element of enc is the encoded version (second is the ascii version)
 to_html.enc <- function(x, ...) {
-  x[[1]]
+  to_html(x[[1]])
 }
 
 to_html.dontrun <- function(x, ...) {
@@ -122,7 +142,7 @@ to_html.special <- function(x, ...) {
 }
 
 to_html.method <- function(x, ...) {
-  x[[2]]
+  to_html(x[[2]])
 }
 to_html.S3method <- to_html.method
 to_html.S4method <- to_html.method
@@ -188,10 +208,10 @@ to_html.tabular <- function(tabular) {
 # List -----------------------------------------------------------------------
 
 to_html.itemize <- function(x, ...) {
-  str_c("<ul>\n", parse_items(x[[1]]), "</ul>\n")
+  str_c("<ul>\n", parse_items(x), "</ul>\n")
 }
 to_html.enumerate <- function(x, ...) {
-  str_c("<ol>\n", parse_items(x[[1]]), "</ol>\n")
+  str_c("<ol>\n", parse_items(x), "</ol>\n")
 }
 
 parse_items <- function(rd) {
@@ -201,7 +221,8 @@ parse_items <- function(rd) {
   group <- cumsum(separator)
 
   items <- split(rd, group)
-  li <- lapply(items, function(x) str_c("<li>", to_html.TEXT(x), "</li>\n"))
+  li <- vapply(items, function(x) str_c("<li>", to_html.TEXT(x), "</li>\n"),
+    FUN.VALUE = character(1))
   
   str_c(li, collapse = "")
 }
@@ -220,7 +241,7 @@ to_html.Rd <- function(x, ...) {
   } else {
     # Otherwise we don't know about this tag
     message("Unknown tag: ", tag)
-    str_c(to_html.TEXT(x), collapse = "")
+    to_html.TEXT(x)
   }
 }
 
