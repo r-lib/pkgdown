@@ -185,7 +185,7 @@ to_html.special <- function(x, ...) {
 
   stupid <- unlist(str_match_all(txt, "\\\\[a-zA-Z]*"))
   for (i in seq_len(length(stupid))) {
-    message("Uknown tag (", stupid[i], ") found in 'special' tag")
+    message("Unknown tag (", stupid[i], ") found in 'special' tag")
   }
   
   str_c("<em>", txt, "</em>")
