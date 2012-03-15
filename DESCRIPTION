@@ -11,7 +11,8 @@ Imports:
     stringr,
     testthat,
     evaluate,
-    whisker
+    whisker,
+    highlight
 Collate:
     'replay-html.r'
     'package.r'
