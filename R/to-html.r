@@ -174,11 +174,15 @@ to_html.enc <- function(x, ...) {
 }
 
 to_html.dontrun <- function(x, ...) {
-  str_c(
-    "## <strong>Not run</strong>:", 
-    str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "), 
-    "## <strong>End(Not run)</strong>"
-  )
+  if (length(x) == 1) {
+    str_c("## <strong>Not run</strong>: " , to_html.TEXT(x))    
+  } else {
+    str_c(
+      "## <strong>Not run</strong>: " , 
+      str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "), 
+      "## <strong>End(Not run)</strong>"
+    )    
+  }
 }
 
 to_html.special <- function(x, ...) {
