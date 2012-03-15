@@ -4,7 +4,11 @@ to_html <- function(x, ...) {
 
 # A list of elements should stay as a list
 to_html.list <- function(x, ...) {
-  lapply(rd, to_html)
+  lapply(x, to_html)
+}
+
+to_html.Rd_doc <- function(x, ...) {
+  to_html.list(x)
 }
 
 # Elements that don't return anything ----------------------------------------
@@ -34,7 +38,7 @@ to_html.seealso <- function(x, ...) parse_section(x, "Seealso")
 to_html.section <- function(x, ...) parse_section(x[[1]], x[[2]])
 
 parse_section <- function(x, title) {
-  text <- to_html.list(x)
+  text <- to_html.TEXT(x)
   paras <- str_trim(str_split(text, "\\n\\n")[[1]])
   
   list(title = title, contents = paras)
@@ -97,7 +101,7 @@ to_html.enc <- function(x, ...) {
 to_html.dontrun <- function(x, ...) {
   str_c(
     "## <strong>Not run</strong>:", 
-    str_replace_all(to_html.list(rd), "\n", "\n#"), 
+    str_replace_all(to_html.list(x), "\n", "\n#"), 
     "## <strong>End(Not run)</strong>"
   )
 }
@@ -118,7 +122,7 @@ to_html.special <- function(x, ...) {
 }
 
 to_html.method <- function(x, ...) {
-  rd[[2]]
+  x[[2]]
 }
 to_html.S3method <- to_html.method
 to_html.S4method <- to_html.method
@@ -136,12 +140,12 @@ to_html.Sexpr <- function(x, ...) {
 }
 
 to_html.if <- function(x, ...) {
-  if (rd[[1]] != "html") return()
-  rd[[2]]
+  if (x[[1]] != "html") return()
+  x[[2]]
 }
 
 to_html.ifelse <- function(x, ...) {
-  if (rd[[1]] == "html") rd[[2]] else rd[[3]]
+  if (x[[1]] == "html") x[[2]] else x[[3]]
 }
 
 # Tables ---------------------------------------------------------------------
@@ -207,7 +211,9 @@ parse_items <- function(rd) {
 to_html.Rd <- function(x, ...) {
   tag <- tag(x)
   
-  if (tag %in% names(simple_tags)) {
+  if (is.null(tag)) {
+    to_html.TEXT(x)
+  } else if (!is.null(tag) && tag %in% names(simple_tags)) {
     # If we can process tag with just prefix & suffix, do so
     html <- simple_tags[[tag]]
     str_c(html[1], to_html.TEXT(x), html[2])

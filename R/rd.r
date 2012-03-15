@@ -12,7 +12,7 @@ parse_rd <- function(topic, package) {
   
   rd_path <- eval(help_call)[[1]]
   rd <- utils:::.getHelpFile(rd_path)
-  set_classes(rd)
+  structure(set_classes(rd), class = c("Rd_doc", "Rd"))
 }
 
 
@@ -25,18 +25,18 @@ tag <- function(x) {
 }
 
 set_class <- function(x) {
-  structure(x, class = c(tag(x), "Rd", class(x)))
+  structure(x, class = unique(c(tag(x), "Rd", class(x))))
 }
 
 # Recursively set classes of Rd objects
-set_classes <- function(Rd) {
-  if (is.list(Rd)) {
-    new_Rd <- set_class(lapply(Rd, set_classes))
-    attr(new_Rd, "Rd_tag") <- attr(Rd, "Rd_tag")
-    attr(new_Rd, "Rd_option") <- attr(Rd, "Rd_option")
-    new_Rd
+set_classes <- function(rd) {
+  if (is.list(rd)) {
+    new_rd <- lapply(rd, set_classes)
+    attr(new_rd, "Rd_tag") <- attr(rd, "Rd_tag")
+    attr(new_rd, "Rd_option") <- attr(rd, "Rd_option")
+    set_class(new_rd)
   } else {
-    set_class(Rd)
+    set_class(rd)
   }
 }
 
