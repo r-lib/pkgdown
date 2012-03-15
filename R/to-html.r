@@ -221,39 +221,34 @@ to_html.ifelse <- function(x, ...) {
 # Tables ---------------------------------------------------------------------
 
 to_html.tabular <- function(x, ...) {
-  #' make all alignements into left, right or center
-  alignments <- unlist(str_split(x[[1]][[1]], ""))
-  alignments <- alignments[nchar(alignments) > 0]
-  #' remove line markings
-  alignments <- alignments[alignments != "|"]
-  alignments <- c("r" = "right", "l" = "left", "c" = "center")[alignments]
+  align_abbr <- str_split(to_html(x[[1]], ...), "")[[1]][-1]
+  align_abbr <- align_abbr[!(align_abbr %in% c("|", ""))]
+  align <- unname(c("r" = "right", "l" = "left", "c" = "center")[align_abbr])
   
-  rows <- x[[2]]
-  column <- 1
-  output <- character(length(rows))
+  contents <- x[[2]]
+  row_sep <- vapply(contents, function(x) tag(x) == "cr", 
+    FUN.VALUE = logical(1))
+  col_sep <- vapply(contents, function(x) tag(x) == "tab", 
+    FUN.VALUE = logical(1))
   
-  # Go through each item and reconstruct it if it is not a tab or carriage return
-  # (Really need strategy that works like list: break into rows and then
-  # columns)
-  for (i in seq_along(rows)) {
-    row_tag <- tag(rows[[i]])
+  last <- rev(which(row_sep))[1] - 1L
+  contents <- contents[seq_len(last)]
+  cell_grp <- cumsum(col_sep | row_sep)[seq_len(last)]
+  cells <- split(contents, cell_grp)
 
-    if (row_tag == "\\tab") {
-      column <- column + 1
-      output[i] <- str_c("</td><td align='", alignments[column], "'>")
-    } else if (row_tag == "\\cr") {
-      output[i] <- str_c("</td></tr><tr><td align='", alignments[1], "'>")
-      column <- 1
-    } else {
-      output[i] <- to_html(rows[[i]], ...)
-    }
-  }
+  cell_contents <- vapply(cells, to_html.TEXT, ..., 
+    FUN.VALUE = character(1), USE.NAMES = FALSE)
+  cell_contents <- str_c("<td>", cell_contents, "</td>\n")    
+  dim(cell_contents) <- c(length(cells) / length(align), length(align))
   
-  output[1] <- str_c("<table><tr><td align='", alignments[1], "'>", output[1])
-  output[length(rows)] <- str_c(output[length(rows)], "</td></tr></table>")
-
-  str_c(output, collapse = "")
+  rows <- apply(cell_contents, 1, function(x) str_c("<tr>", x, "</tr>\n"))
+  
+  str_c("<table>", str_c(rows, collapse = "\n"), "</table>")
 }
+
+to_html.tab <- function(x, ...) character(0)
+to_html.cr <- function(x, ...) character(0)
+
 
 # List -----------------------------------------------------------------------
 
