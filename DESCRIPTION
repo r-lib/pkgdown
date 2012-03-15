@@ -10,7 +10,8 @@ License: MIT
 Imports:
     stringr,
     testthat,
-    evaluate
+    evaluate,
+    whisker
 Collate:
     'replay-html.r'
     'package.r'
@@ -18,3 +19,4 @@ Collate:
     'to-html.r'
     'topic.r'
     'util.r'
+    'render.r'

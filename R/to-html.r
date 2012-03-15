@@ -78,6 +78,15 @@ to_html.seealso <- function(x, ...) parse_section(x, "See also")
 to_html.references <- function(x, ...) parse_section(x, "References")
 to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
 
+#' @importFrom evaluate evaluate
+to_html.examples <- function(x, topic = "unknown", ...) {
+  text <- to_html.TEXT(x)
+  expr <- evaluate(text, globalenv())
+  code <- replay_html(expr, path_prefix = str_c(topic, "-"))
+  
+  list(title = "Examples", contents = code)
+}
+
 parse_section <- function(x, title) {
   text <- to_html.TEXT(x)
   paras <- str_trim(str_split(text, "\\n\\n")[[1]])
@@ -135,11 +144,11 @@ to_html.link <- function(x, ...) {
 
   opt <- attr(x, "Rd_option")
   if (is.null(opt)) {
-    str_c("<a href='", x[[1]], ">", x[[1]], "</a>")
+    str_c("<a href='", x[[1]], ".html'>", x[[1]], "</a>")
   } else if (str_sub(opt, 1, 1) == "=") {
     topic <- str_sub(opt, 2, -1)
     
-    str_c("<a href='", topic, ">", x[[1]], "</a>")
+    str_c("<a href='", topic, ".html'>", x[[1]], "</a>")
   } else {
     str_c("<a href='http://www.inside-r.org/r-doc/", opt, "/", x[[1]], ">", 
       x[[1]], "</a>")
@@ -261,15 +270,6 @@ parse_items <- function(rd) {
     FUN.VALUE = character(1))
   
   str_c(li, collapse = "")
-}
-
-# Examples -------------------------------------------------------------------
-
-#' @importFrom evaluate evaluate
-to_html.examples <- function(x, topic = "unknown", ...) {
-  text <- to_html.TEXT(x)
-  expr <- evaluate(text, globalenv())
-  replay_html(expr, path_prefix = str_c(topic, "-"))
 }
 
 # Simple tags that need minimal processing -----------------------------------
