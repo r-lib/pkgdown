@@ -25,8 +25,9 @@ build_topics <- function(package, base_path) {
     html <- to_html(rd, 
       env = new.env(parent = globalenv()), 
       base_path = base_path, 
-      topic = topics[[i]])
+      topic = str_replace(basename(paths[[i]]), "\\.html$", ""))
     render_template("topic", html, paths[[i]])
+    graphics.off()
   }
   
   invisible(TRUE)
