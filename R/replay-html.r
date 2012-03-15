@@ -4,10 +4,20 @@
 replay_html <- function(x, ...) UseMethod("replay_html", x)
 
 replay_html.list <- function(x, ...) {
-  pieces <- vapply(seq_along(x), function(i) {
-    replay_html(x[[i]], obj_id = i, ...)
-  }, FUN.VALUE = character(1))
+  # Stitch adjacent source blocks back together
+  src <- vapply(x, is.source, logical(1))
+  # New group whenever not source, or when src after not-src
+  group <- cumsum(!src | c(FALSE, src[-1] != src[-length(src)]))
   
+  parts <- split(x, group)
+  parts <- lapply(parts, function(x) {
+    if (length(x) == 1) return(x[[1]])
+    src <- str_c(vapply(x, "[[", "src", FUN.VALUE = character(1)), 
+      collapse = "\n")
+    structure(list(src = src), class = "source")
+  })
+  
+  pieces <- mapply(replay_html, parts, obj_id = seq_along(parts), ...)
   str_c(pieces, collapse = "\n")
 }
 
@@ -65,8 +75,7 @@ src_highlight <- function(text) {
 
   expr <- NULL
   try(expr <- parser(text = text))
-  if (is.null(expr)) return(text)
-  if (length(expr) == 0) return("")
+  if (length(expr) == 0) return(text)
   
   renderer <- renderer_html(doc = FALSE)
   out <- capture.output(highlight(parser.output = expr, renderer = renderer))
