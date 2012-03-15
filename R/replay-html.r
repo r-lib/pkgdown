@@ -12,21 +12,21 @@ replay_html.list <- function(x, ...) {
 }
 
 replay_html.character <- function(x, ...) {
-  str_c("<pre class='output'>", str_c(x, collapse = ""), "</pre>")
+  str_c("<div class='output'>", str_c(x, collapse = ""), "</div>")
 }
 
 replay_html.value <- function(x, ...) {
   if (!x$visible) return()
   
   printed <- str_c(capture.output(print(x$value)), collapse = "\n")
-  str_c("<pre class='output'>", printed, "</pre>")
+  str_c("<div class='output'>", printed, "</div>")
 }
 
 replay_html.source <- function(x, ...) {
   if (str_trim(x$src) == "") return("")
 
   parsed <- parser(text = x$src)
-  src_highlight(parsed)
+  str_c("<div class='input'>", src_highlight(parsed), "</div>")
 }
 
 replay_html.warning <- function(x, ...) {
@@ -67,5 +67,7 @@ src_highlight <- function(expr) {
   
   renderer <- renderer_html(doc = FALSE)
   out <- capture.output(highlight(parser.output = expr, renderer = renderer))
+  # Drop pre tag
+  out <- out[-c(1, length(out))]
   str_c(out, collapse = "\n")
 }

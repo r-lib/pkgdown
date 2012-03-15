@@ -30,10 +30,11 @@ to_html.Rd_doc <- function(x, ...) {
   out$author <- to_html(get_tag("author"))
 
   out$seealso <- to_html(get_tag("seealso"))
+  out$examples <- to_html(get_tag("examples"))
   
   # Everything else stays in original order, and becomes a list of sections.
   sections <- x[!(tags %in% c("name", "title", "alias", "keyword",
-    "usage", "author", "seealso", "arguments"))]
+    "usage", "author", "seealso", "arguments", "examples"))]
   out$sections <- to_html(sections, topic = out$name)
   
   out
@@ -78,20 +79,21 @@ to_html.seealso <- function(x, ...) parse_section(x, "See also")
 to_html.references <- function(x, ...) parse_section(x, "References")
 to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
 
-#' @importFrom evaluate evaluate
-to_html.examples <- function(x, topic = "unknown", ...) {
-  text <- to_html.TEXT(x)
-  expr <- evaluate(text, globalenv())
-  code <- replay_html(expr, path_prefix = str_c(topic, "-"))
-  
-  list(title = "Examples", contents = code)
-}
-
 parse_section <- function(x, title) {
   text <- to_html.TEXT(x)
   paras <- str_trim(str_split(text, "\\n\\n")[[1]])
   
   list(title = title, contents = paras)
+}
+
+# Examples ------------------------------------------------------------------
+
+#' @importFrom evaluate evaluate
+to_html.examples <- function(x, topic = "unknown", ...) {
+  text <- to_html.TEXT(x)
+  expr <- evaluate(text, globalenv())
+  
+  replay_html(expr, path_prefix = str_c(topic, "-"))
 }
 
 # Arguments ------------------------------------------------------------------
