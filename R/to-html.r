@@ -138,8 +138,8 @@ to_html.href <- function(x, ...) {
   str_c("<a href = '", x[[1]], "'>", x[[2]], "</a>")
 }
 to_html.email <- function(x, ...) {
-  stopifnot(length(x) == 2)
-  str_c("<a href='mailto:", x[[1]], "'>", x[[2]], "</a>")
+  stopifnot(length(x) %in% c(1L, 2L))
+  str_c("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
 to_html.link <- function(x, ...) {
