@@ -2,36 +2,71 @@ to_html <- function(x, ...) {
   UseMethod("to_html", x)
 }
 
+# Parse a complete Rd file
+to_html.Rd_doc <- function(x, ...) {
+  tags <- vapply(x, tag, FUN.VALUE = character(1))
+  get_tags <- function(tag) x[tags == tag]
+  get_tag <- function(tag) {
+    if (tag %in% tags) {
+      x[[which(tags == tag)]]
+    }
+  }
+  
+  # Remove line breaks between sections
+  line_breaks <- tags == "TEXT"
+  x <- x[!line_breaks]
+  tags <- tags[!line_breaks]
+
+  out <- list()
+
+  # Capture name, title and aliasess
+  out$name <- to_html(get_tag("name"))
+  out$title <- to_html(get_tag("title"))
+  out$aliases <- vapply(get_tags("alias"), to_html, character(1))
+  out$keywords <- vapply(get_tags("keyword"), to_html, character(1))
+
+  out$usage <- to_html(get_tag("usage"))
+  out$arugments <- to_html(get_tag("arguments"))
+  out$author <- to_html(get_tag("author"))
+
+  out$seealso <- to_html(get_tag("seealso"))
+  
+  # Everything else stays in original order, and becomes a list of sections.
+  sections <- x[!(tags %in% c("name", "title", "alias", "keyword",
+    "usage", "author", "seealso", "arguments"))]
+  out$sections <- to_html(sections, topic = out$name)
+  
+  out
+}
+
 # A list of elements should stay as a list
 to_html.list <- function(x, ...) {
   lapply(x, to_html)
 }
 
-to_html.Rd_doc <- function(x, ...) {
-  to_html.list(x)
-}
-
 # Elements that don't return anything ----------------------------------------
 
-to_html.NULL <- function(x, ...) ""
-to_html.COMMENT <- function(x, ...) ""
-to_html.dontshow <- function(x, ...) ""
-to_html.testonly <- function(x, ...) ""
-to_html.alias <- function(x, ...) ""
+to_html.NULL <- function(x, ...) character(0)
+to_html.COMMENT <- function(x, ...) character(0)
+to_html.dontshow <- function(x, ...) character(0)
+to_html.testonly <- function(x, ...) character(0)
 
 # Various types of text ------------------------------------------------------
 
 # All components inside a text string should be collapsed into a single string
 to_html.TEXT <- function(x, ...) {
   str_c(unlist(to_html.list(x)), collapse = "")
+  # Also need to do html escaping here and in to_html.RCODE
 }
 
 # If it's a character vector, we've got to the leaves of the tree
 to_html.character <- function(x, ...) x
 
 to_html.name <- function(x, ...) to_html(x[[1]])
-to_html.title <- function(x, ...) to_html.TEXT(x[[1]])
-to_html.usage <- function(x, ...) to_html(x[[1]])
+to_html.title <- function(x, ...) to_html.TEXT(x)
+to_html.usage <- function(x, ...) str_trim(to_html.TEXT(x))
+to_html.alias <- function(x, ...) unlist(to_html.list(x))
+to_html.keyword <- function(x, ...) unlist(to_html.list(x))
 
 # Sections get a element called text and an element called content, which
 # contains a list of paragraphs.
@@ -39,7 +74,8 @@ to_html.details <- function(x, ...) parse_section(x, "Details")
 to_html.description <- function(x, ...) parse_section(x, "Description")
 to_html.value <- function(x, ...) parse_section(x, "Value")
 to_html.author <- function(x, ...) parse_section(x, "Authors")
-to_html.seealso <- function(x, ...) parse_section(x, "Seealso")
+to_html.seealso <- function(x, ...) parse_section(x, "See also")
+to_html.references <- function(x, ...) parse_section(x, "References")
 to_html.section <- function(x, ...) parse_section(x[[2]], to_html(x[[1]]))
 
 parse_section <- function(x, title) {
@@ -230,10 +266,10 @@ parse_items <- function(rd) {
 # Examples -------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
-to_html.examples <- function(x, ...) {
+to_html.examples <- function(x, topic = "unknown", ...) {
   text <- to_html.TEXT(x)
   expr <- evaluate(text, globalenv())
-  replay_html(expr, path_prefix = "topic-name-")
+  replay_html(expr, path_prefix = str_c(topic, "-"))
 }
 
 # Simple tags that need minimal processing -----------------------------------
@@ -264,7 +300,7 @@ simple_tags <- list(
   "describe" =     c("<span class='describe'>", "</span>"),
   "dfn" =          c("<dfn>", "</dfn>"),
   "donttest" =     c("", ""),
-  "dots" =         c("...", ""),
+  "dots" =         c("&#x2026;", ""),
   "dquote" =       c("&#147;", "&#148;"),
   "dQuote" =       c("&#147;", "&#148;"),
   "emph" =         c("<em>", "</em>"),

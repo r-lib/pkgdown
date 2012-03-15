@@ -105,68 +105,6 @@ parse_pkg_desc_item <- function(obj) {
   )
 }
 
-#' Parse authors and maintainer.
-#'
-#' @param description list containing the \code{author} and \code{maintainer}
-#' @return string containing the authors with links properly displayed
-pkg_author_and_maintainers <- function(authors, maintainer=NULL) {
-
-  # retrieve the authors and email
-  authors <- str_replace_all(authors, "\\n", " ")
-  str_extract_all(authors, "[a-zA-z]* [a-zA-z]* <*>")
-
-  # retrieve the author and email separately
-  all_pattern <- "[a-zA-Z][a-zA-Z]* [a-zA-Z][a-zA-Z]* <[a-zA-Z0-9._-]*@[a-zA-Z0-9._-]*.[a-zA-Z]{2,7}>"
-  name_pattern <- "[a-zA-Z][a-zA-Z_-]*[ ]{0,1}[a-zA-Z][a-zA-Z]*"
-  email_pattern <- "<[a-zA-Z0-9._-]*@[a-zA-Z0-9._-]*.[a-zA-Z]{2,7}>"
-  auths_string <- str_extract_all(authors, all_pattern)[[1]]
-  auths <- sapply(str_extract_all(auths_string, name_pattern), "[[", 1)
-  emails <- sapply(str_extract_all(auths_string, email_pattern), "[[", 1)
-  if (length(emails) < 1) {
-    author_and_email <- auths
-  } else {
-    emails <- str_replace_all(emails, "<", "")
-    emails <- str_replace_all(emails, ">", "")
-    
-    author_and_email <- author_email(auths, emails)
-  }
-  
-  # replace the original authors with the linked authors
-  for (i in seq_along(author_and_email)) {
-    authors <- str_replace_all(authors, auths_string[i], author_and_email[i])
-  }
-
-  if (!is.null(maintainer)) {
-    maintainer_name <- str_trim(strip_html(maintainer))
-    maintainer_email <- str_extract_all(maintainer, email_pattern)[[1]][1]
-    maintainer_email <- str_replace_all(maintainer_email, "<", "")
-    maintainer_email <- str_replace_all(maintainer_email, ">", "")
-  
-    # make the maintainer bold
-    maintainer_string <- str_c("<strong>", author_email(maintainer_name, maintainer_email), "</strong>", collapse = "")  
-  
-    if (str_detect(authors, maintainer_name)) {
-      # replace the current author text with the maintainer text
-      authors <- str_replace_all(
-        authors, 
-        str_c("</?.*?>",maintainer_name,"</?.*?>", collapse = ""),
-        maintainer_name
-      )
-      
-      authors <- str_replace_all(
-        authors, 
-        maintainer_name,
-        maintainer_string
-      )
-    } else {
-      # attach the maintainer to the end
-      authors <- str_c(authors, "; ", maintainer_string, collapse = "")
-    }
-  }
-  authors
-}
-
-
 
 #' List all package vignettes.
 #'

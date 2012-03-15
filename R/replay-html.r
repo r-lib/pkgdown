@@ -23,6 +23,8 @@ replay_html.value <- function(x, ...) {
 }
 
 replay_html.source <- function(x, ...) {
+  if (str_trim(x$src) == "") return("")
+
   parsed <- parser(text = x$src)
   src_highlight(parsed)
 }

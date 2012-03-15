@@ -57,6 +57,7 @@ print.Rd <- function(x, ..., indent = 0) {
 print.TEXT <- function(x, ..., indent = 0) block(x, indent, '"')
 print.VERB <- function(x, ..., indent = 0) block(x, indent, "'")
 print.RCODE <- function(x, ..., indent = 0) block(x, indent, ">")
+print.COMMENT <- function(x, ..., indent = 0) block(x, indent, "%")
 
 #' @importFrom testthat colourise
 block <- function(x, indent = 0, prefix = "'") {
