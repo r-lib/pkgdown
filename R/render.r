@@ -1,17 +1,6 @@
 #' @importFrom stringr str_c
 find_template <- function(name) {
-  srcref <- attr(find_template, "srcref")
-  
-  if (is.null(srcref)) {
-    # Probably in package
-    system.file(package = "staticdocs")
-  } else {
-    # Probably in development
-    base_path <- file.path(dirname(dirname(attr(srcref, "srcfile")$filename)),
-      "inst")
-  }
-
-  file.path(base_path, "templates", str_c(name, ".html"))
+  file.path(inst_path(), "templates", str_c(name, ".html"))
 }
 
 #' Render topic html page.

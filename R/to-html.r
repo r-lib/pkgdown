@@ -168,7 +168,7 @@ to_html.enc <- function(x, ...) {
 to_html.dontrun <- function(x, ...) {
   str_c(
     "## <strong>Not run</strong>:", 
-    str_replace_all(to_html.list(x), "\n", "\n#"), 
+    str_replace_all(to_html.TEXT(x), "\n", "\n#"), 
     "## <strong>End(Not run)</strong>"
   )
 }

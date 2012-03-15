@@ -25,3 +25,17 @@ pluralize <- function(string, obj, plural = str_c(string, "s"), bool_statement =
 strip_html <- function(x) {
   str_replace_all(x, "</?.*?>", "")
 }
+
+
+inst_path <- function() {
+  srcref <- attr(find_template, "srcref")
+  
+  if (is.null(srcref)) {
+    # Probably in package
+    system.file(package = "staticdocs")
+  } else {
+    # Probably in development
+    file.path(dirname(dirname(attr(srcref, "srcfile")$filename)),
+      "inst")
+  }
+}

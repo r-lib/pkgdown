@@ -1,3 +1,46 @@
+build_package <- function(package, base_path) {
+  if (!file.exists(base_path)) dir.create(base_path)
+  
+  build_topics(package, base_path)
+  copy_bootstrap(base_path)
+  
+  invisible(TRUE)
+}
+
+#' Generate all topic pages for a package.
+#'
+build_topics <- function(package, base_path) {
+  index <- topic_index(package)
+
+  # for each file, find name of one topic
+  topics <- index$alias[!duplicated(index$file)]
+  rd <- lapply(topics, parse_rd, package = package)
+  html <- lapply(rd, to_html)
+  
+  files <- index$file[!duplicated(index$file)]
+  paths <- file.path(base_path, str_c(files, ".html"))
+
+  mapply(render_topic, html, paths)
+}
+
+copy_bootstrap <- function(base_path) {
+  bootstrap <- file.path(inst_path(), "bootstrap")
+  file.copy(dir(bootstrap, full.names = TRUE), base_path, recursive = TRUE)
+}
+
+
+topic_index <- function(package) {
+  index_path <- system.file("help", "AnIndex", package = package)
+
+  topics <- read.table(index_path, sep = "\t", 
+    stringsAsFactors = FALSE, comment.char = "", quote = "", header = FALSE)
+    
+  names(topics) <- c("alias", "file") 
+  topics[complete.cases(topics), ]
+}
+
+
+
 #' Package information.
 #'
 #' @aliases helpr_package helpr_package_mem
@@ -123,27 +166,8 @@ pkg_vigs <- function(package) {
   data.frame(item = vignettes[,"Item"], title = titles, stringsAsFactors = FALSE)
 }
 
-#' Package topics alias to file index.
-#'
-#' @param package package to explore
-#' @return \code{\link{data.frame}} containing \code{alias} (function name) and \code{file} that it is associated with
-#' @keywords internal
-#' @author Hadley Wickham
-pkg_topics_index <- function(package) {
-  help_path <- pkg_help_path(package)
-  
-  file_path <- file.path(help_path, "AnIndex")
-  ### check to see if there is anything that exists, aka sinartra
-  if (length(readLines(file_path, n = 1)) < 1) {
-    return(NULL)
-  }
 
-  topics <- read.table(file_path, sep = "\t", 
-    stringsAsFactors = FALSE, comment.char = "", quote = "", header = FALSE)
-    
-  names(topics) <- c("alias", "file") 
-  topics[complete.cases(topics), ]
-}
+
 
 
 #' Topic title and aliases by package.
