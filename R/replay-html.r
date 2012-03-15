@@ -23,10 +23,7 @@ replay_html.value <- function(x, ...) {
 }
 
 replay_html.source <- function(x, ...) {
-  if (str_trim(x$src) == "") return("")
-
-  parsed <- parser(text = x$src)
-  str_c("<div class='input'>", src_highlight(parsed), "</div>")
+  str_c("<div class='input'>", src_highlight(x$src), "</div>")
 }
 
 replay_html.warning <- function(x, ...) {
@@ -63,7 +60,10 @@ replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id) {
 
 #' @importFrom highlight highlight
 #' @importFrom highlight renderer_html
-src_highlight <- function(expr) {
+src_highlight <- function(text) {
+  if (str_trim(text) == "") return("")
+
+  expr <- parser(text = text)
   if (length(expr) == 0) return("")
   
   renderer <- renderer_html(doc = FALSE)
