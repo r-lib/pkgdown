@@ -81,6 +81,7 @@ to_html.description <- function(x, ...) parse_section(x, "Description", ...)
 to_html.value <- function(x, ...) parse_section(x, "Value", ...)
 to_html.author <- function(x, ...) parse_section(x, "Authors", ...)
 to_html.references <- function(x, ...) parse_section(x, "References", ...)
+to_html.note <- function(x, ...) parse_section(x, "Note", ...)
 to_html.section <- function(x, ...) {
   parse_section(x[[2]], to_html(x[[1]], ...))
 }
