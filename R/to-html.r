@@ -92,11 +92,11 @@ parse_section <- function(x, title, ...) {
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
-to_html.examples <- function(x, topic = "unknown", env, ...) {
+to_html.examples <- function(x, topic = "unknown", base_path, env, ...) {
   text <- to_html.TEXT(x, ...)
   expr <- evaluate(text, env)
   
-  replay_html(expr, path_prefix = str_c(topic, "-"))
+  replay_html(expr, base_path = base_path, name = str_c(topic, "-"))
 }
 
 # Arguments ------------------------------------------------------------------

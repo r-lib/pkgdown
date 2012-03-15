@@ -48,8 +48,9 @@ replay_html.error <- function(x, ...) {
   }
 }
 
-replay_html.recordedplot <- function(x, path_prefix, obj_id) {  
-  path <- file.path(str_c(path_prefix, obj_id, ".png", collapse = ""))
+replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id) {  
+  name <- str_c(name_prefix, obj_id, ".png")
+  path <- file.path(base_path, name)
   
   if (!file.exists(path)) { 
     png(path, width = 400, height = 400, res = 96)
@@ -57,7 +58,7 @@ replay_html.recordedplot <- function(x, path_prefix, obj_id) {
     print(x)
   }
 
-  str_c("<p><img src='", path, "' alt='' width='400' height='400' /></p>")
+  str_c("<p><img src='", name, "' alt='' width='400' height='400' /></p>")
 }
 
 #' @importFrom highlight highlight
