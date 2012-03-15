@@ -303,7 +303,7 @@ simple_tags <- list(
   "describe" =     c("<span class='describe'>", "</span>"),
   "dfn" =          c("<dfn>", "</dfn>"),
   "donttest" =     c("", ""),
-  "dots" =         c("&#x2026;", ""),
+  "dots" =         c("...", ""),
   "dquote" =       c("&#147;", "&#148;"),
   "dQuote" =       c("&#147;", "&#148;"),
   "emph" =         c("<em>", "</em>"),
