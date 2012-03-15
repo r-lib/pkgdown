@@ -1,9 +1,1 @@
-* Render single topic to file. Use whisker template
-
-* Render all topics in a package to a directory.
-
-* Generate a package homepage. Copy across all bootstrap files.
-
-* Save and list vignettes.
-
 * Save and list demos.
