@@ -220,15 +220,15 @@ to_html.ifelse <- function(x, ...) {
 
 # Tables ---------------------------------------------------------------------
 
-to_html.tabular <- function(tabular) {
+to_html.tabular <- function(x, ...) {
   #' make all alignements into left, right or center
-  alignments <- unlist(str_split(tabular[[1]][[1]], ""))
+  alignments <- unlist(str_split(x[[1]][[1]], ""))
   alignments <- alignments[nchar(alignments) > 0]
   #' remove line markings
   alignments <- alignments[alignments != "|"]
   alignments <- c("r" = "right", "l" = "left", "c" = "center")[alignments]
   
-  rows <- tabular[[2]]
+  rows <- x[[2]]
   column <- 1
   output <- character(length(rows))
   
