@@ -267,10 +267,10 @@ to_html.cr <- function(x, ...) character(0)
 # List -----------------------------------------------------------------------
 
 to_html.itemize <- function(x, ...) {
-  str_c("<ul>\n", parse_items(x, ...), "</ul>\n")
+  str_c("<ul>\n", parse_items(x[-1], ...), "</ul>\n")
 }
 to_html.enumerate <- function(x, ...) {
-  str_c("<ol>\n", parse_items(x, ...), "</ol>\n")
+  str_c("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
 }
 
 parse_items <- function(rd, ...) {
