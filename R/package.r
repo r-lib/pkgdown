@@ -1,4 +1,4 @@
-build_package <- function(package, base_path) {
+build_package <- function(package, base_path, examples = TRUE) {
   library(package, character.only = TRUE)
   
   if (!file.exists(base_path)) dir.create(base_path)
@@ -10,14 +10,14 @@ build_package <- function(package, base_path) {
   message("Generating index.html")
   render_template("index", info, file.path(base_path, "index.html"))
   
-  build_topics(package, base_path, info)
+  build_topics(package, base_path, info, examples = examples)
   
   invisible(TRUE)
 }
 
 #' Generate all topic pages for a package.
 #'
-build_topics <- function(package, base_path, package_info) {
+build_topics <- function(package, base_path, package_info, examples = TRUE) {
   index <- topic_index(package)
 
   # for each file, find name of one topic
@@ -31,6 +31,7 @@ build_topics <- function(package, base_path, package_info) {
       env = new.env(parent = globalenv()), 
       base_path = base_path, 
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
+      examples = examples,
       package = package)
     html$package <- package_info
     render_template("topic", html, paths[[i]])

@@ -100,7 +100,8 @@ parse_section <- function(x, title, ...) {
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
-to_html.examples <- function(x, topic = "unknown", base_path, env, ...) {
+to_html.examples <- function(x, topic = "unknown", base_path, env, ..., examples = TRUE) {
+  if (!examples) return()
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)
