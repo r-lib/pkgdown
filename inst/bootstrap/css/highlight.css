@@ -21,13 +21,8 @@ pre .output {
 .prompt {color:black ;}
 
 pre img { 
-  border-width: 2px; 
-  border-style: solid;
-  background-color: rgb(255,255,255);
-  border-color: rgb(135,179,190); /* darker output blue */
+  background-color: #fff;
+  border: 1px solid #ccc;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;  
+  margin: 0.5em auto 0.5em auto;
 }
