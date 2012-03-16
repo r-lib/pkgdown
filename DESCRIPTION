@@ -18,6 +18,5 @@ Collate:
     'package.r'
     'rd.r'
     'to-html.r'
-    'topic.r'
     'util.r'
     'render.r'
