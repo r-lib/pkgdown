@@ -262,21 +262,22 @@ to_html.cr <- function(x, ...) character(0)
 # List -----------------------------------------------------------------------
 
 to_html.itemize <- function(x, ...) {
-  str_c("<ul>\n", parse_items(x), "</ul>\n")
+  str_c("<ul>\n", parse_items(x, ...), "</ul>\n")
 }
 to_html.enumerate <- function(x, ...) {
-  str_c("<ol>\n", parse_items(x), "</ol>\n")
+  str_c("<ol>\n", parse_items(x, ...), "</ol>\n")
 }
 
-parse_items <- function(rd) {
+parse_items <- function(rd, ...) {
   separator <- vapply(rd, function(x) tag(x) == "item", 
     FUN.VALUE = logical(1))
   
   group <- cumsum(separator)
 
   items <- split(rd, group)
-  li <- vapply(items, function(x) str_c("<li>", to_html.TEXT(x, ...), "</li>\n"),
-    FUN.VALUE = character(1))
+  li <- vapply(items, function(x) {
+    str_c("<li>", to_html.TEXT(x, ...), "</li>\n"),
+  }, FUN.VALUE = character(1))
   
   str_c(li, collapse = "")
 }
