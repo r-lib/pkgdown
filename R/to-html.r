@@ -70,7 +70,9 @@ to_html.character <- function(x, ...) x
 to_html.name <- function(x, ...) to_html(x[[1]], ...)
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 to_html.usage <- function(x, ...) {
-  src_highlight(str_trim(to_html.TEXT(x, ...)))
+  text <- to_html.TEXT(x, ...)
+  text <- str_replace_all(text, "\n  ", "\n") # Remove default indent
+  src_highlight(str_trim(text))
 }
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
 to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
