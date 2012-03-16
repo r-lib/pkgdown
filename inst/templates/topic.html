@@ -47,6 +47,7 @@
           <pre>{{{usage}}}</pre>
           {{/usage}}
 
+          {{#has_args}}
           <h2>Arguments</h2>
           <dl>
           {{#arguments}}
@@ -54,6 +55,7 @@
             <dd>{{{description}}}</dd>
           {{/arguments}}
           </dl>
+          {{/has_args}}
 
           {{#sections}}
           <div class="{{title}}">

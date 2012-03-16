@@ -27,6 +27,9 @@ to_html.Rd_doc <- function(x, ...) {
 
   out$usage <- to_html(get_tag("usage"), ...)
   out$arguments <- to_html(get_tag("arguments"), ...)
+  if (length(out$arguments)) {
+    out$has_args <- TRUE # Work around mustache deficiency
+  }
   out$author <- to_html(get_tag("author"), ...)
 
   out$seealso <- to_html(get_tag("seealso"), ...)
