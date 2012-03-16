@@ -154,19 +154,39 @@ to_html.email <- function(x, ...) {
   str_c("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
-to_html.link <- function(x, ...) {
+
+# If single, need to look up alias to find file name and package
+to_html.link <- function(x, ..., package) {
   stopifnot(length(x) == 1)
 
   opt <- attr(x, "Rd_option")
+
   if (is.null(opt)) {
-    str_c("<a href='", x[[1]], ".html'>", x[[1]], "</a>")
+    topic <- to_html.TEXT(x[[1]])
+    label <- topic
+    t_package <- NULL
   } else if (str_sub(opt, 1, 1) == "=") {
     topic <- str_sub(opt, 2, -1)
-    
-    str_c("<a href='", topic, ".html'>", x[[1]], "</a>")
+    label <- to_html.TEXT(x[[1]])
+    t_package <- NULL
   } else {
-    str_c("<a href='http://www.inside-r.org/r-doc/", opt, "/", x[[1]], "'>", 
-      x[[1]], "</a>")
+    topic <- to_html.TEXT(x[[1]])
+    label <- topic
+    t_package <- opt
+  }
+  
+  loc <- find_topic(topic, t_package)
+  
+  if (is.null(loc)) {
+    message("Can't find help topic ", topic)
+    return(topic)
+  }
+  
+  if (loc$package == package) {
+    str_c("<a href='", loc$topic, ".html'>", label, "</a>")
+  } else {
+    str_c("<a href='http://www.inside-r.org/r-doc/", loc$package, "/", 
+      loc$topic, "'>", label, "</a>")
   }
 
 }

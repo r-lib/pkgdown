@@ -30,7 +30,8 @@ build_topics <- function(package, base_path, package_info) {
     html <- to_html(rd, 
       env = new.env(parent = globalenv()), 
       base_path = base_path, 
-      topic = str_replace(basename(paths[[i]]), "\\.html$", ""))
+      topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
+      package = package)
     html$package <- package_info
     render_template("topic", html, paths[[i]])
     graphics.off()

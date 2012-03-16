@@ -7,14 +7,32 @@
 #' @examples 
 #' rd <- parse_rd("geom_point", "ggplot2")
 parse_rd <- function(topic, package) {
-  help_call <- substitute(help(topic, package = package), 
-    list(topic = as.name(topic), package = as.name(package)))
-  
-  rd_path <- eval(help_call)[[1]]
-  rd <- utils:::.getHelpFile(rd_path)
+  rd <- utils:::.getHelpFile(rd_path(topic, package))
   structure(set_classes(rd), class = c("Rd_doc", "Rd"))
 }
 
+rd_path <- function(topic, package = NULL) {
+  topic <- as.name(topic)
+  if (!is.null(package)) package <- as.name(package)
+  
+  help_call <- substitute(help(topic, package = package, try.all.packages = TRUE), 
+    list(topic = topic, package = package))
+  
+  res <- eval(help_call)
+  if (length(res) == 0) return(NULL)
+  
+  res[[1]]
+}
+
+find_topic <- function(alias, package = NULL) {  
+  path <- rd_path(alias, package)
+  if (is.null(path)) return(NULL)
+  
+  pieces <- str_split(path, .Platform$file.sep)[[1]]
+  n <- length(pieces)
+  
+  list(package = pieces[n - 2], topic = pieces[n])
+}
 
 #' @importFrom stringr str_replace_all
 tag <- function(x) {
