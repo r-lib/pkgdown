@@ -6,16 +6,18 @@ build_package <- function(package, base_path) {
   
   info <- package_info(package)
   info$vignettes <- build_vignettes(package, base_path)
+  
+  message("Generating index.html")
   render_template("index", info, file.path(base_path, "index.html"))
   
-  build_topics(package, base_path)
+  build_topics(package, base_path, info)
   
   invisible(TRUE)
 }
 
 #' Generate all topic pages for a package.
 #'
-build_topics <- function(package, base_path) {
+build_topics <- function(package, base_path, package_info) {
   index <- topic_index(package)
 
   # for each file, find name of one topic
@@ -29,6 +31,7 @@ build_topics <- function(package, base_path) {
       env = new.env(parent = globalenv()), 
       base_path = base_path, 
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""))
+    html$package <- package_info
     render_template("topic", html, paths[[i]])
     graphics.off()
   }
@@ -97,6 +100,7 @@ package_info <- function(package) {
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
 build_vignettes <- function(package, base_path) {
+  message("Copying vignettes")
   vignettes <- as.data.frame(vignette(package = package)$results)
   
   title <- str_replace_all(vignettes$Title, " \\(source, pdf\\)", "")

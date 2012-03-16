@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{title}}</title>
+    <title>{{title}}. {{#package}}{{package}} {{version}}{{/package}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="{{author}}">
@@ -27,12 +27,10 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class = "container">
-          <a class="brand" href="#">{{brand}}</a>
+          <a class="brand" href="#">{{#package}}{{package}} {{version}}{{/package}}</a>
           <div class="nav">
             <ul class="nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#examples">Examples</a></li>
+              <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
