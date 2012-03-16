@@ -165,7 +165,7 @@ to_html.link <- function(x, ...) {
     
     str_c("<a href='", topic, ".html'>", x[[1]], "</a>")
   } else {
-    str_c("<a href='http://www.inside-r.org/r-doc/", opt, "/", x[[1]], ">", 
+    str_c("<a href='http://www.inside-r.org/r-doc/", opt, "/", x[[1]], "'>", 
       x[[1]], "</a>")
   }
 
