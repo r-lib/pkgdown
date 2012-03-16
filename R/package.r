@@ -77,10 +77,10 @@ package_info <- function(package) {
   # Dependencies 
   pkg_names <- function(x) vapply(x, "[[", "name", FUN.VALUE = character(1))
   out$dependencies <- list(
-    depends = pkg_names(info$depends),
-    imports = pkg_names(info$imports),
-    suggests = pkg_names(info$suggests),
-    extends = pkg_names(info$extends)
+    depends = str_c(pkg_names(info$Depends), collapse = ", "),
+    imports = str_c(pkg_names(info$Imports), collapse = ", "),
+    suggests = str_c(pkg_names(info$Suggests), collapse = ", "),
+    extends = str_c(pkg_names(info$Extends), collapse = ", ")
   )
 
   # Topics

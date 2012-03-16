@@ -26,3 +26,12 @@ pre img {
   display: block;
   margin: 0.5em auto 0.5em auto;
 }
+
+
+/* Other stuff that really belongs in its own file ------------------------ */
+
+.index li {
+  display: inline;
+  padding: 5px 5px 5px 0;
+  line-height: 2;
+}
