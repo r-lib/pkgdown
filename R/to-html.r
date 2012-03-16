@@ -143,7 +143,8 @@ to_html.url <- function(x, ...) {
 }
 to_html.href <- function(x, ...) {
   stopifnot(length(x) == 2)
-  str_c("<a href = '", x[[1]], "'>", x[[2]], "</a>")
+  str_c("<a href = '", to_html.TEXT(x[[1]]), "'>", to_html.TEXT(x[[2]]),
+    "</a>")
 }
 to_html.email <- function(x, ...) {
   stopifnot(length(x) %in% c(1L, 2L))
