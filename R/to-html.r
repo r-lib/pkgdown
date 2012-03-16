@@ -56,10 +56,13 @@ to_html.concept <- function(x, ...) character(0)
 # Various types of text ------------------------------------------------------
 
 # All components inside a text string should be collapsed into a single string
+# Also need to do html escaping here and in to_html.RCODE
 to_html.TEXT <- function(x, ...) {
   str_c(unlist(to_html.list(x, ...)), collapse = "")
-  # Also need to do html escaping here and in to_html.RCODE
 }
+to_html.RCODE <- to_html.TEXT
+to_html.LIST <- to_html.TEXT
+to_html.VERB <- to_html.TEXT
 
 # If it's a character vector, we've got to the leaves of the tree
 to_html.character <- function(x, ...) x
@@ -331,9 +334,5 @@ simple_tags <- list(
   "strong" =       c("<strong>", "</strong>"),
   "text" =         c("<p>", "</p>"),
   "var" =          c("<var>", "</var>"),
-  "verb" =         c("<code>", "</code>"),
-
-  "RCODE" =        c("", ""),
-  "VERB" =         c("", ""),
-  "LIST" =         c("<ul>", "</ul>")
+  "verb" =         c("<code>", "</code>")
 )
