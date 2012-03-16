@@ -277,7 +277,7 @@ parse_items <- function(rd, ...) {
 
   items <- split(rd, group)
   li <- vapply(items, function(x) {
-    str_c("<li>", to_html.TEXT(x, ...), "</li>\n"),
+    str_c("<li>", to_html.TEXT(x, ...), "</li>\n")
   }, FUN.VALUE = character(1))
   
   str_c(li, collapse = "")
