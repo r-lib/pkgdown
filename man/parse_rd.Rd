@@ -1,0 +1,16 @@
+\name{parse_rd}
+\alias{parse_rd}
+\title{Parse an rd file in to staticdocs format.}
+\usage{
+  parse_rd(topic, package)
+}
+\description{
+  Rd files are pretty printed with structural elements
+  coloured blue, and leaves are given a short prefix:
+  \code{\"} = text, \code{\'} = verbatim, and \code{>} = R
+  code.
+}
+\examples{
+parse_rd("geom_point", "ggplot2")
+}
+

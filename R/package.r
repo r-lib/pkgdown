@@ -1,3 +1,6 @@
+#' Build complete static documentation for a package.
+#'
+#' @export
 build_package <- function(package, base_path, examples = TRUE) {
   library(package, character.only = TRUE)
   
@@ -17,6 +20,7 @@ build_package <- function(package, base_path, examples = TRUE) {
 
 #' Generate all topic pages for a package.
 #'
+#' @export
 build_topics <- function(package, base_path, package_info, examples = TRUE) {
   index <- topic_index(package)
 
@@ -101,6 +105,7 @@ package_info <- function(package) {
 #' @param package package to explore
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
+#' @export
 build_vignettes <- function(package, base_path) {
   message("Copying vignettes")
   vignettes <- as.data.frame(vignette(package = package)$results)

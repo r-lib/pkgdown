@@ -3,6 +3,7 @@ to_html <- function(x, ...) {
 }
 
 # Parse a complete Rd file
+#' @S3method to_html Rd_doc
 to_html.Rd_doc <- function(x, ...) {
   tags <- vapply(x, tag, FUN.VALUE = character(1))
   get_tags <- function(tag) x[tags == tag]
@@ -44,53 +45,78 @@ to_html.Rd_doc <- function(x, ...) {
 }
 
 # A list of elements should stay as a list
+#' @S3method to_html list
 to_html.list <- function(x, ...) {
   lapply(x, to_html, ...)
 }
 
 # Elements that don't return anything ----------------------------------------
 
+#' @S3method to_html NULL
 to_html.NULL <- function(x, ...) character(0)
+#' @S3method to_html COMMENT
 to_html.COMMENT <- function(x, ...) character(0)
+#' @S3method to_html dontshow
 to_html.dontshow <- function(x, ...) character(0)
+#' @S3method to_html testonly
 to_html.testonly <- function(x, ...) character(0)
+#' @S3method to_html concept
 to_html.concept <- function(x, ...) character(0)
 
 # Various types of text ------------------------------------------------------
 
 # All components inside a text string should be collapsed into a single string
 # Also need to do html escaping here and in to_html.RCODE
+#' @S3method to_html TEXT
 to_html.TEXT <- function(x, ...) {
   str_c(unlist(to_html.list(x, ...)), collapse = "")
 }
+#' @S3method to_html RCODE
 to_html.RCODE <- to_html.TEXT
+#' @S3method to_html LIST
 to_html.LIST <- to_html.TEXT
+#' @S3method to_html VERB
 to_html.VERB <- to_html.TEXT
 
 # If it's a character vector, we've got to the leaves of the tree
+#' @S3method to_html character
 to_html.character <- function(x, ...) x
 
+#' @S3method to_html name
 to_html.name <- function(x, ...) to_html(x[[1]], ...)
+#' @S3method to_html title
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
+#' @S3method to_html usage
 to_html.usage <- function(x, ...) {
   text <- to_html.TEXT(x, ...)
   text <- str_replace_all(text, "\n  ", "\n") # Remove default indent
   src_highlight(str_trim(text))
 }
+#' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
+#' @S3method to_html keyword
 to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
+#' @S3method to_html seealso
 to_html.seealso <- function(x, ...) to_html.TEXT(x, ...)
+#' @S3method to_html author
 to_html.author <- function(x, ...) to_html.TEXT(x, ...)
 
 
 # Sections get a element called text and an element called content, which
 # contains a list of paragraphs.
+#' @S3method to_html details
 to_html.details <- function(x, ...) parse_section(x, "Details", ...)
+#' @S3method to_html description
 to_html.description <- function(x, ...) parse_section(x, "Description", ...)
+#' @S3method to_html value
 to_html.value <- function(x, ...) parse_section(x, "Value", ...)
+#' @S3method to_html references
 to_html.references <- function(x, ...) parse_section(x, "References", ...)
+#' @S3method to_html format
 to_html.format <- function(x, ...) parse_section(x, "Format", ...)
+#' @S3method to_html note
 to_html.note <- function(x, ...) parse_section(x, "Note", ...)
+#' @S3method to_html section
 to_html.section <- function(x, ...) {
   parse_section(x[[2]], to_html(x[[1]], ...))
 }
@@ -105,6 +131,7 @@ parse_section <- function(x, title, ...) {
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
+#' @S3method to_html examples
 to_html.examples <- function(x, topic = "unknown", base_path, env, ..., examples = TRUE) {
   if (!examples) return()
   # First element of examples tag is always empty
@@ -116,11 +143,13 @@ to_html.examples <- function(x, topic = "unknown", base_path, env, ..., examples
 
 # Arguments ------------------------------------------------------------------
 
+#' @S3method to_html arguments
 to_html.arguments <- function(x, ...) {
   items <- Filter(function(x) tag(x) == "item", x)  
   to_html(items, ...)
 }
 
+#' @S3method to_html item
 to_html.item <- function(x, ...) {
   # If no subelements, then is an item from a itemise or enumerate, and 
   # is dealt with those methods
@@ -131,6 +160,7 @@ to_html.item <- function(x, ...) {
 
 # Equations ------------------------------------------------------------------
 
+#' @S3method to_html eqn
 to_html.eqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
@@ -138,6 +168,7 @@ to_html.eqn <- function(x, ...) {
   str_c("<code class = 'eq'>", to_html.list(ascii_rep, ...), "</code>")
 }
 
+#' @S3method to_html deqn
 to_html.deqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
@@ -146,15 +177,18 @@ to_html.deqn <- function(x, ...) {
 }
 
 # Links ----------------------------------------------------------------------
+#' @S3method to_html url
 to_html.url <- function(x, ...) {
   stopifnot(length(x) == 1)
   str_c("<a href = '", x[[1]], "'>", x[[1]], "</a>")
 }
+#' @S3method to_html href
 to_html.href <- function(x, ...) {
   stopifnot(length(x) == 2)
   str_c("<a href = '", to_html.TEXT(x[[1]]), "'>", to_html.TEXT(x[[2]]),
     "</a>")
 }
+#' @S3method to_html email
 to_html.email <- function(x, ...) {
   stopifnot(length(x) %in% c(1L, 2L))
   str_c("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
@@ -162,6 +196,7 @@ to_html.email <- function(x, ...) {
 
 
 # If single, need to look up alias to find file name and package
+#' @S3method to_html link
 to_html.link <- function(x, ..., package) {
   stopifnot(length(x) == 1)
 
@@ -200,10 +235,12 @@ to_html.link <- function(x, ..., package) {
 # Miscellaneous --------------------------------------------------------------
 
 # First element of enc is the encoded version (second is the ascii version)
+#' @S3method to_html enc
 to_html.enc <- function(x, ...) {
   to_html(x[[1]], ...)
 }
 
+#' @S3method to_html dontrun
 to_html.dontrun <- function(x, ...) {
   if (length(x) == 1) {
     str_c("## <strong>Not run</strong>: " , to_html.TEXT(x))    
@@ -216,6 +253,7 @@ to_html.dontrun <- function(x, ...) {
   }
 }
 
+#' @S3method to_html special
 to_html.special <- function(x, ...) {
   txt <- to_html.TEXT(x, ...)
   # replace '<' and '>' with html markings avoid browser misinterpretation
@@ -231,14 +269,18 @@ to_html.special <- function(x, ...) {
   str_c("<em>", txt, "</em>")
 }
 
+#' @S3method to_html method
 to_html.method <- function(x, ...) {
   to_html(x[[2]], ...)
 }
+#' @S3method to_html S3method
 to_html.S3method <- to_html.method
+#' @S3method to_html S4method
 to_html.S4method <- to_html.method
 
 # Conditionals and Sexprs ----------------------------------------------------
 
+#' @S3method to_html Sexpr
 to_html.Sexpr <- function(x, env, ...) {
   expr <- eval(parse(text = x[[1]]), env)
 
@@ -249,17 +291,20 @@ to_html.Sexpr <- function(x, env, ...) {
   to_html(rd, ...)
 }
 
+#' @S3method to_html if
 to_html.if <- function(x, ...) {
   if (x[[1]] != "html") return()
   x[[2]]
 }
 
+#' @S3method to_html ifelse
 to_html.ifelse <- function(x, ...) {
   if (x[[1]] == "html") x[[2]] else x[[3]]
 }
 
 # Tables ---------------------------------------------------------------------
 
+#' @S3method to_html tabular
 to_html.tabular <- function(x, ...) {
   align_abbr <- str_split(to_html(x[[1]], ...), "")[[1]][-1]
   align_abbr <- align_abbr[!(align_abbr %in% c("|", ""))]
@@ -286,15 +331,19 @@ to_html.tabular <- function(x, ...) {
   str_c("<table>", str_c("<tr>", rows, "</tr>", collapse = ""), "</table>")
 }
 
+#' @S3method to_html tab
 to_html.tab <- function(x, ...) character(0)
+#' @S3method to_html cr
 to_html.cr <- function(x, ...) character(0)
 
 
 # List -----------------------------------------------------------------------
 
+#' @S3method to_html itemize
 to_html.itemize <- function(x, ...) {
   str_c("<ul>\n", parse_items(x[-1], ...), "</ul>\n")
 }
+#' @S3method to_html enumerate
 to_html.enumerate <- function(x, ...) {
   str_c("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
 }
@@ -315,6 +364,7 @@ parse_items <- function(rd, ...) {
 
 # Simple tags that need minimal processing -----------------------------------
 
+#' @S3method to_html Rd
 to_html.Rd <- function(x, ...) {
   tag <- tag(x)
   

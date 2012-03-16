@@ -1,11 +1,12 @@
 #' Parse an rd file in to staticdocs format.
 #'
 #' Rd files are pretty printed with structural elements coloured blue, and
-#' leaves are given a short prefix: \code{"} = text, \code{'} = verbatim, and
+#' leaves are given a short prefix: \code{\"} = text, \code{\'} = verbatim, and
 #' \code{>} = R code.
 #'
+#' @export
 #' @examples 
-#' rd <- parse_rd("geom_point", "ggplot2")
+#' parse_rd("geom_point", "ggplot2")
 parse_rd <- function(topic, package) {
   rd <- utils:::.getHelpFile(rd_path(topic, package))
   structure(set_classes(rd), class = c("Rd_doc", "Rd"))
@@ -60,11 +61,13 @@ set_classes <- function(rd) {
 
 is.Rd <- function(x) inherits(x, "Rd")
 
+#' @S3method as.list Rd
 as.list.Rd <- function(x) {
   class(x) <- NULL
   x
 }
 
+#' @S3method print Rd
 print.Rd <- function(x, ..., indent = 0) {
   cat(str_dup(" ", indent), "\\- ", colourise(tag(x), "blue"), 
     " (", length(x), ")\n", sep = "")
@@ -72,9 +75,13 @@ print.Rd <- function(x, ..., indent = 0) {
   lapply(x, print, indent = indent + 2)    
 }
 
+#' @S3method print TEXT
 print.TEXT <- function(x, ..., indent = 0) block(x, indent, '"')
+#' @S3method print VERB
 print.VERB <- function(x, ..., indent = 0) block(x, indent, "'")
+#' @S3method print RCODE
 print.RCODE <- function(x, ..., indent = 0) block(x, indent, ">")
+#' @S3method print COMMENT
 print.COMMENT <- function(x, ..., indent = 0) block(x, indent, "%")
 
 #' @importFrom testthat colourise
