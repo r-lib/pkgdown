@@ -17,7 +17,7 @@
 }
 \examples{
 rd <- parse_rd("colSums", "base")
-html <- to_html(rd)
-render_topic(html)
+html <- to_html(rd, package = "base")
+render_template("topic", html)
 }
 

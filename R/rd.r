@@ -4,6 +4,8 @@
 #' leaves are given a short prefix: \code{\"} = text, \code{\'} = verbatim, and
 #' \code{>} = R code.
 #'
+#' @param topic topic name, as character vector
+#' @param package package name, as character vector
 #' @export
 #' @examples 
 #' parse_rd("geom_point", "ggplot2")
@@ -62,7 +64,7 @@ set_classes <- function(rd) {
 is.Rd <- function(x) inherits(x, "Rd")
 
 #' @S3method as.list Rd
-as.list.Rd <- function(x) {
+as.list.Rd <- function(x, ...) {
   class(x) <- NULL
   x
 }

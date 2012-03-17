@@ -12,7 +12,9 @@ Imports:
     testthat,
     evaluate,
     whisker,
-    highlight
+    highlight,
+    parser,
+    tools
 Collate:
     'replay-html.r'
     'package.r'

@@ -4,6 +4,11 @@
 \usage{
   parse_rd(topic, package)
 }
+\arguments{
+  \item{topic}{topic name, as character vector}
+
+  \item{package}{package name, as character vector}
+}
 \description{
   Rd files are pretty printed with structural elements
   coloured blue, and leaves are given a short prefix:

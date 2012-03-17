@@ -1,3 +1,13 @@
+#' Convert an rdoc to a list of html components.
+#'
+#' All span-level tags are converted to html, and higher level blocks are
+#' returned as components of the list.
+#'
+#' @return A list, suitable for rendering with
+#'   \code{\link[whisker]{whisker.render}}
+#' @param x rd object to convert to html
+#' @param ... other arguments passed onto to methods
+#' @export
 to_html <- function(x, ...) {
   UseMethod("to_html")
 }
@@ -132,7 +142,7 @@ parse_section <- function(x, title, ...) {
 
 #' @importFrom evaluate evaluate
 #' @S3method to_html examples
-to_html.examples <- function(x, topic = "unknown", base_path, env, ..., examples = TRUE) {
+to_html.examples <- function(x, topic = "unknown", base_path = tempdir(), env = new.env(parent = globalenv()), ..., examples = TRUE) {
   if (!examples) return()
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
@@ -281,6 +291,7 @@ to_html.S4method <- to_html.method
 # Conditionals and Sexprs ----------------------------------------------------
 
 #' @S3method to_html Sexpr
+#' @importFrom tools parse_Rd
 to_html.Sexpr <- function(x, env, ...) {
   expr <- eval(parse(text = x[[1]]), env)
 

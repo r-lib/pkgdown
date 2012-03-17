@@ -5,7 +5,11 @@
   build_vignettes(package, base_path)
 }
 \arguments{
-  \item{package}{package to explore}
+  \item{package}{name of package (as character string) to
+  create documentation for}
+
+  \item{base_path}{root directory in which to create
+  documentation}
 }
 \value{
   a list, with one element for each vignette containing the
