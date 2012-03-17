@@ -99,8 +99,19 @@ to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @S3method to_html usage
 to_html.usage <- function(x, ...) {
   text <- to_html.TEXT(x, ...)
-  text <- str_replace_all(text, "\n  ", "\n") # Remove default indent
-  src_highlight(str_trim(text))
+  
+  # Parse and deparse to convert (e.g.) +(a, b) to a + b
+  expr <- as.list(parse(text = text))
+  text <- lapply(expr, function(x) {
+    lines <- deparse(x, width = 80)
+    lines[-1] <- str_c("  ", lines[-1])
+    str_c(lines, collapse = "\n")
+  })
+  
+  # Collapse, fix indenting and highlight
+  usage <- str_c(unlist(text), collapse = "\n\n")
+  usage <- str_replace(usage, "      ", "  ")
+  src_highlight(usage)
 }
 #' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
@@ -281,7 +292,7 @@ to_html.special <- function(x, ...) {
 
 #' @S3method to_html method
 to_html.method <- function(x, ...) {
-  to_html(x[[2]], ...)
+  str_c('"', to_html(x[[1]], ...), '"')
 }
 #' @S3method to_html S3method
 to_html.S3method <- to_html.method
