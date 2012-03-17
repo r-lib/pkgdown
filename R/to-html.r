@@ -97,7 +97,7 @@ to_html.name <- function(x, ...) to_html(x[[1]], ...)
 #' @S3method to_html title
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @S3method to_html usage
-to_html.usage <- function(x, ...) {
+to_html.usage <- function(x, ..., package) {
   text <- to_html.TEXT(x, ...)
   
   # Parse and deparse to convert (e.g.) +(a, b) to a + b
@@ -111,7 +111,7 @@ to_html.usage <- function(x, ...) {
   # Collapse, fix indenting and highlight
   usage <- str_c(unlist(text), collapse = "\n\n")
   usage <- str_replace(usage, "      ", "  ")
-  src_highlight(usage)
+  src_highlight(usage, package)
 }
 #' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
@@ -153,13 +153,14 @@ parse_section <- function(x, title, ...) {
 
 #' @importFrom evaluate evaluate
 #' @S3method to_html examples
-to_html.examples <- function(x, topic = "unknown", base_path = tempdir(), env = new.env(parent = globalenv()), ..., examples = TRUE) {
+to_html.examples <- function(x, topic = "unknown", base_path = tempdir(), env = new.env(parent = globalenv()), ..., examples = TRUE, package) {
   if (!examples) return()
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)
   
-  replay_html(expr, base_path = base_path, name = str_c(topic, "-"))
+  replay_html(expr, base_path = base_path, name = str_c(topic, "-"), 
+    package = package)
 }
 
 # Arguments ------------------------------------------------------------------
@@ -238,19 +239,21 @@ to_html.link <- function(x, ..., package) {
   }
   
   loc <- find_topic(topic, t_package)
-  
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
     return(topic)
-  }
+  }  
+
+  make_link(loc, label, package)
+}
   
+make_link <- function(loc, label, package) {  
   if (loc$package == package) {
     str_c("<a href='", loc$topic, ".html'>", label, "</a>")
   } else {
     str_c("<a href='http://www.inside-r.org/r-doc/", loc$package, "/", 
       loc$topic, "'>", label, "</a>")
   }
-
 }
 
 # Miscellaneous --------------------------------------------------------------

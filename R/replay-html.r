@@ -37,8 +37,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @S3method replay_html source
-replay_html.source <- function(x, ...) {
-  str_c("<div class='input'>", src_highlight(x$src), "</div>")
+replay_html.source <- function(x, ..., package) {
+  str_c("<div class='input'>", src_highlight(x$src, package), "</div>")
 }
 
 #' @S3method replay_html warning
@@ -64,7 +64,7 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @S3method replay_html recordedplot
-replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id) {  
+replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id, ...) {  
   name <- str_c(name_prefix, obj_id, ".png")
   path <- file.path(base_path, name)
   
@@ -75,20 +75,4 @@ replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id) {
   }
 
   str_c("<p><img src='", name, "' alt='' width='400' height='400' /></p>")
-}
-
-#' @importFrom highlight highlight renderer_html
-#' @importFrom parser parser
-src_highlight <- function(text) {
-  if (str_trim(text) == "") return("")
-
-  expr <- NULL
-  try(expr <- parser(text = text))
-  if (length(expr) == 0) return(text)
-  
-  renderer <- renderer_html(doc = FALSE)
-  out <- capture.output(highlight(parser.output = expr, renderer = renderer))
-  # Drop pre tag
-  out <- out[-c(1, length(out))]
-  str_c(out, collapse = "\n")
 }

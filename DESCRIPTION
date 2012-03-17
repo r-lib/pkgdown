@@ -19,6 +19,7 @@ Collate:
     'replay-html.r'
     'package.r'
     'rd.r'
+    'highlight.r'
     'to-html.r'
     'util.r'
     'render.r'
