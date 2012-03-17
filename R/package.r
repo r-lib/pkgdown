@@ -14,14 +14,13 @@ build_package <- function(package, base_path, examples = TRUE) {
   
   if (!file.exists(base_path)) dir.create(base_path)
   copy_bootstrap(base_path)
-  
+
   info <- package_info(package)
+  info$topics <- build_topics(package, base_path, info, examples = examples)
   info$vignettes <- build_vignettes(package, base_path)
   
   message("Generating index.html")
   render_template("index", info, file.path(base_path, "index.html"))
-  
-  build_topics(package, base_path, info, examples = examples)
   
   invisible(TRUE)
 }
@@ -37,10 +36,16 @@ build_topics <- function(package, base_path, package_info, examples = TRUE) {
 
   # for each file, find name of one topic
   topics <- index$alias[!duplicated(index$file)]
-  paths <- file.path(base_path, index$file[!duplicated(index$file)])
+  files <- index$file[!duplicated(index$file)]
+  paths <- file.path(base_path, files)
+
+  # create columns for extra topic info
+  index$title <- ""
+  index$class <- NA
   
   for (i in seq_along(topics)) {
     message("Generating ", basename(paths[[i]]))
+
     rd <- parse_rd(topics[[i]], package)
     html <- to_html(rd, 
       env = new.env(parent = globalenv()), 
@@ -51,9 +56,15 @@ build_topics <- function(package, base_path, package_info, examples = TRUE) {
     html$package <- package_info
     render_template("topic", html, paths[[i]])
     graphics.off()
+
+    all_topics <- index$file == files[i]
+    if ("internal" %in% html$keywords) {
+      index$class[all_topics] <- "internal"
+    }
+    index$title[all_topics] <- html$title
   }
   
-  invisible(TRUE)
+  invisible(unname(apply(index, 1, as.list)))
 }
 
 copy_bootstrap <- function(base_path) {
@@ -72,7 +83,6 @@ topic_index <- function(package) {
   topics$file <- str_c(topics$file, ".html")
   topics[complete.cases(topics), ]
 }
-
 
 #' Return information about a package
 #'
@@ -105,10 +115,6 @@ package_info <- function(package) {
     suggests = str_c(pkg_names(info$Suggests), collapse = ", "),
     extends = str_c(pkg_names(info$Extends), collapse = ", ")
   )
-
-  # Topics
-  index <- topic_index(package)
-  out$topics <- unname(apply(index, 1, as.list))
 
   out
 }

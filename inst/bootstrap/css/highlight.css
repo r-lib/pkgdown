@@ -30,8 +30,5 @@ pre img {
 
 /* Other stuff that really belongs in its own file ------------------------ */
 
-.index li {
-  display: inline;
-  padding: 5px 5px 5px 0;
-  line-height: 2;
-}
+.index .internal {display: none;}
+ul.index li {margin-bottom: 0.5em;}
