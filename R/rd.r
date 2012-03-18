@@ -37,7 +37,6 @@ find_topic <- function(alias, package = NULL) {
   list(package = pieces[n - 2], topic = pieces[n])
 }
 
-#' @importFrom stringr str_replace_all
 tag <- function(x) {
   tag <- attr(x, "Rd_tag")
   if (is.null(tag)) return()

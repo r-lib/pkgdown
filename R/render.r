@@ -1,4 +1,3 @@
-#' @importFrom stringr str_c
 find_template <- function(name) {
   file.path(inst_path(), "templates", str_c(name, ".html"))
 }
