@@ -1,5 +1,4 @@
-
-#' @importFrom highlight highlight renderer_html
+#' @importFrom highlight highlight renderer_html formatter_html
 #' @importFrom parser parser
 src_highlight <- function(text, package) {
   if (str_trim(text) == "") return("")
