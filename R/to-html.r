@@ -139,7 +139,7 @@ to_html.format <- function(x, ...) parse_section(x, "Format", ...)
 to_html.note <- function(x, ...) parse_section(x, "Note", ...)
 #' @S3method to_html section
 to_html.section <- function(x, ...) {
-  parse_section(x[[2]], to_html(x[[1]], ...))
+  parse_section(x[[2]], to_html(x[[1]], ...), ...)
 }
 
 parse_section <- function(x, title, ...) {
