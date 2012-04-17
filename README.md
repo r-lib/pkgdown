@@ -1,6 +1,8 @@
 # staticdocs
 
-`staticdocs` provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage.
+`staticdocs` provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage.  
+
+See the `staticdocs` documentation rendered with `staticdocs` at http://hadley.github.com/staticdocs/
 
 # Features
 
