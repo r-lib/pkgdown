@@ -1,6 +1,6 @@
 #' @importFrom highlight highlight renderer_html formatter_html
 #' @importFrom parser parser
-src_highlight <- function(text, package) {
+src_highlight <- function(text, index) {
   if (str_trim(text) == "") return("")
 
   expr <- NULL
@@ -11,12 +11,12 @@ src_highlight <- function(text, package) {
   formatter <- function(tokens, styles, ...) {
     funcall <- styles == "functioncall"
     for(i in which(funcall)) {
-      loc <- find_topic(tokens[i])
+      loc <- find_topic(tokens[i], index = index)
       if (is.null(loc)) {
         message("Can't find help topic ", tokens[i])
         next
       }
-      tokens[i] <- make_link(loc, label = tokens[i], package = package)
+      tokens[i] <- make_link(loc, label = tokens[i])
     }
     
     formatter_html(tokens, styles, ...)

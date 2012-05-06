@@ -15,9 +15,4 @@
 \description{
   Render template.
 }
-\examples{
-rd <- parse_rd("colSums", "base")
-html <- to_html(rd, package = "base")
-render_template("topic", html)
-}
 

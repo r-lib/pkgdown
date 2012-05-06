@@ -10,10 +10,6 @@ find_template <- function(name) {
 #'   prints to standard out.
 #' @importFrom whisker whisker.render
 #' @export
-#' @examples
-#' rd <- parse_rd("colSums", "base")
-#' html <- to_html(rd, package = "base")
-#' render_template("topic", html)
 render_template <- function(name, data, path = "") {
   template <- readLines(find_template(name))
   

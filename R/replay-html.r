@@ -19,7 +19,8 @@ replay_html.list <- function(x, ...) {
     structure(list(src = src), class = "source")
   })
   
-  pieces <- mapply(replay_html, parts, obj_id = seq_along(parts), ...)
+  pieces <- mapply(replay_html, parts, obj_id = seq_along(parts), 
+    MoreArgs = list(...))
   str_c(pieces, collapse = "\n")
 }
 
@@ -37,8 +38,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @S3method replay_html source
-replay_html.source <- function(x, ..., package) {
-  str_c("<div class='input'>", src_highlight(x$src, package), "</div>")
+replay_html.source <- function(x, ..., index) {
+  str_c("<div class='input'>", src_highlight(x$src, index), "</div>")
 }
 
 #' @S3method replay_html warning

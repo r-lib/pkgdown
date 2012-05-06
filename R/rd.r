@@ -14,6 +14,17 @@ parse_rd <- function(topic, package) {
   structure(set_classes(rd), class = c("Rd_doc", "Rd"))
 }
 
+package_rd <- memoise(function(package) {
+  package <- as.package(package)
+  
+  rd <- dir(file.path(package$path, "man"), full.names = TRUE)
+  names(rd) <- basename(rd)
+  parsed <- lapply(rd, parse_Rd)
+  lapply(parsed, function(x) {
+    structure(set_classes(x), class = c("Rd_doc", "Rd"))
+  })
+})
+
 rd_path <- function(topic, package = NULL) {
   topic <- as.name(topic)
   if (!is.null(package)) package <- as.name(package)
@@ -27,7 +38,13 @@ rd_path <- function(topic, package = NULL) {
   res[[1]]
 }
 
-find_topic <- function(alias, package = NULL) {  
+find_topic <- function(alias, package = NULL, index) {  
+  # Current package, so look in index first
+  if (is.null(package)) {
+    path <- index$file_out[index$alias == alias]
+    if (length(path) == 1) return(list(package = NULL, topic = path))
+  }
+  
   path <- rd_path(alias, package)
   if (is.null(path)) return(NULL)
   

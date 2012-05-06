@@ -40,7 +40,9 @@
       
       <div class="row">
         <div class="span8">
+          {{{readme}}}
 
+          <h2>Help topics</h2>
           <ul class="index">
           {{#topics}}
             <li class="{{class}}"><code><a href="{{file}}">{{alias}}</a></code>: {{{title}}}</li>
@@ -48,6 +50,13 @@
           </ul>
         </div>
         <div class="span4">
+          <h2>Vignettes</h2>
+          <ul>
+          {{#vignettes}}
+            <li><a href="vignettes/{{filename}}">{{title}}</a></li>
+          {{/vignettes}}
+          </ul>
+
           {{#dependencies}}
           <h2>Dependencies</h2>
           <ul>

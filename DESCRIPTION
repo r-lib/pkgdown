@@ -14,7 +14,10 @@ Imports:
     whisker,
     highlight,
     parser,
-    tools
+    tools,
+    markdown,
+    devtools,
+    memoise
 Collate:
     'replay-html.r'
     'package.r'
