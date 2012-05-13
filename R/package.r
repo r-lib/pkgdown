@@ -25,7 +25,7 @@ build_package <- function(package, base_path, examples = TRUE) {
   render_template("index", info, file.path(base_path, "index.html"))
   
   if (interactive()) {
-    browseURL(normalizePath(file.path(base_path, "index.html"))
+    browseURL(normalizePath(file.path(base_path, "index.html")))
   }
   invisible(TRUE)
 }
