@@ -14,16 +14,34 @@ parse_rd <- function(topic, package) {
   structure(set_classes(rd), class = c("Rd_doc", "Rd"))
 }
 
-package_rd <- memoise(function(package) {
+package_rd <- function(package) {
   package <- as.package(package)
   
   rd <- dir(file.path(package$path, "man"), full.names = TRUE)
   names(rd) <- basename(rd)
-  parsed <- lapply(rd, parse_Rd)
-  lapply(parsed, function(x) {
-    structure(set_classes(x), class = c("Rd_doc", "Rd"))
-  })
-})
+  lapply(rd, cached_parse_Rd)
+}
+
+clear_cache <- function() {
+  rd_cache <<- new.env(TRUE, emptyenv())
+}
+rd_cache <- NULL
+if (is.null(rd_cache)) clear_cache()
+
+#' @importFrom digest digest
+cached_parse_Rd <- function(path) {
+  hash <- digest(path, file = TRUE)
+  
+  if (exists(hash, env = rd_cache)) {
+    rd_cache[[hash]]
+  } else {
+    raw_rd <- parse_Rd(path)
+    rd <- structure(set_classes(raw_rd), class = c("Rd_doc", "Rd"))
+    rd_cache[[hash]] <- rd
+    rd
+  }
+  
+}
 
 rd_path <- function(topic, package = NULL) {
   topic <- as.name(topic)

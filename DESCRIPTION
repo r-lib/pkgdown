@@ -17,7 +17,7 @@ Imports:
     tools,
     markdown,
     devtools,
-    memoise
+    digest
 Collate:
     'replay-html.r'
     'package.r'
