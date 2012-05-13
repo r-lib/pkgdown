@@ -7,9 +7,11 @@
 #' @importFrom devtools as.package
 package_info <- function(package, base_path = NULL, examples = NULL) {
   out <- as.package(package)
+  settings <- load_settings(out$path)
   
-  out$base_path <- base_path
-  out$examples <- examples
+  out$base_path <- base_path %||% settings$base_path %||% 
+    stop("base_path not specified", call. = FALSE)
+  out$examples <- examples %||% settings$examples %||% TRUE
 
   if (!is.null(out$url)) {
     out$urls <- str_trim(str_split(out$url, ",")[[1]])
@@ -60,4 +62,12 @@ print.package_info <- function(x, ...) {
     indent = 2, exdent = 2, width = getOption("width"))
   cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
   
+}
+
+#' @importFrom rjson fromJSON
+load_settings <- function(package_path) {
+  path <- file.path(package_path, "staticdocs.json")
+  if (!file.exists(path)) return(list())
+
+  fromJSON(file = path)
 }

@@ -3,7 +3,7 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-  build_package(package, base_path = NULL, examples = TRUE)
+  build_package(package, base_path = NULL, examples = NULL)
 }
 \arguments{
   \item{package}{name of package (as character string) to

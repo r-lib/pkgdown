@@ -9,11 +9,10 @@
 #' @export
 #' @import stringr
 #' @aliases staticdocs-package
-build_package <- function(package, base_path = NULL, examples = TRUE) {
-  if (!file.exists(base_path)) dir.create(base_path)
-  copy_bootstrap(base_path)
-
+build_package <- function(package, base_path = NULL, examples = NULL) {
   package <- package_info(package, base_path, examples)
+  if (!file.exists(package$base_path)) dir.create(packagae$base_path)
+  copy_bootstrap(base_path)
 
   package$topics <- build_topics(package)
   package$vignettes <- build_vignettes(package)
