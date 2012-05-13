@@ -11,7 +11,7 @@ src_highlight <- function(text, index) {
   formatter <- function(tokens, styles, ...) {
     funcall <- styles == "functioncall"
     for(i in which(funcall)) {
-      loc <- find_topic(tokens[i], index = index)
+      loc <- find_topic(tokens[i], NULL, index = index)
       if (is.null(loc)) {
         message("Can't find help topic ", tokens[i])
         next

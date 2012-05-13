@@ -97,7 +97,7 @@ to_html.name <- function(x, ...) to_html(x[[1]], ...)
 #' @S3method to_html title
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @S3method to_html usage
-to_html.usage <- function(x, ..., package, index) {
+to_html.usage <- function(x, package, ...) {
   text <- to_html.TEXT(x, ...)
   
   # Parse and deparse to convert (e.g.) +(a, b) to a + b
@@ -111,7 +111,7 @@ to_html.usage <- function(x, ..., package, index) {
   # Collapse, fix indenting and highlight
   usage <- str_c(unlist(text), collapse = "\n\n")
   usage <- str_replace(usage, "      ", "  ")
-  src_highlight(usage, index)
+  src_highlight(usage, package$rd_index)
 }
 #' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
@@ -153,14 +153,13 @@ parse_section <- function(x, title, ...) {
 
 #' @importFrom evaluate evaluate
 #' @S3method to_html examples
-to_html.examples <- function(x, topic = "unknown", base_path = tempdir(), env = new.env(parent = globalenv()), ..., examples = TRUE, index) {
-  if (!examples) return()
+to_html.examples <- function(x, package, topic = "unknown", env = new.env(parent = globalenv()), ...) {
+  if (!package$examples) return()
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)
   
-  replay_html(expr, base_path = base_path, name = str_c(topic, "-"), 
-    index = index)
+  replay_html(expr, package = package, name = str_c(topic, "-"))
 }
 
 # Arguments ------------------------------------------------------------------
@@ -219,7 +218,7 @@ to_html.email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @S3method to_html link
-to_html.link <- function(x, ..., package, index) {
+to_html.link <- function(x, package, ...) {
   stopifnot(length(x) == 1)
 
   opt <- attr(x, "Rd_option")
@@ -238,7 +237,7 @@ to_html.link <- function(x, ..., package, index) {
     t_package <- opt
   }
   
-  loc <- find_topic(topic, t_package, index)
+  loc <- find_topic(topic, t_package, package$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
     return(topic)

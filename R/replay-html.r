@@ -38,8 +38,9 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @S3method replay_html source
-replay_html.source <- function(x, ..., index) {
-  str_c("<div class='input'>", src_highlight(x$src, index), "</div>")
+replay_html.source <- function(x, ..., package) {
+  str_c("<div class='input'>", src_highlight(x$src, package$rd_index),
+    "</div>")
 }
 
 #' @S3method replay_html warning
@@ -65,9 +66,9 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @S3method replay_html recordedplot
-replay_html.recordedplot <- function(x, base_path, name_prefix, obj_id, ...) {  
+replay_html.recordedplot <- function(x, package, name_prefix, obj_id, ...) {  
   name <- str_c(name_prefix, obj_id, ".png")
-  path <- file.path(base_path, name)
+  path <- file.path(package$base_path, name)
   
   if (!file.exists(path)) { 
     png(path, width = 400, height = 400, res = 96)
