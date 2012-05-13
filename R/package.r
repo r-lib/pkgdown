@@ -27,7 +27,7 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   out$rd <- package_rd(package)
   out$rd_index <- topic_index(out$rd)
 
-  out
+  structure(out, class = "package_info")
 }
 
 topic_index <- function(rd) {
@@ -50,3 +50,14 @@ extract_alias <- function(x) {
   alias[[1]][[1]]
 }
 
+
+#' @S3method print package_info
+print.package_info <- function(x, ...) {
+  cat("Package: ", x$package, "\n", sep = "")
+  cat(x$path, " -> ", x$base_path, "\n", sep = "")
+  
+  topics <- strwrap(paste(sort(x$rd_index$alias), collapse = ", "), 
+    indent = 2, exdent = 2, width = getOption("width"))
+  cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
+  
+}
