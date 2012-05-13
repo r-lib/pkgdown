@@ -21,9 +21,9 @@ Imports:
 Collate:
     'replay-html.r'
     'package.r'
-    'package-info.r'
     'rd.r'
     'highlight.r'
     'to-html.r'
     'util.r'
     'render.r'
+    'build.r'

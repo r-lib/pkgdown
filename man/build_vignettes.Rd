@@ -2,14 +2,11 @@
 \alias{build_vignettes}
 \title{List all package vignettes.}
 \usage{
-  build_vignettes(package, base_path)
+  build_vignettes(package)
 }
 \arguments{
   \item{package}{name of package (as character string) to
   create documentation for}
-
-  \item{base_path}{root directory in which to create
-  documentation}
 }
 \value{
   a list, with one element for each vignette containing the

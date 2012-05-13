@@ -2,8 +2,7 @@
 \alias{build_topics}
 \title{Generate all topic pages for a package.}
 \usage{
-  build_topics(package, base_path, package_info, index,
-    examples = TRUE)
+  build_topics(package)
 }
 \arguments{
   \item{package_info}{A list containing information about
@@ -11,14 +10,6 @@
 
   \item{package}{name of package (as character string) to
   create documentation for}
-
-  \item{base_path}{root directory in which to create
-  documentation}
-
-  \item{examples}{include examples or not?  Examples are
-  particularly slow to render because all code must be run,
-  so turning them off makes it easier to tweak templates
-  etc.}
 }
 \description{
   Generate all topic pages for a package.
