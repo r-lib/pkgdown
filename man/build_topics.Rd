@@ -2,7 +2,7 @@
 \alias{build_topics}
 \title{Generate all topic pages for a package.}
 \usage{
-  build_topics(package, base_path, package_info,
+  build_topics(package, base_path, package_info, index,
     examples = TRUE)
 }
 \arguments{
