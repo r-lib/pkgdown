@@ -70,6 +70,7 @@ build_topics <- function(package) {
   invisible(unname(apply(index, 1, as.list)))
 }
 
+#' @importFrom markdown markdownToHTML
 readme <- function(package) {
   path <- file.path(package$path, "README.md")
   if (!file.exists(path)) return()
