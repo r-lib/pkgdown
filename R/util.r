@@ -14,3 +14,7 @@ inst_path <- function() {
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }
+
+rows_list <- function(df) {
+  lapply(seq_len(nrow(df)), function(i) as.list(df[i, ]))
+}

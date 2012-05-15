@@ -17,4 +17,5 @@
   Copies all vignettes and returns data structure suitable
   for use with whisker templates.
 }
+\keyword{internal}
 

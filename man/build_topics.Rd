@@ -15,4 +15,5 @@
 \description{
   Generate all topic pages for a package.
 }
+\keyword{internal}
 
