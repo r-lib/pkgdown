@@ -248,7 +248,7 @@ to_html.link <- function(x, package, ...) {
   
 make_link <- function(loc, label, package = NULL) {
   if (is.null(loc$package)) {
-    str_c("<a href='", loc$topic, ".html'>", label, "</a>")
+    str_c("<a href='", loc$file, "'>", label, "</a>")
   } else {
     str_c("<a href='http://www.inside-r.org/r-doc/", loc$package, "/", 
       loc$topic, "'>", label, "</a>")
