@@ -1,6 +1,5 @@
 export(build_package)
 export(build_topics)
-export(build_vignettes)
 export(package_info)
 export(parse_rd)
 export(render_template)

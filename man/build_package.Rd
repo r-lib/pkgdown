@@ -19,6 +19,10 @@
   etc.}
 }
 \description{
-  Build complete static documentation for a package.
+  Currently, knitr builds documentation for:
+}
+\details{
+  \itemize{ \item Rd files.  Files \item Demos. Must be
+  listed in \file{demos/00index}.  \item Vignettes. }
 }
 
