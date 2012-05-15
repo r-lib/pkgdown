@@ -1,15 +1,19 @@
 #' Build complete static documentation for a package.
 #'
-#' @param package name of package (as character string) to create
-#'   documentation for
+#' @param package path to source version of package.  See
+#'   \code{\link[devtools]{as.package}} for details on how paths and package
+#'   names are resolved.
 #' @param base_path root directory in which to create documentation
 #' @param examples include examples or not?  Examples are particularly
 #'   slow to render because all code must be run, so turning them off makes
 #'   it easier to tweak templates etc.
 #' @export
 #' @import stringr
+#' @importFrom devtools load_all
 #' @aliases staticdocs-package
 build_package <- function(package, base_path = NULL, examples = NULL) {
+  load_all(package)
+  
   package <- package_info(package, base_path, examples)
   if (!file.exists(package$base_path)) dir.create(package$base_path)
   copy_bootstrap(base_path)

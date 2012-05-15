@@ -6,8 +6,9 @@
   build_package(package, base_path = NULL, examples = NULL)
 }
 \arguments{
-  \item{package}{name of package (as character string) to
-  create documentation for}
+  \item{package}{path to source version of package.  See
+  \code{\link[devtools]{as.package}} for details on how
+  paths and package names are resolved.}
 
   \item{base_path}{root directory in which to create
   documentation}

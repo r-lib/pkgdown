@@ -5,8 +5,9 @@
   build_vignettes(package)
 }
 \arguments{
-  \item{package}{name of package (as character string) to
-  create documentation for}
+  \item{package}{path to source version of package.  See
+  \code{\link[devtools]{as.package}} for details on how
+  paths and package names are resolved.}
 }
 \value{
   a list, with one element for each vignette containing the
