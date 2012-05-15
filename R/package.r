@@ -17,6 +17,12 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
     out$urls <- str_trim(str_split(out$url, ",")[[1]])
     out$url <- NULL
   }
+  
+  # Author info
+  if (!is.null(out$`authors@r`)) {
+    out$authors <- eval(parse(text = out$`authors@r`))
+  }
+  
   # Dependencies 
   parse_deps <- devtools:::parse_deps
   out$dependencies <- list(
