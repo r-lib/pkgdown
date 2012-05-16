@@ -120,11 +120,14 @@ build_vignettes <- function(package) {
   path <- dir(file.path(package$path, c("inst/doc", "vignettes")), ".Rnw", 
     full.names = TRUE)
   if (length(path) == 0) return()
-    
+  
+  message("Building vignettes")
+  buildVignettes(dir = package$path)
+  
   message("Copying vignettes")
-  filename <- str_replace(basename(path), "\\.Rnw$", ".pdf")
-  src <- file.path(package$path, "inst/doc", filename)
-  dest <- file.path(base_path, "vignettes")
+  src <- str_replace(path, "\\.Rnw$", ".pdf")
+  filename <- basename(src)
+  dest <- file.path(package$base_path, "vignettes")
 
   if (!file.exists(dest)) dir.create(dest)
   file.copy(src, file.path(dest, filename))  
