@@ -43,11 +43,19 @@
           {{{readme}}}
 
           <h2>Help topics</h2>
+
+          {{#sections}}
+          <h3>{{title}}</h3>
+          {{{description}}}
+          
           <ul class="index">
-          {{#topic_index}}
-            <li><code><a href="{{file_out}}">{{alias}}</a></code>: {{{title}}}</li>
-          {{/topic_index}}
+          {{#items}}
+            <li><code><a href="{{file_out}}">{{name}}</a></code>: {{{title}}}</li>
+          {{/items}}
           </ul>
+          {{/sections}}
+          
+
         </div>
         <div class="span4">
           <h2>Vignettes</h2>

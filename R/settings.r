@@ -19,7 +19,10 @@ sd_section <- function(name, description, elements) {
   strings <- vapply(elements, is.character, logical(1))
   elements[strings] <- lapply(elements[strings], sd_item)
   
-  list(name = name, description = description, elements = elements)
+  topics <- unlist(lapply(elements, "[[", "name"))
+  
+  list(name = name, description = description, elements = elements, 
+    topics = topics)
 }
 
 #' Define an item in a section of the index.

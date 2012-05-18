@@ -28,4 +28,5 @@ Collate:
     'util.r'
     'render.r'
     'build.r'
+    'build-index.r'
     'settings.r'

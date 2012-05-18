@@ -155,6 +155,7 @@ parse_section <- function(x, title, ...) {
 #' @S3method to_html examples
 to_html.examples <- function(x, package, topic = "unknown", env = new.env(parent = globalenv()), ...) {
   if (!package$examples) return()
+
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)

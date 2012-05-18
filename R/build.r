@@ -39,15 +39,6 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   invisible(TRUE)
 }
 
-build_index <- function(package) {
-  out <- file.path(package$base_path, "index.html")
-  message("Generating index.html")
-
-  topic_index <- package$topics[package$topics$in_index, , drop = FALSE]
-  package$topic_index <- rows_list(topic_index)
-  
-  render_template("index", package, out)
-}
 
 #' Generate all topic pages for a package.
 #'
