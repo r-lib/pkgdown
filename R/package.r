@@ -7,7 +7,10 @@
 #' @importFrom devtools as.package
 package_info <- function(package, base_path = NULL, examples = NULL) {
   out <- as.package(package)
+
   settings <- load_settings(out$path)
+  out$index <- settings$index
+  out$icons <- settings$icon
   
   out$base_path <- base_path %||% settings$base_path %||% 
     stop("base_path not specified", call. = FALSE)
