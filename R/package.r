@@ -69,11 +69,3 @@ print.package_info <- function(x, ...) {
   cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
   
 }
-
-#' @importFrom rjson fromJSON
-load_settings <- function(package_path) {
-  path <- file.path(package_path, "staticdocs.json")
-  if (!file.exists(path)) return(list())
-
-  fromJSON(file = path)
-}

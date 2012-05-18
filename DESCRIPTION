@@ -28,3 +28,4 @@ Collate:
     'util.r'
     'render.r'
     'build.r'
+    'settings.r'
