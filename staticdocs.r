@@ -1,6 +1,6 @@
 list(
   index = list(
-    sd_section("Settings functions",
+    sd_section("Setting functions",
       "These functions are used in `staticdocs.r` to configure various
        settings that staticdocs uses when rendering a package.  This is
        particularly useful for generating an index page that groups functions
