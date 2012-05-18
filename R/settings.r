@@ -9,11 +9,34 @@ load_settings <- function(package_path) {
 
 #' Define a section for the index page
 #'
-#'
+#' @param name Name of the section. Used as title.
+#' @param description Paragraph description of the section. May use markdown.
+#' @param elements Either a list containing either strings giving function
+#'   names, or if you want to override defaults from the rd file,
+#    objects created by \code{\link{sd_item}}
 sd_section <- function(name, description, elements) {
+  elements <- as.list(elements)
+  strings <- vapply(elements, is.character, logical(1))
+  elements[strings] <- lapply(elements[strings], sd_item)
+  
+  list(name = name, description = description, elements = elements)
 }
 
-#' Define the icon for a function
+#' Define an item in a section of the index.
+#'
+#' @param name name of the function
+#' @param title override the default title extracted from the corresponding Rd
+#'   file
+sd_item <- function(name, title = NULL) {
+  list(name = name, title = title)
+}
+
+#' Define the icon for a function.
+#'
+#' @param expr,func Either a bare expression or a function with no arguments
+#'   that uses grid to create a icon that represents the function.
+#' @param inherits Alternatively, use an existing icon specified by a 
+#'   function name
 sd_icon <- function(expr = NULL, func = NULL, inherits = NULL) {
   expr <- substitute(expr)
 
