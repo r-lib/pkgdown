@@ -20,7 +20,7 @@ build_index <- function(package) {
   other <- !(topic_index$alias %in% topics)
   if (any(other)) {
     index <- c(index, 
-      list(sd_section("Other", NULL, topic_index$alias[other])))
+      list(sd_section("Other", NULL, sort(topic_index$alias[other]))))
   }
   
   # Render each section
