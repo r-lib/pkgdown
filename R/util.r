@@ -6,7 +6,6 @@ inst_path <- function() {
     system.file(package = "staticdocs")
   } else {
     # Probably in development
-    browser()
     srcref <- attr(find_template, "srcref")
     path <- dirname(dirname(attr(srcref, "srcfile")$filename))
     file.path(path, "inst")
