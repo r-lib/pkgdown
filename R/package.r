@@ -57,8 +57,8 @@ topic_index <- function(rd) {
 }
 
 extract_alias <- function(x) {
-  alias <- Find(function(x) attr(x, "Rd_tag") == "\\alias", x)
-  alias[[1]][[1]]
+  aliases <- Filter(function(x) attr(x, "Rd_tag") == "\\alias", x)
+  vapply(aliases, function(x) x[[1]][[1]], character(1))
 }
 
 
