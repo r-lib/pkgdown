@@ -69,7 +69,7 @@ build_topics <- function(package) {
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
       package = package)
 
-    html$package <- package
+    html$package <- package$package
     render_template("topic", html, paths[[i]])
     graphics.off()
 
