@@ -1,7 +1,7 @@
 inst_path <- function() {
-  srcref <- attr(find_template, "srcref")
+  envname <- environmentName(environment(inst_path))
   
-  if (is.null(srcref)) {
+  if (envname == "staticdocs") {
     # Probably in package
     system.file(package = "staticdocs")
   } else {
