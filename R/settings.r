@@ -14,6 +14,7 @@ load_settings <- function(package_path) {
 #' @param elements Either a list containing either strings giving function
 #'   names, or if you want to override defaults from the rd file,
 #    objects created by \code{\link{sd_item}}
+#' @export
 sd_section <- function(name, description, elements) {
   elements <- as.list(elements)
   strings <- vapply(elements, is.character, logical(1))
@@ -30,6 +31,7 @@ sd_section <- function(name, description, elements) {
 #' @param name name of the function
 #' @param title override the default title extracted from the corresponding Rd
 #'   file
+#' @export
 sd_item <- function(name, title = NULL) {
   list(name = name, title = title)
 }
@@ -40,6 +42,7 @@ sd_item <- function(name, title = NULL) {
 #'   that uses grid to create a icon that represents the function.
 #' @param inherits Alternatively, use an existing icon specified by a 
 #'   function name
+#' @export
 sd_icon <- function(expr = NULL, func = NULL, inherits = NULL) {
   expr <- substitute(expr)
 
