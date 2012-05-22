@@ -19,3 +19,11 @@ inst_path <- function() {
 rows_list <- function(df) {
   lapply(seq_len(nrow(df)), function(i) as.list(df[i, ]))
 }
+
+#' @importFrom markdown markdownToHTML
+markdown <- function(x = NULL, path = NULL) {
+  if (is.null(x) && is.null(path)) return("")
+  
+  (markdownToHTML(text = x, file = path,
+    options = c("safelink", "use_xhtml", "smartypants")))
+}

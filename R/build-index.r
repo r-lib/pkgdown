@@ -10,17 +10,17 @@ build_index <- function(package) {
 
   # Cross-reference complete list of topics vs. topics found in index page
   topics <- unlist(lapply(index, "[[", "topics"))
-  missing <- !(topics %in% topic_index$alias)
+  missing <- !(topics %in% topic_index$name)
   if (any(missing)) {
     warning("Can't find index topics: ", paste(topics[missing], 
       collapse = ", "), call. = FALSE)
     topics <- topics[!missing]
   }
   
-  other <- !(topic_index$alias %in% topics)
+  other <- !(topic_index$name %in% topics)
   if (any(other)) {
     index <- c(index, 
-      list(sd_section("Other", NULL, sort(topic_index$alias[other]))))
+      list(sd_section("Other", NULL, sort(topic_index$name[other]))))
   }
   
   # Render each section
@@ -30,14 +30,18 @@ build_index <- function(package) {
   render_template("index", package, out)
 }
 
-#' @importFrom markdown markdownToHTML
 build_section <- function(section, package) {
   find_info <- function(item) {
-    match <- package$topics$alias == item$name
+    match <- package$topics$name == item$name
     if (!any(match)) return(NULL)
     
     row <- package$topics[match, , drop = FALSE]
     item$file_out <- row$file_out
+
+    aliases <- setdiff(row$alias[[1]], row$name)
+    if (length(aliases) > 0) {
+      item$aliases <- str_c("(", str_c(aliases, collapse = ", "), ")")
+    }
     
     if (is.null(item$title)) {
       rd <- package$rd[[row$file_in]]
@@ -50,7 +54,7 @@ build_section <- function(section, package) {
   
   list(
     title = section$name %||% "Missing section title",
-    description = if (!is.null(desc)) markdownToHTML(text = desc) else "",
+    description = markdown(desc),
     items = compact(lapply(section$elements, find_info))
   )
 }

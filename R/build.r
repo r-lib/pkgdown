@@ -51,19 +51,16 @@ build_topics <- function(package) {
 
   # for each file, find name of one topic
   index <- package$rd_index
-  topics <- index$alias[!duplicated(index$file_in)]
-  files_in <- index$file_in[!duplicated(index$file_in)]
-  files_out <- index$file_out[!duplicated(index$file_in)]
-  paths <- file.path(package$base_path, files_out)
+  paths <- file.path(package$base_path, index$file_out)
 
   # create columns for extra topic info
   index$title <- ""
   index$in_index <- TRUE
   
-  for (i in seq_along(topics)) {
+  for (i in seq_along(index$name)) {
     message("Generating ", basename(paths[[i]]))
     
-    rd <- package$rd[[files_in[i]]]
+    rd <- package$rd[[i]]
     html <- to_html(rd, 
       env = new.env(parent = globalenv()), 
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
@@ -73,22 +70,20 @@ build_topics <- function(package) {
     render_template("topic", html, paths[[i]])
     graphics.off()
 
-    all_topics <- index$file_out == files_out[i]
     if ("internal" %in% html$keywords) {
-      index$in_index[all_topics] <- FALSE
+      index$in_index[i] <- FALSE
     }
-    index$title[all_topics] <- html$title
+    index$title[i] <- html$title
   }
 
   index
 }
 
-#' @importFrom markdown markdownToHTML
 readme <- function(package) {
   path <- file.path(package$path, "README.md")
   if (!file.exists(path)) return()
   
-  (markdownToHTML(path))
+  markdown(path = path)
 }
 
 copy_bootstrap <- function(base_path) {

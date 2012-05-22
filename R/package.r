@@ -42,23 +42,29 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
 }
 
 topic_index <- function(rd) {
-  aliases <- lapply(rd, extract_alias)
-  
-  file_in <- rep(names(aliases), vapply(aliases, length, integer(1)))
+  aliases <- unname(lapply(rd, extract_alias))
+
+  names <- unlist(lapply(rd, extract_name), use.names = FALSE)  
+  file_in <- names(rd)
   file_out <- str_replace(file_in, "\\.Rd$", ".html")
   
   data.frame(
-    alias = unlist(aliases, use.names = FALSE),
+    name = names,
+    alias = I(aliases),
     file_in = file_in,
     file_out = file_out,
     stringsAsFactors = FALSE
   )
-  
 }
 
 extract_alias <- function(x) {
   aliases <- Filter(function(x) attr(x, "Rd_tag") == "\\alias", x)
   vapply(aliases, function(x) x[[1]][[1]], character(1))
+}
+
+extract_name <- function(x) {
+  alias <- Find(function(x) attr(x, "Rd_tag") == "\\name", x)
+  alias[[1]][[1]]
 }
 
 
@@ -67,7 +73,7 @@ print.package_info <- function(x, ...) {
   cat("Package: ", x$package, "\n", sep = "")
   cat(x$path, " -> ", x$base_path, "\n", sep = "")
   
-  topics <- strwrap(paste(sort(x$rd_index$alias), collapse = ", "), 
+  topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "), 
     indent = 2, exdent = 2, width = getOption("width"))
   cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
   

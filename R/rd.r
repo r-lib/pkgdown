@@ -59,8 +59,10 @@ rd_path <- function(topic, package = NULL) {
 find_topic <- function(alias, package = NULL, index) {  
   # Current package, so look in index first
   if (is.null(package)) {
-    path <- index$file_out[index$alias == alias]
-    if (length(path) == 1) return(list(package = NULL, file = path))
+    match <- Position(function(x) any(x == alias), index$alias)
+    if (!is.null(match)) {
+      return(list(package = NULL, file = index$file_out[match]))
+    }
   }
   
   path <- rd_path(alias, package)
