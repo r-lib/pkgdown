@@ -28,16 +28,16 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class = "container">
-          <a class="brand" href="#">{{package}} {{version}}</a>
+          <a class="brand" href="index.html">{{package}} {{version}}</a>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <div class="hero-unit">
+      <!-- <div class="hero-unit">
         <h1>{{package}} {{version}}</h1>
         <p>{{description}}</p>
-      </div>
+      </div> -->
       
       <div class="row">
         <div class="span8">
@@ -67,20 +67,24 @@
           
 
         </div>
-        <div class="span3">
+        <div class="span3 offset1">
+          {{#vignettes}}
           <h2>Vignettes</h2>
           <ul>
           {{#vignettes}}
             <li><a href="vignettes/{{filename}}">{{title}}</a></li>
           {{/vignettes}}
           </ul>
+          {{/vignettes}}
 
+          {{#demos}}
           <h2>Demos</h2>
           <ul>
           {{#demos}}
             <li><a href="{{filename}}">{{title}}</a></li>
           {{/demos}}
           </ul>
+          {{/demos}}
 
           {{#dependencies}}
           <h2>Dependencies</h2>
@@ -90,11 +94,12 @@
             <li><strong>Suggests</strong>: {{suggests}}</li>
             <li><strong>Extends</strong>: {{extends}}</li>
           </ul>
-            
           {{/dependencies}}
            
+          {{#authors}}
           <h2>Authors</h2>
           {{authors}}
+          {{/authors}}
           
         </div>
       </div>
