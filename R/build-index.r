@@ -26,7 +26,9 @@ build_index <- function(package) {
   # Render each section
   sections <- lapply(index, build_section, package = package)
   package$sections <- sections
+  package$rd <- NULL
   
+  render_icons(package)
   render_template("index", package, out)
 }
 
@@ -47,6 +49,8 @@ build_section <- function(section, package) {
       rd <- package$rd[[row$file_in]]
       item$title <- extract_title(rd)
     }
+    
+    item$icon <- icon_path(package, item$name)
     item
   }
   

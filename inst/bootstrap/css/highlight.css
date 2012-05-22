@@ -26,19 +26,3 @@ pre img {
   display: block;
   margin: 0.5em auto 0.5em auto;
 }
-
-
-/* Other stuff that really belongs in its own file ------------------------ */
-
-.index .internal {display: none;}
-ul.index li {margin-bottom: 0.5em;}
-
-.footer {
-  margin-top: 45px;
-  padding: 35px 0 36px;
-  border-top: 1px solid #e5e5e5;
-}
-.footer p {
-  margin-bottom: 0;
-  color: #555;
-}
