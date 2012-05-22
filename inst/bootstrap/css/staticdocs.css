@@ -1,8 +1,9 @@
-.icon img {float: left;}
-
-
+.icon img {
+  float: right;
+  border: 1px solid #ccc;
+}
 .index .internal {display: none;}
-ul.index li {margin-bottom: 0.5em;}
+ul.index li {margin-bottom: 0.5em; clear: both;}
 
 .footer {
   margin-top: 45px;
