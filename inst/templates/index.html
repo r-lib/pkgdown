@@ -53,13 +53,12 @@
           {{#items}}
           {{#icon}}
             <li class = "icon">
-              <a href="{{file_out}}"><img src="{{icon}}" width = "40" height = "40" /></a><code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}:<br /> 
+              <a href="{{file_out}}"><img src="{{icon}}" width = "40" height = "40" /></a><code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}<br /> 
               {{{title}}}</li>
           {{/icon}}
           {{^icon}}
             <li>
-              <code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}:
-              {{{title}}}</li>
+              <code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}<br />{{{title}}}</li>
           {{/icon}}
           {{/items}}
           </ul>
