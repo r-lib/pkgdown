@@ -22,7 +22,9 @@ rows_list <- function(df) {
 
 #' @importFrom markdown markdownToHTML
 markdown <- function(x = NULL, path = NULL) {
-  if (is.null(x) && is.null(path)) return("")
+  if (is.null(path)) {
+    if (is.null(x) || x == "") return("")
+  }
   
   (markdownToHTML(text = x, file = path,
     options = c("safelink", "use_xhtml", "smartypants")))

@@ -80,6 +80,8 @@ build_topics <- function(package) {
 }
 
 readme <- function(package) {
+  if (!is.null(package$readme)) return(markdown(package$readme))
+  
   path <- file.path(package$path, "README.md")
   if (!file.exists(path)) return()
   
