@@ -317,13 +317,16 @@ to_html.docType <- function(...) NULL
 #' @S3method to_html Sexpr
 #' @importFrom tools parse_Rd
 to_html.Sexpr <- function(x, env, ...) {
-  expr <- eval(parse(text = x[[1]]), env)
+  code <- to_html.TEXT(x)
+  expr <- eval(parse(text = code), env)
 
   con <- textConnection(expr)
   on.exit(close(con))
-  rd <- parse_Rd(con, fragment = TRUE)
+
+  rd <- parse_Rd(con, fragment = TRUE)  
+  rd <- structure(set_classes(rd), class = c("Rd_doc", "Rd"))
   
-  to_html(rd, ...)
+  to_html.TEXT(rd, ...)
 }
 
 #' @S3method to_html if
@@ -386,10 +389,14 @@ to_html.enumerate <- function(x, ...) {
 parse_items <- function(rd, ...) {
   separator <- vapply(rd, function(x) tag(x) == "item", 
     FUN.VALUE = logical(1))
-  
   group <- cumsum(separator)
 
+  # remove empty first group, if present
+  rd <- rd[group != 0]
+  group <- group[group != 0]
+
   items <- split(rd, group)
+  
   li <- vapply(items, function(x) {
     str_c("<li>", to_html.TEXT(x, ...), "</li>\n")
   }, FUN.VALUE = character(1))
