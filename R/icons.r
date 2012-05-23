@@ -1,3 +1,4 @@
+#' @importFrom grid grid.draw
 render_icons <- function(package) {
   icon_path <- file.path(package$base_path, "icons")  
   if (!file.exists(icon_path)) dir.create(icon_path)

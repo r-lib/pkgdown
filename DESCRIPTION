@@ -18,7 +18,8 @@ Imports:
     markdown,
     devtools,
     digest,
-    rjson
+    rjson,
+    grid
 Collate:
     'replay-html.r'
     'package.r'
