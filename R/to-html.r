@@ -49,7 +49,7 @@ to_html.Rd_doc <- function(x, ...) {
   # Everything else stays in original order, and becomes a list of sections.
   sections <- x[!(tags %in% c("name", "title", "alias", "keyword",
     "usage", "author", "seealso", "arguments", "examples"))]
-  out$sections <- to_html(sections, topic = out$name, ...)
+  out$sections <- compact(to_html(sections, topic = out$name, ...))
   
   out
 }
@@ -301,6 +301,10 @@ to_html.method <- function(x, ...) {
 to_html.S3method <- to_html.method
 #' @S3method to_html S4method
 to_html.S4method <- to_html.method
+
+#' @S3method to_html docType
+to_html.docType <- function(...) NULL
+
 
 # Conditionals and Sexprs ----------------------------------------------------
 
