@@ -262,6 +262,13 @@ make_link <- function(loc, label, package = NULL) {
   }
 }
 
+#' @S3method to_html linkS4class
+to_html.linkS4class <- function(x, package, ...) {
+	stopifnot(length(x) == 1)
+	x[[1]] <- str_c(x[[1]],'-class')
+	to_html.link(x, package, ...)
+}
+
 # Miscellaneous --------------------------------------------------------------
 
 # First element of enc is the encoded version (second is the ascii version)
