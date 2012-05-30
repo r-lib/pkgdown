@@ -100,7 +100,8 @@ copy_bootstrap <- function(base_path) {
 #' whisker templates.
 #'
 #' @keywords internal
-#' @inheritParams build_package
+#' @inheritParams tools::buildVignettes
+#' @importFrom tools buildVignettes
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
 build_vignettes <- function(package) {  
