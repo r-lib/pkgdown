@@ -19,7 +19,8 @@ Imports:
     devtools,
     digest,
     rjson,
-    grid
+    grid,
+    bibtex
 Collate:
     'replay-html.r'
     'package.r'

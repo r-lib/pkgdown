@@ -30,6 +30,7 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   package$vignettes <- build_vignettes(package)
   package$demos <- build_demos(package)
   package$readme <- readme(package)
+  package$references <- build_references(package)
   
   build_index(package)
   
@@ -83,7 +84,7 @@ readme <- function(package) {
   if (!is.null(package$readme)) return(markdown(package$readme))
   
   path <- file.path(package$path, "README.md")
-  if (!file.exists(path)) return()
+  if (!file.exists(path)) return(markdown(package$description))
   
   markdown(path = path)
 }
@@ -130,6 +131,35 @@ build_vignettes <- function(package) {
   unname(apply(cbind(filename, title), 1, as.list))
 }
 
+
+#' Creates a Bibliography Page
+#' 
+#' @param package package name or object
+#' 
+#' @keywords internal
+#' @return NULL or TRUE
+#' @importFrom bibtex read.bib
+build_references <- function(package, outpath=NULL){
+	
+	if( is.character(package) ) package <- as.package(package)
+	if( is.null(outpath) ) outpath <- package$base_path
+	
+	# look for reference file in inst/
+	ref <- inst_path(package, 'REFERENCES.bib')
+	if( !file.exists(ref) ) return()
+	
+	outfile <- file.path(outpath, 'REFERENCES.html') 
+	message("Generating ", basename(outfile))
+	# load bibtex items
+	bibs <- read.bib(ref)
+	# format
+	refs <- lapply(format(bibs, style='html'), function(x) list(bibitems=x))
+	refs <- list(references=refs)
+	render_template("references", refs, outfile)
+	
+	invisible(refs$references)
+	TRUE
+}
 
 build_demos <- function(package, index) {
   demo_dir <- file.path(package$path, "demo")
