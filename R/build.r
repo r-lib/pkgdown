@@ -30,6 +30,7 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   package$vignettes <- build_vignettes(package)
   package$demos <- build_demos(package)
   package$readme <- readme(package)
+  package <- build_citation(package)
   
   build_index(package)
   
@@ -129,6 +130,17 @@ build_vignettes <- function(package) {
   unname(apply(cbind(filename, title), 1, as.list))
 }
 
+#' @importFrom utils readCitationFile
+build_citation <- function(package){
+	
+	citfile <- inst_path('CITATION', package=package)
+	if( !file.exists(citfile) ) return(package)
+	cit <- readCitationFile(citfile)
+	# only extract first one
+	package$citation <- gsub("(^<p>)|(</p>$)","",format(cit[[1L]], style='html'))
+	# return modified package
+	package
+}
 
 build_demos <- function(package, index) {
   demo_dir <- file.path(package$path, "demo")
