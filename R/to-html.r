@@ -144,7 +144,7 @@ to_html.section <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- to_html.TEXT(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\n")[[1]])
+  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
   
   list(title = title, contents = paras)
 }
