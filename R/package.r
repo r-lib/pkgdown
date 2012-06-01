@@ -25,6 +25,9 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   # Author info
   if (!is.null(out$`authors@r`)) {
     out$authors <- eval(parse(text = out$`authors@r`))
+  }else if (!is.null(out$author)) {
+	out$authors <- str_trim(str_split(out$author, ",")[[1]])
+	out$author <- NULL
   }
   
   # Dependencies 
