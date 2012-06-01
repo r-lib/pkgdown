@@ -68,6 +68,7 @@ build_topics <- function(package) {
       package = package)
 
     html$package <- package$package
+	html$version <- package$version
     render_template("topic", html, paths[[i]])
     graphics.off()
 
