@@ -5,9 +5,9 @@
   build_vignettes(package)
 }
 \arguments{
-  \item{package}{path to source version of package.  See
-  \code{\link[devtools]{as.package}} for details on how
-  paths and package names are resolved.}
+  \item{package}{a character string naming an installed
+  package.  If given, Sweave files are searched in
+  subdirectory \file{doc}.}
 }
 \value{
   a list, with one element for each vignette containing the

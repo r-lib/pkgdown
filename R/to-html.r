@@ -144,7 +144,7 @@ to_html.section <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- to_html.TEXT(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\n")[[1]])
+  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
   
   list(title = title, contents = paras)
 }
@@ -235,7 +235,13 @@ to_html.link <- function(x, package, ...) {
   } else {
     topic <- to_html.TEXT(x[[1]])
     label <- topic
-    t_package <- opt
+	parts <- str_match(opt, '([^:]+):(.*)')[1,]
+	t_package <- 
+		if( is.na(parts[1]) ) opt 
+		else{
+			topic <- parts[3]
+			parts[2]
+		}
   }
   
   loc <- find_topic(topic, t_package, package$rd_index)
@@ -254,6 +260,13 @@ make_link <- function(loc, label, package = NULL) {
     str_c("<a href='http://www.inside-r.org/r-doc/", loc$package, "/", 
       loc$topic, "'>", label, "</a>")
   }
+}
+
+#' @S3method to_html linkS4class
+to_html.linkS4class <- function(x, package, ...) {
+	stopifnot(length(x) == 1)
+	x[[1]] <- str_c(x[[1]],'-class')
+	to_html.link(x, package, ...)
 }
 
 # Miscellaneous --------------------------------------------------------------

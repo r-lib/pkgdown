@@ -25,6 +25,9 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   # Author info
   if (!is.null(out$`authors@r`)) {
     out$authors <- eval(parse(text = out$`authors@r`))
+  }else if (!is.null(out$author)) {
+	out$authors <- str_trim(str_split(out$author, ",")[[1]])
+	out$author <- NULL
   }
   
   # Dependencies 
@@ -39,7 +42,7 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   out$rd <- package_rd(package)
   out$rd_index <- topic_index(out$rd)
 
-  structure(out, class = "package_info")
+  structure(out, class = c("package_info", class(out)))
 }
 
 topic_index <- function(rd) {

@@ -19,8 +19,9 @@ build_index <- function(package) {
   
   other <- !(topic_index$name %in% topics)
   if (any(other)) {
-    index <- c(index, 
-      list(sd_section("Other", NULL, sort(topic_index$name[other]))))
+	title <- if(length(topics)) 'Other' else ''
+	index <- 
+		c(index, list(sd_section(title, NULL, sort(topic_index$name[other]))))
   }
   
   # Render each section
@@ -29,7 +30,19 @@ build_index <- function(package) {
   package$rd <- NULL
   
   render_icons(package)
+  
+  # generate dedicated documentation index page
+  manout <- file.path(package$base_path, "_MAN.html")
+  message("Generating ", basename(manout))
+  render_template("man", package, manout)
+  # add head link to index page
+  package <- add_headlink(package, basename(manout), 'Documentation', head=TRUE)
+  
+  # generate main index page
   render_template("index", package, out)
+  
+  # return modified package
+  package
 }
 
 build_section <- function(section, package) {
