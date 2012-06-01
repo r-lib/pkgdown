@@ -139,7 +139,7 @@ build_demos <- function(package, index) {
   
   pieces <- str_split_fixed(demos, "\\s+", 2)
   in_path <- str_c(pieces[, 1], ".r")
-  out_path <- str_c("demo-", pieces[,1], ".html")
+  filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
   
   for(i in seq_along(title)) {
@@ -151,9 +151,9 @@ build_demos <- function(package, index) {
       name = str_c(pieces[i], "-"))
     package$title <- title[i]
     render_template("demo", package, 
-      file.path(package$base_path, out_path[i]))
+      file.path(package$base_path, filename[i]))
   }
   
-  unname(apply(cbind(out_path, title), 1, as.list))
+  unname(apply(cbind(filename, title), 1, as.list))
 }
 
