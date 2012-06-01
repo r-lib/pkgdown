@@ -27,7 +27,7 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   copy_bootstrap(base_path)
 
   package$topics <- build_topics(package)
-  package$vignettes <- build_vignettes(package)
+  package <- build_vignettes(package)
   package <- build_demos(package)
   package$readme <- readme(package)
   package <- build_references(package)
@@ -114,7 +114,7 @@ build_vignettes <- function(package) {
   # Locate source and built versions of vignettes
   path <- dir(file.path(package$path, c("inst/doc", "vignettes")), ".Rnw", 
     full.names = TRUE)
-  if (length(path) == 0) return()
+  if (length(path) == 0) return(package)
   
   message("Building vignettes")
   buildVignettes(dir = package$path)
@@ -133,7 +133,10 @@ build_vignettes <- function(package) {
     str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
   })  
   
-  unname(apply(cbind(filename, title), 1, as.list))
+  package$vignettes <- unname(apply(cbind(filename, title), 1, as.list))
+  package$hasVignettes <- length(package$vignettes) > 0L
+  # return modified package
+  package
 }
 
 
@@ -203,6 +206,7 @@ build_demos <- function(package, index, outpath=NULL) {
   
   # store demo data
   package$demos <- unname(apply(cbind(filename, title), 1, as.list))
+  package$hasDemos <- length(package$demos) > 0L
   
   # render dedicated file
   outfile <- file.path(outpath, '_DEMOS.html')

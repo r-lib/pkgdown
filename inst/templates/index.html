@@ -32,23 +32,23 @@
 
         </div>
         <div class="span3 offset1">
-          {{#vignettes}}
+          {{#hasVignettes}}
           <h2>Vignettes</h2>
           <ul>
           {{#vignettes}}
             <li><a href="vignettes/{{filename}}">{{title}}</a></li>
           {{/vignettes}}
           </ul>
-          {{/vignettes}}
+          {{/hasVignettes}}
 
-          {{#demos}}
+          {{#hasDemos}}
           <h2>Demos</h2>
           <ul>
           {{#demos}}
             <li><a href="{{filename}}">{{title}}</a></li>
           {{/demos}}
           </ul>
-          {{/demos}}
+          {{/hasDemos}}
 
           {{#dependencies}}
           <h2>Dependencies</h2>
