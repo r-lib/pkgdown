@@ -31,6 +31,7 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   package <- build_demos(package)
   package$readme <- readme(package)
   package <- build_references(package)
+  package <- build_citation(package)
   
   package <- build_index(package)
   
@@ -173,6 +174,18 @@ build_references <- function(package, outpath=NULL){
 	invisible(package)
 }
 
+#' @importFrom utils readCitationFile
+build_citation <- function(package){
+	
+	citfile <- inst_path(package, 'CITATION')
+	if( !file.exists(citfile) ) return(package)
+	cit <- readCitationFile(citfile)
+	# only extract first one
+	package$citation <- gsub("(^<p>)|(</p>$)","",format(cit[[1L]], style='html'))
+	# return modified package
+	package
+}
+
 build_demos <- function(package, index, outpath=NULL) {
   
   # pre-process arguments
@@ -264,7 +277,7 @@ add_headlink <- function(package, target, face=target, head=FALSE){
 			}
 	package
 }
-#' Adds Navigation Bar
+#' Build Pages from a Layout
 #' 
 #' @inheritParams build_references
 #' 

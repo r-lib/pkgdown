@@ -14,7 +14,8 @@ inst_path <- function(package, ...) {
 	    file.path(path, "inst")
 	  }
   }else{ # return inst directory from package object
-	  
+
+	  package <- as.package(package)
 	  path <- package$path
 	  metadir <- file.path(path, 'Meta')
 	  if( file_test('-d', metadir) ){ # installed package
