@@ -1,15 +1,32 @@
-inst_path <- function() {
-  envname <- environmentName(environment(inst_path))
-  
-  if (envname == "staticdocs") {
-    # Probably in package
-    system.file(package = "staticdocs")
-  } else {
-    # Probably in development
-    srcref <- attr(find_template, "srcref")
-    path <- dirname(dirname(attr(srcref, "srcfile")$filename))
-    file.path(path, "inst")
-  }
+inst_path <- function(..., package=NULL) {
+	
+	path <-	
+	if( is.null(package) ){ # return inst path from staticdocs
+		envname <- environmentName(environment(inst_path))
+		
+		if (envname == "staticdocs") {
+			# Probably in package
+			system.file(package = "staticdocs")
+		} else {
+			# Probably in development
+			srcref <- attr(find_template, "srcref")
+			path <- dirname(dirname(attr(srcref, "srcfile")$filename))
+			file.path(path, "inst")
+		}
+	}else{ # return inst directory from package object
+		package <- package_info(package)
+		
+		path <- package$path
+		metadir <- file.path(path, 'Meta')
+		if( file_test('-d', metadir) ){ # installed package
+			path 
+		}else{ # development package: append 'inst' to path
+			file.path(path, 'inst') 
+		}
+		
+	}
+	# add extra path
+	file.path(path, ...)
 }
 
 "%||%" <- function(a, b) {
