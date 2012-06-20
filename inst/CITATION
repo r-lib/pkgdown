@@ -1,0 +1,17 @@
+citHeader("To cite package 'staticdocs' in publications use:")
+     
+ year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+ vers <- paste("R package version", meta$Version)
+ 
+ citEntry(entry="Manual",
+          title = "staticdocs: nice static website for package documentation",
+          author = personList(as.person("Hadley Wickham")),
+          year = year,
+          note = vers,
+ 
+          textVersion =
+          paste("Hadley Wickham",
+                "(",
+                year,
+                "). staticdocs: nice static website for package documentation",
+                vers, ".", sep=""))
