@@ -235,13 +235,13 @@ to_html.link <- function(x, package, ...) {
   } else {
     topic <- to_html.TEXT(x[[1]])
     label <- topic
-	parts <- str_match(opt, '([^:]+):(.*)')[1,]
-	if( is.na(parts[1]) ){
-		t_package <- opt 
-	}else{
-		topic <- parts[3]
-		t_package <- parts[2]
-	}
+    parts <- str_match(opt, '([^:]+):(.*)')[1,]
+    if( is.na(parts[1]) ){
+  	  t_package <- opt 
+    }else{
+  	  topic <- parts[3]
+  	  t_package <- parts[2]
+    }
   }
   
   loc <- find_topic(topic, t_package, package$rd_index)
