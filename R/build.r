@@ -33,6 +33,7 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   package$vignettes <- build_vignettes(package)
   package$demos <- build_demos(package)
   package$readme <- readme(package)
+  build_references(package)
   
   build_index(package)
   
@@ -135,6 +136,35 @@ build_vignettes <- function(package) {
   unname(apply(cbind(filename, title), 1, as.list))
 }
 
+#' Creates a Bibliography Page
+#' 
+#' @param package package name or object
+#' @param base_path output path. If missing it is taken from \code{package}
+#' 
+#' @keywords internal
+#' @importFrom bibtex read.bib
+build_references <- function(package, base_path=NULL){
+	
+	# pre-process arguments
+	package <- package_info(package, base_path=base_path)
+	
+	# look for reference file in inst/
+	ref <- inst_path('REFERENCES.bib', package=package)
+	if( !file.exists(ref) ) return()
+	
+	outfile <- file.path(package$base_path, '_REFERENCES.html') 
+	message("Generating ", basename(outfile))
+	# load bibtex items
+	bibs <- read.bib(ref)
+	# format
+	package$references <- lapply(format(bibs, style='html'), function(x) list(bibitems=x))
+	
+	# render dedicated file
+	render_template("index-references", package, outfile)
+	# add dedicated head link
+	add_headlink(package, basename(outfile), 'References')
+	
+}
 
 build_demos <- function(package, index, base_path=NULL) {
   # pre-process arguments
