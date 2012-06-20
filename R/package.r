@@ -28,7 +28,7 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
     authors <- eval(parse(text = out$`authors@r`))
     format(authors)
   }else if (!is.null(out$author)) {
-	str_trim(str_split(out$author, ",")[[1]])
+    str_trim(str_split(out$author, ",")[[1]])
   }
   
   if( !is.null(authors) ){
