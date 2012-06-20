@@ -26,15 +26,16 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   authors <- 
   if (!is.null(out$`authors@r`)) {
     authors <- eval(parse(text = out$`authors@r`))
-	format(authors)
+    format(authors)
   }else if (!is.null(out$author)) {
 	str_trim(str_split(out$author, ",")[[1]])
   }
+  
   if( !is.null(authors) ){
-	  m <- str_match(authors, "([^<]+)\\s*(<([^>]+)>)?")
-	  authors <- str_c(m[,2], ifelse( m[,4] != '', str_c('(', cloak_email(m[,4]), ')'), ''))
-	  out$authors <- list(author=unname(apply(cbind(name=authors), 1, as.list)))
-	  out$author <- NULL
+    m <- str_match(authors, "([^<]+)\\s*(<([^>]+)>)?")
+    authors <- str_c(m[,2], ifelse( m[,4] != '', str_c('(', cloak_email(m[,4]), ')'), ''))
+    out$authors <- list(author=unname(apply(cbind(name=authors), 1, as.list)))
+    out$author <- NULL
   }
   
   # Dependencies 
