@@ -26,12 +26,19 @@ build_package <- function(package, base_path = NULL, examples = NULL) {
   if (!file.exists(package$base_path)) dir.create(package$base_path)
   copy_bootstrap(base_path)
 
+  # reset headlinks
+  add_headlink(NULL)
+  
   package$topics <- build_topics(package)
   package$vignettes <- build_vignettes(package)
   package$demos <- build_demos(package)
   package$readme <- readme(package)
+  build_references(package)
   
   build_index(package)
+  
+  # render main pages
+  build_pages(package)
   
   if (interactive()) {
     browseURL(normalizePath(file.path(base_path, "index.html")))
@@ -130,8 +137,40 @@ build_vignettes <- function(package) {
   unname(apply(cbind(filename, title), 1, as.list))
 }
 
+#' Creates a Bibliography Page
+#' 
+#' @param package package name or object
+#' @param base_path output path. If missing it is taken from \code{package}
+#' 
+#' @keywords internal
+#' @importFrom bibtex read.bib
+build_references <- function(package, base_path=NULL){
+	
+	# pre-process arguments
+	package <- package_info(package, base_path=base_path)
+	
+	# look for reference file in inst/
+	ref <- inst_path('REFERENCES.bib', package=package)
+	if( !file.exists(ref) ) return()
+	
+	outfile <- file.path(package$base_path, '_REFERENCES.html') 
+	message("Generating ", basename(outfile))
+	# load bibtex items
+	bibs <- read.bib(ref)
+	# format
+	package$references <- lapply(format(bibs, style='html'), function(x) list(bibitems=x))
+	
+	# render dedicated file
+	render_template("index-references", package, outfile)
+	# add dedicated head link
+	add_headlink(package, basename(outfile), 'References')
+	
+}
 
-build_demos <- function(package, index) {
+build_demos <- function(package, index, base_path=NULL) {
+  # pre-process arguments
+  package <- package_info(package, base_path=base_path)
+	
   demo_dir <- file.path(package$path, "demo")
   if (!file.exists(demo_dir)) return()
   
@@ -155,6 +194,90 @@ build_demos <- function(package, index) {
       file.path(package$base_path, out_path[i]))
   }
   
-  unname(apply(cbind(out_path, title), 1, as.list))
+  package$demos <- list(demo=unname(apply(cbind(filename, title), 1, as.list)))
+  
+  # render dedicated file
+  outfile <- file.path(package$base_path, '_DEMOS.html')
+  message("Generating ", basename(outfile))
+  render_template("index-demos", package, outfile)
+  # add dedicated head link
+  add_headlink(package, basename(outfile), 'Demos')
+  
+  # return updated package
+  package$demos
 }
 
+# wrap a content into the main layout
+wrap_page <- local({
+	.cache <- NULL
+	function(package, file, layout='layout'){
+		if( is.null(package) ){ # reset cache
+			.cache <<- NULL
+			return()
+		}
+		
+		# append prefix 'layout-' if necessary
+		if( !grepl("^layout", layout) ) layout <- str_c('layout-', layout)
+		
+		# render template once
+		if( is.null(.cache) ){
+			lpackage <- package
+			# escape tag {{{contents}}}
+			lpackage$contents <- "{{{contents}}}"
+			lpackage$headlinks <- add_headlink()
+			# generate navigation bar
+			lpackage$navbar <- paste(capture.output(render_template("navbar", lpackage)), collapse="\n")
+			# render outer layout
+			.cache <<- capture.output(render_template(layout, lpackage))
+		}
+				
+		sapply(file, function(f){
+			# collapse contents
+			contents <- paste(readLines(f, warn=FALSE), collapse="\n")
+			# substitute in layout template
+			rendered <- whisker.render(.cache, list(contents=contents))
+			cat(rendered, file = f)
+		})
+		invisible()
+	}
+})
+
+add_headlink <- local({
+	
+	.cache <- NULL
+	function(package, target, face=target, prepend=FALSE){
+		
+		if( missing(package) ){
+			return( .cache ) 
+		}
+		if( is.null(package) ){ # reset cache
+			.cache <<- NULL
+			return()
+		}
+		
+		if( is.null(face) ) face <- target
+		.cache <<-
+		if( !prepend ){
+			c(.cache, list(list(target=target, face=face)))
+		}else{
+			c(list(list(target=target, face=face)), .cache)
+		}
+		.cache
+	}
+})
+
+# Adds Navigation Bar
+build_pages <- function(package, base_path=NULL, layout='default') {
+	
+  # pre-process arguments
+  package <- package_info(package, base_path=base_path)
+  outpath <- package$base_path
+  
+  wrap_page(NULL)
+  # substitute head links in all html files starting with '_'
+  files <- dir(outpath, pattern="^_.*\\.html", full.names=TRUE)
+  files <- c(file.path(outpath,'index.html'), files)
+  message("Wrapping pages in layout:", layout)
+  wrap_page(package, files, layout=layout)
+	
+}

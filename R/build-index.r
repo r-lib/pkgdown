@@ -30,6 +30,14 @@ build_index <- function(package) {
   
   render_icons(package)
   render_template("index", package, out)
+  
+  #generate dedicated documentation index page
+  manout <- file.path(package$base_path, "_MAN.html")
+  message("Generating ", basename(manout))
+  render_template("index-man", package, manout)
+  # add head link to index page
+  add_headlink(package, basename(manout), 'Documentation', prepend=TRUE)
+  
 }
 
 build_section <- function(section, package) {

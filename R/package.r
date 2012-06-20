@@ -6,6 +6,9 @@
 #' @keywords internal
 #' @importFrom devtools as.package
 package_info <- function(package, base_path = NULL, examples = NULL) {
+	
+  if( is(package, "package_info") ) return(package)
+  
   out <- as.package(package)
 
   settings <- load_settings(out$path)
