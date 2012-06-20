@@ -126,7 +126,7 @@ build_vignettes <- function(package) {
     str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
   })  
   
-  unname(apply(cbind(filename, title), 1, as.list))
+  list(vignette=unname(apply(cbind(filename, title), 1, as.list)))
 }
 
 
@@ -154,6 +154,6 @@ build_demos <- function(package, index) {
       file.path(package$base_path, filename[i]))
   }
   
-  unname(apply(cbind(filename, title), 1, as.list))
+  list(demo=unname(apply(cbind(filename, title), 1, as.list)))
 }
 
