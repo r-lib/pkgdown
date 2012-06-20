@@ -101,6 +101,7 @@ copy_bootstrap <- function(base_path) {
 #'
 #' @keywords internal
 #' @inheritParams build_package
+#' @importFrom tools buildVignettes
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
 build_vignettes <- function(package) {  
