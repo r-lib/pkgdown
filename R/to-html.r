@@ -319,7 +319,7 @@ to_html.special <- function(x, ...) {
 
 .Slabel <- function(type, bootstrap_label){
 	tag <- str_c("__%%", type, "%%__")
-	list(ctag=str_c('#', tag), tag=tag, label=str_c("<span class=\"label label-",bootstrap_label,"\">S3</span>"))
+	list(ctag=str_c('#', tag), tag=tag, label=str_c("<span class=\"label label-",bootstrap_label,"\">",type,"</span>"))
 }
 Slabels <- list(
 	S3=.Slabel('S3', 'success')
