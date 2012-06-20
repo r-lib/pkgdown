@@ -77,9 +77,12 @@ to_html.concept <- function(x, ...) character(0)
 
 # All components inside a text string should be collapsed into a single string
 # Also need to do html escaping here and in to_html.RCODE
+# Add option not to collapse (e.g., in usage) and do it in the caller.
 #' @S3method to_html TEXT
-to_html.TEXT <- function(x, ...) {
-  str_c(unlist(to_html.list(x, ...)), collapse = "")
+to_html.TEXT <- function(x, ..., collapse=TRUE) {
+  s <- to_html.list(x, ...)
+  if( collapse ) str_c(unlist(s), collapse = "")
+  else s
 }
 #' @S3method to_html RCODE
 to_html.RCODE <- to_html.TEXT
@@ -98,20 +101,40 @@ to_html.name <- function(x, ...) to_html(x[[1]], ...)
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @S3method to_html usage
 to_html.usage <- function(x, package, ...) {
-  text <- to_html.TEXT(x, ...)
+  
+  raw_text <- to_html.TEXT(x, ..., collapse=FALSE)
+  vtext <- unlist(raw_text)
+  text <- str_c(vtext, collapse = "")
   
   # Parse and deparse to convert (e.g.) +(a, b) to a + b
   expr <- as.list(parse(text = text))
   text <- lapply(expr, function(x) {
     lines <- deparse(x, width = 80)
-    lines[-1] <- str_c("  ", lines[-1])
+	lines[-1] <- str_c("  ", lines[-1])
     str_c(lines, collapse = "\n")
   })
+  text <- unlist(text)
+  
+  # extract and prepend S3/4 labels if any
+  cpattern <- "^#__%%S.%%__"
+  slabels <- grep(cpattern, vtext, value=TRUE)
+  if( length(slabels) ){
+	slabels <- sapply(strsplit(slabels, "\n"), '[', 1L)
+	i <- grep("__%%S.%%__", text)
+	text[i] <- str_c(slabels, "\n", sub("__%%S.%%__", "", text[i]))
+  }
   
   # Collapse, fix indenting and highlight
-  usage <- str_c(unlist(text), collapse = "\n\n")
+  usage <- str_c(text, collapse = "\n\n")
   usage <- str_replace(usage, "      ", "  ")
-  src_highlight(usage, package$rd_index)
+  res <- src_highlight(usage, package$rd_index)
+  
+  # substitute S3/4 labels
+  for( l in Slabels ){
+	  res <- gsub(l$ctag, l$label, res, fixed=TRUE)  
+  }
+  
+  res
 }
 #' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
@@ -293,14 +316,32 @@ to_html.special <- function(x, ...) {
   str_c("<em>", txt, "</em>")
 }
 
-#' @S3method to_html method
-to_html.method <- function(x, ...) {
-  str_c('"', to_html(x[[1]], ...), '"')
+
+.Slabel <- function(type, bootstrap_label){
+	tag <- str_c("__%%", type, "%%__")
+	list(ctag=str_c('#', tag), tag=tag, label=str_c("<span class=\"label label-",bootstrap_label,"\">S3</span>"))
 }
+Slabels <- list(
+	S3=.Slabel('S3', 'success')
+	, S4=.Slabel('S4', 'important')
+)
+
+to_html_SMETHOD <- function(label){
+	tag <- label$tag
+	ctag <- label$ctag
+	function(x, ...){
+		sig <- unlist(x[[2]])
+		str_c(ctag, " ", '(', str_c(sig, collapse=', '), ")\n"
+			, '"', tag, to_html(x[[1]], ...), '"')
+	}
+}
+
+#' @S3method to_html method
+to_html.method <- to_html_SMETHOD(Slabels$S3)
 #' @S3method to_html S3method
 to_html.S3method <- to_html.method
 #' @S3method to_html S4method
-to_html.S4method <- to_html.method
+to_html.S4method <- to_html_SMETHOD(Slabels$S4)
 
 #' @S3method to_html docType
 to_html.docType <- function(...) NULL
