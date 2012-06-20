@@ -29,3 +29,7 @@ markdown <- function(x = NULL, path = NULL) {
   (markdownToHTML(text = x, file = path,
     options = c("safelink", "use_xhtml", "smartypants")))
 }
+
+cloak_email <- function(x){
+	sub('@', ' at ', x, fixed=TRUE)
+}
