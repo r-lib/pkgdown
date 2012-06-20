@@ -83,7 +83,8 @@ readme <- function(package) {
   if (!is.null(package$readme)) return(markdown(package$readme))
   
   path <- file.path(package$path, "README.md")
-  if (!file.exists(path)) return()
+  # use description if no README.md is available
+  if (!file.exists(path)) return( package$description )
   
   markdown(path = path)
 }
