@@ -236,9 +236,9 @@ to_html.link <- function(x, package, ...) {
     topic <- to_html.TEXT(x[[1]])
     label <- topic
     parts <- str_match(opt, '([^:]+):(.*)')[1,]
-    if( is.na(parts[1]) ){
+    if (is.na(parts[1])) {
   	  t_package <- opt 
-    }else{
+    } else {
   	  topic <- parts[3]
   	  t_package <- parts[2]
     }
