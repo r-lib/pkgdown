@@ -1,5 +1,5 @@
 inst_path <- function() {
-  envname <- environmentName(environment(inst_path))
+  envname <- environmentName(parent.env(environment()))
   
   if (envname == "staticdocs") {
     # Probably in package
