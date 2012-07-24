@@ -8,12 +8,12 @@ h2 {padding-top: 20px}
 .index .internal {display: none;}
 ul.index li {margin-bottom: 0.5em; clear: both;}
 
-.footer {
+footer {
   margin-top: 45px;
   padding: 35px 0 36px;
   border-top: 1px solid #e5e5e5;
 }
-.footer p {
+footer p {
   margin-bottom: 0;
   color: #555;
 }
