@@ -65,6 +65,7 @@ build_topics <- function(package) {
       env = new.env(parent = globalenv()), 
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
       package = package)
+    html$pagetitle <- html$name
 
     html$package <- package$package
     render_page(package, "topic", html, paths[[i]])
@@ -151,7 +152,7 @@ build_demos <- function(package, index) {
     package$demo <- replay_html(demo_expr,
       package = package, 
       name = str_c(pieces[i], "-"))
-    package$title <- title[i]
+    package$pagetitle <- title[i]
     render_page(package, "demo", package, 
       file.path(package$base_path, filename[i]))
   }

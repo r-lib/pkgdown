@@ -361,7 +361,7 @@ to_html.tabular <- function(x, ...) {
 
   cell_contents <- vapply(cells, to_html.TEXT, ..., 
     FUN.VALUE = character(1), USE.NAMES = FALSE)
-  cell_contents <- str_c("<td>", cell_contents, "</td>\n")    
+  cell_contents <- str_c("<td>", cell_contents, "</td>\n")
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
   
   rows <- apply(cell_contents, 1, str_c, collapse = "")

@@ -30,6 +30,7 @@ build_index <- function(package) {
   package$rd <- NULL
   
   render_icons(package)
+  package$pagetitle <- "Index"
   render_page(package, "index", package, out)
 }
 
