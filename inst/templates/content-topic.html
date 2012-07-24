@@ -1,0 +1,57 @@
+<h1>{{{title}}}</h1>
+
+<div class="row">
+  <div class="span8">
+    {{#usage}}
+    <h2>Usage</h2>
+    <pre>{{{usage}}}</pre>
+    {{/usage}}
+
+    {{#has_args}}
+    <h2>Arguments</h2>
+    <dl>
+    {{#arguments}}
+      <dt>{{name}}</dt>
+      <dd>{{{description}}}</dd>
+    {{/arguments}}
+    </dl>
+    {{/has_args}}
+
+    {{#sections}}
+    <div class="{{title}}">
+      <h2>{{title}}</h2>
+      
+      {{#contents}}
+      <p>{{{.}}}</p>
+  
+      {{/contents}}
+
+    </div>
+    {{/sections}}
+
+    {{#examples }}
+    <h2 id="examples">Examples</h2>
+    <pre class="examples">{{{ examples }}}</pre>
+    {{/examples}}
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      {{#aliases}}<li>{{.}}</li>{{/aliases}}
+    </ul>
+    <ul>
+      {{#keywords}}<li>{{.}}</li>{{/keywords}}
+    </ul> -->
+      
+    {{#seealso}}
+    <h2>See also</h2>
+    {{{ seealso }}}
+    {{/seealso}}
+
+    {{#author}}
+    <h2>Author</h2>
+    {{{ author }}}
+    {{/author}}
+
+    
+  </div>
+</div>

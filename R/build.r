@@ -67,7 +67,7 @@ build_topics <- function(package) {
       package = package)
 
     html$package <- package$package
-    render_template("topic", html, paths[[i]])
+    render_page("topic", html, paths[[i]])
     graphics.off()
 
     if ("internal" %in% html$keywords) {
@@ -152,7 +152,7 @@ build_demos <- function(package, index) {
       package = package, 
       name = str_c(pieces[i], "-"))
     package$title <- title[i]
-    render_template("demo", package, 
+    render_page("demo", package, 
       file.path(package$base_path, filename[i]))
   }
   
