@@ -2,7 +2,7 @@
 \alias{render_page}
 \title{Render complete page.}
 \usage{
-  render_page(name, data, path = "")
+  render_page(package, name, data, path = "")
 }
 \arguments{
   \item{name}{of the template (e.g. index, demo, topic)}

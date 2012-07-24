@@ -30,7 +30,7 @@ build_index <- function(package) {
   package$rd <- NULL
   
   render_icons(package)
-  render_page("index", package, out)
+  render_page(package, "index", package, out)
 }
 
 build_section <- function(section, package) {

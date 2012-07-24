@@ -5,34 +5,40 @@
 #' @param path location to create file.  If \code{""} (the default), 
 #'   prints to standard out.
 #' @export
-render_page <- function(name, data, path = "") {
+render_page <- function(package, name, data, path = "") {
   # render template components
   pieces <- c("head", "navbar", "header", "content", "footer")
-  components <- lapply(pieces, render_template, name, data)
+  components <- lapply(pieces, render_template, package = package, name, data)
   names(components) <- pieces
   
   # render complete layout
-  out <- render_template("layout", name, components)
+  out <- render_template(package, "layout", name, components)
   cat(out, file = path)
 }
 
 #' @importFrom whisker whisker.render
-render_template <- function(type, name, data) {
-  template <- readLines(find_template(type, name))
+render_template <- function(package, type, name, data) {
+  template <- readLines(find_template(package, type, name))
   if (length(template) <= 1 && str_trim(template) == "") return("")
   
   whisker.render(template, data)
 }
 
-find_template <- function(type, name) {
-  base_path <- file.path(inst_path(), "templates")
+# Find template by looking first in package/staticdocs then in 
+# staticdocs/templates, trying first for a type-name.html otherwise 
+# defaulting to type.html
+find_template <- function(package, type, name) {
+  paths <- c(
+    file.path(package$path, "staticdocs"),
+    file.path(inst_path(), "templates")
+  )
   
-  # look for most specific first
-  spec <- file.path(base_path, str_c(type, "-", name, ".html")) 
-  if (file.exists(spec)) return(spec)
+  names <- c(
+    str_c(type, "-", name, ".html"),
+    str_c(type, ".html")
+  )
   
-  base <- file.path(base_path, str_c(type, ".html"))
-  if (file.exists(base)) return(base)
-  
-  stop("Can't find template for ", type, "-", name, ".", call. = FALSE)
+  locations <- as.vector(t(outer(paths, names, FUN = "file.path")))
+  Find(file.exists, locations, nomatch = 
+    stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }
