@@ -19,8 +19,9 @@ build_index <- function(package) {
   
   other <- !(topic_index$name %in% topics)
   if (any(other)) {
-    index <- c(index, 
-      list(sd_section("Other", NULL, sort(topic_index$name[other]))))
+	title <- if(length(topics)) 'Other' else ''
+	index <- 
+		c(index, list(sd_section(title, NULL, sort(topic_index$name[other]))))
   }
   
   # Render each section
