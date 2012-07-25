@@ -26,6 +26,6 @@ markdown <- function(x = NULL, path = NULL) {
     if (is.null(x) || x == "") return("")
   }
   
-  (markdownToHTML(text = x, file = path,
+  (markdownToHTML(text = x, file = path, fragment.only = TRUE,
     options = c("safelink", "use_xhtml", "smartypants")))
 }
