@@ -67,7 +67,7 @@ build_topics <- function(package) {
       package = package)
     html$pagetitle <- html$name
 
-    html$package <- package$package
+    html$package <- package[c("package", "version")]
     render_page(package, "topic", html, paths[[i]])
     graphics.off()
 
