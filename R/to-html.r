@@ -237,10 +237,10 @@ to_html.link <- function(x, package, ...) {
     label <- topic
     parts <- str_match(opt, '([^:]+):(.*)')[1,]
     if (is.na(parts[1])) {
-  	  t_package <- opt 
+      t_package <- opt 
     } else {
-  	  topic <- parts[3]
-  	  t_package <- parts[2]
+      topic <- parts[3]
+      t_package <- parts[2]
     }
   }
   
