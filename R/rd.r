@@ -60,7 +60,7 @@ find_topic <- function(alias, package = NULL, index) {
   # Current package, so look in index first
   if (is.null(package)) {
     match <- Position(function(x) any(x == alias), index$alias)
-    if (!is.null(match)) {
+    if (!is.na(match)) {
       return(list(package = NULL, file = index$file_out[match]))
     }
   }
@@ -70,7 +70,7 @@ find_topic <- function(alias, package = NULL, index) {
   
   pieces <- str_split(path, .Platform$file.sep)[[1]]
   n <- length(pieces)
-  
+
   list(package = pieces[n - 2], topic = pieces[n])
 }
 
