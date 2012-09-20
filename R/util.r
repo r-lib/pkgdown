@@ -1,14 +1,10 @@
 inst_path <- function() {
-  envname <- environmentName(parent.env(environment()))
-  
-  if (envname == "staticdocs") {
-    # Probably in package
+  if (is.null(dev_meta("staticdocs"))) {
+    # staticdocs is probably installed
     system.file(package = "staticdocs")
   } else {
-    # Probably in development
-    srcref <- attr(find_template, "srcref")
-    path <- dirname(dirname(attr(srcref, "srcfile")$filename))
-    file.path(path, "inst")
+    # staticdocs was probably loaded with devtools
+    file.path(getNamespaceInfo("staticdocs", "path"), "inst")
   }
 }
 
