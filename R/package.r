@@ -30,10 +30,10 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
   # Dependencies 
   parse_deps <- devtools:::parse_deps
   out$dependencies <- list(
-    depends = str_c(parse_deps(out$depends), collapse = ", "),
-    imports = str_c(parse_deps(out$imports), collapse = ", "),
-    suggests = str_c(parse_deps(out$suggests), collapse = ", "),
-    extends = str_c(parse_deps(out$extends), collapse = ", ")
+    depends = str_c(parse_deps(out$depends)$name, collapse = ", "),
+    imports = str_c(parse_deps(out$imports)$name, collapse = ", "),
+    suggests = str_c(parse_deps(out$suggests)$name, collapse = ", "),
+    extends = str_c(parse_deps(out$extends)$name, collapse = ", ")
   )
   
   out$rd <- package_rd(package)

@@ -16,7 +16,7 @@ Imports:
     parser,
     tools,
     markdown,
-    devtools,
+    devtools (>= 0.8),
     digest,
     grid
 Collate:
