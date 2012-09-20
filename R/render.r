@@ -29,7 +29,7 @@ render_template <- function(package, type, name, data) {
 # defaulting to type.html
 find_template <- function(package, type, name) {
   paths <- c(
-    file.path(package$path, "staticdocs"),
+    pkg_sd_path(package),
     file.path(inst_path(), "templates")
   )
   
