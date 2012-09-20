@@ -8,7 +8,7 @@
 package_info <- function(package, base_path = NULL, examples = NULL) {
   out <- as.package(package)
 
-  settings <- load_settings(out$path)
+  settings <- load_settings(out)
   out$index <- settings$index
   out$icons <- settings$icon
   out$readme <- settings$readme
