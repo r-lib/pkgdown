@@ -39,3 +39,10 @@ markdown <- function(x = NULL, path = NULL) {
   (markdownToHTML(text = x, file = path, fragment.only = TRUE,
     options = c("safelink", "use_xhtml", "smartypants")))
 }
+
+# Given the name or vector of names, returns a named vector reporting
+# whether each exists and is a directory.
+dir.exists <- function(x) {
+  res <- file.exists(x) & file.info(x)$isdir
+  setNames(res, x)
+}
