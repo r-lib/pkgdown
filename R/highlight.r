@@ -1,10 +1,9 @@
 #' @importFrom highlight highlight renderer_html formatter_html
-#' @importFrom parser parser
 src_highlight <- function(text, index) {
   if (str_trim(text) == "") return("")
 
   expr <- NULL
-  try(expr <- parser(text = text))
+  try(expr <- getParseData(x = text))
   if (length(expr) == 0) return(text)
   
   # Custom formatter that adds links to function calls
