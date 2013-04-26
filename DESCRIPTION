@@ -13,7 +13,6 @@ Imports:
     evaluate,
     whisker,
     highlight,
-    parser,
     tools,
     markdown,
     devtools (>= 0.8),
