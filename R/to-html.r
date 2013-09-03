@@ -385,6 +385,10 @@ to_html.itemize <- function(x, ...) {
 to_html.enumerate <- function(x, ...) {
   str_c("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
 }
+#' @export
+to_html.describe <- function(x, ...) {
+  str_c("<dl>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+}
 
 parse_items <- function(rd, ...) {
   separator <- vapply(rd, function(x) tag(x) == "item",
@@ -401,6 +405,24 @@ parse_items <- function(rd, ...) {
     str_c("<li>", to_html.TEXT(x, ...), "</li>\n")
   }, FUN.VALUE = character(1))
 
+  str_c(li, collapse = "")
+}
+
+parse_descriptions <- function(rd, ...) {
+  separator <- vapply(rd, function(x) tag(x) == "item", 
+                      FUN.VALUE = logical(1))
+  group <- cumsum(separator)
+  
+  # remove empty first group, if present
+  rd <- rd[group != 0]
+  group <- group[group != 0]
+  
+  items <- split(rd, group)
+  
+  li <- vapply(items, function(x) {
+    str_c("<dt>", to_html.TEXT(x[[1]][1], ...), "</dt><dd>", to_html.TEXT(x[[1]][-1], ...), "</dd>\n")
+  }, FUN.VALUE = character(1))
+  
   str_c(li, collapse = "")
 }
 
@@ -430,7 +452,6 @@ simple_tags <- list(
   "code" =         c("<code>", "</code>"),
   "command" =      c("<code>", "</code>"),
   "cr" =           c("<br >", ""),
-  "describe" =     c("<span class='describe'>", "</span>"),
   "dfn" =          c("<dfn>", "</dfn>"),
   "donttest" =     c("", ""),
   "dots" =         c("...", ""),
