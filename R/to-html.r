@@ -404,6 +404,30 @@ parse_items <- function(rd, ...) {
   str_c(li, collapse = "")
 }
 
+#' @S3method to_html describe
+to_html.describe <- function(x, ...) {
+  str_c("<dl>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+}
+
+parse_descriptions <- function(rd, ...) {
+  separator <- vapply(rd, function(x) tag(x) == "item", 
+                      FUN.VALUE = logical(1))
+  group <- cumsum(separator)
+  
+  # remove empty first group, if present
+  rd <- rd[group != 0]
+  group <- group[group != 0]
+  
+  items <- split(rd, group)
+  
+  li <- vapply(items, function(x) {
+    print(x)
+    str_c("<dt>", to_html.TEXT(x[[1]][1], ...), "</dt><dd>", to_html.TEXT(x[[1]][-1], ...), "</dd>\n")
+  }, FUN.VALUE = character(1))
+  
+  str_c(li, collapse = "")
+}
+
 # Simple tags that need minimal processing -----------------------------------
 
 #' @S3method to_html Rd
