@@ -1,6 +1,6 @@
 load_settings <- function(package) {
   path <- file.path(pkg_sd_path(package), "index.r")
-  if (!file.exists(path)) return(list())
+  if (!isTRUE(file.exists(path))) return(list())
 
   source(path)$value
 }
