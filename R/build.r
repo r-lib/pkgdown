@@ -15,14 +15,20 @@
 #' @param examples include examples or not?  Examples are particularly
 #'   slow to render because all code must be run, so turning them off makes
 #'   it easier to tweak templates etc.
+#' @param templates_path a specific directory path to use when searching for
+#'   rendering templates, in addition to the default locations of
+#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
+#'   package's included templates directory.
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package
-build_package <- function(package, base_path = NULL, examples = NULL) {
+build_package <- function(package, base_path = NULL, examples = NULL,
+  templates_path = NULL) {
+  
   load_all(package)
   
-  package <- package_info(package, base_path, examples)
+  package <- package_info(package, base_path, examples, templates_path)
   if (!file.exists(package$base_path)) dir.create(package$base_path)
   copy_bootstrap(base_path)
 

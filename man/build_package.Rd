@@ -3,7 +3,8 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-  build_package(package, base_path = NULL, examples = NULL)
+  build_package(package, base_path = NULL, examples = NULL,
+    templates_path = NULL)
 }
 \arguments{
   \item{package}{path to source version of package.  See
@@ -17,6 +18,12 @@
   particularly slow to render because all code must be run,
   so turning them off makes it easier to tweak templates
   etc.}
+
+  \item{templates_path}{a specific directory path to use
+  when searching for rendering templates, in addition to
+  the default locations of packagedir/inst/staticdocs,
+  packagedir/staticdocs, and the staticdocs package's
+  included templates directory.}
 }
 \description{
   Currently, knitr builds documentation for:
