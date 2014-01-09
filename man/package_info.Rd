@@ -2,7 +2,8 @@
 \alias{package_info}
 \title{Return information about a package}
 \usage{
-  package_info(package, base_path = NULL, examples = NULL)
+  package_info(package, base_path = NULL, examples = NULL,
+    templates_path = NULL)
 }
 \arguments{
   \item{package}{name of package, as character vector}

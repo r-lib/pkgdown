@@ -5,7 +5,9 @@
 #' @export
 #' @keywords internal
 #' @importFrom devtools as.package
-package_info <- function(package, base_path = NULL, examples = NULL) {
+package_info <- function(package, base_path = NULL, examples = NULL,
+  templates_path = NULL) {
+  
   out <- as.package(package)
 
   settings <- load_settings(out)
@@ -17,6 +19,8 @@ package_info <- function(package, base_path = NULL, examples = NULL) {
     stop("base_path not specified", call. = FALSE)
   out$examples <- examples %||% settings$examples %||% TRUE
 
+  out$templates_path <- templates_path
+    
   if (!is.null(out$url)) {
     out$urls <- str_trim(str_split(out$url, ",")[[1]])
     out$url <- NULL
