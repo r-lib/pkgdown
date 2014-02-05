@@ -19,7 +19,8 @@ render_page <- function(package, name, data, path = "") {
 #' @importFrom whisker whisker.render
 render_template <- function(package, type, name, data) {
   template <- readLines(find_template(package, type, name))
-  if (length(template) <= 1 && str_trim(template) == "") return("")
+  if (length(template) == 0 || (length(template) == 1 && str_trim(template) == ""))
+    return("")
   
   whisker.render(template, data)
 }
