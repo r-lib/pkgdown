@@ -1,3 +1,12 @@
+escape_html <- function(x) {
+  x <- str_replace_all(x, "&", "&amp;")
+  x <- str_replace_all(x, "<", "&lt;")
+  x <- str_replace_all(x, ">", "&gt;")
+  x <- str_replace_all(x, "'", "&#39;")
+  x <- str_replace_all(x, "\"", "&quot;")
+  x
+}
+
 # Replay a list of evaluated results, just like you'd run them in a R
 # terminal, but rendered as html
 
@@ -26,7 +35,7 @@ replay_html.list <- function(x, ...) {
 
 #' @S3method replay_html character
 replay_html.character <- function(x, ...) {
-  str_c("<div class='output'>", str_c(x, collapse = ""), "</div>")
+  str_c("<div class='output'>", str_c(escape_html(x), collapse = ""), "</div>")
 }
 
 #' @S3method replay_html value
@@ -34,34 +43,34 @@ replay_html.value <- function(x, ...) {
   if (!x$visible) return()
   
   printed <- str_c(capture.output(print(x$value)), collapse = "\n")
-  str_c("<div class='output'>", printed, "</div>")
+  str_c("<div class='output'>", escape_html(printed), "</div>")
 }
 
 #' @S3method replay_html source
 replay_html.source <- function(x, ..., package) {
-  str_c("<div class='input'>", src_highlight(x$src, package$rd_index),
+  str_c("<div class='input'>", src_highlight(escape_html(x$src), package$rd_index),
     "</div>")
 }
 
 #' @S3method replay_html warning
 replay_html.warning <- function(x, ...) {
-  str_c("<strong class='warning'>Warning message:\n", x$message, "</strong>")
+  str_c("<strong class='warning'>Warning message:\n", escape_html(x$message), "</strong>")
 }
 
 #' @S3method replay_html message
 replay_html.message <- function(x, ...) {
-  str_c("<strong class='message'>", str_replace(x$message, "\n$", ""),
+  str_c("<strong class='message'>", escape_html(str_replace(x$message, "\n$", "")),
    "</strong>")
 }
 
 #' @S3method replay_html error
 replay_html.error <- function(x, ...) {
   if (is.null(x$call)) {
-    str_c("<strong class='error'>Error: ", x$message, "</strong>")
+    str_c("<strong class='error'>Error: ", escape_html(x$message), "</strong>")
   } else {
     call <- deparse(x$call)
-    str_c("<strong class='error'>Error in ", call, ": ", x$message,
-     "</strong>")
+    str_c("<strong class='error'>Error in ", escape_html(call), ": ",
+      escape_html(x$message), "</strong>")
   }
 }
 
@@ -76,5 +85,5 @@ replay_html.recordedplot <- function(x, package, name_prefix, obj_id, ...) {
     print(x)
   }
 
-  str_c("<p><img src='", name, "' alt='' width='400' height='400' /></p>")
+  str_c("<p><img src='", escape_html(name), "' alt='' width='400' height='400' /></p>")
 }
