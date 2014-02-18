@@ -98,20 +98,20 @@ to_html.name <- function(x, ...) to_html(x[[1]], ...)
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @S3method to_html usage
 to_html.usage <- function(x, package, ...) {
-  text <- to_html.TEXT(x, ...)
-  
-  # Parse and deparse to convert (e.g.) +(a, b) to a + b
-  expr <- as.list(parse(text = text))
-  text <- lapply(expr, function(x) {
-    lines <- deparse(x, width = 80)
-    lines[-1] <- str_c("  ", lines[-1])
-    str_c(lines, collapse = "\n")
-  })
-  
-  # Collapse, fix indenting and highlight
-  usage <- str_c(unlist(text), collapse = "\n\n")
-  usage <- str_replace(usage, "      ", "  ")
-  src_highlight(usage, package$rd_index)
+  text <- paste(to_html.TEXT(x, ...), collapse = "\n")
+
+  text <- str_trim(text)
+
+  # It's nice not to wrap in the middle of a simple "arg = default"
+  text <- str_replace_all(text, " = ", "&nbsp;=&nbsp;")
+  # Wrap each individual function in its own div, so that text-indent
+  # CSS rules can be used effectively
+  text <- str_replace_all(text, "\n\n", "</div>\n<div>")
+  text <- paste0("<div>", text, "</div>")
+  # Collapse all hardcoded hanging indents
+  text <- str_replace_all(text, "\n +", " ")
+
+  src_highlight(text, package$rd_index)
 }
 #' @S3method to_html alias
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
