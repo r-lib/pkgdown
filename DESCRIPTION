@@ -6,7 +6,7 @@ Description: Convert package rd files to static html pages, suitable for
 Version: 0.1
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
-License: MIT
+License: MIT + file LICENSE
 Imports:
     stringr,
     testthat,
@@ -17,6 +17,5 @@ Imports:
     markdown,
     devtools (>= 0.8),
     digest,
-    grid,
-    devtools
+    grid
 Roxygen: list(wrap = FALSE)
