@@ -7,7 +7,7 @@
 #' @param topic topic name, as character vector
 #' @param package package name, as character vector
 #' @export
-#' @examples 
+#' @examples
 #' parse_rd("geom_point", "ggplot2")
 parse_rd <- function(topic, package) {
   rd <- utils:::.getHelpFile(rd_path(topic, package))
@@ -16,7 +16,7 @@ parse_rd <- function(topic, package) {
 
 package_rd <- function(package) {
   package <- as.package(package)
-  
+
   rd <- dir(file.path(package$path, "man"), full.names = TRUE)
   names(rd) <- basename(rd)
   lapply(rd, cached_parse_Rd)
@@ -31,7 +31,7 @@ if (is.null(rd_cache)) clear_cache()
 #' @importFrom digest digest
 cached_parse_Rd <- function(path) {
   hash <- digest(path, file = TRUE)
-  
+
   if (exists(hash, env = rd_cache)) {
     rd_cache[[hash]]
   } else {
@@ -40,23 +40,23 @@ cached_parse_Rd <- function(path) {
     rd_cache[[hash]] <- rd
     rd
   }
-  
+
 }
 
 rd_path <- function(topic, package = NULL) {
   topic <- as.name(topic)
   if (!is.null(package)) package <- as.name(package)
-  
-  help_call <- substitute(help(topic, package = package, try.all.packages = TRUE), 
+
+  help_call <- substitute(help(topic, package = package, try.all.packages = TRUE),
     list(topic = topic, package = package))
-  
+
   res <- eval(help_call)
   if (length(res) == 0) return(NULL)
-  
+
   res[[1]]
 }
 
-find_topic <- function(alias, package = NULL, index) {  
+find_topic <- function(alias, package = NULL, index) {
   # Current package, so look in index first
   if (is.null(package)) {
     match <- Position(function(x) any(x == alias), index$alias)
@@ -64,10 +64,10 @@ find_topic <- function(alias, package = NULL, index) {
       return(list(package = NULL, file = index$file_out[match]))
     }
   }
-  
+
   path <- rd_path(alias, package)
   if (is.null(path)) return(NULL)
-  
+
   pieces <- str_split(path, .Platform$file.sep)[[1]]
   n <- length(pieces)
 
@@ -77,7 +77,7 @@ find_topic <- function(alias, package = NULL, index) {
 tag <- function(x) {
   tag <- attr(x, "Rd_tag")
   if (is.null(tag)) return()
-  
+
   str_replace_all(tag, fixed("\\"), "")
 }
 
@@ -99,27 +99,27 @@ set_classes <- function(rd) {
 
 is.Rd <- function(x) inherits(x, "Rd")
 
-#' @S3method as.list Rd
+#' @export
 as.list.Rd <- function(x, ...) {
   class(x) <- NULL
   x
 }
 
-#' @S3method print Rd
+#' @export
 print.Rd <- function(x, ..., indent = 0) {
-  cat(str_dup(" ", indent), "\\- ", colourise(tag(x), "blue"), 
+  cat(str_dup(" ", indent), "\\- ", colourise(tag(x), "blue"),
     " (", length(x), ")\n", sep = "")
-  
-  lapply(x, print, indent = indent + 2)    
+
+  lapply(x, print, indent = indent + 2)
 }
 
-#' @S3method print TEXT
+#' @export
 print.TEXT <- function(x, ..., indent = 0) block(x, indent, '"')
-#' @S3method print VERB
+#' @export
 print.VERB <- function(x, ..., indent = 0) block(x, indent, "'")
-#' @S3method print RCODE
+#' @export
 print.RCODE <- function(x, ..., indent = 0) block(x, indent, ">")
-#' @S3method print COMMENT
+#' @export
 print.COMMENT <- function(x, ..., indent = 0) block(x, indent, "%")
 
 #' @importFrom testthat colourise
@@ -127,6 +127,6 @@ block <- function(x, indent = 0, prefix = "'") {
   x <- str_trim(x)
 
   start <- str_c(str_dup(" ", indent), colourise(prefix, "blue"), " ")
-  cat(start, str_sub(x, 0, getOption("width") - str_length(start)), "\n", 
-    sep = "")  
+  cat(start, str_sub(x, 0, getOption("width") - str_length(start)), "\n",
+    sep = "")
 }

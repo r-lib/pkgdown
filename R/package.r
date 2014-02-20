@@ -7,31 +7,31 @@
 #' @importFrom devtools as.package
 package_info <- function(package, base_path = NULL, examples = NULL,
   templates_path = NULL) {
-  
+
   out <- as.package(package)
 
   settings <- load_settings(out)
   out$index <- settings$index
   out$icons <- settings$icon
   out$readme <- settings$readme
-  
-  out$base_path <- base_path %||% settings$base_path %||% 
+
+  out$base_path <- base_path %||% settings$base_path %||%
     stop("base_path not specified", call. = FALSE)
   out$examples <- examples %||% settings$examples %||% TRUE
 
   out$templates_path <- templates_path
-    
+
   if (!is.null(out$url)) {
     out$urls <- str_trim(str_split(out$url, ",")[[1]])
     out$url <- NULL
   }
-  
+
   # Author info
   if (!is.null(out$`authors@r`)) {
     out$authors <- eval(parse(text = out$`authors@r`))
   }
-  
-  # Dependencies 
+
+  # Dependencies
   parse_deps <- devtools:::parse_deps
   out$dependencies <- list(
     depends = str_c(parse_deps(out$depends)$name, collapse = ", "),
@@ -39,7 +39,7 @@ package_info <- function(package, base_path = NULL, examples = NULL,
     suggests = str_c(parse_deps(out$suggests)$name, collapse = ", "),
     extends = str_c(parse_deps(out$extends)$name, collapse = ", ")
   )
-  
+
   out$rd <- package_rd(package)
   out$rd_index <- topic_index(out$rd)
 
@@ -49,10 +49,10 @@ package_info <- function(package, base_path = NULL, examples = NULL,
 topic_index <- function(rd) {
   aliases <- unname(lapply(rd, extract_alias))
 
-  names <- unlist(lapply(rd, extract_name), use.names = FALSE)  
+  names <- unlist(lapply(rd, extract_name), use.names = FALSE)
   file_in <- names(rd)
   file_out <- str_replace(file_in, "\\.Rd$", ".html")
-  
+
   data.frame(
     name = names,
     alias = I(aliases),
@@ -73,13 +73,13 @@ extract_name <- function(x) {
 }
 
 
-#' @S3method print package_info
+#' @export
 print.package_info <- function(x, ...) {
   cat("Package: ", x$package, "\n", sep = "")
   cat(x$path, " -> ", x$base_path, "\n", sep = "")
-  
-  topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "), 
+
+  topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "),
     indent = 2, exdent = 2, width = getOption("width"))
   cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
-  
+
 }
