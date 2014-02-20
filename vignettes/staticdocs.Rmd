@@ -1,0 +1,34 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Staticdocs}
+-->
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  error = FALSE,
+  tidy = FALSE
+)
+library(staticdocs)
+```
+
+# Staticdocs
+
+## Generating a custom index
+
+By default, staticdocs lists all functions in your package in a single list. This is not very useful for large packages, so you can use a custom `index.r` file to specify more information.
+
+`index.r` should live in `inst/staticdocs` and should consist of calls to `sd_section()`. For example, the `index.r` for staticdocs itself looks like this:
+
+```{r}
+sd_section(
+  "Settings functions",
+  "These functions are used in `index.r` to configure various
+    settings that staticdocs uses when rendering a package.  This is
+    particularly useful for generating an index page that groups functions
+    into useful categories",
+  c("sd_icon", "sd_item","sd_section")
+)
+```
+
+The first argument to `sd_section()` gives the name of the section. The second gives a paragraph of markdown text that will appear before the function listing, and the third argument is either a character vector of function names, or a list of `sd_teim()` objects.

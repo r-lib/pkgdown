@@ -18,4 +18,7 @@ Imports:
     devtools (>= 0.8),
     digest,
     grid
+Suggests:
+    knitr
+VignetteBuilder: knitr
 Roxygen: list(wrap = FALSE)

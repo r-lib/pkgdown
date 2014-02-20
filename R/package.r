@@ -10,11 +10,10 @@ package_info <- function(package = ".", base_path = "staticdocs", examples = NUL
 
   out <- as.package(package)
 
-  settings <- load_settings(out)
-  out$index <- settings$index
-  out$icons <- settings$icon
-  out$readme <- settings$readme
+  out$index <- load_index(out$path)
+  out$icons <- NULL # load_icons(out$path)
 
+  settings <- load_settings(out)
   out$base_path <- base_path %||% settings$base_path %||%
     stop("base_path not specified", call. = FALSE)
   out$examples <- examples %||% settings$examples %||% TRUE
@@ -44,6 +43,8 @@ package_info <- function(package = ".", base_path = "staticdocs", examples = NUL
 
   structure(out, class = "package_info")
 }
+
+
 
 topic_index <- function(rd) {
   aliases <- unname(lapply(rd, extract_alias))
