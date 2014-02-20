@@ -6,11 +6,14 @@
 render_page(package, name, data, path = "")
 }
 \arguments{
-  \item{name}{of the template (e.g. index, demo, topic)}
+  \item{package}{Path to package to document.}
 
-  \item{data}{data for the template}
+  \item{name}{Name of the template (e.g. index, demo,
+  topic)}
 
-  \item{path}{location to create file.  If \code{""} (the
+  \item{data}{Data for the template}
+
+  \item{path}{Location to create file. If \code{""} (the
   default), prints to standard out.}
 }
 \description{

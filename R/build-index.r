@@ -1,5 +1,3 @@
-#' Build the index page.
-#'
 build_index <- function(package) {
   out <- file.path(package$base_path, "index.html")
   message("Generating index.html")

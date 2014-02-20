@@ -32,7 +32,7 @@ if (is.null(rd_cache)) clear_cache()
 cached_parse_Rd <- function(path) {
   hash <- digest(path, file = TRUE)
 
-  if (exists(hash, env = rd_cache)) {
+  if (exists(hash, envir = rd_cache)) {
     rd_cache[[hash]]
   } else {
     raw_rd <- parse_Rd(path)
