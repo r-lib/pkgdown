@@ -121,35 +121,33 @@ copy_bootstrap <- function(base_path) {
 #'
 #' @keywords internal
 #' @inheritParams build_site
-#' @importFrom tools buildVignettes
+#' @importFrom tools pkgVignettes buildVignettes
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
-build_vignettes <- function(package) {
-  # Locate source and built versions of vignettes
-  path <- dir(file.path(package$path, c("inst/doc", "vignettes")), ".Rnw",
-    full.names = TRUE)
-  if (length(path) == 0) return()
+build_vignettes <- function(pkg = ".") {
+  pkg <- as.package(pkg)
+  vigns <- pkgVignettes(dir = pkg$path, output = TRUE)
+
+  if (length(vigns$docs) == 0) return()
 
   message("Building vignettes")
-  buildVignettes(dir = package$path)
+  # Locate source and built versions of vignettes
+  buildVignettes(dir = pkg$path)
 
   message("Copying vignettes")
-  src <- str_replace(path, "\\.Rnw$", ".pdf")
-  filename <- basename(src)
-  dest <- file.path(package$base_path, "vignettes")
-
+  dest <- file.path(pkg$base_path, "vignettes")
   if (!file.exists(dest)) dir.create(dest)
-  file.copy(src, file.path(dest, filename))
+  file.copy(vigns$outputs, dest)
 
   # Extract titles
-  title <- vapply(path, FUN.VALUE = character(1), function(x) {
+  titles <- vapply(vigns$docs, FUN.VALUE = character(1), function(x) {
     contents <- str_c(readLines(x), collapse = "\n")
     str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
   })
+  names <- basename(vigns$outputs)
 
-  list(vignette = unname(apply(cbind(filename, title), 1, as.list)))
+  list(vignette = unname(Map(list, title = titles, filename = names)))
 }
-
 
 build_demos <- function(package, index) {
   demo_dir <- file.path(package$path, "demo")
