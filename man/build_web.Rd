@@ -7,8 +7,6 @@
 \usage{
 build_web(package = ".", base_path = "inst/web", examples = NULL,
   templates_path = NULL, launch = interactive())
-
-build_package(...)
 }
 \arguments{
   \item{package}{path to source version of package.  See
