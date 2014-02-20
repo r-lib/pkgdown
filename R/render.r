@@ -49,17 +49,3 @@ find_template <- function(package, type, name) {
 }
 
 
-file.path.ci <- function(...) {
-  default <- file.path(...)
-  if (file.exists(default)) return(default)
-
-  dir <- dirname(default)
-  if (!file.exists(dir)) return(default)
-
-  pattern <- glob2rx(basename(default)) # Not perfect, but safer than raw name
-  matches <- list.files(dir, pattern, ignore.case = TRUE,
-    full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
-  if (length(matches) == 0) return(default)
-
-  matches[[1]]
-}
