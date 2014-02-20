@@ -8,11 +8,14 @@ See the `staticdocs` documentation rendered with `staticdocs` at http://hadley.g
 
 # Features
 
-* Attractive defaults: `staticdocs` uses [bootstrap](http://twitter.github.com/bootstrap/) to provide an attractive website that you can easily customise.
+* Attractive defaults: staticdocs uses [bootstrap]
+  (http://twitter.github.com/bootstrap/) to provide an attractive website that
+  you can easily customise.
 
-* Customisable: you can override the default templates to provide alternative rendering
+* Customisable: you can override the default templates to provide
+  alternative rendering
 
-Compared to `Rd2html`, staticdoc:
+Compared to `Rd2html`, staticdocs:
 
 * Makes it easier to customise the output
 
