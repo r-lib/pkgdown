@@ -158,7 +158,7 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
 
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
-  expr <- evaluate(text, env)
+  expr <- evaluate(text, env, new_device = FALSE)
 
   replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
 }
