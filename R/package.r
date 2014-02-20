@@ -5,7 +5,7 @@
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
-package_info <- function(package, base_path = NULL, examples = NULL,
+package_info <- function(package = ".", base_path = "staticdocs", examples = NULL,
   templates_path = NULL) {
 
   out <- as.package(package)

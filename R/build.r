@@ -19,27 +19,32 @@
 #'   rendering templates, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 #'   package's included templates directory.
+#' @param launch If \code{TRUE}, will open freshly generated site in web
+#'   browser.
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package
-build_package <- function(package, base_path = NULL, examples = NULL,
-  templates_path = NULL) {
-  
+build_package <- function(package = ".", base_path = "inst/web", examples = NULL,
+  templates_path = NULL, launch = interactive()) {
+
+  package <- as.package(package)
   load_all(package)
-  
+
   package <- package_info(package, base_path, examples, templates_path)
-  if (!file.exists(package$base_path)) dir.create(package$base_path)
+  if (!file.exists(package$base_path)) {
+    dir.create(package$base_path, recursive = TRUE)
+  }
   copy_bootstrap(base_path)
 
   package$topics <- build_topics(package)
   package$vignettes <- build_vignettes(package)
   package$demos <- build_demos(package)
   package$readme <- readme(package)
-  
+
   build_index(package)
-  
-  if (interactive()) {
+
+  if (launch) {
     browseURL(normalizePath(file.path(base_path, "index.html")))
   }
   invisible(TRUE)
@@ -62,13 +67,13 @@ build_topics <- function(package) {
   # create columns for extra topic info
   index$title <- ""
   index$in_index <- TRUE
-  
+
   for (i in seq_along(index$name)) {
     message("Generating ", basename(paths[[i]]))
-    
+
     rd <- package$rd[[i]]
-    html <- to_html(rd, 
-      env = new.env(parent = globalenv()), 
+    html <- to_html(rd,
+      env = new.env(parent = globalenv()),
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
       package = package)
     html$pagetitle <- html$name
@@ -88,11 +93,11 @@ build_topics <- function(package) {
 
 readme <- function(package) {
   if (!is.null(package$readme)) return(markdown(package$readme))
-  
+
   path <- file.path(package$path, "README.md")
   # use description if no README.md is available
   if (!file.exists(path)) return( package$description )
-  
+
   markdown(path = path)
 }
 
@@ -112,29 +117,29 @@ copy_bootstrap <- function(base_path) {
 #' @importFrom tools buildVignettes
 #' @return a list, with one element for each vignette containing the vignette
 #'   title and file name.
-build_vignettes <- function(package) {  
+build_vignettes <- function(package) {
   # Locate source and built versions of vignettes
-  path <- dir(file.path(package$path, c("inst/doc", "vignettes")), ".Rnw", 
+  path <- dir(file.path(package$path, c("inst/doc", "vignettes")), ".Rnw",
     full.names = TRUE)
   if (length(path) == 0) return()
-  
+
   message("Building vignettes")
   buildVignettes(dir = package$path)
-  
+
   message("Copying vignettes")
   src <- str_replace(path, "\\.Rnw$", ".pdf")
   filename <- basename(src)
   dest <- file.path(package$base_path, "vignettes")
 
   if (!file.exists(dest)) dir.create(dest)
-  file.copy(src, file.path(dest, filename))  
+  file.copy(src, file.path(dest, filename))
 
   # Extract titles
   title <- vapply(path, FUN.VALUE = character(1), function(x) {
     contents <- str_c(readLines(x), collapse = "\n")
     str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
-  })  
-  
+  })
+
   list(vignette = unname(apply(cbind(filename, title), 1, as.list)))
 }
 
@@ -142,27 +147,27 @@ build_vignettes <- function(package) {
 build_demos <- function(package, index) {
   demo_dir <- file.path(package$path, "demo")
   if (!file.exists(demo_dir)) return()
-  
+
   message("Rendering demos")
   demos <- readLines(file.path(demo_dir, "00Index"))
-  
+
   pieces <- str_split_fixed(demos, "\\s+", 2)
   in_path <- str_c(pieces[, 1], ".r")
   filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
-  
+
   for(i in seq_along(title)) {
     demo_code <- readLines(file.path(demo_dir, in_path[i]))
     demo_expr <- evaluate(demo_code, new.env(parent = globalenv()))
 
     package$demo <- replay_html(demo_expr,
-      package = package, 
+      package = package,
       name = str_c(pieces[i], "-"))
     package$pagetitle <- title[i]
-    render_page(package, "demo", package, 
+    render_page(package, "demo", package,
       file.path(package$base_path, filename[i]))
   }
-  
+
   list(demo = unname(apply(cbind(filename, title), 1, as.list)))
 }
 

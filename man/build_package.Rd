@@ -4,8 +4,8 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_package(package, base_path = NULL, examples = NULL,
-  templates_path = NULL)
+build_package(package = ".", base_path = "inst/web", examples = NULL,
+  templates_path = NULL, launch = interactive())
 }
 \arguments{
   \item{package}{path to source version of package.  See
@@ -25,6 +25,9 @@ build_package(package, base_path = NULL, examples = NULL,
   the default locations of packagedir/inst/staticdocs,
   packagedir/staticdocs, and the staticdocs package's
   included templates directory.}
+
+  \item{launch}{If \code{TRUE}, will open freshly generated
+  site in web browser.}
 }
 \description{
 Currently, knitr builds documentation for:

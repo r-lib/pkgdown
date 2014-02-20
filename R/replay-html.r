@@ -28,10 +28,15 @@ replay_html.list <- function(x, ...) {
     structure(list(src = src), class = "source")
   })
 
-  pieces <- mapply(replay_html, parts, obj_id = seq_along(parts),
-    MoreArgs = list(...))
+  pieces <- character(length(parts))
+  for (i in seq_along(parts)) {
+    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+  }
   str_c(pieces, collapse = "\n")
 }
+
+#' @export
+replay_html.NULL <- function(x, ...) ""
 
 #' @export
 replay_html.character <- function(x, ...) {
