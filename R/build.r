@@ -25,7 +25,7 @@
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package
-build_package <- function(package = ".", base_path = "inst/web", examples = NULL,
+build_web <- function(package = ".", base_path = "inst/web", examples = NULL,
   templates_path = NULL, launch = interactive()) {
 
   package <- as.package(package)
@@ -48,6 +48,14 @@ build_package <- function(package = ".", base_path = "inst/web", examples = NULL
     browseURL(normalizePath(file.path(base_path, "index.html")))
   }
   invisible(TRUE)
+}
+
+#' @rdname build_web
+#' @export
+build_package <- function(...) {
+  warning("build_package is deprecated, please use build_web instead",
+    call. = FALSE)
+  build_web(...)
 }
 
 
