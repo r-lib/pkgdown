@@ -4,7 +4,7 @@
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
-#' @importFrom devtools as.package
+#' @importFrom devtools parse_deps as.package
 package_info <- function(package, base_path = NULL, examples = NULL,
   templates_path = NULL) {
 
@@ -32,7 +32,6 @@ package_info <- function(package, base_path = NULL, examples = NULL,
   }
 
   # Dependencies
-  parse_deps <- devtools:::parse_deps
   out$dependencies <- list(
     depends = str_c(parse_deps(out$depends)$name, collapse = ", "),
     imports = str_c(parse_deps(out$imports)$name, collapse = ", "),
