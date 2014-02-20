@@ -6,6 +6,7 @@ load_index <- function(pkg = ".") {
   path <- file.path.ci(pkg$sd_path, "index.R")
   if (!file.exists(path)) return(list())
 
+  library(staticdocs) # might only be attached.
   env <- new.env(parent = globalenv())
 
   expr <- parse(path)
