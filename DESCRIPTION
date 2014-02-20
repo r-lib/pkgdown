@@ -19,15 +19,4 @@ Imports:
     digest,
     grid,
     devtools
-Collate:
-    'replay-html.r'
-    'package.r'
-    'rd.r'
-    'highlight.r'
-    'to-html.r'
-    'util.r'
-    'render.r'
-    'build.r'
-    'build-index.r'
-    'settings.r'
-    'icons.r'
+Roxygen: list(wrap = FALSE)

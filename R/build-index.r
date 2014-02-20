@@ -12,23 +12,23 @@ build_index <- function(package) {
   topics <- unlist(lapply(index, "[[", "topics"))
   missing <- !(topics %in% topic_index$name)
   if (any(missing)) {
-    warning("Can't find index topics: ", paste(topics[missing], 
+    warning("Can't find index topics: ", paste(topics[missing],
       collapse = ", "), call. = FALSE)
     topics <- topics[!missing]
   }
-  
+
   other <- !(topic_index$name %in% topics)
   if (any(other)) {
   title <- if(length(topics)) 'Other' else ''
-  index <- 
+  index <-
     c(index, list(sd_section(title, NULL, sort(topic_index$name[other]))))
   }
-  
+
   # Render each section
   sections <- lapply(index, build_section, package = package)
   package$sections <- sections
   package$rd <- NULL
-  
+
   render_icons(package)
   package$pagetitle <- "Index"
   render_page(package, "index", package, out)
@@ -38,7 +38,7 @@ build_section <- function(section, package) {
   find_info <- function(item) {
     match <- package$topics$name == item$name
     if (!any(match)) return(NULL)
-    
+
     row <- package$topics[match, , drop = FALSE]
     item$file_out <- row$file_out
 
@@ -46,18 +46,18 @@ build_section <- function(section, package) {
     if (length(aliases) > 0) {
       item$aliases <- str_c("(", str_c(aliases, collapse = ", "), ")")
     }
-    
+
     if (is.null(item$title)) {
       rd <- package$rd[[row$file_in]]
       item$title <- extract_title(rd)
     }
-    
+
     item$icon <- icon_path(package, item$name)
     item
   }
-  
+
   desc <- section$description
-  
+
   list(
     title = section$name %||% "Missing section title",
     description = markdown(desc),
