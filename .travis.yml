@@ -13,7 +13,7 @@ install:
 script:
   - ./travis-tool.sh run_tests
   - FILE=$(ls -1t *.tar.gz | head -n 1)
-  - R CMD install "${FILE}"
+  - R CMD INSTALL "${FILE}"
   - R -e "staticdocs::build_package()"
 
 on_failure:
