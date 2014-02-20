@@ -1,9 +1,9 @@
 # `index.r` is a regular R file - we parse it, evaluate each line, and then
 # return all results that are a sd_section
 load_index <- function(pkg = ".") {
-  pkg <- as.package(pkg)
+  pkg <- as.sd_package(pkg)
 
-  path <- file.path(pkg_sd_path(pkg), "index.r")
+  path <- file.path(pkg$sd_path, "index.r")
   if (!file.exists(path)) return(list())
 
   env <- new.env(parent = globalenv())

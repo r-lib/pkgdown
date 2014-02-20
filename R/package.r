@@ -1,50 +1,55 @@
 #' Return information about a package
 #'
 #' @param package name of package, as character vector
+#' @param base_path root directory in which to create documentation. The
+#'   default, \code{NULL}, first looks at the value of \code{site_path} set in
+#'   \file{DESCRIPTION}, and if not found uses \code{inst/web}.
+#' @param examples include examples or not? The default, \code{NULL}, first
+#'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
+#'   not found uses \code{TRUE}.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
-package_info <- function(package = ".", base_path = "staticdocs", examples = NULL,
-  templates_path = NULL) {
+as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL) {
+  if (is.sd_package(pkg)) return(pkg)
 
-  out <- as.package(package)
+  pkg <- as.package(pkg)
+  class(pkg) <- c("sd_package", "package")
+  pkg$sd_path <- pkg_sd_path(pkg)
 
-  out$index <- load_index(out$path)
-  out$icons <- NULL # load_icons(out$path)
+  pkg$index <- load_index(pkg)
+  pkg$icons <- load_icons(pkg)
 
-  settings <- load_settings(out)
-  out$base_path <- base_path %||% settings$base_path %||%
-    stop("base_path not specified", call. = FALSE)
-  out$examples <- examples %||% settings$examples %||% TRUE
+  settings <- load_settings(pkg)
+  pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
+  pkg$examples <- examples %||% settings$examples %||% TRUE
 
-  out$templates_path <- templates_path
-
-  if (!is.null(out$url)) {
-    out$urls <- str_trim(str_split(out$url, ",")[[1]])
-    out$url <- NULL
+  if (!is.null(pkg$url)) {
+    pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
+    pkg$url <- NULL
   }
 
   # Author info
-  if (!is.null(out$`authors@r`)) {
-    out$authors <- eval(parse(text = out$`authors@r`))
+  if (!is.null(pkg$`authors@r`)) {
+    pkg$authors <- eval(parse(text = pkg$`authors@r`))
   }
 
   # Dependencies
-  out$dependencies <- list(
-    depends = str_c(parse_deps(out$depends)$name, collapse = ", "),
-    imports = str_c(parse_deps(out$imports)$name, collapse = ", "),
-    suggests = str_c(parse_deps(out$suggests)$name, collapse = ", "),
-    extends = str_c(parse_deps(out$extends)$name, collapse = ", ")
+  pkg$dependencies <- list(
+    depends = str_c(parse_deps(pkg$depends)$name, collapse = ", "),
+    imports = str_c(parse_deps(pkg$imports)$name, collapse = ", "),
+    suggests = str_c(parse_deps(pkg$suggests)$name, collapse = ", "),
+    extends = str_c(parse_deps(pkg$extends)$name, collapse = ", ")
   )
 
-  out$rd <- package_rd(package)
-  out$rd_index <- topic_index(out$rd)
+  pkg$rd <- package_rd(pkg)
+  pkg$rd_index <- topic_index(pkg$rd)
 
-  structure(out, class = c("package_info", "package"))
+  pkg
 }
 
-
+is.sd_package <- function(x) inherits(x, "sd_package")
 
 topic_index <- function(rd) {
   aliases <- unname(lapply(rd, extract_alias))
@@ -74,9 +79,9 @@ extract_name <- function(x) {
 
 
 #' @export
-print.package_info <- function(x, ...) {
-  cat("Package: ", x$package, "\n", sep = "")
-  cat(x$path, " -> ", x$base_path, "\n", sep = "")
+print.sd_package <- function(x, ...) {
+  cat("Package: ", x$package, " @ ", dirname(x$path), " -> ", x$site_path,
+    "\n", sep = "")
 
   topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "),
     indent = 2, exdent = 2, width = getOption("width"))

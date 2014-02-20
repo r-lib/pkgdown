@@ -52,8 +52,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @export
-replay_html.source <- function(x, ..., package) {
-  str_c("<div class='input'>", src_highlight(escape_html(x$src), package$rd_index),
+replay_html.source <- function(x, ..., pkg) {
+  str_c("<div class='input'>", src_highlight(escape_html(x$src), pkg$rd_index),
     "</div>")
 }
 
@@ -80,9 +80,9 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @export
-replay_html.recordedplot <- function(x, package, name_prefix, obj_id, ...) {
+replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
   name <- str_c(name_prefix, obj_id, ".png")
-  path <- file.path(package$base_path, name)
+  path <- file.path(pkg$site_path, name)
 
   if (!file.exists(path)) {
     png(path, width = 400, height = 400, res = 96)

@@ -97,7 +97,7 @@ to_html.name <- function(x, ...) to_html(x[[1]], ...)
 #' @export
 to_html.title <- function(x, ...) to_html.TEXT(x, ...)
 #' @export
-to_html.usage <- function(x, package, ...) {
+to_html.usage <- function(x, pkg, ...) {
   text <- paste(to_html.TEXT(x, ...), collapse = "\n")
 
   text <- str_trim(text)
@@ -111,7 +111,7 @@ to_html.usage <- function(x, package, ...) {
   # Collapse all hardcoded hanging indents
   text <- str_replace_all(text, "\n +", " ")
 
-  src_highlight(text, package$rd_index)
+  src_highlight(text, pkg$rd_index)
 }
 #' @export
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
@@ -153,14 +153,14 @@ parse_section <- function(x, title, ...) {
 
 #' @importFrom evaluate evaluate
 #' @export
-to_html.examples <- function(x, package, topic = "unknown", env = new.env(parent = globalenv()), ...) {
-  if (!package$examples) return()
+to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = globalenv()), ...) {
+  if (!pkg$examples) return()
 
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
   expr <- evaluate(text, env)
 
-  replay_html(expr, package = package, name = str_c(topic, "-"))
+  replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
 }
 
 # Arguments ------------------------------------------------------------------
@@ -219,7 +219,7 @@ to_html.email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @export
-to_html.link <- function(x, package, ...) {
+to_html.link <- function(x, pkg, ...) {
   stopifnot(length(x) == 1)
 
   opt <- attr(x, "Rd_option")
@@ -244,16 +244,16 @@ to_html.link <- function(x, package, ...) {
     }
   }
 
-  loc <- find_topic(topic, t_package, package$rd_index)
+  loc <- find_topic(topic, t_package, pkg$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
     return(topic)
   }
 
-  make_link(loc, label, package)
+  make_link(loc, label, pkg)
 }
 
-make_link <- function(loc, label, package = NULL) {
+make_link <- function(loc, label, pkg = NULL) {
   if (is.null(loc$package)) {
     str_c("<a href='", loc$file, "'>", label, "</a>")
   } else {

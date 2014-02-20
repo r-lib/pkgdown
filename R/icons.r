@@ -1,9 +1,9 @@
 # `icons.r` is a regular R file - we parse it, evaluate it all, and then
 # extract all elements (with names) that are icons
-load_icons <- function(pkg) {
-  pkg <- as.package(pkg)
+load_icons <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
 
-  path <- file.path(pkg_sd_path(pkg), "icons.r")
+  path <- file.path(pkg$sd_path, "icons.r")
   if (!file.exists(path)) return(list())
 
   env <- new.env(parent = globalenv())
@@ -48,11 +48,13 @@ make_function <- function(args, expr, env = globalenv()) {
 
 
 #' @importFrom grid grid.draw
-render_icons <- function(package) {
-  icon_path <- file.path(package$base_path, "icons")
+render_icons <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
+
+  icon_path <- file.path(pkg$site_path, "icons")
   if (!file.exists(icon_path)) dir.create(icon_path)
 
-  icons <- package$icons
+  icons <- pkg$icons
 
   has_icon <- Filter(function(x) !is.null(x$func), icons)
 

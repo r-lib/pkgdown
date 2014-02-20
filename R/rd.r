@@ -15,7 +15,7 @@ parse_rd <- function(topic, package) {
 }
 
 package_rd <- function(package) {
-  package <- as.package(package)
+  package <- as.sd_package(package)
 
   rd <- dir(file.path(package$path, "man"), full.names = TRUE)
   names(rd) <- basename(rd)

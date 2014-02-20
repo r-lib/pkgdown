@@ -1,10 +1,11 @@
-build_index <- function(package) {
-  out <- file.path(package$base_path, "index.html")
+# Must be called after all other build functions.
+build_index <- function(pkg) {
+  out <- file.path(pkg$site_path, "index.html")
   message("Generating index.html")
 
-  index <- package$index
-  topic_index <- package$topics[package$topics$in_index, , drop = FALSE]
-  package$topic_index <- rows_list(topic_index)
+  index <- pkg$index
+  topic_index <- pkg$topics[pkg$topics$in_index, , drop = FALSE]
+  pkg$topic_index <- rows_list(topic_index)
 
   # Cross-reference complete list of topics vs. topics found in index page
   topics <- unlist(lapply(index, "[[", "topics"))
@@ -23,21 +24,21 @@ build_index <- function(package) {
   }
 
   # Render each section
-  sections <- lapply(index, build_section, package = package)
-  package$sections <- sections
-  package$rd <- NULL
+  sections <- lapply(index, build_section, pkg = pkg)
+  pkg$sections <- sections
+  pkg$rd <- NULL
 
-  render_icons(package)
-  package$pagetitle <- "Index"
-  render_page(package, "index", package, out)
+  render_icons(pkg)
+  pkg$pagetitle <- "Index"
+  render_page(pkg, "index", pkg, out)
 }
 
-build_section <- function(section, package) {
+build_section <- function(section, pkg) {
   find_info <- function(item) {
-    match <- package$topics$name == item$name
+    match <- pkg$topics$name == item$name
     if (!any(match)) return(NULL)
 
-    row <- package$topics[match, , drop = FALSE]
+    row <- pkg$topics[match, , drop = FALSE]
     item$file_out <- row$file_out
 
     aliases <- setdiff(row$alias[[1]], row$name)
@@ -46,11 +47,11 @@ build_section <- function(section, package) {
     }
 
     if (is.null(item$title)) {
-      rd <- package$rd[[row$file_in]]
+      rd <- pkg$rd[[row$file_in]]
       item$title <- extract_title(rd)
     }
 
-    item$icon <- icon_path(package, item$name)
+    item$icon <- icon_path(pkg, item$name)
     item
   }
 

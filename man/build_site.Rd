@@ -5,27 +5,16 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(package = ".", base_path = "inst/web", examples = NULL,
-  templates_path = NULL, launch = interactive())
+build_site(pkg = ".", ..., launch = interactive())
 }
 \arguments{
-  \item{package}{path to source version of package.  See
+  \item{pkg}{path to source version of package.  See
   \code{\link[devtools]{as.package}} for details on how
   paths and package names are resolved.}
 
-  \item{base_path}{root directory in which to create
-  documentation}
-
-  \item{examples}{include examples or not?  Examples are
-  particularly slow to render because all code must be run,
-  so turning them off makes it easier to tweak templates
-  etc.}
-
-  \item{templates_path}{a specific directory path to use
-  when searching for rendering templates, in addition to
-  the default locations of packagedir/inst/staticdocs,
-  packagedir/staticdocs, and the staticdocs package's
-  included templates directory.}
+  \item{...}{Other additional arguments passed to
+  \code{\link{as.sd_package}} used to override package
+  defaults.}
 
   \item{launch}{If \code{TRUE}, will open freshly generated
   site in web browser.}
