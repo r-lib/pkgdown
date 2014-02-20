@@ -21,6 +21,7 @@ on_failure:
 
 deploy:
   provider: s3
+  bucket: staticdocs.had.co.nz
   access_key_id: AKIAIIQGQZ3IVAFTRQCA
   secret_access_key:
     secure: "FF+1cgT2cTs+nc0Jw+5rR7R7FhcYcQSWEXiEdsGisLqpXRahoxFWRmAApkf8lT//w9TH6xWcybrvghDY0a2Yo5QX9tD8BEXt8wsFz4gSYBXDFBn7piLcW8+Jc9guL8W2ABh7Y3jTaPQ2GtVPfC0qpG+H1dWwXGr5v+Uum+jqJ1w="
