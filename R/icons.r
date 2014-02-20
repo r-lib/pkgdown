@@ -3,7 +3,7 @@
 load_icons <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
-  path <- file.path(pkg$sd_path, "icons.r")
+  path <- file.path.ci(pkg$sd_path, "icons.R")
   if (!file.exists(path)) return(list())
 
   env <- new.env(parent = globalenv())

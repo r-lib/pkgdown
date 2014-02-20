@@ -22,6 +22,22 @@ pkg_sd_path <- function(package) {
     pathinst
 }
 
+file.path.ci <- function(...) {
+  default <- file.path(...)
+  if (file.exists(default)) return(default)
+
+  dir <- dirname(default)
+  if (!file.exists(dir)) return(default)
+
+  pattern <- glob2rx(basename(default)) # Not perfect, but safer than raw name
+  matches <- list.files(dir, pattern, ignore.case = TRUE,
+    full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
+  if (length(matches) == 0) return(default)
+
+  matches[[1]]
+}
+
+
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }
@@ -35,7 +51,7 @@ markdown <- function(x = NULL, path = NULL) {
   if (is.null(path)) {
     if (is.null(x) || x == "") return("")
   }
-  
+
   (markdownToHTML(text = x, file = path, fragment.only = TRUE,
     options = c("safelink", "use_xhtml", "smartypants")))
 }
