@@ -106,13 +106,14 @@ copy_bootstrap <- function(pkg = ".") {
 #' @importFrom tools pkgVignettes buildVignettes
 build_vignettes <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-  vigns <- pkgVignettes(dir = pkg$path, output = TRUE)
+  vigns <- pkgVignettes(dir = pkg$path)
 
   if (length(vigns$docs) == 0) return()
 
   message("Building vignettes")
   # Locate source and built versions of vignettes
   buildVignettes(dir = pkg$path)
+  vigns <- pkgVignettes(dir = pkg$path, output = TRUE)
 
   message("Copying vignettes")
   dest <- file.path(pkg$site_path, "vignettes")
