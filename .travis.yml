@@ -20,8 +20,6 @@ on_failure:
   - ./travis-tool.sh dump_logs
 
 deploy:
-  edge: true
-
   provider: s3
   access_key_id: AKIAIIQGQZ3IVAFTRQCA
   secret_access_key:
