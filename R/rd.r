@@ -8,7 +8,7 @@
 #' @param package package name, as character vector
 #' @export
 #' @examples
-#' parse_rd("geom_point", "ggplot2")
+#' parse_rd("whisker.render", "whisker")
 parse_rd <- function(topic, package) {
   rd <- utils:::.getHelpFile(rd_path(topic, package))
   structure(set_classes(rd), class = c("Rd_doc", "Rd"))
