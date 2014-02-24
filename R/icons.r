@@ -10,7 +10,7 @@ load_icons <- function(pkg = ".") {
   eval(parse(path), envir = env)
 
   all <- mget(ls(envir = env), env)
-  Filter(function(x) inherits(all, "sd_icon"), all)
+  Filter(function(x) inherits(x, "sd_icon"), all)
 }
 
 #' Define the icon for a function.
@@ -55,6 +55,8 @@ render_icons <- function(pkg = ".") {
   if (!file.exists(icon_path)) dir.create(icon_path)
 
   icons <- pkg$icons
+  if (length(icons) == 0) return()
+  require(grid, quietly = TRUE)
 
   has_icon <- Filter(function(x) !is.null(x$func), icons)
 
@@ -80,3 +82,8 @@ icon_path <- function(package, topic) {
 }
 
 icon_name <- function(topic) paste(topic, ".png", sep = "")
+
+#' @export
+print.sd_icon <- function(x, ...) {
+  cat("<sd_icon> ", if (is.null(x$func)) x$inherits else "<fun>", "\n", sep = "")
+}
