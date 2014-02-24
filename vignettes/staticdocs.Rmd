@@ -27,7 +27,7 @@ sd_section(
     settings that staticdocs uses when rendering a package.  This is
     particularly useful for generating an index page that groups functions
     into useful categories",
-  c("sd_icon", "sd_item","sd_section")
+  c("sd_icon", "sd_item", "sd_section")
 )
 ```
 
