@@ -2,24 +2,31 @@
 
 [![Build Status](https://travis-ci.org/hadley/staticdocs.png?branch=master)](https://travis-ci.org/hadley/staticdocs)
 
-`staticdocs` provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage.
+staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at http://staticdocs.had.co.nz/dev/: this is the output of staticdocs applied to the latest version of staticdocs.
 
-See the `staticdocs` documentation rendered with `staticdocs` at http://hadley.github.com/staticdocs/
+staticdocs is not currently available from CRAN, but you can install the development version from github with:
+
+```R
+# install.packages("devtools")
+devtools::install_github("hadley/staticdocs")
+```
 
 # Features
 
 * Attractive defaults: staticdocs uses [bootstrap]
-  (http://twitter.github.com/bootstrap/) to provide an attractive website that
-  you can easily customise.
+  (http://twitter.github.com/bootstrap/) to provide an attractive website.
 
 * Customisable: you can override the default templates to provide
   alternative rendering
 
+* Flexible ways to specify the index page so you can group related
+  functions together.
+
 Compared to `Rd2html`, staticdocs:
 
-* Makes it easier to customise the output
+* Makes it easier to customise the output.
 
-* Renders examples, so users see both input and output
+* Runs examples, so users see both input and output.
 
 * Assumes only one package is being rendered - links to documentation in
-  other packages are forwarded to the inside-r site.
+  other packages are forwarded to [inside-R](http://www.inside-r.org/).
