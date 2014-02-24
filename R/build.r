@@ -89,11 +89,21 @@ build_topics <- function(pkg = ".") {
 
 readme <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-  path <- file.path(pkg$path, "README.md")
 
-  # use description if no README.md is available
-  if (!file.exists(path)) return(pkg$description)
-  markdown(path = path)
+  # First look in staticdocs path
+  path <- file.path(pkg$sd_path, "README.md")
+  if (file.exists(path)) {
+    return(markdown(path = path))
+  }
+
+  # Then look in the package root
+  path <- file.path(pkg$path, "README.md")
+  if (file.exists(path)) {
+    return(markdown(path = path))
+  }
+
+  # Otherwise fallback to description
+  pkg$description
 }
 
 copy_bootstrap <- function(pkg = ".") {
