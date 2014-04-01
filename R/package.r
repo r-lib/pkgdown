@@ -7,6 +7,14 @@
 #' @param examples include examples or not? The default, \code{NULL}, first
 #'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
 #'   not found uses \code{TRUE}.
+#' @param templates_path a specific directory path to use when searching for
+#'   rendering templates, in addition to the default locations of
+#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
+#'   package's included templates directory.
+#' @param bootstrap_path a specific directory path to use when searching for
+#'   bootstrap style files, in addition to the default locations of
+#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
+#'   package's included bootstrap directory.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
