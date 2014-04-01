@@ -108,8 +108,12 @@ readme <- function(pkg = ".") {
 
 copy_bootstrap <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-
-  bootstrap <- file.path(inst_path(), "bootstrap")
+  user_bootstrap <- pkg$bootstrap_path
+  if (file.exists(user_bootstrap)) {
+    bootstrap <- user_bootstrap
+  } else {
+    bootstrap <- file.path(inst_path(), "bootstrap")
+  }
   file.copy(dir(bootstrap, full.names = TRUE), pkg$site_path, recursive = TRUE)
 }
 
@@ -167,4 +171,3 @@ build_demos <- function(pkg = ".") {
 
   list(demo = unname(apply(cbind(filename, title), 1, as.list)))
 }
-
