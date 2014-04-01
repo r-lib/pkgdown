@@ -195,7 +195,7 @@ to_html.deqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
 
-  str_c("<pre class = 'eq'>", to_html.TEXT(ascii_rep, ...), "</code>")
+  str_c("<pre class = 'eq'>", to_html.TEXT(ascii_rep, ...), "</pre>")
 }
 
 # Links ----------------------------------------------------------------------
