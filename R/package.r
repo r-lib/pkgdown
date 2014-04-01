@@ -15,12 +15,13 @@
 #'   bootstrap style files, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 #'   package's included bootstrap directory.
+#' @param mathjax whether to use mathjax to render math symbols.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL) {
+  templates_path = NULL, bootstrap_path = NULL, mathjax = NULL) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
@@ -37,6 +38,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
                                               "inst/staticdocs/templates"
   pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
                                               "inst/staticdocs/bootstrap"
+  pkg$mathjax <- mathjax %||% settings$site_path %||% TRUE
   if (!is.null(pkg$url)) {
     pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
     pkg$url <- NULL
