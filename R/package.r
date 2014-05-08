@@ -72,6 +72,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
     suggests = str_c(parse_deps(pkg$suggests)$name, collapse = ", "),
     extends = str_c(parse_deps(pkg$extends)$name, collapse = ", ")
   )
+  pkg$dependencies <- ifelse(pkg$dependencies == "", FALSE, pkg$dependencies)
 
   pkg$rd <- package_rd(pkg)
   pkg$rd_index <- topic_index(pkg$rd)

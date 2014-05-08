@@ -1,11 +1,12 @@
 #' Build complete static documentation for a package.
 #'
-#' Currently, knitr builds documentation for:
-#'
+#' Currently, build_site builds documentation for:
 #' \itemize{
-#'   \item Rd files.  Files
-#'   \item Demos. Must be listed in \file{demos/00index}.
-#'   \item Vignettes.
+#'   \item The package DESCRIPTION
+#'   \item Help topics
+#'   \item Vignettes
+#'   \item Demos. Must be listed in \file{demos/00index}
+#'   \item README.md files
 #' }
 #'
 #' @param pkg path to source version of package.  See
@@ -132,7 +133,7 @@ build_vignettes <- function(pkg = ".") {
   message("Copying vignettes")
   dest <- file.path(pkg$site_path, "vignettes")
   if (!file.exists(dest)) dir.create(dest)
-  file.copy(vigns$outputs, dest)
+  file.copy(vigns$outputs, dest, overwrite = TRUE)
 
   # Extract titles
   titles <- vapply(vigns$docs, FUN.VALUE = character(1), function(x) {
