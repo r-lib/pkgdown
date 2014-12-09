@@ -256,11 +256,20 @@ to_html.link <- function(x, pkg, ...) {
 make_link <- function(loc, label, pkg = NULL) {
   if (is.null(loc$package)) {
     str_c("<a href='", loc$file, "'>", label, "</a>")
+  } else if (loc$package %in% builtin_packages) {
+    str_c("<a href='http://www.inside-r.org/r-doc/", loc$package,
+          "/", loc$topic, "'>", label, "</a>")
   } else {
     str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
       "/docs/", loc$topic, "'>", label, "</a>")
   }
 }
+
+builtin_packages <- c("base", "boot", "class", "cluster", "codetools", "compiler",
+                      "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth",
+                      "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet",
+                      "parallel", "rpart", "spatial", "splines", "stats", "stats4",
+                      "survival", "tcltk", "tools", "utils")
 
 # Miscellaneous --------------------------------------------------------------
 
