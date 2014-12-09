@@ -69,5 +69,5 @@ extract_title <- function(x) {
   alias[[1]][[1]]
 }
 
-compact <- function (x) Filter(Negate(is.null), x)
+compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
 
