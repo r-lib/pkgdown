@@ -85,10 +85,11 @@ replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
   path <- file.path(pkg$site_path, name)
 
   if (!file.exists(path)) {
-    png(path, width = 400, height = 400, res = 96)
+    png(path, width = 540, height = 400)
     on.exit(dev.off())
     print(x)
   }
+  str_c("<p><img src='", escape_html(name), "' alt='' width='540' height='400' /></p>")
+}
 
-  str_c("<p><img src='", escape_html(name), "' alt='' width='400' height='400' /></p>")
 }
