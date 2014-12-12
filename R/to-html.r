@@ -130,7 +130,15 @@ to_html.details <- function(x, ...) parse_section(x, "Details", ...)
 #' @export
 to_html.description <- function(x, ...) parse_section(x, "Description", ...)
 #' @export
-to_html.value <- function(x, ...) parse_section(x, "Value", ...)
+to_html.value <- function(x, ...) {
+  # Note that \value is implicitly a \describe environment
+  class(x) <- c("describe", class(x))
+
+  text <- to_html(x, ...)
+  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+
+  list(title = "Value", contents = paras)
+}
 #' @export
 to_html.references <- function(x, ...) parse_section(x, "References", ...)
 #' @export
@@ -256,11 +264,20 @@ to_html.link <- function(x, pkg, ...) {
 make_link <- function(loc, label, pkg = NULL) {
   if (is.null(loc$package)) {
     str_c("<a href='", loc$file, "'>", label, "</a>")
+  } else if (loc$package %in% builtin_packages) {
+    str_c("<a href='http://www.inside-r.org/r-doc/", loc$package,
+          "/", loc$topic, "'>", label, "</a>")
   } else {
     str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
       "/docs/", loc$topic, "'>", label, "</a>")
   }
 }
+
+builtin_packages <- c("base", "boot", "class", "cluster", "codetools", "compiler",
+                      "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth",
+                      "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet",
+                      "parallel", "rpart", "spatial", "splines", "stats", "stats4",
+                      "survival", "tcltk", "tools", "utils")
 
 # Miscellaneous --------------------------------------------------------------
 
@@ -409,20 +426,17 @@ parse_items <- function(rd, ...) {
 }
 
 parse_descriptions <- function(rd, ...) {
-  separator <- vapply(rd, function(x) tag(x) == "item", 
+  is_item <- vapply(rd, function(x) tag(x) == "item",
                       FUN.VALUE = logical(1))
-  group <- cumsum(separator)
-  
-  # remove empty first group, if present
-  rd <- rd[group != 0]
-  group <- group[group != 0]
-  
-  items <- split(rd, group)
-  
-  li <- vapply(items, function(x) {
-    str_c("<dt>", to_html.TEXT(x[[1]][1], ...), "</dt><dd>", to_html.TEXT(x[[1]][-1], ...), "</dd>\n")
-  }, FUN.VALUE = character(1))
-  
+
+  li <- character(length(rd))
+  for (i in seq_along(rd)) {
+    if (is_item[[i]])
+      li[i] <- str_c("<dt>", to_html.TEXT(rd[[i]][[1]], ...), "</dt><dd>", to_html.TEXT(rd[[i]][-1], ...), "</dd>\n")
+    else
+      li[i] <- to_html.TEXT(rd[i], ...)
+  }
+
   str_c(li, collapse = "")
 }
 
