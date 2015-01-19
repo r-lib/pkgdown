@@ -1,9 +1,9 @@
 #' Return information about a package
 #'
-#' @param package name of package, as character vector
-#' @param base_path root directory in which to create documentation. The
+#' @param pkg name of package, as character vector
+#' @param site_path root directory in which to create documentation. The
 #'   default, \code{NULL}, first looks at the value of \code{site_path} set in
-#'   \file{DESCRIPTION}, and if not found uses \code{inst/web}.
+#'   \file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.
 #' @param examples include examples or not? The default, \code{NULL}, first
 #'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
 #'   not found uses \code{TRUE}.

@@ -1,5 +1,7 @@
 #' Build complete static documentation for a package.
 #'
+#' @description
+#'
 #' Currently, knitr builds documentation for:
 #'
 #' \itemize{
