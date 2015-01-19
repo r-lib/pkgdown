@@ -14,10 +14,13 @@ inst_path <- function() {
 # or in pkgdir/staticdocs/ (for installed packages)
 pkg_sd_path <- function(package, site_path) {
 
+  if(!is.null(package$sd_path)) return(package$sd_path)
+
   if(!missing(site_path) && !is.null(site_path)) {
     if(dir.exists(site_path))
-      return(site_path) else
-        stop("Folder site_path doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
+      return(site_path)
+    else
+      stop("Folder site_path doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
   }
 
   pathsrc <- file.path(package$path, "inst", "staticdocs")
@@ -26,8 +29,9 @@ pkg_sd_path <- function(package, site_path) {
   if (dir.exists(pathsrc))
     pathsrc
   else if (dir.exists(pathinst))
-    pathinst else
-      stop("Folder inst/staticdocs doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
+    pathinst
+  else
+    stop("Folder inst/staticdocs doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
 
 
 }
@@ -41,7 +45,7 @@ file.path.ci <- function(...) {
 
   pattern <- glob2rx(basename(default)) # Not perfect, but safer than raw name
   matches <- list.files(dir, pattern, ignore.case = TRUE,
-    full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
+                        full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
   if (length(matches) == 0) return(default)
 
   matches[[1]]
@@ -63,7 +67,7 @@ markdown <- function(x = NULL, path = NULL) {
   }
 
   (markdownToHTML(text = x, file = path, fragment.only = TRUE,
-    options = c("safelink", "use_xhtml", "smartypants")))
+                  options = c("safelink", "use_xhtml", "smartypants")))
 }
 
 # Given the name or vector of names, returns a named vector reporting
