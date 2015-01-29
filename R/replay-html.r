@@ -2,10 +2,13 @@ escape_html <- function(x) {
   x <- str_replace_all(x, "&", "&amp;")
   x <- str_replace_all(x, "<", "&lt;")
   x <- str_replace_all(x, ">", "&gt;")
-  x <- str_replace_all(x, "&lt;strong&gt;", "<strong>")
-  x <- str_replace_all(x, "&lt;/strong&gt;", "</strong>")
   x <- str_replace_all(x, "'", "&#39;")
   x <- str_replace_all(x, "\"", "&quot;")
+  
+  # Restore <strong> and </strong> tags
+  x <- str_replace_all(x, "&lt;strong&gt;", "<strong>")
+  x <- str_replace_all(x, "&lt;/strong&gt;", "</strong>")
+
   x
 }
 
