@@ -290,12 +290,12 @@ to_html.enc <- function(x, ...) {
 #' @export
 to_html.dontrun <- function(x, ...) {
   if (length(x) == 1) {
-    str_c("## <strong>Not run</strong>: " , to_html.TEXT(x))
+    str_c("## Not run: " , to_html.TEXT(x))
   } else {
     str_c(
-      "## <strong>Not run</strong>: " ,
+      "## Not run: " ,
       str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "),
-      "## <strong>End(Not run)</strong>"
+      "## End(Not run)"
     )
   }
 }
