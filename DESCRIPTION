@@ -9,7 +9,6 @@ Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: MIT + file LICENSE
 Imports:
     stringr,
-    testthat,
     evaluate,
     whisker,
     highlight,
@@ -17,7 +16,8 @@ Imports:
     markdown,
     devtools (>= 0.8),
     digest,
-    grid
+    grid,
+    crayon
 Suggests:
     knitr
 VignetteBuilder: knitr
