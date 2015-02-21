@@ -105,9 +105,10 @@ as.list.Rd <- function(x, ...) {
   x
 }
 
+#' @importFrom crayon blue
 #' @export
 print.Rd <- function(x, ..., indent = 0) {
-  cat(str_dup(" ", indent), "\\- ", colourise(tag(x), "blue"),
+  cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
     " (", length(x), ")\n", sep = "")
 
   lapply(x, print, indent = indent + 2)
@@ -122,11 +123,11 @@ print.RCODE <- function(x, ..., indent = 0) block(x, indent, ">")
 #' @export
 print.COMMENT <- function(x, ..., indent = 0) block(x, indent, "%")
 
-#' @importFrom testthat colourise
+#' @importFrom crayon blue
 block <- function(x, indent = 0, prefix = "'") {
   x <- str_trim(x)
 
-  start <- str_c(str_dup(" ", indent), colourise(prefix, "blue"), " ")
+  start <- str_c(str_dup(" ", indent), crayon::blue(prefix), " ")
   cat(start, str_sub(x, 0, getOption("width") - str_length(start)), "\n",
     sep = "")
 }
