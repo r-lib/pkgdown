@@ -142,6 +142,8 @@ to_html.value <- function(x, ...) {
 #' @export
 to_html.references <- function(x, ...) parse_section(x, "References", ...)
 #' @export
+to_html.source <- function(x, ...) parse_section(x, "Source", ...)
+#' @export
 to_html.format <- function(x, ...) parse_section(x, "Format", ...)
 #' @export
 to_html.note <- function(x, ...) parse_section(x, "Note", ...)
