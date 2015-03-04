@@ -11,12 +11,17 @@
 #'   rendering templates, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 #'   package's included templates directory.
+#' @param tracking_id Add Google Analytics to your site by adding a tracking ID
+#'   number (it looks something like \code{"UA-000000-01"}).
+#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
+#'   finding your tracking ID?} The default, \code{NULL}, deactivates Google
+#'   Analytics.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL) {
+  templates_path = NULL, tracking_id = NULL) {
 
   if (is.sd_package(pkg)) return(pkg)
 
@@ -31,6 +36,10 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
   pkg$examples <- examples %||% settings$examples %||% TRUE
   pkg$templates_path <- templates_path %||% settings$templates_path %||% NULL
+
+  if (!is.null(tracking_id)) {
+    pkg$googleanalytics <- list(tracking_id = tracking_id)
+  }
 
   if (!is.null(pkg$url)) {
     pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])

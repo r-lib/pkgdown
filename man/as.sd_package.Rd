@@ -5,7 +5,7 @@
 \title{Return information about a package}
 \usage{
 as.sd_package(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL)
+  templates_path = NULL, tracking_id = NULL)
 }
 \arguments{
 \item{examples}{include examples or not? The default, \code{NULL}, first
@@ -16,6 +16,12 @@ not found uses \code{TRUE}.}
 rendering templates, in addition to the default locations of
 packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 package's included templates directory.}
+
+\item{tracking_id}{Add Google Analytics to your site by adding a tracking ID
+number (it looks something like \code{"UA-000000-01"}).
+\href{https://support.google.com/analytics/answer/1032385}{Need help
+finding your tracking ID?} The default, \code{NULL}, deactivates Google
+Analytics.}
 
 \item{package}{name of package, as character vector}
 
