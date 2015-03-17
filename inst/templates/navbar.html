@@ -1,12 +1,21 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">{{#package}}{{package}} {{version}}{{/package}}</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Project name</a>
+  </div>
+  <div class="navbar-collapse collapse">
+
+ <ul class="nav navbar-nav">
+
+<li><a class="brand" href="#">{{#package}}{{package}} {{version}}{{/package}}</a></li>
+<li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
         </ul>
       </div>
     </div>
-  </div>
-</div>
+
