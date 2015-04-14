@@ -76,8 +76,8 @@ build_topics <- function(pkg = ".") {
 
     html$package <- pkg[c("package", "version")]
 
-    if (!is.null(pkg$googleanalytics))
-      html$googleanalytics <- pkg$googleanalytics
+    if (!is.null(pkg$ganalytics))
+      html$ganalytics <- pkg$ganalytics
 
     render_page(pkg, "topic", html, paths[[i]])
     graphics.off()

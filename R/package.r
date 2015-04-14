@@ -38,7 +38,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   pkg$templates_path <- templates_path %||% settings$templates_path %||% NULL
 
   if (!is.null(tracking_id)) {
-    pkg$googleanalytics <- list(tracking_id = tracking_id)
+    pkg$ganalytics <- list(tracking_id = tracking_id)
   }
 
   if (!is.null(pkg$url)) {
