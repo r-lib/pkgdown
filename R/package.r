@@ -55,6 +55,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
     }
 
     pkg$authors <- eval(parse(text = pkg$`authors@r`))
+    pkg$authors <- as.person(pkg$authors)
     pkg$authors <- sapply(pkg$authors, str_person)
   }
 
