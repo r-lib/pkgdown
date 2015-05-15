@@ -11,13 +11,17 @@
 #'   rendering templates, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 #'   package's included templates directory.
+#' @param bootstrap_path a specific directory path to use when searching for
+#'   bootstrap style files, in addition to the default locations of
+#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
+#'   package's included bootstrap directory.
+#' @param mathjax whether to use mathjax to render math symbols.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL) {
-
+  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
@@ -30,8 +34,11 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   settings <- load_settings(pkg)
   pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
   pkg$examples <- examples %||% settings$examples %||% TRUE
-  pkg$templates_path <- templates_path %||% settings$templates_path %||% NULL
-
+  pkg$templates_path <- templates_path %||% settings$templates_path %||%
+                                              "inst/staticdocs/templates"
+  pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
+                                              "inst/staticdocs/bootstrap"
+  pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
   if (!is.null(pkg$url)) {
     pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
     pkg$url <- NULL
