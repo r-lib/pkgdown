@@ -16,13 +16,18 @@
 #'   \href{https://support.google.com/analytics/answer/1032385}{Need help
 #'   finding your tracking ID?} The default, \code{NULL}, deactivates Google
 #'   Analytics.
+#' @param bootstrap_path a specific directory path to use when searching for
+#'   bootstrap style files, in addition to the default locations of
+#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
+#'   package's included bootstrap directory.
+#' @param mathjax whether to use mathjax to render math symbols.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, tracking_id = NULL) {
-
+  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE,
+  tracking_id = NULL) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
@@ -35,7 +40,11 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   settings <- load_settings(pkg)
   pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
   pkg$examples <- examples %||% settings$examples %||% TRUE
-  pkg$templates_path <- templates_path %||% settings$templates_path %||% NULL
+  pkg$templates_path <- templates_path %||% settings$templates_path %||%
+                                              "inst/staticdocs/templates"
+  pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
+                                              "inst/staticdocs/bootstrap"
+  pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
 
   if (!is.null(tracking_id)) {
     pkg$ganalytics <- list(tracking_id = tracking_id)
@@ -74,6 +83,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
     suggests = str_c(parse_deps(pkg$suggests)$name, collapse = ", "),
     extends = str_c(parse_deps(pkg$extends)$name, collapse = ", ")
   )
+  pkg$dependencies <- ifelse(pkg$dependencies == "", FALSE, pkg$dependencies)
 
   pkg$rd <- package_rd(pkg)
   pkg$rd_index <- topic_index(pkg$rd)

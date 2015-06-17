@@ -193,19 +193,24 @@ to_html.item <- function(x, ...) {
 # Equations ------------------------------------------------------------------
 
 #' @export
-to_html.eqn <- function(x, ...) {
+to_html.eqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
   ascii_rep <- x[[length(x)]]
-
-  str_c("<code class = 'eq'>", to_html.TEXT(ascii_rep, ...), "</code>")
+  if (pkg$mathjax){
+    str_c("$", to_html.TEXT(ascii_rep, ...), "$")
+  }else{
+    str_c("<code class = 'eq'>", to_html.TEXT(ascii_rep, ...), "</code>")
+  }
 }
 
 #' @export
-to_html.deqn <- function(x, ...) {
+to_html.deqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
-  ascii_rep <- x[[length(x)]]
-
-  str_c("<pre class = 'eq'>", to_html.TEXT(ascii_rep, ...), "</pre>")
+  if (pkg$mathjax){
+    str_c("$$", to_html.TEXT(x[[length(x)-1]], ...), "$$")
+  }else{
+    str_c("<pre class = 'eq'>", to_html.TEXT(x[[length(x)]], ...), "</pre>")
+  }
 }
 
 # Links ----------------------------------------------------------------------
