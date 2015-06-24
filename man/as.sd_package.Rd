@@ -7,6 +7,12 @@ as.sd_package(pkg = ".", site_path = NULL, examples = NULL,
   templates_path = NULL)
 }
 \arguments{
+\item{pkg}{name of package, as character vector}
+
+\item{site_path}{root directory in which to create documentation. The
+default, \code{NULL}, first looks at the value of \code{site_path} set in
+\file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.}
+
 \item{examples}{include examples or not? The default, \code{NULL}, first
 looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
 not found uses \code{TRUE}.}
@@ -15,12 +21,6 @@ not found uses \code{TRUE}.}
 rendering templates, in addition to the default locations of
 packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 package's included templates directory.}
-
-\item{package}{name of package, as character vector}
-
-\item{base_path}{root directory in which to create documentation. The
-default, \code{NULL}, first looks at the value of \code{site_path} set in
-\file{DESCRIPTION}, and if not found uses \code{inst/web}.}
 }
 \value{
 A named list of useful metadata about a package
