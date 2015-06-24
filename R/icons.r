@@ -56,7 +56,6 @@ render_icons <- function(pkg = ".") {
 
   icons <- pkg$icons
   if (length(icons) == 0) return()
-  require(grid, quietly = TRUE)
 
   has_icon <- Filter(function(x) !is.null(x$func), icons)
 
