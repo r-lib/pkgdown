@@ -76,7 +76,7 @@ find_topic <- function(alias, package = NULL, index) {
 
 tag <- function(x) {
   tag <- attr(x, "Rd_tag")
-  if (is.null(tag)) return()
+  if (is.null(tag)) return("")
 
   str_replace_all(tag, fixed("\\"), "")
 }
@@ -100,17 +100,16 @@ set_classes <- function(rd) {
 is.Rd <- function(x) inherits(x, "Rd")
 
 #' @export
-as.list.Rd <- function(x, ...) {
+as.list.Rd_doc <- function(x, ...) {
   class(x) <- NULL
   x
 }
 
 #' @export
-print.Rd <- function(x, ..., indent = 0) {
+print.Rd_doc <- function(x, ..., indent = 0) {
   cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
     " (", length(x), ")\n", sep = "")
-
-  lapply(x, print, indent = indent + 2)
+  # lapply(as.list(x), print.Rd_doc, indent = indent + 2)
 }
 
 #' @export
