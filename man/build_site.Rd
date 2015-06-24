@@ -21,6 +21,8 @@ browser.}
 }
 \description{
 Currently, build_site builds documentation for:
+}
+\details{
 \itemize{
   \item The package DESCRIPTION
   \item Help topics

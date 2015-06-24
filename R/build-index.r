@@ -66,6 +66,7 @@ build_section <- function(section, pkg) {
 
 extract_title <- function(x) {
   alias <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
+  alias <- alias[sapply(alias, `!=`, "\n")] # Remove lines consisting of only "\n"
   alias[[1]][[1]]
 }
 
