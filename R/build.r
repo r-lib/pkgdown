@@ -1,7 +1,6 @@
 #' Build complete static documentation for a package.
 #'
 #' Currently, build_site builds documentation for:
-#'
 #' \itemize{
 #'   \item The package DESCRIPTION
 #'   \item Help topics
