@@ -8,10 +8,10 @@
 #' @param package package name, as character vector
 #' @export
 #' @examples
-#' parse_rd("whisker.render", "whisker")
+#' # parse_rd("whisker.render", "whisker")
 parse_rd <- function(topic, package) {
   rd <- utils:::.getHelpFile(rd_path(topic, package))
-  structure(set_classes(rd), class = "Rd_doc")
+  structure(set_classes(rd), class = "Rd_content")
 }
 
 package_rd <- function(package) {
