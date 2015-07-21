@@ -17,6 +17,6 @@ leaves are given a short prefix: \code{\"} = text, \code{\'} = verbatim, and
 \code{>} = R code.
 }
 \examples{
-# parse_rd("whisker.render", "whisker")
+parse_rd("whisker.render", "whisker")
 }
 

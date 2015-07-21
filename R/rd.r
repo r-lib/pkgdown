@@ -8,10 +8,12 @@
 #' @param package package name, as character vector
 #' @export
 #' @examples
-#' # parse_rd("whisker.render", "whisker")
+#' parse_rd("whisker.render", "whisker")
 parse_rd <- function(topic, package) {
-  rd <- utils:::.getHelpFile(rd_path(topic, package))
-  structure(set_classes(rd), class = "Rd_content")
+  rd_raw <- utils:::.getHelpFile(rd_path(topic, package))
+  rd <- structure(set_classes(rd_raw), class = "Rd_content")
+  attr(rd, "Rd_tag") <- "Rd file"
+  print(rd)
 }
 
 package_rd <- function(package) {
@@ -105,9 +107,13 @@ as.list.Rd_content <- function(x, ...) {
 
 #' @export
 print.Rd_content <- function(x, ..., indent = 0) {
-  cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
-    " (", length(x), ")\n", sep = "")
-  # lapply(as.list(x), print.Rd_content, indent = indent + 2)
+  current_tag <- tag(x)
+  if (!is.null(current_tag)) {
+    cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
+        " (", length(x), ")\n", sep = "")
+  }
+  lapply(as.list(x), print, indent = indent + 2)
+  invisible()
 }
 
 #' @export
