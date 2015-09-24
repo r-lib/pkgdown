@@ -275,8 +275,10 @@ make_link <- function(loc, label, pkg = NULL) {
     str_c("<a href='http://www.inside-r.org/r-doc/", loc$package,
           "/", loc$topic, "'>", label, "</a>")
   } else {
-    str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
-      "/docs/", loc$topic, "'>", label, "</a>")
+#    str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
+#      "/docs/", loc$topic, "'>", label, "</a>")
+    str_c("<a href='http://rpackages.ianhowson.com/cran/",
+          loc$package, "/man/", loc$topic, ".html'>", label, "</a>")
   }
 }
 
