@@ -11,6 +11,11 @@
 #'   rendering templates, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
 #'   package's included templates directory.
+#' @param tracking_id Add Google Analytics to your site by adding a tracking ID
+#'   number (it looks something like \code{"UA-000000-01"}).
+#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
+#'   finding your tracking ID?} The default, \code{NULL}, deactivates Google
+#'   Analytics.
 #' @param bootstrap_path a specific directory path to use when searching for
 #'   bootstrap style files, in addition to the default locations of
 #'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
@@ -21,7 +26,8 @@
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE) {
+  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE,
+  tracking_id = NULL) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
@@ -39,6 +45,11 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
                                               "inst/staticdocs/bootstrap"
   pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
+
+  if (!is.null(tracking_id)) {
+    pkg$ganalytics <- list(tracking_id = tracking_id)
+  }
+
   if (!is.null(pkg$url)) {
     pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
     pkg$url <- NULL
