@@ -47,7 +47,6 @@ make_function <- function(args, expr, env = globalenv()) {
 }
 
 
-#' @importFrom grid grid.draw
 render_icons <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
@@ -56,13 +55,12 @@ render_icons <- function(pkg = ".") {
 
   icons <- pkg$icons
   if (length(icons) == 0) return()
-  require(grid, quietly = TRUE)
 
   has_icon <- Filter(function(x) !is.null(x$func), icons)
 
   for(icon in names(has_icon)) {
     png(file.path(icon_path, icon_name(icon)), width = 40, height = 40)
-    try(grid.draw(icons[[icon]]$func()))
+    try(grid::grid.draw(icons[[icon]]$func()))
     dev.off()
   }
 }

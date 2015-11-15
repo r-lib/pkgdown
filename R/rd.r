@@ -10,8 +10,10 @@
 #' @examples
 #' parse_rd("whisker.render", "whisker")
 parse_rd <- function(topic, package) {
-  rd <- utils:::.getHelpFile(rd_path(topic, package))
-  structure(set_classes(rd), class = c("Rd_doc", "Rd"))
+  rd_raw <- utils:::.getHelpFile(rd_path(topic, package))
+  rd <- structure(set_classes(rd_raw), class = "Rd_content")
+  attr(rd, "Rd_tag") <- "Rd file"
+  print(rd)
 }
 
 package_rd <- function(package) {
@@ -36,7 +38,7 @@ cached_parse_Rd <- function(path) {
     rd_cache[[hash]]
   } else {
     raw_rd <- parse_Rd(path)
-    rd <- structure(set_classes(raw_rd), class = c("Rd_doc", "Rd"))
+    rd <- structure(set_classes(raw_rd), class = "Rd_content")
     rd_cache[[hash]] <- rd
     rd
   }
@@ -82,7 +84,7 @@ tag <- function(x) {
 }
 
 set_class <- function(x) {
-  structure(x, class = unique(c(tag(x), "Rd", class(x))))
+  structure(x, class = unique(c(tag(x), "Rd_content", class(x))))
 }
 
 # Recursively set classes of Rd objects
@@ -97,20 +99,21 @@ set_classes <- function(rd) {
   }
 }
 
-is.Rd <- function(x) inherits(x, "Rd")
-
 #' @export
-as.list.Rd <- function(x, ...) {
+as.list.Rd_content <- function(x, ...) {
   class(x) <- NULL
   x
 }
 
 #' @export
-print.Rd <- function(x, ..., indent = 0) {
-  cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
-    " (", length(x), ")\n", sep = "")
-
-  lapply(x, print, indent = indent + 2)
+print.Rd_content <- function(x, ..., indent = 0) {
+  current_tag <- tag(x)
+  if (!is.null(current_tag)) {
+    cat(str_dup(" ", indent), "\\- ", crayon::blue(tag(x)),
+        " (", length(x), ")\n", sep = "")
+  }
+  lapply(as.list(x), print, indent = indent + 2)
+  invisible()
 }
 
 #' @export

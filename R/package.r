@@ -1,9 +1,9 @@
 #' Return information about a package
 #'
-#' @param package name of package, as character vector
-#' @param base_path root directory in which to create documentation. The
+#' @param pkg name of package, as character vector
+#' @param site_path root directory in which to create documentation. The
 #'   default, \code{NULL}, first looks at the value of \code{site_path} set in
-#'   \file{DESCRIPTION}, and if not found uses \code{inst/web}.
+#'   \file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.
 #' @param examples include examples or not? The default, \code{NULL}, first
 #'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
 #'   not found uses \code{TRUE}.
@@ -32,7 +32,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
 
   pkg <- as.package(pkg)
   class(pkg) <- c("sd_package", "package")
-  pkg$sd_path <- pkg_sd_path(pkg)
+  pkg$sd_path <- pkg_sd_path(pkg, site_path = site_path)
 
   pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)

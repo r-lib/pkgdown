@@ -168,7 +168,7 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
 
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ...)
-  expr <- evaluate(text, env, new_device = FALSE)
+  expr <- evaluate(text, env, new_device = TRUE)
 
   replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
 }
@@ -217,7 +217,7 @@ to_html.deqn <- function(x, pkg, ...) {
 #' @export
 to_html.url <- function(x, ...) {
   stopifnot(length(x) == 1)
-  str_c("<a href = '", x[[1]], "'>", x[[1]], "</a>")
+  str_c("<a href = '", to_html.TEXT(x[[1]]), "'>", to_html.TEXT(x[[1]]), "</a>")
 }
 #' @export
 to_html.href <- function(x, ...) {
@@ -297,12 +297,12 @@ to_html.enc <- function(x, ...) {
 #' @export
 to_html.dontrun <- function(x, ...) {
   if (length(x) == 1) {
-    str_c("## <strong>Not run</strong>: " , to_html.TEXT(x))
+    str_c("## Not run: " , to_html.TEXT(x))
   } else {
     str_c(
-      "## <strong>Not run</strong>: " ,
+      "## Not run: " ,
       str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "),
-      "## <strong>End(Not run)</strong>"
+      "## End(Not run)"
     )
   }
 }
@@ -450,7 +450,7 @@ parse_descriptions <- function(rd, ...) {
 # Simple tags that need minimal processing -----------------------------------
 
 #' @export
-to_html.Rd <- function(x, ...) {
+to_html.Rd_content <- function(x, ...) {
   tag <- tag(x)
 
   if (is.null(tag)) {

@@ -1,11 +1,12 @@
 Package: staticdocs
-Type: Package
-Title: Make static html documentation for a package.
+Version: 0.1
+Title: Make Static HTML Documentation for a Package
 Description: Convert package rd files to static html pages, suitable for
     serving on a website.
-Version: 0.1
-Author: Hadley Wickham <h.wickham@gmail.com>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = "cph")
+    )
 License: MIT + file LICENSE
 Imports:
     stringr,
@@ -21,4 +22,4 @@ Imports:
 Suggests:
     knitr
 VignetteBuilder: knitr
-Roxygen: list(wrap = FALSE)
+RoxygenNote: 5.0.1
