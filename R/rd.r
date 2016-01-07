@@ -13,7 +13,8 @@ parse_rd <- function(topic, package) {
   rd_raw <- utils:::.getHelpFile(rd_path(topic, package))
   rd <- structure(set_classes(rd_raw), class = "Rd_content")
   attr(rd, "Rd_tag") <- "Rd file"
-  print(rd)
+  #print(rd)
+  return(rd)
 }
 
 package_rd <- function(package) {

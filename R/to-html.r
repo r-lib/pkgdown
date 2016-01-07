@@ -275,8 +275,10 @@ make_link <- function(loc, label, pkg = NULL) {
     str_c("<a href='http://www.inside-r.org/r-doc/", loc$package,
           "/", loc$topic, "'>", label, "</a>")
   } else {
-    str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
-      "/docs/", loc$topic, "'>", label, "</a>")
+#    str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
+#      "/docs/", loc$topic, "'>", label, "</a>")
+    str_c("<a href='http://rpackages.ianhowson.com/cran/",
+          loc$package, "/man/", loc$topic, ".html'>", label, "</a>")
   }
 }
 
@@ -325,7 +327,8 @@ to_html.special <- function(x, ...) {
 
 #' @export
 to_html.method <- function(x, ...) {
-  str_c('"', to_html(x[[1]], ...), '"')
+  ##                            CLASS                      method.class
+  str_c("## method for class '", x[[2]], "'\n", to_html(x[[1]], ".", x[[2]], ...), '')
 }
 #' @export
 to_html.S3method <- to_html.method
