@@ -12,17 +12,27 @@
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
+#' @param load if \code{TRUE}, the package will be loaded using
+#'   \code{\link[devtools]{load_all}}, otherwise, it will be build first and
+#'   then loaded.
 #' @param ... Other additional arguments passed to \code{\link{as.sd_package}}
 #'   used to override package defaults.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
 #' @import stringr
-#' @importFrom devtools load_all
+#' @importFrom devtools load_all install
 #' @aliases staticdocs-package build_package
-build_site <- function(pkg = ".", ..., launch = interactive()) {
+build_site <- function(pkg = ".", ..., load = TRUE, launch = interactive()) {
   pkg <- as.sd_package(pkg, ...)
-  load_all(pkg)
+
+  if (load){
+    load_all(pkg)
+  } else {
+    devtools::install(pkg)
+    suppressPackageStartupMessages(library(pkg$package, character.only = TRUE))
+  }
+
 
   if (!file.exists(pkg$site_path)) {
     dir.create(pkg$site_path, recursive = TRUE)
