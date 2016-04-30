@@ -155,12 +155,12 @@ build_demos <- function(pkg = ".") {
   demos <- readLines(file.path(demo_dir, "00Index"))
 
   pieces <- str_split_fixed(demos, "\\s+", 2)
-  in_path <- str_c(pieces[, 1], ".r")
+  in_path <- str_c(pieces[, 1], ".[rR]")
   filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
 
   for(i in seq_along(title)) {
-    demo_code <- readLines(file.path(demo_dir, in_path[i]))
+    demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
     demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
       new_device = FALSE)
 
