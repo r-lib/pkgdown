@@ -6,7 +6,8 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", ..., launch = interactive())
+build_site(pkg = ".", ..., with_vignettes = TRUE, with_demos = TRUE,
+  with_readme = TRUE, launch = interactive())
 }
 \arguments{
 \item{pkg}{path to source version of package.  See

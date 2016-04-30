@@ -20,7 +20,9 @@
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package build_package
-build_site <- function(pkg = ".", ..., launch = interactive()) {
+build_site <- function(pkg = ".", ..., with_vignettes = TRUE,
+                       with_demos = TRUE, with_readme = TRUE,
+                       launch = interactive()) {
   pkg <- as.sd_package(pkg, ...)
   load_all(pkg)
 
@@ -30,9 +32,9 @@ build_site <- function(pkg = ".", ..., launch = interactive()) {
   copy_bootstrap(pkg)
 
   pkg$topics <- build_topics(pkg)
-  pkg$vignettes <- build_vignettes(pkg)
-  pkg$demos <- build_demos(pkg)
-  pkg$readme <- readme(pkg)
+  if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
+  if (with_demos) pkg$demos <- build_demos(pkg)
+  if (with_readme) pkg$readme <- readme(pkg)
   build_index(pkg)
 
   if (launch) launch(pkg)
