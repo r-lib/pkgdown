@@ -259,6 +259,24 @@ to_html.link <- function(x, pkg, ...) {
     }
   }
 
+  find_topic_and_make_link(topic, label, t_package, pkg)
+}
+
+# Might need to look up alias to find file name and package
+#' @export
+to_html.linkS4class <- function(x, pkg, ...) {
+  stopifnot(length(x) == 1)
+
+  topic <- to_html.TEXT(x[[1]])
+  label <- topic
+  t_package <- NULL
+
+  topic <- paste0(topic, "-class")
+
+  find_topic_and_make_link(topic, label, t_package, pkg)
+}
+
+find_topic_and_make_link <- function(topic, label, t_package, pkg) {
   loc <- find_topic(topic, t_package, pkg$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
