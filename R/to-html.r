@@ -102,16 +102,23 @@ to_html.usage <- function(x, pkg, ...) {
 
   text <- str_trim(text)
 
-  # It's nice not to wrap in the middle of a simple "arg = default"
-  text <- str_replace_all(text, " = ", "&nbsp;=&nbsp;")
-  # Wrap each individual function in its own div, so that text-indent
-  # CSS rules can be used effectively
-  text <- str_replace_all(text, "\n\n", "</div>\n<div>")
-  text <- paste0("<div>", text, "</div>")
-  # Collapse all hardcoded hanging indents
-  text <- str_replace_all(text, "\n +", " ")
+  html <- src_highlight(text, pkg$rd_index)
 
-  src_highlight(text, pkg$rd_index)
+  if (!identical(text, html)) {
+    # It's nice not to wrap in the middle of a simple "arg = default"
+    html <- str_replace_all(html, ' <span class="argument">=</span> ', '&nbsp;<span class="argument">=</span>&nbsp;')
+    html
+  } else {
+    html <- str_replace_all(text, " = ", "&nbsp;=&nbsp;")
+    # Wrap each individual function in its own div, so that text-indent
+    # CSS rules can be used effectively
+    html <- str_replace_all(html, "\n\n", "</div>\n<div>")
+    html <- paste0("<div>", html, "</div>")
+    # Collapse all hardcoded hanging indents
+    html <- str_replace_all(html, "\n +", " ")
+
+    html
+  }
 }
 #' @export
 to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
