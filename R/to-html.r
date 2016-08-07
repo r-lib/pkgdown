@@ -125,7 +125,12 @@ to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
 to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
-to_html.seealso <- function(x, ...) to_html.TEXT(x, ...)
+to_html.seealso <- function(x, ...) {
+  text <- to_html.TEXT(x, ...)
+  paras <- split_at_linebreaks(text)
+
+  list(title = "See also", contents = paras)
+}
 #' @export
 to_html.author <- function(x, ...) to_html.TEXT(x, ...)
 
