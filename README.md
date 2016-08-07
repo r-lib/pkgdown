@@ -29,4 +29,4 @@ Compared to `Rd2html`, staticdocs:
 * Runs examples, so users see both input and output.
 
 * Assumes only one package is being rendered - links to documentation in
-  other packages are forwarded to [inside-R](http://www.inside-r.org/).
+  other packages are forwarded to [Rdocumentation](http://www.rdocumentation.org/).
