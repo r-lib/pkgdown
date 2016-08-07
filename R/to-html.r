@@ -167,6 +167,8 @@ parse_section <- function(x, title, ...) {
 }
 
 split_at_linebreaks <- function(text) {
+  if (length(text) < 1)
+    return(character())
   str_trim(str_split(text, "\\n\\s*\\n")[[1]])
 }
 
