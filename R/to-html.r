@@ -159,6 +159,12 @@ parse_section <- function(x, title, ...) {
   list(title = title, contents = paras)
 }
 
+#' @export
+to_html.subsection <- function(x, ...) {
+  subsection <- parse_section(x[[2]], to_html(x[[1]], ...), ...)
+  c(paste0("<h3>", subsection$title, "</h3>"), subsection$contents)
+}
+
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
