@@ -11,6 +11,7 @@ install:
   - ./travis-tool.sh r_binary_install knitr
   - ./travis-tool.sh r_binary_install rgl
   - ./travis-tool.sh r_binary_install XML
+  - ./travis-tool.sh r_binary_install roxygen2
   - ./travis-tool.sh install_deps
 
 script:
