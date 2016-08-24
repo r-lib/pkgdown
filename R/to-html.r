@@ -142,7 +142,7 @@ to_html.value <- function(x, ...) {
   class(x) <- c("describe", class(x))
 
   text <- to_html(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = "Value", contents = paras)
 }
@@ -161,9 +161,13 @@ to_html.section <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- to_html.TEXT(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = title, contents = paras)
+}
+
+split_at_linebreaks <- function(text) {
+  str_trim(str_split(text, "\\n\\s*\\n")[[1]])
 }
 
 #' @export
