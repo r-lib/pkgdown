@@ -272,6 +272,14 @@ to_html.link <- function(x, pkg, ...) {
     }
   }
 
+  # Special case: need to remove the package qualification if help is explicitly
+  # requested from the package for which documentation is rendered (#115).
+  # Otherwise find_topic() -> rd_path() will open the development version of the
+  # help page, because the package is loaded with devtools::load_all().
+  if (!is.null(t_package) && t_package == pkg$package) {
+    t_package <- NULL
+  }
+
   find_topic_and_make_link(topic, label, t_package, pkg)
 }
 
@@ -290,14 +298,6 @@ to_html.linkS4class <- function(x, pkg, ...) {
 }
 
 find_topic_and_make_link <- function(topic, label, t_package, pkg) {
-  # Special case: need to remove the package qualification if help is explicitly
-  # requested from the package for which documentation is rendered.
-  # Otherwise find_topic() -> rd_path() will open the development version of the
-  # help page, because the package is loaded with devtools::load_all().
-  if (!is.null(t_package) && t_package == pkg$package) {
-    t_package <- NULL
-  }
-
   loc <- find_topic(topic, t_package, pkg$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
