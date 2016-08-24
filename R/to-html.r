@@ -159,6 +159,12 @@ parse_section <- function(x, title, ...) {
   list(title = title, contents = paras)
 }
 
+#' @export
+to_html.subsection <- function(x, ...) {
+  subsection <- parse_section(x[[2]], to_html(x[[1]], ...), ...)
+  c(paste0("<h3>", subsection$title, "</h3>"), subsection$contents)
+}
+
 # Examples ------------------------------------------------------------------
 
 #' @importFrom evaluate evaluate
@@ -259,6 +265,32 @@ to_html.link <- function(x, pkg, ...) {
     }
   }
 
+  find_topic_and_make_link(topic, label, t_package, pkg)
+}
+
+# Might need to look up alias to find file name and package
+#' @export
+to_html.linkS4class <- function(x, pkg, ...) {
+  stopifnot(length(x) == 1)
+
+  topic <- to_html.TEXT(x[[1]])
+  label <- topic
+  t_package <- NULL
+
+  topic <- paste0(topic, "-class")
+
+  find_topic_and_make_link(topic, label, t_package, pkg)
+}
+
+find_topic_and_make_link <- function(topic, label, t_package, pkg) {
+  # Special case: need to remove the package qualification if help is explicitly
+  # requested from the package for which documentation is rendered.
+  # Otherwise find_topic() -> rd_path() will open the development version of the
+  # help page, because the package is loaded with devtools::load_all().
+  if (!is.null(t_package) && t_package == pkg$package) {
+    t_package <- NULL
+  }
+
   loc <- find_topic(topic, t_package, pkg$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
@@ -271,12 +303,9 @@ to_html.link <- function(x, pkg, ...) {
 make_link <- function(loc, label, pkg = NULL) {
   if (is.null(loc$package)) {
     str_c("<a href='", loc$file, "'>", label, "</a>")
-  } else if (loc$package %in% builtin_packages) {
-    str_c("<a href='http://www.inside-r.org/r-doc/", loc$package,
-          "/", loc$topic, "'>", label, "</a>")
   } else {
-    str_c("<a href='http://www.inside-r.org/packages/cran/", loc$package,
-      "/docs/", loc$topic, "'>", label, "</a>")
+    str_c("<a href='http://www.rdocumentation.org/packages/", loc$package,
+      "/topics/", loc$topic, "'>", label, "</a>")
   }
 }
 

@@ -14,7 +14,7 @@ devtools::install_github("hadley/staticdocs")
 # Features
 
 * Attractive defaults: staticdocs uses [bootstrap]
-  (http://twitter.github.com/bootstrap/) to provide an attractive website.
+  (https://getbootstrap.com/2.0.4/) to provide an attractive website.
 
 * Customisable: you can override the default templates to provide
   alternative rendering
@@ -29,4 +29,4 @@ Compared to `Rd2html`, staticdocs:
 * Runs examples, so users see both input and output.
 
 * Assumes only one package is being rendered - links to documentation in
-  other packages are forwarded to [inside-R](http://www.inside-r.org/).
+  other packages are forwarded to [Rdocumentation](http://www.rdocumentation.org/).
