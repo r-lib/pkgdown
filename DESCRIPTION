@@ -18,7 +18,8 @@ Imports:
     devtools (>= 0.8),
     digest,
     grid,
-    crayon
+    crayon,
+    roxygen2 (>= 5.0.0)
 Suggests:
     knitr
 VignetteBuilder: knitr
