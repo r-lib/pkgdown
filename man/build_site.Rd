@@ -6,7 +6,8 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", ..., launch = interactive())
+build_site(pkg = ".", ..., with_vignettes = TRUE, with_demos = TRUE,
+  with_readme = TRUE, launch = interactive())
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -15,6 +16,12 @@ names are resolved.}
 
 \item{...}{Other additional arguments passed to \code{\link{as.sd_package}}
 used to override package defaults.}
+
+\item{with_vignettes}{If \code{TRUE}, will build vignettes.}
+
+\item{with_demos}{If \code{TRUE}, will build demos.}
+
+\item{with_readme}{If \code{TRUE}, will build the README.}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}

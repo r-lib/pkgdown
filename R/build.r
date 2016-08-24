@@ -14,13 +14,18 @@
 #'   names are resolved.
 #' @param ... Other additional arguments passed to \code{\link{as.sd_package}}
 #'   used to override package defaults.
+#' @param with_vignettes If \code{TRUE}, will build vignettes.
+#' @param with_demos If \code{TRUE}, will build demos.
+#' @param with_readme If \code{TRUE}, will build the README.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package build_package
-build_site <- function(pkg = ".", ..., launch = interactive()) {
+build_site <- function(pkg = ".", ..., with_vignettes = TRUE,
+                       with_demos = TRUE, with_readme = TRUE,
+                       launch = interactive()) {
   pkg <- as.sd_package(pkg, ...)
   load_all(pkg)
 
@@ -30,9 +35,9 @@ build_site <- function(pkg = ".", ..., launch = interactive()) {
   copy_bootstrap(pkg)
 
   pkg$topics <- build_topics(pkg)
-  pkg$vignettes <- build_vignettes(pkg)
-  pkg$demos <- build_demos(pkg)
-  pkg$readme <- readme(pkg)
+  if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
+  if (with_demos) pkg$demos <- build_demos(pkg)
+  if (with_readme) pkg$readme <- readme(pkg)
   build_index(pkg)
 
   if (launch) launch(pkg)
@@ -155,12 +160,12 @@ build_demos <- function(pkg = ".") {
   demos <- readLines(file.path(demo_dir, "00Index"))
 
   pieces <- str_split_fixed(demos, "\\s+", 2)
-  in_path <- str_c(pieces[, 1], ".r")
+  in_path <- str_c(pieces[, 1], ".[rR]")
   filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
 
   for(i in seq_along(title)) {
-    demo_code <- readLines(file.path(demo_dir, in_path[i]))
+    demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
     demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
       new_device = FALSE)
 
