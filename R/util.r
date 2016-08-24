@@ -43,7 +43,7 @@ file.path.ci <- function(...) {
   dir <- dirname(default)
   if (!file.exists(dir)) return(default)
 
-  pattern <- glob2rx(basename(default)) # Not perfect, but safer than raw name
+  pattern <- utils::glob2rx(basename(default)) # Not perfect, but safer than raw name
   matches <- list.files(dir, pattern, ignore.case = TRUE,
                         full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
   if (length(matches) == 0) return(default)
@@ -74,5 +74,5 @@ markdown <- function(x = NULL, path = NULL) {
 # whether each exists and is a directory.
 dir.exists <- function(x) {
   res <- file.exists(x) & file.info(x)$isdir
-  setNames(res, x)
+  stats::setNames(res, x)
 }

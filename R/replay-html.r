@@ -56,7 +56,7 @@ replay_html.character <- function(x, ...) {
 replay_html.value <- function(x, ...) {
   if (!x$visible) return()
 
-  printed <- str_c(capture.output(print(x$value)), collapse = "\n")
+  printed <- str_c(utils::capture.output(print(x$value)), collapse = "\n")
   str_c("<div class='output'>", escape_html(printed), "</div>")
 }
 
@@ -94,8 +94,8 @@ replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
   path <- file.path(pkg$site_path, name)
 
   if (!file.exists(path)) {
-    png(path, width = 540, height = 400)
-    on.exit(dev.off())
+    grDevices::png(path, width = 540, height = 400)
+    on.exit(grDevices::dev.off())
     print(x)
   }
   str_c("<p><img src='", escape_html(name), "' alt='' width='540' height='400' /></p>")

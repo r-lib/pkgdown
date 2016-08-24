@@ -43,7 +43,7 @@ launch <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
   index <- normalizePath(file.path(pkg$site_path, "index.html"))
-  browseURL(index)
+  utils::browseURL(index)
 }
 
 #' @export
@@ -77,7 +77,7 @@ build_topics <- function(pkg = ".") {
 
     html$package <- pkg[c("package", "version")]
     render_page(pkg, "topic", html, paths[[i]])
-    graphics.off()
+    grDevices::graphics.off()
 
     if ("internal" %in% html$keywords) {
       index$in_index[i] <- FALSE

@@ -3,7 +3,7 @@ src_highlight <- function(text, index) {
   if (str_trim(text) == "") return("")
 
   expr <- NULL
-  try(expr <- getParseData(x = text))
+  try(expr <- utils::getParseData(x = text))
   if (length(expr) == 0) return(text)
 
   # Custom formatter that adds links to function calls
@@ -22,7 +22,7 @@ src_highlight <- function(text, index) {
   }
 
   renderer <- renderer_html(document = FALSE, formatter = formatter)
-  out <- capture.output(highlight(parser.output = expr, renderer = renderer))
+  out <- utils::capture.output(highlight(parser.output = expr, renderer = renderer))
   # Drop pre tag
   out <- out[-c(1, length(out))]
   str_c(out, collapse = "\n")

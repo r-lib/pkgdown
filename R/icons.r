@@ -59,9 +59,9 @@ render_icons <- function(pkg = ".") {
   has_icon <- Filter(function(x) !is.null(x$func), icons)
 
   for(icon in names(has_icon)) {
-    png(file.path(icon_path, icon_name(icon)), width = 40, height = 40)
+    grDevices::png(file.path(icon_path, icon_name(icon)), width = 40, height = 40)
     try(grid::grid.draw(icons[[icon]]$func()))
-    dev.off()
+    grDevices::dev.off()
   }
 }
 
