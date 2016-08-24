@@ -115,8 +115,12 @@ readme <- function(pkg = ".") {
 copy_bootstrap <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
   user_bootstrap <- pkg$bootstrap_path
-  if (file.exists(user_bootstrap)) {
+  pkg_bootstrap <- file.path(pkg_sd_path(pkg), "bootstrap")
+
+  if (!is.null(user_bootstrap) && file.exists(user_bootstrap)) {
     bootstrap <- user_bootstrap
+  } else if(file.exists(pkg_bootstrap)) {
+    bootstrap <- pkg_bootstrap
   } else {
     bootstrap <- file.path(inst_path(), "bootstrap")
   }

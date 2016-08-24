@@ -31,6 +31,7 @@ render_template <- function(package, type, name, data) {
 # defaulting to type.html
 find_template <- function(package, type, name) {
   paths <- c(
+    file.path(pkg_sd_path(package), "templates"),
     pkg_sd_path(package),
     file.path(inst_path(), "templates")
   )
@@ -47,5 +48,3 @@ find_template <- function(package, type, name) {
   Find(file.exists, locations, nomatch =
     stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }
-
-
