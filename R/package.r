@@ -51,9 +51,9 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
       if (length(pers$email))
         s <- paste('<a href="mailto:', pers$email, '">', sep='')
       if (length(pers$given))
-        s <- paste(s, pers$given, sep='')
+        s <- paste(s, paste(pers$given, collapse = ' '), sep='')
       if (length(pers$family))
-        s <- paste(s, pers$family, sep=' ')
+        s <- paste(s, paste(pers$family, collapse = ' '), sep=' ')
       if (length(pers$email))
         s <- paste(s, '</a>', sep='')
       if (length(pers$role))
@@ -62,6 +62,7 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
     }
 
     pkg$authors <- eval(parse(text = pkg$`authors@r`))
+    pkg$authors <- utils::as.person(pkg$authors)
     pkg$authors <- sapply(pkg$authors, str_person)
   }
 
