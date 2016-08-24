@@ -30,10 +30,10 @@ pkg_sd_path <- function(package, site_path) {
     pathsrc
   else if (dir.exists(pathinst))
     pathinst
-  else
-    stop("Folder inst/staticdocs doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
-
-
+  else {
+    dir.create(pathsrc)
+    pathsrc
+  }
 }
 
 file.path.ci <- function(...) {
