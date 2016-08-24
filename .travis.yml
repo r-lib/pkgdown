@@ -1,26 +1,8 @@
-# Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: c
-
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-
-install:
-  - ./travis-tool.sh r_binary_install knitr
-  - ./travis-tool.sh r_binary_install rgl
-  - ./travis-tool.sh r_binary_install XML
-  - ./travis-tool.sh install_deps
-
-script:
-  - ./travis-tool.sh run_tests
-  - FILE=$(ls -1t *.tar.gz | head -n 1)
-  - R CMD INSTALL "${FILE}"
-  - R -e "staticdocs::build_site()"
-
-on_failure:
-  - ./travis-tool.sh dump_logs
+language: R
+sudo: false
+cache: packages
 
 deploy:
   provider: s3
@@ -30,9 +12,3 @@ deploy:
     secure: "FF+1cgT2cTs+nc0Jw+5rR7R7FhcYcQSWEXiEdsGisLqpXRahoxFWRmAApkf8lT//w9TH6xWcybrvghDY0a2Yo5QX9tD8BEXt8wsFz4gSYBXDFBn7piLcW8+Jc9guL8W2ABh7Y3jTaPQ2GtVPfC0qpG+H1dWwXGr5v+Uum+jqJ1w="
   skip_cleanup: true
   local-dir: inst/web
-  upload-dir: dev
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
