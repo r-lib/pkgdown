@@ -14,6 +14,9 @@
 #'   names are resolved.
 #' @param ... Other additional arguments passed to \code{\link{as.sd_package}}
 #'   used to override package defaults.
+#' @param with_vignettes If \code{TRUE}, will build vignettes.
+#' @param with_demos If \code{TRUE}, will build demos.
+#' @param with_readme If \code{TRUE}, will build the README.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
