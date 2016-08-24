@@ -4,6 +4,11 @@ language: R
 sudo: false
 cache: packages
 
+after_success:
+  - FILE=$(ls -1t *.tar.gz | head -n 1)
+  - R CMD INSTALL "${FILE}"
+  - R -e "staticdocs::build_site()"
+
 deploy:
   provider: s3
   bucket: staticdocs.had.co.nz
