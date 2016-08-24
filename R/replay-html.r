@@ -62,8 +62,11 @@ replay_html.value <- function(x, ...) {
 
 #' @export
 replay_html.source <- function(x, ..., pkg) {
-  str_c("<div class='input'>", src_highlight(escape_html(x$src), pkg$rd_index),
-    "</div>")
+  html <- src_highlight(x$src, pkg$rd_index)
+  if (identical(x$src, html)) {
+    html <- escape_html(x$src)
+  }
+  str_c("<div class='input'>", html, "</div>")
 }
 
 #' @export
