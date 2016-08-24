@@ -6,7 +6,7 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", ..., launch = interactive())
+build_site(pkg = ".", ..., load = TRUE, launch = interactive())
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -15,6 +15,10 @@ names are resolved.}
 
 \item{...}{Other additional arguments passed to \code{\link{as.sd_package}}
 used to override package defaults.}
+
+\item{load}{if \code{TRUE}, the package will be loaded using
+\code{\link[devtools]{load_all}}, otherwise, it will be build first and
+then loaded.}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
