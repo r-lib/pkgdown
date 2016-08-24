@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/hadley/staticdocs.png?branch=master)](https://travis-ci.org/hadley/staticdocs)
 
-staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at http://staticdocs.had.co.nz/dev/: this is the output of staticdocs applied to the latest version of staticdocs.
+staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at <http://staticdocs.had.co.nz>: this is the output of staticdocs applied to the latest version of staticdocs.
 
 staticdocs is not currently available from CRAN, but you can install the development version from github with:
 
