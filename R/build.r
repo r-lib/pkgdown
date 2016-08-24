@@ -155,7 +155,8 @@ build_demos <- function(pkg = ".") {
   demos <- readLines(file.path(demo_dir, "00Index"))
 
   pieces <- str_split_fixed(demos, "\\s+", 2)
-  in_path <- str_c(pieces[, 1], ".r")
+  demo_files <- list.files(demo_dir)
+  in_path <- demo_files[pmatch(pieces[,1 ], demo_files)]
   filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
 
