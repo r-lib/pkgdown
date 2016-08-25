@@ -48,7 +48,7 @@ build_section <- function(section, pkg) {
 
     if (is.null(item$title)) {
       rd <- pkg$rd[[row$file_in]]
-      item$title <- extract_title(rd)
+      item$title <- extract_title(rd, pkg)
     }
 
     item$icon <- icon_path(pkg, item$name)
@@ -64,10 +64,11 @@ build_section <- function(section, pkg) {
   )
 }
 
-extract_title <- function(x) {
+extract_title <- function(x, pkg) {
   alias <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
-  alias <- alias[sapply(alias, `!=`, "\n")] # Remove lines consisting of only "\n"
-  alias[[1]][[1]]
+  alias <- to_html(alias, pkg)
+  alias <- gsub("\\s*\n", " ", alias)
+  alias
 }
 
 compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
