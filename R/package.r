@@ -14,7 +14,7 @@
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".",
-                          site_path = "inst/web",
+                          site_path = "docs",
                           examples = TRUE,
                           templates_path = "inst/staticdocs/templates",
                           bootstrap_path = "inst/staticdocs/bootstrap",

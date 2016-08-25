@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>parse_rd. staticdocs 0.1.0.9000</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">staticdocs 0.1.0.9000</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Parse an rd file in to staticdocs format.</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='parse_rd.html'>parse_rd</a></span><span class="keyword">(</span><span class="symbol">topic</span><span class="keyword">,</span> <span class="symbol">package</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>topic</dt>
+      <dd>topic name, as character vector</dd>
+      <dt>package</dt>
+      <dd>package name, as character vector</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Rd files are pretty printed with structural elements coloured blue, and
+leaves are given a short prefix: <code>\&quot;</code> = text, <code>\&#39;</code> = verbatim, and
+<code>&gt;</code> = R code.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="functioncall"><a href='parse_rd.html'>parse_rd</a></span><span class="keyword">(</span><span class="string">"whisker.render"</span><span class="keyword">,</span> <span class="string">"whisker"</span><span class="keyword">)</span></div>
+<div class='output'>\- Rd file (8)
+  \- title (1)
+    &quot; Logicless templating
+  \- name (1)
+    &#39; whisker.render
+  \- alias (1)
+    &#39; whisker.render
+  \- description (2)
+    &quot; 
+    &quot; Logicless templating
+  \- usage (3)
+    &gt; 
+    &gt; whisker.render(template, data = parent.frame(),
+    &gt; partials = list(), debug = FALSE)
+  \- arguments (16)
+    &quot; 
+    &quot; 
+    \- item (2)
+        &quot; template
+        \- code (1)
+          &gt; character
+        &quot; with template text
+    &quot; 
+    &quot; 
+    &quot; 
+    \- item (2)
+        &quot; data
+        &quot; named
+        \- code (1)
+          &gt; list
+        &quot; or
+        \- code (1)
+          &gt; environment
+        &quot; with
+        &quot; variables that will be used during rendering
+    &quot; 
+    &quot; 
+    &quot; 
+    \- item (2)
+        &quot; partials
+        &quot; named
+        \- code (1)
+          &gt; list
+        &quot; with partial templates,
+        &quot; will be used during template construction
+    &quot; 
+    &quot; 
+    &quot; 
+    \- item (2)
+        &quot; debug
+        &quot; Used for debugging purposes, likely to
+        &quot; disappear
+    &quot; 
+  \- value (4)
+    &quot; 
+    &quot; 
+    \- code (1)
+      &gt; character
+    &quot; with rendered template
+  \- examples (5)
+    &gt; 
+    &gt; template &lt;- &quot;Hello {{place}}!&quot;
+    &gt; place &lt;- &quot;World&quot;
+    &gt; 
+    &gt; whisker.render(template)
+</div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>parse_rd</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

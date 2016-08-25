@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Index. staticdocs 0.1.0.9000</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">staticdocs 0.1.0.9000</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<style>#forkongithub a{background:#500;color:#ccc;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#711;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
+<span id="forkongithub"><a href="https://github.com/hadley/staticdocs/issues">Find me on GitHub!</a></span>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <h1>staticdocs</h1>
+
+<p><a href="https://travis-ci.org/hadley/staticdocs"><img src="https://travis-ci.org/hadley/staticdocs.svg?branch=master" alt="Travis-CI Build Status"/></a></p>
+
+<p>staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at <a href="http://staticdocs.had.co.nz">http://staticdocs.had.co.nz</a>: this is the output of staticdocs applied to the latest version of staticdocs.</p>
+
+<p>staticdocs is not currently available from CRAN, but you can install the development version from github with:</p>
+
+<pre><code class="R"># install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;hadley/staticdocs&quot;)
+</code></pre>
+
+<h1>Features</h1>
+
+<ul>
+<li><p>Attractive defaults: staticdocs uses <a href="https://getbootstrap.com/2.0.4/">bootstrap</a> to provide an attractive website.</p></li>
+<li><p>Customisable: you can override the default templates to provide
+alternative rendering</p></li>
+<li><p>Flexible ways to specify the index page so you can group related
+functions together.</p></li>
+</ul>
+
+<p>Compared to <code>Rd2html</code>, staticdocs:</p>
+
+<ul>
+<li><p>Makes it easier to customise the output.</p></li>
+<li><p>Runs examples, so users see both input and output.</p></li>
+<li><p>Assumes only one package is being rendered - links to documentation in
+other packages are forwarded to <a href="http://www.rdocumentation.org/">Rdocumentation</a>.</p></li>
+</ul>
+
+
+    <h2>Help topics</h2>
+
+    <h3>Settings functions</h3>
+    <p>These functions are used in <code>index.r</code> to configure various
+    settings that staticdocs uses when rendering a package.  This is
+    particularly useful for generating an index page that groups functions
+    into useful categories</p>
+
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="sd_icon.html">sd_icon</a></code><br />Define the icon for a function.</li>
+            
+      <li>
+        <code><a href="sd_item.html">sd_item</a></code><br />Define an item in a section of the index.</li>
+            
+      <li>
+        <code><a href="sd_section.html">sd_section</a></code><br />Define a section for the index page</li>
+    
+    </ul>
+    <h3>Other</h3>
+    
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="build_site.html">build_site</a></code>(build_package, staticdocs-package)<br />Build complete static documentation for a package.</li>
+            
+      <li>
+        <code><a href="parse_rd.html">parse_rd</a></code><br />Parse an rd file in to staticdocs format.</li>
+            
+      <li>
+        <code><a href="render_page.html">render_page</a></code><br />Render complete page.</li>
+            
+      <li>
+        <code><a href="to_html.html">to_html</a></code><br />Convert an rdoc to a list of html components.</li>
+    
+    </ul>
+  </div>
+
+  <div class="span3 offset1 sidebar">
+    
+    <h2>Demos</h2>
+    <ul>
+      <li><a href="demo-plot.html">This is a demo for plotting</a></li>
+      <li><a href="demo-stats.html">This is a demo for statistics</a></li>
+    </ul>
+    <h2>Authors</h2>
+    <ul>
+      <li><a href='mailto:hadley@rstudio.com'>Hadley Wickham</a> [aut, cre]</li>
+      <li>RStudio [cph]</li>
+    </ul>
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

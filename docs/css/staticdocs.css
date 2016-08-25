@@ -1,0 +1,25 @@
+h2 {padding-top: 20px}
+
+.icon img {
+  float: right;
+  border: 1px solid #ccc;
+}
+.index .internal {display: none;}
+ul.index li {margin-bottom: 0.5em; clear: both;}
+
+footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+}
+footer p {
+  margin-bottom: 0;
+  color: #555;
+}
+
+.sidebar h2 {
+  font-size: 1.1em;
+  padding-top: 0.5em;
+}
+
+.sidebar li {margin-bottom: 0.5em;}

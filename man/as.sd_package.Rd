@@ -4,7 +4,7 @@
 \alias{as.sd_package}
 \title{Return information about a package}
 \usage{
-as.sd_package(pkg = ".", site_path = "inst/web", examples = TRUE,
+as.sd_package(pkg = ".", site_path = "docs", examples = TRUE,
   templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE)
 }
