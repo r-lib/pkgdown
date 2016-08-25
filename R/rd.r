@@ -53,7 +53,7 @@ rd_path <- function(topic, package = NULL) {
   topic <- as.name(topic)
   if (!is.null(package)) package <- as.name(package)
 
-  help_call <- substitute(help(topic, package = package, try.all.packages = TRUE),
+  help_call <- substitute(utils::help(topic, package = package, try.all.packages = TRUE),
     list(topic = topic, package = package))
 
   res <- eval(help_call)
