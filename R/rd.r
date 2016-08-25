@@ -1,4 +1,4 @@
-#' Parse an rd file in to staticdocs format.
+#' Parse a help topic in to staticdocs format.
 #'
 #' Rd files are pretty printed with structural elements coloured blue, and
 #' leaves are given a short prefix: \code{\"} = text, \code{\'} = verbatim, and
@@ -8,8 +8,8 @@
 #' @param package package name, as character vector
 #' @export
 #' @examples
-#' parse_rd("whisker.render", "whisker")
-parse_rd <- function(topic, package) {
+#' parse_topic("whisker.render", "whisker")
+parse_topic <- function(topic, package) {
   rd_raw <- get_help_file(rd_path(topic, package))
   rd <- structure(set_classes(rd_raw), class = "Rd_content")
   attr(rd, "Rd_tag") <- "Rd file"
