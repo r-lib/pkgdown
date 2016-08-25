@@ -87,6 +87,8 @@ to_html.RCODE <- to_html.TEXT
 to_html.LIST <- to_html.TEXT
 #' @export
 to_html.VERB <- to_html.TEXT
+#' @export
+to_html.title <- to_html.TEXT
 
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
@@ -94,8 +96,7 @@ to_html.character <- function(x, ...) x
 
 #' @export
 to_html.name <- function(x, ...) to_html(x[[1]], ...)
-#' @export
-to_html.title <- function(x, ...) to_html.TEXT(x, ...)
+
 #' @export
 to_html.usage <- function(x, pkg, ...) {
   text <- paste(to_html.TEXT(x, ...), collapse = "\n")
