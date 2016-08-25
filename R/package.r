@@ -48,21 +48,6 @@ as.sd_package <- function(pkg = ".",
 
   # Author info
   if (!is.null(pkg$`authors@r`)) {
-    str_person <- function(pers) {
-      s <- NULL
-      if (length(pers$email))
-        s <- paste('<a href="mailto:', pers$email, '">', sep='')
-      if (length(pers$given))
-        s <- paste(s, paste(pers$given, collapse = ' '), sep='')
-      if (length(pers$family))
-        s <- paste(s, paste(pers$family, collapse = ' '), sep=' ')
-      if (length(pers$email))
-        s <- paste(s, '</a>', sep='')
-      if (length(pers$role))
-        s <- paste(s, ' [', paste(pers$role, collapse=', '), ']', sep='')
-      return(s)
-    }
-
     pkg$authors <- eval(parse(text = pkg$`authors@r`))
     pkg$authors <- utils::as.person(pkg$authors)
     pkg$authors <- sapply(pkg$authors, str_person)
@@ -81,6 +66,18 @@ as.sd_package <- function(pkg = ".",
   pkg$rd_index <- topic_index(pkg$rd)
 
   pkg
+}
+
+str_person <- function(pers) {
+  s <- paste0(c(pers$given, pers$family), collapse = ' ')
+
+  if (length(pers$email)) {
+    s <- paste0("<a href='mailto:", pers$email, "'>", s, "</a>")
+  }
+  if (length(pers$role)) {
+    s <- paste0(s, " [", paste0(pers$role, collapse = ", "), "]")
+  }
+  s
 }
 
 is.sd_package <- function(x) inherits(x, "sd_package")
