@@ -24,6 +24,6 @@ Imports:
 Suggests:
     testthat
 RoxygenNote: 5.0.1
-UrlNote: https://github.com/hadley/staticdocs/issues
+UrlNote: https://github.com/hadley/staticdocs
 URL: https://github.com/hadley/staticdocs
 BugReports: https://github.com/hadley/staticdocs/issues
