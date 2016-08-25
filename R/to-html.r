@@ -197,13 +197,17 @@ to_html.subsection <- function(x, ...) {
 #' @importFrom evaluate evaluate
 #' @export
 to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = globalenv()), ...) {
-  if (!pkg$examples) return()
-
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ..., escape = FALSE)
-  expr <- evaluate(text, env, new_device = TRUE)
 
-  replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+  if (!pkg$examples) {
+    src_highlight(text, pkg$rd_index)
+  } else {
+    expr <- evaluate(text, env, new_device = TRUE)
+
+    replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+  }
+
 }
 
 # Arguments ------------------------------------------------------------------
