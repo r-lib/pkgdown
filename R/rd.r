@@ -1,4 +1,4 @@
-#' Parse an rd file in to staticdocs format.
+#' Parse a help topic in to staticdocs format.
 #'
 #' Rd files are pretty printed with structural elements coloured blue, and
 #' leaves are given a short prefix: \code{\"} = text, \code{\'} = verbatim, and
@@ -8,10 +8,10 @@
 #' @param package package name, as character vector
 #' @export
 #' @examples
-#' parse_rd("whisker.render", "whisker")
-parse_rd <- function(topic, package) {
+#' parse_topic("whisker.render", "whisker")
+parse_topic <- function(topic, package) {
   rd_raw <- get_help_file(rd_path(topic, package))
-  rd <- structure(set_classes(rd_raw), class = "Rd_content")
+  rd <- set_classes(rd_raw)
   attr(rd, "Rd_tag") <- "Rd file"
   print(rd)
 }
@@ -43,7 +43,7 @@ cached_parse_Rd <- function(path) {
     rd_cache[[hash]]
   } else {
     raw_rd <- parse_Rd(path)
-    rd <- structure(set_classes(raw_rd), class = "Rd_content")
+    rd <- set_classes(raw_rd)
     rd_cache[[hash]] <- rd
     rd
   }
@@ -89,19 +89,15 @@ tag <- function(x) {
 }
 
 set_class <- function(x) {
-  structure(x, class = unique(c(tag(x), "Rd_content", class(x))))
+  structure(x, class = unique(c(tag(x), class(x))))
 }
 
 # Recursively set classes of Rd objects
 set_classes <- function(rd) {
   if (is.list(rd)) {
-    new_rd <- lapply(rd, set_classes)
-    attr(new_rd, "Rd_tag") <- attr(rd, "Rd_tag")
-    attr(new_rd, "Rd_option") <- attr(rd, "Rd_option")
-    set_class(new_rd)
-  } else {
-    set_class(rd)
+    rd[] <- lapply(rd, set_classes)
   }
+  set_class(rd)
 }
 
 #' @export
