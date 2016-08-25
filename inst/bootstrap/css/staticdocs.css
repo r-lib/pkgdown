@@ -16,3 +16,10 @@ footer p {
   margin-bottom: 0;
   color: #555;
 }
+
+.sidebar h2 {
+  font-size: 1.1em;
+  padding-top: 0.5em;
+}
+
+.sidebar li {margin-bottom: 0.5em;}
