@@ -24,6 +24,7 @@ package_rd <- function(package) {
   package <- as.sd_package(package)
 
   rd <- dir(file.path(package$path, "man"), full.names = TRUE)
+  rd <- rd[!(rd %in% list.dirs(file.path(package$path, "man"), recursive=FALSE))]
   names(rd) <- basename(rd)
   lapply(rd, cached_parse_Rd)
 }
