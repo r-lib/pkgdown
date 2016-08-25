@@ -9,13 +9,13 @@ src_highlight <- function(text, index) {
   # Custom formatter that adds links to function calls
   formatter <- function(tokens, styles, ...) {
     funcall <- styles == "functioncall"
-    for(i in which(funcall)) {
+    for (i in which(funcall)) {
       loc <- find_topic(tokens[i], NULL, index = index)
       if (is.null(loc)) {
-        message("Can't find help topic ", tokens[i])
-        next
+        message("Can't find help topic '", tokens[i], "'")
+      } else {
+        tokens[i] <- make_link(loc, label = tokens[i])
       }
-      tokens[i] <- make_link(loc, label = tokens[i])
     }
 
     formatter_html(tokens, styles, ...)
