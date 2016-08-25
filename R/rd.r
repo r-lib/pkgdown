@@ -23,7 +23,8 @@ get_help_file <- function(path) {
 package_rd <- function(package) {
   package <- as.sd_package(package)
 
-  rd <- dir(file.path(package$path, "man"), full.names = TRUE)
+  man_path <- file.path(package$path, "man")
+  rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
   names(rd) <- basename(rd)
   lapply(rd, cached_parse_Rd)
 }
