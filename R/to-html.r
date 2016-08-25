@@ -374,7 +374,10 @@ to_html.special <- function(x, ...) {
 
 #' @export
 to_html.method <- function(x, ...) {
-  str_c('"', to_html(x[[1]], ...), '"')
+  fun <- to_html(x[[1]])
+  class <- to_html(x[[1]])
+
+  fun
 }
 #' @export
 to_html.S3method <- to_html.method

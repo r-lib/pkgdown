@@ -22,7 +22,8 @@ Imports:
     crayon,
     roxygen2 (>= 5.0.0)
 Suggests:
-    knitr
+    knitr,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 UrlNote: https://github.com/hadley/staticdocs/issues
