@@ -39,9 +39,9 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
                                               "inst/staticdocs/bootstrap"
   pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
-  if (!is.null(pkg$url)) {
-    pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
-    pkg$url <- NULL
+  if (!is.null(pkg[["url"]])) {
+    pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
+    pkg[["url"]] <- NULL
   }
 
   # Author info

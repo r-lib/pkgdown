@@ -25,3 +25,4 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+UrlNote: https://github.com/hadley/staticdocs/issues
