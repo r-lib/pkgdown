@@ -382,16 +382,21 @@ to_html.special <- function(x, ...) {
 }
 
 #' @export
-to_html.method <- function(x, ...) {
-  fun <- to_html(x[[1]])
-  class <- to_html(x[[1]])
+to_html.method <- function(x, ...) method_usage(x, "S3")
+#' @export
+to_html.S3method <- function(x, ...) method_usage(x, "S3")
+#' @export
+to_html.S4method <- function(x, ...) method_usage(x, "S4")
 
-  fun
+method_usage <- function(x, type) {
+  fun <- to_html(x[[1]])
+  class <- to_html(x[[2]])
+
+  paste0(
+    "# ", type, " method for ", class, "\n",
+    fun
+  )
 }
-#' @export
-to_html.S3method <- to_html.method
-#' @export
-to_html.S4method <- to_html.method
 
 #' @export
 to_html.docType <- function(...) NULL
