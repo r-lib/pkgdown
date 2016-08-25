@@ -1,21 +1,14 @@
 #' Return information about a package
 #'
 #' @param pkg name of package, as character vector
-#' @param site_path root directory in which to create documentation. The
-#'   default, \code{NULL}, first looks at the value of \code{site_path} set in
-#'   \file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.
-#' @param examples include examples or not? The default, \code{NULL}, first
-#'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
-#'   not found uses \code{TRUE}.
-#' @param templates_path a specific directory path to use when searching for
-#'   rendering templates, in addition to the default locations of
-#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-#'   package's included templates directory.
-#' @param bootstrap_path a specific directory path to use when searching for
-#'   bootstrap style files, in addition to the default locations of
-#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-#'   package's included bootstrap directory.
-#' @param mathjax whether to use mathjax to render math symbols.
+#' @param site_path root Directory in which to create documentation.
+#' @param examples Run examples?
+#' @param templates_path Path in which to look for templates. If this doesn't
+#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
+#'   in staticdocs itself.
+#' @param bootstrap_path Path in which to look for bootstrap files. If
+#'   this doesn't exist, will use files built into staticdocs.
+#' @param mathjax Use mathjax to render math symbols?
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal

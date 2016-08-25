@@ -11,25 +11,18 @@ as.sd_package(pkg = ".", site_path = "inst/web", examples = TRUE,
 \arguments{
 \item{pkg}{name of package, as character vector}
 
-\item{site_path}{root directory in which to create documentation. The
-default, \code{NULL}, first looks at the value of \code{site_path} set in
-\file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.}
+\item{site_path}{root Directory in which to create documentation.}
 
-\item{examples}{include examples or not? The default, \code{NULL}, first
-looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
-not found uses \code{TRUE}.}
+\item{examples}{Run examples?}
 
-\item{templates_path}{a specific directory path to use when searching for
-rendering templates, in addition to the default locations of
-packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-package's included templates directory.}
+\item{templates_path}{Path in which to look for templates. If this doesn't
+exist will look next in \code{pkg/inst/staticdocs/templates}, then
+in staticdocs itself.}
 
-\item{bootstrap_path}{a specific directory path to use when searching for
-bootstrap style files, in addition to the default locations of
-packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-package's included bootstrap directory.}
+\item{bootstrap_path}{Path in which to look for bootstrap files. If
+this doesn't exist, will use files built into staticdocs.}
 
-\item{mathjax}{whether to use mathjax to render math symbols.}
+\item{mathjax}{Use mathjax to render math symbols?}
 }
 \value{
 A named list of useful metadata about a package
