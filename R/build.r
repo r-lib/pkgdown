@@ -12,8 +12,7 @@
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
-#' @param ... Other additional arguments passed to \code{\link{as.sd_package}}
-#'   used to override package defaults.
+#' @inheritParams as.sd_package
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
 #' @param with_readme If \code{TRUE}, will build the README.
@@ -27,10 +26,25 @@
 #' \dontrun{
 #' build_site()
 #' }
-build_site <- function(pkg = ".", ..., with_vignettes = TRUE,
-                       with_demos = TRUE, with_readme = TRUE,
-                       launch = interactive()) {
-  pkg <- as.sd_package(pkg, ...)
+build_site <- function(pkg = ".",
+                       site_path = "inst/web",
+                       examples = TRUE,
+                       templates_path = "inst/staticdocs/templates",
+                       bootstrap_path = "inst/staticdocs/bootstrap",
+                       mathjax = TRUE,
+                       with_vignettes = TRUE,
+                       with_demos = TRUE,
+                       with_readme = TRUE,
+                       launch = interactive()
+                       ) {
+  pkg <- as.sd_package(
+    pkg,
+    site_path = site_path,
+    examples = examples,
+    templates_path = templates_path,
+    bootstrap_path = bootstrap_path,
+    mathjax = mathjax
+  )
   load_all(pkg)
 
   if (!file.exists(pkg$site_path)) {
