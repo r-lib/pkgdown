@@ -20,25 +20,27 @@
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
-as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE) {
+as.sd_package <- function(pkg = ".",
+                          site_path = "inst/web",
+                          examples = TRUE,
+                          templates_path = "inst/staticdocs/templates",
+                          bootstrap_path = "inst/staticdocs/bootstrap",
+                          mathjax = TRUE
+                          ) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
   class(pkg) <- c("sd_package", "package")
-  pkg$sd_path <- pkg_sd_path(pkg, site_path = site_path)
+  pkg$sd_path <- pkg_sd_path(pkg)
+
+  pkg$site_path <- site_path
+  pkg$examples <- examples
+  pkg$templates_path <- templates_path
+  pkg$bootstrap_path <- bootstrap_path
 
   pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)
 
-  settings <- load_settings(pkg)
-  pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
-  pkg$examples <- examples %||% settings$examples %||% TRUE
-  pkg$templates_path <- templates_path %||% settings$templates_path %||%
-                                              "inst/staticdocs/templates"
-  pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
-                                              "inst/staticdocs/bootstrap"
-  pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
   if (!is.null(pkg[["url"]])) {
     pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
     pkg[["url"]] <- NULL

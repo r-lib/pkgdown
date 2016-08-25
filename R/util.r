@@ -12,25 +12,19 @@ inst_path <- function() {
 # Return the staticdocs path for a package
 # Could be in pkgdir/inst/staticdocs/ (for non-installed source packages)
 # or in pkgdir/staticdocs/ (for installed packages)
-pkg_sd_path <- function(package, site_path) {
-
-  if(!is.null(package$sd_path)) return(package$sd_path)
-
-  if(!missing(site_path) && !is.null(site_path)) {
-    if(dir.exists(site_path))
-      return(site_path)
-    else
-      stop("Folder site_path doesn't exist. Specify site_path or create a package folder inst/staticdocs.")
+pkg_sd_path <- function(package) {
+  if (!is.null(package$sd_path)) {
+    return(package$sd_path)
   }
 
   pathsrc <- file.path(package$path, "inst", "staticdocs")
   pathinst <- file.path(package$path, "staticdocs")
 
-  if (dir.exists(pathsrc))
+  if (dir.exists(pathsrc)) {
     pathsrc
-  else if (dir.exists(pathinst))
+  } else if (dir.exists(pathinst)) {
     pathinst
-  else {
+  } else {
     dir.create(pathsrc)
     pathsrc
   }

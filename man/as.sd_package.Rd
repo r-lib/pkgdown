@@ -4,8 +4,9 @@
 \alias{as.sd_package}
 \title{Return information about a package}
 \usage{
-as.sd_package(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE)
+as.sd_package(pkg = ".", site_path = "inst/web", examples = TRUE,
+  templates_path = "inst/staticdocs/templates",
+  bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE)
 }
 \arguments{
 \item{pkg}{name of package, as character vector}
