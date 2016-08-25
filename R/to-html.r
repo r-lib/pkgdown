@@ -407,7 +407,7 @@ to_html.docType <- function(...) NULL
 #' @export
 #' @importFrom tools parse_Rd
 to_html.Sexpr <- function(x, env, ...) {
-  code <- to_html.TEXT(x)
+  code <- to_html.TEXT(x, escape = FALSE)
   expr <- eval(parse(text = code), env)
 
   con <- textConnection(expr)
