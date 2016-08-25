@@ -92,14 +92,22 @@ to_html.title <- to_html.TEXT
 
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
-to_html.character <- function(x, ...) x
+to_html.character <- function(x, ..., escape = TRUE) {
+  # src_highlight (used by usage & examples) also does escaping
+  # so we need some way to turn it off when needed.
+  if (escape) {
+    escape_html(x)
+  } else {
+    x
+  }
+}
 
 #' @export
 to_html.name <- function(x, ...) to_html(x[[1]], ...)
 
 #' @export
 to_html.usage <- function(x, pkg, ...) {
-  text <- paste(to_html.TEXT(x, ...), collapse = "\n")
+  text <- paste(to_html.TEXT(x, ..., escape = FALSE), collapse = "\n")
 
   text <- str_trim(text)
 
@@ -192,7 +200,7 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
   if (!pkg$examples) return()
 
   # First element of examples tag is always empty
-  text <- to_html.TEXT(x[-1], ...)
+  text <- to_html.TEXT(x[-1], ..., escape = FALSE)
   expr <- evaluate(text, env, new_device = TRUE)
 
   replay_html(expr, pkg = pkg, name = str_c(topic, "-"))

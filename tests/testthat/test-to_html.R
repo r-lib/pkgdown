@@ -1,5 +1,9 @@
 context("to_html")
 
+test_that("special characters are escaped", {
+  out <- rd2html("a & b")
+  expect_equal(out, "a &amp; b")
+})
 
 # Usage -------------------------------------------------------------------
 
