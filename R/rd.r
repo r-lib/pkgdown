@@ -16,6 +16,16 @@ parse_rd <- function(topic, package) {
   print(rd)
 }
 
+rd2html <- function(x, fragment = TRUE) {
+  con <- textConnection(x)
+  on.exit(close(con), add = TRUE)
+
+  rd_raw <- tools::parse_Rd(con, fragment = fragment)
+  rd <- structure(set_classes(rd_raw), class = "Rd_content")
+
+  to_html(rd)
+}
+
 get_help_file <- function(path) {
   getNamespace("utils")$.getHelpFile(path)
 }
