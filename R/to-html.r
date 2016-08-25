@@ -14,7 +14,7 @@ to_html <- function(x, ...) {
 
 # Parse a complete Rd file
 #' @export
-to_html.Rd_doc <- function(x, ...) {
+to_html.Rd <- function(x, ...) {
   tags <- vapply(x, tag, FUN.VALUE = character(1))
   get_tags <- function(tag) x[tags == tag]
   get_tag <- function(tag) {
@@ -395,7 +395,7 @@ to_html.Sexpr <- function(x, env, ...) {
   on.exit(close(con))
 
   rd <- parse_Rd(con, fragment = TRUE)
-  rd <- structure(set_classes(rd), class = c("Rd_doc", "Rd"))
+  rd <- set_classes(rd)
 
   to_html.TEXT(rd, ...)
 }

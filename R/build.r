@@ -74,7 +74,7 @@ build_topics <- function(pkg = ".") {
     message("Generating ", basename(paths[[i]]))
 
     rd <- pkg$rd[[i]]
-    html <- to_html.Rd_doc(rd,
+    html <- to_html(rd,
       env = new.env(parent = globalenv()),
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
       pkg = pkg)
