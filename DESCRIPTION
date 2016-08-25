@@ -26,3 +26,5 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 UrlNote: https://github.com/hadley/staticdocs/issues
+URL: https://github.com/hadley/staticdocs
+BugReports: https://github.com/hadley/staticdocs/issues
