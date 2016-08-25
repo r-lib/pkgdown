@@ -1,9 +1,3 @@
-#' Return information about a package
-#'
-#' @param pkg name of package, as character vector
-#' @return A named list of useful metadata about a package
-#' @export
-#' @keywords internal
 #' @importFrom devtools parse_deps as.package
 as.sd_package <- function(pkg = ".", ...) {
   if (is.sd_package(pkg)) return(pkg)
