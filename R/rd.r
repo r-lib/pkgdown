@@ -16,7 +16,7 @@ parse_rd <- function(topic, package) {
   print(rd)
 }
 
-rd2html <- function(x, fragment = TRUE) {
+rd2html <- function(x, fragment = FALSE) {
   con <- textConnection(x)
   on.exit(close(con), add = TRUE)
 
