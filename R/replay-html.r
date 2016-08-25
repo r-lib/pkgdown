@@ -7,6 +7,12 @@ escape_html <- function(x) {
   x
 }
 
+message_html <- function(x) {
+  x <- escape_html(x)
+  paste0(x, collapse = "<br />\n")
+}
+
+
 # Replay a list of evaluated results, just like you'd run them in a R
 # terminal, but rendered as html
 
@@ -50,35 +56,38 @@ replay_html.character <- function(x, ...) {
 replay_html.value <- function(x, ...) {
   if (!x$visible) return()
 
-  printed <- str_c(capture.output(print(x$value)), collapse = "\n")
+  printed <- str_c(utils::capture.output(print(x$value)), collapse = "\n")
   str_c("<div class='output'>", escape_html(printed), "</div>")
 }
 
 #' @export
 replay_html.source <- function(x, ..., pkg) {
-  str_c("<div class='input'>", src_highlight(escape_html(x$src), pkg$rd_index),
-    "</div>")
+  html <- src_highlight(x$src, pkg$rd_index)
+  if (identical(x$src, html)) {
+    html <- escape_html(x$src)
+  }
+  str_c("<div class='input'>", html, "</div>")
 }
 
 #' @export
 replay_html.warning <- function(x, ...) {
-  str_c("<strong class='warning'>Warning message:\n", escape_html(x$message), "</strong>")
+  str_c("<strong class='warning'>Warning message:\n", message_html(x$message), "</strong>")
 }
 
 #' @export
 replay_html.message <- function(x, ...) {
-  str_c("<strong class='message'>", escape_html(str_replace(x$message, "\n$", "")),
+  str_c("<strong class='message'>", message_html(str_replace(x$message, "\n$", "")),
    "</strong>")
 }
 
 #' @export
 replay_html.error <- function(x, ...) {
   if (is.null(x$call)) {
-    str_c("<strong class='error'>Error: ", escape_html(x$message), "</strong>")
+    str_c("<strong class='error'>Error: ", message_html(x$message), "</strong>")
   } else {
-    call <- deparse(x$call)
+    call <- paste0(deparse(x$call), collapse = "")
     str_c("<strong class='error'>Error in ", escape_html(call), ": ",
-      escape_html(x$message), "</strong>")
+      message_html(x$message), "</strong>")
   }
 }
 
@@ -88,8 +97,8 @@ replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
   path <- file.path(pkg$site_path, name)
 
   if (!file.exists(path)) {
-    png(path, width = 540, height = 400)
-    on.exit(dev.off())
+    grDevices::png(path, width = 540, height = 400)
+    on.exit(grDevices::dev.off())
     print(x)
   }
   str_c("<p><img src='", escape_html(name), "' alt='' width='540' height='400' /></p>")

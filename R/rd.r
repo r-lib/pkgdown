@@ -10,10 +10,14 @@
 #' @examples
 #' parse_rd("whisker.render", "whisker")
 parse_rd <- function(topic, package) {
-  rd_raw <- utils:::.getHelpFile(rd_path(topic, package))
+  rd_raw <- get_help_file(rd_path(topic, package))
   rd <- structure(set_classes(rd_raw), class = "Rd_content")
   attr(rd, "Rd_tag") <- "Rd file"
   print(rd)
+}
+
+get_help_file <- function(path) {
+  getNamespace("utils")$.getHelpFile(path)
 }
 
 package_rd <- function(package) {
