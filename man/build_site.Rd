@@ -36,4 +36,9 @@ Currently, build_site builds documentation for:
   \item README.md files
 }
 }
+\examples{
+\dontrun{
+build_site()
+}
+}
 

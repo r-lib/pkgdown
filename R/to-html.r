@@ -346,10 +346,12 @@ to_html.dontrun <- function(x, ...) {
   if (length(x) == 1) {
     str_c("## Not run: " , to_html.TEXT(x))
   } else {
+    # Internal TEXT nodes contain leading and trailing \n
+    text <- str_replace_all(to_html.TEXT(x, ...), "(^\n)|(\n$)", "")
     str_c(
-      "## Not run: " ,
-      str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "),
-      "## End(Not run)"
+      "## Not run: ------------------------------------\n# " ,
+      str_replace_all(text, "\n", "\n# "), "\n",
+      "## ---------------------------------------------"
     )
   }
 }

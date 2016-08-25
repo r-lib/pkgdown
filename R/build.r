@@ -23,6 +23,10 @@
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package build_package
+#' @examples
+#' \dontrun{
+#' build_site()
+#' }
 build_site <- function(pkg = ".", ..., with_vignettes = TRUE,
                        with_demos = TRUE, with_readme = TRUE,
                        launch = interactive()) {
