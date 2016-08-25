@@ -6,7 +6,7 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", site_path = "inst/web", examples = TRUE,
+build_site(pkg = ".", site_path = "docs", examples = TRUE,
   templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
   with_vignettes = TRUE, with_demos = TRUE, with_readme = TRUE,

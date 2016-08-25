@@ -21,7 +21,7 @@
 #' build_site()
 #' }
 build_site <- function(pkg = ".",
-                       site_path = "inst/web",
+                       site_path = "docs",
                        examples = TRUE,
                        templates_path = "inst/staticdocs/templates",
                        bootstrap_path = "inst/staticdocs/bootstrap",
