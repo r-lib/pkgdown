@@ -159,6 +159,7 @@ build_demos <- function(pkg = ".") {
 
   message("Rendering demos")
   demos <- readLines(file.path(demo_dir, "00Index"))
+  demos <- demos[demos != ""]
 
   pieces <- str_split_fixed(demos, "\\s+", 2)
   in_path <- str_c(pieces[, 1], ".[rR]")
