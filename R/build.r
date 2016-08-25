@@ -139,6 +139,7 @@ build_vignettes <- function(pkg = ".") {
   dest <- file.path(pkg$site_path, "vignettes")
   if (!file.exists(dest)) dir.create(dest)
   file.copy(vigns$outputs, dest, overwrite = TRUE)
+  file.remove(vigns$outputs)
 
   # Extract titles
   titles <- vapply(vigns$docs, FUN.VALUE = character(1), function(x) {
