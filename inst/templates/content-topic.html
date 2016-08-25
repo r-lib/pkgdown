@@ -44,7 +44,10 @@
       
     {{#seealso}}
     <h2>See also</h2>
-    {{{ seealso }}}
+      {{#contents}}
+      <p>{{{.}}}</p>
+
+      {{/contents}}
     {{/seealso}}
 
     {{#author}}

@@ -1,3 +1,6 @@
+* Add "Find me on GitHub" ribbon to allow jumping to the GitHub repository, given in the
+  `URLNote` entry in `DESCRIPTION` (#116, @krlmlr).
+
 * Full support for `\linkS4class{}` (#105, @krlmlr).
 
 * Support for strings (in addition to `person()` calls) in `Authors@R` (#106, @krlmlr).
