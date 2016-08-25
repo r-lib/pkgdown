@@ -55,14 +55,17 @@
 <div class="row"><div class="span8">
   <pre>
   <div class='input'><span class="comment"># This is a sample demo file</span>
-<span class="comment"># </span>
+<span class="comment">#</span>
 <span class="comment">###############################################################################</span>
 
-<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">)</span></div>
+<span class="comment"># Make reproducible</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span><span class="keyword">(</span><span class="number">1014</span><span class="keyword">)</span></div>
 <p><img src='stats-2.png' alt='' width='540' height='400' /></p>
-<div class='input'><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></div>
-<div class='output'>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-0.0008895 0.2757000 0.5090000 0.5081000 0.7564000 0.9997000 
+<div class='input'>
+<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">)</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></div>
+<div class='output'>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.007399 0.256400 0.467900 0.473500 0.690400 0.997100 
 </div>
   </pre>
 </div></div>
