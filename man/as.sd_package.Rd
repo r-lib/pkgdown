@@ -4,27 +4,10 @@
 \alias{as.sd_package}
 \title{Return information about a package}
 \usage{
-as.sd_package(pkg = ".", site_path = "docs", examples = TRUE,
-  run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
-  bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE)
+as.sd_package(pkg = ".", ...)
 }
 \arguments{
 \item{pkg}{name of package, as character vector}
-
-\item{site_path}{root Directory in which to create documentation.}
-
-\item{examples}{Run examples?}
-
-\item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
-
-\item{templates_path}{Path in which to look for templates. If this doesn't
-exist will look next in \code{pkg/inst/staticdocs/templates}, then
-in staticdocs itself.}
-
-\item{bootstrap_path}{Path in which to look for bootstrap files. If
-this doesn't exist, will use files built into staticdocs.}
-
-\item{mathjax}{Use mathjax to render math symbols?}
 }
 \value{
 A named list of useful metadata about a package

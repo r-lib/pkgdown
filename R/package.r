@@ -1,38 +1,18 @@
 #' Return information about a package
 #'
 #' @param pkg name of package, as character vector
-#' @param site_path root Directory in which to create documentation.
-#' @param run_dont_run Run examples that are surrounded in \\dontrun?
-#' @param examples Run examples?
-#' @param templates_path Path in which to look for templates. If this doesn't
-#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
-#'   in staticdocs itself.
-#' @param bootstrap_path Path in which to look for bootstrap files. If
-#'   this doesn't exist, will use files built into staticdocs.
-#' @param mathjax Use mathjax to render math symbols?
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
-as.sd_package <- function(pkg = ".",
-                          site_path = "docs",
-                          examples = TRUE,
-                          run_dont_run = FALSE,
-                          templates_path = "inst/staticdocs/templates",
-                          bootstrap_path = "inst/staticdocs/bootstrap",
-                          mathjax = TRUE
-                          ) {
+as.sd_package <- function(pkg = ".", ...) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
   class(pkg) <- c("sd_package", "package")
   pkg$sd_path <- pkg_sd_path(pkg)
 
-  pkg$site_path <- site_path
-  pkg$examples <- examples
-  pkg$run_dont_run <- run_dont_run
-  pkg$templates_path <- templates_path
-  pkg$bootstrap_path <- bootstrap_path
+  pkg <- utils::modifyList(pkg, list(...))
 
   pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)

@@ -6,7 +6,15 @@
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
-#' @inheritParams as.sd_package
+#' @param site_path root Directory in which to create documentation.
+#' @param run_dont_run Run examples that are surrounded in \\dontrun?
+#' @param examples Run examples?
+#' @param templates_path Path in which to look for templates. If this doesn't
+#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
+#'   in staticdocs itself.
+#' @param bootstrap_path Path in which to look for bootstrap files. If
+#'   this doesn't exist, will use files built into staticdocs.
+#' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
 #' @param with_readme If \code{TRUE}, will build the README.
