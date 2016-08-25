@@ -1,4 +1,3 @@
-#' @importFrom highlight highlight renderer_html formatter_html
 src_highlight <- function(text, index) {
   if (length(text) == 1L && str_trim(text) == "") return("")
 
@@ -18,11 +17,13 @@ src_highlight <- function(text, index) {
       }
     }
 
-    formatter_html(tokens, styles, ...)
+    highlight::formatter_html(tokens, styles, ...)
   }
 
-  renderer <- renderer_html(document = FALSE, formatter = formatter)
-  out <- utils::capture.output(highlight(parse.output = expr, renderer = renderer))
+  renderer <- highlight::renderer_html(document = FALSE, formatter = formatter)
+  out <- utils::capture.output(
+    highlight::highlight(parse.output = expr, renderer = renderer)
+  )
   # Drop pre tag
   out <- out[-c(1, length(out))]
   str_c(out, collapse = "\n")
