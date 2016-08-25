@@ -40,14 +40,8 @@ this doesn't exist, will use files built into staticdocs.}
 browser.}
 }
 \description{
-Currently, build_site builds documentation for:
-\itemize{
-  \item The package DESCRIPTION
-  \item Help topics
-  \item Vignettes
-  \item Demos. Must be listed in \file{demos/00index}
-  \item README.md files
-}
+Currently, \code{build_site} builds documentation for help topics,
+vignettes, demos, and a \code{README.md}, if present.
 }
 \examples{
 \dontrun{
