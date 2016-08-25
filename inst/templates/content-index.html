@@ -7,12 +7,12 @@
     {{#sections}}
     <h3>{{title}}</h3>
     {{{description}}}
-    
+
     <ul class="index">
     {{#items}}
     {{#icon}}
       <li class = "icon">
-        <a href="{{file_out}}"><img src="{{icon}}" width = "40" height = "40" /></a><code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}<br /> 
+        <a href="{{file_out}}"><img src="{{icon}}" width = "40" height = "40" /></a><code><a href="{{file_out}}">{{name}}</a></code>{{aliases}}<br />
         {{{title}}}</li>
     {{/icon}}
     {{^icon}}
@@ -23,7 +23,7 @@
     </ul>
     {{/sections}}
   </div>
-  
+
   <div class="span3 offset1">
     {{#vignettes}}
     <h2>Vignettes</h2>
@@ -42,16 +42,6 @@
     {{/demo}}
     </ul>
     {{/demos}}
-
-    {{#dependencies}}
-    <h2>Dependencies</h2>
-    <ul>
-      {{#depends}}<li><strong>Depends</strong>: {{depends}}</li>{{/depends}}
-      {{#imports}}<li><strong>Imports</strong>: {{imports}}</li>{{/imports}}
-      {{#suggests}}<li><strong>Suggests</strong>: {{suggests}}</li>{{/suggests}}
-      {{#extends}}<li><strong>Extends</strong>: {{extends}}</li>{{/extends}}
-    </ul>
-    {{/dependencies}}
 
     <h2>Authors</h2>
     <ul>
