@@ -2,6 +2,7 @@
 #'
 #' @param pkg name of package, as character vector
 #' @param site_path root Directory in which to create documentation.
+#' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param templates_path Path in which to look for templates. If this doesn't
 #'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
@@ -16,6 +17,7 @@
 as.sd_package <- function(pkg = ".",
                           site_path = "docs",
                           examples = TRUE,
+                          run_dont_run = FALSE,
                           templates_path = "inst/staticdocs/templates",
                           bootstrap_path = "inst/staticdocs/bootstrap",
                           mathjax = TRUE
@@ -28,6 +30,7 @@ as.sd_package <- function(pkg = ".",
 
   pkg$site_path <- site_path
   pkg$examples <- examples
+  pkg$run_dont_run <- run_dont_run
   pkg$templates_path <- templates_path
   pkg$bootstrap_path <- bootstrap_path
 

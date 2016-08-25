@@ -7,7 +7,7 @@
 \title{Build complete static documentation for a package.}
 \usage{
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
-  templates_path = "inst/staticdocs/templates",
+  run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
   with_vignettes = TRUE, with_demos = TRUE, with_readme = TRUE,
   launch = interactive())
@@ -20,6 +20,8 @@ names are resolved.}
 \item{site_path}{root Directory in which to create documentation.}
 
 \item{examples}{Run examples?}
+
+\item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
 \item{templates_path}{Path in which to look for templates. If this doesn't
 exist will look next in \code{pkg/inst/staticdocs/templates}, then

@@ -198,7 +198,7 @@ to_html.subsection <- function(x, ...) {
 #' @export
 to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = globalenv()), ...) {
   # First element of examples tag is always empty
-  text <- to_html.TEXT(x[-1], ..., escape = FALSE)
+  text <- to_html.TEXT(x[-1], ..., pkg = pkg, escape = FALSE)
 
   if (!pkg$examples) {
     src_highlight(text, pkg$rd_index)
@@ -355,7 +355,11 @@ to_html.enc <- function(x, ...) {
 }
 
 #' @export
-to_html.dontrun <- function(x, ...) {
+to_html.dontrun <- function(x, ..., pkg) {
+  if (pkg$run_dont_run) {
+    return(to_html.TEXT(x))
+  }
+
   if (length(x) == 1) {
     str_c("## Not run: " , to_html.TEXT(x))
   } else {
