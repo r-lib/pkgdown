@@ -125,7 +125,12 @@ to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
 to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
-to_html.seealso <- function(x, ...) to_html.TEXT(x, ...)
+to_html.seealso <- function(x, ...) {
+  text <- to_html.TEXT(x, ...)
+  paras <- split_at_linebreaks(text)
+
+  list(title = "See also", contents = paras)
+}
 #' @export
 to_html.author <- function(x, ...) to_html.TEXT(x, ...)
 
@@ -142,7 +147,7 @@ to_html.value <- function(x, ...) {
   class(x) <- c("describe", class(x))
 
   text <- to_html(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = "Value", contents = paras)
 }
@@ -161,9 +166,15 @@ to_html.section <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- to_html.TEXT(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = title, contents = paras)
+}
+
+split_at_linebreaks <- function(text) {
+  if (length(text) < 1)
+    return(character())
+  str_trim(str_split(text, "\\n\\s*\\n")[[1]])
 }
 
 #' @export
