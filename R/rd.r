@@ -16,6 +16,16 @@ parse_rd <- function(topic, package) {
   print(rd)
 }
 
+rd2html <- function(x, fragment = FALSE) {
+  con <- textConnection(x)
+  on.exit(close(con), add = TRUE)
+
+  rd_raw <- tools::parse_Rd(con, fragment = fragment)
+  rd <- structure(set_classes(rd_raw), class = "Rd_content")
+
+  str_trim(str_split(str_trim(to_html(rd)), "\n")[[1]])
+}
+
 get_help_file <- function(path) {
   getNamespace("utils")$.getHelpFile(path)
 }
@@ -23,7 +33,8 @@ get_help_file <- function(path) {
 package_rd <- function(package) {
   package <- as.sd_package(package)
 
-  rd <- dir(file.path(package$path, "man"), full.names = TRUE)
+  man_path <- file.path(package$path, "man")
+  rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
   names(rd) <- basename(rd)
   lapply(rd, cached_parse_Rd)
 }
@@ -53,7 +64,7 @@ rd_path <- function(topic, package = NULL) {
   topic <- as.name(topic)
   if (!is.null(package)) package <- as.name(package)
 
-  help_call <- substitute(help(topic, package = package, try.all.packages = TRUE),
+  help_call <- substitute(utils::help(topic, package = package, try.all.packages = TRUE),
     list(topic = topic, package = package))
 
   res <- eval(help_call)

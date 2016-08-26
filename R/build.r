@@ -1,32 +1,61 @@
 #' Build complete static documentation for a package.
 #'
-#' Currently, build_site builds documentation for:
-#' \itemize{
-#'   \item The package DESCRIPTION
-#'   \item Help topics
-#'   \item Vignettes
-#'   \item Demos. Must be listed in \file{demos/00index}
-#'   \item README.md files
-#' }
+#' Currently, \code{build_site} builds documentation for help topics,
+#' vignettes, demos, and a \code{README.md}, if present.
 #'
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
-#' @param ... Other additional arguments passed to \code{\link{as.sd_package}}
-#'   used to override package defaults.
+#' @param site_path root Directory in which to create documentation.
+#' @param run_dont_run Run examples that are surrounded in \\dontrun?
+#' @param examples Run examples?
+#' @param templates_path Path in which to look for templates. If this doesn't
+#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
+#'   in staticdocs itself.
+#' @param bootstrap_path Path in which to look for bootstrap files. If
+#'   this doesn't exist, will use files built into staticdocs.
+#' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
 #' @param with_readme If \code{TRUE}, will build the README.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
+#' @param tracking_id Add Google Analytics to your site by adding a tracking ID
+#'   number (it looks something like \code{"UA-000000-01"}).
+#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
+#'   finding your tracking ID?}. The default, \code{NULL}, deactivates Google
+#'   Analytics.
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
 #' @aliases staticdocs-package build_package
-build_site <- function(pkg = ".", ..., with_vignettes = TRUE,
-                       with_demos = TRUE, with_readme = TRUE,
-                       launch = interactive()) {
-  pkg <- as.sd_package(pkg, ...)
+#' @examples
+#' \dontrun{
+#' build_site()
+#' }
+build_site <- function(pkg = ".",
+                       site_path = "docs",
+                       examples = TRUE,
+                       run_dont_run = FALSE,
+                       templates_path = "inst/staticdocs/templates",
+                       bootstrap_path = "inst/staticdocs/bootstrap",
+                       mathjax = TRUE,
+                       with_vignettes = TRUE,
+                       with_demos = TRUE,
+                       with_readme = TRUE,
+                       launch = interactive(),
+                       tracking_id = NULL
+                       ) {
+  pkg <- as.sd_package(
+    pkg,
+    site_path = site_path,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    templates_path = templates_path,
+    bootstrap_path = bootstrap_path,
+    mathjax = mathjax,
+    tracking_id = tracking_id
+  )
   load_all(pkg)
 
   if (!file.exists(pkg$site_path)) {
@@ -163,13 +192,14 @@ build_demos <- function(pkg = ".") {
 
   message("Rendering demos")
   demos <- readLines(file.path(demo_dir, "00Index"))
+  demos <- demos[demos != ""]
 
   pieces <- str_split_fixed(demos, "\\s+", 2)
   in_path <- str_c(pieces[, 1], ".[rR]")
   filename <- str_c("demo-", pieces[,1], ".html")
   title <- pieces[, 2]
 
-  for(i in seq_along(title)) {
+  for (i in seq_along(title)) {
     demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
     demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
       new_device = FALSE)

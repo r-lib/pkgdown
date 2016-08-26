@@ -6,16 +6,31 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", ..., with_vignettes = TRUE, with_demos = TRUE,
-  with_readme = TRUE, launch = interactive())
+build_site(pkg = ".", site_path = "docs", examples = TRUE,
+  run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
+  bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
+  with_vignettes = TRUE, with_demos = TRUE, with_readme = TRUE,
+  launch = interactive(), tracking_id = NULL)
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
 \code{\link[devtools]{as.package}} for details on how paths and package
 names are resolved.}
 
-\item{...}{Other additional arguments passed to \code{\link{as.sd_package}}
-used to override package defaults.}
+\item{site_path}{root Directory in which to create documentation.}
+
+\item{examples}{Run examples?}
+
+\item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
+
+\item{templates_path}{Path in which to look for templates. If this doesn't
+exist will look next in \code{pkg/inst/staticdocs/templates}, then
+in staticdocs itself.}
+
+\item{bootstrap_path}{Path in which to look for bootstrap files. If
+this doesn't exist, will use files built into staticdocs.}
+
+\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{with_vignettes}{If \code{TRUE}, will build vignettes.}
 
@@ -25,15 +40,20 @@ used to override package defaults.}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
+
+\item{tracking_id}{Add Google Analytics to your site by adding a tracking ID
+number (it looks something like \code{"UA-000000-01"}).
+\href{https://support.google.com/analytics/answer/1032385}{Need help
+finding your tracking ID?}. The default, \code{NULL}, deactivates Google
+Analytics.}
 }
 \description{
-Currently, build_site builds documentation for:
-\itemize{
-  \item The package DESCRIPTION
-  \item Help topics
-  \item Vignettes
-  \item Demos. Must be listed in \file{demos/00index}
-  \item README.md files
+Currently, \code{build_site} builds documentation for help topics,
+vignettes, demos, and a \code{README.md}, if present.
+}
+\examples{
+\dontrun{
+build_site()
 }
 }
 

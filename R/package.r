@@ -1,77 +1,34 @@
 #' Return information about a package
 #'
 #' @param pkg name of package, as character vector
-#' @param site_path root directory in which to create documentation. The
-#'   default, \code{NULL}, first looks at the value of \code{site_path} set in
-#'   \file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.
-#' @param examples include examples or not? The default, \code{NULL}, first
-#'   looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
-#'   not found uses \code{TRUE}.
-#' @param templates_path a specific directory path to use when searching for
-#'   rendering templates, in addition to the default locations of
-#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-#'   package's included templates directory.
-#' @param tracking_id Add Google Analytics to your site by adding a tracking ID
-#'   number (it looks something like \code{"UA-000000-01"}).
-#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
-#'   finding your tracking ID?} The default, \code{NULL}, deactivates Google
-#'   Analytics.
-#' @param bootstrap_path a specific directory path to use when searching for
-#'   bootstrap style files, in addition to the default locations of
-#'   packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-#'   package's included bootstrap directory.
-#' @param mathjax whether to use mathjax to render math symbols.
 #' @return A named list of useful metadata about a package
 #' @export
 #' @keywords internal
 #' @importFrom devtools parse_deps as.package
-as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE,
-  tracking_id = NULL) {
+as.sd_package <- function(pkg = ".", ...) {
   if (is.sd_package(pkg)) return(pkg)
 
   pkg <- as.package(pkg)
   class(pkg) <- c("sd_package", "package")
-  pkg$sd_path <- pkg_sd_path(pkg, site_path = site_path)
+  pkg$sd_path <- pkg_sd_path(pkg)
+
+  pkg <- utils::modifyList(pkg, list(...))
 
   pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)
 
-  settings <- load_settings(pkg)
-  pkg$site_path <- site_path %||% settings$site_path %||% "inst/web"
-  pkg$examples <- examples %||% settings$examples %||% TRUE
-  pkg$templates_path <- templates_path %||% settings$templates_path %||%
-                                              "inst/staticdocs/templates"
-  pkg$bootstrap_path <- bootstrap_path %||% settings$bootstrap_path %||%
-                                              "inst/staticdocs/bootstrap"
-  pkg$mathjax <- mathjax %||% settings$mathjax %||% TRUE
-
-  if (!is.null(tracking_id)) {
-    pkg$ganalytics <- list(tracking_id = tracking_id)
+  if (!is.null(pkg[["tracking_id"]])) {
+    pkg$ganalytics <- list(tracking_id = pkg[["tracking_id"]])
+    pkg[["tracking_id"]] <- NULL
   }
 
-  if (!is.null(pkg$url)) {
-    pkg$urls <- str_trim(str_split(pkg$url, ",")[[1]])
-    pkg$url <- NULL
+  if (!is.null(pkg[["url"]])) {
+    pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
+    pkg[["url"]] <- NULL
   }
 
   # Author info
   if (!is.null(pkg$`authors@r`)) {
-    str_person <- function(pers) {
-      s <- NULL
-      if (length(pers$email))
-        s <- paste('<a href="mailto:', pers$email, '">', sep='')
-      if (length(pers$given))
-        s <- paste(s, paste(pers$given, collapse = ' '), sep='')
-      if (length(pers$family))
-        s <- paste(s, paste(pers$family, collapse = ' '), sep=' ')
-      if (length(pers$email))
-        s <- paste(s, '</a>', sep='')
-      if (length(pers$role))
-        s <- paste(s, ' [', paste(pers$role, collapse=', '), ']', sep='')
-      return(s)
-    }
-
     pkg$authors <- eval(parse(text = pkg$`authors@r`))
     pkg$authors <- utils::as.person(pkg$authors)
     pkg$authors <- sapply(pkg$authors, str_person)
@@ -90,6 +47,18 @@ as.sd_package <- function(pkg = ".", site_path = NULL, examples = NULL,
   pkg$rd_index <- topic_index(pkg$rd)
 
   pkg
+}
+
+str_person <- function(pers) {
+  s <- paste0(c(pers$given, pers$family), collapse = ' ')
+
+  if (length(pers$email)) {
+    s <- paste0("<a href='mailto:", pers$email, "'>", s, "</a>")
+  }
+  if (length(pers$role)) {
+    s <- paste0(s, " [", paste0(pers$role, collapse = ", "), "]")
+  }
+  s
 }
 
 is.sd_package <- function(x) inherits(x, "sd_package")

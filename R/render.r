@@ -31,12 +31,10 @@ render_template <- function(package, type, name, data) {
 # defaulting to type.html
 find_template <- function(package, type, name) {
   paths <- c(
+    package$templates_path,
     pkg_sd_path(package),
     file.path(inst_path(), "templates")
   )
-
-  if (!is.null(package$templates_path))
-    paths <- c(package$templates_path, paths)
 
   names <- c(
     str_c(type, "-", name, ".html"),

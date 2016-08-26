@@ -87,18 +87,27 @@ to_html.RCODE <- to_html.TEXT
 to_html.LIST <- to_html.TEXT
 #' @export
 to_html.VERB <- to_html.TEXT
+#' @export
+to_html.title <- to_html.TEXT
 
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
-to_html.character <- function(x, ...) x
+to_html.character <- function(x, ..., escape = TRUE) {
+  # src_highlight (used by usage & examples) also does escaping
+  # so we need some way to turn it off when needed.
+  if (escape) {
+    escape_html(x)
+  } else {
+    x
+  }
+}
 
 #' @export
 to_html.name <- function(x, ...) to_html(x[[1]], ...)
-#' @export
-to_html.title <- function(x, ...) to_html.TEXT(x, ...)
+
 #' @export
 to_html.usage <- function(x, pkg, ...) {
-  text <- paste(to_html.TEXT(x, ...), collapse = "\n")
+  text <- paste(to_html.TEXT(x, ..., escape = FALSE), collapse = "\n")
 
   text <- str_trim(text)
 
@@ -125,7 +134,12 @@ to_html.alias <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
 to_html.keyword <- function(x, ...) unlist(to_html.list(x, ...))
 #' @export
-to_html.seealso <- function(x, ...) to_html.TEXT(x, ...)
+to_html.seealso <- function(x, ...) {
+  text <- to_html.TEXT(x, ...)
+  paras <- split_at_linebreaks(text)
+
+  list(title = "See also", contents = paras)
+}
 #' @export
 to_html.author <- function(x, ...) to_html.TEXT(x, ...)
 
@@ -142,7 +156,7 @@ to_html.value <- function(x, ...) {
   class(x) <- c("describe", class(x))
 
   text <- to_html(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = "Value", contents = paras)
 }
@@ -161,9 +175,15 @@ to_html.section <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- to_html.TEXT(x, ...)
-  paras <- str_trim(str_split(text, "\\n\\s*\\n")[[1]])
+  paras <- split_at_linebreaks(text)
 
   list(title = title, contents = paras)
+}
+
+split_at_linebreaks <- function(text) {
+  if (length(text) < 1)
+    return(character())
+  str_trim(str_split(text, "\\n\\s*\\n")[[1]])
 }
 
 #' @export
@@ -177,13 +197,17 @@ to_html.subsection <- function(x, ...) {
 #' @importFrom evaluate evaluate
 #' @export
 to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = globalenv()), ...) {
-  if (!pkg$examples) return()
-
   # First element of examples tag is always empty
-  text <- to_html.TEXT(x[-1], ...)
-  expr <- evaluate(text, env, new_device = TRUE)
+  text <- to_html.TEXT(x[-1], ..., pkg = pkg, escape = FALSE)
 
-  replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+  if (!pkg$examples) {
+    src_highlight(text, pkg$rd_index)
+  } else {
+    expr <- evaluate(text, env, new_device = TRUE)
+
+    replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+  }
+
 }
 
 # Arguments ------------------------------------------------------------------
@@ -272,6 +296,14 @@ to_html.link <- function(x, pkg, ...) {
     }
   }
 
+  # Special case: need to remove the package qualification if help is explicitly
+  # requested from the package for which documentation is rendered (#115).
+  # Otherwise find_topic() -> rd_path() will open the development version of the
+  # help page, because the package is loaded with devtools::load_all().
+  if (!is.null(t_package) && t_package == pkg$package) {
+    t_package <- NULL
+  }
+
   find_topic_and_make_link(topic, label, t_package, pkg)
 }
 
@@ -290,14 +322,6 @@ to_html.linkS4class <- function(x, pkg, ...) {
 }
 
 find_topic_and_make_link <- function(topic, label, t_package, pkg) {
-  # Special case: need to remove the package qualification if help is explicitly
-  # requested from the package for which documentation is rendered.
-  # Otherwise find_topic() -> rd_path() will open the development version of the
-  # help page, because the package is loaded with devtools::load_all().
-  if (!is.null(t_package) && t_package == pkg$package) {
-    t_package <- NULL
-  }
-
   loc <- find_topic(topic, t_package, pkg$rd_index)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
@@ -331,14 +355,20 @@ to_html.enc <- function(x, ...) {
 }
 
 #' @export
-to_html.dontrun <- function(x, ...) {
+to_html.dontrun <- function(x, ..., pkg) {
+  if (pkg$run_dont_run) {
+    return(to_html.TEXT(x))
+  }
+
   if (length(x) == 1) {
     str_c("## Not run: " , to_html.TEXT(x))
   } else {
+    # Internal TEXT nodes contain leading and trailing \n
+    text <- str_replace_all(to_html.TEXT(x, ...), "(^\n)|(\n$)", "")
     str_c(
-      "## Not run: " ,
-      str_replace_all(to_html.TEXT(x, ...), "\n", "\n# "),
-      "## End(Not run)"
+      "## Not run: ------------------------------------\n# " ,
+      str_replace_all(text, "\n", "\n# "), "\n",
+      "## ---------------------------------------------"
     )
   }
 }
@@ -360,13 +390,21 @@ to_html.special <- function(x, ...) {
 }
 
 #' @export
-to_html.method <- function(x, ...) {
-  str_c('"', to_html(x[[1]], ...), '"')
+to_html.method <- function(x, ...) method_usage(x, "S3")
+#' @export
+to_html.S3method <- function(x, ...) method_usage(x, "S3")
+#' @export
+to_html.S4method <- function(x, ...) method_usage(x, "S4")
+
+method_usage <- function(x, type) {
+  fun <- to_html(x[[1]])
+  class <- to_html(x[[2]])
+
+  paste0(
+    "# ", type, " method for ", class, "\n",
+    fun
+  )
 }
-#' @export
-to_html.S3method <- to_html.method
-#' @export
-to_html.S4method <- to_html.method
 
 #' @export
 to_html.docType <- function(...) NULL
@@ -377,7 +415,7 @@ to_html.docType <- function(...) NULL
 #' @export
 #' @importFrom tools parse_Rd
 to_html.Sexpr <- function(x, env, ...) {
-  code <- to_html.TEXT(x)
+  code <- to_html.TEXT(x, escape = FALSE)
   expr <- eval(parse(text = code), env)
 
   con <- textConnection(expr)

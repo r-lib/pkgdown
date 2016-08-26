@@ -1,5 +1,5 @@
 Package: staticdocs
-Version: 0.1
+Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
 Description: Convert package rd files to static html pages, suitable for
     serving on a website.
@@ -22,6 +22,8 @@ Imports:
     crayon,
     roxygen2 (>= 5.0.0)
 Suggests:
-    knitr
-VignetteBuilder: knitr
+    testthat
 RoxygenNote: 5.0.1
+UrlNote: https://github.com/hadley/staticdocs
+URL: https://github.com/hadley/staticdocs
+BugReports: https://github.com/hadley/staticdocs/issues

@@ -4,38 +4,10 @@
 \alias{as.sd_package}
 \title{Return information about a package}
 \usage{
-as.sd_package(pkg = ".", site_path = NULL, examples = NULL,
-  templates_path = NULL, bootstrap_path = NULL, mathjax = TRUE,
-  tracking_id = NULL)
+as.sd_package(pkg = ".", ...)
 }
 \arguments{
 \item{pkg}{name of package, as character vector}
-
-\item{site_path}{root directory in which to create documentation. The
-default, \code{NULL}, first looks at the value of \code{site_path} set in
-\file{DESCRIPTION}, and if not found uses \code{inst/staticdocs}.}
-
-\item{examples}{include examples or not? The default, \code{NULL}, first
-looks at the value of \code{examples} set in \file{DESCRIPTION}, and if
-not found uses \code{TRUE}.}
-
-\item{templates_path}{a specific directory path to use when searching for
-rendering templates, in addition to the default locations of
-packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-package's included templates directory.}
-
-\item{bootstrap_path}{a specific directory path to use when searching for
-bootstrap style files, in addition to the default locations of
-packagedir/inst/staticdocs, packagedir/staticdocs, and the staticdocs
-package's included bootstrap directory.}
-
-\item{mathjax}{whether to use mathjax to render math symbols.}
-
-\item{tracking_id}{Add Google Analytics to your site by adding a tracking ID
-number (it looks something like \code{"UA-000000-01"}).
-\href{https://support.google.com/analytics/answer/1032385}{Need help
-finding your tracking ID?} The default, \code{NULL}, deactivates Google
-Analytics.}
 }
 \value{
 A named list of useful metadata about a package
