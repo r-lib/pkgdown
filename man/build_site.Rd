@@ -44,7 +44,7 @@ browser.}
 \item{tracking_id}{Add Google Analytics to your site by adding a tracking ID
 number (it looks something like \code{"UA-000000-01"}).
 \href{https://support.google.com/analytics/answer/1032385}{Need help
-finding your tracking ID?}. The default, \code{NULL}, deactivates Google
+finding your tracking ID?}. The default, \code{NULL}, disables Google
 Analytics.}
 }
 \description{
