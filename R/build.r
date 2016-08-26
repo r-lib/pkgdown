@@ -20,6 +20,11 @@
 #' @param with_readme If \code{TRUE}, will build the README.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
+#' @param ganalytics Add Google Analytics to your site by adding a tracking ID
+#'   number (it looks something like \code{"UA-000000-01"}).
+#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
+#'   finding your tracking ID?}. The default, \code{NULL}, disables Google
+#'   Analytics.
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
@@ -38,7 +43,8 @@ build_site <- function(pkg = ".",
                        with_vignettes = TRUE,
                        with_demos = TRUE,
                        with_readme = TRUE,
-                       launch = interactive()
+                       launch = interactive(),
+                       ganalytics = NULL
                        ) {
   pkg <- as.sd_package(
     pkg,
@@ -47,7 +53,8 @@ build_site <- function(pkg = ".",
     run_dont_run = run_dont_run,
     templates_path = templates_path,
     bootstrap_path = bootstrap_path,
-    mathjax = mathjax
+    mathjax = mathjax,
+    ganalytics = ganalytics
   )
   load_all(pkg)
 
@@ -103,6 +110,10 @@ build_topics <- function(pkg = ".") {
     html$pagetitle <- html$name
 
     html$package <- pkg[c("package", "version")]
+
+    if (!is.null(pkg$ganalytics))
+      html$ganalytics <- pkg$ganalytics
+
     render_page(pkg, "topic", html, paths[[i]])
     grDevices::graphics.off()
 
