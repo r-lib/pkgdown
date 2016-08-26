@@ -10,7 +10,7 @@ build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
   with_vignettes = TRUE, with_demos = TRUE, with_readme = TRUE,
-  launch = interactive(), tracking_id = NULL)
+  launch = interactive(), ganalytics = NULL)
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -41,7 +41,7 @@ this doesn't exist, will use files built into staticdocs.}
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
 
-\item{tracking_id}{Add Google Analytics to your site by adding a tracking ID
+\item{ganalytics}{Add Google Analytics to your site by adding a tracking ID
 number (it looks something like \code{"UA-000000-01"}).
 \href{https://support.google.com/analytics/answer/1032385}{Need help
 finding your tracking ID?}. The default, \code{NULL}, disables Google

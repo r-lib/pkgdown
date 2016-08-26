@@ -17,11 +17,6 @@ as.sd_package <- function(pkg = ".", ...) {
   pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)
 
-  if (!is.null(pkg[["tracking_id"]])) {
-    pkg$ganalytics <- list(tracking_id = pkg[["tracking_id"]])
-    pkg[["tracking_id"]] <- NULL
-  }
-
   if (!is.null(pkg[["url"]])) {
     pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
     pkg[["url"]] <- NULL
