@@ -9,8 +9,7 @@
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
-  with_vignettes = TRUE, with_demos = TRUE, with_readme = TRUE,
-  launch = interactive())
+  with_vignettes = TRUE, with_demos = TRUE, launch = interactive())
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -36,14 +35,20 @@ this doesn't exist, will use files built into staticdocs.}
 
 \item{with_demos}{If \code{TRUE}, will build demos.}
 
-\item{with_readme}{If \code{TRUE}, will build the README.}
-
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
 }
 \description{
 Currently, \code{build_site} builds documentation for help topics,
 vignettes, demos, and a \code{README.md}, if present.
+}
+\section{Home page}{
+
+
+The home page is generated from \code{inst/staticdocs/README.md},
+\code{README.md}, or the \code{DESCRIPTION} if neither readme file is
+present. On the homepage, you should show how to install the package,
+describe what it does, and provide an example of how to use it.
 }
 \examples{
 \dontrun{

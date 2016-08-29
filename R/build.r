@@ -3,6 +3,13 @@
 #' Currently, \code{build_site} builds documentation for help topics,
 #' vignettes, demos, and a \code{README.md}, if present.
 #'
+#' @section Home page:
+#'
+#' The home page is generated from \code{inst/staticdocs/README.md},
+#' \code{README.md}, or the \code{DESCRIPTION} if neither readme file is
+#' present. On the homepage, you should show how to install the package,
+#' describe what it does, and provide an example of how to use it.
+#'
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
@@ -17,7 +24,6 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
-#' @param with_readme If \code{TRUE}, will build the README.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
@@ -37,7 +43,6 @@ build_site <- function(pkg = ".",
                        mathjax = TRUE,
                        with_vignettes = TRUE,
                        with_demos = TRUE,
-                       with_readme = TRUE,
                        launch = interactive()
                        ) {
   pkg <- as.sd_package(
@@ -56,11 +61,13 @@ build_site <- function(pkg = ".",
   }
   copy_bootstrap(pkg)
 
+
   pkg$topics <- build_topics(pkg)
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
   if (with_demos) pkg$demos <- build_demos(pkg)
-  if (with_readme) pkg$readme <- readme(pkg)
+
   build_index(pkg)
+  build_reference(pkg)
 
   if (launch) launch(pkg)
   invisible(TRUE)
@@ -113,25 +120,6 @@ build_topics <- function(pkg = ".") {
   }
 
   index
-}
-
-readme <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  # First look in staticdocs path
-  path <- file.path(pkg$sd_path, "README.md")
-  if (file.exists(path)) {
-    return(markdown(path = path))
-  }
-
-  # Then look in the package root
-  path <- file.path(pkg$path, "README.md")
-  if (file.exists(path)) {
-    return(markdown(path = path))
-  }
-
-  # Otherwise fallback to description
-  pkg$description
 }
 
 copy_bootstrap <- function(pkg = ".") {

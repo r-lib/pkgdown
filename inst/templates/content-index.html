@@ -1,8 +1,6 @@
 <div class="row">
   <div class="span8">
-    {{{readme}}}
-
-    <h2>Help topics</h2>
+    <h2>Function reference</h2>
 
     {{#sections}}
     <h3>{{title}}</h3>
@@ -22,33 +20,5 @@
     {{/items}}
     </ul>
     {{/sections}}
-  </div>
-
-  <div class="span3 offset1 sidebar">
-    {{#vignettes}}
-    <h2>Vignettes</h2>
-    <ul>
-    {{#vignette}}
-      <li><a href="vignettes/{{filename}}">{{title}}</a></li>
-    {{/vignette}}
-    </ul>
-    {{/vignettes}}
-
-    {{#demos}}
-    <h2>Demos</h2>
-    <ul>
-    {{#demo}}
-      <li><a href="{{filename}}">{{title}}</a></li>
-    {{/demo}}
-    </ul>
-    {{/demos}}
-
-    <h2>Authors</h2>
-    <ul>
-    {{#authors}}
-      <li>{{{.}}}</li>
-    {{/authors}}
-    </ul>
-
   </div>
 </div>

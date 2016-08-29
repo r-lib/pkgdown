@@ -1,73 +1,28 @@
-# Must be called after all other build functions.
 build_index <- function(pkg) {
   out <- file.path(pkg$site_path, "index.html")
   message("Generating index.html")
 
-  index <- pkg$index
-  topic_index <- pkg$topics[pkg$topics$in_index, , drop = FALSE]
-  pkg$topic_index <- rows_list(topic_index)
+  pkg$readme <- readme(pkg)
+  pkg$pagetitle <- "Home"
 
-  # Cross-reference complete list of topics vs. topics found in index page
-  topics <- unlist(lapply(index, "[[", "topics"))
-  missing <- !(topics %in% topic_index$name)
-  if (any(missing)) {
-    warning("Can't find index topics: ", paste(topics[missing],
-      collapse = ", "), call. = FALSE)
-    topics <- topics[!missing]
-  }
-
-  other <- !(topic_index$name %in% topics)
-  if (any(other)) {
-  title <- if(length(topics)) 'Other' else ''
-  index <-
-    c(index, list(sd_section(title, NULL, sort(topic_index$name[other]))))
-  }
-
-  # Render each section
-  sections <- lapply(index, build_section, pkg = pkg)
-  pkg$sections <- sections
-  pkg$rd <- NULL
-
-  render_icons(pkg)
-  pkg$pagetitle <- "Index"
-  render_page(pkg, "index", pkg, out)
+  render_page(pkg, "readme", pkg, out)
 }
 
-build_section <- function(section, pkg) {
-  find_info <- function(item) {
-    match <- pkg$topics$name == item$name
-    if (!any(match)) return(NULL)
+readme <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
 
-    row <- pkg$topics[match, , drop = FALSE]
-    item$file_out <- row$file_out
-
-    aliases <- setdiff(row$alias[[1]], row$name)
-    if (length(aliases) > 0) {
-      item$aliases <- str_c("(", str_c(aliases, collapse = ", "), ")")
-    }
-
-    if (is.null(item$title)) {
-      rd <- pkg$rd[[row$file_in]]
-      item$title <- extract_title(rd, pkg)
-    }
-
-    item$icon <- icon_path(pkg, item$name)
-    item
+  # First look in staticdocs path
+  path <- file.path(pkg$sd_path, "README.md")
+  if (file.exists(path)) {
+    return(markdown(path = path))
   }
 
-  desc <- section$description
+  # Then look in the package root
+  path <- file.path(pkg$path, "README.md")
+  if (file.exists(path)) {
+    return(markdown(path = path))
+  }
 
-  list(
-    title = section$name %||% "Missing section title",
-    description = markdown(desc),
-    items = compact(lapply(section$elements, find_info))
-  )
+  # Otherwise fallback to description
+  pkg$description
 }
-
-extract_title <- function(x, pkg) {
-  title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
-  to_html(title, pkg = pkg)
-}
-
-compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
-

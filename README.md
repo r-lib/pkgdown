@@ -2,7 +2,9 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/hadley/staticdocs.svg?branch=master)](https://travis-ci.org/hadley/staticdocs)
 
-staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at <http://hadley.github.io/staticdocs/>: this is the output of staticdocs applied to the latest version of staticdocs.
+staticdocs is designed to make it quick and easy to build a website for your package. You can see staticdocs in action at <http://hadley.github.io/staticdocs/>: this is the output of staticdocs applied to the latest version of staticdocs.
+
+## Installation
 
 staticdocs is not currently available from CRAN, but you can install the development version from github with:
 
@@ -11,22 +13,14 @@ staticdocs is not currently available from CRAN, but you can install the develop
 devtools::install_github("hadley/staticdocs")
 ```
 
-# Features
+## Usage
 
-* Attractive defaults: staticdocs uses [bootstrap]
-  (https://getbootstrap.com/2.0.4/) to provide an attractive website.
+Run staticdocs from the package directory each time you release your package:
 
-* Customisable: you can override the default templates to provide
-  alternative rendering
+```R
+staticdocs::build_site()
+```
 
-* Flexible ways to specify the index page so you can group related
-  functions together.
+This will generate a `docs/` directory. The home page will be generated from your package's `README.md`, and a function reference will be generated from the documentation in the `man/` direcftory.
 
-Compared to `Rd2html`, staticdocs:
-
-* Makes it easier to customise the output.
-
-* Runs examples, so users see both input and output.
-
-* Assumes only one package is being rendered - links to documentation in
-  other packages are forwarded to [Rdocumentation](http://www.rdocumentation.org/).
+If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the __GitHub pages__ source is set to "master branch /docs folder".

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Index. staticdocs 0.1.0.9000</title>
+<title>Home. staticdocs 0.1.0.9000</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -35,7 +35,8 @@
       <a class="brand" href="index.html">staticdocs 0.1.0.9000</a>
       <div class="nav">
         <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
         </ul>
       </div>
     </div>
@@ -56,7 +57,9 @@
 
 <p><a href="https://travis-ci.org/hadley/staticdocs"><img src="https://travis-ci.org/hadley/staticdocs.svg?branch=master" alt="Travis-CI Build Status"/></a></p>
 
-<p>staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at <a href="http://hadley.github.io/staticdocs/">http://hadley.github.io/staticdocs/</a>: this is the output of staticdocs applied to the latest version of staticdocs.</p>
+<p>staticdocs is designed to make it quick and easy to build a website for your package. You can see staticdocs in action at <a href="http://hadley.github.io/staticdocs/">http://hadley.github.io/staticdocs/</a>: this is the output of staticdocs applied to the latest version of staticdocs.</p>
+
+<h2>Installation</h2>
 
 <p>staticdocs is not currently available from CRAN, but you can install the development version from github with:</p>
 
@@ -64,65 +67,17 @@
 devtools::install_github(&quot;hadley/staticdocs&quot;)
 </code></pre>
 
-<h1>Features</h1>
+<h2>Usage</h2>
 
-<ul>
-<li><p>Attractive defaults: staticdocs uses <a href="https://getbootstrap.com/2.0.4/">bootstrap</a> to provide an attractive website.</p></li>
-<li><p>Customisable: you can override the default templates to provide
-alternative rendering</p></li>
-<li><p>Flexible ways to specify the index page so you can group related
-functions together.</p></li>
-</ul>
+<p>Run staticdocs from the package directory each time you release your package:</p>
 
-<p>Compared to <code>Rd2html</code>, staticdocs:</p>
+<pre><code class="R">staticdocs::build_site()
+</code></pre>
 
-<ul>
-<li><p>Makes it easier to customise the output.</p></li>
-<li><p>Runs examples, so users see both input and output.</p></li>
-<li><p>Assumes only one package is being rendered - links to documentation in
-other packages are forwarded to <a href="http://www.rdocumentation.org/">Rdocumentation</a>.</p></li>
-</ul>
+<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package&#39;s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> direcftory.</p>
 
+<p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to &ldquo;master branch /docs folder&rdquo;.</p>
 
-    <h2>Help topics</h2>
-
-    <h3>Settings functions</h3>
-    <p>These functions are used in <code>index.r</code> to configure various
-    settings that staticdocs uses when rendering a package.  This is
-    particularly useful for generating an index page that groups functions
-    into useful categories</p>
-
-
-    <ul class="index">
-        
-      <li>
-        <code><a href="sd_icon.html">sd_icon</a></code><br />Define the icon for a function.</li>
-            
-      <li>
-        <code><a href="sd_item.html">sd_item</a></code><br />Define an item in a section of the index.</li>
-            
-      <li>
-        <code><a href="sd_section.html">sd_section</a></code><br />Define a section for the index page</li>
-    
-    </ul>
-    <h3>Other</h3>
-    
-
-    <ul class="index">
-        
-      <li>
-        <code><a href="build_site.html">build_site</a></code>(build_package, staticdocs-package)<br />Build complete static documentation for a package.</li>
-            
-      <li>
-        <code><a href="parse_rd.html">parse_rd</a></code><br />Parse an rd file in to staticdocs format.</li>
-            
-      <li>
-        <code><a href="render_page.html">render_page</a></code><br />Render complete page.</li>
-            
-      <li>
-        <code><a href="to_html.html">to_html</a></code><br />Convert an rdoc to a list of html components.</li>
-    
-    </ul>
   </div>
 
   <div class="span3 offset1 sidebar">
@@ -137,7 +92,6 @@ other packages are forwarded to <a href="http://www.rdocumentation.org/">Rdocume
       <li><a href='mailto:hadley@rstudio.com'>Hadley Wickham</a> [aut, cre]</li>
       <li>RStudio [cph]</li>
     </ul>
-
   </div>
 </div>
       
