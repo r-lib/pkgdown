@@ -9,7 +9,8 @@
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
-  with_vignettes = TRUE, with_demos = TRUE, launch = interactive())
+  with_vignettes = TRUE, with_demos = TRUE, launch = interactive(),
+  seed = 1014)
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -37,6 +38,9 @@ this doesn't exist, will use files built into staticdocs.}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
+
+\item{seed}{Seed used to initialize so that random examples are
+reproducible.}
 }
 \description{
 Currently, \code{build_site} builds documentation for help topics,

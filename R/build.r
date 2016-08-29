@@ -24,6 +24,8 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
+#' @param seed Seed used to initialize so that random examples are
+#'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
@@ -43,8 +45,12 @@ build_site <- function(pkg = ".",
                        mathjax = TRUE,
                        with_vignettes = TRUE,
                        with_demos = TRUE,
-                       launch = interactive()
+                       launch = interactive(),
+                       seed = 1014
                        ) {
+
+  set.seed(seed)
+
   pkg <- as.sd_package(
     pkg,
     site_path = site_path,
