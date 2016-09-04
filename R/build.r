@@ -126,7 +126,7 @@ build_topics <- function(pkg = ".") {
     html$pagetitle <- html$name
 
     html$package <- pkg[c("package", "version")]
-    render_page(pkg, "topic", html, paths[[i]])
+    render_page(pkg, "topic", c(html, news_path = pkg$news_path), paths[[i]])
     grDevices::graphics.off()
 
     if ("internal" %in% html$keywords) {
