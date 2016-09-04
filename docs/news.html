@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>This is a demo for statistics. staticdocs 0.1.0.9000</title>
+<title>. staticdocs 0.1.0.9000</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -52,25 +52,38 @@
         
       </header>
       
-      <h1>Make Static HTML Documentation for a Package</h1>
+      <div class="row">
+  <div class="span8">
+    <h2>NEWS</h2>
+    <p>Here's what changed in each release.</p>
 
-<div class="row"><div class="span8">
-  <pre>
-  <div class='input'><span class="comment"># This is a sample demo file</span>
-<span class="comment">#</span>
-<span class="comment">###############################################################################</span>
+      <h1>staticdocs dummy 3.1</h1>
 
-<span class="comment"># Make reproducible</span>
-<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span><span class="keyword">(</span><span class="number">1014</span><span class="keyword">)</span></div>
-<p><img src='stats-2.png' alt='' width='540' height='400' /></p>
-<div class='input'>
-<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">)</span>
-<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></div>
-<div class='output'>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-0.007399 0.256400 0.467900 0.473500 0.690400 0.997100 
+<ul>
+<li><p>Add &ldquo;Find me on GitHub&rdquo; ribbon to allow jumping to the GitHub repository, given in the
+<code>URLNote</code> entry in <code>DESCRIPTION</code> (#116, @krlmlr).</p></li>
+<li><p>Full support for <code>\linkS4class{}</code> (#105, @krlmlr).</p></li>
+</ul>
+
+<h1>staticdocs dummy 2.5.9000</h1>
+
+<ul>
+<li><p>Support for strings (in addition to <code>person()</code> calls) in <code>Authors@R</code> (#106, @krlmlr).</p></li>
+<li><p>If no directory <code>staticdocs</code> or <code>inst/staticdocs</code> exists, and neither <code>sd_path</code> and <code>site_path</code> are set,
+the the directory <code>inst/staticdocs</code> is created, and documentation is created there (#108, @krlmlr).</p></li>
+<li><p>Support for subsections added (#112, @krlmlr).</p></li>
+</ul>
+
+<h1>staticdocs dummy 1</h1>
+
+<ul>
+<li><p>External documentation is now forwarded to <a href="http://www.rdocumentation.org">http://www.rdocumentation.org</a> (#113, @krlmlr).</p></li>
+<li><p>Fix rendering of links of the form <code>\link[pkg]{topic}</code> where <code>pkg</code> is the current package (#115, @krlmlr).</p></li>
+</ul>
+
+      <a href="../"></a><br/>
+      </div>
 </div>
-  </pre>
-</div></div>
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>

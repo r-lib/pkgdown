@@ -6,8 +6,9 @@
 \alias{staticdocs-package}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", site_path = "docs", examples = TRUE,
-  run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
+build_site(pkg = ".", site_path = "docs", news_path = "docs/news",
+  news_singlepage = TRUE, examples = TRUE, run_dont_run = FALSE,
+  templates_path = "inst/staticdocs/templates",
   bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
   with_vignettes = TRUE, with_demos = TRUE, launch = interactive(),
   seed = 1014)
@@ -18,6 +19,10 @@ build_site(pkg = ".", site_path = "docs", examples = TRUE,
 names are resolved.}
 
 \item{site_path}{root Directory in which to create documentation.}
+
+\item{news_path}{Directory in which to create NEWS entries.}
+
+\item{news_singlepage}{Should all NEWS be rendered in a single page?}
 
 \item{examples}{Run examples?}
 
