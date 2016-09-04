@@ -14,6 +14,8 @@
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
 #'   names are resolved.
 #' @param site_path root Directory in which to create documentation.
+#' @param news_path Directory in which to create NEWS entries.
+#' @param news_singlepage Should all NEWS be rendered in a single page?
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param templates_path Path in which to look for templates. If this doesn't
@@ -38,6 +40,8 @@
 #' }
 build_site <- function(pkg = ".",
                        site_path = "docs",
+                       news_path = NULL,
+                       news_singlepage = TRUE,
                        examples = TRUE,
                        run_dont_run = FALSE,
                        templates_path = "inst/staticdocs/templates",
@@ -54,6 +58,8 @@ build_site <- function(pkg = ".",
   pkg <- as.sd_package(
     pkg,
     site_path = site_path,
+    news_singlepage = news_singlepage,
+    news_path = news_path,
     examples = examples,
     run_dont_run = run_dont_run,
     templates_path = templates_path,
@@ -65,6 +71,9 @@ build_site <- function(pkg = ".",
   if (!file.exists(pkg$site_path)) {
     dir.create(pkg$site_path, recursive = TRUE)
   }
+  if (!is.null(pkg$news_path) && !file.exists(pkg$news_path)) {
+    dir.create(pkg$news_path, recursive = TRUE)
+  }
   copy_bootstrap(pkg)
 
 
@@ -74,6 +83,7 @@ build_site <- function(pkg = ".",
 
   build_index(pkg)
   build_reference(pkg)
+  build_news(pkg)
 
   if (launch) launch(pkg)
   invisible(TRUE)

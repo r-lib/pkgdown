@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="span8">
+    <h2>NEWS</h2>
+    <p>Here's what changed in each release.</p>
+
+    {{#news}}
+      {{{release_all}}}
+      <a href="../{{release_path}}">{{{release_title}}}</a><br/>
+    {{/news}}
+    {{^news}}
+      <p>Please add a NEWS.md file in order to enable this functionality.</p>
+    {{/news}}
+
+  </div>
+</div>
