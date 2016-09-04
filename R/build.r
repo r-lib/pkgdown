@@ -96,7 +96,7 @@ build_package <- function(...) {
 # Generate all topic pages for a package.
 build_topics <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-
+  if (length(pkg$index) < 1L) stop("no topics found to build")
   # for each file, find name of one topic
   index <- pkg$rd_index
   paths <- file.path(pkg$site_path, index$file_out)
