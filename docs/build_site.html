@@ -54,10 +54,12 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">site_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
-  <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">templates_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/templates"</span><span class="keyword">,</span>
+    <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">site_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">news_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs/news"</span><span class="keyword">,</span>
+  <span class="argument">news_singlepage</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span>
+  <span class="argument">templates_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/templates"</span><span class="keyword">,</span>
   <span class="argument">bootstrap_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/bootstrap"</span><span class="keyword">,</span> <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
-  <span class="argument">with_vignettes</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">with_demos</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">launch</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">)</span></pre>
+  <span class="argument">with_vignettes</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">with_demos</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">launch</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span>
+  <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1014</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -67,6 +69,10 @@
 names are resolved.</dd>
       <dt>site_path</dt>
       <dd>root Directory in which to create documentation.</dd>
+      <dt>news_path</dt>
+      <dd>Directory in which to create NEWS entries.</dd>
+      <dt>news_singlepage</dt>
+      <dd>Should all NEWS be rendered in a single page?</dd>
       <dt>examples</dt>
       <dd>Run examples?</dd>
       <dt>run_dont_run</dt>
@@ -87,6 +93,9 @@ this doesn&#39;t exist, will use files built into staticdocs.</dd>
       <dt>launch</dt>
       <dd>If <code>TRUE</code>, will open freshly generated site in web
 browser.</dd>
+      <dt>seed</dt>
+      <dd>Seed used to initialize so that random examples are
+reproducible.</dd>
     </dl>
     
     <div class="Description">
@@ -105,7 +114,7 @@ vignettes, demos, and a <code>README.md</code>, if present.</p>
       <p>The home page is generated from <code>inst/staticdocs/README.md</code>,
 <code>README.md</code>, or the <code>DESCRIPTION</code> if neither readme file is
 present. On the homepage, you should show how to install the package,
-describe what it does, and provide a brief example of use.</p>
+describe what it does, and provide an example of how to use it.</p>
 
     </div>
     

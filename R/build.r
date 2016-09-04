@@ -40,7 +40,7 @@
 #' }
 build_site <- function(pkg = ".",
                        site_path = "docs",
-                       news_path = NULL,
+                       news_path = "docs/news",
                        news_singlepage = TRUE,
                        examples = TRUE,
                        run_dont_run = FALSE,

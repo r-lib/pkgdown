@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Home. staticdocs 0.1.0.9000</title>
+<title>. staticdocs 0.1.0.9000</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -53,49 +53,35 @@
       
       <div class="row">
   <div class="span8">
-    <h1>staticdocs</h1>
-
-<p><a href="https://travis-ci.org/hadley/staticdocs"><img src="https://travis-ci.org/hadley/staticdocs.svg?branch=master" alt="Travis-CI Build Status"/></a></p>
-
-<p>staticdocs is designed to make it quick and easy to build a website for your package. You can see staticdocs in action at <a href="http://hadley.github.io/staticdocs/">http://hadley.github.io/staticdocs/</a>: this is the output of staticdocs applied to the latest version of staticdocs.</p>
-
-<h2>Installation</h2>
-
-<p>staticdocs is not currently available from CRAN, but you can install the development version from github with:</p>
-
-<pre><code class="R"># install.packages(&quot;devtools&quot;)
-devtools::install_github(&quot;hadley/staticdocs&quot;)
-</code></pre>
-
-<h2>Usage</h2>
-
-<p>Run staticdocs from the package directory each time you release your package:</p>
-
-<pre><code class="R">staticdocs::build_site()
-</code></pre>
-
-<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package&#39;s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory.</p>
-
-<p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to &ldquo;master branch /docs folder&rdquo;.</p>
-
-  </div>
-
-  <div class="span3 offset1 sidebar">
-    
-    <h2>Demos</h2>
-    <ul>
-      <li><a href="demo-plot.html">This is a demo for plotting</a></li>
-      <li><a href="demo-stats.html">This is a demo for statistics</a></li>
-    </ul>
-    
     <h2>NEWS</h2>
-    See our <a href="../docs/news.html">NEWS</a>!
-    <h2>Authors</h2>
-    <ul>
-      <li><a href='mailto:hadley@rstudio.com'>Hadley Wickham</a> [aut, cre]</li>
-      <li>RStudio [cph]</li>
-    </ul>
-  </div>
+    <p>Here's what changed in each release.</p>
+
+      <h1>staticdocs dummy 3.1</h1>
+
+<ul>
+<li><p>Add &ldquo;Find me on GitHub&rdquo; ribbon to allow jumping to the GitHub repository, given in the
+<code>URLNote</code> entry in <code>DESCRIPTION</code> (#116, @krlmlr).</p></li>
+<li><p>Full support for <code>\linkS4class{}</code> (#105, @krlmlr).</p></li>
+</ul>
+
+<h1>staticdocs dummy 2.5.9000</h1>
+
+<ul>
+<li><p>Support for strings (in addition to <code>person()</code> calls) in <code>Authors@R</code> (#106, @krlmlr).</p></li>
+<li><p>If no directory <code>staticdocs</code> or <code>inst/staticdocs</code> exists, and neither <code>sd_path</code> and <code>site_path</code> are set,
+the the directory <code>inst/staticdocs</code> is created, and documentation is created there (#108, @krlmlr).</p></li>
+<li><p>Support for subsections added (#112, @krlmlr).</p></li>
+</ul>
+
+<h1>staticdocs dummy 1</h1>
+
+<ul>
+<li><p>External documentation is now forwarded to <a href="http://www.rdocumentation.org">http://www.rdocumentation.org</a> (#113, @krlmlr).</p></li>
+<li><p>Fix rendering of links of the form <code>\link[pkg]{topic}</code> where <code>pkg</code> is the current package (#115, @krlmlr).</p></li>
+</ul>
+
+      <a href="../"></a><br/>
+      </div>
 </div>
       
       <footer>
