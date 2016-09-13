@@ -4,7 +4,8 @@ load_index <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
   path <- file.path.ci(pkg$sd_path, "index.R")
-  if (!file.exists(path)) return(list())
+  if (!file.exists(path))
+    return(load_index_yaml(pkg))
 
   library(staticdocs) # might only be attached.
   env <- new.env(parent = globalenv())
@@ -14,6 +15,18 @@ load_index <- function(pkg = ".") {
 
   # Return all objects of class sd_section
   Filter(function(x) inherits(x, "sd_section"), out)
+}
+
+#' @importFrom yaml yaml.load_file
+load_index_yaml <- function(pkg) {
+
+  path <- file.path.ci(pkg$sd_path, "index.yaml")
+  if (!file.exists(path)) return(list())
+  index_list=try(yaml.load_file(path))
+  if(inherits(index_list, 'try-error'))
+    stop("Invalid yaml index file: ", path)
+  lapply(names(index_list),
+         function (n) sd_section(n, index_list[[n]]$desc, index_list[[n]]$topics))
 }
 
 #' Define a section for the index page
