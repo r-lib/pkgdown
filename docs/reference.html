@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Function reference. staticdocs 0.1.0.9000</title>
+<title>Function reference. nat.templatebrains 0.8</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<meta name="author" content="James Manton and Gregory Jefferis">
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="index.html">staticdocs 0.1.0.9000</a>
+      <a class="brand" href="index.html">nat.templatebrains 0.8</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html">Home</a></li>
@@ -42,8 +42,6 @@
     </div>
   </div>
 </div>
-<style>#forkongithub a{background:#500;color:#ccc;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#711;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
-<span id="forkongithub"><a href="https://github.com/hadley/staticdocs">Find me on GitHub!</a></span>
 
 
     <div class="container">
@@ -55,41 +53,100 @@
   <div class="span8">
     <h2>Function reference</h2>
 
-    <h3>Settings functions</h3>
-    <p>These functions are used in <code>index.r</code> to configure various
-    settings that staticdocs uses when rendering a package.  This is
-    particularly useful for generating an index page that groups functions
-    into useful categories</p>
+    <h3>Package Help</h3>
+    <p>Provides an overview of key functions and classes</p>
 
 
     <ul class="index">
         
       <li>
-        <code><a href="sd_icon.html">sd_icon</a></code><br />Define the icon for a function.</li>
-            
-      <li>
-        <code><a href="sd_item.html">sd_item</a></code><br />Define an item in a section of the index.</li>
-            
-      <li>
-        <code><a href="sd_section.html">sd_section</a></code><br />Define a section for the index page</li>
+        <code><a href="nat.templatebrains-package.html">nat.templatebrains-package</a></code>(nat.templatebrains)<br />NeuroAnatomy Toolbox add-on package for handling template brains</li>
     
     </ul>
-    <h3>Other</h3>
-    
+    <h3>Template Brains</h3>
+    <p>Functions that handle defining template brain spaces and setting the space for objects.</p>
+
 
     <ul class="index">
         
       <li>
-        <code><a href="build_site.html">build_site</a></code>(build_package, staticdocs-package)<br />Build complete static documentation for a package.</li>
+        <code><a href="templatebrain.html">templatebrain</a></code><br />Construct templatebrain object for an image registration template</li>
             
       <li>
-        <code><a href="parse_rd.html">parse_rd</a></code><br />Parse an rd file in to staticdocs format.</li>
+        <code><a href="templatebrain-meths.html">templatebrain-meths</a></code>(as.character.templatebrain, as.im3d.templatebrain, boundingbox.templatebrain, dim.templatebrain, is.templatebrain, origin.templatebrain, print.templatebrain, voxdims.templatebrain)<br />Template brain methods</li>
             
       <li>
-        <code><a href="render_page.html">render_page</a></code><br />Render complete page.</li>
+        <code><a href="regtemplate.html">regtemplate</a></code>(regtemplate&lt;-)<br />Get or set the registration template space in which an object lives</li>
             
       <li>
-        <code><a href="to_html.html">to_html</a></code><br />Convert an rdoc to a list of html components.</li>
+        <code><a href="as.templatebrain.html">as.templatebrain</a></code>(as.templatebrain.character, as.templatebrain.im3d)<br />Use image file or other object to initialise template brain</li>
+            
+      <li>
+        <code><a href="plot3d.templatebrain.html">plot3d.templatebrain</a></code><br />Plot 3D surface of a template brain</li>
+            
+      <li>
+        <code><a href="display_slice.html">display_slice</a></code><br />Display an image slice in 3D</li>
+    
+    </ul>
+    <h3>Transformations</h3>
+    <p>Functions that handle transformations of objects between different template brain spaces</p>
+
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="xform_brain.html">xform_brain</a></code><br />Transform 3D object between template brains</li>
+            
+      <li>
+        <code><a href="mirror_brain.html">mirror_brain</a></code><br />Mirror 3D object around a given axis, optionally using a warping registration</li>
+    
+    </ul>
+    <h3>Registration Sequences</h3>
+    <p>Functions that list available registrations or return registration sequences between different template brains (used by xform_brain and friends but may be useful in their own right).</p>
+
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="bridging_sequence.html">bridging_sequence</a></code><br />Find sequence of one or more bridging registrations</li>
+            
+      <li>
+        <code><a href="shortest_bridging_seq.html">bridging_graph</a></code>(shortest_bridging_seq)<br />Make or query connected graph of bridging registrations</li>
+            
+      <li>
+        <code><a href="allreg_dataframe.html">allreg_dataframe</a></code><br />Make data.frame with details of all registrations</li>
+    
+    </ul>
+    <h3>Managing Registrations</h3>
+    <p>Functions that inform the package of available bridging registrations or download / update registrations from remote sources.</p>
+
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="add_reg_folders.html">add_reg_folders</a></code>(extra_reg_folders)<br />Set or list local folders containing registrations for nat.templatebrains</li>
+            
+      <li>
+        <code><a href="add_reglist.html">add_reglist</a></code><br />Add reglist object describing a bridging/mirroring registration</li>
+            
+      <li>
+        <code><a href="download_reg_repo.html">download_reg_repo</a></code><br />Download and register git repository containing registrations</li>
+            
+      <li>
+        <code><a href="update_reg_repos.html">update_reg_repos</a></code><br />Update local copy of git repository containing registrations</li>
+            
+      <li>
+        <code><a href="local_reg_dir_for_url.html">local_reg_dir_for_url</a></code><br />Standard local checkout location for extra registration directories</li>
+    
+    </ul>
+    <h3>Sample data</h3>
+    <p>Sample template brain (see nat.flybrains package for more examples)</p>
+
+
+    <ul class="index">
+        
+      <li>
+        <code><a href="FCWB.demo.html">FCWB.demo</a></code><br />Sample template brain: FlyCircuit Whole Brain</li>
     
     </ul>
   </div>
