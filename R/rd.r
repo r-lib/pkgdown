@@ -16,14 +16,14 @@ parse_rd <- function(topic, package) {
   print(rd)
 }
 
-rd2html <- function(x, fragment = FALSE) {
+rd2html <- function(x, fragment = FALSE, ...) {
   con <- textConnection(x)
   on.exit(close(con), add = TRUE)
 
   rd_raw <- tools::parse_Rd(con, fragment = fragment)
   rd <- structure(set_classes(rd_raw), class = "Rd_content")
 
-  str_trim(str_split(str_trim(to_html(rd)), "\n")[[1]])
+  str_trim(str_split(str_trim(to_html(rd, ...)), "\n")[[1]])
 }
 
 get_help_file <- function(path) {
