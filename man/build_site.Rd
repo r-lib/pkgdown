@@ -8,7 +8,7 @@
 \usage{
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
-  bootstrap_path = "inst/staticdocs/bootstrap", mathjax = TRUE,
+  assets_path = "inst/staticdocs/assets", mathjax = TRUE,
   with_vignettes = TRUE, with_demos = TRUE, launch = interactive(),
   seed = 1014)
 }
@@ -27,8 +27,9 @@ names are resolved.}
 exist will look next in \code{pkg/inst/staticdocs/templates}, then
 in staticdocs itself.}
 
-\item{bootstrap_path}{Path in which to look for bootstrap files. If
-this doesn't exist, will use files built into staticdocs.}
+\item{assets_path}{Path in which to look for assets files. If
+this doesn't exist, will use \code{pkg/inst/staticdocs/assets},
+then files built into staticdocs.}
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
