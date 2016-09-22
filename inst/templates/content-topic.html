@@ -1,7 +1,7 @@
 <h1>{{{title}}}</h1>
 
 <div class="row">
-  <div class="span8">
+  <div class="col-xs-12 col-sm-12 col-md-9">
     {{#usage}}
     <h2>Usage</h2>
     <pre>{{{usage}}}</pre>
@@ -18,12 +18,12 @@
     {{/has_args}}
 
     {{#sections}}
-    <div class="{{{title}}}">
-      <h2>{{{title}}}</h2>
-
+    <div class="{{title}}">
+      <h2>{{title}}</h2>
+      
       {{#contents}}
       <p>{{{.}}}</p>
-
+  
       {{/contents}}
 
     </div>
@@ -34,27 +34,26 @@
     <pre class="examples">{{{ examples }}}</pre>
     {{/examples}}
   </div>
-  <div class="span4 sidebar">
+  <div class="col-xs-12 col-sm-6 col-md-3">
     <!-- <ul>
       {{#aliases}}<li>{{.}}</li>{{/aliases}}
     </ul>
     <ul>
       {{#keywords}}<li>{{.}}</li>{{/keywords}}
     </ul> -->
-
+      
     {{#seealso}}
     <h2>See also</h2>
-      {{#contents}}
-      <p>{{{.}}}</p>
+    {{#contents}}
+    <p>{{{.}}}</p>
 
-      {{/contents}}
+    {{/contents}}
     {{/seealso}}
 
     {{#author}}
     <h2>Author</h2>
     {{{ author }}}
     {{/author}}
-
-
+    
   </div>
 </div>
