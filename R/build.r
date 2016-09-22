@@ -19,8 +19,9 @@
 #' @param templates_path Path in which to look for templates. If this doesn't
 #'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
 #'   in staticdocs itself.
-#' @param bootstrap_path Path in which to look for bootstrap files. If
-#'   this doesn't exist, will use files built into staticdocs.
+#' @param assets_path Path in which to look for assets files. If
+#'   this doesn't exist, will use \code{pkg/inst/staticdocs/assets},
+#'   then files built into staticdocs.
 #' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param with_demos If \code{TRUE}, will build demos.
@@ -41,7 +42,7 @@ build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        templates_path = "inst/staticdocs/templates",
-                       bootstrap_path = "inst/staticdocs/bootstrap",
+                       assets_path = "inst/staticdocs/assets",
                        mathjax = TRUE,
                        with_vignettes = TRUE,
                        with_demos = TRUE,
@@ -57,7 +58,7 @@ build_site <- function(pkg = ".",
     examples = examples,
     run_dont_run = run_dont_run,
     templates_path = templates_path,
-    bootstrap_path = bootstrap_path,
+    assets_path = assets_path,
     mathjax = mathjax
   )
   load_all(pkg)
@@ -65,7 +66,7 @@ build_site <- function(pkg = ".",
   if (!file.exists(pkg$site_path)) {
     dir.create(pkg$site_path, recursive = TRUE)
   }
-  copy_bootstrap(pkg)
+  copy_assets(pkg)
 
 
   pkg$topics <- build_topics(pkg)
@@ -128,15 +129,15 @@ build_topics <- function(pkg = ".") {
   index
 }
 
-copy_bootstrap <- function(pkg = ".") {
+copy_assets <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-  user_bootstrap <- pkg$bootstrap_path
-  if (file.exists(user_bootstrap)) {
-    bootstrap <- user_bootstrap
+  user_assets <- pkg$assets_path
+  if (file.exists(user_assets)) {
+    assets <- user_assets
   } else {
-    bootstrap <- file.path(inst_path(), "bootstrap")
+    assets <- file.path(inst_path(), "assets")
   }
-  file.copy(dir(bootstrap, full.names = TRUE), pkg$site_path, recursive = TRUE)
+  file.copy(dir(assets, full.names = TRUE), pkg$site_path, recursive = TRUE)
 }
 
 #' @importFrom tools pkgVignettes buildVignettes
