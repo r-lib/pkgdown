@@ -185,7 +185,7 @@ build_demos <- function(pkg = ".") {
   for (i in seq_along(title)) {
     demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
     demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
-      new_device = FALSE)
+      new_device = TRUE)
 
     pkg$demo <- replay_html(demo_expr, pkg = pkg, name = str_c(pieces[i], "-"))
     pkg$pagetitle <- title[i]
