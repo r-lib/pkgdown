@@ -69,13 +69,11 @@ build_site <- function(pkg = ".",
   dir.create(file.path(pkg$site_path, "reference"), recursive = TRUE)
   copy_assets(pkg)
 
+  reference_build(pkg, site_path = site_path)
 
-  pkg$topics <- build_topics(pkg)
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
   if (with_demos) pkg$demos <- build_demos(pkg)
 
-  build_index(pkg)
-  reference_index_build(pkg, site_path = site_path)
 
   if (launch) launch(pkg)
   invisible(TRUE)
@@ -91,41 +89,6 @@ build_package <- function(...) {
   warning("build_package is deprecated, please use build_site() instead",
     call. = FALSE)
   build_site(...)
-}
-
-# Generate all topic pages for a package.
-build_topics <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  # for each file, find name of one topic
-  index <- pkg$topics
-  paths <- file.path(pkg$site_path, index$file_out)
-
-  # create columns for extra topic info
-  index$title <- ""
-  index$in_index <- TRUE
-
-  for (i in seq_along(index$name)) {
-    message("Generating ", basename(paths[[i]]))
-
-    rd <- pkg$topics$rd[[i]]
-    html <- to_html.Rd_doc(rd,
-      env = new.env(parent = globalenv()),
-      topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
-      pkg = pkg)
-    html$pagetitle <- html$name
-
-    html$package <- pkg[c("package", "version")]
-    render_page(pkg, "topic", html, paths[[i]])
-    grDevices::graphics.off()
-
-    if ("internal" %in% html$keywords) {
-      index$in_index[i] <- FALSE
-    }
-    index$title[i] <- html$title
-  }
-
-  index
 }
 
 copy_assets <- function(pkg = ".") {

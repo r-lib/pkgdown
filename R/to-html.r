@@ -51,6 +51,8 @@ to_html.Rd_doc <- function(x, ...) {
     "usage", "author", "seealso", "arguments", "examples"))]
   out$sections <- compact(to_html(sections, topic = out$name, ...))
 
+  out$pagetitle <- out$name
+
   out
 }
 
@@ -200,12 +202,14 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
   # First element of examples tag is always empty
   text <- to_html.TEXT(x[-1], ..., pkg = pkg, escape = FALSE)
 
-  if (!pkg$examples) {
+  if (!isTRUE(pkg$examples)) {
     src_highlight(text, pkg$topics)
   } else {
     expr <- evaluate(text, env, new_device = TRUE)
 
     replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+
+    grDevices::graphics.off()
   }
 
 }
@@ -232,7 +236,7 @@ to_html.item <- function(x, ...) {
 #' @export
 to_html.eqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
-  if (pkg$mathjax){
+  if (isTRUE(pkg$mathjax)){
     latex_rep <- x[[1]]
     str_c("$", to_html.TEXT(latex_rep, ...), "$")
   }else{
@@ -244,7 +248,7 @@ to_html.eqn <- function(x, pkg, ...) {
 #' @export
 to_html.deqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
-  if (pkg$mathjax){
+  if (isTRUE(pkg$mathjax)) {
     latex_rep <- x[[1]]
     str_c("$$", to_html.TEXT(latex_rep, ...), "$$")
   }else{
@@ -359,7 +363,7 @@ to_html.enc <- function(x, ...) {
 
 #' @export
 to_html.dontrun <- function(x, ..., pkg) {
-  if (pkg$run_dont_run) {
+  if (isTRUE(pkg$run_dont_run)) {
     return(to_html.TEXT(x))
   }
 

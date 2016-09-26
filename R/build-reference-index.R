@@ -1,5 +1,5 @@
 reference_index_build <- function(pkg = ".", site_path = NULL) {
-  message("Generating reference/index.html")
+  message("Generating reference index")
   pkg <- as.sd_package(pkg)
 
   spec <- reference_index_spec(pkg)
