@@ -77,3 +77,8 @@ set_contains <- function(haystack, needles) {
 }
 
 compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
+
+mkdir <- function(...) {
+  path <- file.path(...)
+  dir.create(path, recursive = TRUE, showWarnings = FALSE)
+}

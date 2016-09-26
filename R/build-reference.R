@@ -1,6 +1,9 @@
 # Generate all topic pages for a package.
 reference_build <- function(pkg = ".", site_path = NULL) {
   pkg <- as.sd_package(pkg)
+  if (!is.null(site_path)) {
+    mkdir(pkg$site_path, "reference")
+  }
 
   pkg$topics %>%
     purrr::transpose() %>%
@@ -12,7 +15,7 @@ reference_build <- function(pkg = ".", site_path = NULL) {
 }
 
 reference_build_topic <- function(topic, pkg, site_path = NULL) {
-  message("Generating reference for '", topic$name, "'")
+  message("Generating reference topic '", topic$name, "'")
 
   html <- to_html.Rd_doc(
     topic$rd,

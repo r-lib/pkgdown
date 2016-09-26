@@ -63,12 +63,11 @@ build_site <- function(pkg = ".",
   )
   load_all(pkg)
 
-  if (!file.exists(pkg$site_path)) {
-    dir.create(pkg$site_path, recursive = TRUE)
-  }
-  dir.create(file.path(pkg$site_path, "reference"), recursive = TRUE)
+
+  mkdir(pkg$site_path)
   copy_assets(pkg)
 
+  build_index(pkg)
   reference_build(pkg, site_path = site_path)
 
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
@@ -82,13 +81,6 @@ build_site <- function(pkg = ".",
 launch <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
   servr::httd(pkg$site_path)
-}
-
-#' @export
-build_package <- function(...) {
-  warning("build_package is deprecated, please use build_site() instead",
-    call. = FALSE)
-  build_site(...)
 }
 
 copy_assets <- function(pkg = ".") {
