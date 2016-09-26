@@ -66,12 +66,18 @@ build_site <- function(pkg = ".",
 }
 
 init_site <- function(path, user_assets) {
-  mkdir(path)
+  rule("Initialising site")
 
+  mkdir(path)
   if (file.exists(user_assets)) {
-    assets <- user_assets
+    asset_path <- user_assets
   } else {
-    assets <- file.path(inst_path(), "assets")
+    asset_path <- file.path(inst_path(), "assets")
   }
-  file.copy(dir(assets, full.names = TRUE), path, recursive = TRUE)
+
+  assets <- dir(asset_path, full.names = TRUE)
+  for (asset in assets) {
+    message("Copying '", asset, "'")
+    file.copy(asset, path, recursive = TRUE)
+  }
 }

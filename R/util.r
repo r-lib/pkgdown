@@ -80,7 +80,11 @@ compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
 
 mkdir <- function(...) {
   path <- file.path(...)
-  dir.create(path, recursive = TRUE, showWarnings = FALSE)
+
+  if (!file.exists(path)) {
+    message("Creating '", path, "/'")
+    dir.create(path, recursive = TRUE, showWarnings = FALSE)
+  }
 }
 
 rule <- function(..., pad = "-") {
