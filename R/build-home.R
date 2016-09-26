@@ -8,11 +8,11 @@
 build_home <- function(pkg = ".", path = NULL) {
   rule("Building home")
 
-  data <- spec_index(pkg)
+  data <- data_index(pkg)
   render_page(pkg, "home", data, out_path(path, "index.html"))
 }
 
-spec_index <- function(pkg = ".") {
+data_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
   path <- find_index(pkg)
 
