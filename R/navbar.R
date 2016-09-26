@@ -1,5 +1,5 @@
-build_navbar <- function(meta, package) {
-  meta <- meta_navbar(meta, package)
+build_navbar <- function(meta, package, desc) {
+  meta <- meta_navbar(meta, package, desc)
 
   path <- rmarkdown:::navbar_html(meta)
   on.exit(unlink(path), add = TRUE)
@@ -7,7 +7,7 @@ build_navbar <- function(meta, package) {
   paste(readLines(path), collapse = "\n")
 }
 
-meta_navbar <- function(meta, package) {
+meta_navbar <- function(meta, package, desc) {
   if (!is.null(meta$navbar)) {
     return(meta$navbar)
   }
@@ -28,6 +28,29 @@ meta_navbar <- function(meta, package) {
         text = "Articles",
         href = "/articles/"
       )
+    ),
+    right = list(
+      github_link(desc)
     )
+  )
+}
+
+
+github_link <- function(desc) {
+  if (!desc$has_fields("URL"))
+    return()
+
+  gh_links <- desc$get("URL")[[1]] %>%
+    str_split(",") %>%
+    .[[1]] %>%
+    str_trim() %>%
+    str_subset("^https?://github.com/")
+
+  if (length(gh_links) == 0)
+    return()
+
+  list(
+    icon = "fa-github fa-lg",
+    href= gh_links[[1]]
   )
 }

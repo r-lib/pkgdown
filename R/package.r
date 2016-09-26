@@ -20,7 +20,7 @@ as_staticdocs <- function(path = ".", options = list()) {
       package = package,
       options = options,
       vignettes = vignette_index(path),
-      navbar = build_navbar(meta, package)
+      navbar = build_navbar(meta, package, desc)
     ),
     class = "staticdocs"
   )
