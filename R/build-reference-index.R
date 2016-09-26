@@ -1,14 +1,6 @@
 build_reference_index <- function(pkg = ".", path = NULL) {
-  pkg <- as.sd_package(pkg)
-
   spec <- spec_reference_index(pkg)
-
-  if (is.null(path)) {
-    out <- ""
-  } else {
-    out <- file.path(path, "index.html")
-  }
-  render_page(pkg, "reference-index", spec, out)
+  render_page(pkg, "reference-index", spec, out_path(path, "index.html"))
 }
 
 spec_reference_index <- function(pkg = ".") {

@@ -92,3 +92,12 @@ rule <- function(..., pad = "-") {
   width <- max(getOption("width") - nchar(title) - 1, 0)
   message(title, paste(rep(pad, width, collapse = "")))
 }
+
+out_path <- function(path, ...) {
+  if (is.null(path)) {
+    ""
+  } else {
+    file.path(path, ...)
+  }
+
+}

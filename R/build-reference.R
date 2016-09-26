@@ -4,7 +4,6 @@
 #' @export
 build_reference <- function(pkg = ".", path = NULL) {
   rule("Building function reference")
-  pkg <- as.sd_package(pkg)
   if (!is.null(path)) {
     mkdir(path)
   }
@@ -20,13 +19,7 @@ build_reference <- function(pkg = ".", path = NULL) {
 
 build_reference_topic <- function(topic, pkg, path = NULL) {
   html <- spec_reference_topic(topic, pkg, path)
-
-  if (is.null(path)) {
-    out <- ""
-  } else {
-    out <- file.path(path, topic$file_out)
-  }
-  render_page(pkg, "topic", html, out)
+  render_page(pkg, "topic", html, out_path(path, topic$file_out))
 }
 
 spec_reference_topic <- function(topic, pkg, path = NULL) {
