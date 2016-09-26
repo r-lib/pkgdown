@@ -22,8 +22,11 @@ Imports:
     crayon,
     roxygen2 (>= 5.0.0)
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 5.0.1
 UrlNote: https://github.com/hadley/staticdocs
 URL: https://github.com/hadley/staticdocs
 BugReports: https://github.com/hadley/staticdocs/issues
+VignetteBuilder: knitr

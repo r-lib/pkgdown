@@ -1,0 +1,144 @@
+---
+author: "Hadley Wickham"
+title: "Staticdocs"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{staticdocs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The goal of staticdocs is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website.
+
+There are seven main parts to a staticdocs site:
+
+1. Metadata
+1. Home page
+1. Reference
+1. Articles
+1. News
+1. Navbar 
+
+## Metadata (`_staticdocs.yml`)
+
+Metadata about the site is stored in `_staticdocs.yaml` in the root directory. This includes:
+
+* The site `title`, if different from the package name.
+
+* A path to a set of `template`, if you want to override the default
+  page templates provided by the site.
+
+* A [bootswatch](https://bootswatch.com) `theme` to easily tweak the
+  overall appearance of the site.
+  
+* The other options described below.
+
+## Home page (`index.html`)
+
+The home page will be automatically generated from one of five files (in order):
+
+1. `index.Rmd`
+1. `index.md`
+1. `index.html` (eventually)
+1. `README.Rmd`
+1. `README.md`
+
+Looking for both `index` and `README` allows you to default to the same homepage as github, while making it possible to have a different home page if needed.
+
+## Reference (`reference/`)
+
+The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation to HTML, along with evaluation of example and auto-linking of all code. 
+
+staticdocs will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a `reference` key in `_staticdocs.yml`:
+
+```yaml
+reference:
+  - title: "Connecting to Spark"
+    desc: >
+      Functions for installing Spark components and managing
+      connections to Spark
+    contents: 
+      - spark_config
+      - spark_connect
+      - spark_disconnect
+      - spark_install
+      - spark_log
+  - title: "Reading and Writing Data"
+    desc: "Functions for reading and writing Spark DataFrames."
+    contents:
+      - !starts_with spark_read
+      - !starts_with spark_write
+      - sdf-saveload
+```
+
+The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the special handlers `starts_with` and `ends_with` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches` with a regular expression.
+
+staticdocs will warn if you've forgotten to include any non-internal functions.
+
+## Articles (`articles/`)
+
+staticdocs will automatically build all `.Rmd` vignettes, including those in subdirectories, and render output to `articles/`. staticdocs will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
+
+If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`.  In the extreme case where you want to produce only articles but not vignettes, you can add the complete `vignettes/` directory to `.Rbuildignore`.
+
+As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):
+
+```yaml:
+articles:
+  - title: "Extend shiny"
+    desc: >
+      These packages provide advanced features that can enhance your Shiny 
+      apps.
+    contents:
+    - shinydashboard
+    - shinythemes
+    - shinyjs
+    - htmlwidgets
+```
+
+## Navbar
+
+By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the `DESCRIPTION` url field). You can override the defaults to:
+
+* Surface important articles directly from the navbar (a la
+  <http://spark.rstudio.com>).
+
+* Provide deeper add additional hierarchical navigation (like     
+  <http://www.htmlwidgets.org>).
+  
+* Link to other, off-site, resources.
+
+The navbar has a similar structure to the [R Markdown website navbar][rmarkdown navbar]. To customise, use the `navbar` field:
+
+```yaml
+navbar:
+  title: "sparklyr"
+  type: inverse
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "dplyr"
+      href: articles/dplyr.html
+    - text: "ML"
+      href: articles/ML.html
+    - text: "Extensions"
+      href: articles/extensions.html
+    - text: "Deployment"
+      href: articles/deployment.html
+    - text: "Reference"
+      href: "reference/"
+  right:
+    - icon: fa-github
+      href: https://github.com/rstudio/sparklyr
+```
+
+## News (`news/`)
+
+If `NEWS.md` is present, it will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
+
+If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
+
+
+[docs]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch
+[rmarkdown navbar]: http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation
