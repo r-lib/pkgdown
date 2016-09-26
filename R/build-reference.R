@@ -54,11 +54,7 @@ reference_index_section_build <- function(section, pkg) {
 
   contents <- pkg$rd_index %>%
     dplyr::filter(in_section) %>%
-    dplyr::transmute(
-      path = file_out,
-      aliases = purrr::map(alias, ~ purrr::map(., ~ list(alias = .))),
-      title = title
-    ) %>%
+    dplyr::select(path = file_out, aliases = alias, title) %>%
     purrr::transpose()
 
   list(
