@@ -98,7 +98,7 @@ build_topics <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
   # for each file, find name of one topic
-  index <- pkg$rd_index
+  index <- pkg$topics
   paths <- file.path(pkg$site_path, index$file_out)
 
   # create columns for extra topic info
@@ -108,7 +108,7 @@ build_topics <- function(pkg = ".") {
   for (i in seq_along(index$name)) {
     message("Generating ", basename(paths[[i]]))
 
-    rd <- pkg$rd[[i]]
+    rd <- pkg$topics$rd[[i]]
     html <- to_html.Rd_doc(rd,
       env = new.env(parent = globalenv()),
       topic = str_replace(basename(paths[[i]]), "\\.html$", ""),

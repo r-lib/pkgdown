@@ -111,7 +111,7 @@ to_html.usage <- function(x, pkg, ...) {
 
   text <- str_trim(text)
 
-  html <- src_highlight(text, pkg$rd_index)
+  html <- src_highlight(text, pkg$topics)
 
   if (!identical(text, html)) {
     # It's nice not to wrap in the middle of a simple "arg = default"
@@ -201,7 +201,7 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
   text <- to_html.TEXT(x[-1], ..., pkg = pkg, escape = FALSE)
 
   if (!pkg$examples) {
-    src_highlight(text, pkg$rd_index)
+    src_highlight(text, pkg$topics)
   } else {
     expr <- evaluate(text, env, new_device = TRUE)
 
@@ -325,7 +325,7 @@ to_html.linkS4class <- function(x, pkg, ...) {
 }
 
 find_topic_and_make_link <- function(topic, label, t_package, pkg) {
-  loc <- find_topic(topic, t_package, pkg$rd_index)
+  loc <- find_topic(topic, t_package, pkg$topics)
   if (is.null(loc)) {
     message("Can't find help topic ", topic)
     return(topic)

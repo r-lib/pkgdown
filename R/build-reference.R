@@ -20,14 +20,14 @@ reference_index_spec <- function(pkg = ".") {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ topic_has_alias(pkg$rd_index, .$contents)) %>%
+    purrr::map(~ topic_has_alias(pkg$topics, .$contents)) %>%
     purrr::reduce(`+`)
 
-  missing <- !in_index && !pkg$rd_index$internal
+  missing <- !in_index && !pkg$topics$internal
   if (any(missing)) {
     warning(
       "Topics missing from index: ",
-      paste(pkg$rd_index$name[missing], collapse = ", "),
+      paste(pkg$topics$name[missing], collapse = ", "),
       call. =  FALSE
     )
   }
@@ -50,9 +50,9 @@ reference_index_section_build <- function(section, pkg) {
   }
 
   # Match topics against any aliases
-  in_section <- topic_has_alias(pkg$rd_index, section$contents)
+  in_section <- topic_has_alias(pkg$topics, section$contents)
 
-  contents <- pkg$rd_index %>%
+  contents <- pkg$topics %>%
     dplyr::filter(in_section) %>%
     dplyr::select(path = file_out, aliases = alias, title) %>%
     purrr::transpose()
@@ -76,7 +76,7 @@ reference_index_meta <- function(pkg = ".") {
     list(
       title = "All functions",
       desc = NULL,
-      contents = pkg$rd_index$name
+      contents = pkg$topics$name
     )
   )
 }

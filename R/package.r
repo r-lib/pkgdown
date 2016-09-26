@@ -31,9 +31,7 @@ as.sd_package <- function(pkg = ".", ...) {
   )
   pkg$dependencies <- ifelse(pkg$dependencies == "", FALSE, pkg$dependencies)
 
-  pkg$rd <- package_rd(pkg)
-  pkg$rd_index <- topic_index(pkg$rd)
-
+  pkg$topics <- topic_index(pkg)
   pkg$meta <- read_meta(pkg)
 
   pkg
@@ -53,7 +51,10 @@ str_person <- function(pers) {
 
 is.sd_package <- function(x) inherits(x, "sd_package")
 
-topic_index <- function(rd) {
+topic_index <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
+
+  rd <- package_rd(pkg)
   aliases <- unname(lapply(rd, extract_alias))
 
   names <- purrr::map_chr(rd, extract_name)
@@ -69,6 +70,7 @@ topic_index <- function(rd) {
     file_out = file_out,
     alias = aliases,
     title = titles,
+    rd = rd,
     internal = FALSE # TODO
   )
 }
@@ -94,7 +96,7 @@ print.sd_package <- function(x, ...) {
   cat("Package: ", x$package, " @ ", dirname(x$path), " -> ", x$site_path,
     "\n", sep = "")
 
-  topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "),
+  topics <- strwrap(paste(sort(x$topics$name), collapse = ", "),
     indent = 2, exdent = 2, width = getOption("width"))
   cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
 
