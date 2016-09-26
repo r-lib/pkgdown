@@ -8,6 +8,8 @@
 #'   prints to standard out.
 #' @export
 render_page <- function(package, name, data, path = "") {
+  package <- as_staticdocs(package)
+
   # render template components
   pieces <- c("head", "navbar", "header", "content", "footer")
   components <- lapply(pieces, render_template, package = package, name, data)

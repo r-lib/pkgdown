@@ -50,13 +50,12 @@ build_site <- function(pkg = ".",
   )
 
   pkg <- as_staticdocs(pkg, options)
-  mkdir(site_path)
+  init_site(site_path, assets_path)
 
-  copy_assets(assets_path, site_path)
   # build_navbar(pkg)
   build_home(pkg, path = site_path)
   build_reference(pkg, path = file.path(site_path, "reference"))
-  # build_vignettes(pkg)
+  build_articles(pkg, path = file.path(site_path, "articles"))
   # build_news(pkg)
 
   if (launch) {
@@ -66,39 +65,13 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-copy_assets <- function(user_assets, path) {
+init_site <- function(path, user_assets) {
+  mkdir(path)
+
   if (file.exists(user_assets)) {
     assets <- user_assets
   } else {
     assets <- file.path(inst_path(), "assets")
   }
   file.copy(dir(assets, full.names = TRUE), path, recursive = TRUE)
-}
-
-#' @importFrom tools pkgVignettes buildVignettes
-build_vignettes <- function(pkg = ".") {
-  pkg <- as_staticdocs(pkg)
-  vigns <- pkgVignettes(dir = pkg$path)
-
-  if (length(vigns$docs) == 0) return()
-
-  message("Building vignettes")
-  # Locate source and built versions of vignettes
-  buildVignettes(dir = pkg$path)
-  vigns <- pkgVignettes(dir = pkg$path, output = TRUE)
-
-  message("Copying vignettes")
-  dest <- file.path(pkg$site_path, "vignettes")
-  if (!file.exists(dest)) dir.create(dest)
-  file.copy(vigns$outputs, dest, overwrite = TRUE)
-  file.remove(vigns$outputs)
-
-  # Extract titles
-  titles <- vapply(vigns$docs, FUN.VALUE = character(1), function(x) {
-    contents <- str_c(readLines(x), collapse = "\n")
-    str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
-  })
-  names <- basename(vigns$outputs)
-
-  list(vignette = unname(Map(list, title = titles, filename = names)))
 }

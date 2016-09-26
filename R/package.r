@@ -8,17 +8,16 @@ as_staticdocs <- function(path = ".", options = list()) {
   }
 
   desc <- desc::description$new(file.path(path, "DESCRIPTION"))
-  topics <- topic_index(path)
-  meta <- read_meta(path)
 
   structure(
     list(
       path = path,
       desc = desc,
       package = data_package(desc),
-      topics = topics,
-      meta = meta,
-      options = options
+      topics = topic_index(path),
+      meta = read_meta(path),
+      options = options,
+      vignettes = vignette_index(path)
     ),
     class = "staticdocs"
   )
@@ -62,7 +61,7 @@ read_meta <- function(path) {
   yaml
 }
 
-# Topic index -------------------------------------------------------------
+# Topics ------------------------------------------------------------------
 
 topic_index <- function(path = ".") {
   rd <- package_rd(path)
@@ -107,4 +106,30 @@ is_internal <- function(x) {
 extract_title <- function(x, pkg) {
   title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
   to_html(title, pkg = pkg)
+}
+
+
+# Vignettes ---------------------------------------------------------------
+
+vignette_index <- function(path = ".") {
+  path <- dir(
+    file.path(path, "vignettes"),
+    pattern = "\\.Rmd$",
+    recursive = TRUE
+  )
+
+  title <- path %>%
+    file.path("vignettes", .) %>%
+    purrr::map(yaml_metadata) %>%
+    purrr::map_chr("title", .null = "UNKNOWN TITLE")
+
+  tibble::tibble(
+    file_in = path,
+    file_out = gsub("\\.Rmd$", "\\.html", path),
+    title
+  )
+}
+
+yaml_metadata <- function(path) {
+  rmarkdown:::parse_yaml_front_matter(readLines(path))
 }
