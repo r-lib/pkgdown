@@ -9,7 +9,7 @@
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   assets_path = "inst/staticdocs/assets", mathjax = TRUE,
-  with_vignettes = TRUE, launch = interactive(), seed = 1014)
+  launch = interactive(), seed = 1014)
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -32,8 +32,6 @@ then files built into staticdocs.}
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{with_vignettes}{If \code{TRUE}, will build vignettes.}
-
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
 
@@ -41,16 +39,9 @@ browser.}
 reproducible.}
 }
 \description{
-Currently, \code{build_site} builds documentation for help topics,
-vignettes, demos, and a \code{README.md}, if present.
-}
-\section{Home page}{
-
-
-The home page is generated from \code{inst/staticdocs/README.md},
-\code{README.md}, or the \code{DESCRIPTION} if neither readme file is
-present. On the homepage, you should show how to install the package,
-describe what it does, and provide an example of how to use it.
+\code{build_site} calls \code{\link{build_index}()},
+\code{\link{build_home}()}, and \code{\link{build_reference}}. See
+the invidual documentation for how the code works.
 }
 \examples{
 \dontrun{

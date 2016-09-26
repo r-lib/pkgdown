@@ -11,7 +11,8 @@ render_page(package, name, data, path = "")
 
 \item{name}{Name of the template (e.g. index, demo, topic)}
 
-\item{data}{Data for the template}
+\item{data}{Data for the template. Package metadata is always automatically
+added to this list under key \code{package}.}
 
 \item{path}{Location to create file. If \code{""} (the default),
 prints to standard out.}

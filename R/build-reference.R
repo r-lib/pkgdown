@@ -8,6 +8,9 @@ build_reference <- function(pkg = ".", path = NULL) {
     mkdir(path)
   }
 
+  # Needed to run examples
+  devtools::load_all(pkg$path)
+
   pkg$topics %>%
     purrr::transpose() %>%
     purrr::map(build_reference_topic, pkg = pkg, path)

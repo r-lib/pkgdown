@@ -1,40 +1,38 @@
-#' @importFrom devtools parse_deps as.package
-as.sd_package <- function(pkg = ".", ...) {
-  if (is.sd_package(pkg)) return(pkg)
-
-  pkg <- as.package(pkg)
-  class(pkg) <- c("sd_package", "package")
-  pkg$sd_path <- pkg_sd_path(pkg)
-
-  pkg <- utils::modifyList(pkg, list(...))
-
-  pkg$icons <- load_icons(pkg)
-
-  if (!is.null(pkg[["url"]])) {
-    pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
-    pkg[["url"]] <- NULL
+as_staticdocs <- function(path = ".", options = list()) {
+  if (is_staticdocs(path)) {
+    return(path)
   }
 
-  # Author info
-  if (!is.null(pkg$`authors@r`)) {
-    pkg$authors <- eval(parse(text = pkg$`authors@r`))
-    pkg$authors <- utils::as.person(pkg$authors)
-    pkg$authors <- sapply(pkg$authors, str_person)
+  if (!file.exists(path) || !is_dir(path)) {
+    stop("`path` is not an existing directory", call. = FALSE)
   }
 
-  # Dependencies
-  pkg$dependencies <- list(
-    depends = str_c(parse_deps(pkg$depends)$name, collapse = ", "),
-    imports = str_c(parse_deps(pkg$imports)$name, collapse = ", "),
-    suggests = str_c(parse_deps(pkg$suggests)$name, collapse = ", "),
-    extends = str_c(parse_deps(pkg$extends)$name, collapse = ", ")
+  desc <- desc::description$new(file.path(path, "DESCRIPTION"))
+  topics <- topic_index(path)
+  meta <- read_meta(path)
+
+  structure(
+    list(
+      path = path,
+      desc = desc,
+      package = data_package(desc),
+      topics = topics,
+      meta = meta,
+      options = options
+    ),
+    class = "staticdocs"
   )
-  pkg$dependencies <- ifelse(pkg$dependencies == "", FALSE, pkg$dependencies)
+}
 
-  pkg$topics <- topic_index(pkg)
-  pkg$meta <- read_meta(pkg)
+is_staticdocs <- function(x) inherits(x, "staticdocs")
 
-  pkg
+data_package <- function(x) {
+  list(
+    name = x$get("Package")[[1]],
+    version = x$get("Version")[[1]],
+    authors = purrr::map(x$get_authors(), str_person),
+    license = x$get("License")
+  )
 }
 
 str_person <- function(pers) {
@@ -49,12 +47,25 @@ str_person <- function(pers) {
   s
 }
 
-is.sd_package <- function(x) inherits(x, "sd_package")
 
-topic_index <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+# Metadata ----------------------------------------------------------------
 
-  rd <- package_rd(pkg)
+read_meta <- function(path) {
+  path <- file.path(path, "_staticdocs.yml")
+
+  if (!file.exists(path)) {
+    yaml <- list()
+  } else {
+    yaml <- yaml::yaml.load_file(path)
+  }
+
+  yaml
+}
+
+# Topic index -------------------------------------------------------------
+
+topic_index <- function(path = ".") {
+  rd <- package_rd(path)
   aliases <- unname(lapply(rd, extract_alias))
 
   names <- purrr::map_chr(rd, extract_name)
@@ -62,7 +73,7 @@ topic_index <- function(pkg = ".") {
   internal <- purrr::map_lgl(rd, is_internal)
 
   file_in <- names(rd)
-  file_out <- str_replace(file_in, "\\.Rd$", ".html")
+  file_out <- stringr::str_replace(file_in, "\\.Rd$", ".html")
 
   tibble::tibble(
     name = names,
@@ -96,16 +107,4 @@ is_internal <- function(x) {
 extract_title <- function(x, pkg) {
   title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
   to_html(title, pkg = pkg)
-}
-
-
-#' @export
-print.sd_package <- function(x, ...) {
-  cat("Package: ", x$package, " @ ", dirname(x$path), " -> ", x$site_path,
-    "\n", sep = "")
-
-  topics <- strwrap(paste(sort(x$topics$name), collapse = ", "),
-    indent = 2, exdent = 2, width = getOption("width"))
-  cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
-
 }

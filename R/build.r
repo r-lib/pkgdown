@@ -1,14 +1,8 @@
 #' Build complete static documentation for a package.
 #'
-#' Currently, \code{build_site} builds documentation for help topics,
-#' vignettes, demos, and a \code{README.md}, if present.
-#'
-#' @section Home page:
-#'
-#' The home page is generated from \code{inst/staticdocs/README.md},
-#' \code{README.md}, or the \code{DESCRIPTION} if neither readme file is
-#' present. On the homepage, you should show how to install the package,
-#' describe what it does, and provide an example of how to use it.
+#' \code{build_site} calls \code{\link{build_index}()},
+#' \code{\link{build_home}()}, and \code{\link{build_reference}}. See
+#' the invidual documentation for how the code works.
 #'
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
@@ -23,7 +17,6 @@
 #'   this doesn't exist, will use \code{pkg/inst/staticdocs/assets},
 #'   then files built into staticdocs.
 #' @param mathjax Use mathjax to render math symbols?
-#' @param with_vignettes If \code{TRUE}, will build vignettes.
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
@@ -43,55 +36,48 @@ build_site <- function(pkg = ".",
                        templates_path = "inst/staticdocs/templates",
                        assets_path = "inst/staticdocs/assets",
                        mathjax = TRUE,
-                       with_vignettes = TRUE,
                        launch = interactive(),
                        seed = 1014
                        ) {
 
   set.seed(seed)
 
-  pkg <- as.sd_package(
-    pkg,
-    site_path = site_path,
+  options <- list(
     examples = examples,
     run_dont_run = run_dont_run,
     templates_path = templates_path,
-    assets_path = assets_path,
     mathjax = mathjax
   )
-  load_all(pkg)
 
-  mkdir(pkg$site_path)
-  copy_assets(pkg)
+  pkg <- as_staticdocs(pkg, options)
+  mkdir(site_path)
 
+  copy_assets(assets_path, site_path)
+  # build_navbar(pkg)
   build_home(pkg, path = site_path)
   build_reference(pkg, path = file.path(site_path, "reference"))
+  # build_vignettes(pkg)
+  # build_news(pkg)
 
-  if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
-
-  if (launch) launch(pkg)
+  if (launch) {
+    rule("Launching site")
+    servr::httd(site_path)
+  }
   invisible(TRUE)
 }
 
-launch <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-  servr::httd(pkg$site_path)
-}
-
-copy_assets <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-  user_assets <- pkg$assets_path
+copy_assets <- function(user_assets, path) {
   if (file.exists(user_assets)) {
     assets <- user_assets
   } else {
     assets <- file.path(inst_path(), "assets")
   }
-  file.copy(dir(assets, full.names = TRUE), pkg$site_path, recursive = TRUE)
+  file.copy(dir(assets, full.names = TRUE), path, recursive = TRUE)
 }
 
 #' @importFrom tools pkgVignettes buildVignettes
 build_vignettes <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  pkg <- as_staticdocs(pkg)
   vigns <- pkgVignettes(dir = pkg$path)
 
   if (length(vigns$docs) == 0) return()

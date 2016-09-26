@@ -2,7 +2,8 @@
 #'
 #' @param package Path to package to document.
 #' @param name Name of the template (e.g. index, demo, topic)
-#' @param data Data for the template
+#' @param data Data for the template. Package metadata is always automatically
+#'   added to this list under key \code{package}.
 #' @param path Location to create file. If \code{""} (the default),
 #'   prints to standard out.
 #' @export
@@ -21,6 +22,8 @@ render_page <- function(package, name, data, path = "") {
 
 #' @importFrom whisker whisker.render
 render_template <- function(package, type, name, data) {
+  data$package <- package$package
+
   template <- readLines(find_template(package, type, name))
   if (length(template) == 0 || (length(template) == 1 && str_trim(template) == ""))
     return("")
@@ -32,10 +35,10 @@ render_template <- function(package, type, name, data) {
 # staticdocs/templates, trying first for a type-name.html otherwise
 # defaulting to type.html
 find_template <- function(package, type, name) {
-  package <- as.sd_package(package)
+  package <- as_staticdocs(package)
 
   paths <- c(
-    package$templates_path,
+    package$options$templates_path,
     pkg_sd_path(package),
     file.path(inst_path(), "templates")
   )

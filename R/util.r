@@ -101,3 +101,5 @@ out_path <- function(path, ...) {
   }
 
 }
+
+is_dir <- function(x) file.info(x)$isdir

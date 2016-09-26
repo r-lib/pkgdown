@@ -4,7 +4,7 @@ build_reference_index <- function(pkg = ".", path = NULL) {
 }
 
 data_reference_index <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  pkg <- as_staticdocs(pkg)
 
   meta <- meta_reference_index(pkg)
   sections <- compact(lapply(meta, data_reference_index_section, pkg = pkg))
@@ -57,7 +57,7 @@ data_reference_index_section <- function(section, pkg) {
 }
 
 meta_reference_index <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  pkg <- as_staticdocs(pkg)
 
   if (!is.null(pkg$meta$reference)) {
     return(pkg$meta$reference)

@@ -13,7 +13,7 @@ build_home <- function(pkg = ".", path = NULL) {
 }
 
 spec_index <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  pkg <- as_staticdocs(pkg)
   path <- find_index(pkg)
 
   out <- list()
@@ -28,9 +28,8 @@ spec_index <- function(pkg = ".") {
   out
 }
 
-
 find_index <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  pkg <- as_staticdocs(pkg)
 
   path <- file.path(pkg$path, "README.md")
   if (file.exists(path)) {

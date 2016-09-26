@@ -30,10 +30,8 @@ get_help_file <- function(path) {
   getNamespace("utils")$.getHelpFile(path)
 }
 
-package_rd <- function(package) {
-  package <- as.sd_package(package)
-
-  man_path <- file.path(package$path, "man")
+package_rd <- function(path) {
+  man_path <- file.path(path, "man")
   rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
   names(rd) <- basename(rd)
   lapply(rd, cached_parse_Rd)
