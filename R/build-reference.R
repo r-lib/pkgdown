@@ -19,13 +19,7 @@ build_reference <- function(pkg = ".", path = NULL) {
 }
 
 build_reference_topic <- function(topic, pkg, path = NULL) {
-  html <- spec_reference_topic(
-    topic$rd,
-    env = new.env(parent = globalenv()),
-    topic = topic$name,
-    pkg = pkg
-  )
-  html$package <- pkg[c("package", "version")]
+  html <- spec_reference_topic(topic, pkg, path)
 
   if (is.null(path)) {
     out <- ""
@@ -35,44 +29,40 @@ build_reference_topic <- function(topic, pkg, path = NULL) {
   render_page(pkg, "topic", html, out)
 }
 
-spec_reference_topic <- function(x, ...) {
-  tags <- vapply(x, tag, FUN.VALUE = character(1))
-  get_tags <- function(tag) x[tags == tag]
-  get_tag <- function(tag) {
-    if (tag %in% tags) {
-      x[[which(tags == tag)]]
-    }
-  }
-
-  # Remove line breaks between sections
-  line_breaks <- tags == "TEXT"
-  x <- x[!line_breaks]
-  tags <- tags[!line_breaks]
+spec_reference_topic <- function(topic, pkg, path = NULL) {
+  tag_names <- purrr::map_chr(topic$rd, tag)
+  tags <- split(topic$rd, tag_names)
 
   out <- list()
 
-  # Capture name, title and aliasess
-  out$name <- to_html(get_tag("name"), ...)
-  out$title <- to_html(get_tag("title"), ...)
-  out$aliases <- vapply(get_tags("alias"), to_html, character(1), ...)
-  out$keywords <- vapply(get_tags("keyword"), to_html, character(1), ...)
+  # Single top-level converted to string
+  out$name <- to_html(tags$name[[1]])
+  out$title <- to_html(tags$title[[1]])
+  out$author <- to_html(tags$author[[1]])
 
-  out$usage <- to_html(get_tag("usage"), ...)
-  out$arguments <- to_html(get_tag("arguments"), ...)
+  # Multiple top-level converted to string
+  out$aliases <- purrr::map_chr(tags$alias, to_html)
+  out$keywords <- purrr::map_chr(tags$keyword %||% list(), to_html)
+
+  # Sections that contain arbitrary text and need cross-referencing
+  out$seealso <- to_html(tags$seealso[[1]], pkg = pkg)
+  out$usage <- to_html(tags$usage[[1]], pkg = pkg)
+  out$arguments <- to_html(tags$arguments[[1]], pkg = pkg)
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
-  out$author <- to_html(get_tag("author"), ...)
 
-  out$seealso <- to_html(get_tag("seealso"), ...)
-  out$examples <- to_html(get_tag("examples"), ...)
+  # Examples
+  # TODO: setwd()
+  env <- new.env(parent = globalenv())
+  out$examples <- to_html(tags$examples[[1]], env = env, pkg = pkg)
 
   # Everything else stays in original order, and becomes a list of sections.
-  sections <- x[!(tags %in% c("name", "title", "alias", "keyword",
-    "usage", "author", "seealso", "arguments", "examples"))]
-  out$sections <- compact(to_html(sections, topic = out$name, ...))
+  sections <- topic$rd[!(tag_names %in% c("name", "title", "alias", "keyword",
+    "usage", "author", "seealso", "arguments", "examples", "TEXT", "COMMENT"))]
+  out$sections <- compact(to_html(sections, pkg = pkg))
 
   out$pagetitle <- out$name
-
+  out$package <- pkg[c("package", "version")]
   out
 }
