@@ -59,7 +59,7 @@ topic_index <- function(pkg = ".") {
 
   names <- purrr::map_chr(rd, extract_name)
   titles <- purrr::map_chr(rd, extract_title)
-  titles <- purrr::map_chr(rd, extract_title)
+  internal <- purrr::map_lgl(rd, is_internal)
 
   file_in <- names(rd)
   file_out <- str_replace(file_in, "\\.Rd$", ".html")
@@ -71,7 +71,7 @@ topic_index <- function(pkg = ".") {
     alias = aliases,
     title = titles,
     rd = rd,
-    internal = FALSE # TODO
+    internal = internal
   )
 }
 
@@ -83,6 +83,14 @@ extract_alias <- function(x) {
 extract_name <- function(x) {
   alias <- Find(function(x) attr(x, "Rd_tag") == "\\name", x)
   alias[[1]][[1]]
+}
+
+is_internal <- function(x) {
+  keywords <- Find(function(x) attr(x, "Rd_tag") == "\\keyword", x)
+  if (is.null(keywords))
+    return(FALSE)
+
+  any(purrr::map_chr(keywords, as.character) %in% "internal")
 }
 
 extract_title <- function(x, pkg) {
