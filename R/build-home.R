@@ -24,6 +24,7 @@ data_index <- function(pkg = ".") {
   }
 
   out$package <- pkg
+  out$pagetitle <- "Home"
 
   out
 }
