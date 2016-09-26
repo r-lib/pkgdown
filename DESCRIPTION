@@ -28,7 +28,8 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    servr
 RoxygenNote: 5.0.1
 UrlNote: https://github.com/hadley/staticdocs
 URL: https://github.com/hadley/staticdocs

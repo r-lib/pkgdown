@@ -83,9 +83,7 @@ build_site <- function(pkg = ".",
 
 launch <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
-
-  index <- normalizePath(file.path(pkg$site_path, "index.html"))
-  utils::browseURL(index)
+  servr::httd(pkg$site_path)
 }
 
 #' @export
