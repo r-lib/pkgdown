@@ -19,7 +19,7 @@ load_icons <- function(pkg = ".") {
 #'   that uses grid to create a icon that represents the function.
 #' @param inherits Alternatively, use an existing icon specified by a
 #'   function name
-#' @export
+#' @noRd
 sd_icon <- function(expr = NULL, func = NULL, inherits = NULL) {
   expr <- substitute(expr)
 

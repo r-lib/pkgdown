@@ -1,8 +1,10 @@
 #' Build complete static documentation for a package.
 #'
-#' \code{build_site} calls \code{\link{build_index}()},
-#' \code{\link{build_home}()}, and \code{\link{build_reference}}. See
-#' the invidual documentation for how the code works.
+#' \code{build_site} calls \code{\link{init_site}()},
+#' \code{\link{build_site}()},
+#' \code{\link{build_home}()}, and
+#' \code{\link{build_reference}}.
+#' See the individual documentation for how the code works.
 #'
 #' @param pkg path to source version of package.  See
 #'   \code{\link[devtools]{as.package}} for details on how paths and package
@@ -13,18 +15,15 @@
 #' @param templates_path Path in which to look for templates. If this doesn't
 #'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
 #'   in staticdocs itself.
-#' @param assets_path Path in which to look for assets files. If
-#'   this doesn't exist, will use \code{pkg/inst/staticdocs/assets},
-#'   then files built into staticdocs.
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
+#' @inheritParams init_site
 #' @export
 #' @import stringr
 #' @importFrom devtools load_all
-#' @aliases staticdocs-package build_package
 #' @examples
 #' \dontrun{
 #' build_site()
@@ -52,7 +51,6 @@ build_site <- function(pkg = ".",
   pkg <- as_staticdocs(pkg, options)
   init_site(site_path, assets_path)
 
-  # build_navbar(pkg)
   build_home(pkg, path = site_path)
   build_reference(pkg, path = file.path(site_path, "reference"))
   build_articles(pkg, path = file.path(site_path, "articles"))
@@ -65,17 +63,22 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-init_site <- function(path, user_assets) {
+#' Initialise the site
+#'
+#' Creates directory and copies assets.
+#'
+#' @param assets_path Path in which to look for assets files. If
+#'   this doesn't exist, will use files built into staticdocs.
+#' @export
+init_site <- function(path, assets_path = NULL) {
   rule("Initialising site")
 
   mkdir(path)
-  if (file.exists(user_assets)) {
-    asset_path <- user_assets
-  } else {
-    asset_path <- file.path(inst_path(), "assets")
+  if (is.null(assets_path) || !file.exists(assets_path)) {
+    assets_path <- file.path(inst_path(), "assets")
   }
 
-  assets <- dir(asset_path, full.names = TRUE)
+  assets <- dir(assets_path, full.names = TRUE)
   for (asset in assets) {
     message("Copying '", asset, "'")
     file.copy(asset, path, recursive = TRUE)
