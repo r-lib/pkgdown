@@ -82,3 +82,13 @@ mkdir <- function(...) {
   path <- file.path(...)
   dir.create(path, recursive = TRUE, showWarnings = FALSE)
 }
+
+rule <- function(..., pad = "-") {
+  if (nargs() == 0) {
+    title <- ""
+  } else {
+    title <- paste0(..., " ")
+  }
+  width <- max(getOption("width") - nchar(title) - 1, 0)
+  message(title, paste(rep(pad, width, collapse = "")))
+}

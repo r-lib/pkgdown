@@ -68,7 +68,7 @@ build_site <- function(pkg = ".",
   copy_assets(pkg)
 
   build_index(pkg)
-  reference_build(pkg, site_path = site_path)
+  build_reference(pkg, path = file.path(site_path, "reference"))
 
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
   if (with_demos) pkg$demos <- build_demos(pkg)

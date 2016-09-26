@@ -14,6 +14,8 @@ render_page <- function(package, name, data, path = "") {
 
   # render complete layout
   out <- render_template(package, "layout", name, components)
+  message("Writing '", path, "'")
+
   cat(out, file = path)
 }
 

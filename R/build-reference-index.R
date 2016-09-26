@@ -1,22 +1,21 @@
-reference_index_build <- function(pkg = ".", site_path = NULL) {
-  message("Generating reference index")
+build_reference_index <- function(pkg = ".", path = NULL) {
   pkg <- as.sd_package(pkg)
 
-  spec <- reference_index_spec(pkg)
+  spec <- spec_reference_index(pkg)
 
-  if (is.null(site_path)) {
+  if (is.null(path)) {
     out <- ""
   } else {
-    out <- file.path(site_path, "reference", "index.html")
+    out <- file.path(path, "index.html")
   }
   render_page(pkg, "reference-index", spec, out)
 }
 
-reference_index_spec <- function(pkg = ".") {
+spec_reference_index <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
-  meta <- reference_index_meta(pkg)
-  sections <- compact(lapply(meta, reference_index_section_build, pkg = pkg))
+  meta <- meta_reference_index(pkg)
+  sections <- compact(lapply(meta, build_reference_index_section, pkg = pkg))
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
@@ -39,7 +38,7 @@ reference_index_spec <- function(pkg = ".") {
   )
 }
 
-reference_index_section_build <- function(section, pkg) {
+build_reference_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "desc", "contents"))) {
     warning(
       "Section must have components `title`, `desc` and `contents`",
@@ -65,7 +64,7 @@ reference_index_section_build <- function(section, pkg) {
   )
 }
 
-reference_index_meta <- function(pkg = ".") {
+meta_reference_index <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
   if (!is.null(pkg$meta$reference)) {
