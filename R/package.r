@@ -8,16 +8,19 @@ as_staticdocs <- function(path = ".", options = list()) {
   }
 
   desc <- desc::description$new(file.path(path, "DESCRIPTION"))
+  meta <- read_meta(path)
+  package <- data_package(desc)
 
   structure(
     list(
       path = path,
       desc = desc,
-      package = data_package(desc),
+      meta = meta,
       topics = topic_index(path),
-      meta = read_meta(path),
+      package = package,
       options = options,
-      vignettes = vignette_index(path)
+      vignettes = vignette_index(path),
+      navbar = build_navbar(meta, package)
     ),
     class = "staticdocs"
   )

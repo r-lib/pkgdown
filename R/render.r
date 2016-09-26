@@ -11,9 +11,10 @@ render_page <- function(package, name, data, path = "") {
   package <- as_staticdocs(package)
 
   # render template components
-  pieces <- c("head", "navbar", "header", "content", "footer")
+  pieces <- c("head", "header", "content", "footer")
   components <- lapply(pieces, render_template, package = package, name, data)
   names(components) <- pieces
+  components$navbar <- package$navbar
 
   # render complete layout
   out <- render_template(package, "layout", name, components)
