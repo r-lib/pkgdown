@@ -25,7 +25,7 @@ pkg_sd_path <- function(package) {
   } else if (dir.exists(pathinst)) {
     pathinst
   } else {
-    dir.create(pathsrc)
+    dir.create(pathsrc, recursive = TRUE)
     pathsrc
   }
 }
