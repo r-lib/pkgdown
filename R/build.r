@@ -24,7 +24,6 @@
 #'   then files built into staticdocs.
 #' @param mathjax Use mathjax to render math symbols?
 #' @param with_vignettes If \code{TRUE}, will build vignettes.
-#' @param with_demos If \code{TRUE}, will build demos.
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
@@ -45,7 +44,6 @@ build_site <- function(pkg = ".",
                        assets_path = "inst/staticdocs/assets",
                        mathjax = TRUE,
                        with_vignettes = TRUE,
-                       with_demos = TRUE,
                        launch = interactive(),
                        seed = 1014
                        ) {
@@ -71,8 +69,6 @@ build_site <- function(pkg = ".",
   build_reference(pkg, path = file.path(site_path, "reference"))
 
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
-  if (with_demos) pkg$demos <- build_demos(pkg)
-
 
   if (launch) launch(pkg)
   invisible(TRUE)
@@ -120,33 +116,4 @@ build_vignettes <- function(pkg = ".") {
   names <- basename(vigns$outputs)
 
   list(vignette = unname(Map(list, title = titles, filename = names)))
-}
-
-build_demos <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  demo_dir <- file.path(pkg$path, "demo")
-  if (!file.exists(demo_dir)) return()
-
-  message("Rendering demos")
-  demos <- readLines(file.path(demo_dir, "00Index"))
-  demos <- demos[demos != ""]
-
-  pieces <- str_split_fixed(demos, "\\s+", 2)
-  in_path <- str_c(pieces[, 1], ".[rR]")
-  filename <- str_c("demo-", pieces[,1], ".html")
-  title <- pieces[, 2]
-
-  for (i in seq_along(title)) {
-    demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
-    demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
-      new_device = TRUE)
-
-    pkg$demo <- replay_html(demo_expr, pkg = pkg, name = str_c(pieces[i], "-"))
-    pkg$pagetitle <- title[i]
-    render_page(pkg, "demo", pkg,
-      file.path(pkg$site_path, filename[i]))
-  }
-
-  list(demo = unname(apply(cbind(filename, title), 1, as.list)))
 }

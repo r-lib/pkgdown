@@ -9,8 +9,7 @@
 build_site(pkg = ".", site_path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   assets_path = "inst/staticdocs/assets", mathjax = TRUE,
-  with_vignettes = TRUE, with_demos = TRUE, launch = interactive(),
-  seed = 1014)
+  with_vignettes = TRUE, launch = interactive(), seed = 1014)
 }
 \arguments{
 \item{pkg}{path to source version of package.  See
@@ -34,8 +33,6 @@ then files built into staticdocs.}
 \item{mathjax}{Use mathjax to render math symbols?}
 
 \item{with_vignettes}{If \code{TRUE}, will build vignettes.}
-
-\item{with_demos}{If \code{TRUE}, will build demos.}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
