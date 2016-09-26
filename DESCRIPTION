@@ -21,7 +21,10 @@ Imports:
     grid,
     crayon,
     roxygen2 (>= 5.0.0),
-    yaml
+    yaml,
+    tibble,
+    dplyr,
+    purrr
 Suggests:
     testthat,
     knitr,

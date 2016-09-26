@@ -66,6 +66,7 @@ build_site <- function(pkg = ".",
   if (!file.exists(pkg$site_path)) {
     dir.create(pkg$site_path, recursive = TRUE)
   }
+  dir.create(file.path(pkg$site_path, "reference"), recursive = TRUE)
   copy_assets(pkg)
 
 
@@ -74,7 +75,7 @@ build_site <- function(pkg = ".",
   if (with_demos) pkg$demos <- build_demos(pkg)
 
   build_index(pkg)
-  build_reference(pkg)
+  reference_index_build(pkg, site_path = site_path)
 
   if (launch) launch(pkg)
   invisible(TRUE)

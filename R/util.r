@@ -70,3 +70,10 @@ dir.exists <- function(x) {
   res <- file.exists(x) & file.info(x)$isdir
   stats::setNames(res, x)
 }
+
+
+set_contains <- function(haystack, needles) {
+  all(needles %in% haystack)
+}
+
+compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)

@@ -8,7 +8,6 @@ as.sd_package <- function(pkg = ".", ...) {
 
   pkg <- utils::modifyList(pkg, list(...))
 
-  pkg$index <- load_index(pkg)
   pkg$icons <- load_icons(pkg)
 
   if (!is.null(pkg[["url"]])) {
@@ -35,6 +34,8 @@ as.sd_package <- function(pkg = ".", ...) {
   pkg$rd <- package_rd(pkg)
   pkg$rd_index <- topic_index(pkg$rd)
 
+  pkg$meta <- read_meta(pkg)
+
   pkg
 }
 
@@ -55,16 +56,20 @@ is.sd_package <- function(x) inherits(x, "sd_package")
 topic_index <- function(rd) {
   aliases <- unname(lapply(rd, extract_alias))
 
-  names <- unlist(lapply(rd, extract_name), use.names = FALSE)
+  names <- purrr::map_chr(rd, extract_name)
+  titles <- purrr::map_chr(rd, extract_title)
+  titles <- purrr::map_chr(rd, extract_title)
+
   file_in <- names(rd)
   file_out <- str_replace(file_in, "\\.Rd$", ".html")
 
-  data.frame(
+  tibble::tibble(
     name = names,
-    alias = I(aliases),
     file_in = file_in,
     file_out = file_out,
-    stringsAsFactors = FALSE
+    alias = aliases,
+    title = titles,
+    internal = FALSE # TODO
   )
 }
 
@@ -76,6 +81,11 @@ extract_alias <- function(x) {
 extract_name <- function(x) {
   alias <- Find(function(x) attr(x, "Rd_tag") == "\\name", x)
   alias[[1]][[1]]
+}
+
+extract_title <- function(x, pkg) {
+  title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
+  to_html(title, pkg = pkg)
 }
 
 

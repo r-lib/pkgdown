@@ -1,73 +1,90 @@
-# Must be called after all other build functions.
-build_reference <- function(pkg) {
-  out <- file.path(pkg$site_path, "reference.html")
-  message("Generating reference.html")
+reference_index_build <- function(pkg = ".", site_path = NULL) {
+  message("Generating reference/index.html")
+  pkg <- as.sd_package(pkg)
 
-  index <- pkg$index
-  topic_index <- pkg$topics[pkg$topics$in_index, , drop = FALSE]
-  pkg$topic_index <- rows_list(topic_index)
+  spec <- reference_index_spec(pkg)
 
-  # Cross-reference complete list of topics vs. topics found in index page
-  topics <- unlist(lapply(index, "[[", "topics"))
-  missing <- !(topics %in% topic_index$name)
-  if (any(missing)) {
-    warning("Can't find index topics: ", paste(topics[missing],
-      collapse = ", "), call. = FALSE)
-    topics <- topics[!missing]
+  if (is.null(site_path)) {
+    out <- ""
+  } else {
+    out <- file.path(site_path, "reference", "index.html")
   }
-
-  other <- !(topic_index$name %in% topics)
-  if (any(other)) {
-  title <- if(length(topics)) 'Other' else ''
-  index <-
-    c(index, list(sd_section(title, NULL, sort(topic_index$name[other]))))
-  }
-
-  # Render each section
-  sections <- lapply(index, build_section, pkg = pkg)
-  pkg$sections <- sections
-  pkg$rd <- NULL
-
-  render_icons(pkg)
-  pkg$pagetitle <- "Function reference"
-  render_page(pkg, "index", pkg, out)
+  render_page(pkg, "reference-index", spec, out)
 }
 
-build_section <- function(section, pkg) {
-  find_info <- function(item) {
-    match <- pkg$topics$name == item$name
-    if (!any(match)) return(NULL)
+reference_index_spec <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
 
-    row <- pkg$topics[match, , drop = FALSE]
-    item$file_out <- row$file_out
+  meta <- reference_index_meta(pkg)
+  sections <- compact(lapply(meta, reference_index_section_build, pkg = pkg))
 
-    aliases <- setdiff(row$alias[[1]], row$name)
-    if (length(aliases) > 0) {
-      item$aliases <- str_c("(", str_c(aliases, collapse = ", "), ")")
-    }
+  # Cross-reference complete list of topics vs. topics found in index page
+  in_index <- meta %>%
+    purrr::map(~ topic_has_alias(pkg$rd_index, .$contents)) %>%
+    purrr::reduce(`+`)
 
-    if (is.null(item$title)) {
-      rd <- pkg$rd[[row$file_in]]
-      item$title <- extract_title(rd, pkg)
-    }
-
-    item$icon <- icon_path(pkg, item$name)
-    item
+  missing <- !in_index && !pkg$rd_index$internal
+  if (any(missing)) {
+    warning(
+      "Topics missing from index: ",
+      paste(pkg$rd_index$name[missing], collapse = ", "),
+      call. =  FALSE
+    )
   }
 
-  desc <- section$description
-
   list(
-    title = section$name %||% "Missing section title",
-    description = markdown(desc),
-    items = compact(lapply(section$elements, find_info))
+    pagetitle = "Function reference",
+    version = pkg$version,
+    sections = sections
   )
 }
 
-extract_title <- function(x, pkg) {
-  title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
-  to_html(title, pkg = pkg)
+reference_index_section_build <- function(section, pkg) {
+  if (!set_contains(names(section), c("title", "desc", "contents"))) {
+    warning(
+      "Section must have components `title`, `desc` and `contents`",
+      call. = FALSE,
+      immediate. = TRUE
+    )
+    return(NULL)
+  }
+
+  # Match topics against any aliases
+  in_section <- topic_has_alias(pkg$rd_index, section$contents)
+
+  contents <- pkg$rd_index %>%
+    dplyr::filter(in_section) %>%
+    dplyr::transmute(
+      path = file_out,
+      aliases = purrr::map(alias, ~ purrr::map(., ~ list(alias = .))),
+      title = title
+    ) %>%
+    purrr::transpose()
+
+  list(
+    title = section$title,
+    desc = section$desc,
+    class = section$class,
+    contents = contents
+  )
 }
 
-compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
+reference_index_meta <- function(pkg = ".") {
+  pkg <- as.sd_package(pkg)
 
+  if (!is.null(pkg$meta$reference)) {
+    return(pkg$meta$reference)
+  }
+
+  list(
+    list(
+      title = "All functions",
+      desc = NULL,
+      contents = pkg$rd_index$name
+    )
+  )
+}
+
+topic_has_alias <- function(topics, alias) {
+  purrr::map_lgl(topics$alias, ~ any(. %in% alias))
+}

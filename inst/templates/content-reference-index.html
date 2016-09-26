@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Function reference <small>Version {{version}}</small></h2>
+
+    <table class="index">
+    {{#sections}}
+      <tbody class="section {{class}}">
+        <tr>
+          <td colspan="2">
+            <h3>{{title}}</h3>
+            <div class="desc">{{{desc}}}</div>
+          </td>
+        </tr>
+        {{#contents}}
+        <tr>
+          <td>
+            {{#aliases}}
+            <a href="{{path}}">{{alias}}</a>
+            {{/aliases}}
+          </td>
+          <td>
+            <div class="desc">{{title}}</div>
+          </td>
+        </tr>
+        {{/contents}}
+      </tbody>
+    {{/sections}}
+
+    </table>
+  </div>
+</div>
