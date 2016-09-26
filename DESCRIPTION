@@ -20,7 +20,8 @@ Imports:
     digest,
     grid,
     crayon,
-    roxygen2 (>= 5.0.0)
+    roxygen2 (>= 5.0.0),
+    yaml
 Suggests:
     testthat,
     knitr,

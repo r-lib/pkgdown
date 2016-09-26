@@ -3,3 +3,4 @@
 ^\.travis\.yml$
 ^inst/web$
 ^docs$
+^_staticdocs\.yml$
