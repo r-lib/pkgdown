@@ -26,6 +26,7 @@ render_page <- function(package, name, data, path = "") {
 #' @importFrom whisker whisker.render
 render_template <- function(package, type, name, data) {
   data$package <- package$package
+  data$meta <- package$meta
 
   template <- readLines(find_template(package, type, name))
   if (length(template) == 0 || (length(template) == 1 && str_trim(template) == ""))
