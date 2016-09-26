@@ -1,13 +1,13 @@
 build_reference_index <- function(pkg = ".", path = NULL) {
-  data <- spec_reference_index(pkg)
+  data <- data_reference_index(pkg)
   render_page(pkg, "reference-index", data, out_path(path, "index.html"))
 }
 
-spec_reference_index <- function(pkg = ".") {
+data_reference_index <- function(pkg = ".") {
   pkg <- as.sd_package(pkg)
 
   meta <- meta_reference_index(pkg)
-  sections <- compact(lapply(meta, build_reference_index_section, pkg = pkg))
+  sections <- compact(lapply(meta, data_reference_index_section, pkg = pkg))
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
@@ -30,7 +30,7 @@ spec_reference_index <- function(pkg = ".") {
   )
 }
 
-build_reference_index_section <- function(section, pkg) {
+data_reference_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "desc", "contents"))) {
     warning(
       "Section must have components `title`, `desc` and `contents`",

@@ -18,11 +18,13 @@ build_reference <- function(pkg = ".", path = NULL) {
 }
 
 build_reference_topic <- function(topic, pkg, path = NULL) {
-  data <- spec_reference_topic(topic, pkg, path)
-  render_page(pkg, "topic", data, out_path(path, topic$file_out))
+  data <- data_reference_topic(topic, pkg, path)
+  render_page(pkg, "reference-topic", data, out_path(path, topic$file_out))
+
+  invisible()
 }
 
-spec_reference_topic <- function(topic, pkg, path = NULL) {
+data_reference_topic <- function(topic, pkg, path = NULL) {
   tag_names <- purrr::map_chr(topic$rd, tag)
   tags <- split(topic$rd, tag_names)
 
