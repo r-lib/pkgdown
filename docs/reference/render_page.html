@@ -1,22 +1,26 @@
 <html>
   <head>
-    <meta charset="utf-8">
-<title>render_page. staticdocs 0.1.0.9000</title>
+  <meta charset="utf-8">
+<title>render_page. staticdocs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
 
 <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- from staticdocs -->
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
- 
+<link href="/css/highlight.css" rel="stylesheet">
+<link href="/css/staticdocs.css" rel="stylesheet">
+
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -33,29 +37,44 @@
   </head>
 
   <body>
-        <div class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">      
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>   
-                <div><a href="index.html" class="navbar-brand">staticdocs 0.1.0.9000</a></div>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="reference.html">Reference</a></li>
-                </ul>
-            </div>
-        </div>
+    
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">staticdocs</a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="/">Home</a>
+</li>
+<li>
+  <a href="/reference/">Reference</a>
+</li>
+<li>
+  <a href="/articles/">Articles</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/hadley/staticdocs">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 
     <div class="container">
         <header>
-            
+        
         </header>
         <h1>Render complete page.</h1>
 
@@ -71,7 +90,8 @@
       <dt>name</dt>
       <dd>Name of the template (e.g. index, demo, topic)</dd>
       <dt>data</dt>
-      <dd>Data for the template</dd>
+      <dd>Data for the template. Package metadata is always automatically
+added to this list under key <code>package</code>.</dd>
       <dt>path</dt>
       <dd>Location to create file. If <code>&quot;&quot;</code> (the default),
 prints to standard out.</dd>
@@ -79,9 +99,8 @@ prints to standard out.</dd>
     
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Render complete page.</p>
-  
     </div>
       </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
@@ -91,17 +110,16 @@ prints to standard out.</dd>
     <ul>
       
     </ul> -->
-      
 
 
-    
+
   </div>
-</div>     
+</div>
         <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="#">Back to top</a></p>
 <p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
-        </footer>                  
-   </div>  
+        </footer>
+   </div>
 
   </body>
 </html>

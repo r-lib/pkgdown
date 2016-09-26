@@ -1,0 +1,152 @@
+<html>
+  <head>
+  <meta charset="utf-8">
+<title>build_site. staticdocs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="/css/highlight.css" rel="stylesheet">
+<link href="/css/staticdocs.css" rel="stylesheet">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">staticdocs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="/">Home</a>
+</li>
+<li>
+  <a href="/reference/">Reference</a>
+</li>
+<li>
+  <a href="/articles/">Articles</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/hadley/staticdocs">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+    <div class="container">
+        <header>
+        
+        </header>
+        <h1>Build complete static documentation for a package.</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">site_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
+  <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">templates_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/templates"</span><span class="keyword">,</span>
+  <span class="argument">assets_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/assets"</span><span class="keyword">,</span> <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
+  <span class="argument">launch</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1014</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>pkg</dt>
+      <dd>path to source version of package.  See
+<code><a href='http://www.rdocumentation.org/packages/devtools/topics/as.package'>as.package</a></code> for details on how paths and package
+names are resolved.</dd>
+      <dt>site_path</dt>
+      <dd>root Directory in which to create documentation.</dd>
+      <dt>examples</dt>
+      <dd>Run examples?</dd>
+      <dt>run_dont_run</dt>
+      <dd>Run examples that are surrounded in \dontrun?</dd>
+      <dt>templates_path</dt>
+      <dd>Path in which to look for templates. If this doesn&#39;t
+exist will look next in <code>pkg/inst/staticdocs/templates</code>, then
+in staticdocs itself.</dd>
+      <dt>assets_path</dt>
+      <dd>Path in which to look for assets files. If
+this doesn&#39;t exist, will use files built into staticdocs.</dd>
+      <dt>mathjax</dt>
+      <dd>Use mathjax to render math symbols?</dd>
+      <dt>launch</dt>
+      <dd>If <code>TRUE</code>, will open freshly generated site in web
+browser.</dd>
+      <dt>seed</dt>
+      <dd>Seed used to initialize so that random examples are
+reproducible.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>build_site</code> calls <code><a href='init_site.html'>init_site</a>()</code>,
+<code><a href='build_site.html'>build_site</a>()</code>,
+<code><a href='build_home.html'>build_home</a>()</code>, and
+<code><a href='build_reference.html'>build_reference</a></code>.
+See the individual documentation for how the code works.</p>
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># build_site()</span>
+<span class="comment">## ---------------------------------------------</span></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>build_site</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+
+
+  </div>
+</div>
+        <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>
+   </div>
+
+  </body>
+</html>

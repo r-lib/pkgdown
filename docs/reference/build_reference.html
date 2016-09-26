@@ -1,7 +1,7 @@
 <html>
   <head>
   <meta charset="utf-8">
-<title>Home. staticdocs</title>
+<title>build_reference. staticdocs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
@@ -76,32 +76,34 @@
         <header>
         
         </header>
-        <div class="row">
+        <h1>Generate reference index and topics.</h1>
+
+<div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
-    <h1>staticdocs</h1>
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='build_reference.html'>build_reference</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>path</dt>
+      <dd>Path in which to save files</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
 
-<p><a href="https://travis-ci.org/hadley/staticdocs"><img src="https://travis-ci.org/hadley/staticdocs.svg?branch=master" alt="Travis-CI Build Status"/></a></p>
+      <p>Generate reference index and topics.</p>
+    </div>
+      </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>build_reference</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
 
-<p>staticdocs is designed to make it quick and easy to build a website for your package. You can see staticdocs in action at <a href="http://hadley.github.io/staticdocs/">http://hadley.github.io/staticdocs/</a>: this is the output of staticdocs applied to the latest version of staticdocs.</p>
 
-<h2>Installation</h2>
-
-<p>staticdocs is not currently available from CRAN, but you can install the development version from github with:</p>
-
-<pre><code class="R"># install.packages(&quot;devtools&quot;)
-devtools::install_github(&quot;hadley/staticdocs&quot;)
-</code></pre>
-
-<h2>Usage</h2>
-
-<p>Run staticdocs from the package directory each time you release your package:</p>
-
-<pre><code class="R">staticdocs::build_site()
-</code></pre>
-
-<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package&#39;s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory.</p>
-
-<p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to &ldquo;master branch /docs folder&rdquo;.</p>
 
   </div>
 </div>

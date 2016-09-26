@@ -1,0 +1,193 @@
+<html>
+  <head>
+  <meta charset="utf-8">
+<title>. staticdocs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="/css/highlight.css" rel="stylesheet">
+<link href="/css/staticdocs.css" rel="stylesheet">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">staticdocs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="/">Home</a>
+</li>
+<li>
+  <a href="/reference/">Reference</a>
+</li>
+<li>
+  <a href="/articles/">Articles</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/hadley/staticdocs">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+    <div class="container">
+        <header>
+        
+        </header>
+        <p>The goal of staticdocs is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support), but it is flexible enough to be used as part of a bigger website.</p>
+<p>There are seven main parts to a staticdocs site:</p>
+<ol style="list-style-type: decimal">
+<li>Metadata</li>
+<li>Home page</li>
+<li>Reference</li>
+<li>Articles</li>
+<li>News</li>
+<li>Navbar</li>
+</ol>
+<div id="metadata-_staticdocs.yml" class="section level2">
+<h2>Metadata (<code>_staticdocs.yml</code>)</h2>
+<p>Metadata about the site is stored in <code>_staticdocs.yaml</code> in the root directory. This includes:</p>
+<ul>
+<li><p>The site <code>title</code>, if different from the package name.</p></li>
+<li><p>A path to a set of <code>template</code>, if you want to override the default page templates provided by the site.</p></li>
+<li><p>A <a href="https://bootswatch.com">bootswatch</a> <code>theme</code> to easily tweak the overall appearance of the site.</p></li>
+<li><p>The other options described below.</p></li>
+</ul>
+</div>
+<div id="home-page-index.html" class="section level2">
+<h2>Home page (<code>index.html</code>)</h2>
+<p>The home page will be automatically generated from one of five files (in order):</p>
+<ol style="list-style-type: decimal">
+<li><code>index.Rmd</code></li>
+<li><code>index.md</code></li>
+<li><code>index.html</code> (eventually)</li>
+<li><code>README.Rmd</code></li>
+<li><code>README.md</code></li>
+</ol>
+<p>Looking for both <code>index</code> and <code>README</code> allows you to default to the same homepage as github, while making it possible to have a different home page if needed.</p>
+</div>
+<div id="reference-reference" class="section level2">
+<h2>Reference (<code>reference/</code>)</h2>
+<p>The function reference generates one page for each <code>.Rd</code> file in <code>man/</code>, placing the results in <code>reference/</code>. This is mostly a straightforward translation to HTML, along with evaluation of example and auto-linking of all code.</p>
+<p>staticdocs will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a <code>reference</code> key in <code>_staticdocs.yml</code>:</p>
+<pre class="yaml"><code>reference:
+  - title: &quot;Connecting to Spark&quot;
+    desc: &gt;
+      Functions for installing Spark components and managing
+      connections to Spark
+    contents: 
+      - spark_config
+      - spark_connect
+      - spark_disconnect
+      - spark_install
+      - spark_log
+  - title: &quot;Reading and Writing Data&quot;
+    desc: &quot;Functions for reading and writing Spark DataFrames.&quot;
+    contents:
+      - !starts_with spark_read
+      - !starts_with spark_write
+      - sdf-saveload</code></pre>
+<p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the special handlers <code>starts_with</code> and <code>ends_with</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches</code> with a regular expression.</p>
+<p>staticdocs will warn if you’ve forgotten to include any non-internal functions.</p>
+</div>
+<div id="articles-articles" class="section level2">
+<h2>Articles (<code>articles/</code>)</h2>
+<p>staticdocs will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories, and render output to <code>articles/</code>. staticdocs will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
+<p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
+<p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
+<pre class="yaml:"><code>articles:
+  - title: &quot;Extend shiny&quot;
+    desc: &gt;
+      These packages provide advanced features that can enhance your Shiny 
+      apps.
+    contents:
+    - shinydashboard
+    - shinythemes
+    - shinyjs
+    - htmlwidgets</code></pre>
+</div>
+<div id="navbar" class="section level2">
+<h2>Navbar</h2>
+<p>By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the <code>DESCRIPTION</code> url field). You can override the defaults to:</p>
+<ul>
+<li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
+<li><p>Provide deeper add additional hierarchical navigation (like<br />
+<a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a>).</p></li>
+<li><p>Link to other, off-site, resources.</p></li>
+</ul>
+<p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>. To customise, use the <code>navbar</code> field:</p>
+<pre class="yaml"><code>navbar:
+  title: &quot;sparklyr&quot;
+  type: inverse
+  left:
+    - text: &quot;Home&quot;
+      href: index.html
+    - text: &quot;dplyr&quot;
+      href: articles/dplyr.html
+    - text: &quot;ML&quot;
+      href: articles/ML.html
+    - text: &quot;Extensions&quot;
+      href: articles/extensions.html
+    - text: &quot;Deployment&quot;
+      href: articles/deployment.html
+    - text: &quot;Reference&quot;
+      href: &quot;reference/&quot;
+  right:
+    - icon: fa-github
+      href: https://github.com/rstudio/sparklyr</code></pre>
+</div>
+<div id="news-news" class="section level2">
+<h2>News (<code>news/</code>)</h2>
+<p>If <code>NEWS.md</code> is present, it will be parsed into pieces broken up by second level headings. These will be rendered to <code>news/</code>, with one page per minor release (so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page).</p>
+<p>If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) <code>vignettes/news</code> and customise the navbar.</p>
+</div>
+        <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>
+   </div>
+
+  </body>
+</html>
