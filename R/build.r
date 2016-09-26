@@ -61,11 +61,10 @@ build_site <- function(pkg = ".",
   )
   load_all(pkg)
 
-
   mkdir(pkg$site_path)
   copy_assets(pkg)
 
-  build_index(pkg)
+  build_home(pkg, path = site_path)
   build_reference(pkg, path = file.path(site_path, "reference"))
 
   if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)

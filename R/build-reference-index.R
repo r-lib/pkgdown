@@ -1,6 +1,6 @@
 build_reference_index <- function(pkg = ".", path = NULL) {
-  spec <- spec_reference_index(pkg)
-  render_page(pkg, "reference-index", spec, out_path(path, "index.html"))
+  data <- spec_reference_index(pkg)
+  render_page(pkg, "reference-index", data, out_path(path, "index.html"))
 }
 
 spec_reference_index <- function(pkg = ".") {

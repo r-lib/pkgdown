@@ -18,8 +18,8 @@ build_reference <- function(pkg = ".", path = NULL) {
 }
 
 build_reference_topic <- function(topic, pkg, path = NULL) {
-  html <- spec_reference_topic(topic, pkg, path)
-  render_page(pkg, "topic", html, out_path(path, topic$file_out))
+  data <- spec_reference_topic(topic, pkg, path)
+  render_page(pkg, "topic", data, out_path(path, topic$file_out))
 }
 
 spec_reference_topic <- function(topic, pkg, path = NULL) {

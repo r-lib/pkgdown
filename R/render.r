@@ -32,6 +32,8 @@ render_template <- function(package, type, name, data) {
 # staticdocs/templates, trying first for a type-name.html otherwise
 # defaulting to type.html
 find_template <- function(package, type, name) {
+  package <- as.sd_package(package)
+
   paths <- c(
     package$templates_path,
     pkg_sd_path(package),
