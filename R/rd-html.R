@@ -23,6 +23,10 @@ as_html.RCODE <- function(x, ...) flatten_text(x, ...)
 as_html.LIST <-  function(x, ...) flatten_text(x, ...)
 #' @export
 as_html.VERB <-  function(x, ...) flatten_text(x, ...)
+#' @export
+as_html.COMMENT <- function(x, ...) {
+  paste0("<!-- ", flatten_text(x), " -->")
+}
 
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
@@ -421,8 +425,6 @@ as_html.tag_enc <- function(x, ...) {
 
 #' @export
 as_html.NULL <-         function(x, ...) ""
-#' @export
-as_html.COMMENT <-      function(x, ...) ""
 #' @export
 as_html.tag_dontshow <- function(x, ...) ""
 #' @export

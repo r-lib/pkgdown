@@ -5,8 +5,8 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
-test_that("comments are ignored", {
-  expect_equal(rd2html("a\n%b\nc"), c("a", "", "c"))
+test_that("comments converted to html", {
+  expect_equal(rd2html("a\n%b\nc"), c("a", "<!-- %b -->", "c"))
 })
 
 test_that("simple wrappers work as expected", {
