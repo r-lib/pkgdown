@@ -7,10 +7,13 @@
 #' @param path Location to create file. If \code{""} (the default),
 #'   prints to standard out.
 #' @param depth Depth of path relative to base directory. Used to
-#'   adjust links in navbar.
+#'   adjust links in navbar, and to provide template variable \code{root_path}.
 #' @export
 render_page <- function(package, name, data, path = "", depth = 0L) {
   package <- as_staticdocs(package)
+
+  # Set up path to root docs
+  data$root_path <- paste(rep.int("../", depth), collapse = "")
 
   # render template components
   pieces <- c("head", "header", "content", "footer")
