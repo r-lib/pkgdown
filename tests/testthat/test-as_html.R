@@ -22,6 +22,17 @@ test_that("subsection generates h3", {
   expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "B"))
 })
 
+test_that("if generates html", {
+  expect_equal(rd2html("\\if{html}{\\bold{a}}"), "<b>a</b>")
+  expect_equal(rd2html("\\if{latex}{\\bold{a}}"), character())
+})
+
+test_that("ifelse generates html", {
+  expect_equal(rd2html("\\ifelse{html}{\\bold{a}}{x}"), "<b>a</b>")
+  expect_equal(rd2html("\\ifelse{latex}{x}{\\bold{a}}"), "<b>a</b>")
+})
+
+
 # Usage -------------------------------------------------------------------
 
 test_that("S4 methods gets comment", {
