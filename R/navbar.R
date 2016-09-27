@@ -15,9 +15,10 @@ build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
 
 yaml_navbar <- function(path = ".") {
   meta <- meta_navbar(read_meta(path), read_desc(path))
+  full <- list(navbar = meta)
 
   structure(
-    yaml::as.yaml(meta),
+    yaml::as.yaml(full),
     class = "yaml"
   )
 }

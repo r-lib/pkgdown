@@ -1,3 +1,18 @@
 title: staticdocs
 
 bootswatch: cerulean
+
+navbar:
+  title: staticdocs
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: Overview
+    href: articles/staticdocs.html
+  - text: Reference
+    href: reference/
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/hadley/staticdocs
+
