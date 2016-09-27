@@ -1,3 +1,8 @@
+#' Build articles
+#'
+#' @param pkg Path to package source.
+#' @param path Output path.
+#' @export
 build_articles <- function(pkg = ".", path) {
   pkg <- as_staticdocs(pkg)
   if (nrow(pkg$vignettes) == 0) {
@@ -7,10 +12,9 @@ build_articles <- function(pkg = ".", path) {
   rule("Building articles")
   mkdir(path)
 
-  pkg$vignettes %>%
-    dplyr::transmute(
-      path_in = file.path("vignettes", file_in),
-      path_out = file.path(path, file_out)
+  tibble::tibble(
+      path_in = file.path("vignettes", pkg$vignettes$file_in),
+      path_out = file.path(path, pkg$vignettes$file_out)
     ) %>%
     purrr::pwalk(render_vignette, pkg = pkg)
 
@@ -48,8 +52,11 @@ build_articles_index <- function(pkg = ".", path = NULL) {
 data_articles_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  contents <- pkg$vignettes %>%
-    dplyr::select(path = file_out, title) %>%
+  contents <-
+    tibble::tibble(
+      path = pkg$vignettes$file_out,
+      title = pkg$vignettes$title
+    ) %>%
     purrr::transpose()
 
   list(

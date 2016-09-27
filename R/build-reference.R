@@ -1,6 +1,6 @@
 #' Generate reference index and topics.
 #'
-#' @param path Path in which to save files
+#' @inheritParams build_articles
 #' @export
 build_reference <- function(pkg = ".", path = NULL) {
   rule("Building function reference")

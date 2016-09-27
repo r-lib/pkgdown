@@ -4,17 +4,15 @@
 \alias{build_site}
 \title{Build complete static documentation for a package.}
 \usage{
-build_site(pkg = ".", site_path = "docs", examples = TRUE,
+build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
   assets_path = "inst/staticdocs/assets", mathjax = TRUE,
   launch = interactive(), seed = 1014)
 }
 \arguments{
-\item{pkg}{path to source version of package.  See
-\code{\link[devtools]{as.package}} for details on how paths and package
-names are resolved.}
+\item{pkg}{Path to package source.}
 
-\item{site_path}{root Directory in which to create documentation.}
+\item{path}{Output path.}
 
 \item{examples}{Run examples?}
 

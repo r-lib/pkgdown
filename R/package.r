@@ -136,8 +136,7 @@ vignette_index <- function(path = ".") {
     recursive = TRUE
   )
 
-  title <- path %>%
-    file.path("vignettes", .) %>%
+  title <- file.path("vignettes", path) %>%
     purrr::map(yaml_metadata) %>%
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 

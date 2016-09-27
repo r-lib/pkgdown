@@ -6,10 +6,7 @@
 #' \code{\link{build_reference}}.
 #' See the individual documentation for how the code works.
 #'
-#' @param pkg path to source version of package.  See
-#'   \code{\link[devtools]{as.package}} for details on how paths and package
-#'   names are resolved.
-#' @param site_path root Directory in which to create documentation.
+#' @inheritParams build_articles
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param templates_path Path in which to look for templates. If this doesn't
@@ -28,7 +25,7 @@
 #' build_site()
 #' }
 build_site <- function(pkg = ".",
-                       site_path = "docs",
+                       path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        templates_path = "inst/staticdocs/templates",
@@ -48,16 +45,16 @@ build_site <- function(pkg = ".",
   )
 
   pkg <- as_staticdocs(pkg, options)
-  init_site(site_path, assets_path)
+  init_site(path, assets_path)
 
-  build_home(pkg, path = site_path)
-  build_reference(pkg, path = file.path(site_path, "reference"))
-  build_articles(pkg, path = file.path(site_path, "articles"))
+  build_home(pkg, path = path)
+  build_reference(pkg, path = file.path(path, "reference"))
+  build_articles(pkg, path = file.path(path, "articles"))
   # build_news(pkg)
 
   if (launch) {
     rule("Launching site")
-    servr::httd(site_path)
+    servr::httd(path)
   }
   invisible(TRUE)
 }
@@ -68,6 +65,7 @@ build_site <- function(pkg = ".",
 #'
 #' @param assets_path Path in which to look for assets files. If
 #'   this doesn't exist, will use files built into staticdocs.
+#' @inheritParams build_articles
 #' @export
 init_site <- function(path, assets_path = NULL) {
   rule("Initialising site")

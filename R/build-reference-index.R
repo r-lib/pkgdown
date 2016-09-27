@@ -42,10 +42,13 @@ data_reference_index_section <- function(section, pkg) {
 
   # Match topics against any aliases
   in_section <- topic_has_alias(pkg$topics, section$contents)
-
-  contents <- pkg$topics %>%
-    dplyr::filter(in_section) %>%
-    dplyr::select(path = file_out, aliases = alias, title) %>%
+  section_topics <- pkg$topics[in_section, ]
+  contents <-
+    tibble::tibble(
+      path = section_topics$file_out,
+      aliases = section_topics$alias,
+      title = section_topics$title
+    ) %>%
     purrr::transpose()
 
   list(

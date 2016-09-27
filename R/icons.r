@@ -1,7 +1,7 @@
 # `icons.r` is a regular R file - we parse it, evaluate it all, and then
 # extract all elements (with names) that are icons
 load_icons <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  # pkg <- as.sd_package(pkg)
 
   path <- file.path.ci(pkg$sd_path, "icons.R")
   if (!file.exists(path)) return(list())
@@ -48,7 +48,7 @@ make_function <- function(args, expr, env = globalenv()) {
 
 
 render_icons <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+  # pkg <- as.sd_package(pkg)
 
   icon_path <- file.path(pkg$site_path, "icons")
   if (!file.exists(icon_path)) dir.create(icon_path)

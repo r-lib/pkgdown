@@ -7,7 +7,9 @@
 build_reference(pkg = ".", path = NULL)
 }
 \arguments{
-\item{path}{Path in which to save files}
+\item{pkg}{Path to package source.}
+
+\item{path}{Output path.}
 }
 \description{
 Generate reference index and topics.

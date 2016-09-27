@@ -7,6 +7,8 @@
 init_site(path, assets_path = NULL)
 }
 \arguments{
+\item{path}{Output path.}
+
 \item{assets_path}{Path in which to look for assets files. If
 this doesn't exist, will use files built into staticdocs.}
 }

@@ -42,7 +42,7 @@ github_link <- function(desc) {
 
   gh_links <- desc$get("URL")[[1]] %>%
     str_split(",") %>%
-    .[[1]] %>%
+    `[[`(1) %>%
     str_trim() %>%
     str_subset("^https?://github.com/")
 
@@ -51,6 +51,6 @@ github_link <- function(desc) {
 
   list(
     icon = "fa-github fa-lg",
-    href= gh_links[[1]]
+    href = gh_links[[1]]
   )
 }

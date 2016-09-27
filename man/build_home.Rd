@@ -7,7 +7,9 @@
 build_home(pkg = ".", path = NULL)
 }
 \arguments{
-\item{path}{Output path}
+\item{pkg}{Path to package source.}
+
+\item{path}{Output path.}
 }
 \description{
 First looks for \code{README.md}, then \code{index.md}. If neither is

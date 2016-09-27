@@ -3,7 +3,7 @@
 #' First looks for \code{README.md}, then \code{index.md}. If neither is
 #' found, falls back to the description field in \code{DESCRIPTION}.
 #'
-#' @param path Output path
+#' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = NULL) {
   rule("Building home")
