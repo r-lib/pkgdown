@@ -23,7 +23,8 @@ data_reference_index <- function(pkg = ".") {
     warning(
       "Topics missing from index: ",
       paste(pkg$topics$name[missing], collapse = ", "),
-      call. =  FALSE
+      call. =  FALSE,
+      immediate. = TRUE
     )
   }
 
@@ -35,9 +36,9 @@ data_reference_index <- function(pkg = ".") {
 }
 
 data_reference_index_section <- function(section, pkg) {
-  if (!set_contains(names(section), c("title", "desc", "contents"))) {
+  if (!set_contains(names(section), c("title", "contents"))) {
     warning(
-      "Section must have components `title`, `desc` and `contents`",
+      "Section must have components `title`, `contents`",
       call. = FALSE,
       immediate. = TRUE
     )

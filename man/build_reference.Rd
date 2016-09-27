@@ -2,7 +2,7 @@
 % Please edit documentation in R/build-reference.R
 \name{build_reference}
 \alias{build_reference}
-\title{Generate reference index and topics.}
+\title{Build reference section}
 \usage{
 build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   mathjax = TRUE, path = NULL, depth = 1L)
@@ -22,6 +22,6 @@ build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
 Used to adjust relative links in the navbar.}
 }
 \description{
-Generate reference index and topics.
+Build reference section
 }
 

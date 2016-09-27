@@ -2,7 +2,7 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\title{Build complete static documentation for a package.}
+\title{Build staticdocs website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, launch = interactive(),

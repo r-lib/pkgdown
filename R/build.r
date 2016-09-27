@@ -1,4 +1,4 @@
-#' Build complete static documentation for a package.
+#' Build staticdocs website
 #'
 #' \code{build_site} calls \code{\link{init_site}()},
 #' \code{\link{build_site}()},

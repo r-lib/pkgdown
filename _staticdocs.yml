@@ -2,6 +2,19 @@ title: staticdocs
 
 bootswatch: cerulean
 
+reference:
+  - title: Render components
+    desc:  Build each component of the site.
+    contents:
+    - build_site
+    - build_articles
+    - build_home
+    - build_reference
+    - init_site
+  - title: Templates
+    contents:
+    - render_page
+
 navbar:
   title: staticdocs
   type: default
@@ -15,4 +28,3 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/hadley/staticdocs
-

@@ -1,4 +1,4 @@
-#' Generate reference index and topics.
+#' Build reference section
 #'
 #' @inheritParams build_articles
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
