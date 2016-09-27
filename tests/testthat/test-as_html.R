@@ -33,7 +33,7 @@ test_that("ifelse generates html", {
 })
 
 test_that("code inside Sexpr is evaluated", {
-  expect_equal(rd2html("\\Sexpr{1 + 2}"), 3)
+  expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
 
