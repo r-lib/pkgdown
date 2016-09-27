@@ -14,7 +14,6 @@ build_articles <- function(pkg = ".", path) {
     ) %>%
     purrr::pwalk(render_vignette, pkg = pkg)
 
-
   build_articles_index(pkg, path = path)
 }
 
@@ -25,15 +24,16 @@ render_vignette <- function(path_in, path_out, pkg) {
       toc = TRUE,
       self_contained = FALSE
     ),
+    output_file = gsub("\\.Rmd$", "-bare.html", basename(path_in)),
     output_dir = "docs/articles",
     quiet = TRUE,
     envir = new.env(parent = globalenv())
   )
+  on.exit(unlink(out), add = TRUE)
 
   data <- list(
     contents = paste(readLines(out), collapse = "\n")
   )
-
   render_page(pkg, "vignette", data, path_out)
 }
 
