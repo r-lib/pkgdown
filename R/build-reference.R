@@ -4,11 +4,14 @@
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
+#' @param seed Seed used to initialize so that random examples are
+#'   reproducible.
 #' @export
 build_reference <- function(pkg = ".",
                             examples = TRUE,
                             run_dont_run = FALSE,
                             mathjax = TRUE,
+                            seed = 1014,
                             path = NULL,
                             depth = 1L
                             ) {
@@ -19,6 +22,7 @@ build_reference <- function(pkg = ".",
 
   if (examples) {
     devtools::load_all(pkg$path)
+    set.seed(seed)
   }
 
   pkg$topics %>%

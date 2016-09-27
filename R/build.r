@@ -12,8 +12,6 @@
 #'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
-#' @param seed Seed used to initialize so that random examples are
-#'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @inheritParams init_site
@@ -31,7 +29,6 @@ build_site <- function(pkg = ".",
                        launch = interactive(),
                        seed = 1014
                        ) {
-  set.seed(seed)
 
   pkg <- as_staticdocs(pkg)
   init_site(path, pkg$meta$assets_path)
@@ -41,6 +38,7 @@ build_site <- function(pkg = ".",
     examples = TRUE,
     run_dont_run = TRUE,
     mathjax = TRUE,
+    seed = seed,
     path = file.path(path, "reference"),
     depth = 1L
   )

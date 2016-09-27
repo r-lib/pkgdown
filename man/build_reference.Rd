@@ -5,7 +5,7 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  mathjax = TRUE, path = NULL, depth = 1L)
+  mathjax = TRUE, seed = 1014, path = NULL, depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to package source.}
@@ -15,6 +15,9 @@ build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
 \item{mathjax}{Use mathjax to render math symbols?}
+
+\item{seed}{Seed used to initialize so that random examples are
+reproducible.}
 
 \item{path}{Output path.}
 
