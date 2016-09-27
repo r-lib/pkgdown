@@ -53,9 +53,9 @@ str_person <- function(pers) {
 # Metadata ----------------------------------------------------------------
 
 read_meta <- function(path) {
-  path <- file.path(path, "_staticdocs.yml")
+  path <- find_meta(path)
 
-  if (!file.exists(path)) {
+  if (is.null(path)) {
     yaml <- list()
   } else {
     yaml <- yaml::yaml.load_file(path)
@@ -63,6 +63,21 @@ read_meta <- function(path) {
 
   yaml
 }
+
+find_meta <- function(path) {
+  path <- file.path(path, "_staticdocs.yml")
+  if (file.exists(path)) {
+    return(path)
+  }
+
+  path <- file.path(path, "_staticdocs.yaml")
+  if (file.exists(path)) {
+    return(path)
+  }
+
+  NULL
+}
+
 
 # Topics ------------------------------------------------------------------
 
