@@ -1,33 +1,19 @@
+<h1>Function reference <small>version {{#package}}{{version}}{{/package}}</small></h1>
+
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
-    <h2>Function reference <small>Version {{#package}}{{version}}{{/package}}</small></h2>
-
-    <table class="index">
     {{#sections}}
-      <tbody class="section {{class}}">
-        <tr>
-          <td colspan="2">
-            <h3>{{title}}</h3>
-            <p class="section-desc">{{{desc}}}</p>
-          </td>
-        </tr>
-        {{#contents}}
-        <tr>
-          <td>
-            <p class="topic">
-            {{#aliases}}
-            <a href="{{path}}">{{.}}</a>
-            {{/aliases}}
-            </p>
-          </td>
-          <td>
-            <p class="desc">{{title}}</p>
-          </td>
-        </tr>
-        {{/contents}}
-      </tbody>
-    {{/sections}}
+    <div class="section {{class}}">
+      <h2>{{title}}</h2>
+      <p class="section-desc">{{{desc}}}</p>
 
-    </table>
+      <dl class="dl-horizontal">
+      {{#contents}}
+        {{#aliases}}<dt><a href="{{path}}">{{.}}</a></dt>{{/aliases}}
+        <dd>{{title}}</dd>
+      {{/contents}}
+      </dl>
+    </div>
+    {{/sections}}
   </div>
 </div>

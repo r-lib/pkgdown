@@ -3,7 +3,7 @@ title: staticdocs
 bootswatch: cerulean
 
 reference:
-  - title: Render components
+  - title: Build
     desc:  Build each component of the site.
     contents:
     - starts_with("build_")
