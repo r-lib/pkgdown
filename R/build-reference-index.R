@@ -93,7 +93,7 @@ topic_matcher <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
   expr <- parse(text = text)[[1]]
 
-  if (is.name(expr)) {
+  if (is.name(expr) || is.character(expr)) {
     function(topics) as.character(expr) %in% topics
   } else {
     topic_helpers <- list(
