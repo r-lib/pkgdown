@@ -285,7 +285,14 @@ as_html.tag_enumerate <- function(x, ...) {
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  str_c("<dl>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+  str_c("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+}
+
+# Effectively does nothing: only used by parse_items() to split up
+# sequence of tags.
+#' @export
+as_html.tag_item <- function(x, ...) {
+  ""
 }
 
 parse_items <- function(rd, ...) {
@@ -296,27 +303,33 @@ parse_items <- function(rd, ...) {
   rd <- rd[group != 0]
   group <- group[group != 0]
 
-  items <- split(rd, group)
+  parse_item <- function(x) {
+    paste0("<li>", flatten_text(x, ...), "</li>\n")
+  }
 
-  li <- vapply(items, function(x) {
-    str_c("<li>", flatten_text(x, ...), "</li>\n")
-  }, FUN.VALUE = character(1))
-
-  str_c(li, collapse = "")
+  rd %>%
+    split(group) %>%
+    purrr:::map_chr(parse_item) %>%
+    paste(collapse = "")
 }
 
 parse_descriptions <- function(rd, ...) {
   is_item <- purrr::map_lgl(rd, inherits, "tag_item")
 
-  li <- character(length(rd))
-  for (i in seq_along(rd)) {
-    if (is_item[[i]])
-      li[i] <- str_c("<dt>", flatten_text(rd[[i]][[1]], ...), "</dt><dd>", flatten_text(rd[[i]][-1], ...), "</dd>\n")
-    else
-      li[i] <- flatten_text(rd[i], ...)
+  parse_item <- function(x) {
+    if (inherits(x, "tag_item")) {
+      paste0(
+        "<dt>", flatten_text(x[[1]], ...), "</dt>",
+        "<dd>", flatten_text(x[-1], ...), "</dd>"
+      )
+    } else {
+      flatten_text(x, ...)
+    }
   }
 
-  str_c(li, collapse = "")
+  rd %>%
+    purrr::map_chr(parse_item) %>%
+    paste(collapse = "")
 }
 
 # Marking text ------------------------------------------------------------
@@ -324,7 +337,7 @@ parse_descriptions <- function(rd, ...) {
 
 tag_wrapper <- function(prefix, suffix = NULL) {
   function(x, ...) {
-    html <- as_html(x[[1]], ...)
+    html <- flatten_text(x, ...)
     paste0(prefix, html, suffix)
   }
 }
@@ -364,16 +377,14 @@ as_html.tag_option <-       tag_wrapper('<span class="option">',"</span>")
 as_html.tag_command <-      tag_wrapper("<code class='command'>", "</code>")
 
 #' @export
+as_html.tag_preformatted <- tag_wrapper('<pre>','</pre>')
+
+#' @export
 as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
 #' @export
 as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
 as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
-
-#' @export
-as_html.tag_preformatted <- function(x, ...) {
-  paste0("<pre>", flatten_text(x), "</pre>")
-}
 
 # Insertions --------------------------------------------------------------
 

@@ -26,16 +26,35 @@ browser.}
 reproducible.}
 }
 \description{
-\code{build_site} calls \code{\link{init_site}()},
-\code{\link{build_site}()},
-\code{\link{build_home}()}, and
-\code{\link{build_reference}}.
-See the individual documentation for how the code works.
+\code{build_site()} is a convenient wrapper around four functions:
+\itemize{
+  \item \code{\link{init_site}()}
+  \item \code{\link{build_articles}()}
+  \item \code{\link{build_home}()}
+  \item \code{\link{build_reference}()}
 }
-\details{
-By default, staticdocs will use predefined templates and assets. If you
-want to override, you can set the \code{asset_path} and \code{template_path}
-at the top-level of \code{staticdocs.yml}.
+See the documentation for the each function to learn how to control
+that aspect of the site.
+}
+\section{YAML config}{
+
+
+There are four top-level YAML settings that affect the entire site:
+
+\describe{
+  \item{title}{Site title, used in page title and default navbar.}
+  \item{bootswatch}{Customise the overall theme with a bootswatch
+    theme. You can see a complete list and how they'll affect your
+    site at \url{https://gallery.shinyapps.io/117-shinythemes/}.}
+ \item{assets_path}{Path to directory of additional assets to be
+   copied into root directory of site. Use this when you want complete
+   control over the visual design of the site. Recommended for advanced
+   users only.}
+ \item{template_path}{Path to directory of templates. Override the
+   default (the templates built-in to staticdocs) to completely
+   control the display of your site. Recommended for advanced users
+   only.}
+}
 }
 \examples{
 \dontrun{

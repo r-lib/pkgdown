@@ -82,11 +82,20 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
     
-    <p><code>build_site</code> calls <code><a href='init_site.html'>init_site</a></code>,
-<code><a href='build_site.html'>build_site</a></code>,
-<code><a href='build_home.html'>build_home</a></code>, and
-<code><a href='build_reference.html'>build_reference</a></code>.
-See the individual documentation for how the code works.</p>
+    <p><code>build_site()</code> is a convenient wrapper around four functions:
+<ul>
+<li> <code><a href='init_site.html'>init_site</a>()</code>
+  </li>
+<li> <code><a href='build_articles.html'>build_articles</a>()</code>
+  </li>
+<li> <code><a href='build_home.html'>build_home</a>()</code>
+  </li>
+<li> <code><a href='build_reference.html'>build_reference</a>()</code>
+</li>
+</ul></p>
+
+    <p>See the documentation for the each function to learn how to control
+that aspect of the site.</p>
     
 
     <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
@@ -113,12 +122,25 @@ browser.</dd>
 reproducible.</dd>
     </dl>
     
-    <div class="Details">
-      <h2>Details</h2>
+    <div class="YAML config">
+      <h2>YAML config</h2>
 
-      <p>By default, staticdocs will use predefined templates and assets. If you
-want to override, you can set the <code>asset_path</code> and <code>template_path</code>
-at the top-level of <code>staticdocs.yml</code>.</p>
+      <p></p>
+      <p>There are four top-level YAML settings that affect the entire site:</p>
+      <p><dl class='dl-horizontal'>
+  <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
+  <dt>bootswatch</dt><dd>Customise the overall theme with a bootswatch
+    theme. You can see a complete list and how they&#39;ll affect your
+    site at <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>.</dd>
+ <dt>assets_path</dt><dd>Path to directory of additional assets to be
+   copied into root directory of site. Use this when you want complete
+   control over the visual design of the site. Recommended for advanced
+   users only.</dd>
+ <dt>template_path</dt><dd>Path to directory of templates. Override the
+   default (the templates built-in to staticdocs) to completely
+   control the display of your site. Recommended for advanced users
+   only.</dd>
+</dl></p>
     </div>
       </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
