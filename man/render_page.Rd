@@ -18,7 +18,7 @@ added to this list under key \code{package}.}
 prints to standard out.}
 
 \item{depth}{Depth of path relative to base directory. Used to
-adjust links in navbar.}
+adjust links in navbar, and to provide template variable \code{root_path}.}
 }
 \description{
 Render complete page.
