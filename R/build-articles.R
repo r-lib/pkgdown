@@ -16,14 +16,15 @@ build_articles <- function(pkg = ".", path, depth = 0L) {
 
   tibble::tibble(
       path_in = file.path("vignettes", pkg$vignettes$file_in),
-      path_out = file.path(path, pkg$vignettes$file_out)
+      path_out = file.path(path, pkg$vignettes$file_out),
+      title = pkg$vignettes$title
     ) %>%
     purrr::pwalk(render_vignette, pkg = pkg, depth = depth)
 
   build_articles_index(pkg, path = path, depth = depth)
 }
 
-render_vignette <- function(path_in, path_out, pkg, depth = depth) {
+render_vignette <- function(path_in, path_out, title, pkg, depth = depth) {
 
   out <- rmarkdown::render(path_in,
     output_format = rmarkdown::html_fragment(
@@ -38,7 +39,9 @@ render_vignette <- function(path_in, path_out, pkg, depth = depth) {
   on.exit(unlink(out), add = TRUE)
 
   data <- list(
-    contents = paste(readLines(out), collapse = "\n")
+    contents = paste(readLines(out), collapse = "\n"),
+    title = title,
+    pagetitle = title
   )
   render_page(pkg, "vignette", data, path_out, depth = depth)
 }
