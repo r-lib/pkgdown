@@ -85,7 +85,7 @@ meta_reference_index <- function(pkg = ".") {
 has_topic <- function(topics, matches) {
   matchers <- purrr::map(matches, topic_matcher)
   topics %>%
-    purrr::map_lgl(~ purrr::some(matchers, function(f) f(.)))
+    purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))
 }
 
 # Takes text specification and converts it to a predicate function
@@ -94,17 +94,17 @@ topic_matcher <- function(text) {
   expr <- parse(text = text)[[1]]
 
   if (is.name(expr) || is.character(expr)) {
-    function(topics) as.character(expr) %in% topics
+    function(topics) topics %in% as.character(expr)
   } else {
     topic_helpers <- list(
       starts_with = function(x) {
-        function(topics) any(grepl(paste0("^", x), topics))
+        function(topics) grepl(paste0("^", x), topics)
       },
       ends_width = function(x) {
-        function(topics) any(grepl(paste0(x, "$"), topics))
+        function(topics) grepl(paste0(x, "$"), topics)
       },
       matches = function(x) {
-        function(topics) any(grepl(x, topics))
+        function(topics) grepl(x, topics)
       }
     )
     eval(expr, topic_helpers)
