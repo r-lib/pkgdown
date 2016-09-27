@@ -6,15 +6,18 @@
 #'   added to this list under key \code{package}.
 #' @param path Location to create file. If \code{""} (the default),
 #'   prints to standard out.
+#' @param depth Depth of path relative to base directory. Used to
+#'   adjust links in navbar.
 #' @export
-render_page <- function(package, name, data, path = "") {
+render_page <- function(package, name, data, path = "", depth = 0L) {
   package <- as_staticdocs(package)
 
   # render template components
   pieces <- c("head", "header", "content", "footer")
   components <- lapply(pieces, render_template, package = package, name, data)
   names(components) <- pieces
-  components$navbar <- package$navbar
+
+  components$navbar <- package$navbar(depth)
 
   # render complete layout
   out <- render_template(package, "layout", name, components)

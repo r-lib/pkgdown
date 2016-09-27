@@ -4,12 +4,15 @@
 \alias{build_reference}
 \title{Generate reference index and topics.}
 \usage{
-build_reference(pkg = ".", path = NULL)
+build_reference(pkg = ".", path = NULL, depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to package source.}
 
 \item{path}{Output path.}
+
+\item{depth}{Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.}
 }
 \description{
 Generate reference index and topics.

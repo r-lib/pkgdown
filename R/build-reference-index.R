@@ -1,6 +1,10 @@
-build_reference_index <- function(pkg = ".", path = NULL) {
-  data <- data_reference_index(pkg)
-  render_page(pkg, "reference-index", data, out_path(path, "index.html"))
+build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
+  render_page(
+    pkg, "reference-index",
+    data = data_reference_index(pkg),
+    path = out_path(path, "index.html"),
+    depth = depth
+  )
 }
 
 data_reference_index <- function(pkg = ".") {

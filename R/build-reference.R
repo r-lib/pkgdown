@@ -2,7 +2,7 @@
 #'
 #' @inheritParams build_articles
 #' @export
-build_reference <- function(pkg = ".", path = NULL) {
+build_reference <- function(pkg = ".", path = NULL, depth = 1L) {
   rule("Building function reference")
   if (!is.null(path)) {
     mkdir(path)
@@ -13,17 +13,20 @@ build_reference <- function(pkg = ".", path = NULL) {
 
   pkg$topics %>%
     purrr::transpose() %>%
-    purrr::map(build_reference_topic, pkg = pkg, path)
+    purrr::map(build_reference_topic, path, pkg = pkg, depth = depth)
 
-  build_reference_index(pkg, path = path)
+  build_reference_index(pkg, path = path, depth = depth)
 
   invisible()
 }
 
-build_reference_topic <- function(topic, pkg, path = NULL) {
-  data <- data_reference_topic(topic, pkg, path)
-  render_page(pkg, "reference-topic", data, out_path(path, topic$file_out))
-
+build_reference_topic <- function(topic, pkg, path = NULL, depth = 1L) {
+  render_page(
+    pkg, "reference-topic",
+    data = data_reference_topic(topic, pkg, path),
+    path = out_path(path, topic$file_out),
+    depth = depth
+  )
   invisible()
 }
 

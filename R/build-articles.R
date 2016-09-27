@@ -2,8 +2,10 @@
 #'
 #' @param pkg Path to package source.
 #' @param path Output path.
+#' @param depth Depth of path relative to root of documentation.
+#'   Used to adjust relative links in the navbar.
 #' @export
-build_articles <- function(pkg = ".", path) {
+build_articles <- function(pkg = ".", path, depth = 0L) {
   pkg <- as_staticdocs(pkg)
   if (nrow(pkg$vignettes) == 0) {
     return()
@@ -16,12 +18,12 @@ build_articles <- function(pkg = ".", path) {
       path_in = file.path("vignettes", pkg$vignettes$file_in),
       path_out = file.path(path, pkg$vignettes$file_out)
     ) %>%
-    purrr::pwalk(render_vignette, pkg = pkg)
+    purrr::pwalk(render_vignette, pkg = pkg, depth = depth)
 
-  build_articles_index(pkg, path = path)
+  build_articles_index(pkg, path = path, depth = depth)
 }
 
-render_vignette <- function(path_in, path_out, pkg) {
+render_vignette <- function(path_in, path_out, pkg, depth = depth) {
 
   out <- rmarkdown::render(path_in,
     output_format = rmarkdown::html_fragment(
@@ -38,15 +40,20 @@ render_vignette <- function(path_in, path_out, pkg) {
   data <- list(
     contents = paste(readLines(out), collapse = "\n")
   )
-  render_page(pkg, "vignette", data, path_out)
+  render_page(pkg, "vignette", data, path_out, depth = depth)
 }
 
 
 # Articles index ----------------------------------------------------------
 
-build_articles_index <- function(pkg = ".", path = NULL) {
-  data <- data_articles_index(pkg)
-  render_page(pkg, "vignette-index", data, out_path(path, "index.html"))
+build_articles_index <- function(pkg = ".", path = NULL, depth = 1L) {
+  render_page(
+    pkg,
+    "vignette-index",
+    data = data_articles_index(pkg),
+    path = out_path(path, "index.html"),
+    depth = depth
+  )
 }
 
 data_articles_index <- function(pkg = ".") {

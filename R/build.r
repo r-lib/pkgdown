@@ -48,8 +48,8 @@ build_site <- function(pkg = ".",
   init_site(path, assets_path)
 
   build_home(pkg, path = path)
-  build_reference(pkg, path = file.path(path, "reference"))
-  build_articles(pkg, path = file.path(path, "articles"))
+  build_reference(pkg, path = file.path(path, "reference"), depth = 1L)
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
   # build_news(pkg)
 
   if (launch) {

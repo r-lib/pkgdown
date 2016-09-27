@@ -1,10 +1,16 @@
+# @return An function that generates the navbar given the depth beneath
+#   the docs root directory
 build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
   meta <- meta_navbar(meta, desc)
 
-  path <- rmarkdown:::navbar_html(meta)
-  on.exit(unlink(path), add = TRUE)
+  function(depth = 0L) {
+    meta <- tweak_links(meta, depth)
 
-  paste(readLines(path), collapse = "\n")
+    path <- rmarkdown:::navbar_html(meta)
+    on.exit(unlink(path), add = TRUE)
+
+    paste(readLines(path), collapse = "\n")
+  }
 }
 
 yaml_navbar <- function(path = ".") {
@@ -32,15 +38,15 @@ meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
     left = list(
       list(
         text = "Home",
-        href = "/"
+        href = "index.html"
       ),
       list(
         text = "Reference",
-        href = "/reference/"
+        href = "reference/"
       ),
       list(
         text = "Articles",
-        href = "/articles/"
+        href = "articles/"
       )
     ),
     right = list(
@@ -49,6 +55,33 @@ meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
   )
 }
 
+
+tweak_links <- function(x, depth = 1L) {
+  stopifnot(is.integer(depth), depth >= 0L)
+
+  if (depth == 0L) {
+    return(x)
+  }
+
+  prefix <- paste(rep.int("../", depth), collapse = "")
+
+  tweak <- function(x) {
+    if (!is.null(x$menu)) {
+      x$menu <- lapply(x$menu, tweak)
+      x
+    } else if (!is.null(x$href) && !grepl("://", x$href, fixed = TRUE)) {
+      x$href <- paste0(prefix, x$href)
+      x
+    } else {
+      x
+    }
+  }
+
+  x$left <- lapply(x$left, tweak)
+  x$right <- lapply(x$right, tweak)
+
+  x
+}
 
 github_link <- function(desc) {
   if (!desc$has_fields("URL"))

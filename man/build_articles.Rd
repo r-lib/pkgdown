@@ -4,12 +4,15 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path)
+build_articles(pkg = ".", path, depth = 0L)
 }
 \arguments{
 \item{pkg}{Path to package source.}
 
 \item{path}{Output path.}
+
+\item{depth}{Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.}
 }
 \description{
 Build articles

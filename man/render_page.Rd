@@ -4,7 +4,7 @@
 \alias{render_page}
 \title{Render complete page.}
 \usage{
-render_page(package, name, data, path = "")
+render_page(package, name, data, path = "", depth = 0L)
 }
 \arguments{
 \item{package}{Path to package to document.}
@@ -16,6 +16,9 @@ added to this list under key \code{package}.}
 
 \item{path}{Location to create file. If \code{""} (the default),
 prints to standard out.}
+
+\item{depth}{Depth of path relative to base directory. Used to
+adjust links in navbar.}
 }
 \description{
 Render complete page.
