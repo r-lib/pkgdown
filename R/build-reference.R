@@ -1,5 +1,39 @@
 #' Build reference section
 #'
+#' By default, staticdocs will generate an index that simply lists all
+#' the functions in alphabetical order. To override this, provide a
+#' \code{reference} section in your \code{_staticdocs.yml} as described
+#' below.
+#'
+#' @section YAML configuration:
+#' To tweak the index page, you need a section called \code{reference}
+#' which provides a list of sections containing, a \code{title}, list of
+#' \code{contents}, and optional \code{description}.
+#'
+#' For example, the following code breaks up the functions in staticdocs
+#' into two groups:
+#'
+#' \preformatted{
+#' reference:
+#' - title: Render components
+#'   desc:  Build each component of the site.
+#'   contents:
+#'   - starts_with("build_")
+#'   - init_site
+#' - title: Templates
+#'   contents:
+#'   - render_page
+#' }
+#'
+#' Note that \code{contents} can contain either a list of function names,
+#' or if the functions in a section share a common prefix or suffix, you
+#' can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
+#' select them all. For more complex naming schemes you can use an aribrary
+#' regular expression with \code{matches("regexp")}.
+#'
+#' staticdocs will check that all non-internal topics are included on
+#' this page, and will generate a warning if you have missed any.
+#'
 #' @inheritParams build_articles
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
@@ -91,7 +125,7 @@ data_reference_topic <- function(topic,
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$seealso <- as_data(tags$tag_seealso[[1]], pkg = pkg)
+  out$description <- as_data(tags$tag_description[[1]], pkg = pkg)
   out$usage <- as_data(tags$tag_usage[[1]], pkg = pkg)
   out$arguments <- as_data(tags$tag_arguments[[1]], pkg = pkg)
   if (length(out$arguments)) {
@@ -102,10 +136,11 @@ data_reference_topic <- function(topic,
   env <- new.env(parent = globalenv())
   out$examples <- as_data(tags$examples[[1]], env = env, pkg = pkg, path = path)
 
+
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(
-    "tag_details", "tag_description", "tag_references", "tag_source",
-    "tag_format", "tag_note", "tag_seealso", "tag_section", "tag_value"
+    "tag_details", "tag_references", "tag_source", "tag_format",
+    "tag_note", "tag_seealso", "tag_section", "tag_value"
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- purrr::map(sections, as_data, pkg = pkg)

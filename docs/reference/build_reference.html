@@ -81,12 +81,17 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
-    <h2>Usage</h2>
     <pre><span class="functioncall"><a href='build_reference.html'>build_reference</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span>
   <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1014</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1L</span><span class="keyword">)</span></pre>
     
+    <p>By default, staticdocs will generate an index that simply lists all
+the functions in alphabetical order. To override this, provide a
+<code>reference</code> section in your <code>_staticdocs.yml</code> as described
+below.</p>
+    
+
     <h2>Arguments</h2>
-    <dl>
+    <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to package source.</dd>
       <dt>examples</dt>
@@ -105,22 +110,36 @@ reproducible.</dd>
 Used to adjust relative links in the navbar.</dd>
     </dl>
     
-    <div class="Description">
-      <h2>Description</h2>
+    <div class="YAML configuration">
+      <h2>YAML configuration</h2>
 
-      <p>Build reference section</p>
+      <p></p>
+      <p>To tweak the index page, you need a section called <code>reference</code>
+which provides a list of sections containing, a <code>title</code>, list of
+<code>contents</code>, and optional <code>description</code>.</p>
+      <p>For example, the following code breaks up the functions in staticdocs
+into two groups:</p>
+      <p><pre>
+reference:
+- title: Render components
+  desc:  Build each component of the site.
+  contents:
+  - starts_with(&quot;build_&quot;)
+  - init_site
+- title: Templates
+  contents:
+  - render_page
+</pre></p>
+      <p>Note that <code>contents</code> can contain either a list of function names,
+or if the functions in a section share a common prefix or suffix, you
+can use <code>starts_with(&quot;prefix&quot;)</code> and <code>ends_with(&quot;suffix&quot;)</code> to
+select them all. For more complex naming schemes you can use an aribrary
+regular expression with <code>matches(&quot;regexp&quot;)</code>.</p>
+      <p>staticdocs will check that all non-internal topics are included on
+this page, and will generate a warning if you have missed any.</p>
     </div>
       </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
-    <!-- <ul>
-      <li>build_reference</li>
-    </ul>
-    <ul>
-      
-    </ul> -->
-
-
-
   </div>
 </div>
         <footer>

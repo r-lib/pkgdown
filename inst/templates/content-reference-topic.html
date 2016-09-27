@@ -3,13 +3,18 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
     {{#usage}}
-    <h2>Usage</h2>
-    <pre>{{{usage}}}</pre>
+    <pre>{{{.}}}</pre>
     {{/usage}}
+
+    {{#description}}
+    {{#contents}}
+    <p>{{{.}}}</p>
+    {{/contents}}
+    {{/description}}
 
     {{#has_args}}
     <h2>Arguments</h2>
-    <dl>
+    <dl class="dl-horizontal">
     {{#arguments}}
       <dt>{{name}}</dt>
       <dd>{{{description}}}</dd>
@@ -28,27 +33,12 @@
     </div>
     {{/sections}}
 
-    {{#examples }}
+    {{#examples}}
     <h2 id="examples">Examples</h2>
-    <pre class="examples">{{{ examples }}}</pre>
+    <pre class="examples">{{{ . }}}</pre>
     {{/examples}}
   </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
-    <!-- <ul>
-      {{#aliases}}<li>{{.}}</li>{{/aliases}}
-    </ul>
-    <ul>
-      {{#keywords}}<li>{{.}}</li>{{/keywords}}
-    </ul> -->
-
-    {{#seealso}}
-    <h2>See also</h2>
-    {{#contents}}
-    <p>{{{.}}}</p>
-
-    {{/contents}}
-    {{/seealso}}
-
     {{#author}}
     <h2>Author</h2>
     {{{ author }}}

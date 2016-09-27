@@ -81,34 +81,21 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
-    <h2>Usage</h2>
     <pre><span class="functioncall"><a href='build_home.html'>build_home</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">)</span></pre>
     
+    <p>First looks for <code>README.md</code>, then <code>index.md</code>. If neither is
+found, falls back to the description field in <code>DESCRIPTION</code>.</p>
+    
+
     <h2>Arguments</h2>
-    <dl>
+    <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to package source.</dd>
       <dt>path</dt>
       <dd>Output path.</dd>
     </dl>
-    
-    <div class="Description">
-      <h2>Description</h2>
-
-      <p>First looks for <code>README.md</code>, then <code>index.md</code>. If neither is
-found, falls back to the description field in <code>DESCRIPTION</code>.</p>
-    </div>
-      </div>
+          </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
-    <!-- <ul>
-      <li>build_home</li>
-    </ul>
-    <ul>
-      
-    </ul> -->
-
-
-
   </div>
 </div>
         <footer>
