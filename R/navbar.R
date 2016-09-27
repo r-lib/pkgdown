@@ -1,5 +1,5 @@
-build_navbar <- function(meta, package, desc) {
-  meta <- meta_navbar(meta, package, desc)
+build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
+  meta <- meta_navbar(meta, desc)
 
   path <- rmarkdown:::navbar_html(meta)
   on.exit(unlink(path), add = TRUE)
@@ -7,13 +7,27 @@ build_navbar <- function(meta, package, desc) {
   paste(readLines(path), collapse = "\n")
 }
 
-meta_navbar <- function(meta, package, desc) {
+yaml_navbar <- function(path = ".") {
+  meta <- meta_navbar(read_meta(path), read_desc(path))
+
+  structure(
+    yaml::as.yaml(meta),
+    class = "yaml"
+  )
+}
+
+#' @export
+print.yaml <- function(x, ...) {
+  cat(x, "\n", sep = "")
+}
+
+meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
   if (!is.null(meta$navbar)) {
     return(meta$navbar)
   }
 
   list(
-    title = meta$title %||% package$name,
+    title = meta$title %||% desc$get("Name")[[1]],
     type = "default",
     left = list(
       list(

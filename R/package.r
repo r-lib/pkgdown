@@ -7,7 +7,7 @@ as_staticdocs <- function(path = ".", options = list()) {
     stop("`path` is not an existing directory", call. = FALSE)
   }
 
-  desc <- desc::description$new(file.path(path, "DESCRIPTION"))
+  desc <- read_desc(path)
   meta <- read_meta(path)
   package <- data_package(desc)
 
@@ -20,7 +20,7 @@ as_staticdocs <- function(path = ".", options = list()) {
       package = package,
       options = options,
       vignettes = vignette_index(path),
-      navbar = build_navbar(meta, package, desc)
+      navbar = build_navbar(meta, desc)
     ),
     class = "staticdocs"
   )
@@ -49,6 +49,9 @@ str_person <- function(pers) {
   s
 }
 
+read_desc <- function(path = ".") {
+  desc::description$new(file.path(path, "DESCRIPTION"))
+}
 
 # Metadata ----------------------------------------------------------------
 
