@@ -21,7 +21,6 @@ render_page <- function(package, name, data, path = "") {
   write_if_different(out, path)
 }
 
-#' @importFrom whisker whisker.render
 render_template <- function(package, type, name, data) {
   data$package <- package$package
   data$meta <- package$meta
@@ -30,7 +29,7 @@ render_template <- function(package, type, name, data) {
   if (length(template) == 0 || (length(template) == 1 && str_trim(template) == ""))
     return("")
 
-  whisker.render(template, data)
+  whisker::whisker.render(template, data)
 }
 
 # Find template by looking first in package/staticdocs then in

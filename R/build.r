@@ -23,7 +23,6 @@
 #' @inheritParams init_site
 #' @export
 #' @import stringr
-#' @importFrom devtools load_all
 #' @examples
 #' \dontrun{
 #' build_site()

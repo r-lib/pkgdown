@@ -1,6 +1,5 @@
-#' @importFrom devtools dev_meta
 inst_path <- function() {
-  if (is.null(dev_meta("staticdocs"))) {
+  if (is.null(devtools::dev_meta("staticdocs"))) {
     # staticdocs is probably installed
     system.file(package = "staticdocs")
   } else {
@@ -54,13 +53,12 @@ rows_list <- function(df) {
   lapply(seq_len(nrow(df)), function(i) as.list(df[i, ]))
 }
 
-#' @importFrom markdown markdownToHTML
 markdown <- function(x = NULL, path = NULL) {
   if (is.null(path)) {
     if (is.null(x) || x == "") return("")
   }
 
-  (markdownToHTML(text = x, file = path, fragment.only = TRUE,
+  (markdown::markdownToHTML(text = x, file = path, fragment.only = TRUE,
                   options = c("safelink", "use_xhtml", "smartypants")))
 }
 

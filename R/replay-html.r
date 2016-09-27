@@ -18,11 +18,10 @@ message_html <- function(x) {
 
 replay_html <- function(x, ...) UseMethod("replay_html", x)
 
-#' @importFrom evaluate is.source
 #' @export
 replay_html.list <- function(x, ...) {
   # Stitch adjacent source blocks back together
-  src <- vapply(x, is.source, logical(1))
+  src <- vapply(x, evaluate::is.source, logical(1))
   # New group whenever not source, or when src after not-src
   group <- cumsum(!src | c(FALSE, src[-1] != src[-length(src)]))
 

@@ -43,14 +43,13 @@ clear_cache <- function() {
 rd_cache <- NULL
 if (is.null(rd_cache)) clear_cache()
 
-#' @importFrom digest digest
 cached_parse_Rd <- function(path) {
-  hash <- digest(path, file = TRUE)
+  hash <- digest::digest(path, file = TRUE)
 
   if (exists(hash, envir = rd_cache)) {
     rd_cache[[hash]]
   } else {
-    raw_rd <- parse_Rd(path)
+    raw_rd <- tools::parse_Rd(path)
     rd <- structure(set_classes(raw_rd), class = "Rd_content")
     rd_cache[[hash]] <- rd
     rd

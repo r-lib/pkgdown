@@ -152,7 +152,6 @@ to_html.subsection <- function(x, ...) {
 
 # Examples ------------------------------------------------------------------
 
-#' @importFrom evaluate evaluate
 #' @export
 to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = globalenv()), ...) {
   # First element of examples tag is always empty
@@ -161,7 +160,7 @@ to_html.examples <- function(x, pkg, topic = "unknown", env = new.env(parent = g
   if (!isTRUE(pkg$examples)) {
     src_highlight(text, pkg$topics)
   } else {
-    expr <- evaluate(text, env, new_device = TRUE)
+    expr <- evaluate::evaluate(text, env, new_device = TRUE)
 
     replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
 
@@ -376,7 +375,6 @@ to_html.docType <- function(...) NULL
 # Conditionals and Sexprs ----------------------------------------------------
 
 #' @export
-#' @importFrom tools parse_Rd
 to_html.Sexpr <- function(x, env, ...) {
   code <- to_html.TEXT(x, escape = FALSE)
   expr <- eval(parse(text = code), env)
@@ -384,7 +382,7 @@ to_html.Sexpr <- function(x, env, ...) {
   con <- textConnection(expr)
   on.exit(close(con))
 
-  rd <- parse_Rd(con, fragment = TRUE)
+  rd <- tools::parse_Rd(con, fragment = TRUE)
   rd <- structure(set_classes(rd), class = c("Rd_doc", "Rd"))
 
   to_html.TEXT(rd, ...)
