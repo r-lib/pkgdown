@@ -5,9 +5,7 @@
 \title{Build complete static documentation for a package.}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE,
-  templates_path = "inst/staticdocs/templates",
-  assets_path = "inst/staticdocs/assets", launch = interactive(),
+  run_dont_run = FALSE, mathjax = TRUE, launch = interactive(),
   seed = 1014)
 }
 \arguments{
@@ -21,13 +19,6 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{templates_path}{Path in which to look for templates. If this doesn't
-exist will look next in \code{pkg/inst/staticdocs/templates}, then
-in staticdocs itself.}
-
-\item{assets_path}{Path in which to look for assets files. If
-this doesn't exist, will use files built into staticdocs.}
-
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}
 
@@ -40,6 +31,11 @@ reproducible.}
 \code{\link{build_home}()}, and
 \code{\link{build_reference}}.
 See the individual documentation for how the code works.
+}
+\details{
+By default, staticdocs will use predefined templates and assets. If you
+want to override, you can set the \code{asset_path} and \code{template_path}
+at the top-level of \code{staticdocs.yml}.
 }
 \examples{
 \dontrun{

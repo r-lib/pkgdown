@@ -6,11 +6,12 @@
 #' \code{\link{build_reference}}.
 #' See the individual documentation for how the code works.
 #'
+#' By default, staticdocs will use predefined templates and assets. If you
+#' want to override, you can set the \code{asset_path} and \code{template_path}
+#' at the top-level of \code{staticdocs.yml}.
+#'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
-#' @param templates_path Path in which to look for templates. If this doesn't
-#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
-#'   in staticdocs itself.
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
@@ -27,20 +28,13 @@ build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        mathjax = TRUE,
-                       templates_path = "inst/staticdocs/templates",
-                       assets_path = "inst/staticdocs/assets",
                        launch = interactive(),
                        seed = 1014
                        ) {
-
   set.seed(seed)
 
-  options <- list(
-    templates_path = templates_path
-  )
-
-  pkg <- as_staticdocs(pkg, options)
-  init_site(path, assets_path)
+  pkg <- as_staticdocs(pkg)
+  init_site(path, pkg$meta$assets_path)
 
   build_home(pkg, path = path)
   build_reference(pkg,

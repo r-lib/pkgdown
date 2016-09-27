@@ -1,4 +1,4 @@
-as_staticdocs <- function(path = ".", options = list()) {
+as_staticdocs <- function(path = ".") {
   if (is_staticdocs(path)) {
     return(path)
   }
@@ -18,7 +18,6 @@ as_staticdocs <- function(path = ".", options = list()) {
       meta = meta,
       topics = topic_index(path),
       package = package,
-      options = options,
       vignettes = vignette_index(path),
       navbar = build_navbar(meta, desc)
     ),

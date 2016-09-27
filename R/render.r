@@ -38,23 +38,17 @@ render_template <- function(package, type, name, data) {
   whisker::whisker.render(template, data)
 }
 
-# Find template by looking first in package/staticdocs then in
-# staticdocs/templates, trying first for a type-name.html otherwise
-# defaulting to type.html
 find_template <- function(package, type, name) {
   package <- as_staticdocs(package)
 
-  paths <- c(
-    package$options$templates_path,
-    file.path(inst_path(), "templates")
-  )
+  path <- package$meta$templates_path %||% file.path(inst_path(), "templates")
 
   names <- c(
     str_c(type, "-", name, ".html"),
     str_c(type, ".html")
   )
 
-  locations <- as.vector(t(outer(paths, names, FUN = "file.path")))
+  locations <- file.path(path, names)
   Find(file.exists, locations, nomatch =
     stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }

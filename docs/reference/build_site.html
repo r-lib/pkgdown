@@ -83,9 +83,7 @@
   <div class="col-xs-12 col-sm-12 col-md-9">
     <h2>Usage</h2>
     <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
-  <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
-  <span class="argument">templates_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/templates"</span><span class="keyword">,</span>
-  <span class="argument">assets_path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"inst/staticdocs/assets"</span><span class="keyword">,</span> <span class="argument">launch</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span>
+  <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">launch</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span>
   <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1014</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
@@ -100,13 +98,6 @@
       <dd>Run examples that are surrounded in \dontrun?</dd>
       <dt>mathjax</dt>
       <dd>Use mathjax to render math symbols?</dd>
-      <dt>templates_path</dt>
-      <dd>Path in which to look for templates. If this doesn&#39;t
-exist will look next in <code>pkg/inst/staticdocs/templates</code>, then
-in staticdocs itself.</dd>
-      <dt>assets_path</dt>
-      <dd>Path in which to look for assets files. If
-this doesn&#39;t exist, will use files built into staticdocs.</dd>
       <dt>launch</dt>
       <dd>If <code>TRUE</code>, will open freshly generated site in web
 browser.</dd>
@@ -123,6 +114,14 @@ reproducible.</dd>
 <code><a href='build_home.html'>build_home</a></code>, and
 <code><a href='build_reference.html'>build_reference</a></code>.
 See the individual documentation for how the code works.</p>
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>By default, staticdocs will use predefined templates and assets. If you
+want to override, you can set the <code>asset_path</code> and <code>template_path</code>
+at the top-level of <code>staticdocs.yml</code>.</p>
     </div>
       </div>
   <div class="col-xs-12 col-sm-6 col-md-3">
