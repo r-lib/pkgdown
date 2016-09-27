@@ -416,6 +416,10 @@ as_html.tag_donttest <- function(x, ...) ""
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
 as_html.tag_cr <-       function(x, ...) ""
+#' @export
+as_html.tag_newcommand <- function(x, ...) ""
+#' @export
+as_html.tag_renewcommand <- function(x, ...) ""
 
 #' @export
 as_html.tag <- function(x, ...) {
