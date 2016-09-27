@@ -203,23 +203,6 @@ builtin_packages <- c("base", "boot", "class", "cluster", "codetools", "compiler
 
 # Miscellaneous --------------------------------------------------------------
 
-
-#' @export
-as_html.tag_special <- function(x, ...) {
-  txt <- flatten_text(x, ...)
-  # replace '<' and '>' with html markings avoid browser misinterpretation
-  txt <- str_replace_all(txt, "<", "&#60;")
-  txt <- str_replace_all(txt, ">", "&#62;")
-  txt <- str_replace_all(txt, "\\\\dots", "...")
-
-  stupid <- unlist(str_match_all(txt, "\\\\[a-zA-Z]*"))
-  for (i in seq_len(length(stupid))) {
-    message("Unknown tag (", stupid[i], ") found in 'special' tag")
-  }
-
-  str_c("<em>", txt, "</em>")
-}
-
 #' @export
 as_html.tag_method <- function(x, ...) method_usage(x, "S3")
 #' @export
