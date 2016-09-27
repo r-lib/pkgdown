@@ -6,10 +6,7 @@ reference:
   - title: Render components
     desc:  Build each component of the site.
     contents:
-    - build_site
-    - build_articles
-    - build_home
-    - build_reference
+    - starts_with("build_")
     - init_site
   - title: Templates
     contents:

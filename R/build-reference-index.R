@@ -15,10 +15,10 @@ data_reference_index <- function(pkg = ".") {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ topic_has_alias(pkg$topics, .$contents)) %>%
+    purrr::map(~ has_topic(pkg$topics$alias, .$contents)) %>%
     purrr::reduce(`+`)
 
-  missing <- !in_index && !pkg$topics$internal
+  missing <- (in_index == 0) & !pkg$topics$internal
   if (any(missing)) {
     warning(
       "Topics missing from index: ",
@@ -46,7 +46,7 @@ data_reference_index_section <- function(section, pkg) {
   }
 
   # Match topics against any aliases
-  in_section <- topic_has_alias(pkg$topics, section$contents)
+  in_section <- has_topic(pkg$topics$alias, section$contents)
   section_topics <- pkg$topics[in_section, ]
   contents <-
     tibble::tibble(
@@ -80,6 +80,34 @@ meta_reference_index <- function(pkg = ".") {
   )
 }
 
-topic_has_alias <- function(topics, alias) {
-  purrr::map_lgl(topics$alias, ~ any(. %in% alias))
+# Character vector of contents: xyz, starts_with("xyz")
+# List of aliases
+has_topic <- function(topics, matches) {
+  matchers <- purrr::map(matches, topic_matcher)
+  topics %>%
+    purrr::map_lgl(~ purrr::some(matchers, function(f) f(.)))
 }
+
+# Takes text specification and converts it to a predicate function
+topic_matcher <- function(text) {
+  stopifnot(is.character(text), length(text) == 1)
+  expr <- parse(text = text)[[1]]
+
+  if (is.name(expr)) {
+    function(topics) as.character(expr) %in% topics
+  } else {
+    topic_helpers <- list(
+      starts_with = function(x) {
+        function(topics) any(grepl(paste0("^", x), topics))
+      },
+      ends_width = function(x) {
+        function(topics) any(grepl(paste0(x, "$"), topics))
+      },
+      matches = function(x) {
+        function(topics) any(grepl(x, topics))
+      }
+    )
+    eval(expr, topic_helpers)
+  }
+}
+
