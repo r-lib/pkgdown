@@ -2,15 +2,15 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
-    {{#usage}}
-    <pre>{{{.}}}</pre>
-    {{/usage}}
-
     {{#description}}
     {{#contents}}
     <p>{{{.}}}</p>
     {{/contents}}
     {{/description}}
+
+    {{#usage}}
+    <pre>{{{.}}}</pre>
+    {{/usage}}
 
     {{#has_args}}
     <h2>Arguments</h2>
