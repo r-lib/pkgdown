@@ -223,17 +223,11 @@ method_usage <- function(x, type) {
 # Conditionals and Sexprs ----------------------------------------------------
 
 #' @export
-as_html.tag_Sexpr <- function(x, env, ...) {
+as_html.tag_Sexpr <- function(x, ...) {
   code <- flatten_text(x, escape = FALSE)
-  expr <- eval(parse(text = code), env)
+  expr <- eval(parse(text = code)[[1]], new.env(parent = globalenv()))
 
-  con <- textConnection(expr)
-  on.exit(close(con))
-
-  rd <- tools::parse_Rd(con, fragment = TRUE)
-  rd <- structure(set_classes(rd), class = c("Rd_doc", "Rd"))
-
-  flatten_text(rd, ...)
+  flatten_text(rd_text(as.character(expr)), ...)
 }
 
 #' @export
