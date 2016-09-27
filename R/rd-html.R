@@ -344,8 +344,6 @@ as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 #' @export
 as_html.tag_code <-         tag_wrapper("<code>", "</code>")
 #' @export
-as_html.tag_preformatted <- tag_wrapper("<pre>","</pre>")
-#' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 #' @export
 as_html.tag_samp <-         tag_wrapper('<samp>',"</samp>")
@@ -372,6 +370,10 @@ as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
 as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
 
+#' @export
+as_html.tag_preformatted <- function(x, ...) {
+  paste0("<pre>", flatten_text(x), "</pre>")
+}
 
 # Insertions --------------------------------------------------------------
 
