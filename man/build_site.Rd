@@ -26,9 +26,8 @@ browser.}
 reproducible.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around four functions:
+\code{build_site()} is a convenient wrapper around three functions:
 \itemize{
-  \item \code{\link{init_site}()}
   \item \code{\link{build_articles}()}
   \item \code{\link{build_home}()}
   \item \code{\link{build_reference}()}

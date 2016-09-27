@@ -1,8 +1,7 @@
 #' Build staticdocs website
 #'
-#' \code{build_site()} is a convenient wrapper around four functions:
+#' \code{build_site()} is a convenient wrapper around three functions:
 #' \itemize{
-#'   \item \code{\link{init_site}()}
 #'   \item \code{\link{build_articles}()}
 #'   \item \code{\link{build_home}()}
 #'   \item \code{\link{build_reference}()}
@@ -32,7 +31,6 @@
 #' @inheritParams build_reference
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
-#' @inheritParams init_site
 #' @export
 #' @import stringr
 #' @examples
@@ -70,14 +68,6 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-#' Initialise the site
-#'
-#' Creates directory and copies assets.
-#'
-#' @param assets_path Path in which to look for assets files. If
-#'   this doesn't exist, will use files built into staticdocs.
-#' @inheritParams build_articles
-#' @export
 init_site <- function(path, assets_path = NULL) {
   rule("Initialising site")
 
