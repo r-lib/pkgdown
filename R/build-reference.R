@@ -1,69 +1,112 @@
 #' Generate reference index and topics.
 #'
 #' @inheritParams build_articles
+#' @param run_dont_run Run examples that are surrounded in \\dontrun?
+#' @param examples Run examples?
+#' @param mathjax Use mathjax to render math symbols?
 #' @export
-build_reference <- function(pkg = ".", path = NULL, depth = 1L) {
+build_reference <- function(pkg = ".",
+                            examples = TRUE,
+                            run_dont_run = FALSE,
+                            mathjax = TRUE,
+                            path = NULL,
+                            depth = 1L
+                            ) {
   rule("Building function reference")
   if (!is.null(path)) {
     mkdir(path)
   }
 
-  # Needed to run examples
-  devtools::load_all(pkg$path)
+  if (examples) {
+    devtools::load_all(pkg$path)
+  }
 
   pkg$topics %>%
     purrr::transpose() %>%
-    purrr::map(build_reference_topic, path, pkg = pkg, depth = depth)
+    purrr::map(build_reference_topic, path,
+      pkg = pkg,
+      depth = depth,
+      examples = examples,
+      run_dont_run = run_dont_run,
+      mathjax = mathjax
+    )
 
   build_reference_index(pkg, path = path, depth = depth)
 
   invisible()
 }
 
-build_reference_topic <- function(topic, pkg, path = NULL, depth = 1L) {
+build_reference_topic <- function(topic,
+                                  pkg,
+                                  examples = TRUE,
+                                  run_dont_run = FALSE,
+                                  mathjax = TRUE,
+                                  path = NULL,
+                                  depth = 1L
+                                  ) {
   render_page(
     pkg, "reference-topic",
-    data = data_reference_topic(topic, pkg, path),
+    data = data_reference_topic(
+      topic,
+      pkg,
+      path = path,
+      examples = examples,
+      run_dont_run = run_dont_run,
+      mathjax = mathjax
+    ),
     path = out_path(path, topic$file_out),
     depth = depth
   )
   invisible()
 }
 
-data_reference_topic <- function(topic, pkg, path = NULL) {
-  tag_names <- purrr::map_chr(topic$rd, tag)
+
+# Convert Rd to list ------------------------------------------------------
+
+data_reference_topic <- function(topic,
+                                 pkg,
+                                 examples = TRUE,
+                                 run_dont_run = FALSE,
+                                 mathjax = TRUE,
+                                 path = NULL
+                                 ) {
+  tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 
   out <- list()
 
   # Single top-level converted to string
-  out$name <- to_html(tags$name[[1]])
-  out$title <- to_html(tags$title[[1]])
-  out$author <- to_html(tags$author[[1]])
+  out$name <- as_html(tags$tag_name[[1]][[1]])
+  out$title <- as_html(tags$tag_title[[1]][[1]])
+
+  out$pagetitle <- out$name
 
   # Multiple top-level converted to string
-  out$aliases <- purrr::map_chr(tags$alias, to_html)
-  out$keywords <- purrr::map_chr(tags$keyword %||% list(), to_html)
+  out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
+  out$author <- purrr::map_chr(tags$tag_author %||% list(), flatten_text)
+  out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$seealso <- to_html(tags$seealso[[1]], pkg = pkg)
-  out$usage <- to_html(tags$usage[[1]], pkg = pkg)
-  out$arguments <- to_html(tags$arguments[[1]], pkg = pkg)
+  out$seealso <- as_data(tags$tag_seealso[[1]], pkg = pkg)
+  out$usage <- as_data(tags$tag_usage[[1]], pkg = pkg)
+  out$arguments <- as_data(tags$tag_arguments[[1]], pkg = pkg)
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
 
   # Examples
-  # TODO: setwd()
   env <- new.env(parent = globalenv())
-  out$examples <- to_html(tags$examples[[1]], env = env, pkg = pkg)
+  out$examples <- as_data(tags$examples[[1]], env = env, pkg = pkg, path = path)
 
   # Everything else stays in original order, and becomes a list of sections.
-  sections <- topic$rd[!(tag_names %in% c("name", "title", "alias", "keyword",
-    "usage", "author", "seealso", "arguments", "examples", "TEXT", "COMMENT"))]
-  out$sections <- compact(to_html(sections, pkg = pkg))
+  section_tags <- c(
+    "tag_details", "tag_description", "tag_references", "tag_source",
+    "tag_format", "tag_note", "tag_seealso", "tag_section", "tag_value"
+  )
+  sections <- topic$rd[tag_names %in% section_tags]
+  out$sections <- purrr::map(sections, as_data, pkg = pkg)
 
-  out$pagetitle <- out$name
-  out$package <- pkg[c("package", "version")]
   out
 }
+
+

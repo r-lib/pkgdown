@@ -46,7 +46,6 @@ find_template <- function(package, type, name) {
 
   paths <- c(
     package$options$templates_path,
-    pkg_sd_path(package),
     file.path(inst_path(), "templates")
   )
 

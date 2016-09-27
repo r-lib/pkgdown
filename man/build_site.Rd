@@ -5,9 +5,10 @@
 \title{Build complete static documentation for a package.}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, templates_path = "inst/staticdocs/templates",
-  assets_path = "inst/staticdocs/assets", mathjax = TRUE,
-  launch = interactive(), seed = 1014)
+  run_dont_run = FALSE, mathjax = TRUE,
+  templates_path = "inst/staticdocs/templates",
+  assets_path = "inst/staticdocs/assets", launch = interactive(),
+  seed = 1014)
 }
 \arguments{
 \item{pkg}{Path to package source.}
@@ -18,14 +19,14 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
+\item{mathjax}{Use mathjax to render math symbols?}
+
 \item{templates_path}{Path in which to look for templates. If this doesn't
 exist will look next in \code{pkg/inst/staticdocs/templates}, then
 in staticdocs itself.}
 
 \item{assets_path}{Path in which to look for assets files. If
 this doesn't exist, will use files built into staticdocs.}
-
-\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{launch}{If \code{TRUE}, will open freshly generated site in web
 browser.}

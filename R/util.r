@@ -8,27 +8,6 @@ inst_path <- function() {
   }
 }
 
-# Return the staticdocs path for a package
-# Could be in pkgdir/inst/staticdocs/ (for non-installed source packages)
-# or in pkgdir/staticdocs/ (for installed packages)
-pkg_sd_path <- function(package) {
-  if (!is.null(package$sd_path)) {
-    return(package$sd_path)
-  }
-
-  pathsrc <- file.path(package$path, "inst", "staticdocs")
-  pathinst <- file.path(package$path, "staticdocs")
-
-  if (dir.exists(pathsrc)) {
-    pathsrc
-  } else if (dir.exists(pathinst)) {
-    pathinst
-  } else {
-    dir.create(pathsrc)
-    pathsrc
-  }
-}
-
 file.path.ci <- function(...) {
   default <- file.path(...)
   if (file.exists(default)) return(default)
@@ -105,3 +84,9 @@ out_path <- function(path, ...) {
 }
 
 is_dir <- function(x) file.info(x)$isdir
+
+split_at_linebreaks <- function(text) {
+  if (length(text) < 1)
+    return(character())
+  trimws(strsplit(text, "\\n\\s*\\n")[[1]])
+}

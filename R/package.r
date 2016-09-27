@@ -86,10 +86,10 @@ find_meta <- function(path) {
 
 topic_index <- function(path = ".") {
   rd <- package_rd(path)
-  aliases <- unname(lapply(rd, extract_alias))
 
-  names <- purrr::map_chr(rd, extract_name)
-  titles <- purrr::map_chr(rd, extract_title)
+  aliases <- purrr::map(rd, extract_tag, "tag_alias")
+  names <- purrr::map_chr(rd, extract_tag, "tag_name")
+  titles <- purrr::map_chr(rd, extract_tag, "tag_title")
   internal <- purrr::map_lgl(rd, is_internal)
 
   file_in <- names(rd)
@@ -106,27 +106,21 @@ topic_index <- function(path = ".") {
   )
 }
 
-extract_alias <- function(x) {
-  aliases <- Filter(function(x) attr(x, "Rd_tag") == "\\alias", x)
-  vapply(aliases, function(x) x[[1]][[1]], character(1))
+package_rd <- function(path) {
+  man_path <- file.path(path, "man")
+  rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
+  names(rd) <- basename(rd)
+  lapply(rd, rd_file)
 }
 
-extract_name <- function(x) {
-  alias <- Find(function(x) attr(x, "Rd_tag") == "\\name", x)
-  alias[[1]][[1]]
+extract_tag <- function(x, tag) {
+  x %>%
+    purrr::keep(inherits, tag) %>%
+    purrr::map_chr(c(1, 1))
 }
 
 is_internal <- function(x) {
-  keywords <- Find(function(x) attr(x, "Rd_tag") == "\\keyword", x)
-  if (is.null(keywords))
-    return(FALSE)
-
-  any(purrr::map_chr(keywords, as.character) %in% "internal")
-}
-
-extract_title <- function(x, pkg) {
-  title <- Find(function(x) attr(x, "Rd_tag") == "\\title", x)
-  to_html(title, pkg = pkg)
+  any(extract_tag(x, "tag_keyword") %in% "internal")
 }
 
 

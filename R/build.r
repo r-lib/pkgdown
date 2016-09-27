@@ -7,12 +7,10 @@
 #' See the individual documentation for how the code works.
 #'
 #' @inheritParams build_articles
-#' @param run_dont_run Run examples that are surrounded in \\dontrun?
-#' @param examples Run examples?
+#' @inheritParams build_reference
 #' @param templates_path Path in which to look for templates. If this doesn't
 #'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
 #'   in staticdocs itself.
-#' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param launch If \code{TRUE}, will open freshly generated site in web
@@ -28,9 +26,9 @@ build_site <- function(pkg = ".",
                        path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
+                       mathjax = TRUE,
                        templates_path = "inst/staticdocs/templates",
                        assets_path = "inst/staticdocs/assets",
-                       mathjax = TRUE,
                        launch = interactive(),
                        seed = 1014
                        ) {
@@ -38,17 +36,20 @@ build_site <- function(pkg = ".",
   set.seed(seed)
 
   options <- list(
-    examples = examples,
-    run_dont_run = run_dont_run,
-    templates_path = templates_path,
-    mathjax = mathjax
+    templates_path = templates_path
   )
 
   pkg <- as_staticdocs(pkg, options)
   init_site(path, assets_path)
 
   build_home(pkg, path = path)
-  build_reference(pkg, path = file.path(path, "reference"), depth = 1L)
+  build_reference(pkg,
+    examples = TRUE,
+    run_dont_run = TRUE,
+    mathjax = TRUE,
+    path = file.path(path, "reference"),
+    depth = 1L
+  )
   build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
   # build_news(pkg)
 

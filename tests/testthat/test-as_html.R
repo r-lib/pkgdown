@@ -1,8 +1,25 @@
-context("to_html")
+context("as_html")
 
 test_that("special characters are escaped", {
   out <- rd2html("a & b")
   expect_equal(out, "a &amp; b")
+})
+
+test_that("comments are ignored", {
+  expect_equal(rd2html("a\n%b\nc"), c("a", "", "c"))
+})
+
+test_that("simple wrappers work as expected", {
+  expect_equal(rd2html("\\strong{x}"), "<strong>x</strong>")
+  expect_equal(rd2html("\\strong{\\emph{x}}"), "<strong><em>x</em></strong>")
+})
+
+test_that("simple replacements work as expected", {
+  expect_equal(rd2html("\\ldots"), "&#8230;")
+})
+
+test_that("subsection generates h3", {
+  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "B"))
 })
 
 # Usage -------------------------------------------------------------------

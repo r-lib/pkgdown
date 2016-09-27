@@ -82,12 +82,19 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
     <h2>Usage</h2>
-    <pre><span class="functioncall"><a href='build_reference.html'>build_reference</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1L</span><span class="keyword">)</span></pre>
+    <pre><span class="functioncall"><a href='build_reference.html'>build_reference</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span>
+  <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1L</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>pkg</dt>
       <dd>Path to package source.</dd>
+      <dt>examples</dt>
+      <dd>Run examples?</dd>
+      <dt>run_dont_run</dt>
+      <dd>Run examples that are surrounded in \dontrun?</dd>
+      <dt>mathjax</dt>
+      <dd>Use mathjax to render math symbols?</dd>
       <dt>path</dt>
       <dd>Output path.</dd>
       <dt>depth</dt>

@@ -4,10 +4,17 @@
 \alias{build_reference}
 \title{Generate reference index and topics.}
 \usage{
-build_reference(pkg = ".", path = NULL, depth = 1L)
+build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
+  mathjax = TRUE, path = NULL, depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to package source.}
+
+\item{examples}{Run examples?}
+
+\item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
+
+\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{path}{Output path.}
 
