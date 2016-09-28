@@ -10,7 +10,7 @@ build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
 data_reference_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  meta <- meta_reference_index(pkg)
+  meta <- pkg$meta$reference %||% default_reference_index()
   sections <- compact(lapply(meta, data_reference_index_section, pkg = pkg))
 
   # Cross-reference complete list of topics vs. topics found in index page
@@ -28,11 +28,10 @@ data_reference_index <- function(pkg = ".") {
     )
   }
 
-  list(
+  print_yaml(list(
     pagetitle = "Function reference",
-    version = pkg$version,
     sections = sections
-  )
+  ))
 }
 
 data_reference_index_section <- function(section, pkg) {
@@ -48,34 +47,30 @@ data_reference_index_section <- function(section, pkg) {
   # Match topics against any aliases
   in_section <- has_topic(pkg$topics$alias, section$contents)
   section_topics <- pkg$topics[in_section, ]
-  contents <-
-    tibble::tibble(
-      path = section_topics$file_out,
-      aliases = section_topics$alias,
-      title = section_topics$title
-    ) %>%
-    purrr::transpose()
+  contents <- tibble::tibble(
+    path = section_topics$file_out,
+    aliases = section_topics$alias,
+    title = section_topics$title
+  )
 
   list(
     title = section$title,
     desc = section$desc,
     class = section$class,
-    contents = contents
+    contents = purrr::transpose(contents)
   )
 }
 
-meta_reference_index <- function(pkg = ".") {
+default_reference_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  if (!is.null(pkg$meta$reference)) {
-    return(pkg$meta$reference)
-  }
-
-  list(
+  print_yaml(
     list(
-      title = "All functions",
-      desc = NULL,
-      contents = pkg$topics$name
+      list(
+        title = "All functions",
+        desc = NULL,
+        contents = pkg$topics$name
+      )
     )
   )
 }

@@ -58,17 +58,6 @@ tweak_links <- function(x, depth = 1L) {
 
 # Default navbar ----------------------------------------------------------
 
-#' Generate YAML for default navbar
-#'
-#' Use this function if you want to customise the display of the default
-#' navbar.
-#'
-#' @export
-#' @param path Path to package root
-template_navbar <- function(path = ".") {
-  print_yaml(list(navbar = default_navbar(path)))
-}
-
 default_navbar <- function(path = ".") {
   list(
     type = "default",
