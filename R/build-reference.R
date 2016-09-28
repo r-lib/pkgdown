@@ -5,7 +5,7 @@
 #' \code{reference} section in your \code{_staticdocs.yml} as described
 #' below.
 #'
-#' @section YAML configuration:
+#' @section YAML config:
 #' To tweak the index page, you need a section called \code{reference}
 #' which provides a list of sections containing, a \code{title}, list of
 #' \code{contents}, and optional \code{description}.

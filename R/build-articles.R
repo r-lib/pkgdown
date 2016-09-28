@@ -1,6 +1,10 @@
 #' Build articles
 #'
-#' @param pkg Path to package source.
+#' Each vignette in \code{vignettes/} and its subdirectories is rendered.
+#' If you want articles that are not vignettes, either put them in
+#' subdirectories or list in \code{.Rbuildignore}.
+#'
+#' @param pkg Path to source package.
 #' @param path Output path.
 #' @param depth Depth of path relative to root of documentation.
 #'   Used to adjust relative links in the navbar.

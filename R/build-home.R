@@ -3,6 +3,10 @@
 #' First looks for \code{README.md}, then \code{index.md}. If neither is
 #' found, falls back to the description field in \code{DESCRIPTION}.
 #'
+#' @section YAML config:
+#' There are currently no options to control the appearance of the
+#' homepage.
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = NULL) {

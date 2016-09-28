@@ -8,7 +8,7 @@ build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   mathjax = TRUE, seed = 1014, path = NULL, depth = 1L)
 }
 \arguments{
-\item{pkg}{Path to package source.}
+\item{pkg}{Path to source package.}
 
 \item{examples}{Run examples?}
 
@@ -30,7 +30,7 @@ the functions in alphabetical order. To override this, provide a
 \code{reference} section in your \code{_staticdocs.yml} as described
 below.
 }
-\section{YAML configuration}{
+\section{YAML config}{
 
 To tweak the index page, you need a section called \code{reference}
 which provides a list of sections containing, a \code{title}, list of

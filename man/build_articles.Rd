@@ -7,7 +7,7 @@
 build_articles(pkg = ".", path, depth = 0L)
 }
 \arguments{
-\item{pkg}{Path to package source.}
+\item{pkg}{Path to source package.}
 
 \item{path}{Output path.}
 
@@ -15,6 +15,8 @@ build_articles(pkg = ".", path, depth = 0L)
 Used to adjust relative links in the navbar.}
 }
 \description{
-Build articles
+Each vignette in \code{vignettes/} and its subdirectories is rendered.
+If you want articles that are not vignettes, either put them in
+subdirectories or list in \code{.Rbuildignore}.
 }
 

@@ -7,12 +7,17 @@
 build_home(pkg = ".", path = NULL)
 }
 \arguments{
-\item{pkg}{Path to package source.}
+\item{pkg}{Path to source package.}
 
 \item{path}{Output path.}
 }
 \description{
 First looks for \code{README.md}, then \code{index.md}. If neither is
 found, falls back to the description field in \code{DESCRIPTION}.
+}
+\section{YAML config}{
+
+There are currently no options to control the appearance of the
+homepage.
 }
 

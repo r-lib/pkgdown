@@ -9,7 +9,7 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
   seed = 1014)
 }
 \arguments{
-\item{pkg}{Path to package source.}
+\item{pkg}{Path to source package.}
 
 \item{path}{Output path.}
 
