@@ -142,6 +142,40 @@ reproducible.</dd>
    control the display of your site. Recommended for advanced users
    only.</dd>
 </dl></p>
+      <p>You can also control the <code>navbar</code>. It uses the same syntax as
+<a href = 'RMarkdown'>http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation</a>.
+The following YAML snippet illustrates some of the most important features.</p>
+      <p><pre>
+navbar:
+  type: inverse
+  left:
+    - text: &quot;Home&quot;
+      href: index.html
+    - text: &quot;Reference&quot;
+      href: reference/index.html
+    - text: &quot;Articles&quot;
+      menu:
+        - text: &quot;Heading 1&quot;
+        - text: &quot;Article A&quot;
+          href: articles/page_a.html
+        - text: &quot;Article B&quot;
+          href: articles/page_b.html
+        - text: &quot;---------&quot;
+        - text: &quot;Heading 2&quot;
+        - text: &quot;Article C&quot;
+          href: articles/page_c.html
+        - text: &quot;Article D&quot;
+          href: articles/page_d.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://example.com
+</pre></p>
+      <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
+      <p>You position elements by placing under either <code>left</code> or <code>right</code>.
+Components can contain sub-<code>menu</code>s with headings (indicated by missing
+<code>href</code>) and separators. Currently staticdocs only supports fontawesome
+icons. You can see a full list of options at
+<a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
     </div>
     
     <h2 id="examples">Examples</h2>

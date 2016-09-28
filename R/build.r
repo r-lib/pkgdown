@@ -27,6 +27,46 @@
 #'    control the display of your site. Recommended for advanced users
 #'    only.}
 #' }
+#'
+#' You can also control the \code{navbar}. It uses the same syntax as
+#' \href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
+#' The following YAML snippet illustrates some of the most important features.
+#'
+#' \preformatted{
+#' navbar:
+#'   type: inverse
+#'   left:
+#'     - text: "Home"
+#'       href: index.html
+#'     - text: "Reference"
+#'       href: reference/index.html
+#'     - text: "Articles"
+#'       menu:
+#'         - text: "Heading 1"
+#'         - text: "Article A"
+#'           href: articles/page_a.html
+#'         - text: "Article B"
+#'           href: articles/page_b.html
+#'         - text: "---------"
+#'         - text: "Heading 2"
+#'         - text: "Article C"
+#'           href: articles/page_c.html
+#'         - text: "Article D"
+#'           href: articles/page_d.html
+#'   right:
+#'     - icon: fa-github fa-lg
+#'       href: https://example.com
+#' }
+#'
+#'
+#' Use \code{type} to choose between "default" and "inverse" themes.
+#'
+#' You position elements by placing under either \code{left} or \code{right}.
+#' Components can contain sub-\code{menu}s with headings (indicated by missing
+#' \code{href}) and separators. Currently staticdocs only supports fontawesome
+#' icons. You can see a full list of options at
+#' \url{http://fontawesome.io/icons/}.
+#'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
