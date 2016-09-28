@@ -2,6 +2,7 @@ as_data <- function(x, ...) {
   UseMethod("as_data")
 }
 
+#' @export
 as_data.NULL <- function(x, ...) {
   NULL
 }
@@ -12,6 +13,7 @@ as_data.NULL <- function(x, ...) {
 
 # Usage -------------------------------------------------------------------
 
+#' @export
 as_data.tag_usage <- function(x, pkg, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
@@ -41,12 +43,14 @@ as_data.tag_usage <- function(x, pkg, ...) {
 
 # Arguments ------------------------------------------------------------------
 
+#' @export
 as_data.tag_arguments <- function(x, ...) {
   x %>%
     purrr::keep(inherits, "tag_item") %>%
     purrr::map(as_data, ...)
 }
 
+#' @export
 as_data.tag_item <- function(x, ...) {
   # If no subelements, then is an item from a itemise or enumerate, and
   # is dealt with those methods
@@ -70,30 +74,39 @@ parse_section <- function(x, title, ...) {
   )
 }
 
+#' @export
 as_data.tag_details <- function(x, ...) {
   parse_section(x, "Details", ...)
 }
+#' @export
 as_data.tag_description <- function(x, ...) {
   parse_section(x, "Description", ...)
 }
+#' @export
 as_data.tag_references <- function(x, ...) {
   parse_section(x, "References", ...)
 }
+#' @export
 as_data.tag_source <- function(x, ...) {
   parse_section(x, "Source", ...)
 }
+#' @export
 as_data.tag_format <- function(x, ...) {
   parse_section(x, "Format", ...)
 }
+#' @export
 as_data.tag_note <- function(x, ...) {
   parse_section(x, "Note", ...)
 }
+#' @export
 as_data.tag_seealso <- function(x, ...) {
   parse_section(x, "See also", ...)
 }
+#' @export
 as_data.tag_section <- function(x, ...) {
   parse_section(x[[2]], as_html(x[[1]], ...), ...)
 }
+#' @export
 as_data.tag_value <- function(x, ...) {
   # \value is implicitly a \describe environment
   class(x) <- c("tag_describe", class(x))
@@ -102,6 +115,7 @@ as_data.tag_value <- function(x, ...) {
 
 # Examples ------------------------------------------------------------------
 
+#' @export
 as_data.tag_examples <- function(x, pkg, path, ...,
                              examples = TRUE,
                              run_dont_run = FALSE,
@@ -125,6 +139,7 @@ as_data.tag_examples <- function(x, pkg, path, ...,
   }
 }
 
+#' @export
 as_data.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
   if (run_dont_run) {
     return(flatten_text(x))
