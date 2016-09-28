@@ -32,7 +32,6 @@
 #' @param launch If \code{TRUE}, will open freshly generated site in web
 #'   browser.
 #' @export
-#' @import stringr
 #' @examples
 #' \dontrun{
 #' build_site()

@@ -92,7 +92,7 @@ topic_index <- function(path = ".") {
   internal <- purrr::map_lgl(rd, is_internal)
 
   file_in <- names(rd)
-  file_out <- stringr::str_replace(file_in, "\\.Rd$", ".html")
+  file_out <- gsub("\\.Rd$", ".html", file_in)
 
   tibble::tibble(
     name = names,

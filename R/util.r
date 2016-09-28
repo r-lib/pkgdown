@@ -1,3 +1,6 @@
+#' @importFrom magrittr %>%
+NULL
+
 inst_path <- function() {
   if (is.null(devtools::dev_meta("staticdocs"))) {
     # staticdocs is probably installed

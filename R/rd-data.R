@@ -14,26 +14,26 @@ as_data.NULL <- function(x, ...) {
 
 as_data.tag_usage <- function(x, pkg, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
-  text <- str_trim(text)
+  text <- trimws(text)
 
   html <- src_highlight(text, pkg$topics)
 
   if (!identical(text, html)) {
     # It's nice not to wrap in the middle of a simple "arg = default"
-    html <- str_replace_all(
-      html,
+    html <- gsub(
       ' <span class="argument">=</span> ',
-      '&nbsp;<span class="argument">=</span>&nbsp;'
+      '&nbsp;<span class="argument">=</span>&nbsp;',
+      html
     )
     html
   } else {
-    html <- str_replace_all(text, " = ", "&nbsp;=&nbsp;")
+    html <- gsub(" = ", "&nbsp;=&nbsp;", text)
     # Wrap each individual function in its own div, so that text-indent
     # CSS rules can be used effectively
-    html <- str_replace_all(html, "\n\n", "</div>\n<div>")
+    html <- gsub("\n\n", "</div>\n<div>", html)
     html <- paste0("<div>", html, "</div>")
     # Collapse all hardcoded hanging indents
-    html <- str_replace_all(html, "\n +", " ")
+    html <- gsub("\n +", " ", html)
 
     html
   }
@@ -121,7 +121,7 @@ as_data.tag_examples <- function(x, pkg, path, ...,
     on.exit(grDevices::graphics.off(), add = TRUE)
 
     expr <- evaluate::evaluate(text, env, new_device = TRUE)
-    replay_html(expr, pkg = pkg, name = str_c(topic, "-"))
+    replay_html(expr, pkg = pkg, name = paste0(topic, "-"))
   }
 }
 
@@ -131,13 +131,13 @@ as_data.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
   }
 
   if (length(x) == 1) {
-    str_c("## Not run: " , flatten_text(x))
+    paste0("## Not run: " , flatten_text(x))
   } else {
     # Internal TEXT nodes contain leading and trailing \n
-    text <- str_replace_all(flatten_text(x, ...), "(^\n)|(\n$)", "")
-    str_c(
+    text <- gsub("(^\n)|(\n$)", "", flatten_text(x, ...))
+    paste0(
       "## Not run: ------------------------------------\n# " ,
-      str_replace_all(text, "\n", "\n# "), "\n",
+      gsub("\n", "\n# ", text), "\n",
       "## ---------------------------------------------"
     )
   }

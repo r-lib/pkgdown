@@ -55,10 +55,10 @@ as_html.tag_eqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
   if (isTRUE(pkg$mathjax)){
     latex_rep <- x[[1]]
-    str_c("$", flatten_text(latex_rep, ...), "$")
+    paste0("$", flatten_text(latex_rep, ...), "$")
   }else{
     ascii_rep <- x[[length(x)]]
-    str_c("<code class = 'eq'>", flatten_text(ascii_rep, ...), "</code>")
+    paste0("<code class = 'eq'>", flatten_text(ascii_rep, ...), "</code>")
   }
 }
 
@@ -67,10 +67,10 @@ as_html.tag_deqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
   if (isTRUE(pkg$mathjax)) {
     latex_rep <- x[[1]]
-    str_c("$$", flatten_text(latex_rep, ...), "$$")
+    paste0("$$", flatten_text(latex_rep, ...), "$$")
   }else{
     ascii_rep <- x[[length(x)]]
-    str_c("<pre class = 'eq'>", flatten_text(ascii_rep, ...), "</pre>")
+    paste0("<pre class = 'eq'>", flatten_text(ascii_rep, ...), "</pre>")
   }
 }
 
@@ -78,18 +78,18 @@ as_html.tag_deqn <- function(x, pkg, ...) {
 #' @export
 as_html.tag_url <- function(x, ...) {
   stopifnot(length(x) == 1)
-  str_c("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[1]]), "</a>")
+  paste0("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[1]]), "</a>")
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
   stopifnot(length(x) == 2)
-  str_c("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[2]]),
+  paste0("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[2]]),
     "</a>")
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
   stopifnot(length(x) %in% c(1L, 2L))
-  str_c("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
+  paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
 
@@ -104,15 +104,18 @@ as_html.tag_link <- function(x, pkg, ...) {
     topic <- flatten_text(x[[1]])
     label <- topic
     t_package <- NULL
-  } else if (str_sub(opt, 1, 1) == "=") {
-    topic <- str_sub(opt, 2, -1)
+  } else if (substr(opt, 1, 1) == "=") {
+    topic <- substr(opt, 2, -1)
     label <- flatten_text(x[[1]])
     t_package <- NULL
   } else {
     topic <- flatten_text(x[[1]])
     label <- topic
-    parts <- str_match(opt, '([^:]+):(.*)')[1,]
-    if (is.na(parts[1])) {
+
+    match <- regexec('([^:]+):(.*)', opt)
+    parts <- regmatches(opt, match)[[1]]
+
+    if (length(parts) == 0) {
       t_package <- opt
     } else {
       topic <- parts[3]
@@ -188,9 +191,9 @@ rd_path <- function(topic, package = NULL) {
 
 make_link <- function(loc, label, pkg = NULL) {
   if (is.null(loc$package)) {
-    str_c("<a href='", loc$file, "'>", label, "</a>")
+    paste0("<a href='", loc$file, "'>", label, "</a>")
   } else {
-    str_c("<a href='http://www.rdocumentation.org/packages/", loc$package,
+    paste0("<a href='http://www.rdocumentation.org/packages/", loc$package,
       "/topics/", loc$topic, "'>", label, "</a>")
   }
 }
@@ -248,7 +251,7 @@ as_html.tag_ifelse <- function(x, ...) {
 
 #' @export
 as_html.tag_tabular <- function(x, ...) {
-  align_abbr <- str_split(as_html(x[[1]], ...), "")[[1]][-1]
+  align_abbr <- strsplit(as_html(x[[1]], ...), "")[[1]][-1]
   align_abbr <- align_abbr[!(align_abbr %in% c("|", ""))]
   align <- unname(c("r" = "right", "l" = "left", "c" = "center")[align_abbr])
 
@@ -263,12 +266,12 @@ as_html.tag_tabular <- function(x, ...) {
 
   cell_contents <- vapply(cells, flatten_text, ...,
     FUN.VALUE = character(1), USE.NAMES = FALSE)
-  cell_contents <- str_c("<td>", cell_contents, "</td>\n")
+  cell_contents <- paste0("<td>", cell_contents, "</td>\n")
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
 
-  rows <- apply(cell_contents, 1, str_c, collapse = "")
+  rows <- apply(cell_contents, 1, paste0, collapse = "")
 
-  str_c("<table>", str_c("<tr>", rows, "</tr>", collapse = ""), "</table>")
+  paste0("<table>", paste0("<tr>", rows, "</tr>", collapse = ""), "</table>")
 }
 
 
@@ -277,15 +280,15 @@ as_html.tag_tabular <- function(x, ...) {
 
 #' @export
 as_html.tag_itemize <- function(x, ...) {
-  str_c("<ul>\n", parse_items(x[-1], ...), "</ul>\n")
+  paste0("<ul>\n", parse_items(x[-1], ...), "</ul>\n")
 }
 #' @export
 as_html.tag_enumerate <- function(x, ...) {
-  str_c("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
+  paste0("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  str_c("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>\n")
 }
 
 # Effectively does nothing: only used by parse_items() to split up

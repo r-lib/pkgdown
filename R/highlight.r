@@ -1,5 +1,5 @@
 src_highlight <- function(text, index) {
-  if (length(text) == 1L && str_trim(text) == "") return("")
+  if (length(text) == 1L && trimws(text) == "") return("")
 
   expr <- NULL
   try(expr <- utils::getParseData(parse(text = text, keep.source = TRUE)))
@@ -26,5 +26,5 @@ src_highlight <- function(text, index) {
   )
   # Drop pre tag
   out <- out[-c(1, length(out))]
-  str_c(out, collapse = "\n")
+  paste0(out, collapse = "\n")
 }

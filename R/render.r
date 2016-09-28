@@ -32,7 +32,7 @@ render_template <- function(package, type, name, data) {
   data$meta <- package$meta
 
   template <- readLines(find_template(package, type, name))
-  if (length(template) == 0 || (length(template) == 1 && str_trim(template) == ""))
+  if (length(template) == 0 || (length(template) == 1 && trimws(template) == ""))
     return("")
 
   whisker::whisker.render(template, data)
@@ -44,8 +44,8 @@ find_template <- function(package, type, name) {
   path <- package$meta$templates_path %||% file.path(inst_path(), "templates")
 
   names <- c(
-    str_c(type, "-", name, ".html"),
-    str_c(type, ".html")
+    paste0(type, "-", name, ".html"),
+    paste0(type, ".html")
   )
 
   locations <- file.path(path, names)
