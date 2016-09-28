@@ -91,11 +91,12 @@ has_topic <- function(topics, matches) {
 # Takes text specification and converts it to a predicate function
 topic_matcher <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
-  expr <- parse(text = text)[[1]]
 
-  if (is.name(expr) || is.character(expr)) {
-    function(topics) topics %in% as.character(expr)
+  if (!grepl("(", text, fixed = TRUE)) {
+    function(topics) topics %in% text
   } else {
+    expr <- parse(text = text)[[1]]
+
     topic_helpers <- list(
       starts_with = function(x) {
         function(topics) grepl(paste0("^", x), topics)
