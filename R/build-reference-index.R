@@ -64,15 +64,13 @@ data_reference_index_section <- function(section, pkg) {
 default_reference_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  print_yaml(
+  print_yaml(list(
     list(
-      list(
-        title = "All functions",
-        desc = NULL,
-        contents = pkg$topics$name
-      )
+      title = "All functions",
+      desc = NULL,
+      contents = pkg$topics$name
     )
-  )
+  ))
 }
 
 # Character vector of contents: xyz, starts_with("xyz")

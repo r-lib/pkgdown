@@ -16,3 +16,9 @@ template_navbar <- function(path = ".") {
 template_references <- function(path = ".") {
   print_yaml(list(references = default_reference_index(path)))
 }
+
+#' @export
+#' @rdname templates
+template_articles <- function(path = ".") {
+  print_yaml(list(articles = default_articles_index(path)))
+}

@@ -134,6 +134,7 @@ vignette_index <- function(path = ".") {
   tibble::tibble(
     file_in = path,
     file_out = gsub("\\.Rmd$", "\\.html", path),
+    name = tools::file_path_sans_ext(path),
     title
   )
 }

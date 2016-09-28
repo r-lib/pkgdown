@@ -20,6 +20,37 @@ rendered. Vignettes are rendered using a special document format that
 reconciles \code{\link[rmarkdown]{html_document}()} with your staticdocs
 template.
 }
+\section{YAML config}{
+
+To tweak the index page, you need a section called \code{articles},
+which provides a list of sections containing, a \code{title}, list of
+\code{contents}, and optional \code{description}.
+
+For example, this imaginary file describes some of the structure of
+the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
+
+\preformatted{
+articles:
+- title: R Markdown
+  contents:
+  - starts_with("authoring")
+- title: Websites
+  contents:
+  - rmarkdown_websites
+  - rmarkdown_site_generators
+}
+
+Note that \code{contents} can contain either a list of vignette names
+(including subdirectories), or if the functions in a section share a
+common prefix or suffix, you can use \code{starts_with("prefix")} and
+\code{ends_with("suffix")} to select them all. For more complex naming
+schemes you can use an aribrary regular expression with
+\code{matches("regexp")}.
+
+staticdocs will check that all vignettes are included in the index
+this page, and will generate a warning if you have missed any.
+}
+
 \section{Supressing vignettes}{
 
 

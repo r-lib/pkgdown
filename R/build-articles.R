@@ -5,6 +5,35 @@
 #' reconciles \code{\link[rmarkdown]{html_document}()} with your staticdocs
 #' template.
 #'
+#' @section YAML config:
+#' To tweak the index page, you need a section called \code{articles},
+#' which provides a list of sections containing, a \code{title}, list of
+#' \code{contents}, and optional \code{description}.
+#'
+#' For example, this imaginary file describes some of the structure of
+#' the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
+#'
+#' \preformatted{
+#' articles:
+#' - title: R Markdown
+#'   contents:
+#'   - starts_with("authoring")
+#' - title: Websites
+#'   contents:
+#'   - rmarkdown_websites
+#'   - rmarkdown_site_generators
+#' }
+#'
+#' Note that \code{contents} can contain either a list of vignette names
+#' (including subdirectories), or if the functions in a section share a
+#' common prefix or suffix, you can use \code{starts_with("prefix")} and
+#' \code{ends_with("suffix")} to select them all. For more complex naming
+#' schemes you can use an aribrary regular expression with
+#' \code{matches("regexp")}.
+#'
+#' staticdocs will check that all vignettes are included in the index
+#' this page, and will generate a warning if you have missed any.
+#'
 #' @section Supressing vignettes:
 #'
 #' If you want articles that are not vignettes, either put them in
@@ -69,7 +98,6 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
   )
 }
 
-
 # Articles index ----------------------------------------------------------
 
 build_articles_index <- function(pkg = ".", path = NULL, depth = 1L) {
@@ -85,18 +113,73 @@ build_articles_index <- function(pkg = ".", path = NULL, depth = 1L) {
 data_articles_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  contents <-
-    tibble::tibble(
-      path = pkg$vignettes$file_out,
-      title = pkg$vignettes$title
-    ) %>%
-    purrr::transpose()
+  meta <- pkg$meta$articles %||% default_articles_index()
+  sections <- compact(lapply(meta, data_articles_index_section, pkg = pkg))
+
+  # Check for unlisted vignettes
+  listed <- meta %>%
+    purrr::map("contents") %>%
+    purrr::flatten_chr() %>%
+    unique()
+  missing <- !(pkg$vignettes$name %in% listed)
+
+  if (any(missing)) {
+    warning(
+      "Vignettes missing from index: ",
+      paste(pkg$vignettes$name[missing], collapse = ", "),
+      call. =  FALSE,
+      immediate. = TRUE
+    )
+  }
+
+  print_yaml(list(
+    pagetitle = "Articles",
+    sections = sections
+  ))
+}
+
+data_articles_index_section <- function(section, pkg) {
+  if (!set_contains(names(section), c("title", "contents"))) {
+    warning(
+      "Section must have components `title`, `contents`",
+      call. = FALSE,
+      immediate. = TRUE
+    )
+    return(NULL)
+  }
+
+  # Match topics against any aliases
+  in_section <- has_vignette(pkg$vignettes$name, section$contents)
+  section_vignettes <- pkg$vignettes[in_section, ]
+  contents <- tibble::tibble(
+    path = section_vignettes$file_out,
+    title = section_vignettes$title
+  )
 
   list(
-    sections = list(
+    title = section$title,
+    desc = section$desc,
+    class = section$class,
+    contents = purrr::transpose(contents)
+  )
+}
+
+has_vignette <- function(vignettes, matches) {
+  matchers <- purrr::map(matches, topic_matcher)
+
+  matchers %>%
+    purrr::map(~ .x(vignettes)) %>%
+    purrr::reduce(`|`)
+}
+
+default_articles_index <- function(pkg = ".") {
+  pkg <- as_staticdocs(pkg)
+
+  print_yaml(list(
+    list(
       title = "All vignettes",
       desc = NULL,
-      contents = contents
+      contents = pkg$vignettes$name
     )
-  )
+  ))
 }
