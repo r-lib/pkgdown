@@ -114,7 +114,7 @@ data_articles_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
   meta <- pkg$meta$articles %||% default_articles_index()
-  sections <- compact(lapply(meta, data_articles_index_section, pkg = pkg))
+  sections <- purrr::compact(lapply(meta, data_articles_index_section, pkg = pkg))
 
   # Check for unlisted vignettes
   listed <- meta %>%

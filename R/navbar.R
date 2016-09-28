@@ -61,7 +61,7 @@ tweak_links <- function(x, depth = 1L) {
 default_navbar <- function(path = ".") {
   list(
     type = "default",
-    left = compact(list(
+    left = purrr::compact(list(
       list(
         text = "Home",
         href = "index.html"
@@ -76,7 +76,7 @@ default_navbar <- function(path = ".") {
           href = "articles/index.html"
         )
     )),
-    right = compact(list(
+    right = purrr::compact(list(
       github_link(path)
     ))
   )
