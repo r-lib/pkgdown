@@ -121,13 +121,13 @@ is_internal <- function(x) {
 # Vignettes ---------------------------------------------------------------
 
 vignette_index <- function(path = ".") {
-  path <- dir(
+  vig_path <- dir(
     file.path(path, "vignettes"),
     pattern = "\\.Rmd$",
     recursive = TRUE
   )
 
-  title <- file.path("vignettes", path) %>%
+  title <- file.path(path, "vignettes", vig_path) %>%
     purrr::map(yaml_metadata) %>%
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 
