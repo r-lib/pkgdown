@@ -9,7 +9,16 @@ build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
     path <- rmarkdown:::navbar_html(meta)
     on.exit(unlink(path), add = TRUE)
 
-    paste(readLines(path), collapse = "\n")
+    # Patch home href
+    lines <- readLines(path)
+    lines <- sub(
+      '<a class="navbar-brand" href="index.html">',
+      paste0('<a class="navbar-brand" href="', up_path(depth), 'index.html">'),
+      lines,
+      fixed = TRUE
+    )
+
+    paste(lines, collapse = "\n")
   }
 }
 
@@ -64,14 +73,12 @@ tweak_links <- function(x, depth = 1L) {
     return(x)
   }
 
-  prefix <- paste(rep.int("../", depth), collapse = "")
-
   tweak <- function(x) {
     if (!is.null(x$menu)) {
       x$menu <- lapply(x$menu, tweak)
       x
     } else if (!is.null(x$href) && !grepl("://", x$href, fixed = TRUE)) {
-      x$href <- paste0(prefix, x$href)
+      x$href <- paste0(up_path(depth), x$href)
       x
     } else {
       x

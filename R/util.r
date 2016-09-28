@@ -93,3 +93,7 @@ split_at_linebreaks <- function(text) {
     return(character())
   trimws(strsplit(text, "\\n\\s*\\n")[[1]])
 }
+
+up_path <- function(depth) {
+  paste(rep.int("../", depth), collapse = "")
+}
