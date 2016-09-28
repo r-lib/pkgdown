@@ -134,7 +134,7 @@ data_reference_topic <- function(topic,
 
   # Examples
   env <- new.env(parent = globalenv())
-  out$examples <- as_data(tags$examples[[1]], env = env, pkg = pkg, path = path)
+  out$examples <- as_data(tags$tag_examples[[1]], env = env, pkg = pkg, path = path)
 
 
   # Everything else stays in original order, and becomes a list of sections.

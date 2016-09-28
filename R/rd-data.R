@@ -127,12 +127,11 @@ as_data.tag_examples <- function(x, pkg, path, ...,
     escape = FALSE
   )
 
-  if (examples) {
+  if (!examples) {
     src_highlight(text, pkg$topics)
   } else {
     old <- setwd(path %||% tempdir())
     on.exit(setwd(old), add = TRUE)
-    on.exit(grDevices::graphics.off(), add = TRUE)
 
     expr <- evaluate::evaluate(text, env, new_device = TRUE)
     replay_html(expr, pkg = pkg, name = paste0(topic, "-"))
@@ -140,7 +139,7 @@ as_data.tag_examples <- function(x, pkg, path, ...,
 }
 
 #' @export
-as_data.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
+as_html.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
   if (run_dont_run) {
     return(flatten_text(x))
   }

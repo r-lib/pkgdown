@@ -1,14 +1,9 @@
 /* Syntax highlighting ---------------------------------------------------- */
 
-pre .input {
-  /*border-left: 3px solid #ccc;*/
-  /*padding-left: 0.5em;*/
-}
-
-pre .output {
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  background-color: #fff;
-  border: 1px solid #ccc;
+.examples .output {
+  border-left: 4px solid #ccc;
+  margin-left: -10px;
+  padding-left: 6px;
 }
 
 .number {color:rgb(21,20,181);}
@@ -23,9 +18,7 @@ pre .output {
 .symbol {color:black ;}
 .prompt {color:black ;}
 
-pre img { 
+pre img {
   background-color: #fff;
-  border: 1px solid #ccc;
   display: block;
-  margin: 0.5em auto 0.5em auto;
 }

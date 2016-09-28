@@ -70,13 +70,13 @@ replay_html.source <- function(x, ..., pkg) {
 
 #' @export
 replay_html.warning <- function(x, ...) {
-  paste0("<strong class='warning'>Warning message:\n", message_html(x$message), "</strong>")
+  paste0("<div class='output'><strong class='text-warning'>Warning message:\n", message_html(x$message), "</strong></div>")
 }
 
 #' @export
 replay_html.message <- function(x, ...) {
-  paste0("<strong class='message'>", message_html(gsub("\n$", "", x$message)),
-   "</strong>")
+  paste0("<div class='output'><strong class='text-info'>", message_html(gsub("\n$", "", x$message)),
+   "</strong></div>")
 }
 
 #' @export
@@ -92,15 +92,13 @@ replay_html.error <- function(x, ...) {
 
 #' @export
 replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
-  name <- paste0(name_prefix, obj_id, ".png")
-  path <- file.path(pkg$site_path, name)
+  path <- paste0(name_prefix, obj_id, ".png")
 
-  if (!file.exists(path)) {
-    grDevices::png(path, width = 540, height = 400)
-    on.exit(grDevices::dev.off())
-    print(x)
-  }
-  paste0("<p><img src='", escape_html(name), "' alt='' width='540' height='400' /></p>")
+  grDevices::png(path, width = 540, height = 400)
+  on.exit(grDevices::dev.off())
+  print(x)
+
+  paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
 }
 
 # Knitr functions ------------------------------------------------------------
