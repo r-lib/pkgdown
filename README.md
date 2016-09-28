@@ -23,4 +23,4 @@ staticdocs::build_site()
 
 This will generate a `docs/` directory. The home page will be generated from your package's `README.md`, and a function reference will be generated from the documentation in the `man/` directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the __GitHub pages__ source is set to "master branch /docs folder".
 
-The package also includes an RStudio add-in which you can bind to a keyboard shortcut.
+The package also includes an RStudio add-in which you can bind to a keyboard shortcut. I recommend `Cmd + Shift + W`: it uses Cmd + Shift, like all other package development worksheets, it replaces a rarely used command (close all windows), and the W is mnemonic for website.
