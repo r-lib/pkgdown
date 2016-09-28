@@ -43,7 +43,7 @@ meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
   }
 
   list(
-    title = meta$title %||% desc$get("Name")[[1]],
+    title = meta$title %||% desc$get("Package")[[1]],
     type = "default",
     left = list(
       list(
