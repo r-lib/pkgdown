@@ -60,7 +60,7 @@ render_icons <- function(pkg = ".") {
 
   for(icon in names(has_icon)) {
     grDevices::png(file.path(icon_path, icon_name(icon)), width = 40, height = 40)
-    try(grid::grid.draw(icons[[icon]]$func()))
+    # try(grid::grid.draw(icons[[icon]]$func()))
     grDevices::dev.off()
   }
 }
