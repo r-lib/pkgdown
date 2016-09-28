@@ -115,20 +115,7 @@ build_site <- function(pkg = ".",
 }
 
 preview_site <- function(path) {
-  preview_path <- file.path(tempdir(), "staticdocs-preview")
-  if (file.exists(preview_path)) {
-    unlink(preview_path, recursive = TRUE)
-  }
-  mkdir(preview_path, quiet = TRUE)
-  file.copy(path, preview_path, recursive = TRUE)
-
-  # Open in browser/viewer
-  preview_url <- file.path(preview_path, basename(path), "index.html")
-  if (rstudioapi::isAvailable()) {
-    rstudioapi::viewer(preview_url)
-  } else {
-    utils::browseURL(preview_site)
-  }
+  utils::browseURL(file.path(path, "index.html"))
 }
 
 build_site_rstudio <- function() {
