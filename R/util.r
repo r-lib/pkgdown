@@ -15,14 +15,24 @@ inst_path <- function() {
   if (!is.null(a)) a else b
 }
 
-markdown <- function(x = NULL, path = NULL) {
 
-  if (is.null(path)) {
-    if (is.null(x) || x == "") return("")
-  }
+markdown <- function(path = NULL, ...) {
+  tmp <- tempfile(fileext = ".html")
+  on.exit(unlink(tmp), add = TRUE)
 
-  (markdown::markdownToHTML(text = x, file = path, fragment.only = TRUE,
-                  options = c("safelink", "use_xhtml", "smartypants")))
+  rmarkdown::pandoc_convert(
+    input = path,
+    output = tmp,
+    from = "markdown_github",
+    to = "html5",
+    options = list(
+      "--smart",
+      "--indented-code-classes=R",
+      ...
+    )
+  )
+
+  paste(readLines(tmp), collapse = "\n")
 }
 
 set_contains <- function(haystack, needles) {
