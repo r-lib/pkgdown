@@ -4,7 +4,7 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path, depth = 0L)
+build_articles(pkg = ".", path = "docs/articles", depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -15,7 +15,14 @@ build_articles(pkg = ".", path, depth = 0L)
 Used to adjust relative links in the navbar.}
 }
 \description{
-Each vignette in \code{vignettes/} and its subdirectories is rendered.
+Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
+rendered. Vignettes are rendered using a special document format that
+reconciles \code{\link[rmarkdown]{html_document}()} with your staticdocs
+template.
+}
+\section{Supressing vignettes}{
+
+
 If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link
 will be automatically added to the default navbar if the vignettes

@@ -1,9 +1,68 @@
-<div class="page-header">
-  <h1>{{ title }}</h1>
-</div>
+$for(header-includes)$
+$header-includes$
+$endfor$
 
 <div class="row">
   <div class="col-md-9">
-  {{{ contents }}}
+    <div class="page-header toc-ignore">
+      <h1>$title$</h1>
+      $if(subtitle)$
+      <h3 class="subtitle"><em>$subtitle$</em></h3>
+      $endif$
+      $for(author)$
+      $if(author.name)$
+      <h4 class="author"><em>$author.name$</em></h4>
+      $if(author.affiliation)$
+      <address class="author_afil">
+      $author.affiliation$<br>$endif$
+      $if(author.email)$
+      <a class="author_email" href="mailto:#">$author.email$</a>
+      </address>
+      $endif$
+      $else$
+      <h4 class="author"><em>$author$</em></h4>
+      $endif$
+      $endfor$
+
+      $if(date)$
+      <h4 class="date"><em>$date$</em></h4>
+      $endif$
+    </div>
+
+    $for(include-before)$
+    $include-before$
+    $endfor$
+
+    $if(abstract)$
+    <div class="abstract">
+      <p class="abstract">Abstract</p>
+      $abstract$
+    </div>
+    $endif$
+
+    $body$
   </div>
+
+  <div class="col-md-3 hidden-xs toc">
+
+    $if(toc)$
+    <div id="nav">
+      <h2>Contents</h2>
+      $toc$
+    </div>
+    $endif$
+  </div>
+
 </div>
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+<script>
+$$('#nav').affix({
+  offset: {
+    top: $$('#nav').offset().top - 80
+  }
+});
+</script>

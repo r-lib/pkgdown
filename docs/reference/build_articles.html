@@ -3,33 +3,25 @@
   <head>
   <meta charset="utf-8">
 <title>build_articles. staticdocs</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
-<!-- Latest compiled and minified CSS -->
+<!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<!-- from staticdocs -->
+<!-- staticdocs -->
 <link href="../css/highlight.css" rel="stylesheet">
 <link href="../css/staticdocs.css" rel="stylesheet">
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+<!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
@@ -84,15 +76,13 @@
 <div class="row">
   <div class="col-md-9">
     
-    <p>Each vignette in <code>vignettes/</code> and its subdirectories is rendered.
-If you want articles that are not vignettes, either put them in
-subdirectories or list in <code>.Rbuildignore</code>. An articles link
-will be automatically added to the default navbar if the vignettes
-directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
+    <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
+rendered. Vignettes are rendered using a special document format that
+reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>html_document</a>()</code> with your staticdocs
+template.</p>
     
 
-    <pre><span class="functioncall"><a href='build_articles.html'>build_articles</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="symbol">path</span><span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">0L</span><span class="keyword">)</span></pre>
+    <pre><span class="functioncall"><a href='build_articles.html'>build_articles</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs/articles"</span><span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1L</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -104,7 +94,18 @@ customise the navbar. See <code><a href='build_site.html'>build_site</a></code> 
       <dd>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</dd>
     </dl>
-          </div>
+    
+    <div class="Supressing vignettes">
+      <h2>Supressing vignettes</h2>
+
+      <p></p>
+      <p>If you want articles that are not vignettes, either put them in
+subdirectories or list in <code>.Rbuildignore</code>. An articles link
+will be automatically added to the default navbar if the vignettes
+directory is present: if you do not want this, you will need to
+customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
+    </div>
+      </div>
   <div class="col-md-3">
   </div>
 </div>

@@ -55,7 +55,7 @@ as_html.tag_eqn <- function(x, pkg, ...) {
   stopifnot(length(x) <= 2)
   if (isTRUE(pkg$mathjax)){
     latex_rep <- x[[1]]
-    paste0("$", flatten_text(latex_rep, ...), "$")
+    paste0("\\(", flatten_text(latex_rep, ...), "\\)")
   }else{
     ascii_rep <- x[[length(x)]]
     paste0("<code class = 'eq'>", flatten_text(ascii_rep, ...), "</code>")
