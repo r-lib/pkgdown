@@ -11,7 +11,8 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
 \arguments{
 \item{pkg}{Path to source package.}
 
-\item{path}{Output path.}
+\item{path}{Location in which to save website, relative to package
+path.}
 
 \item{examples}{Run examples?}
 

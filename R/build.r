@@ -29,6 +29,8 @@
 #' }
 #' @inheritParams build_articles
 #' @inheritParams build_reference
+#' @param path Location in which to save website, relative to package
+#'   path.
 #' @param preview If \code{TRUE}, will preview freshly generated site in
 #'    RStudio
 #' @export
@@ -47,6 +49,11 @@ build_site <- function(pkg = ".",
 
   pkg <- as_staticdocs(pkg)
   init_site(path, pkg$meta$assets_path)
+
+  # Use path relative to pkg
+  if (pkg$path != ".") {
+    path <- file.path(pkg$path, path)
+  }
 
   build_home(pkg, path = path)
   build_reference(pkg,
@@ -75,7 +82,7 @@ preview_site <- function(path) {
   file.copy(path, preview_path, recursive = TRUE)
 
   # Open in browser/viewer
-  preview_url <- file.path(preview_path, path, "index.html")
+  preview_url <- file.path(preview_path, basename(path), "index.html")
   if (rstudioapi::isAvailable()) {
     rstudioapi::viewer(preview_url)
   } else {
