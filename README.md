@@ -21,6 +21,6 @@ Run staticdocs from the package directory each time you release your package:
 staticdocs::build_site()
 ```
 
-This will generate a `docs/` directory. The home page will be generated from your package's `README.md`, and a function reference will be generated from the documentation in the `man/` directory.
+This will generate a `docs/` directory. The home page will be generated from your package's `README.md`, and a function reference will be generated from the documentation in the `man/` directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the __GitHub pages__ source is set to "master branch /docs folder".
 
-If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the __GitHub pages__ source is set to "master branch /docs folder".
+The package also includes an RStudio add-in which you can bind to a keyboard shortcut.

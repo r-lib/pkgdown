@@ -5,7 +5,7 @@
 \title{Build staticdocs website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, launch = interactive(),
+  run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
   seed = 1014)
 }
 \arguments{
@@ -19,8 +19,8 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{launch}{If \code{TRUE}, will open freshly generated site in web
-browser.}
+\item{preview}{If \code{TRUE}, will preview freshly generated site in
+RStudio}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}

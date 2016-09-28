@@ -58,11 +58,12 @@ set_contains <- function(haystack, needles) {
 
 compact <- function (x) Filter(function(x) !is.null(x) & length(x), x)
 
-mkdir <- function(...) {
+mkdir <- function(..., quiet = FALSE) {
   path <- file.path(...)
 
   if (!file.exists(path)) {
-    message("Creating '", path, "/'")
+    if (!quiet)
+      message("Creating '", path, "/'")
     dir.create(path, recursive = TRUE, showWarnings = FALSE)
   }
 }

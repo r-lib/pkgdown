@@ -52,11 +52,11 @@ meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
       ),
       list(
         text = "Reference",
-        href = "reference/"
+        href = "reference/index.html"
       ),
       list(
         text = "Articles",
-        href = "articles/"
+        href = "articles/index.html"
       )
     ),
     right = list(

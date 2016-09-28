@@ -17,7 +17,7 @@ Imports:
     markdown,
     magrittr,
     purrr,
-    servr,
+    rstudioapi,
     tibble,
     tools,
     whisker,

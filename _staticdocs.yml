@@ -21,7 +21,7 @@ navbar:
   - text: Overview
     href: articles/staticdocs.html
   - text: Reference
-    href: reference/
+    href: reference/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/hadley/staticdocs

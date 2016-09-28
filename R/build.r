@@ -29,8 +29,8 @@
 #' }
 #' @inheritParams build_articles
 #' @inheritParams build_reference
-#' @param launch If \code{TRUE}, will open freshly generated site in web
-#'   browser.
+#' @param preview If \code{TRUE}, will preview freshly generated site in
+#'    RStudio
 #' @export
 #' @examples
 #' \dontrun{
@@ -41,7 +41,7 @@ build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        mathjax = TRUE,
-                       launch = interactive(),
+                       preview = interactive(),
                        seed = 1014
                        ) {
 
@@ -60,11 +60,32 @@ build_site <- function(pkg = ".",
   build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
   # build_news(pkg)
 
-  if (launch) {
-    rule("Launching site")
-    servr::httd(path)
+  if (preview) {
+    preview_site(path)
   }
   invisible(TRUE)
+}
+
+preview_site <- function(path) {
+  preview_path <- file.path(tempdir(), "staticdocs-preview")
+  if (file.exists(preview_path)) {
+    unlink(preview_path, recursive = TRUE)
+  }
+  mkdir(preview_path, quiet = TRUE)
+  file.copy(path, preview_path, recursive = TRUE)
+
+  # Open in browser/viewer
+  preview_url <- file.path(preview_path, path, "index.html")
+  if (rstudioapi::isAvailable()) {
+    rstudioapi::viewer(preview_url)
+  } else {
+    utils::browseURL(preview_site)
+  }
+}
+
+build_site_rstudio <- function() {
+  devtools::document()
+  build_site(preview = TRUE)
 }
 
 init_site <- function(path, assets_path = NULL) {

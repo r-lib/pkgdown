@@ -1,0 +1,4 @@
+Name: Build staticdocs
+Description: Runs staticdocs on the current package
+Binding: build_site_rstudio
+Interactive: false
