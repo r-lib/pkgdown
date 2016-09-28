@@ -28,7 +28,7 @@ read_navbar <- function(path = ".") {
   navbar <- meta$navbar %||% default_navbar(path)
   navbar$title <- meta$title %||% read_desc()$get("Package")[[1]]
 
-  navbar
+  print_yaml(navbar)
 }
 
 tweak_links <- function(x, depth = 1L) {
@@ -58,18 +58,15 @@ tweak_links <- function(x, depth = 1L) {
 
 # Default navbar ----------------------------------------------------------
 
-template_navbar <- function(path = ".") {
-  meta <- default_navbar(path)
-  full <- list(navbar = meta)
-
-  structure(
-    yaml::as.yaml(full),
-    class = "yaml"
-  )
-}
+#' Generate YAML for default navbar
+#'
+#' Use this function if you want to customise the display of the default
+#' navbar.
+#'
 #' @export
-print.yaml <- function(x, ...) {
-  cat(x, "\n", sep = "")
+#' @param path
+template_navbar <- function(path = ".") {
+  print_yaml(list(navbar = default_navbar(path)))
 }
 
 default_navbar <- function(path = ".") {

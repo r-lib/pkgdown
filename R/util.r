@@ -98,3 +98,12 @@ split_at_linebreaks <- function(text) {
 up_path <- function(depth) {
   paste(rep.int("../", depth), collapse = "")
 }
+
+
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
+}
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
+}
