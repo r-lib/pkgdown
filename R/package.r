@@ -7,19 +7,14 @@ as_staticdocs <- function(path = ".") {
     stop("`path` is not an existing directory", call. = FALSE)
   }
 
-  desc <- read_desc(path)
-  meta <- read_meta(path)
-  package <- data_package(desc)
-
   structure(
     list(
       path = path,
-      desc = desc,
-      meta = meta,
+      desc = read_desc(path),
+      meta = read_meta(path),
       topics = topic_index(path),
-      package = package,
       vignettes = vignette_index(path),
-      navbar = build_navbar(meta, desc)
+      navbar = build_navbar(path)
     ),
     class = "staticdocs"
   )

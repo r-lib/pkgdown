@@ -48,6 +48,7 @@ build_site <- function(pkg = ".",
                        ) {
 
   pkg <- as_staticdocs(pkg)
+
   init_site(path, pkg$meta$assets_path)
 
   # Use path relative to pkg

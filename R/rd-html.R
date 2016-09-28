@@ -127,7 +127,7 @@ as_html.tag_link <- function(x, pkg, ...) {
   # requested from the package for which documentation is rendered (#115).
   # Otherwise find_topic() -> rd_path() will open the development version of the
   # help page, because the package is loaded with devtools::load_all().
-  if (!is.null(t_package) && t_package == pkg$package) {
+  if (!is.null(t_package) && t_package == pkg$desc$get("Package")[[1]]) {
     t_package <- NULL
   }
 

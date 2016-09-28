@@ -86,7 +86,10 @@
     
     <p>Each vignette in <code>vignettes/</code> and its subdirectories is rendered.
 If you want articles that are not vignettes, either put them in
-subdirectories or list in <code>.Rbuildignore</code>.</p>
+subdirectories or list in <code>.Rbuildignore</code>. An articles link
+will be automatically added to the default navbar if the vignettes
+directory is present: if you do not want this, you will need to
+customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
     
 
     <pre><span class="functioncall"><a href='build_articles.html'>build_articles</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="symbol">path</span><span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">0L</span><span class="keyword">)</span></pre>

@@ -17,6 +17,9 @@ Used to adjust relative links in the navbar.}
 \description{
 Each vignette in \code{vignettes/} and its subdirectories is rendered.
 If you want articles that are not vignettes, either put them in
-subdirectories or list in \code{.Rbuildignore}.
+subdirectories or list in \code{.Rbuildignore}. An articles link
+will be automatically added to the default navbar if the vignettes
+directory is present: if you do not want this, you will need to
+customise the navbar. See \code{\link{build_site}} details.
 }
 

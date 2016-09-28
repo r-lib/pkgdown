@@ -28,7 +28,7 @@ render_page <- function(package, name, data, path = "", depth = 0L) {
 }
 
 render_template <- function(package, type, name, data) {
-  data$package <- package$package
+  data$package <- data_package(package$desc)
   data$meta <- package$meta
 
   template <- readLines(find_template(package, type, name))

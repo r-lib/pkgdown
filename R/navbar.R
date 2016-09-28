@@ -1,12 +1,12 @@
 # @return An function that generates the navbar given the depth beneath
 #   the docs root directory
-build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
-  meta <- meta_navbar(meta, desc)
+build_navbar <- function(path = ".") {
+  navbar <- read_navbar(path)
 
   function(depth = 0L) {
-    meta <- tweak_links(meta, depth)
+    navbar <- tweak_links(navbar, depth)
 
-    path <- rmarkdown:::navbar_html(meta)
+    path <- rmarkdown:::navbar_html(navbar)
     on.exit(unlink(path), add = TRUE)
 
     # Patch home href
@@ -22,49 +22,14 @@ build_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
   }
 }
 
-yaml_navbar <- function(path = ".") {
-  meta <- meta_navbar(read_meta(path), read_desc(path))
-  full <- list(navbar = meta)
 
-  structure(
-    yaml::as.yaml(full),
-    class = "yaml"
-  )
+read_navbar <- function(path = ".") {
+  meta <- read_meta(path)
+  navbar <- meta$navbar %||% default_navbar(path)
+  navbar$title <- meta$title %||% read_desc()$get("Package")[[1]]
+
+  navbar
 }
-
-#' @export
-print.yaml <- function(x, ...) {
-  cat(x, "\n", sep = "")
-}
-
-meta_navbar <- function(meta = read_meta("."), desc = read_desc(".")) {
-  if (!is.null(meta$navbar)) {
-    return(meta$navbar)
-  }
-
-  list(
-    title = meta$title %||% desc$get("Package")[[1]],
-    type = "default",
-    left = list(
-      list(
-        text = "Home",
-        href = "index.html"
-      ),
-      list(
-        text = "Reference",
-        href = "reference/index.html"
-      ),
-      list(
-        text = "Articles",
-        href = "articles/index.html"
-      )
-    ),
-    right = list(
-      github_link(desc)
-    )
-  )
-}
-
 
 tweak_links <- function(x, depth = 1L) {
   stopifnot(is.integer(depth), depth >= 0L)
@@ -91,7 +56,49 @@ tweak_links <- function(x, depth = 1L) {
   x
 }
 
-github_link <- function(desc) {
+# Default navbar ----------------------------------------------------------
+
+template_navbar <- function(path = ".") {
+  meta <- default_navbar(path)
+  full <- list(navbar = meta)
+
+  structure(
+    yaml::as.yaml(full),
+    class = "yaml"
+  )
+}
+#' @export
+print.yaml <- function(x, ...) {
+  cat(x, "\n", sep = "")
+}
+
+default_navbar <- function(path = ".") {
+  list(
+    type = "default",
+    left = compact(list(
+      list(
+        text = "Home",
+        href = "index.html"
+      ),
+      list(
+        text = "Reference",
+        href = "reference/index.html"
+      ),
+      if (file.exists(file.path(path, "vignettes")))
+        list(
+          text = "Articles",
+          href = "articles/index.html"
+        )
+    )),
+    right = compact(list(
+      github_link(path)
+    ))
+  )
+}
+
+github_link <- function(path = ".") {
+  desc <- read_desc(path)
+
   if (!desc$has_fields("URL"))
     return()
 

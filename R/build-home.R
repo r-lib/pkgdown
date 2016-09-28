@@ -27,7 +27,6 @@ data_index <- function(pkg = ".") {
     out$index <- markdown(path = path)
   }
 
-  out$package <- pkg
   out$pagetitle <- "Home"
 
   out
