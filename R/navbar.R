@@ -98,8 +98,8 @@ github_link <- function(desc) {
   gh_links <- desc$get("URL")[[1]] %>%
     strsplit(",") %>%
     `[[`(1) %>%
-    trimws() %>%
-    grep("^https?://github.com/", value = TRUE)
+    trimws()
+  gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
 
   if (length(gh_links) == 0)
     return()
