@@ -6,6 +6,9 @@
 \usage{
 template_navbar(path = ".")
 }
+\arguments{
+\item{path}{Path to package root}
+}
 \description{
 Use this function if you want to customise the display of the default
 navbar.

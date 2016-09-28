@@ -64,7 +64,7 @@ tweak_links <- function(x, depth = 1L) {
 #' navbar.
 #'
 #' @export
-#' @param path
+#' @param path Path to package root
 template_navbar <- function(path = ".") {
   print_yaml(list(navbar = default_navbar(path)))
 }
