@@ -45,7 +45,11 @@ str_person <- function(pers) {
 }
 
 read_desc <- function(path = ".") {
-  desc::description$new(file.path(path, "DESCRIPTION"))
+  path <- file.path(path, "DESCRIPTION")
+  if (!file.exists(path)) {
+    stop("Can't find DESCRIPTION", call. = FALSE)
+  }
+  desc::description$new(path)
 }
 
 # Metadata ----------------------------------------------------------------
