@@ -136,7 +136,7 @@ as_data.tag_examples <- function(x, path, ...,
     on.exit(setwd(old_dir), add = TRUE)
 
     old_opt <- options(width = 80)
-    on.exit(options(old_opt))
+    on.exit(options(old_opt), add = TRUE)
 
     expr <- evaluate::evaluate(text, env, new_device = TRUE)
     replay_html(
