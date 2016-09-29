@@ -132,9 +132,9 @@ vignette_index <- function(path = ".") {
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 
   tibble::tibble(
-    file_in = path,
-    file_out = gsub("\\.Rmd$", "\\.html", path),
-    name = tools::file_path_sans_ext(path),
+    file_in = vig_path,
+    file_out = gsub("\\.Rmd$", "\\.html", vig_path),
+    name = tools::file_path_sans_ext(vig_path),
     title
   )
 }
@@ -142,3 +142,41 @@ vignette_index <- function(path = ".") {
 yaml_metadata <- function(path) {
   rmarkdown:::parse_yaml_front_matter(readLines(path))
 }
+
+
+# NEWS --------------------------------------------------------------------
+
+news_index <- function(path = ".") {
+  html <- markdown(file.path(path, "NEWS.md"), "--section-divs")
+
+  sections <- xml2::read_html(html) %>%
+    xml2::xml_find_all("./body/section")
+
+  titles <- sections %>%
+    xml2::xml_find_first(".//h1|h2") %>%
+    xml2::xml_text()
+  anchor <- sections %>%
+    xml2::xml_attr("id")
+
+  re <- regexec("^([[:alpha:]]+)\\s+((\\d+\\.\\d+)(?:\\.\\d+)*)", titles)
+  pieces <- regmatches(titles, re)
+  is_version <- purrr::map_int(pieces, length) == 4
+
+  tibble::tibble(
+    version = pieces[is_version] %>% purrr::map_chr(3),
+    is_dev = is_dev(version[is_version]),
+    anchor = anchor[is_version],
+    major = pieces[is_version] %>% purrr::map_chr(4),
+    major_dev = ifelse(is_dev, "unreleased", major),
+    html = sections[is_version] %>% purrr::map_chr(as.character)
+  )
+}
+
+
+is_dev <- function(version) {
+  dev_v <- version %>%
+    package_version() %>%
+    purrr::map(unclass) %>%
+    purrr::map_dbl(c(1, 4), .null = 0)
+
+  dev_v > 0
