@@ -40,7 +40,7 @@ replay_html.list <- function(x, ...) {
   for (i in seq_along(parts)) {
     pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
   }
-  paste0(pieces, collapse = "\n")
+  paste0(pieces, collapse = "")
 }
 
 #' @export
@@ -48,7 +48,13 @@ replay_html.NULL <- function(x, ...) ""
 
 #' @export
 replay_html.character <- function(x, ...) {
-  paste0("<div class='output'>", paste0(escape_html(x), collapse = ""), "</div>")
+  commented <- paste0("#> ", gsub("\n", "\n#> ", x))
+
+  paste0(
+    "<div class='output co'>",
+    paste0(escape_html(commented), collapse = ""),
+    "</div>"
+  )
 }
 
 #' @export
