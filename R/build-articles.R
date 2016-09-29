@@ -49,7 +49,7 @@
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   pkg <- as_staticdocs(pkg)
-  if (!has_vignettes(pkg$vignettes)) {
+  if (!has_vignettes(pkg$path)) {
     return(invisible())
   }
 
