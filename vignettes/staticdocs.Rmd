@@ -84,7 +84,7 @@ If you want to include an article on the website, but not in the package (e.g. b
 
 As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):
 
-```yaml:
+```yaml
 articles:
   - title: "Extend shiny"
     desc: >
