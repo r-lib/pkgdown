@@ -27,11 +27,12 @@ RStudio}
 reproducible.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around three functions:
+\code{build_site()} is a convenient wrapper around four functions:
 \itemize{
   \item \code{\link{build_articles}()}
   \item \code{\link{build_home}()}
   \item \code{\link{build_reference}()}
+  \item \code{\link{build_news}()}
 }
 See the documentation for the each function to learn how to control
 that aspect of the site.

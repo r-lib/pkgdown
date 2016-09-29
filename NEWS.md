@@ -1,3 +1,5 @@
+## Staticdocs 0.1.0
+
 * Add "Find me on GitHub" ribbon to allow jumping to the GitHub repository, given in the
   `URLNote` entry in `DESCRIPTION` (#116, @krlmlr).
 

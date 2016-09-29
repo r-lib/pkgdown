@@ -10,7 +10,7 @@ reference:
     - init_site
   - title: Templates
     contents:
-    - templates
+    - template_navbar
     - render_page
 
 navbar:

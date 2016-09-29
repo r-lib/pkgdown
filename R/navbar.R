@@ -70,11 +70,18 @@ default_navbar <- function(path = ".") {
         text = "Reference",
         href = "reference/index.html"
       ),
-      if (file.exists(file.path(path, "vignettes")))
+      if (file.exists(file.path(path, "vignettes"))) {
         list(
           text = "Articles",
           href = "articles/index.html"
         )
+      },
+      if (has_news(path)) {
+        list(
+          text = "News",
+          href = "news/index.html"
+        )
+      }
     )),
     right = purrr::compact(list(
       github_link(path)

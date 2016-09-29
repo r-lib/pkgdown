@@ -19,7 +19,8 @@ Imports:
     tibble,
     tools,
     whisker,
-    yaml
+    yaml,
+    xml2
 Suggests:
     knitr,
     testthat,

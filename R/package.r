@@ -14,6 +14,7 @@ as_staticdocs <- function(path = ".") {
       meta = read_meta(path),
       topics = topic_index(path),
       vignettes = vignette_index(path),
+      news = news_index(path),
       navbar = build_navbar(path)
     ),
     class = "staticdocs"
@@ -162,11 +163,14 @@ news_index <- function(path = ".") {
   pieces <- regmatches(titles, re)
   is_version <- purrr::map_int(pieces, length) == 4
 
+  # TODO: do all the subsetting in one place.
+  major <- pieces[is_version] %>% purrr::map_chr(4)
+
   tibble::tibble(
     version = pieces[is_version] %>% purrr::map_chr(3),
     is_dev = is_dev(version[is_version]),
     anchor = anchor[is_version],
-    major = pieces[is_version] %>% purrr::map_chr(4),
+    major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
     html = sections[is_version] %>% purrr::map_chr(as.character)
   )
@@ -180,3 +184,4 @@ is_dev <- function(version) {
     purrr::map_dbl(c(1, 4), .null = 0)
 
   dev_v > 0
+}

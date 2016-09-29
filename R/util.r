@@ -15,7 +15,6 @@ inst_path <- function() {
   if (!is.null(a)) a else b
 }
 
-
 markdown <- function(path = NULL, ...) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
