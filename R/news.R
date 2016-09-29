@@ -12,8 +12,13 @@
 #' There are currently no configuration options.
 #'
 #' @inheritParams build_articles
+#' @param one_page If \code{TRUE}, writes all news to a single file.
+#'   If \code{FALSE}, writes one file per major version.
 #' @export
-build_news <- function(pkg = ".", path = "docs/news", depth = 1L) {
+build_news <- function(pkg = ".",
+                       path = "docs/news",
+                       one_page = TRUE,
+                       depth = 1L) {
   pkg <- as_staticdocs(pkg)
   if (!has_news(pkg$path))
     return()
@@ -21,7 +26,39 @@ build_news <- function(pkg = ".", path = "docs/news", depth = 1L) {
   rule("Building news")
   mkdir(path)
 
+  if (one_page) {
+    build_news_single(pkg, path, depth)
+  } else {
+    build_news_multi(pkg, path, depth)
+  }
+
+  invisible()
+}
+
+build_news_single <- function(pkg, path, depth) {
   news <- data_news(pkg, depth = depth)
+
+  render_page(
+    pkg,
+    "news",
+    list(
+      contents = news %>% purrr::transpose(),
+      pagetitle = "All news"
+    ),
+    file.path(path, "index.html"),
+    depth = depth
+  )
+}
+
+build_news_multi <- function(pkg, path, depth) {
+  news <- data_news(pkg, depth = depth)
+  major <- factor(news$major_dev, levels = unique(news$major_dev))
+
+  news_paged <- tibble::tibble(
+    version = levels(major),
+    file_out = paste0("news-", version, ".html"),
+    contents = news[c("html", "version", "anchor")] %>% split(major)
+  )
 
   render_news <- function(version, file_out, contents) {
     render_page(
@@ -36,7 +73,7 @@ build_news <- function(pkg = ".", path = "docs/news", depth = 1L) {
       depth = depth
     )
   }
-  news %>% purrr::pmap(render_news)
+  news_paged %>% purrr::pmap(render_news)
 
   render_page(
     pkg,
@@ -45,8 +82,6 @@ build_news <- function(pkg = ".", path = "docs/news", depth = 1L) {
     file.path(path, "index.html"),
     depth = depth
   )
-
-  invisible()
 }
 
 data_news <- function(pkg = ".", depth = 1L) {
@@ -77,15 +112,8 @@ data_news <- function(pkg = ".", depth = 1L) {
     major_dev = ifelse(is_dev, "unreleased", major),
     html = sections %>% purrr::map_chr(as.character)
   )
-  news <- news[is_version, , drop = FALSE]
 
-  major <- factor(news$major_dev, levels = unique(news$major_dev))
-
-  tibble::tibble(
-    version = levels(major),
-    file_out = paste0("news-", version, ".html"),
-    contents = news[c("html", "version", "anchor")] %>% split(major)
-  )
+  news[is_version, , drop = FALSE]
 }
 
 has_news <- function(path = ".") {

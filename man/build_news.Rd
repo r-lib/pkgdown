@@ -4,12 +4,15 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", path = "docs/news", depth = 1L)
+build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to source package.}
 
 \item{path}{Output path.}
+
+\item{one_page}{If \code{TRUE}, writes all news to a single file.
+If \code{FALSE}, writes one file per major version.}
 
 \item{depth}{Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.}

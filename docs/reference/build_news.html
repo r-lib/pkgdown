@@ -83,7 +83,7 @@ convention those versions with a four component) are displayed on an
 an &quot;unreleased&quot; page.</p>
     
 
-    <pre><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -91,6 +91,9 @@ an &quot;unreleased&quot; page.</p>
       <dd>Path to source package.</dd>
       <dt>path</dt>
       <dd>Output path.</dd>
+      <dt>one_page</dt>
+      <dd>If <code>TRUE</code>, writes all news to a single file.
+If <code>FALSE</code>, writes one file per major version.</dd>
       <dt>depth</dt>
       <dd>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</dd>
