@@ -40,36 +40,36 @@ test_that("code inside Sexpr is evaluated", {
 # Usage -------------------------------------------------------------------
 
 test_that("S4 methods gets comment", {
-  out <- rd2html("\\S4method{fun}{class}(x, y)", TRUE)
+  out <- rd2html("\\S4method{fun}{class}(x, y)")
   expect_equal(out[1], "# S4 method for class")
   expect_equal(out[2], "fun(x, y)")
 })
 
 test_that("S3 methods gets comment", {
-  out <- rd2html("\\S3method{fun}{class}(x, y)", TRUE)
+  out <- rd2html("\\S3method{fun}{class}(x, y)")
   expect_equal(out[1], "# S3 method for class")
   expect_equal(out[2], "fun(x, y)")
 })
 
 
 test_that("eqn", {
-  out <- rd2html(" \\eqn{\\alpha}{alpha}", TRUE, pkg = list(mathjax = TRUE))
+  out <- rd2html(" \\eqn{\\alpha}{alpha}")
   expect_equal(out, "\\(\\alpha\\)")
-  out <- rd2html(" \\eqn{\\alpha}{alpha}", TRUE, pkg = list(mathjax = FALSE))
+  out <- rd2html(" \\eqn{\\alpha}{alpha}", mathjax = FALSE)
   expect_equal(out, "<code class = 'eq'>alpha</code>")
-  out <- rd2html(" \\eqn{x}", TRUE, pkg = list(mathjax = TRUE))
+  out <- rd2html(" \\eqn{x}")
   expect_equal(out, "\\(x\\)")
-  out <- rd2html(" \\eqn{x}", TRUE, pkg = list(mathjax = FALSE))
+  out <- rd2html(" \\eqn{x}", mathjax = FALSE)
   expect_equal(out, "<code class = 'eq'>x</code>")
 })
 
 test_that("deqn", {
-  out <- rd2html(" \\deqn{\\alpha}{alpha}", TRUE, pkg = list(mathjax = TRUE))
+  out <- rd2html(" \\deqn{\\alpha}{alpha}")
   expect_equal(out, "$$\\alpha$$")
-  out <- rd2html(" \\deqn{\\alpha}{alpha}", TRUE, pkg = list(mathjax = FALSE))
+  out <- rd2html(" \\deqn{\\alpha}{alpha}", mathjax = FALSE)
   expect_equal(out, "<pre class = 'eq'>alpha</pre>")
-  out <- rd2html(" \\deqn{x}", TRUE, pkg = list(mathjax = TRUE))
+  out <- rd2html(" \\deqn{x}")
   expect_equal(out, "$$x$$")
-  out <- rd2html(" \\deqn{x}", TRUE, pkg = list(mathjax = FALSE))
+  out <- rd2html(" \\deqn{x}", mathjax = FALSE)
   expect_equal(out, "<pre class = 'eq'>x</pre>")
 })

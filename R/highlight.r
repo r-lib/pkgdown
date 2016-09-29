@@ -63,15 +63,15 @@ staticdocs_format <- function(index, current) {
 # CharTok = ch (a character)
 # StringTok = st (strings)
 # CommontTok = co,
-# OtherTok = ot (function calls)
+# OtherTok = ot
 # AlertTok = al (warning messages)
-# FunctionTok = fu,
+# FunctionTok = fu (function calls),
 # RegionMarkerTok = re ( region markers.)
 # ErrorTok = er.
 #
 # Token list comes from gram.c
 staticdocs_detective <- function(x, ...) {
-  data <- getParseData(x)
+  data <- utils::getParseData(x)
   token <- data$token[data$terminal]
 
   token_style <- c(
