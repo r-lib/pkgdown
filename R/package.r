@@ -151,7 +151,7 @@ news_index <- function(path = ".") {
   html <- markdown(file.path(path, "NEWS.md"), "--section-divs")
 
   sections <- xml2::read_html(html) %>%
-    xml2::xml_find_all("./body/section")
+    xml2::xml_find_all("./body/div")
 
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%

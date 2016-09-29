@@ -22,8 +22,8 @@ markdown <- function(path = NULL, ...) {
   rmarkdown::pandoc_convert(
     input = path,
     output = tmp,
-    from = "markdown_github",
-    to = "html5",
+    from = "markdown_github-hard_line_breaks",
+    to = "html",
     options = list(
       "--smart",
       "--indented-code-classes=R",
