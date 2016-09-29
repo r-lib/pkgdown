@@ -132,8 +132,11 @@ as_data.tag_examples <- function(x, path, ...,
   if (!examples) {
     syntax_highlight(text, index = index, current = current)
   } else {
-    old <- setwd(path %||% tempdir())
-    on.exit(setwd(old), add = TRUE)
+    old_dir <- setwd(path %||% tempdir())
+    on.exit(setwd(old_dir), add = TRUE)
+
+    old_opt <- options(width = 80)
+    on.exit(options(old_opt))
 
     expr <- evaluate::evaluate(text, env, new_device = TRUE)
     replay_html(
