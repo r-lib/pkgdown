@@ -49,8 +49,8 @@
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   pkg <- as_staticdocs(pkg)
-  if (nrow(pkg$vignettes) == 0) {
-    return()
+  if (!has_vignettes(pkg$vignettes)) {
+    return(invisible())
   }
 
   rule("Building articles")
@@ -182,4 +182,8 @@ default_articles_index <- function(pkg = ".") {
       contents = pkg$vignettes$name
     )
   ))
+}
+
+has_vignettes <- function(path = ".") {
+  file.exists(file.path(path, "vignettes"))
 }

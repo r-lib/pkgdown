@@ -70,7 +70,7 @@ default_navbar <- function(path = ".") {
         text = "Reference",
         href = "reference/index.html"
       ),
-      if (file.exists(file.path(path, "vignettes"))) {
+      if (has_vignettes(path)) {
         list(
           text = "Articles",
           href = "articles/index.html"
