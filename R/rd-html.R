@@ -83,8 +83,11 @@ as_html.tag_url <- function(x, ...) {
 #' @export
 as_html.tag_href <- function(x, ...) {
   stopifnot(length(x) == 2)
-  paste0("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[2]]),
-    "</a>")
+  paste0(
+    "<a href = '", flatten_text(x[[2]]), "'>",
+    flatten_text(x[[1]]),
+    "</a>"
+  )
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
@@ -92,117 +95,41 @@ as_html.tag_email <- function(x, ...) {
   paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
-
 # If single, need to look up alias to find file name and package
 #' @export
 as_html.tag_link <- function(x, pkg, ...) {
   stopifnot(length(x) == 1)
-
   opt <- attr(x, "Rd_option")
 
-  if (is.null(opt)) {
-    topic <- flatten_text(x[[1]])
-    label <- topic
-    t_package <- NULL
-  } else if (substr(opt, 1, 1) == "=") {
-    topic <- substr(opt, 2, -1)
-    label <- flatten_text(x[[1]])
-    t_package <- NULL
-  } else {
-    topic <- flatten_text(x[[1]])
-    label <- topic
+  in_braces <- flatten_text(x[[1]])
 
+  if (is.null(opt)) {
+    # \link{topic}
+    link_local(in_braces, in_braces, index = pkg$index)
+  } else if (substr(opt, 1, 1) == "=") {
+    # \link[=dest]{name}
+    link_local(in_braces, substr(opt, 2, -1), index = pkg$index)
+  } else {
     match <- regexec('([^:]+):(.*)', opt)
     parts <- regmatches(opt, match)[[1]]
 
     if (length(parts) == 0) {
-      t_package <- opt
+      # \link[pkg]{foo}
+      link_remote(in_braces, in_braces, package = opt)
     } else {
-      topic <- parts[3]
-      t_package <- parts[2]
+      # \link[pkg:bar]{foo}
+      link_remote(in_braces, parts[3], package = parts[2])
     }
   }
-
-  # Special case: need to remove the package qualification if help is explicitly
-  # requested from the package for which documentation is rendered (#115).
-  # Otherwise find_topic() -> rd_path() will open the development version of the
-  # help page, because the package is loaded with devtools::load_all().
-  if (!is.null(t_package) && t_package == pkg$desc$get("Package")[[1]]) {
-    t_package <- NULL
-  }
-
-  find_topic_and_make_link(topic, label, t_package, pkg)
 }
 
-# Might need to look up alias to find file name and package
 #' @export
 as_html.tag_linkS4class <- function(x, pkg, ...) {
   stopifnot(length(x) == 1)
 
-  topic <- flatten_text(x[[1]])
-  label <- topic
-  t_package <- NULL
-
-  topic <- paste0(topic, "-class")
-
-  find_topic_and_make_link(topic, label, t_package, pkg)
+  in_braces <- flatten_text(x[[1]])
+  link_local(in_braces, paste0(in_braces, "-class"), index = pkg$index)
 }
-
-find_topic_and_make_link <- function(topic, label, t_package, pkg) {
-  loc <- find_topic(topic, t_package, pkg$topics)
-  if (is.null(loc)) {
-    message("Can't find help topic ", topic)
-    return(topic)
-  }
-
-  make_link(loc, label, pkg)
-}
-
-find_topic <- function(alias, package = NULL, index) {
-  # Current package, so look in index first
-  if (is.null(package)) {
-    match <- Position(function(x) any(x == alias), index$alias)
-    if (!is.na(match)) {
-      return(list(package = NULL, file = index$file_out[match]))
-    }
-  }
-
-  path <- rd_path(alias, package)
-  if (is.null(path)) return(NULL)
-
-  pieces <- strsplit(path, .Platform$file.sep)[[1]]
-  n <- length(pieces)
-
-  list(package = pieces[n - 2], topic = pieces[n])
-}
-
-rd_path <- function(topic, package = NULL) {
-  topic <- as.name(topic)
-  if (!is.null(package)) package <- as.name(package)
-
-  help_call <- substitute(utils::help(topic, package = package, try.all.packages = TRUE),
-    list(topic = topic, package = package))
-
-  res <- eval(help_call)
-  if (length(res) == 0) return(NULL)
-
-  res[[1]]
-}
-
-make_link <- function(loc, label, pkg = NULL) {
-  if (is.null(loc$package)) {
-    paste0("<a href='", loc$file, "'>", label, "</a>")
-  } else {
-    paste0("<a href='http://www.rdocumentation.org/packages/", loc$package,
-      "/topics/", loc$topic, "'>", label, "</a>")
-  }
-}
-
-builtin_packages <- c("base", "boot", "class", "cluster", "codetools", "compiler",
-                      "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth",
-                      "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet",
-                      "parallel", "rpart", "spatial", "splines", "stats", "stats4",
-                      "survival", "tcltk", "tools", "utils")
 
 # Miscellaneous --------------------------------------------------------------
 

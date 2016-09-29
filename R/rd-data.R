@@ -18,7 +18,7 @@ as_data.tag_usage <- function(x, pkg, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  html <- src_highlight(text, pkg$topics)
+  html <- syntax_highlight(text, index = pkg$topics)
 
   if (!identical(text, html)) {
     # It's nice not to wrap in the middle of a simple "arg = default"
@@ -128,7 +128,7 @@ as_data.tag_examples <- function(x, pkg, path, ...,
   )
 
   if (!examples) {
-    src_highlight(text, pkg$topics)
+    syntax_highlight(text, index = pkg$topics)
   } else {
     old <- setwd(path %||% tempdir())
     on.exit(setwd(old), add = TRUE)

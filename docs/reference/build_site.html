@@ -77,13 +77,13 @@
     
     <p><code>build_site()</code> is a convenient wrapper around four functions:
 <ul>
-<li> <code><a href='build_articles.html'>build_articles</a>()</code>
+<li> <code>build_articles()</code>
   </li>
-<li> <code><a href='build_home.html'>build_home</a>()</code>
+<li> <code>build_home()</code>
   </li>
-<li> <code><a href='build_reference.html'>build_reference</a>()</code>
+<li> <code>build_reference()</code>
   </li>
-<li> <code><a href='build_news.html'>build_news</a>()</code>
+<li> <code>build_news()</code>
 </li>
 </ul></p>
 
@@ -91,9 +91,9 @@
 that aspect of the site.</p>
     
 
-    <pre><span class="functioncall"><a href='build_site.html'>build_site</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs"</span><span class="keyword">,</span> <span class="argument">examples</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
-  <span class="argument">run_dont_run</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">mathjax</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">preview</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span>
-  <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1014</span><span class="keyword">)</span></pre>
+    <pre><span class='fu'><a href='build_site.html'>build_site</a></span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -136,7 +136,7 @@ reproducible.</dd>
    only.</dd>
 </dl></p>
       <p>You can also control the <code>navbar</code>. It uses the same syntax as
-<a href = 'RMarkdown'>http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation</a>.
+<a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>
       <p><pre>
 navbar:
@@ -172,9 +172,9 @@ icons. You can see a full list of options at
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
-<span class="comment"># build_site()</span>
-<span class="comment">## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># build_site()</span>
+<span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3">
   </div>

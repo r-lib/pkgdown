@@ -77,11 +77,11 @@
     
     <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
-reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>html_document</a>()</code> with your staticdocs
+reconciles <code><a href='http://www.rdocumentation.org/packages/html_document/topics/rmarkdown'>html_document</a>()</code> with your staticdocs
 template.</p>
     
 
-    <pre><span class="functioncall"><a href='build_articles.html'>build_articles</a></span><span class="keyword">(</span><span class="argument">pkg</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"."</span><span class="keyword">,</span> <span class="argument">path</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"docs/articles"</span><span class="keyword">,</span> <span class="argument">depth</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1L</span><span class="keyword">)</span></pre>
+    <pre><span class='fu'><a href='build_articles.html'>build_articles</a></span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -102,7 +102,7 @@ Used to adjust relative links in the navbar.</dd>
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
       <p>For example, this imaginary file describes some of the structure of
-the <a href = 'http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p>
+the <a href = 'R markdown articles'>http://rmarkdown.rstudio.com/articles.html</a>:</p>
       <p><pre>
 articles:
 - title: R Markdown
@@ -131,7 +131,7 @@ this page, and will generate a warning if you have missed any.</p>
 subdirectories or list in <code>.Rbuildignore</code>. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
+customise the navbar. See <code>build_site</code> details.</p>
     </div>
       </div>
   <div class="col-md-3">

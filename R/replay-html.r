@@ -61,10 +61,10 @@ replay_html.value <- function(x, ...) {
 
 #' @export
 replay_html.source <- function(x, ..., pkg) {
-  html <- src_highlight(x$src, pkg$topics)
-  if (identical(x$src, html)) {
-    html <- escape_html(x$src)
-  }
+  html <- syntax_highlight(x$src, index = pkg$topics)
+  # if (identical(x$src, html)) {
+  #   html <- escape_html(x$src)
+  # }
   paste0("<div class='input'>", html, "</div>")
 }
 
