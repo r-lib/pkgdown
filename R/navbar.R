@@ -26,7 +26,7 @@ build_navbar <- function(path = ".") {
 read_navbar <- function(path = ".") {
   meta <- read_meta(path)
   navbar <- meta$navbar %||% default_navbar(path)
-  navbar$title <- meta$title %||% read_desc()$get("Package")[[1]]
+  navbar$title <- meta$title %||% read_desc(path)$get("Package")[[1]]
 
   print_yaml(navbar)
 }
