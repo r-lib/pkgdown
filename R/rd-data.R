@@ -7,10 +7,6 @@ as_data.NULL <- function(x, ...) {
   NULL
 }
 
-# as_data.list <- function(x, ...) {
-#   lapply(x, as_data, ...)
-# }
-
 # Usage -------------------------------------------------------------------
 
 #' @export
@@ -18,27 +14,7 @@ as_data.tag_usage <- function(x, ..., index = NULL, current = NULL) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  html <- syntax_highlight(text, index = index, current = current)
-
-  if (!identical(text, html)) {
-    # It's nice not to wrap in the middle of a simple "arg = default"
-    html <- gsub(
-      ' <span class="argument">=</span> ',
-      '&nbsp;<span class="argument">=</span>&nbsp;',
-      html
-    )
-    html
-  } else {
-    html <- gsub(" = ", "&nbsp;=&nbsp;", text)
-    # Wrap each individual function in its own div, so that text-indent
-    # CSS rules can be used effectively
-    html <- gsub("\n\n", "</div>\n<div>", html)
-    html <- paste0("<div>", html, "</div>")
-    # Collapse all hardcoded hanging indents
-    html <- gsub("\n +", " ", html)
-
-    html
-  }
+  syntax_highlight(text, index = index, current = current)
 }
 
 # Arguments ------------------------------------------------------------------
@@ -52,9 +28,6 @@ as_data.tag_arguments <- function(x, ...) {
 
 #' @export
 as_data.tag_item <- function(x, ...) {
-  # If no subelements, then is an item from a itemise or enumerate, and
-  # is dealt with those methods
-  if (length(x) == 0) return()
 
   list(
     name = as_html(x[[1]], ...),
