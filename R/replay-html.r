@@ -60,11 +60,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @export
-replay_html.source <- function(x, ..., pkg) {
-  html <- syntax_highlight(x$src, index = pkg$topics)
-  # if (identical(x$src, html)) {
-  #   html <- escape_html(x$src)
-  # }
+replay_html.source <- function(x, ..., index = NULL, current = current) {
+  html <- syntax_highlight(x$src, index = index, current = current)
   paste0("<div class='input'>", html, "</div>")
 }
 
@@ -91,7 +88,7 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @export
-replay_html.recordedplot <- function(x, pkg, name_prefix, obj_id, ...) {
+replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
   path <- paste0(name_prefix, obj_id, ".png")
 
   grDevices::png(path, width = 540, height = 400)

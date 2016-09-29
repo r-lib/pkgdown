@@ -14,11 +14,11 @@ as_data.NULL <- function(x, ...) {
 # Usage -------------------------------------------------------------------
 
 #' @export
-as_data.tag_usage <- function(x, pkg, ...) {
+as_data.tag_usage <- function(x, ..., index = NULL, current = NULL) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  html <- syntax_highlight(text, index = pkg$topics)
+  html <- syntax_highlight(text, index = index, current = current)
 
   if (!identical(text, html)) {
     # It's nice not to wrap in the middle of a simple "arg = default"
@@ -116,7 +116,9 @@ as_data.tag_value <- function(x, ...) {
 # Examples ------------------------------------------------------------------
 
 #' @export
-as_data.tag_examples <- function(x, pkg, path, ...,
+as_data.tag_examples <- function(x, path, ...,
+                             index = NULL,
+                             current = NULL,
                              examples = TRUE,
                              run_dont_run = FALSE,
                              topic = "unknown",
@@ -128,13 +130,18 @@ as_data.tag_examples <- function(x, pkg, path, ...,
   )
 
   if (!examples) {
-    syntax_highlight(text, index = pkg$topics)
+    syntax_highlight(text, index = index, current = current)
   } else {
     old <- setwd(path %||% tempdir())
     on.exit(setwd(old), add = TRUE)
 
     expr <- evaluate::evaluate(text, env, new_device = TRUE)
-    replay_html(expr, pkg = pkg, name = paste0(topic, "-"))
+    replay_html(
+      expr,
+      name = paste0(topic, "-"),
+      index = index,
+      current = current
+    )
   }
 }
 

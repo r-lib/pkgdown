@@ -51,9 +51,9 @@ as_html.tag_subsection <- function(x, ...) {
 # Equations ------------------------------------------------------------------
 
 #' @export
-as_html.tag_eqn <- function(x, pkg, ...) {
+as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
   stopifnot(length(x) <= 2)
-  if (isTRUE(pkg$mathjax)){
+  if (isTRUE(mathjax)){
     latex_rep <- x[[1]]
     paste0("\\(", flatten_text(latex_rep, ...), "\\)")
   }else{
@@ -63,9 +63,9 @@ as_html.tag_eqn <- function(x, pkg, ...) {
 }
 
 #' @export
-as_html.tag_deqn <- function(x, pkg, ...) {
+as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
   stopifnot(length(x) <= 2)
-  if (isTRUE(pkg$mathjax)) {
+  if (isTRUE(mathjax)) {
     latex_rep <- x[[1]]
     paste0("$$", flatten_text(latex_rep, ...), "$$")
   }else{
@@ -97,7 +97,7 @@ as_html.tag_email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @export
-as_html.tag_link <- function(x, pkg, ...) {
+as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
   stopifnot(length(x) == 1)
   opt <- attr(x, "Rd_option")
 
@@ -105,10 +105,10 @@ as_html.tag_link <- function(x, pkg, ...) {
 
   if (is.null(opt)) {
     # \link{topic}
-    link_local(in_braces, in_braces, index = pkg$index)
+    link_local(in_braces, in_braces, index = index, current = current)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    link_local(in_braces, substr(opt, 2, -1), index = pkg$index)
+    link_local(in_braces, substr(opt, 2, -1), index = index, current = current)
   } else {
     match <- regexec('([^:]+):(.*)', opt)
     parts <- regmatches(opt, match)[[1]]
@@ -124,11 +124,11 @@ as_html.tag_link <- function(x, pkg, ...) {
 }
 
 #' @export
-as_html.tag_linkS4class <- function(x, pkg, ...) {
+as_html.tag_linkS4class <- function(x, ..., index = NULL, current = NULL) {
   stopifnot(length(x) == 1)
 
   in_braces <- flatten_text(x[[1]])
-  link_local(in_braces, paste0(in_braces, "-class"), index = pkg$index)
+  link_local(in_braces, paste0(in_braces, "-class"), index = index, current = current)
 }
 
 # Miscellaneous --------------------------------------------------------------

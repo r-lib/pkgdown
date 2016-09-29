@@ -108,6 +108,7 @@ data_reference_topic <- function(topic,
                                  mathjax = TRUE,
                                  path = NULL
                                  ) {
+
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 
@@ -125,17 +126,34 @@ data_reference_topic <- function(topic,
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$description <- as_data(tags$tag_description[[1]], pkg = pkg)
-  out$usage <- as_data(tags$tag_usage[[1]], pkg = pkg)
-  out$arguments <- as_data(tags$tag_arguments[[1]], pkg = pkg)
+  out$description <- as_data(
+    tags$tag_description[[1]],
+    index = pkg$index,
+    current = topic$name
+  )
+
+  out$usage <- as_data(
+    tags$tag_usage[[1]],
+    index = pkg$index,
+    current = topic$name
+  )
+
+  out$arguments <- as_data(
+    tags$tag_arguments[[1]],
+    index = pkg$index,
+    current = topic$name
+  )
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
 
-  # Examples
-  env <- new.env(parent = globalenv())
-  out$examples <- as_data(tags$tag_examples[[1]], env = env, pkg = pkg, path = path)
-
+  out$examples <- as_data(
+    tags$tag_examples[[1]],
+    env = new.env(parent = globalenv()),
+    index = pkg$index,
+    current = topic$name,
+    path = path
+  )
 
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(
@@ -143,7 +161,8 @@ data_reference_topic <- function(topic,
     "tag_note", "tag_seealso", "tag_section", "tag_value"
   )
   sections <- topic$rd[tag_names %in% section_tags]
-  out$sections <- purrr::map(sections, as_data, pkg = pkg)
+  out$sections <- sections %>%
+    purrr::map(as_data, index = pkg$index, current = topic$name)
 
   out
 }
