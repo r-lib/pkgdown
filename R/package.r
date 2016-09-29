@@ -14,7 +14,6 @@ as_staticdocs <- function(path = ".") {
       meta = read_meta(path),
       topics = topic_index(path),
       vignettes = vignette_index(path),
-      news = news_index(path),
       navbar = build_navbar(path)
     ),
     class = "staticdocs"
@@ -146,46 +145,4 @@ vignette_index <- function(path = ".") {
 
 yaml_metadata <- function(path) {
   rmarkdown:::parse_yaml_front_matter(readLines(path))
-}
-
-
-# NEWS --------------------------------------------------------------------
-
-news_index <- function(path = ".") {
-  html <- markdown(file.path(path, "NEWS.md"), "--section-divs")
-
-  sections <- xml2::read_html(html) %>%
-    xml2::xml_find_all("./body/div")
-
-  titles <- sections %>%
-    xml2::xml_find_first(".//h1|h2") %>%
-    xml2::xml_text()
-  anchor <- sections %>%
-    xml2::xml_attr("id")
-
-  re <- regexec("^([[:alpha:]]+)\\s+((\\d+\\.\\d+)(?:\\.\\d+)*)", titles)
-  pieces <- regmatches(titles, re)
-  is_version <- purrr::map_int(pieces, length) == 4
-
-  # TODO: do all the subsetting in one place.
-  major <- pieces[is_version] %>% purrr::map_chr(4)
-
-  tibble::tibble(
-    version = pieces[is_version] %>% purrr::map_chr(3),
-    is_dev = is_dev(version[is_version]),
-    anchor = anchor[is_version],
-    major = major,
-    major_dev = ifelse(is_dev, "unreleased", major),
-    html = sections[is_version] %>% purrr::map_chr(as.character)
-  )
-}
-
-
-is_dev <- function(version) {
-  dev_v <- version %>%
-    package_version() %>%
-    purrr::map(unclass) %>%
-    purrr::map_dbl(c(1, 4), .null = 0)
-
-  dev_v > 0
 }
