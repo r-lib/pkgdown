@@ -8,46 +8,40 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The goal of staticdocs is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website.
+The goal of staticdocs is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website. There are five parts to a staticdocs site:
 
-There are seven main parts to a staticdocs site:
-
-1. Metadata
 1. Home page
-1. Reference
+1. Function reference
 1. Articles
 1. News
 1. Navbar 
 
-## Metadata (`_staticdocs.yml`)
-
-Metadata about the site is stored in `_staticdocs.yaml` in the root directory. This includes:
+To build a staticdocs site, run `build_site()`. The function has some arguments (mostly to control where the output), but most of the configuration options are controlled by `_staticdocs.yaml`. These options include:
 
 * The site `title`, if different from the package name.
 
 * A path to a set of `template`, if you want to override the default
   page templates provided by the site.
 
-* A [bootswatch](https://bootswatch.com) `theme` to easily tweak the
+* A [`bootswatch`](https://bootswatch.com) theme name to easily tweak the
   overall appearance of the site.
-  
-* The other options described below.
 
-## Home page (`index.html`)
+Other options control the appearance of the other parts of the site. 
 
-The home page will be automatically generated from one of five files (in order):
+## Home page
+
+The home page will be automatically generated from one of the following four files:
 
 1. `index.Rmd`
 1. `index.md`
-1. `index.html` (eventually)
 1. `README.Rmd`
 1. `README.md`
 
-Looking for both `index` and `README` allows you to default to the same homepage as github, while making it possible to have a different home page if needed.
+staticdocs tries them in order, which means that if you want different display for GitHub and staticdocs, you can have both `README.md` and a `index.md`
 
-## Reference (`reference/`)
+## Reference
 
-The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation to HTML, along with evaluation of example and auto-linking of all code. 
+The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.
 
 staticdocs will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a `reference` key in `_staticdocs.yml`:
 
@@ -75,7 +69,7 @@ The `reference` should be an array of objects containing `title`, `desc` (descri
 
 staticdocs will warn if you've forgotten to include any non-internal functions.
 
-## Articles (`articles/`)
+## Articles
 
 staticdocs will automatically build all `.Rmd` vignettes, including those in subdirectories, and render output to `articles/`. staticdocs will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
 
@@ -95,6 +89,12 @@ articles:
     - shinyjs
     - htmlwidgets
 ```
+
+## News
+
+If `NEWS.md` is present, it will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
+
+If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
 
 ## Navbar
 
@@ -132,11 +132,6 @@ navbar:
       href: https://github.com/rstudio/sparklyr
 ```
 
-## News (`news/`)
-
-If `NEWS.md` is present, it will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
-
-If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
 
 
 [docs]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch
