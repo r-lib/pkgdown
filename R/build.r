@@ -96,6 +96,7 @@ build_site <- function(pkg = ".",
 
   init_site(path, pkg$meta$assets_path)
 
+  build_logo(pkg, path = path)
   build_home(pkg, path = path)
   build_reference(pkg,
     examples = TRUE,

@@ -14,6 +14,7 @@ Imports:
     devtools,
     evaluate,
     highlight,
+    magick,
     magrittr,
     purrr,
     rmarkdown (>= 1.0.9016),
