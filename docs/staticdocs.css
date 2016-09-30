@@ -1,4 +1,7 @@
-body {padding-top: 60px;}
+body {
+  position: relative;
+  padding-top: 60px;
+}
 
 .icon img {
   float: right;
