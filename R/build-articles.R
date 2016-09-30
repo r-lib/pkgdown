@@ -92,6 +92,7 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
     path = path,
     format = rmarkdown::html_document(
       toc = TRUE,
+      toc_depth = 2,
       self_contained = FALSE,
       theme = NULL,
       template = path
