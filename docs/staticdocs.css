@@ -33,14 +33,11 @@ body {
 
 /* Table of contents --------------------------*/
 
-.toc h2 {
+#nav h2 {
   margin-top: 0;
   font-size: 1.5em;
 }
 
-.toc.affix {
-  top: 80;
-}
 
 /* Syntax highlighting ---------------------------------------------------- */
 

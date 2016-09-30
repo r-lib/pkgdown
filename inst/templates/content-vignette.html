@@ -43,8 +43,7 @@ $endfor$
 $body$
   </div>
 
-  <div class="col-md-3 hidden-xs toc">
-
+  <div class="col-md-3 hidden-xs">
     $if(toc)$
     <div id="nav">
       <h2>Contents</h2>
@@ -58,15 +57,3 @@ $body$
 $for(include-after)$
 $include-after$
 $endfor$
-
-<script>
-$$('#nav').affix({
-  offset: {
-    top: $$('#nav').offset().top - 80
-  }
-});
-$$('body').scrollspy({
-  target: '#nav',
-  offset: 60
-});
-</script>
