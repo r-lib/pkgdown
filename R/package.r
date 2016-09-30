@@ -132,7 +132,7 @@ vignette_index <- function(path = ".") {
   )
 
   title <- file.path(path, "vignettes", vig_path) %>%
-    purrr::map(yaml_metadata) %>%
+    purrr::map(rmarkdown::yaml_front_matter) %>%
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 
   tibble::tibble(
@@ -141,8 +141,4 @@ vignette_index <- function(path = ".") {
     name = tools::file_path_sans_ext(vig_path),
     title
   )
-}
-
-yaml_metadata <- function(path) {
-  rmarkdown:::parse_yaml_front_matter(readLines(path))
 }

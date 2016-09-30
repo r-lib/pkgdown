@@ -6,7 +6,7 @@ build_navbar <- function(path = ".") {
   function(depth = 0L) {
     navbar <- tweak_links(navbar, depth)
 
-    path <- rmarkdown:::navbar_html(navbar)
+    path <- rmarkdown::navbar_html(navbar)
     on.exit(unlink(path), add = TRUE)
 
     # Patch home href

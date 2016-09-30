@@ -239,7 +239,7 @@ parse_items <- function(rd, ...) {
 
   rd %>%
     split(group) %>%
-    purrr:::map_chr(parse_item) %>%
+    purrr::map_chr(parse_item) %>%
     paste(collapse = "")
 }
 
