@@ -13,8 +13,8 @@ template_navbar <- function(path = ".") {
 
 #' @export
 #' @rdname templates
-template_references <- function(path = ".") {
-  print_yaml(list(references = default_reference_index(path)))
+template_reference <- function(path = ".") {
+  print_yaml(list(reference = default_reference_index(path)))
 }
 
 #' @export

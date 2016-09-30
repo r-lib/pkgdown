@@ -3,12 +3,12 @@
 \name{template_navbar}
 \alias{template_articles}
 \alias{template_navbar}
-\alias{template_references}
+\alias{template_reference}
 \title{Generate YAML templates}
 \usage{
 template_navbar(path = ".")
 
-template_references(path = ".")
+template_reference(path = ".")
 
 template_articles(path = ".")
 }
