@@ -86,7 +86,12 @@ build_news_multi <- function(pkg, path, depth) {
 
 data_news <- function(pkg = ".", depth = 1L) {
   pkg <- as_staticdocs(pkg)
-  html <- markdown(file.path(pkg$path, "NEWS.md"), "--section-divs")
+  html <- markdown(
+    file.path(pkg$path, "NEWS.md"),
+    "--section-divs",
+    depth = depth,
+    index = pkg$topics
+  )
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -101,8 +106,10 @@ data_news <- function(pkg = ".", depth = 1L) {
   pieces <- regmatches(titles, re)
   is_version <- purrr::map_int(pieces, length) == 4
 
-  # TODO: do all the subsetting in one place.
   major <- pieces[is_version] %>% purrr::map_chr(4)
+  html <- sections %>%
+    purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
+    purrr::map_chr(as.character)
 
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
@@ -110,9 +117,8 @@ data_news <- function(pkg = ".", depth = 1L) {
     anchor = anchor,
     major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
-    html = sections %>% purrr::map_chr(as.character)
+    html = html
   )
-
   news[is_version, , drop = FALSE]
 }
 

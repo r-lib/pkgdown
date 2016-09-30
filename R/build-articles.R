@@ -61,7 +61,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
 
   render_article <- function(file_in, file_out) {
     message("Building vignette '", file_in, "'")
-    rmarkdown::render(
+    path <- rmarkdown::render(
       file.path("vignettes", file_in),
       output_format = format$format,
       output_file = file.path(path, file_out),
@@ -69,6 +69,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
+    tweak_rmarkdown_html(path, depth = depth, index = pkg$topics)
   }
   purrr::walk2(pkg$vignettes$file_in, pkg$vignettes$file_out, render_article)
 
@@ -96,6 +97,21 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
       template = path
     )
   )
+}
+
+tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
+  html <- xml2::read_html(path, encoding = "UTF-8")
+
+  # Automatically link funtion mentions
+  autolink_html(html, depth = depth, index = index)
+
+  # Tweak classes of navbar
+  toc <- xml2::xml_find_first(html, ".//div[@id='nav']/ul")
+  xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
+
+  xml2::write_html(html, path, format = FALSE)
+
+  path
 }
 
 # Articles index ----------------------------------------------------------

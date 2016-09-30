@@ -148,18 +148,80 @@ link_remote <- function(label, topic, package) {
   )
 }
 
-link_local <- function(label, topic, index, current = NULL) {
-  match <- purrr::detect_index(index$alias, function(x) any(x == topic))
-
+find_local_topic <- function(alias, index, current = NULL) {
+  match <- purrr::detect_index(index$alias, function(x) any(x == alias))
   if (match == 0) {
-    return(label)
+    return(NA_character_)
   }
 
   topic <- index$name[match]
   if (!is.null(current) && topic == current) {
-    return(label)
+    NA_character_
+  } else {
+    topic
+  }
+}
+
+link_local <- function(label, topic, index, current = NULL) {
+  topic <- find_local_topic(topic, index = index, current = current)
+  if (is.na(topic)) {
+    label
   } else {
     paste0("<a href='", paste0(topic, ".html"), "'>", label, "</a>")
   }
 }
 
+# Autolink html -----------------------------------------------------------
+
+# Modifies in place
+autolink_html <- function(x, depth = 1L, index = NULL) {
+  stopifnot(inherits(x, "xml_node"))
+
+  # <code> with no children
+  x %>%
+    xml2::xml_find_all(".//code[count(*) = 0]") %>%
+    autolink_nodeset(strict = TRUE, index = index, depth = depth)
+
+  # <span class='kw'>
+  x %>%
+    xml2::xml_find_all(".//span[@class='kw']") %>%
+    autolink_nodeset(strict = FALSE, index = index, depth = depth)
+
+  invisible()
+}
+
+autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
+  links <- nodes %>%
+    xml2::xml_text() %>%
+    purrr::map_chr(link_html, strict = strict, index = index, depth = depth)
+
+  has_link <- !is.na(links)
+  if (!any(has_link))
+    return()
+
+  nodes[has_link] %>%
+    xml2::xml_contents() %>%
+    xml2::xml_replace(purrr::map(links[has_link], xml2::read_xml))
+
+  invisible()
+}
+
+# Only convert expressions of the form `foo()`.
+link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
+  expr <- tryCatch(parse(text = x)[[1]], error = function(x) NULL)
+
+  ok <- (is.call(expr) && length(expr == 1)) || (!strict && is.name(expr))
+  if (!ok) {
+    return(NA_character_)
+  }
+
+  alias <- as.character(if (is.call(expr)) expr[[1]] else expr)
+  topic <- find_local_topic(alias, index = index)
+
+  if (is.na(topic)) {
+    NA_character_
+  } else {
+    href <- paste0(up_path(depth), "reference/", topic, ".html")
+    paste0("<a href='", href, "'>", x, "</a>")
+  }
+}

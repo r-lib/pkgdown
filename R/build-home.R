@@ -24,7 +24,7 @@ data_index <- function(pkg = ".") {
   if (is.null(path)) {
     out$index <- pkg$description
   } else {
-    out$index <- markdown(path = path)
+    out$index <- markdown(path = path, depth = 0L, index = pkg$topics)
   }
 
   out$pagetitle <- "Home"

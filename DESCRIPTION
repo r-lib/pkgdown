@@ -20,11 +20,13 @@ Imports:
     tools,
     whisker,
     yaml,
-    xml2
+    xml2 (>= 1.0.0.9001)
 Suggests:
     knitr,
     testthat,
-    rmarkdown,
+    rmarkdown
+Remotes:
+    hadley/xml2
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 URL: https://github.com/hadley/staticdocs

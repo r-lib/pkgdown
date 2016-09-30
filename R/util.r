@@ -15,7 +15,7 @@ inst_path <- function() {
   if (!is.null(a)) a else b
 }
 
-markdown <- function(path = NULL, ...) {
+markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
 
@@ -31,7 +31,19 @@ markdown <- function(path = NULL, ...) {
     )
   )
 
-  paste(readLines(tmp), collapse = "\n")
+  xml <- xml2::read_html(tmp, encoding = "UTF-8")
+  autolink_html(xml, depth = depth, index = index)
+
+  # Extract body of html - as.character renders as xml which adds
+  # significant whitespace in tags like pre
+  xml %>%
+    xml2::xml_find_first(".//body") %>%
+    xml2::write_html(tmp)
+
+  lines <- readLines(tmp, warn = FALSE)
+  lines <- sub("<body>", "", lines, fixed = TRUE)
+  lines <- sub("</body>", "", lines, fixed = TRUE)
+  paste(lines, collapse = "\n")
 }
 
 set_contains <- function(haystack, needles) {
