@@ -62,7 +62,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   render_article <- function(file_in, file_out) {
     message("Building vignette '", file_in, "'")
     path <- rmarkdown::render(
-      file.path("vignettes", file_in),
+      file.path(pkg$path, "vignettes", file_in),
       output_format = format$format,
       output_file = file.path(path, file_out),
       output_dir = path,
@@ -129,7 +129,7 @@ build_articles_index <- function(pkg = ".", path = NULL, depth = 1L) {
 data_articles_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  meta <- pkg$meta$articles %||% default_articles_index()
+  meta <- pkg$meta$articles %||% default_articles_index(pkg)
   sections <- purrr::compact(lapply(meta, data_articles_index_section, pkg = pkg))
 
   # Check for unlisted vignettes

@@ -89,13 +89,12 @@ build_site <- function(pkg = ".",
                        ) {
 
   pkg <- as_staticdocs(pkg)
-
-  init_site(path, pkg$meta$assets_path)
-
   # Use path relative to pkg
   if (pkg$path != ".") {
     path <- file.path(pkg$path, path)
   }
+
+  init_site(path, pkg$meta$assets_path)
 
   build_home(pkg, path = path)
   build_reference(pkg,

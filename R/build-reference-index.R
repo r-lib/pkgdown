@@ -10,7 +10,7 @@ build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
 data_reference_index <- function(pkg = ".") {
   pkg <- as_staticdocs(pkg)
 
-  meta <- pkg$meta$reference %||% default_reference_index()
+  meta <- pkg$meta$reference %||% default_reference_index(pkg)
   sections <- purrr::compact(lapply(meta, data_reference_index_section, pkg = pkg))
 
   # Cross-reference complete list of topics vs. topics found in index page
