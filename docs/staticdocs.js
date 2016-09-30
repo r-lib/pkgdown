@@ -5,9 +5,9 @@ $(function() {
       top: $('#nav').offset().top - 80
     }
   });
-  // $('body').scrollspy({
-  //  target: '#nav',
-  //  offset: 60
-  // });
+  $('body').scrollspy({
+    target: '#nav',
+    offset: 80
+  });
 
 });
