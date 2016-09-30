@@ -1,12 +1,12 @@
 $(function() {
 
-  $('#nav').affix({
+  $('#tocnav').affix({
     offset: {
-      top: $('#nav').offset().top - 80
+      top: $('#tocnav').offset().top - 80
     }
   });
   $('body').scrollspy({
-    target: '#nav',
+    target: '#tocnav',
     offset: 80
   });
 

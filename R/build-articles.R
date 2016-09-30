@@ -107,7 +107,7 @@ tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
   autolink_html(html, depth = depth, index = index)
 
   # Tweak classes of navbar
-  toc <- xml2::xml_find_all(html, ".//div[@id='nav']//ul")
+  toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
   xml2::write_html(html, path, format = FALSE)
