@@ -1,6 +1,5 @@
 body {
   position: relative;
-  padding-top: 60px;
 }
 
 .icon img {
@@ -18,6 +17,18 @@ footer {
 footer p {
   margin-bottom: 0;
   color: #555;
+}
+
+/* Fixes for fixed navbar --------------------------*/
+
+body {
+  position: relative;
+  padding-top: 60px;
+}
+
+.section h1, .section h2, .section h3, .section h4 {
+  padding-top: 60px;
+  margin-top: -60px;
 }
 
 /* Table of contents --------------------------*/
