@@ -138,7 +138,17 @@ vignette_index <- function(path = ".") {
   tibble::tibble(
     file_in = vig_path,
     file_out = gsub("\\.Rmd$", "\\.html", vig_path),
-    name = tools::file_path_sans_ext(vig_path),
-    title
+    name = tools::file_path_sans_ext(basename(vig_path)),
+    path = dirname(vig_path),
+    vig_depth = dir_depth(vig_path),
+    title = title
   )
 }
+
+dir_depth <- function(x) {
+  x %>%
+    strsplit("") %>%
+    purrr::map_int(function(x) sum(x == "/"))
+}
+
+

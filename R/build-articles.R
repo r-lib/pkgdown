@@ -56,22 +56,22 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   rule("Building articles")
   mkdir(path)
 
-  format <- build_rmarkdown_format(pkg, depth = depth)
-  on.exit(unlink(format$path), add = TRUE)
+  render_article <- function(file_in, file_out, vig_depth, ...) {
+    format <- build_rmarkdown_format(pkg, depth = vig_depth + depth)
+    on.exit(unlink(format$path), add = TRUE)
 
-  render_article <- function(file_in, file_out) {
     message("Building vignette '", file_in, "'")
     path <- rmarkdown::render(
       file.path(pkg$path, "vignettes", file_in),
       output_format = format$format,
-      output_file = file.path(path, file_out),
-      output_dir = path,
+      output_file = basename(file_out),
+      output_dir = file.path(path, dirname(file_out)),
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
-    tweak_rmarkdown_html(path, depth = depth, index = pkg$topics)
+    tweak_rmarkdown_html(path, depth = vig_depth + depth, index = pkg$topics)
   }
-  purrr::walk2(pkg$vignettes$file_in, pkg$vignettes$file_out, render_article)
+  purrr::pwalk(pkg$vignettes, render_article)
 
   build_articles_index(pkg, path = path, depth = depth)
 
@@ -113,6 +113,8 @@ tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
 
   path
 }
+
+
 
 # Articles index ----------------------------------------------------------
 
