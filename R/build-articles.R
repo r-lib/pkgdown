@@ -120,17 +120,19 @@ build_articles_index <- function(pkg = ".", path = NULL, depth = 1L) {
   render_page(
     pkg,
     "vignette-index",
-    data = data_articles_index(pkg),
+    data = data_articles_index(pkg, depth = depth),
     path = out_path(path, "index.html"),
     depth = depth
   )
 }
 
-data_articles_index <- function(pkg = ".") {
+data_articles_index <- function(pkg = ".", depth = 1L) {
   pkg <- as_staticdocs(pkg)
 
   meta <- pkg$meta$articles %||% default_articles_index(pkg)
-  sections <- purrr::compact(lapply(meta, data_articles_index_section, pkg = pkg))
+  sections <- meta %>%
+    purrr::map(data_articles_index_section, pkg = pkg, depth = depth) %>%
+    purrr::compact()
 
   # Check for unlisted vignettes
   listed <- meta %>%
@@ -154,7 +156,7 @@ data_articles_index <- function(pkg = ".") {
   ))
 }
 
-data_articles_index_section <- function(section, pkg) {
+data_articles_index_section <- function(section, pkg, depth = 1L) {
   if (!set_contains(names(section), c("title", "contents"))) {
     warning(
       "Section must have components `title`, `contents`",
@@ -174,7 +176,7 @@ data_articles_index_section <- function(section, pkg) {
 
   list(
     title = section$title,
-    desc = section$desc,
+    desc = markdown_text(section$desc, depth = depth, index = pkg$topics),
     class = section$class,
     contents = purrr::transpose(contents)
   )

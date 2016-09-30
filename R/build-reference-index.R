@@ -1,17 +1,19 @@
 build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
   render_page(
     pkg, "reference-index",
-    data = data_reference_index(pkg),
+    data = data_reference_index(pkg, depth = depth),
     path = out_path(path, "index.html"),
     depth = depth
   )
 }
 
-data_reference_index <- function(pkg = ".") {
+data_reference_index <- function(pkg = ".", depth = 1L) {
   pkg <- as_staticdocs(pkg)
 
   meta <- pkg$meta$reference %||% default_reference_index(pkg)
-  sections <- purrr::compact(lapply(meta, data_reference_index_section, pkg = pkg))
+  sections <- meta %>%
+    purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
+    purrr::compact()
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
@@ -34,7 +36,7 @@ data_reference_index <- function(pkg = ".") {
   ))
 }
 
-data_reference_index_section <- function(section, pkg) {
+data_reference_index_section <- function(section, pkg, depth = 1L) {
   if (!set_contains(names(section), c("title", "contents"))) {
     warning(
       "Section must have components `title`, `contents`",
@@ -55,7 +57,7 @@ data_reference_index_section <- function(section, pkg) {
 
   list(
     title = section$title,
-    desc = section$desc,
+    desc = markdown_text(section$desc, index = pkg$topics, depth = depth),
     class = section$class,
     contents = purrr::transpose(contents)
   )

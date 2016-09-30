@@ -15,6 +15,17 @@ inst_path <- function() {
   if (!is.null(a)) a else b
 }
 
+markdown_text <- function(text, ...) {
+  if (is.null(text))
+    return(text)
+
+  tmp <- tempfile()
+  on.exit(unlink(tmp), add = TRUE)
+
+  writeLines(text, tmp)
+  markdown(tmp, ...)
+}
+
 markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
