@@ -96,7 +96,7 @@ If `NEWS.md` is present, it will be parsed into pieces broken up by second level
 
 If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
 
-## Navbar
+## Navbar {#navbar2}
 
 By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the `DESCRIPTION` url field). You can override the defaults to:
 
