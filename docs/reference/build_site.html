@@ -124,10 +124,7 @@ reproducible.</dd>
       <p></p>
       <p>There are four top-level YAML settings that affect the entire site:</p>
       <p><dl class='dl-horizontal'>
-  <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
-  <dt>bootswatch</dt><dd>Customise the overall theme with a bootswatch
-    theme. You can see a complete list and how they&#39;ll affect your
-    site at <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>.</dd>
+ <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
  <dt>assets_path</dt><dd>Path to directory of additional assets to be
    copied into root directory of site. Use this when you want complete
    control over the visual design of the site. Recommended for advanced
@@ -136,6 +133,11 @@ reproducible.</dd>
    default (the templates built-in to staticdocs) to completely
    control the display of your site. Recommended for advanced users
    only.</dd>
+ <dt>template</dt><dd>Additional metadata to be passed on to the template.
+    The default template supports <code>bootswatch</code> to customise the
+    overall theme with a bootswatch theme. You can see a complete list
+    and preview how they look at
+    <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>.</dd>
 </dl></p>
       <p>You can also control the <code>navbar</code>. It uses the same syntax as
 <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.

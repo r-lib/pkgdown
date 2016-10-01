@@ -1,54 +1,97 @@
 #' Render complete page.
 #'
-#' @param package Path to package to document.
-#' @param name Name of the template (e.g. index, demo, topic)
-#' @param data Data for the template. Package metadata is always automatically
-#'   added to this list under key \code{package}.
+#' Each page is composed of four templates: "head", "header", "content", and
+#' "footer". Each of these templates is rendered using the \code{data}, and
+#' then assembled into an overall page using the "layout" template.
+#'
+#' @section YAML config:
+#' You can use either the templates provided by staticdocs, or provide your
+#' own by supplying \code{templates_path} key in your \code{_staticdocs.yml}.
+#' Generally, you'll find it easiest to customise if you start with a copy
+#' of the staticdocs templates and modify from there.
+#'
+#' @param pkg Path to package to document.
+#' @param name Name of the template (e.g. "home", "vignette", "news")
+#' @param data Data for the template.
+#'
+#'   This is automatically supplemented with three lists:
+#'   \itemize{
+#'   \item \code{site}: \code{title} and path to \code{root}.
+#'   \item \code{yaml}: the \code{template} key from from
+#'      \code{_staticdocs.yml}.
+#'   \item \code{package}: package metadata including \code{name} and
+#'      \code{version}.
+#'   }
+#'
+#'   See the full contents by running \code{data_template()}.
 #' @param path Location to create file. If \code{""} (the default),
 #'   prints to standard out.
-#' @param depth Depth of path relative to base directory. Used to
-#'   adjust links in navbar, and to provide template variable \code{root_path}.
+#' @param depth Depth of path relative to base directory.
 #' @export
-render_page <- function(package, name, data, path = "", depth = 0L) {
-  package <- as_staticdocs(package)
+render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
+  pkg <- as_staticdocs(pkg)
 
-  # Set up path to root docs
-  data$root_path <- up_path(depth)
+  data <- utils::modifyList(data, data_template(pkg, depth = depth))
+  template_path <- pkg$meta$template_path
 
   # render template components
   pieces <- c("head", "header", "content", "footer")
-  components <- lapply(pieces, render_template, package = package, name, data)
-  names(components) <- pieces
-
-  components$navbar <- package$navbar(depth)
+  components <- pieces %>%
+    purrr::map_chr(find_template, name, template_path = template_path) %>%
+    purrr::map(render_template, data = data) %>%
+    purrr::set_names(pieces)
+  components$navbar <- pkg$navbar(depth)
 
   # render complete layout
-  out <- render_template(package, "layout", name, components)
-  write_if_different(out, path)
+  find_template("layout", name, template_path = template_path) %>%
+    render_template(components) %>%
+    write_if_different(path)
 }
 
-render_template <- function(package, type, name, data) {
-  data$package <- data_package(package$desc)
-  data$meta <- package$meta
+#' @export
+#' @rdname render_page
+data_template <- function(pkg = ".", depth = 0L) {
+  pkg <- as_staticdocs(pkg)
+  desc <- pkg$desc
+  name <- desc$get("Package")[[1]]
 
-  template <- readLines(find_template(package, type, name))
-  if (length(template) == 0 || (length(template) == 1 && trimws(template) == ""))
+  print_yaml(list(
+    package = list(
+      list(
+        name = name,
+        version = desc$get("Version")[[1]]
+        # authors = purrr::map(desc$get_authors(), str_person),
+        # license = desc$get("License")
+      )
+    ),
+    site = list(
+      root = up_path(depth),
+      title = pkg$meta$title %||% name
+    ),
+    yaml = pkg$meta$template
+  ))
+}
+
+render_template <- function(path, data) {
+  template <- readLines(path)
+  if (length(template) == 0)
     return("")
 
   whisker::whisker.render(template, data)
 }
 
-find_template <- function(package, type, name) {
-  package <- as_staticdocs(package)
-
-  path <- package$meta$templates_path %||% file.path(inst_path(), "templates")
-
+find_template <- function(type, name, template_path = NULL) {
+  paths <- c(
+    file.path(inst_path(), "templates"),
+    template_path
+  )
   names <- c(
     paste0(type, "-", name, ".html"),
     paste0(type, ".html")
   )
+  all <- expand.grid(path = paths, name = names)
+  locations <- file.path(all$path, all$name)
 
-  locations <- file.path(path, names)
   Find(file.exists, locations, nomatch =
     stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }

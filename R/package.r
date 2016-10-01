@@ -22,15 +22,6 @@ as_staticdocs <- function(path = ".") {
 
 is_staticdocs <- function(x) inherits(x, "staticdocs")
 
-data_package <- function(x) {
-  list(
-    name = x$get("Package")[[1]],
-    version = x$get("Version")[[1]],
-    authors = purrr::map(x$get_authors(), str_person),
-    license = x$get("License")
-  )
-}
-
 str_person <- function(pers) {
   s <- paste0(c(pers$given, pers$family), collapse = ' ')
 

@@ -43,10 +43,7 @@ that aspect of the site.
 There are four top-level YAML settings that affect the entire site:
 
 \describe{
-  \item{title}{Site title, used in page title and default navbar.}
-  \item{bootswatch}{Customise the overall theme with a bootswatch
-    theme. You can see a complete list and how they'll affect your
-    site at \url{https://gallery.shinyapps.io/117-shinythemes/}.}
+ \item{title}{Site title, used in page title and default navbar.}
  \item{assets_path}{Path to directory of additional assets to be
    copied into root directory of site. Use this when you want complete
    control over the visual design of the site. Recommended for advanced
@@ -55,6 +52,11 @@ There are four top-level YAML settings that affect the entire site:
    default (the templates built-in to staticdocs) to completely
    control the display of your site. Recommended for advanced users
    only.}
+ \item{template}{Additional metadata to be passed on to the template.
+    The default template supports \code{bootswatch} to customise the
+    overall theme with a bootswatch theme. You can see a complete list
+    and preview how they look at
+    \url{https://gallery.shinyapps.io/117-shinythemes/}.}
 }
 
 You can also control the \code{navbar}. It uses the same syntax as
