@@ -46,9 +46,11 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             mathjax = TRUE,
                             seed = 1014,
-                            path = NULL,
+                            path = "docs/reference",
                             depth = 1L
                             ) {
+  pkg <- as_staticdocs(pkg)
+
   rule("Building function reference")
   if (!is.null(path)) {
     mkdir(path)

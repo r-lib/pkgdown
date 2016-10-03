@@ -4,12 +4,15 @@
 \alias{build_home}
 \title{Build home page}
 \usage{
-build_home(pkg = ".", path = NULL)
+build_home(pkg = ".", path = "docs", depth = 0L)
 }
 \arguments{
 \item{pkg}{Path to source package.}
 
 \item{path}{Output path.}
+
+\item{depth}{Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.}
 }
 \description{
 First looks for \code{README.md}, then \code{index.md}. If neither is

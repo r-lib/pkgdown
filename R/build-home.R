@@ -9,11 +9,11 @@
 #'
 #' @inheritParams build_articles
 #' @export
-build_home <- function(pkg = ".", path = NULL) {
+build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   rule("Building home")
 
   data <- data_index(pkg)
-  render_page(pkg, "home", data, out_path(path, "index.html"))
+  render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
 }
 
 data_index <- function(pkg = ".") {

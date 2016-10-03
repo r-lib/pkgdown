@@ -86,7 +86,7 @@
 found, falls back to the description field in <code>DESCRIPTION</code>.</p>
     
 
-    <pre><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -94,6 +94,9 @@ found, falls back to the description field in <code>DESCRIPTION</code>.</p>
       <dd>Path to source package.</dd>
       <dt>path</dt>
       <dd>Output path.</dd>
+      <dt>depth</dt>
+      <dd>Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.</dd>
     </dl>
     
     <div class="YAML config">
