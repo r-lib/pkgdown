@@ -33,6 +33,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   template_path <- pkg$meta$template_path
+  if (!is.null(template_path) && !file.exists(template_path)) {
+    stop("Can not find template path '", template_path, "'", call. = FALSE)
+  }
+
 
   # render template components
   pieces <- c("head", "header", "content", "footer")
@@ -82,8 +86,8 @@ render_template <- function(path, data) {
 
 find_template <- function(type, name, template_path = NULL) {
   paths <- c(
-    file.path(inst_path(), "templates"),
-    template_path
+    template_path,
+    file.path(inst_path(), "templates")
   )
   names <- c(
     paste0(type, "-", name, ".html"),
