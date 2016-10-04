@@ -1,5 +1,5 @@
 build_logo <- function(pkg = ".", path = "docs/") {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
 
   logo_path <- file.path(pkg$path, "logo.png")
   if (!file.exists(logo_path))

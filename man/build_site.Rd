@@ -2,7 +2,7 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\title{Build staticdocs website}
+\title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
@@ -49,7 +49,7 @@ There are four top-level YAML settings that affect the entire site:
    control over the visual design of the site. Recommended for advanced
    users only.}
  \item{template_path}{Path to directory of templates. Override the
-   default (the templates built-in to staticdocs) to completely
+   default (the templates built-in to pkgdown) to completely
    control the display of your site. Recommended for advanced users
    only.}
  \item{template}{Additional metadata to be passed on to the template.
@@ -94,7 +94,7 @@ Use \code{type} to choose between "default" and "inverse" themes.
 
 You position elements by placing under either \code{left} or \code{right}.
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators. Currently staticdocs only supports fontawesome
+\code{href}) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 \url{http://fontawesome.io/icons/}.
 }

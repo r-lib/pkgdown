@@ -1,4 +1,4 @@
-#' Build staticdocs website
+#' Build pkgdown website
 #'
 #' \code{build_site()} is a convenient wrapper around four functions:
 #' \itemize{
@@ -21,7 +21,7 @@
 #'    control over the visual design of the site. Recommended for advanced
 #'    users only.}
 #'  \item{template_path}{Path to directory of templates. Override the
-#'    default (the templates built-in to staticdocs) to completely
+#'    default (the templates built-in to pkgdown) to completely
 #'    control the display of your site. Recommended for advanced users
 #'    only.}
 #'  \item{template}{Additional metadata to be passed on to the template.
@@ -66,7 +66,7 @@
 #'
 #' You position elements by placing under either \code{left} or \code{right}.
 #' Components can contain sub-\code{menu}s with headings (indicated by missing
-#' \code{href}) and separators. Currently staticdocs only supports fontawesome
+#' \code{href}) and separators. Currently pkgdown only supports fontawesome
 #' icons. You can see a full list of options at
 #' \url{http://fontawesome.io/icons/}.
 #'
@@ -90,7 +90,7 @@ build_site <- function(pkg = ".",
                        seed = 1014
                        ) {
 
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
   # Use path relative to pkg
   if (pkg$path != ".") {
     path <- file.path(pkg$path, path)

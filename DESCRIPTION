@@ -1,4 +1,4 @@
-Package: staticdocs
+Package: pkgdown
 Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
 Description: Generate a beautiful and useful website from a source package.
@@ -31,5 +31,5 @@ Remotes:
     rstudio/rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
-URL: https://github.com/hadley/staticdocs
-BugReports: https://github.com/hadley/staticdocs/issues
+URL: https://github.com/hadley/pkgdown
+BugReports: https://github.com/hadley/pkgdown/issues

@@ -1,8 +1,8 @@
 #' Build reference section
 #'
-#' By default, staticdocs will generate an index that simply lists all
+#' By default, pkgdown will generate an index that simply lists all
 #' the functions in alphabetical order. To override this, provide a
-#' \code{reference} section in your \code{_staticdocs.yml} as described
+#' \code{reference} section in your \code{_pkgdown.yml} as described
 #' below.
 #'
 #' @section YAML config:
@@ -10,7 +10,7 @@
 #' which provides a list of sections containing, a \code{title}, list of
 #' \code{contents}, and optional \code{description}.
 #'
-#' For example, the following code breaks up the functions in staticdocs
+#' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
 #'
 #' \preformatted{
@@ -31,7 +31,7 @@
 #' select them all. For more complex naming schemes you can use an aribrary
 #' regular expression with \code{matches("regexp")}.
 #'
-#' staticdocs will check that all non-internal topics are included on
+#' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
 #'
 #' @inheritParams build_articles
@@ -49,7 +49,7 @@ build_reference <- function(pkg = ".",
                             path = "docs/reference",
                             depth = 1L
                             ) {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
 
   rule("Building function reference")
   if (!is.null(path)) {

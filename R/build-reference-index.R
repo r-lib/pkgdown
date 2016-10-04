@@ -8,7 +8,7 @@ build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
 }
 
 data_reference_index <- function(pkg = ".", depth = 1L) {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta$reference %||% default_reference_index(pkg)
   sections <- meta %>%
@@ -64,7 +64,7 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
 }
 
 default_reference_index <- function(pkg = ".") {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
 
   print_yaml(list(
     list(

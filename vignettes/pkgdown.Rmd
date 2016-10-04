@@ -1,14 +1,14 @@
 ---
 author: "Hadley Wickham"
-title: "Staticdocs"
+title: "pkgdown"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{staticdocs}
+  %\VignetteIndexEntry{pkgdown}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-The goal of staticdocs is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website. There are five parts to a staticdocs site:
+The goal of pkgdown is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website. There are five parts to a pkgdown site:
 
 1. Home page
 1. Function reference
@@ -16,7 +16,7 @@ The goal of staticdocs is to make it easy for package developers to make elegant
 1. News
 1. Navbar 
 
-To build a staticdocs site, run `build_site()`. The function has some arguments (mostly to control where the output), but most of the configuration options are controlled by `_staticdocs.yaml`. These options include:
+To build a pkgdown site, run `build_site()`. The function has some arguments (mostly to control where the output), but most of the configuration options are controlled by `_pkgdown.yaml`. These options include:
 
 * The site `title`, if different from the package name.
 
@@ -37,13 +37,13 @@ The home page will be automatically generated from one of the following four fil
 1. `README.Rmd`
 1. `README.md`
 
-staticdocs tries them in order, which means that if you want different display for GitHub and staticdocs, you can have both `README.md` and a `index.md`
+pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and a `index.md`
 
 ## Reference
 
 The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.
 
-staticdocs will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a `reference` key in `_staticdocs.yml`:
+pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a `reference` key in `_pkgdown.yml`:
 
 ```yaml
 reference:
@@ -67,11 +67,11 @@ reference:
 
 The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
 
-staticdocs will warn if you've forgotten to include any non-internal functions.
+pkgdown will warn if you've forgotten to include any non-internal functions.
 
 ## Articles
 
-staticdocs will automatically build all `.Rmd` vignettes, including those in subdirectories, and render output to `articles/`. staticdocs will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
+pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories, and render output to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
 
 If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`.  In the extreme case where you want to produce only articles but not vignettes, you can add the complete `vignettes/` directory to `.Rbuildignore`.
 

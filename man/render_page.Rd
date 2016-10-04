@@ -20,7 +20,7 @@ data_template(pkg = ".", depth = 0L)
   \itemize{
   \item \code{site}: \code{title} and path to \code{root}.
   \item \code{yaml}: the \code{template} key from from
-     \code{_staticdocs.yml}.
+     \code{_pkgdown.yml}.
   \item \code{package}: package metadata including \code{name} and
      \code{version}.
   }
@@ -39,9 +39,9 @@ then assembled into an overall page using the "layout" template.
 }
 \section{YAML config}{
 
-You can use either the templates provided by staticdocs, or provide your
-own by supplying \code{templates_path} key in your \code{_staticdocs.yml}.
+You can use either the templates provided by pkgdown, or provide your
+own by supplying \code{templates_path} key in your \code{_pkgdown.yml}.
 Generally, you'll find it easiest to customise if you start with a copy
-of the staticdocs templates and modify from there.
+of the pkgdown templates and modify from there.
 }
 

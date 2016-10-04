@@ -1,4 +1,4 @@
-title: staticdocs
+title: pkgdown
 
 template:
   bootswatch: cerulean
@@ -15,15 +15,15 @@ reference:
     - render_page
 
 navbar:
-  title: staticdocs
+  title: pkgdown
   type: default
   left:
   - text: Home
     href: index.html
   - text: Overview
-    href: articles/staticdocs.html
+    href: articles/pkgdown.html
   - text: Reference
     href: reference/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/hadley/staticdocs
+    href: https://github.com/hadley/pkgdown

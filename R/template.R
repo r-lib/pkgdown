@@ -1,7 +1,7 @@
 #' Generate YAML templates
 #'
-#' Use these function to generate the default YAML the staticdocs uses for
-#' the different parts of \code{_staticdocs.yml}. This are useful starting
+#' Use these function to generate the default YAML that pkgdown uses for
+#' the different parts of \code{_pkgdown.yml}. This are useful starting
 #' points if you want to customise your site.
 #'
 #' @param path Path to package root

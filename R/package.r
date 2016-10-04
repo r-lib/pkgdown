@@ -1,5 +1,5 @@
-as_staticdocs <- function(path = ".") {
-  if (is_staticdocs(path)) {
+as_pkgdown <- function(path = ".") {
+  if (is_pkgdown(path)) {
     return(path)
   }
 
@@ -16,11 +16,11 @@ as_staticdocs <- function(path = ".") {
       vignettes = vignette_index(path),
       navbar = build_navbar(path)
     ),
-    class = "staticdocs"
+    class = "pkgdown"
   )
 }
 
-is_staticdocs <- function(x) inherits(x, "staticdocs")
+is_pkgdown <- function(x) inherits(x, "pkgdown")
 
 str_person <- function(pers) {
   s <- paste0(c(pers$given, pers$family), collapse = ' ')
@@ -57,12 +57,12 @@ read_meta <- function(path) {
 }
 
 find_meta <- function(path) {
-  path <- file.path(path, "_staticdocs.yml")
+  path <- file.path(path, "_pkgdown.yml")
   if (file.exists(path)) {
     return(path)
   }
 
-  path <- file.path(path, "_staticdocs.yaml")
+  path <- file.path(path, "_pkgdown.yaml")
   if (file.exists(path)) {
     return(path)
   }

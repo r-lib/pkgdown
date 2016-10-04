@@ -19,13 +19,13 @@ syntax_highlight <- function(text, index = NULL, current = NULL) {
   renderer <- highlight::renderer_html(
     header = function(...) "",
     footer = function(...) "",
-    formatter = staticdocs_format(index, current)
+    formatter = pkgdown_format(index, current)
   )
 
   highlight_capture(
     parse.output = expr,
     renderer = renderer,
-    detective = staticdocs_detective
+    detective = pkgdown_detective
   )
 }
 
@@ -34,7 +34,7 @@ highlight_capture <- function(...) {
   paste0(out, collapse = "\n")
 }
 
-staticdocs_format <- function(index, current) {
+pkgdown_format <- function(index, current) {
   function(tokens, styles, ...) {
     call <- styles %in% "fu"
     tokens[call] <- purrr::map2_chr(
@@ -70,7 +70,7 @@ staticdocs_format <- function(index, current) {
 # ErrorTok = er.
 #
 # Token list comes from gram.c
-staticdocs_detective <- function(x, ...) {
+pkgdown_detective <- function(x, ...) {
   data <- utils::getParseData(x)
   token <- data$token[data$terminal]
 

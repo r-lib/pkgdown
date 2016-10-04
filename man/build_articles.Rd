@@ -17,7 +17,7 @@ Used to adjust relative links in the navbar.}
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
-reconciles \code{\link[rmarkdown]{html_document}()} with your staticdocs
+reconciles \code{\link[rmarkdown]{html_document}()} with your pkgdown
 template.
 }
 \section{YAML config}{
@@ -47,7 +47,7 @@ common prefix or suffix, you can use \code{starts_with("prefix")} and
 schemes you can use an aribrary regular expression with
 \code{matches("regexp")}.
 
-staticdocs will check that all vignettes are included in the index
+pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.
 }
 

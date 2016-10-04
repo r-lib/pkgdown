@@ -19,7 +19,7 @@ build_news <- function(pkg = ".",
                        path = "docs/news",
                        one_page = TRUE,
                        depth = 1L) {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
   if (!has_news(pkg$path))
     return()
 
@@ -85,7 +85,7 @@ build_news_multi <- function(pkg, path, depth) {
 }
 
 data_news <- function(pkg = ".", depth = 1L) {
-  pkg <- as_staticdocs(pkg)
+  pkg <- as_pkgdown(pkg)
   html <- markdown(
     file.path(pkg$path, "NEWS.md"),
     "--section-divs",

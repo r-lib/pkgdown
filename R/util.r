@@ -2,12 +2,12 @@
 NULL
 
 inst_path <- function() {
-  if (is.null(devtools::dev_meta("staticdocs"))) {
-    # staticdocs is probably installed
-    system.file(package = "staticdocs")
+  if (is.null(devtools::dev_meta("pkgdown"))) {
+    # pkgdown is probably installed
+    system.file(package = "pkgdown")
   } else {
-    # staticdocs was probably loaded with devtools
-    file.path(getNamespaceInfo("staticdocs", "path"), "inst")
+    # pkgdown was probably loaded with devtools
+    file.path(getNamespaceInfo("pkgdown", "path"), "inst")
   }
 }
 
