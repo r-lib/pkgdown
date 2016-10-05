@@ -3,3 +3,8 @@
 language: R
 sudo: false
 cache: packages
+
+addons:
+  apt:
+    packages:
+      - libmagick++-dev

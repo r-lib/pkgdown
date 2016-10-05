@@ -1,4 +1,4 @@
 library(testthat)
-library(staticdocs)
+library(pkgdown)
 
-test_check("staticdocs")
+test_check("pkgdown")

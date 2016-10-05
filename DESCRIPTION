@@ -1,8 +1,7 @@
-Package: staticdocs
+Package: pkgdown
 Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
-Description: Convert package rd files to static html pages, suitable for
-    serving on a website.
+Description: Generate a beautiful and useful website from a source package.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = "cph")
@@ -10,20 +9,27 @@ Authors@R: c(
 License: MIT + file LICENSE
 Depends: R (>= 3.2.0)
 Imports:
-    stringr,
-    evaluate,
-    whisker,
-    highlight,
-    tools,
-    markdown,
-    devtools (>= 0.8),
+    desc,
     digest,
-    grid,
-    crayon,
-    roxygen2 (>= 5.0.0)
+    devtools,
+    evaluate,
+    highlight,
+    magick,
+    magrittr,
+    purrr,
+    rmarkdown (>= 1.0.9016),
+    tibble,
+    tools,
+    whisker,
+    yaml,
+    xml2 (>= 1.0.0.9001)
 Suggests:
+    knitr,
     testthat
+Remotes:
+    hadley/xml2,
+    rstudio/rmarkdown
+VignetteBuilder: knitr
 RoxygenNote: 5.0.1
-UrlNote: https://github.com/hadley/staticdocs
-URL: https://github.com/hadley/staticdocs
-BugReports: https://github.com/hadley/staticdocs/issues
+URL: https://github.com/hadley/pkgdown
+BugReports: https://github.com/hadley/pkgdown/issues

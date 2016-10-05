@@ -1,214 +1,142 @@
-#' Build complete static documentation for a package.
+#' Build pkgdown website
 #'
-#' Currently, \code{build_site} builds documentation for help topics,
-#' vignettes, demos, and a \code{README.md}, if present.
+#' \code{build_site()} is a convenient wrapper around four functions:
+#' \itemize{
+#'   \item \code{\link{build_articles}()}
+#'   \item \code{\link{build_home}()}
+#'   \item \code{\link{build_reference}()}
+#'   \item \code{\link{build_news}()}
+#' }
+#' See the documentation for the each function to learn how to control
+#' that aspect of the site.
 #'
-#' @param pkg path to source version of package.  See
-#'   \code{\link[devtools]{as.package}} for details on how paths and package
-#'   names are resolved.
-#' @param site_path root Directory in which to create documentation.
-#' @param run_dont_run Run examples that are surrounded in \\dontrun?
-#' @param examples Run examples?
-#' @param templates_path Path in which to look for templates. If this doesn't
-#'   exist will look next in \code{pkg/inst/staticdocs/templates}, then
-#'   in staticdocs itself.
-#' @param bootstrap_path Path in which to look for bootstrap files. If
-#'   this doesn't exist, will use files built into staticdocs.
-#' @param mathjax Use mathjax to render math symbols?
-#' @param with_vignettes If \code{TRUE}, will build vignettes.
-#' @param with_demos If \code{TRUE}, will build demos.
-#' @param with_readme If \code{TRUE}, will build the README.
-#' @param launch If \code{TRUE}, will open freshly generated site in web
-#'   browser.
-#' @param ganalytics Add Google Analytics to your site by adding a tracking ID
-#'   number (it looks something like \code{"UA-000000-01"}).
-#'   \href{https://support.google.com/analytics/answer/1032385}{Need help
-#'   finding your tracking ID?}. The default, \code{NULL}, disables Google
-#'   Analytics.
+#' @section YAML config:
+#'
+#' There are four top-level YAML settings that affect the entire site:
+#'
+#' \describe{
+#'  \item{title}{Site title, used in page title and default navbar.}
+#'  \item{assets_path}{Path to directory of additional assets to be
+#'    copied into root directory of site. Use this when you want complete
+#'    control over the visual design of the site. Recommended for advanced
+#'    users only.}
+#'  \item{template_path}{Path to directory of templates. Override the
+#'    default (the templates built-in to pkgdown) to completely
+#'    control the display of your site. Recommended for advanced users
+#'    only.}
+#'  \item{template}{Additional metadata to be passed on to the template.
+#'     The default template supports \code{bootswatch} to customise the
+#'     overall theme with a bootswatch theme. You can see a complete list
+#'     and preview how they look at
+#'     \url{https://gallery.shinyapps.io/117-shinythemes/}.}
+#' }
+#'
+#' You can also control the \code{navbar}. It uses the same syntax as
+#' \href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
+#' The following YAML snippet illustrates some of the most important features.
+#'
+#' \preformatted{
+#' navbar:
+#'   type: inverse
+#'   left:
+#'     - text: "Home"
+#'       href: index.html
+#'     - text: "Reference"
+#'       href: reference/index.html
+#'     - text: "Articles"
+#'       menu:
+#'         - text: "Heading 1"
+#'         - text: "Article A"
+#'           href: articles/page_a.html
+#'         - text: "Article B"
+#'           href: articles/page_b.html
+#'         - text: "---------"
+#'         - text: "Heading 2"
+#'         - text: "Article C"
+#'           href: articles/page_c.html
+#'         - text: "Article D"
+#'           href: articles/page_d.html
+#'   right:
+#'     - icon: fa-github fa-lg
+#'       href: https://example.com
+#' }
+#'
+#'
+#' Use \code{type} to choose between "default" and "inverse" themes.
+#'
+#' You position elements by placing under either \code{left} or \code{right}.
+#' Components can contain sub-\code{menu}s with headings (indicated by missing
+#' \code{href}) and separators. Currently pkgdown only supports fontawesome
+#' icons. You can see a full list of options at
+#' \url{http://fontawesome.io/icons/}.
+#'
+#' @inheritParams build_articles
+#' @inheritParams build_reference
+#' @param path Location in which to save website, relative to package
+#'   path.
+#' @param preview If \code{TRUE}, will preview freshly generated site in
+#'    RStudio
 #' @export
-#' @import stringr
-#' @importFrom devtools load_all
-#' @aliases staticdocs-package build_package
 #' @examples
 #' \dontrun{
 #' build_site()
 #' }
 build_site <- function(pkg = ".",
-                       site_path = "docs",
+                       path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
-                       templates_path = "inst/staticdocs/templates",
-                       bootstrap_path = "inst/staticdocs/bootstrap",
                        mathjax = TRUE,
-                       with_vignettes = TRUE,
-                       with_demos = TRUE,
-                       with_readme = TRUE,
-                       launch = interactive(),
-                       ganalytics = NULL
+                       preview = interactive(),
+                       seed = 1014
                        ) {
-  pkg <- as.sd_package(
-    pkg,
-    site_path = site_path,
-    examples = examples,
-    run_dont_run = run_dont_run,
-    templates_path = templates_path,
-    bootstrap_path = bootstrap_path,
-    mathjax = mathjax,
-    ganalytics = ganalytics
-  )
-  load_all(pkg)
 
-  if (!file.exists(pkg$site_path)) {
-    dir.create(pkg$site_path, recursive = TRUE)
+  pkg <- as_pkgdown(pkg)
+  # Use path relative to pkg
+  if (pkg$path != ".") {
+    path <- file.path(pkg$path, path)
   }
-  copy_bootstrap(pkg)
 
-  pkg$topics <- build_topics(pkg)
-  if (with_vignettes) pkg$vignettes <- build_vignettes(pkg)
-  if (with_demos) pkg$demos <- build_demos(pkg)
-  if (with_readme) pkg$readme <- readme(pkg)
-  build_index(pkg)
+  init_site(path, pkg$meta$assets_path)
 
-  if (launch) launch(pkg)
+  build_logo(pkg, path = path)
+  build_home(pkg, path = path)
+  build_reference(pkg,
+    examples = TRUE,
+    run_dont_run = TRUE,
+    mathjax = TRUE,
+    seed = seed,
+    path = file.path(path, "reference"),
+    depth = 1L
+  )
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
+  build_news(pkg, path = file.path(path, "news"), depth = 1L)
+
+  if (preview) {
+    preview_site(path)
+  }
   invisible(TRUE)
 }
 
-launch <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  index <- normalizePath(file.path(pkg$site_path, "index.html"))
-  utils::browseURL(index)
+preview_site <- function(path) {
+  utils::browseURL(file.path(path, "index.html"))
 }
 
-#' @export
-build_package <- function(...) {
-  warning("build_package is deprecated, please use build_site() instead",
-    call. = FALSE)
-  build_site(...)
+build_site_rstudio <- function() {
+  devtools::document()
+  build_site(preview = TRUE)
 }
 
-# Generate all topic pages for a package.
-build_topics <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
+init_site <- function(path, assets_path = NULL) {
+  rule("Initialising site")
 
-  # for each file, find name of one topic
-  index <- pkg$rd_index
-  paths <- file.path(pkg$site_path, index$file_out)
-
-  # create columns for extra topic info
-  index$title <- ""
-  index$in_index <- TRUE
-
-  for (i in seq_along(index$name)) {
-    message("Generating ", basename(paths[[i]]))
-
-    rd <- pkg$rd[[i]]
-    html <- to_html.Rd_doc(rd,
-      env = new.env(parent = globalenv()),
-      topic = str_replace(basename(paths[[i]]), "\\.html$", ""),
-      pkg = pkg)
-    html$pagetitle <- html$name
-
-    html$package <- pkg[c("package", "version")]
-
-    if (!is.null(pkg$ganalytics))
-      html$ganalytics <- pkg$ganalytics
-
-    render_page(pkg, "topic", html, paths[[i]])
-    grDevices::graphics.off()
-
-    if ("internal" %in% html$keywords) {
-      index$in_index[i] <- FALSE
-    }
-    index$title[i] <- html$title
+  mkdir(path)
+  if (is.null(assets_path) || !file.exists(assets_path)) {
+    assets_path <- file.path(inst_path(), "assets")
   }
 
-  index
-}
-
-readme <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  # First look in staticdocs path
-  path <- file.path(pkg$sd_path, "README.md")
-  if (file.exists(path)) {
-    return(markdown(path = path))
+  assets <- dir(assets_path, full.names = TRUE)
+  for (asset in assets) {
+    message("Copying '", asset, "'")
+    file.copy(asset, path, recursive = TRUE)
   }
-
-  # Then look in the package root
-  path <- file.path(pkg$path, "README.md")
-  if (file.exists(path)) {
-    return(markdown(path = path))
-  }
-
-  # Otherwise fallback to description
-  pkg$description
-}
-
-copy_bootstrap <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-  user_bootstrap <- pkg$bootstrap_path
-  if (file.exists(user_bootstrap)) {
-    bootstrap <- user_bootstrap
-  } else {
-    bootstrap <- file.path(inst_path(), "bootstrap")
-  }
-  file.copy(dir(bootstrap, full.names = TRUE), pkg$site_path, recursive = TRUE)
-}
-
-#' @importFrom tools pkgVignettes buildVignettes
-build_vignettes <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-  vigns <- pkgVignettes(dir = pkg$path)
-
-  if (length(vigns$docs) == 0) return()
-
-  message("Building vignettes")
-  # Locate source and built versions of vignettes
-  buildVignettes(dir = pkg$path)
-  vigns <- pkgVignettes(dir = pkg$path, output = TRUE)
-
-  message("Copying vignettes")
-  dest <- file.path(pkg$site_path, "vignettes")
-  if (!file.exists(dest)) dir.create(dest)
-  file.copy(vigns$outputs, dest, overwrite = TRUE)
-  file.remove(vigns$outputs)
-
-  # Extract titles
-  titles <- vapply(vigns$docs, FUN.VALUE = character(1), function(x) {
-    contents <- str_c(readLines(x), collapse = "\n")
-    str_match(contents, "\\\\VignetteIndexEntry\\{(.*?)\\}")[2]
-  })
-  names <- basename(vigns$outputs)
-
-  list(vignette = unname(Map(list, title = titles, filename = names)))
-}
-
-build_demos <- function(pkg = ".") {
-  pkg <- as.sd_package(pkg)
-
-  demo_dir <- file.path(pkg$path, "demo")
-  if (!file.exists(demo_dir)) return()
-
-  message("Rendering demos")
-  demos <- readLines(file.path(demo_dir, "00Index"))
-  demos <- demos[demos != ""]
-
-  pieces <- str_split_fixed(demos, "\\s+", 2)
-  in_path <- str_c(pieces[, 1], ".[rR]")
-  filename <- str_c("demo-", pieces[,1], ".html")
-  title <- pieces[, 2]
-
-  for (i in seq_along(title)) {
-    demo_code <- readLines(Sys.glob(file.path(demo_dir, in_path[i])))
-    demo_expr <- evaluate(demo_code, new.env(parent = globalenv()),
-      new_device = FALSE)
-
-    pkg$demo <- replay_html(demo_expr, pkg = pkg, name = str_c(pieces[i], "-"))
-    pkg$pagetitle <- title[i]
-    render_page(pkg, "demo", pkg,
-      file.path(pkg$site_path, filename[i]))
-  }
-
-  list(demo = unname(apply(cbind(filename, title), 1, as.list)))
 }

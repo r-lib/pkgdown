@@ -1,48 +1,26 @@
-#' Return information about a package
-#'
-#' @param pkg name of package, as character vector
-#' @return A named list of useful metadata about a package
-#' @export
-#' @keywords internal
-#' @importFrom devtools parse_deps as.package
-as.sd_package <- function(pkg = ".", ...) {
-  if (is.sd_package(pkg)) return(pkg)
-
-  pkg <- as.package(pkg)
-  class(pkg) <- c("sd_package", "package")
-  pkg$sd_path <- pkg_sd_path(pkg)
-
-  pkg <- utils::modifyList(pkg, list(...))
-
-  pkg$index <- load_index(pkg)
-  pkg$icons <- load_icons(pkg)
-
-  if (!is.null(pkg[["url"]])) {
-    pkg$urls <- str_trim(str_split(pkg[["url"]], ",")[[1]])
-    pkg[["url"]] <- NULL
+as_pkgdown <- function(path = ".") {
+  if (is_pkgdown(path)) {
+    return(path)
   }
 
-  # Author info
-  if (!is.null(pkg$`authors@r`)) {
-    pkg$authors <- eval(parse(text = pkg$`authors@r`))
-    pkg$authors <- utils::as.person(pkg$authors)
-    pkg$authors <- sapply(pkg$authors, str_person)
+  if (!file.exists(path) || !is_dir(path)) {
+    stop("`path` is not an existing directory", call. = FALSE)
   }
 
-  # Dependencies
-  pkg$dependencies <- list(
-    depends = str_c(parse_deps(pkg$depends)$name, collapse = ", "),
-    imports = str_c(parse_deps(pkg$imports)$name, collapse = ", "),
-    suggests = str_c(parse_deps(pkg$suggests)$name, collapse = ", "),
-    extends = str_c(parse_deps(pkg$extends)$name, collapse = ", ")
+  structure(
+    list(
+      path = path,
+      desc = read_desc(path),
+      meta = read_meta(path),
+      topics = topic_index(path),
+      vignettes = vignette_index(path),
+      navbar = build_navbar(path)
+    ),
+    class = "pkgdown"
   )
-  pkg$dependencies <- ifelse(pkg$dependencies == "", FALSE, pkg$dependencies)
-
-  pkg$rd <- package_rd(pkg)
-  pkg$rd_index <- topic_index(pkg$rd)
-
-  pkg
 }
+
+is_pkgdown <- function(x) inherits(x, "pkgdown")
 
 str_person <- function(pers) {
   s <- paste0(c(pers$given, pers$family), collapse = ' ')
@@ -56,42 +34,112 @@ str_person <- function(pers) {
   s
 }
 
-is.sd_package <- function(x) inherits(x, "sd_package")
+read_desc <- function(path = ".") {
+  path <- file.path(path, "DESCRIPTION")
+  if (!file.exists(path)) {
+    stop("Can't find DESCRIPTION", call. = FALSE)
+  }
+  desc::description$new(path)
+}
 
-topic_index <- function(rd) {
-  aliases <- unname(lapply(rd, extract_alias))
+# Metadata ----------------------------------------------------------------
 
-  names <- unlist(lapply(rd, extract_name), use.names = FALSE)
+read_meta <- function(path) {
+  path <- find_meta(path)
+
+  if (is.null(path)) {
+    yaml <- list()
+  } else {
+    yaml <- yaml::yaml.load_file(path)
+  }
+
+  yaml
+}
+
+find_meta <- function(path) {
+  path <- file.path(path, "_pkgdown.yml")
+  if (file.exists(path)) {
+    return(path)
+  }
+
+  path <- file.path(path, "_pkgdown.yaml")
+  if (file.exists(path)) {
+    return(path)
+  }
+
+  NULL
+}
+
+
+# Topics ------------------------------------------------------------------
+
+topic_index <- function(path = ".") {
+  rd <- package_rd(path)
+
+  aliases <- purrr::map(rd, extract_tag, "tag_alias")
+  names <- purrr::map_chr(rd, extract_tag, "tag_name")
+  titles <- purrr::map_chr(rd, extract_tag, "tag_title")
+  internal <- purrr::map_lgl(rd, is_internal)
+
   file_in <- names(rd)
-  file_out <- str_replace(file_in, "\\.Rd$", ".html")
+  file_out <- gsub("\\.Rd$", ".html", file_in)
 
-  data.frame(
+  tibble::tibble(
     name = names,
-    alias = I(aliases),
     file_in = file_in,
     file_out = file_out,
-    stringsAsFactors = FALSE
+    alias = aliases,
+    title = titles,
+    rd = rd,
+    internal = internal
   )
 }
 
-extract_alias <- function(x) {
-  aliases <- Filter(function(x) attr(x, "Rd_tag") == "\\alias", x)
-  vapply(aliases, function(x) x[[1]][[1]], character(1))
+package_rd <- function(path) {
+  man_path <- file.path(path, "man")
+  rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
+  names(rd) <- basename(rd)
+  lapply(rd, rd_file)
 }
 
-extract_name <- function(x) {
-  alias <- Find(function(x) attr(x, "Rd_tag") == "\\name", x)
-  alias[[1]][[1]]
+extract_tag <- function(x, tag) {
+  x %>%
+    purrr::keep(inherits, tag) %>%
+    purrr::map_chr(c(1, 1))
+}
+
+is_internal <- function(x) {
+  any(extract_tag(x, "tag_keyword") %in% "internal")
 }
 
 
-#' @export
-print.sd_package <- function(x, ...) {
-  cat("Package: ", x$package, " @ ", dirname(x$path), " -> ", x$site_path,
-    "\n", sep = "")
+# Vignettes ---------------------------------------------------------------
 
-  topics <- strwrap(paste(sort(x$rd_index$name), collapse = ", "),
-    indent = 2, exdent = 2, width = getOption("width"))
-  cat("Topics:\n", paste(topics, collapse = "\n"), "\n", sep = "")
+vignette_index <- function(path = ".") {
+  vig_path <- dir(
+    file.path(path, "vignettes"),
+    pattern = "\\.Rmd$",
+    recursive = TRUE
+  )
 
+  title <- file.path(path, "vignettes", vig_path) %>%
+    purrr::map(rmarkdown::yaml_front_matter) %>%
+    purrr::map_chr("title", .null = "UNKNOWN TITLE")
+
+  tibble::tibble(
+    file_in = vig_path,
+    file_out = gsub("\\.Rmd$", "\\.html", vig_path),
+    name = tools::file_path_sans_ext(basename(vig_path)),
+    path = dirname(vig_path),
+    vig_depth = dir_depth(vig_path),
+    title = title
+  )
 }
+
+dir_depth <- function(x) {
+  x %>%
+    strsplit("") %>%
+    purrr::map_int(function(x) sum(x == "/"))
+}
+
+

@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1>{{{title}}}</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    {{#description}}
+    {{#contents}}
+    <p>{{{.}}}</p>
+    {{/contents}}
+    {{/description}}
+
+    {{#usage}}
+    <pre>{{{.}}}</pre>
+    {{/usage}}
+
+    {{#has_args}}
+    <h2>Arguments</h2>
+    <dl class="dl-horizontal">
+    {{#arguments}}
+      <dt>{{name}}</dt>
+      <dd>{{{description}}}</dd>
+    {{/arguments}}
+    </dl>
+    {{/has_args}}
+
+    {{#sections}}
+    <div class="{{title}}">
+      <h2>{{title}}</h2>
+
+      {{#contents}}
+      <p>{{{.}}}</p>
+      {{/contents}}
+
+    </div>
+    {{/sections}}
+
+    {{#examples}}
+    <h2 id="examples">Examples</h2>
+    <pre class="examples">{{{ . }}}</pre>
+    {{/examples}}
+  </div>
+  <div class="col-md-3">
+    {{#author}}
+    <h2>Author</h2>
+    {{{ author }}}
+    {{/author}}
+
+  </div>
+</div>

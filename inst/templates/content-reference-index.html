@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Function reference <small>version&nbsp;{{#package}}{{version}}{{/package}}</small></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    {{#sections}}
+    <div class="section {{class}}">
+      <h2>{{title}}</h2>
+      <p class="section-desc">{{{desc}}}</p>
+
+      <dl class="dl-horizontal">
+      {{#contents}}
+        {{#aliases}}<dt><a href="{{path}}">{{.}}</a></dt>{{/aliases}}
+        <dd>{{title}}</dd>
+      {{/contents}}
+      </dl>
+    </div>
+    {{/sections}}
+  </div>
+</div>

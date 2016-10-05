@@ -1,72 +1,111 @@
-#' @importFrom devtools dev_meta
+#' @importFrom magrittr %>%
+NULL
+
 inst_path <- function() {
-  if (is.null(dev_meta("staticdocs"))) {
-    # staticdocs is probably installed
-    system.file(package = "staticdocs")
+  if (is.null(devtools::dev_meta("pkgdown"))) {
+    # pkgdown is probably installed
+    system.file(package = "pkgdown")
   } else {
-    # staticdocs was probably loaded with devtools
-    file.path(getNamespaceInfo("staticdocs", "path"), "inst")
+    # pkgdown was probably loaded with devtools
+    file.path(getNamespaceInfo("pkgdown", "path"), "inst")
   }
 }
-
-# Return the staticdocs path for a package
-# Could be in pkgdir/inst/staticdocs/ (for non-installed source packages)
-# or in pkgdir/staticdocs/ (for installed packages)
-pkg_sd_path <- function(package) {
-  if (!is.null(package$sd_path)) {
-    return(package$sd_path)
-  }
-
-  pathsrc <- file.path(package$path, "inst", "staticdocs")
-  pathinst <- file.path(package$path, "staticdocs")
-
-  if (dir.exists(pathsrc)) {
-    pathsrc
-  } else if (dir.exists(pathinst)) {
-    pathinst
-  } else {
-    dir.create(pathsrc)
-    pathsrc
-  }
-}
-
-file.path.ci <- function(...) {
-  default <- file.path(...)
-  if (file.exists(default)) return(default)
-
-  dir <- dirname(default)
-  if (!file.exists(dir)) return(default)
-
-  pattern <- utils::glob2rx(basename(default)) # Not perfect, but safer than raw name
-  matches <- list.files(dir, pattern, ignore.case = TRUE,
-                        full.names = TRUE, include.dirs = TRUE, all.files = TRUE)
-  if (length(matches) == 0) return(default)
-
-  matches[[1]]
-}
-
 
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }
 
-rows_list <- function(df) {
-  lapply(seq_len(nrow(df)), function(i) as.list(df[i, ]))
+markdown_text <- function(text, ...) {
+  if (is.null(text))
+    return(text)
+
+  tmp <- tempfile()
+  on.exit(unlink(tmp), add = TRUE)
+
+  writeLines(text, tmp)
+  markdown(tmp, ...)
 }
 
-#' @importFrom markdown markdownToHTML
-markdown <- function(x = NULL, path = NULL) {
+markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
+  tmp <- tempfile(fileext = ".html")
+  on.exit(unlink(tmp), add = TRUE)
+
+  rmarkdown::pandoc_convert(
+    input = path,
+    output = tmp,
+    from = "markdown_github-hard_line_breaks",
+    to = "html",
+    options = list(
+      "--smart",
+      "--indented-code-classes=R",
+      ...
+    )
+  )
+
+  xml <- xml2::read_html(tmp, encoding = "UTF-8")
+  autolink_html(xml, depth = depth, index = index)
+
+  # Extract body of html - as.character renders as xml which adds
+  # significant whitespace in tags like pre
+  xml %>%
+    xml2::xml_find_first(".//body") %>%
+    xml2::write_html(tmp)
+
+  lines <- readLines(tmp, warn = FALSE)
+  lines <- sub("<body>", "", lines, fixed = TRUE)
+  lines <- sub("</body>", "", lines, fixed = TRUE)
+  paste(lines, collapse = "\n")
+}
+
+set_contains <- function(haystack, needles) {
+  all(needles %in% haystack)
+}
+
+mkdir <- function(..., quiet = FALSE) {
+  path <- file.path(...)
+
+  if (!file.exists(path)) {
+    if (!quiet)
+      message("Creating '", path, "/'")
+    dir.create(path, recursive = TRUE, showWarnings = FALSE)
+  }
+}
+
+rule <- function(..., pad = "-") {
+  if (nargs() == 0) {
+    title <- ""
+  } else {
+    title <- paste0(..., " ")
+  }
+  width <- max(getOption("width") - nchar(title) - 1, 0)
+  message(title, paste(rep(pad, width, collapse = "")))
+}
+
+out_path <- function(path, ...) {
   if (is.null(path)) {
-    if (is.null(x) || x == "") return("")
+    ""
+  } else {
+    file.path(path, ...)
   }
 
-  (markdownToHTML(text = x, file = path, fragment.only = TRUE,
-                  options = c("safelink", "use_xhtml", "smartypants")))
 }
 
-# Given the name or vector of names, returns a named vector reporting
-# whether each exists and is a directory.
-dir.exists <- function(x) {
-  res <- file.exists(x) & file.info(x)$isdir
-  stats::setNames(res, x)
+is_dir <- function(x) file.info(x)$isdir
+
+split_at_linebreaks <- function(text) {
+  if (length(text) < 1)
+    return(character())
+  trimws(strsplit(text, "\\n\\s*\\n")[[1]])
+}
+
+up_path <- function(depth) {
+  paste(rep.int("../", depth), collapse = "")
+}
+
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
+}
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
 }

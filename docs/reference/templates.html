@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Home. pkgdown</title>
+<title>template_navbar. pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,8 @@
 
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -47,18 +47,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">pkgdown</a>
+      <a class="navbar-brand" href="../index.html">pkgdown</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
-  <a href="articles/pkgdown.html">Overview</a>
+  <a href="../articles/pkgdown.html">Overview</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -75,22 +75,31 @@
       
       </header>
 
-      <div class="row">
+      <div class="page-header">
+  <h1>Generate YAML templates</h1>
+</div>
+
+<div class="row">
   <div class="col-md-9">
     
-<h1 id="pkgdown">pkgdown</h1>
-<p><a href="https://travis-ci.org/hadley/pkgdown"><img src="https://travis-ci.org/hadley/pkgdown.svg?branch=master" alt="Travis-CI Build Status"></a></p>
-<p>pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in pkgdown at <a href="http://hadley.github.io/pkgdown/" class="uri">http://hadley.github.io/pkgdown/</a>: this is the output of pkgdown applied to the latest version of pkgdown.</p>
-<h2 id="installation">Installation</h2>
-<p>pkgdown is not currently available from CRAN, but you can install the development version from github with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"hadley/pkgdown"</span>)</code></pre></div>
-<h2 id="usage">Usage</h2>
-<p>Run pkgdown from the package directory each time you release your package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgdown::<span class="kw"><a href="reference/build_site.html">build_site</a></span>()</code></pre></div>
-<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package&rsquo;s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to &ldquo;master branch /docs folder&rdquo;.</p>
-<p>The package also includes an RStudio add-in which you can bind to a keyboard shortcut. I recommend <code>Cmd + Shift + W</code>: it uses Cmd + Shift, like all other package development worksheets, it replaces a rarely used command (close all windows), and the W is mnemonic for website.</p>
+    <p>Use these function to generate the default YAML that pkgdown uses for
+the different parts of <code>_pkgdown.yml</code>. This are useful starting
+points if you want to customise your site.</p>
+    
 
+    <pre><span class='fu'>template_navbar</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='fu'>template_reference</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='fu'>template_articles</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    
+    <h2>Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>path</dt>
+      <dd>Path to package root</dd>
+    </dl>
+          </div>
+  <div class="col-md-3">
   </div>
 </div>
 

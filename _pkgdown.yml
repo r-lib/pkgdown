@@ -1,0 +1,29 @@
+title: pkgdown
+
+template:
+  bootswatch: cerulean
+
+reference:
+  - title: Build
+    desc:  Build each component of the site.
+    contents:
+    - starts_with("build_")
+    - init_site
+  - title: Templates
+    contents:
+    - template_navbar
+    - render_page
+
+navbar:
+  title: pkgdown
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: Overview
+    href: articles/pkgdown.html
+  - text: Reference
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/hadley/pkgdown
