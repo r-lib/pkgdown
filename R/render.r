@@ -59,6 +59,11 @@ data_template <- function(pkg = ".", depth = 0L) {
   desc <- pkg$desc
   name <- desc$get("Package")[[1]]
 
+  # Force inclusion so you can reliably refer to objects inside yaml
+  # in the moustache templates
+  yaml <- pkg$meta$template %||% list()
+  yaml$.present <- TRUE
+
   print_yaml(list(
     package = list(
       list(
@@ -72,7 +77,7 @@ data_template <- function(pkg = ".", depth = 0L) {
       root = up_path(depth),
       title = pkg$meta$title %||% name
     ),
-    yaml = pkg$meta$template
+    yaml = yaml
   ))
 }
 
