@@ -74,8 +74,7 @@
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
 #'   path.
-#' @param preview If \code{TRUE}, will preview freshly generated site in
-#'    RStudio
+#' @param preview If \code{TRUE}, will preview freshly generated site 
 #' @export
 #' @examples
 #' \dontrun{

@@ -20,8 +20,7 @@ path.}
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{preview}{If \code{TRUE}, will preview freshly generated site in
-RStudio}
+\item{preview}{If \code{TRUE}, will preview freshly generated site}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
