@@ -74,7 +74,6 @@
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
 #'   path.
-#' @param articles If \code{FALSE}, articles will not be (re)built
 #' @param preview If \code{TRUE}, will preview freshly generated site 
 #' @export
 #' @examples
@@ -85,7 +84,6 @@ build_site <- function(pkg = ".",
                        path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
-                       articles = TRUE,
                        mathjax = TRUE,
                        preview = interactive(),
                        seed = 1014
@@ -109,9 +107,7 @@ build_site <- function(pkg = ".",
     path = file.path(path, "reference"),
     depth = 1L
   )
-  if(articles) {
-    build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
-  }
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L)
   build_news(pkg, path = file.path(path, "news"), depth = 1L)
 
   if (preview) {
