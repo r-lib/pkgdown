@@ -5,8 +5,8 @@
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014)
+  run_dont_run = FALSE, articles = TRUE, mathjax = TRUE,
+  preview = interactive(), seed = 1014)
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -18,10 +18,11 @@ path.}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
+\item{articles}{If \code{FALSE}, articles will not be (re)built}
+
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{preview}{If \code{TRUE}, will preview freshly generated site in
-RStudio}
+\item{preview}{If \code{TRUE}, will preview freshly generated site}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
