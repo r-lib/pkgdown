@@ -3,9 +3,23 @@
 #' Your \code{NEWS.md} is parsed in to sections based on your use of
 #' headings. Each minor version (i.e. the combination of first and second
 #' components) gets on one page, with all patch versions (i.e. the third
-#' comoponent) on a single page. News items for development versions (by
-#' convention those versions with a four component) are displayed on an
+#' component) on a single page. News items for development versions (by
+#' convention those versions with a fourth component) are displayed on an
 #' an "unreleased" page.
+#'
+#' The \code{NEWS.md} file should be formatted somewhat like this:
+#'
+#' \preformatted{
+#' # pkgdown 0.1.0.9000
+#' 
+#' ## Major changes
+#'
+#'  - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
+#'
+#' ...
+#' }
+#'
+#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
 #'
 #' @section YAML config:
 #'
