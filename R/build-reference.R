@@ -130,19 +130,19 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
   out$description <- as_data(
     tags$tag_description[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
 
   out$usage <- as_data(
     tags$tag_usage[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
 
   out$arguments <- as_data(
     tags$tag_arguments[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
   if (length(out$arguments)) {
@@ -152,7 +152,7 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name,
     path = path
   )
@@ -164,7 +164,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$index, current = topic$name)
+    purrr::map(as_data, index = pkg$topics, current = topic$name)
 
   out
 }
