@@ -152,6 +152,7 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
+    topic = topic$name,
     index = pkg$topics,
     current = topic$name,
     path = path
