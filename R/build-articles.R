@@ -56,15 +56,13 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   rule("Building articles")
   mkdir(path)
 
-  # copy vignette Rmds from vignettes/ to docs/articles
-  copy_article <- function(file_in, ...) {
-    vig_path <- file.path(pkg$path, "vignettes", file_in)
-    article_path <- file.path(pkg$path, path, file_in)
-    file.copy(vig_path, article_path)
-  }
-  purrr::pwalk(pkg$vignettes, copy_article)
+  # copy everything from vignettes/ to docs/articles
+  vig_path <- file.path(pkg$path, "vignettes")
+  article_path <- file.path(pkg$path, path)
 
-  # render them in docs/articles and remove copied Rmd files when finished
+  copy_dir(vig_path, article_path)
+
+  # render the copied Rmds in docs/articles and remove it when finished
   render_article <- function(file_in, file_out, vig_depth, ...) {
     format <- build_rmarkdown_format(pkg, depth = vig_depth + depth)
     on.exit(unlink(format$path), add = TRUE)
