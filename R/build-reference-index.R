@@ -96,7 +96,7 @@ topic_matcher <- function(text) {
       starts_with = function(x) {
         function(topics) grepl(paste0("^", x), topics)
       },
-      ends_width = function(x) {
+      ends_with = function(x) {
         function(topics) grepl(paste0(x, "$"), topics)
       },
       matches = function(x) {
