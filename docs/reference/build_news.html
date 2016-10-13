@@ -83,8 +83,8 @@
     <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of
 headings. Each minor version (i.e. the combination of first and second
 components) gets on one page, with all patch versions (i.e. the third
-comoponent) on a single page. News items for development versions (by
-convention those versions with a four component) are displayed on an
+component) on a single page. News items for development versions (by
+convention those versions with a fourth component) are displayed on an
 an &quot;unreleased&quot; page.</p>
     
 
@@ -104,6 +104,19 @@ If <code>FALSE</code>, writes one file per major version.</dd>
 Used to adjust relative links in the navbar.</dd>
     </dl>
     
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The <code>NEWS.md</code> file should be formatted somewhat like this:</p>
+      <p><pre>
+# pkgdown 0.1.0.9000</p>
+      <p>## Major changes</p>
+      <p>- Fresh approach based on the staticdocs package. Site configuration now based on YAML files.</p>
+      <p>...
+</pre></p>
+      <p>Commonly used subsection headers include &#39;Major changes&#39;, &#39;Bug fixes&#39;, &#39;Minor changes&#39;.</p>
+    </div>
+
     <div class="YAML config">
       <h2>YAML config</h2>
 
