@@ -117,8 +117,8 @@ data_reference_topic <- function(topic,
   out <- list()
 
   # Single top-level converted to string
-  out$name <- as_html(tags$tag_name[[1]][[1]])
-  out$title <- as_html(tags$tag_title[[1]][[1]])
+  out$name <- flatten_text(tags$tag_name[[1]][[1]])
+  out$title <- flatten_text(tags$tag_title[[1]][[1]])
 
   out$pagetitle <- out$name
 
