@@ -69,7 +69,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
-    tweak_rmarkdown_html(path, depth = vig_depth + depth, index = pkg$topics)
+    update_rmarkdown_html(path, depth = vig_depth + depth, index = pkg$topics)
   }
   purrr::pwalk(pkg$vignettes, render_article)
 
@@ -100,9 +100,7 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
   )
 }
 
-tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
-
+tweak_rmarkdown_html <- function(html, depth = 1L, index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
 
@@ -110,11 +108,20 @@ tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
-  xml2::write_html(html, path, format = FALSE)
+  # Ensure all tables have class="table"
+  toc <- xml2::xml_find_all(html, ".//table")
+  xml2::xml_attr(toc, "class") <- "table"
 
-  path
+  invisible()
 }
 
+update_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
+  html <- xml2::read_html(path, encoding = "UTF-8")
+  tweak_rmarkdown_html(html)
+
+  xml2::write_html(html, path, format = FALSE)
+  path
+}
 
 
 # Articles index ----------------------------------------------------------
