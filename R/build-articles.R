@@ -56,16 +56,26 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   rule("Building articles")
   mkdir(path)
 
+  # copy everything from vignettes/ to docs/articles
+  vig_path <- file.path(pkg$path, "vignettes")
+  article_path <- file.path(pkg$path, path)
+
+  copy_dir(vig_path, article_path)
+
+  # render the copied Rmds in docs/articles and remove it when finished
   render_article <- function(file_in, file_out, vig_depth, ...) {
     format <- build_rmarkdown_format(pkg, depth = vig_depth + depth)
     on.exit(unlink(format$path), add = TRUE)
 
+    article_path <- file.path(pkg$path, path, file_in)
+    on.exit(unlink(article_path), add = TRUE)
+
     message("Building vignette '", file_in, "'")
+
     path <- rmarkdown::render(
-      file.path(pkg$path, "vignettes", file_in),
+      article_path,
       output_format = format$format,
       output_file = basename(file_out),
-      output_dir = file.path(path, dirname(file_out)),
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
