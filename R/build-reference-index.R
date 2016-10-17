@@ -10,7 +10,7 @@ build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
 data_reference_index <- function(pkg = ".", depth = 1L) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- pkg$meta$reference %||% default_reference_index(pkg)
+  meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
   sections <- meta %>%
     purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
     purrr::compact()
