@@ -57,14 +57,14 @@ read_meta <- function(path) {
 }
 
 find_meta <- function(path) {
-  path <- file.path(path, "_pkgdown.yml")
-  if (file.exists(path)) {
-    return(path)
+  yaml_path <- file.path(path, "_pkgdown.yml")
+  if (file.exists(yaml_path)) {
+    return(yaml_path)
   }
 
-  path <- file.path(path, "_pkgdown.yaml")
-  if (file.exists(path)) {
-    return(path)
+  yaml_path <- file.path(path, "_pkgdown.yaml")
+  if (file.exists(yaml_path)) {
+    return(yaml_path)
   }
 
   NULL
