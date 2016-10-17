@@ -15,8 +15,9 @@ build_home(pkg = ".", path = "docs", depth = 0L)
 Used to adjust relative links in the navbar.}
 }
 \description{
-First looks for \code{README.md}, then \code{index.md}. If neither is
-found, falls back to the description field in \code{DESCRIPTION}.
+First looks for \code{index.Rmd} or \code{README.Rmd}, then
+\code{index.md} or \code{README.md}. If none are found, falls back to the
+description field in \code{DESCRIPTION}.
 }
 \section{YAML config}{
 

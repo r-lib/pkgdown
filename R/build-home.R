@@ -1,7 +1,8 @@
 #' Build home page
 #'
-#' First looks for \code{README.md}, then \code{index.md}. If neither is
-#' found, falls back to the description field in \code{DESCRIPTION}.
+#' First looks for \code{index.Rmd} or \code{README.Rmd}, then
+#' \code{index.md} or \code{README.md}. If none are found, falls back to the
+#' description field in \code{DESCRIPTION}.
 #'
 #' @section YAML config:
 #' There are currently no options to control the appearance of the
@@ -12,25 +13,24 @@
 build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   rule("Building home")
 
-  data <- data_index(pkg)
-  render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
-}
-
-data_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-  path <- find_first_existing(
+  home_path <- find_first_existing(
     pkg$path,
-    c("index.md", "README.md")
+    c("index.Rmd", "README.Rmd", "index.md", "README.md")
   )
 
-  out <- list()
-  if (is.null(path)) {
-    out$index <- pkg$description
+  if (identical(tools::file_ext(home_path), "Rmd")) {
+    input <- file.path(path, basename(home_path))
+    file.copy(home_path, path)
+    render_article(pkg, input, "index.html", depth = depth, toc = FALSE)
   } else {
-    out$index <- markdown(path = path, depth = 0L, index = pkg$topics)
+    data <- list()
+    data$pagetitle <- "Home"
+
+    if (is.null(path)) {
+      data$index <- pkg$description
+    } else {
+      data$index <- markdown(path = home_path, depth = 0L, index = pkg$topics)
+    }
+    render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   }
-
-  out$pagetitle <- "Home"
-
-  out
 }

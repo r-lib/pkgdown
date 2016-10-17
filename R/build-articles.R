@@ -73,10 +73,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   invisible()
 }
 
-render_article <- function(pkg, input, output_file, depth = 1L) {
+render_article <- function(pkg, input, output_file, toc = TRUE, depth = 1L) {
   message("Building article '", output_file, "'")
 
-  format <- build_rmarkdown_format(pkg, depth = depth)
+  format <- build_rmarkdown_format(pkg, toc = toc, depth = depth)
   on.exit(unlink(format$path), add = TRUE)
 
   path <- rmarkdown::render(
@@ -89,7 +89,7 @@ render_article <- function(pkg, input, output_file, depth = 1L) {
   update_rmarkdown_html(path, depth = depth, index = pkg$topics)
 }
 
-build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
+build_rmarkdown_format <- function(pkg = ".", depth = 1L, toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
   data <- list(
@@ -102,7 +102,7 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
   list(
     path = path,
     format = rmarkdown::html_document(
-      toc = TRUE,
+      toc = toc,
       toc_depth = 2,
       self_contained = FALSE,
       theme = NULL,
