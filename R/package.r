@@ -45,7 +45,7 @@ read_desc <- function(path = ".") {
 # Metadata ----------------------------------------------------------------
 
 read_meta <- function(path) {
-  path <- find_meta(path)
+  path <- find_first_existing(path, c("_pkgdown.yml", "_pkgdown.yaml"))
 
   if (is.null(path)) {
     yaml <- list()
@@ -55,21 +55,6 @@ read_meta <- function(path) {
 
   yaml
 }
-
-find_meta <- function(path) {
-  yaml_path <- file.path(path, "_pkgdown.yml")
-  if (file.exists(yaml_path)) {
-    return(yaml_path)
-  }
-
-  yaml_path <- file.path(path, "_pkgdown.yaml")
-  if (file.exists(yaml_path)) {
-    return(yaml_path)
-  }
-
-  NULL
-}
-
 
 # Topics ------------------------------------------------------------------
 

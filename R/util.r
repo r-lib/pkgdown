@@ -124,3 +124,14 @@ copy_dir <- function(from, to) {
   to_paths <- file.path(to, from_files_rel)
   file.copy(from_files, to_paths, overwrite = TRUE)
 }
+
+
+find_first_existing <- function(path, ...) {
+  paths <- file.path(path, c(...))
+  for (path in paths) {
+    if (file.exists(path))
+      return(path)
+  }
+
+  NULL
+}

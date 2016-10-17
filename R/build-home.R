@@ -18,7 +18,10 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
 
 data_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  path <- find_index(pkg)
+  path <- find_first_existing(
+    pkg$path,
+    c("index.md", "README.md")
+  )
 
   out <- list()
   if (is.null(path)) {
@@ -30,20 +33,4 @@ data_index <- function(pkg = ".") {
   out$pagetitle <- "Home"
 
   out
-}
-
-find_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  path <- file.path(pkg$path, "README.md")
-  if (file.exists(path)) {
-    return(path)
-  }
-
-  path <- file.path(pkg$path, "index.md")
-  if (file.exists(path)) {
-    return(path)
-  }
-
-  NULL
 }
