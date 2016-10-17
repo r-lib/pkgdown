@@ -57,35 +57,39 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   mkdir(path)
 
   # copy everything from vignettes/ to docs/articles
-  vig_path <- file.path(pkg$path, "vignettes")
-  article_path <- file.path(pkg$path, path)
+  copy_dir(
+    file.path(pkg$path, "vignettes"),
+    file.path(pkg$path, path)
+  )
 
-  copy_dir(vig_path, article_path)
-
-  # render the copied Rmds in docs/articles and remove it when finished
-  render_article <- function(file_in, file_out, vig_depth, ...) {
-    format <- build_rmarkdown_format(pkg, depth = vig_depth + depth)
-    on.exit(unlink(format$path), add = TRUE)
-
-    article_path <- file.path(pkg$path, path, file_in)
-    on.exit(unlink(article_path), add = TRUE)
-
-    message("Building vignette '", file_in, "'")
-
-    path <- rmarkdown::render(
-      article_path,
-      output_format = format$format,
-      output_file = basename(file_out),
-      quiet = TRUE,
-      envir = new.env(parent = globalenv())
-    )
-    update_rmarkdown_html(path, depth = vig_depth + depth, index = pkg$topics)
-  }
-  purrr::pwalk(pkg$vignettes, render_article)
+  # Render each Rmd then delete them
+  data <- tibble::tibble(
+    input = file.path(pkg$path, path, pkg$vignettes$file_in),
+    output_file = pkg$vignettes$file_out,
+    depth = pkg$vignettes$vig_depth + depth
+  )
+  purrr::pwalk(data, render_article, pkg = pkg)
+  purrr::walk(data$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
 
   invisible()
+}
+
+render_article <- function(pkg, input, output_file, depth = 1L) {
+  message("Building article '", output_file, "'")
+
+  format <- build_rmarkdown_format(pkg, depth = depth)
+  on.exit(unlink(format$path), add = TRUE)
+
+  path <- rmarkdown::render(
+    input,
+    output_format = format$format,
+    output_file = output_file,
+    quiet = TRUE,
+    envir = new.env(parent = globalenv())
+  )
+  update_rmarkdown_html(path, depth = depth, index = pkg$topics)
 }
 
 build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
