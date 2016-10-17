@@ -57,14 +57,11 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   mkdir(path)
 
   # copy everything from vignettes/ to docs/articles
-  copy_dir(
-    file.path(pkg$path, "vignettes"),
-    file.path(pkg$path, path)
-  )
+  copy_dir(file.path(pkg$path, "vignettes"), path)
 
   # Render each Rmd then delete them
   data <- tibble::tibble(
-    input = file.path(pkg$path, path, pkg$vignettes$file_in),
+    input = file.path(path, pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + depth
   )
