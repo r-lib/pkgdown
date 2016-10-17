@@ -206,22 +206,63 @@ autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
   invisible()
 }
 
-# Only convert expressions of the form `foo()`.
+# Need to convert expressions of the form:
+# * foo()
+# * foo (but only in large code blocks)
+# * ?topic
+# * ?"topic-with-special-chars"
+# * package?docs
+# * vignette("name")
 link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   expr <- tryCatch(parse(text = x)[[1]], error = function(x) NULL)
-
-  ok <- (is.call(expr) && length(expr == 1)) || (!strict && is.name(expr))
-  if (!ok) {
+  if (is.null(expr)) {
     return(NA_character_)
   }
 
-  alias <- as.character(if (is.call(expr)) expr[[1]] else expr)
-  topic <- find_local_topic(alias, index = index)
+  if (is_call_vignette(expr)) {
+    href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
+    return(paste0("<a href='", href, "'>", x, "</a>"))
+  }
 
-  if (is.na(topic)) {
-    NA_character_
+  if (is_call_help(expr)) {
+    alias <- find_alias_help(expr)
+  } else if (is_call_fun(expr, strict)) {
+    alias <- find_alias_fun(expr)
   } else {
-    href <- paste0(up_path(depth), "reference/", topic, ".html")
-    paste0("<a href='", href, "'>", x, "</a>")
+    return(NA_character_)
+  }
+
+  topic <- find_local_topic(alias, index = index)
+  if (is.na(topic)) {
+    return(NA_character_)
+  }
+
+  href <- paste0(up_path(depth), "reference/", topic, ".html")
+  paste0("<a href='", href, "'>", x, "</a>")
+}
+
+is_call_fun <- function(x, strict = TRUE) {
+  (is.call(x) && length(x) == 1) || (!strict && is.name(x))
+}
+
+is_call_help <- function(x) {
+  is.call(x) && identical(x[[1]], quote(`?`))
+}
+
+is_call_vignette <- function(x) {
+  is.call(x) && identical(x[[1]], quote(vignette))
+}
+
+find_alias_fun <- function(x) {
+  as.character(if (is.call(x)) x[[1]] else x)
+}
+
+find_alias_help <- function(x) {
+  if (length(x) == 2) {
+    as.character(x[[2]])
+  } else if (length(x) == 3) {
+    paste0(x[[3]], "-", x[[2]])
+  } else {
+    NA_character_
   }
 }
