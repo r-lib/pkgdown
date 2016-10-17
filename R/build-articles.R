@@ -131,7 +131,7 @@ tweak_rmarkdown_html <- function(html, depth = 1L, index = NULL) {
 
 update_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
   html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html)
+  tweak_rmarkdown_html(html, depth = depth, index = index)
 
   xml2::write_html(html, path, format = FALSE)
   path
