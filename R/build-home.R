@@ -11,6 +11,7 @@
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = "docs", depth = 0L) {
+  pkg <- as_pkgdown(pkg)
   rule("Building home")
 
   home_path <- find_first_existing(
@@ -22,6 +23,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     input <- file.path(path, basename(home_path))
     file.copy(home_path, path)
     render_article(pkg, input, "index.html", depth = depth, toc = FALSE)
+    unlink(input)
   } else {
     data <- list()
     data$pagetitle <- "Home"
@@ -33,4 +35,6 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     }
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   }
+
+  invisible()
 }
