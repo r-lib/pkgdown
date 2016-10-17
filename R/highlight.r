@@ -254,7 +254,7 @@ is_call_vignette <- function(x) {
 }
 
 find_alias_fun <- function(x) {
-  as.character(if (is.call(x)) x[[1]] else x)
+  if (is.call(x)) deparse(x[[1]]) else as.character(x)
 }
 
 find_alias_help <- function(x) {
