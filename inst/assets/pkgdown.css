@@ -46,7 +46,7 @@ body {
 .ch,.st,.string {color:#375D81 ;}
 .kw,.keyword {font-weight:bolder ;color:black;}
 .argument {color:#264D66 ;}
-.co,.comment {color: #333;}
+.co,.comment {color: #777;}
 .formalargs {color: #264D66;}
 .eqformalargs {color:#264D66;}
 .slot {font-style:italic;}
