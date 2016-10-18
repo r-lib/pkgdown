@@ -22,7 +22,8 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   if (identical(tools::file_ext(home_path), "Rmd")) {
     input <- file.path(path, basename(home_path))
     file.copy(home_path, path)
-    render_article(pkg, input, "index.html", depth = depth, toc = FALSE)
+    render_article(pkg, input, "index.html", depth = depth, toc = FALSE,
+      strip_header = TRUE)
     unlink(input)
   } else {
     data <- list()

@@ -73,7 +73,8 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   invisible()
 }
 
-render_article <- function(pkg, input, output_file, toc = TRUE, depth = 1L) {
+render_article <- function(pkg, input, output_file, strip_header = FALSE,
+                           toc = TRUE, depth = 1L) {
   message("Building article '", output_file, "'")
 
   format <- build_rmarkdown_format(pkg, toc = toc, depth = depth)
@@ -86,7 +87,8 @@ render_article <- function(pkg, input, output_file, toc = TRUE, depth = 1L) {
     quiet = TRUE,
     envir = new.env(parent = globalenv())
   )
-  update_rmarkdown_html(path, depth = depth, index = pkg$topics)
+  update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
+    index = pkg$topics)
 }
 
 build_rmarkdown_format <- function(pkg = ".", depth = 1L, toc = TRUE) {
@@ -111,18 +113,20 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L, toc = TRUE) {
   )
 }
 
-tweak_rmarkdown_html <- function(html, depth = 1L, index = NULL) {
+tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
-
   # Remove unnused toc
-  toc_ignore <- xml2::xml_find_all(html, ".//div[contains(@class, 'toc-ignore')]")
-  if (length(toc_ignore) > 0)
-    xml2::xml_remove(toc_ignore, free = TRUE)
+
+  if (strip_header) {
+    header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
+    if (length(header) > 0)
+      xml2::xml_remove(header, free = TRUE)
+  }
 
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
@@ -132,9 +136,11 @@ tweak_rmarkdown_html <- function(html, depth = 1L, index = NULL) {
   invisible()
 }
 
-update_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
+update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L,
+                                  index = NULL) {
   html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html, depth = depth, index = index)
+  tweak_rmarkdown_html(html, strip_header = strip_header, depth = depth,
+    index = index)
 
   xml2::write_html(html, path, format = FALSE)
   path
