@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>build_home. pkgdown</title>
+<title>Build home page — build_home • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,8 +80,9 @@
 <div class="row">
   <div class="col-md-9">
     
-    <p>First looks for <code>README.md</code>, then <code>index.md</code>. If neither is
-found, falls back to the description field in <code>DESCRIPTION</code>.</p>
+    <p>First looks for <code>index.Rmd</code> or <code>README.Rmd</code>, then
+<code>index.md</code> or <code>README.md</code>. If none are found, falls back to the
+description field in <code>DESCRIPTION</code>.</p>
     
 
     <pre><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>

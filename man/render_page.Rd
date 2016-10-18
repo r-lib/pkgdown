@@ -3,7 +3,7 @@
 \name{render_page}
 \alias{data_template}
 \alias{render_page}
-\title{Render complete page.}
+\title{Render page with template}
 \usage{
 render_page(pkg = ".", name, data, path = "", depth = 0L)
 

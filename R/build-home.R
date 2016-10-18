@@ -18,16 +18,20 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     pkg$path,
     c("index.Rmd", "README.Rmd", "index.md", "README.md")
   )
+  title <- pkg$desc$get("Title")[[1]]
+
+
 
   if (identical(tools::file_ext(home_path), "Rmd")) {
     input <- file.path(path, basename(home_path))
     file.copy(home_path, path)
-    render_article(pkg, input, "index.html", depth = depth, toc = FALSE,
+    render_article(pkg, input, "index.html", depth = depth,
+      title = title,
+      toc = FALSE,
       strip_header = TRUE)
     unlink(input)
   } else {
-    data <- list()
-    data$pagetitle <- "Home"
+    data <- list(pagetitle = title)
 
     if (is.null(path)) {
       data$index <- pkg$description
