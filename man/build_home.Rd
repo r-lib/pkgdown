@@ -21,7 +21,16 @@ description field in \code{DESCRIPTION}.
 }
 \section{YAML config}{
 
-There are currently no options to control the appearance of the
-homepage.
+To tweak the home page, you need a section called \code{home}.
+
+You can add additional links to the sidebar with a subsection called
+\code{links}, which should contain a list of text + href elements:
+
+\preformatted{
+home:
+  links:
+  - text: Link text
+    href: http://website.com
+}
 }
 

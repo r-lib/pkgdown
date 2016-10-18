@@ -60,29 +60,30 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   copy_dir(file.path(pkg$path, "vignettes"), path)
 
   # Render each Rmd then delete them
-  data <- tibble::tibble(
+  articles <- tibble::tibble(
     input = file.path(path, pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + depth
   )
-  purrr::pwalk(data, render_article, pkg = pkg)
-  purrr::walk(data$input, unlink)
+  data <- list(pagetitle = "$title$")
+  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data)
+  purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
 
   invisible()
 }
 
-render_article <- function(pkg,
-                           input,
-                           output_file,
-                           strip_header = FALSE,
-                           title = "$title$",
-                           toc = TRUE,
-                           depth = 1L) {
+render_rmd <- function(pkg,
+                       input,
+                       output_file,
+                       strip_header = FALSE,
+                       data = list(),
+                       toc = TRUE,
+                       depth = 1L) {
   message("Building article '", output_file, "'")
 
-  format <- build_rmarkdown_format(pkg, depth = depth, title = title, toc = toc)
+  format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
   path <- rmarkdown::render(
@@ -98,12 +99,10 @@ render_article <- function(pkg,
 
 build_rmarkdown_format <- function(pkg = ".",
                                    depth = 1L,
-                                   title = "$title$",
+                                   data = list(),
                                    toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
-  data <- list(pagetitle = title)
-
   suppressMessages(
     render_page(pkg, "vignette", data, path, depth = depth)
   )

@@ -33,11 +33,10 @@ body {
 
 /* Table of contents --------------------------*/
 
-#tocnav h2 {
+.sidebar h2 {
   margin-top: 0;
   font-size: 1.5em;
 }
-
 
 /* Syntax highlighting ---------------------------------------------------- */
 

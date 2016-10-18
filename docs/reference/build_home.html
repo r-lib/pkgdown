@@ -102,8 +102,15 @@ Used to adjust relative links in the navbar.</dd>
       <h2>YAML config</h2>
 
       <p></p>
-      <p>There are currently no options to control the appearance of the
-homepage.</p>
+      <p>To tweak the home page, you need a section called <code>home</code>.</p>
+      <p>You can add additional links to the sidebar with a subsection called
+<code>links</code>, which should contain a list of text + href elements:</p>
+      <p><pre>
+home:
+  links:
+  - text: Link text
+    href: http://website.com
+</pre></p>
     </div>
       </div>
   <div class="col-md-3">

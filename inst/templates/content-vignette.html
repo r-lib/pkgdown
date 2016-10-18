@@ -43,7 +43,13 @@ $endfor$
 $body$
   </div>
 
-  <div class="col-md-3 hidden-xs">
+  <div class="sidebar col-md-3 hidden-xs">
+    {{#sidebar}}
+    <div>
+    {{{.}}}
+    </div>
+    {{/sidebar}}
+
     $if(toc)$
     <div id="tocnav">
       <h2>Contents</h2>
