@@ -84,6 +84,7 @@ build_site <- function(pkg = ".",
                        path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
+                       home_toc = FALSE,
                        mathjax = TRUE,
                        preview = interactive(),
                        seed = 1014
@@ -98,7 +99,7 @@ build_site <- function(pkg = ".",
   init_site(path, pkg$meta$assets_path)
 
   build_logo(pkg, path = path)
-  build_home(pkg, path = path)
+  build_home(pkg, path = path, home_toc = home_toc)
   build_reference(pkg,
     examples = TRUE,
     run_dont_run = TRUE,
