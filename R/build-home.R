@@ -9,8 +9,9 @@
 #' homepage.
 #'
 #' @inheritParams build_articles
+#' @param home_toc build TOC for home page?
 #' @export
-build_home <- function(pkg = ".", path = "docs", depth = 0L) {
+build_home <- function(pkg = ".", path = "docs", depth = 0L, home_toc = TRUE) {
   pkg <- as_pkgdown(pkg)
   rule("Building home")
 
@@ -27,7 +28,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     file.copy(home_path, path)
     render_article(pkg, input, "index.html", depth = depth,
       title = title,
-      toc = FALSE,
+      toc = home_toc,
       strip_header = TRUE)
     unlink(input)
   } else {

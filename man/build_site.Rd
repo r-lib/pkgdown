@@ -5,8 +5,8 @@
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014)
+  run_dont_run = FALSE, home_toc = FALSE, mathjax = TRUE,
+  preview = interactive(), seed = 1014)
 }
 \arguments{
 \item{pkg}{Path to source package.}

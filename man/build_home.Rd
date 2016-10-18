@@ -4,7 +4,7 @@
 \alias{build_home}
 \title{Build home page}
 \usage{
-build_home(pkg = ".", path = "docs", depth = 0L)
+build_home(pkg = ".", path = "docs", depth = 0L, home_toc = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -13,6 +13,8 @@ build_home(pkg = ".", path = "docs", depth = 0L)
 
 \item{depth}{Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.}
+
+\item{home_toc}{build TOC for home page?}
 }
 \description{
 First looks for \code{index.Rmd} or \code{README.Rmd}, then
