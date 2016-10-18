@@ -119,9 +119,15 @@ tweak_rmarkdown_html <- function(html, depth = 1L, index = NULL) {
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
+  # Remove unnused toc
+  toc_ignore <- xml2::xml_find_all(html, ".//div[contains(@class, 'toc-ignore')]")
+  if (length(toc_ignore) > 0)
+    xml2::xml_remove(toc_ignore, free = TRUE)
+
   # Ensure all tables have class="table"
-  toc <- xml2::xml_find_all(html, ".//table")
-  xml2::xml_attr(toc, "class") <- "table"
+  table <- xml2::xml_find_all(html, ".//table")
+  xml2::xml_attr(table, "class") <- "table"
+
 
   invisible()
 }
