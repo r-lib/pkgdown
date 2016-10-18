@@ -120,7 +120,7 @@ data_reference_topic <- function(topic,
   out$name <- flatten_text(tags$tag_name[[1]][[1]])
   out$title <- flatten_text(tags$tag_title[[1]][[1]])
 
-  out$pagetitle <- paste0(out$title, " — ", out$name)
+  out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
