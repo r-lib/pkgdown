@@ -116,7 +116,7 @@ copy_dir <- function(from, to) {
   from_dirs <- from_dirs[from_dirs != '']
 
   to_dirs <- file.path(to, from_dirs)
-  purrr::walk(to_dirs, dir.create)
+  purrr::walk(to_dirs, mkdir)
 
   from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
   from_files_rel <- list.files(from, recursive = TRUE)

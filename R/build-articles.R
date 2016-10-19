@@ -89,7 +89,7 @@ render_rmd <- function(pkg,
   path <- rmarkdown::render(
     input,
     output_format = format$format,
-    output_file = output_file,
+    output_file = basename(output_file),
     quiet = TRUE,
     envir = new.env(parent = globalenv())
   )
