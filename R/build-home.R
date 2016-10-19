@@ -138,7 +138,7 @@ data_link_github <- function(pkg = ".") {
   list(
     list(
       href = urls[which(github)[[1]]],
-      text = "Source code"
+      text = "Developed on GitHub"
     )
   )
 }
@@ -169,7 +169,7 @@ data_link_cran <- function(pkg = ".") {
   list(
     list(
       href = paste0("https://cran.r-project.org/package=", name),
-      text = "CRAN home"
+      text = "Released on CRAN"
     )
   )
 }
