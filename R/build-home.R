@@ -111,7 +111,7 @@ list_with_heading <- function(bullets, heading) {
 
   paste0(
     "<h2>", heading, "</h2>",
-    "<ul>\n",
+    "<ul class='list-unstyled'>\n",
     paste0(bullets, collapse = "\n"), "\n",
     "</ul>\n"
   )
@@ -137,7 +137,7 @@ data_link_github <- function(pkg = ".") {
   list(
     list(
       href = urls[which(github)[[1]]],
-      text = "Browse source code"
+      text = "Source code"
     )
   )
 }
