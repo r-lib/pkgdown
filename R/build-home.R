@@ -26,6 +26,12 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   pkg <- as_pkgdown(pkg)
   data <- data_home(pkg)
 
+  # Copy license file, if present
+  license_path <- file.path(pkg$path, "LICENSE")
+  if (file.exists(license_path)) {
+    file.copy(license_path, path)
+  }
+
   if (identical(tools::file_ext(data$path), "Rmd")) {
     input <- file.path(path, basename(data$path))
     file.copy(data$path, input)
@@ -65,6 +71,23 @@ data_home <- function(pkg = ".") {
 }
 
 data_home_sidebar <- function(pkg = ".") {
+  paste0(
+    data_home_sidebar_license(pkg),
+    data_home_sidebar_links(pkg),
+    collapse = "\n"
+  )
+}
+
+data_home_sidebar_license <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  paste0(
+    "<h2>License</h2>\n",
+    "<p>", autolink_license(pkg$desc$get("License")[[1]]), "</p>\n"
+  )
+}
+
+data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   links <- c(
@@ -77,16 +100,21 @@ data_home_sidebar <- function(pkg = ".") {
   if (length(links) == 0)
     return(NULL)
 
-  bullets <- links %>%
-    purrr::map_chr(~ paste0("<li><a href='", . $href, "'>", .$text, "</a></li>"))
+  links %>%
+    purrr::map_chr(~ paste0("<li><a href='", . $href, "'>", .$text, "</a></li>")) %>%
+    list_with_heading("Links")
+}
+
+list_with_heading <- function(bullets, heading) {
+  if (length(bullets) == 0)
+    return(character())
 
   paste0(
-    "<h2>Links</h2>",
+    "<h2>", heading, "</h2>",
     "<ul>\n",
     paste0(bullets, collapse = "\n"), "\n",
     "</ul>\n"
   )
-
 }
 
 data_link_meta <- function(pkg = ".") {
