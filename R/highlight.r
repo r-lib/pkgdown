@@ -149,14 +149,16 @@ link_remote <- function(label, topic, package) {
 }
 
 find_local_topic <- function(alias, index, current = NULL) {
+  if (is.null(alias))
+    return()
+
   match <- purrr::detect_index(index$alias, function(x) any(x == alias))
-  if (match == 0) {
-    return(NA_character_)
-  }
+  if (match == 0)
+    return()
 
   topic <- index$name[match]
   if (!is.null(current) && topic == current) {
-    NA_character_
+    NULL
   } else {
     topic
   }
@@ -164,7 +166,7 @@ find_local_topic <- function(alias, index, current = NULL) {
 
 link_local <- function(label, topic, index, current = NULL) {
   topic <- find_local_topic(topic, index = index, current = current)
-  if (is.na(topic)) {
+  if (is.null(topic)) {
     label
   } else {
     paste0("<a href='", paste0(topic, ".html"), "'>", label, "</a>")
@@ -193,7 +195,7 @@ autolink_html <- function(x, depth = 1L, index = NULL) {
 autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
   links <- nodes %>%
     xml2::xml_text() %>%
-    purrr::map_chr(link_html, strict = strict, index = index, depth = depth)
+    purrr::map_chr(autolink_call, strict = strict, index = index, depth = depth)
 
   has_link <- !is.na(links)
   if (!any(has_link))
@@ -213,7 +215,7 @@ autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
 # * ?"topic-with-special-chars"
 # * package?docs
 # * vignette("name")
-link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
+autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   expr <- tryCatch(parse(text = x)[[1]], error = function(x) NULL)
   if (is.null(expr)) {
     return(NA_character_)
@@ -224,16 +226,9 @@ link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
     return(paste0("<a href='", href, "'>", x, "</a>"))
   }
 
-  if (is_call_help(expr)) {
-    alias <- find_alias_help(expr)
-  } else if (is_call_fun(expr, strict)) {
-    alias <- find_alias_fun(expr)
-  } else {
-    return(NA_character_)
-  }
-
+  alias <- find_alias(expr, strict = strict)
   topic <- find_local_topic(alias, index = index)
-  if (is.na(topic)) {
+  if (is.null(topic)) {
     return(NA_character_)
   }
 
@@ -241,8 +236,28 @@ link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   paste0("<a href='", href, "'>", x, "</a>")
 }
 
-is_call_fun <- function(x, strict = TRUE) {
-  (is.call(x) && length(x) == 1) || (!strict && is.name(x))
+
+find_alias <- function(x, strict = TRUE) {
+  if (is_call_help(x)) {
+    if (length(x) == 2) {
+      as.character(x[[2]])
+    } else if (length(x) == 3) {
+      paste0(x[[3]], "-", x[[2]])
+    } else {
+      NULL
+    }
+  } else if (!strict && is.name(x)) {
+    as.character(x)
+  } else if (is.call(x)) {
+    fun <- x[[1]]
+    if (is.name(fun)) {
+      as.character(fun)
+    } else {
+      NULL
+    }
+  } else {
+    NULL
+  }
 }
 
 is_call_help <- function(x) {
@@ -251,18 +266,4 @@ is_call_help <- function(x) {
 
 is_call_vignette <- function(x) {
   is.call(x) && identical(x[[1]], quote(vignette))
-}
-
-find_alias_fun <- function(x) {
-  if (is.call(x)) deparse(x[[1]]) else as.character(x)
-}
-
-find_alias_help <- function(x) {
-  if (length(x) == 2) {
-    as.character(x[[2]])
-  } else if (length(x) == 3) {
-    paste0(x[[3]], "-", x[[2]])
-  } else {
-    NA_character_
-  }
 }
