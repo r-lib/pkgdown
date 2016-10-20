@@ -70,7 +70,7 @@ default_reference_index <- function(pkg = ".") {
     list(
       title = "All functions",
       desc = NULL,
-      contents = pkg$topics$name
+      contents = pkg$topics$name[!pkg$topics$internal]
     )
   ))
 }
