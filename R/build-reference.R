@@ -76,6 +76,18 @@ build_reference <- function(pkg = ".",
   invisible()
 }
 
+#' @export
+#' @rdname build_reference
+build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+  render_page(
+    pkg, "reference-index",
+    data = data_reference_index(pkg, depth = depth),
+    path = out_path(path, "index.html"),
+    depth = depth
+  )
+}
+
+
 build_reference_topic <- function(topic,
                                   pkg,
                                   examples = TRUE,
