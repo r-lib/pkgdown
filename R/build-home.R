@@ -37,6 +37,8 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     # Render once so that .md is up to date
     message("Updating README.md")
     rmarkdown::render(data$path, quiet = TRUE)
+    # In case preview_html = TRUE
+    unlink(file.path(pkg$path, "README.html"))
 
     input <- file.path(path, basename(data$path))
     file.copy(data$path, input)
