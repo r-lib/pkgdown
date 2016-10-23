@@ -25,10 +25,18 @@
 #'    control the display of your site. Recommended for advanced users
 #'    only.}
 #'  \item{template}{Additional metadata to be passed on to the template.
-#'     The default template supports \code{bootswatch} to customise the
-#'     overall theme with a bootswatch theme. You can see a complete list
-#'     and preview how they look at
-#'     \url{https://gallery.shinyapps.io/117-shinythemes/}.}
+#'    The default template supports
+#'    \itemize{
+#'      \item \code{bootswatch} to customise the
+#'        overall theme with a bootswatch theme. You can see a complete list
+#'        and preview how they look at
+#'        \url{https://gallery.shinyapps.io/117-shinythemes/}.
+#'      \item \code{ganalytics} to enable
+#'        \href{Google Analytics}{https://www.google.com/analytics/} by
+#'        providing your
+#'        \href{tracking id}{https://support.google.com/analytics/answer/1032385}
+#'        (e.g. \code{"UA-000000-01"}).
+#'    }}
 #' }
 #'
 #' You can also control the \code{navbar}. It uses the same syntax as
@@ -74,7 +82,7 @@
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
 #'   path.
-#' @param preview If \code{TRUE}, will preview freshly generated site 
+#' @param preview If \code{TRUE}, will preview freshly generated site
 #' @export
 #' @examples
 #' \dontrun{
