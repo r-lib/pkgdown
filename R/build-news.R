@@ -56,6 +56,7 @@ build_news_single <- function(pkg, path, depth) {
     pkg,
     "news",
     list(
+      version = "All releases",
       contents = news %>% purrr::transpose(),
       pagetitle = "All news"
     ),
@@ -116,7 +117,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   anchor <- sections %>%
     xml2::xml_attr("id")
 
-  re <- regexec("^([[:alpha:]]+)\\s+((\\d+\\.\\d+)(?:\\.\\d+)*)", titles)
+  re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
   is_version <- purrr::map_int(pieces, length) == 4
 

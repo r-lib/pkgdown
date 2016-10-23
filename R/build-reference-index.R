@@ -1,16 +1,7 @@
-build_reference_index <- function(pkg = ".", path = NULL, depth = 1L) {
-  render_page(
-    pkg, "reference-index",
-    data = data_reference_index(pkg, depth = depth),
-    path = out_path(path, "index.html"),
-    depth = depth
-  )
-}
-
 data_reference_index <- function(pkg = ".", depth = 1L) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- pkg$meta$reference %||% default_reference_index(pkg)
+  meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
   sections <- meta %>%
     purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
     purrr::compact()
@@ -70,7 +61,7 @@ default_reference_index <- function(pkg = ".") {
     list(
       title = "All functions",
       desc = NULL,
-      contents = pkg$topics$name
+      contents = pkg$topics$name[!pkg$topics$internal]
     )
   ))
 }
@@ -96,7 +87,7 @@ topic_matcher <- function(text) {
       starts_with = function(x) {
         function(topics) grepl(paste0("^", x), topics)
       },
-      ends_width = function(x) {
+      ends_with = function(x) {
         function(topics) grepl(paste0(x, "$"), topics)
       },
       matches = function(x) {

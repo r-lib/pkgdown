@@ -109,3 +109,29 @@ print_yaml <- function(x) {
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
+
+copy_dir <- function(from, to) {
+
+  from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
+  from_dirs <- from_dirs[from_dirs != '']
+
+  to_dirs <- file.path(to, from_dirs)
+  purrr::walk(to_dirs, mkdir)
+
+  from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
+  from_files_rel <- list.files(from, recursive = TRUE)
+
+  to_paths <- file.path(to, from_files_rel)
+  file.copy(from_files, to_paths, overwrite = TRUE)
+}
+
+
+find_first_existing <- function(path, ...) {
+  paths <- file.path(path, c(...))
+  for (path in paths) {
+    if (file.exists(path))
+      return(path)
+  }
+
+  NULL
+}

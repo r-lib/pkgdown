@@ -1,4 +1,4 @@
-#' Render complete page.
+#' Render page with template
 #'
 #' Each page is composed of four templates: "head", "header", "content", and
 #' "footer". Each of these templates is rendered using the \code{data}, and

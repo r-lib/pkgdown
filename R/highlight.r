@@ -149,14 +149,16 @@ link_remote <- function(label, topic, package) {
 }
 
 find_local_topic <- function(alias, index, current = NULL) {
+  if (is.null(alias))
+    return()
+
   match <- purrr::detect_index(index$alias, function(x) any(x == alias))
-  if (match == 0) {
-    return(NA_character_)
-  }
+  if (match == 0)
+    return()
 
   topic <- index$name[match]
   if (!is.null(current) && topic == current) {
-    NA_character_
+    NULL
   } else {
     topic
   }
@@ -164,7 +166,7 @@ find_local_topic <- function(alias, index, current = NULL) {
 
 link_local <- function(label, topic, index, current = NULL) {
   topic <- find_local_topic(topic, index = index, current = current)
-  if (is.na(topic)) {
+  if (is.null(topic)) {
     label
   } else {
     paste0("<a href='", paste0(topic, ".html"), "'>", label, "</a>")
@@ -193,7 +195,7 @@ autolink_html <- function(x, depth = 1L, index = NULL) {
 autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
   links <- nodes %>%
     xml2::xml_text() %>%
-    purrr::map_chr(link_html, strict = strict, index = index, depth = depth)
+    purrr::map_chr(autolink_call, strict = strict, index = index, depth = depth)
 
   has_link <- !is.na(links)
   if (!any(has_link))
@@ -206,22 +208,62 @@ autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
   invisible()
 }
 
-# Only convert expressions of the form `foo()`.
-link_html <- function(x, strict = TRUE, index = NULL, depth = 1L) {
+# Need to convert expressions of the form:
+# * foo()
+# * foo (but only in large code blocks)
+# * ?topic
+# * ?"topic-with-special-chars"
+# * package?docs
+# * vignette("name")
+autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   expr <- tryCatch(parse(text = x)[[1]], error = function(x) NULL)
-
-  ok <- (is.call(expr) && length(expr == 1)) || (!strict && is.name(expr))
-  if (!ok) {
+  if (is.null(expr)) {
     return(NA_character_)
   }
 
-  alias <- as.character(if (is.call(expr)) expr[[1]] else expr)
-  topic <- find_local_topic(alias, index = index)
-
-  if (is.na(topic)) {
-    NA_character_
-  } else {
-    href <- paste0(up_path(depth), "reference/", topic, ".html")
-    paste0("<a href='", href, "'>", x, "</a>")
+  if (is_call_vignette(expr)) {
+    href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
+    return(paste0("<a href='", href, "'>", x, "</a>"))
   }
+
+  alias <- find_alias(expr, strict = strict)
+  topic <- find_local_topic(alias, index = index)
+  if (is.null(topic)) {
+    return(NA_character_)
+  }
+
+  href <- paste0(up_path(depth), "reference/", topic, ".html")
+  paste0("<a href='", href, "'>", x, "</a>")
+}
+
+
+find_alias <- function(x, strict = TRUE) {
+  if (is_call_help(x)) {
+    if (length(x) == 2) {
+      as.character(x[[2]])
+    } else if (length(x) == 3) {
+      paste0(x[[3]], "-", x[[2]])
+    } else {
+      NULL
+    }
+  } else if (!strict && is.name(x)) {
+    as.character(x)
+  } else if (is.call(x)) {
+    fun <- x[[1]]
+    if (is.name(fun)) {
+      as.character(fun)
+    } else {
+      NULL
+    }
+  } else {
+    NULL
+  }
+}
+
+is_call_help <- function(x) {
+  is.call(x) && identical(x[[1]], quote(`?`))
+}
+
+is_call_vignette <- function(x) {
+  is.call(x) && identical(x[[1]], quote(vignette))
 }

@@ -44,12 +44,18 @@ $body$
   </div>
 
   <div class="col-md-3 hidden-xs">
-    $if(toc)$
-    <div id="tocnav">
-      <h2>Contents</h2>
-      $toc$
+    <div id="sidebar">
+      {{#sidebar}}
+      {{{.}}}
+      {{/sidebar}}
+
+      $if(toc)$
+      <div id="tocnav">
+        <h2>Contents</h2>
+        $toc$
+      </div>
+      $endif$
     </div>
-    $endif$
   </div>
 
 </div>

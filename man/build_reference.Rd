@@ -2,10 +2,13 @@
 % Please edit documentation in R/build-reference.R
 \name{build_reference}
 \alias{build_reference}
+\alias{build_reference_index}
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   mathjax = TRUE, seed = 1014, path = "docs/reference", depth = 1L)
+
+build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to source package.}

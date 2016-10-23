@@ -1,6 +1,6 @@
 ---
 author: "Hadley Wickham"
-title: "pkgdown"
+title: "Introduction to pkgdown"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{pkgdown}

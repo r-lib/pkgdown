@@ -76,6 +76,18 @@ build_reference <- function(pkg = ".",
   invisible()
 }
 
+#' @export
+#' @rdname build_reference
+build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+  render_page(
+    pkg, "reference-index",
+    data = data_reference_index(pkg, depth = depth),
+    path = out_path(path, "index.html"),
+    depth = depth
+  )
+}
+
+
 build_reference_topic <- function(topic,
                                   pkg,
                                   examples = TRUE,
@@ -117,10 +129,10 @@ data_reference_topic <- function(topic,
   out <- list()
 
   # Single top-level converted to string
-  out$name <- as_html(tags$tag_name[[1]][[1]])
-  out$title <- as_html(tags$tag_title[[1]][[1]])
+  out$name <- flatten_text(tags$tag_name[[1]][[1]])
+  out$title <- flatten_text(tags$tag_title[[1]][[1]])
 
-  out$pagetitle <- out$name
+  out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
@@ -130,19 +142,19 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
   out$description <- as_data(
     tags$tag_description[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
 
   out$usage <- as_data(
     tags$tag_usage[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
 
   out$arguments <- as_data(
     tags$tag_arguments[[1]],
-    index = pkg$index,
+    index = pkg$topics,
     current = topic$name
   )
   if (length(out$arguments)) {
@@ -152,7 +164,8 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
-    index = pkg$index,
+    topic = topic$name,
+    index = pkg$topics,
     current = topic$name,
     path = path
   )
@@ -164,7 +177,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$index, current = topic$name)
+    purrr::map(as_data, index = pkg$topics, current = topic$name)
 
   out
 }

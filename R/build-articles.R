@@ -56,34 +56,53 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   rule("Building articles")
   mkdir(path)
 
-  render_article <- function(file_in, file_out, vig_depth, ...) {
-    format <- build_rmarkdown_format(pkg, depth = vig_depth + depth)
-    on.exit(unlink(format$path), add = TRUE)
+  # copy everything from vignettes/ to docs/articles
+  copy_dir(file.path(pkg$path, "vignettes"), path)
 
-    message("Building vignette '", file_in, "'")
-    path <- rmarkdown::render(
-      file.path(pkg$path, "vignettes", file_in),
-      output_format = format$format,
-      output_file = basename(file_out),
-      output_dir = file.path(path, dirname(file_out)),
-      quiet = TRUE,
-      envir = new.env(parent = globalenv())
-    )
-    tweak_rmarkdown_html(path, depth = vig_depth + depth, index = pkg$topics)
-  }
-  purrr::pwalk(pkg$vignettes, render_article)
+  # Render each Rmd then delete them
+  articles <- tibble::tibble(
+    input = file.path(path, pkg$vignettes$file_in),
+    output_file = pkg$vignettes$file_out,
+    depth = pkg$vignettes$vig_depth + depth
+  )
+  data <- list(pagetitle = "$title$")
+  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data)
+  purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
 
   invisible()
 }
 
-build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
+render_rmd <- function(pkg,
+                       input,
+                       output_file,
+                       strip_header = FALSE,
+                       data = list(),
+                       toc = TRUE,
+                       depth = 1L) {
+  message("Building article '", output_file, "'")
+
+  format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
+  on.exit(unlink(format$path), add = TRUE)
+
+  path <- rmarkdown::render(
+    input,
+    output_format = format$format,
+    output_file = basename(output_file),
+    quiet = TRUE,
+    envir = new.env(parent = globalenv())
+  )
+  update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
+    index = pkg$topics)
+}
+
+build_rmarkdown_format <- function(pkg = ".",
+                                   depth = 1L,
+                                   data = list(),
+                                   toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
-  data <- list(
-    pagetitle = "$title$"
-  )
   suppressMessages(
     render_page(pkg, "vignette", data, path, depth = depth)
   )
@@ -91,7 +110,7 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
   list(
     path = path,
     format = rmarkdown::html_document(
-      toc = TRUE,
+      toc = toc,
       toc_depth = 2,
       self_contained = FALSE,
       theme = NULL,
@@ -100,21 +119,38 @@ build_rmarkdown_format <- function(pkg = ".", depth = 1L) {
   )
 }
 
-tweak_rmarkdown_html <- function(path, depth = 1L, index = NULL) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
-
+tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
+  # Remove unnused toc
 
-  xml2::write_html(html, path, format = FALSE)
+  if (strip_header) {
+    header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
+    if (length(header) > 0)
+      xml2::xml_remove(header, free = TRUE)
+  }
 
-  path
+  # Ensure all tables have class="table"
+  table <- xml2::xml_find_all(html, ".//table")
+  xml2::xml_attr(table, "class") <- "table"
+
+
+  invisible()
 }
 
+update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L,
+                                  index = NULL) {
+  html <- xml2::read_html(path, encoding = "UTF-8")
+  tweak_rmarkdown_html(html, strip_header = strip_header, depth = depth,
+    index = index)
+
+  xml2::write_html(html, path, format = FALSE)
+  path
+}
 
 
 # Articles index ----------------------------------------------------------
