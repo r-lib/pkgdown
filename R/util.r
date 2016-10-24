@@ -38,12 +38,14 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
     options = list(
       "--smart",
       "--indented-code-classes=R",
+      "--section-divs",
       ...
     )
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
   autolink_html(xml, depth = depth, index = index)
+  tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
   # significant whitespace in tags like pre
@@ -55,6 +57,36 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   lines <- sub("<body>", "", lines, fixed = TRUE)
   lines <- sub("</body>", "", lines, fixed = TRUE)
   paste(lines, collapse = "\n")
+}
+
+tweak_anchors <- function(html, only_contents = TRUE) {
+  if (only_contents) {
+    sections <- xml2::xml_find_all(html, ".//div[@class='contents']//div[@id]")
+  } else {
+    sections <- xml2::xml_find_all(html, "//div[@id]")
+  }
+
+  if (length(sections) == 0)
+    return()
+
+  anchors <- paste0("#", xml2::xml_attr(sections, "id"))
+  links <- paste0("<a href='", anchors, "' class='anchor'></a>")
+
+  headings <- xml2::xml_find_first(sections, ".//h2|h3|h4|h5")
+  xml2::xml_attr(headings, "class") <- "hasAnchor"
+
+  for (i in seq_along(headings)) {
+    # Insert anchor in first element of header
+    heading <- headings[[i]]
+    contents <- xml2::xml_contents(heading)
+
+    xml2::xml_add_sibling(
+      contents[[1]],
+      xml2::read_html(links[[i]]),
+      .where = "before"
+    )
+  }
+  invisible()
 }
 
 set_contains <- function(haystack, needles) {

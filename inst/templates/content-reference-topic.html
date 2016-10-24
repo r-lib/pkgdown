@@ -15,6 +15,7 @@
     {{/usage}}
 
     {{#has_args}}
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
     {{#arguments}}
@@ -22,23 +23,25 @@
       <dd>{{{description}}}</dd>
     {{/arguments}}
     </dl>
+    </div>
     {{/has_args}}
 
     {{#sections}}
-    <div class="{{title}}">
+    <div class="section">
       <h2>{{title}}</h2>
 
       {{#contents}}
       <p>{{{.}}}</p>
       {{/contents}}
-
     </div>
     {{/sections}}
 
     {{#examples}}
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples">{{{ . }}}</pre>
     {{/examples}}
+    </div>
   </div>
   <div class="col-md-3">
     {{#author}}

@@ -122,6 +122,7 @@ build_rmarkdown_format <- function(pkg = ".",
 tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
+  tweak_anchors(html)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")

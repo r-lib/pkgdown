@@ -40,6 +40,28 @@ code a {
   }
 }
 
+/* Section anchors ---------------------------------*/
+
+.hasAnchor {
+  margin-left: -30px;
+}
+
+a.anchor {
+  display:inline-block;
+  width: 30px;
+  height: 30px;
+  visibility: hidden;
+
+  background-image: url(./link.svg);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: center center;
+}
+
+.hasAnchor:hover a.anchor {
+  visibility: visible;
+}
+
 /* Fixes for fixed navbar --------------------------*/
 
 body {
