@@ -1,6 +1,7 @@
 # pkgdown
 
 [![Travis-CI Build Status](https://travis-ci.org/hadley/pkgdown.svg?branch=master)](https://travis-ci.org/hadley/pkgdown)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
 
 pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <http://hadley.github.io/pkgdown/>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in `vignette("pkgdown")` or `?build_site`.
 
