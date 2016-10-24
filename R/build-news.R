@@ -99,6 +99,8 @@ build_news_multi <- function(pkg, path, depth) {
   )
 }
 
+globalVariables(".")
+
 data_news <- function(pkg = ".", depth = 1L) {
   pkg <- as_pkgdown(pkg)
   html <- markdown(
