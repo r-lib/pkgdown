@@ -98,7 +98,9 @@ that aspect of the site.</p>
 
     <pre><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)</pre>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
+
+<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
     
     <div class="section">
     <h2>Arguments</h2>
@@ -129,14 +131,23 @@ reproducible.</dd>
       <p>There are four top-level YAML settings that affect the entire site:</p>
       <p><dl class='dl-horizontal'>
  <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
- <dt>assets_path</dt><dd>Path to directory of additional assets to be
-   copied into root directory of site. Use this when you want complete
-   control over the visual design of the site. Recommended for advanced
-   users only.</dd>
- <dt>template_path</dt><dd>Path to directory of templates. Override the
-   default (the templates built-in to pkgdown) to completely
-   control the display of your site. Recommended for advanced users
-   only.</dd>
+ <dt>assets</dt><dd>Specify either <code>path</code> or <code>package</code>. <code>path</code>
+   is a path relative to the site directory; <code>package</code> is an installed
+   containing directory <code>inst/pkgdown/assets/</code>.</p>
+      <p>All assets will copied into root directory of site. Use this when you
+   want complete control over the visual design of the site. Recommended for
+   advanced users only.</p>
+      <p>Set <code>include_default</code> to <code>false</code> if you don&#39;t want to
+   copy pkgdown&#39;s default assets (in which case you&#39;ll also need to
+   override the default <code>head</code> template.).
+   </dd>
+ <dt>templates</dt><dd>Specify either <code>path</code> or <code>package</code>. <code>path</code>
+   is a path relative to the site directory; <code>package</code> is an installed
+   containing directory <code>inst/pkgdown/templates/</code>.</p>
+      <p>Override the default (the templates built-in to pkgdown) to completely
+   control the display of your site. You don&#39;t need to supply all templates:
+   pkgdown will continue to use defaults for missing templates.
+   Recommended for advanced users only.</dd>
  <dt>template</dt><dd>Additional metadata to be passed on to the template.
     The default template supports <code>bootswatch</code> to customise the
     overall theme with a bootswatch theme. You can see a complete list

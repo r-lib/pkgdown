@@ -2,11 +2,14 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
+\alias{init_site}
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
   seed = 1014)
+
+init_site(pkg = ".", path = "docs")
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -43,14 +46,26 @@ There are four top-level YAML settings that affect the entire site:
 
 \describe{
  \item{title}{Site title, used in page title and default navbar.}
- \item{assets_path}{Path to directory of additional assets to be
-   copied into root directory of site. Use this when you want complete
-   control over the visual design of the site. Recommended for advanced
-   users only.}
- \item{template_path}{Path to directory of templates. Override the
-   default (the templates built-in to pkgdown) to completely
-   control the display of your site. Recommended for advanced users
-   only.}
+ \item{assets}{Specify either \code{path} or \code{package}. \code{path}
+   is a path relative to the site directory; \code{package} is an installed
+   containing directory \code{inst/pkgdown/assets/}.
+
+   All assets will copied into root directory of site. Use this when you
+   want complete control over the visual design of the site. Recommended for
+   advanced users only.
+
+   Set \code{include_default} to \code{false} if you don't want to
+   copy pkgdown's default assets (in which case you'll also need to
+   override the default \code{head} template.).
+   }
+ \item{templates}{Specify either \code{path} or \code{package}. \code{path}
+   is a path relative to the site directory; \code{package} is an installed
+   containing directory \code{inst/pkgdown/templates/}.
+
+   Override the default (the templates built-in to pkgdown) to completely
+   control the display of your site. You don't need to supply all templates:
+   pkgdown will continue to use defaults for missing templates.
+   Recommended for advanced users only.}
  \item{template}{Additional metadata to be passed on to the template.
     The default template supports \code{bootswatch} to customise the
     overall theme with a bootswatch theme. You can see a complete list

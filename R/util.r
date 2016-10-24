@@ -167,3 +167,10 @@ find_first_existing <- function(path, ...) {
 
   NULL
 }
+
+rel_path <- function(path, base = ".") {
+  old <- setwd(base)
+  on.exit(setwd(old))
+
+  normalizePath(path)
+}

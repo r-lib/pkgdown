@@ -32,22 +32,17 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
-  template_path <- pkg$meta$template_path
-  if (!is.null(template_path) && !file.exists(template_path)) {
-    stop("Can not find template path '", template_path, "'", call. = FALSE)
-  }
-
 
   # render template components
   pieces <- c("head", "header", "content", "footer")
   components <- pieces %>%
-    purrr::map_chr(find_template, name, template_path = template_path) %>%
+    purrr::map_chr(find_template, name, template_path = template_path(pkg)) %>%
     purrr::map(render_template, data = data) %>%
     purrr::set_names(pieces)
   components$navbar <- pkg$navbar(depth)
 
   # render complete layout
-  find_template("layout", name, template_path = template_path) %>%
+  find_template("layout", name, template_path = template_path(pkg)) %>%
     render_template(components) %>%
     write_if_different(path)
 }
@@ -79,6 +74,29 @@ data_template <- function(pkg = ".", depth = 0L) {
     ),
     yaml = yaml
   ))
+}
+
+template_path <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  template <- pkg$template
+
+  if (!is.null(template$path)) {
+    path <- rel_path(pkg$path, template_path)
+
+    if (!file.exists(path))
+      stop("Can not find template path '", path, "'", call. = FALSE)
+
+    path
+  } else if (!is.null(template$package)) {
+    system.file(
+      "pkgdown", "templates",
+      package = template$package,
+      mustWork = TRUE
+    )
+  } else {
+    character()
+  }
 }
 
 render_template <- function(path, data) {

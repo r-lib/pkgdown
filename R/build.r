@@ -16,14 +16,26 @@
 #'
 #' \describe{
 #'  \item{title}{Site title, used in page title and default navbar.}
-#'  \item{assets_path}{Path to directory of additional assets to be
-#'    copied into root directory of site. Use this when you want complete
-#'    control over the visual design of the site. Recommended for advanced
-#'    users only.}
-#'  \item{template_path}{Path to directory of templates. Override the
-#'    default (the templates built-in to pkgdown) to completely
-#'    control the display of your site. Recommended for advanced users
-#'    only.}
+#'  \item{assets}{Specify either \code{path} or \code{package}. \code{path}
+#'    is a path relative to the site directory; \code{package} is an installed
+#'    containing directory \code{inst/pkgdown/assets/}.
+#'
+#'    All assets will copied into root directory of site. Use this when you
+#'    want complete control over the visual design of the site. Recommended for
+#'    advanced users only.
+#'
+#'    Set \code{include_default} to \code{false} if you don't want to
+#'    copy pkgdown's default assets (in which case you'll also need to
+#'    override the default \code{head} template.).
+#'    }
+#'  \item{templates}{Specify either \code{path} or \code{package}. \code{path}
+#'    is a path relative to the site directory; \code{package} is an installed
+#'    containing directory \code{inst/pkgdown/templates/}.
+#'
+#'    Override the default (the templates built-in to pkgdown) to completely
+#'    control the display of your site. You don't need to supply all templates:
+#'    pkgdown will continue to use defaults for missing templates.
+#'    Recommended for advanced users only.}
 #'  \item{template}{Additional metadata to be passed on to the template.
 #'     The default template supports \code{bootswatch} to customise the
 #'     overall theme with a bootswatch theme. You can see a complete list
@@ -74,7 +86,7 @@
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
 #'   path.
-#' @param preview If \code{TRUE}, will preview freshly generated site 
+#' @param preview If \code{TRUE}, will preview freshly generated site
 #' @export
 #' @examples
 #' \dontrun{
@@ -95,7 +107,7 @@ build_site <- function(pkg = ".",
     path <- file.path(pkg$path, path)
   }
 
-  init_site(path, pkg$meta$assets_path)
+  init_site(pkg, path)
 
   build_logo(pkg, path = path)
   build_home(pkg, path = path)
@@ -125,17 +137,37 @@ build_site_rstudio <- function() {
   build_site(preview = TRUE)
 }
 
-init_site <- function(path, assets_path = NULL) {
+#' @export
+#' @rdname build_site
+init_site <- function(pkg = ".", path = "docs") {
   rule("Initialising site")
 
   mkdir(path)
-  if (is.null(assets_path) || !file.exists(assets_path)) {
-    assets_path <- file.path(inst_path(), "assets")
-  }
 
-  assets <- dir(assets_path, full.names = TRUE)
+  assets <- data_assets(pkg)
   for (asset in assets) {
     message("Copying '", asset, "'")
     file.copy(asset, path, recursive = TRUE)
   }
 }
+
+data_assets <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  assets <- pkg$meta$assets
+  paths <- c(
+    if (!is.null(assets$path))
+      rel_path(assets$path, base = pkg$path),
+    if (!is.null(assets$package))
+      system.file("pkgdown", "assets", package = assets$package, mustWork = TRUE),
+    if (!identical(assets$include_default, FALSE)) {
+      file.path(inst_path(), "assets")
+    }
+  )
+
+  if (length(paths) == 0)
+    return(character())
+
+  dir(paths, full.names = TRUE)
+}
+
