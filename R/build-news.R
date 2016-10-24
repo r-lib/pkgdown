@@ -114,8 +114,15 @@ data_news <- function(pkg = ".", depth = 1L) {
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text()
+
+  # A dot in the anchor breaks scrollspy
   anchor <- sections %>%
-    xml2::xml_attr("id")
+    xml2::xml_attr("id") %>%
+    gsub(".", "-", ., fixed = TRUE)
+
+  # Update IDs with the new anchor names
+  purrr::map2(sections, anchor,
+              function(node, id_value) xml2::xml_attr(node, "id") <- id_value)
 
   re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
