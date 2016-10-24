@@ -136,7 +136,7 @@ same_contents <- function(path, contents) {
 made_by_pkgdown <- function(path) {
   if (!file.exists(path)) return(TRUE)
 
-  first <- readLines(path, n = 1)
+  first <- paste(readLines(path, n = 2), collapse = "\n")
   check_made_by(first)
 }
 

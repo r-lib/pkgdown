@@ -59,9 +59,45 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   }
 
+  update_homepage_html(out_path(path, "index.html"))
+
   invisible()
 }
 
+tweak_homepage_html <- function(html, strip_header = FALSE) {
+  first_para <- xml2::xml_find_first(html, "//p")
+  badges <- first_para %>% xml2::xml_children()
+  has_badges <- all(xml2::xml_name(badges) %in% "a")
+
+  if (has_badges) {
+    entries <- paste0("  <p>", as.character(badges, html = TRUE), "</p>\n")
+    list <- paste0(
+      "<h2>Status</h2>\n",
+      paste0(entries, collapse = "")
+    )
+
+    html %>%
+      xml2::xml_find_first(".//div[@id='sidebar']") %>%
+      xml2::xml_add_child(xml2::read_html(list))
+
+    xml2::xml_remove(first_para)
+  }
+
+  if (strip_header) {
+    header <- xml2::xml_find_first(html, ".//h1")
+    xml2::xml_remove(header, free = TRUE)
+  }
+
+  invisible()
+}
+
+update_homepage_html <- function(path, strip_header = FALSE) {
+  html <- xml2::read_html(path, encoding = "UTF-8")
+  tweak_homepage_html(html, strip_header = strip_header)
+
+  xml2::write_html(html, path, format = FALSE)
+  path
+}
 
 data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
