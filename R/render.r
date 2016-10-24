@@ -34,12 +34,11 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
 
   # render template components
-  pieces <- c("head", "header", "content", "footer")
+  pieces <- c("head", "navbar", "header", "content", "footer")
   components <- pieces %>%
     purrr::map_chr(find_template, name, template_path = template_path(pkg)) %>%
     purrr::map(render_template, data = data) %>%
     purrr::set_names(pieces)
-  components$navbar <- pkg$navbar(depth)
 
   # render complete layout
   find_template("layout", name, template_path = template_path(pkg)) %>%
@@ -61,17 +60,16 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   print_yaml(list(
     package = list(
-      list(
-        name = name,
-        version = desc$get("Version")[[1]]
-        # authors = purrr::map(desc$get_authors(), str_person),
-        # license = desc$get("License")
-      )
+      name = name,
+      version = desc$get("Version")[[1]]
+      # authors = purrr::map(desc$get_authors(), str_person),
+      # license = desc$get("License")
     ),
     site = list(
       root = up_path(depth),
       title = pkg$meta$title %||% name
     ),
+    navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
   ))
 }

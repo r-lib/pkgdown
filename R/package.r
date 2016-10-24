@@ -13,8 +13,7 @@ as_pkgdown <- function(path = ".") {
       desc = read_desc(path),
       meta = read_meta(path),
       topics = topic_index(path),
-      vignettes = vignette_index(path),
-      navbar = build_navbar(path)
+      vignettes = vignette_index(path)
     ),
     class = "pkgdown"
   )

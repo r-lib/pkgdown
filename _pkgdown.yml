@@ -15,8 +15,6 @@ reference:
     - render_page
 
 navbar:
-  title: pkgdown
-  type: default
   left:
   - text: Home
     href: index.html

@@ -17,7 +17,7 @@ Imports:
     magick,
     magrittr,
     purrr,
-    rmarkdown (>= 1.0.9016),
+    rmarkdown (>= 1.1.9007),
     tibble,
     tools,
     whisker,
