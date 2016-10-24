@@ -19,6 +19,15 @@ footer p {
   color: #555;
 }
 
+code {
+  background-color: #f7f7f7;
+  color: #333;
+}
+code a {
+  color: #375f84;
+}
+
+
 @media screen and (min-width: 1024px) {
   .side-by-side {
     display: flex;
