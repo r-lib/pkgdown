@@ -1,7 +1,6 @@
-title: pkgdown
-
-template:
-  bootswatch: cerulean
+templates:
+  params:
+    bootswatch: cerulean
 
 reference:
   - title: Build

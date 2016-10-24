@@ -13,34 +13,37 @@
 #' @section YAML config:
 #'
 #' There are four top-level YAML settings that affect the entire site:
+#' \code{title}, \code{assets}, \code{templates}, and \code{navbar}.
 #'
-#' \describe{
-#'  \item{title}{Site title, used in page title and default navbar.}
-#'  \item{assets}{Specify either \code{path} or \code{package}. \code{path}
-#'    is a path relative to the site directory; \code{package} is an installed
-#'    containing directory \code{inst/pkgdown/assets/}.
+#' \code{title} overrides the default site title, which is the package name.
+#' It's used in the page title and default navbar.
 #'
-#'    All assets will copied into root directory of site. Use this when you
-#'    want complete control over the visual design of the site. Recommended for
-#'    advanced users only.
+#' \code{assets} describes where to find arbitrary additional files to
+#' copy into \code{path}. Use this when you need additional control over the
+#' visual design of the site. Recommended for advanced users only. Specify
+#' either \code{path} or \code{package}: \code{path} is a path relative to the
+#' site directory; \code{package} is an installed containing directory
+#' \code{inst/pkgdown/assets/}. Set \code{include_default} to \code{false} if
+#' you don't want to copy pkgdown's default assets (in which case you'll also
+#' need to override the default \code{head} template.
 #'
-#'    Set \code{include_default} to \code{false} if you don't want to
-#'    copy pkgdown's default assets (in which case you'll also need to
-#'    override the default \code{head} template.).
-#'    }
-#'  \item{templates}{Specify either \code{path} or \code{package}. \code{path}
-#'    is a path relative to the site directory; \code{package} is an installed
-#'    containing directory \code{inst/pkgdown/templates/}.
+#' \code{templates} overrides the built-in templates. You don't need to supply
+#' all templates: pkgdown will continue to use defaults for missing templates.
+#' Recommended for advanced users only. Specify either \code{path} or
+#' \code{package}. \code{path} is a path relative to the site directory;
+#' \code{package} is an installed containing directory
+#' \code{inst/pkgdown/templates/}.
 #'
-#'    Override the default (the templates built-in to pkgdown) to completely
-#'    control the display of your site. You don't need to supply all templates:
-#'    pkgdown will continue to use defaults for missing templates.
-#'    Recommended for advanced users only.}
-#'  \item{template}{Additional metadata to be passed on to the template.
-#'     The default template supports \code{bootswatch} to customise the
-#'     overall theme with a bootswatch theme. You can see a complete list
-#'     and preview how they look at
-#'     \url{https://gallery.shinyapps.io/117-shinythemes/}.}
+#' You can put additional parameters to be passed onto the templates in
+#' \code{params}. The default template supports \code{bootswatch} to
+#' customise the overall theme with a bootswatch theme. You can see a
+#' complete list of themes and preview how they look at
+#' \url{https://gallery.shinyapps.io/117-shinythemes/}:
+#'
+#' \preformatted{
+#' templates:
+#'   params:
+#'     bootswatch: cerulean
 #' }
 #'
 #' You can also control the \code{navbar}. It uses the same syntax as

@@ -129,32 +129,34 @@ reproducible.</dd>
       <h2>YAML config</h2>
 
       <p></p>
-      <p>There are four top-level YAML settings that affect the entire site:</p>
-      <p><dl class='dl-horizontal'>
- <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
- <dt>assets</dt><dd>Specify either <code>path</code> or <code>package</code>. <code>path</code>
-   is a path relative to the site directory; <code>package</code> is an installed
-   containing directory <code>inst/pkgdown/assets/</code>.</p>
-      <p>All assets will copied into root directory of site. Use this when you
-   want complete control over the visual design of the site. Recommended for
-   advanced users only.</p>
-      <p>Set <code>include_default</code> to <code>false</code> if you don&#39;t want to
-   copy pkgdown&#39;s default assets (in which case you&#39;ll also need to
-   override the default <code>head</code> template.).
-   </dd>
- <dt>templates</dt><dd>Specify either <code>path</code> or <code>package</code>. <code>path</code>
-   is a path relative to the site directory; <code>package</code> is an installed
-   containing directory <code>inst/pkgdown/templates/</code>.</p>
-      <p>Override the default (the templates built-in to pkgdown) to completely
-   control the display of your site. You don&#39;t need to supply all templates:
-   pkgdown will continue to use defaults for missing templates.
-   Recommended for advanced users only.</dd>
- <dt>template</dt><dd>Additional metadata to be passed on to the template.
-    The default template supports <code>bootswatch</code> to customise the
-    overall theme with a bootswatch theme. You can see a complete list
-    and preview how they look at
-    <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>.</dd>
-</dl></p>
+      <p>There are four top-level YAML settings that affect the entire site:
+<code>title</code>, <code>assets</code>, <code>templates</code>, and <code>navbar</code>.</p>
+      <p><code>title</code> overrides the default site title, which is the package name.
+It&#39;s used in the page title and default navbar.</p>
+      <p><code>assets</code> describes where to find arbitrary additional files to
+copy into <code>path</code>. Use this when you need additional control over the
+visual design of the site. Recommended for advanced users only. Specify
+either <code>path</code> or <code>package</code>: <code>path</code> is a path relative to the
+site directory; <code>package</code> is an installed containing directory
+<code>inst/pkgdown/assets/</code>. Set <code>include_default</code> to <code>false</code> if
+you don&#39;t want to copy pkgdown&#39;s default assets (in which case you&#39;ll also
+need to override the default <code>head</code> template.</p>
+      <p><code>templates</code> overrides the built-in templates. You don&#39;t need to supply
+all templates: pkgdown will continue to use defaults for missing templates.
+Recommended for advanced users only. Specify either <code>path</code> or
+<code>package</code>. <code>path</code> is a path relative to the site directory;
+<code>package</code> is an installed containing directory
+<code>inst/pkgdown/templates/</code>.</p>
+      <p>You can put additional parameters to be passed onto the templates in
+<code>params</code>. The default template supports <code>bootswatch</code> to
+customise the overall theme with a bootswatch theme. You can see a
+complete list of themes and preview how they look at
+<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+      <p><pre>
+templates:
+  params:
+    bootswatch: cerulean
+</pre></p>
       <p>You can also control the <code>navbar</code>. It uses the same syntax as
 <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>

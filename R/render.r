@@ -55,7 +55,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the moustache templates
-  yaml <- pkg$meta$template %||% list()
+  yaml <- pkg$meta$templates$params %||% list()
   yaml$.present <- TRUE
 
   print_yaml(list(
@@ -77,7 +77,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 template_path <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  template <- pkg$template
+  template <- pkg$meta$templates
 
   if (!is.null(template$path)) {
     path <- rel_path(pkg$path, template_path)
