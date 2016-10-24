@@ -72,7 +72,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   anchors <- paste0("#", xml2::xml_attr(sections, "id"))
   links <- paste0("<a href='", anchors, "' class='anchor'></a>")
 
-  headings <- xml2::xml_find_first(sections, ".//h2|h3|h4|h5")
+  headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
   xml2::xml_attr(headings, "class") <- "hasAnchor"
 
   for (i in seq_along(headings)) {
