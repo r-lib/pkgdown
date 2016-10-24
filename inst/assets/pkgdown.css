@@ -19,6 +19,18 @@ footer p {
   color: #555;
 }
 
+@media screen and (min-width: 1024px) {
+  .side-by-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .side-by-side .section {
+    width: 45%;
+  }
+}
+
 /* Fixes for fixed navbar --------------------------*/
 
 body {

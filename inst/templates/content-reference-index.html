@@ -3,18 +3,21 @@
 </div>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 side-by-side">
     {{#sections}}
     <div class="section {{class}}">
       <h2>{{title}}</h2>
       <p class="section-desc">{{{desc}}}</p>
 
-      <dl class="dl-horizontal">
       {{#contents}}
-        {{#aliases}}<dt><a href="{{path}}">{{.}}</a></dt>{{/aliases}}
-        <dd>{{title}}</dd>
+      <div class="topic">
+        <p><a href="{{path}}">{{title}}</a></p>
+        <ul>
+          {{#aliases}}<li><a href="{{path}}"><code>{{.}}</code></a></li>{{/aliases}}
+        </ul>
+      </div>
       {{/contents}}
-      </dl>
+
     </div>
     {{/sections}}
   </div>
