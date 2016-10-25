@@ -22,9 +22,7 @@ reference:
 
 navbar:
   left:
-  - text: Home
-    href: index.html
-  - text: Overview
+  - text: Intro
     href: articles/pkgdown.html
   - text: Reference
     href: reference/index.html
