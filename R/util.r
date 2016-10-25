@@ -174,3 +174,17 @@ rel_path <- function(path, base = ".") {
 
   normalizePath(path)
 }
+
+package_path <- function(package, path) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    stop(package, " is not installed", call. = FALSE)
+  }
+
+  pkg_path <- system.file("pkgdown", path, package = package)
+  if (pkg_path == "") {
+    stop(package, " does not contain 'inst/pkgdown/", path, "'", call. = FALSE)
+  }
+
+  pkg_path
+
+}

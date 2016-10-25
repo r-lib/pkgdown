@@ -77,7 +77,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 template_path <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  template <- pkg$meta$templates
+  template <- pkg$meta[["template"]]
 
   if (!is.null(template$path)) {
     path <- rel_path(pkg$path, template_path)
@@ -87,11 +87,7 @@ template_path <- function(pkg = ".") {
 
     path
   } else if (!is.null(template$package)) {
-    system.file(
-      "pkgdown", "templates",
-      package = template$package,
-      mustWork = TRUE
-    )
+    package_path(template$package, "templates")
   } else {
     character()
   }

@@ -130,35 +130,17 @@ reproducible.</dd>
 
       <p></p>
       <p>There are four top-level YAML settings that affect the entire site:
-<code>title</code>, <code>assets</code>, <code>templates</code>, and <code>navbar</code>.</p>
+<code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
       <p><code>title</code> overrides the default site title, which is the package name.
 It&#39;s used in the page title and default navbar.</p>
-      <p><code>assets</code> describes where to find arbitrary additional files to
-copy into <code>path</code>. Use this when you need additional control over the
-visual design of the site. Recommended for advanced users only. Specify
-either <code>path</code> or <code>package</code>: <code>path</code> is a path relative to the
-site directory; <code>package</code> is an installed containing directory
-<code>inst/pkgdown/assets/</code>. Set <code>include_default</code> to <code>false</code> if
-you don&#39;t want to copy pkgdown&#39;s default assets (in which case you&#39;ll also
-need to override the default <code>head</code> template.</p>
-      <p><code>templates</code> overrides the built-in templates. You don&#39;t need to supply
-all templates: pkgdown will continue to use defaults for missing templates.
-Recommended for advanced users only. Specify either <code>path</code> or
-<code>package</code>. <code>path</code> is a path relative to the site directory;
-<code>package</code> is an installed containing directory
-<code>inst/pkgdown/templates/</code>.</p>
-      <p>You can put additional parameters to be passed onto the templates in
-<code>params</code>. The default template supports <code>bootswatch</code> to
-customise the overall theme with a bootswatch theme. You can see a
-complete list of themes and preview how they look at
-<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
-      <p><pre>
-templates:
-  params:
-    bootswatch: cerulean
-</pre></p>
-      <p>You can also control the <code>navbar</code>. It uses the same syntax as
-<a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
+    </div>
+
+    <div class="section">
+      <h2>YAML config - navbar</h2>
+
+      <p></p>
+      <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
+syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>
       <p><pre>
 navbar:
@@ -191,6 +173,46 @@ Components can contain sub-<code>menu</code>s with headings (indicated by missin
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 <a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
+      <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
+will be automatically filled in from the default navbar: you can see
+those values by running <code><a href='template_navbar.html'>template_navbar</a>()</code>.</p>
+    </div>
+
+    <div class="section">
+      <h2>YAML config - template</h2>
+
+      <p></p>
+      <p>You can get complete control over the appearance of the site using the
+<code>template</code> component. There are two components to the template:
+the HTML templates used to layout each page, and the css/js assets
+used to render the page in the browser.</p>
+      <p>The easiest way to tweak the default style is to use a bootswatch template,
+by passing on the <code>bootswatch</code> template parameter to the built-in
+template:</p>
+      <p><pre>
+template:
+  params:
+    bootswatch: cerulean
+</pre></p>
+      <p>See a complete list of themes and preview how they look at
+<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+      <p>You can also override the default templates and provide additional
+assets. You can do so by either storing in a <code>package</code> with
+directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
+or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
+of the default assets, set <code>default_assets</code> to false.</p>
+      <p><pre>
+template:
+  package: mycustompackage</p>
+      <p># OR:</p>
+      <p>template:
+  path: path/to/templates
+  assets: path/to/assets
+  default_assets: false
+</pre></p>
+      <p>These settings are currently recommended for advanced users only. There
+is little documentation, and you&#39;ll need to read the existing source
+for pkgdown templates to ensure that you use the correct components.</p>
     </div>
     
     <div class="section">
