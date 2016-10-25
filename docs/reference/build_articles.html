@@ -71,12 +71,12 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Build articles</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Build articles</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
@@ -86,8 +86,10 @@ template.</p>
 
     <pre><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
@@ -97,18 +99,16 @@ template.</p>
       <dd>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>YAML config</h2>
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-      <p></p>
-      <p>To tweak the index page, you need a section called <code>articles</code>,
+    <p></p>
+    <p>To tweak the index page, you need a section called <code>articles</code>,
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
-      <p>For example, this imaginary file describes some of the structure of
+    <p>For example, this imaginary file describes some of the structure of
 the <a href = 'R markdown articles'>http://rmarkdown.rstudio.com/articles.html</a>:</p>
-      <p><pre>
+    <p><pre>
 articles:
 - title: R Markdown
   contents:
@@ -118,29 +118,36 @@ articles:
   - rmarkdown_websites
   - rmarkdown_site_generators
 </pre></p>
-      <p>Note that <code>contents</code> can contain either a list of vignette names
+    <p>Note that <code>contents</code> can contain either a list of vignette names
 (including subdirectories), or if the functions in a section share a
 common prefix or suffix, you can use <code>starts_with(&quot;prefix&quot;)</code> and
 <code>ends_with(&quot;suffix&quot;)</code> to select them all. For more complex naming
 schemes you can use an aribrary regular expression with
 <code>matches(&quot;regexp&quot;)</code>.</p>
-      <p>pkgdown will check that all vignettes are included in the index
+    <p>pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="supressing-vignettes"><a class="anchor" href="#supressing-vignettes"></a>Supressing vignettes</h2>
 
-    <div class="section">
-      <h2>Supressing vignettes</h2>
-
-      <p></p>
-      <p>If you want articles that are not vignettes, either put them in
+    <p></p>
+    <p>If you want articles that are not vignettes, either put them in
 subdirectories or list in <code>.Rbuildignore</code>. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
 customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
-    </div>
-        </div>
+    
+
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#supressing-vignettes">Supressing vignettes</a></li>
+          </ul>
+
   </div>
 </div>
 

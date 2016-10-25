@@ -71,12 +71,12 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Build pkgdown website</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Build pkgdown website</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p><code>build_site()</code> is a convenient wrapper around four functions:
 <ul>
@@ -100,8 +100,10 @@ that aspect of the site.</p>
 
 <span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
@@ -120,26 +122,22 @@ path.</dd>
       <dd>Seed used to initialize so that random examples are
 reproducible.</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>YAML config</h2>
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-      <p></p>
-      <p>There are four top-level YAML settings that affect the entire site:
+    <p></p>
+    <p>There are four top-level YAML settings that affect the entire site:
 <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
-      <p><code>title</code> overrides the default site title, which is the package name.
+    <p><code>title</code> overrides the default site title, which is the package name.
 It&#39;s used in the page title and default navbar.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
-    <div class="section">
-      <h2>YAML config - navbar</h2>
-
-      <p></p>
-      <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
+    <p></p>
+    <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
 syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>
-      <p><pre>
+    <p><pre>
 navbar:
   type: inverse
   left:
@@ -164,62 +162,74 @@ navbar:
     - icon: fa-github fa-lg
       href: https://example.com
 </pre></p>
-      <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
-      <p>You position elements by placing under either <code>left</code> or <code>right</code>.
+    <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
+    <p>You position elements by placing under either <code>left</code> or <code>right</code>.
 Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 <a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
-      <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
+    <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
 will be automatically filled in from the default navbar: you can see
 those values by running <code><a href='template_navbar.html'>template_navbar</a>()</code>.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
-    <div class="section">
-      <h2>YAML config - template</h2>
-
-      <p></p>
-      <p>You can get complete control over the appearance of the site using the
+    <p></p>
+    <p>You can get complete control over the appearance of the site using the
 <code>template</code> component. There are two components to the template:
 the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
-      <p>The easiest way to tweak the default style is to use a bootswatch template,
+    <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
 template:</p>
-      <p><pre>
+    <p><pre>
 template:
   params:
     bootswatch: cerulean
 </pre></p>
-      <p>See a complete list of themes and preview how they look at
+    <p>See a complete list of themes and preview how they look at
 <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
-      <p>You can also override the default templates and provide additional
+    <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
 of the default assets, set <code>default_assets</code> to false.</p>
-      <p><pre>
+    <p><pre>
 template:
   package: mycustompackage</p>
-      <p># OR:</p>
-      <p>template:
+    <p># OR:</p>
+    <p>template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
 </pre></p>
-      <p>These settings are currently recommended for advanced users only. There
+    <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you&#39;ll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># build_site()</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
+
+      <li><a href="#yaml-config-template">YAML config - template</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 

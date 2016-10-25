@@ -177,9 +177,18 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = topic$name)
+    purrr::map(as_data, index = pkg$topics, current = topic$name) %>%
+    purrr::map(add_slug)
 
   out
 }
 
-
+add_slug <- function(x) {
+  x$slug <- make_slug(x$title)
+  x
+}
+make_slug <- function(x) {
+  x <- tolower(x)
+  x <- gsub("[^a-z]+", "-", x)
+  x
+}

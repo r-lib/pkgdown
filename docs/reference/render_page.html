@@ -71,12 +71,12 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Render page with template</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Render page with template</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Each page is composed of four templates: &quot;head&quot;, &quot;header&quot;, &quot;content&quot;, and
 &quot;footer&quot;. Each of these templates is rendered using the <code>data</code>, and
@@ -87,8 +87,10 @@ then assembled into an overall page using the &quot;layout&quot; template.</p>
 
 <span class='fu'>data_template</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to package to document.</dd>
@@ -117,20 +119,25 @@ prints to standard out.</dd>
       <dt>depth</dt>
       <dd>Depth of path relative to base directory.</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>YAML config</h2>
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-      <p></p>
-      <p>You can use either the templates provided by pkgdown, or provide your
+    <p></p>
+    <p>You can use either the templates provided by pkgdown, or provide your
 own by supplying <code>templates_path</code> key in your <code>_pkgdown.yml</code>.
 Generally, you&#39;ll find it easiest to customise if you start with a copy
 of the pkgdown templates and modify from there.</p>
-    </div>
-        </div>
+    
+
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#yaml-config">YAML config</a></li>
+          </ul>
+
   </div>
 </div>
 

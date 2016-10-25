@@ -71,12 +71,12 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Build news section</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Build news section</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of
 headings. Each minor version (i.e. the combination of first and second
@@ -88,8 +88,10 @@ an &quot;unreleased&quot; page.</p>
 
     <pre><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
@@ -102,30 +104,35 @@ If <code>FALSE</code>, writes one file per major version.</dd>
       <dd>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Details</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-      <p>The <code>NEWS.md</code> file should be formatted somewhat like this:</p>
-      <p><pre>
+    <p>The <code>NEWS.md</code> file should be formatted somewhat like this:</p>
+    <p><pre>
 # pkgdown 0.1.0.9000</p>
-      <p>## Major changes</p>
-      <p>- Fresh approach based on the staticdocs package. Site configuration now based on YAML files.</p>
-      <p>...
+    <p>## Major changes</p>
+    <p>- Fresh approach based on the staticdocs package. Site configuration now based on YAML files.</p>
+    <p>...
 </pre></p>
-      <p>Commonly used subsection headers include &#39;Major changes&#39;, &#39;Bug fixes&#39;, &#39;Minor changes&#39;.</p>
-    </div>
+    <p>Commonly used subsection headers include &#39;Major changes&#39;, &#39;Bug fixes&#39;, &#39;Minor changes&#39;.</p>
+    
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <div class="section">
-      <h2>YAML config</h2>
+    <p></p>
+    <p>There are currently no configuration options.</p>
+    
 
-      <p></p>
-      <p>There are currently no configuration options.</p>
-    </div>
-        </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#yaml-config">YAML config</a></li>
+          </ul>
+
   </div>
 </div>
 

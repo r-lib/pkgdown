@@ -74,7 +74,7 @@ a.anchor {
 
 /* Fixes for fixed navbar --------------------------*/
 
-.section h1, .section h2, .section h3, .section h4 {
+.contents h1, .contents h2, .contents h3, .contents h4 {
   padding-top: 60px;
   margin-top: -60px;
 }
