@@ -59,7 +59,10 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   }
 
-  update_homepage_html(out_path(path, "index.html"))
+  update_homepage_html(
+    out_path(path, "index.html"),
+    isTRUE(pkg$meta$home$strip_header)
+  )
 
   invisible()
 }
