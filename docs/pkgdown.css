@@ -1,5 +1,13 @@
-body {
-  position: relative;
+/* Sticker footer */
+body > .container {
+  display: flex;
+  padding-top: 60px;
+  min-height: calc(100vh);
+  flex-direction: column;
+}
+
+body > .container .row {
+  flex: 1;
 }
 
 footer {
@@ -66,11 +74,6 @@ a.anchor {
 
 /* Fixes for fixed navbar --------------------------*/
 
-body {
-  position: relative;
-  padding-top: 60px;
-}
-
 .section h1, .section h2, .section h3, .section h4 {
   padding-top: 60px;
   margin-top: -60px;
@@ -102,6 +105,13 @@ body {
 #sidebar .list-unstyled li {
   margin-bottom: 0.5em;
 }
+
+@media screen and (min-width: 970px) {
+  #sidebar {
+    width: 243px;
+  }
+}
+
 
 /* Syntax highlighting ---------------------------------------------------- */
 
