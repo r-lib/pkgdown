@@ -41,11 +41,25 @@ that aspect of the site.
 }
 \section{YAML config}{
 
-There are four top-level YAML settings that affect the entire site:
+There are five top-level YAML settings that affect the entire site:
 \code{title}, \code{template}, and \code{navbar}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
+
+You can also provided information to override the default display of
+the authors. Provided a list named with the name of each author,
+including \code{href} to add a link, or \code{html} to override the
+text:
+
+\preformatted{
+authors:
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
+}
 }
 
 \section{YAML config - navbar}{
