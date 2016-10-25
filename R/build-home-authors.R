@@ -1,3 +1,19 @@
+data_author_info <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  defaults <- list(
+    "Hadley Wickham" = list(
+      href = "http://hadley.nz"
+    ),
+    "RStudio" = list(
+      href = "https://www.rstudio.com",
+      html = "<img src='http://tidyverse.org/rstudio-logo.svg' height='24' />"
+    )
+  )
+
+  modifyList(defaults, pkg$meta$authors %||% list())
+}
+
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -7,7 +23,7 @@ data_home_sidebar_authors <- function(pkg = ".") {
 
   pkg$desc$get_authors() %>%
     unclass() %>%
-    purrr::map_chr(author_desc, authors = pkg$meta$authors) %>%
+    purrr::map_chr(author_desc, authors = data_author_info(pkg)) %>%
     list_with_heading("Authors")
 }
 

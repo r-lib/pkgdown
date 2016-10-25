@@ -56,7 +56,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   authors <- desc$get_authors() %>%
     unclass %>%
     purrr::keep(~ any(.$role %in% c("aut", "cph"))) %>%
-    purrr::map_chr(author_name, pkg$meta$authors) %>%
+    purrr::map_chr(author_name, data_author_info(pkg)) %>%
     paste(collapse = ", ")
 
   # Force inclusion so you can reliably refer to objects inside yaml
