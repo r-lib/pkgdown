@@ -73,12 +73,11 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   has_badges <- all(xml2::xml_name(badges) %in% "a")
 
   if (has_badges) {
-    list <- list_with_heading(badges, "Status")
+    list <- list_with_heading(badges, "Dev status")
 
     html %>%
       xml2::xml_find_first(".//div[@id='sidebar']") %>%
-      xml2::xml_child() %>%
-      xml2::xml_add_sibling(xml2::read_html(list), .where = "before")
+      xml2::xml_add_child(xml2::read_html(list))
 
     xml2::xml_remove(first_para)
   }
