@@ -53,6 +53,11 @@ data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
   desc <- pkg$desc
   name <- desc$get("Package")[[1]]
+  authors <- desc$get_authors() %>%
+    unclass %>%
+    purrr::keep(~ any(.$role %in% c("aut", "cph"))) %>%
+    purrr::map_chr(author_name, pkg$meta$authors) %>%
+    paste(collapse = ", ")
 
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the moustache templates
@@ -60,11 +65,11 @@ data_template <- function(pkg = ".", depth = 0L) {
   yaml$.present <- TRUE
 
   print_yaml(list(
+    year = strftime(Sys.time(), "%Y"),
     package = list(
       name = name,
-      version = desc$get("Version")[[1]]
-      # authors = purrr::map(desc$get_authors(), str_person),
-      # license = desc$get("License")
+      version = desc$get("Version")[[1]],
+      authors = authors
     ),
     site = list(
       root = up_path(depth),

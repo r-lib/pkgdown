@@ -6,10 +6,20 @@ footer {
   margin-top: 45px;
   padding: 35px 0 36px;
   border-top: 1px solid #e5e5e5;
+  color: #666;
+  display: flex;
 }
 footer p {
   margin-bottom: 0;
-  color: #555;
+}
+footer div {
+  flex: 1;
+}
+footer .pkgdown {
+  text-align: right;
+}
+footer p {
+  margin-bottom: 0;
 }
 
 code {
@@ -69,7 +79,12 @@ body {
 /* Sidebar --------------------------*/
 
 #sidebar {
-  margin-top: 40px;
+  margin-top: 30px;
+  word-wrap: break-word;
+
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
 }
 #sidebar.affix {
   margin-top: 5px;
@@ -77,10 +92,15 @@ body {
 
 #sidebar h2 {
   font-size: 1.5em;
+  margin-top: 1em;
 }
 
 #sidebar h2:first-child {
   margin-top: 0;
+}
+
+#sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
 }
 
 /* Syntax highlighting ---------------------------------------------------- */

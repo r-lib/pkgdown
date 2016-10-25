@@ -1,12 +1,7 @@
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  authors <- tryCatch(eval(parse(text = pkg$desc$get_authors())),
-    error = function(e) {
-      warning(e)
-      NULL
-    }
-  )
+  authors <- pkg$desc$get_authors()
   if (is.null(authors))
     return()
 
@@ -16,26 +11,31 @@ data_home_sidebar_authors <- function(pkg = ".") {
     list_with_heading("Authors")
 }
 
-author_desc <- function(x, authors) {
+author_name <- function(x, authors) {
   if (is.null(x$family)) {
     name <- x$given
   } else {
     name <- paste0(x$given, " ", x$family)
   }
 
-  if (name %in% names(authors)) {
-    author <- authors[[name]]
+  if (!(name %in% names(authors)))
+    return(name)
 
-    if (!is.null(author$html)) {
-      name <- author$html
-    }
+  author <- authors[[name]]
 
-    if (!is.null(author$href)) {
-      desc <- paste0("<a href='", author$href, "'>", name, "</a>")
-    }
-  } else {
-    desc <- name
+  if (!is.null(author$html)) {
+    name <- author$html
   }
+
+  if (is.null(author$href)) {
+    name
+  } else {
+    paste0("<a href='", author$href, "'>", name, "</a>")
+  }
+}
+
+author_desc <- function(x, authors) {
+  desc <- author_name(x, authors)
 
   if (!is.null(x$comment)) {
     desc <- paste0(desc, " <small>", x$comment, "</small>")
