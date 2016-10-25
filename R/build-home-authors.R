@@ -78,11 +78,11 @@ role_lookup <- c(
   "aut" = "author",
   "com" = "compiler",
   "ctb" = "contributor",
-  "cph" = "copyright holder",
+  "cph" = "copyright&nbsp;holder",
   "cre" = "maintainer",
   "ctr" = "contractor",
-  "dtc" = "data contributor",
-  "ths" = "thesis advisor",
+  "dtc" = "data&nbsp;contributor",
+  "ths" = "thesis&nbsp;advisor",
   "trl" = "translator"
 )
 
