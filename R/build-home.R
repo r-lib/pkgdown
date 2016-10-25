@@ -83,9 +83,12 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     xml2::xml_remove(first_para)
   }
 
+  header <- xml2::xml_find_first(html, ".//h1")
   if (strip_header) {
-    header <- xml2::xml_find_first(html, ".//h1")
     xml2::xml_remove(header, free = TRUE)
+  } else {
+    page_header <- paste0("<div class='page-header'>", header, "</div>")
+    xml2::xml_replace(header, xml2::read_xml(page_header))
   }
 
   invisible()
