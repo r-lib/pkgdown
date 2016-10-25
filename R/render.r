@@ -39,6 +39,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
     purrr::map_chr(find_template, name, template_path = template_path(pkg)) %>%
     purrr::map(render_template, data = data) %>%
     purrr::set_names(pieces)
+  components$template <- name
 
   # render complete layout
   find_template("layout", name, template_path = template_path(pkg)) %>%
