@@ -115,6 +115,7 @@ data_home <- function(pkg = ".") {
 
 data_home_sidebar <- function(pkg = ".") {
   paste0(
+    data_home_sidebar_authors(pkg),
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
     collapse = "\n"
