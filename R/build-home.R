@@ -73,15 +73,12 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   has_badges <- all(xml2::xml_name(badges) %in% "a")
 
   if (has_badges) {
-    entries <- paste0("  <p>", as.character(badges, html = TRUE), "</p>\n")
-    list <- paste0(
-      "<h2>Status</h2>\n",
-      paste0(entries, collapse = "")
-    )
+    list <- list_with_heading(badges, "Status")
 
     html %>%
       xml2::xml_find_first(".//div[@id='sidebar']") %>%
-      xml2::xml_add_child(xml2::read_html(list))
+      xml2::xml_child() %>%
+      xml2::xml_add_sibling(xml2::read_html(list), .where = "before")
 
     xml2::xml_remove(first_para)
   }
@@ -118,8 +115,8 @@ data_home <- function(pkg = ".") {
 
 data_home_sidebar <- function(pkg = ".") {
   paste0(
-    data_home_sidebar_license(pkg),
     data_home_sidebar_links(pkg),
+    data_home_sidebar_license(pkg),
     collapse = "\n"
   )
 }
@@ -143,12 +140,7 @@ data_home_sidebar_links <- function(pkg = ".") {
     data_link_meta(pkg)
   )
 
-  if (length(links) == 0)
-    return(NULL)
-
-  links %>%
-    purrr::map_chr(~ paste0("<li><a href='", . $href, "'>", .$text, "</a></li>")) %>%
-    list_with_heading("Links")
+  list_with_heading(links, "Links")
 }
 
 list_with_heading <- function(bullets, heading) {
@@ -158,14 +150,19 @@ list_with_heading <- function(bullets, heading) {
   paste0(
     "<h2>", heading, "</h2>",
     "<ul class='list-unstyled'>\n",
-    paste0(bullets, collapse = "\n"), "\n",
+    paste0("<li>", bullets, "</li>\n", collapse = ""),
     "</ul>\n"
   )
 }
 
 data_link_meta <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  pkg$meta$home$links
+  links <- pkg$meta$home$links
+
+  if (length(links) == 0)
+    return(character())
+
+  purrr::map_chr(links, ~ paste0("<li><a href='", . $href, "'>", .$text, "</a></li>"))
 }
 
 data_link_github <- function(pkg = ".") {
@@ -178,14 +175,9 @@ data_link_github <- function(pkg = ".") {
   github <- grepl("github", urls)
 
   if (!any(github))
-    return(list())
+    return(character())
 
-  list(
-    list(
-      href = urls[which(github)[[1]]],
-      text = "Developed on GitHub"
-    )
-  )
+  link_url("Browse source code", urls[which(github)[[1]]])
 }
 
 data_link_bug_report <- function(pkg = ".") {
@@ -194,14 +186,9 @@ data_link_bug_report <- function(pkg = ".") {
   bug_reports <- pkg$desc$get("BugReports")[[1]]
 
   if (is.na(bug_reports))
-    return(list())
+    return(character())
 
-  list(
-    list(
-      href = bug_reports,
-      text = "Report a bug"
-    )
-  )
+  link_url("Report a bug", bug_reports)
 }
 
 data_link_cran <- function(pkg = ".") {
@@ -211,15 +198,17 @@ data_link_cran <- function(pkg = ".") {
   if (!on_cran(name))
     return(list())
 
-  list(
-    list(
-      href = paste0("https://cran.r-project.org/package=", name),
-      text = "Released on CRAN"
-    )
+  link_url(
+    "Download from CRAN",
+    paste0("https://cran.r-project.org/package=", name)
   )
 }
 
 on_cran <- function(pkg) {
   pkgs <- utils::available.packages(type = "source")
   pkg %in% rownames(pkgs)
+}
+
+link_url <- function(text, url) {
+  paste0(text, " at <a href='", url, "'>", url, "</a>")
 }

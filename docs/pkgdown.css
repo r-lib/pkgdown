@@ -66,7 +66,7 @@ body {
   margin-top: -60px;
 }
 
-/* Table of contents --------------------------*/
+/* Sidebar --------------------------*/
 
 #sidebar {
   margin-top: 40px;
@@ -82,6 +82,11 @@ body {
 #sidebar h2:first-child {
   margin-top: 0;
 }
+
+#sidebar .list-unstyled li {
+  margin-top: 0.5em;
+}
+
 
 /* Syntax highlighting ---------------------------------------------------- */
 
