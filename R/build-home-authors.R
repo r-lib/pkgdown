@@ -11,7 +11,7 @@ data_author_info <- function(pkg = ".") {
     )
   )
 
-  modifyList(defaults, pkg$meta$authors %||% list())
+  utils::modifyList(defaults, pkg$meta$authors %||% list())
 }
 
 data_home_sidebar_authors <- function(pkg = ".") {
