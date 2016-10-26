@@ -1,10 +1,11 @@
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="col-md-9">
     <div class="page-header">
       <h1>Function reference</h1>
       <h4>version&nbsp;{{#package}}{{version}}{{/package}}</h4>
     </div>
 
+    <div class="contents">
     {{#sections}}
       <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
       <p class="section-desc">{{{desc}}}</p>
@@ -16,6 +17,7 @@
       </ul>
       {{/contents}}
     {{/sections}}
+    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
