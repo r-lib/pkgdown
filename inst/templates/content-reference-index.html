@@ -1,26 +1,31 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Function reference <small>version&nbsp;{{#package}}{{version}}{{/package}}</small></h1>
+      <h1>Function reference</h1>
+      <h4>version&nbsp;{{#package}}{{version}}{{/package}}</h4>
     </div>
-  </div>
-  <div class="col-md-12 side-by-side">
 
     {{#sections}}
-    <div class="section {{class}}">
-      <h2>{{title}}</h2>
+      <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
       <p class="section-desc">{{{desc}}}</p>
 
       {{#contents}}
-      <div class="topic">
-        <p><a href="{{path}}">{{title}}</a></p>
-        <ul>
-          {{#aliases}}<li><code><a href="{{path}}">{{.}}</a></code></li>{{/aliases}}
-        </ul>
-      </div>
+      <p><a href="{{path}}">{{title}}</a></p>
+      <ul>
+        {{#aliases}}<li><code><a href="{{path}}">{{.}}</a></code></li>{{/aliases}}
+      </ul>
       {{/contents}}
-
-    </div>
     {{/sections}}
+  </div>
+
+  <div class="col-md-3">
+    <div id="sidebar">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+      {{#sections}}
+        <li><a href="#{{slug}}">{{title}}</a></li>
+      {{/sections}}
+      </ul>
+    </div>
   </div>
 </div>
