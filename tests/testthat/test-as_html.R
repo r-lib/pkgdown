@@ -36,6 +36,24 @@ test_that("code inside Sexpr is evaluated", {
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
+test_that("can convert cross links to online documentation url", {
+  expect_equal(
+    rd2html("\\link[base]{library}"),
+    link_remote(label = "library", topic = "library", package = "base")
+  )
+})
+
+test_that("can parse local links with topic!=label", {
+  pkgdownindex = list(
+    name = "build_site",
+    alias = list(build_site.Rd = "build_site")
+  )
+  expect_equal(
+    rd2html("\\link[=build_site]{build_site function}", index = pkgdownindex),
+    "<a href='build_site.html'>build_site function</a>"
+  )
+})
+
 
 # Usage -------------------------------------------------------------------
 

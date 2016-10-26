@@ -108,7 +108,7 @@ as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
     link_local(in_braces, in_braces, index = index, current = current)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    link_local(in_braces, substr(opt, 2, -1), index = index, current = current)
+    link_local(in_braces, substr(opt, 2, nchar(opt)), index = index, current = current)
   } else {
     match <- regexec('([^:]+):(.*)', opt)
     parts <- regmatches(opt, match)[[1]]
