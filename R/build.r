@@ -142,9 +142,9 @@ build_site <- function(pkg = ".",
   build_logo(pkg, path = path)
   build_home(pkg, path = path)
   build_reference(pkg,
-    examples = TRUE,
-    run_dont_run = TRUE,
-    mathjax = TRUE,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax,
     seed = seed,
     path = file.path(path, "reference"),
     depth = 1L
