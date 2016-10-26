@@ -78,8 +78,9 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   # Space is needed to ensure we get <a></a> instead of <a/>
   links <- paste0("<a href='#", anchor, "' class='anchor'> </a>")
   headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
+  has_heading <- !is.na(xml2::xml_name(headings))
 
-  for (i in seq_along(headings)) {
+  for (i in seq_along(headings)[has_heading]) {
     # Insert anchor in first element of header
     heading <- headings[[i]]
 
