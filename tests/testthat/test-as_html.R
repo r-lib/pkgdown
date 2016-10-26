@@ -44,14 +44,10 @@ test_that("can convert cross links to online documentation url", {
 })
 
 test_that("can parse local links with topic!=label", {
-  # make a fake index that we can use to search for local help topics as if
-  # we were running build_site on the pkgdown package
-  pkgdownindex = list(name = "build_site",
-                      alias = list(build_site.Rd = "build_site"))
-
-  # this is a silly example but see
-  # see https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Cross_002dreferences
-  # for more interesting use cases of this link format
+  pkgdownindex = list(
+    name = "build_site",
+    alias = list(build_site.Rd = "build_site")
+  )
   expect_equal(
     rd2html("\\link[=build_site]{build_site function}", index = pkgdownindex),
     "<a href='build_site.html'>build_site function</a>"
