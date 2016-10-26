@@ -46,26 +46,8 @@ test_that("can convert cross links to online documentation url", {
 test_that("can parse local links with topic!=label", {
   # make a fake index that we can use to search for local help topics as if
   # we were running build_site on the pkgdown package
-  pkgdownindex = list(
-    name = c(
-      "build_articles",
-      "build_home",
-      "build_news",
-      "build_reference",
-      "build_site",
-      "render_page",
-      "template_navbar"
-    ),
-    alias = list(
-      build_articles.Rd = "build_articles",
-      build_home.Rd = "build_home",
-      build_news.Rd = "build_news",
-      build_reference.Rd = c("build_reference", "build_reference_index"),
-      build_site.Rd = "build_site",
-      render_page.Rd = c("render_page", "data_template"),
-      templates.Rd = c("template_navbar", "template_reference", "template_articles")
-    )
-  )
+  pkgdownindex = list(name = "build_site",
+                      alias = list(build_site.Rd = "build_site"))
 
   # this is a silly example but see
   # see https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Cross_002dreferences
