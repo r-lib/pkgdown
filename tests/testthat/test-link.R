@@ -21,4 +21,9 @@ context("remote links")
 test_that("can construct external link for package/topic", {
   expect_equal(link_remote(label="library", topic="library", package="base"),
                "<a href='http://www.rdocumentation.org/packages/base/topics/library'>library</a>")
+  # note difference beween required topic and the label to be read by user
+  # see https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Cross_002dreferences
+  expect_equal(link_remote(label="terms", topic="terms.object", package="stats"),
+               "<a href='http://www.rdocumentation.org/packages/stats/topics/terms.object'>terms</a>")
 })
+
