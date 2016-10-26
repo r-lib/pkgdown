@@ -71,7 +71,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
 tweak_homepage_html <- function(html, strip_header = FALSE) {
   first_para <- xml2::xml_find_first(html, "//p")
   badges <- first_para %>% xml2::xml_children()
-  has_badges <- all(xml2::xml_name(badges) %in% "a")
+  has_badges <- length(badges) > 0 && all(xml2::xml_name(badges) %in% "a")
 
   if (has_badges) {
     list <- list_with_heading(badges, "Dev status")
