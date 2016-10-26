@@ -37,8 +37,10 @@ test_that("code inside Sexpr is evaluated", {
 })
 
 test_that("can convert cross links to online documentation url", {
-  expect_equal(rd2html("\\link[base]{library}"),
-               link_remote(label="library", topic="library", package="base"))
+  expect_equal(
+    rd2html("\\link[base]{library}"),
+    link_remote(label = "library", topic = "library", package = "base")
+  )
 })
 
 
