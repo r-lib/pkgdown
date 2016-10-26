@@ -51,7 +51,7 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   # significant whitespace in tags like pre
   xml %>%
     xml2::xml_find_first(".//body") %>%
-    xml2::write_html(tmp)
+    xml2::write_html(tmp, format = FALSE)
 
   lines <- readLines(tmp, warn = FALSE)
   lines <- sub("<body>", "", lines, fixed = TRUE)
@@ -69,19 +69,23 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   if (length(sections) == 0)
     return()
 
-  anchors <- paste0("#", xml2::xml_attr(sections, "id"))
-  links <- paste0("<a href='", anchors, "' class='anchor'></a>")
+  # Update anchors: dot in the anchor breaks scrollspy
+  anchor <- sections %>%
+    xml2::xml_attr("id") %>%
+    gsub(".", "-", ., fixed = TRUE)
+  purrr::walk2(sections, anchor, ~ (xml2::xml_attr(.x, "id") <- .y))
 
+  # Space is needed to ensure we get <a></a> instead of <a/>
+  links <- paste0("<a href='#", anchor, "' class='anchor'> </a>")
   headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
-  xml2::xml_attr(headings, "class") <- "hasAnchor"
 
   for (i in seq_along(headings)) {
     # Insert anchor in first element of header
     heading <- headings[[i]]
-    contents <- xml2::xml_contents(heading)
 
+    xml2::xml_attr(heading, "class") <- "hasAnchor"
     xml2::xml_add_sibling(
-      contents[[1]],
+      xml2::xml_contents(heading)[[1]],
       xml2::read_html(links[[i]]),
       .where = "before"
     )

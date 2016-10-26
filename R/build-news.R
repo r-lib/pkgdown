@@ -116,22 +116,17 @@ data_news <- function(pkg = ".", depth = 1L) {
 
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
-    xml2::xml_text()
+    xml2::xml_text(trim = TRUE)
 
-  # A dot in the anchor breaks scrollspy
-  anchor <- sections %>%
-    xml2::xml_attr("id") %>%
-    gsub(".", "-", ., fixed = TRUE)
+  anchors <- sections %>%
+    xml2::xml_attr("id")
 
-  # Update IDs with the new anchor names
-  purrr::map2(sections, anchor,
-              function(node, id_value) xml2::xml_attr(node, "id") <- id_value)
-
-  re <- regexec("([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
+  re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
   is_version <- purrr::map_int(pieces, length) == 4
 
   major <- pieces[is_version] %>% purrr::map_chr(4)
+
   html <- sections %>%
     purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
     purrr::map_chr(as.character)
@@ -139,7 +134,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
     is_dev = is_dev(version),
-    anchor = anchor,
+    anchor = anchors,
     major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
     html = html
