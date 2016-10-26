@@ -123,9 +123,12 @@ data_news <- function(pkg = ".", depth = 1L) {
 
   re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
-  is_version <- purrr::map_int(pieces, length) == 4
 
-  major <- pieces[is_version] %>% purrr::map_chr(4)
+  # Only keep sections with unambiguous version
+  is_version <- purrr::map_int(pieces, length) == 4
+  pieces <- pieces[is_version]
+  sections <- sections[is_version]
+  anchors <- anchors[is_version]
 
   html <- sections %>%
     purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
@@ -134,9 +137,9 @@ data_news <- function(pkg = ".", depth = 1L) {
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
     is_dev = is_dev(version),
-    anchor = anchors,
-    major = major,
+    major = pieces %>% purrr::map_chr(4),
     major_dev = ifelse(is_dev, "unreleased", major),
+    anchor = anchors,
     html = html
   )
   news[is_version, , drop = FALSE]
