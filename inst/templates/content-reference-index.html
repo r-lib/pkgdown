@@ -18,14 +18,12 @@
     {{/sections}}
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm">
-    <div id="sidebar">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-      {{#sections}}
-        <li><a href="#{{slug}}">{{title}}</a></li>
-      {{/sections}}
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+    {{#sections}}
+      <li><a href="#{{slug}}">{{title}}</a></li>
+    {{/sections}}
+    </ul>
   </div>
 </div>
