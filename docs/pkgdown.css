@@ -30,26 +30,6 @@ footer p {
   margin-bottom: 0;
 }
 
-code {
-  background-color: #f7f7f7;
-  color: #333;
-}
-code a {
-  color: #375f84;
-}
-
-@media screen and (min-width: 1024px) {
-  .side-by-side {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .side-by-side .section {
-    width: 45%;
-  }
-}
-
 /* Section anchors ---------------------------------*/
 
 .hasAnchor {
@@ -102,8 +82,15 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
-
 /* Syntax highlighting ---------------------------------------------------- */
+
+code {
+  background-color: #f7f7f7;
+  color: #333;
+}
+code a {
+  color: #375f84;
+}
 
 .fl,.number {color:rgb(21,20,181);}
 .fu,.functioncall {color:#264D66 ;}
