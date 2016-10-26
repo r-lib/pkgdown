@@ -50,6 +50,7 @@ build_reference <- function(pkg = ".",
                             depth = 1L
                             ) {
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
 
   rule("Building function reference")
   if (!is.null(path)) {

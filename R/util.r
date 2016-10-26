@@ -172,7 +172,7 @@ rel_path <- function(path, base = ".") {
   old <- setwd(base)
   on.exit(setwd(old))
 
-  normalizePath(path)
+  normalizePath(path, mustWork = FALSE)
 }
 
 package_path <- function(package, path) {

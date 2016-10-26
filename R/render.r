@@ -30,6 +30,7 @@
 #' @export
 render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
 

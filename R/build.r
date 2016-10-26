@@ -135,10 +135,7 @@ build_site <- function(pkg = ".",
                        ) {
 
   pkg <- as_pkgdown(pkg)
-  # Use path relative to pkg
-  if (pkg$path != ".") {
-    path <- file.path(pkg$path, path)
-  }
+  path <- rel_path(path, pkg$path)
 
   init_site(pkg, path)
 
@@ -173,8 +170,10 @@ build_site_rstudio <- function() {
 #' @export
 #' @rdname build_site
 init_site <- function(pkg = ".", path = "docs") {
-  rule("Initialising site")
+  pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
 
+  rule("Initialising site")
   mkdir(path)
 
   assets <- data_assets(pkg)

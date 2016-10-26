@@ -43,12 +43,14 @@
 #' customise the navbar. See \code{\link{build_site}} details.
 #'
 #' @param pkg Path to source package.
-#' @param path Output path.
+#' @param path Output path. Relative paths are taken relative to the
+#'   \code{pkg} directory.
 #' @param depth Depth of path relative to root of documentation.
 #'   Used to adjust relative links in the navbar.
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
   if (!has_vignettes(pkg$path)) {
     return(invisible())
   }

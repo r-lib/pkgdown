@@ -11,7 +11,7 @@
 #'
 #' \preformatted{
 #' # pkgdown 0.1.0.9000
-#' 
+#'
 #' ## Major changes
 #'
 #'  - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
@@ -34,6 +34,7 @@ build_news <- function(pkg = ".",
                        one_page = TRUE,
                        depth = 1L) {
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
   if (!has_news(pkg$path))
     return()
 
@@ -126,7 +127,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   purrr::map2(sections, anchor,
               function(node, id_value) xml2::xml_attr(node, "id") <- id_value)
 
-  re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
+  re <- regexec("([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
   is_version <- purrr::map_int(pieces, length) == 4
 

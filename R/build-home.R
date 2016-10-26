@@ -25,6 +25,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   rule("Building home")
 
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
   data <- data_home(pkg)
 
   # Copy license file, if present
