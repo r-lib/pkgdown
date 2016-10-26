@@ -53,7 +53,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
     )
   } else {
     if (is.null(path)) {
-      data$index <- pkg$description
+      data$index <- pkg$desc$get("Description")[[1]]
     } else {
       data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
     }
