@@ -117,6 +117,9 @@ data_home <- function(pkg = ".") {
 }
 
 data_home_sidebar <- function(pkg = ".") {
+  if (!is.null(pkg$meta$home$sidebar))
+    return(pkg$meta$home$sidebar)
+
   paste0(
     data_home_sidebar_links(pkg),
     data_home_sidebar_authors(pkg),
