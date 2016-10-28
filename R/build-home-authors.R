@@ -53,13 +53,13 @@ author_name <- function(x, authors) {
 author_desc <- function(x, authors) {
   desc <- author_name(x, authors)
 
-  if (!is.null(x$comment)) {
-    desc <- paste0(desc, " <small>", x$comment, "</small>")
-  }
-
   roles <- paste0(role_lookup[x$role], collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
-  desc <- paste0(desc, "<br /><small class = 'roles'>", roles, "</span>")
+  desc <- paste0(desc, "<br />\n<small class = 'roles'>", roles, "</span>")
+
+  if (!is.null(x$comment)) {
+    desc <- paste0(desc, "<br/>\n<small>(", x$comment, ")</small>")
+  }
 
   desc
 }
