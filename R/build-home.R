@@ -169,7 +169,9 @@ data_link_meta <- function(pkg = ".") {
   if (length(links) == 0)
     return(character())
 
-  purrr::map_chr(links, ~ paste0("<li><a href='", . $href, "'>", .$text, "</a></li>"))
+  links %>%
+    purrr::transpose() %>%
+    purrr::pmap_chr(link_url)
 }
 
 data_link_github <- function(pkg = ".") {
@@ -216,6 +218,6 @@ on_cran <- function(pkg) {
   pkg %in% rownames(pkgs)
 }
 
-link_url <- function(text, url) {
-  paste0(text, " at <a href='", url, "'>", url, "</a>")
+link_url <- function(text, href) {
+  paste0(text, " at <a href='", href, "'>", href, "</a>")
 }
