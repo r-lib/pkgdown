@@ -63,11 +63,6 @@ a.anchor {
 
 #sidebar {
   margin-top: 30px;
-  word-wrap: break-word;
-
-  hyphens: auto;
-  -ms-hyphens: auto;
-  -webkit-hyphens: auto;
 }
 #sidebar h2 {
   font-size: 1.5em;

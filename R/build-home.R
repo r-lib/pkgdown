@@ -219,5 +219,6 @@ on_cran <- function(pkg) {
 }
 
 link_url <- function(text, href) {
-  paste0(text, " at <a href='", href, "'>", href, "</a>")
+  href <- gsub("(/+)", "\\1&#8203;", href)
+  paste0(text, " at <br /><a href='", href, "'>", href, "</a>")
 }
