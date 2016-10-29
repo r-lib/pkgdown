@@ -18,6 +18,7 @@ Imports:
     magrittr,
     purrr,
     rmarkdown (>= 1.1.9007),
+    roxygen2,
     tibble,
     tools,
     whisker,
