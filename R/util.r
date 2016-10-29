@@ -1,4 +1,5 @@
 #' @importFrom magrittr %>%
+#' @importFrom roxygen2 roxygenise
 NULL
 
 inst_path <- function() {
