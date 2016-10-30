@@ -54,10 +54,8 @@ data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
   desc <- pkg$desc
   name <- desc$get("Package")[[1]]
-  authors <- desc$get_authors() %>%
-    unclass %>%
-    purrr::keep(~ any(.$role %in% c("aut", "cph"))) %>%
-    purrr::map_chr(author_name, data_author_info(pkg)) %>%
+  authors <- data_authors(pkg)$main %>%
+    purrr::map_chr("name") %>%
     paste(collapse = ", ")
 
   # Force inclusion so you can reliably refer to objects inside yaml

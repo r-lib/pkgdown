@@ -19,6 +19,9 @@
 #'     href: http://website.com
 #' }
 #'
+#' The "developers" list is populated by the maintainer ("cre"), authors
+#' ("aut"), and funder ("fnd").
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = "docs", depth = 0L) {
@@ -33,6 +36,9 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   if (file.exists(license_path)) {
     file.copy(license_path, path)
   }
+
+  # Build authors page
+  build_authors(pkg, path = path, depth = depth)
 
   if (identical(tools::file_ext(data$path), "Rmd")) {
     # Render once so that .md is up to date
@@ -122,8 +128,8 @@ data_home_sidebar <- function(pkg = ".") {
 
   paste0(
     data_home_sidebar_links(pkg),
-    data_home_sidebar_authors(pkg),
     data_home_sidebar_license(pkg),
+    data_home_sidebar_authors(pkg),
     collapse = "\n"
   )
 }

@@ -35,5 +35,8 @@ home:
   - text: Link text
     href: http://website.com
 }
+
+The "developers" list is populated by the maintainer ("cre"), authors
+("aut"), and funder ("fnd").
 }
 

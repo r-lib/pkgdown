@@ -4,7 +4,7 @@ Title: Make Static HTML Documentation for a Package
 Description: Generate a beautiful and useful website from a source package.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph", "fnd"))
     )
 License: MIT + file LICENSE
 Depends: R (>= 3.2.0)
