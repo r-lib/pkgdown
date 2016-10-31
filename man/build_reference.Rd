@@ -65,3 +65,11 @@ pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
 }
 
+\section{Icons}{
+
+You can optionally supply an icon for each help topic. To do so, you'll
+need a top-level \code{icons} directory. This should contain {.png} files
+that are either 40x40 (for regular display) or 80x80 (if you want
+retina display). Icons are matched to topics by aliases.
+}
+

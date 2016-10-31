@@ -11,6 +11,7 @@
       <p class="section-desc">{{{desc}}}</p>
 
       {{#contents}}
+      {{#icon}}<img src="icons/{{{.}}}" width="40" height="40" class="icon" />{{/icon}}
       <p><a href="{{path}}">{{title}}</a></p>
       <ul>
         {{#aliases}}<li><code><a href="{{path}}">{{.}}</a></code></li>{{/aliases}}

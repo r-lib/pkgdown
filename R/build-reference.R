@@ -34,6 +34,12 @@
 #' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
 #'
+#' @section Icons:
+#' You can optionally supply an icon for each help topic. To do so, you'll
+#' need a top-level \code{icons} directory. This should contain {.png} files
+#' that are either 40x40 (for regular display) or 80x80 (if you want
+#' retina display). Icons are matched to topics by aliases.
+#'
 #' @inheritParams build_articles
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
@@ -80,6 +86,16 @@ build_reference <- function(pkg = ".",
 #' @export
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+  pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
+
+  # Copy icons, if needed
+  logo_path <- file.path(pkg$path, "icons")
+  if (file.exists(logo_path)) {
+    mkdir(path, "icons")
+    copy_dir(logo_path, file.path(path, "icons"))
+  }
+
   render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg, depth = depth),

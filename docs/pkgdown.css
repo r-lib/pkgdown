@@ -30,6 +30,10 @@ footer p {
   margin-bottom: 0;
 }
 
+img.icon {
+  float: right;
+}
+
 /* Section anchors ---------------------------------*/
 
 .hasAnchor {
