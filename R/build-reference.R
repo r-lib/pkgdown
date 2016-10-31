@@ -168,7 +168,9 @@ data_reference_topic <- function(topic,
     topic = topic$name,
     index = pkg$topics,
     current = topic$name,
-    path = path
+    path = path,
+    examples = examples,
+    run_dont_run = run_dont_run
   )
 
   # Everything else stays in original order, and becomes a list of sections.
