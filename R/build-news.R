@@ -130,6 +130,8 @@ data_news <- function(pkg = ".", depth = 1L) {
   sections <- sections[is_version]
   anchors <- anchors[is_version]
 
+  major <- pieces %>% purrr::map_chr(4)
+
   html <- sections %>%
     purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
     purrr::map_chr(as.character)
@@ -137,7 +139,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
     is_dev = is_dev(version),
-    major = pieces %>% purrr::map_chr(4),
+    major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
     anchor = anchors,
     html = html
