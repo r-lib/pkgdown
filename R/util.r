@@ -175,10 +175,18 @@ find_first_existing <- function(path, ...) {
 }
 
 rel_path <- function(path, base = ".") {
-  old <- setwd(base)
-  on.exit(setwd(old))
+  if (is_absolute_path(path)) {
+    path
+  } else {
+    if (base != ".") {
+      path <- file.path(base, path)
+    }
+    normalizePath(path, mustWork = FALSE)
+  }
+}
 
-  normalizePath(path, mustWork = FALSE)
+is_absolute_path <- function(path) {
+  grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
 
 package_path <- function(package, path) {

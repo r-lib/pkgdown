@@ -135,11 +135,7 @@ build_site <- function(pkg = ".",
                        ) {
 
   pkg <- as_pkgdown(pkg)
-
-  mkdir(pkg$path, path)
-  mkdir(pkg$path, path, "reference")
-  mkdir(pkg$path, path, "articles")
-  mkdir(pkg$path, path, "news")
+  path <- rel_path(path, pkg$path)
 
   init_site(pkg, path)
 
