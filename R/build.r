@@ -139,7 +139,6 @@ build_site <- function(pkg = ".",
 
   init_site(pkg, path)
 
-  build_logo(pkg, path = path)
   build_home(pkg, path = path)
   build_reference(pkg,
     examples = examples,
@@ -181,6 +180,9 @@ init_site <- function(pkg = ".", path = "docs") {
     message("Copying '", asset, "'")
     file.copy(asset, path, recursive = TRUE)
   }
+
+  build_logo(pkg, path = path)
+
 }
 
 data_assets <- function(pkg = ".") {
