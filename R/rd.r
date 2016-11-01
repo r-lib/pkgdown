@@ -49,3 +49,8 @@ tag <- function(x) {
 
   gsub("\\", "tag_", tag, fixed = TRUE)
 }
+
+#' @export
+`[.tag` <- function(x, ...) {
+  structure(NextMethod(), class = class(x))
+}

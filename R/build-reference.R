@@ -43,13 +43,33 @@
 #' @inheritParams build_articles
 #' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rd}
 #'   is more recent than the \code{.html}. This makes it much easier to
-#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{pkgdown}}.
+#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @export
+#' @examples
+#' # This example illustrates some important output types
+#' # The following output should be wrapped over multiple lines
+#' a <- 1:100
+#' a
+#'
+#' cat("This some text!\n")
+#' message("This is a message!")
+#' warning("This is a warning!")
+#'
+#' \dontrun{
+#' stop("This is an error!", call. = FALSE)
+#' }
+#'
+#' \donttest{
+#' # This code won't generally be run by CRAN. But it
+#' # will be run by testthat.
+#' b <- 10
+#' a + b
+#' }
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
                             examples = TRUE,

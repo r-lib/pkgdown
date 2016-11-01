@@ -7,11 +7,25 @@ escape_html <- function(x) {
   x
 }
 
-message_html <- function(x) {
-  x <- escape_html(x)
-  paste0(x, collapse = "<br />\n")
+label_lines <- function(x, class = NULL, prompt = "#> ") {
+  lines <- strsplit(x, "\n")[[1]]
+  lines <- escape_html(lines)
+
+  if (!is.null(class)) {
+    lines <- sprintf("<span class='%s'>%s</span>", class, lines)
+  }
+
+  paste0(escape_html(prompt), lines)
 }
 
+label_output <- function(x, class = NULL, prompt = "#> ") {
+  lines <- label_lines(x, class = class, prompt = prompt)
+  paste0(
+    "<div class='output co'>",
+    paste0(lines, collapse = "\n"),
+    "</div>"
+  )
+}
 
 # Replay a list of evaluated results, just like you'd run them in a R
 # terminal, but rendered as html
@@ -48,13 +62,7 @@ replay_html.NULL <- function(x, ...) ""
 
 #' @export
 replay_html.character <- function(x, ...) {
-  commented <- paste0("#> ", gsub("\n", "\n#> ", x))
-
-  paste0(
-    "<div class='output co'>",
-    paste0(escape_html(commented), collapse = ""),
-    "</div>"
-  )
+  label_output(x)
 }
 
 #' @export
@@ -62,7 +70,7 @@ replay_html.value <- function(x, ...) {
   if (!x$visible) return()
 
   printed <- paste0(utils::capture.output(print(x$value)), collapse = "\n")
-  paste0("<div class='output'>", escape_html(printed), "</div>")
+  label_output(printed)
 }
 
 #' @export
@@ -73,24 +81,25 @@ replay_html.source <- function(x, ..., index = NULL, current = current) {
 
 #' @export
 replay_html.warning <- function(x, ...) {
-  paste0("<div class='output'><strong class='text-warning'>Warning message:\n", message_html(x$message), "</strong></div>")
+  message <- paste0("Warning: ", x$message)
+  label_output(message, "warning")
 }
 
 #' @export
 replay_html.message <- function(x, ...) {
-  paste0("<div class='output'><strong class='text-info'>", message_html(gsub("\n$", "", x$message)),
-   "</strong></div>")
+  message <- gsub("\n$", "", x$message)
+  label_output(message, "message")
 }
 
 #' @export
 replay_html.error <- function(x, ...) {
   if (is.null(x$call)) {
-    paste0("<strong class='error'>Error: ", message_html(x$message), "</strong>")
+    message <- paste0("Error: ", x$message)
   } else {
     call <- paste0(deparse(x$call), collapse = "")
-    paste0("<strong class='error'>Error in ", escape_html(call), ": ",
-      message_html(x$message), "</strong>")
+    message <- paste0("Error in ", call, ": ", x$message)
   }
+  label_output(message, "error")
 }
 
 #' @export

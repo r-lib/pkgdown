@@ -91,6 +91,10 @@ code a {
   color: #375f84;
 }
 
+.warning { color: red; }
+.message { font-weight: bolder; }
+.error   { color: red; font-weight: bolder; }
+
 .fl,.number {color:rgb(21,20,181);}
 .fu,.functioncall {color:#264D66 ;}
 .ch,.st,.string {color:#375D81 ;}
