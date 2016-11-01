@@ -28,6 +28,10 @@ as_html.COMMENT <- function(x, ...) {
   paste0("<!-- ", flatten_text(x), " -->")
 }
 
+# USERMACRO appears first, followed by the rendered macro
+#' @export
+as_html.USERMACRO <-  function(x, ...) ""
+
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
 as_html.character <- function(x, ..., escape = TRUE) {
