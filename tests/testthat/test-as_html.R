@@ -67,6 +67,24 @@ test_that("can parse local links with topic!=label", {
 })
 
 
+
+# Paragraphs --------------------------------------------------------------
+
+test_that("empty lines break paragraphs", {
+  expect_equal(
+    flatten_para(rd_text("a\nb\n\nc")),
+    "<p>a\nb</p>\n<p>c</p>"
+  )
+})
+
+test_that("block tags break paragraphs", {
+  out <- flatten_para(rd_text("a\n\\itemize{\\item b}\nc"))
+  expect_equal(out, "<p>a</p><ul>\n<li> b</li>\n</ul>\n<p>c</p>")
+})
+
+
+
+
 # Usage -------------------------------------------------------------------
 
 test_that("S4 methods gets comment", {

@@ -83,7 +83,7 @@ headings. Each minor version (i.e. the combination of first and second
 components) gets on one page, with all patch versions (i.e. the third
 component) on a single page. News items for development versions (by
 convention those versions with a fourth component) are displayed on an
-an &quot;unreleased&quot; page.</p>
+an "unreleased" page.</p>
     
 
     <pre><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
@@ -91,32 +91,32 @@ an &quot;unreleased&quot; page.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
-      <dd>Path to source package.</dd>
+      <dd><p>Path to source package.</p></dd>
       <dt>path</dt>
-      <dd>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</dd>
+      <dd><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></dd>
       <dt>one_page</dt>
-      <dd>If <code>TRUE</code>, writes all news to a single file.
-If <code>FALSE</code>, writes one file per major version.</dd>
+      <dd><p>If <code>TRUE</code>, writes all news to a single file.
+If <code>FALSE</code>, writes one file per major version.</p></dd>
       <dt>depth</dt>
-      <dd>Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.</dd>
+      <dd><p>Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>NEWS.md</code> file should be formatted somewhat like this:</p>
-    <p><pre>
-# pkgdown 0.1.0.9000</p>
-    <p>## Major changes</p>
-    <p>- Fresh approach based on the staticdocs package. Site configuration now based on YAML files.</p>
-    <p>...
-</pre></p>
-    <p>Commonly used subsection headers include &#39;Major changes&#39;, &#39;Bug fixes&#39;, &#39;Minor changes&#39;.</p>
+<pre>
+# pkgdown 0.1.0.9000
+    ## Major changes
+    - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
+    ...
+</pre>
+    <p>Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.</p>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <p></p>
+    
     <p>There are currently no configuration options.</p>
     
 

@@ -93,59 +93,59 @@ below.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
-      <dd>Path to source package.</dd>
+      <dd><p>Path to source package.</p></dd>
       <dt>lazy</dt>
-      <dd>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
-is more recent than the <code>.html</code>. This makes it much easier to
-rapidly protoype. It is set to <code>FALSE</code> by <code>pkgdown</code>.</dd>
+      <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code></p>
+<p>is more recent than the <code>.html</code>. This makes it much easier to
+rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></dd>
       <dt>examples</dt>
-      <dd>Run examples?</dd>
+      <dd><p>Run examples?</p></dd>
       <dt>run_dont_run</dt>
-      <dd>Run examples that are surrounded in \dontrun?</dd>
+      <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
       <dt>mathjax</dt>
-      <dd>Use mathjax to render math symbols?</dd>
+      <dd><p>Use mathjax to render math symbols?</p></dd>
       <dt>seed</dt>
-      <dd>Seed used to initialize so that random examples are
-reproducible.</dd>
+      <dd><p>Seed used to initialize so that random examples are
+reproducible.</p></dd>
       <dt>path</dt>
-      <dd>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</dd>
+      <dd><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></dd>
       <dt>depth</dt>
-      <dd>Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.</dd>
+      <dd><p>Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <p></p>
-    <p>To tweak the index page, you need a section called <code>reference</code>
-which provides a list of sections containing, a <code>title</code>, list of
+    
+    <p>To tweak the index page, you need a section called <code>reference</code></p>
+<p>which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
-    <p>For example, the following code breaks up the functions in pkgdown
+<p>For example, the following code breaks up the functions in pkgdown
 into two groups:</p>
-    <p><pre>
+<pre>
 reference:
 - title: Render components
   desc:  Build each component of the site.
   contents:
-  - starts_with(&quot;build_&quot;)
+  - starts_with("build_")
   - init_site
 - title: Templates
   contents:
   - render_page
-</pre></p>
+</pre>
     <p>Note that <code>contents</code> can contain either a list of function names,
 or if the functions in a section share a common prefix or suffix, you
-can use <code>starts_with(&quot;prefix&quot;)</code> and <code>ends_with(&quot;suffix&quot;)</code> to
+can use <code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to
 select them all. For more complex naming schemes you can use an aribrary
-regular expression with <code>matches(&quot;regexp&quot;)</code>.</p>
-    <p>pkgdown will check that all non-internal topics are included on
+regular expression with <code>matches("regexp")</code>.</p>
+<p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
     
     <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
 
-    <p></p>
-    <p>You can optionally supply an icon for each help topic. To do so, you&#39;ll
+    
+    <p>You can optionally supply an icon for each help topic. To do so, you'll
 need a top-level <code>icons</code> directory. This should contain .png files
 that are either 40x40 (for regular display) or 80x80 (if you want
 retina display). Icons are matched to topics by aliases.</p>
@@ -163,10 +163,11 @@ retina display). Icons are matched to topics by aliases.</p>
 #&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
 <span class='fu'>cat</span>(<span class='st'>"This some text!\n"</span>)</div><div class='output co'>#&gt; This some text!</div><div class='input'><span class='fu'>message</span>(<span class='st'>"This is a message!"</span>)</div><div class='output co'>#&gt; <span class='message'>This is a message!</span></div><div class='input'><span class='fu'>warning</span>(<span class='st'>"This is a warning!"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This is a warning!</span></div><div class='input'>
 <span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># stop("This is an error!")</span>
+<span class='co'># stop("This is an error!", call. = FALSE)</span>
 <span class='co'>## ---------------------------------------------</span>
 
-<span class='co'># This code won't generally be run by CRAN</span>
+<span class='co'># This code won't generally be run by CRAN. But it</span>
+<span class='co'># will be run by testthat.</span>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
 <span class='no'>a</span> + <span class='no'>b</span></div><div class='output co'>#&gt;   [1]  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
 #&gt;  [19]  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46

@@ -4,6 +4,30 @@ as_html <- function(x, ...) {
 
 # Various types of text ------------------------------------------------------
 
+flatten_para <- function(x, ...) {
+  is_nl <- purrr::map_lgl(x, ~ inherits(., "TEXT") && identical(.[[1]], "\n"))
+  is_block <- purrr::map_lgl(x, ~ inherits(., c("tag_preformatted", "tag_itemize", "tag_enumerate", "tag_tabular", "tag_describe", "tag_subsection")))
+
+  # Break before and after each empty TEXT or block tag
+  before_break <- is_nl | is_block
+  after_break <- c(FALSE, before_break[-length(x)])
+  groups <- cumsum(before_break | after_break)
+
+  blocks <- x %>%
+    purrr::map_chr(as_html, ...) %>%
+    split(groups) %>%
+    purrr::map_chr(paste, collapse = "")
+
+  # Add paragraph tags to non-blocks
+  needs_p <- !(is_block | is_nl) %>%
+    split(groups) %>%
+    purrr::map_lgl(any)
+  blocks[needs_p] <- paste0("<p>", trimws(blocks[needs_p]), "</p>")
+
+  paste0(blocks, collapse = "")
+}
+
+
 flatten_text <- function(x, ...) {
   x %>%
     purrr::map_chr(as_html, ...) %>%
@@ -13,26 +37,8 @@ flatten_text <- function(x, ...) {
 #' @export
 as_html.Rd <- function(x, ...) flatten_text(x, ...)
 
-# All components inside a text string should be collapsed into a single string
-# Also need to do html escaping here and in as_html.RCODE
-#' @export
-as_html.TEXT <-  function(x, ...) flatten_text(x, ...)
-#' @export
-as_html.RCODE <- function(x, ...) flatten_text(x, ...)
-#' @export
-as_html.LIST <-  function(x, ...) flatten_text(x, ...)
-#' @export
-as_html.VERB <-  function(x, ...) flatten_text(x, ...)
-#' @export
-as_html.COMMENT <- function(x, ...) {
-  paste0("<!-- ", flatten_text(x), " -->")
-}
+# Leaves  -----------------------------------------------------------------
 
-# USERMACRO appears first, followed by the rendered macro
-#' @export
-as_html.USERMACRO <-  function(x, ...) ""
-
-# If it's a character vector, we've got to the leaves of the tree
 #' @export
 as_html.character <- function(x, ..., escape = TRUE) {
   # src_highlight (used by usage & examples) also does escaping
@@ -43,6 +49,21 @@ as_html.character <- function(x, ..., escape = TRUE) {
     x
   }
 }
+#' @export
+as_html.TEXT <-  as_html.character
+#' @export
+as_html.RCODE <- as_html.character
+#' @export
+as_html.LIST <-  as_html.character
+#' @export
+as_html.VERB <-  as_html.character
+#' @export
+as_html.COMMENT <- function(x, ...) {
+  paste0("<!-- ", flatten_text(x), " -->")
+}
+# USERMACRO appears first, followed by the rendered macro
+#' @export
+as_html.USERMACRO <-  function(x, ...) ""
 
 #' @export
 as_html.tag_subsection <- function(x, ...) {
@@ -222,15 +243,15 @@ as_html.tag_tabular <- function(x, ...) {
 
 #' @export
 as_html.tag_itemize <- function(x, ...) {
-  paste0("<ul>\n", parse_items(x[-1], ...), "</ul>\n")
+  paste0("<ul>\n", parse_items(x[-1], ...), "</ul>")
 }
 #' @export
 as_html.tag_enumerate <- function(x, ...) {
-  paste0("<ol>\n", parse_items(x[-1], ...), "</ol>\n")
+  paste0("<ol>\n", parse_items(x[-1], ...), "</ol>")
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>\n")
+  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>")
 }
 
 # Effectively does nothing: only used by parse_items() to split up
@@ -243,10 +264,6 @@ as_html.tag_item <- function(x, ...) {
 parse_items <- function(rd, ...) {
   separator <- purrr::map_lgl(rd, inherits, "tag_item")
   group <- cumsum(separator)
-
-  # remove empty first group, if present
-  rd <- rd[group != 0]
-  group <- group[group != 0]
 
   parse_item <- function(x) {
     paste0("<li>", flatten_text(x, ...), "</li>\n")

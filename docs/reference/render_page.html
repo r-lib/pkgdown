@@ -78,9 +78,9 @@
     </div>
 
     
-    <p>Each page is composed of four templates: &quot;head&quot;, &quot;header&quot;, &quot;content&quot;, and
-&quot;footer&quot;. Each of these templates is rendered using the <code>data</code>, and
-then assembled into an overall page using the &quot;layout&quot; template.</p>
+    <p>Each page is composed of four templates: "head", "header", "content", and
+"footer". Each of these templates is rendered using the <code>data</code>, and
+then assembled into an overall page using the "layout" template.</p>
     
 
     <pre><span class='fu'>render_page</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>name</span>, <span class='no'>data</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
@@ -90,14 +90,13 @@ then assembled into an overall page using the &quot;layout&quot; template.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
-      <dd>Path to package to document.</dd>
+      <dd><p>Path to package to document.</p></dd>
       <dt>name</dt>
-      <dd>Name of the template (e.g. &quot;home&quot;, &quot;vignette&quot;, &quot;news&quot;)</dd>
+      <dd><p>Name of the template (e.g. "home", "vignette", "news")</p></dd>
       <dt>data</dt>
-      <dd>Data for the template.
-
-  This is automatically supplemented with three lists:
-  <ul>
+      <dd><p>Data for the template.</p>
+<p>This is automatically supplemented with three lists:</p><ul>
+<li>  </li>
 <li> <code>site</code>: <code>title</code> and path to <code>root</code>.
   </li>
 <li> <code>yaml</code>: the <code>template</code> key from from
@@ -108,21 +107,20 @@ then assembled into an overall page using the &quot;layout&quot; template.</p>
   </li>
 </ul>
 
-
-  See the full contents by running <code>data_template()</code>.</dd>
+<p>See the full contents by running <code>data_template()</code>.</p></dd>
       <dt>path</dt>
-      <dd>Location to create file. If <code>&quot;&quot;</code> (the default),
-prints to standard out.</dd>
+      <dd><p>Location to create file. If <code>""</code> (the default),
+prints to standard out.</p></dd>
       <dt>depth</dt>
-      <dd>Depth of path relative to base directory.</dd>
+      <dd><p>Depth of path relative to base directory.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <p></p>
+    
     <p>You can use either the templates provided by pkgdown, or provide your
 own by supplying <code>templates_path</code> key in your <code>_pkgdown.yml</code>.
-Generally, you&#39;ll find it easiest to customise if you start with a copy
+Generally, you'll find it easiest to customise if you start with a copy
 of the pkgdown templates and modify from there.</p>
     
 

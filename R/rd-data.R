@@ -31,14 +31,14 @@ as_data.tag_item <- function(x, ...) {
 
   list(
     name = as_html(x[[1]], ...),
-    description = flatten_text(x[[2]], ...)
+    description = flatten_para(x[[2]], ...)
   )
 }
 
 # Sections ----------------------------------------------------------------
 
 parse_section <- function(x, title, ...) {
-  text <- flatten_text(x, ...)
+  text <- flatten_para(x, ...)
   paras <- split_at_linebreaks(text)
 
   list(
