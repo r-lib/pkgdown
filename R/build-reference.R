@@ -83,9 +83,12 @@ build_reference <- function(pkg = ".",
   path <- rel_path(path, pkg$path)
 
   rule("Building function reference")
+
   if (!is.null(path)) {
     mkdir(path)
   }
+
+  build_reference_index(pkg, path = path, depth = depth)
 
   if (examples) {
     devtools::load_all(pkg$path)
@@ -102,9 +105,6 @@ build_reference <- function(pkg = ".",
       run_dont_run = run_dont_run,
       mathjax = mathjax
     )
-
-  build_reference_index(pkg, path = path, depth = depth)
-
   invisible()
 }
 
