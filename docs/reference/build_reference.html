@@ -84,8 +84,9 @@ the functions in alphabetical order. To override this, provide a
 below.</p>
     
 
-    <pre><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+    <pre><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
 
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
@@ -93,6 +94,10 @@ below.</p>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
+      <dt>lazy</dt>
+      <dd>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
+is more recent than the <code>.html</code>. This makes it much easier to
+rapidly protoype. It is set to <code>FALSE</code> by <code>pkgdown</code>.</dd>
       <dt>examples</dt>
       <dd>Run examples?</dd>
       <dt>run_dont_run</dt>

@@ -202,3 +202,14 @@ package_path <- function(package, path) {
   pkg_path
 
 }
+
+out_of_date <- function(source, target) {
+  if (!file.exists(target))
+    return(TRUE)
+
+  if (!file.exists(source)) {
+    stop("'", source, "' does not exist", call. = FALSE)
+  }
+
+  file.info(source)$mtime > file.info(target)$mtime
+}

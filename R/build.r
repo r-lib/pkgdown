@@ -141,6 +141,7 @@ build_site <- function(pkg = ".",
 
   build_home(pkg, path = path)
   build_reference(pkg,
+    lazy = FALSE,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,

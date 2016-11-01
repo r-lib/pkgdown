@@ -5,13 +5,18 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  mathjax = TRUE, seed = 1014, path = "docs/reference", depth = 1L)
+build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
+  run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
+  path = "docs/reference", depth = 1L)
 
 build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to source package.}
+
+\item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
+is more recent than the \code{.html}. This makes it much easier to
+rapidly protoype. It is set to \code{FALSE} by \code{\link{pkgdown}}.}
 
 \item{examples}{Run examples?}
 
