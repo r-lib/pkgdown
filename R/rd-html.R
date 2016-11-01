@@ -158,10 +158,15 @@ method_usage <- function(x, type) {
 
 #' @export
 as_html.tag_Sexpr <- function(x, ...) {
+  # Currently assume output is always Rd
+  options <- attr(x, "Rd_option")
+
   code <- flatten_text(x, escape = FALSE)
+  # Not sure if this is the correct environment
   expr <- eval(parse(text = code)[[1]], new.env(parent = globalenv()))
 
-  flatten_text(rd_text(as.character(expr)), ...)
+  rd <- rd_text(as.character(expr))
+  as_html(rd, ...)
 }
 
 #' @export
