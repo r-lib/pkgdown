@@ -5,10 +5,9 @@ rd_text <- function(x, fragment = TRUE) {
   set_classes(tools::parse_Rd(con, fragment = fragment))
 }
 
-rd_file <- function(path) {
-  # Use permissive = TRUE to suppress warnings from unknown macros
-  # These are someone's elses problem
-  set_classes(tools::parse_Rd(path, permissive = TRUE))
+rd_file <- function(path, pkg_path = NULL) {
+  macros <- tools::loadPkgRdMacros(pkg_path)
+  set_classes(tools::parse_Rd(path, macros = macros))
 }
 
 rd2html <- function(x, fragment = TRUE, ...) {
