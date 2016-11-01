@@ -37,6 +37,9 @@ flatten_text <- function(x, ...) {
 #' @export
 as_html.Rd <- function(x, ...) flatten_text(x, ...)
 
+#' @export
+as_html.LIST <-  flatten_text
+
 # Leaves  -----------------------------------------------------------------
 
 #' @export
@@ -46,15 +49,13 @@ as_html.character <- function(x, ..., escape = TRUE) {
   if (escape) {
     escape_html(x)
   } else {
-    x
+    as.character(x)
   }
 }
 #' @export
 as_html.TEXT <-  as_html.character
 #' @export
 as_html.RCODE <- as_html.character
-#' @export
-as_html.LIST <-  as_html.character
 #' @export
 as_html.VERB <-  as_html.character
 #' @export
