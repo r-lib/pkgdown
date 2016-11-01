@@ -354,8 +354,6 @@ as_html.tag_concept <-  function(x, ...) ""
 #' @export
 as_html.tag_out <-      function(x, ...) ""
 #' @export
-as_html.tag_donttest <- function(x, ...) ""
-#' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
 as_html.tag_cr <-       function(x, ...) ""

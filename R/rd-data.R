@@ -139,3 +139,8 @@ as_html.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
     )
   }
 }
+
+#' @export
+as_html.tag_donttest <- function(x, ...) {
+  flatten_text(x)
+}
