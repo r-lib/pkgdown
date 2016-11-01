@@ -2,12 +2,12 @@ rd_text <- function(x, fragment = TRUE) {
   con <- textConnection(x)
   on.exit(close(con), add = TRUE)
 
-  set_classes(tools::parse_Rd(con, fragment = fragment))
+  set_classes(tools::parse_Rd(con, fragment = fragment, encoding = "UTF-8"))
 }
 
 rd_file <- function(path, pkg_path = NULL) {
   macros <- tools::loadPkgRdMacros(pkg_path)
-  set_classes(tools::parse_Rd(path, macros = macros))
+  set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
 }
 
 rd2html <- function(x, fragment = TRUE, ...) {
