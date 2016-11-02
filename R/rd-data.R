@@ -150,13 +150,13 @@ drop_leading_newline <- function(x) {
   if (length(x) == 0)
     return()
 
-  first <- x[[1]]
-  if (!inherits(first, "RCODE"))
-    return(x)
+  if (is_newline(x[[1]])) {
+    x[-1]
+  } else {
+    x
+  }
+}
 
-  first <- as.character(first)
-  if (!identical(first, "\n"))
-    return(x)
-
-  x[-1]
+is_newline <- function(x) {
+  inherits(x, "TEXT") && identical(x[[1]], "\n")
 }

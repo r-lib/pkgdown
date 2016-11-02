@@ -5,7 +5,7 @@ as_html <- function(x, ...) {
 # Various types of text ------------------------------------------------------
 
 flatten_para <- function(x, ...) {
-  is_nl <- purrr::map_lgl(x, ~ inherits(., "TEXT") && identical(.[[1]], "\n"))
+  is_nl <- purrr::map_lgl(x, is_newline)
   is_block <- purrr::map_lgl(x, ~ inherits(., c("tag_preformatted", "tag_itemize", "tag_enumerate", "tag_tabular", "tag_describe", "tag_subsection")))
 
   # Break before and after each empty TEXT or block tag
@@ -266,8 +266,15 @@ parse_items <- function(rd, ...) {
   separator <- purrr::map_lgl(rd, inherits, "tag_item")
   group <- cumsum(separator)
 
+  # Drop anything before first tag_item
+  if (!all(group == 0) && any(group == 0)) {
+    rd <- rd[group != 0]
+    group <- group[group != 0]
+  }
+
   parse_item <- function(x) {
-    paste0("<li>", flatten_text(x, ...), "</li>\n")
+    x <- trim_ws_nodes(x)
+    paste0("<li>", flatten_para(x, ...), "</li>\n")
   }
 
   rd %>%
@@ -283,7 +290,7 @@ parse_descriptions <- function(rd, ...) {
     if (inherits(x, "tag_item")) {
       paste0(
         "<dt>", flatten_text(x[[1]], ...), "</dt>",
-        "<dd>", flatten_text(x[-1], ...), "</dd>"
+        "<dd>", flatten_para(x[-1], ...), "</dd>"
       )
     } else {
       flatten_text(x, ...)
@@ -404,3 +411,32 @@ as_html.tag <- function(x, ...) {
     ""
   }
 }
+
+# Whitespace helper -------------------------------------------------------
+
+trim_ws_nodes <- function(x, side = c("both", "left", "right")) {
+  is_ws <- purrr::map_lgl(x, ~ inherits(., "TEXT") && grepl("^\\s*$", .[[1]]))
+
+  if (!any(is_ws))
+    return(x)
+  if (all(is_ws))
+    return(x[0])
+
+  which_not <- which(!is_ws)
+
+  side <- match.arg(side)
+  if (side %in% c("left", "both")) {
+    start <- which_not[1]
+  } else {
+    start <- 1
+  }
+
+  if (side %in% c("right", "both")) {
+    end <- which_not[length(which_not)]
+  } else {
+    end <- length(x)
+  }
+
+  x[start:end]
+}
+

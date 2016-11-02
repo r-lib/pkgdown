@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Render page with template — render_page • pkgdown</title>
+<title>Test cases: lists — test-lists • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -74,60 +74,38 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Render page with template</h1>
+    <h1>Test cases: lists</h1>
     </div>
 
     
-    <p>Each page is composed of four templates: "head", "header", "content", and
-"footer". Each of these templates is rendered using the <code>data</code>, and
-then assembled into an overall page using the "layout" template.</p>
-    
-
-    <pre><span class='fu'>render_page</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>name</span>, <span class='no'>data</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
-
-<span class='fu'>data_template</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>pkg</dt>
-      <dd><p>Path to package to document.</p></dd>
-      <dt>name</dt>
-      <dd><p>Name of the template (e.g. "home", "vignette", "news")</p></dd>
-      <dt>data</dt>
-      <dd><p>Data for the template.</p>
-<p>This is automatically supplemented with three lists:</p><ul>
-<li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
-<li><p><code>yaml</code>: the <code>template</code> key from from
-     <code>_pkgdown.yml</code>.</p></li>
-<li><p><code>package</code>: package metadata including <code>name</code> and
-     <code>version</code>.</p></li>
+    <ul>
+<li><p>a</p></li>
 </ul>
 
-<p>See the full contents by running <code>data_template()</code>.</p></dd>
-      <dt>path</dt>
-      <dd><p>Location to create file. If <code>""</code> (the default),
-prints to standard out.</p></dd>
-      <dt>depth</dt>
-      <dd><p>Depth of path relative to base directory.</p></dd>
-    </dl>
-    
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+    <ul>
+<li><p>a</p></li>
+<li><p>This is an item...</p>
+<p>That spans multiple paragraphs.</p></li>
+</ul>
 
+    <ol>
+<li><p>a</p></li>
+<li><p>b</p></li>
+</ol>
+
+    <dl class='dl-horizontal'>
+  <dt>a</dt><dd><p>1</p></dd>
+  <dt>b</dt><dd><p>2</p></dd>
+</dl>
     
-    <p>You can use either the templates provided by pkgdown, or provide your
-own by supplying <code>templates_path</code> key in your <code>_pkgdown.yml</code>.
-Generally, you'll find it easiest to customise if you start with a copy
-of the pkgdown templates and modify from there.</p>
-    
+
+        
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#yaml-config">YAML config</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
