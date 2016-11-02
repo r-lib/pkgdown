@@ -157,19 +157,21 @@ find_local_topic <- function(alias, index, current = NULL) {
     return()
 
   topic <- index$name[match]
+  path <- index$file_out[match]
+
   if (!is.null(current) && topic == current) {
     NULL
   } else {
-    topic
+    path
   }
 }
 
 link_local <- function(label, topic, index, current = NULL) {
-  topic <- find_local_topic(topic, index = index, current = current)
-  if (is.null(topic)) {
+  path <- find_local_topic(topic, index = index, current = current)
+  if (is.null(path)) {
     label
   } else {
-    paste0("<a href='", paste0(topic, ".html"), "'>", label, "</a>")
+    paste0("<a href='", path, "'>", label, "</a>")
   }
 }
 
@@ -227,12 +229,12 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   }
 
   alias <- find_alias(expr, strict = strict)
-  topic <- find_local_topic(alias, index = index)
-  if (is.null(topic)) {
+  path <- find_local_topic(alias, index = index)
+  if (is.null(path)) {
     return(NA_character_)
   }
 
-  href <- paste0(up_path(depth), "reference/", topic, ".html")
+  href <- paste0(up_path(depth), "reference/", path)
   paste0("<a href='", href, "'>", x, "</a>")
 }
 
