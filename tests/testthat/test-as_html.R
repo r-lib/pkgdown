@@ -79,12 +79,17 @@ test_that("empty lines break paragraphs", {
 
 test_that("block tags break paragraphs", {
   out <- flatten_para(rd_text("a\n\\itemize{\\item b}\nc"))
-  expect_equal(out, "<p>a</p><ul>\n<li><p>b</p></li>\n</ul>\n<p>c</p>")
+  expect_equal(out, "<p>a</p><ul>\n<li><p>b</p></li>\n</ul><p>c</p>")
 })
 
 test_that("single item can have multiple paragraphs", {
   out <- flatten_para(rd_text("\\itemize{\\item a\n\nb}"))
   expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>\n")
+})
+
+test_that("nl after tag doesn't trigger paragraphs", {
+  out <- flatten_para(rd_text("One \\code{}\nTwo"))
+  expect_equal(out, "<p>One <code></code>\nTwo</p>")
 })
 
 # Usage -------------------------------------------------------------------

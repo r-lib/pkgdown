@@ -95,8 +95,8 @@ below.</p>
       <dt>pkg</dt>
       <dd><p>Path to source package.</p></dd>
       <dt>lazy</dt>
-      <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code></p>
-<p>is more recent than the <code>.html</code>. This makes it much easier to
+      <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
+is more recent than the <code>.html</code>. This makes it much easier to
 rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></dd>
       <dt>examples</dt>
       <dd><p>Run examples?</p></dd>
@@ -118,12 +118,11 @@ Used to adjust relative links in the navbar.</p></dd>
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>To tweak the index page, you need a section called <code>reference</code></p>
-<p>which provides a list of sections containing, a <code>title</code>, list of
+    <p>To tweak the index page, you need a section called <code>reference</code>
+which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
 <p>For example, the following code breaks up the functions in pkgdown
-into two groups:</p>
-<pre>
+into two groups:</p><pre>
 reference:
 - title: Render components
   desc:  Build each component of the site.
