@@ -7,7 +7,7 @@
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014)
+  seed = 1014, encoding = getOption("encoding"))
 
 init_site(pkg = ".", path = "docs")
 }
@@ -27,6 +27,8 @@ path.}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
+
+\item{encoding}{The encoding of the input files.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around four functions:

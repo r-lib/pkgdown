@@ -4,7 +4,8 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path = "docs/articles", depth = 1L)
+build_articles(pkg = ".", path = "docs/articles", depth = 1L,
+  encoding = getOption("encoding"))
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -14,6 +15,8 @@ build_articles(pkg = ".", path = "docs/articles", depth = 1L)
 
 \item{depth}{Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.}
+
+\item{encoding}{The encoding of the input files.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
