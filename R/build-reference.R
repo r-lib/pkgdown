@@ -180,7 +180,7 @@ data_reference_topic <- function(topic,
 
   # Single top-level converted to string
   out$name <- flatten_text(tags$tag_name[[1]][[1]])
-  out$title <- flatten_text(tags$tag_title[[1]][[1]])
+  out$title <- extract_tag(topic$rd, "tag_title")
 
   out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
