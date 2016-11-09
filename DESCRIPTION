@@ -17,6 +17,7 @@ Imports:
     magick,
     magrittr,
     purrr,
+    pkgload,
     rmarkdown (>= 1.1.9007),
     roxygen2,
     tibble,
@@ -29,7 +30,9 @@ Suggests:
     testthat
 Remotes:
     hadley/xml2,
-    rstudio/rmarkdown
+    rstudio/rmarkdown,
+    hadley/devtools,
+    r-pkgs/pkgload
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1.9000
 URL: https://github.com/hadley/pkgdown
