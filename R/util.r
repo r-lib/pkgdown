@@ -3,7 +3,7 @@
 NULL
 
 inst_path <- function() {
-  if (is.null(devtools::dev_meta("pkgdown"))) {
+  if (is.null(pkgload::dev_meta("pkgdown"))) {
     # pkgdown is probably installed
     system.file(package = "pkgdown")
   } else {
