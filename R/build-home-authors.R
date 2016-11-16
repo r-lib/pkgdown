@@ -133,16 +133,3 @@ role_lookup <- c(
   "ths" = "thesis&nbsp;advisor",
   "trl" = "translator"
 )
-
-itemize <- function(header, x) {
-  if (length(x) == 0)
-    return()
-
-  paste0(
-    header, "\n",
-    "\\itemize{\n",
-    paste0("  \\item ", x, "\n", collapse = ""),
-    "}\n"
-  )
-}
-
