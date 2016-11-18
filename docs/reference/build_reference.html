@@ -97,7 +97,7 @@ below.</p>
       <dt>lazy</dt>
       <dd>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
-rapidly protoype. It is set to <code>FALSE</code> by <code>pkgdown</code>.</dd>
+rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</dd>
       <dt>examples</dt>
       <dd>Run examples?</dd>
       <dt>run_dont_run</dt>
@@ -163,10 +163,11 @@ retina display). Icons are matched to topics by aliases.</p>
 #&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
 <span class='fu'>cat</span>(<span class='st'>"This some text!\n"</span>)</div><div class='output co'>#&gt; This some text!</div><div class='input'><span class='fu'>message</span>(<span class='st'>"This is a message!"</span>)</div><div class='output co'>#&gt; <span class='message'>This is a message!</span></div><div class='input'><span class='fu'>warning</span>(<span class='st'>"This is a warning!"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This is a warning!</span></div><div class='input'>
 <span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># stop("This is an error!")</span>
+<span class='co'># stop("This is an error!", call. = FALSE)</span>
 <span class='co'>## ---------------------------------------------</span>
 
-<span class='co'># This code won't generally be run by CRAN</span>
+<span class='co'># This code won't generally be run by CRAN. But it</span>
+<span class='co'># will be run by testthat.</span>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
 <span class='no'>a</span> + <span class='no'>b</span></div><div class='output co'>#&gt;   [1]  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
 #&gt;  [19]  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
