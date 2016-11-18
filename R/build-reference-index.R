@@ -37,9 +37,14 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
     return(NULL)
   }
 
-  # Match topics against any aliases
-  in_section <- has_topic(pkg$topics$alias, section$contents)
-  section_topics <- pkg$topics[in_section, ]
+  # Match section topics (section$contents) against any aliases
+  section_topic_files <- topic_files(pkg$topics$alias, section$contents)
+
+  section_topic_rows <- section_topic_files %>%
+    purrr::map_int(function(topic_file) which(topic_file == pkg$topics$file_in))
+
+  section_topics <- pkg$topics[section_topic_rows, ]
+
   contents <- tibble::tibble(
     path = section_topics$file_out,
     aliases = section_topics$alias,
@@ -82,12 +87,30 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-# Character vector of contents: xyz, starts_with("xyz")
+# matches: Character vector of contents: xyz, starts_with("xyz")
 # List of aliases
 has_topic <- function(topics, matches) {
   matchers <- purrr::map(matches, topic_matcher)
   topics %>%
     purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))
+}
+
+topic_files <- function(topics, matches) {
+
+  # Returns the topic file name for a matcher function
+  find_topic_files <- function(matcher) {
+    topics %>%
+      purrr::keep(function(section_topic) any(purrr::map_lgl(section_topic, matcher))) %>%
+      names %>%
+      unlist
+  }
+
+  matches %>% 
+    purrr::map(topic_matcher) %>%
+    purrr::map(find_topic_files) %>%
+    unlist %>%
+    unique
+
 }
 
 # Takes text specification and converts it to a predicate function
