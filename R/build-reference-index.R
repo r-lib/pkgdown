@@ -97,7 +97,7 @@ has_topic <- function(topics, matches) {
 
 topic_files <- function(topics, matches) {
 
-  # Returns the topic file name for a matcher function
+  # Returns the topic file name(s) for a matcher function
   find_topic_files <- function(matcher) {
     topics %>%
       purrr::keep(function(section_topic) any(purrr::map_lgl(section_topic, matcher))) %>%
