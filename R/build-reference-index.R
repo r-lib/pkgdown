@@ -87,7 +87,7 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-# matches: Character vector of contents: xyz, starts_with("xyz")
+# matches: Character vector of contents e.g. xyz, starts_with("xyz")
 # List of aliases
 has_topic <- function(topics, matches) {
   matchers <- purrr::map(matches, topic_matcher)
@@ -95,6 +95,7 @@ has_topic <- function(topics, matches) {
     purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))
 }
 
+# Returns the topic file name(s) for a set of aliases (matches)
 topic_files <- function(topics, matches) {
 
   # Returns the topic file name(s) for a matcher function
@@ -110,7 +111,6 @@ topic_files <- function(topics, matches) {
     purrr::map(find_topic_files) %>%
     unlist %>%
     unique
-
 }
 
 # Takes text specification and converts it to a predicate function
