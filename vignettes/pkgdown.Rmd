@@ -67,6 +67,8 @@ reference:
 
 The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
 
+The objects in `reference` can also contain a list of `exclude`, which allow you to exclude unwanted topics included via `contents`.
+
 pkgdown will warn if you've forgotten to include any non-internal functions.
 
 ## Articles
