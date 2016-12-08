@@ -47,8 +47,8 @@ as_html.character <- function(x, ..., escape = TRUE) {
 #' @export
 as_html.tag_subsection <- function(x, ...) {
   paste0(
-    "<h3>", flatten_text(x[[1]]), "</h3>\n",
-    flatten_text(x[[2]])
+    "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
+    flatten_text(x[[2]], ...)
   )
 }
 
@@ -114,15 +114,21 @@ as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
     # \link[=dest]{name}
     link_local(in_braces, substr(opt, 2, nchar(opt)), index = index, current = current)
   } else {
-    match <- regexec('([^:]+):(.*)', opt)
-    parts <- regmatches(opt, match)[[1]]
+    match <- regexec('^([^:]+)(?:|:(.*))$', opt)
+    parts <- regmatches(opt, match)[[1]][-1]
 
-    if (length(parts) == 0) {
+    pkg <- attr(current, "pkg")
+    stopifnot(!is.null(pkg))
+
+    if (parts[[1]] == pkg$desc$get("Package")) {
+      # \link[my_pkg]{foo}
+      link_local(in_braces, in_braces, index = index, current = current)
+    } else if (parts[[2]] == "") {
       # \link[pkg]{foo}
       link_remote(in_braces, in_braces, package = opt)
     } else {
       # \link[pkg:bar]{foo}
-      link_remote(in_braces, parts[3], package = parts[2])
+      link_remote(in_braces, parts[[2]], package = parts[[1]])
     }
   }
 }
