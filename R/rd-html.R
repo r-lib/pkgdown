@@ -117,10 +117,10 @@ as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
     match <- regexec('^([^:]+)(?:|:(.*))$', opt)
     parts <- regmatches(opt, match)[[1]][-1]
 
-    pkg <- attr(current, "pkg")
-    stopifnot(!is.null(pkg))
+    pkg_name <- attr(current, "pkg_name")
+    stopifnot(!is.null(pkg_name))
 
-    if (parts[[1]] == pkg$desc$get("Package")) {
+    if (parts[[1]] == pkg_name) {
       # \link[my_pkg]{foo}
       link_local(in_braces, in_braces, index = index, current = current)
     } else if (parts[[2]] == "") {
