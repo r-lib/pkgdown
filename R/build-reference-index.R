@@ -8,7 +8,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ has_topic(pkg$topics$alias, .$contents)) %>%
+    purrr::map(~ has_topic(pkg$topics$alias, .$contents, .$exclude)) %>%
     purrr::reduce(`+`)
 
   missing <- (in_index == 0) & !pkg$topics$internal
@@ -37,7 +37,7 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
     return(NULL)
   }
 
-  # Match section topics (section$contents) against any aliases
+  # Match topics against any aliases
   section_topic_files <- topic_files(pkg$topics$alias, section$contents)
 
   section_topic_rows <- section_topic_files %>%
@@ -89,7 +89,12 @@ default_reference_index <- function(pkg = ".") {
 
 # matches: Character vector of contents e.g. xyz, starts_with("xyz")
 # List of aliases
-has_topic <- function(topics, matches) {
+has_topic <- function(topics, contains, exclude = NULL) {
+  match_topic(topics, contains %||% list()) &
+    !match_topic(topics, exclude %||% list())
+}
+
+match_topic <- function(topics, matches) {
   matchers <- purrr::map(matches, topic_matcher)
   topics %>%
     purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))
@@ -106,7 +111,7 @@ topic_files <- function(topics, matches) {
       unlist
   }
 
-  matches %>% 
+  matches %>%
     purrr::map(topic_matcher) %>%
     purrr::map(find_topic_files) %>%
     unlist %>%
