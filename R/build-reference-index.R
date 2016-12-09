@@ -8,7 +8,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ has_topic(pkg$topics$alias, .$contents)) %>%
+    purrr::map(~ has_topic(pkg$topics$alias, .$contents, .$exclude)) %>%
     purrr::reduce(`+`)
 
   missing <- (in_index == 0) & !pkg$topics$internal
@@ -38,20 +38,36 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   }
 
   # Match topics against any aliases
-  in_section <- has_topic(pkg$topics$alias, section$contents)
+  in_section <- has_topic(pkg$topics$alias, section$contents, section$exclude)
   section_topics <- pkg$topics[in_section, ]
   contents <- tibble::tibble(
     path = section_topics$file_out,
     aliases = section_topics$alias,
-    title = section_topics$title
+    title = section_topics$title,
+    icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
   )
-
   list(
     title = section$title,
+    slug = paste0("section-", make_slug(section$title)),
     desc = markdown_text(section$desc, index = pkg$topics, depth = depth),
     class = section$class,
     contents = purrr::transpose(contents)
   )
+}
+
+
+find_icons <- function(x, path) {
+  purrr::map(x, find_icon, path = path)
+}
+find_icon <- function(aliases, path) {
+  names <- paste0(aliases, ".png")
+  exists <- file.exists(file.path(path, names))
+
+  if (!any(exists)) {
+    NULL
+  } else {
+    names[which(exists)[1]]
+  }
 }
 
 default_reference_index <- function(pkg = ".") {
@@ -68,7 +84,12 @@ default_reference_index <- function(pkg = ".") {
 
 # Character vector of contents: xyz, starts_with("xyz")
 # List of aliases
-has_topic <- function(topics, matches) {
+has_topic <- function(topics, contains, exclude = NULL) {
+  match_topic(topics, contains %||% list()) &
+    !match_topic(topics, exclude %||% list())
+}
+
+match_topic <- function(topics, matches) {
   matchers <- purrr::map(matches, topic_matcher)
   topics %>%
     purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))

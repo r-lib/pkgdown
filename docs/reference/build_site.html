@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -36,10 +36,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -52,36 +51,35 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
-  <a href="../articles/pkgdown.html">Overview</a>
+  <a href="../articles/pkgdown.html">Intro</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/pkgdown">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-      
+
+
       </header>
 
-      <div class="page-header">
-  <h1>Build pkgdown website</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Build pkgdown website</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
-    
+
     <p><code>build_site()</code> is a convenient wrapper around four functions:
 <ul>
 <li> <code><a href='build_articles.html'>build_articles</a>()</code>
@@ -96,13 +94,15 @@
 
     <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
-    
+
 
     <pre><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)</pre>
-    
-    <h2>Arguments</h2>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
+
+<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
@@ -121,43 +121,34 @@ path.</dd>
       <dd>Seed used to initialize so that random examples are
 reproducible.</dd>
     </dl>
-    
-    <div class="YAML config">
-      <h2>YAML config</h2>
 
-      <p></p>
-      <p>There are four top-level YAML settings that affect the entire site:</p>
-      <p><dl class='dl-horizontal'>
- <dt>title</dt><dd>Site title, used in page title and default navbar.</dd>
- <dt>assets_path</dt><dd>Path to directory of additional assets to be
-   copied into root directory of site. Use this when you want complete
-   control over the visual design of the site. Recommended for advanced
-   users only.</dd>
- <dt>template_path</dt><dd>Path to directory of templates. Override the
-   default (the templates built-in to pkgdown) to completely
-   control the display of your site. Recommended for advanced users
-   only.</dd>
- <dt>template</dt><dd>Additional metadata to be passed on to the template.
-   The default template supports
-   <ul>
-<li> <code>bootswatch</code> to customise the
-       overall theme with a bootswatch theme. You can see a complete list
-       and preview how they look at
-       <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>.
-     </li>
-<li> <code>ganalytics</code> to enable
-       <a href = 'https://www.google.com/analytics/'>Google Analytics</a> by
-       providing your
-       <a href = 'https://support.google.com/analytics/answer/1032385'>tracking id</a>
-       (e.g. <code>&quot;UA-000000-01&quot;</code>).
-   </li>
-</ul>
-</dd>
-</dl></p>
-      <p>You can also control the <code>navbar</code>. It uses the same syntax as
-<a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+
+    <p></p>
+    <p>There are five top-level YAML settings that affect the entire site:
+<code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
+    <p><code>title</code> overrides the default site title, which is the package name.
+It&#39;s used in the page title and default navbar.</p>
+    <p>You can also provided information to override the default display of
+the authors. Provided a list named with the name of each author,
+including <code>href</code> to add a link, or <code>html</code> to override the
+text:</p>
+    <p><pre>
+authors:
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: &lt;img src=&quot;http://tidyverse.org/rstudio-logo.svg&quot; height=&quot;24&quot; /&gt;
+</pre></p>
+
+    <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
+
+    <p></p>
+    <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
+syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>
-      <p><pre>
+    <p><pre>
 navbar:
   type: inverse
   left:
@@ -182,25 +173,83 @@ navbar:
     - icon: fa-github fa-lg
       href: https://example.com
 </pre></p>
-      <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
-      <p>You position elements by placing under either <code>left</code> or <code>right</code>.
+    <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
+    <p>You position elements by placing under either <code>left</code> or <code>right</code>.
 Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 <a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
-    </div>
-    
-    <h2 id="examples">Examples</h2>
+    <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
+will be automatically filled in from the default navbar: you can see
+those values by running <code><a href='template_navbar.html'>template_navbar</a>()</code>.</p>
+
+    <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
+
+    <p></p>
+    <p>You can get complete control over the appearance of the site using the
+<code>template</code> component. There are two components to the template:
+the HTML templates used to layout each page, and the css/js assets
+used to render the page in the browser.</p>
+    <p>The easiest way to tweak the default style is to use a bootswatch template,
+by passing on the <code>bootswatch</code> template parameter to the built-in
+template:</p>
+    <p><pre>
+template:
+  params:
+    bootswatch: cerulean
+</pre></p>
+    <p>See a complete list of themes and preview how they look at
+<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+    <p>You can also override the default templates and provide additional
+assets. You can do so by either storing in a <code>package</code> with
+directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
+or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
+of the default assets, set <code>default_assets</code> to false.</p>
+    <p><pre>
+template:
+  package: mycustompackage</p>
+    <p># OR:</p>
+    <p>template:
+  path: path/to/templates
+  assets: path/to/assets
+  default_assets: false
+</pre></p>
+    <p>These settings are currently recommended for advanced users only. There
+is little documentation, and you&#39;ll need to read the existing source
+for pkgdown templates to ensure that you use the correct components.</p>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># build_site()</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+
+      <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
+
+      <li><a href="#yaml-config-template">YAML config - template</a></li>
+
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

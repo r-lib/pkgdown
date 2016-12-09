@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -36,10 +36,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -52,15 +51,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
-  <a href="../articles/pkgdown.html">Overview</a>
+  <a href="../articles/pkgdown.html">Intro</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hadley/pkgdown">
@@ -72,15 +69,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Build reference section</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Build reference section</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>By default, pkgdown will generate an index that simply lists all
 the functions in alphabetical order. To override this, provide a
@@ -88,15 +86,20 @@ the functions in alphabetical order. To override this, provide a
 below.</p>
     
 
-    <pre><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+    <pre><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
 
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
       <dd>Path to source package.</dd>
+      <dt>lazy</dt>
+      <dd>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
+is more recent than the <code>.html</code>. This makes it much easier to
+rapidly protoype. It is set to <code>FALSE</code> by <code>pkgdown</code>.</dd>
       <dt>examples</dt>
       <dd>Run examples?</dd>
       <dt>run_dont_run</dt>
@@ -107,22 +110,22 @@ below.</p>
       <dd>Seed used to initialize so that random examples are
 reproducible.</dd>
       <dt>path</dt>
-      <dd>Output path.</dd>
+      <dd>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</dd>
       <dt>depth</dt>
       <dd>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</dd>
     </dl>
     
-    <div class="YAML config">
-      <h2>YAML config</h2>
+    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-      <p></p>
-      <p>To tweak the index page, you need a section called <code>reference</code>
+    <p></p>
+    <p>To tweak the index page, you need a section called <code>reference</code>
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
-      <p>For example, the following code breaks up the functions in pkgdown
+    <p>For example, the following code breaks up the functions in pkgdown
 into two groups:</p>
-      <p><pre>
+    <p><pre>
 reference:
 - title: Render components
   desc:  Build each component of the site.
@@ -133,21 +136,72 @@ reference:
   contents:
   - render_page
 </pre></p>
-      <p>Note that <code>contents</code> can contain either a list of function names,
+    <p>Note that <code>contents</code> can contain either a list of function names,
 or if the functions in a section share a common prefix or suffix, you
 can use <code>starts_with(&quot;prefix&quot;)</code> and <code>ends_with(&quot;suffix&quot;)</code> to
 select them all. For more complex naming schemes you can use an aribrary
 regular expression with <code>matches(&quot;regexp&quot;)</code>.</p>
-      <p>pkgdown will check that all non-internal topics are included on
+    <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
-    </div>
-      </div>
-  <div class="col-md-3">
+    
+    <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
+
+    <p></p>
+    <p>You can optionally supply an icon for each help topic. To do so, you&#39;ll
+need a top-level <code>icons</code> directory. This should contain .png files
+that are either 40x40 (for regular display) or 80x80 (if you want
+retina display). Icons are matched to topics by aliases.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This example illustrates some important output types</span>
+<span class='co'># The following output should be wrapped over multiple lines</span>
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>100</span>
+<span class='no'>a</span></div><div class='output co'>#&gt;   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+#&gt;  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+#&gt;  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+#&gt;  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+#&gt;  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+#&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
+<span class='fu'>cat</span>(<span class='st'>"This some text!\n"</span>)</div><div class='output co'>#&gt; This some text!</div><div class='input'><span class='fu'>message</span>(<span class='st'>"This is a message!"</span>)</div><div class='output co'>#&gt; <span class='message'>This is a message!</span></div><div class='input'><span class='fu'>warning</span>(<span class='st'>"This is a warning!"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This is a warning!</span></div><div class='input'>
+<span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># stop("This is an error!")</span>
+<span class='co'>## ---------------------------------------------</span>
+
+<span class='co'># This code won't generally be run by CRAN</span>
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
+<span class='no'>a</span> + <span class='no'>b</span></div><div class='output co'>#&gt;   [1]  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
+#&gt;  [19]  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
+#&gt;  [37]  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64
+#&gt;  [55]  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82
+#&gt;  [73]  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100
+#&gt;  [91] 101 102 103 104 105 106 107 108 109 110</div><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#icons">Icons</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

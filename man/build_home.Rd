@@ -9,7 +9,8 @@ build_home(pkg = ".", path = "docs", depth = 0L)
 \arguments{
 \item{pkg}{Path to source package.}
 
-\item{path}{Output path.}
+\item{path}{Output path. Relative paths are taken relative to the
+\code{pkg} directory.}
 
 \item{depth}{Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.}
@@ -34,5 +35,8 @@ home:
   - text: Link text
     href: http://website.com
 }
+
+The "developers" list is populated by the maintainer ("cre"), authors
+("aut"), and funder ("fnd").
 }
 

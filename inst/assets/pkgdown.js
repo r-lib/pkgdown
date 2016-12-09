@@ -1,13 +1,8 @@
 $(function() {
-
-  $('#sidebar').affix({
-    offset: {
-      top: $('#sidebar').offset().top - 40
-    }
-  });
+  $("#sidebar").stick_in_parent({offset_top: 40});
   $('body').scrollspy({
     target: '#sidebar',
-    offset: 40
+    offset: 60
   });
 
 });

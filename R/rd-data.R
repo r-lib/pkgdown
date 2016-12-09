@@ -124,18 +124,39 @@ as_data.tag_examples <- function(x, path, ...,
 #' @export
 as_html.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
   if (run_dont_run) {
-    return(flatten_text(x))
-  }
-
-  if (length(x) == 1) {
+    flatten_text(drop_leading_newline(x), escape = FALSE)
+  } else if (length(x) == 1) {
     paste0("## Not run: " , flatten_text(x))
   } else {
     # Internal TEXT nodes contain leading and trailing \n
     text <- gsub("(^\n)|(\n$)", "", flatten_text(x, ...))
     paste0(
-      "## Not run: ------------------------------------\n# " ,
-      gsub("\n", "\n# ", text), "\n",
+      "## Not run: ------------------------------------\n",
+      "# " , gsub("\n", "\n# ", text), "\n",
       "## ---------------------------------------------"
     )
   }
+}
+
+#' @export
+as_html.tag_donttest <- function(x, ...) {
+  flatten_text(drop_leading_newline(x), escape = FALSE)
+}
+
+# This helps with \donrun{} and \donttest{} which usually start with a
+# newline. However, It doesn't fully resolve the problem because there's
+# typically also a new line before and after (outside) the tag
+drop_leading_newline <- function(x) {
+  if (length(x) == 0)
+    return()
+
+  first <- x[[1]]
+  if (!inherits(first, "RCODE"))
+    return(x)
+
+  first <- as.character(first)
+  if (!identical(first, "\n"))
+    return(x)
+
+  x[-1]
 }

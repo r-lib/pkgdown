@@ -1,7 +1,6 @@
-title: pkgdown
-
-template:
-  bootswatch: cerulean
+templates:
+  params:
+    bootswatch: cerulean
 
 reference:
   - title: Build
@@ -15,15 +14,8 @@ reference:
     - render_page
 
 navbar:
-  title: pkgdown
-  type: default
   left:
-  - text: Home
-    href: index.html
-  - text: Overview
+  - text: Intro
     href: articles/pkgdown.html
   - text: Reference
     href: reference/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/hadley/pkgdown

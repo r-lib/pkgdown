@@ -9,7 +9,8 @@ build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
 \arguments{
 \item{pkg}{Path to source package.}
 
-\item{path}{Output path.}
+\item{path}{Output path. Relative paths are taken relative to the
+\code{pkg} directory.}
 
 \item{one_page}{If \code{TRUE}, writes all news to a single file.
 If \code{FALSE}, writes one file per major version.}

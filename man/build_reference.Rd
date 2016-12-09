@@ -5,13 +5,18 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  mathjax = TRUE, seed = 1014, path = "docs/reference", depth = 1L)
+build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
+  run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
+  path = "docs/reference", depth = 1L)
 
 build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 }
 \arguments{
 \item{pkg}{Path to source package.}
+
+\item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
+is more recent than the \code{.html}. This makes it much easier to
+rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.}
 
 \item{examples}{Run examples?}
 
@@ -22,7 +27,8 @@ build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
 
-\item{path}{Output path.}
+\item{path}{Output path. Relative paths are taken relative to the
+\code{pkg} directory.}
 
 \item{depth}{Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.}
@@ -62,5 +68,34 @@ regular expression with \code{matches("regexp")}.
 
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
+}
+
+\section{Icons}{
+
+You can optionally supply an icon for each help topic. To do so, you'll
+need a top-level \code{icons} directory. This should contain {.png} files
+that are either 40x40 (for regular display) or 80x80 (if you want
+retina display). Icons are matched to topics by aliases.
+}
+\examples{
+# This example illustrates some important output types
+# The following output should be wrapped over multiple lines
+a <- 1:100
+a
+
+cat("This some text!\\n")
+message("This is a message!")
+warning("This is a warning!")
+
+\dontrun{
+stop("This is an error!", call. = FALSE)
+}
+
+\donttest{
+# This code won't generally be run by CRAN. But it
+# will be run by testthat.
+b <- 10
+a + b
+}
 }
 

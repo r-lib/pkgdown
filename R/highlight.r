@@ -142,8 +142,8 @@ link_remote <- function(label, topic, package) {
 
   sprintf(
     "<a href='http://www.rdocumentation.org/packages/%s/topics/%s'>%s</a>",
-    path[n],
     path[n - 2],
+    path[n],
     label
   )
 }

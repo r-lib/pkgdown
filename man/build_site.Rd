@@ -2,11 +2,14 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
+\alias{init_site}
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
   seed = 1014)
+
+init_site(pkg = ".", path = "docs")
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -38,36 +41,31 @@ that aspect of the site.
 }
 \section{YAML config}{
 
+There are five top-level YAML settings that affect the entire site:
+\code{title}, \code{template}, and \code{navbar}.
 
-There are four top-level YAML settings that affect the entire site:
+\code{title} overrides the default site title, which is the package name.
+It's used in the page title and default navbar.
 
-\describe{
- \item{title}{Site title, used in page title and default navbar.}
- \item{assets_path}{Path to directory of additional assets to be
-   copied into root directory of site. Use this when you want complete
-   control over the visual design of the site. Recommended for advanced
-   users only.}
- \item{template_path}{Path to directory of templates. Override the
-   default (the templates built-in to pkgdown) to completely
-   control the display of your site. Recommended for advanced users
-   only.}
- \item{template}{Additional metadata to be passed on to the template.
-   The default template supports
-   \itemize{
-     \item \code{bootswatch} to customise the
-       overall theme with a bootswatch theme. You can see a complete list
-       and preview how they look at
-       \url{https://gallery.shinyapps.io/117-shinythemes/}.
-     \item \code{ganalytics} to enable
-       \href{Google Analytics}{https://www.google.com/analytics/} by
-       providing your
-       \href{tracking id}{https://support.google.com/analytics/answer/1032385}
-       (e.g. \code{"UA-000000-01"}).
-   }}
+You can also provided information to override the default display of
+the authors. Provided a list named with the name of each author,
+including \code{href} to add a link, or \code{html} to override the
+text:
+
+\preformatted{
+authors:
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
+}
 }
 
-You can also control the \code{navbar}. It uses the same syntax as
-\href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
+\section{YAML config - navbar}{
+
+\code{navbar} controls the navbar at the top of the page. It uses the same
+syntax as \href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
 The following YAML snippet illustrates some of the most important features.
 
 \preformatted{
@@ -96,7 +94,6 @@ navbar:
       href: https://example.com
 }
 
-
 Use \code{type} to choose between "default" and "inverse" themes.
 
 You position elements by placing under either \code{left} or \code{right}.
@@ -104,6 +101,64 @@ Components can contain sub-\code{menu}s with headings (indicated by missing
 \code{href}) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 \url{http://fontawesome.io/icons/}.
+
+Any missing components (\code{type}, \code{left}, or \code{right})
+will be automatically filled in from the default navbar: you can see
+those values by running \code{\link{template_navbar}()}.
+}
+
+\section{YAML config - template}{
+
+You can get complete control over the appearance of the site using the
+\code{template} component. There are two components to the template:
+the HTML templates used to layout each page, and the css/js assets
+used to render the page in the browser.
+
+The easiest way to tweak the default style is to use a bootswatch template,
+by passing on the \code{bootswatch} template parameter to the built-in
+template:
+
+\preformatted{
+template:
+  params:
+    bootswatch: cerulean
+}
+
+See a complete list of themes and preview how they look at
+\url{https://gallery.shinyapps.io/117-shinythemes/}:
+
+Optionnally provide the \code{ganalytics} template parameter to enable
+\href{Google Analytics}{https://www.google.com/analytics/}. It should
+correspond to your
+\href{tracking id}{https://support.google.com/analytics/answer/1032385}.
+
+\preformatted{
+template:
+  params:
+    ganalytics: UA-000000-01
+}
+
+You can also override the default templates and provide additional
+assets. You can do so by either storing in a \code{package} with
+directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
+or by supplying \code{path} and \code{asset_path}. To suppress inclusion
+of the default assets, set \code{default_assets} to false.
+
+\preformatted{
+template:
+  package: mycustompackage
+
+# OR:
+
+template:
+  path: path/to/templates
+  assets: path/to/assets
+  default_assets: false
+}
+
+These settings are currently recommended for advanced users only. There
+is little documentation, and you'll need to read the existing source
+for pkgdown templates to ensure that you use the correct components.
 }
 \examples{
 \dontrun{

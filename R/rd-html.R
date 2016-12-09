@@ -28,6 +28,10 @@ as_html.COMMENT <- function(x, ...) {
   paste0("<!-- ", flatten_text(x), " -->")
 }
 
+# USERMACRO appears first, followed by the rendered macro
+#' @export
+as_html.USERMACRO <-  function(x, ...) ""
+
 # If it's a character vector, we've got to the leaves of the tree
 #' @export
 as_html.character <- function(x, ..., escape = TRUE) {
@@ -43,8 +47,8 @@ as_html.character <- function(x, ..., escape = TRUE) {
 #' @export
 as_html.tag_subsection <- function(x, ...) {
   paste0(
-    "<h3>", flatten_text(x[[1]]), "</h3>\n",
-    flatten_text(x[[2]])
+    "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
+    flatten_text(x[[2]], ...)
   )
 }
 
@@ -108,17 +112,23 @@ as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
     link_local(in_braces, in_braces, index = index, current = current)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    link_local(in_braces, substr(opt, 2, -1), index = index, current = current)
+    link_local(in_braces, substr(opt, 2, nchar(opt)), index = index, current = current)
   } else {
-    match <- regexec('([^:]+):(.*)', opt)
-    parts <- regmatches(opt, match)[[1]]
+    match <- regexec('^([^:]+)(?:|:(.*))$', opt)
+    parts <- regmatches(opt, match)[[1]][-1]
 
-    if (length(parts) == 0) {
+    pkg <- attr(current, "pkg")
+    stopifnot(!is.null(pkg))
+
+    if (parts[[1]] == pkg$desc$get("Package")) {
+      # \link[my_pkg]{foo}
+      link_local(in_braces, in_braces, index = index, current = current)
+    } else if (parts[[2]] == "") {
       # \link[pkg]{foo}
       link_remote(in_braces, in_braces, package = opt)
     } else {
       # \link[pkg:bar]{foo}
-      link_remote(in_braces, parts[3], package = parts[2])
+      link_remote(in_braces, parts[[2]], package = parts[[1]])
     }
   }
 }
@@ -154,10 +164,15 @@ method_usage <- function(x, type) {
 
 #' @export
 as_html.tag_Sexpr <- function(x, ...) {
+  # Currently assume output is always Rd
+  options <- attr(x, "Rd_option")
+
   code <- flatten_text(x, escape = FALSE)
+  # Not sure if this is the correct environment
   expr <- eval(parse(text = code)[[1]], new.env(parent = globalenv()))
 
-  flatten_text(rd_text(as.character(expr)), ...)
+  rd <- rd_text(as.character(expr))
+  as_html(rd, ...)
 }
 
 #' @export
@@ -353,8 +368,6 @@ as_html.tag_testonly <- function(x, ...) ""
 as_html.tag_concept <-  function(x, ...) ""
 #' @export
 as_html.tag_out <-      function(x, ...) ""
-#' @export
-as_html.tag_donttest <- function(x, ...) ""
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export

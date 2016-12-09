@@ -1,8 +1,9 @@
 #' @importFrom magrittr %>%
+#' @importFrom roxygen2 roxygenise
 NULL
 
 inst_path <- function() {
-  if (is.null(devtools::dev_meta("pkgdown"))) {
+  if (is.null(pkgload::dev_meta("pkgdown"))) {
     # pkgdown is probably installed
     system.file(package = "pkgdown")
   } else {
@@ -38,23 +39,60 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
     options = list(
       "--smart",
       "--indented-code-classes=R",
+      "--section-divs",
       ...
     )
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
   autolink_html(xml, depth = depth, index = index)
+  tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
   # significant whitespace in tags like pre
   xml %>%
     xml2::xml_find_first(".//body") %>%
-    xml2::write_html(tmp)
+    xml2::write_html(tmp, format = FALSE)
 
   lines <- readLines(tmp, warn = FALSE)
   lines <- sub("<body>", "", lines, fixed = TRUE)
   lines <- sub("</body>", "", lines, fixed = TRUE)
   paste(lines, collapse = "\n")
+}
+
+tweak_anchors <- function(html, only_contents = TRUE) {
+  if (only_contents) {
+    sections <- xml2::xml_find_all(html, ".//div[@class='contents']//div[@id]")
+  } else {
+    sections <- xml2::xml_find_all(html, "//div[@id]")
+  }
+
+  if (length(sections) == 0)
+    return()
+
+  # Update anchors: dot in the anchor breaks scrollspy
+  anchor <- sections %>%
+    xml2::xml_attr("id") %>%
+    gsub(".", "-", ., fixed = TRUE)
+  purrr::walk2(sections, anchor, ~ (xml2::xml_attr(.x, "id") <- .y))
+
+  # Space is needed to ensure we get <a></a> instead of <a/>
+  links <- paste0("<a href='#", anchor, "' class='anchor'> </a>")
+  headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
+  has_heading <- !is.na(xml2::xml_name(headings))
+
+  for (i in seq_along(headings)[has_heading]) {
+    # Insert anchor in first element of header
+    heading <- headings[[i]]
+
+    xml2::xml_attr(heading, "class") <- "hasAnchor"
+    xml2::xml_add_sibling(
+      xml2::xml_contents(heading)[[1]],
+      xml2::read_html(links[[i]]),
+      .where = "before"
+    )
+  }
+  invisible()
 }
 
 set_contains <- function(haystack, needles) {
@@ -134,4 +172,44 @@ find_first_existing <- function(path, ...) {
   }
 
   NULL
+}
+
+rel_path <- function(path, base = ".") {
+  if (is_absolute_path(path)) {
+    path
+  } else {
+    if (base != ".") {
+      path <- file.path(base, path)
+    }
+    normalizePath(path, mustWork = FALSE)
+  }
+}
+
+is_absolute_path <- function(path) {
+  grepl("^(/|[A-Za-z]:|\\\\|~)", path)
+}
+
+package_path <- function(package, path) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    stop(package, " is not installed", call. = FALSE)
+  }
+
+  pkg_path <- system.file("pkgdown", path, package = package)
+  if (pkg_path == "") {
+    stop(package, " does not contain 'inst/pkgdown/", path, "'", call. = FALSE)
+  }
+
+  pkg_path
+
+}
+
+out_of_date <- function(source, target) {
+  if (!file.exists(target))
+    return(TRUE)
+
+  if (!file.exists(source)) {
+    stop("'", source, "' does not exist", call. = FALSE)
+  }
+
+  file.info(source)$mtime > file.info(target)$mtime
 }

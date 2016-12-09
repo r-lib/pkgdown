@@ -1,21 +1,32 @@
-<div class="page-header">
-  <h1>Function reference <small>version&nbsp;{{#package}}{{version}}{{/package}}</small></h1>
-</div>
-
 <div class="row">
   <div class="col-md-9">
+    <div class="page-header">
+      <h1>Function reference</h1>
+      <h4>version&nbsp;{{#package}}{{version}}{{/package}}</h4>
+    </div>
+
+    <div class="contents">
     {{#sections}}
-    <div class="section {{class}}">
-      <h2>{{title}}</h2>
+      <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
       <p class="section-desc">{{{desc}}}</p>
 
-      <dl class="dl-horizontal">
       {{#contents}}
-        {{#aliases}}<dt><a href="{{path}}">{{.}}</a></dt>{{/aliases}}
-        <dd>{{title}}</dd>
+      {{#icon}}<img src="icons/{{{.}}}" width="40" height="40" class="icon" />{{/icon}}
+      <p><a href="{{path}}">{{title}}</a></p>
+      <ul>
+        {{#aliases}}<li><code><a href="{{path}}">{{.}}</a></code></li>{{/aliases}}
+      </ul>
       {{/contents}}
-      </dl>
-    </div>
     {{/sections}}
+    </div>
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+    {{#sections}}
+      <li><a href="#{{slug}}">{{title}}</a></li>
+    {{/sections}}
+    </ul>
   </div>
 </div>

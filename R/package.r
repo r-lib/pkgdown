@@ -13,8 +13,7 @@ as_pkgdown <- function(path = ".") {
       desc = read_desc(path),
       meta = read_meta(path),
       topics = topic_index(path),
-      vignettes = vignette_index(path),
-      navbar = build_navbar(path)
+      vignettes = vignette_index(path)
     ),
     class = "pkgdown"
   )
@@ -84,7 +83,7 @@ package_rd <- function(path) {
   man_path <- file.path(path, "man")
   rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
   names(rd) <- basename(rd)
-  lapply(rd, rd_file)
+  lapply(rd, rd_file, pkg_path = path)
 }
 
 extract_tag <- function(x, tag) {

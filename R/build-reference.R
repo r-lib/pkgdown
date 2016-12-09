@@ -34,14 +34,44 @@
 #' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
 #'
+#' @section Icons:
+#' You can optionally supply an icon for each help topic. To do so, you'll
+#' need a top-level \code{icons} directory. This should contain {.png} files
+#' that are either 40x40 (for regular display) or 80x80 (if you want
+#' retina display). Icons are matched to topics by aliases.
+#'
 #' @inheritParams build_articles
+#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rd}
+#'   is more recent than the \code{.html}. This makes it much easier to
+#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @export
+#' @examples
+#' # This example illustrates some important output types
+#' # The following output should be wrapped over multiple lines
+#' a <- 1:100
+#' a
+#'
+#' cat("This some text!\n")
+#' message("This is a message!")
+#' warning("This is a warning!")
+#'
+#' \dontrun{
+#' stop("This is an error!", call. = FALSE)
+#' }
+#'
+#' \donttest{
+#' # This code won't generally be run by CRAN. But it
+#' # will be run by testthat.
+#' b <- 10
+#' a + b
+#' }
 build_reference <- function(pkg = ".",
+                            lazy = TRUE,
                             examples = TRUE,
                             run_dont_run = FALSE,
                             mathjax = TRUE,
@@ -50,6 +80,7 @@ build_reference <- function(pkg = ".",
                             depth = 1L
                             ) {
   pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
 
   rule("Building function reference")
   if (!is.null(path)) {
@@ -65,6 +96,7 @@ build_reference <- function(pkg = ".",
     purrr::transpose() %>%
     purrr::map(build_reference_topic, path,
       pkg = pkg,
+      lazy = lazy,
       depth = depth,
       examples = examples,
       run_dont_run = run_dont_run,
@@ -79,6 +111,16 @@ build_reference <- function(pkg = ".",
 #' @export
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+  pkg <- as_pkgdown(pkg)
+  path <- rel_path(path, pkg$path)
+
+  # Copy icons, if needed
+  logo_path <- file.path(pkg$path, "icons")
+  if (file.exists(logo_path)) {
+    mkdir(path, "icons")
+    copy_dir(logo_path, file.path(path, "icons"))
+  }
+
   render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg, depth = depth),
@@ -90,12 +132,20 @@ build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L
 
 build_reference_topic <- function(topic,
                                   pkg,
+                                  lazy = TRUE,
                                   examples = TRUE,
                                   run_dont_run = FALSE,
                                   mathjax = TRUE,
                                   path = NULL,
                                   depth = 1L
                                   ) {
+
+  in_path <- file.path(pkg$path, "man", topic$file_in)
+  out_path <- out_path(path, topic$file_out)
+
+  if (lazy && !out_of_date(in_path, out_path))
+    return(invisible())
+
   render_page(
     pkg, "reference-topic",
     data = data_reference_topic(
@@ -106,7 +156,7 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run,
       mathjax = mathjax
     ),
-    path = out_path(path, topic$file_out),
+    path = out_path,
     depth = depth
   )
   invisible()
@@ -143,19 +193,19 @@ data_reference_topic <- function(topic,
   out$description <- as_data(
     tags$tag_description[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
 
   out$usage <- as_data(
     tags$tag_usage[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
 
   out$arguments <- as_data(
     tags$tag_arguments[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
@@ -166,8 +216,10 @@ data_reference_topic <- function(topic,
     env = new.env(parent = globalenv()),
     topic = topic$name,
     index = pkg$topics,
-    current = topic$name,
-    path = path
+    current = get_current(topic, pkg),
+    path = path,
+    examples = examples,
+    run_dont_run = run_dont_run
   )
 
   # Everything else stays in original order, and becomes a list of sections.
@@ -177,9 +229,23 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = topic$name)
+    purrr::map(as_data, index = pkg$topics, current = get_current(topic, pkg)) %>%
+    purrr::map(add_slug)
 
   out
 }
 
+add_slug <- function(x) {
+  x$slug <- make_slug(x$title)
+  x
+}
 
+make_slug <- function(x) {
+  x <- tolower(x)
+  x <- gsub("[^a-z]+", "-", x)
+  x
+}
+
+get_current <- function(topic, pkg) {
+  structure(topic$name, pkg = pkg)
+}

@@ -40,22 +40,22 @@ $endfor$
     </div>
     $endif$
 
+<div class="contents">
 $body$
+</div>
   </div>
 
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar">
-      {{#sidebar}}
-      {{{.}}}
-      {{/sidebar}}
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    {{#sidebar}}
+    {{{.}}}
+    {{/sidebar}}
 
-      $if(toc)$
-      <div id="tocnav">
-        <h2>Contents</h2>
-        $toc$
-      </div>
-      $endif$
+    $if(toc)$
+    <div id="tocnav">
+      <h2>Contents</h2>
+      $toc$
     </div>
+    $endif$
   </div>
 
 </div>
