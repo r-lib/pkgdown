@@ -71,11 +71,7 @@ build_authors <- function(pkg = ".", path = "docs", depth = 0L) {
 }
 
 author_name <- function(x, authors) {
-  if (is.null(x$family)) {
-    name <- x$given
-  } else {
-    name <- paste0(x$given, " ", x$family)
-  }
+  name <- format_author_name(x$given, x$family)
 
   if (!(name %in% names(authors)))
     return(name)
@@ -90,6 +86,16 @@ author_name <- function(x, authors) {
     name
   } else {
     paste0("<a href='", author$href, "'>", name, "</a>")
+  }
+}
+
+format_author_name <- function(given, family) {
+  given <- paste(given, collapse = " ")
+
+  if (is.null(family)) {
+    given
+  } else {
+    paste0(given, " ", family)
   }
 }
 
@@ -127,16 +133,3 @@ role_lookup <- c(
   "ths" = "thesis&nbsp;advisor",
   "trl" = "translator"
 )
-
-itemize <- function(header, x) {
-  if (length(x) == 0)
-    return()
-
-  paste0(
-    header, "\n",
-    "\\itemize{\n",
-    paste0("  \\item ", x, "\n", collapse = ""),
-    "}\n"
-  )
-}
-

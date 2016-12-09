@@ -193,19 +193,19 @@ data_reference_topic <- function(topic,
   out$description <- as_data(
     tags$tag_description[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
 
   out$usage <- as_data(
     tags$tag_usage[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
 
   out$arguments <- as_data(
     tags$tag_arguments[[1]],
     index = pkg$topics,
-    current = topic$name
+    current = get_current(topic, pkg)
   )
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
@@ -216,7 +216,7 @@ data_reference_topic <- function(topic,
     env = new.env(parent = globalenv()),
     topic = topic$name,
     index = pkg$topics,
-    current = topic$name,
+    current = get_current(topic, pkg),
     path = path,
     examples = examples,
     run_dont_run = run_dont_run
@@ -229,7 +229,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = topic$name) %>%
+    purrr::map(as_data, index = pkg$topics, current = get_current(topic, pkg)) %>%
     purrr::map(add_slug)
 
   out
@@ -239,8 +239,13 @@ add_slug <- function(x) {
   x$slug <- make_slug(x$title)
   x
 }
+
 make_slug <- function(x) {
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
+}
+
+get_current <- function(topic, pkg) {
+  structure(topic$name, pkg = pkg)
 }
