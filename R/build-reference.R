@@ -247,5 +247,9 @@ make_slug <- function(x) {
 }
 
 get_current <- function(topic, pkg) {
-  structure(topic$name, pkg = pkg)
+  new_current(topic$name, pkg$desc$get("Package"))
+}
+
+new_current <- function(topic_name, pkg_name) {
+  structure(topic_name, pkg_name = pkg_name)
 }
