@@ -85,6 +85,7 @@
       <span class="kw">-</span> starts_with(<span class="st">"spark_write"</span>)
       <span class="kw">-</span> sdf-saveload</code></pre></div>
 <p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
+<p>The objects in <code>reference</code> can also contain a list of <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
 <p>pkgdown will warn if you&rsquo;ve forgotten to include any non-internal functions.</p>
 </div>
 <div id="articles" class="section level2">
