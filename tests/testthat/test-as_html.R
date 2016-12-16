@@ -38,8 +38,20 @@ test_that("code inside Sexpr is evaluated", {
 
 test_that("can convert cross links to online documentation url", {
   expect_equal(
-    rd2html("\\link[base]{library}"),
+    rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),
     link_remote(label = "library", topic = "library", package = "base")
+  )
+})
+
+test_that("can convert cross links to the same package (#242)", {
+  pkgdownindex = list(
+    name = "build_site",
+    alias = list(build_site.Rd = "build_site")
+  )
+  current <- new_current("library", "pkg.name")
+  expect_equal(
+    rd2html("\\link[pkg.name]{library}", index = pkgdownindex, current = current),
+    link_local(label = "library", topic = "library", index = pkgdownindex, current = current)
   )
 })
 
