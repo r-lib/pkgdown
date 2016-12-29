@@ -137,10 +137,7 @@ tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index =
       xml2::xml_remove(header, free = TRUE)
   }
 
-  # Ensure all tables have class="table"
-  table <- xml2::xml_find_all(html, ".//table")
-  xml2::xml_attr(table, "class") <- "table"
-
+  tweak_tables(html)
 
   invisible()
 }

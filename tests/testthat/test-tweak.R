@@ -2,7 +2,7 @@ context("tweak")
 
 test_that("tables get class='table'", {
   html <- xml2::read_html("<body><table>\n</table></body>")
-  tweak_rmarkdown_html(html)
+  tweak_tables(html)
 
   html %>%
     xml2::xml_find_all(".//table") %>%
