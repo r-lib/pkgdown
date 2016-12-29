@@ -121,7 +121,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   anchors <- sections %>%
     xml2::xml_attr("id")
 
-  re <- regexec("^([[:alpha:]]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
+  re <- regexec("^([[:alnum:],\\.]+)\\s+((\\d+[.-]\\d+)(?:[.-]\\d+)*)", titles)
   pieces <- regmatches(titles, re)
 
   # Only keep sections with unambiguous version
