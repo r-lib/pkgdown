@@ -97,6 +97,8 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     xml2::xml_replace(header, xml2::read_xml(page_header))
   }
 
+  tweak_tables(html)
+
   invisible()
 }
 

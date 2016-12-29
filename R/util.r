@@ -95,6 +95,14 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   invisible()
 }
 
+tweak_tables <- function(html) {
+  # Ensure all tables have class="table"
+  table <- xml2::xml_find_all(html, ".//table")
+  xml2::xml_attr(table, "class") <- "table"
+
+  invisible()
+}
+
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
