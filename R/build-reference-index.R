@@ -100,7 +100,7 @@ topic_matcher <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
   if (!grepl("(", text, fixed = TRUE)) {
-    function(topics) topics %in% text
+    function(topics) topics == text
   } else {
     expr <- parse(text = text)[[1]]
 
