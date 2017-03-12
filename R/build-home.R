@@ -222,7 +222,7 @@ data_link_cran <- function(pkg = ".") {
 }
 
 on_cran <- function(pkg) {
-  pkgs <- utils::available.packages(type = "source")
+  pkgs <- utils::available.packages(type = "source", repos = getOption("repos")["CRAN"])
   pkg %in% rownames(pkgs)
 }
 
