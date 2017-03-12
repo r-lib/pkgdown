@@ -50,7 +50,7 @@
 #'   Used to adjust relative links in the navbar.
 #' @param encoding The encoding of the input files.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encoding = getOption("encoding")) {
+build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encoding = "UTF-8") {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -88,7 +88,7 @@ render_rmd <- function(pkg,
                        data = list(),
                        toc = TRUE,
                        depth = 1L,
-                       encoding = getOption("encoding")) {
+                       encoding = "UTF-8") {
   message("Building article '", output_file, "'")
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)

@@ -24,7 +24,7 @@
 #'
 #' @inheritParams build_articles
 #' @export
-build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = getOption("encoding")) {
+build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8") {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 

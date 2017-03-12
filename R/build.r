@@ -143,7 +143,7 @@ build_site <- function(pkg = ".",
                        mathjax = TRUE,
                        preview = interactive(),
                        seed = 1014,
-                       encoding = getOption("encoding")
+                       encoding = "UTF-8"
                        ) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
