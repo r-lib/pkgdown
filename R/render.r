@@ -60,7 +60,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the moustache templates
-  yaml <- pkg$meta$template$params %||% list()
+  yaml <- pkg$meta[["template"]]$params %||% list()
   yaml$.present <- TRUE
 
   print_yaml(list(
