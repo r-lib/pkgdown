@@ -7,6 +7,13 @@ test_that("can build package without any index/readme", {
   )
 })
 
+test_that("intermediate files cleaned up automatically", {
+  pkg <- test_path("home-index-rmd")
+  build_home(pkg, tempdir())
+
+  expect_equal(dir(pkg), c("DESCRIPTION", "index.Rmd"))
+})
+
 test_that("link_license matchs exactly", {
   # Shouldn't match first GPL-2
   expect_equal(

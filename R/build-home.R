@@ -40,30 +40,35 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   # Build authors page
   build_authors(pkg, path = path, depth = depth)
 
-  if (identical(tools::file_ext(data$path), "Rmd")) {
-    # Render once so that .md is up to date
-    message("Updating README.md")
-    rmarkdown::render(data$path, quiet = TRUE)
-    # In case preview_html = TRUE
-    unlink(file.path(pkg$path, "README.html"))
-
-    input <- file.path(path, basename(data$path))
-    file.copy(data$path, input)
-    on.exit(unlink(input))
-
-    render_rmd(pkg, input, "index.html",
-      depth = depth,
-      data = data,
-      toc = FALSE,
-      strip_header = TRUE
-    )
-  } else {
-    if (is.null(data$path)) {
-      data$index <- pkg$desc$get("Description")[[1]]
-    } else {
-      data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
-    }
+  if (is.null(data$path)) {
+    data$index <- pkg$desc$get("Description")[[1]]
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
+  } else {
+    file_name <- tools::file_path_sans_ext(basename(data$path))
+    file_ext <- tools::file_ext(data$path)
+
+    if (file_ext == "md") {
+      data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
+      render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
+    } else if (file_ext == "Rmd") {
+      if (identical(file_name, "README")) {
+        # Render once so that .md is up to date
+        message("Updating ", file_name, ".md")
+        rmarkdown::render(data$path, quiet = TRUE)
+        unlink(file.path(pkg$path, paste0(file_name, ".html")))
+      }
+
+      input <- file.path(path, basename(data$path))
+      file.copy(data$path, input)
+      on.exit(unlink(input))
+
+      render_rmd(pkg, input, "index.html",
+        depth = depth,
+        data = data,
+        toc = FALSE,
+        strip_header = TRUE
+      )
+    }
   }
 
   update_homepage_html(
