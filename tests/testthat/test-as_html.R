@@ -56,13 +56,10 @@ test_that("can convert cross links to the same package (#242)", {
 })
 
 test_that("can parse local links with topic!=label", {
-  pkgdownindex = list(
-    name = "build_site",
-    alias = list(build_site.Rd = "build_site")
-  )
+  index <- list(name = "a", alias = list("x"), file_out = list("y.html"))
   expect_equal(
-    rd2html("\\link[=build_site]{build_site function}", index = pkgdownindex),
-    "<a href='build_site.html'>build_site function</a>"
+    rd2html("\\link[=x]{z}", index = index),
+    "<a href='y.html'>z</a>"
   )
 })
 
