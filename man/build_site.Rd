@@ -149,9 +149,9 @@ These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
+
 \examples{
 \dontrun{
 build_site()
 }
 }
-

@@ -77,6 +77,7 @@ need a top-level \code{icons} directory. This should contain {.png} files
 that are either 40x40 (for regular display) or 80x80 (if you want
 retina display). Icons are matched to topics by aliases.
 }
+
 \examples{
 # This example illustrates some important output types
 # The following output should be wrapped over multiple lines
@@ -98,4 +99,3 @@ b <- 10
 a + b
 }
 }
-

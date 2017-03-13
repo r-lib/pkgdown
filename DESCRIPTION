@@ -34,6 +34,6 @@ Remotes:
     hadley/devtools,
     r-pkgs/pkgload
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 URL: https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues

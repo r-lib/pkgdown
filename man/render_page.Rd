@@ -19,7 +19,7 @@ data_template(pkg = ".", depth = 0L)
   This is automatically supplemented with three lists:
   \itemize{
   \item \code{site}: \code{title} and path to \code{root}.
-  \item \code{yaml}: the \code{template} key from from
+  \item \code{yaml}: the \code{template} key from
      \code{_pkgdown.yml}.
   \item \code{package}: package metadata including \code{name} and
      \code{version}.
