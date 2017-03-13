@@ -81,9 +81,28 @@ as_data.tag_section <- function(x, ...) {
 }
 #' @export
 as_data.tag_value <- function(x, ...) {
-  # \value is implicitly a \describe environment
-  class(x) <- c("tag_describe", class(x))
-  parse_section(x, "Value", ...)
+  # \value is implicitly a \describe environment, with
+  # optional text block before first \item
+
+  idx <- Position(function(x) inherits(x, "tag_item"), x, nomatch = 0)
+  if (idx == 0) {
+    text <- x
+    values <- list()
+  } else if (idx == 1) {
+    text <- list()
+    values <- x
+  } else {
+    text <- x[seq_len(idx - 1)]
+    values <- x[-seq_len(idx - 1)]
+  }
+
+  text <- if (length(text) > 0) flatten_para(text) else NULL
+  values <- if (length(values) > 0) parse_descriptions(values) else NULL
+
+  list(
+    title = "Value",
+    contents = paste(c(text, values), collapse = "\n")
+  )
 }
 
 # Examples ------------------------------------------------------------------
