@@ -1,5 +1,12 @@
 context("build_home")
 
+test_that("can build package without any index/readme", {
+  expect_error(
+    build_home(test_path("home-empty"), tempdir()),
+    NA
+  )
+})
+
 test_that("link_license matchs exactly", {
   # Shouldn't match first GPL-2
   expect_equal(
