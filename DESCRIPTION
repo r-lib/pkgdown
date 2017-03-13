@@ -24,7 +24,7 @@ Imports:
     tools,
     whisker,
     yaml,
-    xml2 (>= 1.0.0.9001)
+    xml2 (>= 1.1.1)
 Suggests:
     knitr,
     testthat
