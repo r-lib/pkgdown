@@ -33,7 +33,7 @@
 #'
 #' @section YAML config - navbar:
 #' \code{navbar} controls the navbar at the top of the page. It uses the same
-#' syntax as \href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
+#' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' \preformatted{
