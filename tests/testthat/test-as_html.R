@@ -36,6 +36,16 @@ test_that("code inside Sexpr is evaluated", {
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
+
+# links -------------------------------------------------------------------
+
+test_that("href orders arguments correctly", {
+   expect_equal(
+     rd2html("\\href{http://a.com}{a}"),
+     "<a href = 'http://a.com'>a</a>"
+   )
+})
+
 test_that("can convert cross links to online documentation url", {
   expect_equal(
     rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),

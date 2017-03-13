@@ -127,8 +127,8 @@ as_html.tag_url <- function(x, ...) {
 as_html.tag_href <- function(x, ...) {
   stopifnot(length(x) == 2)
   paste0(
-    "<a href = '", flatten_text(x[[2]]), "'>",
-    flatten_text(x[[1]]),
+    "<a href = '", flatten_text(x[[1]]), "'>",
+    flatten_text(x[[2]]),
     "</a>"
   )
 }
