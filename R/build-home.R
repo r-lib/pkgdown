@@ -86,10 +86,12 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
   if (has_badges) {
     list <- list_with_heading(badges, "Dev status")
+    list_div <- paste0("<div>", list, "</div>")
+    list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
 
     html %>%
       xml2::xml_find_first(".//div[@id='sidebar']") %>%
-      xml2::xml_add_child(xml2::read_html(list))
+      xml2::xml_add_child(list_html)
 
     xml2::xml_remove(first_para)
   }
