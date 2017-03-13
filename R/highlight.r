@@ -132,6 +132,11 @@ pkgdown_detective <- function(x, ...) {
 # Links -------------------------------------------------------------------
 
 link_remote <- function(label, topic, package) {
+  # Return early if package not installed
+  if (!requireNamespace(package, quietly = TRUE)) {
+    return(label)
+  }
+
   help <- eval(bquote(help(.(topic), .(package))))
   if (length(help) == 0) {
     return(label)

@@ -73,6 +73,30 @@ test_that("can parse local links with topic!=label", {
   )
 })
 
+test_that("functions in other packages generates link to rdocumentation.org", {
+  expect_equal(
+    rd2html("\\link[stats:acf]{xyz}", current = structure("x", pkg_name = "y")),
+    "<a href='http://www.rdocumentation.org/packages/stats/topics/acf'>xyz</a>"
+  )
+
+  # Unless it's the current package
+  expect_equal(
+    rd2html("\\link[y:acf]{xyz}", current = structure("x", pkg_name = "y")),
+    "xyz"
+  )
+})
+
+test_that("link to non-existing functions return label", {
+  expect_equal(
+    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    "abc"
+  )
+  expect_equal(
+    rd2html("\\link[base:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    "abc"
+  )
+})
+
 
 
 # Paragraphs --------------------------------------------------------------
