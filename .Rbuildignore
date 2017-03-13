@@ -4,3 +4,5 @@
 ^inst/web$
 ^docs$
 ^_pkgdown\.yml$
+^README\.Rmd$
+^README-.*\.png$
