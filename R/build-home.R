@@ -221,8 +221,20 @@ data_link_cran <- function(pkg = ".") {
   )
 }
 
+
+cran_mirror <- function() {
+  cran <- getOption("repos")[["CRAN"]]
+  if (is.null(cran) || identical(cran, "@CRAN@")) {
+    "https://cran.rstudio.com"
+  } else {
+    cran
+  }
+}
 on_cran <- function(pkg) {
-  pkgs <- utils::available.packages(type = "source", repos = getOption("repos")["CRAN"])
+  pkgs <- utils::available.packages(
+    type = "source",
+    repos = list(CRAN = cran_mirror())
+  )
   pkg %in% rownames(pkgs)
 }
 
