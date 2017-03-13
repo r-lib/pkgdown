@@ -154,7 +154,8 @@ build_reference_topic <- function(topic,
       path = path,
       examples = examples,
       run_dont_run = run_dont_run,
-      mathjax = mathjax
+      mathjax = mathjax,
+      depth = depth
     ),
     path = out_path,
     depth = depth
@@ -170,7 +171,8 @@ data_reference_topic <- function(topic,
                                  examples = TRUE,
                                  run_dont_run = FALSE,
                                  mathjax = TRUE,
-                                 path = NULL
+                                 path = NULL,
+                                 depth = 1L
                                  ) {
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
@@ -219,7 +221,8 @@ data_reference_topic <- function(topic,
     current = get_current(topic, pkg),
     path = path,
     examples = examples,
-    run_dont_run = run_dont_run
+    run_dont_run = run_dont_run,
+    depth = depth
   )
 
   # Everything else stays in original order, and becomes a list of sections.

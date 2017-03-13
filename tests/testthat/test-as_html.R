@@ -97,7 +97,12 @@ test_that("link to non-existing functions return label", {
   )
 })
 
-
+test_that("code blocks autolinked to vignettes", {
+  expect_equal(
+    rd2html("\\code{vignette('abc')}"),
+    "<code><a href='../articles/abc.html'>vignette('abc')</a></code>"
+  )
+})
 
 # Paragraphs --------------------------------------------------------------
 

@@ -229,8 +229,7 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   }
 
   if (is_call_vignette(expr)) {
-    href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
-    return(paste0("<a href='", href, "'>", x, "</a>"))
+    return(link_vignette(expr, x, depth = depth))
   }
 
   alias <- find_alias(expr, strict = strict)
@@ -243,6 +242,10 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   paste0("<a href='", href, "'>", x, "</a>")
 }
 
+link_vignette <- function(expr, text, depth) {
+  href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
+  paste0("<a href='", href, "'>", text, "</a>")
+}
 
 find_alias <- function(x, strict = TRUE) {
   if (is_call_help(x)) {

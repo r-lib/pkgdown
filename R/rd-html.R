@@ -225,7 +225,7 @@ as_html.tag_if <- function(x, ...) {
 
 #' @export
 as_html.tag_ifelse <- function(x, ...) {
-  if (x[[1]] == "html") as_html(x[[2]]) else as_html(x[[3]])
+  if (x[[1]] == "html") as_html(x[[2]], ...) else as_html(x[[3]], ...)
 }
 
 # Tables ---------------------------------------------------------------------
@@ -342,7 +342,20 @@ as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
 as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         tag_wrapper("<code>", "</code>")
+as_html.tag_code <-         function(x, ..., depth = 1L) {
+  html <- flatten_text(x, ...)
+
+  expr <- tryCatch(
+    parse(text = html)[[1]],
+    error = function(e) NULL
+  )
+
+  if (is_call_vignette(expr)) {
+    html <- link_vignette(expr, html, depth = depth)
+  }
+
+  paste0("<code>", html, "</code>")
+}
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 #' @export
