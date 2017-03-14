@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -187,7 +189,15 @@ template:
 </pre>
     <p>See a complete list of themes and preview how they look at
 <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
-<p>You can also override the default templates and provide additional
+<p>Optionally provide the <code>ganalytics</code> template parameter to enable
+<a href = 'Google Analytics'>https://www.google.com/analytics/</a>. It should
+correspond to your
+<a href = 'tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
+template:
+  params:
+    ganalytics: UA-000000-01
+</pre>
+    <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
