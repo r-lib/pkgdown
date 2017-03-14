@@ -14,7 +14,9 @@ reference:
     - render_page
   - title: Helpers
     contents:
+    - as_pkgdown
     - in_pkgdown
+    - rel_path
 
 navbar:
   left:

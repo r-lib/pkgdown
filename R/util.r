@@ -182,6 +182,14 @@ find_first_existing <- function(path, ...) {
   NULL
 }
 
+#' Compute relative path
+#'
+#' @param path Relative path
+#' @param base Base path
+#' @export
+#' @examples
+#' rel_path("a/b", base = "here")
+#' rel_path("/a/b", base = "here")
 rel_path <- function(path, base = ".") {
   if (is_absolute_path(path)) {
     path

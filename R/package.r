@@ -1,3 +1,10 @@
+#' Generate pkgdown data structure
+#'
+#' You will generally not need to use this unless you need a custom site
+#' design and you're writing your own equivalent of \code{\link{build_site}}.
+#'
+#' @param path Path to package
+#' @export
 as_pkgdown <- function(path = ".") {
   if (is_pkgdown(path)) {
     return(path)
