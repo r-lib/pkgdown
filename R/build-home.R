@@ -234,7 +234,7 @@ data_link_cran <- function(pkg = ".") {
 
 
 cran_mirror <- function() {
-  repos <- as.list(getOption("repos"))[["CRAN"]]
+  cran <- as.list(getOption("repos"))[["CRAN"]]
   if (is.null(cran) || identical(cran, "@CRAN@")) {
     "https://cran.rstudio.com"
   } else {
