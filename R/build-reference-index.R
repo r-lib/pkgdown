@@ -98,11 +98,20 @@ match_topic <- function(topics, matches) {
 # Takes text specification and converts it to a predicate function
 topic_matcher <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
+  text_quoted <- encodeString(text, quote = "`")
 
   if (!grepl("(", text, fixed = TRUE)) {
     function(topics) topics == text
   } else {
-    expr <- parse(text = text)[[1]]
+    tryCatch({
+      expr <- parse(text = text)[[1]]
+    }, error = function(e) {
+      stop(
+        "Failed to parse: ", text_quoted, " in `_pkgdown.yml`\n",
+        e$message,
+        call. = FALSE
+      )
+    })
 
     topic_helpers <- list(
       starts_with = function(x) {
@@ -118,7 +127,17 @@ topic_matcher <- function(text) {
         function(topics) grepl(x, topics, fixed = TRUE)
       }
     )
-    eval(expr, topic_helpers)
+
+    tryCatch({
+      eval(expr, topic_helpers)
+    }, error = function(e) {
+      stop(
+        "Failed to evaluate: ", text_quoted, " in `_pkgdown.yml`\n",
+        e$message,
+        call. = FALSE
+      )
+    })
+
   }
 }
 
