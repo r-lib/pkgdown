@@ -34,3 +34,10 @@ test_that("intermediate files cleaned up automatically", {
 
   expect_equal(dir(pkg), c("DESCRIPTION", "index.Rmd"))
 })
+
+test_that("intermediate files cleaned up automatically", {
+  pkg <- test_path("home-readme-rmd")
+  build_home(pkg, tempdir())
+
+  expect_equal(dir(pkg), c("DESCRIPTION", "README.md", "README.Rmd"))
+})

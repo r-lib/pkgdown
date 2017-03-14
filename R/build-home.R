@@ -55,11 +55,15 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
         # Render once so that .md is up to date
         message("Updating ", file_name, ".md")
         callr::r(
-          function(input) rmarkdown::render(input, quiet = TRUE),
+          function(input) {
+            rmarkdown::render(
+              input,
+              output_options = list(html_preview = FALSE),
+              quiet = TRUE
+            )
+          },
           args = list(data$path)
         )
-
-        unlink(file.path(pkg$path, paste0(file_name, ".html")))
       }
 
       input <- file.path(path, basename(data$path))
