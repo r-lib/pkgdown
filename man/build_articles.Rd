@@ -44,8 +44,9 @@ articles:
 Note that \code{contents} can contain either a list of vignette names
 (including subdirectories), or if the functions in a section share a
 common prefix or suffix, you can use \code{starts_with("prefix")} and
-\code{ends_with("suffix")} to select them all. For more complex naming
-schemes you can use an aribrary regular expression with
+\code{ends_with("suffix")} to select them all. If you don't care about
+position within the string, use \code{contains("word")}. For more complex
+naming schemes you can use an aribrary regular expression with
 \code{matches("regexp")}.
 
 pkgdown will check that all vignettes are included in the index

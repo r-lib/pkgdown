@@ -113,6 +113,9 @@ topic_matcher <- function(text) {
       },
       matches = function(x) {
         function(topics) grepl(x, topics)
+      },
+      contains = function(x) {
+        function(topics) grepl(x, topics, fixed = TRUE)
       }
     )
     eval(expr, topic_helpers)

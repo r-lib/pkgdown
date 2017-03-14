@@ -120,8 +120,9 @@ articles:
     <p>Note that <code>contents</code> can contain either a list of vignette names
 (including subdirectories), or if the functions in a section share a
 common prefix or suffix, you can use <code>starts_with("prefix")</code> and
-<code>ends_with("suffix")</code> to select them all. For more complex naming
-schemes you can use an aribrary regular expression with
+<code>ends_with("suffix")</code> to select them all. If you don't care about
+position within the string, use <code>contains("word")</code>. For more complex
+naming schemes you can use an aribrary regular expression with
 <code>matches("regexp")</code>.</p>
 <p>pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.</p>
