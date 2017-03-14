@@ -25,6 +25,9 @@
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = "docs", depth = 0L) {
+  old <- set_pkgdown_env("true")
+  on.exit(set_pkgdown_env(old))
+
   rule("Building home")
 
   pkg <- as_pkgdown(pkg)

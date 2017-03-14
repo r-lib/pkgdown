@@ -12,6 +12,9 @@ reference:
     contents:
     - template_navbar
     - render_page
+  - title: Helpers
+    contents:
+    - in_pkgdown
 
 navbar:
   left:

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • pkgdown</title>
+<title>Determine if code is executed by pkgdown — in_pkgdown • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -74,73 +74,29 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Function reference</h1>
-      <h4>version&nbsp;0.1.0.9000</h4>
+    <h1>Determine if code is executed by pkgdown</h1>
     </div>
 
-    <div class="contents">
-      <h2 id="section-build" class="hasAnchor"><a href="#section-build" class="anchor"></a>Build</h2>
-      <p class="section-desc"><p>Build each component of the site.</p></p>
-
-      
-      <p><a href="build_articles.html">Build articles</a></p>
-      <ul>
-        <li><code><a href="build_articles.html">build_articles</a></code></li>
-      </ul>
-      
-      <p><a href="build_home.html">Build home page</a></p>
-      <ul>
-        <li><code><a href="build_home.html">build_home</a></code></li>
-      </ul>
-      
-      <p><a href="build_news.html">Build news section</a></p>
-      <ul>
-        <li><code><a href="build_news.html">build_news</a></code></li>
-      </ul>
-      
-      <p><a href="build_reference.html">Build reference section</a></p>
-      <ul>
-        <li><code><a href="build_reference.html">build_reference</a></code></li><li><code><a href="build_reference.html">build_reference_index</a></code></li>
-      </ul>
-      
-      <p><a href="build_site.html">Build pkgdown website</a></p>
-      <ul>
-        <li><code><a href="build_site.html">build_site</a></code></li><li><code><a href="build_site.html">init_site</a></code></li>
-      </ul>
-          <h2 id="section-templates" class="hasAnchor"><a href="#section-templates" class="anchor"></a>Templates</h2>
-      <p class="section-desc"></p>
-
-      
-      <p><a href="render_page.html">Render page with template</a></p>
-      <ul>
-        <li><code><a href="render_page.html">render_page</a></code></li><li><code><a href="render_page.html">data_template</a></code></li>
-      </ul>
-      
-      <p><a href="templates.html">Generate YAML templates</a></p>
-      <ul>
-        <li><code><a href="templates.html">template_navbar</a></code></li><li><code><a href="templates.html">template_reference</a></code></li><li><code><a href="templates.html">template_articles</a></code></li>
-      </ul>
-          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
-      <p class="section-desc"></p>
-
-      
-      <p><a href="in_pkgdown.html">Determine if code is executed by pkgdown</a></p>
-      <ul>
-        <li><code><a href="in_pkgdown.html">in_pkgdown</a></code></li>
-      </ul>
     
-    </div>
-  </div>
+    <p>This is occassionally useful when you need different behaviour by
+pkgdown and regular documentation.</p>
+    
 
+    <pre><span class='fu'>in_pkgdown</span>()</pre>
+        
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>in_pkgdown</span>()</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-build">Build</a></li>
-      <li><a href="#section-templates">Templates</a></li>
-      <li><a href="#section-helpers">Helpers</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

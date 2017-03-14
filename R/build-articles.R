@@ -50,6 +50,9 @@
 #'   Used to adjust relative links in the navbar.
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
+  old <- set_pkgdown_env("true")
+  on.exit(set_pkgdown_env(old))
+
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
   if (!has_vignettes(pkg$path)) {

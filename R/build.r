@@ -144,6 +144,8 @@ build_site <- function(pkg = ".",
                        preview = interactive(),
                        seed = 1014
                        ) {
+  old <- set_pkgdown_env("true")
+  on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)

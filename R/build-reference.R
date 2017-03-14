@@ -79,6 +79,9 @@ build_reference <- function(pkg = ".",
                             path = "docs/reference",
                             depth = 1L
                             ) {
+  old <- set_pkgdown_env("true")
+  on.exit(set_pkgdown_env(old))
+
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
 
