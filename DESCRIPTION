@@ -13,7 +13,6 @@ Imports:
     callr,
     desc,
     digest,
-    devtools,
     evaluate,
     highlight,
     magick,
@@ -28,12 +27,10 @@ Imports:
     yaml,
     xml2 (>= 1.1.1)
 Suggests:
+    devtools,
     knitr,
     testthat
 Remotes:
-    hadley/xml2,
-    rstudio/rmarkdown,
-    hadley/devtools,
     r-pkgs/pkgload
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
