@@ -185,7 +185,10 @@ init_site <- function(pkg = ".", path = "docs") {
   path <- rel_path(path, pkg$path)
 
   rule("Initialising site")
-  mkdir(path)
+  if (!file.exists(path)) {
+    mkdir(path)
+    usethis::use_build_ignore(path)
+  }
 
   assets <- data_assets(pkg)
   for (asset in assets) {

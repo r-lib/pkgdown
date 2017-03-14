@@ -23,6 +23,7 @@ Imports:
     roxygen2,
     tibble,
     tools,
+    usethis,
     whisker,
     yaml,
     xml2 (>= 1.1.1)
@@ -31,7 +32,8 @@ Suggests:
     knitr,
     testthat
 Remotes:
-    r-pkgs/pkgload
+    r-pkgs/pkgload,
+    r-pkgs/usethis
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 URL: https://github.com/hadley/pkgdown
