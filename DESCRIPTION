@@ -10,6 +10,7 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
 Imports:
+    callr,
     desc,
     digest,
     devtools,
@@ -25,7 +26,7 @@ Imports:
     tools,
     whisker,
     yaml,
-    xml2 (>= 1.0.0.9001)
+    xml2 (>= 1.1.1)
 Suggests:
     knitr,
     testthat
@@ -35,6 +36,6 @@ Remotes:
     hadley/devtools,
     r-pkgs/pkgload
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 URL: https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues

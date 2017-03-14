@@ -1,5 +1,8 @@
 context("build_home")
 
+
+# license -----------------------------------------------------------------
+
 test_that("link_license matchs exactly", {
   # Shouldn't match first GPL-2
   expect_equal(
@@ -13,4 +16,21 @@ test_that("link_license matches LICENSE", {
     autolink_license("LICENSE") ,
     "<a href='LICENSE'>LICENSE</a>"
   )
+})
+
+
+# index -------------------------------------------------------------------
+
+test_that("can build package without any index/readme", {
+  expect_error(
+    build_home(test_path("home-empty"), tempdir()),
+    NA
+  )
+})
+
+test_that("intermediate files cleaned up automatically", {
+  pkg <- test_path("home-index-rmd")
+  build_home(pkg, tempdir())
+
+  expect_equal(dir(pkg), c("DESCRIPTION", "index.Rmd"))
 })

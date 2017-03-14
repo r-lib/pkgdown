@@ -39,6 +39,8 @@ The home page will be automatically generated from one of the following four fil
 
 pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and a `index.md`
 
+When including big graphics in the README, you may find it eaiser to use `knitr::include_graphics("foo.png")` combined with chunk option `out.width = '100%'`. This will make the graphic scale with the size of the page.
+
 ## Reference
 
 The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.

@@ -31,14 +31,14 @@ as_data.tag_item <- function(x, ...) {
 
   list(
     name = as_html(x[[1]], ...),
-    description = flatten_text(x[[2]], ...)
+    description = flatten_para(x[[2]], ...)
   )
 }
 
 # Sections ----------------------------------------------------------------
 
 parse_section <- function(x, title, ...) {
-  text <- flatten_text(x, ...)
+  text <- flatten_para(x, ...)
   paras <- split_at_linebreaks(text)
 
   list(
@@ -81,9 +81,28 @@ as_data.tag_section <- function(x, ...) {
 }
 #' @export
 as_data.tag_value <- function(x, ...) {
-  # \value is implicitly a \describe environment
-  class(x) <- c("tag_describe", class(x))
-  parse_section(x, "Value", ...)
+  # \value is implicitly a \describe environment, with
+  # optional text block before first \item
+
+  idx <- Position(function(x) inherits(x, "tag_item"), x, nomatch = 0)
+  if (idx == 0) {
+    text <- x
+    values <- list()
+  } else if (idx == 1) {
+    text <- list()
+    values <- x
+  } else {
+    text <- x[seq_len(idx - 1)]
+    values <- x[-seq_len(idx - 1)]
+  }
+
+  text <- if (length(text) > 0) flatten_para(text) else NULL
+  values <- if (length(values) > 0) parse_descriptions(values) else NULL
+
+  list(
+    title = "Value",
+    contents = paste(c(text, values), collapse = "\n")
+  )
 }
 
 # Examples ------------------------------------------------------------------
@@ -150,13 +169,13 @@ drop_leading_newline <- function(x) {
   if (length(x) == 0)
     return()
 
-  first <- x[[1]]
-  if (!inherits(first, "RCODE"))
-    return(x)
+  if (is_newline(x[[1]])) {
+    x[-1]
+  } else {
+    x
+  }
+}
 
-  first <- as.character(first)
-  if (!identical(first, "\n"))
-    return(x)
-
-  x[-1]
+is_newline <- function(x) {
+  inherits(x, "TEXT") && identical(x[[1]], "\n")
 }

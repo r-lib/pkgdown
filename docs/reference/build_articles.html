@@ -91,45 +91,44 @@ template.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
-      <dd>Path to source package.</dd>
+      <dd><p>Path to source package.</p></dd>
       <dt>path</dt>
-      <dd>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</dd>
+      <dd><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></dd>
       <dt>depth</dt>
-      <dd>Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.</dd>
+      <dd><p>Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <p></p>
+    
     <p>To tweak the index page, you need a section called <code>articles</code>,
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
-    <p>For example, this imaginary file describes some of the structure of
-the <a href = 'R markdown articles'>http://rmarkdown.rstudio.com/articles.html</a>:</p>
-    <p><pre>
+<p>For example, this imaginary file describes some of the structure of
+the <a href = 'http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>
 articles:
 - title: R Markdown
   contents:
-  - starts_with(&quot;authoring&quot;)
+  - starts_with("authoring")
 - title: Websites
   contents:
   - rmarkdown_websites
   - rmarkdown_site_generators
-</pre></p>
+</pre>
     <p>Note that <code>contents</code> can contain either a list of vignette names
 (including subdirectories), or if the functions in a section share a
-common prefix or suffix, you can use <code>starts_with(&quot;prefix&quot;)</code> and
-<code>ends_with(&quot;suffix&quot;)</code> to select them all. For more complex naming
+common prefix or suffix, you can use <code>starts_with("prefix")</code> and
+<code>ends_with("suffix")</code> to select them all. For more complex naming
 schemes you can use an aribrary regular expression with
-<code>matches(&quot;regexp&quot;)</code>.</p>
-    <p>pkgdown will check that all vignettes are included in the index
+<code>matches("regexp")</code>.</p>
+<p>pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.</p>
     
     <h2 class="hasAnchor" id="supressing-vignettes"><a class="anchor" href="#supressing-vignettes"></a>Supressing vignettes</h2>
 
-    <p></p>
+    
     <p>If you want articles that are not vignettes, either put them in
 subdirectories or list in <code>.Rbuildignore</code>. An articles link
 will be automatically added to the default navbar if the vignettes

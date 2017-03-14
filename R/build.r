@@ -33,7 +33,7 @@
 #'
 #' @section YAML config - navbar:
 #' \code{navbar} controls the navbar at the top of the page. It uses the same
-#' syntax as \href{RMarkdown}{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}.
+#' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' \preformatted{
@@ -93,7 +93,7 @@
 #' See a complete list of themes and preview how they look at
 #' \url{https://gallery.shinyapps.io/117-shinythemes/}:
 #'
-#' Optionnally provide the \code{ganalytics} template parameter to enable
+#' Optionally provide the \code{ganalytics} template parameter to enable
 #' \href{Google Analytics}{https://www.google.com/analytics/}. It should
 #' correspond to your
 #' \href{tracking id}{https://support.google.com/analytics/answer/1032385}.

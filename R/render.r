@@ -17,7 +17,7 @@
 #'   This is automatically supplemented with three lists:
 #'   \itemize{
 #'   \item \code{site}: \code{title} and path to \code{root}.
-#'   \item \code{yaml}: the \code{template} key from from
+#'   \item \code{yaml}: the \code{template} key from
 #'      \code{_pkgdown.yml}.
 #'   \item \code{package}: package metadata including \code{name} and
 #'      \code{version}.
@@ -60,7 +60,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the moustache templates
-  yaml <- pkg$meta$templates$params %||% list()
+  yaml <- pkg$meta[["template"]]$params %||% list()
   yaml$.present <- TRUE
 
   print_yaml(list(
@@ -85,7 +85,7 @@ template_path <- function(pkg = ".") {
   template <- pkg$meta[["template"]]
 
   if (!is.null(template$path)) {
-    path <- rel_path(pkg$path, template_path)
+    path <- rel_path(pkg$path, template$path)
 
     if (!file.exists(path))
       stop("Can not find template path '", path, "'", call. = FALSE)

@@ -80,19 +80,12 @@
     </div>
 
     
-    <p><code>build_site()</code> is a convenient wrapper around four functions:
-<ul>
-<li> <code><a href='build_articles.html'>build_articles</a>()</code>
-  </li>
-<li> <code><a href='build_home.html'>build_home</a>()</code>
-  </li>
-<li> <code><a href='build_reference.html'>build_reference</a>()</code>
-  </li>
-<li> <code><a href='build_news.html'>build_news</a>()</code>
-</li>
-</ul></p>
-
-    <p>See the documentation for the each function to learn how to control
+    <p><code>build_site()</code> is a convenient wrapper around four functions:</p><ul>
+<li><p><code><a href='build_articles.html'>build_articles</a>()</code></p></li>
+<li><p><code><a href='build_home.html'>build_home</a>()</code></p></li>
+<li><p><code><a href='build_reference.html'>build_reference</a>()</code></p></li>
+<li><p><code><a href='build_news.html'>build_news</a>()</code></p></li>
+</ul><p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
     
 
@@ -105,126 +98,120 @@ that aspect of the site.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pkg</dt>
-      <dd>Path to source package.</dd>
+      <dd><p>Path to source package.</p></dd>
       <dt>path</dt>
-      <dd>Location in which to save website, relative to package
-path.</dd>
+      <dd><p>Location in which to save website, relative to package
+path.</p></dd>
       <dt>examples</dt>
-      <dd>Run examples?</dd>
+      <dd><p>Run examples?</p></dd>
       <dt>run_dont_run</dt>
-      <dd>Run examples that are surrounded in \dontrun?</dd>
+      <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
       <dt>mathjax</dt>
-      <dd>Use mathjax to render math symbols?</dd>
+      <dd><p>Use mathjax to render math symbols?</p></dd>
       <dt>preview</dt>
-      <dd>If <code>TRUE</code>, will preview freshly generated site</dd>
+      <dd><p>If <code>TRUE</code>, will preview freshly generated site</p></dd>
       <dt>seed</dt>
-      <dd>Seed used to initialize so that random examples are
-reproducible.</dd>
+      <dd><p>Seed used to initialize so that random examples are
+reproducible.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
-    <p></p>
+    
     <p>There are five top-level YAML settings that affect the entire site:
-<code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
-    <p><code>title</code> overrides the default site title, which is the package name.
-It&#39;s used in the page title and default navbar.</p>
-    <p>You can also provided information to override the default display of
+<code>title</code>, <code>template</code>, and <code>navbar</code>.
+    <code>title</code> overrides the default site title, which is the package name.
+It's used in the page title and default navbar.</p>
+<p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p>
-    <p><pre>
+text:</p><pre>
 authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: &lt;img src=&quot;http://tidyverse.org/rstudio-logo.svg&quot; height=&quot;24&quot; /&gt;
-</pre></p>
+    html: &lt;img src="http://tidyverse.org/rstudio-logo.svg" height="24" /&gt;
+</pre>
     
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
-    <p></p>
     <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
 syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p>
-    <p><pre>
+The following YAML snippet illustrates some of the most important features.</p><pre>
 navbar:
   type: inverse
   left:
-    - text: &quot;Home&quot;
+    - text: "Home"
       href: index.html
-    - text: &quot;Reference&quot;
+    - text: "Reference"
       href: reference/index.html
-    - text: &quot;Articles&quot;
+    - text: "Articles"
       menu:
-        - text: &quot;Heading 1&quot;
-        - text: &quot;Article A&quot;
+        - text: "Heading 1"
+        - text: "Article A"
           href: articles/page_a.html
-        - text: &quot;Article B&quot;
+        - text: "Article B"
           href: articles/page_b.html
-        - text: &quot;---------&quot;
-        - text: &quot;Heading 2&quot;
-        - text: &quot;Article C&quot;
+        - text: "---------"
+        - text: "Heading 2"
+        - text: "Article C"
           href: articles/page_c.html
-        - text: &quot;Article D&quot;
+        - text: "Article D"
           href: articles/page_d.html
   right:
     - icon: fa-github fa-lg
       href: https://example.com
-</pre></p>
-    <p>Use <code>type</code> to choose between &quot;default&quot; and &quot;inverse&quot; themes.</p>
-    <p>You position elements by placing under either <code>left</code> or <code>right</code>.
+</pre>
+    <p>Use <code>type</code> to choose between "default" and "inverse" themes.</p>
+<p>You position elements by placing under either <code>left</code> or <code>right</code>.
 Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
 <a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
-    <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
+<p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
 will be automatically filled in from the default navbar: you can see
-those values by running <code><a href='template_navbar.html'>template_navbar</a>()</code>.</p>
+those values by running <code><a href='templates.html'>template_navbar</a>()</code>.</p>
     
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
-    <p></p>
+    
     <p>You can get complete control over the appearance of the site using the
 <code>template</code> component. There are two components to the template:
 the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
-    <p>The easiest way to tweak the default style is to use a bootswatch template,
+<p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p>
-    <p><pre>
+template:</p><pre>
 template:
   params:
     bootswatch: cerulean
-</pre></p>
+</pre>
     <p>See a complete list of themes and preview how they look at
 <a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
-    <p>Optionnally provide the <code>ganalytics</code> template parameter to enable
-<a href = 'https://www.google.com/analytics/'>Google Analytics</a>. It should
+<p>Optionally provide the <code>ganalytics</code> template parameter to enable
+<a href = 'Google Analytics'>https://www.google.com/analytics/</a>. It should
 correspond to your
-<a href = 'https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p>
-    <p><pre>
+<a href = 'tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
 template:
   params:
     ganalytics: UA-000000-01
-</pre></p>
+</pre>
     <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p>
-    <p><pre>
+of the default assets, set <code>default_assets</code> to false.</p><pre>
 template:
-  package: mycustompackage</p>
-    <p># OR:</p>
-    <p>template:
+  package: mycustompackage
+    # OR:
+    template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
-</pre></p>
+</pre>
     <p>These settings are currently recommended for advanced users only. There
-is little documentation, and you&#39;ll need to read the existing source
+is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
     
 

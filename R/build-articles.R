@@ -88,12 +88,14 @@ render_rmd <- function(pkg,
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
-  path <- rmarkdown::render(
-    input,
-    output_format = format$format,
-    output_file = basename(output_file),
-    quiet = TRUE,
-    envir = new.env(parent = globalenv())
+  path <- callr::r(
+    function(...) rmarkdown::render(...),
+    args = list(
+      input,
+      output_format = format$format,
+      output_file = basename(output_file),
+      quiet = TRUE
+    )
   )
   update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
     index = pkg$topics)

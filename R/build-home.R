@@ -40,30 +40,39 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
   # Build authors page
   build_authors(pkg, path = path, depth = depth)
 
-  if (identical(tools::file_ext(data$path), "Rmd")) {
-    # Render once so that .md is up to date
-    message("Updating README.md")
-    rmarkdown::render(data$path, quiet = TRUE)
-    # In case preview_html = TRUE
-    unlink(file.path(pkg$path, "README.html"))
-
-    input <- file.path(path, basename(data$path))
-    file.copy(data$path, input)
-    on.exit(unlink(input))
-
-    render_rmd(pkg, input, "index.html",
-      depth = depth,
-      data = data,
-      toc = FALSE,
-      strip_header = TRUE
-    )
-  } else {
-    if (is.null(path)) {
-      data$index <- pkg$desc$get("Description")[[1]]
-    } else {
-      data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
-    }
+  if (is.null(data$path)) {
+    data$index <- pkg$desc$get("Description")[[1]]
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
+  } else {
+    file_name <- tools::file_path_sans_ext(basename(data$path))
+    file_ext <- tools::file_ext(data$path)
+
+    if (file_ext == "md") {
+      data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
+      render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
+    } else if (file_ext == "Rmd") {
+      if (identical(file_name, "README")) {
+        # Render once so that .md is up to date
+        message("Updating ", file_name, ".md")
+        callr::r(
+          function(input) rmarkdown::render(input, quiet = TRUE),
+          args = list(data$path)
+        )
+
+        unlink(file.path(pkg$path, paste0(file_name, ".html")))
+      }
+
+      input <- file.path(path, basename(data$path))
+      file.copy(data$path, input)
+      on.exit(unlink(input))
+
+      render_rmd(pkg, input, "index.html",
+        depth = depth,
+        data = data,
+        toc = FALSE,
+        strip_header = TRUE
+      )
+    }
   }
 
   update_homepage_html(
@@ -81,10 +90,12 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
   if (has_badges) {
     list <- list_with_heading(badges, "Dev status")
+    list_div <- paste0("<div>", list, "</div>")
+    list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
 
     html %>%
       xml2::xml_find_first(".//div[@id='sidebar']") %>%
-      xml2::xml_add_child(xml2::read_html(list))
+      xml2::xml_add_child(list_html)
 
     xml2::xml_remove(first_para)
   }
@@ -221,8 +232,20 @@ data_link_cran <- function(pkg = ".") {
   )
 }
 
+
+cran_mirror <- function() {
+  cran <- as.list(getOption("repos"))[["CRAN"]]
+  if (is.null(cran) || identical(cran, "@CRAN@")) {
+    "https://cran.rstudio.com"
+  } else {
+    cran
+  }
+}
 on_cran <- function(pkg) {
-  pkgs <- utils::available.packages(type = "source")
+  pkgs <- utils::available.packages(
+    type = "source",
+    repos = list(CRAN = cran_mirror())
+  )
   pkg %in% rownames(pkgs)
 }
 

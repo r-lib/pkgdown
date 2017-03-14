@@ -132,6 +132,11 @@ pkgdown_detective <- function(x, ...) {
 # Links -------------------------------------------------------------------
 
 link_remote <- function(label, topic, package) {
+  # Return early if package not installed
+  if (!requireNamespace(package, quietly = TRUE)) {
+    return(label)
+  }
+
   help <- eval(bquote(help(.(topic), .(package))))
   if (length(help) == 0) {
     return(label)
@@ -157,19 +162,21 @@ find_local_topic <- function(alias, index, current = NULL) {
     return()
 
   topic <- index$name[match]
+  path <- index$file_out[match]
+
   if (!is.null(current) && topic == current) {
     NULL
   } else {
-    topic
+    path
   }
 }
 
 link_local <- function(label, topic, index, current = NULL) {
-  topic <- find_local_topic(topic, index = index, current = current)
-  if (is.null(topic)) {
+  path <- find_local_topic(topic, index = index, current = current)
+  if (is.null(path)) {
     label
   } else {
-    paste0("<a href='", paste0(topic, ".html"), "'>", label, "</a>")
+    paste0("<a href='", path, "'>", label, "</a>")
   }
 }
 
@@ -222,20 +229,23 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
   }
 
   if (is_call_vignette(expr)) {
-    href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
-    return(paste0("<a href='", href, "'>", x, "</a>"))
+    return(link_vignette(expr, x, depth = depth))
   }
 
   alias <- find_alias(expr, strict = strict)
-  topic <- find_local_topic(alias, index = index)
-  if (is.null(topic)) {
+  path <- find_local_topic(alias, index = index)
+  if (is.null(path)) {
     return(NA_character_)
   }
 
-  href <- paste0(up_path(depth), "reference/", topic, ".html")
+  href <- paste0(up_path(depth), "reference/", path)
   paste0("<a href='", href, "'>", x, "</a>")
 }
 
+link_vignette <- function(expr, text, depth) {
+  href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
+  paste0("<a href='", href, "'>", text, "</a>")
+}
 
 find_alias <- function(x, strict = TRUE) {
   if (is_call_help(x)) {
