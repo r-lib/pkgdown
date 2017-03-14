@@ -54,7 +54,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L) {
       if (identical(file_name, "README")) {
         # Render once so that .md is up to date
         message("Updating ", file_name, ".md")
-        callr::r(
+        callr::r_safe(
           function(input) {
             rmarkdown::render(
               input,

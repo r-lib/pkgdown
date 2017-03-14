@@ -88,7 +88,7 @@ render_rmd <- function(pkg,
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
-  path <- callr::r(
+  path <- callr::r_safe(
     function(...) rmarkdown::render(...),
     args = list(
       input,
