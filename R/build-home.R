@@ -112,7 +112,7 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     xml2::xml_remove(header, free = TRUE)
   } else {
     page_header <- paste0("<div class='page-header'>", header, "</div>")
-    xml2::xml_replace(header, xml2::read_xml(page_header))
+    xml2::xml_replace(header, xml2::read_html(page_header))
   }
 
   tweak_tables(html)
