@@ -8,7 +8,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ has_topic(pkg$topics$alias, .$contents, .$exclude)) %>%
+    purrr::map(~ has_topic(pkg$topics$alias, .$contents)) %>%
     purrr::reduce(`+`)
 
   missing <- (in_index == 0) & !pkg$topics$internal
@@ -37,8 +37,8 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
     return(NULL)
   }
 
-  # Match topics against any aliases
-  in_section <- has_topic(pkg$topics$alias, section$contents, section$exclude)
+  # Find topics in this section
+  in_section <- has_topic(pkg$topics$alias, section$contents)
   section_topics <- pkg$topics[in_section, ]
   contents <- tibble::tibble(
     path = section_topics$file_out,
@@ -82,17 +82,12 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-# Character vector of contents: xyz, starts_with("xyz")
-# List of aliases
-has_topic <- function(topics, contains, exclude = NULL) {
-  match_topic(topics, contains %||% list()) &
-    !match_topic(topics, exclude %||% list())
-}
-
-match_topic <- function(topics, matches) {
-  matchers <- purrr::map(matches, topic_matcher)
-  topics %>%
-    purrr::map_lgl(~ purrr::some(matchers, function(f) any(f(.))))
+# @param topics A list of character vectors giving the aliases in each Rf file
+# @param matches A list of strings describing matching functions
+# @return logical vector same length as `topics`
+has_topic <- function(topics, matches) {
+  matchers <- purrr::map(matches %||% list(), topic_matcher)
+  purrr::map_lgl(topics, ~ purrr::some(matchers, function(f) any(f(.))))
 }
 
 # Takes text specification and converts it to a predicate function
