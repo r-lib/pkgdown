@@ -57,7 +57,8 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   lines <- readLines(tmp, warn = FALSE)
   lines <- sub("<body>", "", lines, fixed = TRUE)
   lines <- sub("</body>", "", lines, fixed = TRUE)
-  paste(lines, collapse = "\n")
+  lines <- paste(lines, collapse = "\n")
+  gsub("</a></html>\n<img", "</a></html><img", lines, fixed=TRUE)
 }
 
 tweak_anchors <- function(html, only_contents = TRUE) {
