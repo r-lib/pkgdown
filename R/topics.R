@@ -51,12 +51,11 @@ match_env <- function(topics) {
     name_match <- topics$name %>%
       purrr::map_lgl(f, ...)
 
-    matched <- alias_match | name_match
-    if (!.internal) {
-      matched <- matched & !topics$internal
-    }
+    which((alias_match | name_match) & is_public(.internal))
+  }
 
-    which(matched)
+  is_public <- function(internal) {
+    if (!internal) !topics$internal else rep(TRUE, nrow(topics))
   }
 
   # dplyr-like matching functions
@@ -72,6 +71,14 @@ match_env <- function(topics) {
     },
     contains = function(x, internal = FALSE) {
       any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
+    },
+    has_concept = function(x, internal = FALSE) {
+      match <- topics$concepts %>%
+        unname() %>%
+        purrr::map(~ trimws(.) == x) %>%
+        purrr::map_lgl(any)
+
+      which(match & is_public(internal))
     }
   )
 

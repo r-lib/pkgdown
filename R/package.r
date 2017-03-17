@@ -70,6 +70,7 @@ topic_index <- function(path = ".") {
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names <- purrr::map_chr(rd, extract_tag, "tag_name")
   titles <- purrr::map_chr(rd, extract_tag, "tag_title")
+  concepts <- purrr::map(rd, extract_tag, "tag_concept")
   internal <- purrr::map_lgl(rd, is_internal)
 
   file_in <- names(rd)
@@ -82,6 +83,7 @@ topic_index <- function(path = ".") {
     alias = aliases,
     title = titles,
     rd = rd,
+    concepts = concepts,
     internal = internal
   )
 }

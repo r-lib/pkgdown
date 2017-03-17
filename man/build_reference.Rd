@@ -69,6 +69,10 @@ regular expression with \code{matches("regexp")}. You can also use a leading
 match multiple topics will exclude topics with keyword "internal". To
 include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
+Alternatively, you can selected topics that contain specified concepts with
+\code{has_concept("blah")}. Concepts are not currently well-supported by
+roxygen2, but may be useful if you write Rd files by hand.
+
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
 }
