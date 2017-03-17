@@ -1,17 +1,21 @@
 context("topics")
 
 topics <- tibble::tribble(
-  ~ alias,
-  c("a1", "a2"),
-  c("a3"),
-  "b1",
-  "b2"
+  ~name, ~ alias,
+  "x",   c("a1", "a2"),
+  "a",   c("a3"),
+  "b1", "b1",
+  "b2", "b2"
 )
 
-test_that("select by any alias", {
+test_that("can select by any alias", {
   expect_equal(has_topic("a1", topics), c(TRUE, FALSE, FALSE, FALSE))
   expect_equal(has_topic("a2", topics), c(TRUE, FALSE, FALSE, FALSE))
+})
 
+test_that("can select by name", {
+  expect_equal(has_topic("starts_with('x')", topics), c(TRUE, FALSE, FALSE, FALSE))
+  expect_equal(has_topic("x", topics), c(TRUE, FALSE, FALSE, FALSE))
 })
 
 test_that("initial negative drops selected", {

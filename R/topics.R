@@ -39,11 +39,15 @@ all_sign <- function(x) {
 
 match_env <- function(topics) {
   any_alias <- function(f, ...) {
-    topics$alias %>%
+    alias_match <- topics$alias %>%
       unname() %>%
       purrr::map(f, ...) %>%
-      purrr::map_lgl(any) %>%
-      which()
+      purrr::map_lgl(any)
+
+    name_match <- topics$name %>%
+      purrr::map_lgl(f, ...)
+
+    which(alias_match | name_match)
   }
 
   # dplyr-like matching functions
@@ -69,7 +73,12 @@ match_env <- function(topics) {
     as.list() %>%
     stats::setNames(purrr::flatten_chr(topics$alias))
 
-  c(funs, aliases)
+  # Each name is mapped to the position of its topic
+  names <- seq_along(topics$name) %>%
+    as.list() %>%
+    stats::setNames(topics$name)
+
+  c(funs, aliases, names)
 }
 
 # Takes text specification and converts it to a predicate function
