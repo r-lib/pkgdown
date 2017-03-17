@@ -8,7 +8,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
 
   # Cross-reference complete list of topics vs. topics found in index page
   in_index <- meta %>%
-    purrr::map(~ has_topic(pkg$topics$alias, .$contents)) %>%
+    purrr::map(~ has_topic(.$contents, pkg$topics)) %>%
     purrr::reduce(`+`)
 
   missing <- (in_index == 0) & !pkg$topics$internal
@@ -38,7 +38,7 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   }
 
   # Find topics in this section
-  in_section <- has_topic(pkg$topics$alias, section$contents)
+  in_section <- has_topic(section$contents, pkg$topics)
   section_topics <- pkg$topics[in_section, ]
   contents <- tibble::tibble(
     path = section_topics$file_out,
@@ -81,58 +81,3 @@ default_reference_index <- function(pkg = ".") {
     )
   ))
 }
-
-# @param topics A list of character vectors giving the aliases in each Rf file
-# @param matches A list of strings describing matching functions
-# @return logical vector same length as `topics`
-has_topic <- function(topics, matches) {
-  matchers <- purrr::map(matches %||% list(), topic_matcher)
-  purrr::map_lgl(topics, ~ purrr::some(matchers, function(f) any(f(.))))
-}
-
-# Takes text specification and converts it to a predicate function
-topic_matcher <- function(text) {
-  stopifnot(is.character(text), length(text) == 1)
-  text_quoted <- encodeString(text, quote = "`")
-
-  if (!grepl("(", text, fixed = TRUE)) {
-    function(topics) topics == text
-  } else {
-    tryCatch({
-      expr <- parse(text = text)[[1]]
-    }, error = function(e) {
-      stop(
-        "Failed to parse: ", text_quoted, " in `_pkgdown.yml`\n",
-        e$message,
-        call. = FALSE
-      )
-    })
-
-    topic_helpers <- list(
-      starts_with = function(x) {
-        function(topics) grepl(paste0("^", x), topics)
-      },
-      ends_with = function(x) {
-        function(topics) grepl(paste0(x, "$"), topics)
-      },
-      matches = function(x) {
-        function(topics) grepl(x, topics)
-      },
-      contains = function(x) {
-        function(topics) grepl(x, topics, fixed = TRUE)
-      }
-    )
-
-    tryCatch({
-      eval(expr, topic_helpers)
-    }, error = function(e) {
-      stop(
-        "Failed to evaluate: ", text_quoted, " in `_pkgdown.yml`\n",
-        e$message,
-        call. = FALSE
-      )
-    })
-
-  }
-}
-

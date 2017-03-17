@@ -212,7 +212,7 @@ data_articles_index_section <- function(section, pkg, depth = 1L) {
   }
 
   # Match topics against any aliases
-  in_section <- has_vignette(pkg$vignettes$name, section$contents)
+  in_section <- has_vignette(section$contents, pkg$vignettes)
   section_vignettes <- pkg$vignettes[in_section, ]
   contents <- tibble::tibble(
     path = section_vignettes$file_out,
@@ -227,12 +227,13 @@ data_articles_index_section <- function(section, pkg, depth = 1L) {
   )
 }
 
-has_vignette <- function(vignettes, matches) {
-  matchers <- purrr::map(matches, topic_matcher)
-
-  matchers %>%
-    purrr::map(~ .x(vignettes)) %>%
-    purrr::reduce(`|`)
+has_vignette <- function(match_strings, vignettes) {
+  # Quick hack: create the same structure as for topics so we can use
+  # the existing has_topic()
+  topics <- tibble::tibble(
+    alias = as.list(vignettes$name)
+  )
+  has_topic(match_strings, topics)
 }
 
 default_articles_index <- function(pkg = ".") {
