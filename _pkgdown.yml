@@ -7,7 +7,6 @@ reference:
     desc:  Build each component of the site.
     contents:
     - starts_with("build_")
-    - init_site
   - title: Templates
     contents:
     - template_navbar
