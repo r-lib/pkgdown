@@ -65,7 +65,9 @@ or if the functions in a section share a common prefix or suffix, you
 can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
 select them all. For more complex naming schemes you can use an aribrary
 regular expression with \code{matches("regexp")}. You can also use a leading
-`-` to exclude matches from a section.
+`-` to exclude matches from a section. By default, these functions that
+match multiple topics will exclude topics with keyword "internal". To
+include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.

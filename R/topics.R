@@ -12,7 +12,11 @@ has_topic <- function(match_strings, topics) {
   indexes <- purrr::map(expr, eval, env = env)
 
   # Combine integer positions; adding if +ve, removing if -ve
-  sel <- switch(all_sign(indexes[[1]]), "+" = integer(), "-" = seq_len(n))
+  sel <- switch(
+    all_sign(indexes[[1]]),
+    "+" = integer(),
+    "-" = seq_len(n)[!topics$internal]
+  )
   for (index in indexes) {
     sel <- switch(all_sign(index),
       "+" = union(sel, index),
@@ -38,7 +42,7 @@ all_sign <- function(x) {
 }
 
 match_env <- function(topics) {
-  any_alias <- function(f, ...) {
+  any_alias <- function(f, ..., .internal = FALSE) {
     alias_match <- topics$alias %>%
       unname() %>%
       purrr::map(f, ...) %>%
@@ -47,22 +51,27 @@ match_env <- function(topics) {
     name_match <- topics$name %>%
       purrr::map_lgl(f, ...)
 
-    which(alias_match | name_match)
+    matched <- alias_match | name_match
+    if (!.internal) {
+      matched <- matched & !topics$internal
+    }
+
+    which(matched)
   }
 
   # dplyr-like matching functions
   funs <- list(
-    starts_with = function(x) {
-      any_alias(~ grepl(paste0("^", x), .))
+    starts_with = function(x, internal = FALSE) {
+      any_alias(~ grepl(paste0("^", x), .), .internal = internal)
     },
-    ends_with = function(x) {
-      any_alias(~ grepl(paste0(x, "$"), .))
+    ends_with = function(x, internal = FALSE) {
+      any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
     },
-    matches = function(x) {
-      any_alias(~ grepl(x, .))
+    matches = function(x, internal = FALSE) {
+      any_alias(~ grepl(x, .), .internal = internal)
     },
-    contains = function(x) {
-      any_alias(~ grepl(x, ., fixed = TRUE))
+    contains = function(x, internal = FALSE) {
+      any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
     }
   )
 

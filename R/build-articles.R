@@ -230,10 +230,10 @@ data_articles_index_section <- function(section, pkg, depth = 1L) {
 has_vignette <- function(match_strings, vignettes) {
   # Quick hack: create the same structure as for topics so we can use
   # the existing has_topic()
-  browser()
   topics <- tibble::tibble(
-    name = vignette$name,
-    alias = as.list(vignettes$name)
+    name = vignettes$name,
+    alias = as.list(vignettes$name),
+    internal = FALSE
   )
   has_topic(match_strings, topics)
 }
