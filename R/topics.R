@@ -1,7 +1,5 @@
-# @param topics A list of character vectors giving the aliases in each Rf file
-# @param matches A list of strings describing matching functions
-# @return logical vector same length as `topics`
-has_topic <- function(match_strings, topics) {
+# @return An integer vector giving selected topics
+select_topics <- function(match_strings, topics) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
     return(rep(FALSE, n))
@@ -24,7 +22,7 @@ has_topic <- function(match_strings, topics) {
     )
   }
 
-  seq_len(n) %in% sel
+  sel
 }
 
 all_sign <- function(x) {

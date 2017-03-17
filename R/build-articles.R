@@ -235,7 +235,8 @@ has_vignette <- function(match_strings, vignettes) {
     alias = as.list(vignettes$name),
     internal = FALSE
   )
-  has_topic(match_strings, topics)
+  sel <- select_topics(match_strings, topics)
+  seq_along(vignettes$name) %in% sel
 }
 
 default_articles_index <- function(pkg = ".") {

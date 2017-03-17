@@ -10,39 +10,33 @@ topics <- tibble::tribble(
 )
 
 test_that("can select by any alias", {
-  expect_equal(has_topic("a1", topics), c(TRUE, FALSE, FALSE, FALSE, FALSE))
-  expect_equal(has_topic("a2", topics), c(TRUE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(select_topics("a1", topics), 1)
+  expect_equal(select_topics("a2", topics), 1)
 })
 
 test_that("can select by name", {
-  expect_equal(has_topic("starts_with('x')", topics), c(TRUE, FALSE, FALSE, FALSE, FALSE))
-  expect_equal(has_topic("x", topics), c(TRUE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(select_topics("starts_with('x')", topics), 1)
+  expect_equal(select_topics("x", topics), 1)
+})
+
+test_that("preserves order", {
+  expect_equal(select_topics(c("a", "b1", "x"), topics), c(2, 3, 1))
 })
 
 test_that("can select by concept", {
-  expect_equal(has_topic("has_concept('b')", topics), c(FALSE, FALSE, TRUE, TRUE, FALSE))
+  expect_equal(select_topics("has_concept('b')", topics), c(3, 4))
 })
 
 test_that("initial negative drops selected", {
-  expect_equal(has_topic("-a1", topics), c(FALSE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(select_topics("-a1", topics), 2:4)
 })
 
 test_that("can select then drop", {
-  expect_equal(
-    has_topic("starts_with('b')", topics),
-    c(FALSE, FALSE, TRUE, TRUE, FALSE)
-  )
-  expect_equal(
-    has_topic(c("starts_with('b')", "-b2"), topics),
-    c(FALSE, FALSE, TRUE, FALSE, FALSE)
-  )
+  expect_equal(select_topics("starts_with('b')", topics), c(3, 4))
+  expect_equal(select_topics(c("starts_with('b')", "-b2"), topics), 3)
 })
 
 test_that("internal selected by name or with internal = TRUE", {
-  expect_equal(has_topic("i", topics), c(FALSE, FALSE, FALSE, FALSE, TRUE))
-  expect_equal(
-    has_topic("starts_with('i', internal = TRUE)", topics),
-    c(FALSE, FALSE, FALSE, FALSE, TRUE)
-  )
-
+  expect_equal(select_topics("i", topics), 5)
+  expect_equal(select_topics("starts_with('i', internal = TRUE)", topics), 5)
 })

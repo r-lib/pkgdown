@@ -7,11 +7,12 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
     purrr::compact()
 
   # Cross-reference complete list of topics vs. topics found in index page
-  in_index <- meta %>%
-    purrr::map(~ has_topic(.$contents, pkg$topics)) %>%
-    purrr::reduce(`+`)
+  all_topics <- meta %>%
+    purrr::map(~ select_topics(.$contents, pkg$topics)) %>%
+    purrr::reduce(union)
+  in_index <- seq_along(pkg$topics$name) %in% all_topics
 
-  missing <- (in_index == 0) & !pkg$topics$internal
+  missing <- !in_index & !pkg$topics$internal
   if (any(missing)) {
     warning(
       "Topics missing from index: ",
@@ -38,7 +39,7 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   }
 
   # Find topics in this section
-  in_section <- has_topic(section$contents, pkg$topics)
+  in_section <- select_topics(section$contents, pkg$topics)
   section_topics <- pkg$topics[in_section, ]
   contents <- tibble::tibble(
     path = section_topics$file_out,
