@@ -58,7 +58,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
         # Render once so that .md is up to date
         message("Updating ", file_name, ".md")
         callr::r_safe(
-          function(input) {
+          function(input, encoding) {
             rmarkdown::render(
               input,
               output_options = list(html_preview = FALSE),
@@ -66,7 +66,10 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
               encoding = encoding
             )
           },
-          args = list(data$path)
+          args = list(
+            input = data$path,
+            encoding = encoding
+          )
         )
       }
 
