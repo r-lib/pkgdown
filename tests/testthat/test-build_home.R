@@ -54,5 +54,16 @@ test_that("page header modification succeeds", {
 
   tweak_homepage_html(html)
 
-  expect_output_file(cat(as.character(html)), "home-page-header.html", update = T)
+  expect_output_file(cat(as.character(html)), "home-page-header.html")
+})
+
+test_that("links to vignettes & figures tweaked", {
+  html <- xml2::read_html('
+    <img src="vignettes/x.png" />
+    <img src="man/figures/x.png" />
+  ')
+
+  tweak_homepage_html(html)
+
+  expect_output_file(cat(as.character(html)), "home-links.html")
 })

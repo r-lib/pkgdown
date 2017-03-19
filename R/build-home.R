@@ -121,6 +121,13 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     xml2::xml_replace(header, page_header)
   }
 
+  # Fix relative image links
+  imgs <- xml2::xml_find_all(html, ".//img")
+  urls <- xml2::xml_attr(imgs, "src")
+  new_urls <- gsub("^vignettes/", "articles/", urls)
+  new_urls <- gsub("^man/figures/", "reference/figures/", new_urls)
+  purrr::map2(imgs, new_urls, ~ (xml2::xml_attr(.x, "src") <- .y))
+
   tweak_tables(html)
 
   invisible()
