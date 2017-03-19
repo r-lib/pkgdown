@@ -62,7 +62,8 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
             rmarkdown::render(
               input,
               output_options = list(html_preview = FALSE),
-              quiet = TRUE
+              quiet = TRUE,
+              encoding = encoding
             )
           },
           args = list(data$path)
@@ -77,7 +78,8 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
         depth = depth,
         data = data,
         toc = FALSE,
-        strip_header = TRUE
+        strip_header = TRUE,
+        encoding = encoding
       )
     }
   }

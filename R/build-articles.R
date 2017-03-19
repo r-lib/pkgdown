@@ -73,7 +73,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encodi
     depth = pkg$vignettes$vig_depth + depth
   )
   data <- list(pagetitle = "$title$")
-  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data)
+  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data, encoding = encoding)
   purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
