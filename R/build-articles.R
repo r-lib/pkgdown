@@ -48,8 +48,9 @@
 #'   \code{pkg} directory.
 #' @param depth Depth of path relative to root of documentation.
 #'   Used to adjust relative links in the navbar.
+#' @param encoding The encoding of the input files.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
+build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encoding = "UTF-8") {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -72,7 +73,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L) {
     depth = pkg$vignettes$vig_depth + depth
   )
   data <- list(pagetitle = "$title$")
-  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data)
+  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data, encoding = encoding)
   purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
@@ -86,7 +87,8 @@ render_rmd <- function(pkg,
                        strip_header = FALSE,
                        data = list(),
                        toc = TRUE,
-                       depth = 1L) {
+                       depth = 1L,
+                       encoding = "UTF-8") {
   message("Building article '", output_file, "'")
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
@@ -98,7 +100,8 @@ render_rmd <- function(pkg,
       input,
       output_format = format$format,
       output_file = basename(output_file),
-      quiet = TRUE
+      quiet = TRUE,
+      encoding = encoding
     )
   )
   update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
