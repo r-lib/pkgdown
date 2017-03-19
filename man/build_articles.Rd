@@ -5,7 +5,7 @@
 \title{Build articles}
 \usage{
 build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = getOption("encoding"))
+  encoding = "UTF-8")
 }
 \arguments{
 \item{pkg}{Path to source package.}

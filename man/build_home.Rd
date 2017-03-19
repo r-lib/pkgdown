@@ -4,8 +4,7 @@
 \alias{build_home}
 \title{Build home page}
 \usage{
-build_home(pkg = ".", path = "docs", depth = 0L,
-  encoding = getOption("encoding"))
+build_home(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
 }
 \arguments{
 \item{pkg}{Path to source package.}
