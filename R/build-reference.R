@@ -98,6 +98,15 @@ build_reference <- function(pkg = ".",
     mkdir(path)
   }
 
+  # copy everything from man/figures to docs/reference/figures
+  figures_path <- file.path(pkg$path, "man", "figures")
+  if (file.exists(figures_path) && !is.null(path)) {
+    out_path <- file.path(path, "figures")
+    message("Copying man/figures/")
+    mkdir(out_path)
+    copy_dir(figures_path, out_path)
+  }
+
   build_reference_index(pkg, path = path, depth = depth)
 
   if (examples) {

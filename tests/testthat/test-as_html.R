@@ -189,6 +189,18 @@ test_that("items are optional", {
 })
 
 
+# figures -----------------------------------------------------------------
+
+test_that("figures are converted to img", {
+  expect_equal(rd2html("\\figure{a}"), "<img src='figures/a' alt='' />")
+  expect_equal(rd2html("\\figure{a}{b}"), "<img src='figures/a' alt='b' />")
+  expect_equal(
+    rd2html("\\figure{a}{options: height=1}"),
+    "<img src='figures/a' height=1 />"
+  )
+})
+
+
 # titles ------------------------------------------------------------------
 
 test_that("multiline titles are collapsed", {
