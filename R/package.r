@@ -69,7 +69,7 @@ topic_index <- function(path = ".") {
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names <- purrr::map_chr(rd, extract_tag, "tag_name")
-  titles <- purrr::map_chr(rd, extract_tag, "tag_title")
+  titles <- purrr::map_chr(rd, extract_title)
   concepts <- purrr::map(rd, extract_tag, "tag_concept")
   internal <- purrr::map_lgl(rd, is_internal)
 
@@ -99,6 +99,13 @@ extract_tag <- function(x, tag) {
   x %>%
     purrr::keep(inherits, tag) %>%
     purrr::map_chr(c(1, 1))
+}
+
+extract_title <- function(x) {
+  x %>%
+    purrr::detect(inherits, "tag_title") %>%
+    flatten_text() %>%
+    trimws()
 }
 
 is_internal <- function(x) {

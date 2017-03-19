@@ -187,3 +187,19 @@ test_that("items are optional", {
   value <- rd_text("\\value{text}", fragment = FALSE)
   expect_equal(as_data(value[[1]])$contents, "<p>text</p>")
 })
+
+
+# titles ------------------------------------------------------------------
+
+test_that("multiline titles are collapsed", {
+  rd <- rd_text("\\title{
+    x
+  }", fragment = FALSE)
+
+  expect_equal(extract_title(rd), "x")
+})
+
+test_that("titles can contain other markup", {
+  rd <- rd_text("\\title{\\strong{x}}", fragment = FALSE)
+  expect_equal(extract_title(rd), "<strong>x</strong>")
+})
