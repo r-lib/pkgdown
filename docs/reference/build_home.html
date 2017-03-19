@@ -85,7 +85,7 @@
 description field in <code>DESCRIPTION</code>.</p>
     
 
-    <pre><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
+    <pre><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -97,6 +97,8 @@ description field in <code>DESCRIPTION</code>.</p>
       <dt>depth</dt>
       <dd><p>Depth of path relative to root of documentation.
 Used to adjust relative links in the navbar.</p></dd>
+      <dt>encoding</dt>
+      <dd><p>The encoding of the input files.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
