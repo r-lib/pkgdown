@@ -41,3 +41,18 @@ test_that("intermediate files cleaned up automatically", {
 
   expect_equal(sort(dir(pkg)), sort(c("DESCRIPTION", "README.md", "README.Rmd")))
 })
+
+
+# tweaks ------------------------------------------------------------------
+
+test_that("page header modification succeeds", {
+  html <- xml2::read_html('
+    <h1 class="hasAnchor">
+      <a href="#plot" class="anchor"> </a>
+      <img src="someimage" alt=""> some text
+    </h1>')
+
+  tweak_homepage_html(html)
+
+  expect_output_file(cat(as.character(html)), "home-page-header.html", update = T)
+})
