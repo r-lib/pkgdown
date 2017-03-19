@@ -120,7 +120,7 @@
 <h2 class="hasAnchor">
 <html><body><a href="#articles" class="anchor"> </a></body></html>Articles</h2>
 <p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories, and render output to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
-<p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
+<p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. As well, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
 <p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
 <div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">articles:</span>
   <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Extend shiny"</span>
