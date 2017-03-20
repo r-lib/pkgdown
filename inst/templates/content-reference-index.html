@@ -6,18 +6,29 @@
     </div>
 
     <div class="contents">
-    {{#sections}}
-      <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
-      <p class="section-desc">{{{desc}}}</p>
+      <table class="ref-index">
 
-      {{#contents}}
-      {{#icon}}<img src="icons/{{{.}}}" width="40" height="40" class="icon" />{{/icon}}
-      <p><a href="{{path}}">{{title}}</a></p>
-      <ul>
-        {{#aliases}}<li><code><a href="{{path}}">{{.}}</a></code></li>{{/aliases}}
-      </ul>
-      {{/contents}}
-    {{/sections}}
+      <colgroup>
+        <col class="alias" />
+        <col class="title" />
+      </colgroup>
+
+      {{#sections}}<tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
+            <p class="section-desc">{{{desc}}}</p>
+          </th>
+        </tr>
+        {{#contents}}<tr>
+          <!-- {{#icon}}<img src="icons/{{{.}}}" width="40" height="40" class="icon" />{{/icon}} -->
+          <td>
+            <p>{{#aliases}}<code><a href="{{path}}">{{.}}</a></code> {{/aliases}}</p>
+          </td>
+          <td><p>{{title}}</p></td>
+        </tr>{{/contents}}
+      </tbody>{{/sections}}
+      </table>
     </div>
   </div>
 

@@ -81,6 +81,15 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
+/* Reference index -------------------------------------------------------- */
+
+.ref-index th {font-weight: normal;}
+.ref-index h2 {font-size: 20px;}
+
+.ref-index td {vertical-align: top;}
+.ref-index .alias {width: 40%;}
+.ref-index .title {width: 60%;}
+
 /* Nice scrolling for wide elements --------------------------------------- */
 
 table {
