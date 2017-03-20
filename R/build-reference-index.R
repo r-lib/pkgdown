@@ -78,7 +78,7 @@ default_reference_index <- function(pkg = ".") {
     list(
       title = "All functions",
       desc = NULL,
-      contents = pkg$topics$name[!pkg$topics$internal]
+      contents = paste0('`', pkg$topics$name[!pkg$topics$internal], '`')
     )
   ))
 }
