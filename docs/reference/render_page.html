@@ -90,13 +90,19 @@ then assembled into an overall page using the "layout" template.</p>
 <span class='fu'>data_template</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>pkg</dt>
-      <dd><p>Path to package to document.</p></dd>
-      <dt>name</dt>
-      <dd><p>Name of the template (e.g. "home", "vignette", "news")</p></dd>
-      <dt>data</dt>
-      <dd><p>Data for the template.</p>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pkg</th>
+      <td><p>Path to package to document.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>Name of the template (e.g. "home", "vignette", "news")</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>Data for the template.</p>
 <p>This is automatically supplemented with three lists:</p><ul>
 <li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
 <li><p><code>yaml</code>: the <code>template</code> key from
@@ -105,13 +111,18 @@ then assembled into an overall page using the "layout" template.</p>
      <code>version</code>.</p></li>
 </ul>
 
-<p>See the full contents by running <code>data_template()</code>.</p></dd>
-      <dt>path</dt>
-      <dd><p>Location to create file. If <code>""</code> (the default),
-prints to standard out.</p></dd>
-      <dt>depth</dt>
-      <dd><p>Depth of path relative to base directory.</p></dd>
-    </dl>
+<p>See the full contents by running <code>data_template()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Location to create file. If <code>""</code> (the default),
+prints to standard out.</p></td>
+    </tr>
+    <tr>
+      <th>depth</th>
+      <td><p>Depth of path relative to base directory.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 

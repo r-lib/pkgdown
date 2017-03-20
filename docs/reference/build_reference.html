@@ -93,29 +93,46 @@ below.</p>
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>pkg</dt>
-      <dd><p>Path to source package.</p></dd>
-      <dt>lazy</dt>
-      <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pkg</th>
+      <td><p>Path to source package.</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
-rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></dd>
-      <dt>examples</dt>
-      <dd><p>Run examples?</p></dd>
-      <dt>run_dont_run</dt>
-      <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
-      <dt>mathjax</dt>
-      <dd><p>Use mathjax to render math symbols?</p></dd>
-      <dt>seed</dt>
-      <dd><p>Seed used to initialize so that random examples are
-reproducible.</p></dd>
-      <dt>path</dt>
-      <dd><p>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</p></dd>
-      <dt>depth</dt>
-      <dd><p>Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.</p></dd>
-    </dl>
+rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>examples</th>
+      <td><p>Run examples?</p></td>
+    </tr>
+    <tr>
+      <th>run_dont_run</th>
+      <td><p>Run examples that are surrounded in \dontrun?</p></td>
+    </tr>
+    <tr>
+      <th>mathjax</th>
+      <td><p>Use mathjax to render math symbols?</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Seed used to initialize so that random examples are
+reproducible.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></td>
+    </tr>
+    <tr>
+      <th>depth</th>
+      <td><p>Depth of path relative to root of documentation.
+Used to adjust relative links in the navbar.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
