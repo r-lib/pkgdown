@@ -96,7 +96,7 @@ as_data.tag_value <- function(x, ...) {
     values <- x[-seq_len(idx - 1)]
   }
 
-  text <- if (length(text) > 0) flatten_para(text) else NULL
+  text <- if (length(text) > 0) flatten_para(text, ...) else NULL
   values <- if (length(values) > 0) parse_descriptions(values) else NULL
 
   list(
