@@ -2,7 +2,7 @@
 select_topics <- function(match_strings, topics) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
-    return(rep(FALSE, n))
+    return(integer())
   }
 
   expr <- purrr::map(match_strings, match_expr)
@@ -11,12 +11,14 @@ select_topics <- function(match_strings, topics) {
 
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
-    all_sign(indexes[[1]]),
+    all_sign(indexes[[1]], match_strings[[0]]),
     "+" = integer(),
     "-" = seq_len(n)[!topics$internal]
   )
-  for (index in indexes) {
-    sel <- switch(all_sign(index),
+  for (i in seq_along(indexes)) {
+    index <- indexes[[i]]
+
+    sel <- switch(all_sign(index, match_strings[[i]]),
       "+" = union(sel, index),
       "-" = setdiff(sel, -index)
     )
@@ -25,7 +27,7 @@ select_topics <- function(match_strings, topics) {
   sel
 }
 
-all_sign <- function(x) {
+all_sign <- function(x, text) {
   if (is.numeric(x)) {
     if (all(x < 0)) {
       return("-")
@@ -36,7 +38,7 @@ all_sign <- function(x) {
     }
   }
 
-  stop("Must be all negative or all positive", call. = FALSE)
+  stop("Must be all negative or all positive: ", text, call. = FALSE)
 }
 
 match_env <- function(topics) {
