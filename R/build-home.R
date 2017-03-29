@@ -264,10 +264,10 @@ cran_mirror <- function() {
 on_cran <- function(pkg) {
   pkgs <- utils::available.packages(
     type = "source",
-    repos = list(CRAN = cran_mirror())
-  )
+    contriburl = paste0(pkgdown:::cran_mirror(), "/src/contrib"))
   pkg %in% rownames(pkgs)
 }
+
 
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)
