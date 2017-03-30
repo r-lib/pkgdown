@@ -264,7 +264,7 @@ cran_mirror <- function() {
 on_cran <- function(pkg) {
   pkgs <- utils::available.packages(
     type = "source",
-    contriburl = paste0(pkgdown:::cran_mirror(), "/src/contrib"))
+    contriburl = paste0(cran_mirror(), "/src/contrib"))
   pkg %in% rownames(pkgs)
 }
 
