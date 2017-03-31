@@ -261,10 +261,11 @@ cran_mirror <- function() {
     cran
   }
 }
-on_cran <- function(pkg) {
+on_cran <- function(pkg, cran = NULL) {
+  cran <- ifelse(is.null(cran), cran_mirror(), cran)
   pkgs <- utils::available.packages(
     type = "source",
-    contriburl = paste0(cran_mirror(), "/src/contrib"))
+    contriburl = paste0(cran, "/src/contrib"))
   pkg %in% rownames(pkgs)
 }
 
