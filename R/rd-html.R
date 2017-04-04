@@ -141,10 +141,9 @@ as_html.tag_email <- function(x, ...) {
 # If single, need to look up alias to find file name and package
 #' @export
 as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
-  stopifnot(length(x) == 1)
   opt <- attr(x, "Rd_option")
 
-  in_braces <- flatten_text(x[[1]])
+  in_braces <- flatten_text(x)
 
   if (is.null(opt)) {
     # \link{topic}
