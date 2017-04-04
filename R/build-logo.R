@@ -2,8 +2,8 @@ build_logo <- function(pkg = ".", path = "docs/") {
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
 
-  logo_path <- file.path(pkg$path, "logo.png")
-  if (!file.exists(logo_path))
+  logo_path <- find_logo(pkg$path)
+  if (is.null(logo_path))
     return()
 
   message("Copying logo")
@@ -16,6 +16,18 @@ build_logo <- function(pkg = ".", path = "docs/") {
 }
 
 
+find_logo <- function(path) {
+  logo_path <- file.path(path, "logo.png")
+  if (file.exists(logo_path))
+    return(logo_path)
+
+  logo_path <- file.path(path, "man", "figures", "logo.png")
+  if (file.exists(logo_path))
+    return(logo_path)
+
+  NULL
+}
+
 has_logo <- function(path) {
-  file.exists(file.path(path, "logo.png"))
+  file.exists()
 }
