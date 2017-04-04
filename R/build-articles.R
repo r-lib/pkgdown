@@ -249,9 +249,10 @@ default_articles_index <- function(pkg = ".") {
     list(
       title = "All vignettes",
       desc = NULL,
-      contents = pkg$vignettes$name
+      contents = paste0('`', pkg$vignettes$name, '`')
     )
   ))
+
 }
 
 has_vignettes <- function(path = ".") {
