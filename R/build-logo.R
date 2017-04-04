@@ -27,7 +27,3 @@ find_logo <- function(path) {
 
   NULL
 }
-
-has_logo <- function(path) {
-  file.exists()
-}
