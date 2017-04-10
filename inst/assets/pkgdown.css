@@ -36,11 +36,8 @@ img.icon {
 
 /* Section anchors ---------------------------------*/
 
-.hasAnchor {
-  margin-left: -30px;
-}
-
 a.anchor {
+  margin-left: -30px;
   display:inline-block;
   width: 30px;
   height: 30px;
@@ -55,6 +52,13 @@ a.anchor {
 .hasAnchor:hover a.anchor {
   visibility: visible;
 }
+
+@media (max-width: 767px) {
+  .hasAnchor:hover a.anchor {
+    visibility: hidden;
+  }
+}
+
 
 /* Fixes for fixed navbar --------------------------*/
 
