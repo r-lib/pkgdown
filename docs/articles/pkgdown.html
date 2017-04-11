@@ -79,7 +79,7 @@
 <p>Other options control the appearance of the other parts of the site.</p>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#home-page" class="anchor"> </a></body></html>Home page</h2>
+<a href="#home-page" class="anchor"></a>Home page</h2>
 <p>The home page will be automatically generated from one of the following four files:</p>
 <ol style="list-style-type: decimal">
 <li><code>index.Rmd</code></li>
@@ -92,7 +92,7 @@
 </div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#reference" class="anchor"> </a></body></html>Reference</h2>
+<a href="#reference" class="anchor"></a>Reference</h2>
 <p>The function reference generates one page for each <code>.Rd</code> file in <code>man/</code>, placing the results in <code>reference/</code>. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.</p>
 <p>pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a <code>reference</code> key in <code>_pkgdown.yml</code>:</p>
 <div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">reference:</span>
@@ -118,7 +118,7 @@
 </div>
 <div id="articles" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#articles" class="anchor"> </a></body></html>Articles</h2>
+<a href="#articles" class="anchor"></a>Articles</h2>
 <p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories, and render output to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
 <p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. As well, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
 <p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
@@ -135,13 +135,13 @@
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#news" class="anchor"> </a></body></html>News</h2>
+<a href="#news" class="anchor"></a>News</h2>
 <p>If <code>NEWS.md</code> is present, it will be parsed into pieces broken up by second level headings. These will be rendered to <code>news/</code>, with one page per minor release (so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page).</p>
 <p>If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) <code>vignettes/news</code> and customise the navbar.</p>
 </div>
 <div id="navbar2" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#navbar2" class="anchor"> </a></body></html>Navbar</h2>
+<a href="#navbar2" class="anchor"></a>Navbar</h2>
 <p>By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the <code>DESCRIPTION</code> url field). You can override the defaults to:</p>
 <ul>
 <li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
