@@ -273,7 +273,7 @@ on_cran <- function(pkg, cran = cran_mirror()) {
 on_bioc <- function(pkg) {
   contrib <-
     if (requireNamespace("BiocInstaller")) {
-      contrib.url(BiocInstaller::biocinstallRepos()[["BioCsoft"]])
+      utils::contrib.url(BiocInstaller::biocinstallRepos()[["BioCsoft"]])
     } else {
       "https://bioconductor.org/packages/3.5/bioc/src/contrib"
     }
