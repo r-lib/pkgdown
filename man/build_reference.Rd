@@ -12,7 +12,9 @@ build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
 build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).}
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
@@ -30,8 +32,8 @@ reproducible.}
 \item{path}{Output path. Relative paths are taken relative to the
 \code{pkg} directory.}
 
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{depth}{Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.}
 }
 \description{
 By default, pkgdown will generate an index that simply lists all

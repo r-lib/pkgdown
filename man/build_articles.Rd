@@ -8,13 +8,15 @@ build_articles(pkg = ".", path = "docs/articles", depth = 1L,
   encoding = "UTF-8", quiet = TRUE)
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).}
 
 \item{path}{Output path. Relative paths are taken relative to the
 \code{pkg} directory.}
 
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{depth}{Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.}
 
 \item{encoding}{The encoding of the input files.}
 

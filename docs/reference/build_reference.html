@@ -97,7 +97,9 @@ below.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkg</th>
-      <td><p>Path to source package.</p></td>
+      <td><p>Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).</p></td>
     </tr>
     <tr>
       <th>lazy</th>
@@ -129,8 +131,8 @@ reproducible.</p></td>
     </tr>
     <tr>
       <th>depth</th>
-      <td><p>Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.</p></td>
+      <td><p>Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.</p></td>
     </tr>
     </table>
     

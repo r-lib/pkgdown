@@ -12,7 +12,9 @@ build_site(pkg = ".", path = "docs", examples = TRUE,
 init_site(pkg = ".", path = "docs")
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).}
 
 \item{path}{Location in which to save website, relative to package
 path.}

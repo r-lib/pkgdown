@@ -7,7 +7,9 @@
 build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).}
 
 \item{path}{Output path. Relative paths are taken relative to the
 \code{pkg} directory.}
@@ -15,8 +17,8 @@ build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
 \item{one_page}{If \code{TRUE}, writes all news to a single file.
 If \code{FALSE}, writes one file per major version.}
 
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{depth}{Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.}
 }
 \description{
 Your \code{NEWS.md} is parsed in to sections based on your use of
