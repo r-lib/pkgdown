@@ -8,3 +8,6 @@ addons:
   apt:
     packages:
       - libmagick++-dev
+
+bioc_packages:
+  - BiocInstaller
