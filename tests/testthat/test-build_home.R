@@ -74,23 +74,11 @@ test_that("links to vignettes & figures tweaked", {
 
 test_that("package CRAN verification", {
 
-  #Package on CRAN, checking against default
-  expect_equal(on_cran("dplyr"), TRUE)
-  #Package on CRAN, checking against alternate mirror 1
-  expect_equal(on_cran("dplyr", "https://cran.stat.auckland.ac.nz"), TRUE)
-  #Package on CRAN, checking against alternate mirror 2
-  expect_equal(on_cran("dplyr", "https://cran.cnr.berkeley.edu"), TRUE)
-  #Package on CRAN, checking against alternate mirror 3
-  expect_equal(on_cran("dplyr", "https://cloud.r-project.org"), TRUE)
+  expect_true(on_cran("dplyr"))
+  expect_true(on_cran("dplyr", "https://cloud.r-project.org"))
 
-  #Package not on CRAN, checking against default
-  expect_equal(on_cran("notarealpkg"), FALSE)
-  #Package not on CRAN, checking against alternate mirror 1
-  expect_equal(on_cran("notarealpkg", "https://cran.stat.auckland.ac.nz"), FALSE)
-  #Package not on CRAN, checking against alternate mirror 2
-  expect_equal(on_cran("notarealpkg", "https://cran.cnr.berkeley.edu"), FALSE)
-  #Package not on CRAN, checking against alternate mirror 3
-  expect_equal(on_cran("notarealpkg", "https://cloud.r-project.org"), FALSE)
+  expect_false(on_cran("notarealpkg"))
+  expect_false(on_cran("notarealpkg", "https://cloud.r-project.org"))
 
 })
 
