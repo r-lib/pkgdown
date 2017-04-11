@@ -259,7 +259,7 @@ default_articles_index <- function(pkg = ".") {
     list(
       title = "All vignettes",
       desc = NULL,
-      contents = paste0('`', pkg$vignettes$name, '`')
+      contents = pkg$vignettes$name
     )
   ))
 
