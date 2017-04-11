@@ -112,7 +112,8 @@ render_rmd <- function(pkg,
       output_format = format$format,
       output_file = basename(output_file),
       quiet = quiet,
-      encoding = encoding
+      encoding = encoding,
+      envir = globalenv()
     ),
     show = !quiet
   )
