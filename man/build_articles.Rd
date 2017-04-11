@@ -5,7 +5,7 @@
 \title{Build articles}
 \usage{
 build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = "UTF-8")
+  encoding = "UTF-8", quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package.}
@@ -17,6 +17,9 @@ build_articles(pkg = ".", path = "docs/articles", depth = 1L,
 Used to adjust relative links in the navbar.}
 
 \item{encoding}{The encoding of the input files.}
+
+\item{quiet}{Set to `FALSE` to display output of knitr and
+pandoc. This is useful when debugging.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is

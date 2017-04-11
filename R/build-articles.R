@@ -49,8 +49,11 @@
 #' @param depth Depth of path relative to root of documentation.
 #'   Used to adjust relative links in the navbar.
 #' @param encoding The encoding of the input files.
+#' @param quiet Set to `FALSE` to display output of knitr and
+#'   pandoc. This is useful when debugging.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encoding = "UTF-8") {
+build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
+                           encoding = "UTF-8", quiet = TRUE) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -73,7 +76,12 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L, encodi
     depth = pkg$vignettes$vig_depth + depth
   )
   data <- list(pagetitle = "$title$")
-  purrr::pwalk(articles, render_rmd, pkg = pkg, data = data, encoding = encoding)
+  purrr::pwalk(articles, render_rmd,
+    pkg = pkg,
+    data = data,
+    encoding = encoding,
+    quiet = quiet
+  )
   purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
@@ -88,7 +96,8 @@ render_rmd <- function(pkg,
                        data = list(),
                        toc = TRUE,
                        depth = 1L,
-                       encoding = "UTF-8") {
+                       encoding = "UTF-8",
+                       quiet = TRUE) {
   message("Building article '", output_file, "'")
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
@@ -100,9 +109,10 @@ render_rmd <- function(pkg,
       input,
       output_format = format$format,
       output_file = basename(output_file),
-      quiet = TRUE,
+      quiet = quiet,
       encoding = encoding
-    )
+    ),
+    show = !quiet
   )
   update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
     index = pkg$topics)
