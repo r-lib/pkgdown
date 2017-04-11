@@ -150,3 +150,12 @@ pre img {
   background-color: #fff;
   display: block;
 }
+
+pre {
+  word-wrap: normal;
+  word-break: normal;
+}
+
+pre a {
+  font-weight: bolder;
+}
