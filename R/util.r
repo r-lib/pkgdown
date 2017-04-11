@@ -13,7 +13,7 @@ inst_path <- function() {
 }
 
 "%||%" <- function(a, b) {
-  if (!is.null(a)) a else b
+  if (length(a)) a else b
 }
 
 markdown_text <- function(text, ...) {

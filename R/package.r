@@ -76,11 +76,17 @@ topic_index <- function(path = ".") {
   file_in <- names(rd)
   file_out <- gsub("\\.Rd$", ".html", file_in)
 
+  usage <- purrr::map(rd, topic_usage)
+  funs <- purrr::map(usage, usage_funs)
+
+
   tibble::tibble(
     name = names,
     file_in = file_in,
     file_out = file_out,
     alias = aliases,
+    usage = usage,
+    funs = funs,
     title = titles,
     rd = rd,
     concepts = concepts,
