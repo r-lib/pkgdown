@@ -43,7 +43,7 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   section_topics <- pkg$topics[in_section, ]
   contents <- tibble::tibble(
     path = section_topics$file_out,
-    aliases = section_topics$funs %||% section_topic$name,
+    aliases = section_topics$funs %||% section_topics$name,
     title = section_topics$title,
     icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
   )
