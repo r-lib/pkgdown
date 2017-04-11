@@ -33,3 +33,16 @@ test_that("can construct external link for package/topic", {
   )
 })
 
+# calls ---------------------------------------------------------------
+
+test_that("can link to vignette", {
+  expect_equal(
+    autolink_call("vignette('x')"),
+    "<a href='../articles/x.html'>vignette('x')</a>"
+  )
+})
+
+test_that("vignettes don't link if there's a package argument", {
+  text <- "vignette('x', package = 'y')"
+  expect_equal(autolink_call(text), text)
+})
