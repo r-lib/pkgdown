@@ -13,6 +13,7 @@ reference:
     - render_page
   - title: Helpers
     contents:
+    - clean_site
     - as_pkgdown
     - in_pkgdown
     - rel_path
