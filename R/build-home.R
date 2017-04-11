@@ -105,9 +105,10 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     list_div <- paste0("<div>", list, "</div>")
     list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
 
-    html %>%
-      xml2::xml_find_first(".//div[@id='sidebar']") %>%
-      xml2::xml_add_child(list_html)
+    sidebar <- html %>% xml2::xml_find_first(".//div[@id='sidebar']")
+    list_html %>%
+      xml2::xml_children() %>%
+      purrr::walk(~ xml2::xml_add_child(sidebar, .))
 
     xml2::xml_remove(first_para)
   }
