@@ -43,11 +43,13 @@
 #' directory is present: if you do not want this, you will need to
 #' customise the navbar. See \code{\link{build_site}} details.
 #'
-#' @param pkg Path to source package.
+#' @param pkg Path to source package. If R working directory is not
+#'     set to the source directory, then pkg must be a fully qualified
+#'     path to the source directory (not a relative path).
 #' @param path Output path. Relative paths are taken relative to the
-#'   \code{pkg} directory.
-#' @param depth Depth of path relative to root of documentation.
-#'   Used to adjust relative links in the navbar.
+#'     \code{pkg} directory.
+#' @param depth Depth of path relative to root of documentation.  Used
+#'     to adjust relative links in the navbar.
 #' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
