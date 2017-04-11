@@ -261,13 +261,13 @@ cran_mirror <- function() {
     cran
   }
 }
-on_cran <- function(pkg) {
+on_cran <- function(pkg, cran = cran_mirror()) {
   pkgs <- utils::available.packages(
     type = "source",
-    repos = list(CRAN = cran_mirror())
-  )
+    contriburl = paste0(cran, "/src/contrib"))
   pkg %in% rownames(pkgs)
 }
+
 
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)

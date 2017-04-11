@@ -67,3 +67,18 @@ test_that("links to vignettes & figures tweaked", {
 
   expect_output_file(cat(as.character(html)), "home-links.html")
 })
+
+
+# cran --------------------------------------------------------------------
+
+
+test_that("package CRAN verification", {
+
+  expect_true(on_cran("dplyr"))
+  expect_true(on_cran("dplyr", "https://cloud.r-project.org"))
+
+  expect_false(on_cran("notarealpkg"))
+  expect_false(on_cran("notarealpkg", "https://cloud.r-project.org"))
+
+})
+
