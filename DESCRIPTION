@@ -30,7 +30,8 @@ Imports:
 Suggests:
     devtools,
     knitr,
-    testthat
+    testthat,
+    BiocInstaller
 Remotes:
     r-pkgs/pkgload,
     r-pkgs/usethis

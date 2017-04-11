@@ -182,6 +182,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 
   links <- c(
     data_link_cran(pkg),
+    data_link_bioc(pkg),
     data_link_github(pkg),
     data_link_bug_report(pkg),
     data_link_meta(pkg)
@@ -269,6 +270,29 @@ on_cran <- function(pkg, cran = cran_mirror()) {
   pkg %in% rownames(pkgs)
 }
 
+on_bioc <- function(pkg) {
+  contrib <-
+    if (requireNamespace("BiocInstaller")) {
+      contrib.url(BiocInstaller::biocinstallRepos()[["BioCsoft"]])
+    } else {
+      "https://bioconductor.org/packages/3.5/bioc/src/contrib"
+    }
+  pkgs <- utils::available.packages(contriburl = contrib)
+  pkg %in% rownames(pkgs)
+}
+
+data_link_bioc <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  name <- pkg$desc$get("Package")[[1]]
+  if (!on_bioc(name))
+    return(list())
+
+  link_url(
+    "Download from Bioconductor",
+    paste0("https://www.bioconductor.org/packages/", name)
+  )
+}
 
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)
