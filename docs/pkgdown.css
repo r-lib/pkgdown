@@ -138,14 +138,16 @@ pre img {
   display: block;
 }
 
+/* http://www.colorhexa.com/226099 */
+
 code a, pre a {
-  color: #375f84;
+  color: #226099;
 }
 
 .fl      {color: #1514b5;}
 .fu      {color: #000000;} /* function */
 .ch,.st  {color: #036a07;} /* string */
-.kw      {color: #264D66;} /* keyword */
+.kw      {color: #3f5f7c;} /* keyword */
 .co      {color: #888888;} /* comment */
 
 .message { color: black;   font-weight: bolder;}
