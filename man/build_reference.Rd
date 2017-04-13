@@ -97,13 +97,19 @@ cat("This some text!\\n")
 message("This is a message!")
 warning("This is a warning!")
 
+# This is a multi-line block
+{
+  1 + 2
+  2 + 2
+}
+
 \dontrun{
 stop("This is an error!", call. = FALSE)
 }
 
 \donttest{
 # This code won't generally be run by CRAN. But it
-# will be run by testthat.
+# will be run by pkgdown
 b <- 10
 a + b
 }

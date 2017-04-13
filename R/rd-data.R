@@ -114,10 +114,11 @@ as_data.tag_examples <- function(x, path, ...,
                              examples = TRUE,
                              run_dont_run = FALSE,
                              topic = "unknown",
-                             env = new.env(parent = globalenv())) {
+                             env = globalenv()) {
   # First element of examples tag is always empty
   text <- flatten_text(x[-1], ...,
     run_dont_run = run_dont_run,
+    examples = examples,
     escape = FALSE
   )
 
@@ -130,7 +131,10 @@ as_data.tag_examples <- function(x, path, ...,
     old_opt <- options(width = 80)
     on.exit(options(old_opt), add = TRUE)
 
-    expr <- evaluate::evaluate(text, env, new_device = TRUE)
+    code_env <- new.env(parent = env)
+    code_env$not_run <- function(...) invisible()
+
+    expr <- evaluate::evaluate(text, code_env, new_device = TRUE)
     replay_html(
       expr,
       name = paste0(topic, "-"),
@@ -141,8 +145,8 @@ as_data.tag_examples <- function(x, path, ...,
 }
 
 #' @export
-as_html.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
-  if (run_dont_run) {
+as_html.tag_dontrun <- function(x, ..., examples = TRUE, run_dont_run = FALSE) {
+  if (!examples || run_dont_run) {
     flatten_text(drop_leading_newline(x), escape = FALSE)
   } else if (length(x) == 1) {
     paste0("## Not run: " , flatten_text(x))
@@ -150,9 +154,9 @@ as_html.tag_dontrun <- function(x, ..., run_dont_run = FALSE) {
     # Internal TEXT nodes contain leading and trailing \n
     text <- gsub("(^\n)|(\n$)", "", flatten_text(x, ...))
     paste0(
-      "## Not run: ------------------------------------\n",
-      "# " , gsub("\n", "\n# ", text), "\n",
-      "## ---------------------------------------------"
+      "not_run({\n" ,
+      "  ", gsub("\n", "\  ", text),
+      "\n})"
     )
   }
 }
