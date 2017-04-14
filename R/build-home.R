@@ -181,8 +181,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   links <- c(
-    data_link_cran(pkg),
-    data_link_bioc(pkg),
+    data_link_repo(pkg),
     data_link_github(pkg),
     data_link_bug_report(pkg),
     data_link_meta(pkg)
@@ -241,19 +240,26 @@ data_link_bug_report <- function(pkg = ".") {
   link_url("Report a bug", bug_reports)
 }
 
-data_link_cran <- function(pkg = ".") {
+data_link_repo <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   name <- pkg$desc$get("Package")[[1]]
-  if (!on_cran(name))
+  repo_result <- in_repo(name)
+
+  if (!repo_result)
     return(list())
 
+  if (name(repo_result) == "CRAN")
+    repo_link <- paste0("https://cran.r-project.org/package=", name)
+  else if (name(repo_result) == "BIOC")
+    repo_link <- paste0("https://www.bioconductor.org/packages/", name)
+  else
+    stop("Package link not supported")
+
   link_url(
-    "Download from CRAN",
-    paste0("https://cran.r-project.org/package=", name)
+    paste0("Download from ", name(repo_result), repo_link)
   )
 }
-
 
 cran_mirror <- function() {
   cran <- as.list(getOption("repos"))[["CRAN"]]
@@ -263,35 +269,27 @@ cran_mirror <- function() {
     cran
   }
 }
-on_cran <- function(pkg, cran = cran_mirror()) {
-  pkgs <- utils::available.packages(
-    type = "source",
-    contriburl = paste0(cran, "/src/contrib"))
-  pkg %in% rownames(pkgs)
-}
 
-on_bioc <- function(pkg) {
-  contrib <-
-    if (requireNamespace("BiocInstaller")) {
+bioc_mirror <- function() {
+  if (requireNamespace("BiocInstaller", quietly = TRUE)) {
+    bioc <-
       utils::contrib.url(BiocInstaller::biocinstallRepos()[["BioCsoft"]])
-    } else {
+  } else {
+    bioc <-
       "https://bioconductor.org/packages/3.5/bioc/src/contrib"
-    }
-  pkgs <- utils::available.packages(contriburl = contrib)
-  pkg %in% rownames(pkgs)
+  }
+  bioc
 }
 
-data_link_bioc <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  name <- pkg$desc$get("Package")[[1]]
-  if (!on_bioc(name))
-    return(list())
-
-  link_url(
-    "Download from Bioconductor",
-    paste0("https://www.bioconductor.org/packages/", name)
-  )
+in_repo <- function(pkg, cran = cran_mirror(), bioc = bioc_mirror()) {
+  bioc_pkgs <- utils::available.packages(contriburl = bioc)
+  cran_pkgs <- utils::available.packages(type = "source",
+    contriburl = paste0(cran, "/src/contrib"))
+  if (pkg %in% rownames(cran_pkgs)) {
+    return(c(CRAN = TRUE))
+  } else if (pkg %in% rownames(bioc_pkgs)) {
+    return(c(BIOC = TRUE))
+  } else FALSE
 }
 
 link_url <- function(text, href) {

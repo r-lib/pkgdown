@@ -74,11 +74,11 @@ test_that("links to vignettes & figures tweaked", {
 
 test_that("package CRAN verification", {
 
-  expect_true(on_cran("dplyr"))
-  expect_true(on_cran("dplyr", "https://cloud.r-project.org"))
+  expect_true(in_repo("dplyr"))
+  expect_true(in_repo("dplyr", cran = "https://cloud.r-project.org"))
 
-  expect_false(on_cran("notarealpkg"))
-  expect_false(on_cran("notarealpkg", "https://cloud.r-project.org"))
+  expect_false(in_repo("notarealpkg"))
+  expect_false(in_repo("notarealpkg", "https://cloud.r-project.org"))
 
 })
 
