@@ -46,6 +46,8 @@ flatten_para <- function(x, ...) {
 
 
 flatten_text <- function(x, ...) {
+  if (length(x) == 0) return("")
+
   x %>%
     purrr::map_chr(as_html, ...) %>%
     paste(collapse = "")

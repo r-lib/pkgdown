@@ -25,7 +25,11 @@ parse_usage <- function(usage) {
   #   usage
   # )
 
-  as.list(parse(text = usage))
+  tryCatch({
+    as.list(parse(text = usage))
+  }, error = function(e) {
+    list()
+  })
 }
 
 usage_funs <- function(usage) {

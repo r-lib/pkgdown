@@ -196,8 +196,9 @@ data_articles_index <- function(pkg = ".", depth = 1L) {
     purrr::compact()
 
   # Check for unlisted vignettes
-  listed <- meta %>%
+  listed <- sections %>%
     purrr::map("contents") %>%
+    purrr::map(. %>% purrr::map_chr("name")) %>%
     purrr::flatten_chr() %>%
     unique()
   missing <- !(pkg$vignettes$name %in% listed)
@@ -231,6 +232,7 @@ data_articles_index_section <- function(section, pkg, depth = 1L) {
   in_section <- has_vignette(section$contents, pkg$vignettes)
   section_vignettes <- pkg$vignettes[in_section, ]
   contents <- tibble::tibble(
+    name = section_vignettes$name,
     path = section_vignettes$file_out,
     title = section_vignettes$title
   )
@@ -262,7 +264,7 @@ default_articles_index <- function(pkg = ".") {
     list(
       title = "All vignettes",
       desc = NULL,
-      contents = pkg$vignettes$name
+      contents = paste0("`", pkg$vignettes$name, "`")
     )
   ))
 

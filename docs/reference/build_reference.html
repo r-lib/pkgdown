@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -86,7 +86,7 @@ the functions in alphabetical order. To override this, provide a
 below.</p>
     
 
-    <pre><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
 
@@ -188,13 +188,18 @@ retina display). Icons are matched to topics by aliases.</p>
 #&gt;  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
 #&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
 <span class='fu'>cat</span>(<span class='st'>"This some text!\n"</span>)</div><div class='output co'>#&gt; This some text!</div><div class='input'><span class='fu'>message</span>(<span class='st'>"This is a message!"</span>)</div><div class='output co'>#&gt; <span class='message'>This is a message!</span></div><div class='input'><span class='fu'>warning</span>(<span class='st'>"This is a warning!"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This is a warning!</span></div><div class='input'>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># stop("This is an error!", call. = FALSE)</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='co'># This is a multi-line block</span>
+{
+  <span class='fl'>1</span> + <span class='fl'>2</span>
+  <span class='fl'>2</span> + <span class='fl'>2</span>
+}</div><div class='output co'>#&gt; [1] 4</div><div class='input'>
+<span class='fu'>not_run</span>({
+  <span class='fu'>stop</span>(<span class='st'>"This is an error!"</span>, <span class='kw'>call.</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+})
 
 
 <span class='co'># This code won't generally be run by CRAN. But it</span>
-<span class='co'># will be run by testthat.</span>
+<span class='co'># will be run by pkgdown</span>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
 <span class='no'>a</span> + <span class='no'>b</span></div><div class='output co'>#&gt;   [1]  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
 #&gt;  [19]  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46

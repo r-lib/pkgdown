@@ -44,5 +44,5 @@ test_that("can link to vignette", {
 
 test_that("vignettes don't link if there's a package argument", {
   text <- "vignette('x', package = 'y')"
-  expect_equal(autolink_call(text), text)
+  expect_equal(autolink_call(text), NA_character_)
 })

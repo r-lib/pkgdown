@@ -244,7 +244,7 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
 
 link_vignette <- function(expr, text, depth) {
   if (length(expr) != 2) {
-    return(text)
+    return(NA_character_)
   }
 
   href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
