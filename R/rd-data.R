@@ -155,7 +155,7 @@ as_html.tag_dontrun <- function(x, ..., examples = TRUE, run_dont_run = FALSE) {
     text <- gsub("(^\n)|(\n$)", "", flatten_text(x, ...))
     paste0(
       "not_run({\n" ,
-      "  ", gsub("\n", "\  ", text),
+      "  ", gsub("\n", "\n  ", text),
       "\n})"
     )
   }
