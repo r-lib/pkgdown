@@ -46,7 +46,7 @@ read_citation <- function(path = ".") {
   if (!file.exists(path)) {
     return(NULL)
   }
-  readCitationFile(path)
+  utils::readCitationFile(path)
 }
 
 
