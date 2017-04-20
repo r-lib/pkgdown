@@ -43,6 +43,9 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   # Build authors page
   build_authors(pkg, path = path, depth = depth)
 
+  # Build citations page
+  build_citation(pkg, path = path, depth = depth)
+
   if (is.null(data$path)) {
     data$index <- pkg$desc$get("Description")[[1]]
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)

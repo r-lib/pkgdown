@@ -56,6 +56,10 @@ data_home_sidebar_authors <- function(pkg = ".") {
     authors <- c(authors, "<a href='authors.html'>All authors...</li>")
   }
 
+  if (!is.null(pkg$citation)) {
+    authors <- c(authors, "<a href='citation.html'>Citation</li>")
+  }
+
   list_with_heading(authors, "Developers")
 }
 
