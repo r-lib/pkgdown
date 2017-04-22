@@ -18,7 +18,6 @@ as_pkgdown <- function(path = ".") {
     list(
       path = path,
       desc = read_desc(path),
-      citation = read_citation(path),
       meta = read_meta(path),
       topics = topic_index(path),
       vignettes = vignette_index(path)
@@ -40,15 +39,6 @@ str_person <- function(pers) {
   }
   s
 }
-
-read_citation <- function(path = ".") {
-  path <- file.path(path, 'inst/CITATION')
-  if (!file.exists(path)) {
-    return(NULL)
-  }
-  utils::readCitationFile(path)
-}
-
 
 read_desc <- function(path = ".") {
   path <- file.path(path, "DESCRIPTION")

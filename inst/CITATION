@@ -1,8 +1,0 @@
-bibentry(bibtype = "Unpublished",
-         title   = "pkgdown: Generate static html documentation for an R package",
-         year    = 2017,
-         author  = c(
-             person('Hadley', 'Wickham', role = c('aut', 'cre'), email = 'h.wickham@gmail.com')
-         ),
-         note    = "To be submitted to CRAN."
-)
