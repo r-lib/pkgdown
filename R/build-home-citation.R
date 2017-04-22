@@ -11,11 +11,6 @@ read_citation <- function(path = ".") {
   utils::readCitationFile(path)
 }
 
-data_citation <- function(path = ".") {
-  citation <- read_citation(path)
-  format(citation, style = "html")
-}
-
 data_home_sidebar_citation <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -29,12 +24,22 @@ data_home_sidebar_citation <- function(pkg = ".") {
   list_with_heading(citation, "Citation")
 }
 
+data_citations <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+  cit <- read_citation(pkg$path)
+
+  list(
+    html = format(cit, style = "html"),
+    bibtex = format(cit, style = "bibtex")
+  ) %>% purrr::transpose()
+}
+
 build_citation_authors <- function(pkg = ".", path = "docs", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   data <- list(
     pagetitle = "Citation and Authors",
-    citation = data_citation(pkg$path),
+    citations = data_citations(pkg),
     authors = data_authors(pkg)$all
   )
 
