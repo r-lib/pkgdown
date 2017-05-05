@@ -271,5 +271,6 @@ default_articles_index <- function(pkg = ".") {
 }
 
 has_vignettes <- function(path = ".") {
-  file.exists(file.path(path, "vignettes"))
+  vign_path <- file.path(path, "vignettes")
+  file.exists(vign_path) && length(list.files(vign_path))
 }
