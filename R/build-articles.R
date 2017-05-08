@@ -68,15 +68,24 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   rule("Building articles")
   mkdir(path)
 
+  vignette_path <- file.path(pkg$path, "vignettes")
+
+  # record Rmd files' most recent change time
+  rmd_times <- sapply(file.path(vignette_path, list.files(vignette_path)),
+                      file.mtime)
+
   # copy everything from vignettes/ to docs/articles
-  copy_dir(file.path(pkg$path, "vignettes"), path)
+  copy_dir(vignette_path, path)
 
   # Render each Rmd then delete them
   articles <- tibble::tibble(
     input = file.path(path, pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
-    depth = pkg$vignettes$vig_depth + depth
+    depth = pkg$vignettes$vig_depth + depth,
+    rmd_times = rmd_times,
+    html_times = sapply(file.path(path, pkg$vignettes$file_out), file.mtime)
   )
+
   data <- list(pagetitle = "$title$")
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
@@ -94,31 +103,56 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 render_rmd <- function(pkg,
                        input,
                        output_file,
+                       rmd_times,
+                       html_times,
                        strip_header = FALSE,
                        data = list(),
                        toc = TRUE,
                        depth = 1L,
                        encoding = "UTF-8",
                        quiet = TRUE) {
-  message("Building article '", output_file, "'")
+  if (missing(html_times)) to_build <- TRUE
+  else {
+    if (any(is.na(html_times) || html_times < rmd_times)) to_build <- TRUE
+    else if (html_times > rmd_times) to_build <- FALSE
+  }
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = list(
-      input,
-      output_format = format$format,
-      output_file = basename(output_file),
-      quiet = quiet,
-      encoding = encoding,
-      envir = globalenv()
-    ),
-    show = !quiet
+  arg_list <- list(
+    input,
+    output_format = format$format,
+    output_file = basename(output_file),
+    quiet = quiet,
+    encoding = encoding,
+    envir = globalenv()
   )
-  update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
-    index = pkg$topics)
+
+  if (to_build) {
+      message("Building article '", output_file, "'")
+
+      path <- callr::r_safe(
+        function(...) rmarkdown::render(...),
+        args = arg_list,
+        show = !quiet
+      )
+      update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
+        index = pkg$topics)
+  }
+  else if (!to_build) {
+    message("Checking article '", output_file, "'")
+    tmp <- tempfile()
+    on.exit(unlink(tmp), add = TRUE)
+
+    arg_list$output_file = tmp
+
+    path <- callr::r_safe(
+      function(...) rmarkdown::render(...),
+      args = arg_list,
+      show = !quiet
+    )
+  }
 }
 
 build_rmarkdown_format <- function(pkg = ".",
@@ -143,7 +177,8 @@ build_rmarkdown_format <- function(pkg = ".",
   )
 }
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
+tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L,
+    index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
   tweak_anchors(html)
