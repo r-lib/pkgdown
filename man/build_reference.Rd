@@ -37,8 +37,8 @@ reproducible.}
 to adjust relative links in the navbar.}
 
 \item{simplify_aliases}{If \code{TRUE}, the aliases shown in reference index
-will be simplified to be only the method names, e.g. S3 method f1.data.frame
-will be shown as f1.}
+will be simplified to be only the method names, e.g. S3 method `func.data.frame`
+will be shown as `func`.}
 }
 \description{
 By default, pkgdown will generate an index that simply lists all

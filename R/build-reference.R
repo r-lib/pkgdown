@@ -57,8 +57,8 @@
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @param simplify_aliases If \code{TRUE}, the aliases shown in reference index
-#' will be simplified to be only the method names, e.g. S3 method f1.data.frame
-#' will be shown as f1.
+#' will be simplified to be only the method names, e.g. S3 method `func.data.frame`
+#' will be shown as `func`.
 #' @export
 #' @examples
 #' # This example illustrates some important output types

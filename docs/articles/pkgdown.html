@@ -95,7 +95,7 @@
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>The function reference generates one page for each <code>.Rd</code> file in <code>man/</code>, placing the results in <code>reference/</code>. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.</p>
 <p>pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a <code>reference</code> key in <code>_pkgdown.yml</code>:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">reference:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">reference:</span>
   <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Connecting to Spark"</span>
     <span class="fu">desc:</span> &gt;
       Functions for installing Spark components and managing
@@ -111,7 +111,7 @@
     <span class="fu">contents:</span>
       <span class="kw">-</span> starts_with(<span class="st">"spark_read"</span>)
       <span class="kw">-</span> starts_with(<span class="st">"spark_write"</span>)
-      <span class="kw">-</span> sdf-saveload</code></pre>
+      <span class="kw">-</span> sdf-saveload</code></pre></div>
 <p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
 <p>The objects in <code>reference</code> can also contain a list of <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
 <p>pkgdown will warn if you’ve forgotten to include any non-internal functions.</p>
@@ -122,7 +122,7 @@
 <p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories, and render output to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
 <p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. As well, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
 <p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">articles:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">articles:</span>
   <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Extend shiny"</span>
     <span class="fu">desc:</span> &gt;
       These packages provide advanced features that can enhance your Shiny 
@@ -131,7 +131,7 @@
     <span class="kw">-</span> shinydashboard
     <span class="kw">-</span> shinythemes
     <span class="kw">-</span> shinyjs
-    <span class="kw">-</span> htmlwidgets</code></pre>
+    <span class="kw">-</span> htmlwidgets</code></pre></div>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
@@ -149,7 +149,7 @@
 <li><p>Link to other, off-site, resources.</p></li>
 </ul>
 <p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>. To customise, use the <code>navbar</code> field:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">navbar:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">navbar:</span>
   <span class="fu">title:</span> <span class="st">"sparklyr"</span>
   <span class="fu">type:</span> inverse
   <span class="fu">left:</span>
@@ -167,7 +167,7 @@
       <span class="fu">href:</span> <span class="st">"reference/"</span>
   <span class="fu">right:</span>
     <span class="kw">-</span> <span class="fu">icon:</span> fa-github
-      <span class="fu">href:</span> https://github.com/rstudio/sparklyr</code></pre>
+      <span class="fu">href:</span> https://github.com/rstudio/sparklyr</code></pre></div>
 </div>
 </div>
   </div>
