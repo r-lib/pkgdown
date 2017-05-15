@@ -7,9 +7,10 @@
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  path = "docs/reference", depth = 1L)
+  path = "docs/reference", depth = 1L, simplify_aliases = TRUE)
 
-build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
+build_reference_index(pkg = ".", path = "docs/reference", depth = 1L,
+  simplify_aliases = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -34,6 +35,10 @@ reproducible.}
 
 \item{depth}{Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.}
+
+\item{simplify_aliases}{If \code{TRUE}, the aliases shown in reference index
+will be simplified to be only the method names, e.g. S3 method f1.data.frame
+will be shown as f1.}
 }
 \description{
 By default, pkgdown will generate an index that simply lists all
