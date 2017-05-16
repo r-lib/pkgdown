@@ -46,6 +46,10 @@
 #' @param pkg Path to source package. If R working directory is not
 #'     set to the source directory, then pkg must be a fully qualified
 #'     path to the source directory (not a relative path).
+#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rmd}
+#'   is more recent than the \code{.html}. The R code chunks are run in both
+#'   cases to ensure that examples can run without error. It is set by default
+#'   to \code{FALSE} by \code{\link{build_site}}.
 #' @param path Output path. Relative paths are taken relative to the
 #'     \code{pkg} directory.
 #' @param depth Depth of path relative to root of documentation.  Used
@@ -54,8 +58,12 @@
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE) {
+build_articles <- function(pkg = ".",
+                           lazy = TRUE,
+                           path = "docs/articles",
+                           depth = 1L,
+                           encoding = "UTF-8",
+                           quiet = TRUE) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -91,7 +99,8 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
     pkg = pkg,
     data = data,
     encoding = encoding,
-    quiet = quiet
+    quiet = quiet,
+    lazy = lazy
   )
   purrr::walk(articles$input, unlink)
 
@@ -110,11 +119,17 @@ render_rmd <- function(pkg,
                        toc = TRUE,
                        depth = 1L,
                        encoding = "UTF-8",
-                       quiet = TRUE) {
+                       quiet = TRUE,
+                       lazy = TRUE) {
   if (missing(html_times)) to_build <- TRUE
   else {
-    if (any(is.na(html_times) || html_times < rmd_times)) to_build <- TRUE
-    else if (html_times > rmd_times) to_build <- FALSE
+    if (!lazy) {
+      to_build <- TRUE
+    }
+    else if (lazy) {
+      if (any(is.na(html_times) || html_times < rmd_times)) to_build <- TRUE
+      else if (html_times > rmd_times) to_build <- FALSE
+    }
   }
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)

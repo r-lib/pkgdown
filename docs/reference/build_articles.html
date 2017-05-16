@@ -86,8 +86,8 @@ reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topic
 template.</p>
     
 
-    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>,
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,6 +97,13 @@ template.</p>
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rmd</code>
+is more recent than the <code>.html</code>. The R code chunks are run in both
+cases to ensure that examples can run without error. It is set by default
+to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></td>
     </tr>
     <tr>
       <th>path</th>
