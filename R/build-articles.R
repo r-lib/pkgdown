@@ -121,13 +121,15 @@ render_rmd <- function(pkg,
                        encoding = "UTF-8",
                        quiet = TRUE,
                        lazy = TRUE) {
-  if (missing(html_times)) to_build <- TRUE
+  if (missing(html_times))
+    to_build <- TRUE
   else {
     if (!lazy) {
       to_build <- TRUE
     }
     else if (lazy) {
-      if (any(is.na(html_times) || html_times < rmd_times)) to_build <- TRUE
+      if (any(is.na(html_times) || html_times < rmd_times ||
+              html_times == rmd_times)) to_build <- TRUE
       else if (html_times > rmd_times) to_build <- FALSE
     }
   }
