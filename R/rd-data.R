@@ -135,9 +135,10 @@ as_data.tag_examples <- function(x, path, ...,
     code_env$not_run <- function(...) invisible()
 
     expr <- evaluate::evaluate(text, code_env, new_device = TRUE)
+
     replay_html(
       expr,
-      name = paste0(topic, "-"),
+      name_prefix = paste0(topic, "-"),
       index = index,
       current = current
     )
