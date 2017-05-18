@@ -113,6 +113,25 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
   paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
 }
 
+#' @export
+replay_html.htmlwidget <- function(x, name_prefix, obj_id, ...) {
+  path <- paste0(name_prefix, obj_id, ".html")
+
+  htmlwidgets::saveWidget(x, path)
+
+  paste0("<iframe src='", escape_html(path), "' width='100%' height='400' ></iframe>")
+}
+
+#' @export
+replay_html.html <- function(x, name_prefix, obj_id, ...) {
+  path <- paste0(name_prefix, obj_id, ".html")
+
+  write(x, path)
+
+  paste0("<iframe src='", escape_html(path), "' width='100%' height='400' ></iframe>")
+}
+
+
 # Knitr functions ------------------------------------------------------------
 # The functions below come from package knitr (Yihui Xie) in file plot.R
 

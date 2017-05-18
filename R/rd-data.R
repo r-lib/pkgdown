@@ -134,7 +134,24 @@ as_data.tag_examples <- function(x, path, ...,
     code_env <- new.env(parent = env)
     code_env$not_run <- function(...) invisible()
 
-    expr <- evaluate::evaluate(text, code_env, new_device = TRUE)
+    output_handler <- evaluate::new_output_handler(
+      value = function(x) {
+        if (isS4(x)) {
+          methods::show(x)
+        } else if (inherits(x, c("html", "htmlwidget"))) {
+          x
+        } else {
+          print(x)
+        }
+      }
+    )
+
+    expr <- evaluate::evaluate(
+      text,
+      code_env,
+      output_handler = output_handler,
+      new_device = TRUE
+    )
 
     replay_html(
       expr,
