@@ -165,6 +165,8 @@ build_reference_topic <- function(topic,
                                   depth = 1L
                                   ) {
 
+  message("Building ", topic$file_in)
+
   in_path <- file.path(pkg$path, "man", topic$file_in)
   out_path <- out_path(path, topic$file_out)
 
