@@ -117,6 +117,10 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 replay_html.htmlwidget <- function(x, name_prefix, obj_id, ...) {
   path <- paste0(name_prefix, obj_id, ".html")
 
+  # set widget id so it doesn't change from each rendering
+  if (is.null(x$elementId)) {
+    x$elementId <- paste0("htmlwidget-", name_prefix, obj_id)
+  }
   htmlwidgets::saveWidget(x, path)
 
   paste0("<iframe src='", escape_html(path), "' width='100%' height='400' ></iframe>")
