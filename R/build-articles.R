@@ -76,22 +76,15 @@ build_articles <- function(pkg = ".",
   rule("Building articles")
   mkdir(path)
 
-  vignette_path <- file.path(pkg$path, "vignettes")
-
-  # record Rmd files' most recent change time
-  rmd_times <- sapply(file.path(vignette_path, list.files(vignette_path)),
-                      file.mtime)
-
   # copy everything from vignettes/ to docs/articles
-  copy_dir(vignette_path, path)
+  copy_dir(file.path(pkg$path, "vignettes"), path)
 
   # Render each Rmd then delete them
   articles <- tibble::tibble(
     input = file.path(path, pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + depth,
-    rmd_times = rmd_times,
-    html_times = sapply(file.path(path, pkg$vignettes$file_out), file.mtime)
+    path = path
   )
 
   data <- list(pagetitle = "$title$")
@@ -110,10 +103,10 @@ build_articles <- function(pkg = ".",
 }
 
 render_rmd <- function(pkg,
+                       originals,
                        input,
                        output_file,
-                       rmd_times,
-                       html_times,
+                       path,
                        strip_header = FALSE,
                        data = list(),
                        toc = TRUE,
@@ -121,18 +114,18 @@ render_rmd <- function(pkg,
                        encoding = "UTF-8",
                        quiet = TRUE,
                        lazy = TRUE) {
-  if (missing(html_times))
+  if (missing(path))
     to_build <- TRUE
   else {
-    if (!lazy) {
+    original_full_path <- file.path(pkg$path, "vignettes", basename(input))
+    new_full_path  <- file.path(path, output_file)
+
+    if (!lazy || out_of_date(original_full_path, new_full_path))
       to_build <- TRUE
-    }
-    else if (lazy) {
-      if (any(is.na(html_times) || html_times < rmd_times ||
-              html_times == rmd_times)) to_build <- TRUE
-      else if (html_times > rmd_times) to_build <- FALSE
-    }
+    else
+      to_build <- FALSE
   }
+
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)

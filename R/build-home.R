@@ -77,7 +77,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
       file.copy(data$path, input)
       on.exit(unlink(input))
 
-      render_rmd(pkg, input, "index.html",
+      render_rmd(pkg = pkg, input = input, output_file = "index.html",
         depth = depth,
         data = data,
         toc = FALSE,
