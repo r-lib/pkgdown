@@ -165,6 +165,8 @@ build_reference_topic <- function(topic,
                                   depth = 1L
                                   ) {
 
+  message("Processing ", topic$file_in)
+
   in_path <- file.path(pkg$path, "man", topic$file_in)
   out_path <- out_path(path, topic$file_out)
 
@@ -241,7 +243,7 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
-    topic = topic$name,
+    topic = tools::file_path_sans_ext(topic$file_in),
     index = pkg$topics,
     current = get_current(topic, pkg),
     path = path,
