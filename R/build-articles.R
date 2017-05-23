@@ -47,8 +47,7 @@
 #'     set to the source directory, then pkg must be a fully qualified
 #'     path to the source directory (not a relative path).
 #' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rmd}
-#'   is more recent than the \code{.html}. The R code chunks are run in both
-#'   cases to ensure that examples can run without error. It is set by default
+#'   is more recent than the \code{.html}. It is set by default
 #'   to \code{FALSE} by \code{\link{build_site}}.
 #' @param path Output path. Relative paths are taken relative to the
 #'     \code{pkg} directory.
@@ -147,21 +146,8 @@ render_rmd <- function(pkg,
         args = arg_list,
         show = !quiet
       )
-      update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
-        index = pkg$topics)
-  }
-  else if (!to_build) {
-    message("Checking article '", output_file, "'")
-    tmp <- tempfile()
-    on.exit(unlink(tmp), add = TRUE)
-
-    arg_list$output_file = tmp
-
-    path <- callr::r_safe(
-      function(...) rmarkdown::render(...),
-      args = arg_list,
-      show = !quiet
-    )
+      update_rmarkdown_html(path, strip_header = strip_header,
+        depth = depth, index = pkg$topics)
   }
 }
 

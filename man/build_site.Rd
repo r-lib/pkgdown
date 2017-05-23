@@ -33,8 +33,7 @@ reproducible.}
 \item{encoding}{The encoding of the input files.}
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rmd}
-is more recent than the \code{.html}. The R code chunks are run in both
-cases to ensure that examples can run without error. It is set by default
+is more recent than the \code{.html}. It is set by default
 to \code{FALSE} by \code{\link{build_site}}.}
 }
 \description{
