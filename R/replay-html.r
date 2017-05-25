@@ -51,10 +51,34 @@ replay_html.list <- function(x, ...) {
   parts <- merge_low_plot(parts)
 
   pieces <- character(length(parts))
+  dependencies <- list()
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+    output <- replay_html(parts[[i]], obj_id = i, ...)
+    dependencies[[i]] <- attr(output, "knit_meta")
+    pieces[i] <- output
   }
-  paste0(pieces, collapse = "")
+
+  lib_dir <- "lib"
+  output_dir <- "."
+  dependencies <- dependencies %>%
+    purrr::flatten() %>%
+    unique() %>%
+    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
+    purrr::map(htmltools::makeDependencyRelative, output_dir)
+
+  html_dependency <- htmltools::renderDependencies(
+    dependencies,
+    "file",
+    encodeFunc = identity,
+    hrefFilter = function(path) {
+      rmarkdown::relative_to(output_dir, path)
+    }
+  )
+
+  htmltools::attachDependencies(
+    paste0(pieces, collapse = ""),
+    html_dependency
+  )
 }
 
 #' @export
@@ -114,23 +138,10 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 }
 
 #' @export
-replay_html.htmlwidget <- function(x, name_prefix, obj_id, ...) {
-  path <- paste0(name_prefix, obj_id, ".html")
-
-  # set widget id seed so it doesn't change from each rendering
-  htmlwidgets::setWidgetIdSeed(obj_id)
-  htmlwidgets::saveWidget(x, path)
-
-  paste0("<iframe src='", escape_html(path), "' width='100%' height='400' ></iframe>")
-}
-
-#' @export
-replay_html.html <- function(x, name_prefix, obj_id, ...) {
-  path <- paste0(name_prefix, obj_id, ".html")
-
-  write(x, path)
-
-  paste0("<iframe src='", escape_html(path), "' width='100%' height='400' ></iframe>")
+replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
+  output <- paste0("<div class='well knit_asis'>", x, "</div>")
+  attr(output, "knit_meta") <- attr(x, "knit_meta")
+  output
 }
 
 

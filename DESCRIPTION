@@ -26,7 +26,8 @@ Imports:
     whisker,
     yaml,
     xml2 (>= 1.1.1),
-    methods
+    methods,
+    htmltools
 Suggests:
     devtools,
     knitr,

@@ -138,14 +138,16 @@ as_data.tag_examples <- function(x, path, ...,
       value = function(x) {
         if (isS4(x)) {
           methods::show(x)
-        } else if (inherits(x, c("html", "htmlwidget"))) {
-          x
         } else {
-          print(x)
+          knitr::knit_print(x, options = list(screenshot.force = FALSE))
         }
       }
     )
 
+    if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+      # Freeze htmlwidget id for caching
+      htmlwidgets::setWidgetIdSeed(42)
+    }
     expr <- evaluate::evaluate(
       text,
       code_env,
