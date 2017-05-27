@@ -178,7 +178,8 @@ preview_site <- function(path) {
 
 build_site_rstudio <- function() {
   devtools::document()
-  build_site(preview = TRUE)
+  callr::r(function() pkgdown::build_site(preview = TRUE), show = TRUE)
+  invisible()
 }
 
 #' @export
