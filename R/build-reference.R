@@ -56,6 +56,9 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
+#' @param simplify_aliases If \code{TRUE}, the aliases shown in reference index
+#' will be simplified to be only the method names, e.g. S3 method `func.data.frame`
+#' will be shown as `func`.
 #' @export
 #' @examples
 #' # This example illustrates some important output types
@@ -90,7 +93,8 @@ build_reference <- function(pkg = ".",
                             mathjax = TRUE,
                             seed = 1014,
                             path = "docs/reference",
-                            depth = 1L
+                            depth = 1L,
+                            simplify_aliases = TRUE
                             ) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
@@ -113,7 +117,7 @@ build_reference <- function(pkg = ".",
     copy_dir(figures_path, out_path)
   }
 
-  build_reference_index(pkg, path = path, depth = depth)
+  build_reference_index(pkg, path = path, depth = depth, simplify_aliases = simplify_aliases)
 
   if (examples) {
     devtools::load_all(pkg$path)
@@ -135,7 +139,7 @@ build_reference <- function(pkg = ".",
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L, simplify_aliases = TRUE) {
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
 
@@ -148,7 +152,7 @@ build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L
 
   render_page(
     pkg, "reference-index",
-    data = data_reference_index(pkg, depth = depth),
+    data = data_reference_index(pkg, depth = depth, simplify_aliases = simplify_aliases),
     path = out_path(path, "index.html"),
     depth = depth
   )

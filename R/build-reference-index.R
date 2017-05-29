@@ -1,9 +1,13 @@
-data_reference_index <- function(pkg = ".", depth = 1L) {
+data_reference_index <- function(pkg = ".", depth = 1L, simplify_aliases = TRUE) {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
   sections <- meta %>%
-    purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
+    purrr::map(
+      data_reference_index_section,
+      pkg = pkg,
+      depth = depth,
+      simplify_aliases = simplify_aliases) %>%
     purrr::compact()
 
   # Cross-reference complete list of topics vs. topics found in index page
@@ -28,7 +32,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
   ))
 }
 
-data_reference_index_section <- function(section, pkg, depth = 1L) {
+data_reference_index_section <- function(section, pkg, depth = 1L, simplify_aliases = TRUE) {
   if (!set_contains(names(section), c("title", "contents"))) {
     warning(
       "Section must have components `title`, `contents`",
@@ -42,9 +46,15 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   in_section <- select_topics(section$contents, pkg$topics)
   section_topics <- pkg$topics[in_section, ]
 
+  if (simplify_aliases) {
+    aliases <- purrr::map2(section_topics$funs, section_topics$name, ~ .x %||% .y)
+  } else {
+    aliases <- section_topics$alias
+  }
+
   contents <- tibble::tibble(
     path = section_topics$file_out,
-    aliases = purrr::map2(section_topics$funs, section_topics$name, ~ .x %||% .y),
+    aliases = aliases,
     title = section_topics$title,
     icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
   )
