@@ -233,7 +233,7 @@ as_html.tag_ifelse <- function(x, ...) {
 
 #' @export
 as_html.tag_tabular <- function(x, ...) {
-  align_abbr <- strsplit(as_html(x[[1]], ...), "")[[1]][-1]
+  align_abbr <- strsplit(as_html(x[[1]], ...), "")[[1]]
   align_abbr <- align_abbr[!(align_abbr %in% c("|", ""))]
   align <- unname(c("r" = "right", "l" = "left", "c" = "center")[align_abbr])
 
