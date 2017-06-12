@@ -76,6 +76,13 @@ tweak_anchors <- function(html, only_contents = TRUE) {
     gsub(".", "-", ., fixed = TRUE)
   purrr::walk2(sections, anchor, ~ (xml2::xml_attr(.x, "id") <- .y))
 
+  # Update href of toc anchors , use "-" instead "."
+  toc_nav <- xml2::xml_find_all(html, ".//div[@id='tocnav']//a")
+  hrefs <- toc_nav %>%
+    xml2::xml_attr("href") %>%
+    gsub(".", "-", ., fixed = TRUE)
+  purrr::walk2(toc_nav, hrefs, ~ (xml2::xml_attr(.x, "href") <- .y))
+
   headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
   has_heading <- !is.na(xml2::xml_name(headings))
 
