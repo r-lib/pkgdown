@@ -21,15 +21,16 @@ If \code{FALSE}, writes one file per major version.}
 to adjust relative links in the navbar.}
 }
 \description{
-Your \code{NEWS.md} is parsed in to sections based on your use of
-headings. Each minor version (i.e. the combination of first and second
-components) gets on one page, with all patch versions (i.e. the third
-component) on a single page. News items for development versions (by
-convention those versions with a fourth component) are displayed on an
-an "unreleased" page.
+The first file found between \code{NEWS.md}, \code{NEWS.Rd} and \code{NEWS}
+is parsed in to sections based on your use of headings. Each minor version
+(i.e. the combination of first and second components) gets on one page, with
+all patch versions (i.e. the third component) on a single page. News items
+for development versions (by convention those versions with a fourth
+component) are displayed on an an "unreleased" page.
 }
 \details{
-The \code{NEWS.md} file should be formatted somewhat like this:
+The \code{NEWS.md}, \code{NEWS.Rd} or \code{NEWS} file should be formatted
+somewhat like this:
 
 \preformatted{
 # pkgdown 0.1.0.9000

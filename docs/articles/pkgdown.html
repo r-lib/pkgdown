@@ -136,7 +136,13 @@
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
-<p>If <code>NEWS.md</code> is present, it will be parsed into pieces broken up by second level headings. These will be rendered to <code>news/</code>, with one page per minor release (so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page).</p>
+<p>The news page will be automatically parsed from one of the following files:</p>
+<ol style="list-style-type: decimal">
+<li><code>NEWS.md</code></li>
+<li><code>NEWS.Rd</code></li>
+<li><code>NEWS</code></li>
+</ol>
+<p>The first file found will be parsed into pieces broken up by second level headings. These will be rendered to <code>news/</code>, with one page per minor release (so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page).</p>
 <p>If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) <code>vignettes/news</code> and customise the navbar.</p>
 </div>
 <div id="navbar2" class="section level2">

@@ -1,13 +1,14 @@
 #' Build news section
 #'
-#' Your \code{NEWS.md} is parsed in to sections based on your use of
-#' headings. Each minor version (i.e. the combination of first and second
-#' components) gets on one page, with all patch versions (i.e. the third
-#' component) on a single page. News items for development versions (by
-#' convention those versions with a fourth component) are displayed on an
-#' an "unreleased" page.
+#' The first file found between \code{NEWS.md}, \code{NEWS.Rd} and \code{NEWS}
+#' is parsed in to sections based on your use of headings. Each minor version
+#' (i.e. the combination of first and second components) gets on one page, with
+#' all patch versions (i.e. the third component) on a single page. News items
+#' for development versions (by convention those versions with a fourth
+#' component) are displayed on an an "unreleased" page.
 #'
-#' The \code{NEWS.md} file should be formatted somewhat like this:
+#' The \code{NEWS.md}, \code{NEWS.Rd} or \code{NEWS} file should be formatted
+#' somewhat like this:
 #'
 #' \preformatted{
 #' # pkgdown 0.1.0.9000
@@ -108,7 +109,7 @@ globalVariables(".")
 data_news <- function(pkg = ".", depth = 1L) {
   pkg <- as_pkgdown(pkg)
   html <- markdown(
-    file.path(pkg$path, "NEWS.md"),
+    file_news(pkg$path),
     "--section-divs",
     depth = depth,
     index = pkg$topics
@@ -150,8 +151,14 @@ data_news <- function(pkg = ".", depth = 1L) {
   news[is_version, , drop = FALSE]
 }
 
+file_news <- function(path = ".") {
+  find_first_existing(path,
+    c("NEWS.md", "NEWS.Rd", "NEWS")
+  )
+}
+
 has_news <- function(path = ".") {
-  file.exists(file.path(path, "NEWS.md"))
+  !is.null(file_news(path))
 }
 
 is_dev <- function(version) {

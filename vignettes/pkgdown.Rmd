@@ -96,7 +96,13 @@ articles:
 
 ## News
 
-If `NEWS.md` is present, it will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
+The news page will be automatically parsed from one of the following files:
+
+1. `NEWS.md`
+1. `NEWS.Rd`
+1. `NEWS`
+
+The first file found will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
 
 If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
 
