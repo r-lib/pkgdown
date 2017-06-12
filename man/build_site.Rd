@@ -33,8 +33,9 @@ reproducible.}
 \item{encoding}{The encoding of the input files.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around four functions:
+\code{build_site()} is a convenient wrapper around five functions:
 \itemize{
+  \item \code{init_site()}
   \item \code{\link{build_articles}()}
   \item \code{\link{build_home}()}
   \item \code{\link{build_reference}()}
