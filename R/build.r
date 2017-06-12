@@ -194,6 +194,16 @@ init_site <- function(pkg = ".", path = "docs") {
     usethis::use_build_ignore(path)
   }
 
+  # Ignore pkgdown yaml file and directory (if used)
+  path_yaml <- file.path(pkg$path, "_pkgdown.yml")
+  if (file.exists(path_yaml)) {
+    usethis::use_build_ignore("_pkgdown.yml")
+  }
+  path_dir <- file.path(pkg$path, "pkgdown")
+  if (file.exists(path_dir)) {
+    usethis::use_build_ignore("pkgdown")
+  }
+
   assets <- data_assets(pkg)
   for (asset in assets) {
     message("Copying '", asset, "'")
