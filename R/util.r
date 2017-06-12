@@ -253,3 +253,8 @@ set_pkgdown_env <- function(x) {
   Sys.setenv("IN_PKGDOWN" = x)
   invisible(old)
 }
+
+read_file <- function(path) {
+  lines <- readLines(path, warn = FALSE)
+  paste0(lines, "\n", collapse = "")
+}

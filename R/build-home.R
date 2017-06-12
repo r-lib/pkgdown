@@ -37,7 +37,13 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   # Copy license file, if present
   license_path <- file.path(pkg$path, "LICENSE")
   if (file.exists(license_path)) {
-    file.copy(license_path, path)
+    render_page(pkg, "license",
+      data = list(
+        pagetitle = "License",
+        license = read_file(license_path)
+      ),
+      path = file.path(path, "LICENSE.html")
+    )
   }
 
   # Build authors page
