@@ -36,6 +36,11 @@ test_that("code inside Sexpr is evaluated", {
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
+test_that("tabular converted to html", {
+  table <- "\\tabular{ll}{a \\tab b \\cr}"
+  expectation <- c("<table><tr><td>a </td>", "<td> b </td>", "</tr></table>")
+  expect_equal(rd2html(table), expectation)
+})
 
 # links -------------------------------------------------------------------
 
