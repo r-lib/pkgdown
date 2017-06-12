@@ -63,6 +63,11 @@ data_template <- function(pkg = ".", depth = 0L) {
   yaml <- pkg$meta[["template"]]$params %||% list()
   yaml$.present <- TRUE
 
+  # Look for extra assets to add
+  extra <- list()
+  extra$css <- file.exists(file.path(pkg$path, "pkgdown", "extra.css"))
+  extra$js <- file.exists(file.path(pkg$path, "pkgdown", "extra.js"))
+
   print_yaml(list(
     year = strftime(Sys.time(), "%Y"),
     package = list(
@@ -74,6 +79,7 @@ data_template <- function(pkg = ".", depth = 0L) {
       root = up_path(depth),
       title = pkg$meta$title %||% name
     ),
+    extra = extra,
     navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
   ))

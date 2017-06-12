@@ -43,6 +43,14 @@ reproducible.}
 See the documentation for the each function to learn how to control
 that aspect of the site.
 }
+\section{Custom CSS/JS}{
+
+If you want to do minor customisation of your pkgdown site, the easiest
+way is to add \code{pkgdown/extra.css} and \code{pkgdown/extra.js}. These
+will be automatically copied to \code{docs/} and inserted into the
+\code{<HEAD>} after the default pkgdown CSS and JSS.
+}
+
 \section{YAML config}{
 
 There are five top-level YAML settings that affect the entire site:
