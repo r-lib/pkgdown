@@ -113,16 +113,13 @@ render_rmd <- function(pkg,
                        encoding = "UTF-8",
                        quiet = TRUE,
                        lazy = TRUE) {
-  if (missing(path))
+  if (missing(path)) {
     to_build <- TRUE
+  }
   else {
     original_full_path <- file.path(pkg$path, "vignettes", basename(input))
     new_full_path  <- file.path(path, output_file)
-
-    if (!lazy || out_of_date(original_full_path, new_full_path))
-      to_build <- TRUE
-    else
-      to_build <- FALSE
+    to_build <- !lazy || out_of_date(original_full_path, new_full_path)
   }
 
 
@@ -139,15 +136,15 @@ render_rmd <- function(pkg,
   )
 
   if (to_build) {
-      message("Building article '", output_file, "'")
+    message("Building article '", output_file, "'")
 
-      path <- callr::r_safe(
-        function(...) rmarkdown::render(...),
-        args = arg_list,
-        show = !quiet
-      )
-      update_rmarkdown_html(path, strip_header = strip_header,
-        depth = depth, index = pkg$topics)
+    path <- callr::r_safe(
+      function(...) rmarkdown::render(...),
+      args = arg_list,
+      show = !quiet
+    )
+    update_rmarkdown_html(path, strip_header = strip_header,
+      depth = depth, index = pkg$topics)
   }
 }
 

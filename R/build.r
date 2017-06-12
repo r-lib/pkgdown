@@ -168,7 +168,8 @@ build_site <- function(pkg = ".",
     lazy = lazy,
     path = file.path(path, "articles"),
     depth = 1L,
-    encoding = encoding)
+    encoding = encoding
+  )
   build_news(pkg, path = file.path(path, "news"), depth = 1L)
 
   if (preview) {
