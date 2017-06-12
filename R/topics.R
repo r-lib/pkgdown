@@ -110,7 +110,7 @@ match_eval <- function(string, env) {
         value <- eval(expr, env)
       },
       error = function(e) {
-        topic_much("be a valid R expression", expr = string)
+        topic_must("be a valid R expression", expr = string)
       }
     )
   }
