@@ -6,6 +6,10 @@ build_logo <- function(pkg = ".", path = "docs/") {
   if (is.null(logo_path))
     return()
 
+  if (!requireNamespace("magick", quietly = TRUE)) {
+    message("Magick not avaliable, not creating favicon.ico")
+    return()
+  }
   message("Copying logo")
   file.copy(logo_path, file.path(path, "logo.png"))
 
