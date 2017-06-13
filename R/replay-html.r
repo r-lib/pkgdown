@@ -139,7 +139,7 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 
 #' @export
 replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
-  output <- paste0("<div class='well knit_asis'>", x, "</div>")
+  output <- paste0("</pre><div class='well knit_asis'>", x, "</div><pre class=\"example\">")
   attr(output, "knit_meta") <- attr(x, "knit_meta")
   output
 }
