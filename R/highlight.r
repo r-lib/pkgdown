@@ -5,38 +5,23 @@ syntax_highlight <- function(text, index = NULL, current = NULL) {
     parse(text = text, keep.source = TRUE),
     error = function(e) NULL
   )
-  if (is.null(expr)) {
-    # Failed to parse so give up
+  if (length(expr) == 0) {
+    # Failed to parse, or yielded empty expression
     return(text)
   }
 
-  parse_data <- utils::getParseData(expr)
-  if (nrow(parse_data) == 0) {
-    # Empty
-    return(text)
-  }
-
-  renderer <- highlight::renderer_html(
-    header = function(...) "",
-    footer = function(...) "",
-    formatter = pkgdown_format(index, current)
-  )
-
-  highlight::highlight(
+  out <- highlight::highlight(
     parse.output = expr,
-    renderer = renderer,
+    renderer = pkgdown_renderer(index, current),
     detective = pkgdown_detective,
     output = NULL
   )
-}
-
-highlight_capture <- function(...) {
-  out <- utils::capture.output(highlight::highlight(...))
+  out <- out[out != ""]
   paste0(out, collapse = "\n")
 }
 
-pkgdown_format <- function(index, current) {
-  function(tokens, styles, ...) {
+pkgdown_renderer <- function(index, current) {
+  formatter <- function(tokens, styles, ...) {
     call <- styles %in% "fu"
     tokens[call] <- purrr::map2_chr(
       tokens[call],
@@ -54,6 +39,12 @@ pkgdown_format <- function(index, current) {
     )
     tokens
   }
+
+  highlight::renderer_html(
+    header = function(...) "",
+    footer = function(...) "",
+    formatter = formatter
+  )
 }
 
 # KeywordTok = kw,
