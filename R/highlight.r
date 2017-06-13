@@ -16,8 +16,7 @@ syntax_highlight <- function(text, index = NULL, current = NULL) {
     detective = pkgdown_detective,
     output = NULL
   )
-  out <- out[out != ""]
-  paste0(out, collapse = "\n")
+  paste0(out, collapse = "")
 }
 
 pkgdown_renderer <- function(index, current) {
@@ -41,8 +40,8 @@ pkgdown_renderer <- function(index, current) {
   }
 
   highlight::renderer_html(
-    header = function(...) "",
-    footer = function(...) "",
+    header = function(...) character(),
+    footer = function(...) character(),
     formatter = formatter
   )
 }
