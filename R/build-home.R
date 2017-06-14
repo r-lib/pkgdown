@@ -285,7 +285,7 @@ bioc_mirror <- function() {
   if (requireNamespace("BiocInstaller", quietly = TRUE)) {
     bioc <- BiocInstaller::biocinstallRepos()[["BioCsoft"]]
   } else {
-    bioc <- "https://bioconductor.org/packages/3.5/bioc"
+    bioc <- "https://bioconductor.org/packages/release/bioc"
   }
   bioc
 }

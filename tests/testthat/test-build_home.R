@@ -69,16 +69,23 @@ test_that("links to vignettes & figures tweaked", {
 })
 
 
-# cran --------------------------------------------------------------------
+# cran or bioc ------------------------------------------------------------
 
 
-test_that("package CRAN verification", {
+test_that("package repo verification", {
+  bioc_ver <- if (requireNamespace("BiocInstaller")) {
+    BiocInstaller::biocVersion()
+    } else { "release" }
+  expect_identical(names(repo_url("dplyr")), "CRAN")
+  expect_identical(names(repo_url("Biobase")), "BIOC")
 
-  expect_true(in_repo("dplyr"))
-  expect_true(in_repo("dplyr", cran = "https://cloud.r-project.org"))
+  expect_null(repo_url("notarealpkg"))
 
-  expect_false(in_repo("notarealpkg"))
-  expect_false(in_repo("notarealpkg", "https://cloud.r-project.org"))
+  expect_identical(repo_url("dplyr", cran = "https://cloud.r-project.org"),
+    c(CRAN = "https://cloud.r-project.org/web/packages/dplyr/index.html"))
+  expect_identical(repo_url("Biobase"),
+    c(BIOC = paste0("https://bioconductor.org/packages/", bioc_ver,
+                    "/bioc/html/Biobase.html")))
 
 })
 
