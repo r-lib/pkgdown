@@ -19,8 +19,8 @@ as_pkgdown <- function(path = ".") {
       path = path,
       desc = read_desc(path),
       meta = read_meta(path),
-      topics = topic_index(path),
-      vignettes = vignette_index(path)
+      topics = package_topics(path),
+      vignettes = package_vignettes(path)
     ),
     class = "pkgdown"
   )
@@ -67,7 +67,7 @@ read_meta <- function(path) {
 
 # Topics ------------------------------------------------------------------
 
-topic_index <- function(path = ".") {
+package_topics <- function(path = ".") {
   rd <- package_rd(path)
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
@@ -124,7 +124,7 @@ is_internal <- function(x) {
 
 # Vignettes ---------------------------------------------------------------
 
-vignette_index <- function(path = ".") {
+package_vignettes <- function(path = ".") {
   vig_path <- dir(
     file.path(path, "vignettes"),
     pattern = "\\.Rmd$",

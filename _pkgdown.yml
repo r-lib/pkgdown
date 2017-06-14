@@ -1,3 +1,5 @@
+url: http://hadley.github.io/pkgdown
+
 template:
   params:
     bootswatch: cerulean

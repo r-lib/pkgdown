@@ -6,4 +6,10 @@
 \description{
 \figure{bacon.jpg}
 }
+\examples{
+magrittr::subtract(10, 1)
+
+library(magrittr, warn.conflicts = FALSE)
+subtract(10, 1)
+}
 \keyword{internal}
