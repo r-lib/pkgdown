@@ -260,15 +260,15 @@ data_link_repo <- function(pkg = ".") {
   if (is.null(repo_result))
     return(list())
 
-  if (name(repo_result) == "CRAN")
+  if (names(repo_result) == "CRAN")
     repo_link <- paste0("https://cran.r-project.org/package=", name)
-  else if (name(repo_result) == "BIOC")
+  else if (names(repo_result) == "BIOC")
     repo_link <- paste0("https://www.bioconductor.org/packages/", name)
   else
     stop("Package link not supported")
 
   link_url(
-    paste0("Download from ", name(repo_result), repo_link)
+    paste0("Download from ", names(repo_result), repo_link)
   )
 }
 
