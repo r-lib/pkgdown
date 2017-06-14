@@ -15,7 +15,9 @@ Imports:
     digest,
     evaluate,
     highlight,
+    httr,
     magrittr,
+    memoise,
     purrr,
     pkgload,
     rmarkdown (>= 1.1.9007),
@@ -36,5 +38,5 @@ Remotes:
     r-lib/usethis
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-URL: https://github.com/hadley/pkgdown
+URL: http://hadley.github.io/pkgdown, https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues
