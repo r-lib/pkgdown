@@ -73,7 +73,7 @@ test_that("links to vignettes & figures tweaked", {
 
 
 test_that("package repo verification", {
-  bioc_ver <- if (requireNamespace("BiocInstaller")) {
+  bioc_ver <- if (requireNamespace("BiocInstaller", quietly = TRUE)) {
     BiocInstaller::biocVersion()
     } else { "release" }
   expect_identical(names(repo_url("dplyr")), "CRAN")
