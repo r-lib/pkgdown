@@ -54,8 +54,12 @@ will be automatically copied to \code{docs/} and inserted into the
 
 \section{YAML config}{
 
-There are five top-level YAML settings that affect the entire site:
-\code{title}, \code{template}, and \code{navbar}.
+There are four top-level YAML settings that affect the entire site:
+\code{url}, \code{title}, \code{template}, and \code{navbar}.
+
+\code{url} optionally specifies the url where the site will be published.
+If you supply this, other pkgdown sites will link to your site when needed,
+rather than using generic links to \url{rdocumentation.org}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.

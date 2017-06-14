@@ -18,8 +18,12 @@
 #' \code{<HEAD>} after the default pkgdown CSS and JSS.
 #'
 #' @section YAML config:
-#' There are five top-level YAML settings that affect the entire site:
-#' \code{title}, \code{template}, and \code{navbar}.
+#' There are four top-level YAML settings that affect the entire site:
+#' \code{url}, \code{title}, \code{template}, and \code{navbar}.
+#'
+#' \code{url} optionally specifies the url where the site will be published.
+#' If you supply this, other pkgdown sites will link to your site when needed,
+#' rather than using generic links to \url{rdocumentation.org}.
 #'
 #' \code{title} overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -213,6 +217,17 @@ init_site <- function(pkg = ".", path = "docs") {
 
   extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
+
+  # Generate site meta data file (avaiable to website viewers)
+  path_meta <- file.path(path, "pkgdown.yml")
+  meta <- read_meta(pkg)
+  if (!is.null(meta$url)) {
+    meta <- list(reference_url = paste0(meta$url, "reference"))
+    write_yaml(meta, path_meta)
+  } else {
+    unlink(path_meta)
+  }
+
 
   for (asset in c(extras, assets)) {
     message("Copying '", asset, "'")

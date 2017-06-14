@@ -149,8 +149,11 @@ will be automatically copied to <code>docs/</code> and inserted into the
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>There are five top-level YAML settings that affect the entire site:
-<code>title</code>, <code>template</code>, and <code>navbar</code>.
+    <p>There are four top-level YAML settings that affect the entire site:
+<code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.
+    <code>url</code> optionally specifies the url where the site will be published.
+If you supply this, other pkgdown sites will link to your site when needed,
+rather than using generic links to <a href = 'rdocumentation.org'>rdocumentation.org</a>.
     <code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of

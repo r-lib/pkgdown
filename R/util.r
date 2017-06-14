@@ -209,3 +209,7 @@ read_file <- function(path) {
   lines <- readLines(path, warn = FALSE)
   paste0(lines, "\n", collapse = "")
 }
+
+write_yaml <- function(x, path) {
+  cat(yaml::as.yaml(x), "\n", sep = "", file = path)
+}
