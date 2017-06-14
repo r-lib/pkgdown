@@ -30,8 +30,7 @@ Suggests:
     devtools,
     knitr,
     magick,
-    testthat,
-    BiocInstaller
+    testthat
 Remotes:
     r-pkgs/pkgload,
     r-pkgs/usethis
