@@ -15,7 +15,6 @@ Imports:
     digest,
     evaluate,
     highlight,
-    magick,
     magrittr,
     purrr,
     pkgload,
@@ -30,6 +29,7 @@ Imports:
 Suggests:
     devtools,
     knitr,
+    magick,
     testthat,
     BiocInstaller
 Remotes:

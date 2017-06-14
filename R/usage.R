@@ -11,6 +11,9 @@ parse_usage <- function(usage) {
   # Un-escape infix functions
   usage <- gsub("\\\\%", "%", usage)
 
+  # Un-html escape <-
+  usage <- gsub("&lt;-", "<-", usage)
+
   # Not currently used because as_html strips and converts to comments
 
   # # Translate method, S3method, and S4method to function calls

@@ -146,7 +146,7 @@ build_rmarkdown_format <- function(pkg = ".",
 tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
-  tweak_anchors(html)
+  tweak_anchors(html, only_contents = FALSE)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
@@ -271,5 +271,6 @@ default_articles_index <- function(pkg = ".") {
 }
 
 has_vignettes <- function(path = ".") {
-  file.exists(file.path(path, "vignettes"))
+  vign_path <- file.path(path, "vignettes")
+  file.exists(vign_path) && length(list.files(vign_path))
 }

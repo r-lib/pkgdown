@@ -7,7 +7,7 @@ licenses_db <- function() {
 
   # Add entry for LICENSE file
   abbr <- c(abbr, "LICENSE")
-  url <- c(url, "LICENSE")
+  url <- c(url, "LICENSE.html")
 
   out <- tibble::tibble(abbr, url)
   out[!is.na(out$abbr), ]

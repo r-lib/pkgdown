@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,7 +81,8 @@
     </div>
 
     
-    <p><code>build_site()</code> is a convenient wrapper around four functions:</p><ul>
+    <p><code>build_site()</code> is a convenient wrapper around five functions:</p><ul>
+<li><p><code>init_site()</code></p></li>
 <li><p><code><a href='build_articles.html'>build_articles</a>()</code></p></li>
 <li><p><code><a href='build_home.html'>build_home</a>()</code></p></li>
 <li><p><code><a href='build_reference.html'>build_reference</a>()</code></p></li>
@@ -135,6 +137,14 @@ reproducible.</p></td>
       <td><p>The encoding of the input files.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
+
+    
+    <p>If you want to do minor customisation of your pkgdown site, the easiest
+way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
+will be automatically copied to <code>docs/</code> and inserted into the
+<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JSS.</p>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
@@ -246,6 +256,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#custom-css-js">Custom CSS/JS</a></li>
+
       <li><a href="#yaml-config">YAML config</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>

@@ -228,6 +228,11 @@ autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
     return(NA_character_)
   }
 
+  # Don't auto link infix operators
+  if (is_call_infix(expr)) {
+    return(NA_character_)
+  }
+
   if (is_call_vignette(expr)) {
     return(link_vignette(expr, x, depth = depth))
   }
@@ -280,4 +285,8 @@ is_call_help <- function(x) {
 
 is_call_vignette <- function(x) {
   is.call(x) && identical(x[[1]], quote(vignette))
+}
+
+is_call_infix <- function(x) {
+  is.call(x) && length(x == 3) && grepl("^%.*%$", as.character(x[[1]]))
 }

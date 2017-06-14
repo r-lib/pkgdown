@@ -5,9 +5,7 @@ select_topics <- function(match_strings, topics) {
     return(integer())
   }
 
-  expr <- purrr::map(match_strings, match_expr)
-  env <- match_env(topics)
-  indexes <- purrr::map(expr, eval, env = env)
+  indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
@@ -94,28 +92,44 @@ match_env <- function(topics) {
     as.list() %>%
     stats::setNames(topics$name)
 
-  c(funs, aliases, names)
+  list2env(c(funs, aliases, names))
 }
 
-# Takes text specification and converts it to a predicate function
-match_expr <- function(match_string) {
-  stopifnot(is.character(match_string), length(match_string) == 1)
-  text_quoted <- encodeString(match_string, quote = "`")
 
-  tryCatch({
-    expr <- parse(text = match_string)[[1]]
-  }, error = function(e) {
-    stop(
-      "Failed to parse: ", text_quoted, " in `_pkgdown.yml`\n",
-      e$message,
-      call. = FALSE
-    )
-  })
-
-  if (is.call(expr) || is.name(expr) || is.character(expr)) {
-    expr
-  } else {
-    stop("Unknown expression: ", text_quoted, " in `_pkgdown.yml`\n", call. = FALSE)
+match_eval <- function(string, env) {
+  if (!is.character(string) || length(string) != 1) {
+    topic_must("be a string", value = string)
   }
+
+  if (exists(string, envir = env, inherits = FALSE)) {
+    value <- env[[string]]
+  } else {
+    tryCatch(
+      {
+        expr <- parse(text = string)[[1]]
+        value <- eval(expr, env)
+      },
+      error = function(e) {
+        topic_must("be a valid R expression", expr = string)
+      }
+    )
+  }
+
+  if (!is.numeric(value)) {
+    topic_must("evaluate to a numeric vector", value = value, expr = string)
+  }
+
+  value
 }
 
+topic_must <- function(..., expr = NULL, value = NULL) {
+  if (!is.null(expr)) {
+    expr <- paste0("\nProblem topic: ", encodeString(expr, quote = "`"))
+  }
+
+  if (!is.null(value)) {
+    value <- paste0("\nActual value:  ", paste0(deparse(value), collapse = "\n"))
+  }
+
+  stop("In '_pkgdown.yml', topic must ", ..., ".", expr, value, call. = FALSE)
+}

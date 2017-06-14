@@ -37,11 +37,21 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   # Copy license file, if present
   license_path <- file.path(pkg$path, "LICENSE")
   if (file.exists(license_path)) {
-    file.copy(license_path, path)
+    render_page(pkg, "license",
+      data = list(
+        pagetitle = "License",
+        license = read_file(license_path)
+      ),
+      path = file.path(path, "LICENSE.html")
+    )
   }
 
   # Build authors page
-  build_authors(pkg, path = path, depth = depth)
+  if (has_citation(pkg$path)) {
+    build_citation_authors(pkg, path = path, depth = depth)
+  } else {
+    build_authors(pkg, path = path, depth = depth)
+  }
 
   if (is.null(data$path)) {
     data$index <- pkg$desc$get("Description")[[1]]
@@ -163,6 +173,7 @@ data_home_sidebar <- function(pkg = ".") {
   paste0(
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
+    data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"
   )

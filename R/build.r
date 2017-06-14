@@ -1,7 +1,8 @@
 #' Build pkgdown website
 #'
-#' \code{build_site()} is a convenient wrapper around four functions:
+#' \code{build_site()} is a convenient wrapper around five functions:
 #' \itemize{
+#'   \item \code{init_site()}
 #'   \item \code{\link{build_articles}()}
 #'   \item \code{\link{build_home}()}
 #'   \item \code{\link{build_reference}()}
@@ -9,6 +10,12 @@
 #' }
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
+#'
+#' @section Custom CSS/JS:
+#' If you want to do minor customisation of your pkgdown site, the easiest
+#' way is to add \code{pkgdown/extra.css} and \code{pkgdown/extra.js}. These
+#' will be automatically copied to \code{docs/} and inserted into the
+#' \code{<HEAD>} after the default pkgdown CSS and JSS.
 #'
 #' @section YAML config:
 #' There are five top-level YAML settings that affect the entire site:
@@ -178,7 +185,8 @@ preview_site <- function(path) {
 
 build_site_rstudio <- function() {
   devtools::document()
-  build_site(preview = TRUE)
+  callr::r(function() pkgdown::build_site(preview = TRUE), show = TRUE)
+  invisible()
 }
 
 #' @export
@@ -193,8 +201,20 @@ init_site <- function(pkg = ".", path = "docs") {
     usethis::use_build_ignore(path)
   }
 
+  # Ignore pkgdown yaml file and directory (if used)
+  path_yaml <- file.path(pkg$path, "_pkgdown.yml")
+  if (file.exists(path_yaml)) {
+    usethis::use_build_ignore("_pkgdown.yml")
+  }
+  path_dir <- file.path(pkg$path, "pkgdown")
+  if (file.exists(path_dir)) {
+    usethis::use_build_ignore("pkgdown")
+  }
+
+  extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
-  for (asset in assets) {
+
+  for (asset in c(extras, assets)) {
     message("Copying '", asset, "'")
     file.copy(asset, path, recursive = TRUE)
   }

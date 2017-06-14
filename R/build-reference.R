@@ -171,6 +171,8 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
+  message("Processing ", topic$file_in)
+
   render_page(
     pkg, "reference-topic",
     data = data_reference_topic(
@@ -241,7 +243,7 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
-    topic = topic$name,
+    topic = tools::file_path_sans_ext(topic$file_in),
     index = pkg$topics,
     current = get_current(topic, pkg),
     path = path,
