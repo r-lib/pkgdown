@@ -222,7 +222,7 @@ init_site <- function(pkg = ".", path = "docs") {
   path_meta <- file.path(path, "pkgdown.yml")
   meta <- read_meta(pkg)
   if (!is.null(meta$url)) {
-    meta <- list(reference_url = paste0(meta$url, "reference"))
+    meta <- list(reference_url = paste0(meta$url, "/reference"))
     write_yaml(meta, path_meta)
   } else {
     unlink(path_meta)
