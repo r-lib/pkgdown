@@ -93,7 +93,7 @@ that aspect of the site.</p>
 
     <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
     
@@ -135,6 +135,13 @@ reproducible.</p></td>
     <tr>
       <th>encoding</th>
       <td><p>The encoding of the input files.</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rmd</code>
+is more recent than the <code>.html</code>. The R code chunks are run in both
+cases to ensure that examples can run without error. It is set by default
+to <code>FALSE</code> by <code>build_site</code>.</p></td>
     </tr>
     </table>
     

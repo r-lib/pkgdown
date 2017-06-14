@@ -4,13 +4,17 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = "UTF-8", quiet = TRUE)
+build_articles(pkg = ".", lazy = TRUE, path = "docs/articles",
+  depth = 1L, encoding = "UTF-8", quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
+
+\item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rmd}
+is more recent than the \code{.html}. It is set by default
+to \code{FALSE} by \code{\link{build_site}}.}
 
 \item{path}{Output path. Relative paths are taken relative to the
 \code{pkg} directory.}

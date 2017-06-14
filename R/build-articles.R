@@ -46,6 +46,9 @@
 #' @param pkg Path to source package. If R working directory is not
 #'     set to the source directory, then pkg must be a fully qualified
 #'     path to the source directory (not a relative path).
+#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rmd}
+#'   is more recent than the \code{.html}. It is set by default
+#'   to \code{FALSE} by \code{\link{build_site}}.
 #' @param path Output path. Relative paths are taken relative to the
 #'     \code{pkg} directory.
 #' @param depth Depth of path relative to root of documentation.  Used
@@ -54,8 +57,12 @@
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE) {
+build_articles <- function(pkg = ".",
+                           lazy = TRUE,
+                           path = "docs/articles",
+                           depth = 1L,
+                           encoding = "UTF-8",
+                           quiet = TRUE) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -75,14 +82,17 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   articles <- tibble::tibble(
     input = file.path(path, pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
-    depth = pkg$vignettes$vig_depth + depth
+    depth = pkg$vignettes$vig_depth + depth,
+    path = path
   )
+
   data <- list(pagetitle = "$title$")
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
     data = data,
     encoding = encoding,
-    quiet = quiet
+    quiet = quiet,
+    lazy = lazy
   )
   purrr::walk(articles$input, unlink)
 
@@ -92,33 +102,50 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 }
 
 render_rmd <- function(pkg,
+                       originals,
                        input,
                        output_file,
+                       path,
                        strip_header = FALSE,
                        data = list(),
                        toc = TRUE,
                        depth = 1L,
                        encoding = "UTF-8",
-                       quiet = TRUE) {
-  message("Building article '", output_file, "'")
+                       quiet = TRUE,
+                       lazy = TRUE) {
+  if (missing(path)) {
+    to_build <- TRUE
+  }
+  else {
+    original_full_path <- file.path(pkg$path, "vignettes", basename(input))
+    new_full_path  <- file.path(path, output_file)
+    to_build <- !lazy || out_of_date(original_full_path, new_full_path)
+  }
+
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = list(
-      input,
-      output_format = format$format,
-      output_file = basename(output_file),
-      quiet = quiet,
-      encoding = encoding,
-      envir = globalenv()
-    ),
-    show = !quiet
+  arg_list <- list(
+    input,
+    output_format = format$format,
+    output_file = basename(output_file),
+    quiet = quiet,
+    encoding = encoding,
+    envir = globalenv()
   )
-  update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
-    index = pkg$topics)
+
+  if (to_build) {
+    message("Building article '", output_file, "'")
+
+    path <- callr::r_safe(
+      function(...) rmarkdown::render(...),
+      args = arg_list,
+      show = !quiet
+    )
+    update_rmarkdown_html(path, strip_header = strip_header,
+      depth = depth, index = pkg$topics)
+  }
 }
 
 build_rmarkdown_format <- function(pkg = ".",
@@ -143,7 +170,8 @@ build_rmarkdown_format <- function(pkg = ".",
   )
 }
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
+tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L,
+    index = NULL) {
   # Automatically link funtion mentions
   autolink_html(html, depth = depth, index = index)
   tweak_anchors(html, only_contents = FALSE)

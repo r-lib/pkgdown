@@ -154,7 +154,8 @@ build_site <- function(pkg = ".",
                        mathjax = TRUE,
                        preview = interactive(),
                        seed = 1014,
-                       encoding = "UTF-8"
+                       encoding = "UTF-8",
+                       lazy = FALSE
                        ) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
@@ -166,7 +167,7 @@ build_site <- function(pkg = ".",
 
   build_home(pkg, path = path, encoding = encoding)
   build_reference(pkg,
-    lazy = FALSE,
+    lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
@@ -174,7 +175,12 @@ build_site <- function(pkg = ".",
     path = file.path(path, "reference"),
     depth = 1L
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
+  build_articles(pkg,
+    lazy = lazy,
+    path = file.path(path, "articles"),
+    depth = 1L,
+    encoding = encoding
+  )
   build_news(pkg, path = file.path(path, "news"), depth = 1L)
 
   if (preview) {
@@ -260,4 +266,3 @@ data_assets <- function(pkg = ".") {
 
   dir(path, full.names = TRUE)
 }
-

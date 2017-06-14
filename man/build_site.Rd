@@ -7,7 +7,7 @@
 \usage{
 build_site(pkg = ".", path = "docs", examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014, encoding = "UTF-8")
+  seed = 1014, encoding = "UTF-8", lazy = FALSE)
 
 init_site(pkg = ".", path = "docs")
 }
@@ -31,6 +31,10 @@ path.}
 reproducible.}
 
 \item{encoding}{The encoding of the input files.}
+
+\item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rmd}
+is more recent than the \code{.html}. It is set by default
+to \code{FALSE} by \code{\link{build_site}}.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around five functions:
