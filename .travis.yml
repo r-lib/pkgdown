@@ -8,3 +8,8 @@ addons:
   apt:
     packages:
       - libmagick++-dev
+
+env:
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
