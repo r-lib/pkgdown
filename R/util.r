@@ -1,5 +1,6 @@
 #' @importFrom magrittr %>%
 #' @importFrom roxygen2 roxygenise
+#' @import rlang
 NULL
 
 inst_path <- function() {
@@ -212,4 +213,16 @@ read_file <- function(path) {
 
 write_yaml <- function(x, path) {
   cat(yaml::as.yaml(x), "\n", sep = "", file = path)
+}
+
+invert_index <- function(x) {
+  stopifnot(is.list(x))
+
+  if (length(x) == 0)
+    return(list())
+
+  key <- rep(names(x), purrr::map_int(x, length))
+  val <- unlist(x, use.names = FALSE)
+
+  split(key, val)
 }

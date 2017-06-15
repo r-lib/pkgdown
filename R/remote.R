@@ -1,7 +1,11 @@
 #' @importFrom memoise memoise
 NULL
 
-remote_package_url <- memoise(function(package) {
+remote_package_url <- function(package) {
+  remote_metadata(package)$reference_url
+}
+
+remote_metadata <- memoise(function(package) {
   path <- find.package(package, quiet = TRUE)
   if (length(path) == 0) {
     return(NULL)
@@ -15,7 +19,7 @@ remote_package_url <- memoise(function(package) {
 
     yaml <- tryCatch(fetch_yaml(url), error = function(e) NULL)
     if (!is.null(yaml)) {
-      return(yaml$reference_url)
+      return(yaml)
     }
   }
 

@@ -1,0 +1,90 @@
+href_expr <- function(expr, bare_symbol = FALSE, current = NULL, depth = NULL) {
+  href_topic_local2 <- function(topic) {
+    href_topic_local(as.character(topic), depth = depth, current = current)
+  }
+
+  if (is_symbol(expr) && bare_symbol) {
+    # foo
+    href_topic_local2(expr)
+  } else if (is_lang(expr)) {
+    fun <- expr[[1]]
+
+    if (is_lang(fun, "::", n = 2)) {
+      pkg <- as.character(fun[[2]])
+      fun <- fun[[3]]
+    } else {
+      pkg <- NULL
+    }
+
+    if (!is_symbol(fun))
+      return(NULL)
+
+    fun_name <- as.character(fun)
+    if (grepl("^%.*%$", fun_name))
+      return(NULL)
+
+    n_args <- length(expr) - 1
+
+    if (fun_name == "vignette") {
+      switch(n_args,
+        href_article_local(as.character(expr[[2]]), depth = depth),
+        NULL
+      )
+    } else if (fun_name == "?") {
+      switch(n_args,
+        href_topic_local2(expr[[2]]),                        # ?x,
+        href_topic_local2(paste0(expr[[3]], "-", expr[[2]])) # package?x
+      )
+    } else if (fun_name == "::") {
+      href_topic_remote(as.character(expr[[3]]), as.character(expr[[2]]))
+    } else {
+      if (is.null(pkg)) {
+        href_topic_local2(fun_name)
+      } else {
+        href_topic_remote(fun_name, pkg)
+      }
+    }
+  }
+}
+
+# Helper for testing
+href_expr_ <- function(expr, ..., index = c()) {
+  href_expr(substitute(expr), ...)
+}
+
+href_topic_local <- function(topic, current = NULL, depth = NULL) {
+  rdname <- find_rdname(NULL, topic, warn_if_not_found = TRUE)
+  if (is.null(rdname)) {
+    return(NULL)
+  }
+
+  if (!is.null(current) && rdname == current) {
+    return(NULL)
+  }
+
+  if (is.null(depth)) {
+    paste0(rdname, ".html")
+  } else {
+    paste0(up_path(depth), "reference/", rdname, ".html")
+  }
+}
+
+href_topic_remote <- function(topic, package) {
+  rdname <- find_rdname(package, topic)
+  if (is.null(rdname)) {
+    return(NULL)
+  }
+
+  reference_url <- remote_package_url(package)
+
+  if (!is.null(reference_url)) {
+    paste0(reference_url, paste0("/", rdname, ".html"))
+  } else {
+    # Fall back to rdocumentation.org which almost certainly works
+    paste0("http://www.rdocumentation.org/packages/", package, "/topics/", rdname)
+  }
+}
+
+href_article_local <- function(article, depth = 0) {
+  paste0(up_path(depth), "articles/", article, ".html")
+}

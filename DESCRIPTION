@@ -20,6 +20,7 @@ Imports:
     memoise,
     purrr,
     pkgload,
+    rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
     tibble,
