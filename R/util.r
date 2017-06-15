@@ -228,9 +228,5 @@ invert_index <- function(x) {
 }
 
 a <- function(text, href) {
-  if (is.null(href)) {
-    text
-  } else {
-    paste0("<a href='", href, "'>", text, "</a>")
-  }
+  ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
 }

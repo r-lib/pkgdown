@@ -1,16 +1,10 @@
-# Compared to the others this returns NA if no link is found
-# Should probably refactor others to be consistent
 href_string <- function(x, bare_symbol = FALSE) {
   expr <- tryCatch(parse(text = x)[[1]], error = function(e) NULL)
   if (is.null(expr)) {
     return(NA_character_)
   }
 
-  href <- href_expr(expr, bare_symbol = bare_symbol)
-  if (is.null(href)) {
-    return(NA_character_)
-  }
-  href
+  href_expr(expr, bare_symbol = bare_symbol)
 }
 
 
@@ -29,18 +23,18 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     }
 
     if (!is_symbol(fun))
-      return(NULL)
+      return(NA_character_)
 
     fun_name <- as.character(fun)
     if (grepl("^%.*%$", fun_name))
-      return(NULL)
+      return(NA_character_)
 
     n_args <- length(expr) - 1
 
     if (fun_name == "vignette") {
       switch(n_args,
         href_article_local(as.character(expr[[2]])),
-        NULL
+        NA_character_
       )
     } else if (fun_name == "?") {
       switch(n_args,
@@ -57,7 +51,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
       }
     }
   } else {
-    NULL
+    NA_character_
   }
 }
 
@@ -69,11 +63,11 @@ href_expr_ <- function(expr, ...) {
 href_topic_local <- function(topic) {
   rdname <- find_rdname(NULL, topic)
   if (is.null(rdname)) {
-    return(NULL)
+    return(NA_character_)
   }
 
   if (rdname == context_get("rdname")) {
-    return(NULL)
+    return(NA_character_)
   }
 
   if (context_get("rdname") != "") {
@@ -86,7 +80,7 @@ href_topic_local <- function(topic) {
 href_topic_remote <- function(topic, package) {
   rdname <- find_rdname(package, topic)
   if (is.null(rdname)) {
-    return(NULL)
+    return(NA_character_)
   }
 
   reference_url <- remote_package_url(package)

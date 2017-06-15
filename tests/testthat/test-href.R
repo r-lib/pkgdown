@@ -14,7 +14,7 @@ test_that("respects href_topic_local args", {
   expect_equal(href_expr_(foo()), "reference/bar.html")
 
   scoped_file_context("bar")
-  expect_equal(href_expr_(foo()), NULL)
+  expect_equal(href_expr_(foo()), NA_character_)
 })
 
 test_that("can link remote objects", {
@@ -23,7 +23,7 @@ test_that("can link remote objects", {
   expect_equal(href_expr_(MASS::addterm.default()), href_topic_remote("addterm", "MASS"))
 
   # Doesn't exist
-  expect_equal(href_expr_(MASS::blah), NULL)
+  expect_equal(href_expr_(MASS::blah), NA_character_)
 })
 
 test_that("can link to remote pkgdown sites", {
@@ -35,7 +35,7 @@ test_that("only links bare symbols if requested", {
   scoped_package_context("test", c(foo = "bar"))
   scoped_file_context("baz")
 
-  expect_equal(href_expr_(foo), NULL)
+  expect_equal(href_expr_(foo), NA_character_)
   expect_equal(href_expr_(foo, bare_symbol = TRUE), "bar.html")
 })
 
@@ -53,5 +53,5 @@ test_that("can link to vignette", {
 
   expect_equal(href_expr_(vignette("x")), "articles/x.html")
   # But not (currently) if package supplied
-  expect_null(href_expr_(vignette('x', package = 'y')))
+  expect_equal(href_expr_(vignette('x', package = 'y')), NA_character_)
 })
