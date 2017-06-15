@@ -1,4 +1,4 @@
-syntax_highlight <- function(text, index = NULL, current = NULL) {
+syntax_highlight <- function(text, current = NULL) {
   stopifnot(is.character(text), length(text) == 1)
 
   expr <- tryCatch(
@@ -12,23 +12,21 @@ syntax_highlight <- function(text, index = NULL, current = NULL) {
 
   out <- highlight::highlight(
     parse.output = expr,
-    renderer = pkgdown_renderer(index, current),
+    renderer = pkgdown_renderer(current),
     detective = pkgdown_detective,
     output = NULL
   )
   paste0(out, collapse = "")
 }
 
-pkgdown_renderer <- function(index, current) {
+pkgdown_renderer <- function(current) {
+  link_local <- function(topic) {
+    a(topic, href_topic_local(topic, current = current))
+  }
+
   formatter <- function(tokens, styles, ...) {
     call <- styles %in% "fu"
-    tokens[call] <- purrr::map2_chr(
-      tokens[call],
-      tokens[call],
-      link_local,
-      index = index,
-      current = current
-    )
+    tokens[call] <- purrr::map_chr(tokens[call], link_local)
 
     styled <- !is.na(styles)
     tokens[styled] <- sprintf(

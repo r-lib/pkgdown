@@ -14,13 +14,18 @@ as_pkgdown <- function(path = ".") {
     stop("`path` is not an existing directory", call. = FALSE)
   }
 
+  desc <- read_desc(path)
+  topics <- package_topics(path)
+
   structure(
     list(
+      package = desc$get("Package")[[1]],
       path = path,
-      desc = read_desc(path),
+      desc = desc,
       meta = read_meta(path),
-      topics = package_topics(path),
-      vignettes = package_vignettes(path)
+      topics = topics,
+      vignettes = package_vignettes(path),
+      topic_index = build_topic_index(topics)
     ),
     class = "pkgdown"
   )

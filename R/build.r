@@ -220,9 +220,8 @@ init_site <- function(pkg = ".", path = "docs") {
 
   # Generate site meta data file (avaiable to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
-  meta <- read_meta(pkg)
-  if (!is.null(meta$url)) {
-    meta <- list(reference_url = paste0(meta$url, "/reference"))
+  if (!is.null(pkg$meta$url)) {
+    meta <- list(reference_url = paste0(pkg$meta$url, "/reference"))
     write_yaml(meta, path_meta)
   } else {
     unlink(path_meta)
@@ -236,6 +235,7 @@ init_site <- function(pkg = ".", path = "docs") {
 
   build_logo(pkg, path = path)
 
+  invisible()
 }
 
 data_assets <- function(pkg = ".") {

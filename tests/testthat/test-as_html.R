@@ -47,57 +47,69 @@ test_that("tabular converted to html", {
 test_that("href orders arguments correctly", {
    expect_equal(
      rd2html("\\href{http://a.com}{a}"),
-     "<a href = 'http://a.com'>a</a>"
+     a("a", href = "http://a.com")
    )
 })
 
 test_that("can convert cross links to online documentation url", {
   expect_equal(
     rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),
-    link_remote(label = "library", topic = "library", package = "base")
+    a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  pkgdownindex = list(
-    name = "build_site",
-    alias = list(build_site.Rd = "build_site")
-  )
-  current <- new_current("library", "pkg.name")
+  old <- cur_topic_index_set(c(foo = "bar", baz = "baz"))
+  on.exit(cur_topic_index_set(old))
+
+  current <- new_current("baz", "mypkg")
   expect_equal(
-    rd2html("\\link[pkg.name]{library}", index = pkgdownindex, current = current),
-    link_local(label = "library", topic = "library", index = pkgdownindex, current = current)
+    rd2html("\\link[mypkg]{foo}", current = current),
+    a("foo", href_topic_local("foo"))
+  )
+  expect_equal(
+    rd2html("\\link[mypkg]{baz}", current = current),
+    "baz"
   )
 })
 
 test_that("can parse local links with topic!=label", {
-  index <- list(name = "a", alias = list("x"), file_out = list("y.html"))
+  old <- cur_topic_index_set(c(x = "y"))
+  on.exit(cur_topic_index_set(old))
+
   expect_equal(
-    rd2html("\\link[=x]{z}", index = index),
-    "<a href='y.html'>z</a>"
+    rd2html("\\link[=x]{z}"),
+    a("z", href_topic_local("x"))
   )
 })
 
 test_that("functions in other packages generates link to rdocumentation.org", {
+  old <- cur_topic_index_set(c(x = "x", y = "y"))
+  on.exit(cur_topic_index_set(old))
+
+  current <- new_current("x", "mypkg")
+
   expect_equal(
-    rd2html("\\link[stats:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "<a href='http://www.rdocumentation.org/packages/stats/topics/acf'>xyz</a>"
+    rd2html("\\link[stats:acf]{xyz}", current = current),
+    a("xyz", href_topic_remote("acf", "stats"))
   )
 
   # Unless it's the current package
   expect_equal(
-    rd2html("\\link[y:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "xyz"
+    rd2html("\\link[mypkg:y]{xyz}", current = current),
+    a("xyz", href_topic_local("y"))
   )
 })
 
 test_that("link to non-existing functions return label", {
+  current <- new_current("x", "x")
+
   expect_equal(
-    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = current),
     "abc"
   )
   expect_equal(
-    rd2html("\\link[base:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[base:xyzxyz]{abc}", current = current),
     "abc"
   )
 })

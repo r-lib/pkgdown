@@ -30,14 +30,6 @@ test_that("can link to remote pkgdown sites", {
   expect_equal(href_expr_(pkgdown::add_slug()), href_topic_remote("pkgdown", "add_slug"))
 })
 
-test_that("warns if topic not found", {
-  old <- cur_topic_index_set(c(foo = "bar"))
-  on.exit(cur_topic_index_set(old))
-
-  expect_warning(x <- href_expr(quote(blah())), "Failed to find topic")
-  expect_null(x)
-})
-
 test_that("only links bare symbols if requested", {
   old <- cur_topic_index_set(c(foo = "bar"))
   on.exit(cur_topic_index_set(old))

@@ -10,11 +10,11 @@ as_data.NULL <- function(x, ...) {
 # Usage -------------------------------------------------------------------
 
 #' @export
-as_data.tag_usage <- function(x, ..., index = NULL, current = NULL) {
-  text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
+as_data.tag_usage <- function(x, ..., current = NULL) {
+  text <- paste(flatten_text(x, ..., current = current, escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  syntax_highlight(text, index = index, current = current)
+  syntax_highlight(text, current = current)
 }
 
 # Arguments ------------------------------------------------------------------
@@ -109,7 +109,6 @@ as_data.tag_value <- function(x, ...) {
 
 #' @export
 as_data.tag_examples <- function(x, path, ...,
-                             index = NULL,
                              current = NULL,
                              examples = TRUE,
                              run_dont_run = FALSE,
@@ -123,7 +122,7 @@ as_data.tag_examples <- function(x, path, ...,
   )
 
   if (!examples) {
-    syntax_highlight(text, index = index, current = current)
+    syntax_highlight(text, current = current)
   } else {
     old_dir <- setwd(path %||% tempdir())
     on.exit(setwd(old_dir), add = TRUE)
@@ -139,7 +138,6 @@ as_data.tag_examples <- function(x, path, ...,
     replay_html(
       expr,
       name_prefix = paste0(topic, "-"),
-      index = index,
       current = current
     )
   }

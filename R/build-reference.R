@@ -113,23 +113,28 @@ build_reference <- function(pkg = ".",
     copy_dir(figures_path, out_path)
   }
 
-  build_reference_index(pkg, path = path, depth = depth)
-
   if (examples) {
-    pkgload::load_all(pkg$path)
+    # Re-loading pkgdown while it's running causes all weird behaviour with
+    # the context cache
+    if (pkg$package != "pkgdown") {
+      pkgload::load_all(pkg$path)
+    }
     set.seed(seed)
   }
 
-  pkg$topics %>%
-    purrr::transpose() %>%
-    purrr::map(build_reference_topic, path,
-      pkg = pkg,
-      lazy = lazy,
-      depth = depth,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax
-    )
+  build_reference_index(pkg, path = path, depth = depth)
+
+  topics <- pkg$topics %>% purrr::transpose()
+  purrr::map(topics,
+    build_reference_topic,
+    path,
+    pkg = pkg,
+    lazy = lazy,
+    depth = depth,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax
+  )
   invisible()
 }
 
@@ -173,17 +178,18 @@ build_reference_topic <- function(topic,
 
   message("Processing ", topic$file_in)
 
+  data <- data_reference_topic(
+    topic,
+    pkg,
+    path = path,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax,
+    depth = depth
+  )
   render_page(
     pkg, "reference-topic",
-    data = data_reference_topic(
-      topic,
-      pkg,
-      path = path,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax,
-      depth = depth
-    ),
+    data = data,
     path = out_path,
     depth = depth
   )
@@ -201,6 +207,8 @@ data_reference_topic <- function(topic,
                                  path = NULL,
                                  depth = 1L
                                  ) {
+  old <- cur_topic_index_set(pkg$topic_index)
+  on.exit(cur_topic_index_set(old))
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
@@ -219,21 +227,19 @@ data_reference_topic <- function(topic,
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
+
   out$description <- as_data(
     tags$tag_description[[1]],
-    index = pkg$topics,
     current = get_current(topic, pkg)
   )
 
   out$usage <- as_data(
     tags$tag_usage[[1]],
-    index = pkg$topics,
     current = get_current(topic, pkg)
   )
 
   out$arguments <- as_data(
     tags$tag_arguments[[1]],
-    index = pkg$topics,
     current = get_current(topic, pkg)
   )
   if (length(out$arguments)) {
@@ -244,7 +250,6 @@ data_reference_topic <- function(topic,
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
-    index = pkg$topics,
     current = get_current(topic, pkg),
     path = path,
     examples = examples,
@@ -277,7 +282,7 @@ make_slug <- function(x) {
 }
 
 get_current <- function(topic, pkg) {
-  new_current(topic$name, pkg$desc$get("Package"))
+  new_current(gsub("\\.Rd$", "", topic$file_in), pkg$desc$get("Package"))
 }
 
 new_current <- function(topic_name, pkg_name) {

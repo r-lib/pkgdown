@@ -44,6 +44,8 @@ href_expr <- function(expr, bare_symbol = FALSE, current = NULL, depth = NULL) {
         href_topic_remote(fun_name, pkg)
       }
     }
+  } else {
+    NULL
   }
 }
 
@@ -53,7 +55,7 @@ href_expr_ <- function(expr, ..., index = c()) {
 }
 
 href_topic_local <- function(topic, current = NULL, depth = NULL) {
-  rdname <- find_rdname(NULL, topic, warn_if_not_found = TRUE)
+  rdname <- find_rdname(NULL, topic)
   if (is.null(rdname)) {
     return(NULL)
   }

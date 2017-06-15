@@ -24,8 +24,8 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  blocks <- x %>%
-    purrr::map_chr(as_html, ...) %>%
+  html <- purrr::map_chr(x, as_html, ...)
+  blocks <- html %>%
     split(groups) %>%
     purrr::map_chr(paste, collapse = "")
 
@@ -48,9 +48,8 @@ flatten_para <- function(x, ...) {
 flatten_text <- function(x, ...) {
   if (length(x) == 0) return("")
 
-  x %>%
-    purrr::map_chr(as_html, ...) %>%
-    paste(collapse = "")
+  html <- purrr::map_chr(x, as_html, ...)
+  paste(html, collapse = "")
 }
 
 #' @export
@@ -123,16 +122,15 @@ as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
 #' @export
 as_html.tag_url <- function(x, ...) {
   stopifnot(length(x) == 1)
-  paste0("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[1]]), "</a>")
+
+  text <- flatten_text(x[[1]])
+  a(text, href = text)
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
   stopifnot(length(x) == 2)
-  paste0(
-    "<a href = '", flatten_text(x[[1]]), "'>",
-    flatten_text(x[[2]]),
-    "</a>"
-  )
+
+  a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
@@ -142,43 +140,53 @@ as_html.tag_email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @export
-as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
+as_html.tag_link <- function(x, ..., current = NULL) {
   opt <- attr(x, "Rd_option")
 
   in_braces <- flatten_text(x)
 
   if (is.null(opt)) {
     # \link{topic}
-    link_local(in_braces, in_braces, index = index, current = current)
+    href <- href_topic_local(in_braces, current = current)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    link_local(in_braces, substr(opt, 2, nchar(opt)), index = index, current = current)
+    href <- href_topic_local(substr(opt, 2, nchar(opt)), current = current)
   } else {
     match <- regexec('^([^:]+)(?:|:(.*))$', opt)
     parts <- regmatches(opt, match)[[1]][-1]
 
     pkg_name <- attr(current, "pkg_name")
-    stopifnot(!is.null(pkg_name))
+    if(is.null(pkg_name)) browser()
 
-    if (parts[[1]] == pkg_name) {
-      # \link[my_pkg]{foo}
-      link_local(in_braces, in_braces, index = index, current = current)
-    } else if (parts[[2]] == "") {
-      # \link[pkg]{foo}
-      link_remote(in_braces, in_braces, package = opt)
+    if (parts[[2]] == "") {
+      if (parts[[1]] == pkg_name) {
+        # \link[mypkg]{foo}
+        href <- href_topic_local(in_braces, current = current)
+      } else {
+        # \link[pkg]{foo}
+        href <- href_topic_remote(in_braces, opt)
+      }
     } else {
-      # \link[pkg:bar]{foo}
-      link_remote(in_braces, parts[[2]], package = parts[[1]])
+      if (parts[[1]] == pkg_name) {
+        # \link[my_pkg:bar]{foo}
+        href <- href_topic_local(parts[[2]], current = current)
+      } else {
+        # \link[pkg:bar]{foo}
+        href <- href_topic_remote(parts[[2]], parts[[1]])
+      }
     }
   }
+
+  a(in_braces, href = href)
 }
 
 #' @export
-as_html.tag_linkS4class <- function(x, ..., index = NULL, current = NULL) {
+as_html.tag_linkS4class <- function(x, ..., current = NULL) {
   stopifnot(length(x) == 1)
 
-  in_braces <- flatten_text(x[[1]])
-  link_local(in_braces, paste0(in_braces, "-class"), index = index, current = current)
+  text <- flatten_text(x[[1]])
+  href <- href_topic_local(paste0(in_braces, "-class"), current = current)
+  a(text, href = href)
 }
 
 # Miscellaneous --------------------------------------------------------------
@@ -364,19 +372,15 @@ as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
 as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         function(x, ..., depth = 1L) {
-  html <- flatten_text(x, ...)
+as_html.tag_code <-         function(x, current = NULL, ..., depth = 1L) {
+  text <- flatten_text(x, ..., current = current, depth = depth)
 
   expr <- tryCatch(
-    parse(text = html)[[1]],
+    parse(text = text)[[1]],
     error = function(e) NULL
   )
-
-  if (is_call_vignette(expr)) {
-    html <- link_vignette(expr, html, depth = depth)
-  }
-
-  paste0("<code>", html, "</code>")
+  href <- href_expr(expr, current = current, depth = depth)
+  paste0("<code>", a(text, href = href), "</code>")
 }
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")

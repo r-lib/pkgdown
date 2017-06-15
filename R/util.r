@@ -28,7 +28,7 @@ markdown_text <- function(text, ...) {
   markdown(tmp, ...)
 }
 
-markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
+markdown <- function(path = NULL, ..., depth = 0L) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
 
@@ -46,7 +46,7 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
-  autolink_html(xml, depth = depth, index = index)
+  autolink_html(xml, depth = depth)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
@@ -225,4 +225,12 @@ invert_index <- function(x) {
   val <- unlist(x, use.names = FALSE)
 
   split(key, val)
+}
+
+a <- function(text, href) {
+  if (is.null(href)) {
+    text
+  } else {
+    paste0("<a href='", href, "'>", text, "</a>")
+  }
 }

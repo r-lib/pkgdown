@@ -88,30 +88,30 @@
 <li><code>README.md</code></li>
 </ol>
 <p>pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both <code>README.md</code> and a <code>index.md</code></p>
-<p>When including big graphics in the README, you may find it eaiser to use <code>knitr::include_graphics("foo.png")</code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p>
+<p>When including big graphics in the README, you may find it eaiser to use <code><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p>
 </div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>The function reference generates one page for each <code>.Rd</code> file in <code>man/</code>, placing the results in <code>reference/</code>. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.</p>
 <p>pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a <code>reference</code> key in <code>_pkgdown.yml</code>:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">reference:</span>
-  <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Connecting to Spark"</span>
-    <span class="fu">desc:</span> &gt;
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">reference:</span>
+  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span>
+    <span class="fu">desc:</span><span class="at"> &gt;</span>
       Functions for installing Spark components and managing
       connections to Spark
-    <span class="fu">contents:</span> 
+    <span class="fu">contents:</span><span class="at"> </span>
       <span class="kw">-</span> spark_config
       <span class="kw">-</span> spark_connect
       <span class="kw">-</span> spark_disconnect
       <span class="kw">-</span> spark_install
       <span class="kw">-</span> spark_log
-  <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Reading and Writing Data"</span>
-    <span class="fu">desc:</span> <span class="st">"Functions for reading and writing Spark DataFrames."</span>
+  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span>
+    <span class="fu">desc:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span>
     <span class="fu">contents:</span>
       <span class="kw">-</span> starts_with(<span class="st">"spark_read"</span>)
       <span class="kw">-</span> starts_with(<span class="st">"spark_write"</span>)
-      <span class="kw">-</span> sdf-saveload</code></pre>
+      <span class="kw">-</span> sdf-saveload</code></pre></div>
 <p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
 <p>The objects in <code>reference</code> can also contain a list of <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
 <p>pkgdown will warn if you’ve forgotten to include any non-internal functions.</p>
@@ -122,16 +122,16 @@
 <p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories, and render output to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
 <p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. As well, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code>.</p>
 <p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">articles:</span>
-  <span class="kw">-</span> <span class="fu">title:</span> <span class="st">"Extend shiny"</span>
-    <span class="fu">desc:</span> &gt;
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">articles:</span>
+  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Extend shiny"</span>
+    <span class="fu">desc:</span><span class="at"> &gt;</span>
       These packages provide advanced features that can enhance your Shiny 
       apps.
     <span class="fu">contents:</span>
     <span class="kw">-</span> shinydashboard
     <span class="kw">-</span> shinythemes
     <span class="kw">-</span> shinyjs
-    <span class="kw">-</span> htmlwidgets</code></pre>
+    <span class="kw">-</span> htmlwidgets</code></pre></div>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
@@ -149,25 +149,25 @@
 <li><p>Link to other, off-site, resources.</p></li>
 </ul>
 <p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>. To customise, use the <code>navbar</code> field:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">navbar:</span>
-  <span class="fu">title:</span> <span class="st">"sparklyr"</span>
-  <span class="fu">type:</span> inverse
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">navbar:</span>
+  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span>
+  <span class="fu">type:</span><span class="at"> inverse</span>
   <span class="fu">left:</span>
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"Home"</span>
-      <span class="fu">href:</span> index.html
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"dplyr"</span>
-      <span class="fu">href:</span> articles/dplyr.html
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"ML"</span>
-      <span class="fu">href:</span> articles/ML.html
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"Extensions"</span>
-      <span class="fu">href:</span> articles/extensions.html
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"Deployment"</span>
-      <span class="fu">href:</span> articles/deployment.html
-    <span class="kw">-</span> <span class="fu">text:</span> <span class="st">"Reference"</span>
-      <span class="fu">href:</span> <span class="st">"reference/"</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span>
+      <span class="fu">href:</span><span class="at"> index.html</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span>
+      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span>
+      <span class="fu">href:</span><span class="at"> articles/ML.html</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span>
+      <span class="fu">href:</span><span class="at"> articles/extensions.html</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span>
+      <span class="fu">href:</span><span class="at"> articles/deployment.html</span>
+    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span>
+      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span>
   <span class="fu">right:</span>
-    <span class="kw">-</span> <span class="fu">icon:</span> fa-github
-      <span class="fu">href:</span> https://github.com/rstudio/sparklyr</code></pre>
+    <span class="kw">-</span> <span class="fu">icon:</span><span class="at"> fa-github</span>
+      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></code></pre></div>
 </div>
 </div>
   </div>

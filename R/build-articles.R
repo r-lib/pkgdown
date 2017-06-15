@@ -102,6 +102,9 @@ render_rmd <- function(pkg,
                        quiet = TRUE) {
   message("Building article '", output_file, "'")
 
+  old <- cur_topic_index_set(pkg$topic_index)
+  on.exit(cur_topic_index_set(old))
+
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)
 
@@ -117,8 +120,7 @@ render_rmd <- function(pkg,
     ),
     show = !quiet
   )
-  update_rmarkdown_html(path, strip_header = strip_header, depth = depth,
-    index = pkg$topics)
+  update_rmarkdown_html(path, strip_header = strip_header, depth = depth)
 }
 
 build_rmarkdown_format <- function(pkg = ".",
@@ -143,9 +145,9 @@ build_rmarkdown_format <- function(pkg = ".",
   )
 }
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index = NULL) {
+tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L) {
   # Automatically link funtion mentions
-  autolink_html(html, depth = depth, index = index)
+  autolink_html(html, depth = depth)
   tweak_anchors(html, only_contents = FALSE)
 
   # Tweak classes of navbar
@@ -164,11 +166,9 @@ tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L, index =
   invisible()
 }
 
-update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L,
-                                  index = NULL) {
+update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L) {
   html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html, strip_header = strip_header, depth = depth,
-    index = index)
+  tweak_rmarkdown_html(html, strip_header = strip_header, depth = depth)
 
   xml2::write_html(html, path, format = FALSE)
   path
