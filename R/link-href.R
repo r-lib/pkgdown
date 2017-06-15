@@ -1,3 +1,19 @@
+# Compared to the others this returns NA if no link is found
+# Should probably refactor others to be consistent
+href_string <- function(x, bare_symbol = FALSE) {
+  expr <- tryCatch(parse(text = x)[[1]], error = function(e) NULL)
+  if (is.null(expr)) {
+    return(NA_character_)
+  }
+
+  href <- href_expr(expr, bare_symbol = bare_symbol)
+  if (is.null(href)) {
+    return(NA_character_)
+  }
+  href
+}
+
+
 href_expr <- function(expr, bare_symbol = FALSE) {
   if (is_symbol(expr) && bare_symbol) {
     # foo

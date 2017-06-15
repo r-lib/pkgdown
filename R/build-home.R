@@ -105,45 +105,6 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   invisible()
 }
 
-tweak_homepage_html <- function(html, strip_header = FALSE) {
-  first_para <- xml2::xml_find_first(html, "//p")
-  badges <- first_para %>% xml2::xml_children()
-  has_badges <- length(badges) > 0 && all(xml2::xml_name(badges) %in% "a")
-
-  if (has_badges) {
-    list <- list_with_heading(badges, "Dev status")
-    list_div <- paste0("<div>", list, "</div>")
-    list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
-
-    sidebar <- html %>% xml2::xml_find_first(".//div[@id='sidebar']")
-    list_html %>%
-      xml2::xml_children() %>%
-      purrr::walk(~ xml2::xml_add_child(sidebar, .))
-
-    xml2::xml_remove(first_para)
-  }
-
-  header <- xml2::xml_find_first(html, ".//h1")
-  if (strip_header) {
-    xml2::xml_remove(header, free = TRUE)
-  } else {
-    page_header_text <- paste0("<div class='page-header'>", header, "</div>")
-    page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
-    xml2::xml_replace(header, page_header)
-  }
-
-  # Fix relative image links
-  imgs <- xml2::xml_find_all(html, ".//img")
-  urls <- xml2::xml_attr(imgs, "src")
-  new_urls <- gsub("^vignettes/", "articles/", urls)
-  new_urls <- gsub("^man/figures/", "reference/figures/", new_urls)
-  purrr::map2(imgs, new_urls, ~ (xml2::xml_attr(.x, "src") <- .y))
-
-  tweak_tables(html)
-
-  invisible()
-}
-
 update_homepage_html <- function(path, strip_header = FALSE) {
   html <- xml2::read_html(path, encoding = "UTF-8")
   tweak_homepage_html(html, strip_header = strip_header)

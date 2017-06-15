@@ -46,7 +46,7 @@ markdown <- function(path = NULL, ..., depth = 0L) {
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
-  autolink_html(xml, depth = depth)
+  tweak_code(xml, depth = depth)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds

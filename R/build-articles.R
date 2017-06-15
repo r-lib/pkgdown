@@ -145,27 +145,6 @@ build_rmarkdown_format <- function(pkg = ".",
   )
 }
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L) {
-  # Automatically link funtion mentions
-  autolink_html(html, depth = depth)
-  tweak_anchors(html, only_contents = FALSE)
-
-  # Tweak classes of navbar
-  toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
-  xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
-  # Remove unnused toc
-
-  if (strip_header) {
-    header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
-    if (length(header) > 0)
-      xml2::xml_remove(header, free = TRUE)
-  }
-
-  tweak_tables(html)
-
-  invisible()
-}
-
 update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L) {
   html <- xml2::read_html(path, encoding = "UTF-8")
   tweak_rmarkdown_html(html, strip_header = strip_header, depth = depth)
@@ -173,7 +152,6 @@ update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L) {
   xml2::write_html(html, path, format = FALSE)
   path
 }
-
 
 # Articles index ----------------------------------------------------------
 

@@ -136,7 +136,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   major <- pieces %>% purrr::map_chr(4)
 
   html <- sections %>%
-    purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
+    purrr::walk(tweak_code, depth = depth, index = pkg$topics) %>%
     purrr::map_chr(as.character)
 
   news <- tibble::tibble(
