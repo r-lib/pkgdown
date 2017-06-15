@@ -102,8 +102,7 @@ render_rmd <- function(pkg,
                        quiet = TRUE) {
   message("Building article '", output_file, "'")
 
-  old <- cur_topic_index_set(pkg$topic_index)
-  on.exit(cur_topic_index_set(old))
+  scoped_package_context(pkg$package, pkg$topic_index)
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)

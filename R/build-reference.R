@@ -207,8 +207,7 @@ data_reference_topic <- function(topic,
                                  path = NULL,
                                  depth = 1L
                                  ) {
-  old <- cur_topic_index_set(pkg$topic_index)
-  on.exit(cur_topic_index_set(old))
+  scoped_package_context(pkg$package, pkg$topic_index)
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)

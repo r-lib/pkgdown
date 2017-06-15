@@ -59,8 +59,7 @@ test_that("can convert cross links to online documentation url", {
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  old <- cur_topic_index_set(c(foo = "bar", baz = "baz"))
-  on.exit(cur_topic_index_set(old))
+  scoped_package_context("test", c(foo = "bar", baz = "baz"))
 
   current <- new_current("baz", "mypkg")
   expect_equal(
@@ -74,8 +73,7 @@ test_that("can convert cross links to the same package (#242)", {
 })
 
 test_that("can parse local links with topic!=label", {
-  old <- cur_topic_index_set(c(x = "y"))
-  on.exit(cur_topic_index_set(old))
+  scoped_package_context("test", c(x = "y"))
 
   expect_equal(
     rd2html("\\link[=x]{z}"),
@@ -84,8 +82,7 @@ test_that("can parse local links with topic!=label", {
 })
 
 test_that("functions in other packages generates link to rdocumentation.org", {
-  old <- cur_topic_index_set(c(x = "x", y = "y"))
-  on.exit(cur_topic_index_set(old))
+  scoped_package_context("test", c(x = "x", y = "y"))
 
   current <- new_current("x", "mypkg")
 

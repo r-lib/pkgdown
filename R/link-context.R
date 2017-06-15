@@ -1,24 +1,48 @@
 
 # Manage current topic index ----------------------------------------------------
 
-cache <- new_environment()
+context <- new_environment()
 
-cur_topic_index_set <- function(index) {
-  old <- cur_topic_index_get()
-  if (is.null(index) && env_has(cached,)) {
-    env_unbind(cache, "topic_index")
+context_set <- function(name, value) {
+  old <- if (env_has(context, name)) env_get(context, name)
+
+  if (is.null(value)) {
+    if (env_has(context, name)) {
+      env_unbind(context, name)
+    }
   } else {
-    env_bind(cache, topic_index = index)
+    env_bind(context, !!name := value)
   }
   invisible(old)
 }
-cur_topic_index_get <- function(check = FALSE) {
-  if (env_has(cache, "topic_index")) {
-    env_get(cache, "topic_index")
+
+context_get <- function(name) {
+  if (env_has(context, name)) {
+    env_get(context, name)
   } else {
-    if (check) {
-      abort("Default topic index has not been initialised")
-    }
-    NULL
+    abort(paste0("Context `", name, "` has not been initialised"))
   }
+}
+
+context_set_scoped <- function(name, value, scope = parent.frame()) {
+  old <- context_set(name, value)
+  defer(context_set(name, old), scope = scope)
+}
+
+scoped_package_context <- function(package,
+                                   topic_index = pkgdown::topic_index(package),
+                                   scope = parent.frame()) {
+  context_set_scoped("package", package, scope = scope)
+  context_set_scoped("topic_index", topic_index, scope = scope)
+}
+
+# defer helper ------------------------------------------------------------
+
+defer <- function(expr, scope = parent.frame()) {
+  expr <- enquo(expr)
+
+  call <- expr(on.exit(rlang::eval_tidy(!!expr), add = TRUE))
+  eval_bare(call, scope)
+
+  invisible()
 }
