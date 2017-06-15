@@ -140,36 +140,35 @@ as_html.tag_email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @export
-as_html.tag_link <- function(x, ..., current = NULL) {
+as_html.tag_link <- function(x, ...) {
   opt <- attr(x, "Rd_option")
 
   in_braces <- flatten_text(x)
 
   if (is.null(opt)) {
     # \link{topic}
-    href <- href_topic_local(in_braces, current = current)
+    href <- href_topic_local(in_braces)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    href <- href_topic_local(substr(opt, 2, nchar(opt)), current = current)
+    href <- href_topic_local(substr(opt, 2, nchar(opt)))
   } else {
     match <- regexec('^([^:]+)(?:|:(.*))$', opt)
     parts <- regmatches(opt, match)[[1]][-1]
 
-    pkg_name <- attr(current, "pkg_name")
-    if(is.null(pkg_name)) browser()
+    package <- context_get("package")
 
     if (parts[[2]] == "") {
-      if (parts[[1]] == pkg_name) {
+      if (parts[[1]] == package) {
         # \link[mypkg]{foo}
-        href <- href_topic_local(in_braces, current = current)
+        href <- href_topic_local(in_braces)
       } else {
         # \link[pkg]{foo}
         href <- href_topic_remote(in_braces, opt)
       }
     } else {
-      if (parts[[1]] == pkg_name) {
+      if (parts[[1]] == package) {
         # \link[my_pkg:bar]{foo}
-        href <- href_topic_local(parts[[2]], current = current)
+        href <- href_topic_local(parts[[2]])
       } else {
         # \link[pkg:bar]{foo}
         href <- href_topic_remote(parts[[2]], parts[[1]])
@@ -181,11 +180,11 @@ as_html.tag_link <- function(x, ..., current = NULL) {
 }
 
 #' @export
-as_html.tag_linkS4class <- function(x, ..., current = NULL) {
+as_html.tag_linkS4class <- function(x, ...) {
   stopifnot(length(x) == 1)
 
   text <- flatten_text(x[[1]])
-  href <- href_topic_local(paste0(in_braces, "-class"), current = current)
+  href <- href_topic_local(paste0(text, "-class"))
   a(text, href = href)
 }
 
@@ -372,14 +371,14 @@ as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
 as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         function(x, current = NULL, ..., depth = 1L) {
-  text <- flatten_text(x, ..., current = current, depth = depth)
+as_html.tag_code <-         function(x, ...) {
+  text <- flatten_text(x, ...)
 
   expr <- tryCatch(
     parse(text = text)[[1]],
     error = function(e) NULL
   )
-  href <- href_expr(expr, current = current, depth = depth)
+  href <- href_expr(expr)
   paste0("<code>", a(text, href = href), "</code>")
 }
 #' @export

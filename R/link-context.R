@@ -30,10 +30,18 @@ context_set_scoped <- function(name, value, scope = parent.frame()) {
 }
 
 scoped_package_context <- function(package,
-                                   topic_index = pkgdown::topic_index(package),
+                                   topic_index = NULL,
                                    scope = parent.frame()) {
+  topic_index <- topic_index %||% topic_index(package)
+
   context_set_scoped("package", package, scope = scope)
   context_set_scoped("topic_index", topic_index, scope = scope)
+}
+scoped_file_context <- function(rdname = "",
+                                depth = 0L,
+                                scope = parent.frame()) {
+  context_set_scoped("rdname", rdname, scope = scope)
+  context_set_scoped("depth", depth, scope = scope)
 }
 
 # defer helper ------------------------------------------------------------

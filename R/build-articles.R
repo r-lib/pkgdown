@@ -103,6 +103,7 @@ render_rmd <- function(pkg,
   message("Building article '", output_file, "'")
 
   scoped_package_context(pkg$package, pkg$topic_index)
+  scoped_file_context(depth = depth)
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(unlink(format$path), add = TRUE)

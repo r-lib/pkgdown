@@ -74,8 +74,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @export
-replay_html.source <- function(x, ..., current = current) {
-  html <- syntax_highlight(x$src, current = current)
+replay_html.source <- function(x, ...) {
+  html <- syntax_highlight(x$src)
   paste0("<div class='input'>", html, "</div>")
 }
 

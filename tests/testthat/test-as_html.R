@@ -52,28 +52,31 @@ test_that("href orders arguments correctly", {
 })
 
 test_that("can convert cross links to online documentation url", {
+  scoped_package_context("test")
+
   expect_equal(
-    rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),
+    rd2html("\\link[base]{library}"),
     a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  scoped_package_context("test", c(foo = "bar", baz = "baz"))
+  scoped_package_context("mypkg", c(foo = "bar", baz = "baz"))
+  scoped_file_context("baz")
 
-  current <- new_current("baz", "mypkg")
   expect_equal(
-    rd2html("\\link[mypkg]{foo}", current = current),
+    rd2html("\\link[mypkg]{foo}"),
     a("foo", href_topic_local("foo"))
   )
   expect_equal(
-    rd2html("\\link[mypkg]{baz}", current = current),
+    rd2html("\\link[mypkg]{baz}"),
     "baz"
   )
 })
 
 test_that("can parse local links with topic!=label", {
   scoped_package_context("test", c(x = "y"))
+  scoped_file_context("baz")
 
   expect_equal(
     rd2html("\\link[=x]{z}"),
@@ -82,9 +85,8 @@ test_that("can parse local links with topic!=label", {
 })
 
 test_that("functions in other packages generates link to rdocumentation.org", {
-  scoped_package_context("test", c(x = "x", y = "y"))
-
-  current <- new_current("x", "mypkg")
+  scoped_package_context("mypkg", c(x = "x", y = "y"))
+  scoped_file_context("x")
 
   expect_equal(
     rd2html("\\link[stats:acf]{xyz}", current = current),
@@ -99,7 +101,8 @@ test_that("functions in other packages generates link to rdocumentation.org", {
 })
 
 test_that("link to non-existing functions return label", {
-  current <- new_current("x", "x")
+  scoped_package_context("mypkg")
+  scoped_file_context("x")
 
   expect_equal(
     rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = current),
@@ -112,6 +115,8 @@ test_that("link to non-existing functions return label", {
 })
 
 test_that("code blocks autolinked to vignettes", {
+  scoped_file_context(depth = 1L)
+
   expect_equal(
     rd2html("\\code{vignette('abc')}"),
     "<code><a href='../articles/abc.html'>vignette('abc')</a></code>"

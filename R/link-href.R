@@ -1,11 +1,7 @@
-href_expr <- function(expr, bare_symbol = FALSE, current = NULL, depth = NULL) {
-  href_topic_local2 <- function(topic) {
-    href_topic_local(as.character(topic), depth = depth, current = current)
-  }
-
+href_expr <- function(expr, bare_symbol = FALSE) {
   if (is_symbol(expr) && bare_symbol) {
     # foo
-    href_topic_local2(expr)
+    href_topic_local(as.character(expr))
   } else if (is_lang(expr)) {
     fun <- expr[[1]]
 
@@ -27,19 +23,19 @@ href_expr <- function(expr, bare_symbol = FALSE, current = NULL, depth = NULL) {
 
     if (fun_name == "vignette") {
       switch(n_args,
-        href_article_local(as.character(expr[[2]]), depth = depth),
+        href_article_local(as.character(expr[[2]])),
         NULL
       )
     } else if (fun_name == "?") {
       switch(n_args,
-        href_topic_local2(expr[[2]]),                        # ?x,
-        href_topic_local2(paste0(expr[[3]], "-", expr[[2]])) # package?x
+        href_topic_local(as.character(expr[[2]])),                        # ?x,
+        href_topic_local(paste0(expr[[3]], "-", expr[[2]])) # package?x
       )
     } else if (fun_name == "::") {
       href_topic_remote(as.character(expr[[3]]), as.character(expr[[2]]))
     } else {
       if (is.null(pkg)) {
-        href_topic_local2(fun_name)
+        href_topic_local(fun_name)
       } else {
         href_topic_remote(fun_name, pkg)
       }
@@ -50,24 +46,24 @@ href_expr <- function(expr, bare_symbol = FALSE, current = NULL, depth = NULL) {
 }
 
 # Helper for testing
-href_expr_ <- function(expr, ..., index = c()) {
+href_expr_ <- function(expr, ...) {
   href_expr(substitute(expr), ...)
 }
 
-href_topic_local <- function(topic, current = NULL, depth = NULL) {
+href_topic_local <- function(topic) {
   rdname <- find_rdname(NULL, topic)
   if (is.null(rdname)) {
     return(NULL)
   }
 
-  if (!is.null(current) && rdname == current) {
+  if (rdname == context_get("rdname")) {
     return(NULL)
   }
 
-  if (is.null(depth)) {
+  if (context_get("rdname") != "") {
     paste0(rdname, ".html")
   } else {
-    paste0(up_path(depth), "reference/", rdname, ".html")
+    paste0(up_path(context_get("depth")), "reference/", rdname, ".html")
   }
 }
 
@@ -87,6 +83,6 @@ href_topic_remote <- function(topic, package) {
   }
 }
 
-href_article_local <- function(article, depth = 0) {
-  paste0(up_path(depth), "articles/", article, ".html")
+href_article_local <- function(article) {
+  paste0(up_path(context_get("depth")), "articles/", article, ".html")
 }

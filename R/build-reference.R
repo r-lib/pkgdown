@@ -208,6 +208,7 @@ data_reference_topic <- function(topic,
                                  depth = 1L
                                  ) {
   scoped_package_context(pkg$package, pkg$topic_index)
+  scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
@@ -227,20 +228,9 @@ data_reference_topic <- function(topic,
 
   # Sections that contain arbitrary text and need cross-referencing
 
-  out$description <- as_data(
-    tags$tag_description[[1]],
-    current = get_current(topic, pkg)
-  )
-
-  out$usage <- as_data(
-    tags$tag_usage[[1]],
-    current = get_current(topic, pkg)
-  )
-
-  out$arguments <- as_data(
-    tags$tag_arguments[[1]],
-    current = get_current(topic, pkg)
-  )
+  out$description <- as_data(tags$tag_description[[1]])
+  out$usage <- as_data(tags$tag_usage[[1]])
+  out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
@@ -249,7 +239,6 @@ data_reference_topic <- function(topic,
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
-    current = get_current(topic, pkg),
     path = path,
     examples = examples,
     run_dont_run = run_dont_run,
@@ -263,7 +252,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = get_current(topic, pkg)) %>%
+    purrr::map(as_data, index = pkg$topics) %>%
     purrr::map(add_slug)
 
   out
@@ -278,12 +267,4 @@ make_slug <- function(x) {
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
-}
-
-get_current <- function(topic, pkg) {
-  new_current(gsub("\\.Rd$", "", topic$file_in), pkg$desc$get("Package"))
-}
-
-new_current <- function(topic_name, pkg_name) {
-  structure(topic_name, pkg_name = pkg_name)
 }

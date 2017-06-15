@@ -1,4 +1,4 @@
-syntax_highlight <- function(text, current = NULL) {
+syntax_highlight <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
   expr <- tryCatch(
@@ -12,16 +12,16 @@ syntax_highlight <- function(text, current = NULL) {
 
   out <- highlight::highlight(
     parse.output = expr,
-    renderer = pkgdown_renderer(current),
+    renderer = pkgdown_renderer(),
     detective = pkgdown_detective,
     output = NULL
   )
   paste0(out, collapse = "")
 }
 
-pkgdown_renderer <- function(current) {
+pkgdown_renderer <- function() {
   link_local <- function(topic) {
-    a(topic, href_topic_local(topic, current = current))
+    a(topic, href_topic_local(topic))
   }
 
   formatter <- function(tokens, styles, ...) {

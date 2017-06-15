@@ -1,16 +1,17 @@
 # Modifies in place
 autolink_html <- function(x, depth = 0L) {
   stopifnot(inherits(x, "xml_node"))
+  scoped_file_context(depth = depth)
 
   # <code> with no children
   x %>%
     xml2::xml_find_all(".//code[count(*) = 0]") %>%
-    autolink_nodeset(depth = depth)
+    autolink_nodeset()
 
   # <span class='kw'>
   x %>%
     xml2::xml_find_all(".//span[@class = 'kw']") %>%
-    autolink_nodeset(depth = depth, bare_symbol = TRUE)
+    autolink_nodeset(bare_symbol = TRUE)
 
   invisible()
 }
