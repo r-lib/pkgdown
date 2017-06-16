@@ -156,3 +156,8 @@ code a, pre a {
 .error   { color: orange;  font-weight: bolder;}
 .warning { color: #6A0366; font-weight: bolder;}
 
+/* Reference examples output ---------------------------------------------- */
+
+.examples {
+  margin: 10px 0;
+}

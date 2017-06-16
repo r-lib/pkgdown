@@ -25,12 +25,14 @@ Imports:
     usethis,
     whisker,
     yaml,
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    htmltools
 Suggests:
     devtools,
     knitr,
     magick,
-    testthat
+    testthat,
+    htmlwidgets
 Remotes:
     r-pkgs/pkgload,
     r-pkgs/usethis

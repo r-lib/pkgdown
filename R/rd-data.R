@@ -134,7 +134,22 @@ as_data.tag_examples <- function(x, path, ...,
     code_env <- new.env(parent = env)
     code_env$not_run <- function(...) invisible()
 
-    expr <- evaluate::evaluate(text, code_env, new_device = TRUE)
+    output_handler <- evaluate::new_output_handler(
+      value = function(x) {
+        knitr::knit_print(x, options = list(screenshot.force = FALSE))
+      }
+    )
+
+    if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+      # Freeze htmlwidget id for caching
+      htmlwidgets::setWidgetIdSeed(42)
+    }
+    expr <- evaluate::evaluate(
+      text,
+      code_env,
+      output_handler = output_handler,
+      new_device = TRUE
+    )
 
     replay_html(
       expr,

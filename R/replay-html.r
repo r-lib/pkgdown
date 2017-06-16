@@ -50,11 +50,53 @@ replay_html.list <- function(x, ...) {
   # keep only high level plots
   parts <- merge_low_plot(parts)
 
-  pieces <- character(length(parts))
+  pieces <- list()
+  dependencies <- list()
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+    output <- replay_html(parts[[i]], obj_id = i, ...)
+    dependencies[[i]] <- attr(output, "knit_meta")
+    pieces[[i]] <- output
   }
-  paste0(pieces, collapse = "")
+
+  # bundle unwrapped pieces into `pre` blocks
+  standalone_piece_indices <- seq_along(pieces) %>%
+    purrr::keep(~ inherits(pieces[[.x]], "html"))
+  split_at_indices <- c(
+    standalone_piece_indices,     # split before html element
+    standalone_piece_indices + 1  # split after html element
+  )
+  bundled_pieces <- pieces %>%
+    split(cumsum(seq_along(pieces) %in% split_at_indices)) %>%
+    purrr::map_if(
+      ~ !inherits(.x[[1]], "html"),
+      ~ paste0("<pre>", paste0(.x, collapse = ""), "</pre>")
+    ) %>%
+    purrr::flatten() %>%
+    purrr::map_chr(as.character) %>%
+    unname()
+
+  # collect and relocate html dependencies
+  lib_dir <- "lib"
+  output_dir <- "."
+  dependencies <- dependencies %>%
+    purrr::flatten() %>%
+    unique() %>%
+    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
+    purrr::map(htmltools::makeDependencyRelative, output_dir)
+
+  html_dependency <- htmltools::renderDependencies(
+    dependencies,
+    "file",
+    encodeFunc = identity,
+    hrefFilter = function(path) {
+      rmarkdown::relative_to(output_dir, path)
+    }
+  )
+
+  htmltools::attachDependencies(
+    list(bundles = bundled_pieces),
+    html_dependency
+  )
 }
 
 #' @export
@@ -112,6 +154,16 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 
   paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
 }
+
+#' @export
+replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
+  # wrap in our own div because <pre> wrapping sometimes breaks stylesheet of htmlwidgets
+  # instantiate as HTML early so it does not get bundled into `pre`
+  output <- htmltools::HTML(paste0("<div class='knit_asis'>", x, "</div>"))
+  attr(output, "knit_meta") <- attr(x, "knit_meta")
+  output
+}
+
 
 # Knitr functions ------------------------------------------------------------
 # The functions below come from package knitr (Yihui Xie) in file plot.R

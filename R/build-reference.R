@@ -252,6 +252,9 @@ data_reference_topic <- function(topic,
     depth = depth
   )
 
+  out$examples_html_dependencies <- htmltools::htmlDependencies(out$examples)
+  htmltools::htmlDependencies(out$examples) <- NULL
+
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(
     "tag_details", "tag_references", "tag_source", "tag_format",
