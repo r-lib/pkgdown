@@ -55,7 +55,7 @@ replay_html.list <- function(x, ...) {
   for (i in seq_along(parts)) {
     output <- replay_html(parts[[i]], obj_id = i, ...)
     dependencies[[i]] <- attr(output, "knit_meta")
-    pieces[i] <- output
+    pieces[[i]] <- output
   }
 
   lib_dir <- "lib"
@@ -139,7 +139,8 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 
 #' @export
 replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
-  output <- paste0("</pre><div class='well knit_asis'>", x, "</div><pre class=\"example\">")
+  # close and open pre tags because it sometimes breaks stylesheet of htmlwidgets
+  output <- paste0("</pre><div class='examples'><div class='knit_asis'>", x, "</div></div><pre class='examples'>")
   attr(output, "knit_meta") <- attr(x, "knit_meta")
   output
 }

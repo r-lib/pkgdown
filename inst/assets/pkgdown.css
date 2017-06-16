@@ -159,6 +159,11 @@ code a, pre a {
 /* Reference examples knit_asis output ------------------------------------ */
 
 .examples .knit_asis {
+  margin: 10px 0;
   background-color: #fff;
   display: inline-block;
+}
+
+pre.examples:empty {
+  display: none; /* hide empty pre */
 }

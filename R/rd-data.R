@@ -136,11 +136,7 @@ as_data.tag_examples <- function(x, path, ...,
 
     output_handler <- evaluate::new_output_handler(
       value = function(x) {
-        if (isS4(x)) {
-          methods::show(x)
-        } else {
-          knitr::knit_print(x, options = list(screenshot.force = FALSE))
-        }
+        knitr::knit_print(x, options = list(screenshot.force = FALSE))
       }
     )
 

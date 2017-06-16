@@ -26,7 +26,6 @@ Imports:
     whisker,
     yaml,
     xml2 (>= 1.1.1),
-    methods,
     htmltools
 Suggests:
     devtools,
