@@ -156,14 +156,8 @@ code a, pre a {
 .error   { color: orange;  font-weight: bolder;}
 .warning { color: #6A0366; font-weight: bolder;}
 
-/* Reference examples knit_asis output ------------------------------------ */
+/* Reference examples output ---------------------------------------------- */
 
-.examples .knit_asis {
+.examples {
   margin: 10px 0;
-  background-color: #fff;
-  display: inline-block;
-}
-
-pre.examples:empty {
-  display: none; /* hide empty pre */
 }

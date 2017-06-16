@@ -50,7 +50,7 @@ replay_html.list <- function(x, ...) {
   # keep only high level plots
   parts <- merge_low_plot(parts)
 
-  pieces <- character(length(parts))
+  pieces <- list()
   dependencies <- list()
   for (i in seq_along(parts)) {
     output <- replay_html(parts[[i]], obj_id = i, ...)
@@ -58,6 +58,24 @@ replay_html.list <- function(x, ...) {
     pieces[[i]] <- output
   }
 
+  # bundle unwrapped pieces into `pre` blocks
+  standalone_piece_indices <- seq_along(pieces) %>%
+    purrr::keep(~ inherits(pieces[[.x]], "html"))
+  split_at_indices <- c(
+    standalone_piece_indices,     # split before html element
+    standalone_piece_indices + 1  # split after html element
+  )
+  bundled_pieces <- pieces %>%
+    split(cumsum(seq_along(pieces) %in% split_at_indices)) %>%
+    purrr::map_if(
+      ~ !inherits(.x[[1]], "html"),
+      ~ paste0("<pre>", paste0(.x, collapse = ""), "</pre>")
+    ) %>%
+    purrr::flatten() %>%
+    purrr::map_chr(as.character) %>%
+    unname()
+
+  # collect and relocate html dependencies
   lib_dir <- "lib"
   output_dir <- "."
   dependencies <- dependencies %>%
@@ -76,7 +94,7 @@ replay_html.list <- function(x, ...) {
   )
 
   htmltools::attachDependencies(
-    paste0(pieces, collapse = ""),
+    list(bundles = bundled_pieces),
     html_dependency
   )
 }
@@ -139,8 +157,9 @@ replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
 
 #' @export
 replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
-  # close and open pre tags because it sometimes breaks stylesheet of htmlwidgets
-  output <- paste0("</pre><div class='examples'><div class='knit_asis'>", x, "</div></div><pre class='examples'>")
+  # wrap in our own div because <pre> wrapping sometimes breaks stylesheet of htmlwidgets
+  # instantiate as HTML early so it does not get bundled into `pre`
+  output <- htmltools::HTML(paste0("<div class='knit_asis'>", x, "</div>"))
   attr(output, "knit_meta") <- attr(x, "knit_meta")
   output
 }
