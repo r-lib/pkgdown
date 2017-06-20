@@ -2,6 +2,7 @@
 # Manage current topic index ----------------------------------------------------
 
 context <- new_environment()
+context$packages <- character()
 
 context_set <- function(name, value) {
   old <- if (env_has(context, name)) env_get(context, name)
@@ -44,6 +45,14 @@ scoped_file_context <- function(rdname = "",
   context_set_scoped("rdname", rdname, scope = scope)
   context_set_scoped("depth", depth, scope = scope)
   context_set_scoped("packages", packages, scope = scope)
+}
+
+# Unlike file and package contexts, the attached context can be
+# built up over multiple calls, as we encounter new calls to
+# library() or require()
+register_attached_packages <- function(packages) {
+  packages <- union(packages, context_get("packages"))
+  context_set("packages", packages)
 }
 
 # defer helper ------------------------------------------------------------

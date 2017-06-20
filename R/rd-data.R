@@ -120,12 +120,9 @@ as_data.tag_examples <- function(x, path, ...,
     escape = FALSE
   )
 
-  packages <- packages_in_text(text)
-  # TODO: better way to update just packages
   scoped_file_context(
     rdname = context_get("rdname"),
-    depth = context_get("depth"),
-    packages = packages
+    depth = context_get("depth")
   )
 
   if (!examples) {

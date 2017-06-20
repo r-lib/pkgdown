@@ -1,20 +1,25 @@
-packages_in_text <- function(text) {
-  tryCatch({
-    expr <- parse(text = text)
-    packages <- purrr::map(expr, packages_in_expr)
+extract_package_attach <- function(expr) {
+  if (is.expression(expr)) {
+    packages <- purrr::map(expr, extract_package_attach)
     purrr::flatten_chr(packages)
-  }, error = function(e) character())
-}
-
-packages_in_expr <- function(expr) {
-  if (is_lang(expr)) {
+  } else if (is_lang(expr)) {
     if (is_lang(expr, c("library", "require"))) {
-      as.character(expr[[2]])
+      expr <- rlang::lang_standardise(expr)
+      if (!is_true(expr$character.only)) {
+        as.character(expr$package)
+      } else {
+        character()
+      }
     } else {
-      purrr::flatten_chr(purrr::map(as.list(expr[-1]), packages_in_expr))
+      args <- as.list(expr[-1])
+      purrr::flatten_chr(purrr::map(args, extract_package_attach))
     }
   } else {
     character()
   }
 }
 
+# Helper for testing
+extract_package_attach_ <- function(expr) {
+  extract_package_attach(enexpr(expr))
+}

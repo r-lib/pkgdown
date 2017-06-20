@@ -1,3 +1,6 @@
+# highlight_text mutates the linking scope because it has to register
+# library()/require() calls in order to link unqualified symbols to the
+# correct package.
 highlight_text <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
@@ -10,6 +13,9 @@ highlight_text <- function(text) {
   if (length(expr) == 0) {
     return(text)
   }
+
+  packages <- extract_package_attach(expr)
+  register_attached_packages(packages)
 
   out <- highlight::highlight(
     parse.output = expr,
