@@ -32,10 +32,14 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     n_args <- length(expr) - 1
 
     if (fun_name == "vignette") {
-      switch(n_args,
-        href_article_local(as.character(expr[[2]])),
-        NA_character_
-      )
+      expr <- lang_standardise(expr)
+      topic <- as.character(expr[[2]])
+
+      if (is.null(expr$package)) {
+        href_article_local(topic)
+      } else {
+        href_article_remote(expr$package, topic)
+      }
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
@@ -118,5 +122,24 @@ href_topic_remote <- function(topic, package) {
 }
 
 href_article_local <- function(article) {
-  paste0(up_path(context_get("depth")), "articles/", article, ".html")
+  path <- find_article(NULL, article)
+  if (is.null(path)) {
+    return(NA_character_)
+  }
+
+  paste0(up_path(context_get("depth")), "articles/", path)
+}
+
+href_article_remote <- function(package, article) {
+  path <- find_article(package, article)
+  if (is.null(path)) {
+    return(NA_character_)
+  }
+
+  base_url <- remote_package_url(package)
+  if (is.null(base_url)) {
+    paste0("https://cran.rstudio.com/web/packages/", package, "/vignettes/", path)
+  } else {
+    paste0(base_url, "/articles/", path)
+  }
 }

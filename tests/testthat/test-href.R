@@ -44,6 +44,9 @@ test_that("only links bare symbols if requested", {
   expect_equal(href_expr_(foo, bare_symbol = TRUE), "bar.html")
 })
 
+
+# help --------------------------------------------------------------------
+
 test_that("can link ? calls", {
   scoped_package_context("test", c(foo = "foo", "foo-package" = "foo-package"))
   scoped_file_context("bar")
@@ -53,10 +56,26 @@ test_that("can link ? calls", {
   expect_equal(href_expr_(package?foo), "foo-package.html")
 })
 
-test_that("can link to vignette", {
+
+# vignette ----------------------------------------------------------------
+
+test_that("can link to local articles", {
+  scoped_package_context("test", article_index = c(x = "y.html"))
   scoped_file_context(depth = 0)
 
-  expect_equal(href_expr_(vignette("x")), "articles/x.html")
-  # But not (currently) if package supplied
-  expect_equal(href_expr_(vignette('x', package = 'y')), NA_character_)
+  expect_equal(href_expr_(vignette("x")), "articles/y.html")
+  expect_equal(href_expr_(vignette("y")), NA_character_)
 })
+
+test_that("can link to remote articles", {
+  expect_equal(
+    href_expr_(vignette("moveline", "grid")),
+     "https://cran.rstudio.com/web/packages/grid/vignettes/moveline.pdf"
+  )
+
+  expect_equal(
+    href_expr_(vignette("highlight", "pkgdown")),
+    "http://hadley.github.io/pkgdown/reference/articles/test/highlight.html"
+  )
+})
+

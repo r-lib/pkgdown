@@ -19,6 +19,9 @@ remote_metadata <- memoise(function(package) {
 
     yaml <- tryCatch(fetch_yaml(url), error = function(e) NULL)
     if (!is.null(yaml)) {
+      if (has_name(yaml, "articles")) {
+        yaml$articles <- unlist(yaml$articles)
+      }
       return(yaml)
     }
   }

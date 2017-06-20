@@ -207,7 +207,7 @@ data_reference_topic <- function(topic,
                                  path = NULL,
                                  depth = 1L
                                  ) {
-  scoped_package_context(pkg$package, pkg$topic_index)
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])

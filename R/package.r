@@ -26,7 +26,8 @@ as_pkgdown <- function(path = ".") {
       meta = read_meta(path),
       topics = topics,
       vignettes = package_vignettes(path),
-      topic_index = build_topic_index(topics$alias, topics$file_in)
+      topic_index = topic_index_local(package),
+      article_index = article_index_local(package)
     ),
     class = "pkgdown"
   )

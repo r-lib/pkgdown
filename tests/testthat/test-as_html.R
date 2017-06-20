@@ -115,6 +115,7 @@ test_that("link to non-existing functions return label", {
 })
 
 test_that("code blocks autolinked to vignettes", {
+  scoped_package_context("test", article_index = c("abc" = "abc.html"))
   scoped_file_context(depth = 1L)
 
   expect_equal(

@@ -222,7 +222,10 @@ init_site <- function(pkg = ".", path = "docs") {
   # Generate site meta data file (avaiable to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
   if (!is.null(pkg$meta$url)) {
-    meta <- list(reference_url = paste0(pkg$meta$url, "/reference"))
+    meta <- list(
+      reference_url = paste0(pkg$meta$url, "/reference"),
+      articles = as.list(article_index_local(pkg$package))
+    )
     write_yaml(meta, path_meta)
   } else {
     unlink(path_meta)

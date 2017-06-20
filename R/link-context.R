@@ -32,11 +32,14 @@ context_set_scoped <- function(name, value, scope = parent.frame()) {
 
 scoped_package_context <- function(package,
                                    topic_index = NULL,
+                                   article_index = NULL,
                                    scope = parent.frame()) {
   topic_index <- topic_index %||% topic_index(package)
+  article_index <- article_index %||% article_index(package)
 
   context_set_scoped("package", package, scope = scope)
   context_set_scoped("topic_index", topic_index, scope = scope)
+  context_set_scoped("article_index", article_index, scope = scope)
 }
 scoped_file_context <- function(rdname = "",
                                 depth = 0L,

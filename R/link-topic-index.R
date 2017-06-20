@@ -14,24 +14,24 @@ topic_index <- function(package) {
 }
 
 topic_index_local <- memoise(function(package) {
+  if (!is_installed(package)) {
+    return(character())
+  }
+
   path <- find.package(package)
 
   rd <- package_rd(path)
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
-  file_in <- names(rd)
+  names(aliases) <- gsub("\\.Rd$", "", names(rd))
 
-  build_topic_index(aliases, file_in)
+  unlist(invert_index(aliases))
 })
 
-build_topic_index <- function(aliases, file_in) {
-  names(aliases) <- gsub("\\.Rd$", "", file_in)
-  unlist(invert_index(aliases))
-}
 
 topic_index_installed <- memoise(function(package) {
   path <- system.file("help", "aliases.rds", package = package)
-    if (path == "")
-      return(NULL)
+  if (path == "")
+    return(NULL)
 
   readRDS(path)
 })
