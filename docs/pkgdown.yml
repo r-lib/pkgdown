@@ -1,5 +1,5 @@
 reference_url: http://hadley.github.io/pkgdown/reference
 articles:
-  highlight-tests: highlight-tests.Rmd
-  pkgdown: pkgdown.Rmd
+  pkgdown: pkgdown.html
+  highlight: test/highlight.html
 
