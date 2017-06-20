@@ -15,11 +15,17 @@ This document uses a variety of linking styles for testing purposes
 
 ## Inline code
 
+Local:
+
 * `vignette("pkgdown")`
 * `build_site()`
+* `?template_navbar`
+
+Remote:
+
 * `MASS::enlist`
 * `MASS::enlist()`
-* `?template_navbar`
+* `?MASS::enlist`
 
 ## Code blocks
 

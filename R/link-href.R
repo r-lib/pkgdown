@@ -37,10 +37,21 @@ href_expr <- function(expr, bare_symbol = FALSE) {
         NA_character_
       )
     } else if (fun_name == "?") {
-      switch(n_args,
-        href_topic_local(as.character(expr[[2]])),                        # ?x,
-        href_topic_local(paste0(expr[[3]], "-", expr[[2]])) # package?x
-      )
+      if (n_args == 1) {
+        topic <- expr[[2]]
+        if (is_lang(topic, "::")) {
+          # ?pkg::x
+          href_topic_remote(as.character(topic[[3]]), as.character(topic[[2]]))
+        } else if (is_symbol(topic) || is_string(topic)) {
+          # ?x
+          href_topic_local(as.character(expr[[2]]))
+        } else {
+          NA_character_
+        }
+      } else if (n_args == 2) {
+        # package?x
+        href_topic_local(paste0(expr[[3]], "-", expr[[2]]))
+      }
     } else if (fun_name == "::") {
       href_topic_remote(as.character(expr[[3]]), as.character(expr[[2]]))
     } else {
