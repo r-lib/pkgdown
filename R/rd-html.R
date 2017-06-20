@@ -6,7 +6,7 @@ as_html <- function(x, ...) {
 
 flatten_para <- function(x, ...) {
   # Look for "\n" TEXT blocks within sequence of TEXT blocks
-  is_nl <- purrr::map_lgl(x, is_newline)
+  is_nl <- purrr::map_lgl(x, is_newline, trim = TRUE)
   is_text <- purrr::map_lgl(x, inherits, "TEXT")
   is_text_prev <- c(FALSE, is_text[-length(x)])
   is_text_next <- c(is_text[-1], FALSE)

@@ -182,6 +182,13 @@ drop_leading_newline <- function(x) {
   }
 }
 
-is_newline <- function(x) {
-  inherits(x, "TEXT") && identical(x[[1]], "\n")
+is_newline <- function(x, trim = FALSE) {
+  if (!inherits(x, "TEXT"))
+    return(FALSE)
+
+  text <- x[[1]]
+  if (trim) {
+    text <- gsub("^[ \t]+|[ \t]+$", "", text)
+  }
+  identical(text, "\n")
 }
