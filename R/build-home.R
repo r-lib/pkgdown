@@ -153,7 +153,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   links <- c(
-    data_link_cran(pkg),
+    data_link_repo(pkg),
     data_link_github(pkg),
     data_link_bug_report(pkg),
     data_link_meta(pkg)
@@ -212,19 +212,26 @@ data_link_bug_report <- function(pkg = ".") {
   link_url("Report a bug", bug_reports)
 }
 
-data_link_cran <- function(pkg = ".") {
+data_link_repo <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   name <- pkg$desc$get("Package")[[1]]
-  if (!on_cran(name))
+  repo_result <- repo_url(name)
+
+  if (is.null(repo_result))
     return(list())
 
+  if (names(repo_result) == "CRAN")
+    repo_link <- paste0("https://cran.r-project.org/package=", name)
+  else if (names(repo_result) == "BIOC")
+    repo_link <- paste0("https://www.bioconductor.org/packages/", name)
+  else
+    stop("Package link not supported")
+
   link_url(
-    "Download from CRAN",
-    paste0("https://cran.r-project.org/package=", name)
+    paste0("Download from ", names(repo_result), repo_link)
   )
 }
-
 
 cran_mirror <- function() {
   cran <- as.list(getOption("repos"))[["CRAN"]]
@@ -234,13 +241,26 @@ cran_mirror <- function() {
     cran
   }
 }
-on_cran <- function(pkg, cran = cran_mirror()) {
-  pkgs <- utils::available.packages(
-    type = "source",
-    contriburl = paste0(cran, "/src/contrib"))
-  pkg %in% rownames(pkgs)
+
+bioc_mirror <- function() {
+  if (requireNamespace("BiocInstaller", quietly = TRUE)) {
+    bioc <- BiocInstaller::biocinstallRepos()[["BioCsoft"]]
+  } else {
+    bioc <- "https://bioconductor.org/packages/release/bioc"
+  }
+  bioc
 }
 
+repo_url <- function(pkg, cran = cran_mirror(), bioc = bioc_mirror()) {
+  bioc_pkgs <- utils::available.packages(contriburl = paste0(bioc, "/src/contrib"))
+  cran_pkgs <- utils::available.packages(contriburl = paste0(cran, "/src/contrib"))
+  avail <- if (pkg %in% rownames(cran_pkgs)) {
+    c(CRAN = paste0(cran, "/web/packages/", pkg, "/index.html"))
+  } else if (pkg %in% rownames(bioc_pkgs)) {
+    c(BIOC = paste0(bioc, "/html/", pkg, ".html"))
+  } else { NULL }
+  return(avail)
+}
 
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)

@@ -35,7 +35,8 @@ Suggests:
     devtools,
     knitr,
     magick,
-    testthat
+    testthat,
+    BiocInstaller
 Remotes:
     r-lib/pkgload,
     r-lib/usethis
