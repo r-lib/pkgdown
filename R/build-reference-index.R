@@ -2,6 +2,10 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
+  if (length(meta) == 0) {
+    return(list())
+  }
+
   sections <- meta %>%
     purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
     purrr::compact()
@@ -75,11 +79,16 @@ find_icon <- function(aliases, path) {
 default_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  exported <- pkg$topics[!pkg$topics$internal, , drop = FALSE]
+  if (nrow(exported) == 0) {
+    return(list())
+  }
+
   print_yaml(list(
     list(
       title = "All functions",
       desc = NULL,
-      contents = paste0('`', pkg$topics$name[!pkg$topics$internal], '`')
+      contents = paste0('`', exported$name, '`')
     )
   ))
 }

@@ -21,13 +21,6 @@ test_that("link_license matches LICENSE", {
 
 # index -------------------------------------------------------------------
 
-test_that("can build package without any index/readme", {
-  expect_error(
-    build_home(test_path("home-empty"), tempdir()),
-    NA
-  )
-})
-
 test_that("intermediate files cleaned up automatically", {
   pkg <- test_path("home-index-rmd")
   build_home(pkg, tempdir())
