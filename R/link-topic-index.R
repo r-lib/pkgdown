@@ -14,14 +14,17 @@ topic_index <- function(package) {
 }
 
 topic_index_local <- memoise(function(package) {
-  topics <- package_topics(path = find.package(package))
-  build_topic_index(topics)
+  path <- find.package(package)
+
+  rd <- package_rd(path)
+  aliases <- purrr::map(rd, extract_tag, "tag_alias")
+  file_in <- names(rd)
+
+  build_topic_index(aliases, file_in)
 })
 
-build_topic_index <- function(topics) {
-  aliases <- topics$alias
-  names(aliases) <- gsub("\\.Rd$", "", topics$file_in)
-
+build_topic_index <- function(aliases, file_in) {
+  names(aliases) <- gsub("\\.Rd$", "", file_in)
   unlist(invert_index(aliases))
 }
 

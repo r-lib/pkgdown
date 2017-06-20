@@ -15,17 +15,18 @@ as_pkgdown <- function(path = ".") {
   }
 
   desc <- read_desc(path)
-  topics <- package_topics(path)
+  package <- desc$get("Package")[[1]]
+  topics <- package_topics(path, package)
 
   structure(
     list(
-      package = desc$get("Package")[[1]],
+      package = package,
       path = path,
       desc = desc,
       meta = read_meta(path),
       topics = topics,
       vignettes = package_vignettes(path),
-      topic_index = build_topic_index(topics)
+      topic_index = build_topic_index(topics$alias, topics$file_in)
     ),
     class = "pkgdown"
   )
@@ -72,8 +73,12 @@ read_meta <- function(path) {
 
 # Topics ------------------------------------------------------------------
 
-package_topics <- function(path = ".") {
+package_topics <- function(path = ".", package = "") {
   rd <- package_rd(path)
+
+  # In case there are links in titles
+  scoped_package_context(package)
+  scoped_file_context()
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names <- purrr::map_chr(rd, extract_tag, "tag_name")
