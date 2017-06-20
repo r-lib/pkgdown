@@ -111,22 +111,24 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
 # code --------------------------------------------------------------------
 
+# Assumes generated with rmarkdown (i.e. knitr + pandoc)
 tweak_code <- function(x, depth = 0L) {
   stopifnot(inherits(x, "xml_node"))
   scoped_file_context(depth = depth)
 
-  # <code> with no children
+  # <code> with no children (just text)
   x %>%
     xml2::xml_find_all(".//code[count(*) = 0]") %>%
     tweak_code_nodeset()
 
-  # <span class='kw'>
+  # <pre class="sourceCode r">
   x %>%
-    xml2::xml_find_all(".//span[@class = 'kw']") %>%
-    tweak_code_nodeset(bare_symbol = TRUE)
+    xml2::xml_find_all(".//pre[contains(@class, 'sourceCode') and contains(@class, 'r')]") %>%
+    purrr::map(tweak_pre_node)
 
   invisible()
 }
+
 tweak_code_nodeset <- function(nodes, ...) {
   text <- nodes %>% xml2::xml_text()
   href <- text %>% purrr::map_chr(href_string, ...)
@@ -138,6 +140,53 @@ tweak_code_nodeset <- function(nodes, ...) {
     xml2::xml_replace("a", href = href[has_link], text[has_link])
 
   invisible()
+}
+
+# Process in order, because attaching a package affects later code chunks
+tweak_pre_node <- function(node, ...) {
+  # Register attached packages
+  text <- node %>% xml2::xml_text()
+  expr <- tryCatch(parse(text = text), error = function(e) NULL)
+  packages <- extract_package_attach(expr)
+  register_attached_packages(packages)
+
+  # Find nodes with class kw and look backward to see if its qualified
+  span <- node %>% xml2::xml_find_all(".//span[@class = 'kw']")
+  pkg <- span %>% purrr::map_chr(find_qualifier)
+  has_pkg <- !is.na(pkg)
+
+  # Extract text and link
+  text <- span %>% xml2::xml_text()
+  href <- chr_along(text)
+  href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
+  href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
+
+  has_link <- !is.na(href)
+
+  span[has_link] %>%
+    xml2::xml_contents() %>%
+    xml2::xml_replace("a", href = href[has_link], text[has_link])
+
+  invisible()
+}
+
+find_qualifier <- function(node) {
+  prev <- rev(xml2::xml_find_all(node, "./preceding-sibling::node()"))
+  if (length(prev) < 2) {
+    return(NA_character_)
+  }
+
+  colons <- prev[[1]]
+  if (xml2::xml_name(colons) != "span" || xml2::xml_text(colons) != "::") {
+    return(NA_character_)
+  }
+
+  qual <- prev[[2]]
+  if (xml2::xml_name(qual) != "text") {
+    return(NA_character_)
+  }
+
+  rematch::re_match("([[:alnum:]]+)$", xml2::xml_text(qual))[, 2]
 }
 
 # Helper for testing

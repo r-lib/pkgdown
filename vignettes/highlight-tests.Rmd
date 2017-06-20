@@ -1,0 +1,44 @@
+---
+title: "Highlighting tests"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This document uses a variety of linking styles for testing purposes
+
+## Inline code
+
+* `vignette("pkgdown")`
+* `build_site()`
+* `MASS::enlist`
+* `MASS::enlist()`
+* `?template_navbar`
+
+## Code blocks
+
+```{r, eval = FALSE}
+# Shouldn't get linked
+enlist(5)
+# Should get linked
+MASS::enlist(5)
+```
+
+```{r}
+library(MASS)
+enlist(5)
+```
+
+```{r}
+# Should get linked because MASS was loaded previously
+enlist(5)
+```
+
+
+
