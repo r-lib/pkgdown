@@ -230,3 +230,9 @@ invert_index <- function(x) {
 a <- function(text, href) {
   ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
 }
+
+# Used for testing
+#' @keywords internal
+#' @importFrom MASS addterm
+#' @export
+MASS::addterm

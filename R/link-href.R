@@ -83,6 +83,12 @@ href_topic_local <- function(topic) {
     }
   }
 
+  if (rdname == "reexports") {
+    obj <- getExportedValue(context_get("package"), topic)
+    package <- ns_env_name(get_env(obj))
+    return(href_topic_remote(topic, package))
+  }
+
   if (rdname == context_get("rdname")) {
     return(NA_character_)
   }

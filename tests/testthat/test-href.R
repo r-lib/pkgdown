@@ -26,6 +26,11 @@ test_that("can link remote objects", {
   expect_equal(href_expr_(MASS::blah), NA_character_)
 })
 
+test_that("links to home of re-exported functions", {
+  scoped_package_context("pkgdown")
+  expect_equal(href_expr_(addterm()), href_topic_remote("addterm", "MASS"))
+})
+
 test_that("can link to remote pkgdown sites", {
   expect_equal(href_expr_(pkgdown::add_slug), href_topic_remote("pkgdown", "add_slug"))
   expect_equal(href_expr_(pkgdown::add_slug(1)), href_topic_remote("pkgdown", "add_slug"))
