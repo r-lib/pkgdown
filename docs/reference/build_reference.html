@@ -106,7 +106,7 @@ path to the source directory (not a relative path).</p></td>
       <th>lazy</th>
       <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
-rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site</a></code>.</p></td>
+rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     <tr>
       <th>examples</th>
@@ -160,7 +160,7 @@ or if the functions in a section share a common prefix or suffix, you
 can use <code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to
 select them all. For more complex naming schemes you can use an aribrary
 regular expression with <code>matches("regexp")</code>. You can also use a leading
-`-` to exclude matches from a section. By default, these functions that
+<code>-</code> to exclude matches from a section. By default, these functions that
 match multiple topics will exclude topics with keyword "internal". To
 include, use (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
 <p>Alternatively, you can selected topics that contain specified concepts with

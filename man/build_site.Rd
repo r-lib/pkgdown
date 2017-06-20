@@ -35,12 +35,13 @@ reproducible.}
 \description{
 \code{build_site()} is a convenient wrapper around five functions:
 \itemize{
-  \item \code{init_site()}
-  \item \code{\link{build_articles}()}
-  \item \code{\link{build_home}()}
-  \item \code{\link{build_reference}()}
-  \item \code{\link{build_news}()}
+\item \code{init_site()}
+\item \code{\link[=build_articles]{build_articles()}}
+\item \code{\link[=build_home]{build_home()}}
+\item \code{\link[=build_reference]{build_reference()}}
+\item \code{\link[=build_news]{build_news()}}
 }
+
 See the documentation for the each function to learn how to control
 that aspect of the site.
 }
@@ -121,7 +122,7 @@ icons. You can see a full list of options at
 
 Any missing components (\code{type}, \code{left}, or \code{right})
 will be automatically filled in from the default navbar: you can see
-those values by running \code{\link{template_navbar}()}.
+those values by running \code{\link[=template_navbar]{template_navbar()}}.
 }
 
 \section{YAML config - template}{

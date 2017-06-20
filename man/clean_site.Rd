@@ -15,5 +15,5 @@ path to the source directory (not a relative path).}
 path.}
 }
 \description{
-Deletes all files in `doc/` (except for `CNAME`)
+Deletes all files in \code{doc/} (except for \code{CNAME})
 }

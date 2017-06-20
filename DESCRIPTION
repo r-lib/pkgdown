@@ -43,3 +43,4 @@ VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 URL: http://hadley.github.io/pkgdown, https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues
+Roxygen: list(markdown = TRUE)

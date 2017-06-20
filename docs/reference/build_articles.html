@@ -83,7 +83,7 @@
     
     <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
-reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>html_document</a>()</code> with your pkgdown
+reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
 template.</p>
     
 
@@ -115,7 +115,7 @@ to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>Set to `FALSE` to display output of knitr and
+      <td><p>Set to <code>FALSE</code> to display output of knitr and
 pandoc. This is useful when debugging.</p></td>
     </tr>
     </table>
@@ -154,7 +154,7 @@ this page, and will generate a warning if you have missed any.</p>
 subdirectories or list in <code>.Rbuildignore</code>. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
+customise the navbar. See <code><a href='build_site.html'>build_site()</a></code> details.</p>
     
 
   </div>

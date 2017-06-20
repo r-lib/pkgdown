@@ -2,13 +2,13 @@
 #'
 #' By default, pkgdown will generate an index that simply lists all
 #' the functions in alphabetical order. To override this, provide a
-#' \code{reference} section in your \code{_pkgdown.yml} as described
+#' `reference` section in your `_pkgdown.yml` as described
 #' below.
 #'
 #' @section YAML config:
-#' To tweak the index page, you need a section called \code{reference}
-#' which provides a list of sections containing, a \code{title}, list of
-#' \code{contents}, and optional \code{description}.
+#' To tweak the index page, you need a section called `reference`
+#' which provides a list of sections containing, a `title`, list of
+#' `contents`, and optional `description`.
 #'
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
@@ -25,17 +25,17 @@
 #'   - render_page
 #' }
 #'
-#' Note that \code{contents} can contain either a list of function names,
+#' Note that `contents` can contain either a list of function names,
 #' or if the functions in a section share a common prefix or suffix, you
-#' can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
+#' can use `starts_with("prefix")` and `ends_with("suffix")` to
 #' select them all. For more complex naming schemes you can use an aribrary
-#' regular expression with \code{matches("regexp")}. You can also use a leading
+#' regular expression with `matches("regexp")`. You can also use a leading
 #' `-` to exclude matches from a section. By default, these functions that
 #' match multiple topics will exclude topics with keyword "internal". To
-#' include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
+#' include, use (e.g.) `starts_with("build_", internal = TRUE)`.
 #'
 #' Alternatively, you can selected topics that contain specified concepts with
-#' \code{has_concept("blah")}. Concepts are not currently well-supported by
+#' `has_concept("blah")`. Concepts are not currently well-supported by
 #' roxygen2, but may be useful if you write Rd files by hand.
 #'
 #' pkgdown will check that all non-internal topics are included on
@@ -43,14 +43,14 @@
 #'
 #' @section Icons:
 #' You can optionally supply an icon for each help topic. To do so, you'll
-#' need a top-level \code{icons} directory. This should contain {.png} files
+#' need a top-level `icons` directory. This should contain {.png} files
 #' that are either 40x40 (for regular display) or 80x80 (if you want
 #' retina display). Icons are matched to topics by aliases.
 #'
 #' @inheritParams build_articles
-#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rd}
-#'   is more recent than the \code{.html}. This makes it much easier to
-#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.
+#' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
+#'   is more recent than the `.html`. This makes it much easier to
+#'   rapidly protoype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?

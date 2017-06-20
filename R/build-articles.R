@@ -1,14 +1,14 @@
 #' Build articles
 #'
-#' Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
+#' Each Rmarkdown vignette in `vignettes/` and its subdirectories is
 #' rendered. Vignettes are rendered using a special document format that
-#' reconciles \code{\link[rmarkdown]{html_document}()} with your pkgdown
+#' reconciles [rmarkdown::html_document()] with your pkgdown
 #' template.
 #'
 #' @section YAML config:
-#' To tweak the index page, you need a section called \code{articles},
-#' which provides a list of sections containing, a \code{title}, list of
-#' \code{contents}, and optional \code{description}.
+#' To tweak the index page, you need a section called `articles`,
+#' which provides a list of sections containing, a `title`, list of
+#' `contents`, and optional `description`.
 #'
 #' For example, this imaginary file describes some of the structure of
 #' the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
@@ -24,13 +24,13 @@
 #'   - rmarkdown_site_generators
 #' }
 #'
-#' Note that \code{contents} can contain either a list of vignette names
+#' Note that `contents` can contain either a list of vignette names
 #' (including subdirectories), or if the functions in a section share a
-#' common prefix or suffix, you can use \code{starts_with("prefix")} and
-#' \code{ends_with("suffix")} to select them all. If you don't care about
-#' position within the string, use \code{contains("word")}. For more complex
+#' common prefix or suffix, you can use `starts_with("prefix")` and
+#' `ends_with("suffix")` to select them all. If you don't care about
+#' position within the string, use `contains("word")`. For more complex
 #' naming schemes you can use an aribrary regular expression with
-#' \code{matches("regexp")}.
+#' `matches("regexp")`.
 #'
 #' pkgdown will check that all vignettes are included in the index
 #' this page, and will generate a warning if you have missed any.
@@ -38,16 +38,16 @@
 #' @section Supressing vignettes:
 #'
 #' If you want articles that are not vignettes, either put them in
-#' subdirectories or list in \code{.Rbuildignore}. An articles link
+#' subdirectories or list in `.Rbuildignore`. An articles link
 #' will be automatically added to the default navbar if the vignettes
 #' directory is present: if you do not want this, you will need to
-#' customise the navbar. See \code{\link{build_site}} details.
+#' customise the navbar. See [build_site()] details.
 #'
 #' @param pkg Path to source package. If R working directory is not
 #'     set to the source directory, then pkg must be a fully qualified
 #'     path to the source directory (not a relative path).
 #' @param path Output path. Relative paths are taken relative to the
-#'     \code{pkg} directory.
+#'     `pkg` directory.
 #' @param depth Depth of path relative to root of documentation.  Used
 #'     to adjust relative links in the navbar.
 #' @param encoding The encoding of the input files.
