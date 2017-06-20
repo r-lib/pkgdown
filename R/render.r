@@ -137,7 +137,9 @@ write_if_different <- function(contents, path) {
   }
 
   message("Writing '", path, "'")
-  cat(contents, file = path)
+  file <- file(path, open = "w", encoding = "UTF-8")
+  on.exit(close(file))
+  cat(contents, file = file)
   TRUE
 }
 
