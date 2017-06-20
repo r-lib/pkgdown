@@ -116,7 +116,7 @@ build_reference <- function(pkg = ".",
   build_reference_index(pkg, path = path, depth = depth)
 
   if (examples) {
-    devtools::load_all(pkg$path)
+    pkgload::load_all(pkg$path)
     set.seed(seed)
   }
 
