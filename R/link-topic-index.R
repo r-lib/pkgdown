@@ -55,3 +55,17 @@ find_rdname <- function(package, topic, warn_if_not_found = FALSE) {
     NULL
   }
 }
+
+find_rdname_local <- function(topic) {
+  find_rdname(NULL, topic)
+}
+
+find_rdname_attached <- function(topic) {
+  for (package in context_get("packages")) {
+    rdname <- find_rdname(package, topic)
+    if (!is.null(rdname)) {
+      return(list(rdname = rdname, package = package))
+    }
+  }
+  NULL
+}

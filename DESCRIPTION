@@ -16,6 +16,7 @@ Imports:
     evaluate,
     highlight,
     httr,
+    MASS,
     magrittr,
     memoise,
     purrr,

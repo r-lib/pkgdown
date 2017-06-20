@@ -1,12 +1,13 @@
-syntax_highlight <- function(text) {
+highlight_text <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
   expr <- tryCatch(
     parse(text = text, keep.source = TRUE),
     error = function(e) NULL
   )
+
+  # Failed to parse, or yielded empty expression
   if (length(expr) == 0) {
-    # Failed to parse, or yielded empty expression
     return(text)
   }
 
@@ -20,17 +21,13 @@ syntax_highlight <- function(text) {
 }
 
 pkgdown_renderer <- function() {
-  link_local <- function(topic) {
-    a(topic, href_topic_local(topic))
-  }
-
   formatter <- function(tokens, styles, ...) {
-    call <- styles %in% "fu"
-    tokens[call] <- purrr::map_chr(tokens[call], link_local)
+    href <- href_tokens(tokens, styles)
+    linked <- !is.na(href)
+    tokens[linked] <- a(tokens[linked], href[linked])
 
     styled <- !is.na(styles)
-    tokens[styled] <- sprintf(
-      "<span class='%s'>%s</span>",
+    tokens[styled] <- sprintf("<span class='%s'>%s</span>",
       styles[styled],
       tokens[styled]
     )
@@ -42,6 +39,26 @@ pkgdown_renderer <- function() {
     footer = function(...) character(),
     formatter = formatter
   )
+}
+
+href_tokens <- function(tokens, styles) {
+  href <- chr_along(tokens)
+
+  # SYMBOL_PACKAGE must always be followed NS_GET (or NS_GET_INT)
+  # SYMBOL_FUNCTION_CALL or SYMBOL
+  pkg <- which(styles %in% "kw pkg")
+  pkg_call <- pkg + 2
+  href[pkg_call] <- purrr::map2_chr(
+    tokens[pkg_call],
+    tokens[pkg],
+    href_topic_remote
+  )
+
+  call <- which(styles %in% "fu")
+  call <- setdiff(call, pkg_call)
+  href[call] <- purrr::map_chr(tokens[call], href_topic_local)
+
+  href
 }
 
 # KeywordTok = kw,

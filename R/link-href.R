@@ -61,14 +61,21 @@ href_expr_ <- function(expr, ...) {
 }
 
 href_topic_local <- function(topic) {
-  rdname <- find_rdname(NULL, topic)
+  rdname <- find_rdname_local(topic)
   if (is.null(rdname)) {
-    return(NA_character_)
+    # Check attached packages
+    loc <- find_rdname_attached(topic)
+    if (is.null(loc)) {
+      return(NA_character_)
+    } else {
+      return(href_topic_remote(topic, loc$package))
+    }
   }
 
   if (rdname == context_get("rdname")) {
     return(NA_character_)
   }
+
 
   if (context_get("rdname") != "") {
     paste0(rdname, ".html")

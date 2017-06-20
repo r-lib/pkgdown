@@ -14,7 +14,7 @@ as_data.tag_usage <- function(x, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  syntax_highlight(text)
+  highlight_text(text)
 }
 
 # Arguments ------------------------------------------------------------------
@@ -120,8 +120,16 @@ as_data.tag_examples <- function(x, path, ...,
     escape = FALSE
   )
 
+  packages <- packages_in_text(text)
+  # TODO: better way to update just packages
+  scoped_file_context(
+    rdname = context_get("rdname"),
+    depth = context_get("depth"),
+    packages = packages
+  )
+
   if (!examples) {
-    syntax_highlight(text)
+    highlight_text(text)
   } else {
     old_dir <- setwd(path %||% tempdir())
     on.exit(setwd(old_dir), add = TRUE)

@@ -39,9 +39,11 @@ scoped_package_context <- function(package,
 }
 scoped_file_context <- function(rdname = "",
                                 depth = 0L,
+                                packages = character(),
                                 scope = parent.frame()) {
   context_set_scoped("rdname", rdname, scope = scope)
   context_set_scoped("depth", depth, scope = scope)
+  context_set_scoped("packages", packages, scope = scope)
 }
 
 # defer helper ------------------------------------------------------------
