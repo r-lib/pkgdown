@@ -36,7 +36,8 @@ Suggests:
     knitr,
     magick,
     testthat,
-    BiocInstaller
+    BiocInstaller,
+    covr
 Remotes:
     r-lib/pkgload,
     r-lib/usethis
