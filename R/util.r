@@ -110,16 +110,28 @@ print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
 
-copy_dir <- function(from, to) {
+copy_dir <- function(from, to, exclude_matching = NULL) {
 
   from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
   from_dirs <- from_dirs[from_dirs != '']
+
+  if (!is.null(exclude_matching)) {
+    exclude <- grepl(exclude_matching, from_dirs)
+    from_dirs <- from_dirs[!exclude]
+  }
 
   to_dirs <- file.path(to, from_dirs)
   purrr::walk(to_dirs, mkdir)
 
   from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
   from_files_rel <- list.files(from, recursive = TRUE)
+
+  if (!is.null(exclude_matching)) {
+    exclude <- grepl(exclude_matching, from_files_rel)
+
+    from_files <- from_files[!exclude]
+    from_files_rel <- from_files_rel[!exclude]
+  }
 
   to_paths <- file.path(to, from_files_rel)
   file.copy(from_files, to_paths, overwrite = TRUE)

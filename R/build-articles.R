@@ -69,7 +69,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   mkdir(path)
 
   # copy everything from vignettes/ to docs/articles
-  copy_dir(file.path(pkg$path, "vignettes"), path)
+  copy_dir(
+    file.path(pkg$path, "vignettes"), path,
+    exclude_matching = "rsconnect"
+  )
 
   # Render each Rmd then delete them
   articles <- tibble::tibble(
