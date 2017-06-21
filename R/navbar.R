@@ -42,30 +42,37 @@ render_navbar_links <- function(x, depth = 0L) {
 # Default navbar ----------------------------------------------------------
 
 default_navbar <- function(path = ".", title = NULL) {
+
+  left <- list()
+
+  left$reference <- list(
+    text = "Reference",
+    href = "reference/index.html"
+  )
+
+  if (has_vignettes(path)) {
+    left$vignette <- list(
+      text = "Articles",
+      href = "articles/index.html"
+    )
+  }
+
+  if (has_news(path)) {
+    left$news <- list(
+      text = "News",
+      href = "news/index.html"
+    )
+  }
+
+  right <- purrr::compact(list(
+    github_link(path)
+  ))
+
   list(
     title = title,
     type = "default",
-    left = purrr::compact(list(
-      list(
-        text = "Reference",
-        href = "reference/index.html"
-      ),
-      if (has_vignettes(path)) {
-        list(
-          text = "Articles",
-          href = "articles/index.html"
-        )
-      },
-      if (has_news(path)) {
-        list(
-          text = "News",
-          href = "news/index.html"
-        )
-      }
-    )),
-    right = purrr::compact(list(
-      github_link(path)
-    ))
+    left = unname(left),
+    right = unname(right)
   )
 }
 
