@@ -224,7 +224,7 @@ init_site <- function(pkg = ".", path = "docs") {
   if (!is.null(pkg$meta$url)) {
     meta <- list(
       reference_url = paste0(pkg$meta$url, "/reference"),
-      articles = as.list(article_index_local(pkg$package))
+      articles = as.list(pkg$article_index)
     )
     write_yaml(meta, path_meta)
   } else {

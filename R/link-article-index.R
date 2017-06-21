@@ -9,12 +9,10 @@ article_index <- function(package) {
   }
 }
 
-article_index_local <- function(package) {
+article_index_local <- function(package, path = find.package(package)) {
   if (!is_installed(package)) {
     return(character())
   }
-
-  path <- find.package(package)
 
   vig_path <- dir(
     file.path(path, "vignettes"),

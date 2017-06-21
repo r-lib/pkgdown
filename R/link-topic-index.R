@@ -13,19 +13,17 @@ topic_index <- function(package) {
   }
 }
 
-topic_index_local <- memoise(function(package) {
+topic_index_local <- function(package, path = find.package(package)) {
   if (!is_installed(package)) {
     return(character())
   }
-
-  path <- find.package(package)
 
   rd <- package_rd(path)
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names(aliases) <- gsub("\\.Rd$", "", names(rd))
 
   unlist(invert_index(aliases))
-})
+}
 
 
 topic_index_installed <- memoise(function(package) {
