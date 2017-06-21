@@ -61,7 +61,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
     file_ext <- tools::file_ext(data$path)
 
     if (file_ext == "md") {
-      data$index <- markdown(path = data$path, depth = 0L, index = pkg$topics)
+      data$index <- markdown(path = data$path, depth = 0L)
       render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
     } else if (file_ext == "Rmd") {
       if (identical(file_name, "README")) {

@@ -217,7 +217,7 @@ data_articles_index_section <- function(section, pkg, depth = 1L) {
 
   list(
     title = section$title,
-    desc = markdown_text(section$desc, depth = depth, index = pkg$topics),
+    desc = markdown_text(section$desc, depth = depth),
     class = section$class,
     contents = purrr::transpose(contents)
   )

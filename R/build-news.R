@@ -42,6 +42,7 @@ build_news <- function(pkg = ".",
     return()
 
   rule("Building news")
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   mkdir(path)
 
   if (one_page) {
@@ -110,9 +111,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   html <- markdown(
     file.path(pkg$path, "NEWS.md"),
     "--section-divs",
-    depth = depth,
-    index = pkg$topics
-  )
+    depth = depth)
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -136,7 +135,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   major <- pieces %>% purrr::map_chr(4)
 
   html <- sections %>%
-    purrr::walk(tweak_code, depth = depth, index = pkg$topics) %>%
+    purrr::walk(tweak_code, depth = depth) %>%
     purrr::map_chr(as.character)
 
   news <- tibble::tibble(

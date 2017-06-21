@@ -252,7 +252,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics) %>%
+    purrr::map(as_data) %>%
     purrr::map(add_slug)
 
   out

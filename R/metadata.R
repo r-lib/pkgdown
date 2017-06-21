@@ -2,13 +2,15 @@
 NULL
 
 remote_package_url <- function(package) {
-  remote_metadata(package)$reference_url
+  meta <- remote_metadata(package)
+  if (!is.list(meta)) browser()
+  meta$reference_url
 }
 
 remote_metadata <- memoise(function(package) {
   path <- find.package(package, quiet = TRUE)
   if (length(path) == 0) {
-    return(NULL)
+    return(list())
   }
 
   desc <- read_desc(path)
@@ -18,7 +20,7 @@ remote_metadata <- memoise(function(package) {
     url <- paste0(url, "/pkgdown.yml")
 
     yaml <- tryCatch(fetch_yaml(url), error = function(e) NULL)
-    if (!is.null(yaml)) {
+    if (is.list(yaml)) {
       if (has_name(yaml, "articles")) {
         yaml$articles <- unlist(yaml$articles)
       }
@@ -26,7 +28,7 @@ remote_metadata <- memoise(function(package) {
     }
   }
 
-  NULL
+  list()
 })
 
 fetch_yaml <- function(url) {
