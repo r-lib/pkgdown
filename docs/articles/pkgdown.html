@@ -29,10 +29,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../articles/pkgdown.html">Intro</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/pkgdown.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/test/highlight.html">Highlighting tests</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -142,7 +160,16 @@
 <div id="navbar2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#navbar2" class="anchor"></a>Navbar</h2>
-<p>By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the <code>DESCRIPTION</code> url field). You can override the defaults to:</p>
+<p>By default, the navbar will show:</p>
+<ul>
+<li>The home page, with a “home” icon.</li>
+<li>“Get Started”, if you have an article with the same name as the package.</li>
+<li>Reference</li>
+<li>Articles, if present.</li>
+<li>News, if present.</li>
+<li>A link to your your github repo (if listed in the <code>DESCRIPTION</code> url field).</li>
+</ul>
+<p>You can override the defaults to:</p>
 <ul>
 <li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
 <li><p>Provide deeper add additional hierarchical navigation (like<br><a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a>).</p></li>

@@ -102,7 +102,16 @@ If you want more detailed release notes (aimed at teaching people about the new 
 
 ## Navbar {#navbar2}
 
-By default, the navbar will have one link to each generated section, i.e. home, reference, articles, news, and a link to your github repo (if listed in the `DESCRIPTION` url field). You can override the defaults to:
+By default, the navbar will show:
+
+* The home page, with a "home" icon.
+* "Get Started", if you have an article with the same name as the package.
+* Reference
+* Articles, if present.
+* News, if present.
+* A link to your your github repo (if listed in the `DESCRIPTION` url field).
+
+You can override the defaults to:
 
 * Surface important articles directly from the navbar (a la
   <http://spark.rstudio.com>).
