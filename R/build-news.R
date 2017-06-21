@@ -43,6 +43,7 @@ build_news <- function(pkg = ".",
 
   rule("Building news")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
+  scoped_file_context(depth = depth)
   mkdir(path)
 
   if (one_page) {

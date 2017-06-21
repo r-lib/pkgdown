@@ -100,8 +100,8 @@ render_rmd <- function(pkg,
                        depth = 1L,
                        encoding = "UTF-8",
                        quiet = TRUE) {
-  message("Building article '", output_file, "'")
 
+  message("Building article '", output_file, "'")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 

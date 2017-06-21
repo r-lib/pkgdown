@@ -28,11 +28,13 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
-  rule("Building home")
-
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
   data <- data_home(pkg)
+
+  rule("Building home")
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
+  scoped_file_context(depth = depth)
 
   # Copy license file, if present
   license_path <- file.path(pkg$path, "LICENSE")
