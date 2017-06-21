@@ -2,15 +2,13 @@
 NULL
 
 remote_package_url <- function(package) {
-  meta <- remote_metadata(package)
-  if (!is.list(meta)) browser()
-  meta$reference_url
+  remote_metadata(package)$reference_url
 }
 
 remote_metadata <- memoise(function(package) {
   path <- find.package(package, quiet = TRUE)
   if (length(path) == 0) {
-    return(list())
+    return(NULL)
   }
 
   desc <- read_desc(path)
@@ -28,7 +26,7 @@ remote_metadata <- memoise(function(package) {
     }
   }
 
-  list()
+  NULL
 })
 
 fetch_yaml <- function(url) {

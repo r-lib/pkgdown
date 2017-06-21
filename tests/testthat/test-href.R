@@ -69,8 +69,8 @@ test_that("can link to local articles", {
 
 test_that("can link to remote articles", {
   expect_equal(
-    href_expr_(vignette("moveline", "grid")),
-     "https://cran.rstudio.com/web/packages/grid/vignettes/moveline.pdf"
+    href_expr_(vignette("sha1", "digest")),
+     "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
   )
 
   expect_equal(
