@@ -7,9 +7,17 @@ $(function() {
 
   var cur_path = paths(location.pathname);
   $("#navbar ul li a").each(function(index, value) {
+    if (value.text == "Home")
+      return;
+    if (value.getAttribute("href") === "#")
+      return;
+
     var path = paths(value.pathname);
     if (is_prefix(cur_path, path)) {
-      $(value.parentElement).addClass("active");
+      // Add class to parent <li>, and enclosing <li> if in dropdown
+      var menu_anchor = $(value);
+      menu_anchor.parent().addClass("active");
+      menu_anchor.closest("li.dropdown").addClass("active");
     }
   });
 });
