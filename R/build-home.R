@@ -231,7 +231,7 @@ data_link_repo <- function(pkg = ".") {
     stop("Package link not supported")
 
   link_url(
-    paste0("Download from ", names(repo_result), repo_link),
+    paste0("Download from ", names(repo_result)),
     repo_link
   )
 }
