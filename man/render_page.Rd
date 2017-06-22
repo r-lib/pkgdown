@@ -16,16 +16,14 @@ data_template(pkg = ".", depth = 0L)
 
 \item{data}{Data for the template.
 
-  This is automatically supplemented with three lists:
-  \itemize{
-  \item \code{site}: \code{title} and path to \code{root}.
-  \item \code{yaml}: the \code{template} key from
-     \code{_pkgdown.yml}.
-  \item \code{package}: package metadata including \code{name} and
-     \code{version}.
-  }
+This is automatically supplemented with three lists:
+\itemize{
+\item \code{site}: \code{title} and path to \code{root}.
+\item \code{yaml}: the \code{template} key from \code{_pkgdown.yml}.
+\item \code{package}: package metadata including \code{name} and\code{version}.
+}
 
-  See the full contents by running \code{data_template()}.}
+See the full contents by running \code{data_template()}.}
 
 \item{path}{Location to create file. If \code{""} (the default),
 prints to standard out.}

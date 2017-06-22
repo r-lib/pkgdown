@@ -18,7 +18,7 @@ path to the source directory (not a relative path).}
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
-rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.}
+rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
 
 \item{examples}{Run examples?}
 
@@ -67,7 +67,7 @@ or if the functions in a section share a common prefix or suffix, you
 can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
 select them all. For more complex naming schemes you can use an aribrary
 regular expression with \code{matches("regexp")}. You can also use a leading
-`-` to exclude matches from a section. By default, these functions that
+\code{-} to exclude matches from a section. By default, these functions that
 match multiple topics will exclude topics with keyword "internal". To
 include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
 

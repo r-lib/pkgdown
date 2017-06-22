@@ -52,10 +52,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/pkgdown.html">Intro</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/pkgdown.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/test/highlight.html">Highlighting tests</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -83,7 +101,7 @@
     
     <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
-reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>html_document</a>()</code> with your pkgdown
+reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
 template.</p>
     
 
@@ -115,7 +133,7 @@ to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>Set to `FALSE` to display output of knitr and
+      <td><p>Set to <code>FALSE</code> to display output of knitr and
 pandoc. This is useful when debugging.</p></td>
     </tr>
     </table>
@@ -127,7 +145,7 @@ pandoc. This is useful when debugging.</p></td>
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
 <p>For example, this imaginary file describes some of the structure of
-the <a href = 'http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>
+the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>
 articles:
 - title: R Markdown
   contents:
@@ -154,7 +172,7 @@ this page, and will generate a warning if you have missed any.</p>
 subdirectories or list in <code>.Rbuildignore</code>. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site</a></code> details.</p>
+customise the navbar. See <code><a href='build_site.html'>build_site()</a></code> details.</p>
     
 
   </div>

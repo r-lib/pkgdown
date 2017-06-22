@@ -1,5 +1,6 @@
 #' Test cases: lists
 #'
+#' @noMd
 #' @description
 #' \itemize{\item a}
 #'

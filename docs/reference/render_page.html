@@ -52,10 +52,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/pkgdown.html">Intro</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/pkgdown.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/test/highlight.html">Highlighting tests</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -106,10 +124,8 @@ then assembled into an overall page using the "layout" template.</p>
       <td><p>Data for the template.</p>
 <p>This is automatically supplemented with three lists:</p><ul>
 <li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
-<li><p><code>yaml</code>: the <code>template</code> key from
-     <code>_pkgdown.yml</code>.</p></li>
-<li><p><code>package</code>: package metadata including <code>name</code> and
-     <code>version</code>.</p></li>
+<li><p><code>yaml</code>: the <code>template</code> key from <code>_pkgdown.yml</code>.</p></li>
+<li><p><code>package</code>: package metadata including <code>name</code> and<code>version</code>.</p></li>
 </ul>
 
 <p>See the full contents by running <code>data_template()</code>.</p></td>

@@ -10,11 +10,11 @@ as_data.NULL <- function(x, ...) {
 # Usage -------------------------------------------------------------------
 
 #' @export
-as_data.tag_usage <- function(x, ..., index = NULL, current = NULL) {
+as_data.tag_usage <- function(x, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
   text <- trimws(text)
 
-  syntax_highlight(text, index = index, current = current)
+  highlight_text(text)
 }
 
 # Arguments ------------------------------------------------------------------
@@ -109,57 +109,80 @@ as_data.tag_value <- function(x, ...) {
 
 #' @export
 as_data.tag_examples <- function(x, path, ...,
-                             index = NULL,
-                             current = NULL,
                              examples = TRUE,
                              run_dont_run = FALSE,
                              topic = "unknown",
                              env = globalenv()) {
-  # First element of examples tag is always empty
-  text <- flatten_text(x[-1], ...,
-    run_dont_run = run_dont_run,
-    examples = examples,
-    escape = FALSE
-  )
 
+  # Divide top-level RCODE into contiguous chunks
+  is_rcode <- purrr::map_lgl(x, inherits, "RCODE")
+  is_tag <- !is_rcode
+  is_after_tag <- c(TRUE, is_tag[-length(is_tag)])
+
+  is_break <- is_tag | is_after_tag
+  group <- cumsum(is_break)
+
+  # Drop nl's immediately following a tag
+  is_nl <- purrr::map_lgl(x, is_newline, trim = TRUE)
+  remove <- is_nl & is_after_tag
+  x <- x[!remove]
+  group <- group[!remove]
+
+  # Extract code, combine into chunks, and remove don't show
+  chunks <- unname(split(x, group))
+  code <- purrr::map(chunks, flatten_text, escape = FALSE)
+  type <- purrr::map_chr(chunks, ~ class(.[[1]])[[1]])
+
+  dontshow <- type %in% c("tag_dontshow", "tag_testonly")
+  code <- code[!dontshow]
+  type <- type[!dontshow]
+
+  # Run or format each chunk
   if (!examples) {
-    syntax_highlight(text, index = index, current = current)
+    run <- rep(FALSE, length(code))
   } else {
-    old_dir <- setwd(path %||% tempdir())
-    on.exit(setwd(old_dir), add = TRUE)
-
-    old_opt <- options(width = 80)
-    on.exit(options(old_opt), add = TRUE)
-
-    code_env <- new.env(parent = env)
-    code_env$not_run <- function(...) invisible()
-
-    expr <- evaluate::evaluate(text, code_env, new_device = TRUE)
-
-    replay_html(
-      expr,
-      name_prefix = paste0(topic, "-"),
-      index = index,
-      current = current
-    )
+    if (run_dont_run) {
+      run <- type %in% c("RCODE", "tag_donttest", "tag_dontrun")
+    } else {
+      run <- type %in% c("RCODE", "tag_donttest")
+    }
   }
+
+  id_generator <- UniqueId$new()
+
+  html <- purrr::pmap_chr(
+    list(code = code, run = run),
+    format_example_chunk,
+    env = child_env(env),
+    path = path,
+    topic = topic,
+    obj_id = id_generator$id
+  )
+  paste(html, collapse = "")
+}
+
+format_example_chunk <- function(code, run, path, topic = "unknown", obj_id, env = global_env()) {
+  if (!run) {
+    code <- gsub("^\n|^", "# NOT RUN {\n", code)
+    code <- gsub("\n$|$", "\n# }\n", code)
+
+    return(highlight_text(code))
+  }
+
+  old_dir <- setwd(path)
+  on.exit(setwd(old_dir), add = TRUE)
+
+  old_opt <- options(width = 80)
+  on.exit(options(old_opt), add = TRUE)
+
+  expr <- evaluate::evaluate(code, env, new_device = TRUE)
+
+  replay_html(expr, topic = topic, obj_id = obj_id)
 }
 
 #' @export
-as_html.tag_dontrun <- function(x, ..., examples = TRUE, run_dont_run = FALSE) {
-  if (!examples || run_dont_run) {
-    flatten_text(drop_leading_newline(x), escape = FALSE)
-  } else if (length(x) == 1) {
-    paste0("## Not run: " , flatten_text(x))
-  } else {
-    # Internal TEXT nodes contain leading and trailing \n
-    text <- gsub("(^\n)|(\n$)", "", flatten_text(x, ...))
-    paste0(
-      "not_run({\n" ,
-      "  ", gsub("\n", "\n  ", text),
-      "\n})"
-    )
-  }
+as_html.tag_dontrun <- function(x, ...) {
+  flatten_text(drop_leading_newline(x), escape = FALSE)
 }
 
 #' @export
@@ -167,20 +190,52 @@ as_html.tag_donttest <- function(x, ...) {
   flatten_text(drop_leading_newline(x), escape = FALSE)
 }
 
+#' @export
+as_html.tag_dontshow <- function(x, ...) {
+  flatten_text(drop_leading_newline(x), escape = FALSE)
+}
+
+#' @export
+as_html.tag_testonly <- function(x, ...) {
+  flatten_text(drop_leading_newline(x), escape = FALSE)
+}
+
+
 # This helps with \donrun{} and \donttest{} which usually start with a
-# newline. However, It doesn't fully resolve the problem because there's
-# typically also a new line before and after (outside) the tag
+# newline.
 drop_leading_newline <- function(x) {
   if (length(x) == 0)
     return()
 
-  if (is_newline(x[[1]])) {
+  if (is_newline(x[[1]], trim = TRUE)) {
     x[-1]
   } else {
     x
   }
 }
 
-is_newline <- function(x) {
-  inherits(x, "TEXT") && identical(x[[1]], "\n")
+is_newline <- function(x, trim = FALSE) {
+  if (!inherits(x, "TEXT") && !inherits(x, "RCODE") && !inherits(x, "VERB"))
+    return(FALSE)
+
+  text <- x[[1]]
+  if (trim) {
+    text <- gsub("^[ \t]+|[ \t]+$", "", text)
+  }
+  identical(text, "\n")
 }
+
+UniqueId <- R6Class("UniqueId", public = list(
+  env = new_environment(),
+
+  id = function(name) {
+    if (!env_has(self$env, name)) {
+      id <- 1
+    } else {
+      id <- env_get(self$env, name) + 1
+    }
+
+    env_bind(self$env, !! name := id)
+    id
+  }
+))

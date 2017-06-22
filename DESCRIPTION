@@ -15,9 +15,15 @@ Imports:
     digest,
     evaluate,
     highlight,
+    httr,
+    MASS,
     magrittr,
+    memoise,
     purrr,
     pkgload,
+    R6,
+    rematch,
+    rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
     tibble,
@@ -31,11 +37,13 @@ Suggests:
     knitr,
     magick,
     testthat,
-    BiocInstaller
+    BiocInstaller,
+    covr
 Remotes:
-    r-pkgs/pkgload,
-    r-pkgs/usethis
+    r-lib/pkgload,
+    r-lib/usethis
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-URL: https://github.com/hadley/pkgdown
+URL: http://hadley.github.io/pkgdown, https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues
+Roxygen: list(markdown = TRUE)

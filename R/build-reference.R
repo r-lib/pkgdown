@@ -2,13 +2,13 @@
 #'
 #' By default, pkgdown will generate an index that simply lists all
 #' the functions in alphabetical order. To override this, provide a
-#' \code{reference} section in your \code{_pkgdown.yml} as described
+#' `reference` section in your `_pkgdown.yml` as described
 #' below.
 #'
 #' @section YAML config:
-#' To tweak the index page, you need a section called \code{reference}
-#' which provides a list of sections containing, a \code{title}, list of
-#' \code{contents}, and optional \code{description}.
+#' To tweak the index page, you need a section called `reference`
+#' which provides a list of sections containing, a `title`, list of
+#' `contents`, and optional `description`.
 #'
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
@@ -25,17 +25,17 @@
 #'   - render_page
 #' }
 #'
-#' Note that \code{contents} can contain either a list of function names,
+#' Note that `contents` can contain either a list of function names,
 #' or if the functions in a section share a common prefix or suffix, you
-#' can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
+#' can use `starts_with("prefix")` and `ends_with("suffix")` to
 #' select them all. For more complex naming schemes you can use an aribrary
-#' regular expression with \code{matches("regexp")}. You can also use a leading
+#' regular expression with `matches("regexp")`. You can also use a leading
 #' `-` to exclude matches from a section. By default, these functions that
 #' match multiple topics will exclude topics with keyword "internal". To
-#' include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
+#' include, use (e.g.) `starts_with("build_", internal = TRUE)`.
 #'
 #' Alternatively, you can selected topics that contain specified concepts with
-#' \code{has_concept("blah")}. Concepts are not currently well-supported by
+#' `has_concept("blah")`. Concepts are not currently well-supported by
 #' roxygen2, but may be useful if you write Rd files by hand.
 #'
 #' pkgdown will check that all non-internal topics are included on
@@ -43,14 +43,14 @@
 #'
 #' @section Icons:
 #' You can optionally supply an icon for each help topic. To do so, you'll
-#' need a top-level \code{icons} directory. This should contain {.png} files
+#' need a top-level `icons` directory. This should contain {.png} files
 #' that are either 40x40 (for regular display) or 80x80 (if you want
 #' retina display). Icons are matched to topics by aliases.
 #'
 #' @inheritParams build_articles
-#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rd}
-#'   is more recent than the \code{.html}. This makes it much easier to
-#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.
+#' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
+#'   is more recent than the `.html`. This makes it much easier to
+#'   rapidly protoype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
@@ -113,23 +113,28 @@ build_reference <- function(pkg = ".",
     copy_dir(figures_path, out_path)
   }
 
-  build_reference_index(pkg, path = path, depth = depth)
-
   if (examples) {
-    devtools::load_all(pkg$path)
+    # Re-loading pkgdown while it's running causes all weird behaviour with
+    # the context cache
+    if (pkg$package != "pkgdown") {
+      pkgload::load_all(pkg$path)
+    }
     set.seed(seed)
   }
 
-  pkg$topics %>%
-    purrr::transpose() %>%
-    purrr::map(build_reference_topic, path,
-      pkg = pkg,
-      lazy = lazy,
-      depth = depth,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax
-    )
+  build_reference_index(pkg, path = path, depth = depth)
+
+  topics <- pkg$topics %>% purrr::transpose()
+  purrr::map(topics,
+    build_reference_topic,
+    path,
+    pkg = pkg,
+    lazy = lazy,
+    depth = depth,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax
+  )
   invisible()
 }
 
@@ -172,18 +177,21 @@ build_reference_topic <- function(topic,
     return(invisible())
 
   message("Processing ", topic$file_in)
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
+  scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
 
+  data <- data_reference_topic(
+    topic,
+    pkg,
+    path = path,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax,
+    depth = depth
+  )
   render_page(
     pkg, "reference-topic",
-    data = data_reference_topic(
-      topic,
-      pkg,
-      path = path,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax,
-      depth = depth
-    ),
+    data = data,
     path = out_path,
     depth = depth
   )
@@ -201,7 +209,6 @@ data_reference_topic <- function(topic,
                                  path = NULL,
                                  depth = 1L
                                  ) {
-
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 
@@ -219,23 +226,10 @@ data_reference_topic <- function(topic,
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$description <- as_data(
-    tags$tag_description[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
 
-  out$usage <- as_data(
-    tags$tag_usage[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
-
-  out$arguments <- as_data(
-    tags$tag_arguments[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
+  out$description <- as_data(tags$tag_description[[1]])
+  out$usage <- as_data(tags$tag_usage[[1]])
+  out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
@@ -244,8 +238,6 @@ data_reference_topic <- function(topic,
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
-    index = pkg$topics,
-    current = get_current(topic, pkg),
     path = path,
     examples = examples,
     run_dont_run = run_dont_run,
@@ -259,7 +251,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = get_current(topic, pkg)) %>%
+    purrr::map(as_data) %>%
     purrr::map(add_slug)
 
   out
@@ -274,12 +266,4 @@ make_slug <- function(x) {
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
-}
-
-get_current <- function(topic, pkg) {
-  new_current(topic$name, pkg$desc$get("Package"))
-}
-
-new_current <- function(topic_name, pkg_name) {
-  structure(topic_name, pkg_name = pkg_name)
 }

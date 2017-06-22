@@ -7,3 +7,4 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^pkgdown$
+^codecov\.yml$

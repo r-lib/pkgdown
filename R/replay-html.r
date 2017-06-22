@@ -52,7 +52,7 @@ replay_html.list <- function(x, ...) {
 
   pieces <- character(length(parts))
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+    pieces[i] <- replay_html(parts[[i]], ...)
   }
   paste0(pieces, collapse = "")
 }
@@ -74,8 +74,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @export
-replay_html.source <- function(x, ..., index = NULL, current = current) {
-  html <- syntax_highlight(x$src, index = index, current = current)
+replay_html.source <- function(x, ...) {
+  html <- highlight_text(x$src)
   paste0("<div class='input'>", html, "</div>")
 }
 
@@ -103,14 +103,21 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @export
-replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
-  path <- paste0(name_prefix, obj_id, ".png")
+replay_html.recordedplot <- function(x, topic, obj_id, ...) {
+  path <- paste0(topic, "-", obj_id(topic), ".png")
 
-  grDevices::png(path, width = 540, height = 400)
+  w <- 700
+  h <- w / 1.618
+
+  grDevices::png(path, width = w * 2, height = h * 2, res = 144 * 1.2)
   on.exit(grDevices::dev.off())
   print(x)
 
-  paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
+  paste0(
+    "<div class='img'>",
+    "<img src='", escape_html(path), "' alt='' width='", w, "' height='", h, "' />",
+    "</div>"
+  )
 }
 
 # Knitr functions ------------------------------------------------------------

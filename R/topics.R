@@ -92,7 +92,8 @@ match_env <- function(topics) {
     as.list() %>%
     stats::setNames(topics$name)
 
-  list2env(c(funs, aliases, names))
+  # funs must come last in case package contains functions with same names
+  list2env(c(names, aliases, funs))
 }
 
 

@@ -52,10 +52,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/pkgdown.html">Intro</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/pkgdown.html">Get Started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/test/highlight.html">Highlighting tests</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -83,11 +101,13 @@
     
     <p><code>build_site()</code> is a convenient wrapper around five functions:</p><ul>
 <li><p><code>init_site()</code></p></li>
-<li><p><code><a href='build_articles.html'>build_articles</a>()</code></p></li>
-<li><p><code><a href='build_home.html'>build_home</a>()</code></p></li>
-<li><p><code><a href='build_reference.html'>build_reference</a>()</code></p></li>
-<li><p><code><a href='build_news.html'>build_news</a>()</code></p></li>
-</ul><p>See the documentation for the each function to learn how to control
+<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
+<li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
+<li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
+<li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
+</ul>
+
+    <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
     
 
@@ -153,7 +173,7 @@ will be automatically copied to <code>docs/</code> and inserted into the
 <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.
     <code>url</code> optionally specifies the url where the site will be published.
 If you supply this, other pkgdown sites will link to your site when needed,
-rather than using generic links to <a href = 'rdocumentation.org'>rdocumentation.org</a>.
+rather than using generic links to <a href='rdocumentation.org'>rdocumentation.org</a>.
     <code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
@@ -171,7 +191,7 @@ authors:
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
     <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
-syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
+syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p><pre>
 navbar:
   type: inverse
@@ -202,10 +222,10 @@ navbar:
 Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
-<a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
+<a href='http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
 <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
 will be automatically filled in from the default navbar: you can see
-those values by running <code><a href='templates.html'>template_navbar</a>()</code>.</p>
+those values by running <code><a href='templates.html'>template_navbar()</a></code>.</p>
     
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
@@ -222,11 +242,11 @@ template:
     bootswatch: cerulean
 </pre>
     <p>See a complete list of themes and preview how they look at
-<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+<a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
-<a href = 'Google Analytics'>https://www.google.com/analytics/</a>. It should
+<a href='Google Analytics'>https://www.google.com/analytics/</a>. It should
 correspond to your
-<a href = 'tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
+<a href='tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
 template:
   params:
     ganalytics: UA-000000-01
@@ -250,9 +270,9 @@ for pkgdown templates to ensure that you use the correct components.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-  <span class='fu'>build_site</span>()
-})</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>build_site</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

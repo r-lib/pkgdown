@@ -1,5 +1,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom roxygen2 roxygenise
+#' @importFrom R6 R6Class
+#' @import rlang
 NULL
 
 inst_path <- function() {
@@ -10,10 +12,6 @@ inst_path <- function() {
     # pkgdown was probably loaded with devtools
     file.path(getNamespaceInfo("pkgdown", "path"), "inst")
   }
-}
-
-"%||%" <- function(a, b) {
-  if (length(a)) a else b
 }
 
 markdown_text <- function(text, ...) {
@@ -27,7 +25,7 @@ markdown_text <- function(text, ...) {
   markdown(tmp, ...)
 }
 
-markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
+markdown <- function(path = NULL, ..., depth = 0L) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
 
@@ -45,7 +43,7 @@ markdown <- function(path = NULL, ..., depth = 0L, index = NULL) {
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
-  autolink_html(xml, depth = depth, index = index)
+  tweak_code(xml, depth = depth)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
@@ -113,16 +111,28 @@ print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
 
-copy_dir <- function(from, to) {
+copy_dir <- function(from, to, exclude_matching = NULL) {
 
   from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
   from_dirs <- from_dirs[from_dirs != '']
+
+  if (!is.null(exclude_matching)) {
+    exclude <- grepl(exclude_matching, from_dirs)
+    from_dirs <- from_dirs[!exclude]
+  }
 
   to_dirs <- file.path(to, from_dirs)
   purrr::walk(to_dirs, mkdir)
 
   from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
   from_files_rel <- list.files(from, recursive = TRUE)
+
+  if (!is.null(exclude_matching)) {
+    exclude <- grepl(exclude_matching, from_files_rel)
+
+    from_files <- from_files[!exclude]
+    from_files_rel <- from_files_rel[!exclude]
+  }
 
   to_paths <- file.path(to, from_files_rel)
   file.copy(from_files, to_paths, overwrite = TRUE)
@@ -213,3 +223,25 @@ read_file <- function(path) {
 write_yaml <- function(x, path) {
   cat(yaml::as.yaml(x), "\n", sep = "", file = path)
 }
+
+invert_index <- function(x) {
+  stopifnot(is.list(x))
+
+  if (length(x) == 0)
+    return(list())
+
+  key <- rep(names(x), purrr::map_int(x, length))
+  val <- unlist(x, use.names = FALSE)
+
+  split(key, val)
+}
+
+a <- function(text, href) {
+  ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
+}
+
+# Used for testing
+#' @keywords internal
+#' @importFrom MASS addterm
+#' @export
+MASS::addterm

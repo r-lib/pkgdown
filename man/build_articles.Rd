@@ -20,13 +20,13 @@ to adjust relative links in the navbar.}
 
 \item{encoding}{The encoding of the input files.}
 
-\item{quiet}{Set to `FALSE` to display output of knitr and
+\item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
 rendered. Vignettes are rendered using a special document format that
-reconciles \code{\link[rmarkdown]{html_document}()} with your pkgdown
+reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
 template.
 }
 \section{YAML config}{
@@ -68,6 +68,6 @@ If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
-customise the navbar. See \code{\link{build_site}} details.
+customise the navbar. See \code{\link[=build_site]{build_site()}} details.
 }
 

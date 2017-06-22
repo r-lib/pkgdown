@@ -1,13 +1,13 @@
 #' Build news section
 #'
-#' Your \code{NEWS.md} is parsed in to sections based on your use of
+#' Your `NEWS.md` is parsed in to sections based on your use of
 #' headings. Each minor version (i.e. the combination of first and second
 #' components) gets on one page, with all patch versions (i.e. the third
 #' component) on a single page. News items for development versions (by
 #' convention those versions with a fourth component) are displayed on an
 #' an "unreleased" page.
 #'
-#' The \code{NEWS.md} file should be formatted somewhat like this:
+#' The `NEWS.md` file should be formatted somewhat like this:
 #'
 #' \preformatted{
 #' # pkgdown 0.1.0.9000
@@ -26,8 +26,8 @@
 #' There are currently no configuration options.
 #'
 #' @inheritParams build_articles
-#' @param one_page If \code{TRUE}, writes all news to a single file.
-#'   If \code{FALSE}, writes one file per major version.
+#' @param one_page If `TRUE`, writes all news to a single file.
+#'   If `FALSE`, writes one file per major version.
 #' @export
 build_news <- function(pkg = ".",
                        path = "docs/news",
@@ -42,6 +42,8 @@ build_news <- function(pkg = ".",
     return()
 
   rule("Building news")
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
+  scoped_file_context(depth = depth)
   mkdir(path)
 
   if (one_page) {
@@ -110,9 +112,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   html <- markdown(
     file.path(pkg$path, "NEWS.md"),
     "--section-divs",
-    depth = depth,
-    index = pkg$topics
-  )
+    depth = depth)
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -136,7 +136,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   major <- pieces %>% purrr::map_chr(4)
 
   html <- sections %>%
-    purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
+    purrr::walk(tweak_code, depth = depth) %>%
     purrr::map_chr(as.character)
 
   news <- tibble::tibble(

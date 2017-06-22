@@ -3,7 +3,7 @@
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  default <- default_navbar(pkg$path, pkg$desc$get("Package")[[1]])
+  default <- default_navbar(pkg)
 
   navbar <- list(
     title =  pkg$meta$navbar$title %||% default$title,
@@ -41,32 +41,61 @@ render_navbar_links <- function(x, depth = 0L) {
 
 # Default navbar ----------------------------------------------------------
 
-default_navbar <- function(path = ".", title = NULL) {
-  list(
-    title = title,
-    type = "default",
-    left = purrr::compact(list(
-      list(
-        text = "Reference",
-        href = "reference/index.html"
-      ),
-      if (has_vignettes(path)) {
-        list(
-          text = "Articles",
-          href = "articles/index.html"
-        )
-      },
-      if (has_news(path)) {
-        list(
-          text = "News",
-          href = "news/index.html"
-        )
-      }
-    )),
-    right = purrr::compact(list(
-      github_link(path)
-    ))
+default_navbar <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  left <- list()
+
+  left$home <- list(
+    icon = "fa-home fa-lg",
+    href = "/index.html"
   )
+
+  vignettes <- pkg$vignettes
+  pkg_intro <- vignettes$name == pkg$package
+  if (any(pkg_intro)) {
+    intro <- vignettes[pkg_intro, , drop = FALSE]
+    vignettes <- vignettes[!pkg_intro, , drop = FALSE]
+
+    left$intro <- list(
+      text = "Get Started",
+      href = paste0("articles/", intro$file_out)
+    )
+  }
+
+  left$reference <- list(
+    text = "Reference",
+    href = "reference/index.html"
+  )
+
+  if (nrow(vignettes) > 0) {
+    articles <- purrr::map2(
+      vignettes$title, vignettes$file_out,
+      ~ list(text = .x, href = paste0("articles/", .y)))
+
+    left$articles <- list(
+      text = "Articles",
+      menu = articles
+    )
+  }
+
+  if (has_news(pkg$path)) {
+    left$news <- list(
+      text = "News",
+      href = "news/index.html"
+    )
+  }
+
+  right <- purrr::compact(list(
+    github_link(pkg$path)
+  ))
+
+  print_yaml(list(
+    title = pkg$package,
+    type = "default",
+    left = unname(left),
+    right = unname(right)
+  ))
 }
 
 github_link <- function(path = ".") {

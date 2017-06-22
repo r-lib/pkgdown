@@ -47,62 +47,77 @@ test_that("tabular converted to html", {
 test_that("href orders arguments correctly", {
    expect_equal(
      rd2html("\\href{http://a.com}{a}"),
-     "<a href = 'http://a.com'>a</a>"
+     a("a", href = "http://a.com")
    )
 })
 
 test_that("can convert cross links to online documentation url", {
+  scoped_package_context("test")
+
   expect_equal(
-    rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),
-    link_remote(label = "library", topic = "library", package = "base")
+    rd2html("\\link[base]{library}"),
+    a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  pkgdownindex = list(
-    name = "build_site",
-    alias = list(build_site.Rd = "build_site")
-  )
-  current <- new_current("library", "pkg.name")
+  scoped_package_context("mypkg", c(foo = "bar", baz = "baz"))
+  scoped_file_context("baz")
+
   expect_equal(
-    rd2html("\\link[pkg.name]{library}", index = pkgdownindex, current = current),
-    link_local(label = "library", topic = "library", index = pkgdownindex, current = current)
+    rd2html("\\link[mypkg]{foo}"),
+    a("foo", href_topic_local("foo"))
+  )
+  expect_equal(
+    rd2html("\\link[mypkg]{baz}"),
+    "baz"
   )
 })
 
 test_that("can parse local links with topic!=label", {
-  index <- list(name = "a", alias = list("x"), file_out = list("y.html"))
+  scoped_package_context("test", c(x = "y"))
+  scoped_file_context("baz")
+
   expect_equal(
-    rd2html("\\link[=x]{z}", index = index),
-    "<a href='y.html'>z</a>"
+    rd2html("\\link[=x]{z}"),
+    a("z", href_topic_local("x"))
   )
 })
 
 test_that("functions in other packages generates link to rdocumentation.org", {
+  scoped_package_context("mypkg", c(x = "x", y = "y"))
+  scoped_file_context("x")
+
   expect_equal(
-    rd2html("\\link[stats:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "<a href='http://www.rdocumentation.org/packages/stats/topics/acf'>xyz</a>"
+    rd2html("\\link[stats:acf]{xyz}", current = current),
+    a("xyz", href_topic_remote("acf", "stats"))
   )
 
   # Unless it's the current package
   expect_equal(
-    rd2html("\\link[y:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "xyz"
+    rd2html("\\link[mypkg:y]{xyz}", current = current),
+    a("xyz", href_topic_local("y"))
   )
 })
 
 test_that("link to non-existing functions return label", {
+  scoped_package_context("mypkg")
+  scoped_file_context("x")
+
   expect_equal(
-    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = current),
     "abc"
   )
   expect_equal(
-    rd2html("\\link[base:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[base:xyzxyz]{abc}", current = current),
     "abc"
   )
 })
 
 test_that("code blocks autolinked to vignettes", {
+  scoped_package_context("test", article_index = c("abc" = "abc.html"))
+  scoped_file_context(depth = 1L)
+
   expect_equal(
     rd2html("\\code{vignette('abc')}"),
     "<code><a href='../articles/abc.html'>vignette('abc')</a></code>"
@@ -115,6 +130,13 @@ test_that("empty lines break paragraphs", {
   expect_equal(
     flatten_para(rd_text("a\nb\n\nc")),
     "<p>a\nb</p>\n<p>c</p>"
+  )
+})
+
+test_that("indented empty lines break paragraphs", {
+  expect_equal(
+    flatten_para(rd_text("a\nb\n  \nc")),
+    "<p>a\nb</p>  \n<p>c</p>"
   )
 })
 
