@@ -21,6 +21,7 @@ Imports:
     memoise,
     purrr,
     pkgload,
+    R6,
     rematch,
     rlang,
     rmarkdown (>= 1.1.9007),

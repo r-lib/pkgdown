@@ -148,18 +148,20 @@ as_data.tag_examples <- function(x, path, ...,
     }
   }
 
-  # TODO Handle plots
+  id_generator <- UniqueId$new()
+
   html <- purrr:::pmap_chr(
-    list(code = code, run = run, id = seq_along(code)),
+    list(code = code, run = run),
     format_example_chunk,
     env = child_env(env),
     path = path,
-    topic = topic
+    topic = topic,
+    obj_id = id_generator$id
   )
   paste(html, collapse = "")
 }
 
-format_example_chunk <- function(code, run, path, topic = "unknown", id = 1, env = global_env()) {
+format_example_chunk <- function(code, run, path, topic = "unknown", obj_id, env = global_env()) {
   if (!run) {
     code <- gsub("^\n|^", "# NOT RUN {\n", code)
     code <- gsub("\n$|$", "\n# }\n", code)
@@ -175,10 +177,7 @@ format_example_chunk <- function(code, run, path, topic = "unknown", id = 1, env
 
   expr <- evaluate::evaluate(code, env, new_device = TRUE)
 
-  replay_html(
-    expr,
-    name_prefix = paste0(topic, "-", id, "-")
-  )
+  replay_html(expr, topic = topic, obj_id = obj_id)
 }
 
 #' @export
@@ -225,3 +224,18 @@ is_newline <- function(x, trim = FALSE) {
   }
   identical(text, "\n")
 }
+
+UniqueId <- R6Class("UniqueId", public = list(
+  env = new_environment(),
+
+  id = function(name) {
+    if (!env_has(self$env, name)) {
+      id <- 1
+    } else {
+      id <- env_get(self$env, name) + 1
+    }
+
+    env_bind(self$env, !! name := id)
+    id
+  }
+))

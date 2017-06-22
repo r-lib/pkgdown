@@ -52,7 +52,7 @@ replay_html.list <- function(x, ...) {
 
   pieces <- character(length(parts))
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+    pieces[i] <- replay_html(parts[[i]], ...)
   }
   paste0(pieces, collapse = "")
 }
@@ -103,8 +103,8 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @export
-replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
-  path <- paste0(name_prefix, obj_id, ".png")
+replay_html.recordedplot <- function(x, topic, obj_id, ...) {
+  path <- paste0(topic, "-", obj_id(topic), ".png")
 
   w <- 700
   h <- w / 1.618
