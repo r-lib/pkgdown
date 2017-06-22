@@ -106,11 +106,18 @@ replay_html.error <- function(x, ...) {
 replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
   path <- paste0(name_prefix, obj_id, ".png")
 
-  grDevices::png(path, width = 540, height = 400)
+  w <- 700
+  h <- w / 1.618
+
+  grDevices::png(path, width = w * 2, height = h * 2, res = 144 * 1.2)
   on.exit(grDevices::dev.off())
   print(x)
 
-  paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
+  paste0(
+    "<div class='img'>",
+    "<img src='", escape_html(path), "' alt='' width='", w, "' height='", h, "' />",
+    "</div>"
+  )
 }
 
 # Knitr functions ------------------------------------------------------------
