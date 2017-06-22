@@ -111,7 +111,7 @@ href_topic_remote <- function(topic, package) {
     return(NA_character_)
   }
 
-  reference_url <- remote_package_url(package)
+  reference_url <- remote_package_reference_url(package)
 
   if (!is.null(reference_url)) {
     paste0(reference_url, paste0("/", rdname, ".html"))
@@ -136,10 +136,10 @@ href_article_remote <- function(package, article) {
     return(NA_character_)
   }
 
-  base_url <- remote_package_url(package)
+  base_url <- remote_package_article_url(package)
   if (is.null(base_url)) {
     paste0("https://cran.rstudio.com/web/packages/", package, "/vignettes/", path)
   } else {
-    paste0(base_url, "/articles/", path)
+    paste0(base_url, "/", path)
   }
 }

@@ -1,8 +1,11 @@
 #' @importFrom memoise memoise
 NULL
 
-remote_package_url <- function(package) {
-  remote_metadata(package)$reference_url
+remote_package_reference_url <- function(package) {
+  remote_metadata(package)$urls$reference
+}
+remote_package_article_url <- function(package) {
+  remote_metadata(package)$urls$article
 }
 
 remote_metadata <- memoise(function(package) {

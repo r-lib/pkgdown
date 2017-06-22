@@ -141,7 +141,7 @@ pre .img {
   margin: 5px 0;
 }
 
-pre img {
+pre .img img {
   background-color: #fff;
   display: block;
   height: auto;

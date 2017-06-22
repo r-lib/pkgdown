@@ -223,7 +223,10 @@ init_site <- function(pkg = ".", path = "docs") {
   path_meta <- file.path(path, "pkgdown.yml")
   if (!is.null(pkg$meta$url)) {
     meta <- list(
-      reference_url = paste0(pkg$meta$url, "/reference"),
+      urls = list(
+        reference = paste0(pkg$meta$url, "/reference"),
+        article = paste0(pkg$meta$url, "/articles")
+      ),
       articles = as.list(pkg$article_index)
     )
     write_yaml(meta, path_meta)
