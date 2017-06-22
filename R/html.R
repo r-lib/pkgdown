@@ -116,15 +116,17 @@ tweak_code <- function(x, depth = 0L) {
   stopifnot(inherits(x, "xml_node"))
   scoped_file_context(depth = depth)
 
+  # <pre class="sourceCode r">
+  x %>%
+    xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
+    purrr::map(tweak_pre_node)
+
+  # Needs to second so have all packages loaded in chunks
   # <code> with no children (just text)
   x %>%
     xml2::xml_find_all(".//code[count(*) = 0]") %>%
     tweak_code_nodeset()
 
-  # <pre class="sourceCode r">
-  x %>%
-    xml2::xml_find_all(".//pre[contains(@class, 'sourceCode') and contains(@class, 'r')]") %>%
-    purrr::map(tweak_pre_node)
 
   invisible()
 }

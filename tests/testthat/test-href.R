@@ -36,6 +36,11 @@ test_that("can link to remote pkgdown sites", {
   expect_equal(href_expr_(pkgdown::add_slug(1)), href_topic_remote("pkgdown", "add_slug"))
 })
 
+test_that("or local sites, if registered", {
+  scoped_package_context("pkgdown", local_packages = c("MASS" = "MASS"))
+  expect_equal(href_expr_(MASS::abbey), "MASS/reference/abbey.html")
+})
+
 test_that("only links bare symbols if requested", {
   scoped_package_context("test", c(foo = "bar"))
   scoped_file_context("baz")
@@ -79,3 +84,7 @@ test_that("can link to remote articles", {
   )
 })
 
+test_that("or local sites, if registered", {
+  scoped_package_context("pkgdown", local_packages = c("digest" = "digest"))
+  expect_equal(href_expr_(vignette("sha1", "digest")), "digest/articles/sha1.html")
+})

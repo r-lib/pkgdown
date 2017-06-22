@@ -1,11 +1,24 @@
 #' @importFrom memoise memoise
 NULL
 
+remote_urls <- function(package) {
+  local <- context_get("local_packages")
+  if (has_name(local, package)) {
+    base_url <- local[[package]]
+    list(
+      reference = file.path(base_url, "reference"),
+      article = file.path(base_url, "articles")
+    )
+  } else {
+    remote_metadata(package)$urls
+  }
+}
+
 remote_package_reference_url <- function(package) {
-  remote_metadata(package)$urls$reference
+  remote_urls(package)$reference
 }
 remote_package_article_url <- function(package) {
-  remote_metadata(package)$urls$article
+  remote_urls(package)$article
 }
 
 remote_metadata <- memoise(function(package) {
