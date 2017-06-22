@@ -10,3 +10,27 @@
 #' library(magrittr, warn.conflicts = FALSE)
 #' subtract(10, 1)
 NULL
+
+#' Pulled pork
+#'
+#' @name pulledpork
+#' @keywords internal
+#' @examples
+#' 1 + 2
+#' plot(1, 1, axes = FALSE)
+#'
+#' \dontrun{
+#' 1 + 3
+#' }
+#'
+#' 2 + 3
+#' plot(1:2, 1:2, axes = FALSE)
+#'
+#' \donttest{
+#' 1 + 3
+#' }
+#'
+#' \dontshow{
+#' 5 + 6
+#' }
+NULL

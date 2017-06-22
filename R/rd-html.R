@@ -441,10 +441,6 @@ as_html.tag_enc <- function(x, ...) {
 #' @export
 as_html.NULL <-         function(x, ...) ""
 #' @export
-as_html.tag_dontshow <- function(x, ...) ""
-#' @export
-as_html.tag_testonly <- function(x, ...) ""
-#' @export
 as_html.tag_concept <-  function(x, ...) ""
 #' @export
 as_html.tag_out <-      function(x, ...) ""
