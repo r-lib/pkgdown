@@ -150,7 +150,7 @@ as_data.tag_examples <- function(x, path, ...,
 
   id_generator <- UniqueId$new()
 
-  html <- purrr:::pmap_chr(
+  html <- purrr::pmap_chr(
     list(code = code, run = run),
     format_example_chunk,
     env = child_env(env),
