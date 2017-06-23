@@ -41,16 +41,20 @@ usage_funs <- function(usage) {
 }
 
 fun_name <- function(expr) {
-  if (!is.call(expr) || length(expr) < 1) {
+  if (is_symbol(expr)) {
+    # Data
+    as.character(expr)
+  } else if (is_lang(expr)) {
+    # Functions & methods
+    fun <- as.character(expr[[1]])
+
+    switch(fun,
+      "<-" = paste0(fun_name(expr[[2]]), "<-"),
+      "S3method" = ,
+      "S4method" = NA_character_,
+      fun
+    )
+  } else {
     return(NA_character_)
   }
-
-  fun <- as.character(expr[[1]])
-
-  switch(fun,
-    "<-" = paste0(fun_name(expr[[2]]), "<-"),
-    "S3method" = ,
-    "S4method" = NA_character_,
-    fun
-  )
 }
