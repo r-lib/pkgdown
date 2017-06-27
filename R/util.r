@@ -20,7 +20,7 @@ markdown_text <- function(text, ...) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
 
-  writeLines(text, tmp)
+  write_utf8(text, path = tmp, sep = "\n")
   markdown(tmp, ...)
 }
 
@@ -208,7 +208,7 @@ read_file <- function(path) {
 }
 
 write_yaml <- function(x, path) {
-  cat(yaml::as.yaml(x), "\n", sep = "", file = path)
+  write_utf8(yaml::as.yaml(x), "\n", path = path, sep = "")
 }
 
 invert_index <- function(x) {
