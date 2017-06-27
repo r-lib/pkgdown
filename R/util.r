@@ -227,6 +227,12 @@ a <- function(text, href) {
   ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
 }
 
+write_utf8 <- function(..., path, sep = " ") {
+  file <- file(path, open = "w", encoding = "UTF-8")
+  on.exit(close(file))
+  cat(..., file = file, sep = sep)
+}
+
 # Used for testing
 #' @keywords internal
 #' @importFrom MASS addterm
