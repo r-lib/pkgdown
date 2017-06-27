@@ -131,5 +131,7 @@ role_lookup <- c(
   "ctr" = "contractor",
   "dtc" = "data&nbsp;contributor",
   "ths" = "thesis&nbsp;advisor",
-  "trl" = "translator"
+  "trl" = "translator",
+  "ldr" = "laboratory&nbsp;director",
+  "led" = "leader"
 )
