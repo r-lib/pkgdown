@@ -13,7 +13,7 @@ topic_index <- function(package) {
   }
 }
 
-topic_index_local <- function(package, path = find.package(package)) {
+topic_index_local <- memoise(function(package, path = find.package(package)) {
   if (!is_installed(package)) {
     return(character())
   }
@@ -23,7 +23,7 @@ topic_index_local <- function(package, path = find.package(package)) {
   names(aliases) <- gsub("\\.Rd$", "", names(rd))
 
   unlist(invert_index(aliases))
-}
+})
 
 
 topic_index_installed <- memoise(function(package) {
