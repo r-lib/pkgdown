@@ -199,7 +199,7 @@ role_lookup <- c(
   "cou" = "court&nbsp;governed",
   "crt" = "court&nbsp;reporter",
   "cov" = "cover&nbsp;designer",
-  "cre" = "creator",
+  "cre" = "maintainer",
   "cur" = "curator",
   "dnc" = "dancer",
   "dtc" = "data&nbsp;contributor",
