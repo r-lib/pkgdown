@@ -307,7 +307,14 @@ as_html.tag_describe <- function(x, ...) {
 # sequence of tags.
 #' @export
 as_html.tag_item <- function(x, ...) {
-  ""
+  tryCatch({
+    paste0(
+    "<dt>", flatten_text(x[[1]], ...), "</dt>",
+    "<dd>", flatten_text(x[-1], ...), "</dd>"
+    )
+  }, error = function(e) {
+    flatten_text(x, ...)
+  })
 }
 
 parse_items <- function(rd, ...) {
@@ -383,6 +390,9 @@ as_html.tag_code <-         function(x, ...) {
   href <- href_expr(expr, text)
   paste0("<code>", a(text, href = href), "</code>")
 }
+
+#' @export
+as_html.tag_special <-      tag_wrapper("<code>", "</code>")
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 #' @export
@@ -411,7 +421,7 @@ as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
 #' @export
 as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
-as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
+as_html.tag_acronym <-      tag_wrapper('<acronym>','</acronym>')
 
 # Insertions --------------------------------------------------------------
 
