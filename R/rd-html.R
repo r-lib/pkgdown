@@ -145,6 +145,8 @@ as_html.tag_link <- function(x, ...) {
 
   in_braces <- flatten_text(x)
 
+  return(sprintf("<a rd-options='%s' href='%s'>%s</a>", opt %||% '', in_braces, in_braces))
+
   if (is.null(opt)) {
     # \link{topic}
     href <- href_topic_local(in_braces)
@@ -378,7 +380,7 @@ as_html.tag_code <-         function(x, ...) {
     parse(text = text)[[1]],
     error = function(e) NULL
   )
-  href <- href_expr(expr)
+  href <- href_expr(expr, text)
   paste0("<code>", a(text, href = href), "</code>")
 }
 #' @export

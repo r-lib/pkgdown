@@ -2,6 +2,8 @@
 # library()/require() calls in order to link unqualified symbols to the
 # correct package.
 highlight_text <- function(text) {
+  return(text)
+
   stopifnot(is.character(text), length(text) == 1)
 
   expr <- tryCatch(
