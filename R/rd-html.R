@@ -186,7 +186,8 @@ as_html.tag_linkS4class <- function(x, ...) {
   stopifnot(length(x) == 1)
 
   text <- flatten_text(x[[1]])
-  href <- href_topic_local(paste0(text, "-class"))
+  #href <- href_topic_local(paste0(text, "-class"))
+  href <- sprintf("<a href='%s'></a>", text)
   a(text, href = href)
 }
 
