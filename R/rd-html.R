@@ -389,7 +389,7 @@ as_html.tag_code <-         function(x, ...) {
     error = function(e) NULL
   )
   href <- href_expr(expr, text)
-  paste0("<code>", a(text, href = href), "</code>")
+  paste0("<code>", href, "</code>")
 }
 
 #' @export
