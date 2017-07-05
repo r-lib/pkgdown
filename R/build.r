@@ -190,7 +190,8 @@ preview_site <- function(path) {
 
 build_site_rstudio <- function() {
   devtools::document()
-  callr::r(function() pkgdown::build_site(preview = TRUE), show = TRUE)
+  callr::r(function() pkgdown::build_site(), show = TRUE)
+  preview_site("docs/")
   invisible()
 }
 
