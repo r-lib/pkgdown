@@ -145,6 +145,8 @@ as_html.tag_link <- function(x, ...) {
 
   in_braces <- flatten_text(x)
 
+  return(sprintf("<a rd-options='%s' href='%s'>%s</a>", opt %||% '', in_braces, in_braces))
+
   if (is.null(opt)) {
     # \link{topic}
     href <- href_topic_local(in_braces)
@@ -184,7 +186,8 @@ as_html.tag_linkS4class <- function(x, ...) {
   stopifnot(length(x) == 1)
 
   text <- flatten_text(x[[1]])
-  href <- href_topic_local(paste0(text, "-class"))
+  #href <- href_topic_local(paste0(text, "-class"))
+  href <- sprintf("<a href='%s'></a>", text)
   a(text, href = href)
 }
 
@@ -305,7 +308,14 @@ as_html.tag_describe <- function(x, ...) {
 # sequence of tags.
 #' @export
 as_html.tag_item <- function(x, ...) {
-  ""
+  tryCatch({
+    paste0(
+    "<dt>", flatten_text(x[[1]], ...), "</dt>",
+    "<dd>", flatten_text(x[-1], ...), "</dd>"
+    )
+  }, error = function(e) {
+    flatten_text(x, ...)
+  })
 }
 
 parse_items <- function(rd, ...) {
@@ -378,9 +388,12 @@ as_html.tag_code <-         function(x, ...) {
     parse(text = text)[[1]],
     error = function(e) NULL
   )
-  href <- href_expr(expr)
-  paste0("<code>", a(text, href = href), "</code>")
+  href <- href_expr(expr, text)
+  paste0("<code>", href, "</code>")
 }
+
+#' @export
+as_html.tag_special <-      tag_wrapper("<code>", "</code>")
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 #' @export
@@ -409,7 +422,7 @@ as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
 #' @export
 as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
-as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
+as_html.tag_acronym <-      tag_wrapper('<acronym>','</acronym>')
 
 # Insertions --------------------------------------------------------------
 

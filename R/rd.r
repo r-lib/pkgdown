@@ -6,6 +6,7 @@ rd_text <- function(x, fragment = TRUE) {
 }
 
 rd_file <- function(path, pkg_path = NULL) {
+  remove_ifdef(path)
   macros <- tools::loadPkgRdMacros(pkg_path, TRUE)
   set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
 }
@@ -13,6 +14,13 @@ rd_file <- function(path, pkg_path = NULL) {
 rd2html <- function(x, fragment = TRUE, ...) {
   html <- as_html(rd_text(x, fragment = fragment), ...)
   trimws(strsplit(trimws(html), "\n")[[1]])
+}
+
+# pkgdown doesn't understand ifdef: remove for now
+remove_ifdef <- function(path) {
+  lines <- readLines(path, encoding = "UTF-8")
+  hits <- grepl("^#ifdef", lines) | grepl("^#endif", lines)
+  write(lines[!hits], file = path)
 }
 
 #' @export

@@ -4,11 +4,13 @@ href_string <- function(x, bare_symbol = FALSE) {
     return(NA_character_)
   }
 
-  href_expr(expr, bare_symbol = bare_symbol)
+  href_expr(expr, x, bare_symbol = bare_symbol)
 }
 
 
-href_expr <- function(expr, bare_symbol = FALSE) {
+href_expr <- function(expr, text, bare_symbol = FALSE) {
+  return(text)
+
   if (is_symbol(expr) && bare_symbol) {
     # foo
     href_topic_local(as.character(expr))
@@ -71,8 +73,8 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 }
 
 # Helper for testing
-href_expr_ <- function(expr, ...) {
-  href_expr(substitute(expr), ...)
+href_expr_ <- function(expr, text, ...) {
+  href_expr(substitute(expr), text, ...)
 }
 
 href_topic_local <- function(topic) {
