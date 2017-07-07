@@ -99,6 +99,7 @@ build_reference <- function(pkg = ".",
   path <- rel_path(path, pkg$path)
 
   rule("Building function reference")
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
 
   if (!is.null(path)) {
     mkdir(path)
@@ -151,6 +152,7 @@ build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L
     copy_dir(logo_path, file.path(path, "icons"))
   }
 
+  scoped_file_context(depth = depth)
   render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg, depth = depth),
@@ -177,7 +179,6 @@ build_reference_topic <- function(topic,
     return(invisible())
 
   message("Processing ", topic$file_in)
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
 
   data <- data_reference_topic(
