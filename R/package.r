@@ -137,11 +137,13 @@ is_internal <- function(x) {
 
 package_vignettes <- function(path = ".") {
   # check for build exclusions
+  exclude <- NULL
   if (file.exists(file.path(".", ".Rbuildignore"))) {
     buildignore <- readLines(file.path(".", ".Rbuildignore"))
-    exclude <- paste0(buildignore, collapse = "|")
-  } else {
-    exclude <- NULL
+    buildignore <- buildignore[nchar(buildignore) > 0]
+    if (length(buildignore) > 0) {
+      exclude <- paste(buildignore, collapse = "|")
+    }
   }
 
   # find all non-excluded vignette directories
