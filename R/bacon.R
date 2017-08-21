@@ -30,7 +30,9 @@ NULL
 #' 1 + 3
 #' }
 #'
+#' answer <- 1
 #' \dontshow{
-#' 5 + 6
+#' answer <- 42
 #' }
+#' answer # should be 42
 NULL

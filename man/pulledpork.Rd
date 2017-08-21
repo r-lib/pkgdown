@@ -21,8 +21,10 @@ plot(1:2, 1:2, axes = FALSE)
 1 + 3
 }
 
+answer <- 1
 \dontshow{
-5 + 6
+answer <- 42
 }
+answer # should be 42
 }
 \keyword{internal}

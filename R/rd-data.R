@@ -109,10 +109,10 @@ as_data.tag_value <- function(x, ...) {
 
 #' @export
 as_data.tag_examples <- function(x, path, ...,
-                             examples = TRUE,
-                             run_dont_run = FALSE,
-                             topic = "unknown",
-                             env = globalenv()) {
+                                 examples = TRUE,
+                                 run_dont_run = FALSE,
+                                 topic = "unknown",
+                                 env = globalenv()) {
 
   # Divide top-level RCODE into contiguous chunks
   is_rcode <- purrr::map_lgl(x, inherits, "RCODE")
@@ -128,30 +128,28 @@ as_data.tag_examples <- function(x, path, ...,
   x <- x[!remove]
   group <- group[!remove]
 
-  # Extract code, combine into chunks, and remove don't show
+  # Extract code and combine into chunks
   chunks <- unname(split(x, group))
   code <- purrr::map(chunks, flatten_text, escape = FALSE)
   type <- purrr::map_chr(chunks, ~ class(.[[1]])[[1]])
-
-  dontshow <- type %in% c("tag_dontshow", "tag_testonly")
-  code <- code[!dontshow]
-  type <- type[!dontshow]
 
   # Run or format each chunk
   if (!examples) {
     run <- rep(FALSE, length(code))
   } else {
     if (run_dont_run) {
-      run <- type %in% c("RCODE", "tag_donttest", "tag_dontrun")
+      run <- type %in% c("RCODE", "tag_dontshow", "tag_donttest", "tag_dontrun")
     } else {
-      run <- type %in% c("RCODE", "tag_donttest")
+      run <- type %in% c("RCODE", "tag_dontshow", "tag_donttest")
     }
   }
+
+  show <- !(type %in% c("tag_dontshow", "tag_testonly"))
 
   id_generator <- UniqueId$new()
 
   html <- purrr::pmap_chr(
-    list(code = code, run = run),
+    list(code = code, run = run, show = show),
     format_example_chunk,
     env = child_env(env),
     path = path,
@@ -161,7 +159,11 @@ as_data.tag_examples <- function(x, path, ...,
   paste(html, collapse = "")
 }
 
-format_example_chunk <- function(code, run, path, topic = "unknown", obj_id, env = global_env()) {
+format_example_chunk <- function(code, run, show, path,
+                                 topic = "unknown",
+                                 obj_id,
+                                 env = global_env()) {
+
   if (!run) {
     code <- gsub("^\n|^", "# NOT RUN {\n", code)
     code <- gsub("\n$|$", "\n# }\n", code)
@@ -177,7 +179,11 @@ format_example_chunk <- function(code, run, path, topic = "unknown", obj_id, env
 
   expr <- evaluate::evaluate(code, env, new_device = TRUE)
 
-  replay_html(expr, topic = topic, obj_id = obj_id)
+  if (show) {
+    replay_html(expr, topic = topic, obj_id = obj_id)
+  } else {
+    ""
+  }
 }
 
 #' @export
@@ -235,7 +241,7 @@ UniqueId <- R6Class("UniqueId", public = list(
       id <- env_get(self$env, name) + 1
     }
 
-    env_bind(self$env, !! name := id)
+    env_bind(self$env, !!name := id)
     id
   }
 ))
