@@ -109,10 +109,10 @@ as_data.tag_value <- function(x, ...) {
 
 #' @export
 as_data.tag_examples <- function(x, path, ...,
-                             examples = TRUE,
-                             run_dont_run = FALSE,
-                             topic = "unknown",
-                             env = globalenv()) {
+                                 examples = TRUE,
+                                 run_dont_run = FALSE,
+                                 topic = "unknown",
+                                 env = globalenv()) {
 
   # Divide top-level RCODE into contiguous chunks
   is_rcode <- purrr::map_lgl(x, inherits, "RCODE")
@@ -159,7 +159,11 @@ as_data.tag_examples <- function(x, path, ...,
   paste(html, collapse = "")
 }
 
-format_example_chunk <- function(code, run, show, path, topic = "unknown", obj_id, env = global_env()) {
+format_example_chunk <- function(code, run, show, path,
+                                 topic = "unknown",
+                                 obj_id,
+                                 env = global_env()) {
+
   if (!run) {
     code <- gsub("^\n|^", "# NOT RUN {\n", code)
     code <- gsub("\n$|$", "\n# }\n", code)
@@ -237,7 +241,7 @@ UniqueId <- R6Class("UniqueId", public = list(
       id <- env_get(self$env, name) + 1
     }
 
-    env_bind(self$env, !! name := id)
+    env_bind(self$env, !!name := id)
     id
   }
 ))
