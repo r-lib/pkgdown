@@ -136,15 +136,46 @@ is_internal <- function(x) {
 # Vignettes ---------------------------------------------------------------
 
 package_vignettes <- function(path = ".") {
-  vig_path <- dir(
-    file.path(path, "vignettes"),
-    pattern = "\\.Rmd$",
-    recursive = TRUE
-  )
+  # check for build exclusions
+  exclude <- NULL
+  if (file.exists(file.path(".", ".Rbuildignore"))) {
+    buildignore <- readLines(file.path(".", ".Rbuildignore"))
+    buildignore <- buildignore[nchar(buildignore) > 0]
+    if (length(buildignore) > 0) {
+      exclude <- paste(buildignore, collapse = "|")
+    }
+  }
 
+  # find all non-excluded vignette directories
+  vig_dirs <- list.dirs(file.path(path, "vignettes"), full.names = FALSE)
+  if (!is.null(exclude)) {
+    vig_dirs <- vig_dirs[grep(exclude, invert = TRUE,
+                              file.path("vignettes", vig_dirs))]
+  }
+
+  # find all non-excluded vignettes in these directories
+  vig_path <- dir(
+    file.path(path, "vignettes", vig_dirs),
+    pattern = "\\.Rmd$")
+  if (!is.null(exclude)) {
+    vig_path <- vig_path[grep(exclude, invert = TRUE,
+                              file.path("vignettes", vig_path))]
+  }
+
+  # look for a title in the YAML header
   title <- file.path(path, "vignettes", vig_path) %>%
     purrr::map(rmarkdown::yaml_front_matter) %>%
-    purrr::map_chr("title", .null = "UNKNOWN TITLE")
+    purrr::map_chr("title", .null = "UNKNOWN_TITLE")
+
+  # override YAML title with \VignettteIndexEntry{} if one exists
+  for (i in seq_along(title)) {
+    vp <- vig_path[[i]]
+    lines <- readLines(file.path(path, "vignettes", vp))
+    entry <- grep("^%\\\\VignetteIndexEntry\\{", lines, value = TRUE)
+    if (length(entry) > 0) {
+      title[[i]] <- sub("^%\\\\VignetteIndexEntry\\{(.*)\\}", "\\1", entry[[1]])
+    }
+  }
 
   tibble::tibble(
     file_in = vig_path,
