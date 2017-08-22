@@ -48,7 +48,11 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
 
   contents <- tibble::tibble(
     path = section_topics$file_out,
-    aliases = purrr::map2(section_topics$funs, section_topics$name, ~ .x %||% .y),
+    aliases = purrr::map2(
+      section_topics$funs,
+      section_topics$name,
+      ~ if (length(.x) > 0) .x else .y
+    ),
     title = section_topics$title,
     icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
   )
