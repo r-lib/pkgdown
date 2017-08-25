@@ -246,8 +246,8 @@ update_article_filetypes <- function(pkg, encoding) {
       if (!length(output_idx)) stop("if pkgdown_asis set to true, you must specify output document type")
       article_filetypes[i] <- paste0(".", sub("_.*", "", names(article_front_matters[[i]]$output)))
 
-      pkg$article_index[i] <- gsub("\\.Rmd$", article_filetypes[i], pkg$article_index[i])
-      pkg$vignettes$file_out[i] <- gsub("\\.Rmd$", article_filetypes[i], pkg$vignettes$file_out[i])
+      pkg$article_index[i] <- gsub("\\.html$", article_filetypes[i], pkg$article_index[i])
+      pkg$vignettes$file_out[i] <- gsub("\\.html$", article_filetypes[i], pkg$vignettes$file_out[i])
     }
   }
   pkg
