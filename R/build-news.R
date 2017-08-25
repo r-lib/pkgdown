@@ -32,12 +32,14 @@
 build_news <- function(pkg = ".",
                        path = "docs/news",
                        one_page = TRUE,
-                       depth = 1L) {
+                       depth = 1L,
+                       encoding = "UTF-8") {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
+  pkg <- update_article_filetypes(pkg, encoding)
   if (!has_news(pkg$path))
     return()
 

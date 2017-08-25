@@ -19,6 +19,7 @@ article_index_local <- function(package, path = find.package(package)) {
     pattern = "\\.Rmd$",
     recursive = TRUE
   )
+
   out_path <- gsub("\\.Rmd$", ".html", vig_path)
   vig_name <- gsub("\\.Rmd$", "", basename(vig_path))
 
