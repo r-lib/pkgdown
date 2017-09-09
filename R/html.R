@@ -203,3 +203,5 @@ autolink_html_ <- function(x, ...) {
     xml2::xml_children() %>%
     as.character()
 }
+
+strip_html_tags <- function(x) gsub("<.*?>", "", x)

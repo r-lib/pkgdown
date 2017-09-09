@@ -27,6 +27,13 @@
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
 {{/extra}}
 
+<meta property="og:title" content="{{{pagetitle}}}" />
+{{#description}}
+{{#opengraph}}
+<meta property="og:description" content="{{{.}}}" />
+{{/opengraph}}
+{{/description}}
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
