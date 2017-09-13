@@ -167,9 +167,9 @@ rel_path <- function(path, base = ".") {
     # normalizePath() on Windows expands to absolute paths,
     # so strip normalized base from normalized path
     if (Sys.info()["sysname"] == "Windows") {
-      base_full <- normalizePath(".", mustWork = FALSE, winslash = "/")
+      parent_full <- normalizePath(".", mustWork = FALSE, winslash = "/")
       path_full <- normalizePath(path, mustWork = FALSE, winslash = "/")
-      gsub(paste0(base_full, "/"), "", path_full)
+      gsub(paste0(parent_full, "/"), "", path_full)
     } else {
       normalizePath(path, mustWork = FALSE)
     }
