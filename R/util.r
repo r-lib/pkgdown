@@ -171,7 +171,7 @@ rel_path <- function(path, base = ".") {
       path_full <- normalizePath(path, mustWork = FALSE, winslash = "/")
       gsub(paste0(base_full, "/"), "", path_full)
     } else {
-      normalizePath(path, mustWork = FALSE, winslash = "/")
+      normalizePath(path, mustWork = FALSE)
     }
   }
 }
