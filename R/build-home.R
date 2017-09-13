@@ -130,6 +130,7 @@ data_home <- function(pkg = ".") {
 }
 
 data_home_sidebar <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
   if (!is.null(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
