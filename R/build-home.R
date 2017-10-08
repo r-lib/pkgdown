@@ -50,7 +50,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
 
   # Build authors page
   if (has_citation(pkg$path)) {
-    build_citation_authors(pkg, path = path, depth = depth)
+    build_citation_authors(pkg, path = path, encoding = encoding, depth = depth)
   } else {
     build_authors(pkg, path = path, depth = depth)
   }
