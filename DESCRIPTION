@@ -10,7 +10,9 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
 Imports: 
+    ansistrings,
     callr,
+    crayon,
     desc,
     digest,
     evaluate,
@@ -41,6 +43,7 @@ Suggests:
     BiocInstaller,
     covr
 Remotes:
+    r-lib/ansistrings,
     r-lib/pkgload,
     r-lib/usethis
 VignetteBuilder: knitr
