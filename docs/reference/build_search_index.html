@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build articles — build_articles • pkgdown</title>
+<title>Build search index — build_search_index • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -102,18 +102,16 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build articles</h1>
+    <h1>Build search index</h1>
     </div>
 
     
-    <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
-rendered. Vignettes are rendered using a special document format that
-reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
-template.</p>
+    <p>By default pkgdown will create a site search index compiled from Rd file
+descriptions and vignette content.</p>
     
 
-    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>build_search_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>index_rd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>index_vignette</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>vignette_path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -135,51 +133,22 @@ path to the source directory (not a relative path).</p></td>
 to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
-      <th>encoding</th>
-      <td><p>The encoding of the input files.</p></td>
+      <th>index_rd</th>
+      <td><p>include Rd files in search index</p></td>
     </tr>
     <tr>
-      <th>quiet</th>
-      <td><p>Set to <code>FALSE</code> to display output of knitr and
-pandoc. This is useful when debugging.</p></td>
+      <th>index_vignette</th>
+      <td><p>include vignettes in search index</p></td>
+    </tr>
+    <tr>
+      <th>vignette_path</th>
+      <td><p>path to rendered vignettes</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-    <p>To tweak the index page, you need a section called <code>articles</code>,
-which provides a list of sections containing, a <code>title</code>, list of
-<code>contents</code>, and optional <code>description</code>.</p>
-<p>For example, this imaginary file describes some of the structure of
-the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>
-articles:
-- title: R Markdown
-  contents:
-  - starts_with("authoring")
-- title: Websites
-  contents:
-  - rmarkdown_websites
-  - rmarkdown_site_generators
-</pre>
-    <p>Note that <code>contents</code> can contain either a list of vignette names
-(including subdirectories), or if the functions in a section share a
-common prefix or suffix, you can use <code>starts_with("prefix")</code> and
-<code>ends_with("suffix")</code> to select them all. If you don't care about
-position within the string, use <code>contains("word")</code>. For more complex
-naming schemes you can use an aribrary regular expression with
-<code>matches("regexp")</code>.</p>
-<p>pkgdown will check that all vignettes are included in the index
-this page, and will generate a warning if you have missed any.</p>
-    
-    <h2 class="hasAnchor" id="supressing-vignettes"><a class="anchor" href="#supressing-vignettes"></a>Supressing vignettes</h2>
-
-    
-    <p>If you want articles that are not vignettes, either put them in
-subdirectories or list in <code>.Rbuildignore</code>. An articles link
-will be automatically added to the default navbar if the vignettes
-directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site()</a></code> details.</p>
+    <p>Data for the index is saved in JSON format in <code>site-index.json</code>.</p>
     
 
   </div>
@@ -188,9 +157,7 @@ customise the navbar. See <code><a href='build_site.html'>build_site()</a></code
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#yaml-config">YAML config</a></li>
-
-      <li><a href="#supressing-vignettes">Supressing vignettes</a></li>
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

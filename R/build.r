@@ -1,13 +1,14 @@
 #' Build pkgdown website
 #'
 #' @description
-#' `build_site()` is a convenient wrapper around five functions:
+#' `build_site()` is a convenient wrapper around six functions:
 #'
 #' * `init_site()`
 #' * [build_articles()]
 #' * [build_home()]
 #' * [build_reference()]
 #' * [build_news()]
+#' * [build_search_index()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
@@ -177,6 +178,7 @@ build_site <- function(pkg = ".",
   )
   build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
   build_news(pkg, path = file.path(path, "news"), depth = 1L)
+  build_search_index(pkg, path = path)
 
   if (preview) {
     preview_site(path)
