@@ -18,7 +18,6 @@ $.getJSON("site-index.json", function(json) {
 $(document).ready(function() {
 
     query = window.location.search.split("=")[1];
-    console.log(query);
 
     result = index.search(query);
 
