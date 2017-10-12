@@ -32,6 +32,7 @@ build_search_index <- function(pkg = ".",
 
   message("Collating data for search index")
   data_search <- rbind(
+    build_search_home(pkg),
     build_search_rd(pkg, index_rd),
     build_search_vignette(pkg, index_vignette, vignette_path)
   )
@@ -108,3 +109,13 @@ data_search_text <- function(x) {
   paste(readLines(x), collapse = "")
 }
 
+build_search_home <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  tibble::tibble(
+    title = "README",
+    type = "Home page",
+    desc = data_search_text("docs/index.html"),
+    href = "index.html"
+  )
+}
