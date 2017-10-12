@@ -31,6 +31,7 @@ Imports:
     usethis,
     whisker,
     yaml,
+    xml2 (>= 1.1.1),
     jsonlite,
     hunspell,
 Suggests:
