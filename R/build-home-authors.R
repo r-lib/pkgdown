@@ -113,12 +113,35 @@ author_list <- function(x, authors_info, comment = FALSE) {
 }
 
 author_desc <- function(x, comment = TRUE) {
+
+  orcid <- NULL
+  if (comment && !is.null(x$comment[['ORCID']])) {
+
+    orcid <- x$comment[['ORCID']]
+
+    if (length(x$comment) == 1) {
+      x$comment <- NULL
+    } else {
+      x$comment <- x$comment[!names(x$comment) == 'ORCID']
+    }
+  }
+
   paste(
     x$name,
     "<br />\n<small class = 'roles'>", x$roles, "</small>",
+    if (!is.null(orcid))
+      author_orcid(orcid),
     if (comment && !is.null(x$comment))
       paste0("<br/>\n<small>(", x$comment, ")</small>")
   )
+}
+
+author_orcid <- function(orcid) {
+  paste0(
+    "<a href='https://orcid.org/", orcid,
+    "' target='orcid.widget' rel='noopener noreferrer' style='vertical-align:top;'>",
+    "<img src='https://orcid.org/sites/default/files/images/orcid_16x16.png'",
+    "style='width:1em;margin-right:.5em;; alt='ORCID iD icon'></a>")
 }
 
 role_lookup <- c(
