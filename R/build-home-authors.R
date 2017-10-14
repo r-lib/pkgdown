@@ -105,7 +105,7 @@ author_list <- function(x, authors_info, comment = FALSE) {
   roles <- paste0(role_lookup[x$role], collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
 
-  orcid <- x$comment %>% pluck('ORCID')
+  orcid <- x$comment %>% purrr::pluck('ORCID')
   x <- remove_orcid_comment(x)
 
   list(
