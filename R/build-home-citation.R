@@ -9,10 +9,9 @@ read_citation <- function(path = ".", encoding) {
   }
   path <- file.path(path, 'inst/CITATION')
 
-  meta <- list()
-  meta$Encoding <- encoding
-
-  utils::readCitationFile(path, meta)
+  utils::readCitationFile(
+    path, meta = list(Encoding = encoding)
+  )
 }
 
 data_home_sidebar_citation <- function(pkg = ".") {
