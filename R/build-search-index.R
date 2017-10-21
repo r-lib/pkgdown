@@ -71,7 +71,7 @@ build_search_rd <- function(pkg = ".", index_rd = TRUE) {
 
   tibble::tibble(
     title = pkg$topics$name,
-    type = "rd",
+    type = "Rd",
     desc = purrr::map(topics, data_search_rd),
     href = file.path("reference", pkg$topics$file_out)
   )
@@ -99,7 +99,7 @@ build_search_vignette <- function(pkg = ".",
 
   tibble::tibble(
     title = pkg$vignettes$name,
-    type = "vignette",
+    type = "Vignette",
     desc = purrr::map(vig_paths, data_search_text),
     href = file.path("articles", pkg$vignettes$file_out)
   )

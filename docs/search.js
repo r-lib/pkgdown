@@ -9,7 +9,7 @@ $.getJSON("site-index.json", function(json) {
 
       json.forEach(function (doc) {
         this.add(doc);
-        window.store[doc.href] = {'title': doc.title} ;
+        window.store[doc.href] = {'title': doc.title, 'type': doc.type} ;
       }, this);
     });
   });
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     for (var item in result) {
       ref = result[item].ref;
-      searchitem = '<li><a href="' + ref + '">' + store[ref].title + '</a></li>';
+      searchitem = '<li><a href="' + ref + '">' + store[ref].title + '</a> (' + store[ref].type + ')</li>';
       resultdiv.append(searchitem);
     }
 
