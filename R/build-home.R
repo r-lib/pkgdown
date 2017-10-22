@@ -195,7 +195,7 @@ data_link_github <- function(pkg = ".") {
     strsplit(",\\s+") %>%
     `[[`(1)
 
-  github <- grepl("github", urls)
+  github <- grepl("github\\.com", urls)
 
   if (!any(github))
     return(character())
