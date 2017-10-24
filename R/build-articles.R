@@ -61,6 +61,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
+  pkg <- update_article_filetypes(pkg, encoding)
   if (!has_vignettes(pkg$path)) {
     return(invisible())
   }
@@ -74,6 +75,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
     exclude_matching = "rsconnect"
   )
 
+
   # Render each Rmd then delete them
   articles <- tibble::tibble(
     input = file.path(path, pkg$vignettes$file_in),
@@ -85,7 +87,8 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
     pkg = pkg,
     data = data,
     encoding = encoding,
-    quiet = quiet
+    quiet = quiet,
+    render_asis = pkg$meta$pkgdown_asis
   )
   purrr::walk(articles$input, unlink)
 
@@ -102,36 +105,63 @@ render_rmd <- function(pkg,
                        toc = TRUE,
                        depth = 1L,
                        encoding = "UTF-8",
+                       render_asis = FALSE,
                        quiet = TRUE) {
 
   message("Building article '", output_file, "'")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
-  format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
-  on.exit(unlink(format$path), add = TRUE)
+  if (!render_asis)
+  {
+    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
+    on.exit(unlink(format$path), add = TRUE)
+  }
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = list(
+  args <- if (render_asis) {
+    list(
+      input,
+      output_file = basename(output_file),
+      quiet = quiet,
+      envir = globalenv()
+    )
+  } else
+  {
+
+    list(
       input,
       output_format = format$format,
       output_file = basename(output_file),
       quiet = quiet,
       encoding = encoding,
       envir = globalenv()
-    ),
+    )
+  }
+
+  path <- callr::r_safe(
+    function(...) rmarkdown::render(...),
+    args = args,
     show = !quiet
   )
-  update_rmarkdown_html(path, strip_header = strip_header, depth = depth)
+
+  if (!render_asis)
+  {
+    update_rmarkdown_html(path, strip_header = strip_header, depth = depth)
+  }
 }
 
 build_rmarkdown_format <- function(pkg = ".",
                                    depth = 1L,
                                    data = list(),
                                    toc = TRUE) {
+
+  if (pkg$meta$pkgdown_asis) {
+    #front_matter <- rmarkdown:::parse_yaml_front_matter
+  }
+
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
+
   suppressMessages(
     render_page(pkg, "vignette", data, path, depth = depth)
   )
@@ -197,6 +227,30 @@ data_articles_index <- function(pkg = ".", depth = 1L) {
     pagetitle = "Articles",
     sections = sections
   ))
+}
+
+update_article_filetypes <- function(pkg, encoding) {
+
+  # replace html with the filetype specified if pkgdown_asis == TRUE.
+  if (pkg$meta$pkgdown_asis)
+  {
+    # read the input files
+    article_lines <- lapply(file.path(pkg$path, "vignettes", pkg$vignettes$file_in),
+                            function(file) rmarkdown:::read_lines_utf8(file, encoding))
+    # parse the yaml / front matter
+    article_front_matters <- lapply(article_lines, rmarkdown:::parse_yaml_front_matter)
+
+    article_filetypes <- numeric(length(article_front_matters))
+    for (i in 1:length(article_front_matters)) {
+      output_idx <- grep("_document", names(article_front_matters[[i]]$output) )
+      if (!length(output_idx)) stop("if pkgdown_asis set to true, you must specify output document type")
+      article_filetypes[i] <- paste0(".", sub("_.*", "", names(article_front_matters[[i]]$output)))
+
+      pkg$article_index[i] <- gsub("\\.html$", article_filetypes[i], pkg$article_index[i])
+      pkg$vignettes$file_out[i] <- gsub("\\.html$", article_filetypes[i], pkg$vignettes$file_out[i])
+    }
+  }
+  pkg
 }
 
 data_articles_index_section <- function(section, pkg, depth = 1L) {

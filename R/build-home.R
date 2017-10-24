@@ -30,6 +30,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
+  pkg <- update_article_filetypes(pkg, encoding)
   data <- data_home(pkg)
 
   rule("Building home")
