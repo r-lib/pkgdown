@@ -171,7 +171,7 @@ rel_path <- function(path, base = ".", windows = on_windows()) {
     if (windows) {
       parent_full <- normalizePath(".", mustWork = FALSE, winslash = "/")
       path_full <- normalizePath(path, mustWork = FALSE, winslash = "/")
-      gsub(paste0(parent_full, "/"), "", path_full)
+      gsub(paste0(parent_full, "/"), "", path_full, fixed = TRUE)
     } else {
       normalizePath(path, mustWork = FALSE)
     }
