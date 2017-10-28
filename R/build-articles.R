@@ -80,7 +80,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + depth
   )
-  data <- list(pagetitle = "$title$")
+  data <- list(
+    pagetitle = "$title$",
+    description = list(opengraph = "$description$")
+  )
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
     data = data,
