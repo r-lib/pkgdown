@@ -118,7 +118,7 @@ data_news <- function(pkg = ".", depth = 1L) {
     xml2::xml_find_all("./body/div")
 
   titles <- sections %>%
-    xml2::xml_find_first(".//h1|h2|h3") %>%
+    xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
 
   anchors <- sections %>%
@@ -147,7 +147,11 @@ data_news <- function(pkg = ".", depth = 1L) {
     anchor = anchors,
     html = html
   )
-  news[is_version, , drop = FALSE]
+  news <- news[is_version, , drop = FALSE]
+  if (any(is.na(news$version))) {
+    stop("Invalid NEWS.md: versions must be in # or ## headings", call.=FALSE)
+  }
+  news
 }
 
 has_news <- function(path = ".") {
