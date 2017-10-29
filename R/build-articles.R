@@ -82,7 +82,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   )
   data <- list(
     pagetitle = "$title$",
-    description = list(opengraph = "$description$")
+    opengraph = list(description = "$description$")
   )
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
