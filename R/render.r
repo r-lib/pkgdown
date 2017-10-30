@@ -30,6 +30,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
   path <- rel_path(path, pkg$path)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
+  data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   # render template components
   pieces <- c("head", "navbar", "header", "content", "footer")
@@ -80,6 +81,15 @@ data_template <- function(pkg = ".", depth = 0L) {
     navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
   ))
+}
+
+data_open_graph <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+  og <- list()
+  if (!is.null(find_logo(pkg$path))) {
+    og$image <- paste0(pkg$meta$url %||% "/", "logo.png")
+  }
+  og
 }
 
 template_path <- function(pkg = ".") {
