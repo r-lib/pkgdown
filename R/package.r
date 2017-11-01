@@ -138,7 +138,7 @@ is_internal <- function(x) {
 package_vignettes <- function(path = ".") {
   vig_path <- dir(
     file.path(path, "vignettes"),
-    pattern = "\\.Rmd$",
+    pattern = "\\.[rR]md$",
     recursive = TRUE
   )
 
@@ -148,7 +148,7 @@ package_vignettes <- function(path = ".") {
 
   tibble::tibble(
     file_in = vig_path,
-    file_out = gsub("\\.Rmd$", "\\.html", vig_path),
+    file_out = gsub("\\.[rR]md$", "\\.html", vig_path),
     name = tools::file_path_sans_ext(basename(vig_path)),
     path = dirname(vig_path),
     vig_depth = dir_depth(vig_path),
