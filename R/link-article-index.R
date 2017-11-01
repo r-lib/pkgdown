@@ -16,11 +16,11 @@ article_index_local <- function(package, path = find.package(package)) {
 
   vig_path <- dir(
     file.path(path, "vignettes"),
-    pattern = "\\.Rmd$",
+    pattern = "\\.[rR]md$",
     recursive = TRUE
   )
-  out_path <- gsub("\\.Rmd$", ".html", vig_path)
-  vig_name <- gsub("\\.Rmd$", "", basename(vig_path))
+  out_path <- gsub("\\.[rR]md$", ".html", vig_path)
+  vig_name <- gsub("\\.[rR]md$", "", basename(vig_path))
 
   set_names(out_path, vig_name)
 }
