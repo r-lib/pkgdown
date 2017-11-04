@@ -36,5 +36,5 @@ test_that("if there is no logo.png, there is no og:image tag", {
   pkg <- test_path("home-readme-rmd")
   capture.output(expect_true(build_site(pkg, nologo)))
   index_html <- readLines(file.path(nologo, "index.html"))
-  expect_false(any(grepl("og:image", index_html, fixed=TRUE)))
+  expect_false(any(grepl("og:image", index_html, fixed = TRUE)))
 })
