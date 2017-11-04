@@ -87,7 +87,11 @@ data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- list()
   if (!is.null(find_logo(pkg$path))) {
-    og$image <- paste0(pkg$meta$url %||% "/", "logo.png")
+    site_url <- pkg$meta$url %||% "/"
+    if (!grepl("/$", site_url)) {
+      site_url <- paste0(site_url, "/")
+    }
+    og$image <- paste0(site_url, "logo.png")
   }
   og
 }
