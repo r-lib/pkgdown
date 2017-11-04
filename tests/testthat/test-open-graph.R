@@ -30,3 +30,11 @@ test_that("og tags are populated on vignettes", {
   img <- '<meta property="og:image" content="http://example.com/pkg/logo.png">'
   expect_true(img %in% vignette_html)
 })
+
+test_that("if there is no logo.png, there is no og:image tag", {
+  nologo <- tempfile()
+  pkg <- test_path("home-readme-rmd")
+  capture.output(expect_true(build_site(pkg, nologo)))
+  index_html <- readLines(file.path(nologo, "index.html"))
+  expect_false(any(grepl("og:image", index_html, fixed=TRUE)))
+})
