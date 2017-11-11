@@ -106,6 +106,10 @@ href_topic_local <- function(topic) {
 }
 
 href_topic_remote <- function(topic, package) {
+  if (package == context_get("package")) {
+    return(href_topic_local(topic))
+  }
+
   rdname <- find_rdname(package, topic)
   if (is.null(rdname)) {
     return(NA_character_)
@@ -131,6 +135,9 @@ href_article_local <- function(article) {
 }
 
 href_article_remote <- function(package, article) {
+  if (package == context_get("package")) {
+    return(href_article_local(article))
+  }
   path <- find_article(package, article)
   if (is.null(path)) {
     return(NA_character_)
