@@ -4,6 +4,7 @@
 \alias{template_navbar}
 \alias{template_reference}
 \alias{template_articles}
+\alias{init_yaml}
 \title{Generate YAML templates}
 \usage{
 template_navbar(path = ".")
@@ -11,6 +12,8 @@ template_navbar(path = ".")
 template_reference(path = ".")
 
 template_articles(path = ".")
+
+init_yaml(path = ".")
 }
 \arguments{
 \item{path}{Path to package root}
@@ -19,4 +22,9 @@ template_articles(path = ".")
 Use these function to generate the default YAML that pkgdown uses for
 the different parts of \code{_pkgdown.yml}. This are useful starting
 points if you want to customise your site.
+}
+\details{
+The \code{template_*} functions print YAML to the screen, which you can copy into
+your existing \code{_pkgdown.yml} file. If the file does not yet exist, you can
+call \code{init_yaml()} to create it using those templates.
 }
