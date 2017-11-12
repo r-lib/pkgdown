@@ -1,5 +1,8 @@
 context("href")
 
+# This test file fails if run in isolation unless this context is set
+scoped_package_context("test", local_packages = character())
+
 test_that("can link function calls", {
   scoped_package_context("test", c(foo = "bar"))
   scoped_file_context("test")
@@ -58,6 +61,7 @@ test_that("can link ? calls", {
 
   expect_equal(href_expr_(?foo), "foo.html")
   expect_equal(href_expr_(?"foo"), "foo.html")
+  expect_equal(href_expr_(test::foo), "foo.html")
   expect_equal(href_expr_(package?foo), "foo-package.html")
 })
 
@@ -69,6 +73,7 @@ test_that("can link to local articles", {
   scoped_file_context(depth = 0)
 
   expect_equal(href_expr_(vignette("x")), "articles/y.html")
+  expect_equal(href_expr_(vignette("x", package="test")), "articles/y.html")
   expect_equal(href_expr_(vignette("y")), NA_character_)
 })
 
