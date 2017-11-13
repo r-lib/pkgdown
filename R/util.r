@@ -29,17 +29,23 @@ markdown <- function(path = NULL, ..., depth = 0L) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
 
+  if (rmarkdown::pandoc_available("2.0")) {
+    from <- "markdown_github-hard_line_breaks"
+  } else {
+    from <- "markdown_github-hard_line_breaks+smart"
+  }
+
   rmarkdown::pandoc_convert(
     input = path,
     output = tmp,
-    from = "markdown_github-hard_line_breaks",
+    from = from,
     to = "html",
-    options = list(
-      "--smart",
+    options = purrr::compact(list(
+      if (!rmarkdown::pandoc_available("2.0")) "--smart",
       "--indented-code-classes=R",
       "--section-divs",
       ...
-    )
+    ))
   )
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
