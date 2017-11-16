@@ -42,6 +42,14 @@ The \code{NEWS.md} file should be formatted somewhat like this:
 }
 
 Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+
+Issues and contributors mentioned in news items are automatically linked to github:
+
+\preformatted{
+## Major changes
+
+- Lots of bug fixes (@hadley, #100)
+}
 }
 \section{YAML config}{
 
