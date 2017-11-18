@@ -19,9 +19,12 @@
 #' ...
 #' }
 #'
-#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+#' changes'.
 #'
-#' Issues and contributors mentioned in news items are automatically linked to github:
+#' Issues and contributors mentioned in news items are automatically linked to
+#' github if a `URL` entry linking to github.com is provided in the package
+#' `DESCRIPTION`.
 #'
 #' \preformatted{
 #' ## Major changes
@@ -173,11 +176,14 @@ is_dev <- function(version) {
 }
 
 add_github_links <- function(x, pkg) {
+  gh_link <- github_link(pkg$path)
+  if(is.null(gh_link)) return(x)
+
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
   x <- gsub("@(\\w+)", user_link, x)
 
-  gh_link <- github_link(pkg$path)$href
-  issue_link <- paste0("<a href='", gh_link, "/issues/\\1'>#\\1</a>")
+  gh_link_href <- github_link(pkg$path)$href
+  issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
   x <- gsub("#(\\d+)", issue_link, x)
 
   x
