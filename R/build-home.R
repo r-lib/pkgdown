@@ -206,6 +206,7 @@ data_home_sidebar <- function(pkg = ".") {
   map_func[sections] %>%
     purrr::map(do.call,
                list(pkg = pkg)) %>%
+    unlist() %>%
     paste0(collapse = "\n")
 }
 
