@@ -31,17 +31,17 @@ To tweak the home page, you need a section called \code{home}.
 The sidebar will default to containing five sections: links,
 code license, citation rules, developers, and dev status.
 You can override this ordering or suppress some sections by
-adding a subsection called \code{sidebar}, which should contain a
+adding a subsection called \code{sections}, which should contain a
 list of section name elements:
 
 \preformatted{
 home:
   sections:
-  - links
-  - license
-  - citation
-  - developers
-  - dev_status
+    - links
+    - license
+    - citation
+    - authors
+    - dev_status
 }
 
 The default links are, in order: CRAN / Bioconductor package
@@ -57,10 +57,10 @@ consists of a list of section name elements:
 \preformatted{
 home:
   link_order:
-  - repo
-  - github
-  - bug_report
-  - custom
+    - repo
+    - github
+    - bug_report
+    - custom
 }
 
 You can add additional links with a subsection called
@@ -88,9 +88,9 @@ should contain a list of members:
 
 \preformatted{
 roles_include:
-- cre
-- aut
-- fnd
+  - cre
+  - aut
+  - fnd
 }
 
 This section must be in the base level of the YML file, not
