@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine if code is executed by pkgdown — in_pkgdown • pkgdown</title>
+<title>Build search index — build_search_index • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -51,7 +51,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="..//index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -102,26 +102,63 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine if code is executed by pkgdown</h1>
+    <h1>Build search index</h1>
     </div>
 
     
-    <p>This is occassionally useful when you need different behaviour by
-pkgdown and regular documentation.</p>
+    <p>By default pkgdown will create a site search index compiled from Rd file
+descriptions and vignette content.</p>
     
 
-    <pre class="usage"><span class='fu'>in_pkgdown</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>build_search_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>index_rd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>index_vignette</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>vignette_path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pkg</th>
+      <td><p>Path to source package. If R working directory is not
+set to the source directory, then pkg must be a fully qualified
+path to the source directory (not a relative path).</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></td>
+    </tr>
+    <tr>
+      <th>depth</th>
+      <td><p>Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.</p></td>
+    </tr>
+    <tr>
+      <th>index_rd</th>
+      <td><p>include Rd files in search index</p></td>
+    </tr>
+    <tr>
+      <th>index_vignette</th>
+      <td><p>include vignettes in search index</p></td>
+    </tr>
+    <tr>
+      <th>vignette_path</th>
+      <td><p>path to rendered vignettes</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>in_pkgdown</span>()</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <p>Data for the index is saved in JSON format in <code>site-index.json</code>.</p>
+    
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

@@ -20,6 +20,14 @@
         {{{.}}}
       </ul>
       {{/right}}
+      <form class="navbar-form" role="search" method="GET" action="{{#site}}{{root}}{{/site}}search.html">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
+        </div>
+        <button type="submit" class="btn btn-default">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
