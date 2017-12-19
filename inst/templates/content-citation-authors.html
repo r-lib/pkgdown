@@ -5,10 +5,17 @@
       <h1>Citation</h1>
     </div>
 
+    <ol>
     {{#citations}}
-    {{{html}}}
-    <pre>{{{bibtex}}}</pre>
+    <li>{{{html}}}</li>
     {{/citations}}
+    </ol>
+
+<pre>
+{{#citations}}
+{{{bibtex}}}
+{{/citations}}
+</pre>
 
     <div class="page-header">
       <h1>Authors</h1>
