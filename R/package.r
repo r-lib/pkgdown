@@ -141,6 +141,7 @@ package_vignettes <- function(path = ".") {
     pattern = "\\.[rR]md$",
     recursive = TRUE
   )
+  vig_path <- vig_path[!grepl("^_", basename(vig_path))]
 
   title <- file.path(path, "vignettes", vig_path) %>%
     purrr::map(rmarkdown::yaml_front_matter) %>%
