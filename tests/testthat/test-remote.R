@@ -3,7 +3,7 @@ context("remote")
 test_that("remote_package_url discovers pkgdown site", {
   expect_equal(
     remote_package_reference_url("pkgdown"),
-    "http://hadley.github.io/pkgdown/reference"
+    "http://pkgdown.r-lib.org/reference"
   )
 })
 
