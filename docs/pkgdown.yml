@@ -1,6 +1,6 @@
 urls:
-  reference: http://hadley.github.io/pkgdown/reference
-  article: http://hadley.github.io/pkgdown/articles
+  reference: http://pkgdown.r-lib.org/reference
+  article: http://pkgdown.r-lib.org/articles
 articles:
   pkgdown: pkgdown.html
   highlight: test/highlight.html

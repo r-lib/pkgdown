@@ -48,7 +48,7 @@ default_navbar <- function(pkg = ".") {
 
   left$home <- list(
     icon = "fa-home fa-lg",
-    href = "/index.html"
+    href = "index.html"
   )
 
   vignettes <- pkg$vignettes
