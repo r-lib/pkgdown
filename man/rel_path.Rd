@@ -4,12 +4,15 @@
 \alias{rel_path}
 \title{Compute relative path}
 \usage{
-rel_path(path, base = ".")
+rel_path(path, base = ".", windows = on_windows())
 }
 \arguments{
 \item{path}{Relative path}
 
 \item{base}{Base path}
+
+\item{windows}{Whether the operating system is Windows. Default value is to
+check the user's system information.}
 }
 \description{
 Compute relative path
