@@ -40,8 +40,9 @@ markdown <- function(path = NULL, ..., depth = 0L) {
     output = tmp,
     from = from,
     to = "html",
-    options = purrr::compact(list(
+    options = purrr::compact(c(
       if (!rmarkdown::pandoc_available("2.0")) "--smart",
+      if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
       "--indented-code-classes=R",
       "--section-divs",
       ...
