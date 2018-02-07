@@ -147,7 +147,11 @@ data_news <- function(pkg = ".", depth = 1L) {
     anchor = anchors,
     html = html
   )
-  news[is_version, , drop = FALSE]
+  news <- news[is_version, , drop = FALSE]
+  if (any(is.na(news$version))) {
+    stop("Invalid NEWS.md: versions must be in # or ## headings", call.=FALSE)
+  }
+  news
 }
 
 has_news <- function(path = ".") {
