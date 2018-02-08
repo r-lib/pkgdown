@@ -117,7 +117,7 @@ build_reference <- function(pkg = ".",
   if (examples) {
     # Re-loading pkgdown while it's running causes all weird behaviour with
     # the context cache
-    if (pkg$package != "pkgdown") {
+    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$path)
     }
     set.seed(seed)
