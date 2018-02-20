@@ -27,6 +27,17 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Automatic link references and articles in an HTML package — autolink_html" />
+
+<meta property="og:description" content="The autolinker is built around two XPath expressions:
+//pre[contains(@class, 'r')]:
+this finds all &lt;div&gt;s with class sourceCode and r. The contents
+must be syntax-highlighted using pygments.
+(This is default in rmarkdown::html_document when theme = NULL.)
+.//code[count(*) = 0]: this finds all &lt;code&gt; that contain only
+text (and no other tags).
+" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
