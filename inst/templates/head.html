@@ -29,6 +29,17 @@
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
 {{/extra}}
 
+<meta property="og:title" content="{{{pagetitle}}}" />
+{{#opengraph}}
+{{#description}}
+<meta property="og:description" content="{{{.}}}" />
+{{/description}}
+{{#image}}
+<meta property="og:image" content="{{{.}}}" />
+{{/image}}
+<meta name="twitter:card" content="summary" />
+{{/opengraph}}
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 

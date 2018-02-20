@@ -268,4 +268,3 @@ data_assets <- function(pkg = ".") {
 
   dir(path, full.names = TRUE)
 }
-

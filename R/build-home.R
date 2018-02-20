@@ -36,6 +36,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
   data <- data_home(pkg)
+  data$opengraph <- list(description = pkg$desc$get("Description")[[1]])
 
   rule("Building home")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
