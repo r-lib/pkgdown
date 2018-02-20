@@ -14,3 +14,14 @@ test_that("build_news() uses content in NEWS.md", {
   ))
   unlink(news_dir)
 })
+
+test_that("build_news() gives clear error for bad hierarchy", {
+  pkg <- testthat::test_path("news-bad-nesting/")
+  news_dir <- tempfile(pattern = "NEWS")
+
+  expect_error(
+    build_news(normalizePath(pkg), path = news_dir),
+    "bad nesting"
+  )
+
+})
