@@ -180,11 +180,13 @@ is_dev <- function(version) {
 }
 
 add_github_links <- function(x, pkg) {
-  gh_link <- github_link(pkg$path)
-  if(is.null(gh_link)) return(x)
-
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
   x <- gsub("@(\\w+)", user_link, x)
+
+  gh_link <- github_link(pkg$path)
+  if (is.null(gh_link)) {
+    return(x)
+  }
 
   gh_link_href <- github_link(pkg$path)$href
   issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
