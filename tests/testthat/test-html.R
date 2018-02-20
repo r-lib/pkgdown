@@ -9,6 +9,13 @@ test_that("finds single badge", {
   )
 })
 
+test_that("no badges paragraph", {
+  expect_length(
+    badges_extract(xml2::xml_missing()),
+    0
+  )
+})
+
 test_that("badges can't contain an extra text", {
   expect_length(
     badges_extract('<p><a href="url"><img src="img" alt="alt" /></a>Hi!</p>'),

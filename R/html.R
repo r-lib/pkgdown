@@ -112,6 +112,10 @@ badges_extract <- function(x) {
     x <- xml2::read_xml(x)
   }
 
+  if (length(x) != 1 || is.na(x)) {
+    return(character())
+  }
+
   if (xml2::xml_text(x, trim = TRUE) != "") {
     return(character())
   }
