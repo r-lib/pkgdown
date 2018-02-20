@@ -2,12 +2,14 @@ data_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   author_info <- data_author_info(pkg)
 
+  included_roles <- pkg$meta$roles_include %||% c("aut", "cre", "fnd")
+
   all <- pkg %>%
     pkg_authors() %>%
     purrr::map(author_list, author_info)
 
   main <- pkg %>%
-    pkg_authors(c("aut", "cre", "fnd")) %>%
+    pkg_authors(included_roles) %>%
     purrr::map(author_list, author_info)
 
   needs_page <- length(main) != length(all)
@@ -56,7 +58,11 @@ data_home_sidebar_authors <- function(pkg = ".") {
     authors <- c(authors, "<a href='authors.html'>All authors...</li>")
   }
 
-  list_with_heading(authors, "Developers")
+  paste0(
+    '<div id="sidebar_authors">\n',
+    list_with_heading(authors, "Developers"),
+    '\n</div>'
+  )
 }
 
 build_authors <- function(pkg = ".", path = "docs", depth = 0L) {

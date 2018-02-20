@@ -21,7 +21,11 @@ data_home_sidebar_citation <- function(pkg = ".") {
   name <- pkg$desc$get("Package")[[1]]
   citation <- paste0("<a href='authors.html'>Citing ", name, "</li>")
 
-  list_with_heading(citation, "Citation")
+  paste0(
+    '<div id="sidebar_citation">\n',
+    list_with_heading(citation, "Citation"),
+    '\n</div>'
+  )
 }
 
 data_citations <- function(pkg = ".") {
