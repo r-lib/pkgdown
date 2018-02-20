@@ -265,6 +265,7 @@ add_slug <- function(x) {
 }
 
 make_slug <- function(x) {
+  x <- strip_html_tags(x)
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
