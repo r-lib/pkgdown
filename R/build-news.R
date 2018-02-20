@@ -19,7 +19,18 @@
 #' ...
 #' }
 #'
-#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+#' changes'.
+#'
+#' Issues and contributors mentioned in news items are automatically linked to
+#' github if a `URL` entry linking to github.com is provided in the package
+#' `DESCRIPTION`.
+#'
+#' \preformatted{
+#' ## Major changes
+#'
+#'   - Lots of bug fixes (@hadley, #100)
+#' }
 #'
 #' @section YAML config:
 #'
@@ -141,7 +152,8 @@ data_news <- function(pkg = ".", depth = 1L) {
 
   html <- sections %>%
     purrr::walk(tweak_code, depth = depth) %>%
-    purrr::map_chr(as.character)
+    purrr::map_chr(as.character) %>%
+    purrr::map_chr(add_github_links, pkg = pkg)
 
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
@@ -165,4 +177,18 @@ is_dev <- function(version) {
     purrr::map_dbl(c(1, 4), .null = 0)
 
   dev_v > 0
+}
+
+add_github_links <- function(x, pkg) {
+  gh_link <- github_link(pkg$path)
+  if(is.null(gh_link)) return(x)
+
+  user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
+  x <- gsub("@(\\w+)", user_link, x)
+
+  gh_link_href <- github_link(pkg$path)$href
+  issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
+  x <- gsub("#(\\d+)", issue_link, x)
+
+  x
 }
