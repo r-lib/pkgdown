@@ -3,7 +3,7 @@ has_citation <- function(path = ".") {
   file.exists(file.path(path, 'inst/CITATION'))
 }
 
-read_citation <- function(path = ".", encoding) {
+read_citation <- function(path = ".", encoding = "UTF-8") {
   if (!has_citation(path)) {
     return(character())
   }
