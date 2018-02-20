@@ -18,6 +18,11 @@
 #' will be automatically copied to `docs/` and inserted into the
 #' `<HEAD>` after the default pkgdown CSS and JSS.
 #'
+#' @section Favicon:
+#' If you include you package logo in the standard location of
+#' `man/figures/logo.png`, a favicon will be automatically created for
+#' you.
+#'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
 #' `url`, `title`, `template`, and `navbar`.
