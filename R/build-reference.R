@@ -117,7 +117,7 @@ build_reference <- function(pkg = ".",
   if (examples) {
     # Re-loading pkgdown while it's running causes all weird behaviour with
     # the context cache
-    if (pkg$package != "pkgdown") {
+    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$path)
     }
     set.seed(seed)
@@ -229,6 +229,7 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
 
   out$description <- as_data(tags$tag_description[[1]])
+  out$opengraph <- list(description = strip_html_tags(out$description$contents))
   out$usage <- as_data(tags$tag_usage[[1]])
   out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {

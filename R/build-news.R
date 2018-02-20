@@ -132,6 +132,10 @@ data_news <- function(pkg = ".", depth = 1L) {
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
 
+  if (any(is.na(titles))) {
+    stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
+  }
+
   anchors <- sections %>%
     xml2::xml_attr("id")
 

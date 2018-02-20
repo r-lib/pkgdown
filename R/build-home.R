@@ -22,6 +22,11 @@
 #' The "developers" list is populated by the maintainer ("cre"), authors
 #' ("aut"), and funder ("fnd").
 #'
+#' @section Badges:
+#' Status badges are displayed in the sidebar under the section "Dev status".
+#' This section is automatically populated if the first paragraph of the
+#' homepage consists solely of status badges as linked images.
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8") {
@@ -31,6 +36,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
   data <- data_home(pkg)
+  data$opengraph <- list(description = pkg$desc$get("Description")[[1]])
 
   rule("Building home")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
@@ -75,7 +81,8 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
               input,
               output_options = list(html_preview = FALSE),
               quiet = TRUE,
-              encoding = encoding
+              encoding = encoding,
+              envir = globalenv()
             )
           },
           args = list(
@@ -130,6 +137,7 @@ data_home <- function(pkg = ".") {
 }
 
 data_home_sidebar <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
   if (!is.null(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 

@@ -1,4 +1,4 @@
-url: http://hadley.github.io/pkgdown
+url: http://pkgdown.r-lib.org
 
 template:
   params:

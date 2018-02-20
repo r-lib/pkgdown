@@ -220,7 +220,7 @@ init_site <- function(pkg = ".", path = "docs") {
   extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
 
-  # Generate site meta data file (avaiable to website viewers)
+  # Generate site meta data file (available to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
   if (!is.null(pkg$meta$url)) {
     meta <- list(
@@ -268,4 +268,3 @@ data_assets <- function(pkg = ".") {
 
   dir(path, full.names = TRUE)
 }
-

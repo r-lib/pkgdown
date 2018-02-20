@@ -9,7 +9,7 @@ Authors@R: c(
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
-Imports:
+Imports: 
     callr,
     desc,
     digest,
@@ -31,7 +31,8 @@ Imports:
     usethis,
     whisker,
     yaml,
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    fs
 Suggests:
     devtools,
     knitr,
@@ -44,6 +45,6 @@ Remotes:
     r-lib/usethis
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-URL: http://hadley.github.io/pkgdown, https://github.com/hadley/pkgdown
+URL: http://pkgdown.r-lib.org, https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues
 Roxygen: list(markdown = TRUE)

@@ -37,7 +37,7 @@ The home page will be automatically generated from one of the following four fil
 1. `README.Rmd`
 1. `README.md`
 
-pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and a `index.md`
+pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and an `index.md`
 
 When including big graphics in the README, you may find it easier to use `knitr::include_graphics("foo.png")` combined with chunk option `out.width = '100%'`. This will make the graphic scale with the size of the page.
 
@@ -75,7 +75,7 @@ pkgdown will warn if you've forgotten to include any non-internal functions.
 
 ## Articles
 
-pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories, and render output to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
+pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with '_'. This enables the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/). The output of the vignettes is rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
 
 If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`. As well, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete `vignettes/` directory to `.Rbuildignore`.
 
