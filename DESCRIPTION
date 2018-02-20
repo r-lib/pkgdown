@@ -10,7 +10,7 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
 Imports: 
-    callr,
+    callr (>= 2.0.2),
     desc,
     digest,
     evaluate,
