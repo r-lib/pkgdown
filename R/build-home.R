@@ -22,6 +22,11 @@
 #' The "developers" list is populated by the maintainer ("cre"), authors
 #' ("aut"), and funder ("fnd").
 #'
+#' @section Badges:
+#' Status badges are displayed in the sidebar under the section "Dev status".
+#' This section is automatically populated if the first paragraph of the
+#' homepage consists solely of status badges as linked images.
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8") {
