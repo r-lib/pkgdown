@@ -72,13 +72,8 @@ tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L) {
 
 tweak_homepage_html <- function(html, strip_header = FALSE) {
   first_para <- xml2::xml_find_first(html, "//p")
-  badges <- first_para %>% xml2::xml_children()
-  has_badges <-
-    trimws(xml2::xml_text(first_para)) == "" &&
-    length(badges) > 0 &&
-    all(xml2::xml_name(badges) %in% "a")
-
-  if (has_badges) {
+  badges <- badges_extract(first_para)
+  if (length(badges) > 0) {
     list <- list_with_heading(badges, "Dev status")
     list_div <- paste0("<div>", list, "</div>")
     list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
@@ -110,6 +105,27 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   tweak_tables(html)
 
   invisible()
+}
+
+badges_extract <- function(x) {
+  if (is.character(x)) {
+    x <- xml2::read_xml(x)
+  }
+
+  if (xml2::xml_text(x, trim = TRUE) != "") {
+    return(character())
+  }
+
+  badges <- xml2::xml_children(x)
+  if (length(badges) == 0) {
+    return(character())
+  }
+
+  if (!all(xml2::xml_name(badges) %in% "a")) {
+    return(character())
+  }
+
+  as.character(badges, options = character())
 }
 
 # code --------------------------------------------------------------------
