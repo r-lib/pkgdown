@@ -82,3 +82,12 @@ test_that("package repo verification", {
 
 })
 
+# orcid ------------------------------------------------------------------
+
+test_that("orcid ids are parsed from description", {
+  path <- normalizePath(test_path("home-orcid"))
+  pkg <- as_pkgdown(path)
+  data <- data_authors(pkg)
+  expect_true(grepl("https://orcid.org/0000-0003-4757-117X", data$main[[1]]$orcid))
+  expect_null(data$main[[2]]$orcid)
+})
