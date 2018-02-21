@@ -4,12 +4,6 @@
 #' "footer". Each of these templates is rendered using the `data`, and
 #' then assembled into an overall page using the "layout" template.
 #'
-#' @section YAML config:
-#' You can use either the templates provided by pkgdown, or provide your
-#' own by supplying `templates_path` key in your `_pkgdown.yml`.
-#' Generally, you'll find it easiest to customise if you start with a copy
-#' of the pkgdown templates and modify from there.
-#'
 #' @param pkg Path to package to document.
 #' @param name Name of the template (e.g. "home", "vignette", "news")
 #' @param data Data for the template.
