@@ -1,0 +1,12 @@
+bibentry(bibtype = "Article",
+         title = paste("{repo}: an R package for data-centered",
+                       "management of bioinformatic pipelines"),
+         author = person("Francesco", "Napolitano"),
+         journal = "BMC Bioinformatics",
+         year = 2017,
+         volume="18",
+         number="1",
+         issn="1471-2105",
+         doi="10.1186/s12859-017-1510-6")
+
+citation(auto = meta)
