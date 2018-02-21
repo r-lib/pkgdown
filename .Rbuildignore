@@ -8,3 +8,4 @@
 ^README-.*\.png$
 ^pkgdown$
 ^codecov\.yml$
+^CODE_OF_CONDUCT\.md$

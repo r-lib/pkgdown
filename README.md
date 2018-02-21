@@ -77,3 +77,9 @@ Here are a few examples created by people contributors to pkgdown:
 Comparing the output with the source is a great way to learn new pkgdown
 techniques (particularly because ironically, the pkgdown documentation
 isn’t very good yet)
+
+## Code of conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
+to abide by its terms.
