@@ -70,7 +70,7 @@ test_that("can link to local articles", {
   scoped_file_context(depth = 0)
 
   expect_equal(href_expr_(vignette("x")), "articles/y.html")
-  expect_equal(href_expr_(vignette("x", package="test")), "articles/y.html")
+  expect_equal(href_expr_(vignette("x", package = "test")), "articles/y.html")
   expect_equal(href_expr_(vignette("y")), NA_character_)
 })
 
