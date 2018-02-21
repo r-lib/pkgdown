@@ -1,8 +1,5 @@
 context("href")
 
-# This test file fails if run in isolation unless this context is set
-scoped_package_context("test", local_packages = character())
-
 test_that("can link function calls", {
   scoped_package_context("test", c(foo = "bar"))
   scoped_file_context("test")
