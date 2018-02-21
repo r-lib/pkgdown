@@ -26,6 +26,7 @@ Imports:
     rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rstudioapi,
     tibble,
     tools,
     usethis,

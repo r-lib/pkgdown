@@ -46,6 +46,7 @@ build_news <- function(pkg = ".",
                        one_page = TRUE,
                        depth = 1L,
                        preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 

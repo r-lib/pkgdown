@@ -94,6 +94,7 @@ build_reference <- function(pkg = ".",
                             depth = 1L,
                             preview = TRUE
                             ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 

@@ -162,6 +162,7 @@ build_site <- function(pkg = ".",
                        seed = 1014,
                        encoding = "UTF-8"
                        ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 

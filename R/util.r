@@ -272,3 +272,9 @@ write_utf8 <- function(..., path, sep = "") {
 #' @importFrom MASS addterm
 #' @export
 MASS::addterm
+
+rstudio_save_all <- function() {
+  if (rstudioapi::hasFun("documentSaveAll")) {
+    rstudioapi::documentSaveAll()
+  }
+}
