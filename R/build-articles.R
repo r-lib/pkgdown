@@ -142,9 +142,7 @@ build_rmarkdown_format <- function(pkg = ".",
                                    toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
-  suppressMessages(
-    render_page(pkg, "vignette", data, path, depth = depth)
-  )
+  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
   list(
     path = path,

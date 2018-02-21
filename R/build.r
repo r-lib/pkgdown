@@ -225,8 +225,17 @@ init_site <- function(pkg = ".", path = "docs") {
     usethis::use_build_ignore("pkgdown")
   }
 
-  extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
+  if (length(assets) > 0) {
+    cat_line("Copying ", length(assets), " assets")
+    fs::file_copy(assets, fs::path(path, fs::path_file(assets)), overwrite = TRUE)
+  }
+
+  extras <- data_extras(pkg)
+  if (length(extras) > 0) {
+    cat_line("Copying ", length(extras), " extras")
+    fs::file_copy(extras, fs::path(path, fs::path_file(extras)), overwrite = TRUE)
+  }
 
   # Generate site meta data file (available to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
@@ -241,12 +250,6 @@ init_site <- function(pkg = ".", path = "docs") {
     write_yaml(meta, path_meta)
   } else {
     unlink(path_meta)
-  }
-
-
-  for (asset in c(extras, assets)) {
-    message("Copying '", asset, "'")
-    file.copy(asset, path, recursive = TRUE)
   }
 
   build_logo(pkg, path = path)
@@ -275,4 +278,15 @@ data_assets <- function(pkg = ".") {
   }
 
   dir(path, full.names = TRUE)
+}
+
+data_extras <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  path_extras <- fs::path(pkg$path, "pkgdown")
+  if (!fs::dir_exists(path_extras)) {
+    return(character())
+  }
+
+  fs::dir_ls(path_extras, pattern = "^extra")
 }
