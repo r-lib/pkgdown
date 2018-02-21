@@ -118,7 +118,8 @@ convention those versions with a fourth component) are displayed on an
 an "unreleased" page.</p>
     
 
-    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +144,10 @@ If <code>FALSE</code>, writes one file per major version.</p></td>
       <th>depth</th>
       <td><p>Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.</p></td>
+    </tr>
+    <tr>
+      <th>preview</th>
+      <td><p>If <code>TRUE</code>, will preview freshly generated news page</p></td>
     </tr>
     </table>
     
