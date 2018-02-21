@@ -33,8 +33,8 @@ Other options control the appearance of the other parts of the site.
 The home page will be automatically generated from one of the following four files:
 
 1. `index.Rmd`
-1. `index.md`
 1. `README.Rmd`
+1. `index.md`
 1. `README.md`
 
 pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and an `index.md`
