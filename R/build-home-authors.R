@@ -129,10 +129,17 @@ author_desc <- function(x, comment = TRUE) {
 
 remove_orcid_comment <- function(x) {
 
-  if (length(x$comment) == 1 && 'ORCID' %in% names(x$comment)) {
-    x['comment'] <- list(NULL)
-  } else {
-    x['comment'] <- x$comment[!names(x$comment) == 'ORCID']
+  if ("ORCID" %in% names(x$comment)) {
+    if (length(x$comment) == 1) {
+      x$comment <- list(NULL)
+    } else {
+      xx <- x$comment[!names(x$comment) == "ORCID"]
+      if (length(xx) == 0 || is.null(xx)) {
+        x$comment <- list(NULL)
+      } else {
+        x$comment <- xx
+      }
+    }
   }
 
   x
