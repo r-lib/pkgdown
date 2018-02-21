@@ -74,19 +74,9 @@ mkdir <- function(..., quiet = FALSE) {
 
   if (!file.exists(path)) {
     if (!quiet)
-      message("Creating '", path, "/'")
+      cat_line("Creating '", path, "/'")
     dir.create(path, recursive = TRUE, showWarnings = FALSE)
   }
-}
-
-rule <- function(..., pad = "-") {
-  if (nargs() == 0) {
-    title <- ""
-  } else {
-    title <- paste0(..., " ")
-  }
-  width <- max(getOption("width") - nchar(title) - 1, 0)
-  message(title, paste(rep(pad, width, collapse = "")))
 }
 
 out_path <- function(path, ...) {
@@ -278,3 +268,9 @@ rstudio_save_all <- function() {
     rstudioapi::documentSaveAll()
   }
 }
+
+cat_line <- function(...) {
+  cat(..., "\n", sep = "")
+}
+
+rule <- function(...) cli::cat_rule(..., col = "green")

@@ -144,7 +144,7 @@ write_if_different <- function(contents, path) {
     return(FALSE)
   }
 
-  message("Writing '", path, "'")
+  cat_line("Writing '", path, "'")
   write_utf8(contents, path = path)
   TRUE
 }

@@ -77,7 +77,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
     } else if (file_ext == "Rmd") {
       if (identical(file_name, "README")) {
         # Render once so that .md is up to date
-        message("Updating ", file_name, ".md")
+        cat_line("Updating ", file_name, ".md")
         callr::r_safe(
           function(input, encoding) {
             rmarkdown::render(

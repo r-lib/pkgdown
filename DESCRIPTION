@@ -11,6 +11,7 @@ Depends:
     R (>= 3.2.0)
 Imports: 
     callr (>= 2.0.2),
+    cli,
     desc,
     digest,
     evaluate,
