@@ -1,10 +1,11 @@
 context("Open Graph meta tags")
 
-out <- tempdir()
+out <- fs::file_temp()
+teardown(fs::dir_delete(out))
 
 test_that("open-graph test site is successfully built", {
   pkg <- test_path("open-graph")
-  capture.output(expect_true(build_site(pkg, out)))
+  expect_output(build_site(pkg, out))
 })
 
 test_that("og tags are populated on index.html", {
@@ -32,9 +33,8 @@ test_that("og tags are populated on vignettes", {
 })
 
 test_that("if there is no logo.png, there is no og:image tag", {
-  nologo <- tempfile()
-  pkg <- test_path("home-readme-rmd")
-  capture.output(expect_true(build_site(pkg, nologo)))
+  nologo <- fs::file_temp()
+  expect_output(build_site(test_path("home-readme-rmd"), nologo))
   index_html <- readLines(file.path(nologo, "index.html"))
   expect_false(any(grepl("og:image", index_html, fixed = TRUE)))
 })

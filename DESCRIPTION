@@ -30,7 +30,6 @@ Imports:
     rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     yaml,
     xml2 (>= 1.1.1),

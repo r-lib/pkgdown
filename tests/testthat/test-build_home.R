@@ -23,14 +23,14 @@ test_that("link_license matches LICENSE", {
 
 test_that("intermediate files cleaned up automatically", {
   pkg <- test_path("home-index-rmd")
-  build_home(pkg, tempdir())
+  expect_output(build_home(pkg, tempdir()))
 
   expect_equal(dir(pkg), c("DESCRIPTION", "index.Rmd"))
 })
 
 test_that("intermediate files cleaned up automatically", {
   pkg <- test_path("home-readme-rmd")
-  build_home(pkg, tempdir())
+  expect_output(build_home(pkg, tempdir()))
 
   expect_equal(sort(dir(pkg)), sort(c("DESCRIPTION", "README.md", "README.Rmd")))
 })

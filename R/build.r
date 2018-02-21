@@ -210,20 +210,7 @@ init_site <- function(pkg = ".", path = "docs") {
   path <- rel_path(path, pkg$path)
 
   rule("Initialising site")
-  if (!file.exists(path)) {
-    mkdir(path)
-    usethis::use_build_ignore(path)
-  }
-
-  # Ignore pkgdown yaml file and directory (if used)
-  path_yaml <- file.path(pkg$path, "_pkgdown.yml")
-  if (file.exists(path_yaml)) {
-    usethis::use_build_ignore("_pkgdown.yml")
-  }
-  path_dir <- file.path(pkg$path, "pkgdown")
-  if (file.exists(path_dir)) {
-    usethis::use_build_ignore("pkgdown")
-  }
+  fs::dir_create(path)
 
   assets <- data_assets(pkg)
   if (length(assets) > 0) {
