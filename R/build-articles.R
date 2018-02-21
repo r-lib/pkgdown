@@ -53,9 +53,11 @@
 #' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
+#' @param preview If `TRUE`, will preview freshly generated articles page
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE) {
+                           encoding = "UTF-8", quiet = TRUE,
+                           preview = TRUE) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -93,6 +95,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
 
   invisible()
 }
