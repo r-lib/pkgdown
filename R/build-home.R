@@ -28,8 +28,10 @@
 #' homepage consists solely of status badges as linked images.
 #'
 #' @inheritParams build_articles
+#' @param preview If `TRUE`, will preview freshly generated home page
 #' @export
-build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8") {
+build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
+                       preview = TRUE) {
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -110,6 +112,10 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
     out_path(path, "index.html"),
     isTRUE(pkg$meta$home$strip_header)
   )
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
 
   invisible()
 }

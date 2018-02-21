@@ -7,7 +7,7 @@
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
   run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  path = "docs/reference", depth = 1L)
+  path = "docs/reference", depth = 1L, preview = TRUE)
 
 build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
 }
@@ -34,6 +34,8 @@ reproducible.}
 
 \item{depth}{Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.}
+
+\item{preview}{If \code{TRUE}, will preview freshly generated references page}
 }
 \description{
 By default, pkgdown will generate an index that simply lists all

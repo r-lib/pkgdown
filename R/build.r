@@ -170,7 +170,7 @@ build_site <- function(pkg = ".",
 
   init_site(pkg, path)
 
-  build_home(pkg, path = path, encoding = encoding)
+  build_home(pkg, path = path, encoding = encoding, preview = FALSE)
   build_reference(pkg,
     lazy = FALSE,
     examples = examples,
@@ -178,10 +178,12 @@ build_site <- function(pkg = ".",
     mathjax = mathjax,
     seed = seed,
     path = file.path(path, "reference"),
-    depth = 1L
+    depth = 1L,
+    preview = FALSE
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
-  build_news(pkg, path = file.path(path, "news"), depth = 1L)
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding,
+                 preview = FALSE)
+  build_news(pkg, path = file.path(path, "news"), depth = 1L, preview = FALSE)
 
   if (preview) {
     preview_site(path)
