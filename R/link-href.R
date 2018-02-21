@@ -34,36 +34,27 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     if (fun_name == "vignette") {
       expr <- lang_standardise(expr)
       topic <- as.character(expr[[2]])
-
-      if (is.null(expr$package)) {
-        href_article_local(topic)
-      } else {
-        href_article_remote(expr$package, topic)
-      }
+      href_article(topic, expr$package)
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
         if (is_lang(topic, "::")) {
           # ?pkg::x
-          href_topic_remote(as.character(topic[[3]]), as.character(topic[[2]]))
+          href_topic(as.character(topic[[3]]), as.character(topic[[2]]))
         } else if (is_symbol(topic) || is_string(topic)) {
           # ?x
-          href_topic_local(as.character(expr[[2]]))
+          href_topic(as.character(expr[[2]]))
         } else {
           NA_character_
         }
       } else if (n_args == 2) {
         # package?x
-        href_topic_local(paste0(expr[[3]], "-", expr[[2]]))
+        href_topic(paste0(expr[[3]], "-", expr[[2]]))
       }
     } else if (fun_name == "::") {
-      href_topic_remote(as.character(expr[[3]]), as.character(expr[[2]]))
+      href_topic(as.character(expr[[3]]), as.character(expr[[2]]))
     } else {
-      if (is.null(pkg)) {
-        href_topic_local(fun_name)
-      } else {
-        href_topic_remote(fun_name, pkg)
-      }
+      href_topic(fun_name, pkg)
     }
   } else {
     NA_character_
@@ -73,6 +64,14 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 # Helper for testing
 href_expr_ <- function(expr, ...) {
   href_expr(substitute(expr), ...)
+}
+
+href_topic <- function(topic, package = NULL) {
+  if (is.null(package) || package == context_get("package")) {
+    href_topic_local(topic)
+  } else {
+    href_topic_remote(topic, package)
+  }
 }
 
 href_topic_local <- function(topic) {
@@ -121,25 +120,26 @@ href_topic_remote <- function(topic, package) {
   }
 }
 
-href_article_local <- function(article) {
-  path <- find_article(NULL, article)
-  if (is.null(path)) {
-    return(NA_character_)
-  }
+href_article <- function(article, package = NULL) {
+  local <- is.null(package) || package == context_get("package")
+  if (local) {
+    path <- find_article(NULL, article)
+    if (is.null(path)) {
+      return(NA_character_)
+    }
 
-  paste0(up_path(context_get("depth")), "articles/", path)
-}
-
-href_article_remote <- function(package, article) {
-  path <- find_article(package, article)
-  if (is.null(path)) {
-    return(NA_character_)
-  }
-
-  base_url <- remote_package_article_url(package)
-  if (is.null(base_url)) {
-    paste0("https://cran.rstudio.com/web/packages/", package, "/vignettes/", path)
+    paste0(up_path(context_get("depth")), "articles/", path)
   } else {
-    paste0(base_url, "/", path)
+    path <- find_article(package, article)
+    if (is.null(path)) {
+      return(NA_character_)
+    }
+
+    base_url <- remote_package_article_url(package)
+    if (is.null(base_url)) {
+      paste0("https://cran.rstudio.com/web/packages/", package, "/vignettes/", path)
+    } else {
+      paste0(base_url, "/", path)
+    }
   }
 }

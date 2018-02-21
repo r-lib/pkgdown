@@ -11,6 +11,16 @@
 #' subtract(10, 1)
 NULL
 
+#' Brisket
+#'
+#' Regression tests for html generator.
+#'
+#' @section `code`:
+#' The section heading should contain unescaped html
+#' @keywords internal
+#' @name brisket
+NULL
+
 #' Pulled pork
 #'
 #' @name pulledpork

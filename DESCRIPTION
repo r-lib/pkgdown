@@ -9,8 +9,8 @@ Authors@R: c(
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
-Imports:
-    callr,
+Imports: 
+    callr (>= 2.0.2),
     desc,
     digest,
     evaluate,
@@ -26,12 +26,14 @@ Imports:
     rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rstudioapi,
     tibble,
     tools,
     usethis,
     whisker,
     yaml,
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    fs
 Suggests:
     devtools,
     knitr,

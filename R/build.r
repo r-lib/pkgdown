@@ -18,6 +18,11 @@
 #' will be automatically copied to `docs/` and inserted into the
 #' `<HEAD>` after the default pkgdown CSS and JSS.
 #'
+#' @section Favicon:
+#' If you include you package logo in the standard location of
+#' `man/figures/logo.png`, a favicon will be automatically created for
+#' you.
+#'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
 #' `url`, `title`, `template`, and `navbar`.
@@ -157,6 +162,7 @@ build_site <- function(pkg = ".",
                        seed = 1014,
                        encoding = "UTF-8"
                        ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -165,7 +171,7 @@ build_site <- function(pkg = ".",
 
   init_site(pkg, path)
 
-  build_home(pkg, path = path, encoding = encoding)
+  build_home(pkg, path = path, encoding = encoding, preview = FALSE)
   build_reference(pkg,
     lazy = FALSE,
     examples = examples,
@@ -173,10 +179,12 @@ build_site <- function(pkg = ".",
     mathjax = mathjax,
     seed = seed,
     path = file.path(path, "reference"),
-    depth = 1L
+    depth = 1L,
+    preview = FALSE
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
-  build_news(pkg, path = file.path(path, "news"), depth = 1L)
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding,
+                 preview = FALSE)
+  build_news(pkg, path = file.path(path, "news"), depth = 1L, preview = FALSE)
 
   if (preview) {
     preview_site(path)
@@ -184,14 +192,14 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-preview_site <- function(path) {
+preview_site <- function(path = "docs/") {
   utils::browseURL(file.path(path, "index.html"))
 }
 
 build_site_rstudio <- function() {
   devtools::document()
   callr::r(function() pkgdown::build_site(), show = TRUE)
-  preview_site("docs/")
+  preview_site()
   invisible()
 }
 
@@ -220,7 +228,7 @@ init_site <- function(pkg = ".", path = "docs") {
   extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
 
-  # Generate site meta data file (avaiable to website viewers)
+  # Generate site meta data file (available to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
   if (!is.null(pkg$meta$url)) {
     meta <- list(
@@ -268,4 +276,3 @@ data_assets <- function(pkg = ".") {
 
   dir(path, full.names = TRUE)
 }
-

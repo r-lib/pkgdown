@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,19 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Build pkgdown website — build_site" />
+
+<meta property="og:description" content="build_site() is a convenient wrapper around five functions:
+init_site()
+build_articles()
+build_home()
+build_reference()
+build_news()
+" />
+
+<meta property="og:description" content="See the documentation for the each function to learn how to control
+that aspect of the site." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -166,6 +181,13 @@ way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. 
 will be automatically copied to <code>docs/</code> and inserted into the
 <code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JSS.</p>
     
+    <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
+
+    
+    <p>If you include you package logo in the standard location of
+<code>man/figures/logo.png</code>, a favicon will be automatically created for
+you.</p>
+    
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
@@ -281,6 +303,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
       
       <li><a href="#custom-css-js">Custom CSS/JS</a></li>
 
+      <li><a href="#favicon">Favicon</a></li>
+
       <li><a href="#yaml-config">YAML config</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
@@ -295,7 +319,7 @@ for pkgdown templates to ensure that you use the correct components.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">

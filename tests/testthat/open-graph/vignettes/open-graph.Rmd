@@ -1,0 +1,12 @@
+---
+author: "Hadley Wickham"
+title: "Introduction to Open Graph"
+description: "The Open Graph protocol is a standard for web page metadata."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{og}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Content goes here

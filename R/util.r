@@ -21,7 +21,7 @@ markdown_text <- function(text, ...) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
 
-  writeLines(text, tmp)
+  write_utf8(text, path = tmp, sep = "\n")
   markdown(tmp, ...)
 }
 
@@ -40,8 +40,9 @@ markdown <- function(path = NULL, ..., depth = 0L) {
     output = tmp,
     from = from,
     to = "html",
-    options = purrr::compact(list(
+    options = purrr::compact(c(
       if (!rmarkdown::pandoc_available("2.0")) "--smart",
+      if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
       "--indented-code-classes=R",
       "--section-divs",
       ...
@@ -241,7 +242,7 @@ read_file <- function(path) {
 }
 
 write_yaml <- function(x, path) {
-  cat(yaml::as.yaml(x), "\n", sep = "", file = path)
+  write_utf8(yaml::as.yaml(x), "\n", path = path, sep = "")
 }
 
 invert_index <- function(x) {
@@ -260,8 +261,20 @@ a <- function(text, href) {
   ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
 }
 
+write_utf8 <- function(..., path, sep = "") {
+  file <- file(path, open = "w", encoding = "UTF-8")
+  on.exit(close(file))
+  cat(..., file = file, sep = sep)
+}
+
 # Used for testing
 #' @keywords internal
 #' @importFrom MASS addterm
 #' @export
 MASS::addterm
+
+rstudio_save_all <- function() {
+  if (rstudioapi::hasFun("documentSaveAll")) {
+    rstudioapi::documentSaveAll()
+  }
+}

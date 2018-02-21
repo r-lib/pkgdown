@@ -56,6 +56,7 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
+#' @param preview If `TRUE`, will preview freshly generated references page
 #' @export
 #' @examples
 #' # This example illustrates some important output types
@@ -90,8 +91,10 @@ build_reference <- function(pkg = ".",
                             mathjax = TRUE,
                             seed = 1014,
                             path = "docs/reference",
-                            depth = 1L
+                            depth = 1L,
+                            preview = TRUE
                             ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -117,7 +120,7 @@ build_reference <- function(pkg = ".",
   if (examples) {
     # Re-loading pkgdown while it's running causes all weird behaviour with
     # the context cache
-    if (pkg$package != "pkgdown") {
+    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$path)
     }
     set.seed(seed)
@@ -136,6 +139,11 @@ build_reference <- function(pkg = ".",
     run_dont_run = run_dont_run,
     mathjax = mathjax
   )
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
+
   invisible()
 }
 
@@ -229,6 +237,7 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
 
   out$description <- as_data(tags$tag_description[[1]])
+  out$opengraph <- list(description = strip_html_tags(out$description$contents))
   out$usage <- as_data(tags$tag_usage[[1]])
   out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {
@@ -264,6 +273,7 @@ add_slug <- function(x) {
 }
 
 make_slug <- function(x) {
+  x <- strip_html_tags(x)
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x

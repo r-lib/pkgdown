@@ -28,7 +28,7 @@
     {{/has_args}}
 
     {{#sections}}
-    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{title}}</h2>
+    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{{title}}}</h2>
 
     {{#contents}}
     {{{.}}}
@@ -47,7 +47,7 @@
       <li><a href="#arguments">Arguments</a></li>
       {{/has_args}}
       {{#sections}}
-      <li><a href="#{{slug}}">{{title}}</a></li>
+      <li><a href="#{{slug}}">{{{title}}}</a></li>
       {{/sections}}
       {{#examples}}
       <li><a href="#examples">Examples</a></li>

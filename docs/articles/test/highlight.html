@@ -8,8 +8,11 @@
 <title>Highlighting tests • pkgdown</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><meta property="og:title" content="Highlighting tests">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -99,18 +102,18 @@
 <div id="code-blocks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-blocks" class="anchor"></a>Code blocks</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Shouldn't get linked</span>
-<span class="kw">enlist</span>(<span class="dv">5</span>)
-<span class="co"># Should get linked</span>
-MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Should get linked because MASS was loaded previously</span>
-<span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Shouldn't get linked</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">enlist</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Should get linked</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Should get linked because MASS was loaded previously</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -130,7 +133,7 @@ MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentatio
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a>.</p>
+  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
 </div>
 
 <div class="pkgdown">

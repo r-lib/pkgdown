@@ -4,12 +4,6 @@
 #' "footer". Each of these templates is rendered using the `data`, and
 #' then assembled into an overall page using the "layout" template.
 #'
-#' @section YAML config:
-#' You can use either the templates provided by pkgdown, or provide your
-#' own by supplying `templates_path` key in your `_pkgdown.yml`.
-#' Generally, you'll find it easiest to customise if you start with a copy
-#' of the pkgdown templates and modify from there.
-#'
 #' @param pkg Path to package to document.
 #' @param name Name of the template (e.g. "home", "vignette", "news")
 #' @param data Data for the template.
@@ -30,6 +24,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = 0L) {
   path <- rel_path(path, pkg$path)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
+  data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   # render template components
   pieces <- c("head", "navbar", "header", "content", "footer")
@@ -80,6 +75,19 @@ data_template <- function(pkg = ".", depth = 0L) {
     navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
   ))
+}
+
+data_open_graph <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+  og <- list()
+  if (!is.null(find_logo(pkg$path))) {
+    site_url <- pkg$meta$url %||% "/"
+    if (!grepl("/$", site_url)) {
+      site_url <- paste0(site_url, "/")
+    }
+    og$image <- paste0(site_url, "logo.png")
+  }
+  og
 }
 
 template_path <- function(pkg = ".") {
@@ -137,7 +145,7 @@ write_if_different <- function(contents, path) {
   }
 
   message("Writing '", path, "'")
-  cat(contents, file = path)
+  write_utf8(contents, path = path)
   TRUE
 }
 

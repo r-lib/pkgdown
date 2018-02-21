@@ -4,7 +4,8 @@
 \alias{build_home}
 \title{Build home page}
 \usage{
-build_home(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
+build_home(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
+  preview = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -18,6 +19,8 @@ path to the source directory (not a relative path).}
 to adjust relative links in the navbar.}
 
 \item{encoding}{The encoding of the input files.}
+
+\item{preview}{If \code{TRUE}, will preview freshly generated home page}
 }
 \description{
 First looks for \code{index.Rmd} or \code{README.Rmd}, then
@@ -42,5 +45,12 @@ home:
 
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd").
+}
+
+\section{Badges}{
+
+Status badges are displayed in the sidebar under the section "Dev status".
+This section is automatically populated if the first paragraph of the
+homepage consists solely of status badges as linked images.
 }
 

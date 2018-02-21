@@ -124,7 +124,7 @@ extract_tag <- function(x, tag) {
 extract_title <- function(x) {
   x %>%
     purrr::detect(inherits, "tag_title") %>%
-    flatten_text() %>%
+    flatten_text(auto_link = FALSE) %>%
     trimws()
 }
 
@@ -141,6 +141,7 @@ package_vignettes <- function(path = ".") {
     pattern = "\\.[rR]md$",
     recursive = TRUE
   )
+  vig_path <- vig_path[!grepl("^_", basename(vig_path))]
 
   title <- file.path(path, "vignettes", vig_path) %>%
     purrr::map(rmarkdown::yaml_front_matter) %>%
