@@ -89,13 +89,13 @@ test_that("orcid ids are parsed from description", {
   pkg <- as_pkgdown(path)
   data <- data_authors(pkg)
   # test orcid only
-  expect_true(grepl("https://orcid.org/0000-0003-4757-117X", data$all[[1]]$orcid))
+  expect_true(grepl("https://orcid.org/0000-0003-4757-117X", pluck(data, "all", 1, "orcid")))
   # test no comment
-  expect_null(data$all[[2]]$orcid)
+  expect_null(pluck(data, "all", 2, "orcid"))
   # test comment no orcid
-  expect_true(grepl("test comment no orcid", data$all[[3]]$comment))
-  expect_null(data$all[[3]]$orcid)
+  expect_equal("test comment no orcid", pluck(data, "all", 3, "comment"))
+  expect_null(pluck(data, "all", 3, "orcid"))
   # test comment and orcid
-  expect_true(grepl("test comment and orcid", data$all[[4]]$comment))
-  expect_true(grepl("https://orcid.org/0000-0000-0000-000X", data$all[[4]]$orcid))
+  expect_equal("test comment and orcid", pluck(data, "all", 4, "comment", 1))
+  expect_true(grepl("https://orcid.org/0000-0000-0000-000X", pluck(data, "all", 4, "orcid")))
 })
