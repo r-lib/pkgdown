@@ -192,14 +192,14 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-preview_site <- function(path) {
+preview_site <- function(path = "docs/") {
   utils::browseURL(file.path(path, "index.html"))
 }
 
 build_site_rstudio <- function() {
   devtools::document()
   callr::r(function() pkgdown::build_site(), show = TRUE)
-  preview_site("docs/")
+  preview_site()
   invisible()
 }
 
