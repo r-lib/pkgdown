@@ -65,7 +65,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
   }
 
   if (is.null(data$path)) {
-    data$index <- pkg$desc$get("Description")[[1]]
+    data$index <- linkify(pkg$desc$get("Description")[[1]])
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   } else {
     file_name <- tools::file_path_sans_ext(basename(data$path))
@@ -284,4 +284,17 @@ repo_url <- function(pkg, cran = cran_mirror(), bioc = bioc_mirror()) {
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)
   paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
+}
+
+linkify <- function(text) {
+  text <- gsub("<doi:([^>]+)>",
+               "&lt;<a href='https://doi.org/\\1'>doi:\\1</a>&gt;",
+               text, ignore.case = TRUE)
+  text <- gsub("<arXiv:([^>]+)>",
+               "&lt;<a href='https://arxiv.org/abs/\\1'>arXiv:\\1</a>&gt;",
+               text, ignore.case = TRUE)
+  text <- gsub("<((http|ftp)[^>]+)>",
+               "&lt;<a href='\\1'>\\1</a>&gt;",
+               text)
+  text
 }
