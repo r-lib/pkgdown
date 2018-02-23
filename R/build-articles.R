@@ -64,7 +64,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
-  if (!has_vignettes(pkg$path)) {
+  if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
   }
 
