@@ -83,9 +83,7 @@
     
 <div class="contents">
 <p>This document uses a variety of linking styles for testing purposes</p>
-<div id="inline-code" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inline-code" class="anchor"></a>Inline code</h2>
+<section id="inline-code" class="level2"><h2>Inline code</h2>
 <p>Local:</p>
 <ul>
 <li><code><a href="../../articles/pkgdown.html">vignette("pkgdown")</a></code></li>
@@ -97,24 +95,54 @@
 <li><code><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">MASS::enlist</a></code></li>
 <li><code><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">MASS::enlist()</a></code></li>
 <li><code><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">?MASS::enlist</a></code></li>
-</ul>
-</div>
-<div id="code-blocks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-blocks" class="anchor"></a>Code blocks</h2>
+</ul></section><section id="code-blocks" class="level2"><h2>Code blocks</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Shouldn't get linked</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">enlist</span>(<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Should get linked</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Should get linked because MASS was loaded previously</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a></code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; [[1]]
+#&gt; [1] 5
+</pre>
 </div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Should get linked because MASS was loaded previously</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a></code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; [[1]]
+#&gt; [1] 5
+</pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">cat</span>(crayon<span class="op">:::</span><span class="kw">ansi_colors_8</span>(), <span class="dt">sep =</span> <span class="st">""</span>)</a></code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; reset: foobar         bold: <span style="font-weight:bold">foobar</span>          blurred: <span>foobar</span>       
+#&gt; italic: <span style="font-style:italic">foobar</span>        underline: <span style="text-decoration:underline">foobar</span>     inverse: <span>foobar</span>       
+#&gt; hidden: <span style="visibility:hidden">foobar</span>        strikethrough: <span style="text-decoration:line-through">foobar</span> black: <span style="color:#2e3436">foobar</span>         
+#&gt; red: <span style="color:#cc0000">foobar</span>           green: <span style="color:#4e9a06">foobar</span>         yellow: <span style="color:#c4a000">foobar</span>        
+#&gt; blue: <span style="color:#3465a4">foobar</span>          magenta: <span style="color:#75507b">foobar</span>       cyan: <span style="color:#06989a">foobar</span>          
+#&gt; white: <span style="color:#d3d7cf">foobar</span>         silver: foobar        bgBlack: <span style="background-color:#2e3436">foobar</span>       
+#&gt; bgRed: <span style="background-color:#cc0000">foobar</span>         bgGreen: <span style="background-color:#4e9a06">foobar</span>       bgYellow: <span style="background-color:#c4a000">foobar</span>      
+#&gt; bgBlue: <span style="background-color:#3465a4">foobar</span>        bgMagenta: <span style="background-color:#75507b">foobar</span>     bgCyan: <span style="background-color:#06989a">foobar</span>        
+#&gt; bgWhite: <span style="background-color:#d3d7cf">foobar</span>
+</pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">message</span>(crayon<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/crayon/topics/crayon">red</a></span>(<span class="st">"foo"</span>))</a></code></pre></div>
+<div class="message">
+<pre class="knitr r">#&gt; <span style="color:#cc0000">foo</span>
+</pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">warning</span>(crayon<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/crayon/topics/crayon">blue</a></span>(<span class="st">"bar"</span>))</a></code></pre></div>
+<div class="warning">
+<pre class="knitr r">#&gt; Warning: <span style="color:#3465a4">bar</span>
+</pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">stop</span>(crayon<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/crayon/topics/crayon">green</a></span>(<span class="st">"baz"</span>), <span class="dt">call. =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="error">
+<pre class="knitr r">#&gt; Error: <span style="color:#4e9a06">baz</span>
+</pre>
+</div>
+</section>
 </div>
   </div>
 
