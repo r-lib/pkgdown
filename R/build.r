@@ -12,6 +12,8 @@
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
 #'
+#' Note if names of generated files were changed, you will need to use [clean_site] first to clean up orphan files.
+#'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
