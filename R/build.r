@@ -12,6 +12,8 @@
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
 #'
+#' Note if names of generated files were changed, you will need to use [clean_site] first to clean up orphan files.
+#'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
@@ -162,6 +164,7 @@ build_site <- function(pkg = ".",
                        seed = 1014,
                        encoding = "UTF-8"
                        ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -170,7 +173,7 @@ build_site <- function(pkg = ".",
 
   init_site(pkg, path)
 
-  build_home(pkg, path = path, encoding = encoding)
+  build_home(pkg, path = path, encoding = encoding, preview = FALSE)
   build_reference(pkg,
     lazy = FALSE,
     examples = examples,
@@ -178,10 +181,12 @@ build_site <- function(pkg = ".",
     mathjax = mathjax,
     seed = seed,
     path = file.path(path, "reference"),
-    depth = 1L
+    depth = 1L,
+    preview = FALSE
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
-  build_news(pkg, path = file.path(path, "news"), depth = 1L)
+  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding,
+                 preview = FALSE)
+  build_news(pkg, path = file.path(path, "news"), depth = 1L, preview = FALSE)
 
   if (preview) {
     preview_site(path)
@@ -189,14 +194,14 @@ build_site <- function(pkg = ".",
   invisible(TRUE)
 }
 
-preview_site <- function(path) {
+preview_site <- function(path = "docs/") {
   utils::browseURL(file.path(path, "index.html"))
 }
 
 build_site_rstudio <- function() {
   devtools::document()
   callr::r(function() pkgdown::build_site(), show = TRUE)
-  preview_site("docs/")
+  preview_site()
   invisible()
 }
 
@@ -207,23 +212,19 @@ init_site <- function(pkg = ".", path = "docs") {
   path <- rel_path(path, pkg$path)
 
   rule("Initialising site")
-  if (!file.exists(path)) {
-    mkdir(path)
-    usethis::use_build_ignore(path)
-  }
+  fs::dir_create(path)
 
-  # Ignore pkgdown yaml file and directory (if used)
-  path_yaml <- file.path(pkg$path, "_pkgdown.yml")
-  if (file.exists(path_yaml)) {
-    usethis::use_build_ignore("_pkgdown.yml")
-  }
-  path_dir <- file.path(pkg$path, "pkgdown")
-  if (file.exists(path_dir)) {
-    usethis::use_build_ignore("pkgdown")
-  }
-
-  extras <- dir(file.path(pkg$path, "pkgdown"), pattern = "^extra", full.names = TRUE)
   assets <- data_assets(pkg)
+  if (length(assets) > 0) {
+    cat_line("Copying ", length(assets), " assets")
+    fs::file_copy(assets, fs::path(path, fs::path_file(assets)), overwrite = TRUE)
+  }
+
+  extras <- data_extras(pkg)
+  if (length(extras) > 0) {
+    cat_line("Copying ", length(extras), " extras")
+    fs::file_copy(extras, fs::path(path, fs::path_file(extras)), overwrite = TRUE)
+  }
 
   # Generate site meta data file (available to website viewers)
   path_meta <- file.path(path, "pkgdown.yml")
@@ -238,12 +239,6 @@ init_site <- function(pkg = ".", path = "docs") {
     write_yaml(meta, path_meta)
   } else {
     unlink(path_meta)
-  }
-
-
-  for (asset in c(extras, assets)) {
-    message("Copying '", asset, "'")
-    file.copy(asset, path, recursive = TRUE)
   }
 
   build_logo(pkg, path = path)
@@ -272,4 +267,15 @@ data_assets <- function(pkg = ".") {
   }
 
   dir(path, full.names = TRUE)
+}
+
+data_extras <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  path_extras <- fs::path(pkg$path, "pkgdown")
+  if (!fs::dir_exists(path_extras)) {
+    return(character())
+  }
+
+  fs::dir_ls(path_extras, pattern = "^extra")
 }

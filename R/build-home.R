@@ -28,8 +28,11 @@
 #' homepage consists solely of status badges as linked images.
 #'
 #' @inheritParams build_articles
+#' @param preview If `TRUE`, will preview freshly generated home page
 #' @export
-build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8") {
+build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
+                       preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -62,7 +65,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
   }
 
   if (is.null(data$path)) {
-    data$index <- pkg$desc$get("Description")[[1]]
+    data$index <- linkify(pkg$desc$get("Description")[[1]])
     render_page(pkg, "home", data, out_path(path, "index.html"), depth = depth)
   } else {
     file_name <- tools::file_path_sans_ext(basename(data$path))
@@ -74,11 +77,12 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
     } else if (file_ext == "Rmd") {
       if (identical(file_name, "README")) {
         # Render once so that .md is up to date
-        message("Updating ", file_name, ".md")
+        cat_line("Updating ", file_name, ".md")
         callr::r_safe(
           function(input, encoding) {
             rmarkdown::render(
               input,
+              output_format = "github_document",
               output_options = list(html_preview = FALSE),
               quiet = TRUE,
               encoding = encoding,
@@ -110,6 +114,10 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8")
     out_path(path, "index.html"),
     isTRUE(pkg$meta$home$strip_header)
   )
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
 
   invisible()
 }
@@ -276,4 +284,18 @@ repo_url <- function(pkg, cran = cran_mirror(), bioc = bioc_mirror()) {
 link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)
   paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
+}
+
+linkify <- function(text) {
+  text <- escape_html(text)
+  text <- gsub("&lt;doi:([^&]+)&gt;",  # DOIs with < > & are not supported
+               "&lt;<a href='https://doi.org/\\1'>doi:\\1</a>&gt;",
+               text, ignore.case = TRUE)
+  text <- gsub("&lt;arXiv:([^&]+)&gt;",
+               "&lt;<a href='https://arxiv.org/abs/\\1'>arXiv:\\1</a>&gt;",
+               text, ignore.case = TRUE)
+  text <- gsub("&lt;((http|ftp)[^&]+)&gt;",  # URIs with & are not supported
+               "&lt;<a href='\\1'>\\1</a>&gt;",
+               text)
+  text
 }

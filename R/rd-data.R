@@ -232,7 +232,11 @@ is_newline <- function(x, trim = FALSE) {
 }
 
 UniqueId <- R6Class("UniqueId", public = list(
-  env = new_environment(),
+  env = NULL,
+
+  initialize = function() {
+    self$env <- new_environment()
+  },
 
   id = function(name) {
     if (!env_has(self$env, name)) {

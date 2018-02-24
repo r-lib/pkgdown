@@ -56,6 +56,7 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
+#' @param preview If `TRUE`, will preview freshly generated references page
 #' @export
 #' @examples
 #' # This example illustrates some important output types
@@ -90,8 +91,10 @@ build_reference <- function(pkg = ".",
                             mathjax = TRUE,
                             seed = 1014,
                             path = "docs/reference",
-                            depth = 1L
+                            depth = 1L,
+                            preview = TRUE
                             ) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
@@ -109,7 +112,7 @@ build_reference <- function(pkg = ".",
   figures_path <- file.path(pkg$path, "man", "figures")
   if (file.exists(figures_path) && !is.null(path)) {
     out_path <- file.path(path, "figures")
-    message("Copying man/figures/")
+    cat_line("Copying 'man/figures/'")
     mkdir(out_path)
     copy_dir(figures_path, out_path)
   }
@@ -136,6 +139,11 @@ build_reference <- function(pkg = ".",
     run_dont_run = run_dont_run,
     mathjax = mathjax
   )
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
+
   invisible()
 }
 
@@ -178,7 +186,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  message("Processing ", topic$file_in)
+  cat_line("Processing '", topic$file_in, "'")
   scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
 
   data <- data_reference_topic(
@@ -265,6 +273,7 @@ add_slug <- function(x) {
 }
 
 make_slug <- function(x) {
+  x <- strip_html_tags(x)
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x

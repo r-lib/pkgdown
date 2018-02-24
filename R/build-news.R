@@ -39,16 +39,20 @@
 #' @inheritParams build_articles
 #' @param one_page If `TRUE`, writes all news to a single file.
 #'   If `FALSE`, writes one file per major version.
+#' @param preview If `TRUE`, will preview freshly generated news page
 #' @export
 build_news <- function(pkg = ".",
                        path = "docs/news",
                        one_page = TRUE,
-                       depth = 1L) {
+                       depth = 1L,
+                       preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
+
   if (!has_news(pkg$path))
     return()
 
@@ -61,6 +65,10 @@ build_news <- function(pkg = ".",
     build_news_single(pkg, path, depth)
   } else {
     build_news_multi(pkg, path, depth)
+  }
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
   }
 
   invisible()

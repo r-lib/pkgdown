@@ -11,8 +11,9 @@ Depends:
     R (>= 3.2.0)
 Imports: 
     ansistrings,
-    callr,
+    callr (>= 2.0.2),
     crayon,
+    cli,
     desc,
     digest,
     evaluate,
@@ -28,9 +29,9 @@ Imports:
     rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     yaml,
     xml2 (>= 1.1.1),

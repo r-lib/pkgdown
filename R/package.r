@@ -124,7 +124,7 @@ extract_tag <- function(x, tag) {
 extract_title <- function(x) {
   x %>%
     purrr::detect(inherits, "tag_title") %>%
-    flatten_text() %>%
+    flatten_text(auto_link = FALSE) %>%
     trimws()
 }
 

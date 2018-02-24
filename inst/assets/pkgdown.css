@@ -137,6 +137,12 @@ pre, code {
   color: #333;
 }
 
+pre code {
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+
 pre .img {
   margin: 5px 0;
 }
@@ -149,6 +155,10 @@ pre .img img {
 
 code a, pre a {
   color: #375f84;
+}
+
+a.sourceLine:hover {
+  text-decoration: none;
 }
 
 .fl      {color: #1514b5;}

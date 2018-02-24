@@ -5,7 +5,7 @@
 \alias{data_template}
 \title{Render page with template}
 \usage{
-render_page(pkg = ".", name, data, path = "", depth = 0L)
+render_page(pkg = ".", name, data, path = "", depth = 0L, quiet = FALSE)
 
 data_template(pkg = ".", depth = 0L)
 }
@@ -29,17 +29,11 @@ See the full contents by running \code{data_template()}.}
 prints to standard out.}
 
 \item{depth}{Depth of path relative to base directory.}
+
+\item{quiet}{If \code{quiet}, will suppress output messages}
 }
 \description{
 Each page is composed of four templates: "head", "header", "content", and
 "footer". Each of these templates is rendered using the \code{data}, and
 then assembled into an overall page using the "layout" template.
 }
-\section{YAML config}{
-
-You can use either the templates provided by pkgdown, or provide your
-own by supplying \code{templates_path} key in your \code{_pkgdown.yml}.
-Generally, you'll find it easiest to customise if you start with a copy
-of the pkgdown templates and modify from there.
-}
-

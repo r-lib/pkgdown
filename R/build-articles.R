@@ -53,15 +53,18 @@
 #' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
+#' @param preview If `TRUE`, will preview freshly generated articles page
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE) {
+                           encoding = "UTF-8", quiet = TRUE,
+                           preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
-  if (!has_vignettes(pkg$path)) {
+  if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
   }
 
@@ -94,6 +97,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 
   build_articles_index(pkg, path = path, depth = depth)
 
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
+
   invisible()
 }
 
@@ -107,7 +114,7 @@ render_rmd <- function(pkg,
                        encoding = "UTF-8",
                        quiet = TRUE) {
 
-  message("Building article '", output_file, "'")
+  cat_line("Building article '", output_file, "'")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
@@ -140,9 +147,7 @@ build_rmarkdown_format <- function(pkg = ".",
                                    toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
-  suppressMessages(
-    render_page(pkg, "vignette", data, path, depth = depth)
-  )
+  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
   format <- rmarkdown::html_document(
       toc = toc,
@@ -270,9 +275,4 @@ default_articles_index <- function(pkg = ".") {
     )
   ))
 
-}
-
-has_vignettes <- function(path = ".") {
-  vign_path <- file.path(path, "vignettes")
-  file.exists(vign_path) && length(list.files(vign_path))
 }

@@ -42,3 +42,32 @@ This will generate a `docs/` directory. The home page will be generated from you
 The package also includes an RStudio add-in which you can bind to a keyboard shortcut. I recommend `Cmd + Shift + W`: it uses Cmd + Shift, like all other package development worksheets, it replaces a rarely used command (close all tabs), and the W is mnemonic for website.
 
 To customise your site, create `_pkgdown.yml` and modify it as described in the documentation. Alternatively, you can also use `pkgdown/_pkgdown.yml` if you need other files to customise your site.
+
+## In the wild
+
+As at last count, pkgdown is used [by over 1300 packages](https://github.com/search?utf8=✓&q=pkgdown.css+in%3Apath+path%3Adocs&type=Code). 
+
+Here are a few examples created by people contributors to pkgdown:
+
+* [bayesplot](http://mc-stan.org/bayesplot/index.html)
+  [[source](https://github.com/stan-dev/bayesplot/tree/gh-pages)]:
+  plotting functions for posterior analysis, model checking, and MCMC 
+  diagnostics.
+
+* [valr](https://rnabioco.github.io/valr/) 
+  [[source](https://github.com/rnabioco/valr)]: 
+  read and manipulate genome intervals and signals.
+
+* [mkin](http://jranke.github.io/mkin/)
+  [[source](https://github.com/jranke/mkin)]:
+  calculation routines based on the FOCUS Kinetics Report
+
+* [NMF](http://renozao.github.io/NMF/master/index.html)
+  [[source](https://github.com/renozao/NMF)]:
+  a framework to perform non-negative matrix factorization (NMF).
+
+Comparing the output with the source is a great way to learn new pkgdown techniques (particularly because ironically, the pkgdown documentation isn't very good yet)
+
+## Code of conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.

@@ -33,8 +33,8 @@ Other options control the appearance of the other parts of the site.
 The home page will be automatically generated from one of the following four files:
 
 1. `index.Rmd`
-1. `index.md`
 1. `README.Rmd`
+1. `index.md`
 1. `README.md`
 
 pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and an `index.md`
@@ -77,7 +77,7 @@ pkgdown will warn if you've forgotten to include any non-internal functions.
 
 pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with '_'. This enables the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/). The output of the vignettes is rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
 
-If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`. As well, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you can add the complete `vignettes/` directory to `.Rbuildignore`.
+If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`. As well, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and make sure that DESCRIPTION has no `VignetteBuilder` field.
 
 As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):
 
