@@ -97,6 +97,7 @@ test_that("names can be removed from persons", {
   expect_equal(remove_name(p2$comment, "ORCID"), c("one", "two"))
   expect_length(remove_name(p3$comment, "ORCID"), 1)
   expect_length(remove_name(p4$comment, "ORCID"), 0)
+})
 
 # links and references in the package description -------------------------
 
