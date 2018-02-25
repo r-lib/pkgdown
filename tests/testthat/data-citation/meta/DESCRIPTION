@@ -1,0 +1,7 @@
+Package: testpackage
+Version: 1.0.0
+Date/Publication: 2017
+Title: A test package
+Description: A test package
+Authors@R: person("H", "W")
+Encoding: UTF-8
