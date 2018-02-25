@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,15 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Build news section — build_news" />
+
+<meta property="og:description" content="Your NEWS.md is parsed in to sections based on your use of
+headings. Each minor version (i.e. the combination of first and second
+components) gets on one page, with all patch versions (i.e. the third
+component) on a single page. News items for development versions (by
+convention those versions with a fourth component) are displayed on an
+an "unreleased" page." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -107,7 +118,8 @@ convention those versions with a fourth component) are displayed on an
 an "unreleased" page.</p>
     
 
-    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/news"</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +145,10 @@ If <code>FALSE</code>, writes one file per major version.</p></td>
       <td><p>Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.</p></td>
     </tr>
+    <tr>
+      <th>preview</th>
+      <td><p>If <code>TRUE</code>, will preview freshly generated news page</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -143,7 +159,14 @@ to adjust relative links in the navbar.</p></td>
     - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
     ...
 </pre>
-    <p>Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.</p>
+    <p>Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+changes'.</p>
+<p>Issues and contributors mentioned in news items are automatically linked to
+github if a <code>URL</code> entry linking to github.com is provided in the package
+<code>DESCRIPTION</code>.</p><pre>
+## Major changes
+    - Lots of bug fixes (@hadley, #100)
+</pre>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
@@ -167,7 +190,7 @@ to adjust relative links in the navbar.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">

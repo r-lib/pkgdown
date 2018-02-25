@@ -4,7 +4,8 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
+build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L,
+  preview = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -19,6 +20,8 @@ If \code{FALSE}, writes one file per major version.}
 
 \item{depth}{Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.}
+
+\item{preview}{If \code{TRUE}, will preview freshly generated news page}
 }
 \description{
 Your \code{NEWS.md} is parsed in to sections based on your use of
@@ -41,7 +44,18 @@ The \code{NEWS.md} file should be formatted somewhat like this:
 ...
 }
 
-Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+changes'.
+
+Issues and contributors mentioned in news items are automatically linked to
+github if a \code{URL} entry linking to github.com is provided in the package
+\code{DESCRIPTION}.
+
+\preformatted{
+## Major changes
+
+- Lots of bug fixes (@hadley, #100)
+}
 }
 \section{YAML config}{
 

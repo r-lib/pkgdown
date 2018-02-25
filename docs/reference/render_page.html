@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Render page with template — render_page" />
+
+<meta property="og:description" content="Each page is composed of four templates: "head", "header", "content", and
+"footer". Each of these templates is rendered using the data, and
+then assembled into an overall page using the "layout" template." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -104,7 +112,7 @@
 then assembled into an overall page using the "layout" template.</p>
     
 
-    <pre class="usage"><span class='fu'>render_page</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>name</span>, <span class='no'>data</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
+    <pre class="usage"><span class='fu'>render_page</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>name</span>, <span class='no'>data</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>data_template</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
@@ -139,15 +147,11 @@ prints to standard out.</p></td>
       <th>depth</th>
       <td><p>Depth of path relative to base directory.</p></td>
     </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>If <code>quiet</code>, will suppress output messages</p></td>
+    </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
-
-    
-    <p>You can use either the templates provided by pkgdown, or provide your
-own by supplying <code>templates_path</code> key in your <code>_pkgdown.yml</code>.
-Generally, you'll find it easiest to customise if you start with a copy
-of the pkgdown templates and modify from there.</p>
     
 
   </div>
@@ -155,16 +159,14 @@ of the pkgdown templates and modify from there.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#yaml-config">YAML config</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">

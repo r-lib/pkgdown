@@ -19,7 +19,18 @@
 #' ...
 #' }
 #'
-#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+#' changes'.
+#'
+#' Issues and contributors mentioned in news items are automatically linked to
+#' github if a `URL` entry linking to github.com is provided in the package
+#' `DESCRIPTION`.
+#'
+#' \preformatted{
+#' ## Major changes
+#'
+#'   - Lots of bug fixes (@hadley, #100)
+#' }
 #'
 #' @section YAML config:
 #'
@@ -28,16 +39,20 @@
 #' @inheritParams build_articles
 #' @param one_page If `TRUE`, writes all news to a single file.
 #'   If `FALSE`, writes one file per major version.
+#' @param preview If `TRUE`, will preview freshly generated news page
 #' @export
 build_news <- function(pkg = ".",
                        path = "docs/news",
                        one_page = TRUE,
-                       depth = 1L) {
+                       depth = 1L,
+                       preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
+
   if (!has_news(pkg$path))
     return()
 
@@ -50,6 +65,10 @@ build_news <- function(pkg = ".",
     build_news_single(pkg, path, depth)
   } else {
     build_news_multi(pkg, path, depth)
+  }
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
   }
 
   invisible()
@@ -121,6 +140,10 @@ data_news <- function(pkg = ".", depth = 1L) {
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
 
+  if (any(is.na(titles))) {
+    stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
+  }
+
   anchors <- sections %>%
     xml2::xml_attr("id")
 
@@ -137,7 +160,8 @@ data_news <- function(pkg = ".", depth = 1L) {
 
   html <- sections %>%
     purrr::walk(tweak_code, depth = depth) %>%
-    purrr::map_chr(as.character)
+    purrr::map_chr(as.character) %>%
+    purrr::map_chr(add_github_links, pkg = pkg)
 
   news <- tibble::tibble(
     version = pieces %>% purrr::map_chr(3),
@@ -161,4 +185,20 @@ is_dev <- function(version) {
     purrr::map_dbl(c(1, 4), .null = 0)
 
   dev_v > 0
+}
+
+add_github_links <- function(x, pkg) {
+  user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
+  x <- gsub("@(\\w+)", user_link, x)
+
+  gh_link <- github_link(pkg$path)
+  if (is.null(gh_link)) {
+    return(x)
+  }
+
+  gh_link_href <- github_link(pkg$path)$href
+  issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
+  x <- gsub("#(\\d+)", issue_link, x)
+
+  x
 }

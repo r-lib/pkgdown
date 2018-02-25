@@ -371,13 +371,18 @@ as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
 as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         function(x, ...) {
+as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
   text <- flatten_text(x, ...)
+
+  if (!auto_link) {
+    return(paste0("<code>", text, "</code>"))
+  }
 
   expr <- tryCatch(
     parse(text = text)[[1]],
     error = function(e) NULL
   )
+
   href <- href_expr(expr)
   paste0("<code>", a(text, href = href), "</code>")
 }

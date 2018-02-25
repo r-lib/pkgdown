@@ -24,3 +24,8 @@ test_that("anchors don't get additional newline", {
     "tweak-anchor.html", update = TRUE
   )
 })
+
+test_that("Stripping HTML tags", {
+    expect_identical(strip_html_tags("<p>some text about <code>data</code>"),
+        "some text about data")
+})

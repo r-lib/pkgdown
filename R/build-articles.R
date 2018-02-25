@@ -53,15 +53,18 @@
 #' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
+#' @param preview If `TRUE`, will preview freshly generated articles page
 #' @export
 build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE) {
+                           encoding = "UTF-8", quiet = TRUE,
+                           preview = TRUE) {
+  rstudio_save_all()
   old <- set_pkgdown_env("true")
   on.exit(set_pkgdown_env(old))
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
-  if (!has_vignettes(pkg$path)) {
+  if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
   }
 
@@ -80,7 +83,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + depth
   )
-  data <- list(pagetitle = "$title$")
+  data <- list(
+    pagetitle = "$title$",
+    opengraph = list(description = "$description$")
+  )
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
     data = data,
@@ -90,6 +96,10 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
   purrr::walk(articles$input, unlink)
 
   build_articles_index(pkg, path = path, depth = depth)
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
 
   invisible()
 }
@@ -104,7 +114,7 @@ render_rmd <- function(pkg,
                        encoding = "UTF-8",
                        quiet = TRUE) {
 
-  message("Building article '", output_file, "'")
+  cat_line("Building article '", output_file, "'")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
@@ -112,14 +122,19 @@ render_rmd <- function(pkg,
   on.exit(unlink(format$path), add = TRUE)
 
   path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
+    function(..., crayon.enabled, crayon.colors) {
+      options("crayon.enabled" = crayon.enabled, "crayon.colors" = crayon.colors)
+      rmarkdown::render(...)
+    },
     args = list(
       input,
       output_format = format$format,
       output_file = basename(output_file),
       quiet = quiet,
       encoding = encoding,
-      envir = globalenv()
+      envir = globalenv(),
+      crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
+      crayon.colors = getOption("crayon.colors", crayon::num_colors())
     ),
     show = !quiet
   )
@@ -132,20 +147,32 @@ build_rmarkdown_format <- function(pkg = ".",
                                    toc = TRUE) {
   # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
-  suppressMessages(
-    render_page(pkg, "vignette", data, path, depth = depth)
-  )
+  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
-  list(
-    path = path,
-    format = rmarkdown::html_document(
+  format <- rmarkdown::html_document(
       toc = toc,
       toc_depth = 2,
       self_contained = FALSE,
       theme = NULL,
-      template = path
-    )
-  )
+      template = path)
+
+  format$knitr$knit_hooks <-
+    list(
+      output = colourise_chunk("output"),
+      message = colourise_chunk("message"),
+      warning = colourise_chunk("warning"),
+      error = colourise_chunk("error"))
+
+  list(path = path, format = format)
+}
+
+colourise_chunk <- function(type) {
+  function(x, options) {
+  sprintf('<div class = "%s"><pre class="knitr %s">%s</pre></div>\n',
+    type,
+    tolower(options$engine),
+    ansistrings::ansi_to_html(x, fullpage = FALSE))
+  }
 }
 
 update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L) {
@@ -248,9 +275,4 @@ default_articles_index <- function(pkg = ".") {
     )
   ))
 
-}
-
-has_vignettes <- function(path = ".") {
-  vign_path <- file.path(path, "vignettes")
-  file.exists(vign_path) && length(list.files(vign_path))
 }

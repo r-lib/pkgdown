@@ -6,7 +6,7 @@ rd_text <- function(x, fragment = TRUE) {
 }
 
 rd_file <- function(path, pkg_path = NULL) {
-  macros <- tools::loadPkgRdMacros(pkg_path, TRUE)
+  macros <- tools::loadPkgRdMacros(pkg_path, if (getRversion() < "3.3.0") TRUE)
   set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
 }
 

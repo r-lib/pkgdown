@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Build reference section — build_reference" />
+
+<meta property="og:description" content="By default, pkgdown will generate an index that simply lists all
+the functions in alphabetical order. To override this, provide a
+reference section in your _pkgdown.yml as described
+below." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -107,7 +116,7 @@ below.</p>
 
     <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
@@ -152,6 +161,10 @@ reproducible.</p></td>
       <th>depth</th>
       <td><p>Depth of path relative to root of documentation.  Used
 to adjust relative links in the navbar.</p></td>
+    </tr>
+    <tr>
+      <th>preview</th>
+      <td><p>If <code>TRUE</code>, will preview freshly generated references page</p></td>
     </tr>
     </table>
     
@@ -242,7 +255,7 @@ retina display). Icons are matched to topics by aliases.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">

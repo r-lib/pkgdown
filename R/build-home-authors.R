@@ -39,7 +39,7 @@ data_author_info <- function(pkg = ".") {
     ),
     "RStudio" = list(
       href = "https://www.rstudio.com",
-      html = "<img src='http://tidyverse.org/rstudio-logo.svg' height='24' />"
+      html = "<img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' />"
     )
   )
 

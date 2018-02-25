@@ -11,8 +11,11 @@ Authors@R: c(
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
-Imports:
-    callr,
+Imports: 
+    ansistrings,
+    callr (>= 2.0.2),
+    crayon,
+    cli,
     desc,
     digest,
     evaluate,
@@ -28,12 +31,13 @@ Imports:
     rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     yaml,
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    fs
 Suggests:
     devtools,
     knitr,
@@ -42,6 +46,7 @@ Suggests:
     BiocInstaller,
     covr
 Remotes:
+    r-lib/ansistrings,
     r-lib/pkgload,
     r-lib/usethis
 VignetteBuilder: knitr

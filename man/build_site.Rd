@@ -53,6 +53,13 @@ will be automatically copied to \code{docs/} and inserted into the
 \code{<HEAD>} after the default pkgdown CSS and JSS.
 }
 
+\section{Favicon}{
+
+If you include you package logo in the standard location of
+\code{man/figures/logo.png}, a favicon will be automatically created for
+you.
+}
+
 \section{YAML config}{
 
 There are four top-level YAML settings that affect the entire site:
