@@ -9,7 +9,6 @@ create_meta <- function(path) {
   dcf <- read.dcf(path)
   meta <- as.list(dcf[1, ])
 
-  class(meta) <- "packageDescription"
   meta
 }
 
