@@ -10,3 +10,5 @@ citEntry(entry = "Article",
          url = "https://www.biorxiv.org/content/early/2017/09/19/190926",
          textVersion="Privé, Florian, Hugues Aschard, and Michael G B Blum. 2017. Efficient management and analysis of large-scale genome-wide data with two R packages: bigstatsr and bigsnpr. BioRxiv, September. http://biorxiv.org/content/early/2017/09/19/190926.abstract"
 )
+
+citation(auto = meta)
