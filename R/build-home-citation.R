@@ -40,7 +40,7 @@ build_citation_authors <- function(pkg = ".", path = "docs", depth = 0L) {
   data <- list(
     pagetitle = "Citation and Authors",
     citations = data_citations(pkg),
-    authors = data_authors(pkg)$all
+    authors = unname(data_authors(pkg)$all)
   )
 
   render_page(pkg, "citation-authors", data, file.path(path, "authors.html"), depth = depth)
