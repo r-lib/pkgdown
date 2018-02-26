@@ -124,18 +124,7 @@ pkgdown_detective <- function(x, ...) {
   data$class[ is.na(data$class) ] <- ""
   data$style[ is.na(data$style) ] <- ""
 
-  tokens <- data$text
-  styles <- data$class
-  href <- href_tokens(tokens, styles )
-  linked <- !is.na(href)
-  tokens[linked] <- a(tokens[linked], href[linked])
-
-  styled <- !is.na(styles)
-  tokens[styled] <- sprintf("<span class='%s'>%s</span>",
-    styles[styled],
-    tokens[styled]
-  )
-  data$text <- tokens
+  data$href <- href_tokens(data$text, data$class )
 
   data
 }
