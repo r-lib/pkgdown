@@ -226,6 +226,11 @@ set_pkgdown_env <- function(x) {
   invisible(old)
 }
 
+scoped_in_pkgdown <- function(scope = parent.frame()) {
+  old <- set_pkgdown_env("true")
+  defer(set_pkgdown_env(old), scope = scope)
+}
+
 read_file <- function(path) {
   lines <- readLines(path, warn = FALSE)
   paste0(lines, "\n", collapse = "")

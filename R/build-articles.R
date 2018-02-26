@@ -59,8 +59,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
                            encoding = "UTF-8", quiet = TRUE,
                            preview = TRUE) {
   rstudio_save_all()
-  old <- set_pkgdown_env("true")
-  on.exit(set_pkgdown_env(old))
+  scoped_in_pkgdown()
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)

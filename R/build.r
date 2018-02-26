@@ -165,8 +165,7 @@ build_site <- function(pkg = ".",
                        encoding = "UTF-8"
                        ) {
   rstudio_save_all()
-  old <- set_pkgdown_env("true")
-  on.exit(set_pkgdown_env(old))
+  scoped_in_pkgdown()
 
   pkg <- as_pkgdown(pkg)
   path <- rel_path(path, pkg$path)
