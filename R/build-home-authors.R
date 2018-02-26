@@ -105,10 +105,14 @@ author_list <- function(x, authors_info, comment = FALSE) {
   roles <- paste0(role_lookup[x$role], collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
 
+  orcid <- x$comment[["ORCID"]]
+  x$comment <- remove_name(x$comment, "ORCID")
+
   list(
     name = name,
     roles = roles,
-    comment = x$comment
+    comment = x$comment,
+    orcid = orcid_link(orcid)
   )
 }
 
@@ -116,8 +120,30 @@ author_desc <- function(x, comment = TRUE) {
   paste(
     x$name,
     "<br />\n<small class = 'roles'>", x$roles, "</small>",
-    if (comment && !is.null(x$comment))
+    if (!is.null(x$orcid))
+      x$orcid,
+    if (comment && !is.null(x$comment) && length(x$comment) != 0)
       paste0("<br/>\n<small>(", x$comment, ")</small>")
+  )
+}
+
+remove_name <- function(x, name) {
+  stopifnot(is.character(name), length(name) == 1)
+
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(x)
+  }
+
+  x[!(nms %in% name)]
+}
+
+orcid_link <- function(orcid) {
+  if (is.null(orcid)) return(NULL)
+
+  paste0(
+    "<a href='https://orcid.org/", orcid, "' target='orcid.widget'>",
+    "<img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid'></a>"
   )
 }
 
