@@ -11,8 +11,9 @@ clean_site <- function(pkg = ".", path = "docs") {
   top_level <- fs::dir_ls(path)
   top_level <- top_level[basename(top_level) != "CNAME"]
 
-  fs::dir_delete(top_level[fs::is_dir(top_level)])
-  fs::file_delete(top_level[!fs::is_dir(top_level)])
+  is_dir <- fs::is_dir(top_level)
+  fs::dir_delete(top_level[is_dir])
+  fs::file_delete(top_level[!is_dir])
 
   invisible(TRUE)
 }
