@@ -1,0 +1,8 @@
+Package: testpackage 
+Type: Package
+Title: Test package 
+Version: 0.2.5
+Date: 2018-02-02
+Authors@R: person("Florian", "Privé")
+Description: Test non-ASCII characters in Authors@R 
+Encoding: UTF-8
