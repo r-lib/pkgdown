@@ -46,12 +46,5 @@ enlist(5)
 enlist(5)
 ```
 
-```{r}
-cat(crayon:::ansi_colors_8(), sep = "")
-```
 
-```{r, error = TRUE}
-message(crayon::red("foo"))
-warning(crayon::blue("bar"))
-stop(crayon::green("baz"), call. = FALSE)
-```
+

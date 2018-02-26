@@ -122,19 +122,14 @@ render_rmd <- function(pkg,
   on.exit(unlink(format$path), add = TRUE)
 
   path <- callr::r_safe(
-    function(..., crayon.enabled, crayon.colors) {
-      options("crayon.enabled" = crayon.enabled, "crayon.colors" = crayon.colors)
-      rmarkdown::render(...)
-    },
+    function(...) rmarkdown::render(...),
     args = list(
       input,
       output_format = format$format,
       output_file = basename(output_file),
       quiet = quiet,
       encoding = encoding,
-      envir = globalenv(),
-      crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
-      crayon.colors = getOption("crayon.colors", crayon::num_colors())
+      envir = globalenv()
     ),
     show = !quiet
   )
@@ -149,30 +144,16 @@ build_rmarkdown_format <- function(pkg = ".",
   path <- tempfile(fileext = ".html")
   render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
-  format <- rmarkdown::html_document(
+  list(
+    path = path,
+    format = rmarkdown::html_document(
       toc = toc,
       toc_depth = 2,
       self_contained = FALSE,
       theme = NULL,
-      template = path)
-
-  format$knitr$knit_hooks <-
-    list(
-      output = colourise_chunk("output"),
-      message = colourise_chunk("message"),
-      warning = colourise_chunk("warning"),
-      error = colourise_chunk("error"))
-
-  list(path = path, format = format)
-}
-
-colourise_chunk <- function(type) {
-  function(x, options) {
-  sprintf('<div class = "%s"><pre class="knitr %s">%s</pre></div>\n',
-    type,
-    tolower(options$engine),
-    ansistrings::ansi_to_html(x, fullpage = FALSE))
-  }
+      template = path
+    )
+  )
 }
 
 update_rmarkdown_html <- function(path, strip_header = FALSE, depth = 1L) {
