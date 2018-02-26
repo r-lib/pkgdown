@@ -274,3 +274,15 @@ cat_line <- function(...) {
 }
 
 rule <- function(...) cli::cat_rule(..., col = "green")
+
+list_with_heading <- function(bullets, heading) {
+  if (length(bullets) == 0)
+    return(character())
+
+  paste0(
+    "<h2>", heading, "</h2>",
+    "<ul class='list-unstyled'>\n",
+    paste0("<li>", bullets, "</li>\n", collapse = ""),
+    "</ul>\n"
+  )
+}
