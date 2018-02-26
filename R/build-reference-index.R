@@ -10,8 +10,9 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
   
   # Write S4 documentation if available
   if(!is.null(pkg$meta[["reference"]])){
+	  extract_title <- function(x){x$title}
 	  s4_documentation <- 
-			  pkg$meta[["reference"]] %>% purrr::map(.$title) %>% 
+			  pkg$meta[["reference"]] %>% purrr::map(extract_title) %>% 
 			  unlist() %>% grepl(pattern="S4") %>% which()
 	  
 	  if(length(s4_documentation)>0){
