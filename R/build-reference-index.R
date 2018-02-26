@@ -5,10 +5,24 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
   if (length(meta) == 0) {
     return(list())
   }
-
-  sections <- meta %>%
+  
+  sections <- list()
+  
+  # Write S4 documentation if available
+  if(!is.null(pkg$meta[["reference"]])){
+	  s4_documentation <- 
+			  pkg$meta[["reference"]] %>% purrr::map(.$title) %>% 
+			  unlist() %>% grepl(pattern="S4") %>% which()
+	  
+	  if(length(s4_documentation)>0){
+		  sections <- data_reference_index_S4(pkg)
+		  
+		  meta[[s4_documentation]] <- NULL
+	  }
+  }
+  sections <- append(sections, meta %>%
     purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
-    purrr::compact()
+    purrr::compact())
 
   # Cross-reference complete list of topics vs. topics found in index page
   all_topics <- meta %>%
@@ -95,4 +109,57 @@ default_reference_index <- function(pkg = ".") {
       contents = paste0('`', exported$name, '`')
     )
   ))
+}
+#' Function to build references for S4 classes
+data_reference_index_S4 <- function(pkg="."){
+	pkg <- as_pkgdown(pkg)
+	
+	# Derive exported topics
+	exported <- pkg$topics[!pkg$topics$internal, , drop = FALSE]
+	if (nrow(exported) == 0) {
+		return(list())
+	}
+	
+	# Derive classes and method rows out of topics
+	classes_index <- which(grepl("class",exported$name))
+	methods_index <- which(grepl("method",exported$alias))
+	
+	# Create an empty list of section
+	
+	list_of_sections <- list()
+	
+	# For each class append all methods as reference link
+	for(class_index in classes_index){
+		
+		title <- gsub("-class","",exported$name[class_index])
+		
+		methods_index_index <- which(title==gsub("\")","",
+						gsub(".*,","",gsub("-method","",exported$alias[methods_index]))
+				))
+		
+		if(length(methods_index_index)>0){
+			class_methods <- exported[c(class_index,methods_index[methods_index_index]),]
+		}else{
+			class_methods <- exported[c(class_index),]
+		}
+		list_of_sections <- append(list_of_sections,list(
+						list(
+								title=title,
+								desc= paste0("Class with name ",title),
+								slug = paste0("section-", make_slug(title)),
+								contents = purrr::transpose(tibble::tibble(
+										path = class_methods$file_out,
+										aliases = purrr::map2(
+												class_methods$funs,
+												class_methods$name,
+												~ if (length(.x) > 0) .x else .y
+										),
+										title = class_methods$title,
+										icon = find_icons(class_methods$alias, file.path(pkg$path, "icons"))
+								))
+						))
+		)#append
+	}
+	
+	return(list_of_sections)
 }
