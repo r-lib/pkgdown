@@ -45,17 +45,7 @@ build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
-  # Copy license file, if present
-  license_path <- file.path(pkg$path, "LICENSE")
-  if (file.exists(license_path)) {
-    render_page(pkg, "license",
-      data = list(
-        pagetitle = "License",
-        license = read_file(license_path)
-      ),
-      path = file.path(path, "LICENSE.html")
-    )
-  }
+  build_home_license(pkg, path)
 
   # Build authors page
   if (has_citation(pkg$path)) {
@@ -155,15 +145,6 @@ data_home_sidebar <- function(pkg = ".") {
     data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"
-  )
-}
-
-data_home_sidebar_license <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  paste0(
-    "<h2>License</h2>\n",
-    "<p>", autolink_license(pkg$desc$get("License")[[1]]), "</p>\n"
   )
 }
 
