@@ -84,9 +84,18 @@ test_that("package repo verification", {
 
 # orcid ------------------------------------------------------------------
 
+test_that("ORCID can be identified from all comment styles", {
+  pkg <- as_pkgdown(test_path("site-orcid"))
+  author_info <- data_author_info(pkg)
+  authors <- pkg %>%
+    pkg_authors() %>%
+    purrr::map(author_list, author_info)
+  expect_length(authors, 5)
+})
+
 test_that("names can be removed from persons", {
   p0 <- person("H", "W")
-  p1 <- person("H", "W", comment = "one")
+  p1 <- person("H", "W", role = "ctb", comment = "one")
   p2 <- person("H", "W", comment = c("one", "two"))
   p3 <- person("H", "W", comment = c("one", ORCID = "orcid"))
   p4 <- person("H", "W", comment = c(ORCID = "orcid"))
@@ -97,6 +106,7 @@ test_that("names can be removed from persons", {
   expect_equal(remove_name(p2$comment, "ORCID"), c("one", "two"))
   expect_length(remove_name(p3$comment, "ORCID"), 1)
   expect_length(remove_name(p4$comment, "ORCID"), 0)
+  expect_length(remove_name(p5$comment, "ORCID"), 0)
 })
 
 # links and references in the package description -------------------------
