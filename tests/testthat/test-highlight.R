@@ -1,6 +1,8 @@
 context("highlight")
 
 test_that("can link to external topics that use ::", {
+  scoped_package_context("test")
+
   # Functions
   expect_equal(
     highlight_text("MASS::addterm()"),

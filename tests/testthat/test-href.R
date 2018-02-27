@@ -18,6 +18,8 @@ test_that("respects href_topic_local args", {
 })
 
 test_that("can link remote objects", {
+  scoped_package_context("test")
+
   expect_equal(href_expr_(MASS::abbey), href_topic_remote("abbey", "MASS"))
   expect_equal(href_expr_(MASS::addterm()), href_topic_remote("addterm", "MASS"))
   expect_equal(href_expr_(MASS::addterm.default()), href_topic_remote("addterm", "MASS"))
@@ -32,6 +34,8 @@ test_that("links to home of re-exported functions", {
 })
 
 test_that("can link to remote pkgdown sites", {
+  scoped_package_context("test", c(foo = "bar"))
+
   expect_equal(href_expr_(pkgdown::add_slug), href_topic_remote("pkgdown", "add_slug"))
   expect_equal(href_expr_(pkgdown::add_slug(1)), href_topic_remote("pkgdown", "add_slug"))
 })
@@ -75,6 +79,8 @@ test_that("can link to local articles", {
 })
 
 test_that("can link to remote articles", {
+  scoped_package_context("test")
+
   expect_equal(
     href_expr_(vignette("sha1", "digest")),
      "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
