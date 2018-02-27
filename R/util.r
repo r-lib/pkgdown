@@ -231,6 +231,27 @@ scoped_in_pkgdown <- function(scope = parent.frame()) {
   defer(set_pkgdown_env(old), scope = scope)
 }
 
+section_init <- function(pkg, scope = parent.frame()) {
+  pkg <- as_pkgdown(pkg)
+
+  rstudio_save_all()
+  scoped_in_pkgdown(scope = scope)
+
+  pkg
+}
+
+section_fin <- function(path, preview = NA) {
+  if (is.na(preview)) {
+    preview <- interactive()
+  }
+
+  if (preview) {
+    utils::browseURL(file.path(path, "index.html"))
+  }
+
+  invisible()
+}
+
 read_file <- function(path) {
   lines <- readLines(path, warn = FALSE)
   paste0(lines, "\n", collapse = "")

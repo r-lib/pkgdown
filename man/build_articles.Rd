@@ -5,7 +5,7 @@
 \title{Build articles}
 \usage{
 build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = "UTF-8", quiet = TRUE, preview = TRUE)
+  encoding = "UTF-8", quiet = TRUE, preview = NA)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -23,7 +23,8 @@ to adjust relative links in the navbar.}
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
 
-\item{preview}{If \code{TRUE}, will preview freshly generated articles page}
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is

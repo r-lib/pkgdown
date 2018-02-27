@@ -53,16 +53,18 @@
 #' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
-#' @param preview If `TRUE`, will preview freshly generated articles page
+#' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
+#'   freshly generated section in browser.
 #' @export
-build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
-                           encoding = "UTF-8", quiet = TRUE,
-                           preview = TRUE) {
-  rstudio_save_all()
-  scoped_in_pkgdown()
-
-  pkg <- as_pkgdown(pkg)
+build_articles <- function(pkg = ".",
+                           path = "docs/articles",
+                           depth = 1L,
+                           encoding = "UTF-8",
+                           quiet = TRUE,
+                           preview = NA) {
+  pkg <- section_init(pkg)
   path <- rel_path(path, pkg$path)
+
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
   }
@@ -96,11 +98,7 @@ build_articles <- function(pkg = ".", path = "docs/articles", depth = 1L,
 
   build_articles_index(pkg, path = path, depth = depth)
 
-  if (preview) {
-    utils::browseURL(file.path(path, "index.html"))
-  }
-
-  invisible()
+  section_fin(path, preview = preview)
 }
 
 render_rmd <- function(pkg,

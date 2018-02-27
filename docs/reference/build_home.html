@@ -113,7 +113,7 @@ description field in <code>DESCRIPTION</code>.</p>
     
 
     <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>,
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -140,7 +140,8 @@ to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>preview</th>
-      <td><p>If <code>TRUE</code>, will preview freshly generated home page</p></td>
+      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
+freshly generated section in browser.</p></td>
     </tr>
     </table>
     

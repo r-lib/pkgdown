@@ -149,7 +149,6 @@
 #' @inheritParams build_reference
 #' @param path Location in which to save website, relative to package
 #'   path.
-#' @param preview If `TRUE`, will preview freshly generated site
 #' @export
 #' @examples
 #' \dontrun{
@@ -164,10 +163,8 @@ build_site <- function(pkg = ".",
                        seed = 1014,
                        encoding = "UTF-8"
                        ) {
-  rstudio_save_all()
-  scoped_in_pkgdown()
 
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg)
   path <- rel_path(path, pkg$path)
 
   init_site(pkg, path)
@@ -187,14 +184,7 @@ build_site <- function(pkg = ".",
                  preview = FALSE)
   build_news(pkg, path = file.path(path, "news"), depth = 1L, preview = FALSE)
 
-  if (preview) {
-    preview_site(path)
-  }
-  invisible(TRUE)
-}
-
-preview_site <- function(path = "docs/") {
-  utils::browseURL(file.path(path, "index.html"))
+  section_fin(path, preview = preview)
 }
 
 build_site_rstudio <- function() {

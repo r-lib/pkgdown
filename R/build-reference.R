@@ -56,7 +56,6 @@
 #' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
-#' @param preview If `TRUE`, will preview freshly generated references page
 #' @export
 #' @examples
 #' # This example illustrates some important output types
@@ -92,14 +91,10 @@ build_reference <- function(pkg = ".",
                             seed = 1014,
                             path = "docs/reference",
                             depth = 1L,
-                            preview = TRUE
+                            preview = NA
                             ) {
-  rstudio_save_all()
-  scoped_in_pkgdown()
-
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg)
   path <- rel_path(path, pkg$path)
-
   rule("Building function reference")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
 
@@ -139,11 +134,7 @@ build_reference <- function(pkg = ".",
     mathjax = mathjax
   )
 
-  if (preview) {
-    utils::browseURL(file.path(path, "index.html"))
-  }
-
-  invisible()
+  section_fin(path, preview = preview)
 }
 
 #' @export

@@ -1,4 +1,7 @@
 build_home_index <- function(pkg, path, depth = 0L, encoding = "UTF-8") {
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
+  scoped_file_context(depth = depth)
+
   data <- data_home(pkg)
   data$opengraph <- list(description = pkg$desc$get("Description")[[1]])
 

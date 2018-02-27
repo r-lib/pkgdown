@@ -28,34 +28,25 @@
 #' homepage consists solely of status badges as linked images.
 #'
 #' @inheritParams build_articles
-#' @param preview If `TRUE`, will preview freshly generated home page
 #' @export
-build_home <- function(pkg = ".", path = "docs", depth = 0L, encoding = "UTF-8",
-                       preview = TRUE) {
-  rstudio_save_all()
-  scoped_in_pkgdown()
+build_home <- function(pkg = ".",
+                       path = "docs",
+                       depth = 0L,
+                       encoding = "UTF-8",
+                       preview = NA) {
 
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg)
   path <- rel_path(path, pkg$path)
-
   rule("Building home")
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
-  scoped_file_context(depth = depth)
 
-  build_home_license(pkg, path)
 
-  # Build authors page
   if (has_citation(pkg$path)) {
     build_citation_authors(pkg, path = path, depth = depth)
   } else {
     build_authors(pkg, path = path, depth = depth)
   }
-
+  build_home_license(pkg, path)
   build_home_index(pkg, path, depth = depth, encoding = encoding)
 
-  if (preview) {
-    utils::browseURL(file.path(path, "index.html"))
-  }
-
-  invisible()
+  section_fin(path, preview = preview)
 }

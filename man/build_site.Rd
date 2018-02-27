@@ -25,7 +25,8 @@ path.}
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
-\item{preview}{If \code{TRUE}, will preview freshly generated site}
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
