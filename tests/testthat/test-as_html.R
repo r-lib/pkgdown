@@ -42,6 +42,10 @@ test_that("tabular converted to html", {
   expect_equal(rd2html(table), expectation)
 })
 
+test_that("out is for raw html", {
+  expect_equal(rd2html("\\out{<hr />}"), "<hr />")
+})
+
 # links -------------------------------------------------------------------
 
 test_that("href orders arguments correctly", {
