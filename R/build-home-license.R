@@ -5,10 +5,10 @@ build_home_license <- function(pkg, path) {
     return()
   }
 
-  render_page(pkg, "license",
+  render_page(pkg, "title-body",
     data = list(
       pagetitle = "License",
-      license = read_file(license_path)
+      body = paste0("<pre>", escape_html(read_file(license_path)), "</pre>")
     ),
     path = file.path(path, "LICENSE.html")
   )
