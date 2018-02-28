@@ -45,6 +45,7 @@ build_home <- function(pkg = ".",
   } else {
     build_authors(pkg, path = path, depth = depth)
   }
+  build_home_md(pkg, path, depth = depth)
   build_home_license(pkg, path)
   build_home_index(pkg, path, depth = depth, encoding = encoding)
 
