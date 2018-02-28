@@ -231,11 +231,14 @@ scoped_in_pkgdown <- function(scope = parent.frame()) {
   defer(set_pkgdown_env(old), scope = scope)
 }
 
-section_init <- function(pkg, scope = parent.frame()) {
+section_init <- function(pkg, depth, scope = parent.frame()) {
   pkg <- as_pkgdown(pkg)
 
   rstudio_save_all()
   scoped_in_pkgdown(scope = scope)
+
+  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index, scope = scope)
+  scoped_file_context(depth = depth)
 
   pkg
 }

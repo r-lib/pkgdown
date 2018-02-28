@@ -93,10 +93,9 @@ build_reference <- function(pkg = ".",
                             depth = 1L,
                             preview = NA
                             ) {
-  pkg <- section_init(pkg)
+  pkg <- section_init(pkg, depth = depth)
   path <- rel_path(path, pkg$path)
   rule("Building function reference")
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
 
   if (!is.null(path)) {
     mkdir(path)

@@ -45,15 +45,13 @@ build_news <- function(pkg = ".",
                        one_page = TRUE,
                        depth = 1L,
                        preview = NA) {
-  pkg <- section_init(pkg)
+  pkg <- section_init(pkg, depth = depth)
   path <- rel_path(path, pkg$path)
 
   if (!has_news(pkg$path))
     return()
 
   rule("Building news")
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
-  scoped_file_context(depth = depth)
   mkdir(path)
 
   if (one_page) {

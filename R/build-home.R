@@ -35,7 +35,7 @@ build_home <- function(pkg = ".",
                        encoding = "UTF-8",
                        preview = NA) {
 
-  pkg <- section_init(pkg)
+  pkg <- section_init(pkg, depth = depth)
   path <- rel_path(path, pkg$path)
   rule("Building home")
 

@@ -62,7 +62,7 @@ build_articles <- function(pkg = ".",
                            encoding = "UTF-8",
                            quiet = TRUE,
                            preview = NA) {
-  pkg <- section_init(pkg)
+  pkg <- section_init(pkg, depth = depth)
   path <- rel_path(path, pkg$path)
 
   if (nrow(pkg$vignettes) == 0L) {
