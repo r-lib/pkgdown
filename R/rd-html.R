@@ -272,18 +272,19 @@ as_html.tag_figure <- function(x, ...) {
   path <- as.character(x[[1]])
 
   if (n == 1) {
-    paste0("<img src='figures/", path, "' alt='' />")
+    out <- paste0("<img src='figures/", path, "' alt='' />")
   } else if (n == 2) {
     opt <- as.character(x[[2]])
     if (substr(opt, 1, 9) == "options: ") {
       extra <- substr(opt, 9, nchar(opt))
-      paste0("<img src='figures/", path, "'",  extra, " />")
+      out <- paste0("<img src='figures/", path, "'",  extra, " />")
     } else {
-      paste0("<img src='figures/", path, "' alt='", opt, "' />")
+      out <- paste0("<img src='figures/", path, "' alt='", opt, "' />")
     }
   } else {
     stop("Invalid \\figure{} markup", call. = FALSE)
   }
+  paste0("<p>", out, "</p>")
 }
 
 # List -----------------------------------------------------------------------
