@@ -1,4 +1,4 @@
-context("test-build-news.R")
+context("build-news.R")
 
 test_that("github links are added to news items", {
   path <- test_path("news-github-links")
@@ -24,4 +24,9 @@ test_that("build_news() uses content in NEWS.md", {
   expect_true(all(
     vapply(test_strings, function(x) any(grepl(x, lines)), logical(1))
   ))
+})
+
+test_that("packages that are not on cran don't have timelines", {
+  pkg <- as_pkgdown(test_path("news"))
+  expect_null(pkg_timeline(pkg))
 })
