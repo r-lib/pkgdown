@@ -1,7 +1,7 @@
 build_home_md <- function(pkg, path, depth = 0) {
 
   mds <- fs::dir_ls(pkg$path, glob = "*.md")
-  mds <- setdiff(mds, "README.md")
+  mds <- setdiff(mds, c("README.md", "LICENSE.md"))
 
   if (length(mds) == 0) {
     return()
