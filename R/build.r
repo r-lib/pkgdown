@@ -215,20 +215,7 @@ init_site <- function(pkg = ".", path = "docs") {
     fs::file_copy(extras, fs::path(path, fs::path_file(extras)), overwrite = TRUE)
   }
 
-  # Generate site meta data file (available to website viewers)
-  path_meta <- file.path(path, "pkgdown.yml")
-  if (!is.null(pkg$meta$url)) {
-    meta <- list(
-      urls = list(
-        reference = paste0(pkg$meta$url, "/reference"),
-        article = paste0(pkg$meta$url, "/articles")
-      ),
-      articles = as.list(pkg$article_index)
-    )
-    write_yaml(meta, path_meta)
-  } else {
-    unlink(path_meta)
-  }
+  build_site_meta(pkg, path = path)
 
   build_logo(pkg, path = path)
 
@@ -267,4 +254,24 @@ data_extras <- function(pkg = ".") {
   }
 
   fs::dir_ls(path_extras, pattern = "^extra")
+}
+
+# Generate site meta data file (available to website viewers)
+build_site_meta <- function(pkg = ".", path) {
+  path_meta <- file.path(path, "pkgdown.yml")
+  meta <- list(
+    pandoc = as.character(rmarkdown::pandoc_version()),
+    pkgdown = as.character(utils::packageVersion("pkgdown")),
+    pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1
+  )
+  meta$articles <- as.list(pkg$article_index)
+
+  if (!is.null(pkg$meta$url)) {
+    meta$urls <- list(
+      reference = paste0(pkg$meta$url, "/reference"),
+      article = paste0(pkg$meta$url, "/articles")
+    )
+    write_yaml(meta, path_meta)
+  }
+
 }

@@ -1,8 +1,11 @@
-urls:
-  reference: http://pkgdown.r-lib.org/reference
-  article: http://pkgdown.r-lib.org/articles
+pandoc: 2.1.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
   details: test/details.html
   highlight: test/highlight.html
+urls:
+  reference: http://pkgdown.r-lib.org/reference
+  article: http://pkgdown.r-lib.org/articles
 
