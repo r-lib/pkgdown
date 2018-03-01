@@ -164,7 +164,7 @@ build_site <- function(pkg = ".",
                        encoding = "UTF-8"
                        ) {
 
-  pkg <- section_init(pkg, depth = depth)
+  pkg <- section_init(pkg, depth = 0)
   path <- rel_path(path, pkg$path)
 
   init_site(pkg, path)
