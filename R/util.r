@@ -14,57 +14,6 @@ inst_path <- function() {
   }
 }
 
-markdown_text <- function(text, ...) {
-  if (is.null(text))
-    return(text)
-
-  tmp <- tempfile()
-  on.exit(unlink(tmp), add = TRUE)
-
-  write_utf8(text, path = tmp, sep = "\n")
-  markdown(tmp, ...)
-}
-
-markdown <- function(path = NULL, ..., depth = 0L) {
-  tmp <- tempfile(fileext = ".html")
-  on.exit(unlink(tmp), add = TRUE)
-
-  if (rmarkdown::pandoc_available("2.0")) {
-    from <- "markdown_github-hard_line_breaks+smart"
-  } else {
-    from <- "markdown_github-hard_line_breaks"
-  }
-
-  rmarkdown::pandoc_convert(
-    input = path,
-    output = tmp,
-    from = from,
-    to = "html",
-    options = purrr::compact(c(
-      if (!rmarkdown::pandoc_available("2.0")) "--smart",
-      if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
-      "--indented-code-classes=R",
-      "--section-divs",
-      ...
-    ))
-  )
-
-  xml <- xml2::read_html(tmp, encoding = "UTF-8")
-  tweak_code(xml, depth = depth)
-  tweak_anchors(xml, only_contents = FALSE)
-
-  # Extract body of html - as.character renders as xml which adds
-  # significant whitespace in tags like pre
-  xml %>%
-    xml2::xml_find_first(".//body") %>%
-    xml2::write_html(tmp, format = FALSE)
-
-  lines <- readLines(tmp, warn = FALSE)
-  lines <- sub("<body>", "", lines, fixed = TRUE)
-  lines <- sub("</body>", "", lines, fixed = TRUE)
-  paste(lines, collapse = "\n")
-}
-
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
@@ -208,52 +157,6 @@ out_of_date <- function(source, target) {
   file.info(source)$mtime > file.info(target)$mtime
 }
 
-#' Determine if code is executed by pkgdown
-#'
-#' This is occassionally useful when you need different behaviour by
-#' pkgdown and regular documentation.
-#'
-#' @export
-#' @examples
-#' in_pkgdown()
-in_pkgdown <- function() {
-  identical(Sys.getenv("IN_PKGDOWN"), "true")
-}
-
-set_pkgdown_env <- function(x) {
-  old <- Sys.getenv("IN_PKGDOWN")
-  Sys.setenv("IN_PKGDOWN" = x)
-  invisible(old)
-}
-
-scoped_in_pkgdown <- function(scope = parent.frame()) {
-  old <- set_pkgdown_env("true")
-  defer(set_pkgdown_env(old), scope = scope)
-}
-
-section_init <- function(pkg, depth, scope = parent.frame()) {
-  pkg <- as_pkgdown(pkg)
-
-  rstudio_save_all()
-  scoped_in_pkgdown(scope = scope)
-
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index, scope = scope)
-  scoped_file_context(depth = depth)
-
-  pkg
-}
-
-section_fin <- function(path, preview = NA) {
-  if (is.na(preview)) {
-    preview <- interactive()
-  }
-
-  if (preview) {
-    utils::browseURL(file.path(path, "index.html"))
-  }
-
-  invisible()
-}
 
 read_file <- function(path) {
   lines <- readLines(path, warn = FALSE)
