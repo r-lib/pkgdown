@@ -1,0 +1,25 @@
+---
+title: "Details tag"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{details tag}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+<details>
+  This should only be shown when required
+</details>
+
+<details>
+<summary>Some R code</summary>
+  
+```{r}
+1 + 2
+```
+</details>
+  

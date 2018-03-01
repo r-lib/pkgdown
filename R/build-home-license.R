@@ -23,6 +23,8 @@ build_home_license <- function(pkg, path) {
 data_home_sidebar_license <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+
+
   paste0(
     "<h2>License</h2>\n",
     "<p>", autolink_license(pkg$desc$get("License")[[1]]), "</p>\n"
