@@ -3,5 +3,6 @@ urls:
   article: http://pkgdown.r-lib.org/articles
 articles:
   pkgdown: pkgdown.html
+  details: test/details.html
   highlight: test/highlight.html
 
