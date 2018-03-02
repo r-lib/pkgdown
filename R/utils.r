@@ -37,14 +37,6 @@ find_first_existing <- function(path, ...) {
 
 
 
-read_file <- function(path) {
-  lines <- readLines(path, warn = FALSE)
-  paste0(lines, "\n", collapse = "")
-}
-
-write_yaml <- function(x, path) {
-  write_utf8(yaml::as.yaml(x), "\n", path = path, sep = "")
-}
 
 invert_index <- function(x) {
   stopifnot(is.list(x))
@@ -60,12 +52,6 @@ invert_index <- function(x) {
 
 a <- function(text, href) {
   ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
-}
-
-write_utf8 <- function(..., path, sep = "") {
-  file <- file(path, open = "w", encoding = "UTF-8")
-  on.exit(close(file))
-  cat(..., file = file, sep = sep)
 }
 
 # Used for testing
