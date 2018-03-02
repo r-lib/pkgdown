@@ -41,30 +41,27 @@
 #'   If `FALSE`, writes one file per major version.
 #' @export
 build_news <- function(pkg = ".",
-                       path = "docs/news",
                        one_page = TRUE,
-                       depth = 1L,
                        preview = NA) {
-  pkg <- section_init(pkg, depth = depth)
-  path <- rel_path(path, pkg$path)
+  pkg <- section_init(pkg, depth = 1L)
 
-  if (!has_news(pkg$path))
+  if (!has_news(pkg$src_path))
     return()
 
   rule("Building news")
-  mkdir(path)
+  mkdir(pkg$dst_path, "news")
 
   if (one_page) {
-    build_news_single(pkg, path, depth)
+    build_news_single(pkg)
   } else {
-    build_news_multi(pkg, path, depth)
+    build_news_multi(pkg)
   }
 
-  section_fin(path, preview = preview)
+  section_fin(pkg, "news", preview = preview)
 }
 
-build_news_single <- function(pkg, path, depth) {
-  news <- data_news(pkg, depth = depth)
+build_news_single <- function(pkg) {
+  news <- data_news(pkg)
 
   render_page(
     pkg,
@@ -74,13 +71,12 @@ build_news_single <- function(pkg, path, depth) {
       contents = news %>% purrr::transpose(),
       pagetitle = "All news"
     ),
-    file.path(path, "index.html"),
-    depth = depth
+    file.path("news", "index.html")
   )
 }
 
-build_news_multi <- function(pkg, path, depth) {
-  news <- data_news(pkg, depth = depth)
+build_news_multi <- function(pkg) {
+  news <- data_news(pkg)
   major <- factor(news$major_dev, levels = unique(news$major_dev))
 
   news_paged <- tibble::tibble(
@@ -98,8 +94,7 @@ build_news_multi <- function(pkg, path, depth) {
         contents = rev(purrr::transpose(contents)),
         pagetitle = paste0("Version ", version)
       ),
-      file.path(path, file_out),
-      depth = depth
+      file.path("news", file_out),
     )
   }
   news_paged %>% purrr::pmap(render_news)
@@ -108,19 +103,17 @@ build_news_multi <- function(pkg, path, depth) {
     pkg,
     "news-index",
     list(versions = news %>% purrr::transpose(), pagetitle = "News"),
-    file.path(path, "index.html"),
-    depth = depth
+    file.path(path, "index.html")
   )
 }
 
 globalVariables(".")
 
-data_news <- function(pkg = ".", depth = 1L) {
+data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  html <- markdown(
-    file.path(pkg$path, "NEWS.md"),
-    "--section-divs",
-    depth = depth)
+  scoped_file_context(depth = 1L)
+
+  html <- markdown(file.path(pkg$src_path, "NEWS.md"))
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -148,7 +141,7 @@ data_news <- function(pkg = ".", depth = 1L) {
   major <- pieces %>% purrr::map_chr(4)
 
   html <- sections %>%
-    purrr::walk(tweak_code, depth = depth) %>%
+    purrr::walk(tweak_code) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(add_github_links, pkg = pkg)
 
@@ -180,12 +173,12 @@ add_github_links <- function(x, pkg) {
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
   x <- gsub("@(\\w+)", user_link, x)
 
-  gh_link <- github_link(pkg$path)
+  gh_link <- github_link(pkg$src_path)
   if (is.null(gh_link)) {
     return(x)
   }
 
-  gh_link_href <- github_link(pkg$path)$href
+  gh_link_href <- github_link(pkg$src_path)$href
   issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
   x <- gsub("#(\\d+)", issue_link, x)
 

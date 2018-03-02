@@ -5,18 +5,18 @@ section_init <- function(pkg, depth, scope = parent.frame()) {
   scoped_in_pkgdown(scope = scope)
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index, scope = scope)
-  scoped_file_context(depth = depth)
+  scoped_file_context(depth = depth, scope = scope)
 
   pkg
 }
 
-section_fin <- function(path, preview = NA) {
+section_fin <- function(pkg, path, preview = NA) {
   if (is.na(preview)) {
     preview <- interactive()
   }
 
   if (preview) {
-    utils::browseURL(file.path(path, "index.html"))
+    utils::browseURL(file.path(pkg$dst_path, path, "index.html"))
   }
 
   invisible()

@@ -4,15 +4,12 @@
 \alias{clean_site}
 \title{Clean site}
 \usage{
-clean_site(pkg = ".", path = "docs")
+clean_site(pkg = ".")
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
-
-\item{path}{Location in which to save website, relative to package
-path.}
 }
 \description{
 Deletes all files in \code{doc/} (except for \code{CNAME})

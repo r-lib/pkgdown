@@ -86,6 +86,9 @@ description field in DESCRIPTION." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -115,8 +118,7 @@ description field in DESCRIPTION." />
 description field in <code>DESCRIPTION</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>,
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -126,16 +128,6 @@ description field in <code>DESCRIPTION</code>.</p>
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</p></td>
-    </tr>
-    <tr>
-      <th>depth</th>
-      <td><p>Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>encoding</th>

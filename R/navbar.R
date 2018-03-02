@@ -79,7 +79,7 @@ default_navbar <- function(pkg = ".") {
     )
   }
 
-  if (has_news(pkg$path)) {
+  if (has_news(pkg$src_path)) {
     left$news <- list(
       text = "News",
       href = "news/index.html"
@@ -87,7 +87,7 @@ default_navbar <- function(pkg = ".") {
   }
 
   right <- purrr::compact(list(
-    github_link(pkg$path)
+    github_link(pkg$src_path)
   ))
 
   print_yaml(list(

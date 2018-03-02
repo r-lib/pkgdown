@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build news section — build_news • pkgdown</title>
+<title>All news • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,15 +27,7 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Build news section — build_news" />
-
-<meta property="og:description" content="Your NEWS.md is parsed in to sections based on your use of
-headings. Each minor version (i.e. the combination of first and second
-components) gets on one page, with all patch versions (i.e. the third
-component) on a single page. News items for development versions (by
-convention those versions with a fourth component) are displayed on an
-an "unreleased" page." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="All news" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -48,7 +40,7 @@ an "unreleased" page." />
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -110,78 +102,31 @@ an "unreleased" page." />
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+
+  <div class="col-md-9">
     <div class="page-header">
-    <h1>Build news section</h1>
+      <h1>Change log <small>All releases</small></h1>
     </div>
 
-    
-    <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of
-headings. Each minor version (i.e. the combination of first and second
-components) gets on one page, with all patch versions (i.e. the third
-component) on a single page. News items for development versions (by
-convention those versions with a fourth component) are displayed on an
-an "unreleased" page.</p>
-    
-
-    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>pkg</th>
-      <td><p>Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>one_page</th>
-      <td><p>If <code>TRUE</code>, writes all news to a single file.
-If <code>FALSE</code>, writes one file per major version.</p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
-freshly generated section in browser.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code>NEWS.md</code> file should be formatted somewhat like this:</p><pre>
-# pkgdown 0.1.0.9000
-    ## Major changes
-    - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
-    ...
-</pre>
-    <p>Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
-changes'.</p>
-<p>Issues and contributors mentioned in news items are automatically linked to
-github if a <code>URL</code> entry linking to github.com is provided in the package
-<code>DESCRIPTION</code>.</p><pre>
-## Major changes
-    - Lots of bug fixes (@hadley, #100)
-</pre>
-    
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
-
-    
-    <p>There are currently no configuration options.</p>
-    
-
+    <div class="contents">
+    <div class="section level1">
+<h1>pkgdown 0.1.0.9000</h1>
+<ul>
+<li>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the destination directory using <code>pkgdown.yml</code>.</li>
+</ul>
+</div>
+    </div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#yaml-config">YAML config</a></li>
-          </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#NA">0.1.0.9000</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>

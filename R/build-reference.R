@@ -89,72 +89,71 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             mathjax = TRUE,
                             seed = 1014,
-                            path = "docs/reference",
-                            depth = 1L,
                             preview = NA
                             ) {
-  pkg <- section_init(pkg, depth = depth)
-  path <- rel_path(path, pkg$path)
+  pkg <- section_init(pkg, depth = 1L)
   rule("Building function reference")
 
-  if (!is.null(path)) {
-    mkdir(path)
-  }
+  ref_path <- file.path(pkg$dst_path, "reference")
+  mkdir(ref_path)
 
   # copy everything from man/figures to docs/reference/figures
-  figures_path <- file.path(pkg$path, "man", "figures")
+  figures_path <- file.path(pkg$src_path, "man", "figures")
   if (file.exists(figures_path) && !is.null(path)) {
-    out_path <- file.path(path, "figures")
     cat_line("Copying 'man/figures/'")
+    out_path <- file.path(ref_path, "figures")
     mkdir(out_path)
     copy_dir(figures_path, out_path)
   }
 
   if (examples) {
-    # Re-loading pkgdown while it's running causes all weird behaviour with
+    # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
     if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
-      pkgload::load_all(pkg$path)
+      pkgload::load_all(pkg$src_path)
     }
+
+    old_dir <- setwd(file.path(pkg$dst_path, "reference"))
+    on.exit(setwd(old_dir), add = TRUE)
+
+    old_opt <- options(width = 80)
+    on.exit(options(old_opt), add = TRUE)
+
     set.seed(seed)
   }
 
-  build_reference_index(pkg, path = path, depth = depth)
+  build_reference_index(pkg)
 
   topics <- pkg$topics %>% purrr::transpose()
   purrr::map(topics,
     build_reference_topic,
-    path,
     pkg = pkg,
     lazy = lazy,
-    depth = depth,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax
   )
 
-  section_fin(path, preview = preview)
+  section_fin(pkg, "reference", preview = preview)
 }
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+build_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
 
   # Copy icons, if needed
-  logo_path <- file.path(pkg$path, "icons")
+  logo_path <- file.path(pkg$src_path, "icons")
   if (file.exists(logo_path)) {
     mkdir(path, "icons")
-    copy_dir(logo_path, file.path(path, "icons"))
+    copy_dir(logo_path, file.path(pkg$dst_path, "reference", "icons"))
   }
 
-  scoped_file_context(depth = depth)
+  scoped_file_context(depth = 1L)
   render_page(
     pkg, "reference-index",
-    data = data_reference_index(pkg, depth = depth),
-    path = out_path(path, "index.html"),
-    depth = depth
+    data = data_reference_index(pkg),
+    path = "reference/index.html"
   )
 }
 
@@ -164,34 +163,29 @@ build_reference_topic <- function(topic,
                                   lazy = TRUE,
                                   examples = TRUE,
                                   run_dont_run = FALSE,
-                                  mathjax = TRUE,
-                                  path = NULL,
-                                  depth = 1L
+                                  mathjax = TRUE
                                   ) {
 
-  in_path <- file.path(pkg$path, "man", topic$file_in)
-  out_path <- out_path(path, topic$file_out)
+  in_path <- file.path(pkg$src_path, "man", topic$file_in)
+  out_path <- file.path(pkg$dst_path, "reference", topic$file_out)
 
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
   cat_line("Processing '", topic$file_in, "'")
-  scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = depth)
+  scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = 1L)
 
   data <- data_reference_topic(
     topic,
     pkg,
-    path = path,
     examples = examples,
     run_dont_run = run_dont_run,
-    mathjax = mathjax,
-    depth = depth
+    mathjax = mathjax
   )
   render_page(
     pkg, "reference-topic",
     data = data,
-    path = out_path,
-    depth = depth
+    path = file.path("reference", topic$file_out)
   )
   invisible()
 }
@@ -203,9 +197,7 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples = TRUE,
                                  run_dont_run = FALSE,
-                                 mathjax = TRUE,
-                                 path = NULL,
-                                 depth = 1L
+                                 mathjax = TRUE
                                  ) {
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
@@ -239,8 +231,7 @@ data_reference_topic <- function(topic,
     topic = tools::file_path_sans_ext(topic$file_in),
     path = path,
     examples = examples,
-    run_dont_run = run_dont_run,
-    depth = depth
+    run_dont_run = run_dont_run
   )
 
   # Everything else stays in original order, and becomes a list of sections.

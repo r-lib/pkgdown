@@ -94,6 +94,9 @@ Note if names of generated files were changed, you will need to use clean_site f
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -135,7 +138,7 @@ that aspect of the site.</p>
   <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)
 
-<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
+<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -198,7 +201,10 @@ you.</p>
 
     
     <p>There are four top-level YAML settings that affect the entire site:
-<code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.
+<code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.
+    <code>destination</code> controls where the site will be generated. It defaults to
+<code>docs/</code> (for GitHub pages), but you can override if desired. Relative
+paths will be taken relative to the package root.
     <code>url</code> optionally specifies the url where the site will be published.
 If you supply this, other pkgdown sites will link to your site when needed,
 rather than using generic links to <a href='rdocumentation.org'>rdocumentation.org</a>.

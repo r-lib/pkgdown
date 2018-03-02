@@ -87,6 +87,9 @@ template." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -117,8 +120,8 @@ reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topic
 template.</p>
     
 
-    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/articles"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -128,16 +131,6 @@ template.</p>
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</p></td>
-    </tr>
-    <tr>
-      <th>depth</th>
-      <td><p>Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>encoding</th>
@@ -152,6 +145,16 @@ pandoc. This is useful when debugging.</p></td>
       <th>preview</th>
       <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Output path. Relative paths are taken relative to the
+<code>pkg</code> directory.</p></td>
+    </tr>
+    <tr>
+      <th>depth</th>
+      <td><p>Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.</p></td>
     </tr>
     </table>
     

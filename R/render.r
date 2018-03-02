@@ -15,14 +15,23 @@
 #'   * `package`: package metadata including `name` and`version`.
 #'
 #'   See the full contents by running `data_template()`.
-#' @param path Location to create file. If `""` (the default),
-#'   prints to standard out.
+#' @param path Location to create file; relative to destination directory.
+#'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = 0L, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
+
+  if (is.null(depth)) {
+    depth <- length(strsplit(path, "/")[[1]]) - 1L
+  }
+
+  # Almost all uses are relative to destination, except for rmarkdown templates
+  if (!is_absolute_path(path)) {
+    path <- file.path(pkg$dst_path, path)
+  }
+
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
@@ -81,7 +90,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- list()
-  if (!is.null(find_logo(pkg$path))) {
+  if (!is.null(find_logo(pkg$src_path))) {
     site_url <- pkg$meta$url %||% "/"
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")

@@ -4,22 +4,15 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L,
-  preview = NA)
+build_news(pkg = ".", one_page = TRUE, preview = NA)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
 
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
-
 \item{one_page}{If \code{TRUE}, writes all news to a single file.
 If \code{FALSE}, writes one file per major version.}
-
-\item{depth}{Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

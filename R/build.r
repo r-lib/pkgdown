@@ -27,7 +27,11 @@
 #'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
-#' `url`, `title`, `template`, and `navbar`.
+#' `destination`, `url`, `title`, `template`, and `navbar`.
+#'
+#' `destination` controls where the site will be generated. It defaults to
+#' `docs/` (for GitHub pages), but you can override if desired. Relative
+#' paths will be taken relative to the package root.
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' If you supply this, other pkgdown sites will link to your site when needed,
@@ -165,26 +169,22 @@ build_site <- function(pkg = ".",
                        ) {
 
   pkg <- section_init(pkg, depth = 0)
-  path <- rel_path(path, pkg$path)
 
-  init_site(pkg, path)
+  init_site(pkg)
 
-  build_home(pkg, path = path, encoding = encoding, preview = FALSE)
+  build_home(pkg, encoding = encoding, preview = FALSE)
   build_reference(pkg,
     lazy = FALSE,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
     seed = seed,
-    path = file.path(path, "reference"),
-    depth = 1L,
     preview = FALSE
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding,
-                 preview = FALSE)
-  build_news(pkg, path = file.path(path, "news"), depth = 1L, preview = FALSE)
+  build_articles(pkg, encoding = encoding, preview = FALSE)
+  build_news(pkg, preview = FALSE)
 
-  section_fin(path, preview = preview)
+  section_fin(pkg, "", preview = preview)
 }
 
 build_site_rstudio <- function() {
@@ -196,28 +196,26 @@ build_site_rstudio <- function() {
 
 #' @export
 #' @rdname build_site
-init_site <- function(pkg = ".", path = "docs") {
+init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
 
   rule("Initialising site")
-  fs::dir_create(path)
+  fs::dir_create(pkg$dst_path)
 
   assets <- data_assets(pkg)
   if (length(assets) > 0) {
     cat_line("Copying ", length(assets), " assets")
-    fs::file_copy(assets, fs::path(path, fs::path_file(assets)), overwrite = TRUE)
+    fs::file_copy(assets, fs::path(pkg$dst_path, fs::path_file(assets)), overwrite = TRUE)
   }
 
   extras <- data_extras(pkg)
   if (length(extras) > 0) {
     cat_line("Copying ", length(extras), " extras")
-    fs::file_copy(extras, fs::path(path, fs::path_file(extras)), overwrite = TRUE)
+    fs::file_copy(extras, fs::path(pkg$dst_path, fs::path_file(extras)), overwrite = TRUE)
   }
 
-  build_site_meta(pkg, path = path)
-
-  build_logo(pkg, path = path)
+  build_site_meta(pkg)
+  build_logo(pkg)
 
   invisible()
 }
@@ -228,7 +226,7 @@ data_assets <- function(pkg = ".") {
   template <- pkg$meta[["template"]]
 
   if (!is.null(template$assets)) {
-    path <- rel_path(template$assets, base = pkg$path)
+    path <- rel_path(template$assets, base = pkg$src_path)
     if (!file.exists(path))
       stop("Can not find asset path '", path, "'", call. = FALSE)
 
@@ -248,7 +246,7 @@ data_assets <- function(pkg = ".") {
 data_extras <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  path_extras <- fs::path(pkg$path, "pkgdown")
+  path_extras <- fs::path(pkg$src_path, "pkgdown")
   if (!fs::dir_exists(path_extras)) {
     return(character())
   }
@@ -257,21 +255,22 @@ data_extras <- function(pkg = ".") {
 }
 
 # Generate site meta data file (available to website viewers)
-build_site_meta <- function(pkg = ".", path) {
-  path_meta <- file.path(path, "pkgdown.yml")
+build_site_meta <- function(pkg = ".") {
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageVersion("pkgdown")),
-    pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1
+    pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
+    articles = as.list(pkg$article_index)
   )
-  meta$articles <- as.list(pkg$article_index)
 
   if (!is.null(pkg$meta$url)) {
     meta$urls <- list(
       reference = paste0(pkg$meta$url, "/reference"),
       article = paste0(pkg$meta$url, "/articles")
     )
-    write_yaml(meta, path_meta)
   }
 
+  path_meta <- file.path(pkg$dst_path, "pkgdown.yml")
+  write_yaml(meta, path_meta)
+  invisible()
 }

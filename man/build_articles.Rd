@@ -4,19 +4,13 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = "UTF-8", quiet = TRUE, preview = NA)
+build_articles(pkg = ".", encoding = "UTF-8", quiet = TRUE,
+  preview = NA)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
-
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
-
-\item{depth}{Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.}
 
 \item{encoding}{The encoding of the input files.}
 
@@ -25,6 +19,12 @@ pandoc. This is useful when debugging.}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{path}{Output path. Relative paths are taken relative to the
+\code{pkg} directory.}
+
+\item{depth}{Depth of path relative to root of documentation.  Used
+to adjust relative links in the navbar.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is

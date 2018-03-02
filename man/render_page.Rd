@@ -5,7 +5,8 @@
 \alias{data_template}
 \title{Render page with template}
 \usage{
-render_page(pkg = ".", name, data, path = "", depth = 0L, quiet = FALSE)
+render_page(pkg = ".", name, data, path = "", depth = NULL,
+  quiet = FALSE)
 
 data_template(pkg = ".", depth = 0L)
 }
@@ -25,8 +26,8 @@ This is automatically supplemented with three lists:
 
 See the full contents by running \code{data_template()}.}
 
-\item{path}{Location to create file. If \code{""} (the default),
-prints to standard out.}
+\item{path}{Location to create file; relative to destination directory.
+If \code{""} (the default), prints to standard out.}
 
 \item{depth}{Depth of path relative to base directory.}
 

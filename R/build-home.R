@@ -30,24 +30,20 @@
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",
-                       path = "docs",
-                       depth = 0L,
                        encoding = "UTF-8",
                        preview = NA) {
 
-  pkg <- section_init(pkg, depth = depth)
-  path <- rel_path(path, pkg$path)
+  pkg <- section_init(pkg, depth = 0L)
   rule("Building home")
 
-
-  if (has_citation(pkg$path)) {
-    build_citation_authors(pkg, path = path, depth = depth)
+  if (has_citation(pkg$src_path)) {
+    build_citation_authors(pkg)
   } else {
-    build_authors(pkg, path = path, depth = depth)
+    build_authors(pkg)
   }
-  build_home_md(pkg, path, depth = depth)
-  build_home_license(pkg, path)
-  build_home_index(pkg, path, depth = depth, encoding = encoding)
+  build_home_md(pkg)
+  build_home_license(pkg)
+  build_home_index(pkg, encoding = encoding)
 
-  section_fin(path, preview = preview)
+  section_fin(pkg, "/", preview = preview)
 }

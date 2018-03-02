@@ -59,7 +59,7 @@ data_home_sidebar_authors <- function(pkg = ".") {
   list_with_heading(authors, "Developers")
 }
 
-build_authors <- function(pkg = ".", path = "docs", depth = 0L) {
+build_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   data <- list(
@@ -67,7 +67,7 @@ build_authors <- function(pkg = ".", path = "docs", depth = 0L) {
     authors = data_authors(pkg)$all
   )
 
-  render_page(pkg, "authors", data, file.path(path, "authors.html"), depth = depth)
+  render_page(pkg, "authors", data, "authors.html")
 }
 
 author_name <- function(x, authors) {

@@ -1,19 +1,19 @@
 # Renders LICENSE text file into html
-build_home_license <- function(pkg, path) {
-  license_md <- file.path(pkg$path, "LICENSE.md")
+build_home_license <- function(pkg) {
+  license_md <- file.path(pkg$src_path, "LICENSE.md")
   if (file.exists(license_md)) {
-    render_md(pkg, path, filename = "LICENSE.md")
+    render_md(pkg, license_md)
     return()
   }
 
-  license_raw <- file.path(pkg$path, "LICENSE")
+  license_raw <- file.path(pkg$src_path, "LICENSE")
   if (file.exists(license_raw)) {
     render_page(pkg, "title-body",
       data = list(
         pagetitle = "License",
         body = paste0("<pre>", escape_html(read_file(license_path)), "</pre>")
       ),
-      path = file.path(path, "LICENSE.html")
+      path = "LICENSE.html"
     )
     return()
   }

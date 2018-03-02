@@ -18,12 +18,15 @@ as_pkgdown <- function(path = ".") {
   package <- desc$get("Package")[[1]]
   topics <- package_topics(path, package)
 
+  meta <- read_meta(path)
+
   structure(
     list(
       package = package,
-      path = path,
+      src_path = normalizePath(path),
+      dst_path = normalizePath(meta$destination %||% file.path(path, "docs")),
       desc = desc,
-      meta = read_meta(path),
+      meta = meta,
       topics = topics,
       vignettes = package_vignettes(path),
       topic_index = topic_index_local(package, path),

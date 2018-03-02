@@ -28,15 +28,6 @@ mkdir <- function(..., quiet = FALSE) {
   }
 }
 
-out_path <- function(path, ...) {
-  if (is.null(path)) {
-    ""
-  } else {
-    file.path(path, ...)
-  }
-
-}
-
 is_dir <- function(x) file.info(x)$isdir
 
 split_at_linebreaks <- function(text) {

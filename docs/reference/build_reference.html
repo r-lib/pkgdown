@@ -87,6 +87,9 @@ below." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -118,10 +121,9 @@ below.</p>
     
 
     <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs/reference"</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -154,16 +156,6 @@ rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.h
       <th>seed</th>
       <td><p>Seed used to initialize so that random examples are
 reproducible.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Output path. Relative paths are taken relative to the
-<code>pkg</code> directory.</p></td>
-    </tr>
-    <tr>
-      <th>depth</th>
-      <td><p>Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.</p></td>
     </tr>
     <tr>
       <th>preview</th>

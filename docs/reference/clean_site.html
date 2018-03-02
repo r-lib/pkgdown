@@ -84,6 +84,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -111,7 +114,7 @@
     <p>Deletes all files in <code>doc/</code> (except for <code>CNAME</code>)</p>
     
 
-    <pre class="usage"><span class='fu'>clean_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
+    <pre class="usage"><span class='fu'>clean_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -121,11 +124,6 @@
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Location in which to save website, relative to package
-path.</p></td>
     </tr>
     </table>
     

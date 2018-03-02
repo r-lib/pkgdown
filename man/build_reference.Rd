@@ -6,10 +6,9 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  path = "docs/reference", depth = 1L, preview = NA)
+  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, preview = NA)
 
-build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
+build_reference_index(pkg = ".")
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -28,12 +27,6 @@ rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_si
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
-
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
-
-\item{depth}{Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

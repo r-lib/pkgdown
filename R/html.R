@@ -49,9 +49,9 @@ tweak_tables <- function(html) {
 
 # HTML from markdown/RMarkdown --------------------------------------------
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE, depth = 1L) {
+tweak_rmarkdown_html <- function(html, strip_header = FALSE) {
   # Automatically link funtion mentions
-  tweak_code(html, depth = depth)
+  tweak_code(html)
   tweak_anchors(html, only_contents = FALSE)
 
   # Tweak classes of navbar
@@ -135,9 +135,8 @@ badges_extract <- function(x) {
 # code --------------------------------------------------------------------
 
 # Assumes generated with rmarkdown (i.e. knitr + pandoc)
-tweak_code <- function(x, depth = 0L) {
+tweak_code <- function(x) {
   stopifnot(inherits(x, "xml_node"))
-  scoped_file_context(depth = depth)
 
   # <pre class="sourceCode r">
   x %>%

@@ -108,7 +108,7 @@ as_data.tag_value <- function(x, ...) {
 # Examples ------------------------------------------------------------------
 
 #' @export
-as_data.tag_examples <- function(x, path, ...,
+as_data.tag_examples <- function(x, ...,
                                  examples = TRUE,
                                  run_dont_run = FALSE,
                                  topic = "unknown",
@@ -152,14 +152,13 @@ as_data.tag_examples <- function(x, path, ...,
     list(code = code, run = run, show = show),
     format_example_chunk,
     env = child_env(env),
-    path = path,
     topic = topic,
     obj_id = id_generator$id
   )
   paste(html, collapse = "")
 }
 
-format_example_chunk <- function(code, run, show, path,
+format_example_chunk <- function(code, run, show,
                                  topic = "unknown",
                                  obj_id,
                                  env = global_env()) {
@@ -170,12 +169,6 @@ format_example_chunk <- function(code, run, show, path,
 
     return(highlight_text(code))
   }
-
-  old_dir <- setwd(path)
-  on.exit(setwd(old_dir), add = TRUE)
-
-  old_opt <- options(width = 80)
-  on.exit(options(old_opt), add = TRUE)
 
   expr <- evaluate::evaluate(code, env, new_device = TRUE)
 
