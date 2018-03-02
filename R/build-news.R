@@ -103,7 +103,7 @@ build_news_multi <- function(pkg) {
     pkg,
     "news-index",
     list(versions = news %>% purrr::transpose(), pagetitle = "News"),
-    file.path(path, "index.html")
+    file.path("news", "index.html")
   )
 }
 

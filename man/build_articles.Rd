@@ -16,12 +16,6 @@ pandoc. This is useful when debugging.}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
-
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
-
-\item{depth}{Depth of path relative to root of documentation.  Used
-to adjust relative links in the navbar.}
 }
 \description{
 Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is

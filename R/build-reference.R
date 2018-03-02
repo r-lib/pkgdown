@@ -99,7 +99,7 @@ build_reference <- function(pkg = ".",
 
   # copy everything from man/figures to docs/reference/figures
   figures_path <- file.path(pkg$src_path, "man", "figures")
-  if (file.exists(figures_path) && !is.null(path)) {
+  if (file.exists(figures_path)) {
     cat_line("Copying 'man/figures/'")
     out_path <- file.path(ref_path, "figures")
     mkdir(out_path)
@@ -143,10 +143,11 @@ build_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   # Copy icons, if needed
-  logo_path <- file.path(pkg$src_path, "icons")
-  if (file.exists(logo_path)) {
-    mkdir(path, "icons")
-    copy_dir(logo_path, file.path(pkg$dst_path, "reference", "icons"))
+  src_icons <- file.path(pkg$src_path, "icons")
+  dst_icons <- file.path(pkg$dst_path, "reference", "icons")
+  if (file.exists(src_icons)) {
+    mkdir(dst_icons)
+    copy_dir(src_icons, dst_icons)
   }
 
   scoped_file_context(depth = 1L)
@@ -229,7 +230,6 @@ data_reference_topic <- function(topic,
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
-    path = path,
     examples = examples,
     run_dont_run = run_dont_run
   )

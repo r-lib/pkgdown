@@ -188,8 +188,7 @@ build_site <- function(pkg = ".",
 
 build_site_rstudio <- function() {
   devtools::document()
-  callr::r(function() pkgdown::build_site(), show = TRUE)
-  preview_site()
+  callr::r(function() pkgdown::build_site(preview = TRUE), show = TRUE)
   invisible()
 }
 
