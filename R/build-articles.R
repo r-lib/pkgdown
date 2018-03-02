@@ -50,14 +50,12 @@
 #'     `pkg` directory.
 #' @param depth Depth of path relative to root of documentation.  Used
 #'     to adjust relative links in the navbar.
-#' @param encoding The encoding of the input files.
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
 build_articles <- function(pkg = ".",
-                           encoding = "UTF-8",
                            quiet = TRUE,
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L)
@@ -89,7 +87,6 @@ build_articles <- function(pkg = ".",
   purrr::pwalk(articles, render_rmd,
     pkg = pkg,
     data = data,
-    encoding = encoding,
     quiet = quiet
   )
   purrr::walk(articles$input, unlink)
@@ -106,7 +103,6 @@ render_rmd <- function(pkg,
                        strip_header = FALSE,
                        data = list(),
                        toc = TRUE,
-                       encoding = "UTF-8",
                        quiet = TRUE) {
 
   cat_line("Building article '", output_file, "'")
@@ -123,7 +119,7 @@ render_rmd <- function(pkg,
       output_format = format$format,
       output_file = basename(output_file),
       quiet = quiet,
-      encoding = encoding,
+      encoding = "UTF-8",
       envir = globalenv()
     ),
     show = !quiet

@@ -164,15 +164,14 @@ build_site <- function(pkg = ".",
                        run_dont_run = FALSE,
                        mathjax = TRUE,
                        preview = interactive(),
-                       seed = 1014,
-                       encoding = "UTF-8"
+                       seed = 1014
                        ) {
 
   pkg <- section_init(pkg, depth = 0)
 
   init_site(pkg)
 
-  build_home(pkg, encoding = encoding, preview = FALSE)
+  build_home(pkg, preview = FALSE)
   build_reference(pkg,
     lazy = FALSE,
     examples = examples,
@@ -181,7 +180,7 @@ build_site <- function(pkg = ".",
     seed = seed,
     preview = FALSE
   )
-  build_articles(pkg, encoding = encoding, preview = FALSE)
+  build_articles(pkg, preview = FALSE)
   build_news(pkg, preview = FALSE)
 
   section_fin(pkg, "", preview = preview)

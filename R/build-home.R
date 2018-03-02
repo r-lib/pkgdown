@@ -30,7 +30,6 @@
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",
-                       encoding = "UTF-8",
                        preview = NA) {
 
   pkg <- section_init(pkg, depth = 0L)
@@ -43,7 +42,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg, encoding = encoding)
+  build_home_index(pkg)
 
   section_fin(pkg, "/", preview = preview)
 }

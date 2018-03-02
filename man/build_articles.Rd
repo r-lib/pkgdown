@@ -4,15 +4,12 @@
 \alias{build_articles}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", encoding = "UTF-8", quiet = TRUE,
-  preview = NA)
+build_articles(pkg = ".", quiet = TRUE, preview = NA)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
-
-\item{encoding}{The encoding of the input files.}
 
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}

@@ -1,4 +1,4 @@
-build_home_index <- function(pkg, encoding = "UTF-8") {
+build_home_index <- function(pkg) {
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0)
 
@@ -26,13 +26,12 @@ build_home_index <- function(pkg, encoding = "UTF-8") {
               output_format = "github_document",
               output_options = list(html_preview = FALSE),
               quiet = TRUE,
-              encoding = encoding,
+              encoding = "UTF-8",
               envir = globalenv()
             )
           },
           args = list(
-            input = data$path,
-            encoding = encoding
+            input = data$path
           )
         )
       }
@@ -45,8 +44,7 @@ build_home_index <- function(pkg, encoding = "UTF-8") {
         depth = 0L,
         data = data,
         toc = FALSE,
-        strip_header = TRUE,
-        encoding = encoding
+        strip_header = TRUE
       )
     }
   }
