@@ -23,8 +23,8 @@ as_pkgdown <- function(path = ".") {
   structure(
     list(
       package = package,
-      src_path = normalizePath(path),
-      dst_path = fs::path_abs(meta$destination %||% file.path(path, "docs")),
+      src_path = path_abs(path),
+      dst_path = path_abs(meta$destination %||% file.path(path, "docs")),
       desc = desc,
       meta = meta,
       topics = topics,

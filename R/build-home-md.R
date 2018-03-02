@@ -1,6 +1,6 @@
 build_home_md <- function(pkg, path, depth = 0) {
 
-  mds <- fs::dir_ls(pkg$src_path, glob = "*.md")
+  mds <- dir_ls(pkg$src_path, glob = "*.md")
   mds <- setdiff(mds, c("README.md", "LICENSE.md"))
 
   if (length(mds) == 0) {
@@ -15,6 +15,6 @@ render_md <- function(pkg, filename) {
 
   render_page(pkg, "title-body",
     data = list(pagetitle = filename, body = body),
-    path = fs::path_ext_set(basename(filename), "html")
+    path = path_ext_set(basename(filename), "html")
   )
 }

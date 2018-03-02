@@ -198,18 +198,18 @@ init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   rule("Initialising site")
-  fs::dir_create(pkg$dst_path)
+  dir_create(pkg$dst_path)
 
   assets <- data_assets(pkg)
   if (length(assets) > 0) {
     cat_line("Copying ", length(assets), " assets")
-    fs::file_copy(assets, fs::path(pkg$dst_path, fs::path_file(assets)), overwrite = TRUE)
+    file_copy(assets, path(pkg$dst_path, path_file(assets)), overwrite = TRUE)
   }
 
   extras <- data_extras(pkg)
   if (length(extras) > 0) {
     cat_line("Copying ", length(extras), " extras")
-    fs::file_copy(extras, fs::path(pkg$dst_path, fs::path_file(extras)), overwrite = TRUE)
+    file_copy(extras, path(pkg$dst_path, path_file(extras)), overwrite = TRUE)
   }
 
   build_site_meta(pkg)
@@ -244,12 +244,12 @@ data_assets <- function(pkg = ".") {
 data_extras <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  path_extras <- fs::path(pkg$src_path, "pkgdown")
-  if (!fs::dir_exists(path_extras)) {
+  path_extras <- path(pkg$src_path, "pkgdown")
+  if (!dir_exists(path_extras)) {
     return(character())
   }
 
-  fs::dir_ls(path_extras, pattern = "^extra")
+  dir_ls(path_extras, pattern = "^extra")
 }
 
 # Generate site meta data file (available to website viewers)
