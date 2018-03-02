@@ -122,14 +122,6 @@ a.anchor {
 .ref-arguments .name {width: 20%;}
 .ref-arguments .desc {width: 80%;}
 
-
-/* News items ------------------------------------------------------------- */
-
-.news-release {
-  font-size: 15px;
-  font-style: italic;
-}
-
 /* Nice scrolling for wide elements --------------------------------------- */
 
 table {
