@@ -65,14 +65,14 @@ build_articles <- function(pkg = ".",
 
   # copy everything from vignettes/ to docs/articles
   copy_dir(
-    file.path(pkg$src_path, "vignettes"),
-    file.path(pkg$dst_path, "articles"),
+    path(pkg$src_path, "vignettes"),
+    path(pkg$dst_path, "articles"),
     exclude_matching = "rsconnect"
   )
 
   # Render each Rmd then delete them
   articles <- tibble::tibble(
-    input = file.path(pkg$dst_path, "articles", pkg$vignettes$file_in),
+    input = path(pkg$dst_path, "articles", pkg$vignettes$file_in),
     output_file = pkg$vignettes$file_out,
     depth = pkg$vignettes$vig_depth + 1L
   )
@@ -85,7 +85,8 @@ build_articles <- function(pkg = ".",
     data = data,
     quiet = quiet
   )
-  purrr::walk(articles$input, unlink)
+
+  file_delete(articles$input)
 
   build_articles_index(pkg)
 
@@ -106,7 +107,7 @@ render_rmd <- function(pkg,
   scoped_file_context(depth = depth)
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
-  on.exit(unlink(format$path), add = TRUE)
+  on.exit(file_delete(format$path), add = TRUE)
 
   path <- callr::r_safe(
     function(...) rmarkdown::render(...),
@@ -158,7 +159,7 @@ build_articles_index <- function(pkg = ".") {
     pkg,
     "vignette-index",
     data = data_articles_index(pkg),
-    path = file.path("articles", "index.html")
+    path = path("articles", "index.html")
   )
 }
 

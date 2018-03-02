@@ -1,10 +1,10 @@
 
 has_citation <- function(path = ".") {
-  file.exists(file.path(path, 'inst/CITATION'))
+  file_exists(path(path, 'inst/CITATION'))
 }
 
 create_meta <- function(path) {
-  path <- file.path(path, "DESCRIPTION")
+  path <- path(path, "DESCRIPTION")
 
   dcf <- read.dcf(path)
   meta <- as.list(dcf[1, ])
@@ -17,7 +17,7 @@ read_citation <- function(path = ".") {
     return(character())
   }
   meta <- create_meta(path)
-  cit_path <- file.path(path, 'inst/CITATION')
+  cit_path <- path(path, 'inst/CITATION')
 
   utils::readCitationFile(cit_path, meta = meta)
 }

@@ -1,6 +1,6 @@
 markdown <- function(path = NULL, ...) {
   tmp <- tempfile(fileext = ".html")
-  on.exit(unlink(tmp), add = TRUE)
+  on.exit(file_delete(tmp), add = TRUE)
 
   if (rmarkdown::pandoc_available("2.0")) {
     from <- "markdown_github-hard_line_breaks+smart"

@@ -61,8 +61,8 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Look for extra assets to add
   extra <- list()
-  extra$css <- file.exists(file.path(pkg$path, "pkgdown", "extra.css"))
-  extra$js <- file.exists(file.path(pkg$path, "pkgdown", "extra.js"))
+  extra$css <- file_exists(path(pkg$path, "pkgdown", "extra.css"))
+  extra$js <- file_exists(path(pkg$path, "pkgdown", "extra.js"))
 
   print_yaml(list(
     year = strftime(Sys.time(), "%Y"),
@@ -102,7 +102,7 @@ template_path <- function(pkg = ".") {
   if (!is.null(template$path)) {
     path <- path_rel(pkg$src_path, template$path)
 
-    if (!file.exists(path))
+    if (!file_exists(path))
       stop("Can not find template path '", path, "'", call. = FALSE)
 
     path
@@ -131,9 +131,9 @@ find_template <- function(type, name, template_path = NULL) {
     paste0(type, ".html")
   )
   all <- expand.grid(path = paths, name = names)
-  locations <- file.path(all$path, all$name)
+  locations <- path(all$path, all$name)
 
-  Find(file.exists, locations, nomatch =
+  Find(file_exists, locations, nomatch =
     stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }
 
@@ -161,7 +161,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE) {
 }
 
 same_contents <- function(path, contents) {
-  if (!file.exists(path))
+  if (!file_exists(path))
     return(FALSE)
 
   # contents <- paste0(paste0(contents, collapse = "\n"), "\n")
@@ -173,7 +173,7 @@ same_contents <- function(path, contents) {
 }
 
 made_by_pkgdown <- function(path) {
-  if (!file.exists(path)) return(TRUE)
+  if (!file_exists(path)) return(TRUE)
 
   first <- paste(readLines(path, n = 2), collapse = "\n")
   check_made_by(first)

@@ -14,13 +14,15 @@ article_index_local <- function(package, path = find.package(package)) {
     return(character())
   }
 
-  vig_path <- dir(
-    file.path(path, "vignettes"),
-    pattern = "\\.[rR]md$",
-    recursive = TRUE
-  )
-  out_path <- gsub("\\.[rR]md$", ".html", vig_path)
-  vig_name <- gsub("\\.[rR]md$", "", basename(vig_path))
+  src <- path(path, "vignettes")
+  if (!dir_exists(src)) {
+    return(character())
+  }
+
+  vig_path <- dir_ls(src, pattern = "\\.[rR]md$", recursive = TRUE, type = "file")
+
+  out_path <- gsub("\\.[rR]md$", ".html", fs::path_rel(vig_path, src))
+  vig_name <- gsub("\\.[rR]md$", "", path_file(vig_path))
 
   set_names(out_path, vig_name)
 }

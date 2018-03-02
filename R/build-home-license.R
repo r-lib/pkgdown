@@ -1,13 +1,13 @@
 # Renders LICENSE text file into html
 build_home_license <- function(pkg) {
-  license_md <- file.path(pkg$src_path, "LICENSE.md")
-  if (file.exists(license_md)) {
+  license_md <- path(pkg$src_path, "LICENSE.md")
+  if (file_exists(license_md)) {
     render_md(pkg, license_md)
     return()
   }
 
-  license_raw <- file.path(pkg$src_path, "LICENSE")
-  if (file.exists(license_raw)) {
+  license_raw <- path(pkg$src_path, "LICENSE")
+  if (file_exists(license_raw)) {
     render_page(pkg, "title-body",
       data = list(
         pagetitle = "License",
@@ -44,7 +44,7 @@ autolink_license <- function(x) {
 }
 
 licenses_db <- function() {
-  path <- file.path(R.home("share"), "licenses", "license.db")
+  path <- path(R.home("share"), "licenses", "license.db")
   db <- tibble::as_tibble(read.dcf(path))
 
   abbr <- ifelse(is.na(db$SSS), db$Abbrev, db$SSS)

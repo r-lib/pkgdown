@@ -225,7 +225,7 @@ data_assets <- function(pkg = ".") {
 
   if (!is.null(template$assets)) {
     path <- path_rel(pkg$src_path, template$assets)
-    if (!file.exists(path))
+    if (!file_exists(path))
       stop("Can not find asset path '", path, "'", call. = FALSE)
 
   } else if (!is.null(template$package)) {
@@ -268,7 +268,7 @@ build_site_meta <- function(pkg = ".") {
     )
   }
 
-  path_meta <- file.path(pkg$dst_path, "pkgdown.yml")
+  path_meta <- path(pkg$dst_path, "pkgdown.yml")
   write_yaml(meta, path_meta)
   invisible()
 }

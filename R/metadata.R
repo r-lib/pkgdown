@@ -6,8 +6,8 @@ remote_urls <- function(package) {
   if (has_name(local, package)) {
     base_url <- local[[package]]
     list(
-      reference = file.path(base_url, "reference"),
-      article = file.path(base_url, "articles")
+      reference = path(base_url, "reference"),
+      article = path(base_url, "articles")
     )
   } else {
     remote_metadata(package)$urls

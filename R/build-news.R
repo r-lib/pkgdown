@@ -71,7 +71,7 @@ build_news_single <- function(pkg) {
       contents = news %>% purrr::transpose(),
       pagetitle = "All news"
     ),
-    file.path("news", "index.html")
+    path("news", "index.html")
   )
 }
 
@@ -94,7 +94,7 @@ build_news_multi <- function(pkg) {
         contents = rev(purrr::transpose(contents)),
         pagetitle = paste0("Version ", version)
       ),
-      file.path("news", file_out),
+      path("news", file_out),
     )
   }
   news_paged %>% purrr::pmap(render_news)
@@ -103,7 +103,7 @@ build_news_multi <- function(pkg) {
     pkg,
     "news-index",
     list(versions = news %>% purrr::transpose(), pagetitle = "News"),
-    file.path("news", "index.html")
+    path("news", "index.html")
   )
 }
 
@@ -113,7 +113,7 @@ data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   scoped_file_context(depth = 1L)
 
-  html <- markdown(file.path(pkg$src_path, "NEWS.md"))
+  html <- markdown(path(pkg$src_path, "NEWS.md"))
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -157,7 +157,7 @@ data_news <- function(pkg = ".") {
 }
 
 has_news <- function(path = ".") {
-  file.exists(file.path(path, "NEWS.md"))
+  file_exists(path(path, "NEWS.md"))
 }
 
 is_dev <- function(version) {

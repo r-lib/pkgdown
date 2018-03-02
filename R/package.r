@@ -24,7 +24,7 @@ as_pkgdown <- function(path = ".") {
     list(
       package = package,
       src_path = path_abs(path),
-      dst_path = path_abs(meta$destination %||% file.path(path, "docs")),
+      dst_path = path_abs(meta$destination %||% path(path, "docs")),
       desc = desc,
       meta = meta,
       topics = topics,
@@ -51,8 +51,8 @@ str_person <- function(pers) {
 }
 
 read_desc <- function(path = ".") {
-  path <- file.path(path, "DESCRIPTION")
-  if (!file.exists(path)) {
+  path <- path(path, "DESCRIPTION")
+  if (!file_exists(path)) {
     stop("Can't find DESCRIPTION", call. = FALSE)
   }
   desc::description$new(path)
@@ -111,10 +111,15 @@ package_topics <- function(path = ".", package = "") {
   )
 }
 
-package_rd <- function(path) {
-  man_path <- file.path(path, "man")
-  rd <- dir(man_path, pattern = "\\.Rd$", full.names = TRUE)
-  names(rd) <- basename(rd)
+package_rd <- function(path = ".") {
+  man_path <- path(path, "man")
+
+  if (!dir_exists(man_path)) {
+    return(set_names(list(), character()))
+  }
+
+  rd <- dir_ls(man_path, pattern = "\\.Rd$", type = "file")
+  names(rd) <- path_file(rd)
   lapply(rd, rd_file, pkg_path = path)
 }
 
@@ -140,13 +145,13 @@ is_internal <- function(x) {
 
 package_vignettes <- function(path = ".") {
   vig_path <- dir(
-    file.path(path, "vignettes"),
+    path(path, "vignettes"),
     pattern = "\\.[rR]md$",
     recursive = TRUE
   )
   vig_path <- vig_path[!grepl("^_", basename(vig_path))]
 
-  title <- file.path(path, "vignettes", vig_path) %>%
+  title <- path(path, "vignettes", vig_path) %>%
     purrr::map(rmarkdown::yaml_front_matter) %>%
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 

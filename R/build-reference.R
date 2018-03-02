@@ -94,14 +94,14 @@ build_reference <- function(pkg = ".",
   pkg <- section_init(pkg, depth = 1L)
   rule("Building function reference")
 
-  ref_path <- file.path(pkg$dst_path, "reference")
+  ref_path <- path(pkg$dst_path, "reference")
   dir_create(ref_path)
 
   # copy everything from man/figures to docs/reference/figures
-  figures_path <- file.path(pkg$src_path, "man", "figures")
-  if (file.exists(figures_path)) {
+  figures_path <- path(pkg$src_path, "man", "figures")
+  if (file_exists(figures_path)) {
     cat_line("Copying 'man/figures/'")
-    out_path <- file.path(ref_path, "figures")
+    out_path <- path(ref_path, "figures")
     dir_create(out_path)
     copy_dir(figures_path, out_path)
   }
@@ -113,7 +113,7 @@ build_reference <- function(pkg = ".",
       pkgload::load_all(pkg$src_path)
     }
 
-    old_dir <- setwd(file.path(pkg$dst_path, "reference"))
+    old_dir <- setwd(path(pkg$dst_path, "reference"))
     on.exit(setwd(old_dir), add = TRUE)
 
     old_opt <- options(width = 80)
@@ -143,9 +143,9 @@ build_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   # Copy icons, if needed
-  src_icons <- file.path(pkg$src_path, "icons")
-  dst_icons <- file.path(pkg$dst_path, "reference", "icons")
-  if (file.exists(src_icons)) {
+  src_icons <- path(pkg$src_path, "icons")
+  dst_icons <- path(pkg$dst_path, "reference", "icons")
+  if (file_exists(src_icons)) {
     dir_create(dst_icons)
     copy_dir(src_icons, dst_icons)
   }
@@ -167,8 +167,8 @@ build_reference_topic <- function(topic,
                                   mathjax = TRUE
                                   ) {
 
-  in_path <- file.path(pkg$src_path, "man", topic$file_in)
-  out_path <- file.path(pkg$dst_path, "reference", topic$file_out)
+  in_path <- path(pkg$src_path, "man", topic$file_in)
+  out_path <- path(pkg$dst_path, "reference", topic$file_out)
 
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
@@ -186,7 +186,7 @@ build_reference_topic <- function(topic,
   render_page(
     pkg, "reference-topic",
     data = data,
-    path = file.path("reference", topic$file_out)
+    path = path("reference", topic$file_out)
   )
   invisible()
 }

@@ -26,9 +26,9 @@ print.print_yaml <- function(x, ...) {
 }
 
 find_first_existing <- function(path, ...) {
-  paths <- file.path(path, c(...))
+  paths <- path(path, c(...))
   for (path in paths) {
-    if (file.exists(path))
+    if (file_exists(path))
       return(path)
   }
 

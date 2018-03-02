@@ -16,7 +16,7 @@ section_fin <- function(pkg, path, preview = NA) {
   }
 
   if (preview) {
-    utils::browseURL(file.path(pkg$dst_path, path, "index.html"))
+    utils::browseURL(path(pkg$dst_path, path, "index.html"))
   }
 
   invisible()

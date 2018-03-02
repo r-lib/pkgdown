@@ -54,7 +54,7 @@ data_reference_index_section <- function(section, pkg) {
       ~ if (length(.x) > 0) .x else .y
     ),
     title = section_topics$title,
-    icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
+    icon = find_icons(section_topics$alias, path(pkg$path, "icons"))
   )
   list(
     title = section$title,
@@ -71,7 +71,7 @@ find_icons <- function(x, path) {
 }
 find_icon <- function(aliases, path) {
   names <- paste0(aliases, ".png")
-  exists <- file.exists(file.path(path, names))
+  exists <- file_exists(path(path, names))
 
   if (!any(exists)) {
     NULL

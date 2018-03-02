@@ -26,10 +26,10 @@ copy_dir <- function(from, to, exclude_matching = NULL) {
 }
 
 out_of_date <- function(source, target) {
-  if (!file.exists(target))
+  if (!file_exists(target))
     return(TRUE)
 
-  if (!file.exists(source)) {
+  if (!file_exists(source)) {
     stop("'", source, "' does not exist", call. = FALSE)
   }
 

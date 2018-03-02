@@ -36,9 +36,9 @@ build_home_index <- function(pkg) {
         )
       }
 
-      input <- file.path(pkg$dst_path, basename(data$path))
-      file.copy(data$path, input)
-      on.exit(unlink(input))
+      input <- path(pkg$dst_path, path_file(data$path))
+      file_copy(data$path, input, overwrite = TRUE)
+      on.exit(file_delete(input))
 
       render_rmd(pkg, input, "index.html",
         depth = 0L,
@@ -50,7 +50,7 @@ build_home_index <- function(pkg) {
   }
 
   update_homepage_html(
-    file.path(pkg$dst_path, "index.html"),
+    path(pkg$dst_path, "index.html"),
     isTRUE(pkg$meta$home$strip_header)
   )
 }
