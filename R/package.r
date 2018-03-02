@@ -24,7 +24,7 @@ as_pkgdown <- function(path = ".") {
     list(
       package = package,
       src_path = normalizePath(path),
-      dst_path = normalizePath(meta$destination %||% file.path(path, "docs")),
+      dst_path = normalizePath(meta$destination %||% file.path(path, "docs"), mustWork = FALSE),
       desc = desc,
       meta = meta,
       topics = topics,

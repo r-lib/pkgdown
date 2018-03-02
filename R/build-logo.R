@@ -16,7 +16,7 @@ build_logo <- function(pkg = ".") {
   cat_line("Creating favicon")
   magick::image_read(logo_path) %>%
 	  magick::image_scale("32x32") %>%
-	  magick::image_write(file.path(pkg$dest_path, "favicon.ico"), format = "png")
+	  magick::image_write(file.path(pkg$dst_path, "favicon.ico"), format = "png")
 }
 
 

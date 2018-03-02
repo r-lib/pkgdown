@@ -34,6 +34,7 @@ build_home <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0L)
   rule("Building home")
+  mkdir(pkg$dst_path)
 
   if (has_citation(pkg$src_path)) {
     build_citation_authors(pkg)

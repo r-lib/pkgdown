@@ -1,7 +1,7 @@
 context("test-build-news.R")
 
 test_that("github links are added to news items", {
-  path <- normalizePath(test_path("news-github-links"))
+  path <- test_path("news-github-links")
   pkg <- as_pkgdown(path)
   news_tbl <- data_news(pkg)
 
@@ -13,16 +13,15 @@ test_that("github links are added to news items", {
 })
 
 test_that("build_news() uses content in NEWS.md", {
-  pkg <- testthat::test_path("news")
-  news_dir <- tempfile(pattern = "NEWS")
+  pkg <- test_path("news")
 
-  expect_output(build_news(normalizePath(pkg), path = news_dir))
+  expect_output(build_news(pkg))
+  on.exit(clean_site(pkg))
 
-  lines <- readLines(file.path(news_dir, "index.html"))
+  lines <- readLines(file.path(pkg, "docs", "news", "index.html"))
   test_strings <- c("testpackage", "1.0.0.9000", "1.0.0[^\\.]",
                     "sub-heading", "@githubuser", "bullet", "#111")
   expect_true(all(
     vapply(test_strings, function(x) any(grepl(x, lines)), logical(1))
   ))
-  unlink(news_dir)
 })
