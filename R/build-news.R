@@ -214,9 +214,9 @@ pkg_timeline <- function(pkg) {
 
 rel_date_html <- function(date) {
   if (is.na(date))
-    return("<p class='news-release'>Unreleased</p>")
+    return("<small> Unreleased</small>")
 
-  paste0("<p class='news-release'>Release date: ", date, "</p>")
+  paste0("<small> ", date, "</small>")
 }
 
 add_release_dates <- function(x, pieces, timeline) {
@@ -230,11 +230,11 @@ add_release_dates <- function(x, pieces, timeline) {
   dates <- purrr::map_chr(timeline$rel_date, rel_date_html)
   date_nodes <- paste(dates, collapse="") %>%
     xml2::read_html() %>%
-    xml2::xml_find_all(".//p")
+    xml2::xml_find_all(".//small")
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_sibling(date_nodes, .where = "after")
+    xml2::xml_add_child(date_nodes, .where = 1)
 
   invisible()
 }
