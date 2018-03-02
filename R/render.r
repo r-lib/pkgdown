@@ -113,7 +113,7 @@ template_path <- function(pkg = ".") {
 
     path
   } else if (!is.null(template$package)) {
-    package_path(template$package, "templates")
+    path_package_pkgdown(template$package, "templates")
   } else {
     character()
   }
@@ -130,7 +130,7 @@ render_template <- function(path, data) {
 find_template <- function(type, name, template_path = NULL) {
   paths <- c(
     template_path,
-    file.path(inst_path(), "templates")
+    path_pkgdown("templates")
   )
   names <- c(
     paste0(type, "-", name, ".html"),

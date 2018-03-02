@@ -229,13 +229,13 @@ data_assets <- function(pkg = ".") {
       stop("Can not find asset path '", path, "'", call. = FALSE)
 
   } else if (!is.null(template$package)) {
-    path <- package_path(template$package, "assets")
+    path <- path_package_pkgdown(template$package, "assets")
   } else {
     path <- character()
   }
 
   if (!identical(template$default_assets, FALSE)) {
-    path <- c(path, file.path(inst_path(), "assets"))
+    path <- c(path, path_pkgdown("assets"))
   }
 
   dir(path, full.names = TRUE)

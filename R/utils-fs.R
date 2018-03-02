@@ -1,14 +1,3 @@
-
-inst_path <- function() {
-  if (is.null(pkgload::dev_meta("pkgdown"))) {
-    # pkgdown is probably installed
-    system.file(package = "pkgdown")
-  } else {
-    # pkgdown was probably loaded with devtools
-    file.path(getNamespaceInfo("pkgdown", "path"), "inst")
-  }
-}
-
 copy_dir <- function(from, to, exclude_matching = NULL) {
 
   from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
@@ -36,28 +25,6 @@ copy_dir <- function(from, to, exclude_matching = NULL) {
   file.copy(from_files, to_paths, overwrite = TRUE)
 }
 
-path_rel <- function(base, path) {
-  if (is_absolute_path(path)) {
-    path
-  } else {
-    path_norm(path(base, path))
-  }
-}
-
-package_path <- function(package, path) {
-  if (!requireNamespace(package, quietly = TRUE)) {
-    stop(package, " is not installed", call. = FALSE)
-  }
-
-  pkg_path <- system.file("pkgdown", path, package = package)
-  if (pkg_path == "") {
-    stop(package, " does not contain 'inst/pkgdown/", path, "'", call. = FALSE)
-  }
-
-  pkg_path
-
-}
-
 out_of_date <- function(source, target) {
   if (!file.exists(target))
     return(TRUE)
@@ -67,4 +34,37 @@ out_of_date <- function(source, target) {
   }
 
   file.info(source)$mtime > file.info(target)$mtime
+}
+
+# Path helpers ------------------------------------------------------------
+
+path_rel <- function(base, path) {
+  if (is_absolute_path(path)) {
+    path
+  } else {
+    path_norm(path(base, path))
+  }
+}
+
+path_package_pkgdown <- function(package, ...) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    stop(package, " is not installed", call. = FALSE)
+  }
+
+  pkg_path <- system.file("pkgdown", ..., package = package, mustWork = TRUE)
+  if (pkg_path == "") {
+    stop(package, " does not contain 'inst/pkgdown/", path, "'", call. = FALSE)
+  }
+
+  pkg_path
+}
+
+path_pkgdown <- function(...) {
+  if (is.null(pkgload::dev_meta("pkgdown"))) {
+    # pkgdown is probably installed
+    system.file(..., package = "pkgdown")
+  } else {
+    # pkgdown was probably loaded with devtools
+    path(getNamespaceInfo("pkgdown", "path"), "inst", ...)
+  }
 }
