@@ -9,19 +9,7 @@ inst_path <- function() {
   }
 }
 
-
-mkdir <- function(..., quiet = FALSE) {
-  path <- file.path(...)
-
-  if (!file.exists(path)) {
-    if (!quiet)
-      cat_line("Creating '", path, "/'")
-    dir.create(path, recursive = TRUE, showWarnings = FALSE)
-  }
-}
-
 is_dir <- function(x) file.info(x)$isdir
-
 
 copy_dir <- function(from, to, exclude_matching = NULL) {
 
@@ -34,7 +22,7 @@ copy_dir <- function(from, to, exclude_matching = NULL) {
   }
 
   to_dirs <- file.path(to, from_dirs)
-  purrr::walk(to_dirs, mkdir)
+  dir_create(to_dirs)
 
   from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
   from_files_rel <- list.files(from, recursive = TRUE)

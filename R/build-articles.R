@@ -61,7 +61,7 @@ build_articles <- function(pkg = ".",
   }
 
   rule("Building articles")
-  mkdir(pkg$dst_path, "articles")
+  dir_create(path(pkg$dst_path, "articles"))
 
   # copy everything from vignettes/ to docs/articles
   copy_dir(

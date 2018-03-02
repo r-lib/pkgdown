@@ -49,7 +49,7 @@ build_news <- function(pkg = ".",
     return()
 
   rule("Building news")
-  mkdir(pkg$dst_path, "news")
+  dir_create(path(pkg$dst_path, "news"))
 
   if (one_page) {
     build_news_single(pkg)

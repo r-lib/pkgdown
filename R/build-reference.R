@@ -95,14 +95,14 @@ build_reference <- function(pkg = ".",
   rule("Building function reference")
 
   ref_path <- file.path(pkg$dst_path, "reference")
-  mkdir(ref_path)
+  dir_create(ref_path)
 
   # copy everything from man/figures to docs/reference/figures
   figures_path <- file.path(pkg$src_path, "man", "figures")
   if (file.exists(figures_path)) {
     cat_line("Copying 'man/figures/'")
     out_path <- file.path(ref_path, "figures")
-    mkdir(out_path)
+    dir_create(out_path)
     copy_dir(figures_path, out_path)
   }
 
@@ -146,7 +146,7 @@ build_reference_index <- function(pkg = ".") {
   src_icons <- file.path(pkg$src_path, "icons")
   dst_icons <- file.path(pkg$dst_path, "reference", "icons")
   if (file.exists(src_icons)) {
-    mkdir(dst_icons)
+    dir_create(dst_icons)
     copy_dir(src_icons, dst_icons)
   }
 
