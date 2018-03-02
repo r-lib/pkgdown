@@ -1,3 +1,6 @@
+#' @import fs
+NULL
+
 #' Determine if code is executed by pkgdown
 #'
 #' This is occassionally useful when you need different behaviour by
