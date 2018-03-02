@@ -50,41 +50,12 @@ copy_dir <- function(from, to, exclude_matching = NULL) {
   file.copy(from_files, to_paths, overwrite = TRUE)
 }
 
-#' Compute relative path
-#'
-#' @param path Relative path
-#' @param base Base path
-#' @param windows Whether the operating system is Windows. Default value is to
-#'   check the user's system information.
-#' @export
-#' @examples
-#' rel_path("a/b", base = "here")
-#' rel_path("/a/b", base = "here")
-rel_path <- function(path, base = ".", windows = on_windows()) {
+path_rel <- function(base, path) {
   if (is_absolute_path(path)) {
     path
   } else {
-    if (base != ".") {
-      path <- file.path(base, path)
-    }
-    # normalizePath() on Windows expands to absolute paths,
-    # so strip normalized base from normalized path
-    if (windows) {
-      parent_full <- normalizePath(".", mustWork = FALSE, winslash = "/")
-      path_full <- normalizePath(path, mustWork = FALSE, winslash = "/")
-      gsub(paste0(parent_full, "/"), "", path_full, fixed = TRUE)
-    } else {
-      normalizePath(path, mustWork = FALSE)
-    }
+    path_norm(path(base, path))
   }
-}
-
-on_windows <- function() {
-  Sys.info()["sysname"] == "Windows"
-}
-
-is_absolute_path <- function(path) {
-  grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
 
 package_path <- function(package, path) {

@@ -106,7 +106,7 @@ template_path <- function(pkg = ".") {
   template <- pkg$meta[["template"]]
 
   if (!is.null(template$path)) {
-    path <- rel_path(pkg$path, template$path)
+    path <- path_rel(pkg$src_path, template$path)
 
     if (!file.exists(path))
       stop("Can not find template path '", path, "'", call. = FALSE)
