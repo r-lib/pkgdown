@@ -45,9 +45,9 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   components$template <- name
 
   # render complete layout
-  find_template("layout", name, template_path = template_path(pkg)) %>%
-    render_template(components) %>%
-    write_if_different(path, quiet = quiet)
+  template <- find_template("layout", name, template_path = template_path(pkg))
+  rendered <- render_template(template, components)
+  write_if_different(rendered, path, quiet = quiet)
 }
 
 #' @export
