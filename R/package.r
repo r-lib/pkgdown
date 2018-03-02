@@ -10,7 +10,7 @@ as_pkgdown <- function(path = ".") {
     return(path)
   }
 
-  if (!file.exists(path) || !is_dir(path)) {
+  if (!dir_exists(path)) {
     stop("`path` is not an existing directory", call. = FALSE)
   }
 

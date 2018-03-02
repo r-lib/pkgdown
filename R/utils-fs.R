@@ -9,8 +9,6 @@ inst_path <- function() {
   }
 }
 
-is_dir <- function(x) file.info(x)$isdir
-
 copy_dir <- function(from, to, exclude_matching = NULL) {
 
   from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
