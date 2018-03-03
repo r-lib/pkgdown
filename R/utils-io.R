@@ -16,3 +16,16 @@ write_utf8 <- function(..., path, sep = "") {
 write_yaml <- function(x, path) {
   write_utf8(yaml::as.yaml(x), "\n", path = path, sep = "")
 }
+
+# Inspired by roxygen2 utils-io.R (https://github.com/klutometis/roxygen/) -----------
+
+readLines <- function(...) stop("Use read_lines!")
+writeLines <- function(...) stop("Use write_lines!")
+
+read_lines <- function(path, n = -1L) {
+  base::readLines(path, n = n, encoding = "UTF-8", warn = FALSE)
+}
+
+write_lines <- function(text, path) {
+  base::writeLines(enc2utf8(text), path, useBytes = TRUE)
+}
