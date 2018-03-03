@@ -18,7 +18,7 @@ test_that("build_news() uses content in NEWS.md", {
   expect_output(build_news(pkg))
   on.exit(clean_site(pkg))
 
-  lines <- readLines(path(pkg, "docs", "news", "index.html"))
+  lines <- read_lines(path(pkg, "docs", "news", "index.html"))
   test_strings <- c("testpackage", "1.0.0.9000", "1.0.0[^\\.]",
                     "sub-heading", "@githubuser", "bullet", "#111")
   expect_true(all(

@@ -1,7 +1,7 @@
 # Reading -----------------------------------------------------------------
 
 read_file <- function(path) {
-  lines <- readLines(path, warn = FALSE)
+  lines <- read_lines(path)
   paste0(lines, "\n", collapse = "")
 }
 
