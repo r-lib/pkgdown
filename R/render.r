@@ -156,7 +156,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE) {
   if (!quiet) {
     cat_line("Writing '", path, "'")
   }
-  write_utf8(contents, path = full_path)
+  write_lines(contents, path = full_path)
   TRUE
 }
 

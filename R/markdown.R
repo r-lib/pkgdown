@@ -45,6 +45,6 @@ markdown_text <- function(text, ...) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
 
-  write_utf8(text, path = tmp, sep = "\n")
+  write_lines(text, path = tmp)
   markdown(tmp, ...)
 }
