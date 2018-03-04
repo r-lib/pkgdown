@@ -114,7 +114,7 @@ template_path <- function(pkg = ".") {
 }
 
 render_template <- function(path, data) {
-  template <- readLines(path)
+  template <- read_lines(path)
   if (length(template) == 0)
     return("")
 
@@ -156,7 +156,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE) {
   if (!quiet) {
     cat_line("Writing '", path, "'")
   }
-  write_utf8(contents, path = full_path)
+  write_lines(contents, path = full_path)
   TRUE
 }
 
@@ -175,7 +175,7 @@ same_contents <- function(path, contents) {
 made_by_pkgdown <- function(path) {
   if (!file_exists(path)) return(TRUE)
 
-  first <- paste(readLines(path, n = 2), collapse = "\n")
+  first <- paste(read_lines(path, n = 2), collapse = "\n")
   check_made_by(first)
 }
 

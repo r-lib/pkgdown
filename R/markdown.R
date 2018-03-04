@@ -32,7 +32,7 @@ markdown <- function(path = NULL, ...) {
     xml2::xml_find_first(".//body") %>%
     xml2::write_html(tmp, format = FALSE)
 
-  lines <- readLines(tmp, warn = FALSE)
+  lines <- read_lines(tmp)
   lines <- sub("<body>", "", lines, fixed = TRUE)
   lines <- sub("</body>", "", lines, fixed = TRUE)
   paste(lines, collapse = "\n")
@@ -45,6 +45,6 @@ markdown_text <- function(text, ...) {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
 
-  write_utf8(text, path = tmp, sep = "\n")
+  write_lines(text, path = tmp)
   markdown(tmp, ...)
 }
