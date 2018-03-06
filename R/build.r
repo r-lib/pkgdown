@@ -117,9 +117,9 @@
 #' \url{https://gallery.shinyapps.io/117-shinythemes/}:
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
-#' \href{Google Analytics}{https://www.google.com/analytics/}. It should
+#' [Google Analytics](https://www.google.com/analytics/). It should
 #' correspond to your
-#' \href{tracking id}{https://support.google.com/analytics/answer/1032385}.
+#' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
 #' \preformatted{
 #' template:
