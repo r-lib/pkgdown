@@ -136,3 +136,14 @@ test_that("references in angle brackets are converted to HTML", {
   )
   expect_identical(linkify(unsupported), escape_html(unsupported))
 })
+
+# empty readme.md ---------------------------------------------------------
+
+test_that("build_home fails with empty readme.md", {
+  pkg <- test_path("home-empty-readme-md")
+  expect_error(
+    build_home(pkg),
+    "cannot build homepage from '.*/README.md' without content"
+  )
+  on.exit(clean_site(pkg))
+})
