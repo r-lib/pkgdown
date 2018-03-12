@@ -24,8 +24,12 @@ markdown <- function(path = NULL, ...) {
 
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
 
-  if (!inherits(xml, "xml_node"))
-    stop("cannot build homepage from '", path, "' without content")
+  if (!inherits(xml, "xml_node")) {
+    stop(
+      "'", path, "' must be a nonempty file or be deleted to build homepage.",
+      call. = FALSE
+    )
+  }
 
   tweak_code(xml)
   tweak_anchors(xml, only_contents = FALSE)
