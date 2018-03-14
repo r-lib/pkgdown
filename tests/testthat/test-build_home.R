@@ -141,9 +141,12 @@ test_that("references in angle brackets are converted to HTML", {
 
 test_that("build_home fails with empty readme.md", {
   pkg <- test_path("home-empty-readme-md")
-  expect_error(
-    build_home(pkg),
-    "'.*README.md' must be a nonempty file or be deleted to build homepage."
-  )
   on.exit(clean_site(pkg))
+
+  expect_output(
+    expect_error(
+      build_home(pkg),
+      "'.*README.md' must be a nonempty file or be deleted to build homepage."
+    )
+  )
 })
