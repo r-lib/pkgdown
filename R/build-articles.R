@@ -80,7 +80,7 @@ build_articles <- function(pkg = ".",
     pagetitle = "$title$",
     opengraph = list(description = "$description$")
   )
-  purrr::pwalk(articles, render_rmd,
+  purrr::pwalk(articles, render_article,
     pkg = pkg,
     data = data,
     quiet = quiet
@@ -93,7 +93,7 @@ build_articles <- function(pkg = ".",
   section_fin(pkg, "articles", preview = preview)
 }
 
-render_rmd <- function(pkg,
+render_article <- function(pkg,
                        input,
                        output_file,
                        depth = 0L,
@@ -109,18 +109,13 @@ render_rmd <- function(pkg,
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
   on.exit(file_delete(format$path), add = TRUE)
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = list(
-      input,
-      output_format = format$format,
-      output_file = basename(output_file),
-      quiet = quiet,
-      encoding = "UTF-8",
-      envir = globalenv()
-    ),
-    show = !quiet
+  path <- render_rmarkdown(
+    input = input,
+    output_format = format$format,
+    output_file = basename(output_file),
+    quiet = quiet
   )
+
   update_rmarkdown_html(path, strip_header = strip_header)
 }
 

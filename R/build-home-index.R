@@ -19,20 +19,11 @@ build_home_index <- function(pkg) {
       if (identical(file_name, "README")) {
         # Render once so that .md is up to date
         cat_line("Updating ", file_name, ".md")
-        callr::r_safe(
-          function(input, encoding) {
-            rmarkdown::render(
-              input,
-              output_format = "github_document",
-              output_options = list(html_preview = FALSE),
-              quiet = TRUE,
-              encoding = "UTF-8",
-              envir = globalenv()
-            )
-          },
-          args = list(
-            input = data$path
-          )
+        render_rmarkdown(
+          input = data$path,
+          output_format = "github_document",
+          output_options = list(html_preview = FALSE),
+          quiet = TRUE
         )
       }
 
@@ -40,7 +31,7 @@ build_home_index <- function(pkg) {
       file_copy(data$path, input, overwrite = TRUE)
       on.exit(file_delete(input))
 
-      render_rmd(pkg, input, "index.html",
+      render_article(pkg, input, "index.html",
         depth = 0L,
         data = data,
         toc = FALSE,
