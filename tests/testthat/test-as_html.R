@@ -149,6 +149,11 @@ test_that("block tags break paragraphs", {
   expect_equal(out, "<p>a</p><ul>\n<li><p>b</p></li>\n</ul><p>c</p>")
 })
 
+test_that("inline tags + empty line breaks", {
+  out <- flatten_para(rd_text("a\n\n\\code{b}"))
+  expect_equal(out, "<p>a</p>\n<p><code>b</code></p>")
+})
+
 test_that("single item can have multiple paragraphs", {
   out <- flatten_para(rd_text("\\itemize{\\item a\n\nb}"))
   expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>\n")

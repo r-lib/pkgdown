@@ -189,19 +189,20 @@ you.</p>
 
     
     <p>There are four top-level YAML settings that affect the entire site:
-<code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.
-    <code>destination</code> controls where the site will be generated. It defaults to
+<code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
+<p><code>destination</code> controls where the site will be generated. It defaults to
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
-paths will be taken relative to the package root.
-    <code>url</code> optionally specifies the url where the site will be published.
+paths will be taken relative to the package root.</p>
+<p><code>url</code> optionally specifies the url where the site will be published.
 If you supply this, other pkgdown sites will link to your site when needed,
-rather than using generic links to <a href='rdocumentation.org'>rdocumentation.org</a>.
-    <code>title</code> overrides the default site title, which is the package name.
+rather than using generic links to <a href='rdocumentation.org'>rdocumentation.org</a>.</p>
+<p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p><pre>
+text:</p>
+<pre>
 authors:
   Hadley Wickham:
     href: http://hadley.nz
@@ -212,9 +213,11 @@ authors:
     
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
+    
     <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
 syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p><pre>
+The following YAML snippet illustrates some of the most important features.</p>
+<pre>
 navbar:
   type: inverse
   left:
@@ -258,7 +261,8 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre>
+template:</p>
+<pre>
 template:
   params:
     bootswatch: cerulean
@@ -268,7 +272,8 @@ template:
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
 correspond to your
-<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>
+<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p>
+<pre>
 template:
   params:
     ganalytics: UA-000000-01
@@ -277,7 +282,8 @@ template:
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre>
+of the default assets, set <code>default_assets</code> to false.</p>
+<pre>
 template:
   package: mycustompackage
     # OR:

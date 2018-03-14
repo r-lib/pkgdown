@@ -5,12 +5,12 @@ as_html <- function(x, ...) {
 # Various types of text ------------------------------------------------------
 
 flatten_para <- function(x, ...) {
-  # Look for "\n" TEXT blocks within sequence of TEXT blocks
+  # Look for "\n" TEXT blocks after a TEXT block, and not at end of file
   is_nl <- purrr::map_lgl(x, is_newline, trim = TRUE)
   is_text <- purrr::map_lgl(x, inherits, "TEXT")
   is_text_prev <- c(FALSE, is_text[-length(x)])
-  is_text_next <- c(is_text[-1], FALSE)
-  is_para_break <- is_nl & is_text_prev & is_text_next
+  has_next <- c(rep(TRUE, length(x) - 1), FALSE)
+  is_para_break <- is_nl & is_text_prev & has_next
 
   # Or tags that are converted to HTML blocks
   block_tags <- c(
