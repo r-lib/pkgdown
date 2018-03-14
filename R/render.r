@@ -164,12 +164,12 @@ same_contents <- function(path, contents) {
   if (!file_exists(path))
     return(FALSE)
 
-  # contents <- paste0(paste0(contents, collapse = "\n"), "\n")
+  new_hash <- digest::digest(contents, serialize = FALSE)
 
-  text_hash <- digest::digest(contents, serialize = FALSE)
-  file_hash <- digest::digest(file = path)
+  cur_contents <- paste0(read_lines(path), collapse = "\n")
+  cur_hash <-  digest::digest(cur_contents, serialize = FALSE)
 
-  identical(text_hash, file_hash)
+  identical(new_hash, cur_hash)
 }
 
 made_by_pkgdown <- function(path) {
