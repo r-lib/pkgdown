@@ -20,11 +20,17 @@ as_pkgdown <- function(path = ".") {
 
   meta <- read_meta(path)
 
+  if (is.null(meta$destination)) {
+    dst_path <- path(path, "docs")
+  } else {
+    dst_path <- path_rel(path, meta$destination)
+  }
+
   structure(
     list(
       package = package,
       src_path = path_abs(path),
-      dst_path = path_abs(path_rel(path, meta$destination) %||% path(path, "docs")),
+      dst_path = path_abs(dst_path),
       desc = desc,
       meta = meta,
       topics = topics,
