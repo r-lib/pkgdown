@@ -100,7 +100,7 @@ template_path <- function(pkg = ".") {
   template <- pkg$meta[["template"]]
 
   if (!is.null(template$path)) {
-    path <- path_rel(pkg$src_path, template$path)
+    path <- path_abs(template$path, start = pkg$src_path)
 
     if (!file_exists(path))
       stop("Can not find template path '", path, "'", call. = FALSE)
@@ -140,7 +140,7 @@ find_template <- function(type, name, template_path = NULL) {
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE) {
   # Almost all uses are relative to destination, except for rmarkdown templates
-  full_path <- path_rel(pkg$dst_path, path)
+  full_path <- path_abs(path, start = pkg$dst_path)
 
   if (!made_by_pkgdown(full_path)) {
     if (!quiet) {

@@ -38,11 +38,11 @@ out_of_date <- function(source, target) {
 
 # Path helpers ------------------------------------------------------------
 
-path_rel <- function(base, path) {
+path_abs <- function(path, start = ".") {
   if (is_absolute_path(path)) {
     path
   } else {
-    path_norm(path(base, path))
+    fs::path_abs(path(start, path))
   }
 }
 

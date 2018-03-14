@@ -23,7 +23,7 @@ as_pkgdown <- function(path = ".") {
   if (is.null(meta$destination)) {
     dst_path <- path(path, "docs")
   } else {
-    dst_path <- path_rel(path, meta$destination)
+    dst_path <- path_abs(meta$destination, start = path)
   }
 
   structure(
