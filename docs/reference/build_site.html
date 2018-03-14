@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Build pkgdown website — build_site" />
 
 <meta property="og:description" content="build_site() is a convenient wrapper around five functions:
@@ -134,9 +132,8 @@ that aspect of the site.</p>
 <p>Note if names of generated files were changed, you will need to use <a href='clean_site.html'>clean_site</a> first to clean up orphan files.</p>
     
 
-    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
+    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
 
 <span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
@@ -148,11 +145,6 @@ that aspect of the site.</p>
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Location in which to save website, relative to package
-path.</p></td>
     </tr>
     <tr>
       <th>examples</th>
@@ -274,9 +266,9 @@ template:
     <p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
-<a href='Google Analytics'>https://www.google.com/analytics/</a>. It should
+<a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
 correspond to your
-<a href='tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
+<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>
 template:
   params:
     ganalytics: UA-000000-01
@@ -339,3 +331,4 @@ for pkgdown templates to ensure that you use the correct components.</p>
 
   </body>
 </html>
+
