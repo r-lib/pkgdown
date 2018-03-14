@@ -124,7 +124,7 @@ package_rd <- function(path = ".") {
     return(set_names(list(), character()))
   }
 
-  rd <- dir_ls(man_path, pattern = "\\.Rd$", type = "file")
+  rd <- dir_ls(man_path, regexp = "\\.[Rr]d$", type = "file")
   names(rd) <- path_file(rd)
   lapply(rd, rd_file, pkg_path = path)
 }

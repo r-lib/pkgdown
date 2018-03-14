@@ -246,7 +246,7 @@ data_extras <- function(pkg = ".") {
     return(character())
   }
 
-  dir_ls(path_extras, pattern = "^extra")
+  dir_ls(path_extras, regexp = "^extra")
 }
 
 # Generate site meta data file (available to website viewers)
