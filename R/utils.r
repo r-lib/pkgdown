@@ -35,8 +35,14 @@ find_first_existing <- function(path, ...) {
   NULL
 }
 
-
-
+path_if_exists <- function(...) {
+  p <- path(...)
+  if (file_exists(p)) {
+    p
+  } else {
+    NULL
+  }
+}
 
 invert_index <- function(x) {
   stopifnot(is.list(x))
