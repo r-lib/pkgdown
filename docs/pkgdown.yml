@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
   details: test/details.html
+  external: test/external.html
   highlight: test/highlight.html
 urls:
   reference: http://pkgdown.r-lib.org/reference

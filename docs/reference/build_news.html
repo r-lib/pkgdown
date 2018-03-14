@@ -83,6 +83,9 @@ an "unreleased" page." />
       <a href="../articles/test/details.html">Details tag</a>
     </li>
     <li>
+      <a href="../articles/test/external.html">External file tests</a>
+    </li>
+    <li>
       <a href="../articles/test/highlight.html">Highlighting tests</a>
     </li>
   </ul>
@@ -122,7 +125,7 @@ convention those versions with a fourth component) are displayed on an
 an "unreleased" page.</p>
     
 
-    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>one_page</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -132,11 +135,6 @@ an "unreleased" page.</p>
       <td><p>Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).</p></td>
-    </tr>
-    <tr>
-      <th>one_page</th>
-      <td><p>If <code>TRUE</code>, writes all news to a single file.
-If <code>FALSE</code>, writes one file per major version.</p></td>
     </tr>
     <tr>
       <th>preview</th>
@@ -167,7 +165,12 @@ github if a <code>URL</code> entry linking to github.com is provided in the pack
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>There are currently no configuration options.</p>
+    <p>Control whether news is present on one page or multiple pages with the
+<code>one_page</code> field. The default is <code>true</code>.</p>
+<p>#'</p><pre>
+news:
+- one_page: false
+</pre>
     
 
   </div>

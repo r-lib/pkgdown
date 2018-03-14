@@ -75,6 +75,9 @@
       <a href="../articles/test/details.html">Details tag</a>
     </li>
     <li>
+      <a href="../articles/test/external.html">External file tests</a>
+    </li>
+    <li>
       <a href="../articles/test/highlight.html">Highlighting tests</a>
     </li>
   </ul>
@@ -110,7 +113,8 @@
     <div class="section level1">
 <h1>pkgdown 0.1.0.9000</h1>
 <ul>
-<li>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</li>
+<li><p>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</p></li>
+<li><p>Similarly, <code><a href="../reference/build_news.html">build_news()</a></code> no longer takes a <code>one_page</code> argument; this should now be specified in the <code>_pkgdown.yml</code> instead. See the documentation for an example.</p></li>
 </ul>
 </div>
     </div>

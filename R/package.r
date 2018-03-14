@@ -150,23 +150,24 @@ is_internal <- function(x) {
 # Vignettes ---------------------------------------------------------------
 
 package_vignettes <- function(path = ".") {
-  vig_path <- dir(
-    path(path, "vignettes"),
-    pattern = "\\.[rR]md$",
-    recursive = TRUE
-  )
-  vig_path <- vig_path[!grepl("^_", basename(vig_path))]
+  base <- path(path, "vignettes")
 
-  title <- path(path, "vignettes", vig_path) %>%
+  if (!dir_exists(base)) {
+    vig_path <- character()
+  } else {
+    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", recursive = TRUE)
+  }
+  vig_path <- path_rel(vig_path, base)
+  vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
+
+  title <- path(base, vig_path) %>%
     purrr::map(rmarkdown::yaml_front_matter) %>%
     purrr::map_chr("title", .null = "UNKNOWN TITLE")
 
   tibble::tibble(
-    file_in = vig_path,
-    file_out = gsub("\\.[rR]md$", "\\.html", vig_path),
-    name = tools::file_path_sans_ext(basename(vig_path)),
-    path = dirname(vig_path),
-    vig_depth = dir_depth(vig_path),
+    name = path_ext_remove(vig_path),
+    file_in = path("vignettes", vig_path),
+    file_out = path("articles", path_ext_set(vig_path, "html")),
     title = title
   )
 }

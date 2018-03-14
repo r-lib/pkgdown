@@ -61,57 +61,56 @@ build_articles <- function(pkg = ".",
   }
 
   rule("Building articles")
-  dir_create(path(pkg$dst_path, "articles"))
-
-  # copy everything from vignettes/ to docs/articles
-  copy_dir(
-    path(pkg$src_path, "vignettes"),
-    path(pkg$dst_path, "articles"),
-    exclude_matching = "rsconnect"
-  )
-
-  # Render each Rmd then delete them
-  articles <- tibble::tibble(
-    input = path(pkg$dst_path, "articles", pkg$vignettes$file_in),
-    output_file = pkg$vignettes$file_out,
-    depth = pkg$vignettes$vig_depth + 1L
-  )
-  data <- list(
-    pagetitle = "$title$",
-    opengraph = list(description = "$description$")
-  )
-  purrr::pwalk(articles, render_article,
-    pkg = pkg,
-    data = data,
-    quiet = quiet
-  )
-
-  file_delete(articles$input)
 
   build_articles_index(pkg)
+  purrr::walk(pkg$vignettes$name, render_article, pkg = pkg, quiet = quiet)
 
   section_fin(pkg, "articles", preview = preview)
 }
 
 render_article <- function(pkg = ".",
-                           input,
-                           output_file,
-                           depth = 0L,
-                           strip_header = FALSE,
+                           name,
                            data = list(),
-                           toc = TRUE,
                            quiet = TRUE) {
+  pkg <- as_pkgdown(pkg)
+
+  if (name %in% c("index.Rmd", "README.Rmd")) {
+    depth <- 0L
+    output_file <- "index.html"
+    input <- name
+    strip_header <- TRUE
+    toc <- FALSE
+  } else {
+    depth <- dir_depth(name) + 1L
+    vig <- match(name, pkg$vignettes$name)
+    if (is.na(vig)) {
+      stop("Can't find article called '", name, "'", call. = FALSE)
+    }
+    output_file <- pkg$vignettes$file_out[vig]
+    input <- pkg$vignettes$file_in[vig]
+    toc <- TRUE
+    strip_header <- FALSE
+  }
 
   cat_line("Building article '", output_file, "'")
+
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
+
+  default_data <- list(
+    pagetitle = "$title$",
+    opengraph = list(description = "$description$")
+  )
+  data <- utils::modifyList(default_data, data)
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
 
   path <- render_rmarkdown(
-    input = input,
+    input = path_abs(input, pkg$src_path),
     output_format = format,
-    output_file = basename(output_file),
+    output_file = path_file(output_file),
+    output_dir = path(pkg$dst_path, path_dir(output_file)),
+    intermediates_dir = tempdir(),
     quiet = quiet
   )
 
@@ -155,6 +154,7 @@ update_rmarkdown_html <- function(path, strip_header = FALSE) {
 # Articles index ----------------------------------------------------------
 
 build_articles_index <- function(pkg = ".") {
+  dir_create(path(pkg$dst_path, "articles"))
   render_page(
     pkg,
     "vignette-index",
@@ -209,7 +209,7 @@ data_articles_index_section <- function(section, pkg) {
   section_vignettes <- pkg$vignettes[in_section, ]
   contents <- tibble::tibble(
     name = section_vignettes$name,
-    path = section_vignettes$file_out,
+    path = path_rel(section_vignettes$file_out, "articles"),
     title = section_vignettes$title
   )
 

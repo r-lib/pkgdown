@@ -1,0 +1,20 @@
+---
+title: "External file tests"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This document refers to an external file to make sure that works.
+
+```{r}
+x <- readLines("test.txt")
+x
+```
+

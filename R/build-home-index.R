@@ -9,8 +9,8 @@ build_home_index <- function(pkg) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
     render_page(pkg, "home", data, "index.html")
   } else {
-    file_name <- tools::file_path_sans_ext(basename(data$path))
-    file_ext <- tools::file_ext(data$path)
+    file_name <- as.character(path_ext_remove(path_file(data$path)))
+    file_ext <- path_ext(data$path)
 
     if (file_ext == "md") {
       data$index <- markdown(path = data$path)
@@ -27,16 +27,7 @@ build_home_index <- function(pkg) {
         )
       }
 
-      input <- path(pkg$dst_path, path_file(data$path))
-      file_copy(data$path, input, overwrite = TRUE)
-      on.exit(file_delete(input))
-
-      render_article(pkg, input, "index.html",
-        depth = 0L,
-        data = data,
-        toc = FALSE,
-        strip_header = TRUE
-      )
+      render_article(pkg, path_file(data$path), data = data)
     }
   }
 
@@ -45,7 +36,6 @@ build_home_index <- function(pkg) {
     isTRUE(pkg$meta$home$strip_header)
   )
 }
-
 
 update_homepage_html <- function(path, strip_header = FALSE) {
   html <- xml2::read_html(path, encoding = "UTF-8")

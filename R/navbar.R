@@ -59,7 +59,7 @@ default_navbar <- function(pkg = ".") {
 
     left$intro <- list(
       text = "Get Started",
-      href = paste0("articles/", intro$file_out)
+      href = intro$file_out
     )
   }
 
@@ -71,7 +71,8 @@ default_navbar <- function(pkg = ".") {
   if (nrow(vignettes) > 0) {
     articles <- purrr::map2(
       vignettes$title, vignettes$file_out,
-      ~ list(text = .x, href = paste0("articles/", .y)))
+      ~ list(text = .x, href = .y)
+    )
 
     left$articles <- list(
       text = "Articles",

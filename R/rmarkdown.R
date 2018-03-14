@@ -2,6 +2,11 @@
 #'
 #' @noRd
 render_rmarkdown <- function(input, ..., quiet = TRUE) {
+
+  if (!file_exists(input)) {
+    stop("Can't find '", input, "'", call. = FALSE)
+  }
+
   args <- list(
     input = input,
     encoding = "UTF-8",
