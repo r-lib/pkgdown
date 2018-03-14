@@ -93,25 +93,24 @@ build_articles <- function(pkg = ".",
   section_fin(pkg, "articles", preview = preview)
 }
 
-render_article <- function(pkg,
-                       input,
-                       output_file,
-                       depth = 0L,
-                       strip_header = FALSE,
-                       data = list(),
-                       toc = TRUE,
-                       quiet = TRUE) {
+render_article <- function(pkg = ".",
+                           input,
+                           output_file,
+                           depth = 0L,
+                           strip_header = FALSE,
+                           data = list(),
+                           toc = TRUE,
+                           quiet = TRUE) {
 
   cat_line("Building article '", output_file, "'")
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
-  on.exit(file_delete(format$path), add = TRUE)
 
   path <- render_rmarkdown(
     input = input,
-    output_format = format$format,
+    output_format = format,
     output_file = basename(output_file),
     quiet = quiet
   )
@@ -119,24 +118,30 @@ render_article <- function(pkg,
   update_rmarkdown_html(path, strip_header = strip_header)
 }
 
+# Generates RMarkdown format by rendering inst/template/context-vignette.html
+# This template contains pandoc template tags so creates a file that we can
+# use as an RMarkdown/pandoc template.
 build_rmarkdown_format <- function(pkg = ".",
                                    depth = 1L,
                                    data = list(),
                                    toc = TRUE) {
-  # Render vignette template to temporary file
   path <- tempfile(fileext = ".html")
   render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
-  list(
-    path = path,
-    format = rmarkdown::html_document(
-      toc = toc,
-      toc_depth = 2,
-      self_contained = FALSE,
-      theme = NULL,
-      template = path
-    )
+  out <- rmarkdown::html_document(
+    toc = toc,
+    toc_depth = 2,
+    self_contained = FALSE,
+    theme = NULL,
+    template = path
   )
+
+  # Remove template file when format object is GC'd
+  e <- env()
+  reg.finalizer(e, function(e) file_delete(path))
+  attr(out, "cleanup") <- e
+
+  out
 }
 
 update_rmarkdown_html <- function(path, strip_header = FALSE) {
