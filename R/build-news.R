@@ -34,16 +34,21 @@
 #'
 #' @section YAML config:
 #'
-#' There are currently no configuration options.
+#' Control whether news is present on one page or multiple pages with the
+#' `one_page` field. The default is `true`.
+#'
+#' #' \preformatted{
+#' news:
+#' - one_page: false
+#' }
 #'
 #' @inheritParams build_articles
-#' @param one_page If `TRUE`, writes all news to a single file.
-#'   If `FALSE`, writes one file per major version.
 #' @export
 build_news <- function(pkg = ".",
-                       one_page = TRUE,
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L)
+
+  one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
 
   if (!has_news(pkg$src_path))
     return()
