@@ -54,7 +54,7 @@ data_reference_index_section <- function(section, pkg) {
       ~ if (length(.x) > 0) .x else .y
     ),
     title = section_topics$title,
-    icon = find_icons(section_topics$alias, path(pkg$path, "icons"))
+    icon = find_icons(section_topics$alias, path(pkg$src_path, "icons"))
   )
   list(
     title = section$title,
