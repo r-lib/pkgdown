@@ -24,7 +24,7 @@ as_pkgdown <- function(path = ".") {
     list(
       package = package,
       src_path = path_abs(path),
-      dst_path = path_abs(meta$destination %||% path(path, "docs")),
+      dst_path = path_abs(path_rel(path, meta$destination) %||% path(path, "docs")),
       desc = desc,
       meta = meta,
       topics = topics,
