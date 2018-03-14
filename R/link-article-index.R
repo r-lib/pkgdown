@@ -21,7 +21,7 @@ article_index_local <- function(package, path = find.package(package)) {
 
   vig_path <- dir_ls(src, regexp = "\\.[rR]md$", recursive = TRUE, type = "file")
 
-  out_path <- gsub("\\.[rR]md$", ".html", fs::path_rel(vig_path, src))
+  out_path <- gsub("\\.[rR]md$", ".html", fs::path_rel(vig_path, start = path_real(src)))
   vig_name <- gsub("\\.[rR]md$", "", path_file(vig_path))
 
   set_names(out_path, vig_name)
