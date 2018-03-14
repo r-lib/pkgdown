@@ -5,9 +5,8 @@
 \alias{init_site}
 \title{Build pkgdown website}
 \usage{
-build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014)
+build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
+  mathjax = TRUE, preview = interactive(), seed = 1014)
 
 init_site(pkg = ".")
 }
@@ -15,9 +14,6 @@ init_site(pkg = ".")
 \item{pkg}{Path to source package. If R working directory is not
 set to the source directory, then pkg must be a fully qualified
 path to the source directory (not a relative path).}
-
-\item{path}{Location in which to save website, relative to package
-path.}
 
 \item{examples}{Run examples?}
 
@@ -158,9 +154,9 @@ See a complete list of themes and preview how they look at
 \url{https://gallery.shinyapps.io/117-shinythemes/}:
 
 Optionally provide the \code{ganalytics} template parameter to enable
-\href{Google Analytics}{https://www.google.com/analytics/}. It should
+\href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{tracking id}{https://support.google.com/analytics/answer/1032385}.
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
 
 \preformatted{
 template:

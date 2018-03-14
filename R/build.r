@@ -151,15 +151,12 @@
 #'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
-#' @param path Location in which to save website, relative to package
-#'   path.
 #' @export
 #' @examples
 #' \dontrun{
 #' build_site()
 #' }
 build_site <- function(pkg = ".",
-                       path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        mathjax = TRUE,
