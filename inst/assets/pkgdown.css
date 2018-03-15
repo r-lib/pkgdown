@@ -1,9 +1,21 @@
-/* Sticker footer */
+/* Sticky footer */
+
+/**
+ * Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+ * Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
+ *
+ * .Site -> body > .container
+ * .Site-content -> body > .container .row
+ * .footer -> footer
+ *
+ */
+
 body > .container {
   display: flex;
-  padding-top: 60px;
-  min-height: calc(100vh);
   flex-direction: column;
+  min-height: 100vh;
+
+  padding-top: 60px;
 }
 
 body > .container .row {
