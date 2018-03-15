@@ -100,24 +100,27 @@ match_env <- function(topics) {
 match_eval <- function(string, env) {
   if (!is.character(string) || length(string) != 1) {
     topic_must("be a string", value = string)
+    return(integer())
   }
 
   if (exists(string, envir = env, inherits = FALSE)) {
     value <- env[[string]]
   } else {
-    tryCatch(
+    value <- tryCatch(
       {
         expr <- parse(text = string)[[1]]
-        value <- eval(expr, env)
+        eval(expr, env)
       },
       error = function(e) {
         topic_must("be a valid R expression", expr = string)
+        integer()
       }
     )
   }
 
   if (!is.numeric(value)) {
     topic_must("evaluate to a numeric vector", value = value, expr = string)
+    return(integer())
   }
 
   value
@@ -132,5 +135,9 @@ topic_must <- function(..., expr = NULL, value = NULL) {
     value <- paste0("\nActual value:  ", paste0(deparse(value), collapse = "\n"))
   }
 
-  stop("In '_pkgdown.yml', topic must ", ..., ".", expr, value, call. = FALSE)
+  warning(
+    "In '_pkgdown.yml', topic must ", ..., ".", expr, value,
+    call. = FALSE,
+    immediate. = TRUE
+  )
 }
