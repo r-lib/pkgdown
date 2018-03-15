@@ -1,9 +1,9 @@
 #' Build articles
 #'
-#' Each Rmarkdown vignette in `vignettes/` and its subdirectories is
-#' rendered. Vignettes are rendered using a special document format that
-#' reconciles [rmarkdown::html_document()] with your pkgdown
-#' template.
+#' Each R Markdown vignette in `vignettes/` and its subdirectories is
+#' rendered and saved to `articles/`. Vignettes are rendered using a
+#' special document format that reconciles [rmarkdown::html_document()] with
+#' your pkgdown template.
 #'
 #' @section YAML config:
 #' To tweak the index page, you need a section called `articles`,
@@ -68,16 +68,24 @@ build_articles <- function(pkg = ".",
   section_fin(pkg, "articles", preview = preview)
 }
 
-render_article <- function(pkg = ".",
-                           name,
+#' @export
+#' @rdname render_articles
+#' @param name Name of article to render. This should be either a path
+#'   relative to `vignettes/` without extension, or `index` or `README`.
+#' @param data Additional data to pass on to template.
+render_article <- function(name,
+                           pkg = ".",
                            data = list(),
                            quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
-  if (name %in% c("index.Rmd", "README.Rmd")) {
+  # Look up in pkg vignette data - this allows convenient automatic
+  # specification of depth, output destination, and other parmaters that
+  # allow code sharing with building of the index.
+  if (toupper(name) %in% c("INDEX", "README")) {
     depth <- 0L
     output_file <- "index.html"
-    input <- name
+    input <- path_ext_set(name, "Rmd")
     strip_header <- TRUE
     toc <- FALSE
   } else {
@@ -115,6 +123,7 @@ render_article <- function(pkg = ".",
   )
 
   update_rmarkdown_html(path, strip_header = strip_header)
+  invisible(path)
 }
 
 # Generates RMarkdown format by rendering inst/template/context-vignette.html
