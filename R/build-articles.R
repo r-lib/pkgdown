@@ -112,12 +112,8 @@ build_article <- function(name,
   input <- path_abs(input, pkg$src_path)
   output <- path_abs(output_file, pkg$dst_path)
 
-  if (lazy) {
-    src_time <- file_info(input)$change_time
-    dst_time <- file_info(input)$change_time
-
-    if (src_time <= dst_time)
-      return(invisible())
+  if (lazy && !out_of_date(input, output)) {
+    return(invisible())
   }
 
   cat_line("Writing  ", dst_path(output_file))
