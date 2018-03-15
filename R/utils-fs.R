@@ -34,11 +34,7 @@ file_copy_to <- function(pkg,
   from_rel <- path_rel(from_paths, from_dir)
   to_paths <- path_abs(from_rel, to_dir)
 
-  eq <- vapply(
-    seq_along(to_paths),
-    function(i) file_equal(from_paths[i], to_paths[i]),
-    logical(1)
-  )
+  eq <- purrr::map2_lgl(from_paths, to_paths, file_equal)
   if (any(!eq)) {
     cat_line(
       "Copying  ", src_path(path_rel(from_paths[!eq], pkg$src_path)),
