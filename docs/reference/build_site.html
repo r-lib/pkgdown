@@ -136,7 +136,7 @@ that aspect of the site.</p>
     
 
     <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
+  <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>)
 
 <span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
@@ -160,6 +160,11 @@ path to the source directory (not a relative path).</p></td>
     <tr>
       <th>mathjax</th>
       <td><p>Use mathjax to render math symbols?</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, will only rebuild articles and reference pages
+if the source is newer than the destination.</p></td>
     </tr>
     <tr>
       <th>preview</th>

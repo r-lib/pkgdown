@@ -27,10 +27,10 @@
 <script src="../pkgdown.js"></script>
 <meta property="og:title" content="Build articles — build_articles" />
 
-<meta property="og:description" content="Each Rmarkdown vignette in vignettes/ and its subdirectories is
-rendered. Vignettes are rendered using a special document format that
-reconciles rmarkdown::html_document() with your pkgdown
-template." />
+<meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is
+rendered and saved to articles/. Vignettes are rendered using a
+special document format that reconciles rmarkdown::html_document() with
+your pkgdown template." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -115,13 +115,16 @@ template." />
     </div>
 
     
-    <p>Each Rmarkdown vignette in <code>vignettes/</code> and its subdirectories is
-rendered. Vignettes are rendered using a special document format that
-reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
-template.</p>
+    <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is
+rendered and saved to <code>articles/</code>. Vignettes are rendered using a
+special document format that reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with
+your pkgdown template.</p>
     
 
-    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+
+<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -138,9 +141,23 @@ path to the source directory (not a relative path).</p></td>
 pandoc. This is useful when debugging.</p></td>
     </tr>
     <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, will only re-build article if input file has been
+modified more recently than the output file.</p></td>
+    </tr>
+    <tr>
       <th>preview</th>
       <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>Name of article to render. This should be either a path
+relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>Additional data to pass on to template.</p></td>
     </tr>
     </table>
     
