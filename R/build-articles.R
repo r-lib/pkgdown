@@ -35,6 +35,30 @@
 #' pkgdown will check that all vignettes are included in the index
 #' this page, and will generate a warning if you have missed any.
 #'
+#' @section YAML header:
+#' By default, pkgdown builds all articles with [rmarkdown::html_document()]
+#' using setting the `template` parameter to a custom built template that
+#' matches the site template. You can override this with a `pkgdown` field
+#' in your yaml metadata:
+#'
+#' \preformatted{
+#' pkgdown:
+#'   as_is: true
+#' }
+#'
+#' This will tell pkgdown to use the `output_format` that you have specified.
+#' This format must accept `template`, `theme`, and `self_contained` in
+#' order to work with pkgdown.
+#'
+#' If the output format produces a PDF, you'll also need to specify the
+#' `extension` field:
+#'
+#' \preformatted{
+#' pkgdown:
+#'   as_is: true
+#'   extension: pdf
+#' }
+#'
 #' @section Supressing vignettes:
 #'
 #' If you want articles that are not vignettes, either put them in
@@ -127,45 +151,76 @@ build_article <- function(name,
   )
   data <- utils::modifyList(default_data, data)
 
-  format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
+  # Allow users to opt-in to their own template
+  front <- rmarkdown::yaml_front_matter(input)
+  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
+  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
+
+  if (as_is) {
+    format <- NULL
+    template <- rmarkdown_template(pkg, depth = depth, data = data)
+
+    if (identical(ext, "html")) {
+      options <- list(
+        template = template$path,
+        self_contained = FALSE,
+        theme = NULL
+      )
+    } else {
+      options <- list()
+    }
+  } else {
+    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
+    options <- NULL
+  }
 
   path <- render_rmarkdown(
     input = input,
     output_format = format,
+    output_options = options,
     output_file = path_file(output),
     output_dir = path_dir(output),
     intermediates_dir = tempdir(),
     quiet = quiet
   )
 
-  update_rmarkdown_html(path, strip_header = strip_header)
+  if (identical(ext, "html"))
+    update_rmarkdown_html(path, strip_header = strip_header)
   invisible(path)
 }
 
-# Generates RMarkdown format by rendering inst/template/context-vignette.html
-# This template contains pandoc template tags so creates a file that we can
-# use as an RMarkdown/pandoc template.
-build_rmarkdown_format <- function(pkg = ".",
+build_rmarkdown_format <- function(pkg,
                                    depth = 1L,
                                    data = list(),
                                    toc = TRUE) {
-  path <- tempfile(fileext = ".html")
-  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
+
+  template <- rmarkdown_template(pkg, depth = depth, data = data)
 
   out <- rmarkdown::html_document(
     toc = toc,
     toc_depth = 2,
     self_contained = FALSE,
     theme = NULL,
-    template = path
+    template = template$path
   )
+  attr(out, "__cleanup") <- template$cleanup
+
+  out
+}
+
+# Generates pandoc template format by rendering
+# inst/template/context-vignette.html
+# Output is a path + environment; when the environment is garbage collected
+# the path will be deleted
+rmarkdown_template <- function(pkg, data, depth) {
+  path <- tempfile(fileext = ".html")
+  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
 
   # Remove template file when format object is GC'd
   e <- env()
   reg.finalizer(e, function(e) file_delete(path))
-  attr(out, "cleanup") <- e
 
-  out
+  list(path = path, cleanup = e)
 }
 
 update_rmarkdown_html <- function(path, strip_header = FALSE) {

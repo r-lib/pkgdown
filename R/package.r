@@ -160,14 +160,15 @@ package_vignettes <- function(path = ".") {
   vig_path <- path_rel(vig_path, base)
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
 
-  title <- path(base, vig_path) %>%
-    purrr::map(rmarkdown::yaml_front_matter) %>%
-    purrr::map_chr("title", .null = "UNKNOWN TITLE")
+  yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
+  title <- purrr::map_chr(yaml, "title", .default = "UNKNOWN TITLE")
+  ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
+  title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
 
   tibble::tibble(
     name = path_ext_remove(vig_path),
     file_in = path("vignettes", vig_path),
-    file_out = path("articles", path_ext_set(vig_path, "html")),
+    file_out = path("articles", path_ext_set(vig_path, ext)),
     title = title
   )
 }

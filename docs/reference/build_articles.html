@@ -86,6 +86,12 @@ your pkgdown template." />
     <li>
       <a href="../articles/test/highlight.html">Highlighting tests</a>
     </li>
+    <li>
+      <a href="../articles/test/output.html">Custom output</a>
+    </li>
+    <li>
+      <a href="../articles/test/pdf.pdf">PDF article (PDF)</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -189,6 +195,28 @@ naming schemes you can use an aribrary regular expression with
 <p>pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.</p>
     
+    <h2 class="hasAnchor" id="yaml-header"><a class="anchor" href="#yaml-header"></a>YAML header</h2>
+
+    
+    <p>By default, pkgdown builds all articles with <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code>
+using setting the <code>template</code> parameter to a custom built template that
+matches the site template. You can override this with a <code>pkgdown</code> field
+in your yaml metadata:</p>
+<pre>
+pkgdown:
+  as_is: true
+</pre>
+    <p>This will tell pkgdown to use the <code>output_format</code> that you have specified.
+This format must accept <code>template</code>, <code>theme</code>, and <code>self_contained</code> in
+order to work with pkgdown.</p>
+<p>If the output format produces a PDF, you'll also need to specify the
+<code>extension</code> field:</p>
+<pre>
+pkgdown:
+  as_is: true
+  extension: pdf
+</pre>
+    
     <h2 class="hasAnchor" id="supressing-vignettes"><a class="anchor" href="#supressing-vignettes"></a>Supressing vignettes</h2>
 
     
@@ -206,6 +234,8 @@ customise the navbar. See <code><a href='build_site.html'>build_site()</a></code
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#yaml-header">YAML header</a></li>
 
       <li><a href="#supressing-vignettes">Supressing vignettes</a></li>
           </ul>

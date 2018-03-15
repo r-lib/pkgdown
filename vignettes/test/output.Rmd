@@ -1,0 +1,19 @@
+---
+title: "Custom output"
+output: 
+  html_document:
+    toc: false
+pkgdown:
+  as_is: true
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This should not show a table of contents even though that's the default pkgdown default. But it should still have the default template.
+
+# Heading 1
+
+# Heading 2
+
