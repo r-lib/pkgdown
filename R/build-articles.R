@@ -101,7 +101,7 @@ build_article <- function(name,
     depth <- dir_depth(name) + 1L
     vig <- match(name, pkg$vignettes$name)
     if (is.na(vig)) {
-      stop("Can't find article called '", name, "'", call. = FALSE)
+      stop("Can't find article called ", src_path(name), call. = FALSE)
     }
     output_file <- pkg$vignettes$file_out[vig]
     input <- pkg$vignettes$file_in[vig]
@@ -120,7 +120,7 @@ build_article <- function(name,
       return(invisible())
   }
 
-  cat_line("Building article '", output_file, "'")
+  cat_line("Writing  ", dst_path(output_file))
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)

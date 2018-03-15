@@ -16,6 +16,7 @@ section_fin <- function(pkg, path, preview = NA) {
   }
 
   if (preview) {
+    rule("Previewing site")
     utils::browseURL(path(pkg$dst_path, path, "index.html"))
   }
 

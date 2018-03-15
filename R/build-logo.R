@@ -5,7 +5,7 @@ build_logo <- function(pkg = ".") {
   if (is.null(logo_path))
     return()
 
-  cat_line("Copying 'logo.png'")
+  cat_line("Copying  ", src_path(path_rel(logo_path, pkg$src_path)))
   file_copy(logo_path, path(pkg$dst_path, "logo.png"), overwrite = TRUE)
 
   if (!requireNamespace("magick", quietly = TRUE)) {

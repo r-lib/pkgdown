@@ -63,7 +63,14 @@ cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
 
-rule <- function(...) cli::cat_rule(..., col = "green")
+dst_path <- function(...) {
+  crayon::blue(encodeString(path(...), quote = "'"))
+}
+src_path <- function(...) {
+  crayon::green(encodeString(path(...), quote = "'"))
+}
+
+rule <- function(...) cli::cat_rule(..., col = "bold", line_col = "black")
 
 list_with_heading <- function(bullets, heading) {
   if (length(bullets) == 0)

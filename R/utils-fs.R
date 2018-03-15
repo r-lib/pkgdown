@@ -63,7 +63,10 @@ path_package_pkgdown <- function(package, ...) {
 
   pkg_path <- system.file("pkgdown", ..., package = package, mustWork = TRUE)
   if (pkg_path == "") {
-    stop(package, " does not contain 'inst/pkgdown/", path, "'", call. = FALSE)
+    stop(
+      package, " does not contain ", src_path("inst/pkgdown/", path),
+      call. = FALSE
+    )
   }
 
   pkg_path

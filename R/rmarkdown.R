@@ -4,7 +4,7 @@
 render_rmarkdown <- function(input, ..., quiet = TRUE) {
 
   if (!file_exists(input)) {
-    stop("Can't find '", input, "'", call. = FALSE)
+    stop("Can't find ", src_path(input), call. = FALSE)
   }
 
   args <- list(

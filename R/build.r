@@ -169,6 +169,7 @@ build_site <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0)
 
+  rule("Building pkgdown site", line = 2)
   init_site(pkg)
 
   build_home(pkg, preview = FALSE)
@@ -184,6 +185,7 @@ build_site <- function(pkg = ".",
   build_news(pkg, preview = FALSE)
 
   section_fin(pkg, "", preview = preview)
+  rule("DONE", line = 2)
 }
 
 build_site_rstudio <- function() {
@@ -202,13 +204,13 @@ init_site <- function(pkg = ".") {
 
   assets <- data_assets(pkg)
   if (length(assets) > 0) {
-    cat_line("Copying ", length(assets), " assets")
+    cat_line("Copying  ", length(assets), " assets")
     file_copy(assets, path(pkg$dst_path, path_file(assets)), overwrite = TRUE)
   }
 
   extras <- data_extras(pkg)
   if (length(extras) > 0) {
-    cat_line("Copying ", length(extras), " extras")
+    cat_line("Copying  ", length(extras), " extras")
     file_copy(extras, path(pkg$dst_path, path_file(extras)), overwrite = TRUE)
   }
 
@@ -226,7 +228,7 @@ data_assets <- function(pkg = ".") {
   if (!is.null(template$assets)) {
     path <- path_rel(pkg$src_path, template$assets)
     if (!file_exists(path))
-      stop("Can not find asset path '", path, "'", call. = FALSE)
+      stop("Can not find asset path ", src_path(path), call. = FALSE)
 
   } else if (!is.null(template$package)) {
     path <- path_package_pkgdown(template$package, "assets")

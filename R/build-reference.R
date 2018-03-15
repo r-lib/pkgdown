@@ -100,7 +100,7 @@ build_reference <- function(pkg = ".",
   # copy everything from man/figures to docs/reference/figures
   figures_path <- path(pkg$src_path, "man", "figures")
   if (file_exists(figures_path)) {
-    cat_line("Copying 'man/figures/'")
+    cat_line("Copying  ", src_path("man/figures/"))
     out_path <- path(ref_path, "figures")
     dir_create(out_path)
     copy_dir(figures_path, out_path)
@@ -173,7 +173,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Processing '", topic$file_in, "'")
+  cat_line("Building ", src_path("man", topic$file_in))
   scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = 1L)
 
   data <- data_reference_topic(

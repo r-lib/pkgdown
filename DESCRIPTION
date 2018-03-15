@@ -14,6 +14,7 @@ Depends:
 Imports: 
     callr (>= 2.0.2),
     cli,
+    crayon,
     desc,
     digest,
     evaluate,
@@ -35,7 +36,7 @@ Imports:
     whisker,
     yaml,
     xml2 (>= 1.1.1),
-    fs
+    fs (>= 1.2.0)
 Suggests:
     devtools,
     knitr,

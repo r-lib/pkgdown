@@ -103,7 +103,7 @@ template_path <- function(pkg = ".") {
     path <- path_abs(template$path, start = pkg$src_path)
 
     if (!file_exists(path))
-      stop("Can not find template path '", path, "'", call. = FALSE)
+      stop("Can not find template path ", src_path(path), call. = FALSE)
 
     path
   } else if (!is.null(template$package)) {
@@ -154,7 +154,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE) {
   }
 
   if (!quiet) {
-    cat_line("Writing '", path, "'")
+    cat_line("Writing  ", dst_path(path))
   }
   write_lines(contents, path = full_path)
   TRUE

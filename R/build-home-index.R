@@ -18,7 +18,7 @@ build_home_index <- function(pkg) {
     } else if (file_ext == "Rmd") {
       if (identical(file_name, "README")) {
         # Render once so that .md is up to date
-        cat_line("Updating ", file_name, ".md")
+        cat_line("Updating ", src_path("README.md"))
         render_rmarkdown(
           input = data$path,
           output_format = "github_document",

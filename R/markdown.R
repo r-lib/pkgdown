@@ -25,10 +25,7 @@ markdown <- function(path = NULL, ...) {
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
 
   if (!inherits(xml, "xml_node")) {
-    stop(
-      "'", path, "' must be a nonempty file or be deleted to build homepage.",
-      call. = FALSE
-    )
+    stop(src_path(path), " must be non-empty", call. = FALSE)
   }
 
   tweak_code(xml)

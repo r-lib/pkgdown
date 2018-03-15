@@ -144,9 +144,6 @@ test_that("build_home fails with empty readme.md", {
   on.exit(clean_site(pkg))
 
   expect_output(
-    expect_error(
-      build_home(pkg),
-      "'.*README.md' must be a nonempty file or be deleted to build homepage."
-    )
+    expect_error(build_home(pkg), "non-empty")
   )
 })
