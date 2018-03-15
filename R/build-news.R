@@ -147,7 +147,7 @@ data_news <- function(pkg = ".") {
 
   major <- pieces %>% purrr::map_chr(4)
 
-  timeline <- pkg_timeline(pkg)
+  timeline <- pkg_timeline(pkg$package)
   add_release_dates(sections, pieces, timeline)
 
   html <- sections %>%
@@ -196,20 +196,22 @@ add_github_links <- function(x, pkg) {
   x
 }
 
-pkg_timeline <- function(pkg) {
-  name <- pkg$desc$get("Package")[[1]]
-  url <- paste0("http://crandb.r-pkg.org/", name, "/all")
+pkg_timeline <- function(package) {
+  url <- paste0("http://crandb.r-pkg.org/", package, "/all")
 
-  content <- httr::GET(url) %>% httr::content()
+  resp <- httr::GET(url)
+  if (httr::http_error(resp)) {
+    return(NULL)
+  }
 
-  # if content$error is not NULL, the request was unsuccessful
-  if (!is.null(content$error)) return(NULL)
+  content <- httr::content(resp)
+  timeline <- content$timeline
 
-  content %>%
-    purrr::pluck("timeline") %>%
-    tibble::as_tibble() %>%
-    tidyr::gather(version, rel_date) %>%
-    dplyr::mutate(rel_date = as.Date(rel_date))
+  data.frame(
+    version = names(timeline),
+    date = as.Date(unlist(timeline)),
+    stringsAsFactors = FALSE
+  )
 }
 
 rel_date_html <- function(date) {

@@ -26,7 +26,21 @@ test_that("build_news() uses content in NEWS.md", {
   ))
 })
 
-test_that("packages that are not on cran don't have timelines", {
-  pkg <- as_pkgdown(test_path("news"))
-  expect_null(pkg_timeline(pkg))
+test_that("pkg_timeline fails cleanly for unknown package", {
+  skip_on_cran()
+  expect_null(pkg_timeline("__XYZ___"))
+})
+
+test_that("correct timeline for first ggplot2 releases", {
+  skip_on_cran()
+
+  timeline <- pkg_timeline("ggplot2")[1:3, ]
+  expected <- data.frame(
+    version = c("0.5", "0.5.1", "0.5.2"),
+    date = as.Date(c("2007-06-01", "2007-06-09", "2007-06-18")),
+    stringsAsFactors = FALSE
+  )
+
+  expect_equal(timeline, expected)
+
 })
