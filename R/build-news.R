@@ -32,6 +32,8 @@
 #'   - Lots of bug fixes (@hadley, #100)
 #' }
 #'
+#' If the package is available on CRAN, release dates will be added for listed versions.
+#'
 #' @section YAML config:
 #'
 #' Control whether news is present on one page or multiple pages with the
@@ -145,6 +147,9 @@ data_news <- function(pkg = ".") {
 
   major <- pieces %>% purrr::map_chr(4)
 
+  timeline <- pkg_timeline(pkg)
+  add_release_dates(sections, pieces, timeline)
+
   html <- sections %>%
     purrr::walk(tweak_code) %>%
     purrr::map_chr(as.character) %>%
@@ -158,6 +163,7 @@ data_news <- function(pkg = ".") {
     anchor = anchors,
     html = html
   )
+
   news[is_version, , drop = FALSE]
 }
 
@@ -188,4 +194,47 @@ add_github_links <- function(x, pkg) {
   x <- gsub("#(\\d+)", issue_link, x)
 
   x
+}
+
+pkg_timeline <- function(pkg) {
+  name <- pkg$desc$get("Package")[[1]]
+  url <- paste0("http://crandb.r-pkg.org/", name, "/all")
+
+  content <- httr::GET(url) %>% httr::content()
+
+  # if content$error is not NULL, the request was unsuccessful
+  if (!is.null(content$error)) return(NULL)
+
+  content %>%
+    purrr::pluck("timeline") %>%
+    tibble::as_tibble() %>%
+    tidyr::gather(version, rel_date) %>%
+    dplyr::mutate(rel_date = as.Date(rel_date))
+}
+
+rel_date_html <- function(date) {
+  if (is.na(date))
+    return("<small> Unreleased</small>")
+
+  paste0("<small> ", date, "</small>")
+}
+
+add_release_dates <- function(x, pieces, timeline) {
+  if (is.null(timeline)) return(x)
+
+  versions <- tibble::as_tibble(purrr::map_chr(pieces, 3))
+  timeline <- dplyr::left_join(
+    versions, timeline, by = c("value" = "version")
+  )
+
+  dates <- purrr::map_chr(timeline$rel_date, rel_date_html)
+  date_nodes <- paste(dates, collapse="") %>%
+    xml2::read_html() %>%
+    xml2::xml_find_all(".//small")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_add_child(date_nodes, .where = 1)
+
+  invisible()
 }

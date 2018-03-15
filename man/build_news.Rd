@@ -47,6 +47,8 @@ github if a \code{URL} entry linking to github.com is provided in the package
 
 - Lots of bug fixes (@hadley, #100)
 }
+
+If the package is available on CRAN, release dates will be added for listed versions.
 }
 \section{YAML config}{
 
