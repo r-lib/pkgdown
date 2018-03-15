@@ -44,6 +44,14 @@ path_if_exists <- function(...) {
   }
 }
 
+dir_depth <- function(x) {
+  x %>%
+    strsplit("") %>%
+    purrr::map_int(function(x) sum(x == "/"))
+}
+
+
+
 invert_index <- function(x) {
   stopifnot(is.list(x))
 

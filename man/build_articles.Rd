@@ -18,10 +18,10 @@ pandoc. This is useful when debugging.}
 freshly generated section in browser.}
 }
 \description{
-Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
-rendered. Vignettes are rendered using a special document format that
-reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
-template.
+Each R Markdown vignette in \code{vignettes/} and its subdirectories is
+rendered and saved to \code{articles/}. Vignettes are rendered using a
+special document format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with
+your pkgdown template.
 }
 \section{YAML config}{
 

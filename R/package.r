@@ -171,11 +171,3 @@ package_vignettes <- function(path = ".") {
     title = title
   )
 }
-
-dir_depth <- function(x) {
-  x %>%
-    strsplit("") %>%
-    purrr::map_int(function(x) sum(x == "/"))
-}
-
-
