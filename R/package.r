@@ -29,8 +29,8 @@ as_pkgdown <- function(path = ".") {
   structure(
     list(
       package = package,
-      src_path = path_real(path),
-      dst_path = path_real(dst_path),
+      src_path = path_abs(path),
+      dst_path = path_abs(dst_path),
       desc = desc,
       meta = meta,
       topics = topics,

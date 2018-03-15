@@ -62,7 +62,7 @@ path_abs <- function(path, start = ".") {
   is_abs <- is_absolute_path(path)
 
   path[is_abs] <- path_norm(path[is_abs])
-  path[!is_abs] <- path_norm(path(start, path))
+  path[!is_abs] <- fs::path_abs(path(start, path))
 
   path_tidy(path)
 }
