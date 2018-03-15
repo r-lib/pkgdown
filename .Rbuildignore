@@ -10,3 +10,4 @@
 ^codecov\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^LICENSE\.md$
+^tests/testthat/site-citation$
