@@ -2,9 +2,13 @@
 % Please edit documentation in R/build-articles.R
 \name{build_articles}
 \alias{build_articles}
+\alias{build_article}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", quiet = TRUE, preview = NA)
+build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, preview = NA)
+
+build_article(name, pkg = ".", data = list(), lazy = FALSE,
+  quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to source package. If R working directory is not
@@ -14,8 +18,16 @@ path to the source directory (not a relative path).}
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
 
+\item{lazy}{If \code{TRUE}, will only re-build article if input file has been
+modified more recently than the output file.}
+
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{name}{Name of article to render. This should be either a path
+relative to \code{vignettes/} without extension, or \code{index} or \code{README}.}
+
+\item{data}{Additional data to pass on to template.}
 }
 \description{
 Each R Markdown vignette in \code{vignettes/} and its subdirectories is

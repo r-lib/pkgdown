@@ -27,7 +27,7 @@ build_home_index <- function(pkg) {
         )
       }
 
-      render_article(file_name, pkg = pkg, data = data)
+      build_article(file_name, pkg = pkg, data = data)
     }
   }
 

@@ -6,7 +6,7 @@
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  mathjax = TRUE, preview = interactive(), seed = 1014)
+  mathjax = TRUE, lazy = FALSE, preview = interactive(), seed = 1014)
 
 init_site(pkg = ".")
 }
@@ -20,6 +20,9 @@ path to the source directory (not a relative path).}
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
 \item{mathjax}{Use mathjax to render math symbols?}
+
+\item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
+if the source is newer than the destination.}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

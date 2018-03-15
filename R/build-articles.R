@@ -48,11 +48,14 @@
 #'     path to the source directory (not a relative path).
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
+#' @param lazy If `TRUE`, will only re-build article if input file has been
+#'   modified more recently than the output file.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
+                           lazy = TRUE,
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L)
 
@@ -63,19 +66,25 @@ build_articles <- function(pkg = ".",
   rule("Building articles")
 
   build_articles_index(pkg)
-  purrr::walk(pkg$vignettes$name, render_article, pkg = pkg, quiet = quiet)
+  purrr::walk(
+    pkg$vignettes$name, build_article,
+    pkg = pkg,
+    quiet = quiet,
+    lazy = lazy
+  )
 
   section_fin(pkg, "articles", preview = preview)
 }
 
 #' @export
-#' @rdname render_articles
+#' @rdname build_articles
 #' @param name Name of article to render. This should be either a path
 #'   relative to `vignettes/` without extension, or `index` or `README`.
 #' @param data Additional data to pass on to template.
-render_article <- function(name,
+build_article <- function(name,
                            pkg = ".",
                            data = list(),
+                           lazy = FALSE,
                            quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
@@ -100,6 +109,17 @@ render_article <- function(name,
     strip_header <- FALSE
   }
 
+  input <- path_abs(input, pkg$src_path)
+  output <- path_abs(output_file, pkg$dst_path)
+
+  if (lazy) {
+    src_time <- file_info(input)$change_time
+    dst_time <- file_info(input)$change_time
+
+    if (src_time <= dst_time)
+      return(invisible())
+  }
+
   cat_line("Building article '", output_file, "'")
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
@@ -114,10 +134,10 @@ render_article <- function(name,
   format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
 
   path <- render_rmarkdown(
-    input = path_abs(input, pkg$src_path),
+    input = input,
     output_format = format,
-    output_file = path_file(output_file),
-    output_dir = path(pkg$dst_path, path_dir(output_file)),
+    output_file = path_file(output),
+    output_dir = path_dir(output),
     intermediates_dir = tempdir(),
     quiet = quiet
   )

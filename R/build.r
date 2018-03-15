@@ -151,6 +151,8 @@
 #'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
+#' @param lazy If `TRUE`, will only rebuild articles and reference pages
+#'   if the source is newer than the destination.
 #' @export
 #' @examples
 #' \dontrun{
@@ -160,6 +162,7 @@ build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
                        mathjax = TRUE,
+                       lazy = FALSE,
                        preview = interactive(),
                        seed = 1014
                        ) {
@@ -170,14 +173,14 @@ build_site <- function(pkg = ".",
 
   build_home(pkg, preview = FALSE)
   build_reference(pkg,
-    lazy = FALSE,
+    lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
     seed = seed,
     preview = FALSE
   )
-  build_articles(pkg, preview = FALSE)
+  build_articles(pkg, lazy = lazy, preview = FALSE)
   build_news(pkg, preview = FALSE)
 
   section_fin(pkg, "", preview = preview)
