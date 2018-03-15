@@ -222,15 +222,14 @@ rel_date_html <- function(date) {
 }
 
 add_release_dates <- function(x, pieces, timeline) {
-  if (is.null(timeline)) return(x)
+  if (is.null(timeline))
+    return(x)
 
-  versions <- tibble::as_tibble(purrr::map_chr(pieces, 3))
-  timeline <- dplyr::left_join(
-    versions, timeline, by = c("value" = "version")
-  )
+  versions <- purrr::map_chr(pieces, 3)
+  date <- timeline$date[match(versions, timeline$version)]
+  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  dates <- purrr::map_chr(timeline$rel_date, rel_date_html)
-  date_nodes <- paste(dates, collapse="") %>%
+  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
     xml2::read_html() %>%
     xml2::xml_find_all(".//small")
 
