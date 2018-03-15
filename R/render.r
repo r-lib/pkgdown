@@ -61,8 +61,8 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Look for extra assets to add
   extra <- list()
-  extra$css <- path_if_exists(pkg$src_path, "pkgdown", "extra.css")
-  extra$js <- path_if_exists(pkg$src_path, "pkgdown", "extra.js")
+  extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
+  extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
 
   print_yaml(list(
     year = strftime(Sys.time(), "%Y"),

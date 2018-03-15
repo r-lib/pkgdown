@@ -46,6 +46,16 @@ path_abs <- function(path, start = ".") {
   }
 }
 
+path_first_existing <- function(...) {
+  paths <- path(...)
+  for (path in paths) {
+    if (file_exists(path))
+      return(path)
+  }
+
+  NULL
+}
+
 path_package_pkgdown <- function(package, ...) {
   if (!requireNamespace(package, quietly = TRUE)) {
     stop(package, " is not installed", call. = FALSE)

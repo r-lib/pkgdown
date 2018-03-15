@@ -25,32 +25,11 @@ print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
 
-find_first_existing <- function(path, ...) {
-  paths <- path(path, c(...))
-  for (path in paths) {
-    if (file_exists(path))
-      return(path)
-  }
-
-  NULL
-}
-
-path_if_exists <- function(...) {
-  p <- path(...)
-  if (file_exists(p)) {
-    p
-  } else {
-    NULL
-  }
-}
-
 dir_depth <- function(x) {
   x %>%
     strsplit("") %>%
     purrr::map_int(function(x) sum(x == "/"))
 }
-
-
 
 invert_index <- function(x) {
   stopifnot(is.list(x))

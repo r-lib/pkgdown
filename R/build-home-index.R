@@ -48,7 +48,8 @@ update_homepage_html <- function(path, strip_header = FALSE) {
 data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  path <- find_first_existing(pkg$src_path,
+  path <- path_first_existing(
+    pkg$src_path,
     c("index.Rmd", "README.Rmd", "index.md", "README.md")
   )
 
