@@ -169,7 +169,7 @@ build_site <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0)
 
-  rule("Building pkgdown site", line = 2)
+  rule("Create pkgdown site", right = pkg$dst_path, line = 2)
   init_site(pkg)
 
   build_home(pkg, preview = FALSE)
@@ -202,17 +202,8 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
 
-  assets <- data_assets(pkg)
-  if (length(assets) > 0) {
-    cat_line("Copying  ", length(assets), " assets")
-    file_copy(assets, path(pkg$dst_path, path_file(assets)), overwrite = TRUE)
-  }
-
-  extras <- data_extras(pkg)
-  if (length(extras) > 0) {
-    cat_line("Copying  ", length(extras), " extras")
-    file_copy(extras, path(pkg$dst_path, path_file(extras)), overwrite = TRUE)
-  }
+  file_copy_to(pkg, data_assets(pkg))
+  file_copy_to(pkg, data_extras(pkg))
 
   build_site_meta(pkg)
   build_logo(pkg)

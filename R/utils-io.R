@@ -23,3 +23,16 @@ read_lines <- function(path, n = -1L) {
 write_lines <- function(text, path) {
   base::writeLines(enc2utf8(text), path, useBytes = TRUE)
 }
+
+# Other -------------------------------------------------------------------
+
+file_equal <- function(src, dst) {
+  if (!file_exists(dst))
+    return(FALSE)
+
+  src_hash <- digest::digest(file = src, algo = "xxhash64")
+  dst_hash <-  digest::digest(file = dst, algo = "xxhash64")
+
+  identical(src_hash, dst_hash)
+}
+

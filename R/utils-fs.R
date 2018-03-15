@@ -1,28 +1,52 @@
-copy_dir <- function(from, to, exclude_matching = NULL) {
-
-  from_dirs <- list.dirs(from, full.names = FALSE, recursive = TRUE)
-  from_dirs <- from_dirs[from_dirs != '']
-
-  if (!is.null(exclude_matching)) {
-    exclude <- grepl(exclude_matching, from_dirs)
-    from_dirs <- from_dirs[!exclude]
+dir_copy_to <- function(pkg, from, to, overwrite = TRUE) {
+  stopifnot(length(to) == 1)
+  new_path <- function(path) {
+    path_abs(path_rel(path, start = from), start = to)
   }
 
-  to_dirs <- file.path(to, from_dirs)
-  dir_create(to_dirs)
+  contents <- dir_ls(from, recursive = TRUE)
+  is_dir <- fs::is_dir(contents)
 
-  from_files <- list.files(from, recursive = TRUE, full.names = TRUE)
-  from_files_rel <- list.files(from, recursive = TRUE)
+  # First create directories
+  dir_create(to)
+  dirs <- contents[is_dir]
+  dir_create(new_path(dirs))
 
-  if (!is.null(exclude_matching)) {
-    exclude <- grepl(exclude_matching, from_files_rel)
+  # Then copy files
+  file_copy_to(pkg, contents[!is_dir],
+    to_dir = to,
+    from_dir = from,
+    overwrite = overwrite
+  )
+}
 
-    from_files <- from_files[!exclude]
-    from_files_rel <- from_files_rel[!exclude]
+file_copy_to <- function(pkg,
+                         from_paths,
+                         to_dir = pkg$dst_path,
+                         from_dir = path_common(from_paths),
+                         overwrite = TRUE) {
+
+  if (length(from_paths) == 0) {
+    return()
   }
 
-  to_paths <- file.path(to, from_files_rel)
-  file.copy(from_files, to_paths, overwrite = TRUE)
+  dir_create(to_dir)
+  from_rel <- path_rel(from_paths, from_dir)
+  to_paths <- path_abs(from_rel, to_dir)
+
+  eq <- vapply(
+    seq_along(to_paths),
+    function(i) file_equal(from_paths[i], to_paths[i]),
+    logical(1)
+  )
+  if (any(!eq)) {
+    cat_line(
+      "Copying  ", src_path(path_rel(from_paths[!eq], pkg$src_path)),
+      " to ", dst_path(path_rel(to_paths[!eq], pkg$dst_path))
+    )
+  }
+
+  file_copy(from_paths[!eq], to_paths[!eq], overwrite = overwrite)
 }
 
 out_of_date <- function(source, target) {
@@ -39,11 +63,12 @@ out_of_date <- function(source, target) {
 # Path helpers ------------------------------------------------------------
 
 path_abs <- function(path, start = ".") {
-  if (is_absolute_path(path)) {
-    path
-  } else {
-    fs::path_abs(path(start, path))
-  }
+  is_abs <- is_absolute_path(path)
+
+  path[is_abs] <- path_norm(path[is_abs])
+  path[!is_abs] <- path_norm(path(start, path))
+
+  path_tidy(path)
 }
 
 path_first_existing <- function(...) {

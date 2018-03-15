@@ -5,15 +5,13 @@ build_logo <- function(pkg = ".") {
   if (is.null(logo_path))
     return()
 
-  cat_line("Copying  ", src_path(path_rel(logo_path, pkg$src_path)))
-  file_copy(logo_path, path(pkg$dst_path, "logo.png"), overwrite = TRUE)
-
+  file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
   if (!requireNamespace("magick", quietly = TRUE)) {
     message("Magick not avaliable, not creating favicon.ico")
     return()
   }
 
-  cat_line("Creating favicon")
+  cat_line("Creating ", dst_path("favicon.ico"))
   magick::image_read(logo_path) %>%
 	  magick::image_scale("32x32") %>%
 	  magick::image_write(path(pkg$dst_path, "favicon.ico"), format = "png")

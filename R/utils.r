@@ -60,7 +60,7 @@ rstudio_save_all <- function() {
 }
 
 cat_line <- function(...) {
-  cat(..., "\n", sep = "")
+  cat(paste0(..., "\n"), sep = "")
 }
 
 dst_path <- function(...) {
@@ -70,7 +70,9 @@ src_path <- function(...) {
   crayon::green(encodeString(path(...), quote = "'"))
 }
 
-rule <- function(...) cli::cat_rule(..., col = "bold", line_col = "black")
+rule <- function(left, ...) {
+  cli::cat_rule(left = crayon::bold(left), ...)
+}
 
 list_with_heading <- function(bullets, heading) {
   if (length(bullets) == 0)
