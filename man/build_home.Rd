@@ -37,6 +37,12 @@ home:
 
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd").
+
+You can remove the first heading with
+\preformatted{
+home:
+  strip_header: true
+}
 }
 
 \section{Badges}{
