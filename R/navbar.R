@@ -89,7 +89,7 @@ default_navbar <- function(pkg = ".") {
 
   if (!is.null(pkg$github_url)) {
     right <- list(
-        list(
+      list(
         icon = "fa-github fa-lg",
         href = pkg$github_url
       )
