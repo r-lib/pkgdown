@@ -167,7 +167,7 @@ build_reference_topic <- function(topic,
     return(invisible())
 
   cat_line("Building ", src_path("man", topic$file_in))
-  scoped_file_context(rdname = gsub("\\.Rd$", "", topic$file_in), depth = 1L)
+  scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- data_reference_topic(
     topic,

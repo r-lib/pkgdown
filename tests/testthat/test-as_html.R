@@ -32,10 +32,6 @@ test_that("ifelse generates html", {
   expect_equal(rd2html("\\ifelse{latex}{x}{\\bold{a}}"), "<b>a</b>")
 })
 
-test_that("code inside Sexpr is evaluated", {
-  expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
-})
-
 test_that("tabular converted to html", {
   table <- "\\tabular{ll}{a \\tab b \\cr}"
   expectation <- c("<table><tr><td>a </td>", "<td> b </td>", "</tr></table>")
@@ -44,6 +40,44 @@ test_that("tabular converted to html", {
 
 test_that("out is for raw html", {
   expect_equal(rd2html("\\out{<hr />}"), "<hr />")
+})
+
+
+# sexpr  ------------------------------------------------------------------
+
+test_that("code inside Sexpr is evaluated", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
+})
+
+test_that("Sexpr can contain multiple expressions", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr{a <- 1; a}"), "1")
+})
+
+test_that("Sexprs in file share environment", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr{a <- 1}\\Sexpr{a}"), c("1", "1"))
+})
+
+test_that("Sexprs run from package root", {
+  # Because paths are different during R CMD check
+  skip_if_not(file_exists("../../DESCRIPTION"))
+
+  scoped_package_context("pkgdown", src_path = "../..")
+  scoped_file_context()
+
+  # \packageTitle is built in macro that uses DESCRIPTION
+  expect_equal(
+    rd2html("\\packageTitle{pkgdown}"),
+    "Make Static HTML Documentation for a Package"
+  )
 })
 
 # links -------------------------------------------------------------------

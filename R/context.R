@@ -4,7 +4,13 @@ section_init <- function(pkg, depth, scope = parent.frame()) {
   rstudio_save_all()
   scoped_in_pkgdown(scope = scope)
 
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index, scope = scope)
+  scoped_package_context(
+    package = pkg$package,
+    topic_index = pkg$topic_index,
+    article_index = pkg$article_index,
+    src_path = pkg$src_path,
+    scope = scope
+  )
   scoped_file_context(depth = depth, scope = scope)
 
   pkg
@@ -58,6 +64,7 @@ scoped_package_context <- function(package,
                                    topic_index = NULL,
                                    article_index = NULL,
                                    local_packages = character(),
+                                   src_path = getwd(),
                                    scope = parent.frame()) {
   stopifnot(is.character(local_packages))
 
@@ -68,14 +75,17 @@ scoped_package_context <- function(package,
   context_set_scoped("topic_index", topic_index, scope = scope)
   context_set_scoped("article_index", article_index, scope = scope)
   context_set_scoped("local_packages", local_packages, scope = scope)
+  context_set_scoped("src_path", src_path, scope = scope)
 }
 scoped_file_context <- function(rdname = "",
                                 depth = 0L,
                                 packages = character(),
-                                scope = parent.frame()) {
+                                scope = parent.frame(),
+                                sexpr_env = child_env(globalenv())) {
   context_set_scoped("rdname", rdname, scope = scope)
   context_set_scoped("depth", depth, scope = scope)
   context_set_scoped("packages", packages, scope = scope)
+  context_set_scoped("sexpr_env", sexpr_env, scope = scope)
 }
 
 # Unlike file and package contexts, the attached context can be

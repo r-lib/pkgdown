@@ -213,10 +213,14 @@ method_usage <- function(x, type) {
 as_html.tag_Sexpr <- function(x, ...) {
   # Currently assume output is always Rd
   options <- attr(x, "Rd_option")
-
   code <- flatten_text(x, escape = FALSE)
-  # Not sure if this is the correct environment
-  expr <- eval(parse(text = code)[[1]], new.env(parent = globalenv()))
+
+  # Needs to be package root
+  old_wd <- setwd(context_get("src_path"))
+  on.exit(setwd(old_wd), add = TRUE)
+
+  # Environment shared across a file
+  expr <- eval(parse(text = code), context_get("sexpr_env"))
 
   rd <- rd_text(as.character(expr))
   as_html(rd, ...)
