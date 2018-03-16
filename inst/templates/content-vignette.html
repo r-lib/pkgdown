@@ -27,6 +27,9 @@ $endfor$
       $if(date)$
       <h4 class="date">$date$</h4>
       $endif$
+
+      {{#source}}<small>{{{.}}}</small>{{/source}}
+
     </div>
 
     $for(include-before)$

@@ -31,6 +31,7 @@ as_pkgdown <- function(path = ".") {
       package = package,
       src_path = path_abs(path),
       dst_path = path_abs(dst_path),
+      github_url = pkg_github_url(desc),
       desc = desc,
       meta = meta,
       topics = topics,
@@ -83,7 +84,7 @@ read_meta <- function(path) {
 
 # Topics ------------------------------------------------------------------
 
-package_topics <- function(path = ".", package = "") {
+package_topics <- function(path = ".", package = "pkgdown") {
   rd <- package_rd(path)
 
   # In case there are links in titles
@@ -95,13 +96,13 @@ package_topics <- function(path = ".", package = "") {
   titles <- purrr::map_chr(rd, extract_title)
   concepts <- purrr::map(rd, extract_tag, "tag_concept")
   internal <- purrr::map_lgl(rd, is_internal)
+  source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
   file_out <- gsub("\\.Rd$", ".html", file_in)
 
   usage <- purrr::map(rd, topic_usage)
   funs <- purrr::map(usage, usage_funs)
-
 
   tibble::tibble(
     name = names,
@@ -112,6 +113,7 @@ package_topics <- function(path = ".", package = "") {
     funs = funs,
     title = titles,
     rd = rd,
+    source = source,
     concepts = concepts,
     internal = internal
   )
@@ -140,6 +142,22 @@ extract_title <- function(x) {
     purrr::detect(inherits, "tag_title") %>%
     flatten_text(auto_link = FALSE) %>%
     trimws()
+}
+
+extract_source <- function(x) {
+  nl <- purrr::map_lgl(x, inherits, "TEXT") & x == "\n"
+  comment <- purrr::map_lgl(x, inherits, "COMMENT")
+
+  first_comment <- cumsum(!(nl | comment)) == 0
+  lines <- as.character(x[first_comment])
+  text <- paste0(lines, collapse = "")
+
+  if (!grepl("roxygen2", text)) {
+    return(character())
+  }
+
+  m <- gregexpr("R/[^ ]+\\.[rR]", text)
+  regmatches(text, m)[[1]]
 }
 
 is_internal <- function(x) {

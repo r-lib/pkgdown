@@ -87,9 +87,16 @@ default_navbar <- function(pkg = ".") {
     )
   }
 
-  right <- purrr::compact(list(
-    github_link(pkg$src_path)
-  ))
+  if (!is.null(pkg$github_url)) {
+    right <- list(
+        list(
+        icon = "fa-github fa-lg",
+        href = pkg$github_url
+      )
+    )
+  } else {
+    right <- list()
+  }
 
   print_yaml(list(
     title = pkg$package,
@@ -97,25 +104,4 @@ default_navbar <- function(pkg = ".") {
     left = unname(left),
     right = unname(right)
   ))
-}
-
-github_link <- function(path = ".") {
-  desc <- read_desc(path)
-
-  if (!desc$has_fields("URL"))
-    return()
-
-  gh_links <- desc$get("URL")[[1]] %>%
-    strsplit(",") %>%
-    `[[`(1) %>%
-    trimws()
-  gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
-
-  if (length(gh_links) == 0)
-    return()
-
-  list(
-    icon = "fa-github fa-lg",
-    href = gh_links[[1]]
-  )
 }

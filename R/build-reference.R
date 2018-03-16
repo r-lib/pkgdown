@@ -204,13 +204,15 @@ data_reference_topic <- function(topic,
 
   out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
+  # File source
+  out$source <- github_source_links(pkg$github_url, topic$source)
+
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
   out$author <- purrr::map_chr(tags$tag_author %||% list(), flatten_text)
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-
   out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
   out$usage <- as_data(tags$tag_usage[[1]])

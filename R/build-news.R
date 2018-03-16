@@ -180,22 +180,6 @@ is_dev <- function(version) {
   dev_v > 0
 }
 
-add_github_links <- function(x, pkg) {
-  user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
-  x <- gsub("@(\\w+)", user_link, x)
-
-  gh_link <- github_link(pkg$src_path)
-  if (is.null(gh_link)) {
-    return(x)
-  }
-
-  gh_link_href <- github_link(pkg$src_path)$href
-  issue_link <- paste0("<a href='", gh_link_href, "/issues/\\1'>#\\1</a>")
-  x <- gsub("#(\\d+)", issue_link, x)
-
-  x
-}
-
 pkg_timeline <- function(package) {
   url <- paste0("http://crandb.r-pkg.org/", package, "/all")
 
