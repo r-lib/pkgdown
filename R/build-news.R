@@ -86,8 +86,9 @@ build_news_single <- function(pkg) {
     pkg,
     "news",
     list(
-      contents = news %>% purrr::transpose(),
-      pagetitle = "Changelog"
+      contents = purrr::transpose(news),
+      pagetitle = "Changelog",
+      source = github_source_links(pkg$github_url, "NEWS.md")
     ),
     path("news", "index.html")
   )
