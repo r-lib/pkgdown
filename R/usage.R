@@ -1,6 +1,14 @@
 topic_funs <- function(rd) {
   funs <- parse_usage(rd)
-  purrr::map_chr(funs, ~ short_name(.$name, .$type, .$signature))
+
+  # Remove all methods for functions documented in this file
+  name <- purrr::map_chr(funs, "name")
+  type <- purrr::map_chr(funs, "type")
+
+  gens <- name[type == "fun"]
+  self_meth <- (name %in% gens) & (type %in% c("s3", "s4"))
+
+  purrr::map_chr(funs[!self_meth], ~ short_name(.$name, .$type, .$signature))
 }
 
 parse_usage <- function(x) {
