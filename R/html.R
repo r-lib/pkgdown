@@ -39,6 +39,26 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   invisible()
 }
 
+tweak_md_links <- function(html) {
+  links <- xml2::xml_find_all(html, ".//a")
+  if (length(links) == 0)
+    return()
+
+  hrefs <- xml2::xml_attr(links, "href")
+  md_exts <- grepl("\\.md$", hrefs)
+
+  if (any(md_exts)) {
+    purrr::walk2(
+      links[md_exts],
+      gsub("\\.md$", ".html", hrefs[md_exts]),
+      xml2::xml_set_attr,
+      attr = "href"
+    )
+  }
+
+  invisible()
+}
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
@@ -53,6 +73,7 @@ tweak_rmarkdown_html <- function(html, strip_header = FALSE) {
   # Automatically link funtion mentions
   tweak_code(html)
   tweak_anchors(html, only_contents = FALSE)
+  tweak_md_links(html)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")

@@ -29,6 +29,7 @@ markdown <- function(path = NULL, ...) {
   }
 
   tweak_code(xml)
+  tweak_md_links(xml)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
