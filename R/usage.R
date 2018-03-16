@@ -1,6 +1,6 @@
 topic_funs <- function(rd) {
   funs <- parse_usage(rd)
-  purrr::map_chr(funs, "name")
+  purrr::map_chr(funs, ~ short_name(.$name, .$type, .$signature))
 }
 
 parse_usage <- function(x) {
@@ -27,6 +27,19 @@ parse_usage <- function(x) {
   purrr::map(exprs, usage_type)
 }
 
+short_name <- function(name, type, signature) {
+  if (!is_syntactic(name)) {
+    name <- paste0("`", name, "`")
+  }
+
+  if (type == "data") {
+    name
+  } else if (type == "fun") {
+    paste0(name, "()")
+  } else {
+    paste0(name, "(", paste0("<i>&lt;", signature, "&gt;</i>", collapse = ","), ")")
+  }
+}
 
 # Given single expression generated from usage_code, extract
 

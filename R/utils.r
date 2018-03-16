@@ -85,3 +85,5 @@ list_with_heading <- function(bullets, heading) {
     "</ul>\n"
   )
 }
+
+is_syntactic <- function(x) x == make.names(x)
