@@ -1,4 +1,4 @@
-markdown <- function(path = NULL, ...) {
+markdown <- function(path = NULL, ..., strip_header = FALSE) {
   tmp <- tempfile(fileext = ".html")
   on.exit(file_delete(tmp), add = TRUE)
 
@@ -28,6 +28,13 @@ markdown <- function(path = NULL, ...) {
     stop(src_path(path), " must be non-empty", call. = FALSE)
   }
 
+  # Capture heading, and optional remove
+  h1 <- xml2::xml_find_first(xml, ".//h1")
+  title <- xml2::xml_text(h1)
+  if (strip_header) {
+    xml2::xml_remove(h1)
+  }
+
   tweak_code(xml)
   tweak_md_links(xml)
   tweak_anchors(xml, only_contents = FALSE)
@@ -41,7 +48,11 @@ markdown <- function(path = NULL, ...) {
   lines <- read_lines(tmp)
   lines <- sub("<body>", "", lines, fixed = TRUE)
   lines <- sub("</body>", "", lines, fixed = TRUE)
-  paste(lines, collapse = "\n")
+
+  structure(
+    paste(lines, collapse = "\n"),
+    title = title
+  )
 }
 
 markdown_text <- function(text, ...) {

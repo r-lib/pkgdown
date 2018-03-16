@@ -12,10 +12,10 @@ build_home_md <- function(pkg, path, depth = 0) {
 }
 
 render_md <- function(pkg, filename) {
-  body <- markdown(path = filename)
+  body <- markdown(path = filename, strip_header = TRUE)
 
   render_page(pkg, "title-body",
-    data = list(pagetitle = filename, body = body),
+    data = list(pagetitle = attr(body, "title"), body = body),
     path = path_ext_set(basename(filename), "html")
   )
 }
