@@ -58,6 +58,12 @@ img {
   max-width: 100%;
 }
 
+/* Typographic tweaking ---------------------------------*/
+
+.contents h1.page-header {
+  margin-top: calc(-60px + 1em);
+}
+
 /* Section anchors ---------------------------------*/
 
 a.anchor {

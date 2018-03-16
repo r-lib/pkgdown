@@ -74,9 +74,8 @@ build_news_single <- function(pkg) {
     pkg,
     "news",
     list(
-      version = "All releases",
       contents = news %>% purrr::transpose(),
-      pagetitle = "All news"
+      pagetitle = "Changelog"
     ),
     path("news", "index.html")
   )
@@ -145,18 +144,18 @@ data_news <- function(pkg = ".") {
   sections <- sections[is_version]
   anchors <- anchors[is_version]
 
-  major <- pieces %>% purrr::map_chr(4)
+  major <- purrr::map_chr(pieces, 4)
+  version <- purrr::map_chr(pieces, 3)
 
   timeline <- pkg_timeline(pkg$package)
-  add_release_dates(sections, pieces, timeline)
-
   html <- sections %>%
     purrr::walk(tweak_code) %>%
+    purrr::walk2(version, tweak_news_heading, timeline = timeline) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(add_github_links, pkg = pkg)
 
   news <- tibble::tibble(
-    version = pieces %>% purrr::map_chr(3),
+    version = version,
     is_dev = is_dev(version),
     major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
@@ -205,11 +204,14 @@ rel_date_html <- function(date) {
   paste0("<small> ", date, "</small>")
 }
 
-add_release_dates <- function(x, pieces, timeline) {
+tweak_news_heading <- function(x, versions, timeline) {
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("class", "page-header")
+
   if (is.null(timeline))
     return(x)
 
-  versions <- purrr::map_chr(pieces, 3)
   date <- timeline$date[match(versions, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
