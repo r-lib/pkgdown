@@ -93,9 +93,7 @@ build_reference <- function(pkg = ".",
                             ) {
   pkg <- section_init(pkg, depth = 1L)
   rule("Building function reference")
-
-  ref_path <- path(pkg$dst_path, "reference")
-  dir_create(ref_path)
+  build_reference_index(pkg)
 
   # copy everything from man/figures to docs/reference/figures
   src_figures <- path(pkg$src_path, "man", "figures")
@@ -120,9 +118,7 @@ build_reference <- function(pkg = ".",
     set.seed(seed)
   }
 
-  build_reference_index(pkg)
-
-  topics <- pkg$topics %>% purrr::transpose()
+  topics <- purrr::transpose(pkg$topics)
   purrr::map(topics,
     build_reference_topic,
     pkg = pkg,
@@ -139,6 +135,7 @@ build_reference <- function(pkg = ".",
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+  dir_create(path(pkg$dst_path, "reference"))
 
   # Copy icons, if needed
   src_icons <- path(pkg$src_path, "icons")
@@ -147,7 +144,6 @@ build_reference_index <- function(pkg = ".") {
     dir_copy_to(pkg, src_icons, dst_icons)
   }
 
-  scoped_file_context(depth = 1L)
   render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg),
