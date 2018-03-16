@@ -1,5 +1,5 @@
 ---
-title: "Details tag"
+title: "Test: Details tag"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{details tag}

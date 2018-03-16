@@ -1,5 +1,5 @@
 ---
-title: "External file tests"
+title: "Test: External file tests"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}

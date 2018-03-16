@@ -1,5 +1,5 @@
 ---
-title: "Highlighting tests"
+title: "Test: Highlighting"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
