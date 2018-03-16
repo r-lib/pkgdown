@@ -36,10 +36,22 @@
 #'
 #' @section YAML config:
 #'
+#' To automatically link to release announcements, include a `releases`
+#' section.
+#'
+#' \preformatted{
+#' news:
+#'  releases:
+#'  - text: "usethis 1.0.0 (and 1.1.0)"
+#'    href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+#'  - text: "usethis 1.3.0"
+#'    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
+#' }
+#'
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' #' \preformatted{
+#' \preformatted{
 #' news:
 #' - one_page: false
 #' }

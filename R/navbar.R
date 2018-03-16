@@ -80,9 +80,25 @@ default_navbar <- function(pkg = ".") {
     )
   }
 
-  if (has_news(pkg$src_path)) {
+  releases_meta <- pkg$meta$news$releases
+  if (!is.null(releases_meta)) {
     left$news <- list(
       text = "News",
+      menu = c(
+        list(list(text = "Releases")),
+        releases_meta,
+        list(
+          list(text = "------------------"),
+          list(
+            text = "Changelog",
+            href = "news/index.html"
+          )
+        )
+      )
+    )
+  } else if (has_news(pkg$src_path)) {
+    left$news <- list(
+      text = "Changelog",
       href = "news/index.html"
     )
   }
