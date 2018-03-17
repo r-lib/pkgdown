@@ -27,7 +27,7 @@ data_home_sidebar_license <- function(pkg = ".") {
     "<h2>License</h2>\n",
     "<p>",
     if (has_license_md) {
-      "<a href='license.html'>Full license</a><br /><small>"
+      "<a href='LICENSE.html'>Full license</a><br /><small>"
     },
     autolink_license(pkg$desc$get("License")[[1]]),
     if (has_license_md) {
