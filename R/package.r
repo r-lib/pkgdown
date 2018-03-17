@@ -162,6 +162,18 @@ is_internal <- function(x) {
   any(extract_tag(x, "tag_keyword") %in% "internal")
 }
 
+extract_vignette_title <- function(x, .default) {
+  title <- x[["title"]]
+  if (length(title) == 1)
+    return(title)
+
+  title <- title[["plain"]]
+  if (length(title) == 1)
+    return(title)
+
+  .default
+}
+
 
 # Vignettes ---------------------------------------------------------------
 
@@ -177,7 +189,7 @@ package_vignettes <- function(path = ".") {
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
 
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
-  title <- purrr::map_chr(yaml, "title", .default = "UNKNOWN TITLE")
+  title <- purrr::map_chr(yaml, extract_vignette_title, .default = "UNKNOWN TITLE")
   ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
   title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
 
