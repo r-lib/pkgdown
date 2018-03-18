@@ -128,7 +128,7 @@ build_reference <- function(pkg = ".",
     mathjax = mathjax
   )
 
-  section_fin(pkg, "reference", preview = preview)
+  preview_site(pkg, "reference", preview = preview)
 }
 
 #' @export

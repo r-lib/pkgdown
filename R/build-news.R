@@ -76,7 +76,7 @@ build_news <- function(pkg = ".",
     build_news_multi(pkg)
   }
 
-  section_fin(pkg, "news", preview = preview)
+  preview_site(pkg, "news", preview = preview)
 }
 
 build_news_single <- function(pkg) {

@@ -16,7 +16,7 @@ section_init <- function(pkg, depth, scope = parent.frame()) {
   pkg
 }
 
-section_fin <- function(pkg, path, preview = NA) {
+preview_site <- function(pkg, path = ".", preview = NA) {
   pkg <- as_pkgdown(pkg)
 
   if (is.na(preview)) {

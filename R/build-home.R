@@ -51,5 +51,5 @@ build_home <- function(pkg = ".",
   build_home_license(pkg)
   build_home_index(pkg)
 
-  section_fin(pkg, "/", preview = preview)
+  preview_site(pkg, "/", preview = preview)
 }

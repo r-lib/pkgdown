@@ -184,7 +184,7 @@ build_site <- function(pkg = ".",
   build_articles(pkg, lazy = lazy, preview = FALSE)
   build_news(pkg, preview = FALSE)
 
-  section_fin(pkg, "", preview = preview)
+  preview_site(pkg, preview = preview)
   rule("DONE", line = 2)
 }
 
@@ -195,7 +195,7 @@ build_site_rstudio <- function(pkg = ".") {
     args = list(pkg = pkg),
     show = TRUE
   )
-  section_fin(pkg, ".")
+  preview_site(pkg)
   invisible()
 }
 

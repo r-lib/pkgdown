@@ -97,7 +97,7 @@ build_articles <- function(pkg = ".",
     lazy = lazy
   )
 
-  section_fin(pkg, "articles", preview = preview)
+  preview_site(pkg, "articles", preview = preview)
 }
 
 #' @export
