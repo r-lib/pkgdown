@@ -73,3 +73,9 @@ test_that("can parse multistatement usages", {
   expect_equal(usage[[1]]$name, "f")
   expect_equal(usage[[2]]$name, "g")
 })
+
+test_that("can parse dots", {
+  usage <- parse_usage("f(\\dots)")[[1]]
+  expect_equal(usage$name, "f")
+})
+
