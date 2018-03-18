@@ -177,7 +177,7 @@ package_vignettes <- function(path = ".") {
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
 
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
-  title <- purrr::map_chr(yaml, "title", .default = "UNKNOWN TITLE")
+  title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")
   ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
   title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
 
