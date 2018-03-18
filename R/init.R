@@ -58,12 +58,14 @@ data_assets <- function(pkg = ".") {
 data_extras <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  path_extras <- path(pkg$src_path, "pkgdown")
-  if (!dir_exists(path_extras)) {
+  pkgdown <- path(pkg$src_path, "pkgdown")
+  if (!dir_exists(pkgdown)) {
     return(character())
   }
 
-  dir_ls(path_extras, regexp = "^extra")
+  all <- dir_ls(pkgdown)
+  extra <- grepl("^extra", path_file(all))
+  all[extra]
 }
 
 # Generate site meta data file (available to website viewers)
