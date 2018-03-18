@@ -1,0 +1,12 @@
+---
+title: "Test: Figures"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+plot(1:10)
+```
+
