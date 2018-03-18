@@ -176,11 +176,9 @@ build_article <- function(name,
 
   path <- render_rmarkdown(
     input = input,
+    output = output,
     output_format = format,
     output_options = options,
-    output_file = path_file(output),
-    output_dir = path_dir(output),
-    intermediates_dir = tempdir(),
     quiet = quiet
   )
 
