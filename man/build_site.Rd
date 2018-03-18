@@ -6,29 +6,31 @@
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  mathjax = TRUE, lazy = FALSE, preview = interactive(), seed = 1014)
+  seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
+  preview = interactive())
 
 init_site(pkg = ".")
 }
 \arguments{
-\item{pkg}{Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).}
+\item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
+
+\item{seed}{Seed used to initialize so that random examples are
+reproducible.}
 
 \item{mathjax}{Use mathjax to render math symbols?}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
 
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
+
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
-
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around five functions:
@@ -193,5 +195,7 @@ for pkgdown templates to ensure that you use the correct components.
 \examples{
 \dontrun{
 build_site()
+
+build_site(override = list(destination = tempdir()))
 }
 }

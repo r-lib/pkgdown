@@ -36,9 +36,10 @@
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",
+                       override = list(),
                        preview = NA) {
 
-  pkg <- section_init(pkg, depth = 0L)
+  pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
   dir_create(pkg$dst_path)
 

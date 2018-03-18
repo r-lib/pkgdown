@@ -157,32 +157,36 @@
 #' @examples
 #' \dontrun{
 #' build_site()
+#'
+#' build_site(override = list(destination = tempdir()))
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
+                       seed = 1014,
                        mathjax = TRUE,
                        lazy = FALSE,
-                       preview = interactive(),
-                       seed = 1014
+                       override = list(),
+                       preview = interactive()
                        ) {
 
-  pkg <- section_init(pkg, depth = 0)
+  pkg <- section_init(pkg, depth = 0, override = override)
 
   rule("Create pkgdown site", right = pkg$dst_path, line = 2)
   init_site(pkg)
 
-  build_home(pkg, preview = FALSE)
+  build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
     seed = seed,
+    override = override,
     preview = FALSE
   )
-  build_articles(pkg, lazy = lazy, preview = FALSE)
-  build_news(pkg, preview = FALSE)
+  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_news(pkg, override = override, preview = FALSE)
 
   preview_site(pkg, preview = preview)
   rule("DONE", line = 2)

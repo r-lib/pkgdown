@@ -7,9 +7,7 @@
 clean_site(pkg = ".")
 }
 \arguments{
-\item{pkg}{Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).}
+\item{pkg}{Path to package.}
 }
 \description{
 Deletes all files in \code{doc/} (except for \code{CNAME})

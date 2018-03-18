@@ -5,21 +5,23 @@
 \alias{build_article}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, preview = NA)
+build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
+  preview = NA)
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE,
   quiet = TRUE)
 }
 \arguments{
-\item{pkg}{Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).}
+\item{pkg}{Path to package.}
 
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
 
 \item{lazy}{If \code{TRUE}, will only re-build article if input file has been
 modified more recently than the output file.}
+
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

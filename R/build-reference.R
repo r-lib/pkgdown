@@ -89,9 +89,10 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             mathjax = TRUE,
                             seed = 1014,
+                            override = list(),
                             preview = NA
                             ) {
-  pkg <- section_init(pkg, depth = 1L)
+  pkg <- section_init(pkg, depth = 1L, override = override)
   rule("Building function reference")
   build_reference_index(pkg)
 

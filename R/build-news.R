@@ -59,8 +59,9 @@
 #' @inheritParams build_articles
 #' @export
 build_news <- function(pkg = ".",
+                       override = list(),
                        preview = NA) {
-  pkg <- section_init(pkg, depth = 1L)
+  pkg <- section_init(pkg, depth = 1L, override = override)
 
   one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
 

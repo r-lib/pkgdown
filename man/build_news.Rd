@@ -4,12 +4,13 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", preview = NA)
+build_news(pkg = ".", override = list(), preview = NA)
 }
 \arguments{
-\item{pkg}{Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).}
+\item{pkg}{Path to package.}
+
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

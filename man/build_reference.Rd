@@ -6,14 +6,13 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, preview = NA)
+  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, override = list(),
+  preview = NA)
 
 build_reference_index(pkg = ".")
 }
 \arguments{
-\item{pkg}{Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).}
+\item{pkg}{Path to package.}
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
@@ -27,6 +26,9 @@ rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_si
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
+
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}

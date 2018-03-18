@@ -1,5 +1,5 @@
-section_init <- function(pkg, depth, scope = parent.frame()) {
-  pkg <- as_pkgdown(pkg)
+section_init <- function(pkg, depth, override = list(), scope = parent.frame()) {
+  pkg <- as_pkgdown(pkg, override = override)
 
   rstudio_save_all()
   scoped_in_pkgdown(scope = scope)

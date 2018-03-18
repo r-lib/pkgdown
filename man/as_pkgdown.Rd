@@ -4,10 +4,13 @@
 \alias{as_pkgdown}
 \title{Generate pkgdown data structure}
 \usage{
-as_pkgdown(path = ".")
+as_pkgdown(pkg = ".", override = list())
 }
 \arguments{
-\item{path}{Path to package}
+\item{pkg}{Path to package.}
+
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 }
 \description{
 You will generally not need to use this unless you need a custom site
