@@ -129,16 +129,19 @@ description field in DESCRIPTION." />
 description field in <code>DESCRIPTION</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkg</th>
-      <td><p>Path to source package. If R working directory is not
-set to the source directory, then pkg must be a fully qualified
-path to the source directory (not a relative path).</p></td>
+      <td><p>Path to package.</p></td>
+    </tr>
+    <tr>
+      <th>override</th>
+      <td><p>An optional named list used to temporarily override
+values in <code>_pkgdown.yml</code></p></td>
     </tr>
     <tr>
       <th>preview</th>

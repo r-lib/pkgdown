@@ -127,14 +127,19 @@ design and you're writing your own equivalent of build_site()." />
 design and you're writing your own equivalent of <code><a href='build_site.html'>build_site()</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>as_pkgdown</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>as_pkgdown</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>Path to package</p></td>
+      <th>pkg</th>
+      <td><p>Path to package.</p></td>
+    </tr>
+    <tr>
+      <th>override</th>
+      <td><p>An optional named list used to temporarily override
+values in <code>_pkgdown.yml</code></p></td>
     </tr>
     </table>
     
