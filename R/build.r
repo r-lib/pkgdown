@@ -188,9 +188,14 @@ build_site <- function(pkg = ".",
   rule("DONE", line = 2)
 }
 
-build_site_rstudio <- function() {
+build_site_rstudio <- function(pkg = ".") {
   devtools::document()
-  callr::r(function() pkgdown::build_site(preview = TRUE), show = TRUE)
+  callr::r(
+    function(...) pkgdown::build_site(...),
+    args = list(pkg = pkg),
+    show = TRUE
+  )
+  section_fin(pkg, ".")
   invisible()
 }
 
