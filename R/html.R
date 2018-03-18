@@ -69,7 +69,7 @@ tweak_tables <- function(html) {
 
 # HTML from markdown/RMarkdown --------------------------------------------
 
-tweak_rmarkdown_html <- function(html, strip_header = FALSE) {
+tweak_rmarkdown_html <- function(html, input_path, strip_header = FALSE) {
   # Automatically link funtion mentions
   tweak_code(html)
   tweak_anchors(html, only_contents = FALSE)
@@ -78,7 +78,19 @@ tweak_rmarkdown_html <- function(html, strip_header = FALSE) {
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
-  # Remove unnused toc
+
+  # Mame sure all images use relative paths
+  img <- xml2::xml_find_all(html, "//img")
+  src <- xml2::xml_attr(img, "src")
+  abs_src <- is_absolute_path(src)
+  if (any(abs_src)) {
+    purrr::walk2(
+      img[abs_src],
+      path_rel(src[abs_src], input_path),
+      xml2::xml_set_attr,
+      attr = "src"
+    )
+  }
 
   if (strip_header) {
     header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")

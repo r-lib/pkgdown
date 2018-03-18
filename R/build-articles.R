@@ -184,8 +184,13 @@ build_article <- function(name,
     quiet = quiet
   )
 
-  if (identical(ext, "html"))
-    update_rmarkdown_html(path, strip_header = strip_header)
+  if (identical(ext, "html")) {
+    update_rmarkdown_html(
+      path,
+      input_dir = path_dir(input),
+      strip_header = strip_header
+    )
+  }
   invisible(path)
 }
 
@@ -223,9 +228,9 @@ rmarkdown_template <- function(pkg, data, depth) {
   list(path = path, cleanup = e)
 }
 
-update_rmarkdown_html <- function(path, strip_header = FALSE) {
+update_rmarkdown_html <- function(path, input_dir, strip_header = FALSE) {
   html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html, strip_header = strip_header)
+  tweak_rmarkdown_html(html, input_dir, strip_header = strip_header)
 
   xml2::write_html(html, path, format = FALSE)
   path
