@@ -16,17 +16,6 @@ build_home_index <- function(pkg) {
       data$index <- markdown(path = data$path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {
-      if (identical(file_name, "README")) {
-        # Render once so that .md is up to date
-        cat_line("Updating ", src_path("README.md"))
-        render_rmarkdown(
-          input = data$path,
-          output_format = "github_document",
-          output_options = list(html_preview = FALSE),
-          quiet = TRUE
-        )
-      }
-
       build_article(file_name, pkg = pkg, data = data)
     }
   }
