@@ -5,6 +5,7 @@ articles:
   pkgdown: pkgdown.html
   details: test/details.html
   external: test/external.html
+  figures: test/figures.html
   highlight: test/highlight.html
   output: test/output.html
   pdf: test/pdf.html
