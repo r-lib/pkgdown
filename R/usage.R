@@ -54,6 +54,8 @@ short_name <- function(name, type, signature) {
 usage_type <- function(x) {
   if (is_symbol(x)) {
     list(type = "data", name = as.character(x))
+  } else if (is_call(x, "data")) {
+    list(type = "data", name = as.character(x[[2]]))
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(`<-`))) {
       replacement <- TRUE
