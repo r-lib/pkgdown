@@ -13,3 +13,4 @@ x <- readLines("test.txt")
 x
 ```
 
+![](bacon.jpg)
