@@ -2,14 +2,11 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\alias{init_site}
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
   preview = interactive())
-
-init_site(pkg = ".")
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -35,7 +32,7 @@ freshly generated section in browser.}
 \description{
 \code{build_site()} is a convenient wrapper around five functions:
 \itemize{
-\item \code{init_site()}
+\item \code{\link[=init_site]{init_site()}}
 \item \code{\link[=build_articles]{build_articles()}}
 \item \code{\link[=build_home]{build_home()}}
 \item \code{\link[=build_reference]{build_reference()}}
@@ -47,21 +44,6 @@ that aspect of the site.
 
 Note if names of generated files were changed, you will need to use \link{clean_site} first to clean up orphan files.
 }
-\section{Custom CSS/JS}{
-
-If you want to do minor customisation of your pkgdown site, the easiest
-way is to add \code{pkgdown/extra.css} and \code{pkgdown/extra.js}. These
-will be automatically copied to \code{docs/} and inserted into the
-\code{<HEAD>} after the default pkgdown CSS and JSS.
-}
-
-\section{Favicon}{
-
-If you include you package logo in the standard location of
-\code{man/figures/logo.png}, a favicon will be automatically created for
-you.
-}
-
 \section{YAML config}{
 
 There are four top-level YAML settings that affect the entire site:

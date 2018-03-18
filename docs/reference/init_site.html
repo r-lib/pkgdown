@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • pkgdown</title>
+<title>Initialise the site — init_site • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,7 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Initialise the site — init_site" />
+
+<meta property="og:description" content="This creates the output directory, creates favicon.ico from package
+logo, creates a machine readable description of the site, and sets up
+assets and extra files." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -38,7 +43,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -112,130 +117,56 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.0.9000</small>
-      </h1>
+    <h1>Initialise the site</h1>
+    <small>Source: <a href='https:/github.com/hadley/pkgdown/blob/master/R/init.R'><code>R/init.R</code></a></small>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>This creates the output directory, creates <code>favicon.ico</code> from package
+logo, creates a machine readable description of the site, and sets up
+assets and extra files.</p>
+    
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <pre class="usage"><span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pkg</th>
+      <td><p>Path to package.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-build" class="hasAnchor"><a href="#section-build" class="anchor"></a>Build</h2>
-            <p class="section-desc"><p>Build each component of the site.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="init_site.html">init_site()</a></code> </p>
-          </td>
-          <td><p>Initialise the site</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="build_articles.html">build_articles()</a></code> <code><a href="build_articles.html">build_article()</a></code> </p>
-          </td>
-          <td><p>Build articles</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="build_home.html">build_home()</a></code> </p>
-          </td>
-          <td><p>Build home page</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="build_news.html">build_news()</a></code> </p>
-          </td>
-          <td><p>Build news section</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="build_reference.html">build_reference()</a></code> <code><a href="build_reference.html">build_reference_index()</a></code> </p>
-          </td>
-          <td><p>Build reference section</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="build_site.html">build_site()</a></code> </p>
-          </td>
-          <td><p>Build pkgdown website</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-templates" class="hasAnchor"><a href="#section-templates" class="anchor"></a>Templates</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="templates.html">template_navbar()</a></code> <code><a href="templates.html">template_reference()</a></code> <code><a href="templates.html">template_articles()</a></code> </p>
-          </td>
-          <td><p>Generate YAML templates</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="render_page.html">render_page()</a></code> <code><a href="render_page.html">data_template()</a></code> </p>
-          </td>
-          <td><p>Render page with template</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="autolink_html.html">autolink_html()</a></code> </p>
-          </td>
-          <td><p>Automatic link references and articles in an HTML package</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="clean_site.html">clean_site()</a></code> </p>
-          </td>
-          <td><p>Clean site</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="as_pkgdown.html">as_pkgdown()</a></code> </p>
-          </td>
-          <td><p>Generate pkgdown data structure</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="in_pkgdown.html">in_pkgdown()</a></code> </p>
-          </td>
-          <td><p>Determine if code is executed by pkgdown</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    
+    <p>If you want to do minor customisation of your pkgdown site, the easiest
+way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
+will be automatically copied to <code>docs/</code> and inserted into the
+<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JSS.</p>
+    
+    <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
+
+    
+    <p>If you include you package logo in the standard location of
+<code>man/figures/logo.png</code>, a favicon will be automatically created for
+you.</p>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-build">Build</a></li>
-      <li><a href="#section-templates">Templates</a></li>
-      <li><a href="#section-helpers">Helpers</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#custom-css-js">Custom CSS/JS</a></li>
+
+      <li><a href="#favicon">Favicon</a></li>
+          </ul>
+
   </div>
 </div>
 

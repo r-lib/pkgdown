@@ -133,7 +133,7 @@ Note if names of generated files were changed, you will need to use clean_site f
 
     
     <p><code>build_site()</code> is a convenient wrapper around five functions:</p><ul>
-<li><p><code>init_site()</code></p></li>
+<li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
 <li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
 <li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
 <li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
@@ -147,9 +147,7 @@ that aspect of the site.</p>
 
     <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())
-
-<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -191,21 +189,6 @@ values in <code>_pkgdown.yml</code></p></td>
 freshly generated section in browser.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
-
-    
-    <p>If you want to do minor customisation of your pkgdown site, the easiest
-way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
-will be automatically copied to <code>docs/</code> and inserted into the
-<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JSS.</p>
-    
-    <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
-
-    
-    <p>If you include you package logo in the standard location of
-<code>man/figures/logo.png</code>, a favicon will be automatically created for
-you.</p>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
@@ -331,10 +314,6 @@ for pkgdown templates to ensure that you use the correct components.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#custom-css-js">Custom CSS/JS</a></li>
-
-      <li><a href="#favicon">Favicon</a></li>
-
       <li><a href="#yaml-config">YAML config</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>

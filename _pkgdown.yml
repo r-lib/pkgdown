@@ -4,6 +4,7 @@ reference:
   - title: Build
     desc:  Build each component of the site.
     contents:
+    - init_site
     - starts_with("build_")
   - title: Templates
     contents:
