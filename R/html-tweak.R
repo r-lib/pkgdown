@@ -246,3 +246,14 @@ badges_extract <- function(x) {
 
   as.character(badges, options = character())
 }
+
+# Update file on disk -----------------------------------------------------
+
+update_html <- function(path, tweak, ...) {
+  html <- xml2::read_html(path, encoding = "UTF-8")
+  tweak(html, ...)
+
+  xml2::write_html(html, path, format = FALSE)
+  path
+}
+

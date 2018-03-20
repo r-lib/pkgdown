@@ -164,18 +164,13 @@ build_article <- function(name,
     options <- NULL
   }
 
-  path <- render_rmarkdown(
+  render_rmarkdown(
     input = input,
     output = output,
     output_format = format,
     output_options = options,
     quiet = quiet
   )
-
-  if (identical(ext, "html")) {
-    update_rmarkdown_html(path, input_dir = path_dir(input))
-  }
-  invisible(path)
 }
 
 build_rmarkdown_format <- function(pkg,
@@ -210,14 +205,6 @@ rmarkdown_template <- function(pkg, data, depth) {
   reg.finalizer(e, function(e) file_delete(path))
 
   list(path = path, cleanup = e)
-}
-
-update_rmarkdown_html <- function(path, input_dir) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html, input_dir)
-
-  xml2::write_html(html, path, format = FALSE)
-  path
 }
 
 # Articles index ----------------------------------------------------------

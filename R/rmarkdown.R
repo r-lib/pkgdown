@@ -35,5 +35,9 @@ render_rmarkdown <- function(input, output, ..., copy_images = TRUE, quiet = TRU
     )
   }
 
-  path
+  if (identical(path_ext(path)[[1]], "html")) {
+    update_html(path, tweak_rmarkdown_html, input_path = path_dir(input))
+  }
+
+  invisible(path)
 }

@@ -24,9 +24,10 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     }
   }
 
-  update_homepage_html(
+  update_html(
     path(pkg$dst_path, "index.html"),
-    isTRUE(pkg$meta$home$strip_header)
+    tweak_homepage_html,
+    strip_header = isTRUE(pkg$meta$home$strip_header)
   )
 
   invisible()
@@ -39,26 +40,13 @@ render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
   cat_line("Writing  ", dst_path("index.html"))
 
   format <- build_rmarkdown_format(pkg, depth = 0L, data = data, toc = FALSE)
-
-  path <- render_rmarkdown(
+  render_rmarkdown(
     input = path,
     output = path_abs("index.html", pkg$dst_path),
     output_format = format,
     quiet = quiet,
     copy_images = FALSE
   )
-
-  update_rmarkdown_html(path, input_dir = path_dir(path))
-
-  invisible(path)
-}
-
-update_homepage_html <- function(path, strip_header = FALSE) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_homepage_html(html, strip_header = strip_header)
-
-  xml2::write_html(html, path, format = FALSE)
-  path
 }
 
 data_home <- function(pkg = ".") {
