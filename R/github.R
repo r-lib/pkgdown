@@ -15,7 +15,7 @@ pkg_github_url <- function(desc) {
 }
 
 github_source <- function(base, path) {
-  path(base, "blob" , "master", path)
+  file.path(base, "blob" , "master", path)
 }
 
 github_source_links <- function(base, paths) {
