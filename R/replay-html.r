@@ -95,20 +95,7 @@ replay_html.error <- function(x, ...) {
 
 #' @export
 replay_html.recordedplot <- function(x, topic, obj_id, ...) {
-  path <- paste0(topic, "-", obj_id(topic), ".png")
-
-  w <- 700
-  h <- w / 1.618
-
-  grDevices::png(path, width = w * 2, height = h * 2, res = 144 * 1.2)
-  on.exit(grDevices::dev.off())
-  print(x)
-
-  paste0(
-    "<div class='img'>",
-    "<img src='", escape_html(path), "' alt='' width='", w, "' height='", h, "' />",
-    "</div>"
-  )
+  fig_save(x, fig_name(topic, obj_id))
 }
 
 # Knitr functions ------------------------------------------------------------
