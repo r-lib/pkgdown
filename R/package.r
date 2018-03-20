@@ -17,27 +17,37 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   }
 
   desc <- read_desc(pkg)
-  package <- desc$get("Package")[[1]]
-  topics <- package_topics(pkg, package)
-
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
+
+  package <- desc$get("Package")[[1]]
+
+  version <- desc$get_version()
+  is_devel <- !is.na(version[[1, 4]])
+  use_dev <- is_devel && isTRUE(purrr::pluck(meta, "use_dev"))
 
   if (is.null(meta$destination)) {
     dst_path <- path(pkg, "docs")
   } else {
     dst_path <- path_abs(meta$destination, start = pkg)
   }
+  if (use_dev) {
+    dst_path <- path(dst_path, "dev")
+  }
 
   structure(
     list(
       package = package,
+      version = version,
+
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
       github_url = pkg_github_url(desc),
+      use_dev = use_dev,
+
       desc = desc,
       meta = meta,
-      topics = topics,
+      topics = package_topics(pkg, package),
       vignettes = package_vignettes(pkg),
       topic_index = topic_index_local(package, pkg),
       article_index = article_index_local(package, pkg)

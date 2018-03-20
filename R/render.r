@@ -48,15 +48,14 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 #' @rdname render_page
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
-  desc <- pkg$desc
-  name <- desc$get("Package")[[1]]
+
   authors <- data_authors(pkg)$main %>%
     purrr::map_chr("name") %>%
     paste(collapse = ", ")
 
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the moustache templates
-  yaml <- pkg$meta[["template"]]$params %||% list()
+  yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   yaml$.present <- TRUE
 
   # Look for extra assets to add
@@ -67,14 +66,15 @@ data_template <- function(pkg = ".", depth = 0L) {
   print_yaml(list(
     year = strftime(Sys.time(), "%Y"),
     package = list(
-      name = name,
-      version = desc$get("Version")[[1]],
+      name = pkg$package,
+      version = as.character(pkg$version),
       authors = authors
     ),
     site = list(
       root = up_path(depth),
-      title = pkg$meta$title %||% name
+      title = pkg$meta$title %||% pkg$package
     ),
+    dev = pkg$use_dev,
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
