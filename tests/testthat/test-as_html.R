@@ -198,6 +198,11 @@ test_that("nl after tag doesn't trigger paragraphs", {
   expect_equal(out, "<p>One <code></code>\nTwo</p>")
 })
 
+test_that("cr generates line break", {
+  out <- flatten_para(rd_text("a \\cr b"))
+  expect_equal(out, "<p>a <br /> b</p>")
+})
+
 # Usage -------------------------------------------------------------------
 
 test_that("S4 methods gets comment", {

@@ -458,7 +458,7 @@ as_html.tag_concept <-  function(x, ...) ""
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
-as_html.tag_cr <-       function(x, ...) ""
+as_html.tag_cr <-       function(x, ...) "<br />"
 #' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export
