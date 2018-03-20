@@ -6,6 +6,7 @@ reference:
     contents:
     - init_site
     - starts_with("build_")
+    - preview_site
   - title: Templates
     contents:
     - template_navbar

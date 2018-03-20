@@ -16,21 +16,6 @@ section_init <- function(pkg, depth, override = list(), scope = parent.frame()) 
   pkg
 }
 
-preview_site <- function(pkg, path = ".", preview = NA) {
-  pkg <- as_pkgdown(pkg)
-
-  if (is.na(preview)) {
-    preview <- interactive()
-  }
-
-  if (preview) {
-    rule("Previewing site")
-    utils::browseURL(path(pkg$dst_path, path, "index.html"))
-  }
-
-  invisible()
-}
-
 # Manage current topic index ----------------------------------------------------
 
 context <- new_environment()
