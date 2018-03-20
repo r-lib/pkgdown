@@ -91,7 +91,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   rd <- package_rd(path)
 
   # In case there are links in titles
-  scoped_package_context(package, src_path = path)
+  scoped_package_context(package, topic_index = character(), src_path = path)
   scoped_file_context()
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
