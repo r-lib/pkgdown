@@ -87,15 +87,17 @@ data_home_sidebar_links <- function(pkg = ".") {
   sidebar_section("Links", links)
 }
 
-sidebar_section <- function(heading, bullets) {
+sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   if (length(bullets) == 0)
     return(character())
 
   paste0(
-    "<h2>", heading, "</h2>",
+    "<div class='", class, "'>\n",
+    "<h2>", heading, "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
-    "</ul>\n"
+    "</ul>\n",
+    "</div>\n"
   )
 }
 
