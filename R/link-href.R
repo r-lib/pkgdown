@@ -86,10 +86,19 @@ href_topic_local <- function(topic) {
     }
   }
 
+  # If it's a re-exported function, we need to work a little harder to
+  # find out its source so that we can link to it
   if (rdname == "reexports") {
-    obj <- getExportedValue(context_get("package"), topic)
-    package <- ns_env_name(get_env(obj))
-    return(href_topic_remote(topic, package))
+    ns <- ns_env(context_get("package"))
+    exports <- .getNamespaceInfo(ns, "exports")
+
+    if (!env_has(exports, topic)) {
+      return(NA_character_)
+    } else {
+      obj <- env_get(ns, topic, inherit = TRUE)
+      package <- ns_env_name(get_env(obj))
+      return(href_topic_remote(topic, package))
+    }
   }
 
   if (rdname == context_get("rdname")) {

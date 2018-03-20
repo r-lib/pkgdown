@@ -33,6 +33,11 @@ test_that("links to home of re-exported functions", {
   expect_equal(href_expr_(addterm()), href_topic_remote("addterm", "MASS"))
 })
 
+test_that("fails gracely if can't find re-exported function", {
+  scoped_package_context("pkgdown", c(foo = "reexports"))
+  expect_equal(href_expr_(foo()), NA_character_)
+})
+
 test_that("can link to remote pkgdown sites", {
   scoped_package_context("test", c(foo = "bar"))
 
