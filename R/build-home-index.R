@@ -4,21 +4,23 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
+  src_path <- path_first_existing(
+    pkg$src_path,
+    c("index.Rmd", "README.Rmd", "index.md", "README.md")
+  )
   data <- data_home(pkg)
-  data$opengraph <- list(description = pkg$desc$get("Description")[[1]])
 
-  if (is.null(data$path)) {
+  if (is.null(src_path)) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
     render_page(pkg, "home", data, "index.html")
   } else {
-    file_name <- as.character(path_ext_remove(path_file(data$path)))
-    file_ext <- path_ext(data$path)
+    file_ext <- path_ext(src_path)
 
     if (file_ext == "md") {
-      data$index <- markdown(path = data$path)
+      data$index <- markdown(src_path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {
-      render_index(pkg, data$path, data = data, quiet = quiet)
+      render_index(pkg, src_path, data = data, quiet = quiet)
     }
   }
 
@@ -62,15 +64,10 @@ update_homepage_html <- function(path, strip_header = FALSE) {
 data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  path <- path_first_existing(
-    pkg$src_path,
-    c("index.Rmd", "README.Rmd", "index.md", "README.md")
-  )
-
   print_yaml(list(
     pagetitle = pkg$desc$get("Title")[[1]],
     sidebar = data_home_sidebar(pkg),
-    path = path
+    opengraph = list(description = pkg$desc$get("Description")[[1]])
   ))
 }
 
