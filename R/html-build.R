@@ -53,3 +53,5 @@ escape_html <- function(x) {
   # x <- gsub("\"", "&quot;", x)
   x
 }
+
+strip_html_tags <- function(x) gsub("<.*?>", "", x)

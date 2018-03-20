@@ -1,3 +1,5 @@
+# Tag level tweaks --------------------------------------------------------
+
 tweak_anchors <- function(html, only_contents = TRUE) {
   if (only_contents) {
     sections <- xml2::xml_find_all(html, ".//div[@class='contents']//div[@id]")
@@ -67,7 +69,88 @@ tweak_tables <- function(html) {
   invisible()
 }
 
-# HTML from markdown/RMarkdown --------------------------------------------
+# Autolinking -------------------------------------------------------------
+
+# Assumes generated with rmarkdown (i.e. knitr + pandoc)
+tweak_code <- function(x) {
+  stopifnot(inherits(x, "xml_node"))
+
+  # <pre class="sourceCode r">
+  x %>%
+    xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
+    purrr::map(tweak_pre_node)
+
+  # Needs to second so have all packages loaded in chunks
+  # <code> with no children (just text)
+  x %>%
+    xml2::xml_find_all(".//code[count(*) = 0]") %>%
+    tweak_code_nodeset()
+
+
+  invisible()
+}
+
+tweak_code_nodeset <- function(nodes, ...) {
+  text <- nodes %>% xml2::xml_text()
+  href <- text %>% purrr::map_chr(href_string, ...)
+
+  has_link <- !is.na(href)
+
+  nodes[has_link] %>%
+    xml2::xml_contents() %>%
+    xml2::xml_replace("a", href = href[has_link], text[has_link])
+
+  invisible()
+}
+
+# Process in order, because attaching a package affects later code chunks
+tweak_pre_node <- function(node, ...) {
+  # Register attached packages
+  text <- node %>% xml2::xml_text()
+  expr <- tryCatch(parse(text = text), error = function(e) NULL)
+  packages <- extract_package_attach(expr)
+  register_attached_packages(packages)
+
+  # Find nodes with class kw and look backward to see if its qualified
+  span <- node %>% xml2::xml_find_all(".//span[@class = 'kw']")
+  pkg <- span %>% purrr::map_chr(find_qualifier)
+  has_pkg <- !is.na(pkg)
+
+  # Extract text and link
+  text <- span %>% xml2::xml_text()
+  href <- chr_along(text)
+  href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
+  href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
+
+  has_link <- !is.na(href)
+
+  span[has_link] %>%
+    xml2::xml_contents() %>%
+    xml2::xml_replace("a", href = href[has_link], text[has_link])
+
+  invisible()
+}
+
+find_qualifier <- function(node) {
+  prev <- rev(xml2::xml_find_all(node, "./preceding-sibling::node()"))
+  if (length(prev) < 2) {
+    return(NA_character_)
+  }
+
+  colons <- prev[[1]]
+  if (xml2::xml_name(colons) != "span" || xml2::xml_text(colons) != "::") {
+    return(NA_character_)
+  }
+
+  qual <- prev[[2]]
+  if (xml2::xml_name(qual) != "text") {
+    return(NA_character_)
+  }
+
+  rematch::re_match("([[:alnum:]]+)$", xml2::xml_text(qual))[, 2]
+}
+
+# File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path) {
   # Automatically link funtion mentions
@@ -163,99 +246,3 @@ badges_extract <- function(x) {
 
   as.character(badges, options = character())
 }
-
-# code --------------------------------------------------------------------
-
-# Assumes generated with rmarkdown (i.e. knitr + pandoc)
-tweak_code <- function(x) {
-  stopifnot(inherits(x, "xml_node"))
-
-  # <pre class="sourceCode r">
-  x %>%
-    xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
-    purrr::map(tweak_pre_node)
-
-  # Needs to second so have all packages loaded in chunks
-  # <code> with no children (just text)
-  x %>%
-    xml2::xml_find_all(".//code[count(*) = 0]") %>%
-    tweak_code_nodeset()
-
-
-  invisible()
-}
-
-tweak_code_nodeset <- function(nodes, ...) {
-  text <- nodes %>% xml2::xml_text()
-  href <- text %>% purrr::map_chr(href_string, ...)
-
-  has_link <- !is.na(href)
-
-  nodes[has_link] %>%
-    xml2::xml_contents() %>%
-    xml2::xml_replace("a", href = href[has_link], text[has_link])
-
-  invisible()
-}
-
-# Process in order, because attaching a package affects later code chunks
-tweak_pre_node <- function(node, ...) {
-  # Register attached packages
-  text <- node %>% xml2::xml_text()
-  expr <- tryCatch(parse(text = text), error = function(e) NULL)
-  packages <- extract_package_attach(expr)
-  register_attached_packages(packages)
-
-  # Find nodes with class kw and look backward to see if its qualified
-  span <- node %>% xml2::xml_find_all(".//span[@class = 'kw']")
-  pkg <- span %>% purrr::map_chr(find_qualifier)
-  has_pkg <- !is.na(pkg)
-
-  # Extract text and link
-  text <- span %>% xml2::xml_text()
-  href <- chr_along(text)
-  href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
-  href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
-
-  has_link <- !is.na(href)
-
-  span[has_link] %>%
-    xml2::xml_contents() %>%
-    xml2::xml_replace("a", href = href[has_link], text[has_link])
-
-  invisible()
-}
-
-find_qualifier <- function(node) {
-  prev <- rev(xml2::xml_find_all(node, "./preceding-sibling::node()"))
-  if (length(prev) < 2) {
-    return(NA_character_)
-  }
-
-  colons <- prev[[1]]
-  if (xml2::xml_name(colons) != "span" || xml2::xml_text(colons) != "::") {
-    return(NA_character_)
-  }
-
-  qual <- prev[[2]]
-  if (xml2::xml_name(qual) != "text") {
-    return(NA_character_)
-  }
-
-  rematch::re_match("([[:alnum:]]+)$", xml2::xml_text(qual))[, 2]
-}
-
-# Helper for testing
-autolink_html_ <- function(x, ...) {
-  x <- paste0("<html><body>", x, "</body></html>")
-  xml <- xml2::read_html(x)
-
-  tweak_code(xml, ...)
-
-  xml %>%
-    xml2::xml_find_first(".//body[1]") %>%
-    xml2::xml_children() %>%
-    as.character()
-}
-
-strip_html_tags <- function(x) gsub("<.*?>", "", x)
