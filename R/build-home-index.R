@@ -8,6 +8,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     pkg$src_path,
     c("index.Rmd", "README.Rmd", "index.md", "README.md")
   )
+  dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
@@ -24,11 +25,8 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     }
   }
 
-  update_html(
-    path(pkg$dst_path, "index.html"),
-    tweak_homepage_html,
-    strip_header = isTRUE(pkg$meta$home$strip_header)
-  )
+  strip_header <- isTRUE(pkg$meta$home$strip_header)
+  update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
 
   invisible()
 }
