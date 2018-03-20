@@ -184,7 +184,7 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   first_para <- xml2::xml_find_first(html, "//p")
   badges <- badges_extract(first_para)
   if (length(badges) > 0) {
-    list <- list_with_heading(badges, "Dev status")
+    list <- sidebar_section("Dev status", badges)
     list_div <- paste0("<div>", list, "</div>")
     list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
 

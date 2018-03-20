@@ -31,7 +31,7 @@ data_home_sidebar_citation <- function(pkg = ".") {
 
   citation <- paste0("<a href='authors.html'>Citing ", pkg$package, "</li>")
 
-  list_with_heading(citation, "Citation")
+  sidebar_section("Citation", citation)
 }
 
 data_citations <- function(pkg = ".") {

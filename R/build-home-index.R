@@ -86,7 +86,19 @@ data_home_sidebar_links <- function(pkg = ".") {
     purrr::map_chr(meta, ~ link_url(.$text, .$href))
   )
 
-  list_with_heading(links, "Links")
+  sidebar_section("Links", links)
+}
+
+sidebar_section <- function(heading, bullets) {
+  if (length(bullets) == 0)
+    return(character())
+
+  paste0(
+    "<h2>", heading, "</h2>",
+    "<ul class='list-unstyled'>\n",
+    paste0("<li>", bullets, "</li>\n", collapse = ""),
+    "</ul>\n"
+  )
 }
 
 repo_link <- memoise(function(pkg) {

@@ -22,19 +22,17 @@ build_home_license <- function(pkg) {
 data_home_sidebar_license <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  link <- autolink_license(pkg$desc$get("License")[[1]])
+
   has_license_md <- file_exists(path(pkg$src_path, "LICENSE.md"))
-  paste0(
-    "<h2>License</h2>\n",
-    "<p>",
-    if (has_license_md) {
-      "<a href='LICENSE.html'>Full license</a><br /><small>"
-    },
-    autolink_license(pkg$desc$get("License")[[1]]),
-    if (has_license_md) {
-      "<small>"
-    },
-    "</p>\n"
-  )
+  if (has_license_md) {
+    link <- c(
+      "<a href='LICENSE.html'>Full license</a>",
+      paste0("<small>", link, "</small>")
+    )
+  }
+
+  sidebar_section("License", link)
 }
 
 # helpers -----------------------------------------------------------------

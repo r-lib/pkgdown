@@ -60,7 +60,7 @@ data_home_sidebar_authors <- function(pkg = ".") {
     authors <- c(authors, "<a href='authors.html'>All authors...</li>")
   }
 
-  list_with_heading(authors, "Developers")
+  sidebar_section("Developers", authors)
 }
 
 build_authors <- function(pkg = ".") {
