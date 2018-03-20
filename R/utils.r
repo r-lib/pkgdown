@@ -1,9 +1,3 @@
-#' @importFrom magrittr %>%
-#' @importFrom roxygen2 roxygenise
-#' @importFrom R6 R6Class
-#' @import rlang
-NULL
-
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
@@ -15,14 +9,6 @@ split_at_linebreaks <- function(text) {
 
 up_path <- function(depth) {
   paste(rep.int("../", depth), collapse = "")
-}
-
-print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
-}
-#' @export
-print.print_yaml <- function(x, ...) {
-  cat(yaml::as.yaml(x), "\n", sep = "")
 }
 
 dir_depth <- function(x) {
@@ -43,58 +29,37 @@ invert_index <- function(x) {
   split(key, val)
 }
 
-a <- function(text, href) {
-  ifelse(is.na(href), text, paste0("<a href='", href, "'>", text, "</a>"))
-}
-
-# Used for testing
-#' @keywords internal
-#' @importFrom MASS addterm
-#' @export
-MASS::addterm
-
 rstudio_save_all <- function() {
   if (rstudioapi::hasFun("documentSaveAll")) {
     rstudioapi::documentSaveAll()
   }
 }
 
-cat_line <- function(...) {
-  cat(paste0(..., "\n"), sep = "")
-}
+is_syntactic <- function(x) x == make.names(x)
+
+# CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {
   crayon::blue(encodeString(path(...), quote = "'"))
 }
+
 src_path <- function(...) {
   crayon::green(encodeString(path(...), quote = "'"))
+}
+
+cat_line <- function(...) {
+  cat(paste0(..., "\n"), sep = "")
 }
 
 rule <- function(left, ...) {
   cli::cat_rule(left = crayon::bold(left), ...)
 }
 
-list_with_heading <- function(bullets, heading) {
-  if (length(bullets) == 0)
-    return(character())
-
-  paste0(
-    "<h2>", heading, "</h2>",
-    "<ul class='list-unstyled'>\n",
-    paste0("<li>", bullets, "</li>\n", collapse = ""),
-    "</ul>\n"
-  )
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
 }
 
-link_url <- function(text, href) {
-  # Needs to handle NA for desc::desc_get()
-  if (is.null(href) || identical(href, NA)) {
-    return()
-  }
-
-  # insert zero-width spaces to allow for nicer line breaks
-  label <- gsub("(/+)", "\\1&#8203;", href)
-  paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
 }
-
-is_syntactic <- function(x) x == make.names(x)

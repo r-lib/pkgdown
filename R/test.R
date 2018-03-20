@@ -23,3 +23,9 @@
 #' @keywords internal
 #' @name test-lists
 NULL
+
+# Used for testing
+#' @keywords internal
+#' @importFrom MASS addterm
+#' @export
+MASS::addterm
