@@ -24,3 +24,32 @@ link_url <- function(text, href) {
   label <- gsub("(/+)", "\\1&#8203;", href)
   paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
 }
+
+linkify <- function(text) {
+  text <- escape_html(text)
+  text <- gsub(
+    "&lt;doi:([^&]+)&gt;", # DOIs with < > & are not supported
+    "&lt;<a href='https://doi.org/\\1'>doi:\\1</a>&gt;",
+    text, ignore.case = TRUE
+  )
+  text <- gsub(
+    "&lt;arXiv:([^&]+)&gt;",
+    "&lt;<a href='https://arxiv.org/abs/\\1'>arXiv:\\1</a>&gt;",
+    text, ignore.case = TRUE
+  )
+  text <- gsub(
+    "&lt;((http|ftp)[^&]+)&gt;", # URIs with & are not supported
+    "&lt;<a href='\\1'>\\1</a>&gt;",
+    text
+  )
+  text
+}
+
+escape_html <- function(x) {
+  x <- gsub("&", "&amp;", x)
+  x <- gsub("<", "&lt;", x)
+  x <- gsub(">", "&gt;", x)
+  # x <- gsub("'", "&#39;", x)
+  # x <- gsub("\"", "&quot;", x)
+  x
+}

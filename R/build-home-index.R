@@ -101,20 +101,6 @@ data_home_sidebar_links <- function(pkg = ".") {
   list_with_heading(links, "Links")
 }
 
-linkify <- function(text) {
-  text <- escape_html(text)
-  text <- gsub("&lt;doi:([^&]+)&gt;",  # DOIs with < > & are not supported
-               "&lt;<a href='https://doi.org/\\1'>doi:\\1</a>&gt;",
-               text, ignore.case = TRUE)
-  text <- gsub("&lt;arXiv:([^&]+)&gt;",
-               "&lt;<a href='https://arxiv.org/abs/\\1'>arXiv:\\1</a>&gt;",
-               text, ignore.case = TRUE)
-  text <- gsub("&lt;((http|ftp)[^&]+)&gt;",  # URIs with & are not supported
-               "&lt;<a href='\\1'>\\1</a>&gt;",
-               text)
-  text
-}
-
 repo_link <- memoise(function(pkg) {
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
   if (!httr::http_error(cran_url)) {

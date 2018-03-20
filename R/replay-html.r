@@ -1,12 +1,3 @@
-escape_html <- function(x) {
-  x <- gsub("&", "&amp;", x)
-  x <- gsub("<", "&lt;", x)
-  x <- gsub(">", "&gt;", x)
-  # x <- gsub("'", "&#39;", x)
-  # x <- gsub("\"", "&quot;", x)
-  x
-}
-
 label_lines <- function(x, class = NULL, prompt = "#> ") {
   lines <- strsplit(x, "\n")[[1]]
   lines <- escape_html(lines)
