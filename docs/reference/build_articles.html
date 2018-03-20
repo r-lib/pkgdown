@@ -175,6 +175,28 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
+
+    
+    <p>pkgdown differs from base R in its handling of external files. When
+building vignettes, R assumes that vignettes are self-contained
+(a reasonable assumption when most vignettes were PDFs) and only copies
+files explicitly listed in <code>.install_extras</code>. pkgdown takes a different
+approach based on <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also
+copy any images that you link to. If for some reason the automatic
+detection doesn't work, you will need to add a <code>resource_files</code> field to
+the yaml metadata, .e.g</p>
+<pre>
+---
+title: My Document
+resource_files:
+ - data/mydata.csv
+ - images/figure.png
+---
+</pre>
+    <p>Note that you can not use the <code>fig.path</code> to change the output directory
+of generated figures as the default is a strong assumption of rmarkdown.</p>
+    
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
@@ -241,6 +263,8 @@ customise the navbar. See <code><a href='build_site.html'>build_site()</a></code
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#external-files">External files</a></li>
+
       <li><a href="#yaml-config">YAML config</a></li>
 
       <li><a href="#yaml-header">YAML header</a></li>

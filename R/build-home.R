@@ -4,6 +4,21 @@
 #' `index.md` or `README.md`. If none are found, falls back to the
 #' description field in `DESCRIPTION`.
 #'
+#' @section Images and figures:
+#' If you want to images in your `README.md`, they must be stored in
+#' somewhere in the package so that they can be displayed on the CRAN
+#' website. The best place to put them appears to be `man/figures`.
+#' If you are generating figures with R Markdown, make sure you set up
+#' `fig.path` as followed:
+#'
+#' \preformatted{
+#' ```\{r, include = FALSE\}
+#' knitr::opts_chunk$set(
+#'   fig.path = "man/figures/"
+#' )
+#' ```
+#' }
+#'
 #' @section YAML config:
 #' To tweak the home page, you need a section called `home`.
 #'

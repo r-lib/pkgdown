@@ -37,6 +37,30 @@ rendered and saved to \code{articles/}. Vignettes are rendered using a
 special document format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with
 your pkgdown template.
 }
+\section{External files}{
+
+pkgdown differs from base R in its handling of external files. When
+building vignettes, R assumes that vignettes are self-contained
+(a reasonable assumption when most vignettes were PDFs) and only copies
+files explicitly listed in \code{.install_extras}. pkgdown takes a different
+approach based on \link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources}, and it will also
+copy any images that you link to. If for some reason the automatic
+detection doesn't work, you will need to add a \code{resource_files} field to
+the yaml metadata, .e.g
+
+\preformatted{
+---
+title: My Document
+resource_files:
+ - data/mydata.csv
+ - images/figure.png
+---
+}
+
+Note that you can not use the \code{fig.path} to change the output directory
+of generated figures as the default is a strong assumption of rmarkdown.
+}
+
 \section{YAML config}{
 
 To tweak the index page, you need a section called \code{articles},

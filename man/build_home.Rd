@@ -20,6 +20,23 @@ First looks for \code{index.Rmd} or \code{README.Rmd}, then
 \code{index.md} or \code{README.md}. If none are found, falls back to the
 description field in \code{DESCRIPTION}.
 }
+\section{Images and figures}{
+
+If you want to images in your \code{README.md}, they must be stored in
+somewhere in the package so that they can be displayed on the CRAN
+website. The best place to put them appears to be \code{man/figures}.
+If you are generating figures with R Markdown, make sure you set up
+\code{fig.path} as followed:
+
+\preformatted{
+```\{r, include = FALSE\}
+knitr::opts_chunk$set(
+  fig.path = "man/figures/"
+)
+```
+}
+}
+
 \section{YAML config}{
 
 To tweak the home page, you need a section called \code{home}.
