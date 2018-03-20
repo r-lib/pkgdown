@@ -63,25 +63,28 @@ test_that("links to vignettes & figures tweaked", {
   expect_output_file(cat(as.character(html)), "home-links.html")
 })
 
-
-# cran or bioc ------------------------------------------------------------
-
+# repo_link ------------------------------------------------------------
 
 test_that("package repo verification", {
-  bioc_ver <- if (requireNamespace("BiocInstaller", quietly = TRUE)) {
-    BiocInstaller::biocVersion()
-    } else { "release" }
-  expect_identical(names(repo_url("dplyr")), "CRAN")
-  expect_identical(names(repo_url("Biobase")), "BIOC")
+  skip_on_cran() # requires internet connection
 
-  expect_null(repo_url("notarealpkg"))
+  expect_null(repo_link("notarealpkg"))
 
-  expect_identical(repo_url("dplyr", cran = "https://cloud.r-project.org"),
-    c(CRAN = "https://cloud.r-project.org/web/packages/dplyr/index.html"))
-  expect_identical(repo_url("Biobase"),
-    c(BIOC = paste0("https://bioconductor.org/packages/", bioc_ver,
-                    "/bioc/html/Biobase.html")))
+  expect_equal(
+    repo_link("dplyr"),
+    list(
+      repo = "CRAN",
+      url = "https://cloud.r-project.org/package=dplyr"
+    )
+  )
 
+  expect_equal(
+    repo_link("Biobase"),
+    list(
+      repo = "BIOC",
+      url = "https://www.bioconductor.org/packages/Biobase"
+    )
+  )
 })
 
 # orcid ------------------------------------------------------------------

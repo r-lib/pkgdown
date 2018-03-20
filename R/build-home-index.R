@@ -66,108 +66,17 @@ data_home_sidebar <- function(pkg = ".") {
 data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  repo <- repo_link(pkg$package)
+  meta <- purrr::pluck(pkg, "meta", "home", "links")
+
   links <- c(
-    data_link_repo(pkg),
-    data_link_github(pkg),
-    data_link_bug_report(pkg),
-    data_link_meta(pkg)
+    link_url(paste0("Download from ", repo$repo), repo$url),
+    link_url("Browse source code", pkg$github_url),
+    link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
+    purrr::map_chr(meta, ~ link_url(.$text, .$href))
   )
 
   list_with_heading(links, "Links")
-}
-
-data_link_meta <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-  links <- pkg$meta$home$links
-
-  if (length(links) == 0)
-    return(character())
-
-  links %>%
-    purrr::transpose() %>%
-    purrr::pmap_chr(link_url)
-}
-
-data_link_github <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  urls <- pkg$desc$get("URL") %>%
-    strsplit(",\\s+") %>%
-    `[[`(1)
-
-  github <- grepl("github\\.com", urls)
-
-  if (!any(github))
-    return(character())
-
-  link_url("Browse source code", urls[which(github)[[1]]])
-}
-
-data_link_bug_report <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  bug_reports <- pkg$desc$get("BugReports")[[1]]
-
-  if (is.na(bug_reports))
-    return(character())
-
-  link_url("Report a bug", bug_reports)
-}
-
-data_link_repo <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  name <- pkg$desc$get("Package")[[1]]
-  repo_result <- repo_url(name)
-
-  if (is.null(repo_result))
-    return(list())
-
-  if (names(repo_result) == "CRAN")
-    repo_link <- paste0("https://cran.r-project.org/package=", name)
-  else if (names(repo_result) == "BIOC")
-    repo_link <- paste0("https://www.bioconductor.org/packages/", name)
-  else
-    stop("Package link not supported")
-
-  link_url(
-    paste0("Download from ", names(repo_result)),
-    repo_link
-  )
-}
-
-cran_mirror <- function() {
-  cran <- as.list(getOption("repos"))[["CRAN"]]
-  if (is.null(cran) || identical(cran, "@CRAN@")) {
-    "https://cran.rstudio.com"
-  } else {
-    cran
-  }
-}
-
-bioc_mirror <- function() {
-  if (requireNamespace("BiocInstaller", quietly = TRUE)) {
-    bioc <- BiocInstaller::biocinstallRepos()[["BioCsoft"]]
-  } else {
-    bioc <- "https://bioconductor.org/packages/release/bioc"
-  }
-  bioc
-}
-
-repo_url <- function(pkg, cran = cran_mirror(), bioc = bioc_mirror()) {
-  bioc_pkgs <- utils::available.packages(contriburl = paste0(bioc, "/src/contrib"))
-  cran_pkgs <- utils::available.packages(contriburl = paste0(cran, "/src/contrib"))
-  avail <- if (pkg %in% rownames(cran_pkgs)) {
-    c(CRAN = paste0(cran, "/web/packages/", pkg, "/index.html"))
-  } else if (pkg %in% rownames(bioc_pkgs)) {
-    c(BIOC = paste0(bioc, "/html/", pkg, ".html"))
-  } else { NULL }
-  return(avail)
-}
-
-link_url <- function(text, href) {
-  label <- gsub("(/+)", "\\1&#8203;", href)
-  paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
 }
 
 linkify <- function(text) {
@@ -183,3 +92,19 @@ linkify <- function(text) {
                text)
   text
 }
+
+repo_link <- memoise(function(pkg) {
+  cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
+  if (!httr::http_error(cran_url)) {
+    return(list(repo = "CRAN", url = cran_url))
+  }
+
+  # bioconductor always returns a 200 status, redirecting to /removed-packages/
+  bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
+  req <- httr::HEAD(bioc_url)
+  if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
+    return(list(repo = "BIOC", url = bioc_url))
+  }
+
+  NULL
+})
