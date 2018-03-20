@@ -1,4 +1,4 @@
-#' Test cases: lists
+#' Test case: lists
 #'
 #' @noMd
 #' @description
@@ -23,6 +23,49 @@
 #' @keywords internal
 #' @name test-lists
 NULL
+
+#' Test case: links
+#'
+#' @name test-links
+#' @keywords internal
+#' @examples
+#' magrittr::subtract(10, 1)
+#'
+#' library(magrittr, warn.conflicts = FALSE)
+#' subtract(10, 1)
+NULL
+
+#' Test case: figures
+#'
+#' \figure{bacon.jpg}
+#'
+#' @name test-figures
+#' @keywords internal
+#' @examples
+#' x <- seq(0, 2 * pi, length = 25)
+#' plot(x, sin(x))
+NULL
+
+#' Test case: don't
+#'
+#' @name test-dont
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' 1 + 3
+#' }
+#'
+#' \donttest{
+#' 1 + 3
+#' }
+#'
+#' answer <- 1
+#' \dontshow{
+#' answer <- 42
+#' }
+#' answer # should be 42
+NULL
+
 
 # Used for testing
 #' @keywords internal

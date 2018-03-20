@@ -2,7 +2,7 @@
 % Please edit documentation in R/test.R
 \name{test-lists}
 \alias{test-lists}
-\title{Test cases: lists}
+\title{Test case: lists}
 \description{
 \itemize{\item a}
 

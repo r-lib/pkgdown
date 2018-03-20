@@ -16,3 +16,6 @@ reference:
     - clean_site
     - as_pkgdown
     - in_pkgdown
+  - title: Regression tests
+    contents:
+    - starts_with("test", internal = TRUE)
