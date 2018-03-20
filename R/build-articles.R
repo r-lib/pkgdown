@@ -114,23 +114,14 @@ build_article <- function(name,
   # Look up in pkg vignette data - this allows convenient automatic
   # specification of depth, output destination, and other parmaters that
   # allow code sharing with building of the index.
-  if (toupper(name) %in% c("INDEX", "README")) {
-    depth <- 0L
-    output_file <- "index.html"
-    input <- path_ext_set(name, "Rmd")
-    strip_header <- TRUE
-    toc <- FALSE
-  } else {
-    depth <- dir_depth(name) + 1L
-    vig <- match(name, pkg$vignettes$name)
-    if (is.na(vig)) {
-      stop("Can't find article called ", src_path(name), call. = FALSE)
-    }
-    output_file <- pkg$vignettes$file_out[vig]
-    input <- pkg$vignettes$file_in[vig]
-    toc <- TRUE
-    strip_header <- FALSE
+  vig <- match(name, pkg$vignettes$name)
+  if (is.na(vig)) {
+    stop("Can't find article called ", src_path(name), call. = FALSE)
   }
+
+  depth <- dir_depth(name) + 1L
+  output_file <- pkg$vignettes$file_out[vig]
+  input <- pkg$vignettes$file_in[vig]
 
   input <- path_abs(input, pkg$src_path)
   output <- path_abs(output_file, pkg$dst_path)
@@ -140,7 +131,6 @@ build_article <- function(name,
   }
 
   cat_line("Writing  ", dst_path(output_file))
-
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
@@ -170,7 +160,7 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = toc)
+    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
     options <- NULL
   }
 
@@ -183,11 +173,7 @@ build_article <- function(name,
   )
 
   if (identical(ext, "html")) {
-    update_rmarkdown_html(
-      path,
-      input_dir = path_dir(input),
-      strip_header = strip_header
-    )
+    update_rmarkdown_html(path, input_dir = path_dir(input))
   }
   invisible(path)
 }
@@ -226,9 +212,9 @@ rmarkdown_template <- function(pkg, data, depth) {
   list(path = path, cleanup = e)
 }
 
-update_rmarkdown_html <- function(path, input_dir, strip_header = FALSE) {
+update_rmarkdown_html <- function(path, input_dir) {
   html <- xml2::read_html(path, encoding = "UTF-8")
-  tweak_rmarkdown_html(html, input_dir, strip_header = strip_header)
+  tweak_rmarkdown_html(html, input_dir)
 
   xml2::write_html(html, path, format = FALSE)
   path

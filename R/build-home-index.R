@@ -1,6 +1,8 @@
-build_home_index <- function(pkg) {
+build_home_index <- function(pkg = ".", quiet = TRUE) {
+  pkg <- as_pkgdown(pkg)
+
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
-  scoped_file_context(depth = 0)
+  scoped_file_context(depth = 0L)
 
   data <- data_home(pkg)
   data$opengraph <- list(description = pkg$desc$get("Description")[[1]])
@@ -16,7 +18,7 @@ build_home_index <- function(pkg) {
       data$index <- markdown(path = data$path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {
-      build_article(file_name, pkg = pkg, data = data)
+      render_index(pkg, data$path, data = data, quiet = quiet)
     }
   }
 
@@ -24,6 +26,29 @@ build_home_index <- function(pkg) {
     path(pkg$dst_path, "index.html"),
     isTRUE(pkg$meta$home$strip_header)
   )
+
+  invisible()
+}
+
+# Stripped down version of build_article
+render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
+  pkg <- as_pkgdown(pkg)
+
+  cat_line("Writing  ", dst_path("index.html"))
+
+  format <- build_rmarkdown_format(pkg, depth = 0L, data = data, toc = FALSE)
+
+  path <- render_rmarkdown(
+    input = path,
+    output = path_abs("index.html", pkg$dst_path),
+    output_format = format,
+    quiet = quiet,
+    copy_images = FALSE
+  )
+
+  update_rmarkdown_html(path, input_dir = path_dir(path))
+
+  invisible(path)
 }
 
 update_homepage_html <- function(path, strip_header = FALSE) {

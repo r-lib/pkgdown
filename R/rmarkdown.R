@@ -1,7 +1,7 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(input, output, ..., quiet = TRUE) {
+render_rmarkdown <- function(input, output, ..., copy_images = TRUE, quiet = TRUE) {
 
   if (!file_exists(input)) {
     stop("Can't find ", src_path(input), call. = FALSE)
@@ -25,13 +25,15 @@ render_rmarkdown <- function(input, output, ..., quiet = TRUE) {
   )
 
   # Copy over images needed by the document
-  ext <- rmarkdown::find_external_resources(input, "UTF-8")
-  ext_path <- ext$path[ext$web]
-  file_copy(
-    path(path_dir(input), ext_path),
-    path(path_dir(output), ext_path),
-    overwrite = TRUE
-  )
+  if (copy_images) {
+    ext <- rmarkdown::find_external_resources(input, "UTF-8")
+    ext_path <- ext$path[ext$web]
+    file_copy(
+      path(path_dir(input), ext_path),
+      path(path_dir(output), ext_path),
+      overwrite = TRUE
+    )
+  }
 
   path
 }

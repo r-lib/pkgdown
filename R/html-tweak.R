@@ -69,7 +69,7 @@ tweak_tables <- function(html) {
 
 # HTML from markdown/RMarkdown --------------------------------------------
 
-tweak_rmarkdown_html <- function(html, input_path, strip_header = FALSE) {
+tweak_rmarkdown_html <- function(html, input_path) {
   # Automatically link funtion mentions
   tweak_code(html)
   tweak_anchors(html, only_contents = FALSE)
@@ -92,12 +92,6 @@ tweak_rmarkdown_html <- function(html, input_path, strip_header = FALSE) {
     )
   }
 
-  if (strip_header) {
-    header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
-    if (length(header) > 0)
-      xml2::xml_remove(header, free = TRUE)
-  }
-
   tweak_tables(html)
 
   invisible()
@@ -118,6 +112,11 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
     xml2::xml_remove(first_para)
   }
+
+  # Always remove dummy page header
+  header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
+  if (length(header) > 0)
+    xml2::xml_remove(header, free = TRUE)
 
   header <- xml2::xml_find_first(html, ".//h1")
   if (strip_header) {
