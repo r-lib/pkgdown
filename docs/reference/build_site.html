@@ -39,6 +39,8 @@ build_news()
 that aspect of the site.
 Note if names of generated files were changed, you will need to use clean_site first to clean up orphan files." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -61,9 +63,9 @@ Note if names of generated files were changed, you will need to use clean_site f
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand"><a class="navbar-link" href="../index.html">pkgdown</a>
-
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Viewing documentation for in-development package">0.1.0.9000</span>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">pkgdown</a>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -220,6 +222,51 @@ authors:
     html: &lt;img src="http://tidyverse.org/rstudio-logo.svg" height="24" /&gt;
 </pre>
     
+    <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode"></a>Development mode</h2>
+
+    
+    <p>The development mode of a site controls four main things:</p><ul>
+<li><p>Where the site is built.</p></li>
+<li><p>The colour of the package version in the navbar.</p></li>
+<li><p>The optional tooltip associated with the version.</p></li>
+<li><p>The indexing of the site by search engines.</p></li>
+</ul>
+    <p>There are currently three possible development modes:</p><ul>
+<li><p><strong>release</strong>: site written to <code>docs/</code>, the version gets the default
+colouring, and no message.</p></li>
+<li><p><strong>development</strong>: written to <code>docs/dev/</code>, the version gets a danger label,
+and message stating these are docs for an in-development version of the
+package. The <code>noindex</code> meta tag is used to ensure that these packages are
+not indexed by search engines.</p></li>
+<li><p><strong>unreleased</strong>: the package is written to <code>docs/</code>, the version gets a "danger"
+label, and the message indicates the package is not yet on CRAN.</p></li>
+</ul>
+    <p>The default development mode is "release". You can override it by adding a
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>development:
+  mode: development
+</pre>
+    <p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
+  mode: auto
+</pre>
+    <p>The mode will be automatically determined based on the version number:</p><ul>
+<li><p><code>0.0.0.9000</code>: unreleased</p></li>
+<li><p>four version components: development</p></li>
+<li><p>everything else -&gt; release</p></li>
+</ul>
+    <p>There are three other options that you can control:</p><pre>development:
+  destination: dev
+  version_label: danger
+  version_tooltip: "Custom message here"
+</pre>
+    <p><code>destination</code> allows you to override the default subdirectory used for the
+development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
+override the style used for development (and unreleased) versions of the
+package. It defaults to "danger", but you can set to "default", "info", or
+"warning" instead. (The precise colours are determined by your bootstrap
+theme, but become progressively more eye catching as you go from default
+to danger). Finally, you can choose to override the default tooltip with
+<code>version_tooltip</code>.</p>
+    
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
     
@@ -319,6 +366,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#development-mode">Development mode</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
 
