@@ -23,15 +23,15 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   package <- desc$get("Package")[[1]]
 
   version <- desc$get_version()
-  is_devel <- !is.na(version[[1, 4]])
-  use_dev <- is_devel && isTRUE(purrr::pluck(meta, "use_dev"))
+  is_dev <- !is.na(version[[1, 4]])
+  in_dev <- is_dev && isTRUE(purrr::pluck(meta, "use_dev"))
 
   if (is.null(meta$destination)) {
     dst_path <- path(pkg, "docs")
   } else {
     dst_path <- path_abs(meta$destination, start = pkg)
   }
-  if (use_dev) {
+  if (in_dev) {
     dst_path <- path(dst_path, "dev")
   }
 
@@ -39,11 +39,12 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     list(
       package = package,
       version = version,
+      is_dev = is_dev,
 
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
       github_url = pkg_github_url(desc),
-      use_dev = use_dev,
+      in_dev = in_dev,
 
       desc = desc,
       meta = meta,

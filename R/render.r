@@ -68,6 +68,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     package = list(
       name = pkg$package,
       version = as.character(pkg$version),
+      is_dev = pkg$is_dev,
       authors = authors
     ),
     site = list(

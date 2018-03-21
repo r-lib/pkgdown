@@ -7,8 +7,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{#site}}{{root}}{{/site}}index.html">{{title}}</a>
+      {{#package}}
+      <span class="navbar-brand"><a class="navbar-link" href="{{#site}}{{root}}{{/site}}index.html">{{name}}</a>
+        {{^is_dev}}
+        <span class="label label-default">{{version}}</span>
+        {{/is_dev}}{{#is_dev}}
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Viewing documentation for in-development package">{{version}}</span>
+        {{/is_dev}}
+      </span>
+      {{/package}}
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       {{#left}}
       <ul class="nav navbar-nav">
