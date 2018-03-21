@@ -21,33 +21,32 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- utils::modifyList(meta, override)
 
   package <- desc$get("Package")[[1]]
-
   version <- desc$get_version()
-  is_dev <- !is.na(version[[1, 4]])
-  in_dev <- is_dev && isTRUE(purrr::pluck(meta, "use_dev"))
+
+  development <- meta_development(meta, version)
 
   if (is.null(meta$destination)) {
     dst_path <- path(pkg, "docs")
   } else {
     dst_path <- path_abs(meta$destination, start = pkg)
   }
-  if (in_dev) {
-    dst_path <- path(dst_path, "dev")
+
+  if (development$in_dev) {
+    dst_path <- path(dst_path, development$destination)
   }
 
   structure(
     list(
       package = package,
       version = version,
-      is_dev = is_dev,
 
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
       github_url = pkg_github_url(desc),
-      in_dev = in_dev,
 
       desc = desc,
       meta = meta,
+      development = development,
       topics = package_topics(pkg, package),
       vignettes = package_vignettes(pkg),
       topic_index = topic_index_local(package, pkg),

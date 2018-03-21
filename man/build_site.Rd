@@ -75,6 +75,60 @@ authors:
 }
 }
 
+\section{Development mode}{
+
+The development mode of a site controls four main things:
+\itemize{
+\item Where the site is built.
+\item The colour of the package version in the navbar.
+\item The optional tooltip associated with the version.
+\item The indexing of the site by search engines.
+}
+
+There are currently three possible development modes:
+\itemize{
+\item \strong{release}: site written to \code{docs/}, the version gets the default
+colouring, and no message.
+\item \strong{development}: written to \code{docs/dev/}, the version gets a danger label,
+and message stating these are docs for an in-development version of the
+package. The \code{noindex} meta tag is used to ensure that these packages are
+not indexed by search engines.
+\item \strong{unreleased}: the package is written to \code{docs/}, the version gets a "danger"
+label, and the message indicates the package is not yet on CRAN.
+}
+
+The default development mode is "release". You can override it by adding a
+new \code{development} field to \code{_pkgdown.yml}, e.g.\preformatted{development:
+  mode: development
+}
+
+You can also have pkgdown automatically detect the mode with:\preformatted{development:
+  mode: auto
+}
+
+The mode will be automatically determined based on the version number:
+\itemize{
+\item \code{0.0.0.9000}: unreleased
+\item four version components: development
+\item everything else -> release
+}
+
+There are three other options that you can control:\preformatted{development:
+  destination: dev
+  version_label: danger
+  version_tooltip: "Custom message here"
+}
+
+\code{destination} allows you to override the default subdirectory used for the
+development site; it defaults to \code{dev/}. \code{version_label} allows you to
+override the style used for development (and unreleased) versions of the
+package. It defaults to "danger", but you can set to "default", "info", or
+"warning" instead. (The precise colours are determined by your bootstrap
+theme, but become progressively more eye catching as you go from default
+to danger). Finally, you can choose to override the default tooltip with
+\code{version_tooltip}.
+}
+
 \section{YAML config - navbar}{
 
 \code{navbar} controls the navbar at the top of the page. It uses the same

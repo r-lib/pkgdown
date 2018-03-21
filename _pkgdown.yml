@@ -1,5 +1,8 @@
 url: http://pkgdown.r-lib.org
 
+development:
+  mode: unreleased
+
 reference:
   - title: Build
     desc:  Build each component of the site.

@@ -14,7 +14,6 @@
 #'
 #' Note if names of generated files were changed, you will need to use [clean_site] first to clean up orphan files.
 #'
-
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
 #' `destination`, `url`, `title`, `template`, and `navbar`.
@@ -43,6 +42,66 @@
 #'     href: https://www.rstudio.com
 #'     html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
 #' }
+#'
+#' @section Development mode:
+#' The development mode of a site controls four main things:
+#'
+#' * Where the site is built.
+#' * The colour of the package version in the navbar.
+#' * The optional tooltip associated with the version.
+#' * The indexing of the site by search engines.
+#'
+#' There are currently three possible development modes:
+#'
+#' * **release**: site written to `docs/`, the version gets the default
+#'   colouring, and no message.
+#'
+#' * **development**: written to `docs/dev/`, the version gets a danger label,
+#'   and message stating these are docs for an in-development version of the
+#'   package. The `noindex` meta tag is used to ensure that these packages are
+#'   not indexed by search engines.
+#'
+#' * **unreleased**: the package is written to `docs/`, the version gets a "danger"
+#'   label, and the message indicates the package is not yet on CRAN.
+#'
+#' The default development mode is "release". You can override it by adding a
+#' new `development` field to `_pkgdown.yml`, e.g.
+#'
+#' ```
+#' development:
+#'   mode: development
+#' ```
+#'
+#' You can also have pkgdown automatically detect the mode with:
+#'
+#' ```
+#' development:
+#'   mode: auto
+#' ```
+#'
+#' The mode will be automatically determined based on the version number:
+#'
+#' * `0.0.0.9000`: unreleased
+#' * four version components: development
+#' * everything else -> release
+#'
+#' There are three other options that you can control:
+#'
+#' ```
+#' development:
+#'   destination: dev
+#'   version_label: danger
+#'   version_tooltip: "Custom message here"
+#' ```
+#'
+#' `destination` allows you to override the default subdirectory used for the
+#' development site; it defaults to `dev/`. `version_label` allows you to
+#' override the style used for development (and unreleased) versions of the
+#' package. It defaults to "danger", but you can set to "default", "info", or
+#' "warning" instead. (The precise colours are determined by your bootstrap
+#' theme, but become progressively more eye catching as you go from default
+#' to danger). Finally, you can choose to override the default tooltip with
+#' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
 #' `navbar` controls the navbar at the top of the page. It uses the same
