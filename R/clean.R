@@ -8,7 +8,7 @@ clean_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   top_level <- dir_ls(pkg$dst_path)
-  top_level <- top_level[basename(top_level) != "CNAME"]
+  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
 
   is_dir <- is_dir(top_level)
   dir_delete(top_level[is_dir])
