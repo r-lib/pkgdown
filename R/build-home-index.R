@@ -35,7 +35,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
 render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
-  cat_line("Writing  ", dst_path("index.html"))
+  cat_line("Writing ", dst_path("index.html"))
 
   format <- build_rmarkdown_format(pkg, depth = 0L, data = data, toc = FALSE)
   render_rmarkdown(

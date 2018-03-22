@@ -167,7 +167,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Building ", src_path("man", topic$file_in))
+  cat_line("Reading ", src_path("man", topic$file_in))
   scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- data_reference_topic(

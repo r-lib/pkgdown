@@ -152,7 +152,7 @@ build_article <- function(name,
     return(invisible())
   }
 
-  cat_line("Writing  ", dst_path(output_file))
+  cat_line("Writing ", dst_path(output_file))
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
