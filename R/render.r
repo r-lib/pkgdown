@@ -155,7 +155,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE) {
   }
 
   if (!quiet) {
-    cat_line("Writing  ", dst_path(path))
+    cat_line("Writing ", dst_path(path))
   }
   write_lines(contents, path = full_path)
   TRUE
