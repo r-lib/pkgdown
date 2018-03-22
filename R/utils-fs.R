@@ -20,6 +20,8 @@ dir_copy_to <- function(pkg, from, to, overwrite = TRUE) {
   )
 }
 
+# Would be better to base on top of data structure that provides both
+# files and root directory to use for printing
 file_copy_to <- function(pkg,
                          from_paths,
                          to_dir = pkg$dst_path,
