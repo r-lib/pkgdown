@@ -27,21 +27,22 @@
 #' You can add additional links with a subsection called `links`,
 #' which should contain a list of `text` + `href` elements:
 #'
-#' \preformatted{
+#' ```
 #' home:
 #'   links:
 #'   - text: Link text
 #'     href: http://website.com
-#' }
+#' ```
 #'
 #' The "developers" list is populated by the maintainer ("cre"), authors
 #' ("aut"), and funder ("fnd").
 #'
 #' You can remove the first heading with
-#' \preformatted{
+#'
+#' ```
 #' home:
 #'   strip_header: true
-#' }
+#' ```
 #'
 #' @section Badges:
 #' Status badges are displayed in the sidebar under the section "Dev status".

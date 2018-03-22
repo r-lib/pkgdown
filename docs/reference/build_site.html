@@ -216,9 +216,7 @@ It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p>
-<pre>
-authors:
+text:</p><pre>authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
@@ -276,9 +274,7 @@ to danger). Finally, you can choose to override the default tooltip with
     
     <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
 syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p>
-<pre>
-navbar:
+The following YAML snippet illustrates some of the most important features.</p><pre>navbar:
   type: inverse
   left:
     - text: "Home"
@@ -321,9 +317,7 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p>
-<pre>
-template:
+template:</p><pre>template:
   params:
     bootswatch: cerulean
 </pre>
@@ -332,9 +326,7 @@ template:
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
 correspond to your
-<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p>
-<pre>
-template:
+<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>template:
   params:
     ganalytics: UA-000000-01
 </pre>
@@ -342,9 +334,7 @@ template:
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p>
-<pre>
-template:
+of the default assets, set <code>default_assets</code> to false.</p><pre>template:
   package: mycustompackage
     # OR:
     template:

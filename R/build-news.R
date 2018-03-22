@@ -9,7 +9,7 @@
 #'
 #' The `NEWS.md` file should be formatted somewhat like this:
 #'
-#' \preformatted{
+#' ```
 #' # pkgdown 0.1.0.9000
 #'
 #' ## Major changes
@@ -17,7 +17,7 @@
 #'  - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
 #'
 #' ...
-#' }
+#' ```
 #'
 #' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
 #' changes'.
@@ -26,11 +26,11 @@
 #' github if a `URL` entry linking to github.com is provided in the package
 #' `DESCRIPTION`.
 #'
-#' \preformatted{
+#' ```
 #' ## Major changes
 #'
 #'   - Lots of bug fixes (@hadley, #100)
-#' }
+#' ```
 #'
 #' If the package is available on CRAN, release dates will be added for listed versions.
 #'
@@ -39,22 +39,22 @@
 #' To automatically link to release announcements, include a `releases`
 #' section.
 #'
-#' \preformatted{
+#' ```
 #' news:
 #'  releases:
 #'  - text: "usethis 1.3.0"
 #'    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
 #'  - text: "usethis 1.0.0 (and 1.1.0)"
 #'    href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
-#' }
+#' ```
 #'
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' \preformatted{
+#' ```
 #' news:
 #' - one_page: false
-#' }
+#' ```
 #'
 #' @inheritParams build_articles
 #' @export

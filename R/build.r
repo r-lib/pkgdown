@@ -36,14 +36,14 @@
 #' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' \preformatted{
+#' ```
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
 #'   RStudio:
 #'     href: https://www.rstudio.com
 #'     html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
-#' }
+#' ```
 #'
 #' @section Development mode:
 #' The development mode of a site controls four main things:
@@ -110,7 +110,7 @@
 #' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
 #' The following YAML snippet illustrates some of the most important features.
 #'
-#' \preformatted{
+#' ```
 #' navbar:
 #'   type: inverse
 #'   left:
@@ -134,7 +134,7 @@
 #'   right:
 #'     - icon: fa-github fa-lg
 #'       href: https://example.com
-#' }
+#' ```
 #'
 #' Use `type` to choose between "default" and "inverse" themes.
 #'
@@ -158,11 +158,11 @@
 #' by passing on the `bootswatch` template parameter to the built-in
 #' template:
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     bootswatch: cerulean
-#' }
+#' ```
 #'
 #' See a complete list of themes and preview how they look at
 #' \url{https://gallery.shinyapps.io/117-shinythemes/}:
@@ -172,11 +172,11 @@
 #' correspond to your
 #' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     ganalytics: UA-000000-01
-#' }
+#' ```
 #'
 #' You can also override the default templates and provide additional
 #' assets. You can do so by either storing in a `package` with
@@ -184,7 +184,7 @@
 #' or by supplying `path` and `asset_path`. To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   package: mycustompackage
 #'
@@ -194,7 +194,7 @@
 #'   path: path/to/templates
 #'   assets: path/to/assets
 #'   default_assets: false
-#' }
+#' ```
 #'
 #' These settings are currently recommended for advanced users only. There
 #' is little documentation, and you'll need to read the existing source

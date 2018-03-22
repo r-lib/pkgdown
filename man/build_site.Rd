@@ -65,10 +65,7 @@ It's used in the page title and default navbar.
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including \code{href} to add a link, or \code{html} to override the
-text:
-
-\preformatted{
-authors:
+text:\preformatted{authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
@@ -135,10 +132,7 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \code{navbar} controls the navbar at the top of the page. It uses the same
 syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.
-
-\preformatted{
-navbar:
+The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
   type: inverse
   left:
     - text: "Home"
@@ -185,10 +179,7 @@ used to render the page in the browser.
 
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
-template:
-
-\preformatted{
-template:
+template:\preformatted{template:
   params:
     bootswatch: cerulean
 }
@@ -199,10 +190,7 @@ See a complete list of themes and preview how they look at
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
-
-\preformatted{
-template:
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
   params:
     ganalytics: UA-000000-01
 }
@@ -211,10 +199,7 @@ You can also override the default templates and provide additional
 assets. You can do so by either storing in a \code{package} with
 directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
 or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-of the default assets, set \code{default_assets} to false.
-
-\preformatted{
-template:
+of the default assets, set \code{default_assets} to false.\preformatted{template:
   package: mycustompackage
 
 # OR:

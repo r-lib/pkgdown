@@ -191,9 +191,7 @@ files explicitly listed in <code>.install_extras</code>. pkgdown takes a differe
 approach based on <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also
 copy any images that you link to. If for some reason the automatic
 detection doesn't work, you will need to add a <code>resource_files</code> field to
-the yaml metadata, .e.g</p>
-<pre>
----
+the yaml metadata, .e.g</p><pre>---
 title: My Document
 resource_files:
  - data/mydata.csv
@@ -210,9 +208,7 @@ of generated figures as the default is a strong assumption of rmarkdown.</p>
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
 <p>For example, this imaginary file describes some of the structure of
-the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p>
-<pre>
-articles:
+the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>articles:
 - title: R Markdown
   contents:
   - starts_with("authoring")
@@ -237,18 +233,14 @@ this page, and will generate a warning if you have missed any.</p>
     <p>By default, pkgdown builds all articles with <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code>
 using setting the <code>template</code> parameter to a custom built template that
 matches the site template. You can override this with a <code>pkgdown</code> field
-in your yaml metadata:</p>
-<pre>
-pkgdown:
+in your yaml metadata:</p><pre>pkgdown:
   as_is: true
 </pre>
     <p>This will tell pkgdown to use the <code>output_format</code> that you have specified.
 This format must accept <code>template</code>, <code>theme</code>, and <code>self_contained</code> in
 order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p>
-<pre>
-pkgdown:
+<code>extension</code> field:</p><pre>pkgdown:
   as_is: true
   extension: pdf
 </pre>

@@ -15,14 +15,14 @@
 #' detection doesn't work, you will need to add a `resource_files` field to
 #' the yaml metadata, .e.g
 #'
-#' \preformatted{
+#' ```
 #' ---
 #' title: My Document
 #' resource_files:
 #'  - data/mydata.csv
 #'  - images/figure.png
 #' ---
-#' }
+#' ```
 #'
 #' Note that you can not use the `fig.path` to change the output directory
 #' of generated figures as the default is a strong assumption of rmarkdown.
@@ -35,7 +35,7 @@
 #' For example, this imaginary file describes some of the structure of
 #' the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
 #'
-#' \preformatted{
+#' ```
 #' articles:
 #' - title: R Markdown
 #'   contents:
@@ -44,7 +44,7 @@
 #'   contents:
 #'   - rmarkdown_websites
 #'   - rmarkdown_site_generators
-#' }
+#' ```
 #'
 #' Note that `contents` can contain either a list of vignette names
 #' (including subdirectories), or if the functions in a section share a
@@ -63,10 +63,10 @@
 #' matches the site template. You can override this with a `pkgdown` field
 #' in your yaml metadata:
 #'
-#' \preformatted{
+#' ```
 #' pkgdown:
 #'   as_is: true
-#' }
+#' ```
 #'
 #' This will tell pkgdown to use the `output_format` that you have specified.
 #' This format must accept `template`, `theme`, and `self_contained` in
@@ -75,11 +75,11 @@
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
 #'
-#' \preformatted{
+#' ```
 #' pkgdown:
 #'   as_is: true
 #'   extension: pdf
-#' }
+#' ```
 #'
 #' @section Supressing vignettes:
 #'

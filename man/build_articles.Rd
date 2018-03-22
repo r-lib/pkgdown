@@ -46,10 +46,7 @@ files explicitly listed in \code{.install_extras}. pkgdown takes a different
 approach based on \link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources}, and it will also
 copy any images that you link to. If for some reason the automatic
 detection doesn't work, you will need to add a \code{resource_files} field to
-the yaml metadata, .e.g
-
-\preformatted{
----
+the yaml metadata, .e.g\preformatted{---
 title: My Document
 resource_files:
  - data/mydata.csv
@@ -68,10 +65,7 @@ which provides a list of sections containing, a \code{title}, list of
 \code{contents}, and optional \code{description}.
 
 For example, this imaginary file describes some of the structure of
-the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
-
-\preformatted{
-articles:
+the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:\preformatted{articles:
 - title: R Markdown
   contents:
   - starts_with("authoring")
@@ -98,10 +92,7 @@ this page, and will generate a warning if you have missed any.
 By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
 using setting the \code{template} parameter to a custom built template that
 matches the site template. You can override this with a \code{pkgdown} field
-in your yaml metadata:
-
-\preformatted{
-pkgdown:
+in your yaml metadata:\preformatted{pkgdown:
   as_is: true
 }
 
@@ -110,10 +101,7 @@ This format must accept \code{template}, \code{theme}, and \code{self_contained}
 order to work with pkgdown.
 
 If the output format produces a PDF, you'll also need to specify the
-\code{extension} field:
-
-\preformatted{
-pkgdown:
+\code{extension} field:\preformatted{pkgdown:
   as_is: true
   extension: pdf
 }

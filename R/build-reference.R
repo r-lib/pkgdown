@@ -13,7 +13,7 @@
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
 #'
-#' \preformatted{
+#' ```
 #' reference:
 #' - title: Render components
 #'   desc:  Build each component of the site.
@@ -23,7 +23,7 @@
 #' - title: Templates
 #'   contents:
 #'   - render_page
-#' }
+#' ```
 #'
 #' Note that `contents` can contain either a list of function names,
 #' or if the functions in a section share a common prefix or suffix, you

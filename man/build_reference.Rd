@@ -46,10 +46,7 @@ which provides a list of sections containing, a \code{title}, list of
 \code{contents}, and optional \code{description}.
 
 For example, the following code breaks up the functions in pkgdown
-into two groups:
-
-\preformatted{
-reference:
+into two groups:\preformatted{reference:
 - title: Render components
   desc:  Build each component of the site.
   contents:
