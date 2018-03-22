@@ -177,7 +177,7 @@ data_news <- function(pkg = ".") {
     html = html
   )
 
-  news[is_version, , drop = FALSE]
+  news
 }
 
 has_news <- function(path = ".") {
