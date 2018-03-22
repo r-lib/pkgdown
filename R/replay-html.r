@@ -1,12 +1,3 @@
-escape_html <- function(x) {
-  x <- gsub("&", "&amp;", x)
-  x <- gsub("<", "&lt;", x)
-  x <- gsub(">", "&gt;", x)
-  # x <- gsub("'", "&#39;", x)
-  # x <- gsub("\"", "&quot;", x)
-  x
-}
-
 label_lines <- function(x, class = NULL, prompt = "#> ") {
   lines <- strsplit(x, "\n")[[1]]
   lines <- escape_html(lines)
@@ -52,7 +43,7 @@ replay_html.list <- function(x, ...) {
 
   pieces <- character(length(parts))
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], obj_id = i, ...)
+    pieces[i] <- replay_html(parts[[i]], ...)
   }
   paste0(pieces, collapse = "")
 }
@@ -74,8 +65,8 @@ replay_html.value <- function(x, ...) {
 }
 
 #' @export
-replay_html.source <- function(x, ..., index = NULL, current = current) {
-  html <- syntax_highlight(x$src, index = index, current = current)
+replay_html.source <- function(x, ...) {
+  html <- highlight_text(x$src)
   paste0("<div class='input'>", html, "</div>")
 }
 
@@ -103,14 +94,8 @@ replay_html.error <- function(x, ...) {
 }
 
 #' @export
-replay_html.recordedplot <- function(x, name_prefix, obj_id, ...) {
-  path <- paste0(name_prefix, obj_id, ".png")
-
-  grDevices::png(path, width = 540, height = 400)
-  on.exit(grDevices::dev.off())
-  print(x)
-
-  paste0("<img src='", escape_html(path), "' alt='' width='540' height='400' />")
+replay_html.recordedplot <- function(x, topic, obj_id, ...) {
+  fig_save(x, fig_name(topic, obj_id))
 }
 
 # Knitr functions ------------------------------------------------------------

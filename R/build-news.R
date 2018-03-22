@@ -1,15 +1,15 @@
 #' Build news section
 #'
-#' Your \code{NEWS.md} is parsed in to sections based on your use of
+#' Your `NEWS.md` is parsed in to sections based on your use of
 #' headings. Each minor version (i.e. the combination of first and second
 #' components) gets on one page, with all patch versions (i.e. the third
 #' component) on a single page. News items for development versions (by
 #' convention those versions with a fourth component) are displayed on an
 #' an "unreleased" page.
 #'
-#' The \code{NEWS.md} file should be formatted somewhat like this:
+#' The `NEWS.md` file should be formatted somewhat like this:
 #'
-#' \preformatted{
+#' ```
 #' # pkgdown 0.1.0.9000
 #'
 #' ## Major changes
@@ -17,60 +17,86 @@
 #'  - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
 #'
 #' ...
-#' }
+#' ```
 #'
-#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+#' changes'.
+#'
+#' Issues and contributors mentioned in news items are automatically linked to
+#' github if a `URL` entry linking to github.com is provided in the package
+#' `DESCRIPTION`.
+#'
+#' ```
+#' ## Major changes
+#'
+#'   - Lots of bug fixes (@hadley, #100)
+#' ```
+#'
+#' If the package is available on CRAN, release dates will be added for listed versions.
 #'
 #' @section YAML config:
 #'
-#' There are currently no configuration options.
+#' To automatically link to release announcements, include a `releases`
+#' section.
+#'
+#' ```
+#' news:
+#'  releases:
+#'  - text: "usethis 1.3.0"
+#'    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
+#'  - text: "usethis 1.0.0 (and 1.1.0)"
+#'    href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+#' ```
+#'
+#' Control whether news is present on one page or multiple pages with the
+#' `one_page` field. The default is `true`.
+#'
+#' ```
+#' news:
+#' - one_page: false
+#' ```
 #'
 #' @inheritParams build_articles
-#' @param one_page If \code{TRUE}, writes all news to a single file.
-#'   If \code{FALSE}, writes one file per major version.
 #' @export
 build_news <- function(pkg = ".",
-                       path = "docs/news",
-                       one_page = TRUE,
-                       depth = 1L) {
-  old <- set_pkgdown_env("true")
-  on.exit(set_pkgdown_env(old))
+                       override = list(),
+                       preview = NA) {
+  pkg <- section_init(pkg, depth = 1L, override = override)
 
-  pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
-  if (!has_news(pkg$path))
+  one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
+
+  if (!has_news(pkg$src_path))
     return()
 
   rule("Building news")
-  mkdir(path)
+  dir_create(path(pkg$dst_path, "news"))
 
   if (one_page) {
-    build_news_single(pkg, path, depth)
+    build_news_single(pkg)
   } else {
-    build_news_multi(pkg, path, depth)
+    build_news_multi(pkg)
   }
 
-  invisible()
+  preview_site(pkg, "news", preview = preview)
 }
 
-build_news_single <- function(pkg, path, depth) {
-  news <- data_news(pkg, depth = depth)
+build_news_single <- function(pkg) {
+  news <- data_news(pkg)
 
   render_page(
     pkg,
     "news",
     list(
-      version = "All releases",
-      contents = news %>% purrr::transpose(),
-      pagetitle = "All news"
+      contents = purrr::transpose(news),
+      pagetitle = "Changelog",
+      source = github_source_links(pkg$github_url, "NEWS.md")
     ),
-    file.path(path, "index.html"),
-    depth = depth
+    path("news", "index.html")
   )
 }
 
-build_news_multi <- function(pkg, path, depth) {
-  news <- data_news(pkg, depth = depth)
+build_news_multi <- function(pkg) {
+  news <- data_news(pkg)
   major <- factor(news$major_dev, levels = unique(news$major_dev))
 
   news_paged <- tibble::tibble(
@@ -88,8 +114,7 @@ build_news_multi <- function(pkg, path, depth) {
         contents = rev(purrr::transpose(contents)),
         pagetitle = paste0("Version ", version)
       ),
-      file.path(path, file_out),
-      depth = depth
+      path("news", file_out),
     )
   }
   news_paged %>% purrr::pmap(render_news)
@@ -98,21 +123,17 @@ build_news_multi <- function(pkg, path, depth) {
     pkg,
     "news-index",
     list(versions = news %>% purrr::transpose(), pagetitle = "News"),
-    file.path(path, "index.html"),
-    depth = depth
+    path("news", "index.html")
   )
 }
 
 globalVariables(".")
 
-data_news <- function(pkg = ".", depth = 1L) {
+data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  html <- markdown(
-    file.path(pkg$path, "NEWS.md"),
-    "--section-divs",
-    depth = depth,
-    index = pkg$topics
-  )
+  scoped_file_context(depth = 1L)
+
+  html <- markdown(path(pkg$src_path, "NEWS.md"))
 
   sections <- xml2::read_html(html) %>%
     xml2::xml_find_all("./body/div")
@@ -120,6 +141,10 @@ data_news <- function(pkg = ".", depth = 1L) {
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
+
+  if (any(is.na(titles))) {
+    stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
+  }
 
   anchors <- sections %>%
     xml2::xml_attr("id")
@@ -133,25 +158,30 @@ data_news <- function(pkg = ".", depth = 1L) {
   sections <- sections[is_version]
   anchors <- anchors[is_version]
 
-  major <- pieces %>% purrr::map_chr(4)
+  major <- purrr::map_chr(pieces, 4)
+  version <- purrr::map_chr(pieces, 3)
 
+  timeline <- pkg_timeline(pkg$package)
   html <- sections %>%
-    purrr::walk(autolink_html, depth = depth, index = pkg$topics) %>%
-    purrr::map_chr(as.character)
+    purrr::walk(tweak_code) %>%
+    purrr::walk2(version, tweak_news_heading, timeline = timeline) %>%
+    purrr::map_chr(as.character) %>%
+    purrr::map_chr(add_github_links, pkg = pkg)
 
   news <- tibble::tibble(
-    version = pieces %>% purrr::map_chr(3),
+    version = version,
     is_dev = is_dev(version),
     major = major,
     major_dev = ifelse(is_dev, "unreleased", major),
     anchor = anchors,
     html = html
   )
+
   news
 }
 
 has_news <- function(path = ".") {
-  file.exists(file.path(path, "NEWS.md"))
+  file_exists(path(path, "NEWS.md"))
 }
 
 is_dev <- function(version) {
@@ -161,4 +191,51 @@ is_dev <- function(version) {
     purrr::map_dbl(c(1, 4), .null = 0)
 
   dev_v > 0
+}
+
+pkg_timeline <- function(package) {
+  url <- paste0("http://crandb.r-pkg.org/", package, "/all")
+
+  resp <- httr::GET(url)
+  if (httr::http_error(resp)) {
+    return(NULL)
+  }
+
+  content <- httr::content(resp)
+  timeline <- content$timeline
+
+  data.frame(
+    version = names(timeline),
+    date = as.Date(unlist(timeline)),
+    stringsAsFactors = FALSE
+  )
+}
+
+rel_date_html <- function(date) {
+  if (is.na(date))
+    return("<small> Unreleased</small>")
+
+  paste0("<small> ", date, "</small>")
+}
+
+tweak_news_heading <- function(x, versions, timeline) {
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("class", "page-header")
+
+  if (is.null(timeline))
+    return(x)
+
+  date <- timeline$date[match(versions, timeline$version)]
+  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
+
+  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+    xml2::read_html() %>%
+    xml2::xml_find_all(".//small")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_add_child(date_nodes, .where = 1)
+
+  invisible()
 }

@@ -1,58 +1,70 @@
-syntax_highlight <- function(text, index = NULL, current = NULL) {
+# highlight_text mutates the linking scope because it has to register
+# library()/require() calls in order to link unqualified symbols to the
+# correct package.
+highlight_text <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
   expr <- tryCatch(
     parse(text = text, keep.source = TRUE),
     error = function(e) NULL
   )
-  if (is.null(expr)) {
-    # Failed to parse so give up
+
+  # Failed to parse, or yielded empty expression
+  if (length(expr) == 0) {
     return(text)
   }
 
-  parse_data <- utils::getParseData(expr)
-  if (nrow(parse_data) == 0) {
-    # Empty
-    return(text)
-  }
+  packages <- extract_package_attach(expr)
+  register_attached_packages(packages)
 
-  renderer <- highlight::renderer_html(
-    header = function(...) "",
-    footer = function(...) "",
-    formatter = pkgdown_format(index, current)
-  )
-
-  highlight_capture(
+  out <- highlight::highlight(
     parse.output = expr,
-    renderer = renderer,
-    detective = pkgdown_detective
+    renderer = pkgdown_renderer(),
+    detective = pkgdown_detective,
+    output = NULL
   )
+  paste0(out, collapse = "")
 }
 
-highlight_capture <- function(...) {
-  out <- utils::capture.output(highlight::highlight(...))
-  paste0(out, collapse = "\n")
-}
-
-pkgdown_format <- function(index, current) {
-  function(tokens, styles, ...) {
-    call <- styles %in% "fu"
-    tokens[call] <- purrr::map2_chr(
-      tokens[call],
-      tokens[call],
-      link_local,
-      index = index,
-      current = current
-    )
+pkgdown_renderer <- function() {
+  formatter <- function(tokens, styles, ...) {
+    href <- href_tokens(tokens, styles)
+    linked <- !is.na(href)
+    tokens[linked] <- a(tokens[linked], href[linked])
 
     styled <- !is.na(styles)
-    tokens[styled] <- sprintf(
-      "<span class='%s'>%s</span>",
+    tokens[styled] <- sprintf("<span class='%s'>%s</span>",
       styles[styled],
       tokens[styled]
     )
     tokens
   }
+
+  highlight::renderer_html(
+    header = function(...) character(),
+    footer = function(...) character(),
+    formatter = formatter
+  )
+}
+
+href_tokens <- function(tokens, styles) {
+  href <- chr_along(tokens)
+
+  # SYMBOL_PACKAGE must always be followed NS_GET (or NS_GET_INT)
+  # SYMBOL_FUNCTION_CALL or SYMBOL
+  pkg <- which(styles %in% "kw pkg")
+  pkg_call <- pkg + 2
+  href[pkg_call] <- purrr::map2_chr(
+    tokens[pkg_call],
+    tokens[pkg],
+    href_topic_remote
+  )
+
+  call <- which(styles %in% "fu")
+  call <- setdiff(call, pkg_call)
+  href[call] <- purrr::map_chr(tokens[call], href_topic_local)
+
+  href
 }
 
 # KeywordTok = kw,
@@ -103,8 +115,8 @@ pkgdown_detective <- function(x, ...) {
     OR                   = "kw",
     AND2                 = "kw",
     OR2                  = "kw",
-    NS_GET               = "kw",
-    NS_GET_INT           = "kw",
+    NS_GET               = "kw ns",
+    NS_GET_INT           = "kw ns",
     COMMENT              = "co",
     LINE_DIRECTIVE       = "co",
     SYMBOL_FORMALS       = "no",
@@ -112,7 +124,7 @@ pkgdown_detective <- function(x, ...) {
     EQ_SUB               = "kw",
     SYMBOL_SUB           = "kw",
     SYMBOL_FUNCTION_CALL = "fu",
-    SYMBOL_PACKAGE       = "kw",
+    SYMBOL_PACKAGE       = "kw pkg",
     COLON_ASSIGN         = "kw",
     SLOT                 = "kw",
     LOW                  = "kw",
@@ -125,155 +137,4 @@ pkgdown_detective <- function(x, ...) {
   )
 
   unname(token_style[token])
-}
-
-
-
-# Links -------------------------------------------------------------------
-
-link_remote <- function(label, topic, package) {
-  # Return early if package not installed
-  if (!requireNamespace(package, quietly = TRUE)) {
-    return(label)
-  }
-
-  help <- eval(bquote(help(.(topic), .(package))))
-  if (length(help) == 0) {
-    return(label)
-  }
-
-  path <- strsplit(help, "/")[[1]]
-  n <- length(path)
-
-  sprintf(
-    "<a href='http://www.rdocumentation.org/packages/%s/topics/%s'>%s</a>",
-    path[n - 2],
-    path[n],
-    label
-  )
-}
-
-find_local_topic <- function(alias, index, current = NULL) {
-  if (is.null(alias))
-    return()
-
-  match <- purrr::detect_index(index$alias, function(x) any(x == alias))
-  if (match == 0)
-    return()
-
-  topic <- index$name[match]
-  path <- index$file_out[match]
-
-  if (!is.null(current) && topic == current) {
-    NULL
-  } else {
-    path
-  }
-}
-
-link_local <- function(label, topic, index, current = NULL) {
-  path <- find_local_topic(topic, index = index, current = current)
-  if (is.null(path)) {
-    label
-  } else {
-    paste0("<a href='", path, "'>", label, "</a>")
-  }
-}
-
-# Autolink html -----------------------------------------------------------
-
-# Modifies in place
-autolink_html <- function(x, depth = 1L, index = NULL) {
-  stopifnot(inherits(x, "xml_node"))
-
-  # <code> with no children
-  x %>%
-    xml2::xml_find_all(".//code[count(*) = 0]") %>%
-    autolink_nodeset(strict = TRUE, index = index, depth = depth)
-
-  # <span class='kw'>
-  x %>%
-    xml2::xml_find_all(".//span[@class='kw']") %>%
-    autolink_nodeset(strict = FALSE, index = index, depth = depth)
-
-  invisible()
-}
-
-autolink_nodeset <- function(nodes, strict = TRUE, depth = 1L, index = NULL) {
-  links <- nodes %>%
-    xml2::xml_text() %>%
-    purrr::map_chr(autolink_call, strict = strict, index = index, depth = depth)
-
-  has_link <- !is.na(links)
-  if (!any(has_link))
-    return()
-
-  nodes[has_link] %>%
-    xml2::xml_contents() %>%
-    xml2::xml_replace(purrr::map(links[has_link], xml2::read_xml))
-
-  invisible()
-}
-
-# Need to convert expressions of the form:
-# * foo()
-# * foo (but only in large code blocks)
-# * ?topic
-# * ?"topic-with-special-chars"
-# * package?docs
-# * vignette("name")
-autolink_call <- function(x, strict = TRUE, index = NULL, depth = 1L) {
-  expr <- tryCatch(parse(text = x)[[1]], error = function(x) NULL)
-  if (is.null(expr)) {
-    return(NA_character_)
-  }
-
-  if (is_call_vignette(expr)) {
-    return(link_vignette(expr, x, depth = depth))
-  }
-
-  alias <- find_alias(expr, strict = strict)
-  path <- find_local_topic(alias, index = index)
-  if (is.null(path)) {
-    return(NA_character_)
-  }
-
-  href <- paste0(up_path(depth), "reference/", path)
-  paste0("<a href='", href, "'>", x, "</a>")
-}
-
-link_vignette <- function(expr, text, depth) {
-  href <- paste0(up_path(depth), "articles/", as.character(expr[[2]]), ".html")
-  paste0("<a href='", href, "'>", text, "</a>")
-}
-
-find_alias <- function(x, strict = TRUE) {
-  if (is_call_help(x)) {
-    if (length(x) == 2) {
-      as.character(x[[2]])
-    } else if (length(x) == 3) {
-      paste0(x[[3]], "-", x[[2]])
-    } else {
-      NULL
-    }
-  } else if (!strict && is.name(x)) {
-    as.character(x)
-  } else if (is.call(x)) {
-    fun <- x[[1]]
-    if (is.name(fun)) {
-      as.character(fun)
-    } else {
-      NULL
-    }
-  } else {
-    NULL
-  }
-}
-
-is_call_help <- function(x) {
-  is.call(x) && identical(x[[1]], quote(`?`))
-}
-
-is_call_vignette <- function(x) {
-  is.call(x) && identical(x[[1]], quote(vignette))
 }

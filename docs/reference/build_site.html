@@ -11,21 +11,40 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Build pkgdown website — build_site" />
+
+<meta property="og:description" content="build_site() is a convenient wrapper around six functions:
+init_site()
+build_home()
+build_reference()
+build_articles()
+build_tutorials()
+build_news()
+" />
+
+<meta property="og:description" content="See the documentation for the each function to learn how to control
+that aspect of the site.
+Note if names of generated files were changed, you will need to use
+clean_site first to clean up orphan files." />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -46,15 +65,55 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">pkgdown</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">pkgdown</a>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/pkgdown.html">Intro</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/pkgdown.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/test/details.html">Test: Details tag</a>
+    </li>
+    <li>
+      <a href="../articles/test/external.html">Test: External file tests</a>
+    </li>
+    <li>
+      <a href="../articles/test/figures.html">Test: Figures</a>
+    </li>
+    <li>
+      <a href="../articles/test/highlight.html">Test: Highlighting</a>
+    </li>
+    <li>
+      <a href="../articles/test/output.html">Test: Custom output</a>
+    </li>
+    <li>
+      <a href="../articles/test/pdf.pdf">Test: PDF (PDF)</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -77,35 +136,35 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build pkgdown website</h1>
+    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build.r'><code>R/build.r</code></a></small>
     </div>
 
     
-    <p><code>build_site()</code> is a convenient wrapper around four functions:</p><ul>
-<li><p><code><a href='build_articles.html'>build_articles</a>()</code></p></li>
-<li><p><code><a href='build_home.html'>build_home</a>()</code></p></li>
-<li><p><code><a href='build_reference.html'>build_reference</a>()</code></p></li>
-<li><p><code><a href='build_news.html'>build_news</a>()</code></p></li>
-</ul><p>See the documentation for the each function to learn how to control
+    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul>
+<li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
+<li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
+<li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
+<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
+<li><p><code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
+<li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
+</ul>
+
+    <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
+<p>Note if names of generated files were changed, you will need to use
+<a href='clean_site.html'>clean_site</a> first to clean up orphan files.</p>
     
 
-    <pre><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)
-
-<span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>)</pre>
+    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkg</th>
-      <td><p>Path to source package.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Location in which to save website, relative to package
-path.</p></td>
+      <td><p>Path to package.</p></td>
     </tr>
     <tr>
       <th>examples</th>
@@ -116,36 +175,48 @@ path.</p></td>
       <td><p>Run examples that are surrounded in \dontrun?</p></td>
     </tr>
     <tr>
-      <th>mathjax</th>
-      <td><p>Use mathjax to render math symbols?</p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, will preview freshly generated site</p></td>
-    </tr>
-    <tr>
       <th>seed</th>
       <td><p>Seed used to initialize so that random examples are
 reproducible.</p></td>
     </tr>
     <tr>
-      <th>encoding</th>
-      <td><p>The encoding of the input files.</p></td>
+      <th>mathjax</th>
+      <td><p>Use mathjax to render math symbols?</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>If <code>TRUE</code>, will only rebuild articles and reference pages
+if the source is newer than the destination.</p></td>
+    </tr>
+    <tr>
+      <th>override</th>
+      <td><p>An optional named list used to temporarily override
+values in <code>_pkgdown.yml</code></p></td>
+    </tr>
+    <tr>
+      <th>preview</th>
+      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
+freshly generated section in browser.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>There are five top-level YAML settings that affect the entire site:
-<code>title</code>, <code>template</code>, and <code>navbar</code>.
-    <code>title</code> overrides the default site title, which is the package name.
+    <p>There are four top-level YAML settings that affect the entire site:
+<code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
+<p><code>destination</code> controls where the site will be generated. It defaults to
+<code>docs/</code> (for GitHub pages), but you can override if desired. Relative
+paths will be taken relative to the package root.</p>
+<p><code>url</code> optionally specifies the url where the site will be published.
+If you supply this, other pkgdown sites will link to your site when needed,
+rather than using generic links to <a href='rdocumentation.org'>rdocumentation.org</a>.</p>
+<p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p><pre>
-authors:
+text:</p><pre>authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
@@ -153,12 +224,57 @@ authors:
     html: &lt;img src="http://tidyverse.org/rstudio-logo.svg" height="24" /&gt;
 </pre>
     
+    <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode"></a>Development mode</h2>
+
+    
+    <p>The development mode of a site controls four main things:</p><ul>
+<li><p>Where the site is built.</p></li>
+<li><p>The colour of the package version in the navbar.</p></li>
+<li><p>The optional tooltip associated with the version.</p></li>
+<li><p>The indexing of the site by search engines.</p></li>
+</ul>
+    <p>There are currently three possible development modes:</p><ul>
+<li><p><strong>release</strong>: site written to <code>docs/</code>, the version gets the default
+colouring, and no message.</p></li>
+<li><p><strong>development</strong>: written to <code>docs/dev/</code>, the version gets a danger label,
+and message stating these are docs for an in-development version of the
+package. The <code>noindex</code> meta tag is used to ensure that these packages are
+not indexed by search engines.</p></li>
+<li><p><strong>unreleased</strong>: the package is written to <code>docs/</code>, the version gets a "danger"
+label, and the message indicates the package is not yet on CRAN.</p></li>
+</ul>
+    <p>The default development mode is "release". You can override it by adding a
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>development:
+  mode: development
+</pre>
+    <p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
+  mode: auto
+</pre>
+    <p>The mode will be automatically determined based on the version number:</p><ul>
+<li><p><code>0.0.0.9000</code>: unreleased</p></li>
+<li><p>four version components: development</p></li>
+<li><p>everything else -&gt; release</p></li>
+</ul>
+    <p>There are three other options that you can control:</p><pre>development:
+  destination: dev
+  version_label: danger
+  version_tooltip: "Custom message here"
+</pre>
+    <p><code>destination</code> allows you to override the default subdirectory used for the
+development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
+override the style used for development (and unreleased) versions of the
+package. It defaults to "danger", but you can set to "default", "info", or
+"warning" instead. (The precise colours are determined by your bootstrap
+theme, but become progressively more eye catching as you go from default
+to danger). Finally, you can choose to override the default tooltip with
+<code>version_tooltip</code>.</p>
+    
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
+    
     <p><code>navbar</code> controls the navbar at the top of the page. It uses the same
-syntax as <a href = 'http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p><pre>
-navbar:
+syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
+The following YAML snippet illustrates some of the most important features.</p><pre>navbar:
   type: inverse
   left:
     - text: "Home"
@@ -187,10 +303,10 @@ navbar:
 Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators. Currently pkgdown only supports fontawesome
 icons. You can see a full list of options at
-<a href = 'http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
+<a href='http://fontawesome.io/icons/'>http://fontawesome.io/icons/</a>.</p>
 <p>Any missing components (<code>type</code>, <code>left</code>, or <code>right</code>)
 will be automatically filled in from the default navbar: you can see
-those values by running <code><a href='templates.html'>template_navbar</a>()</code>.</p>
+those values by running <code><a href='templates.html'>template_navbar()</a></code>.</p>
     
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
@@ -201,18 +317,16 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre>
-template:
+template:</p><pre>template:
   params:
     bootswatch: cerulean
 </pre>
     <p>See a complete list of themes and preview how they look at
-<a href = 'https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+<a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
-<a href = 'Google Analytics'>https://www.google.com/analytics/</a>. It should
+<a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
 correspond to your
-<a href = 'tracking id'>https://support.google.com/analytics/answer/1032385</a>.</p><pre>
-template:
+<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>template:
   params:
     ganalytics: UA-000000-01
 </pre>
@@ -220,8 +334,7 @@ template:
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre>
-template:
+of the default assets, set <code>default_assets</code> to false.</p><pre>template:
   package: mycustompackage
     # OR:
     template:
@@ -235,9 +348,11 @@ for pkgdown templates to ensure that you use the correct components.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># build_site()</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>build_site</span>()
+
+<span class='fu'>build_site</span>(<span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>destination</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>()))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -245,6 +360,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#yaml-config">YAML config</a></li>
+
+      <li><a href="#development-mode">Development mode</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
 
@@ -258,11 +375,11 @@ for pkgdown templates to ensure that you use the correct components.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -270,3 +387,4 @@ for pkgdown templates to ensure that you use the correct components.</p>
 
   </body>
 </html>
+

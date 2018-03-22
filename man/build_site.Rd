@@ -2,49 +2,62 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\alias{init_site}
 \title{Build pkgdown website}
 \usage{
-build_site(pkg = ".", path = "docs", examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, preview = interactive(),
-  seed = 1014, encoding = "UTF-8")
-
-init_site(pkg = ".", path = "docs")
+build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
+  seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
+  preview = interactive())
 }
 \arguments{
-\item{pkg}{Path to source package.}
-
-\item{path}{Location in which to save website, relative to package
-path.}
+\item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{mathjax}{Use mathjax to render math symbols?}
-
-\item{preview}{If \code{TRUE}, will preview freshly generated site}
-
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
 
-\item{encoding}{The encoding of the input files.}
+\item{mathjax}{Use mathjax to render math symbols?}
+
+\item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
+if the source is newer than the destination.}
+
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
+
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around four functions:
+\code{build_site()} is a convenient wrapper around six functions:
 \itemize{
-  \item \code{\link{build_articles}()}
-  \item \code{\link{build_home}()}
-  \item \code{\link{build_reference}()}
-  \item \code{\link{build_news}()}
+\item \code{\link[=init_site]{init_site()}}
+\item \code{\link[=build_home]{build_home()}}
+\item \code{\link[=build_reference]{build_reference()}}
+\item \code{\link[=build_articles]{build_articles()}}
+\item \code{\link[=build_tutorials]{build_tutorials()}}
+\item \code{\link[=build_news]{build_news()}}
 }
+
 See the documentation for the each function to learn how to control
 that aspect of the site.
+
+Note if names of generated files were changed, you will need to use
+\link{clean_site} first to clean up orphan files.
 }
 \section{YAML config}{
 
-There are five top-level YAML settings that affect the entire site:
-\code{title}, \code{template}, and \code{navbar}.
+There are four top-level YAML settings that affect the entire site:
+\code{destination}, \code{url}, \code{title}, \code{template}, and \code{navbar}.
+
+\code{destination} controls where the site will be generated. It defaults to
+\code{docs/} (for GitHub pages), but you can override if desired. Relative
+paths will be taken relative to the package root.
+
+\code{url} optionally specifies the url where the site will be published.
+If you supply this, other pkgdown sites will link to your site when needed,
+rather than using generic links to \url{rdocumentation.org}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -52,10 +65,7 @@ It's used in the page title and default navbar.
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including \code{href} to add a link, or \code{html} to override the
-text:
-
-\preformatted{
-authors:
+text:\preformatted{authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
@@ -64,14 +74,65 @@ authors:
 }
 }
 
+\section{Development mode}{
+
+The development mode of a site controls four main things:
+\itemize{
+\item Where the site is built.
+\item The colour of the package version in the navbar.
+\item The optional tooltip associated with the version.
+\item The indexing of the site by search engines.
+}
+
+There are currently three possible development modes:
+\itemize{
+\item \strong{release}: site written to \code{docs/}, the version gets the default
+colouring, and no message.
+\item \strong{development}: written to \code{docs/dev/}, the version gets a danger label,
+and message stating these are docs for an in-development version of the
+package. The \code{noindex} meta tag is used to ensure that these packages are
+not indexed by search engines.
+\item \strong{unreleased}: the package is written to \code{docs/}, the version gets a "danger"
+label, and the message indicates the package is not yet on CRAN.
+}
+
+The default development mode is "release". You can override it by adding a
+new \code{development} field to \code{_pkgdown.yml}, e.g.\preformatted{development:
+  mode: development
+}
+
+You can also have pkgdown automatically detect the mode with:\preformatted{development:
+  mode: auto
+}
+
+The mode will be automatically determined based on the version number:
+\itemize{
+\item \code{0.0.0.9000}: unreleased
+\item four version components: development
+\item everything else -> release
+}
+
+There are three other options that you can control:\preformatted{development:
+  destination: dev
+  version_label: danger
+  version_tooltip: "Custom message here"
+}
+
+\code{destination} allows you to override the default subdirectory used for the
+development site; it defaults to \code{dev/}. \code{version_label} allows you to
+override the style used for development (and unreleased) versions of the
+package. It defaults to "danger", but you can set to "default", "info", or
+"warning" instead. (The precise colours are determined by your bootstrap
+theme, but become progressively more eye catching as you go from default
+to danger). Finally, you can choose to override the default tooltip with
+\code{version_tooltip}.
+}
+
 \section{YAML config - navbar}{
 
 \code{navbar} controls the navbar at the top of the page. It uses the same
 syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.
-
-\preformatted{
-navbar:
+The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
   type: inverse
   left:
     - text: "Home"
@@ -106,7 +167,7 @@ icons. You can see a full list of options at
 
 Any missing components (\code{type}, \code{left}, or \code{right})
 will be automatically filled in from the default navbar: you can see
-those values by running \code{\link{template_navbar}()}.
+those values by running \code{\link[=template_navbar]{template_navbar()}}.
 }
 
 \section{YAML config - template}{
@@ -118,10 +179,7 @@ used to render the page in the browser.
 
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
-template:
-
-\preformatted{
-template:
+template:\preformatted{template:
   params:
     bootswatch: cerulean
 }
@@ -130,12 +188,9 @@ See a complete list of themes and preview how they look at
 \url{https://gallery.shinyapps.io/117-shinythemes/}:
 
 Optionally provide the \code{ganalytics} template parameter to enable
-\href{Google Analytics}{https://www.google.com/analytics/}. It should
+\href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{tracking id}{https://support.google.com/analytics/answer/1032385}.
-
-\preformatted{
-template:
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
   params:
     ganalytics: UA-000000-01
 }
@@ -144,10 +199,7 @@ You can also override the default templates and provide additional
 assets. You can do so by either storing in a \code{package} with
 directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
 or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-of the default assets, set \code{default_assets} to false.
-
-\preformatted{
-template:
+of the default assets, set \code{default_assets} to false.\preformatted{template:
   package: mycustompackage
 
 # OR:
@@ -166,5 +218,7 @@ for pkgdown templates to ensure that you use the correct components.
 \examples{
 \dontrun{
 build_site()
+
+build_site(override = list(destination = tempdir()))
 }
 }

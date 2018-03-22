@@ -4,19 +4,16 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", path = "docs/news", one_page = TRUE, depth = 1L)
+build_news(pkg = ".", override = list(), preview = NA)
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to package.}
 
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 
-\item{one_page}{If \code{TRUE}, writes all news to a single file.
-If \code{FALSE}, writes one file per major version.}
-
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
 }
 \description{
 Your \code{NEWS.md} is parsed in to sections based on your use of
@@ -27,10 +24,7 @@ convention those versions with a fourth component) are displayed on an
 an "unreleased" page.
 }
 \details{
-The \code{NEWS.md} file should be formatted somewhat like this:
-
-\preformatted{
-# pkgdown 0.1.0.9000
+The \code{NEWS.md} file should be formatted somewhat like this:\preformatted{# pkgdown 0.1.0.9000
 
 ## Major changes
 
@@ -39,11 +33,33 @@ The \code{NEWS.md} file should be formatted somewhat like this:
 ...
 }
 
-Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor changes'.
+Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
+changes'.
+
+Issues and contributors mentioned in news items are automatically linked to
+github if a \code{URL} entry linking to github.com is provided in the package
+\code{DESCRIPTION}.\preformatted{## Major changes
+
+- Lots of bug fixes (@hadley, #100)
+}
+
+If the package is available on CRAN, release dates will be added for listed versions.
 }
 \section{YAML config}{
 
 
-There are currently no configuration options.
+To automatically link to release announcements, include a \code{releases}
+section.\preformatted{news:
+ releases:
+ - text: "usethis 1.3.0"
+   href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
+ - text: "usethis 1.0.0 (and 1.1.0)"
+   href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+}
+
+Control whether news is present on one page or multiple pages with the
+\code{one_page} field. The default is \code{true}.\preformatted{news:
+- one_page: false
+}
 }
 

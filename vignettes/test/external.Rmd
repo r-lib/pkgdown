@@ -1,0 +1,16 @@
+---
+title: "Test: External file tests"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This document refers to an external file to make sure that works.
+
+```{r}
+x <- readLines("test.txt")
+x
+```
+
+![](bacon.jpg)

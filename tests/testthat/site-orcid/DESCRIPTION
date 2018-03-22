@@ -1,0 +1,11 @@
+Package: testpackage
+Version: 1.0.0
+Title: A test package
+Description: A test package
+Authors@R: c(
+    person("test no comment"),
+    person("test orcid only", comment = c(ORCID = "0000-0003-4757-117X")),
+    person("test comments no orcid", comment = c("test comment no orcid")),
+    person("test bare comment", comment = "test bare comment"),
+    person("test comment and orcid", comment = c("test comment and orcid", ORCID = "0000-0000-0000-000X"))
+  )

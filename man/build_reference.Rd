@@ -6,17 +6,17 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  path = "docs/reference", depth = 1L)
+  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, override = list(),
+  preview = NA)
 
-build_reference_index(pkg = ".", path = "docs/reference", depth = 1L)
+build_reference_index(pkg = ".")
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to package.}
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
-rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.}
+rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
 
 \item{examples}{Run examples?}
 
@@ -27,11 +27,11 @@ rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.}
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
 
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
 
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
 }
 \description{
 By default, pkgdown will generate an index that simply lists all
@@ -46,10 +46,7 @@ which provides a list of sections containing, a \code{title}, list of
 \code{contents}, and optional \code{description}.
 
 For example, the following code breaks up the functions in pkgdown
-into two groups:
-
-\preformatted{
-reference:
+into two groups:\preformatted{reference:
 - title: Render components
   desc:  Build each component of the site.
   contents:
@@ -65,7 +62,7 @@ or if the functions in a section share a common prefix or suffix, you
 can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
 select them all. For more complex naming schemes you can use an aribrary
 regular expression with \code{matches("regexp")}. You can also use a leading
-`-` to exclude matches from a section. By default, these functions that
+\code{-} to exclude matches from a section. By default, these functions that
 match multiple topics will exclude topics with keyword "internal". To
 include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
@@ -95,13 +92,19 @@ cat("This some text!\\n")
 message("This is a message!")
 warning("This is a warning!")
 
+# This is a multi-line block
+{
+  1 + 2
+  2 + 2
+}
+
 \dontrun{
 stop("This is an error!", call. = FALSE)
 }
 
 \donttest{
 # This code won't generally be run by CRAN. But it
-# will be run by testthat.
+# will be run by pkgdown
 b <- 10
 a + b
 }

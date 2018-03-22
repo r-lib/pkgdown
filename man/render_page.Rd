@@ -5,7 +5,8 @@
 \alias{data_template}
 \title{Render page with template}
 \usage{
-render_page(pkg = ".", name, data, path = "", depth = 0L)
+render_page(pkg = ".", name, data, path = "", depth = NULL,
+  quiet = FALSE)
 
 data_template(pkg = ".", depth = 0L)
 }
@@ -16,32 +17,24 @@ data_template(pkg = ".", depth = 0L)
 
 \item{data}{Data for the template.
 
-  This is automatically supplemented with three lists:
-  \itemize{
-  \item \code{site}: \code{title} and path to \code{root}.
-  \item \code{yaml}: the \code{template} key from
-     \code{_pkgdown.yml}.
-  \item \code{package}: package metadata including \code{name} and
-     \code{version}.
-  }
+This is automatically supplemented with three lists:
+\itemize{
+\item \code{site}: \code{title} and path to \code{root}.
+\item \code{yaml}: the \code{template} key from \code{_pkgdown.yml}.
+\item \code{package}: package metadata including \code{name} and\code{version}.
+}
 
-  See the full contents by running \code{data_template()}.}
+See the full contents by running \code{data_template()}.}
 
-\item{path}{Location to create file. If \code{""} (the default),
-prints to standard out.}
+\item{path}{Location to create file; relative to destination directory.
+If \code{""} (the default), prints to standard out.}
 
 \item{depth}{Depth of path relative to base directory.}
+
+\item{quiet}{If \code{quiet}, will suppress output messages}
 }
 \description{
 Each page is composed of four templates: "head", "header", "content", and
 "footer". Each of these templates is rendered using the \code{data}, and
 then assembled into an overall page using the "layout" template.
 }
-\section{YAML config}{
-
-You can use either the templates provided by pkgdown, or provide your
-own by supplying \code{templates_path} key in your \code{_pkgdown.yml}.
-Generally, you'll find it easiest to customise if you start with a copy
-of the pkgdown templates and modify from there.
-}
-

@@ -32,72 +32,130 @@ test_that("ifelse generates html", {
   expect_equal(rd2html("\\ifelse{latex}{x}{\\bold{a}}"), "<b>a</b>")
 })
 
+test_that("tabular converted to html", {
+  table <- "\\tabular{ll}{a \\tab b \\cr}"
+  expectation <- c("<table><tr><td>a </td>", "<td> b </td>", "</tr></table>")
+  expect_equal(rd2html(table), expectation)
+})
+
+test_that("out is for raw html", {
+  expect_equal(rd2html("\\out{<hr />}"), "<hr />")
+})
+
+
+# sexpr  ------------------------------------------------------------------
+
 test_that("code inside Sexpr is evaluated", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
+test_that("Sexpr can contain multiple expressions", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr{a <- 1; a}"), "1")
+})
+
+test_that("Sexprs in file share environment", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr{a <- 1}\\Sexpr{a}"), c("1", "1"))
+})
+
+test_that("Sexprs run from package root", {
+  # Because paths are different during R CMD check
+  skip_if_not(file_exists("../../DESCRIPTION"))
+
+  scoped_package_context("pkgdown", src_path = "../..")
+  scoped_file_context()
+
+  # \packageTitle is built in macro that uses DESCRIPTION
+  expect_equal(
+    rd2html("\\packageTitle{pkgdown}"),
+    "Make Static HTML Documentation for a Package"
+  )
+})
 
 # links -------------------------------------------------------------------
 
 test_that("href orders arguments correctly", {
    expect_equal(
      rd2html("\\href{http://a.com}{a}"),
-     "<a href = 'http://a.com'>a</a>"
+     a("a", href = "http://a.com")
    )
 })
 
 test_that("can convert cross links to online documentation url", {
+  scoped_package_context("test")
+
   expect_equal(
-    rd2html("\\link[base]{library}", current = new_current("library", "pkg.name")),
-    link_remote(label = "library", topic = "library", package = "base")
+    rd2html("\\link[base]{library}"),
+    a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  pkgdownindex = list(
-    name = "build_site",
-    alias = list(build_site.Rd = "build_site")
-  )
-  current <- new_current("library", "pkg.name")
+  scoped_package_context("mypkg", c(foo = "bar", baz = "baz"))
+  scoped_file_context("baz")
+
   expect_equal(
-    rd2html("\\link[pkg.name]{library}", index = pkgdownindex, current = current),
-    link_local(label = "library", topic = "library", index = pkgdownindex, current = current)
+    rd2html("\\link[mypkg]{foo}"),
+    a("foo", href_topic_local("foo"))
+  )
+  expect_equal(
+    rd2html("\\link[mypkg]{baz}"),
+    "baz"
   )
 })
 
 test_that("can parse local links with topic!=label", {
-  index <- list(name = "a", alias = list("x"), file_out = list("y.html"))
+  scoped_package_context("test", c(x = "y"))
+  scoped_file_context("baz")
+
   expect_equal(
-    rd2html("\\link[=x]{z}", index = index),
-    "<a href='y.html'>z</a>"
+    rd2html("\\link[=x]{z}"),
+    a("z", href_topic_local("x"))
   )
 })
 
 test_that("functions in other packages generates link to rdocumentation.org", {
+  scoped_package_context("mypkg", c(x = "x", y = "y"))
+  scoped_file_context("x")
+
   expect_equal(
-    rd2html("\\link[stats:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "<a href='http://www.rdocumentation.org/packages/stats/topics/acf'>xyz</a>"
+    rd2html("\\link[stats:acf]{xyz}", current = current),
+    a("xyz", href_topic_remote("acf", "stats"))
   )
 
   # Unless it's the current package
   expect_equal(
-    rd2html("\\link[y:acf]{xyz}", current = structure("x", pkg_name = "y")),
-    "xyz"
+    rd2html("\\link[mypkg:y]{xyz}", current = current),
+    a("xyz", href_topic_local("y"))
   )
 })
 
 test_that("link to non-existing functions return label", {
+  scoped_package_context("mypkg")
+  scoped_file_context("x")
+
   expect_equal(
-    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = current),
     "abc"
   )
   expect_equal(
-    rd2html("\\link[base:xyzxyz]{abc}", current = structure("x", pkg_name = "y")),
+    rd2html("\\link[base:xyzxyz]{abc}", current = current),
     "abc"
   )
 })
 
 test_that("code blocks autolinked to vignettes", {
+  scoped_package_context("test", article_index = c("abc" = "abc.html"))
+  scoped_file_context(depth = 1L)
+
   expect_equal(
     rd2html("\\code{vignette('abc')}"),
     "<code><a href='../articles/abc.html'>vignette('abc')</a></code>"
@@ -113,9 +171,21 @@ test_that("empty lines break paragraphs", {
   )
 })
 
+test_that("indented empty lines break paragraphs", {
+  expect_equal(
+    flatten_para(rd_text("a\nb\n  \nc")),
+    "<p>a\nb</p>  \n<p>c</p>"
+  )
+})
+
 test_that("block tags break paragraphs", {
   out <- flatten_para(rd_text("a\n\\itemize{\\item b}\nc"))
   expect_equal(out, "<p>a</p><ul>\n<li><p>b</p></li>\n</ul><p>c</p>")
+})
+
+test_that("inline tags + empty line breaks", {
+  out <- flatten_para(rd_text("a\n\n\\code{b}"))
+  expect_equal(out, "<p>a</p>\n<p><code>b</code></p>")
 })
 
 test_that("single item can have multiple paragraphs", {
@@ -126,6 +196,11 @@ test_that("single item can have multiple paragraphs", {
 test_that("nl after tag doesn't trigger paragraphs", {
   out <- flatten_para(rd_text("One \\code{}\nTwo"))
   expect_equal(out, "<p>One <code></code>\nTwo</p>")
+})
+
+test_that("cr generates line break", {
+  out <- flatten_para(rd_text("a \\cr b"))
+  expect_equal(out, "<p>a <br /> b</p>")
 })
 
 # Usage -------------------------------------------------------------------
@@ -214,4 +289,9 @@ test_that("multiline titles are collapsed", {
 test_that("titles can contain other markup", {
   rd <- rd_text("\\title{\\strong{x}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<strong>x</strong>")
+})
+
+test_that("titles don't get autolinked code", {
+  rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
+  expect_equal(extract_title(rd), "<code>foo()</code>")
 })

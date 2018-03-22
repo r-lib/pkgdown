@@ -1,0 +1,8 @@
+Package: testpackage
+Version: 1.0.0
+Title: A test package
+Description: A test package
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+    )

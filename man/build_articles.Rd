@@ -2,28 +2,62 @@
 % Please edit documentation in R/build-articles.R
 \name{build_articles}
 \alias{build_articles}
+\alias{build_article}
 \title{Build articles}
 \usage{
-build_articles(pkg = ".", path = "docs/articles", depth = 1L,
-  encoding = "UTF-8")
+build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
+  preview = NA)
+
+build_article(name, pkg = ".", data = list(), lazy = FALSE,
+  quiet = TRUE)
 }
 \arguments{
-\item{pkg}{Path to source package.}
+\item{pkg}{Path to package.}
 
-\item{path}{Output path. Relative paths are taken relative to the
-\code{pkg} directory.}
+\item{quiet}{Set to \code{FALSE} to display output of knitr and
+pandoc. This is useful when debugging.}
 
-\item{depth}{Depth of path relative to root of documentation.
-Used to adjust relative links in the navbar.}
+\item{lazy}{If \code{TRUE}, will only re-build article if input file has been
+modified more recently than the output file.}
 
-\item{encoding}{The encoding of the input files.}
+\item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
+
+\item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
+
+\item{name}{Name of article to render. This should be either a path
+relative to \code{vignettes/} without extension, or \code{index} or \code{README}.}
+
+\item{data}{Additional data to pass on to template.}
 }
 \description{
-Each Rmarkdown vignette in \code{vignettes/} and its subdirectories is
-rendered. Vignettes are rendered using a special document format that
-reconciles \code{\link[rmarkdown]{html_document}()} with your pkgdown
-template.
+Each R Markdown vignette in \code{vignettes/} and its subdirectories is
+rendered and saved to \code{articles/}. Vignettes are rendered using a
+special document format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with
+your pkgdown template.
 }
+\section{External files}{
+
+pkgdown differs from base R in its handling of external files. When
+building vignettes, R assumes that vignettes are self-contained
+(a reasonable assumption when most vignettes were PDFs) and only copies
+files explicitly listed in \code{.install_extras}. pkgdown takes a different
+approach based on \link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources}, and it will also
+copy any images that you link to. If for some reason the automatic
+detection doesn't work, you will need to add a \code{resource_files} field to
+the yaml metadata, .e.g\preformatted{---
+title: My Document
+resource_files:
+ - data/mydata.csv
+ - images/figure.png
+---
+}
+
+Note that you can not use the \code{fig.path} to change the output directory
+of generated figures as the default is a strong assumption of rmarkdown.
+}
+
 \section{YAML config}{
 
 To tweak the index page, you need a section called \code{articles},
@@ -31,10 +65,7 @@ which provides a list of sections containing, a \code{title}, list of
 \code{contents}, and optional \code{description}.
 
 For example, this imaginary file describes some of the structure of
-the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
-
-\preformatted{
-articles:
+the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:\preformatted{articles:
 - title: R Markdown
   contents:
   - starts_with("authoring")
@@ -56,6 +87,26 @@ pkgdown will check that all vignettes are included in the index
 this page, and will generate a warning if you have missed any.
 }
 
+\section{YAML header}{
+
+By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
+using setting the \code{template} parameter to a custom built template that
+matches the site template. You can override this with a \code{pkgdown} field
+in your yaml metadata:\preformatted{pkgdown:
+  as_is: true
+}
+
+This will tell pkgdown to use the \code{output_format} that you have specified.
+This format must accept \code{template}, \code{theme}, and \code{self_contained} in
+order to work with pkgdown.
+
+If the output format produces a PDF, you'll also need to specify the
+\code{extension} field:\preformatted{pkgdown:
+  as_is: true
+  extension: pdf
+}
+}
+
 \section{Supressing vignettes}{
 
 
@@ -63,6 +114,6 @@ If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link
 will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
-customise the navbar. See \code{\link{build_site}} details.
+customise the navbar. See \code{\link[=build_site]{build_site()}} details.
 }
 

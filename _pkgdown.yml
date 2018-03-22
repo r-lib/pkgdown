@@ -1,25 +1,25 @@
-template:
-  params:
-    bootswatch: cerulean
+url: http://pkgdown.r-lib.org
+
+development:
+  mode: unreleased
 
 reference:
   - title: Build
     desc:  Build each component of the site.
     contents:
+    - init_site
     - starts_with("build_")
+    - preview_site
   - title: Templates
     contents:
     - template_navbar
     - render_page
   - title: Helpers
     contents:
+    - autolink_html
+    - clean_site
     - as_pkgdown
     - in_pkgdown
-    - rel_path
-
-navbar:
-  left:
-  - text: Intro
-    href: articles/pkgdown.html
-  - text: Reference
-    href: reference/index.html
+  - title: Regression tests
+    contents:
+    - starts_with("test", internal = TRUE)

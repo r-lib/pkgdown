@@ -17,14 +17,35 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="{{#site}}{{root}}{{/site}}pkgdown.css" rel="stylesheet">
 <script src="{{#site}}{{root}}{{/site}}jquery.sticky-kit.min.js"></script>
 <script src="{{#site}}{{root}}{{/site}}pkgdown.js"></script>
+{{#extra}}
+  {{#css}}<link href="{{#site}}{{root}}{{/site}}extra.css" rel="stylesheet">{{/css}}
+  {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
+{{/extra}}
+
+<meta property="og:title" content="{{{pagetitle}}}" />
+{{#opengraph}}
+{{#description}}
+<meta property="og:description" content="{{{.}}}" />
+{{/description}}
+{{#image}}
+<meta property="og:image" content="{{{.}}}" />
+{{/image}}
+<meta name="twitter:card" content="summary" />
+{{/opengraph}}
+
+{{#development}}{{#in_dev}}
+<meta name="robots" content="noindex">
+{{/in_dev}}{{/development}}
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

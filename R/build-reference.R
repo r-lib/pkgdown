@@ -2,18 +2,18 @@
 #'
 #' By default, pkgdown will generate an index that simply lists all
 #' the functions in alphabetical order. To override this, provide a
-#' \code{reference} section in your \code{_pkgdown.yml} as described
+#' `reference` section in your `_pkgdown.yml` as described
 #' below.
 #'
 #' @section YAML config:
-#' To tweak the index page, you need a section called \code{reference}
-#' which provides a list of sections containing, a \code{title}, list of
-#' \code{contents}, and optional \code{description}.
+#' To tweak the index page, you need a section called `reference`
+#' which provides a list of sections containing, a `title`, list of
+#' `contents`, and optional `description`.
 #'
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
 #'
-#' \preformatted{
+#' ```
 #' reference:
 #' - title: Render components
 #'   desc:  Build each component of the site.
@@ -23,19 +23,19 @@
 #' - title: Templates
 #'   contents:
 #'   - render_page
-#' }
+#' ```
 #'
-#' Note that \code{contents} can contain either a list of function names,
+#' Note that `contents` can contain either a list of function names,
 #' or if the functions in a section share a common prefix or suffix, you
-#' can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
+#' can use `starts_with("prefix")` and `ends_with("suffix")` to
 #' select them all. For more complex naming schemes you can use an aribrary
-#' regular expression with \code{matches("regexp")}. You can also use a leading
+#' regular expression with `matches("regexp")`. You can also use a leading
 #' `-` to exclude matches from a section. By default, these functions that
 #' match multiple topics will exclude topics with keyword "internal". To
-#' include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
+#' include, use (e.g.) `starts_with("build_", internal = TRUE)`.
 #'
 #' Alternatively, you can selected topics that contain specified concepts with
-#' \code{has_concept("blah")}. Concepts are not currently well-supported by
+#' `has_concept("blah")`. Concepts are not currently well-supported by
 #' roxygen2, but may be useful if you write Rd files by hand.
 #'
 #' pkgdown will check that all non-internal topics are included on
@@ -43,14 +43,14 @@
 #'
 #' @section Icons:
 #' You can optionally supply an icon for each help topic. To do so, you'll
-#' need a top-level \code{icons} directory. This should contain {.png} files
+#' need a top-level `icons` directory. This should contain {.png} files
 #' that are either 40x40 (for regular display) or 80x80 (if you want
 #' retina display). Icons are matched to topics by aliases.
 #'
 #' @inheritParams build_articles
-#' @param lazy If \code{TRUE}, only rebuild pages where the \code{.Rd}
-#'   is more recent than the \code{.html}. This makes it much easier to
-#'   rapidly protoype. It is set to \code{FALSE} by \code{\link{build_site}}.
+#' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
+#'   is more recent than the `.html`. This makes it much easier to
+#'   rapidly protoype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
@@ -67,13 +67,19 @@
 #' message("This is a message!")
 #' warning("This is a warning!")
 #'
+#' # This is a multi-line block
+#' {
+#'   1 + 2
+#'   2 + 2
+#' }
+#'
 #' \dontrun{
 #' stop("This is an error!", call. = FALSE)
 #' }
 #'
 #' \donttest{
 #' # This code won't generally be run by CRAN. But it
-#' # will be run by testthat.
+#' # will be run by pkgdown
 #' b <- 10
 #' a + b
 #' }
@@ -83,68 +89,66 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             mathjax = TRUE,
                             seed = 1014,
-                            path = "docs/reference",
-                            depth = 1L
+                            override = list(),
+                            preview = NA
                             ) {
-  old <- set_pkgdown_env("true")
-  on.exit(set_pkgdown_env(old))
-
-  pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
-
+  pkg <- section_init(pkg, depth = 1L, override = override)
   rule("Building function reference")
-
-  if (!is.null(path)) {
-    mkdir(path)
-  }
+  build_reference_index(pkg)
 
   # copy everything from man/figures to docs/reference/figures
-  figures_path <- file.path(pkg$path, "man", "figures")
-  if (file.exists(figures_path) && !is.null(path)) {
-    out_path <- file.path(path, "figures")
-    message("Copying man/figures/")
-    mkdir(out_path)
-    copy_dir(figures_path, out_path)
+  src_figures <- path(pkg$src_path, "man", "figures")
+  dst_figures <- path(pkg$dst_path, "reference", "figures")
+  if (file_exists(src_figures)) {
+    dir_copy_to(pkg, src_figures, dst_figures)
   }
 
-  build_reference_index(pkg, path = path, depth = depth)
-
   if (examples) {
-    devtools::load_all(pkg$path)
+    # Re-loading pkgdown while it's running causes weird behaviour with
+    # the context cache
+    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
+      pkgload::load_all(pkg$src_path)
+    }
+
+    old_dir <- setwd(path(pkg$dst_path, "reference"))
+    on.exit(setwd(old_dir), add = TRUE)
+
+    old_opt <- options(width = 80)
+    on.exit(options(old_opt), add = TRUE)
+
     set.seed(seed)
   }
 
-  pkg$topics %>%
-    purrr::transpose() %>%
-    purrr::map(build_reference_topic, path,
-      pkg = pkg,
-      lazy = lazy,
-      depth = depth,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax
-    )
-  invisible()
+  topics <- purrr::transpose(pkg$topics)
+  purrr::map(topics,
+    build_reference_topic,
+    pkg = pkg,
+    lazy = lazy,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax
+  )
+
+  preview_site(pkg, "reference", preview = preview)
 }
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".", path = "docs/reference", depth = 1L) {
+build_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
+  dir_create(path(pkg$dst_path, "reference"))
 
   # Copy icons, if needed
-  logo_path <- file.path(pkg$path, "icons")
-  if (file.exists(logo_path)) {
-    mkdir(path, "icons")
-    copy_dir(logo_path, file.path(path, "icons"))
+  src_icons <- path(pkg$src_path, "icons")
+  dst_icons <- path(pkg$dst_path, "reference", "icons")
+  if (file_exists(src_icons)) {
+    dir_copy_to(pkg, src_icons, dst_icons)
   }
 
   render_page(
     pkg, "reference-index",
-    data = data_reference_index(pkg, depth = depth),
-    path = out_path(path, "index.html"),
-    depth = depth
+    data = data_reference_index(pkg),
+    path = "reference/index.html"
   )
 }
 
@@ -154,30 +158,29 @@ build_reference_topic <- function(topic,
                                   lazy = TRUE,
                                   examples = TRUE,
                                   run_dont_run = FALSE,
-                                  mathjax = TRUE,
-                                  path = NULL,
-                                  depth = 1L
+                                  mathjax = TRUE
                                   ) {
 
-  in_path <- file.path(pkg$path, "man", topic$file_in)
-  out_path <- out_path(path, topic$file_out)
+  in_path <- path(pkg$src_path, "man", topic$file_in)
+  out_path <- path(pkg$dst_path, "reference", topic$file_out)
 
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
+  cat_line("Reading ", src_path("man", topic$file_in))
+  scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
+
+  data <- data_reference_topic(
+    topic,
+    pkg,
+    examples = examples,
+    run_dont_run = run_dont_run,
+    mathjax = mathjax
+  )
   render_page(
     pkg, "reference-topic",
-    data = data_reference_topic(
-      topic,
-      pkg,
-      path = path,
-      examples = examples,
-      run_dont_run = run_dont_run,
-      mathjax = mathjax,
-      depth = depth
-    ),
-    path = out_path,
-    depth = depth
+    data = data,
+    path = path("reference", topic$file_out)
   )
   invisible()
 }
@@ -189,11 +192,8 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples = TRUE,
                                  run_dont_run = FALSE,
-                                 mathjax = TRUE,
-                                 path = NULL,
-                                 depth = 1L
+                                 mathjax = TRUE
                                  ) {
-
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 
@@ -205,29 +205,19 @@ data_reference_topic <- function(topic,
 
   out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
+  # File source
+  out$source <- github_source_links(pkg$github_url, topic$source)
+
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
   out$author <- purrr::map_chr(tags$tag_author %||% list(), flatten_text)
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$description <- as_data(
-    tags$tag_description[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
-
-  out$usage <- as_data(
-    tags$tag_usage[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
-
-  out$arguments <- as_data(
-    tags$tag_arguments[[1]],
-    index = pkg$topics,
-    current = get_current(topic, pkg)
-  )
+  out$description <- as_data(tags$tag_description[[1]])
+  out$opengraph <- list(description = strip_html_tags(out$description$contents))
+  out$usage <- as_data(tags$tag_usage[[1]])
+  out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
@@ -235,13 +225,9 @@ data_reference_topic <- function(topic,
   out$examples <- as_data(
     tags$tag_examples[[1]],
     env = new.env(parent = globalenv()),
-    topic = topic$name,
-    index = pkg$topics,
-    current = get_current(topic, pkg),
-    path = path,
+    topic = tools::file_path_sans_ext(topic$file_in),
     examples = examples,
-    run_dont_run = run_dont_run,
-    depth = depth
+    run_dont_run = run_dont_run
   )
 
   # Everything else stays in original order, and becomes a list of sections.
@@ -251,7 +237,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, index = pkg$topics, current = get_current(topic, pkg)) %>%
+    purrr::map(as_data) %>%
     purrr::map(add_slug)
 
   out
@@ -263,15 +249,8 @@ add_slug <- function(x) {
 }
 
 make_slug <- function(x) {
+  x <- strip_html_tags(x)
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
-}
-
-get_current <- function(topic, pkg) {
-  new_current(topic$name, pkg$desc$get("Package"))
-}
-
-new_current <- function(topic_name, pkg_name) {
-  structure(topic_name, pkg_name = pkg_name)
 }

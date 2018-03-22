@@ -1,0 +1,12 @@
+---
+title: "Test: PDF"
+output: pdf_document
+pkgdown:
+  as_is: true
+  extension: pdf
+---
+
+# Heading
+
+Some text
+

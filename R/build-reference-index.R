@@ -1,9 +1,13 @@
-data_reference_index <- function(pkg = ".", depth = 1L) {
+data_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
+  if (length(meta) == 0) {
+    return(list())
+  }
+
   sections <- meta %>%
-    purrr::map(data_reference_index_section, pkg = pkg, depth = depth) %>%
+    purrr::map(data_reference_index_section, pkg = pkg) %>%
     purrr::compact()
 
   # Cross-reference complete list of topics vs. topics found in index page
@@ -28,7 +32,7 @@ data_reference_index <- function(pkg = ".", depth = 1L) {
   ))
 }
 
-data_reference_index_section <- function(section, pkg, depth = 1L) {
+data_reference_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "contents"))) {
     warning(
       "Section must have components `title`, `contents`",
@@ -41,16 +45,21 @@ data_reference_index_section <- function(section, pkg, depth = 1L) {
   # Find topics in this section
   in_section <- select_topics(section$contents, pkg$topics)
   section_topics <- pkg$topics[in_section, ]
+
   contents <- tibble::tibble(
     path = section_topics$file_out,
-    aliases = section_topics$alias,
+    aliases = purrr::map2(
+      section_topics$funs,
+      section_topics$name,
+      ~ if (length(.x) > 0) .x else .y
+    ),
     title = section_topics$title,
-    icon = find_icons(section_topics$alias, file.path(pkg$path, "icons"))
+    icon = find_icons(section_topics$alias, path(pkg$src_path, "icons"))
   )
   list(
     title = section$title,
     slug = paste0("section-", make_slug(section$title)),
-    desc = markdown_text(section$desc, index = pkg$topics, depth = depth),
+    desc = markdown_text(section$desc),
     class = section$class,
     contents = purrr::transpose(contents)
   )
@@ -62,7 +71,7 @@ find_icons <- function(x, path) {
 }
 find_icon <- function(aliases, path) {
   names <- paste0(aliases, ".png")
-  exists <- file.exists(file.path(path, names))
+  exists <- file_exists(path(path, names))
 
   if (!any(exists)) {
     NULL
@@ -74,11 +83,16 @@ find_icon <- function(aliases, path) {
 default_reference_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  exported <- pkg$topics[!pkg$topics$internal, , drop = FALSE]
+  if (nrow(exported) == 0) {
+    return(list())
+  }
+
   print_yaml(list(
     list(
       title = "All functions",
       desc = NULL,
-      contents = paste0('`', pkg$topics$name[!pkg$topics$internal], '`')
+      contents = paste0('`', exported$name, '`')
     )
   ))
 }

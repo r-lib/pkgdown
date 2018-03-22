@@ -1,42 +1,116 @@
 #' Build pkgdown website
 #'
-#' \code{build_site()} is a convenient wrapper around four functions:
-#' \itemize{
-#'   \item \code{\link{build_articles}()}
-#'   \item \code{\link{build_home}()}
-#'   \item \code{\link{build_reference}()}
-#'   \item \code{\link{build_news}()}
-#' }
+#' @description
+#' `build_site()` is a convenient wrapper around six functions:
+#'
+#' * [init_site()]
+#' * [build_home()]
+#' * [build_reference()]
+#' * [build_articles()]
+#' * [build_tutorials()]
+#' * [build_news()]
+#'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
 #'
-#' @section YAML config:
-#' There are five top-level YAML settings that affect the entire site:
-#' \code{title}, \code{template}, and \code{navbar}.
+#' Note if names of generated files were changed, you will need to use
+#' [clean_site] first to clean up orphan files.
 #'
-#' \code{title} overrides the default site title, which is the package name.
+#' @section YAML config:
+#' There are four top-level YAML settings that affect the entire site:
+#' `destination`, `url`, `title`, `template`, and `navbar`.
+#'
+#' `destination` controls where the site will be generated. It defaults to
+#' `docs/` (for GitHub pages), but you can override if desired. Relative
+#' paths will be taken relative to the package root.
+#'
+#' `url` optionally specifies the url where the site will be published.
+#' If you supply this, other pkgdown sites will link to your site when needed,
+#' rather than using generic links to \url{rdocumentation.org}.
+#'
+#' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
 #'
 #' You can also provided information to override the default display of
 #' the authors. Provided a list named with the name of each author,
-#' including \code{href} to add a link, or \code{html} to override the
+#' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' \preformatted{
+#' ```
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
 #'   RStudio:
 #'     href: https://www.rstudio.com
 #'     html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
-#' }
+#' ```
+#'
+#' @section Development mode:
+#' The development mode of a site controls four main things:
+#'
+#' * Where the site is built.
+#' * The colour of the package version in the navbar.
+#' * The optional tooltip associated with the version.
+#' * The indexing of the site by search engines.
+#'
+#' There are currently three possible development modes:
+#'
+#' * **release**: site written to `docs/`, the version gets the default
+#'   colouring, and no message.
+#'
+#' * **development**: written to `docs/dev/`, the version gets a danger label,
+#'   and message stating these are docs for an in-development version of the
+#'   package. The `noindex` meta tag is used to ensure that these packages are
+#'   not indexed by search engines.
+#'
+#' * **unreleased**: the package is written to `docs/`, the version gets a "danger"
+#'   label, and the message indicates the package is not yet on CRAN.
+#'
+#' The default development mode is "release". You can override it by adding a
+#' new `development` field to `_pkgdown.yml`, e.g.
+#'
+#' ```
+#' development:
+#'   mode: development
+#' ```
+#'
+#' You can also have pkgdown automatically detect the mode with:
+#'
+#' ```
+#' development:
+#'   mode: auto
+#' ```
+#'
+#' The mode will be automatically determined based on the version number:
+#'
+#' * `0.0.0.9000`: unreleased
+#' * four version components: development
+#' * everything else -> release
+#'
+#' There are three other options that you can control:
+#'
+#' ```
+#' development:
+#'   destination: dev
+#'   version_label: danger
+#'   version_tooltip: "Custom message here"
+#' ```
+#'
+#' `destination` allows you to override the default subdirectory used for the
+#' development site; it defaults to `dev/`. `version_label` allows you to
+#' override the style used for development (and unreleased) versions of the
+#' package. It defaults to "danger", but you can set to "default", "info", or
+#' "warning" instead. (The precise colours are determined by your bootstrap
+#' theme, but become progressively more eye catching as you go from default
+#' to danger). Finally, you can choose to override the default tooltip with
+#' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
-#' \code{navbar} controls the navbar at the top of the page. It uses the same
+#' `navbar` controls the navbar at the top of the page. It uses the same
 #' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
 #' The following YAML snippet illustrates some of the most important features.
 #'
-#' \preformatted{
+#' ```
 #' navbar:
 #'   type: inverse
 #'   left:
@@ -60,57 +134,57 @@
 #'   right:
 #'     - icon: fa-github fa-lg
 #'       href: https://example.com
-#' }
+#' ```
 #'
-#' Use \code{type} to choose between "default" and "inverse" themes.
+#' Use `type` to choose between "default" and "inverse" themes.
 #'
-#' You position elements by placing under either \code{left} or \code{right}.
-#' Components can contain sub-\code{menu}s with headings (indicated by missing
-#' \code{href}) and separators. Currently pkgdown only supports fontawesome
+#' You position elements by placing under either `left` or `right`.
+#' Components can contain sub-`menu`s with headings (indicated by missing
+#' `href`) and separators. Currently pkgdown only supports fontawesome
 #' icons. You can see a full list of options at
 #' \url{http://fontawesome.io/icons/}.
 #'
-#' Any missing components (\code{type}, \code{left}, or \code{right})
+#' Any missing components (`type`, `left`, or `right`)
 #' will be automatically filled in from the default navbar: you can see
-#' those values by running \code{\link{template_navbar}()}.
+#' those values by running [template_navbar()].
 #'
 #' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the
-#' \code{template} component. There are two components to the template:
+#' `template` component. There are two components to the template:
 #' the HTML templates used to layout each page, and the css/js assets
 #' used to render the page in the browser.
 #'
 #' The easiest way to tweak the default style is to use a bootswatch template,
-#' by passing on the \code{bootswatch} template parameter to the built-in
+#' by passing on the `bootswatch` template parameter to the built-in
 #' template:
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     bootswatch: cerulean
-#' }
+#' ```
 #'
 #' See a complete list of themes and preview how they look at
 #' \url{https://gallery.shinyapps.io/117-shinythemes/}:
 #'
-#' Optionally provide the \code{ganalytics} template parameter to enable
-#' \href{Google Analytics}{https://www.google.com/analytics/}. It should
+#' Optionally provide the `ganalytics` template parameter to enable
+#' [Google Analytics](https://www.google.com/analytics/). It should
 #' correspond to your
-#' \href{tracking id}{https://support.google.com/analytics/answer/1032385}.
+#' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     ganalytics: UA-000000-01
-#' }
+#' ```
 #'
 #' You can also override the default templates and provide additional
-#' assets. You can do so by either storing in a \code{package} with
-#' directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
-#' or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-#' of the default assets, set \code{default_assets} to false.
+#' assets. You can do so by either storing in a `package` with
+#' directories `inst/pkgdown/assets` and `inst/pkgdown/templates`,
+#' or by supplying `path` and `asset_path`. To suppress inclusion
+#' of the default assets, set `default_assets` to false.
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   package: mycustompackage
 #'
@@ -120,7 +194,7 @@
 #'   path: path/to/templates
 #'   assets: path/to/assets
 #'   default_assets: false
-#' }
+#' ```
 #'
 #' These settings are currently recommended for advanced users only. There
 #' is little documentation, and you'll need to read the existing source
@@ -128,101 +202,58 @@
 #'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
-#' @param path Location in which to save website, relative to package
-#'   path.
-#' @param preview If \code{TRUE}, will preview freshly generated site
+#' @param lazy If `TRUE`, will only rebuild articles and reference pages
+#'   if the source is newer than the destination.
 #' @export
 #' @examples
 #' \dontrun{
 #' build_site()
+#'
+#' build_site(override = list(destination = tempdir()))
 #' }
 build_site <- function(pkg = ".",
-                       path = "docs",
                        examples = TRUE,
                        run_dont_run = FALSE,
-                       mathjax = TRUE,
-                       preview = interactive(),
                        seed = 1014,
-                       encoding = "UTF-8"
+                       mathjax = TRUE,
+                       lazy = FALSE,
+                       override = list(),
+                       preview = interactive()
                        ) {
-  old <- set_pkgdown_env("true")
-  on.exit(set_pkgdown_env(old))
 
-  pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
+  pkg <- section_init(pkg, depth = 0, override = override)
 
-  init_site(pkg, path)
+  rule("Building pkgdown site", line = 2)
+  cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
+  cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
 
-  build_home(pkg, path = path, encoding = encoding)
+  init_site(pkg)
+
+  build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
-    lazy = FALSE,
+    lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
     seed = seed,
-    path = file.path(path, "reference"),
-    depth = 1L
+    override = override,
+    preview = FALSE
   )
-  build_articles(pkg, path = file.path(path, "articles"), depth = 1L, encoding = encoding)
-  build_news(pkg, path = file.path(path, "news"), depth = 1L)
+  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_tutorials(pkg, override = override, preview = FALSE)
+  build_news(pkg, override = override, preview = FALSE)
 
-  if (preview) {
-    preview_site(path)
-  }
-  invisible(TRUE)
+  preview_site(pkg, preview = preview)
+  rule("DONE", line = 2)
 }
 
-preview_site <- function(path) {
-  utils::browseURL(file.path(path, "index.html"))
-}
-
-build_site_rstudio <- function() {
+build_site_rstudio <- function(pkg = ".") {
   devtools::document()
-  build_site(preview = TRUE)
+  callr::r(
+    function(...) pkgdown::build_site(...),
+    args = list(pkg = pkg),
+    show = TRUE
+  )
+  preview_site(pkg)
+  invisible()
 }
-
-#' @export
-#' @rdname build_site
-init_site <- function(pkg = ".", path = "docs") {
-  pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
-
-  rule("Initialising site")
-  if (!file.exists(path)) {
-    mkdir(path)
-    usethis::use_build_ignore(path)
-  }
-
-  assets <- data_assets(pkg)
-  for (asset in assets) {
-    message("Copying '", asset, "'")
-    file.copy(asset, path, recursive = TRUE)
-  }
-
-  build_logo(pkg, path = path)
-
-}
-
-data_assets <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  template <- pkg$meta[["template"]]
-
-  if (!is.null(template$assets)) {
-    path <- rel_path(template$assets, base = pkg$path)
-    if (!file.exists(path))
-      stop("Can not find asset path '", path, "'", call. = FALSE)
-
-  } else if (!is.null(template$package)) {
-    path <- package_path(template$package, "assets")
-  } else {
-    path <- character()
-  }
-
-  if (!identical(template$default_assets, FALSE)) {
-    path <- c(path, file.path(inst_path(), "assets"))
-  }
-
-  dir(path, full.names = TRUE)
-}
-

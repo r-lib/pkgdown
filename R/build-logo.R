@@ -1,21 +1,31 @@
-build_logo <- function(pkg = ".", path = "docs/") {
+build_logo <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  path <- rel_path(path, pkg$path)
 
-  logo_path <- file.path(pkg$path, "logo.png")
-  if (!file.exists(logo_path))
+  logo_path <- find_logo(pkg$src_path)
+  if (is.null(logo_path))
     return()
 
-  message("Copying logo")
-  file.copy(logo_path, file.path(path, "logo.png"))
+  file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
+  if (!requireNamespace("magick", quietly = TRUE)) {
+    message("Magick not avaliable, not creating favicon.ico")
+    return()
+  }
 
-  message("Creating favicon")
+  cat_line("Creating ", dst_path("favicon.ico"))
   magick::image_read(logo_path) %>%
 	  magick::image_scale("32x32") %>%
-	  magick::image_write(file.path(path, "favicon.ico"), format = "png")
+	  magick::image_write(path(pkg$dst_path, "favicon.ico"), format = "png")
 }
 
 
-has_logo <- function(path) {
-  file.exists(file.path(path, "logo.png"))
+find_logo <- function(path) {
+  logo_path <- path(path, "logo.png")
+  if (file_exists(logo_path))
+    return(logo_path)
+
+  logo_path <- path(path, "man", "figures", "logo.png")
+  if (file_exists(logo_path))
+    return(logo_path)
+
+  NULL
 }

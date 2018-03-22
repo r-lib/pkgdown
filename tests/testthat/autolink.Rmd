@@ -1,0 +1,9 @@
+---
+output: html_fragment
+---
+
+```{r}
+library(MASS)
+```
+
+`addterm()`

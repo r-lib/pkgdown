@@ -3,38 +3,53 @@ Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
 Description: Generate a beautiful and useful website from a source package.
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
+      comment = c(ORCID = "0000-0003-4757-117X")
+    ),
     person("RStudio", role = c("cph", "fnd"))
     )
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
-Imports:
-    callr,
+Imports: 
+    callr (>= 2.0.2),
+    cli,
+    crayon,
     desc,
     digest,
     evaluate,
     highlight,
-    magick,
+    httr,
+    MASS,
     magrittr,
+    memoise,
     purrr,
     pkgload,
+    R6,
+    rematch,
+    rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rsconnect,
+    rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     yaml,
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    fs (>= 1.2.0)
 Suggests:
     devtools,
     knitr,
-    testthat
+    magick,
+    testthat,
+    BiocInstaller,
+    covr
 Remotes:
-    r-pkgs/pkgload,
-    r-pkgs/usethis
+    r-lib/pkgload,
+    r-lib/usethis
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-URL: https://github.com/hadley/pkgdown
+URL: http://pkgdown.r-lib.org, https://github.com/hadley/pkgdown
 BugReports: https://github.com/hadley/pkgdown/issues
+Roxygen: list(markdown = TRUE)

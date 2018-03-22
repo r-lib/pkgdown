@@ -1,0 +1,45 @@
+---
+title: "Test: Highlighting"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This document uses a variety of linking styles for testing purposes
+
+## Inline code
+
+Local:
+
+* `vignette("pkgdown")`
+* `build_site()`
+* `?template_navbar`
+
+Remote:
+
+* `MASS::enlist`
+* `MASS::enlist()`
+* `?MASS::enlist`
+
+## Code blocks
+
+```{r, eval = FALSE}
+# Shouldn't get linked
+enlist(5)
+# Should get linked
+MASS::enlist(5)
+```
+
+```{r}
+library(MASS)
+enlist(5)
+```
+
+```{r}
+# Should get linked because MASS was loaded previously
+enlist(5)
+```
+
+
+

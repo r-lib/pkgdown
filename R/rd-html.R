@@ -5,12 +5,12 @@ as_html <- function(x, ...) {
 # Various types of text ------------------------------------------------------
 
 flatten_para <- function(x, ...) {
-  # Look for "\n" TEXT blocks within sequence of TEXT blocks
-  is_nl <- purrr::map_lgl(x, is_newline)
+  # Look for "\n" TEXT blocks after a TEXT block, and not at end of file
+  is_nl <- purrr::map_lgl(x, is_newline, trim = TRUE)
   is_text <- purrr::map_lgl(x, inherits, "TEXT")
   is_text_prev <- c(FALSE, is_text[-length(x)])
-  is_text_next <- c(is_text[-1], FALSE)
-  is_para_break <- is_nl & is_text_prev & is_text_next
+  has_next <- c(rep(TRUE, length(x) - 1), FALSE)
+  is_para_break <- is_nl & is_text_prev & has_next
 
   # Or tags that are converted to HTML blocks
   block_tags <- c(
@@ -24,8 +24,8 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  blocks <- x %>%
-    purrr::map_chr(as_html, ...) %>%
+  html <- purrr::map_chr(x, as_html, ...)
+  blocks <- html %>%
     split(groups) %>%
     purrr::map_chr(paste, collapse = "")
 
@@ -46,9 +46,10 @@ flatten_para <- function(x, ...) {
 
 
 flatten_text <- function(x, ...) {
-  x %>%
-    purrr::map_chr(as_html, ...) %>%
-    paste(collapse = "")
+  if (length(x) == 0) return("")
+
+  html <- purrr::map_chr(x, as_html, ...)
+  paste(html, collapse = "")
 }
 
 #' @export
@@ -61,7 +62,7 @@ as_html.LIST <-  flatten_text
 
 #' @export
 as_html.character <- function(x, ..., escape = TRUE) {
-  # src_highlight (used by usage & examples) also does escaping
+  # src_highlight (used by usage, examples, and out) also does escaping
   # so we need some way to turn it off when needed.
   if (escape) {
     escape_html(x)
@@ -121,16 +122,15 @@ as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
 #' @export
 as_html.tag_url <- function(x, ...) {
   stopifnot(length(x) == 1)
-  paste0("<a href = '", flatten_text(x[[1]]), "'>", flatten_text(x[[1]]), "</a>")
+
+  text <- flatten_text(x[[1]])
+  a(text, href = text)
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
   stopifnot(length(x) == 2)
-  paste0(
-    "<a href = '", flatten_text(x[[1]]), "'>",
-    flatten_text(x[[2]]),
-    "</a>"
-  )
+
+  a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
@@ -140,44 +140,52 @@ as_html.tag_email <- function(x, ...) {
 
 # If single, need to look up alias to find file name and package
 #' @export
-as_html.tag_link <- function(x, ..., index = NULL, current = NULL) {
-  stopifnot(length(x) == 1)
+as_html.tag_link <- function(x, ...) {
   opt <- attr(x, "Rd_option")
 
-  in_braces <- flatten_text(x[[1]])
+  in_braces <- flatten_text(x)
 
   if (is.null(opt)) {
     # \link{topic}
-    link_local(in_braces, in_braces, index = index, current = current)
+    href <- href_topic_local(in_braces)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    link_local(in_braces, substr(opt, 2, nchar(opt)), index = index, current = current)
+    href <- href_topic_local(substr(opt, 2, nchar(opt)))
   } else {
     match <- regexec('^([^:]+)(?:|:(.*))$', opt)
     parts <- regmatches(opt, match)[[1]][-1]
 
-    pkg_name <- attr(current, "pkg_name")
-    stopifnot(!is.null(pkg_name))
+    package <- context_get("package")
 
-    if (parts[[1]] == pkg_name) {
-      # \link[my_pkg]{foo}
-      link_local(in_braces, in_braces, index = index, current = current)
-    } else if (parts[[2]] == "") {
-      # \link[pkg]{foo}
-      link_remote(in_braces, in_braces, package = opt)
+    if (parts[[2]] == "") {
+      if (parts[[1]] == package) {
+        # \link[mypkg]{foo}
+        href <- href_topic_local(in_braces)
+      } else {
+        # \link[pkg]{foo}
+        href <- href_topic_remote(in_braces, opt)
+      }
     } else {
-      # \link[pkg:bar]{foo}
-      link_remote(in_braces, parts[[2]], package = parts[[1]])
+      if (parts[[1]] == package) {
+        # \link[my_pkg:bar]{foo}
+        href <- href_topic_local(parts[[2]])
+      } else {
+        # \link[pkg:bar]{foo}
+        href <- href_topic_remote(parts[[2]], parts[[1]])
+      }
     }
   }
+
+  a(in_braces, href = href)
 }
 
 #' @export
-as_html.tag_linkS4class <- function(x, ..., index = NULL, current = NULL) {
+as_html.tag_linkS4class <- function(x, ...) {
   stopifnot(length(x) == 1)
 
-  in_braces <- flatten_text(x[[1]])
-  link_local(in_braces, paste0(in_braces, "-class"), index = index, current = current)
+  text <- flatten_text(x[[1]])
+  href <- href_topic_local(paste0(text, "-class"))
+  a(text, href = href)
 }
 
 # Miscellaneous --------------------------------------------------------------
@@ -205,10 +213,14 @@ method_usage <- function(x, type) {
 as_html.tag_Sexpr <- function(x, ...) {
   # Currently assume output is always Rd
   options <- attr(x, "Rd_option")
-
   code <- flatten_text(x, escape = FALSE)
-  # Not sure if this is the correct environment
-  expr <- eval(parse(text = code)[[1]], new.env(parent = globalenv()))
+
+  # Needs to be package root
+  old_wd <- setwd(context_get("src_path"))
+  on.exit(setwd(old_wd), add = TRUE)
+
+  # Environment shared across a file
+  expr <- eval(parse(text = code), context_get("sexpr_env"))
 
   rd <- rd_text(as.character(expr))
   as_html(rd, ...)
@@ -232,7 +244,7 @@ as_html.tag_ifelse <- function(x, ...) {
 
 #' @export
 as_html.tag_tabular <- function(x, ...) {
-  align_abbr <- strsplit(as_html(x[[1]], ...), "")[[1]][-1]
+  align_abbr <- strsplit(as_html(x[[1]], ...), "")[[1]]
   align_abbr <- align_abbr[!(align_abbr %in% c("|", ""))]
   align <- unname(c("r" = "right", "l" = "left", "c" = "center")[align_abbr])
 
@@ -363,19 +375,20 @@ as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
 as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         function(x, ..., depth = 1L) {
-  html <- flatten_text(x, ...)
+as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
+  text <- flatten_text(x, ...)
+
+  if (!auto_link) {
+    return(paste0("<code>", text, "</code>"))
+  }
 
   expr <- tryCatch(
-    parse(text = html)[[1]],
+    parse(text = text)[[1]],
     error = function(e) NULL
   )
 
-  if (is_call_vignette(expr)) {
-    html <- link_vignette(expr, html, depth = depth)
-  }
-
-  paste0("<code>", html, "</code>")
+  href <- href_expr(expr)
+  paste0("<code>", a(text, href = href), "</code>")
 }
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
@@ -383,6 +396,7 @@ as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 as_html.tag_samp <-         tag_wrapper('<samp>',"</samp>")
 #' @export
 as_html.tag_verb <-         tag_wrapper("<code>", "</code>")
+
 #' @export
 as_html.tag_pkg <-          tag_wrapper('<span class="pkg">',"</span>")
 #' @export
@@ -406,6 +420,9 @@ as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
 as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
 as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
+
+#' @export
+as_html.tag_out <- function(x, ...) flatten_text(x, ..., escape = FALSE)
 
 # Insertions --------------------------------------------------------------
 
@@ -437,17 +454,11 @@ as_html.tag_enc <- function(x, ...) {
 #' @export
 as_html.NULL <-         function(x, ...) ""
 #' @export
-as_html.tag_dontshow <- function(x, ...) ""
-#' @export
-as_html.tag_testonly <- function(x, ...) ""
-#' @export
 as_html.tag_concept <-  function(x, ...) ""
-#' @export
-as_html.tag_out <-      function(x, ...) ""
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
-as_html.tag_cr <-       function(x, ...) ""
+as_html.tag_cr <-       function(x, ...) "<br />"
 #' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export

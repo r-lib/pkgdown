@@ -8,3 +8,11 @@ addons:
   apt:
     packages:
       - libmagick++-dev
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+env:
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
