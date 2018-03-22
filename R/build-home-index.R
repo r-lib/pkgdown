@@ -38,8 +38,8 @@ render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
   format <- build_rmarkdown_format(pkg, depth = 0L, data = data, toc = FALSE)
   render_rmarkdown(
     pkg = pkg,
-    input = path,
-    output = "index.html",
+    input = path_abs(path, pkg$src_path),
+    output = path_abs("index.html", pkg$dst_path),
     output_format = format,
     quiet = quiet,
     copy_images = FALSE
