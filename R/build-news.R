@@ -147,7 +147,7 @@ data_news <- function(pkg = ".", depth = 1L) {
     anchor = anchors,
     html = html
   )
-  news[is_version, , drop = FALSE]
+  news
 }
 
 has_news <- function(path = ".") {
