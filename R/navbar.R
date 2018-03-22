@@ -58,7 +58,7 @@ default_navbar <- function(pkg = ".") {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
 
     left$intro <- list(
-      text = "Get Started",
+      text = "Get started",
       href = intro$file_out
     )
   }
