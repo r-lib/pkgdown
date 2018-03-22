@@ -8,7 +8,14 @@
 #' @export
 #' @rdname templates
 template_navbar <- function(path = ".") {
-  print_yaml(list(navbar = default_navbar(path)))
+  pkg <- as_pkgdown(path)
+
+  yaml_list(
+    navbar = list(
+      structure = navbar_structure(),
+      components = navbar_components(pkg)
+    )
+  )
 }
 
 #' @export

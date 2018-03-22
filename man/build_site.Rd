@@ -130,44 +130,51 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-\code{navbar} controls the navbar at the top of the page. It uses the same
-syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
-  type: inverse
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "Reference"
-      href: reference/index.html
-    - text: "Articles"
-      menu:
-        - text: "Heading 1"
-        - text: "Article A"
-          href: articles/page_a.html
-        - text: "Article B"
-          href: articles/page_b.html
-        - text: "---------"
-        - text: "Heading 2"
-        - text: "Article C"
-          href: articles/page_c.html
-        - text: "Article D"
-          href: articles/page_d.html
-  right:
-    - icon: fa-github fa-lg
-      href: https://example.com
+\code{navbar} controls the navbar at the top of the page. It has two primary
+components: \code{structure} and \code{components}. These components interact in
+a somewhat complicated way, but the complexity allows you to make minor
+tweaks to part of the navbar while relying on pkgdown to automatically
+generate the rest.
+
+The \code{structure} defines the layout of the navbar, i.e. the order
+of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components,
+and to add your own components.\preformatted{navbar:
+  structure:
+    left:  [home, intro, reference, articles, tutorials, news]
+    right: [github]
 }
 
-Use \code{type} to choose between "default" and "inverse" themes.
+The \code{components} describes the appearance of each element in the navbar.
+It uses the same
+syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
+The following YAML snippet illustrates some of the most important features.\preformatted{components:
+  home: ~
+  articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      href: articles/b1.html
+   twitter:
+     icon: fa-lg fa-twitter
+     href: http://twitter.com/hadleywickham
+}
 
-You position elements by placing under either \code{left} or \code{right}.
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators. Currently pkgdown only supports fontawesome
-icons. You can see a full list of options at
-\url{http://fontawesome.io/icons/}.
+\code{href}) and separators (indiciated by a bunch of \code{-}). You can use \code{icon}s
+from fontawesome: see a full list \url{http://fontawesome.io/icons/}.
 
-Any missing components (\code{type}, \code{left}, or \code{right})
-will be automatically filled in from the default navbar: you can see
-those values by running \code{\link[=template_navbar]{template_navbar()}}.
+This yaml would override the default "articles" component, eliminate
+the "home" component, and add a new "twitter" component. Unless you
+explicitly mention new components in the \code{structure} they'll be added
+to the far right of the left menu.
 }
 
 \section{YAML config - template}{

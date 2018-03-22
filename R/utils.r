@@ -55,6 +55,8 @@ rule <- function(left, ...) {
   cli::cat_rule(left = crayon::bold(left), ...)
 }
 
+yaml_list <- function(...) print_yaml(list(...))
+
 print_yaml <- function(x) {
   structure(x, class = "print_yaml")
 }

@@ -180,6 +180,24 @@ data_news <- function(pkg = ".") {
   news
 }
 
+navbar_news <- function(pkg) {
+  releases_meta <- pkg$meta$news$releases
+  if (!is.null(releases_meta)) {
+    menu("News",
+      c(
+        list(menu_text("Releases")),
+        releases_meta,
+        list(
+          menu_spacer(),
+          menu_link("Changelog", "news/index.html")
+        )
+      )
+    )
+  } else if (has_news(pkg$src_path)) {
+    menu_link("Changelog", "news/index.html")
+  }
+}
+
 has_news <- function(path = ".") {
   file_exists(path(path, "NEWS.md"))
 }
