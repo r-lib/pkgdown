@@ -1,16 +1,22 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
 
-  if (!file_exists(input)) {
+  input_path <- path_abs(input, pkg$src_path)
+  output_path <- path_abs(output, pkg$dst_path)
+
+  if (!file_exists(input_path)) {
     stop("Can't find ", src_path(input), call. = FALSE)
   }
 
+  cat_line("Reading ", src_path(input))
+  digest <- file_digest(output_path)
+
   args <- list(
     input = input,
-    output_file = path_file(output),
-    output_dir = path_dir(output),
+    output_file = path_file(output_path),
+    output_dir = path_dir(output_path),
     intermediates_dir = tempdir(),
     encoding = "UTF-8",
     envir = globalenv(),
@@ -24,19 +30,22 @@ render_rmarkdown <- function(input, output, ..., copy_images = TRUE, quiet = TRU
     show = !quiet
   )
 
+  if (identical(path_ext(path)[[1]], "html")) {
+    update_html(path, tweak_rmarkdown_html, input_path = path_dir(input_path))
+  }
+  if (digest != file_digest(output_path)) {
+    cat_line("Writing ", dst_path(output))
+  }
+
   # Copy over images needed by the document
   if (copy_images) {
     ext <- rmarkdown::find_external_resources(input, "UTF-8")
     ext_path <- ext$path[ext$web]
     file_copy(
-      path(path_dir(input), ext_path),
-      path(path_dir(output), ext_path),
+      path(path_dir(input_path), ext_path),
+      path(path_dir(output_path), ext_path),
       overwrite = TRUE
     )
-  }
-
-  if (identical(path_ext(path)[[1]], "html")) {
-    update_html(path, tweak_rmarkdown_html, input_path = path_dir(input))
   }
 
   invisible(path)

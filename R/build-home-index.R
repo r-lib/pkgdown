@@ -21,7 +21,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
       data$index <- markdown(src_path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {
-      render_index(pkg, src_path, data = data, quiet = quiet)
+      render_index(pkg, path_rel(src_path, pkg$src_path), data = data, quiet = quiet)
     }
   }
 
@@ -35,12 +35,11 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
 render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
-  cat_line("Writing ", dst_path("index.html"))
-
   format <- build_rmarkdown_format(pkg, depth = 0L, data = data, toc = FALSE)
   render_rmarkdown(
+    pkg = pkg,
     input = path,
-    output = path_abs("index.html", pkg$dst_path),
+    output = "index.html",
     output_format = format,
     quiet = quiet,
     copy_images = FALSE

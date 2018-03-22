@@ -145,14 +145,13 @@ build_article <- function(name,
   output_file <- pkg$vignettes$file_out[vig]
   input <- pkg$vignettes$file_in[vig]
 
-  input <- path_abs(input, pkg$src_path)
-  output <- path_abs(output_file, pkg$dst_path)
+  input_path <- path_abs(input, pkg$src_path)
+  output_path <- path_abs(output_file, pkg$dst_path)
 
-  if (lazy && !out_of_date(input, output)) {
+  if (lazy && !out_of_date(input_path, output_path)) {
     return(invisible())
   }
 
-  cat_line("Writing ", dst_path(output_file))
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
@@ -164,7 +163,7 @@ build_article <- function(name,
   data <- utils::modifyList(default_data, data)
 
   # Allow users to opt-in to their own template
-  front <- rmarkdown::yaml_front_matter(input)
+  front <- rmarkdown::yaml_front_matter(input_path)
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
@@ -187,8 +186,9 @@ build_article <- function(name,
   }
 
   render_rmarkdown(
+    pkg,
     input = input,
-    output = output,
+    output = output_file,
     output_format = format,
     output_options = options,
     quiet = quiet

@@ -173,6 +173,15 @@ same_contents <- function(path, contents) {
   identical(new_hash, cur_hash)
 }
 
+file_digest <- function(path) {
+  if (file_exists(path)) {
+    digest::digest(file = path, algo = "xxhash64")
+  } else {
+    "MISSING"
+  }
+}
+
+
 made_by_pkgdown <- function(path) {
   if (!file_exists(path)) return(TRUE)
 
