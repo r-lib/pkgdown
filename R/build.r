@@ -221,7 +221,10 @@ build_site <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Create pkgdown site", right = pkg$dst_path, line = 2)
+  rule("Building pkgdown site", line = 2)
+  cat_line("Source:      ", src_path(path_abs(pkg$src_path)))
+  cat_line("Destination: ", dst_path(path_abs(pkg$dst_path)))
+
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
