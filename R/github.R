@@ -15,6 +15,11 @@ pkg_github_url <- function(desc) {
 }
 
 github_source <- function(base, path) {
+  # Already a full url
+  if (grepl("^https?://", path)) {
+    return(path)
+  }
+
   file.path(base, "blob" , "master", path)
 }
 

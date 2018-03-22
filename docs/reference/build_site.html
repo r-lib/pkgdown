@@ -27,17 +27,19 @@
 <script src="../pkgdown.js"></script>
 <meta property="og:title" content="Build pkgdown website — build_site" />
 
-<meta property="og:description" content="build_site() is a convenient wrapper around five functions:
+<meta property="og:description" content="build_site() is a convenient wrapper around six functions:
 init_site()
-build_articles()
 build_home()
 build_reference()
+build_articles()
+build_tutorials()
 build_news()
 " />
 
 <meta property="og:description" content="See the documentation for the each function to learn how to control
 that aspect of the site.
-Note if names of generated files were changed, you will need to use clean_site first to clean up orphan files." />
+Note if names of generated files were changed, you will need to use
+clean_site first to clean up orphan files." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -138,17 +140,19 @@ Note if names of generated files were changed, you will need to use clean_site f
     </div>
 
     
-    <p><code>build_site()</code> is a convenient wrapper around five functions:</p><ul>
+    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul>
 <li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
-<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
 <li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
 <li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
+<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
+<li><p><code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
 <li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
 </ul>
 
     <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
-<p>Note if names of generated files were changed, you will need to use <a href='clean_site.html'>clean_site</a> first to clean up orphan files.</p>
+<p>Note if names of generated files were changed, you will need to use
+<a href='clean_site.html'>clean_site</a> first to clean up orphan files.</p>
     
 
     <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,

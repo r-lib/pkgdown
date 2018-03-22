@@ -30,6 +30,7 @@ Imports:
     rlang,
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rsconnect,
     rstudioapi,
     tibble,
     tools,

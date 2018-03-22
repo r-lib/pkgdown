@@ -30,19 +30,21 @@ values in \code{_pkgdown.yml}}
 freshly generated section in browser.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around five functions:
+\code{build_site()} is a convenient wrapper around six functions:
 \itemize{
 \item \code{\link[=init_site]{init_site()}}
-\item \code{\link[=build_articles]{build_articles()}}
 \item \code{\link[=build_home]{build_home()}}
 \item \code{\link[=build_reference]{build_reference()}}
+\item \code{\link[=build_articles]{build_articles()}}
+\item \code{\link[=build_tutorials]{build_tutorials()}}
 \item \code{\link[=build_news]{build_news()}}
 }
 
 See the documentation for the each function to learn how to control
 that aspect of the site.
 
-Note if names of generated files were changed, you will need to use \link{clean_site} first to clean up orphan files.
+Note if names of generated files were changed, you will need to use
+\link{clean_site} first to clean up orphan files.
 }
 \section{YAML config}{
 

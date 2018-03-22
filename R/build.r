@@ -1,18 +1,20 @@
 #' Build pkgdown website
 #'
 #' @description
-#' `build_site()` is a convenient wrapper around five functions:
+#' `build_site()` is a convenient wrapper around six functions:
 #'
 #' * [init_site()]
-#' * [build_articles()]
 #' * [build_home()]
 #' * [build_reference()]
+#' * [build_articles()]
+#' * [build_tutorials()]
 #' * [build_news()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
 #'
-#' Note if names of generated files were changed, you will need to use [clean_site] first to clean up orphan files.
+#' Note if names of generated files were changed, you will need to use
+#' [clean_site] first to clean up orphan files.
 #'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
@@ -238,6 +240,7 @@ build_site <- function(pkg = ".",
     preview = FALSE
   )
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 
   preview_site(pkg, preview = preview)

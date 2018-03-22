@@ -48,6 +48,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       meta = meta,
       development = development,
       topics = package_topics(pkg, package),
+      tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg),
       topic_index = topic_index_local(package, pkg),
       article_index = article_index_local(package, pkg)
@@ -188,6 +189,7 @@ package_vignettes <- function(path = ".") {
   }
   vig_path <- path_rel(vig_path, base)
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
+  vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]
 
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
   title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")

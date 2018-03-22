@@ -80,6 +80,19 @@ default_navbar <- function(pkg = ".") {
     )
   }
 
+  tutorials <- pkg$tutorials
+  if (nrow(tutorials) > 0) {
+    tutorials <- purrr::map2(
+      tutorials$title, tutorials$file_out,
+      ~ list(text = .x, href = .y)
+    )
+
+    left$articles <- list(
+      text = "Tutorials",
+      menu = tutorials
+    )
+  }
+
   releases_meta <- pkg$meta$news$releases
   if (!is.null(releases_meta)) {
     left$news <- list(
