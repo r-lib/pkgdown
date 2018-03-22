@@ -38,7 +38,7 @@ data_assets <- function(pkg = ".") {
   template <- pkg$meta[["template"]]
 
   if (!is.null(template$assets)) {
-    path <- path_rel(pkg$src_path, template$assets)
+    path <- path_rel(template$assets, pkg$src_path)
     if (!file_exists(path))
       stop("Can not find asset path ", src_path(path), call. = FALSE)
 
