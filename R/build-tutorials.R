@@ -95,8 +95,9 @@ find_tutorials <- function(path = ".") {
     stop("rsconnect package must be installed to scan for tutorials", call. = FALSE)
   }
 
-  rmds <- dir_ls(path, recursive = TRUE, regexp = "\\.[Rr]md$")
-  purrr::compact(purrr::map(unname(rmds), tutorial_info, base_path = path))
+  rmds <- unname(dir_ls(path, recursive = TRUE, regexp = "\\.[Rr]md$"))
+  info <- purrr::map(rmds, tutorial_info, base_path = path)
+  purrr::compact(info)
 }
 
 tutorial_info <- function(path, base_path) {
@@ -115,7 +116,7 @@ tutorial_info <- function(path, base_path) {
 
   # Must have deployment url
   deploys <- rsconnect::deployments(path)
-  if (nrow(deploys) >= 1) {
+  if (!is.null(deploys) && nrow(deploys) >= 1) {
     latest <- which.max(deploys$when)
     url <- deploys$url[[latest]]
   } else {
