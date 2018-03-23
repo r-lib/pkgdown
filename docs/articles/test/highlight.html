@@ -67,6 +67,9 @@
       <a href="../../articles/test/highlight.html">Test: Highlighting</a>
     </li>
     <li>
+      <a href="../../articles/test/jss.pdf">Test: JSS article (PDF)</a>
+    </li>
+    <li>
       <a href="../../articles/test/output.html">Test: Custom output</a>
     </li>
     <li>
@@ -127,18 +130,18 @@
 <div id="code-blocks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-blocks" class="anchor"></a>Code blocks</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Shouldn't get linked</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">enlist</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Should get linked</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Should get linked because MASS was loaded previously</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Shouldn't get linked</span>
+<span class="kw">enlist</span>(<span class="dv">5</span>)
+<span class="co"># Should get linked</span>
+MASS<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Should get linked because MASS was loaded previously</span>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/MASS/topics/MASS-internal">enlist</a></span>(<span class="dv">5</span>)
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 5</span></code></pre></div>
 </div>
 </div>
   </div>
