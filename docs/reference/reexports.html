@@ -44,6 +44,9 @@ below to see their documentation.
 <![endif]-->
 
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
   </head>
 
   <body>
@@ -117,6 +120,11 @@ below to see their documentation.
   </a>
 </li>
       </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -161,6 +169,19 @@ below to see their documentation.</p>
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    appId: 'TK8WB6UEB2',
+    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
+    indexName: 'pkgdown-pkgdown',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>

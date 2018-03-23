@@ -31,7 +31,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   # render template components
-  pieces <- c("head", "navbar", "header", "content", "footer")
+  pieces <- c("head", "navbar", "header", "content", "docsearch", "footer")
 
   templates <- purrr::map_chr(pieces, find_template, name, template_path = template_path(pkg))
   components <- purrr::map(templates, render_template, data = data)
