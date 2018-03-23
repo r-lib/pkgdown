@@ -10,9 +10,9 @@ author:
   - name: Second Author
     affiliation: Affiliation
 title:
-  plain:     "A Capitalized Title: Something about a Package foo"
-  formatted: "A Capitalized Title: Something about a Package \\pkg{foo}"
-  short:     "\\pkg{foo}: A Capitalized Title"
+  plain:     "Test: JSS article"
+  formatted: "Test: JSS article"
+  short:     "Test: JSS article"
 abstract: >
   The abstract of the article.
 keywords:
