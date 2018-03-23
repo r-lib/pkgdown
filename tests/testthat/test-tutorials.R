@@ -23,6 +23,7 @@ test_that("can autodetect published tutorials", {
   dir_create(path_dir(dcf_dst))
   file_copy(dcf_src, dcf_dst)
   on.exit(file_delete(dcf_dst), add = TRUE)
+  on.exit(dir_delete(path_dir(dcf_dst)), add = TRUE)
 
   out <- package_tutorials(pkg)
   expect_equal(nrow(out), 1)
