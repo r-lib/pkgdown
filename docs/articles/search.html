@@ -111,16 +111,17 @@
     
     
 <div class="contents">
-<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">Docsearch</a> from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only a few steps needed to enable Docsearch on a pkgdown website.</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Contact Docsearch to index your site</strong>. Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</li>
-</ol>
+<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">Docsearch</a> from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.</p>
+<div id="ask-docsearch-to-index-your-site-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ask-docsearch-to-index-your-site-" class="anchor"></a>1. <strong>Ask Docsearch to index your site</strong>.</h2>
+<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
 <p>Docsearch will setup a crawler configuration that indexes your site every 24 hours. For example, this <a href="https://github.com/algolia/docsearch-configs/blob/master/configs/valr.json">crawler config</a> indexes the search capability for <a href="https://rnabioco.github.io/valr">valr</a>. If you want to optimize your search, they will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Add Docsearch paramters to your site</strong>. Docsearch will e-mail you some JavaScript to integrate into your website.</li>
-</ol>
+</div>
+<div id="add-docsearch-parameters-to-your-site-config-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#add-docsearch-parameters-to-your-site-config-" class="anchor"></a>2. <strong>Add Docsearch parameters to your site config</strong>.</h2>
+<p>Docsearch will e-mail you some JavaScript to integrate into your website.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
@@ -136,9 +137,18 @@
 <a class="sourceLine" id="cb2-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
 <p>When you re-build your site using this new configuration, you should have a functional search bar in the navbar.</p>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#ask-docsearch-to-index-your-site-">1. <strong>Ask Docsearch to index your site</strong>.</a></li>
+      <li><a href="#add-docsearch-parameters-to-your-site-config-">2. <strong>Add Docsearch parameters to your site config</strong>.</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
