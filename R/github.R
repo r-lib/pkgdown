@@ -14,13 +14,11 @@ pkg_github_url <- function(desc) {
   gh_links[[1]]
 }
 
-github_source <- function(base, path) {
-  # Already a full url
-  if (grepl("^https?://", path)) {
-    return(path)
-  }
-
-  file.path(base, "blob" , "master", path)
+github_source <- function(base, paths) {
+  # Don't need to touch those that are already a full url
+  full_urls <- grepl("^https?://", paths)
+  paths[!full_urls] <- file.path(base, "blob" , "master", paths[!full_urls])
+  paths
 }
 
 github_source_links <- function(base, paths) {
