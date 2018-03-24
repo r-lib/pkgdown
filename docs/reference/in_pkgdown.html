@@ -85,6 +85,9 @@ pkgdown and regular documentation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/search.html">Integrate search into a pkgdown website</a>
+    </li>
+    <li>
       <a href="../articles/test/details.html">Test: Details tag</a>
     </li>
     <li>
@@ -117,11 +120,7 @@ pkgdown and regular documentation." />
   </a>
 </li>
       </ul>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-        </div>
-      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -145,7 +144,7 @@ pkgdown and regular documentation.</p>
         
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>in_pkgdown</span>()</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>in_pkgdown</span>()</div><div class='output co'>#&gt; <span class='error'>Error in in_pkgdown(): could not find function "in_pkgdown"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -170,17 +169,6 @@ pkgdown and regular documentation.</p>
    </div>
 
   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script>
-  docsearch({
-    appId: 'TK8WB6UEB2',
-    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
-    indexName: 'pkgdown-pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
-  });
-</script>
-
 
   </body>
 </html>
