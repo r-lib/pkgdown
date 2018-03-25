@@ -26,7 +26,8 @@ fig_save <- function(plot,
   args <- list(
     path, # some devices use file and some use filename
     width = width * fig.retina,
-    height = height * fig.retina
+    height = height * fig.retina,
+    res = 144 * 1.2
   )
   with_device(dev, c(args, dev.args), plot)
 
