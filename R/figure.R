@@ -11,6 +11,7 @@ fig_save <- function(plot,
                      fig.width = 7.29, # 700 pixels
                      fig.height = NULL,
                      fig.retina = 2,
+                     fig.pointsize = 72,
                      fig.asp = 1.618
                      ) {
 
@@ -27,7 +28,7 @@ fig_save <- function(plot,
     path, # some devices use file and some use filename
     width = width * fig.retina,
     height = height * fig.retina,
-    res = 144 * 1.2
+    res = fig.pointsize * fig.retina
   )
   with_device(dev, c(args, dev.args), plot)
 
