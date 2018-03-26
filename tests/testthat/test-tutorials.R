@@ -15,6 +15,7 @@ jj_examples <- list(
 
 test_that("can autodetect published tutorials", {
   skip_if_not_installed("rsconnect")
+  skip_if(is.null(rsconnect::accounts()))
 
   # Can't embed in package because path is too long and gives R CMD check NOTE
   pkg <- test_path("tutorials-inst")
