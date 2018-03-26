@@ -91,6 +91,7 @@ read_meta <- function(path) {
     yaml <- list()
   } else {
     yaml <- yaml::yaml.load_file(path)
+    if (is.null(yaml)) yaml <- list()
   }
 
   yaml
