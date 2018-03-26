@@ -23,11 +23,24 @@ fig_save <- function(plot,
   width <- round(dpi * fig.width)
   height <- round(dpi * fig.height)
 
-  args <- list(
-    path, # some devices use file and some use filename
-    width = width * fig.retina,
-    height = height * fig.retina
-  )
+  has_res <- "res" %in% names(formals(match.fun(dev)))
+  if (has_res) {
+    # raster device; units in pixels, need to rescale for retina
+    args <- list(
+      path, # some devices use file and some use filename
+      width = width * fig.retina,
+      height = height * fig.retina,
+      res = dpi * fig.retina
+    )
+  } else {
+    # vector device; units in inches; no need to rescale
+    args <- list(
+      path,
+      width = fig.width,
+      height = fig.height
+    )
+  }
+
   with_device(dev, c(args, dev.args), plot)
 
   paste0(
