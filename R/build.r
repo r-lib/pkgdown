@@ -229,7 +229,7 @@ build_site <- function(pkg = ".",
                        mathjax = TRUE,
                        lazy = FALSE,
                        override = list(),
-                       preview = interactive()
+                       preview = NA
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
