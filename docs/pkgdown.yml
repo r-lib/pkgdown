@@ -1,9 +1,8 @@
-pandoc: 2.1.2
+pandoc: 2.1.3
 pkgdown: 0.1.0.9000
 pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
-  search: search.html
   details: test/details.html
   external: test/external.html
   figures: test/figures.html
