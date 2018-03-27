@@ -58,14 +58,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
 #'
 #' @noRd
 get_bstinputs <- function(input_path) {
-  envSep <- .Platform$path.sep
-
   Rbstinputs <- file.path(R.home("share"), "texmf", "bibtex", "bst")
-  bstinputs <- paste(c(dirname(input_path), Rbstinputs, ""), collapse = envSep)
   obstinputs <- Sys.getenv("BSTINPUTS", unset = NA_character_)
-
   if(is.na(obstinputs))
     obstinputs <- "."
 
-  paste(obstinputs, bstinputs, sep = envSep)
+  paste(obstinputs, dirname(input_path), Rbstinputs, sep = .Platform$path.sep)
 }
