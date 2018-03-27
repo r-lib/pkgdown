@@ -28,7 +28,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     function(...) rmarkdown::render(...),
     args = args,
     show = !quiet,
-    env = c(callr::rcmd_safe_env(), BSTINPUTS = get_bstinputs(input_path))
+    env = c(callr::rcmd_safe_env(), BSTINPUTS = bstinputs(input_path))
   )
 
   if (identical(path_ext(path)[[1]], "html")) {
@@ -52,12 +52,12 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   invisible(path)
 }
 
-## adapted from tools::texi2dvi
-get_bstinputs <- function(input_path) {
-  bstinputs <- c(
+# adapted from tools::texi2dvi
+bstinputs <- function(input_path) {
+  paths <- c(
     Sys.getenv("BSTINPUTS"),
     path_dir(input_path),
     path(R.home("share"), "texmf", "bibtex", "bst")
   )
-  paste(bstinputs, collapse = .Platform$path.sep)
+  paste(paths, collapse = .Platform$path.sep)
 }
