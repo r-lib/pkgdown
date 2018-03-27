@@ -101,3 +101,14 @@ test_that("or local sites, if registered", {
   scoped_package_context("pkgdown", local_packages = c("digest" = "digest"))
   expect_equal(href_expr_(vignette("sha1", "digest")), "digest/articles/sha1.html")
 })
+
+test_that("github_source returns (possibly many) URLs", {
+  base <- "https://github.com/r-lib/pkgdown"
+  expect_equal(
+    github_source(base, c("http://example.com", "R/example.R")),
+    c(
+      "http://example.com", # Already is a URL, so not modified
+      "https://github.com/r-lib/pkgdown/blob/master/R/example.R"
+    )
+  )
+})

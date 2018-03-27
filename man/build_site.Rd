@@ -6,7 +6,7 @@
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
-  preview = interactive())
+  preview = NA)
 }
 \arguments{
 \item{pkg}{Path to package.}

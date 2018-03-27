@@ -7,7 +7,7 @@ preview_site <- function(pkg = ".", path = ".", preview = NA) {
   pkg <- as_pkgdown(pkg)
 
   if (is.na(preview)) {
-    preview <- interactive()
+    preview <- interactive() && !is_testing()
   }
 
   if (preview) {
@@ -16,4 +16,8 @@ preview_site <- function(pkg = ".", path = ".", preview = NA) {
   }
 
   invisible()
+}
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
 }

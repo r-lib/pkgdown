@@ -224,6 +224,36 @@
 <a class="sourceLine" id="cb3-18" data-line-number="18">    <span class="kw">-</span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
 <a class="sourceLine" id="cb3-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
 </div>
+<div id="search" class="section level2">
+<h2 class="hasAnchor">
+<a href="#search" class="anchor"></a>Search</h2>
+<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">Docsearch</a> from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.</p>
+<div id="ask-docsearch-to-index-your-site-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ask-docsearch-to-index-your-site-" class="anchor"></a>1. Ask Docsearch to index your site.</h3>
+<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
+<p>Docsearch will setup a crawler configuration that indexes your site every 24 hours. For example, this <a href="https://github.com/algolia/docsearch-configs/blob/master/configs/valr.json">crawler config</a> indexes the search capability for <a href="https://rnabioco.github.io/valr">valr</a>. If you want to optimize your search, they will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
+</div>
+<div id="add-docsearch-parameters-to-your-site-config-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#add-docsearch-parameters-to-your-site-config-" class="anchor"></a>2. Add Docsearch parameters to your site config.</h3>
+<p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="op">}</span>)<span class="op">;</span> </a></code></pre></div>
+<p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">template:</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="fu">params:</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
+<p>You should have a functional search bar after re-building your site with this new configuration.</p>
+</div>
+</div>
 </div>
   </div>
 
@@ -237,6 +267,7 @@
       <li><a href="#articles">Articles</a></li>
       <li><a href="#news">News</a></li>
       <li><a href="#navbar2">Navbar</a></li>
+      <li><a href="#search">Search</a></li>
       </ul>
 </div>
       </div>

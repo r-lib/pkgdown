@@ -15,6 +15,7 @@ jj_examples <- list(
 
 test_that("can autodetect published tutorials", {
   skip_if_not_installed("rsconnect")
+  skip_if(is.null(rsconnect::accounts()))
 
   # Can't embed in package because path is too long and gives R CMD check NOTE
   pkg <- test_path("tutorials-inst")
@@ -23,6 +24,7 @@ test_that("can autodetect published tutorials", {
   dir_create(path_dir(dcf_dst))
   file_copy(dcf_src, dcf_dst)
   on.exit(file_delete(dcf_dst), add = TRUE)
+  on.exit(dir_delete(path_dir(dcf_dst)), add = TRUE)
 
   out <- package_tutorials(pkg)
   expect_equal(nrow(out), 1)
