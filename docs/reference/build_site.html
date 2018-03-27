@@ -314,6 +314,18 @@ the "home" component, and add a new "twitter" component. Unless you
 explicitly mention new components in the <code>structure</code> they'll be added
 to the far right of the left menu.</p>
     
+    <h2 class="hasAnchor" id="yaml-config-search"><a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
+
+    
+    <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
+to add search to your site.</p><pre>template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+</pre>
+    <p>See <code><a href='../articles/pkgdown.html'>vignette("pkgdown")</a></code> for details.</p>
+    
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
     
@@ -370,6 +382,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
       <li><a href="#development-mode">Development mode</a></li>
 
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
+
+      <li><a href="#yaml-config-search">YAML config - search</a></li>
 
       <li><a href="#yaml-config-template">YAML config - template</a></li>
       

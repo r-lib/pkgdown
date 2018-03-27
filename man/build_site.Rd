@@ -177,6 +177,19 @@ explicitly mention new components in the \code{structure} they'll be added
 to the far right of the left menu.
 }
 
+\section{YAML config - search}{
+
+You can use \href{https://community.algolia.com/docsearch/}{docsearch} by algolia
+to add search to your site.\preformatted{template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+}
+
+See \code{vignette("pkgdown")} for details.
+}
+
 \section{YAML config - template}{
 
 You can get complete control over the appearance of the site using the
