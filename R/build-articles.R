@@ -179,16 +179,6 @@ build_article <- function(name,
       )
     } else {
       options <- list(keep_tex=FALSE)
-      ## code adapted from tools::texi2dvi
-      envSep <- .Platform$path.sep
-      Rbstinputs <- file.path(R.home("share"), "texmf", "bibtex", "bst")
-      bstinputs <- paste(c(dirname(input_path), Rbstinputs, ""), collapse = envSep)
-      obstinputs <- Sys.getenv("BSTINPUTS", unset = NA_character_)
-      if(is.na(obstinputs)) {
-        on.exit(Sys.unsetenv("BSTINPUTS"), add = TRUE)
-        obstinputs <- "."
-      } else on.exit(Sys.setenv(BSTINPUTS = obstinputs), add = TRUE)
-      Sys.setenv(BSTINPUTS = paste(obstinputs, bstinputs, sep = envSep))
     }
   } else {
     format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
