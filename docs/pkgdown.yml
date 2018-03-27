@@ -1,4 +1,4 @@
-pandoc: 1.19.2.1
+pandoc: 2.1.1
 pkgdown: 0.1.0.9000
 pkgdown_sha: ~
 articles:
@@ -7,7 +7,6 @@ articles:
   external: test/external.html
   figures: test/figures.html
   highlight: test/highlight.html
-  jss: test/jss.html
   output: test/output.html
   pdf: test/pdf.html
 urls:
