@@ -24,7 +24,8 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     quiet = quiet
   )
 
-  set_bstinputs(input_path)
+  on.exit(Sys.setenv(BSTINPUTS = Sys.getenv("BSTINPUTS")), add = TRUE)
+  Sys.setenv(BSTINPUTS = get_bstinputs(input_path))
 
   path <- callr::r_safe(
     function(...) rmarkdown::render(...),
@@ -53,20 +54,18 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   invisible(path)
 }
 
-#' Set BSTINPUTS for JSS articles (adapted from tools::texi2dvi)
+#' Get BSTINPUTS for JSS articles (adapted from tools::texi2dvi)
 #'
 #' @noRd
-set_bstinputs <- function(input_path) {
+get_bstinputs <- function(input_path) {
   envSep <- .Platform$path.sep
 
   Rbstinputs <- file.path(R.home("share"), "texmf", "bibtex", "bst")
   bstinputs <- paste(c(dirname(input_path), Rbstinputs, ""), collapse = envSep)
   obstinputs <- Sys.getenv("BSTINPUTS", unset = NA_character_)
 
-  if(is.na(obstinputs)) {
-    on.exit(Sys.unsetenv("BSTINPUTS"), add = TRUE)
+  if(is.na(obstinputs))
     obstinputs <- "."
-  } else on.exit(Sys.setenv(BSTINPUTS = obstinputs), add = TRUE)
 
-  Sys.setenv(BSTINPUTS = paste(obstinputs, bstinputs, sep = envSep))
+  paste(obstinputs, bstinputs, sep = envSep)
 }
