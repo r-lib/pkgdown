@@ -24,13 +24,11 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     quiet = quiet
   )
 
-  on.exit(Sys.setenv(BSTINPUTS = Sys.getenv("BSTINPUTS")), add = TRUE)
-  Sys.setenv(BSTINPUTS = get_bstinputs(input_path))
-
   path <- callr::r_safe(
     function(...) rmarkdown::render(...),
     args = args,
-    show = !quiet
+    show = !quiet,
+    env = c(callr::rcmd_safe_env(), BSTINPUTS = get_bstinputs(input_path))
   )
 
   if (identical(path_ext(path)[[1]], "html")) {
@@ -54,14 +52,12 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   invisible(path)
 }
 
-#' Get BSTINPUTS for JSS articles (adapted from tools::texi2dvi)
-#'
-#' @noRd
+## adapted from tools::texi2dvi
 get_bstinputs <- function(input_path) {
-  Rbstinputs <- file.path(R.home("share"), "texmf", "bibtex", "bst")
+  Rbstinputs <- path(R.home("share"), "texmf", "bibtex", "bst")
   obstinputs <- Sys.getenv("BSTINPUTS", unset = NA_character_)
   if(is.na(obstinputs))
     obstinputs <- "."
 
-  paste(obstinputs, dirname(input_path), Rbstinputs, sep = .Platform$path.sep)
+  paste(obstinputs, path_dir(input_path), Rbstinputs, sep = .Platform$path.sep)
 }

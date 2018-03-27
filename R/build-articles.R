@@ -178,7 +178,7 @@ build_article <- function(name,
         theme = NULL
       )
     } else {
-      options <- list(keep_tex=FALSE)
+      options <- list()
     }
   } else {
     format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
