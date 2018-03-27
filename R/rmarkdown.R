@@ -54,9 +54,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
 
 ## adapted from tools::texi2dvi
 get_bstinputs <- function(input_path) {
-  obstinputs <- Sys.getenv("BSTINPUTS")
-  bstinputs <- path_dir(input_path)
-  Rbstinputs <- path(R.home("share"), "texmf", "bibtex", "bst")
-
-  paste(obstinputs, bstinputs, Rbstinputs, sep = .Platform$path.sep)
+  bstinputs <- c(
+    Sys.getenv("BSTINPUTS"),
+    path_dir(input_path),
+    path(R.home("share"), "texmf", "bibtex", "bst")
+  )
+  paste(bstinputs, collapse = .Platform$path.sep)
 }
