@@ -1,0 +1,16 @@
+---
+author: "Hadley Wickham"
+title: "R Markdown Vignette with an Image"
+description: "The image is in a subdirectory, and we must be sure to copy it."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{img}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Some words, and then an image like this:
+
+```{r, echo = FALSE}
+knitr::include_graphics("open-graph/logo.png")
+```
