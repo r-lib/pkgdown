@@ -41,18 +41,12 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   if (copy_images) {
     ext <- rmarkdown::find_external_resources(input_path, "UTF-8")
     ext_path <- ext$path[ext$web]
-    safe_file_copy(
-      path(path_dir(input_path), ext_path),
-      path(path_dir(output_path), ext_path),
-      overwrite = TRUE
-    )
+    origins <- path(path_dir(input_path), ext_path)
+    destinations <- path(path_dir(output_path), ext_path)
+    # Make sure destination paths exist before copying files there
+    dir_create(unique(dirname(destinations)), recursive = TRUE)
+    file_copy(origins, destinations, overwrite = TRUE)
   }
 
   invisible(path)
-}
-
-safe_file_copy <- function(path, new_path, ...) {
-  # Make sure destination paths exist before copying files there
-  dir_create(unique(dirname(new_path)), recursive = TRUE)
-  file_copy(path, new_path, ...)
 }
