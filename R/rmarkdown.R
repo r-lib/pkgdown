@@ -41,7 +41,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   # Copy over images needed by the document
   if (copy_images) {
     ext <- rmarkdown::find_external_resources(input_path, "UTF-8")
-    ext_path <- ext$path[ext$web]
+    ext_path <- ext$path[ext$web | ext$explicit]
     src <- path(path_dir(input_path), ext_path)
     dst <- path(path_dir(output_path), ext_path)
     # Make sure destination paths exist before copying files there
