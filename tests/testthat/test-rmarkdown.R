@@ -9,8 +9,8 @@ test_that("render_rmarkdown copies image files in subdirectories", {
       "articles/vignette-with-img.html"
     )
   )
-  expect_identical(
-    dir(tmp, recursive = TRUE),
+  expect_equal(
+    path_rel(dir_ls(tmp, type = "file", recursive = TRUE), tmp),
     c("articles/open-graph/logo.png", "articles/vignette-with-img.html")
   )
 })
