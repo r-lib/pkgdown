@@ -25,6 +25,7 @@ init_site <- function(pkg = ".") {
   copy_assets(pkg)
 
   build_site_meta(pkg)
+  build_sitemap(pkg)
   build_logo(pkg)
 
   invisible()
