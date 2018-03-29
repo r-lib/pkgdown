@@ -217,12 +217,12 @@ build_rmarkdown_format <- function(pkg,
 }
 
 # Generates pandoc template format by rendering
-# inst/template/context-vignette.html
+# inst/template/article-vignette.html
 # Output is a path + environment; when the environment is garbage collected
 # the path will be deleted
 rmarkdown_template <- function(pkg, data, depth) {
   path <- tempfile(fileext = ".html")
-  render_page(pkg, "vignette", data, path, depth = depth, quiet = TRUE)
+  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
 
   # Remove template file when format object is GC'd
   e <- env()
@@ -237,7 +237,7 @@ build_articles_index <- function(pkg = ".") {
   dir_create(path(pkg$dst_path, "articles"))
   render_page(
     pkg,
-    "vignette-index",
+    "article-index",
     data = data_articles_index(pkg),
     path = path("articles", "index.html")
   )
