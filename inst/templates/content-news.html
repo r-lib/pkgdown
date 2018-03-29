@@ -1,16 +1,13 @@
 <div class="row">
-
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small>{{version}}</small></h1>
       {{#source}}<small>{{{.}}}</small>{{/source}}
     </div>
 
-    <div class="contents">
     {{#contents}}
     {{{html}}}
     {{/contents}}
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
