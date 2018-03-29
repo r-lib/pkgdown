@@ -19,6 +19,8 @@ fig_save <- function(plot,
 
   if (is.null(fig.height)) {
     fig.height <- fig.width / fig.asp
+  } else if (is.null(fig.width)) {
+    fig.width <- fig.height * fig.asp
   }
   width <- round(dpi * fig.width)
   height <- round(dpi * fig.height)
