@@ -266,6 +266,7 @@ build_site <- function(pkg = ".",
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
+  build_search_docs(pkg)
 
   preview_site(pkg, preview = preview)
   rule("DONE", line = 2)
