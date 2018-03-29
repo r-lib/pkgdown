@@ -74,6 +74,22 @@ pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
 }
 
+\section{Figures}{
+
+
+You can control the default rendering of figues by specifying the \code{figures}
+field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+}
+}
+
 \section{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll

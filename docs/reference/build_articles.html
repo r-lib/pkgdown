@@ -269,6 +269,21 @@ will be automatically added to the default navbar if the vignettes
 directory is present: if you do not want this, you will need to
 customise the navbar. See <code><a href='build_site.html'>build_site()</a></code> details.</p>
     
+    <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
+
+    
+    <p>You can control the default rendering of figues by specifying the <code>figures</code>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+</pre>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -283,6 +298,8 @@ customise the navbar. See <code><a href='build_site.html'>build_site()</a></code
       <li><a href="#yaml-header">YAML header</a></li>
 
       <li><a href="#supressing-vignettes">Supressing vignettes</a></li>
+
+      <li><a href="#figures">Figures</a></li>
           </ul>
 
   </div>

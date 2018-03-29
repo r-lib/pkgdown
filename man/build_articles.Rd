@@ -117,3 +117,19 @@ directory is present: if you do not want this, you will need to
 customise the navbar. See \code{\link[=build_site]{build_site()}} details.
 }
 
+\section{Figures}{
+
+
+You can control the default rendering of figues by specifying the \code{figures}
+field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+}
+}
+

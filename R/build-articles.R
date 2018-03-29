@@ -80,7 +80,7 @@
 #'   as_is: true
 #'   extension: pdf
 #' ```
-#'
+#' @inheritSection build_reference Figures
 #' @section Supressing vignettes:
 #'
 #' If you want articles that are not vignettes, either put them in
@@ -209,6 +209,8 @@ build_rmarkdown_format <- function(pkg,
     theme = NULL,
     template = template$path
   )
+  out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
+
   attr(out, "__cleanup") <- template$cleanup
 
   out
