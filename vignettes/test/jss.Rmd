@@ -21,7 +21,6 @@ keywords:
 output: rticles::jss_article
 classoption: nojss
 bibliography: jss.bib
-resource_files: [jss.bib]
 pkgdown:
   as_is: true
   extension: pdf

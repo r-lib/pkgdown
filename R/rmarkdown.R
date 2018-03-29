@@ -31,7 +31,8 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     env = c(
       callr::rcmd_safe_env(),
       BSTINPUTS = bst_paths(input_path),
-      TEXINPUTS = tex_paths(input_path)
+      TEXINPUTS = tex_paths(input_path),
+      BIBINPUTS = bib_paths(input_path)
     )
   )
 
@@ -70,6 +71,13 @@ tex_paths <- function(path) {
     Sys.getenv("TEXINPUTS"),
     path_dir(path),
     path(R.home("share"), "texmf", "tex", "latex")
+  )
+  paste(paths, collapse = .Platform$path.sep)
+}
+bib_paths <- function(path) {
+  paths <- c(
+    Sys.getenv("BIBINPUTS"),
+    tex_paths(path)
   )
   paste(paths, collapse = .Platform$path.sep)
 

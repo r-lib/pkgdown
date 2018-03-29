@@ -3,11 +3,11 @@ pkgdown: 0.1.0.9000
 pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
-  _jss: test/_jss.html
   details: test/details.html
   external: test/external.html
   figures: test/figures.html
   highlight: test/highlight.html
+  jss: test/jss.html
   output: test/output.html
   pdf: test/pdf.html
 urls:
