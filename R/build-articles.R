@@ -169,9 +169,10 @@ build_article <- function(name,
 
   if (as_is) {
     format <- NULL
-    template <- rmarkdown_template(pkg, depth = depth, data = data)
 
     if (identical(ext, "html")) {
+      template <- rmarkdown_template(pkg, depth = depth, data = data)
+
       options <- list(
         template = template$path,
         self_contained = FALSE,
