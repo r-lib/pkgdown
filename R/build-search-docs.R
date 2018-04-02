@@ -49,7 +49,7 @@ build_sitemap <- function(pkg = ".") {
     )
   )
 
-  url_nodes <- map(urls, url_node)
+  url_nodes <- purrr::map(urls, url_node)
   for (url in url_nodes) {
     xml2::xml_add_child(doc, url)
   }
