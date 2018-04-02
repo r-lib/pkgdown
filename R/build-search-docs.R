@@ -56,7 +56,7 @@ build_sitemap <- function(pkg = ".") {
   xml_path <- path(pkg$dst_path, "sitemap.xml")
   cat_line("Writing ", dst_path(path_rel(xml_path, pkg$dst_path)))
 
-  xml2::write_xml(doc, file = path(pkg$dst_path, "sitemap.xml"))
+  xml2::write_xml(doc, file = xml_path)
 
   invisible()
 }
