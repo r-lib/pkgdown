@@ -46,6 +46,8 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
       desc = desc,
       meta = meta,
+      figures = meta_figures(meta),
+
       development = development,
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),

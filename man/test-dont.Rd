@@ -21,4 +21,8 @@ answer <- 42
 }
 answer # should be 42
 }
+\seealso{
+Other tests: \code{\link{test-figures}},
+  \code{\link{test-links}}, \code{\link{test-lists}}
+}
 \keyword{internal}

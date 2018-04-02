@@ -23,4 +23,8 @@
   \item{b}{2}
 }
 }
+\seealso{
+Other tests: \code{\link{test-dont}},
+  \code{\link{test-figures}}, \code{\link{test-links}}
+}
 \keyword{internal}

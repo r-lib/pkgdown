@@ -33,6 +33,10 @@ linkify <- function(text) {
   text
 }
 
+dont_index <- function(x) {
+  paste0("<div class='dont-index'>", x, "</div>")
+}
+
 escape_html <- function(x) {
   x <- gsub("&", "&amp;", x)
   x <- gsub("<", "&lt;", x)

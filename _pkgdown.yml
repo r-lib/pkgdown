@@ -1,5 +1,9 @@
 url: http://pkgdown.r-lib.org
 
+authors:
+  Jay Hesselberth:
+    href: https://hesselberthlab.org
+
 template:
   params:
     docsearch:

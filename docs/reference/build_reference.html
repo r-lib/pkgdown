@@ -101,6 +101,9 @@ below." />
       <a href="../articles/test/highlight.html">Test: Highlighting</a>
     </li>
     <li>
+      <a href="../articles/test/jss.pdf">Test: JSS article (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/test/output.html">Test: Custom output</a>
     </li>
     <li>
@@ -135,7 +138,7 @@ below." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build reference section</h1>
@@ -228,6 +231,21 @@ roxygen2, but may be useful if you write Rd files by hand.</p>
 <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
     
+    <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
+
+    
+    <p>You can control the default rendering of figues by specifying the <code>figures</code>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+</pre>
+    
     <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
 
     
@@ -273,6 +291,8 @@ retina display). Icons are matched to topics by aliases.</p>
       
       <li><a href="#yaml-config">YAML config</a></li>
 
+      <li><a href="#figures">Figures</a></li>
+
       <li><a href="#icons">Icons</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -297,6 +317,7 @@ retina display). Icons are matched to topics by aliases.</p>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   docsearch({
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
     inputSelector: 'input#search-input.form-control',

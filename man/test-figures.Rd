@@ -10,4 +10,8 @@
 x <- seq(0, 2 * pi, length = 25)
 plot(x, sin(x))
 }
+\seealso{
+Other tests: \code{\link{test-dont}},
+  \code{\link{test-links}}, \code{\link{test-lists}}
+}
 \keyword{internal}
