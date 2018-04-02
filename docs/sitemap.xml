@@ -10,9 +10,6 @@
     <loc>http://pkgdown.r-lib.org/reference/build_articles.html</loc>
   </url>
   <url>
-    <loc>http://pkgdown.r-lib.org/reference/build_docsearch_json.html</loc>
-  </url>
-  <url>
     <loc>http://pkgdown.r-lib.org/reference/build_home.html</loc>
   </url>
   <url>
@@ -20,9 +17,6 @@
   </url>
   <url>
     <loc>http://pkgdown.r-lib.org/reference/build_reference.html</loc>
-  </url>
-  <url>
-    <loc>http://pkgdown.r-lib.org/reference/build_search_docs.html</loc>
   </url>
   <url>
     <loc>http://pkgdown.r-lib.org/reference/build_site.html</loc>

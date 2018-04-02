@@ -240,11 +240,11 @@
 <h3 class="hasAnchor">
 <a href="#ask-docsearch-to-index-your-site-" class="anchor"></a>1. Ask Docsearch to index your site.</h3>
 <p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
-<p>Docsearch will setup a crawler configuration that indexes your site every 24 hours. For example, this <a href="https://github.com/algolia/docsearch-configs/blob/master/configs/valr.json">crawler config</a> indexes the search capability for <a href="https://rnabioco.github.io/valr">valr</a>. If you want to optimize your search, they will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
+<p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawlwer configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
 </div>
-<div id="add-docsearch-parameters-to-your-site-config-" class="section level3">
+<div id="add-docsearch-parameters-to-your-site-configuration-file-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add-docsearch-parameters-to-your-site-config-" class="anchor"></a>2. Add Docsearch parameters to your site config.</h3>
+<a href="#add-docsearch-parameters-to-your-site-configuration-file-" class="anchor"></a>2. Add Docsearch parameters to your site configuration file.</h3>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
@@ -259,6 +259,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
+<p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
 <p>You should have a functional search bar after re-building your site with this new configuration.</p>
 </div>
 </div>
@@ -296,6 +297,7 @@
   
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
   docsearch({
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
     inputSelector: 'input#search-input.form-control',
