@@ -21,11 +21,16 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     encoding = "UTF-8",
     envir = globalenv(),
     ...,
-    quiet = quiet
+    quiet = quiet,
+    crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
+    crayon.colors = getOption("crayon.colors", crayon::num_colors())
   )
 
   path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
+    function(..., crayon.enabled, crayon.colors) {
+      options("crayon.enabled" = crayon.enabled, "crayon.colors" = crayon.colors)
+      rmarkdown::render(...)
+    },
     args = args,
     show = !quiet,
     env = c(

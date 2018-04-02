@@ -128,6 +128,7 @@ tweak_code_nodeset <- function(nodes, ...) {
 tweak_pre_node <- function(node, ...) {
   # Register attached packages
   text <- node %>% xml2::xml_text()
+
   expr <- tryCatch(parse(text = text), error = function(e) NULL)
   packages <- extract_package_attach(expr)
   register_attached_packages(packages)

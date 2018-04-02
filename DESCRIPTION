@@ -26,6 +26,7 @@ Imports:
     digest,
     evaluate,
     fs (>= 1.2.0),
+    fansi,
     highlight,
     httr,
     magrittr,
@@ -45,6 +46,7 @@ Imports:
     tibble,
     tools,
     whisker,
+    withr,
     xml2 (>= 1.1.1),
     yaml
 Suggests: 
