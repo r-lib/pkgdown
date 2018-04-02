@@ -5,7 +5,7 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     "index_name" = pkg$package,
     "start_urls" = pkg$meta$url,
-    "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.txt"),
+    "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.xml"),
     "selectors" = list(
       "lvl0" = ".contents h1",
       "lvl1" = ".contents h2",
@@ -43,6 +43,27 @@ build_sitemap <- function(pkg = ".") {
     )
   )
 
-  write_if_different(pkg, urls, "sitemap.txt", check = FALSE)
+  doc <- xml2::as_xml_document(
+    list(urlset = structure(
+        list(), xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9")
+    )
+  )
+
+  url_nodes <- map(urls, url_node)
+  for (url in url_nodes) {
+    xml2::xml_add_child(doc, url)
+  }
+
+  xml_path <- path(pkg$dst_path, "sitemap.xml")
+  cat_line("Writing ", dst_path(path_rel(xml_path, pkg$dst_path)))
+
+  xml2::write_xml(doc, file = path(pkg$dst_path, "sitemap.xml"))
+
   invisible()
+}
+
+url_node <- function(url) {
+  xml2::as_xml_document(
+    list(url = list(loc = list(url)))
+  )
 }
