@@ -15,7 +15,7 @@ fig_save <- function(plot,
                      fig.width = 700 / 96,
                      fig.height = NULL,
                      fig.retina = 2L,
-                     fig.asp = 1.618 # golden ratio
+                     fig.asp = 1 / 1.618 # golden ratio
                      ) {
 
 
@@ -23,9 +23,9 @@ fig_save <- function(plot,
   dev <- match_fun(dev)
 
   if (is.null(fig.height)) {
-    fig.height <- fig.width / fig.asp
+    fig.height <- fig.width * fig.asp
   } else if (is.null(fig.width)) {
-    fig.width <- fig.height * fig.asp
+    fig.width <- fig.height / fig.asp
   }
   width <- round(dpi * fig.width)
   height <- round(dpi * fig.height)
