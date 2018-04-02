@@ -23,29 +23,24 @@ build_search_docs <- function(pkg = ".") {
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  stop_urls <- c(
-    "/index.html",
-    "/reference/index.html",
-    "/news/",
-    "LICENSE.html$"
-  )
-
   data <- list(
     "index_name" = pkg$package,
     "start_urls" = pkg$meta$url,
     "stop_urls" = stop_urls,
+    "sitemap_urls" = paste0(pkg$meta$url, "sitemap.txt"),
     "selectors" = list(
-      "lvl0" = ".ds-lvl0",
-      "lvl1" = ".ds-lvl1",
-      "lvl2" = ".ds-lvl2",
-      "text" = ".ds-text"
+      "lvl0" = ".contents h1",
+      "lvl1" = ".contents h2",
+      "lvl2" = ".contents h3, .contents th, .contents dt",
+      "lvl3" = ".contents h4",
+      "lvl4" = ".contents h5",
+      "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
     ),
-    # exclude see-also because these are exit links on the target page
-    "selectors_exclude" = ".no-ds"
+    "selectors_exclude" = ".dont-index"
   )
 
-  json_path <- path("docsearch.json")
-  cat_line("Writing ", dst_path(path_rel(json_path, pkg$dst_path)))
+  json_path <- path(pkg$dst_path, "docsearch.json")
+  cat_line("Writing ", dst_path(json_path))
 
   jsonlite::write_json(
     data,
