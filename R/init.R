@@ -26,6 +26,7 @@ init_site <- function(pkg = ".") {
 
   build_site_meta(pkg)
   build_sitemap(pkg)
+  build_docsearch_json(pkg)
   build_logo(pkg)
 
   invisible()

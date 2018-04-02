@@ -1,24 +1,3 @@
-#' Build documents for search infrastructure
-#'
-#' These documents are built under `docs` as part of the Docsearch
-#' infrastructure:
-#'
-#' - `docsearch.json`
-#'
-#' @export
-build_search_docs <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-  rule("Building search docs")
-
-  build_docsearch_json(pkg)
-}
-
-#' Build Docsearch JSON
-#'
-#' Create a Docsearch search configuration in JSON format and save it as
-#' `docsearch.json` to be used as a suggested starting point when setting up a
-#' Docsearch crawler.
-#'
 #' @importFrom jsonlite write_json
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
@@ -26,8 +5,7 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     "index_name" = pkg$package,
     "start_urls" = pkg$meta$url,
-    "stop_urls" = stop_urls,
-    "sitemap_urls" = paste0(pkg$meta$url, "sitemap.txt"),
+    "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.txt"),
     "selectors" = list(
       "lvl0" = ".contents h1",
       "lvl1" = ".contents h2",
@@ -40,7 +18,7 @@ build_docsearch_json <- function(pkg = ".") {
   )
 
   json_path <- path(pkg$dst_path, "docsearch.json")
-  cat_line("Writing ", dst_path(json_path))
+  cat_line("Writing ", dst_path(path_rel(json_path, pkg$dst_path)))
 
   jsonlite::write_json(
     data,
@@ -48,4 +26,23 @@ build_docsearch_json <- function(pkg = ".") {
     pretty = TRUE,
     auto_unbox = TRUE
   )
+}
+
+build_sitemap <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  url <- pkg$meta$url
+  if (is.null(url)) {
+    return()
+  }
+
+  urls <- paste0(url, "/",
+    c(
+      path("reference", unique(pkg$topics$file_out)),
+      path(pkg$vignettes$file_out)
+    )
+  )
+
+  write_if_different(pkg, urls, "sitemap.txt", check = FALSE)
+  invisible()
 }
