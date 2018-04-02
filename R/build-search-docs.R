@@ -36,17 +36,16 @@ build_sitemap <- function(pkg = ".") {
     return()
   }
 
-  urls <- paste0(url, "/",
+  urls <- paste0(
+    url, "/",
     c(
       path("reference", unique(pkg$topics$file_out)),
       path(pkg$vignettes$file_out)
     )
   )
 
-  doc <- xml2::as_xml_document(
-    list(urlset = structure(
-        list(), xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9")
-    )
+  doc <- xml2::read_xml(
+    paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   )
 
   url_nodes <- purrr::map(urls, url_node)
@@ -63,7 +62,7 @@ build_sitemap <- function(pkg = ".") {
 }
 
 url_node <- function(url) {
-  xml2::as_xml_document(
-    list(url = list(loc = list(url)))
+  xml2::read_xml(
+    paste0("<url><loc>", url, "</loc></url>")
   )
 }
