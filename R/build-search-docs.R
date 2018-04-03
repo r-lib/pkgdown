@@ -1,18 +1,21 @@
-#' @importFrom jsonlite write_json
+#' @importFrom jsonlite write_json unbox
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   data <- list(
     "index_name" = pkg$package,
     "start_urls" = pkg$meta$url,
+    "stop_urls" = paste0(pkg$meta$url, "/", "index.html"),
     "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.xml"),
     "selectors" = list(
-      "lvl0" = ".contents h1",
-      "lvl1" = ".contents h2",
-      "lvl2" = ".contents h3, .contents th, .contents dt",
-      "lvl3" = ".contents h4",
-      "lvl4" = ".contents h5",
-      "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
+      "lvl0" = jsonlite::unbox(".contents h1"),
+      "lvl1" = jsonlite::unbox(".contents .name"),
+      "lvl2" = jsonlite::unbox(".contents h2"),
+      "lvl3" = jsonlite::unbox(".contents h3, .contents th, .contents dt"),
+      "lvl4" = jsonlite::unbox(".contents h4"),
+      "text" = jsonlite::unbox(
+        ".contents p, .contents li, .usage, .template-article .contents .pre"
+        )
     ),
     "selectors_exclude" = ".dont-index"
   )
@@ -23,8 +26,7 @@ build_docsearch_json <- function(pkg = ".") {
   jsonlite::write_json(
     data,
     json_path,
-    pretty = TRUE,
-    auto_unbox = TRUE
+    pretty = TRUE
   )
 }
 
