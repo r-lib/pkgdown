@@ -224,6 +224,7 @@ data_reference_topic <- function(topic,
 
   # File source
   out$source <- github_source_links(pkg$github_url, topic$source)
+  out$filename <- topic$file_in
 
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
