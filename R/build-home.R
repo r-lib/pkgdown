@@ -53,7 +53,8 @@
 #' @export
 build_home <- function(pkg = ".",
                        override = list(),
-                       preview = NA) {
+                       preview = NA,
+                       quiet = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
@@ -66,7 +67,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg)
+  build_home_index(pkg, quiet = quiet)
 
   preview_site(pkg, "/", preview = preview)
 }

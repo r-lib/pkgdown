@@ -4,7 +4,7 @@
 \alias{build_home}
 \title{Build home page}
 \usage{
-build_home(pkg = ".", override = list(), preview = NA)
+build_home(pkg = ".", override = list(), preview = NA, quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -14,6 +14,9 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{quiet}{Set to \code{FALSE} to display output of knitr and
+pandoc. This is useful when debugging.}
 }
 \description{
 First looks for \code{index.Rmd} or \code{README.Rmd}, then
