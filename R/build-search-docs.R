@@ -1,4 +1,4 @@
-#' @import jsonlite
+#' @importFrom jsonlite write_json unbox
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
