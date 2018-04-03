@@ -29,3 +29,9 @@ pkgdown:
 # Introduction
 
 Some text and a reference [@JSSv059i10].
+
+```{r}
+1 +
+  2
+```
+
