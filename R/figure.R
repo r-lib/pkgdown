@@ -80,6 +80,14 @@ with_device <- function(dev, dev.args, plot) {
 
 fig_opts_chunk <- function(figures, default) {
   figures$dev <- fun_name(figures$dev)
+
+  # fig.asp beats fig.height in knitr, so if it's provided only use
+  # it to override the default height
+  if (!is.null(figures$fig.asp) && is.null(figures$fig.height)) {
+    figures$fig.height <- figures$fig.width * figures$fig.asp
+    figures$fig.asp <- NULL
+  }
+
   utils::modifyList(default, figures)
 }
 
