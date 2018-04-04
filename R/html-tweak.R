@@ -98,40 +98,72 @@ tweak_code <- function(x) {
 
   # <pre class="sourceCode r">
   x %>%
-    xml2::xml_find_all(".//div[contains(@class, 'sourceCode')]/pre[contains(@class, 'r')]") %>%
+    xml2::xml_find_all("
+        .// pre [
+          contains(@class, 'r')
+        ]
+    ") %>%
     purrr::map(tweak_pre_node)
 
   # Needs to second so have all packages loaded in chunks
   # <code> with no children (just text)
   x %>%
-    xml2::xml_find_all(".//code[count(*) = 0]") %>%
+    xml2::xml_find_all("
+      .//code [
+        count(*) = 0
+      ]") %>%
     tweak_code_nodeset()
 
-  pre_nodes <- x %>%
-    xml2::xml_find_all(".//div[contains(@class, 'sourceCode')][pre[contains(@class, 'r')]][following-sibling::div[pre[contains(@class, 'knitr')]]]")
+  # Collapse all HTML output divs to their corresponding source divs
+  x %>%
+    xml2::xml_find_all("
+        .// div [
+          contains(@class, 'sourceCode')
+        ] [
+          pre [
+            contains(@class, 'r')
+          ]
+        ] [
+          following-sibling :: div [
+            pre [
+              contains(@class, 'knitr')
+            ]
+          ]
+        ]
+    ") %>%
+    collapse_output_div()
 
-  pre_code_nodes <- xml2::xml_find_first(pre_nodes, ".//code")
+  invisible()
+}
 
-  output_div_pre_nodes <- xml2::xml_find_first(pre_nodes, "./following-sibling::div/pre[contains(@class, 'knitr')]")
-  output_div_contents <- purrr::map(output_div_pre_nodes, xml2::xml_contents)
+collapse_output_div <- function(nodes) {
+  code_nodes <- xml2::xml_find_first(nodes, ".// code")
 
-  for (i in seq_along(pre_code_nodes)) {
+  following_div <- xml2::xml_find_first(nodes, "
+    ./ following-sibling :: div
+    / pre [
+      contains(@class, 'knitr')
+    ]")
+
+  contents <- purrr::map(following_div, xml2::xml_contents)
+
+  for (i in seq_along(code_nodes)) {
 
     # Prepend a newline to the first node
-    txt <- xml2::xml_text(output_div_contents[[i]][[1]])
-    xml2::xml_text(output_div_contents[[i]][[1]]) <- paste0("\n", txt)
+    txt <- xml2::xml_text(contents[[i]][[1]])
+    xml2::xml_text(contents[[i]][[1]]) <- paste0("\n", txt)
 
     # add a new <span class = "co"> child
-    span <- xml2::xml_add_child(pre_code_nodes[[i]], "span", class = "co")
+    span <- xml2::xml_add_child(code_nodes[[i]], "span", class = "co")
 
-    for (j in seq_along(output_div_contents[[i]])) {
+    for (j in seq_along(contents[[i]])) {
 
       # Move the contents over to the source pre
-      xml2::xml_add_child(span, output_div_contents[[i]][[j]], .copy = FALSE)
+      xml2::xml_add_child(span, contents[[i]][[j]], .copy = FALSE)
     }
 
     # Remove the remaining empty remaining <div><pre>
-    xml2::xml_remove(xml2::xml_parent(output_div_pre_nodes[[i]]))
+    xml2::xml_remove(xml2::xml_parent(following_div[[i]]))
   }
 
   invisible()

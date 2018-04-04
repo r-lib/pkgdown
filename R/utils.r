@@ -79,6 +79,9 @@ devtools_meta <- function(x) {
   ns[[".__DEVTOOLS__"]]
 }
 
+strip_space <- function(x) {
+  gsub("[[:space:]]+", "", x)
+}
 
 # CLI ---------------------------------------------------------------------
 
@@ -121,4 +124,9 @@ with_dir <- function(new, code) {
   old <- setwd(dir = new)
   on.exit(setwd(old))
   force(code)
+}
+colourise_chunk <- function(x, options) {
+  sprintf('<div class = "output"><pre class="knitr %s">%s</pre></div>\n',
+    tolower(options$engine),
+    fansi::sgr_to_html(x))
 }
