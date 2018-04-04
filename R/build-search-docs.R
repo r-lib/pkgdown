@@ -5,7 +5,7 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     "index_name" = jsonlite::unbox(pkg$package),
     "start_urls" = pkg$meta$url,
-    "stop_urls" = paste0(pkg$meta$url, "/", "index.html"),
+    "stop_urls" = c("index.html", "authors.html", "/LICENSE", "/news/"),
     "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.xml"),
     "selectors" = list(
       "lvl0" = jsonlite::unbox(".contents h1"),

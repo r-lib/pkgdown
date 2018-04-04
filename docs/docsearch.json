@@ -1,7 +1,7 @@
 {
   "index_name": "pkgdown",
   "start_urls": ["http://pkgdown.r-lib.org"],
-  "stop_urls": ["http://pkgdown.r-lib.org/index.html"],
+  "stop_urls": ["index.html", "authors.html", "/LICENSE", "/news/"],
   "sitemap_urls": ["http://pkgdown.r-lib.org/sitemap.xml"],
   "selectors": {
     "lvl0": ".contents h1",
