@@ -1,9 +1,9 @@
-#' @importFrom jsonlite write_json unbox
+#' @importFrom jsonlite write_json
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   data <- list(
-    "index_name" = pkg$package,
+    "index_name" = jsonlite::unbox(pkg$package),
     "start_urls" = pkg$meta$url,
     "stop_urls" = paste0(pkg$meta$url, "/", "index.html"),
     "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.xml"),
@@ -15,7 +15,7 @@ build_docsearch_json <- function(pkg = ".") {
       "lvl4" = jsonlite::unbox(".contents h4"),
       "text" = jsonlite::unbox(
         ".contents p, .contents li, .usage, .template-article .contents .pre"
-        )
+      )
     ),
     "selectors_exclude" = ".dont-index"
   )

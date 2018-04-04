@@ -1,5 +1,5 @@
 {
-  "index_name": ["pkgdown"],
+  "index_name": "pkgdown",
   "start_urls": ["http://pkgdown.r-lib.org"],
   "stop_urls": ["http://pkgdown.r-lib.org/index.html"],
   "sitemap_urls": ["http://pkgdown.r-lib.org/sitemap.xml"],
