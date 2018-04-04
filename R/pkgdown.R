@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom roxygen2 roxygenise
 #' @importFrom R6 R6Class
-#' @importFrom rlang eval_tidy lang_standardise
+#' @import rlang
 #' @import fs
 NULL
 
