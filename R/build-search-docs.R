@@ -3,21 +3,19 @@ build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   data <- list(
-    "index_name" = jsonlite::unbox(pkg$package),
-    "start_urls" = pkg$meta$url,
+    "index_name" = pkg$package,
+    "start_urls" = list(pkg$meta$url),
     "stop_urls" = c("index.html", "authors.html", "/LICENSE", "/news/"),
-    "sitemap_urls" = paste0(pkg$meta$url, "/", "sitemap.xml"),
+    "sitemap_urls" = list(paste0(pkg$meta$url, "/", "sitemap.xml")),
     "selectors" = list(
-      "lvl0" = jsonlite::unbox(".contents h1"),
-      "lvl1" = jsonlite::unbox(".contents .name"),
-      "lvl2" = jsonlite::unbox(".contents h2"),
-      "lvl3" = jsonlite::unbox(".contents h3, .contents th, .contents dt"),
-      "lvl4" = jsonlite::unbox(".contents h4"),
-      "text" = jsonlite::unbox(
-        ".contents p, .contents li, .usage, .template-article .contents .pre"
-      )
+      "lvl0" = ".contents h1",
+      "lvl1" = ".contents .name",
+      "lvl2" = ".contents h2",
+      "lvl3" = ".contents h3, .contents th, .contents dt",
+      "lvl4" = ".contents h4",
+      "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
     ),
-    "selectors_exclude" = ".dont-index"
+    "selectors_exclude" = list(".dont-index")
   )
 
   json_path <- path(pkg$dst_path, "docsearch.json")
@@ -26,7 +24,8 @@ build_docsearch_json <- function(pkg = ".") {
   jsonlite::write_json(
     data,
     json_path,
-    pretty = TRUE
+    pretty = TRUE,
+    auto_unbox = TRUE
   )
 }
 
