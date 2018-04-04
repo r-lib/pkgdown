@@ -152,7 +152,7 @@ clean_site first to clean up orphan files." />
     <div class="page-header">
     <h1>Build pkgdown website</h1>
     <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build.r'><code>R/build.r</code></a></small>
-    <p class="hidden name"><code>build_site.Rd</code></p>
+    <div class="hidden name"><code>build_site.Rd</code></div>
     </div>
 
     
@@ -339,6 +339,9 @@ to add search to your site.</p><pre>template:
     docsearch:
       api_key: API_KEY
       index_name: INDEX_NAME
+</pre>
+    <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the
+location of your documentation on the web. For pkgdown, the URL field is:</p><pre>url: http://pkgdown.r-lib.org
 </pre>
     <p>See <code><a href='../articles/pkgdown.html'>vignette("pkgdown")</a></code> for details.</p>
     
