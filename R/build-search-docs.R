@@ -13,7 +13,7 @@ build_docsearch_json <- function(pkg = ".") {
       "lvl2" = ".contents h2",
       "lvl3" = ".contents h3, .contents th",
       "lvl4" = ".contents h4",
-      "text" = ".contents p, .contents dt, .contents li, .usage, .template-article .contents .pre"
+      "text" = ".contents p, .contents td, .contents dd, .contents li, .usage, .template-article .contents .pre"
     ),
     "selectors_exclude" = list(".dont-index")
   )
