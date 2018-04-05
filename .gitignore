@@ -3,3 +3,5 @@
 .RData
 inst/doc
 *.orig
+.env
+*.tex

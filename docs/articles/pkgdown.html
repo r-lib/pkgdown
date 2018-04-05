@@ -111,7 +111,7 @@
             
       
       <small>Source: <a href="https://github.com/hadley/pkgdown/blob/master/vignettes/pkgdown.Rmd"><code>vignettes/pkgdown.Rmd</code></a></small>
-      <p class="hidden name"><code>pkgdown.Rmd</code></p>
+      <div class="hidden name"><code>pkgdown.Rmd</code></div>
 
     </div>
 
@@ -261,6 +261,8 @@
 <a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
+<p>Finally, you need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">url:</span><span class="at"> http://pkgdown.r-lib.org</span></a></code></pre></div>
 <p>You should have a functional search bar after re-building your site with this new configuration.</p>
 </div>
 </div>

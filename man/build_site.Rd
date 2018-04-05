@@ -187,6 +187,10 @@ to add search to your site.\preformatted{template:
       index_name: INDEX_NAME
 }
 
+You also need to add a \code{url:} field to \code{_pkgdown.yml} that specifies the
+location of your documentation on the web. For pkgdown, the URL field is:\preformatted{url: http://pkgdown.r-lib.org
+}
+
 See \code{vignette("pkgdown")} for details.
 }
 

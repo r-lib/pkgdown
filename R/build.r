@@ -170,6 +170,13 @@
 #'       index_name: INDEX_NAME
 #' ```
 #'
+#' You also need to add a `url:` field to `_pkgdown.yml` that specifies the
+#' location of your documentation on the web. For pkgdown, the URL field is:
+#'
+#' ```yaml
+#' url: http://pkgdown.r-lib.org
+#' ```
+#'
 #' See `vignette("pkgdown")` for details.
 #'
 #' @section YAML config - template:
