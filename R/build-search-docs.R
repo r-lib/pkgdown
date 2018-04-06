@@ -9,9 +9,9 @@ build_docsearch_json <- function(pkg = ".") {
     "sitemap_urls" = list(paste0(pkg$meta$url, "/", "sitemap.xml")),
     "selectors" = list(
       "lvl0" = ".contents h1",
-      "lvl1" = ".contents .name",
-      "lvl2" = ".contents h2",
-      "lvl3" = ".contents h3, .contents th",
+      "lvl1" = ".contents h2",
+      "lvl2" = ".contents h3, .contents th",
+      "lvl3" = ".contents .name",
       "lvl4" = ".contents h4",
       "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
     ),
