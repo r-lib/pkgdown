@@ -18,7 +18,7 @@ build_docsearch_json <- function(pkg = ".") {
         "default_value" = paste(pkg$package, "Home page")
       ),
       "lvl1" = list(
-        "selector" = ".contents .h2",
+        "selector" = ".contents h2",
         "default_value" = "More info"
       ),
       "lvl2" = list(
