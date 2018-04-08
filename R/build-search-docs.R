@@ -13,14 +13,26 @@ build_docsearch_json <- function(pkg = ".") {
     "stop_urls" = c("index.html", "authors.html", "/LICENSE", "/news/"),
     "sitemap_urls" = list(paste0(pkg$meta$url, "/", "sitemap.xml")),
     "selectors" = list(
-      "lvl0" = ".contents h1",
-      "lvl1" = ".contents .name",
-      "lvl2" = ".contents h2",
-      "lvl3" = ".contents h3, .contents th",
-      "lvl4" = ".contents h4",
+      "lvl0" = list(
+        "selector" = ".contents h1",
+        "default_value" = paste(pkg$package, "Home page")
+      ),
+      "lvl1" = list(
+        "selector" = ".contents .h2",
+        "default_value" = "More info"
+      ),
+      "lvl2" = list(
+        "selector" = ".contents h3, .ref-arguments th, .ref-description, .contents .name",
+        "default_value" = "Context"
+      ),
+      "lvl3" = ".ref-arguments td",
       "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
     ),
-    "selectors_exclude" = list(".dont-index")
+    "selectors_exclude" = list(".dont-index"),
+    "min_indexed_level" = 2,
+    "custom_settings" = list(
+      "separatorsToIndex" = "_"
+    )
   )
 
   json_path <- path(pkg$dst_path, "docsearch.json")
