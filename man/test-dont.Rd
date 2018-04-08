@@ -23,6 +23,7 @@ answer # should be 42
 }
 \seealso{
 Other tests: \code{\link{test-figures}},
-  \code{\link{test-links}}, \code{\link{test-lists}}
+  \code{\link{test-links}}, \code{\link{test-lists}},
+  \code{\link{test-params}}
 }
 \keyword{internal}

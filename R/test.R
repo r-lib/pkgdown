@@ -76,3 +76,11 @@ NULL
 #' @importFrom MASS addterm
 #' @export
 MASS::addterm
+
+#' Test case: params
+#'
+#' @name test-params
+#' @param ... ellipsis
+#' @keywords internal
+#' @family tests
+NULL
