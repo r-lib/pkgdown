@@ -144,10 +144,11 @@ list in _pkgdown.yml as described below." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build tutorials</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-tutorials.R'><code>R/build-tutorials.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-tutorials.R'><code>R/build-tutorials.R</code></a></small>
     <div class="hidden name"><code>build_tutorials.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>learnr tutorials must hosted be hosted elsewhere as they require an
 R execution engine. Currently, pkgdown will not build or publish tutorials
@@ -156,6 +157,7 @@ Tutorials are automatically discovered from published tutorials in
 <code>inst/tutorials</code> and <code>vignettes/tutorials</code>. Alternatively, you can
 list in <code>_pkgdown.yml</code> as described below.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>build_tutorials</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
@@ -226,10 +228,10 @@ section. This should be a list where each element specifies:</p><ul>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

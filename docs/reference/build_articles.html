@@ -142,16 +142,18 @@ your pkgdown template." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build articles</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-articles.R'><code>R/build-articles.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-articles.R'><code>R/build-articles.R</code></a></small>
     <div class="hidden name"><code>build_articles.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is
 rendered and saved to <code>articles/</code>. Vignettes are rendered using a
 special document format that reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with
 your pkgdown template.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
   <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
@@ -323,10 +325,10 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

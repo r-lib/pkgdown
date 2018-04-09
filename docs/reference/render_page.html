@@ -141,15 +141,17 @@ then assembled into an overall page using the "layout" template." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render page with template</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/render.r'><code>R/render.r</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/render.r'><code>R/render.r</code></a></small>
     <div class="hidden name"><code>render_page.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Each page is composed of four templates: "head", "header", "content", and
 "footer". Each of these templates is rendered using the <code>data</code>, and
 then assembled into an overall page using the "layout" template.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>render_page</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>name</span>, <span class='no'>data</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -221,10 +223,10 @@ If <code>""</code> (the default), prints to standard out.</p></td>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

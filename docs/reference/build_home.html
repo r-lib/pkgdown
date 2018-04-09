@@ -141,15 +141,17 @@ description field in DESCRIPTION." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build home page</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-home.R'><code>R/build-home.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-home.R'><code>R/build-home.R</code></a></small>
     <div class="hidden name"><code>build_home.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>First looks for <code>index.Rmd</code> or <code>README.Rmd</code>, then
 <code>index.md</code> or <code>README.md</code>. If none are found, falls back to the
 description field in <code>DESCRIPTION</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -252,10 +254,10 @@ homepage consists solely of status badges as linked images.</p>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 
