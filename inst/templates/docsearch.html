@@ -4,10 +4,10 @@
 <script>
   docsearch({
     {{#app_id}}appId: '{{.}}',{{/app_id}}
+    {{#debug}}debug: {{{.}}},{{/debug}}
     apiKey: '{{api_key}}',
     indexName: '{{index_name}}',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 {{/docsearch}}
