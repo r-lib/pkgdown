@@ -21,10 +21,10 @@ build_docsearch_json <- function(pkg = ".") {
         "default_value" = "More info"
       ),
       "lvl2" = list(
-        "selector" = ".contents h3, .ref-arguments th, .ref-description, .contents .name",
+        "selector" = ".contents h3, .ref-arguments th, .contents .name",
         "default_value" = "Context"
       ),
-      "lvl3" = ".ref-arguments td",
+      "lvl3" = ".ref-arguments td, .ref-description",
       "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
     ),
     "selectors_exclude" = list(".dont-index"),
