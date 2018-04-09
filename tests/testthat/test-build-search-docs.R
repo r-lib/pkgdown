@@ -6,7 +6,7 @@ test_that("docsearch.json and sitemap.xml are valid", {
 
   expect_output(init_site(search))
   json <- path(search, "docs", "docsearch.json")
-  expect_true(jsonlite::validate(readLines(json)))
+  expect_true(jsonlite::validate(read_lines(json)))
 
   xml <- path(search, "docs", "sitemap.xml")
   schema <- xml2::read_xml(path(search, "sitemaps-schema-0.9.xsd"))
