@@ -234,7 +234,7 @@ a.sourceLine:hover {
 
 .algolia-autocomplete .ds-dropdown-menu {
   width: 100%;
-  min-width: 0!important;
+  min-width: none!important;
   max-width: none!important;
   padding: .75rem 0!important;
   background-color: #fff!important;
