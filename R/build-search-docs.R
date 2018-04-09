@@ -9,8 +9,7 @@ build_docsearch_json <- function(pkg = ".") {
 
   data <- list(
     "index_name" = index_name,
-    "start_urls" = list(pkg$meta$url),
-    "stop_urls" = c("index.html", "authors.html", "/LICENSE", "/news/"),
+    "stop_urls" = list(),
     "sitemap_urls" = list(paste0(pkg$meta$url, "/", "sitemap.xml")),
     "selectors" = list(
       "lvl0" = list(

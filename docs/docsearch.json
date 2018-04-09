@@ -1,9 +1,6 @@
 {
   "index_name": "pkgdown",
-  "start_urls": [
-    "http://pkgdown.r-lib.org"
-  ],
-  "stop_urls": ["index.html", "authors.html", "/LICENSE", "/news/"],
+  "stop_urls": [],
   "sitemap_urls": [
     "http://pkgdown.r-lib.org/sitemap.xml"
   ],
@@ -28,6 +25,6 @@
   ],
   "min_indexed_level": 2,
   "custom_settings": {
-    "separatorsToIndex": "_."
+    "separatorsToIndex": "_"
   }
 }
