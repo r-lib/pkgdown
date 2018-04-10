@@ -58,6 +58,7 @@ build_sitemap <- function(pkg = ".") {
   urls <- paste0(
     url, "/",
     c(
+      path("index.html"),
       path("reference", unique(pkg$topics$file_out)),
       path(pkg$vignettes$file_out)
     )
