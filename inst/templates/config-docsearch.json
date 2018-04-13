@@ -1,6 +1,6 @@
 {
   "index_name": "{{index}}",
-  "stop_urls": [
+  "start_urls": [
     {
       "url": "{{url}}/index.html",
       "selectors_key": "homepage",
@@ -22,10 +22,16 @@
         "articles"
         ]
     }
-    ],
+  ],
+  "stop_urls": [
+    "/reference/$",
+    "/reference/index.html",
+    "/articles/$",
+    "/articles/index.html"
+  ],
   "sitemap_urls": [
     "{{url}}/sitemap.xml"
-    ],
+  ],
   "selectors": {
     "homepage": {
       "lvl0": {
