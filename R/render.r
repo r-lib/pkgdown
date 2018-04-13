@@ -122,14 +122,14 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
-find_template <- function(type, name, template_path = NULL) {
+find_template <- function(type, name, ext = ".html", template_path = NULL) {
   paths <- c(
     template_path,
     path_pkgdown("templates")
   )
   names <- c(
-    paste0(type, "-", name, ".html"),
-    paste0(type, ".html")
+    paste0(type, "-", name, ext),
+    paste0(type, ext)
   )
   all <- expand.grid(path = paths, name = names)
   locations <- path(all$path, all$name)
