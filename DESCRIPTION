@@ -23,7 +23,6 @@ Imports:
     evaluate,
     highlight,
     httr,
-    jsonlite,
     MASS,
     magrittr,
     memoise,
@@ -44,6 +43,7 @@ Imports:
     fs (>= 1.2.0)
 Suggests:
     devtools,
+    jsonlite,
     knitr,
     magick,
     testthat,

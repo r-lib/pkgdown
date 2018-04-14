@@ -1,6 +1,8 @@
 context("test-build-search-docs.R")
 
 test_that("docsearch.json and sitemap.xml are valid", {
+  skip_if_not_installed("jsonlite")
+
   search <- test_path("search-site")
   on.exit(clean_site(search))
 

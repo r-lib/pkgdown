@@ -16,7 +16,6 @@ build_docsearch_json <- function(pkg = ".") {
   json <- render_template(template, data)
 
   json_path <- path(pkg$dst_path, "docsearch.json")
-  cat_line("Writing ", dst_path(path_rel(json_path, pkg$dst_path)))
 
   write_if_different(pkg, json, json_path, check = FALSE)
 }
