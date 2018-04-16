@@ -20,8 +20,14 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+{{#yaml}}{{#docsearch}}
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+{{/docsearch}}{{/yaml}}
+
 <!-- pkgdown -->
 <link href="{{#site}}{{root}}{{/site}}pkgdown.css" rel="stylesheet">
+<link href="{{#site}}{{root}}{{/site}}docsearch.css" rel="stylesheet">
 <script src="{{#site}}{{root}}{{/site}}jquery.sticky-kit.min.js"></script>
 <script src="{{#site}}{{root}}{{/site}}pkgdown.js"></script>
 {{#extra}}
@@ -66,8 +72,3 @@
 </script>
 {{/ganalytics}}
 {{/yaml}}
-
-{{#yaml}}{{#docsearch}}
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-{{/docsearch}}{{/yaml}}
