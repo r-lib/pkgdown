@@ -419,7 +419,7 @@ as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
 #' @export
 as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
 #' @export
-as_html.tag_acroynm <-      tag_wrapper('<acronym>','</acronym>')
+as_html.tag_acronym <-      tag_wrapper('<acronym>','</acronym>')
 
 #' @export
 as_html.tag_out <- function(x, ...) flatten_text(x, ..., escape = FALSE)
