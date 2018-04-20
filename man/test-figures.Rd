@@ -12,6 +12,7 @@ plot(x, sin(x))
 }
 \seealso{
 Other tests: \code{\link{test-dont}},
-  \code{\link{test-links}}, \code{\link{test-lists}}
+  \code{\link{test-links}}, \code{\link{test-lists}},
+  \code{\link{test-params}}
 }
 \keyword{internal}

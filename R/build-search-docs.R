@@ -1,4 +1,3 @@
-#' @importFrom jsonlite write_json
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -8,32 +7,17 @@ build_docsearch_json <- function(pkg = ".") {
   }
 
   data <- list(
-    "index_name" = index_name,
-    "start_urls" = list(pkg$meta$url),
-    "stop_urls" = c("index.html", "authors.html", "/LICENSE", "/news/"),
-    "sitemap_urls" = list(paste0(pkg$meta$url, "/", "sitemap.xml")),
-    "selectors" = list(
-      "lvl0" = ".contents h1",
-      "lvl1" = ".contents .name",
-      "lvl2" = ".contents h2",
-      "lvl3" = ".contents h3, .contents th",
-      "lvl4" = ".contents h4",
-      "text" = ".contents p, .contents li, .usage, .template-article .contents .pre"
-    ),
-    "selectors_exclude" = list(".dont-index")
+    index = index_name,
+    package = pkg$package,
+    url = pkg$meta$url
   )
+
+  template <- find_template("config", "docsearch", ext = ".json")
+  json <- render_template(template, data)
 
   json_path <- path(pkg$dst_path, "docsearch.json")
-  cat_line("Writing ", dst_path(path_rel(json_path, pkg$dst_path)))
 
-  jsonlite::write_json(
-    data,
-    json_path,
-    pretty = TRUE,
-    auto_unbox = TRUE
-  )
-
-  invisible()
+  write_if_different(pkg, json, json_path, check = FALSE)
 }
 
 build_sitemap <- function(pkg = ".") {
@@ -47,6 +31,7 @@ build_sitemap <- function(pkg = ".") {
   urls <- paste0(
     url, "/",
     c(
+      path("index.html"),
       path("reference", unique(pkg$topics$file_out)),
       path(pkg$vignettes$file_out)
     )

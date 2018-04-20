@@ -21,6 +21,12 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -40,11 +46,6 @@ pkgdown and regular documentation." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -140,14 +141,16 @@ pkgdown and regular documentation." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Determine if code is executed by pkgdown</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/pkgdown.R'><code>R/pkgdown.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/pkgdown.R'><code>R/pkgdown.R</code></a></small>
     <div class="hidden name"><code>in_pkgdown.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This is occassionally useful when you need different behaviour by
 pkgdown and regular documentation.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>in_pkgdown</span>()</pre>
         
@@ -182,10 +185,10 @@ pkgdown and regular documentation.</p>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

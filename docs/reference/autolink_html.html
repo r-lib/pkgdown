@@ -21,6 +21,12 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -46,11 +52,6 @@ text (and no other tags).
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -146,10 +147,11 @@ text (and no other tags).
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Automatic link references and articles in an HTML package</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/autolink_html.R'><code>R/autolink_html.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/autolink_html.R'><code>R/autolink_html.R</code></a></small>
     <div class="hidden name"><code>autolink_html.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The autolinker is built around two XPath expressions:</p><ul>
 <li><p><code>//pre[contains(@class, 'r')]</code>:
@@ -160,6 +162,7 @@ must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
 text (and no other tags).</p></li>
 </ul>
     
+    </div>
 
     <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'>character</span>())</pre>
     
@@ -231,10 +234,10 @@ to unqualified references.</p>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

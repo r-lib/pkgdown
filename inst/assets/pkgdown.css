@@ -217,10 +217,3 @@ a.sourceLine:hover {
 .hasCopyButton:hover button.btn-copy-ex {
   visibility: visible;
 }
-
-/* Docsearch -------------------------------------------------------------- */
-
-div.ds-dataset-1 {
-    overflow: auto;
-    max-height: 80vh;
-}

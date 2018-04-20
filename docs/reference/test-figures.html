@@ -21,6 +21,12 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -39,11 +45,6 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -139,19 +140,22 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Test case: figures</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
     <div class="hidden name"><code>test-figures.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><img src='figures/bacon.jpg' alt='' /></p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other tests: <code><a href='test-dont.html'>test-dont</a></code>,
-  <code><a href='test-links.html'>test-links</a></code>, <code><a href='test-lists.html'>test-lists</a></code></p></div>
+  <code><a href='test-links.html'>test-links</a></code>, <code><a href='test-lists.html'>test-lists</a></code>,
+  <code><a href='test-params.html'>test-params</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -187,10 +191,10 @@
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

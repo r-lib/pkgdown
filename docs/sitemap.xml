@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://pkgdown.r-lib.org/index.html</loc>
+  </url>
+  <url>
     <loc>http://pkgdown.r-lib.org/reference/as_pkgdown.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>http://pkgdown.r-lib.org/reference/test-lists.html</loc>
+  </url>
+  <url>
+    <loc>http://pkgdown.r-lib.org/reference/test-params.html</loc>
   </url>
   <url>
     <loc>http://pkgdown.r-lib.org/articles/pkgdown.html</loc>

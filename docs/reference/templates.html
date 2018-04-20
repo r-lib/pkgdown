@@ -21,6 +21,12 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -41,11 +47,6 @@ points if you want to customise your site." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -141,15 +142,17 @@ points if you want to customise your site." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate YAML templates</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/template.R'><code>R/template.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/template.R'><code>R/template.R</code></a></small>
     <div class="hidden name"><code>templates.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Use these function to generate the default YAML that pkgdown uses for
 the different parts of <code>_pkgdown.yml</code>. This are useful starting
 points if you want to customise your site.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>template_navbar</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
 
@@ -194,10 +197,10 @@ points if you want to customise your site.</p>
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

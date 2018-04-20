@@ -21,6 +21,12 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -44,11 +50,6 @@ an "unreleased" page." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -144,10 +145,11 @@ an "unreleased" page." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build news section</h1>
-    <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-news.R'><code>R/build-news.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-news.R'><code>R/build-news.R</code></a></small>
     <div class="hidden name"><code>build_news.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of
 headings. Each minor version (i.e. the combination of first and second
@@ -156,6 +158,7 @@ component) on a single page. News items for development versions (by
 convention those versions with a fourth component) are displayed on an
 an "unreleased" page.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
@@ -242,10 +245,10 @@ section.</p><pre>news:
 <script>
   docsearch({
     
+    
     apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
     indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 

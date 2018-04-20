@@ -1,0 +1,7 @@
+url: http://pkgdown.r-lib.org
+
+template:
+  params:
+    docsearch:
+      api_key: test-api-key
+      index_name: test-index-name

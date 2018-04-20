@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build tutorials — build_tutorials • pkgdown</title>
+<title>Test case: params — test-params • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,14 +31,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Build tutorials — build_tutorials" />
+<meta property="og:title" content="Test case: params — test-params" />
 
-<meta property="og:description" content="learnr tutorials must hosted be hosted elsewhere as they require an
-R execution engine. Currently, pkgdown will not build or publish tutorials
-for you, but makes it easy to embed (using &lt;iframe&gt;s) published tutorials.
-Tutorials are automatically discovered from published tutorials in
-inst/tutorials and vignettes/tutorials. Alternatively, you can
-list in _pkgdown.yml as described below." />
+<meta property="og:description" content="Test case: params" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -144,60 +139,32 @@ list in _pkgdown.yml as described below." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build tutorials</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/build-tutorials.R'><code>R/build-tutorials.R</code></a></small>
-    <div class="hidden name"><code>build_tutorials.Rd</code></div>
+    <h1>Test case: params</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hadley/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
+    <div class="hidden name"><code>test-params.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>learnr tutorials must hosted be hosted elsewhere as they require an
-R execution engine. Currently, pkgdown will not build or publish tutorials
-for you, but makes it easy to embed (using <code>&lt;iframe&gt;</code>s) published tutorials.
-Tutorials are automatically discovered from published tutorials in
-<code>inst/tutorials</code> and <code>vignettes/tutorials</code>. Alternatively, you can
-list in <code>_pkgdown.yml</code> as described below.</p>
+    <p>Test case: params</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_tutorials</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pkg</th>
-      <td><p>Path to package.</p></td>
-    </tr>
-    <tr>
-      <th>override</th>
-      <td><p>An optional named list used to temporarily override
-values in <code>_pkgdown.yml</code></p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
-freshly generated section in browser.</p></td>
+      <th>...</th>
+      <td><p>ellipsis</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    
-    <p>To override the default discovery process, you can provide a <code>tutorials</code>
-section. This should be a list where each element specifies:</p><ul>
-<li><p><code>name</code>: used for the generated file name</p></li>
-<li><p><code>title</code>: used in page heading and in navbar</p></li>
-<li><p><code>url</code>: which will be embedded in an iframe</p></li>
-<li><p><code>source</code>: optional, but if present will be linked to</p></li>
-</ul><pre>tutorials:
-- name: 00-setup
-  title: Setting up R
-  url: https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/
-- name: 01-data-basics
-  title: Data basics
-  url: https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/
-</pre>
+    <div class='dont-index'><p>Other tests: <code><a href='test-dont.html'>test-dont</a></code>,
+  <code><a href='test-figures.html'>test-figures</a></code>, <code><a href='test-links.html'>test-links</a></code>,
+  <code><a href='test-lists.html'>test-lists</a></code></p></div>
     
 
   </div>
@@ -206,7 +173,7 @@ section. This should be a list where each element specifies:</p><ul>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#yaml-config">YAML config</a></li>
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>
