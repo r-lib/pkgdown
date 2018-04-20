@@ -1,5 +1,4 @@
-{{#yaml}}
-{{#docsearch}}
+{{#yaml}}{{#docsearch}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   docsearch({
@@ -7,8 +6,14 @@
     {{#debug}}debug: {{{.}}},{{/debug}}
     apiKey: '{{api_key}}',
     indexName: '{{index_name}}',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        var matched = matched_words(hit);
+        hit.url = hit.url + '?q=' + escape(matched);
+        return hit;
+      });
+    }
   });
 </script>
-{{/docsearch}}
-{{/yaml}}
+{{/docsearch}}{{/yaml}}

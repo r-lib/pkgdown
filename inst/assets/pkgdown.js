@@ -99,3 +99,64 @@ if(Clipboard.isSupported()) {
   });
 }
 
+/* mark.js ------------------------------*/
+
+/* modified from https://jsfiddle.net/julmot/bL6bb5oo/ */
+
+$(function() {
+
+  var mark_url = function() {
+
+    var referrer = document.URL ;
+    var paramKey = "q" ;
+
+    if (referrer.indexOf("?") !== -1) {
+      var qs = referrer.substr(referrer.indexOf('?') + 1);
+      var qsa = qs.split('&');
+      var keyword = "";
+
+      for (var i = 0; i < qsa.length; i++) {
+        var currentParam = qsa[i].split('=');
+
+        if (currentParam.length !== 2) {
+          continue;
+        }
+
+        if (currentParam[0] == paramKey) {
+          keyword = decodeURIComponent(currentParam[1].replace(/\+/g, "%20"));
+        }
+      }
+
+      if (keyword !== "") {
+        $(".section").unmark({
+          done: function() {
+            $(".section").mark(keyword);
+          }
+        });
+      }
+    }
+  };
+
+  mark_url();
+
+});
+
+function matched_words(hit) {
+  var ret = [];
+
+  var hierarchy = hit._highlightResult.hierarchy;
+  // loop to fetch from lvl0, lvl1, etc.
+  for (var idx in hierarchy) {
+    ret = ret.concat(hierarchy[idx].matchedWords);
+  }
+
+  var content = hit._highlightResult.content;
+  if (content) {
+    ret = ret.concat(content.matchedWords);
+  }
+
+  // return unique words
+  var ret_uniq = [...new Set(ret)];
+  return ret_uniq;
+}
+
