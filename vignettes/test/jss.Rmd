@@ -13,6 +13,7 @@ title:
   plain:     "Test: JSS article"
   formatted: "Test: JSS article"
   short:     "Test: JSS article"
+pagetitle:   "Test: JSS article"
 abstract: >
   The abstract of the article.
 keywords:
