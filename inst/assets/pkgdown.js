@@ -33,6 +33,43 @@ $(function() {
   });
 });
 
+$(document).ready(function() {
+  // do keyword highlighting
+  /* modified from https://jsfiddle.net/julmot/bL6bb5oo/ */
+  var mark = function() {
+
+    var referrer = document.URL ;
+    var paramKey = "q" ;
+
+    if (referrer.indexOf("?") !== -1) {
+      var qs = referrer.substr(referrer.indexOf('?') + 1);
+      var qsa = qs.split('&');
+      var keyword = "";
+
+      for (var i = 0; i < qsa.length; i++) {
+        var currentParam = qsa[i].split('=');
+
+        if (currentParam.length !== 2) {
+          continue;
+        }
+
+        if (currentParam[0] == paramKey) {
+          keyword = decodeURIComponent(currentParam[1].replace(/\+/g, "%20"));
+        }
+      }
+
+      if (keyword !== "") {
+        $(".section").unmark({
+          done: function() {
+            $(".section").mark(keyword);
+          }
+        });
+      }
+    }
+  };
+  mark();
+});
+
 function paths(pathname) {
   var pieces = pathname.split("/");
   pieces.shift(); // always starts with /
@@ -99,47 +136,7 @@ if(Clipboard.isSupported()) {
   });
 }
 
-/* mark.js ------------------------------*/
-
-/* modified from https://jsfiddle.net/julmot/bL6bb5oo/ */
-
-$(function() {
-
-  var mark_url = function() {
-
-    var referrer = document.URL ;
-    var paramKey = "q" ;
-
-    if (referrer.indexOf("?") !== -1) {
-      var qs = referrer.substr(referrer.indexOf('?') + 1);
-      var qsa = qs.split('&');
-      var keyword = "";
-
-      for (var i = 0; i < qsa.length; i++) {
-        var currentParam = qsa[i].split('=');
-
-        if (currentParam.length !== 2) {
-          continue;
-        }
-
-        if (currentParam[0] == paramKey) {
-          keyword = decodeURIComponent(currentParam[1].replace(/\+/g, "%20"));
-        }
-      }
-
-      if (keyword !== "") {
-        $(".section").unmark({
-          done: function() {
-            $(".section").mark(keyword);
-          }
-        });
-      }
-    }
-  };
-
-  mark_url();
-
-});
+/* keyword highlighting ------------------------------*/
 
 function matched_words(hit) {
   var ret = [];
