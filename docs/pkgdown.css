@@ -217,3 +217,10 @@ a.sourceLine:hover {
 .hasCopyButton:hover button.btn-copy-ex {
   visibility: visible;
 }
+
+/* mark.js ----------------------------*/
+
+mark {
+    background: orange;
+    color: black;
+}
