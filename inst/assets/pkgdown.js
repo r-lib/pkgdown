@@ -165,9 +165,9 @@ function updateHitURL(hit) {
   var url = "";
 
   if (hit.anchor) {
-    url = hit.url_without_anchor + '?q=' + escape(words) + '#' + hit.anchor;
+    url = hit.url_without_anchor + '?q=' + escape(words.join(" ")) + '#' + hit.anchor;
   } else {
-    url = hit.url + '?q=' + escape(words);
+    url = hit.url + '?q=' + escape(words.join(" "));
   }
 
   return url;
