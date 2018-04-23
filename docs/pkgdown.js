@@ -43,8 +43,8 @@ $(document).ready(function() {
 
     if (referrer.indexOf("?") !== -1) {
       var qs = referrer.substr(referrer.indexOf('?') + 1);
-      var qs_noarg = qs.split('#')[0];
-      var qsa = qs_noarg.split('&');
+      var qs_noanchor = qs.split('#')[0];
+      var qsa = qs_noanchor.split('&');
       var keyword = "";
 
       for (var i = 0; i < qsa.length; i++) {
@@ -60,7 +60,6 @@ $(document).ready(function() {
       }
 
       if (keyword !== "") {
-        console.log('highlighting:' + keyword);
         $(".contents").unmark({
           done: function() {
             $(".contents").mark(keyword);
@@ -166,9 +165,9 @@ function updateHitURL(hit) {
   var url = "";
 
   if (hit.anchor) {
-    url = hit.url_without_anchor + '?q=' + escape(words) + '#' + hit.anchor;
+    url = hit.url_without_anchor + '?q=' + escape(words.join(" ")) + '#' + hit.anchor;
   } else {
-    url = hit.url + '?q=' + escape(words);
+    url = hit.url + '?q=' + escape(words.join(" "));
   }
 
   return url;
