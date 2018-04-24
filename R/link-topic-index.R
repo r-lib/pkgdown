@@ -35,7 +35,7 @@ topic_index_installed <- memoise(function(package) {
 })
 
 is_devtools_package <- function(x) {
-  if (!isNamespaceLoaded(x)) {
+  if (!x %in% loadedNamespaces()) {
     return(FALSE)
   }
 

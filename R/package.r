@@ -155,7 +155,7 @@ extract_title <- function(x) {
   x %>%
     purrr::detect(inherits, "tag_title") %>%
     flatten_text(auto_link = FALSE) %>%
-    trimws()
+    str_trim()
 }
 
 extract_source <- function(x) {

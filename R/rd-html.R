@@ -39,7 +39,7 @@ flatten_para <- function(x, ...) {
     split(groups) %>%
     purrr::map_lgl(any)
 
-  blocks[needs_p] <- paste0("<p>", trimws(blocks[needs_p]), "</p>")
+  blocks[needs_p] <- paste0("<p>", str_trim(blocks[needs_p]), "</p>")
 
   paste0(blocks, collapse = "")
 }

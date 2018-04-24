@@ -5,7 +5,7 @@ pkg_github_url <- function(desc) {
   gh_links <- desc$get("URL")[[1]] %>%
     strsplit(",") %>%
     `[[`(1) %>%
-    trimws()
+    str_trim()
   gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
 
   if (length(gh_links) == 0)

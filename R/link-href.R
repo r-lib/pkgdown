@@ -87,8 +87,9 @@ href_topic_local <- function(topic) {
   }
 
   # If it's a re-exported function, we need to work a little harder to
-  # find out its source so that we can link to it
-  if (rdname == "reexports") {
+  # find out its source so that we can link to it. .getNamespaceInfo()
+  # is only available in R 3.2.0 and above.
+  if (rdname == "reexports" && getRversion() >= "3.1.0") {
     ns <- ns_env(context_get("package"))
     exports <- .getNamespaceInfo(ns, "exports")
 
