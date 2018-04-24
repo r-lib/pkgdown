@@ -20,16 +20,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-{{#yaml}}{{#docsearch}}
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="{{#site}}{{root}}{{/site}}docsearch.css" rel="stylesheet">
-{{/docsearch}}{{/yaml}}
-
 <!-- pkgdown -->
 <link href="{{#site}}{{root}}{{/site}}pkgdown.css" rel="stylesheet">
 <script src="{{#site}}{{root}}{{/site}}jquery.sticky-kit.min.js"></script>
 <script src="{{#site}}{{root}}{{/site}}pkgdown.js"></script>
+
+{{#yaml}}{{#docsearch}}
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="{{#site}}{{root}}{{/site}}docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+{{/docsearch}}{{/yaml}}
+
 {{#extra}}
   {{#css}}<link href="{{#site}}{{root}}{{/site}}extra.css" rel="stylesheet">{{/css}}
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
@@ -69,8 +71,3 @@
   gtag('config', '{{.}}');
 </script>
 {{/ganalytics}}{{/yaml}}
-
-{{#yaml}}{{#docsearch}}
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-{{/docsearch}}{{/yaml}}
