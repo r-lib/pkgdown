@@ -37,6 +37,8 @@ rstudio_save_all <- function() {
 
 is_syntactic <- function(x) x == make.names(x)
 
+str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
+
 # CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {
