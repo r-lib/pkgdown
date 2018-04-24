@@ -21,6 +21,7 @@ Imports:
     cli,
     crayon,
     desc,
+    devtools,
     digest,
     evaluate,
     fs (>= 1.2.0),
@@ -29,7 +30,6 @@ Imports:
     magrittr,
     MASS,
     memoise,
-    pkgload,
     purrr,
     R6,
     rematch,
@@ -46,14 +46,10 @@ Imports:
 Suggests: 
     BiocInstaller,
     covr,
-    devtools,
     jsonlite,
     knitr,
     magick,
     testthat
 VignetteBuilder: knitr
-Remotes: 
-    r-lib/pkgload,
-    r-lib/usethis
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

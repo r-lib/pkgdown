@@ -1,7 +1,7 @@
 article_index <- function(package) {
   if (is.null(package)) {
     context_get("article_index")
-  } else if (is_devtools_package(package)) {
+  } else if (devtools_loaded(package)) {
     # Use live docs for in-development packages
     article_index_local(package)
   } else {

@@ -5,7 +5,7 @@
 topic_index <- function(package) {
   if (is.null(package)) {
     context_get("topic_index")
-  } else if (is_devtools_package(package)) {
+  } else if (devtools_loaded(package)) {
     # Use live docs for in-development packages
     topic_index_local(package)
   } else {
@@ -33,15 +33,6 @@ topic_index_installed <- memoise(function(package) {
 
   readRDS(path)
 })
-
-is_devtools_package <- function(x) {
-  if (!x %in% loadedNamespaces()) {
-    return(FALSE)
-  }
-
-  ns <- .getNamespace(x)
-  env_has(ns, ".__DEVTOOLS__")
-}
 
 # A helper that can warn if the topic is not found
 find_rdname <- function(package, topic, warn_if_not_found = FALSE) {

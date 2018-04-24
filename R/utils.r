@@ -39,6 +39,23 @@ is_syntactic <- function(x) x == make.names(x)
 
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
+
+# devtools metadata -------------------------------------------------------
+
+devtools_loaded <- function(x) {
+  if (!x %in% loadedNamespaces()) {
+    return(FALSE)
+  }
+  ns <- .getNamespace(x)
+  env_has(ns, ".__DEVTOOLS__")
+}
+
+devtools_meta <- function(x) {
+  ns <- .getNamespace(x)
+  ns[[".__DEVTOOLS__"]]
+}
+
+
 # CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {

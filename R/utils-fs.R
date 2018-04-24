@@ -96,7 +96,7 @@ path_package_pkgdown <- function(package, ...) {
 }
 
 path_pkgdown <- function(...) {
-  if (is.null(pkgload::dev_meta("pkgdown"))) {
+  if (is.null(devtools_meta("pkgdown"))) {
     # pkgdown is probably installed
     system.file(..., package = "pkgdown")
   } else {

@@ -124,7 +124,7 @@ build_reference <- function(pkg = ".",
     # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
     if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
-      pkgload::load_all(pkg$src_path)
+      devtools::load_all(pkg$src_path)
     }
 
     old_dir <- setwd(path(pkg$dst_path, "reference"))
