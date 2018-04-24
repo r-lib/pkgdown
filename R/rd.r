@@ -22,7 +22,6 @@ rd2html <- function(x, fragment = TRUE, ...) {
   str_trim(strsplit(str_trim(html), "\n")[[1]])
 }
 
-#' @export
 print.Rd <- function(x, ...) {
   utils::str(x)
 }
