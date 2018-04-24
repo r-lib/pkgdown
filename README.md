@@ -53,8 +53,8 @@ in the documentation. Alternatively, you can also use
 
 ## In the wild
 
-As at last count, pkgdown is used [by over 1300
-packages](https://github.com/search?utf8=✓&q=pkgdown.css+in%3Apath+path%3Adocs&type=Code).
+As at last count, pkgdown is used [by over 1600
+packages](https://github.com/search?q=pkgdown.css+in%3Apath+path%3Adocs&type=Code).
 
 Here are a few examples created by people contributors to pkgdown:
 
