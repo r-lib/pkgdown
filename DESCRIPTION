@@ -1,7 +1,6 @@
 Package: pkgdown
-Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
-Description: Generate a beautiful and useful website from a source package.
+Version: 0.1.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0003-4757-117X")
@@ -11,8 +10,11 @@ Authors@R: c(
     ),
     person("RStudio", role = c("cph", "fnd"))
     )
+Description: Generate a beautiful and useful website from a source package.
 License: MIT + file LICENSE
-Depends:
+URL: http://pkgdown.r-lib.org, https://github.com/hadley/pkgdown
+BugReports: https://github.com/hadley/pkgdown/issues
+Depends: 
     R (>= 3.2.0)
 Imports: 
     callr (>= 2.0.2),
@@ -21,13 +23,14 @@ Imports:
     desc,
     digest,
     evaluate,
+    fs (>= 1.2.0),
     highlight,
     httr,
-    MASS,
     magrittr,
+    MASS,
     memoise,
-    purrr,
     pkgload,
+    purrr,
     R6,
     rematch,
     rlang (>= 0.2.0),
@@ -38,22 +41,19 @@ Imports:
     tibble,
     tools,
     whisker,
-    yaml,
     xml2 (>= 1.1.1),
-    fs (>= 1.2.0)
-Suggests:
+    yaml
+Suggests: 
+    BiocInstaller,
+    covr,
     devtools,
     jsonlite,
     knitr,
     magick,
-    testthat,
-    BiocInstaller,
-    covr
-Remotes:
+    testthat
+VignetteBuilder: knitr
+Remotes: 
     r-lib/pkgload,
     r-lib/usethis
-VignetteBuilder: knitr
-RoxygenNote: 6.0.1
-URL: http://pkgdown.r-lib.org, https://github.com/hadley/pkgdown
-BugReports: https://github.com/hadley/pkgdown/issues
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
