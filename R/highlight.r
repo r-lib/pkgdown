@@ -18,33 +18,12 @@ highlight_text <- function(text) {
   register_attached_packages(packages)
 
   out <- highlight::highlight(
-    parse.output = expr,
-    renderer = pkgdown_renderer(),
-    detective = pkgdown_detective,
-    output = NULL
+    x = text,
+    header = "",
+    footer = "",
+    detective = pkgdown_detective
   )
   paste0(out, collapse = "")
-}
-
-pkgdown_renderer <- function() {
-  formatter <- function(tokens, styles, ...) {
-    href <- href_tokens(tokens, styles)
-    linked <- !is.na(href)
-    tokens[linked] <- a(tokens[linked], href[linked])
-
-    styled <- !is.na(styles)
-    tokens[styled] <- sprintf("<span class='%s'>%s</span>",
-      styles[styled],
-      tokens[styled]
-    )
-    tokens
-  }
-
-  highlight::renderer_html(
-    header = function(...) character(),
-    footer = function(...) character(),
-    formatter = formatter
-  )
 }
 
 href_tokens <- function(tokens, styles) {
@@ -136,5 +115,16 @@ pkgdown_detective <- function(x, ...) {
     UMINUS               = "kw"
   )
 
-  unname(token_style[token])
+  token_data <- data.frame(
+    token = names(token_style), class = token_style, style = "",
+    stringsAsFactors = FALSE
+  )
+
+  data <- merge( data, token_data, by = "token", all.x = TRUE, sort = FALSE )
+  data$class[ is.na(data$class) ] <- ""
+  data$style[ is.na(data$style) ] <- ""
+
+  data$href <- href_tokens(data$text, data$class )
+
+  data
 }
