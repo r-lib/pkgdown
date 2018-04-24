@@ -8,6 +8,12 @@ addons:
   apt:
     packages:
       - libmagick++-dev
+r:
+- 3.1
+- 3.2
+- oldrel
+- release
+- devel
 
 after_success:
   - Rscript -e 'covr::codecov()'
@@ -15,4 +21,3 @@ after_success:
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
-
