@@ -33,6 +33,8 @@ $(function() {
   });
 });
 
+// register a handler to move the focus to the search bar
+// upon pressing shift + "/" (i.e. "?")
 $(document).on('keydown', function(e) {
   if (e.shiftKey && e.keyCode == 191) {
     e.preventDefault();
