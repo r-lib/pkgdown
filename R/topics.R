@@ -73,7 +73,7 @@ match_env <- function(topics) {
     has_concept = function(x, internal = FALSE) {
       match <- topics$concepts %>%
         unname() %>%
-        purrr::map(~ trimws(.) == x) %>%
+        purrr::map(~ str_trim(.) == x) %>%
         purrr::map_lgl(any)
 
       which(match & is_public(internal))

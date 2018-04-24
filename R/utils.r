@@ -4,7 +4,7 @@ set_contains <- function(haystack, needles) {
 split_at_linebreaks <- function(text) {
   if (length(text) < 1)
     return(character())
-  trimws(strsplit(text, "\\n\\s*\\n")[[1]])
+  str_trim(strsplit(text, "\\n\\s*\\n")[[1]])
 }
 
 up_path <- function(depth) {

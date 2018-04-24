@@ -6,16 +6,22 @@ rd_text <- function(x, fragment = TRUE) {
 }
 
 rd_file <- function(path, pkg_path = NULL) {
-  macros <- tools::loadPkgRdMacros(pkg_path, if (getRversion() < "3.3.0") TRUE)
-  set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
+  if (getRversion() >= "3.4.0") {
+    macros <- tools::loadPkgRdMacros(pkg_path)
+    set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
+  } else if (getRversion() >= "3.2.0") {
+    macros <- tools::loadPkgRdMacros(pkg_path, TRUE)
+    set_classes(tools::parse_Rd(path, macros = macros, encoding = "UTF-8"))
+  } else {
+    set_classes(tools::parse_Rd(path, encoding = "UTF-8"))
+  }
 }
 
 rd2html <- function(x, fragment = TRUE, ...) {
   html <- as_html(rd_text(x, fragment = fragment), ...)
-  trimws(strsplit(trimws(html), "\n")[[1]])
+  str_trim(strsplit(str_trim(html), "\n")[[1]])
 }
 
-#' @export
 print.Rd <- function(x, ...) {
   utils::str(x)
 }

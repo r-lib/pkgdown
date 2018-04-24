@@ -29,11 +29,16 @@ test_that("can link remote objects", {
 })
 
 test_that("links to home of re-exported functions", {
+  # can't easily access exports in 3.1
+  skip_if_not(getRversion() >= "3.2.0")
+
   scoped_package_context("pkgdown")
   expect_equal(href_expr_(addterm()), href_topic_remote("addterm", "MASS"))
 })
 
 test_that("fails gracely if can't find re-exported function", {
+  skip_if_not(getRversion() >= "3.2.0")
+
   scoped_package_context("pkgdown", c(foo = "reexports"))
   expect_equal(href_expr_(foo()), NA_character_)
 })
