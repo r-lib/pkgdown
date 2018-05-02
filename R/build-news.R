@@ -56,6 +56,13 @@
 #' - one_page: false
 #' ```
 #'
+#' To use the custom GitHub URL, set `github_url` field.
+#'
+#' ```
+#' news:
+#'   github_url: https://example.github.com/
+#' ```
+#'
 #' @inheritParams build_articles
 #' @export
 build_news <- function(pkg = ".",

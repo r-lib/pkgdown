@@ -42,7 +42,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
-      github_url = pkg_github_url(desc),
+      github_url = pkg_github_url(desc, meta),
 
       desc = desc,
       meta = meta,

@@ -61,5 +61,9 @@ Control whether news is present on one page or multiple pages with the
 \code{one_page} field. The default is \code{true}.\preformatted{news:
 - one_page: false
 }
+
+To use the custom GitHub URL, set \code{github_url} field.\preformatted{news:
+  github_url: https://example.github.com/
+}
 }
 
