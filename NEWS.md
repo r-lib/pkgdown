@@ -1,3 +1,5 @@
+# pkgdown 1.0.0.9000
+
 # pkgdown 1.0.0
 
 * Major refactoring of path handling. `build_` functions no longer take
