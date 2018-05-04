@@ -12,3 +12,4 @@
 ^LICENSE\.md$
 ^tests/testthat/site-citation$
 ^cran-comments\.md$
+^CRAN-RELEASE$
