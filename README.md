@@ -18,11 +18,11 @@ latest version of pkgdown. Learn more in `vignette("pkgdown")` or
 
 ## Installation
 
-pkgdown is not currently available from CRAN, but you can install the
-development version from github with:
-
 ``` r
-# install.packages("devtools")
+# Install release version from CRAN
+install.packages("pkgdown")
+
+# Install development version from GitHub
 devtools::install_github("r-lib/pkgdown")
 ```
 
