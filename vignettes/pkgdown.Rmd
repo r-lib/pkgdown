@@ -26,7 +26,16 @@ To build a pkgdown site, run `build_site()`. The function has some arguments (mo
 * A [`bootswatch`](https://bootswatch.com) theme name to easily tweak the
   overall appearance of the site.
 
-Other options control the appearance of the other parts of the site. 
+Other options control the appearance of the other parts of the site.
+
+pkgdown checks for a site configuration file in these locations:
+
+1. `_pkgdown.yml`
+1. `_pkgdown.yaml`
+1. `pkgdown/_pkgdown.yml`
+1. `inst/_pkgdown.yml`
+
+Including the configuration file in `inst/` enables sites to be built from packages on CRAN without needing the development version of a package.
 
 ## Home page
 
