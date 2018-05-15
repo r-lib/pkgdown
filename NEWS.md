@@ -1,5 +1,7 @@
 # pkgdown 1.0.0.9000
 
+* Support re-exported non-function objects (#666, #669).
+
 * Improved display for icons - icons now must be 30px and are embedded in 
   separate column of reference index table (instead of being inside 
   a comment!) (#607).

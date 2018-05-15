@@ -97,7 +97,7 @@ href_topic_local <- function(topic) {
       return(NA_character_)
     } else {
       obj <- env_get(ns, topic, inherit = TRUE)
-      package <- ns_env_name(get_env(obj))
+      package <- find_reexport_source(obj, ns, topic)
       return(href_topic_remote(topic, package))
     }
   }
