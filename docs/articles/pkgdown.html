@@ -134,6 +134,14 @@
 <li><p>A <a href="https://bootswatch.com"><code>bootswatch</code></a> theme name to easily tweak the overall appearance of the site.</p></li>
 </ul>
 <p>Other options control the appearance of the other parts of the site.</p>
+<p>pkgdown checks for a site configuration file in these locations:</p>
+<ol style="list-style-type: decimal">
+<li><code>_pkgdown.yml</code></li>
+<li><code>_pkgdown.yaml</code></li>
+<li><code>pkgdown/_pkgdown.yml</code></li>
+<li><code>inst/_pkgdown.yml</code></li>
+</ol>
+<p>Including the configuration file in <code>inst/</code> enables sites to be built from packages on CRAN without needing the development version of a package.</p>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
 <a href="#home-page" class="anchor"></a>Home page</h2>
@@ -289,7 +297,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://hesselberthlab.org">Jay Hesselberth</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
 </div>
 
 <div class="pkgdown">
