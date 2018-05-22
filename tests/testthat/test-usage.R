@@ -82,3 +82,9 @@ test_that("can parse dots", {
   expect_equal(usage$name, "f")
 })
 
+
+# short_name --------------------------------------------------------------
+
+test_that("infix functions left as", {
+  expect_equal(short_name("%||%", "fun"), "`%||%`")
+})

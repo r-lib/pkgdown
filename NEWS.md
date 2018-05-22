@@ -3,6 +3,9 @@
 * Added a keyboard shortcut for searching. Press `shift` + `/` to move focus
   to the search bar (#642)
  
+* Infix functions (like `%+%`) now show as `` `%+%` ``, not 
+  `` `%+%`() `` on reference index (#659).
+
 * Support re-exported non-function objects (#666, #669).
 
 * Improved display for icons - icons now must be 30px and are embedded in 
