@@ -215,19 +215,23 @@ method_usage <- function(x, type) {
 
 #' @export
 as_html.tag_Sexpr <- function(x, ...) {
-  # Currently assume output is always Rd
-  options <- attr(x, "Rd_option")
   code <- flatten_text(x, escape = FALSE)
+  options <- parse_opts(attr(x, "Rd_option"))
 
   # Needs to be package root
   old_wd <- setwd(context_get("src_path"))
   on.exit(setwd(old_wd), add = TRUE)
 
   # Environment shared across a file
-  expr <- eval(parse(text = code), context_get("sexpr_env"))
+  res <- eval(parse(text = code), context_get("sexpr_env"))
 
-  rd <- rd_text(as.character(expr))
-  as_html(rd, ...)
+  results <- options$results %||% "rd"
+  switch(results,
+    text = as.character(res),
+    rd = flatten_text(rd_text(as.character(res))),
+    hide = "",
+    stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
+  )
 }
 
 #' @export
@@ -507,5 +511,26 @@ trim_ws_nodes <- function(x, side = c("both", "left", "right")) {
   }
 
   x[start:end]
+}
+
+
+# Helpers -----------------------------------------------------------------
+
+parse_opts <- function(string) {
+  if (is.null(string)) {
+    return(list())
+  }
+
+  args <- list("text", "verbatim", "rd", "hide", "build", "install", "render")
+  names(args) <- args
+  arg_env <- child_env(baseenv(), !!!args)
+
+  args <- strsplit(string, ",")[[1]]
+  exprs <- parse_exprs(args)
+
+  env <- child_env(arg_env)
+  purrr::walk(exprs, eval_bare, env = env)
+
+  as.list(env)
 }
 

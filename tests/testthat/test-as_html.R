@@ -69,6 +69,15 @@ test_that("code inside Sexpr is evaluated", {
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
+test_that("can control \\Sexpr output", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
+  expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
+  expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
+})
+
 test_that("Sexpr can contain multiple expressions", {
   scoped_package_context("pkgdown")
   scoped_file_context()

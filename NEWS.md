@@ -1,5 +1,7 @@
 # pkgdown 1.0.0.9000
 
+* `\Sexpr{}` now supports `results=text`, `results=Rd` and `results=hide` (#651).
+
 * Empty sections are now ignored (#656). Previously, empty sections caused 
   error `Error in rep(TRUE, length(x) - 1)`.
 
