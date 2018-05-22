@@ -48,8 +48,11 @@ article_index_remote <- function(package) {
 }
 
 find_article <- function(package, name) {
-  index <- article_index(package)
+  if (!(is.character(package) || is.null(package)) || !is.character(name)) {
+    return()
+  }
 
+  index <- article_index(package)
   if (has_name(index, name)) {
     index[[name]]
   } else {

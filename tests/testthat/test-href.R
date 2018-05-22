@@ -97,6 +97,11 @@ test_that("can link to remote articles", {
   )
 
   expect_equal(
+    href_expr_(vignette(package = "digest", "sha1")),
+     "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
+  )
+
+  expect_equal(
     href_expr_(vignette("highlight", "pkgdown")),
     "http://pkgdown.r-lib.org/articles/test/highlight.html"
   )
@@ -116,4 +121,13 @@ test_that("github_source returns (possibly many) URLs", {
       "https://github.com/r-lib/pkgdown/blob/master/R/example.R"
     )
   )
+})
+
+test_that("fail gracefully with non-working calls", {
+  scoped_package_context("test")
+
+  expect_equal(href_expr_(vignette()), NA_character_)
+  expect_equal(href_expr_(vignette(package = package)), NA_character_)
+  expect_equal(href_expr_(vignette(1, 2)), NA_character_)
+  expect_equal(href_expr_(vignette(, )), NA_character_)
 })

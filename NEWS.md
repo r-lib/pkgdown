@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Auto-linking of calls to `vignette()` is now more robust to calls that 
+  don't actually link to vignettes (#652).
+
 * `pkgdown.js` is now better isolated so it should still work even if you 
   load html widgets that import a different version of jquery (#655).
 

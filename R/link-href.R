@@ -33,8 +33,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 
     if (fun_name == "vignette") {
       expr <- lang_standardise(expr)
-      topic <- as.character(expr[[2]])
-      href_article(topic, expr$package)
+      href_article(expr$topic, expr$package)
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
