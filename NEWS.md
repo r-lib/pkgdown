@@ -5,6 +5,9 @@
 * Improved display for icons - icons now must be 30px and are embedded in 
   separate column of reference index table (instead of being inside 
   a comment!) (#607).
+  
+* Add `inst/pkgdown.yml` as a possible site configuration file so that packages on 
+  CRAN can be built without needing the development version (#662).
 
 # pkgdown 1.0.0
 
