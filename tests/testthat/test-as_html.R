@@ -181,6 +181,10 @@ test_that("code blocks autolinked to vignettes", {
 
 # Paragraphs --------------------------------------------------------------
 
+test_that("empty input gives empty output", {
+  expect_equal(flatten_para(character()), character())
+})
+
 test_that("empty lines break paragraphs", {
   expect_equal(
     flatten_para(rd_text("a\nb\n\nc")),

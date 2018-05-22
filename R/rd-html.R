@@ -5,6 +5,10 @@ as_html <- function(x, ...) {
 # Various types of text ------------------------------------------------------
 
 flatten_para <- function(x, ...) {
+  if (length(x) == 0) {
+    return(character())
+  }
+
   # Look for "\n" TEXT blocks after a TEXT block, and not at end of file
   is_nl <- purrr::map_lgl(x, is_newline, trim = TRUE)
   is_text <- purrr::map_lgl(x, inherits, "TEXT")
@@ -333,6 +337,10 @@ parse_items <- function(rd, ...) {
 }
 
 parse_descriptions <- function(rd, ...) {
+  if (length(rd) == 0) {
+    return(character())
+  }
+
   is_item <- purrr::map_lgl(rd, inherits, "tag_item")
 
   parse_item <- function(x) {
