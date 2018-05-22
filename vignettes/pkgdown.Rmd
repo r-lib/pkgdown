@@ -196,7 +196,7 @@ Finally, you need to add a `url:` field to `_pkgdown.yml` that specifies the loc
 url: http://pkgdown.r-lib.org
 ```
 
-You should have a functional search bar after re-building your site with this new configuration.
+You should have a functional search bar after re-building your site with this new configuration. Once search is enabled on your site, pressing `shift + /` (i.e., "?") will move the focus to the search bar.
 
 [docs]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch
 [rmarkdown navbar]: http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation

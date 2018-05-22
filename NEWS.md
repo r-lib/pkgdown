@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Added a keyboard shortcut for searching. Press `shift` + `/` to move focus
+  to the search bar (#642)
+ 
 * Support re-exported non-function objects (#666, #669).
 
 * Improved display for icons - icons now must be 30px and are embedded in 
