@@ -38,6 +38,8 @@ parse_usage <- function(x) {
 short_name <- function(name, type, signature) {
   if (!is_syntactic(name)) {
     qname <- paste0("`", name, "`")
+  } else {
+    qname <- name
   }
 
   if (type == "data") {
