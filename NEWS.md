@@ -1,5 +1,7 @@
 # pkgdown 1.0.0.9000
 
+* `\tabular{}` now longer requires a terminal `\cr` (#664, #645).
+
 * Added a keyboard shortcut for searching. Press `shift` + `/` to move focus
   to the search bar (#642)
  

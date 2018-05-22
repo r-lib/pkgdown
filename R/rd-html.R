@@ -252,10 +252,8 @@ as_html.tag_tabular <- function(x, ...) {
   row_sep <- purrr::map_lgl(contents, inherits, "tag_cr")
   col_sep <- purrr::map_lgl(contents, inherits, "tag_tab")
 
-  last <- rev(which(row_sep))[1] - 1L
-  contents <- contents[seq_len(last)]
   sep <- col_sep | row_sep
-  cell_grp <- cumsum(sep)[seq_len(last)]
+  cell_grp <- cumsum(sep)
   cells <- split(contents[!sep], cell_grp[!sep])
 
   cell_contents <- vapply(cells, flatten_text, ...,

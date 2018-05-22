@@ -38,6 +38,16 @@ test_that("tabular converted to html", {
   expect_equal(rd2html(table), expectation)
 })
 
+test_that("can omit trailing \\crs", {
+  table <- "\\tabular{l}{a \\cr b \\cr c}"
+  expectation <- c("<table class='table'>", "<tr><td>a</td></tr>", "<tr><td>b</td></tr>", "<tr><td>c</td></tr>", "</table>")
+  expect_equal(rd2html(table), expectation)
+
+  table <- "\\tabular{lll}{a \\tab b \\tab c}"
+  expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td><td>c</td></tr>", "</table>")
+  expect_equal(rd2html(table), expectation)
+})
+
 test_that("internal \\crs are stripped", {
   table <- "\\tabular{l}{a \\cr b \\cr c \\cr}"
   expectation <- c("<table class='table'>", "<tr><td>a</td></tr>", "<tr><td>b</td></tr>", "<tr><td>c</td></tr>", "</table>")
