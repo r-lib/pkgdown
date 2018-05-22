@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Added a keyboard shortcut for searching. Press `shift` + `/` to move focus
+  to the search bar (#642)
+  j
 * Improved display for icons - icons now must be 30px and are embedded in 
   separate column of reference index table (instead of being inside 
   a comment!) (#607).
