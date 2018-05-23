@@ -123,7 +123,7 @@
     $(document).ready(function() {
       var copyButton = "<button type='button' class='btn btn-primary btn-copy-ex' type = 'submit' title='Copy to clipboard' aria-hidden='true' data-toggle='tooltip' data-placement='left auto' data-trigger='hover' data-clipboard-copy><i class='fa fa-copy' aria-hidden='true'></i></button>";
 
-      $(".examples").addClass("hasCopyButton");
+      $(".examples, div.sourceCode").addClass("hasCopyButton");
 
       // Insert copy buttons:
       $(copyButton).prependTo(".hasCopyButton");
