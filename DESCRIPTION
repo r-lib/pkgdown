@@ -50,6 +50,7 @@ Suggests:
     covr,
     jsonlite,
     knitr,
+    leaflet,
     magick,
     testthat
 VignetteBuilder: knitr
