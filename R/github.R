@@ -1,4 +1,6 @@
-pkg_github_url <- function(desc) {
+github_url_regex <- "^https?://github\\.com/"
+
+pkg_github_url <- function(desc, meta = list()) {
   if (!desc$has_fields("URL"))
     return()
 
@@ -6,7 +8,13 @@ pkg_github_url <- function(desc) {
     strsplit(",") %>%
     `[[`(1) %>%
     str_trim()
-  gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
+
+  github_url <- purrr::pluck(meta, "news", "github_url")
+  if (!is.null(github_url)) {
+    gh_links <- grep(github_url, gh_links, value = TRUE, fixed = TRUE)
+  } else {
+    gh_links <- grep(github_url_regex, gh_links, value = TRUE)
+  }
 
   if (length(gh_links) == 0)
     return()
@@ -45,10 +53,13 @@ github_source_links <- function(base, paths) {
 }
 
 add_github_links <- function(x, pkg) {
-  user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
-  x <- gsub("@(\\w+)", user_link, x)
-
   github_url <- pkg$github_url
+
+  if (is.null(github_url) || grepl(github_url_regex, github_url)) {
+    user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
+    x <- gsub("@(\\w+)", user_link, x)
+  }
+
   if (is.null(github_url)) {
     return(x)
   }

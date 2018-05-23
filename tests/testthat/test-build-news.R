@@ -12,6 +12,18 @@ test_that("github links are added to news items", {
   expect_true(grepl(issue_link, news_tbl$html))
 })
 
+test_that("custom github links are added to news items", {
+  path <- test_path("news-github-links-custom")
+  pkg <- as_pkgdown(path)
+  news_tbl <- data_news(pkg)
+
+  user_link <- "<a href='https?://.*'>@hadley</a>"
+  issue_link <- "<a href='https://github.example.com/hadley/pkgdown/issues/100'>#100</a>"
+
+  expect_true(!grepl(user_link, news_tbl$html))
+  expect_true(grepl(issue_link, news_tbl$html))
+})
+
 test_that("build_news() uses content in NEWS.md", {
   pkg <- test_path("news")
 
