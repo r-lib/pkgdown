@@ -87,4 +87,7 @@
   <url>
     <loc>http://pkgdown.r-lib.org/articles/test/pdf.pdf</loc>
   </url>
+  <url>
+    <loc>http://pkgdown.r-lib.org/articles/test/widget.html</loc>
+  </url>
 </urlset>
