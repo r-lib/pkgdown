@@ -152,6 +152,7 @@ build_article <- function(name,
     return(invisible())
   }
 
+  scoped_in_pkgdown()
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 

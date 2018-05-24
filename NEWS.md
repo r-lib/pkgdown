@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
+  (#650).
+
 * Default navbar template now correctly uses site title, not package name 
   (the package name is the default title, so this will not affect most sites) 
   (#654).
