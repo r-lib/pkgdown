@@ -1,5 +1,9 @@
 # pkgdown 1.0.0.9000
 
+* Default navbar template now correctly uses site title, not package name 
+  (the package name is the default title, so this will not affect most sites) 
+  (#654).
+
 * Auto-linking of calls to `vignette()` is now more robust to calls that 
   don't actually link to vignettes (#652).
 
