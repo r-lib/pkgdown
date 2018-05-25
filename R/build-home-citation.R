@@ -9,6 +9,10 @@ create_meta <- function(path) {
   dcf <- read.dcf(path)
   meta <- as.list(dcf[1, ])
 
+  if (!is.null(meta$Encoding)) {
+    meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  }
+
   meta
 }
 
