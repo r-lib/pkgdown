@@ -221,7 +221,11 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
 # Mutates `html`, removing the badge container
 badges_extract <- function(html) {
-  x <- xml2::xml_find_first(html, "//p")
+  # First try specially named div; then try first paragraph
+  x <- xml2::xml_find_first(html, "//div[@id='badges']")
+  if (length(x) == 0) {
+    x <- xml2::xml_find_first(html, "//p")
+  }
 
   # No paragraph
   if (length(x) == 0) {
