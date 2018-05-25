@@ -68,6 +68,8 @@
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
 #'   rapidly protoype. It is set to `FALSE` by [build_site()].
+#' @param document If `TRUE`, will run [devtools::document()] before
+#'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
@@ -102,6 +104,7 @@
 #' }
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
+                            document = FALSE,
                             examples = TRUE,
                             run_dont_run = FALSE,
                             mathjax = TRUE,
@@ -110,7 +113,12 @@ build_reference <- function(pkg = ".",
                             preview = NA
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+
   rule("Building function reference")
+  if (document) {
+    devtools::document(pkg$src_path)
+  }
+
   build_reference_index(pkg)
 
   # copy everything from man/figures to docs/reference/figures

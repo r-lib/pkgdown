@@ -253,6 +253,7 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
+                       document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        mathjax = TRUE,
@@ -272,6 +273,7 @@ build_site <- function(pkg = ".",
   build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
+    document = document,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
@@ -288,7 +290,6 @@ build_site <- function(pkg = ".",
 }
 
 build_site_rstudio <- function(pkg = ".") {
-  devtools::document()
   callr::r(
     function(...) pkgdown::build_site(...),
     args = list(pkg = pkg),

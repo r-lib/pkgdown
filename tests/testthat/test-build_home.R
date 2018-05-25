@@ -37,7 +37,10 @@ test_that("intermediate files cleaned up automatically", {
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
-  expect_equal(sort(dir(pkg)), sort(c("docs", "DESCRIPTION", "README.md", "README.Rmd")))
+  expect_setequal(
+    dir(pkg),
+    c("docs", "man", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
+  )
 })
 
 

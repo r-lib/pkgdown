@@ -15,6 +15,10 @@
 * Markdown files (e.g., `CODE_OF_CONDUCT.md`) stored in `.github/` are now copied and
   linked correctly (#682).
 
+* `build_reference()` and `build_site()` get new `document` argument. When 
+  `TRUE`, the default, will automatically run `devtools::document()` to 
+  ensure that your documentation is up to date.
+
 * `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
   (#650).
 

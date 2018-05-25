@@ -5,9 +5,9 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, override = list(),
-  preview = NA)
+build_reference(pkg = ".", lazy = TRUE, document = FALSE,
+  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
+  override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }
@@ -17,6 +17,9 @@ build_reference_index(pkg = ".")
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
 rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
+
+\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
+updating the site.}
 
 \item{examples}{Run examples?}
 

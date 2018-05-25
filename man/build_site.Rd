@@ -4,14 +4,17 @@
 \alias{build_site}
 \title{Build pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
-  preview = NA)
+build_site(pkg = ".", examples = TRUE, document = TRUE,
+  run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
+  override = list(), preview = NA)
 }
 \arguments{
 \item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
+
+\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
+updating the site.}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
