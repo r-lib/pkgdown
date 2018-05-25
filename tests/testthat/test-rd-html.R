@@ -1,4 +1,4 @@
-context("as_html")
+context("test-rd-html.R")
 
 test_that("special characters are escaped", {
   out <- rd2html("a & b")

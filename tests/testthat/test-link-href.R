@@ -1,4 +1,4 @@
-context("href")
+context("test-link-href.R")
 
 test_that("can link function calls", {
   scoped_package_context("test", c(foo = "bar"))

@@ -1,4 +1,4 @@
-context("packages")
+context("test-link-packages.R")
 
 test_that("extracts typical library()/require() calls", {
   expect_equal(extract_package_attach_(library("blah")), "blah")

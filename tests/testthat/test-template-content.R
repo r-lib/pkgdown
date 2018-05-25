@@ -1,7 +1,9 @@
-context("Open Graph meta tags")
+context("test-template-content")
+
+# Open Graph ------------------------------------------
 
 # This is hacky and needs to be cleaned up
-pkg <- as_pkgdown(test_path("open-graph"))
+pkg <- as_pkgdown(test_path("assets/open-graph"))
 setup(expect_output(build_site(pkg)))
 teardown(clean_site(pkg))
 
@@ -30,7 +32,7 @@ test_that("og tags are populated on vignettes", {
 })
 
 test_that("if there is no logo.png, there is no og:image tag", {
-  pkg <- as_pkgdown(test_path("home-readme-rmd"))
+  pkg <- as_pkgdown(test_path("assets/home-readme-rmd"))
   expect_output(build_site(pkg))
   on.exit(clean_site(pkg))
 

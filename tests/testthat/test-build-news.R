@@ -1,7 +1,7 @@
-context("build-news.R")
+context("test-build-news.R")
 
 test_that("github links are added to news items", {
-  path <- test_path("news-github-links")
+  path <- test_path("assets/news-github-links")
   pkg <- as_pkgdown(path)
   news_tbl <- data_news(pkg)
 
@@ -13,7 +13,7 @@ test_that("github links are added to news items", {
 })
 
 test_that("build_news() uses content in NEWS.md", {
-  pkg <- test_path("news")
+  pkg <- test_path("assets/news")
 
   expect_output(build_news(pkg))
   on.exit(clean_site(pkg))

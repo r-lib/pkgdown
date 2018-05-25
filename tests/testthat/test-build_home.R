@@ -1,4 +1,4 @@
-context("build_home")
+context("test-build_home.R")
 
 
 # license -----------------------------------------------------------------
@@ -25,7 +25,7 @@ test_that("link_license matches LICENSE", {
 # index -------------------------------------------------------------------
 
 test_that("intermediate files cleaned up automatically", {
-  pkg <- test_path("home-index-rmd")
+  pkg <- test_path("assets/home-index-rmd")
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
@@ -33,7 +33,7 @@ test_that("intermediate files cleaned up automatically", {
 })
 
 test_that("intermediate files cleaned up automatically", {
-  pkg <- test_path("home-readme-rmd")
+  pkg <- test_path("assets/home-readme-rmd")
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
@@ -52,7 +52,7 @@ test_that("page header modification succeeds", {
 
   tweak_homepage_html(html)
 
-  expect_output_file(cat(as.character(html)), "home-page-header.html")
+  expect_output_file(cat(as.character(html)), "assets/home-page-header.html")
 })
 
 test_that("links to vignettes & figures tweaked", {
@@ -63,7 +63,7 @@ test_that("links to vignettes & figures tweaked", {
 
   tweak_homepage_html(html)
 
-  expect_output_file(cat(as.character(html)), "home-links.html")
+  expect_output_file(cat(as.character(html)), "assets/home-links.html")
 })
 
 # repo_link ------------------------------------------------------------
@@ -93,7 +93,7 @@ test_that("package repo verification", {
 # orcid ------------------------------------------------------------------
 
 test_that("ORCID can be identified from all comment styles", {
-  pkg <- as_pkgdown(test_path("site-orcid"))
+  pkg <- as_pkgdown(test_path("assets/site-orcid"))
   author_info <- data_author_info(pkg)
   authors <- pkg %>%
     pkg_authors() %>%
@@ -146,7 +146,7 @@ test_that("references in angle brackets are converted to HTML", {
 # empty readme.md ---------------------------------------------------------
 
 test_that("build_home fails with empty readme.md", {
-  pkg <- test_path("home-empty-readme-md")
+  pkg <- test_path("assets/home-empty-readme-md")
   on.exit(clean_site(pkg))
 
   expect_output(
