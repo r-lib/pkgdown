@@ -1,5 +1,7 @@
 # pkgdown 1.0.0.9000
 
+* The Algolia logo was restored in search results (#673)
+
 * `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
   (#650).
 

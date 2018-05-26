@@ -150,6 +150,8 @@
 <a href="#pkgdown-1-0-0-9000" class="anchor"></a>pkgdown 1.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>The Algolia logo was restored in search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>)</p></li>
+<li><p><code><a href="../reference/build_articles.html">build_article()</a></code> now sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
 <li><p>Default navbar template now correctly uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li><p>Auto-linking of calls to <code>vignette()</code> is now more robust to calls that don’t actually link to vignettes (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>).</p></li>
 <li><p><code>pkgdown.js</code> is now better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
