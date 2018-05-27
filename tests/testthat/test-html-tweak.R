@@ -25,25 +25,28 @@ test_that("anchors don't get additional newline", {
 
   expect_output_file(
     html %>% xml2::xml_find_first(".//h1") %>% as.character() %>% cat(),
-    "assets/tweak-anchor.html", update = TRUE
+    "assets/tweak-anchor.html",
+    update = TRUE
   )
 })
 
 # tags -------------------------------------------------------------
 
 test_that("Stripping HTML tags", {
-  expect_identical(strip_html_tags("<p>some text about <code>data</code>"),
-                   "some text about data")
+  expect_identical(
+    strip_html_tags("<p>some text about <code>data</code>"),
+    "some text about data"
+  )
 })
 
 # find badges -------------------------------------------------------------
 
 test_that("no paragraph", {
-  expect_equal(badges_extract_text('<h1></h1>'), character())
+  expect_equal(badges_extract_text("<h1></h1>"), character())
 })
 
 test_that("no badges in paragraph", {
-  expect_equal(badges_extract_text('<p></p>'), character())
+  expect_equal(badges_extract_text("<p></p>"), character())
 })
 
 test_that("finds single badge", {

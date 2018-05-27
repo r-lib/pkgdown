@@ -19,8 +19,10 @@ test_that("build_news() uses content in NEWS.md", {
   on.exit(clean_site(pkg))
 
   lines <- read_lines(path(pkg, "docs", "news", "index.html"))
-  test_strings <- c("testpackage", "1.0.0.9000", "1.0.0[^\\.]",
-                    "sub-heading", "@githubuser", "bullet", "#111")
+  test_strings <- c(
+    "testpackage", "1.0.0.9000", "1.0.0[^\\.]",
+    "sub-heading", "@githubuser", "bullet", "#111"
+  )
   expect_true(all(
     vapply(test_strings, function(x) any(grepl(x, lines)), logical(1))
   ))
@@ -42,5 +44,4 @@ test_that("correct timeline for first ggplot2 releases", {
   )
 
   expect_equal(timeline, expected)
-
 })

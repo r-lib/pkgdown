@@ -2,14 +2,14 @@ context("test-tutorials.R")
 
 jj_examples <- list(
   list(
-    name =   "00-setup",
-    title =  "Setting up R",
-    url =    "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
+    name = "00-setup",
+    title = "Setting up R",
+    url = "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
   ),
   list(
-    name =   "01-data-basics",
-    title =  "Data basics",
-    url =    "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
+    name = "01-data-basics",
+    title = "Data basics",
+    url = "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
   )
 )
 
