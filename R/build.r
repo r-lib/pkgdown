@@ -209,6 +209,15 @@
 #'     ganalytics: UA-000000-01
 #' ```
 #'
+#' Suppress indexing of your pages by web robots by setting `noindex:
+#' true`:
+#'
+#' ```
+#' template:
+#'   params:
+#'     noindex: true
+#' ```
+#'
 #' You can also override the default templates and provide additional
 #' assets. You can do so by either storing in a `package` with
 #' directories `inst/pkgdown/assets` and `inst/pkgdown/templates`,

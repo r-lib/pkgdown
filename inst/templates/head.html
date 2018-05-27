@@ -48,9 +48,8 @@
 <meta name="twitter:card" content="summary" />
 {{/opengraph}}
 
-{{#development}}{{#in_dev}}
-<meta name="robots" content="noindex">
-{{/in_dev}}{{/development}}
+{{#yaml}}{{#noindex}}<meta name="robots" content="noindex" />{{/noindex}}{{/yaml}}
+{{#development}}{{#in_dev}}<meta name="robots" content="noindex">{{/in_dev}}{{/development}}
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>

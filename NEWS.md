@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Suppress web indexing by setting `noindex: true` under `template:params`
+  in `pkgdown.yml` (#686)
+
 * `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
   (#650).
 
