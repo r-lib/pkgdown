@@ -49,10 +49,16 @@ tweak_md_links <- function(html) {
   hrefs <- xml2::xml_attr(links, "href")
   md_exts <- grepl("\\.md$", hrefs)
 
+  fix_links <- function(x) {
+    x <- gsub("\\.md$", ".html", x)
+    x <- gsub("\\.github/", "", x)
+    x
+  }
+
   if (any(md_exts)) {
     purrr::walk2(
       links[md_exts],
-      gsub("\\.md$", ".html", hrefs[md_exts]),
+      fix_links(hrefs[md_exts]),
       xml2::xml_set_attr,
       attr = "href"
     )

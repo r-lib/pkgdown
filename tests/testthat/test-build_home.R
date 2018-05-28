@@ -153,3 +153,14 @@ test_that("build_home fails with empty readme.md", {
     expect_error(build_home(pkg), "non-empty")
   )
 })
+
+# .github files -----------------------------------------------------------
+
+test_that(".github files are copied and linked", {
+  pkg <- test_path("assets/site-dot-github")
+  on.exit(clean_site(pkg))
+  expect_output(build_home(pkg))
+
+  lines <- read_lines(path(pkg, "docs", "index.html"))
+  expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))
+})
