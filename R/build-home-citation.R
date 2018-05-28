@@ -6,10 +6,13 @@ has_citation <- function(path = ".") {
 create_meta <- function(path) {
   path <- path(path, "DESCRIPTION")
 
-  dcf <- read.dcf(path)
-  meta <- as.list(dcf[1, ])
+  dcf <- read.dcf(path)[1, ]
+  if ("Encoding" %in% names(dcf)) {
+    Encoding(dcf) <- dcf[["Encoding"]]
+    dcf <- enc2utf8(dcf)
+  }
 
-  meta
+  as.list(dcf)
 }
 
 read_citation <- function(path = ".") {
