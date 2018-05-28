@@ -6,7 +6,7 @@
 \usage{
 build_site(pkg = ".", examples = TRUE, document = TRUE,
   run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
-  override = list(), preview = NA)
+  override = list(), preview = NA, new_process = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -31,6 +31,10 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
+This enhances reproducibility by ensuring nothing that you have loaded
+in the current process affects the build process.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around six functions:

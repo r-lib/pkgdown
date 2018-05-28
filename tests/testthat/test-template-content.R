@@ -4,7 +4,7 @@ context("test-template-content")
 
 # This is hacky and needs to be cleaned up
 pkg <- as_pkgdown(test_path("assets/open-graph"))
-setup(expect_output(build_site(pkg)))
+setup(expect_output(build_site(pkg, new_process = FALSE)))
 teardown(clean_site(pkg))
 
 test_that("og tags are populated on index.html", {
@@ -33,7 +33,7 @@ test_that("og tags are populated on vignettes", {
 
 test_that("if there is no logo.png, there is no og:image tag", {
   pkg <- as_pkgdown(test_path("assets/home-readme-rmd"))
-  expect_output(build_site(pkg))
+  expect_output(build_site(pkg, new_process = FALSE))
   on.exit(clean_site(pkg))
 
   index_html <- read_lines(path(pkg$dst_path, "index.html"))

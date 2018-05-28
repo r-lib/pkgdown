@@ -115,7 +115,7 @@ build_reference <- function(pkg = ".",
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   rule("Building function reference")
-  if (document) {
+  if (document && (pkg$package != "pkgdown")) {
     devtools::document(pkg$src_path)
   }
 
