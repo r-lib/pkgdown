@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Markdown files (e.g., `CODE_OF_CONDUCT.md`) stored in `.github/` are now copied and
+  linked correctly (#682).
+
 * `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
   (#650).
 
