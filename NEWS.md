@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Suppress web indexing by setting `noindex: true` under `template:params`
+  in `pkgdown.yml` (#686)
+
 * Markdown files (e.g., `CODE_OF_CONDUCT.md`) stored in `.github/` are now copied and
   linked correctly (#682).
 
