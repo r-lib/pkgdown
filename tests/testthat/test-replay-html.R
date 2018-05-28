@@ -1,5 +1,4 @@
-context("replay")
-
+context("test-replay-html.R")
 
 # Output labelling --------------------------------------------------------
 

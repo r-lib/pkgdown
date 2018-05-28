@@ -1,4 +1,4 @@
-context("as_html")
+context("test-rd-html.R")
 
 test_that("special characters are escaped", {
   out <- rd2html("a & b")
@@ -109,10 +109,10 @@ test_that("Sexprs run from package root", {
 # links -------------------------------------------------------------------
 
 test_that("href orders arguments correctly", {
-   expect_equal(
-     rd2html("\\href{http://a.com}{a}"),
-     a("a", href = "http://a.com")
-   )
+  expect_equal(
+    rd2html("\\href{http://a.com}{a}"),
+    a("a", href = "http://a.com")
+  )
 })
 
 test_that("can convert cross links to online documentation url", {

@@ -1,4 +1,4 @@
-context("href")
+context("test-link-href.R")
 
 test_that("can link function calls", {
   scoped_package_context("test", c(foo = "bar"))
@@ -93,12 +93,12 @@ test_that("can link to remote articles", {
 
   expect_equal(
     href_expr_(vignette("sha1", "digest")),
-     "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
+    "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
   )
 
   expect_equal(
     href_expr_(vignette(package = "digest", "sha1")),
-     "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
+    "https://cran.rstudio.com/web/packages/digest/vignettes/sha1.html"
   )
 
   expect_equal(

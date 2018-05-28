@@ -1,4 +1,4 @@
-context("remote")
+context("test-metadata.R")
 
 test_that("remote_package_url discovers pkgdown site", {
   scoped_package_context("test")

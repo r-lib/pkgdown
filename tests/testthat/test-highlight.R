@@ -1,4 +1,4 @@
-context("highlight")
+context("test-highlight.R")
 
 test_that("can link to external topics that use ::", {
   scoped_package_context("test")
