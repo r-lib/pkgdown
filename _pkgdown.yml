@@ -20,6 +20,7 @@ reference:
     - init_site
     - starts_with("build_")
     - preview_site
+    - build_site_rstudio
   - title: Templates
     contents:
     - template_navbar
