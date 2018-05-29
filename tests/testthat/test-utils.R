@@ -1,4 +1,4 @@
-context("utils")
+context("test-utils.R")
 
 test_that("find_reexport_source", {
   ns <- asNamespace("pkgdown")

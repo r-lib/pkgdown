@@ -1,7 +1,7 @@
 context("test-init.R")
 
 test_that("extra.css and extra.js copied and linked", {
-  pkg <- test_path("init-extra-2")
+  pkg <- test_path("assets/init-extra-2")
   expect_output(init_site(pkg))
   on.exit(clean_site(pkg))
 
@@ -19,7 +19,7 @@ test_that("extra.css and extra.js copied and linked", {
 })
 
 test_that("single extra.css correctly copied", {
-  pkg <- test_path("init-extra-1")
+  pkg <- test_path("assets/init-extra-1")
   expect_output(init_site(pkg))
   on.exit(clean_site(pkg))
 
