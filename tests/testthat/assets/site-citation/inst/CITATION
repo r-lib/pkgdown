@@ -1,6 +1,6 @@
 citEntry(entry = "Article",
          title="test non-ASCII character in authors *and* citation(auto = meta)",
-         author="Florian PrivÃ©",
+         author="Florian Privé",
          journal="test",
          year="2017",
          publisher="test",
