@@ -70,7 +70,7 @@ text:\preformatted{authors:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
+    html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
 }
 }
 
@@ -217,6 +217,11 @@ correspond to your
 \href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
   params:
     ganalytics: UA-000000-01
+}
+
+Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
+  params:
+    noindex: true
 }
 
 You can also override the default templates and provide additional

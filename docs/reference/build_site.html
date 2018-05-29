@@ -246,7 +246,7 @@ text:</p><pre>authors:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: &lt;img src="http://tidyverse.org/rstudio-logo.svg" height="24" /&gt;
+    html: &lt;img src="https://tidyverse.org/rstudio-logo.svg" height="24" /&gt;
 </pre>
     
     <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode"></a>Development mode</h2>
@@ -375,6 +375,10 @@ correspond to your
 <a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>template:
   params:
     ganalytics: UA-000000-01
+</pre>
+    <p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
+  params:
+    noindex: true
 </pre>
     <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
