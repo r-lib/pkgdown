@@ -287,6 +287,16 @@ build_site <- function(pkg = ".",
   rule("DONE", line = 2)
 }
 
+#' Document, build, and preview site in RStudio
+#'
+#' @description
+#' `build_site_rstudio()` is a wrapper around these three methods:
+#'
+#' * [devtools::document()]
+#' * [pkgdown::build_site()]
+#' * [pkgdown::preview_site()]
+#'
+#' @export
 build_site_rstudio <- function(pkg = ".") {
   devtools::document()
   callr::r(

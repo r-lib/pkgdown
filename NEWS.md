@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* `build_site_rstudio()` is now exported for documenting, building, and
+  previewing the site (#647).
+
 * The Algolia logo was restored in search results (#673)
 
 * Suppress web indexing by setting `noindex: true` under `template:params`
