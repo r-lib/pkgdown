@@ -25,10 +25,14 @@ Imports:
     desc,
     devtools,
     digest,
+    d3heatmap,
+    DT,
     evaluate,
     fs (>= 1.2.0),
     highlight,
+    htmltools,
     httr,
+    leaflet,
     magrittr,
     MASS,
     memoise,
@@ -48,9 +52,9 @@ Imports:
 Suggests: 
     BiocInstaller,
     covr,
+    htmlwidgets,
     jsonlite,
     knitr,
-    leaflet,
     magick,
     testthat
 VignetteBuilder: knitr

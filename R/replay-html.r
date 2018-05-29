@@ -41,11 +41,57 @@ replay_html.list <- function(x, ...) {
   # keep only high level plots
   parts <- merge_low_plot(parts)
 
-  pieces <- character(length(parts))
+  pieces <- list()
+  dependencies <- list()
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], ...)
+    output <- replay_html(parts[[i]], ...)
+    pieces[[i]] <- output
+    dependencies[[i]] <- attr(output, "knit_meta")
   }
-  paste0(pieces, collapse = "")
+
+  # bundle unwrapped pieces into `pre` blocks
+  standalone_piece_indices <- seq_along(pieces) %>%
+    purrr::keep(~ inherits(pieces[[.x]], "html"))
+
+  split_at_indices <- c(
+    standalone_piece_indices,     # split before html element
+    standalone_piece_indices + 1  # split after html element
+  )
+
+  bundled_pieces <- pieces %>%
+    split(cumsum(seq_along(pieces) %in% split_at_indices)) %>%
+    purrr::map_if(
+      ~ !inherits(.x[[1]], "html"),
+      ~ paste0("<pre>", paste0(.x, collapse = ""), "</pre>")
+    ) %>%
+    purrr::flatten() %>%
+    purrr::map_chr(as.character) %>%
+    unname()
+
+  depends <- collect_html_dependencies(dependencies)
+
+  out <- list(bundles = bundled_pieces)
+  attr(out, "html_dependencies") <- depends
+
+  out
+}
+
+collect_html_dependencies <- function(depends, lib_dir = "lib", output_dir = ".") {
+  # collect and relocate html dependencies
+  depends <- depends %>%
+    purrr::flatten() %>%
+    unique() %>%
+    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
+    purrr::map(htmltools::makeDependencyRelative, output_dir)
+
+  htmltools::renderDependencies(
+    depends,
+    "file",
+    encodeFunc = identity,
+    hrefFilter = function(path) {
+      rmarkdown::relative_to(output_dir, path)
+    }
+  )
 }
 
 #' @export
@@ -96,6 +142,15 @@ replay_html.error <- function(x, ...) {
 #' @export
 replay_html.recordedplot <- function(x, topic, obj_id, ...) {
   fig_save_default(x, fig_name(topic, obj_id))
+}
+
+#' @export
+replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
+  # wrap in our own div because <pre> wrapping sometimes breaks stylesheet of
+  # htmlwidgets instantiate as HTML early so it does not get bundled into `pre`
+  output <- htmltools::HTML(paste0("<div class='knit_asis'>", x, "</div>"))
+  attr(output, "knit_meta") <- attr(x, "knit_meta")
+  output
 }
 
 # Knitr functions ------------------------------------------------------------

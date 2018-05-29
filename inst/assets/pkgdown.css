@@ -230,3 +230,8 @@ mark {
 .html-widget {
   margin-bottom: 10px;
 }
+
+/* Reference examples output ---------------------------------------------- */
+.examples {
+  margin: 10px 0;
+}

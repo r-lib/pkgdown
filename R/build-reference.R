@@ -248,7 +248,10 @@ data_reference_topic <- function(topic,
     run_dont_run = run_dont_run
   )
 
+  out$example_html_dependencies <- attr(out$examples[[1]], "html_dependencies")
+
   # Everything else stays in original order, and becomes a list of sections.
+
   section_tags <- c(
     "tag_details", "tag_references", "tag_source", "tag_format",
     "tag_note", "tag_seealso", "tag_section", "tag_value"

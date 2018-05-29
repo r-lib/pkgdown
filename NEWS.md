@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* htmlwidgets (e.g., leaflet, d3heatmap, and DT) can now be used in Rd `@examples`.
+  See `test-widgets` for examples. (#617)
+  
 * The Algolia logo was restored in search results (#673)
 
 * Suppress web indexing by setting `noindex: true` under `template:params`
