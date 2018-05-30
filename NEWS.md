@@ -4,6 +4,10 @@
   enabling linking to other SCM systems (i.e, Github, Github Enterprise, and BitBucket) that use the format
   `http://URL/issue_number` (#676).
 
+* CITATION files with non-UTF-8 encodings (latin1) no longer generate an error.
+  For non-UTF-8 locales, ensure you have e.g. `Encoding: latin1` in your `DESCRIPTION`
+  (#689).
+
 * The Algolia logo was restored in search results (#673)
 
 * Suppress web indexing by setting `noindex: true` under `template:params`
