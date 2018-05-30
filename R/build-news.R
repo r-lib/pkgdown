@@ -22,9 +22,9 @@
 #' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
 #' changes'.
 #'
-#' Issues and contributors mentioned in news items are automatically linked to
-#' github if a `URL` entry linking to github.com is provided in the package
-#' `DESCRIPTION`.
+#' Issues are linked to the URL specified in the `BugReports` field of the
+#' package `DESCRIPTION` and contributors are linked on the assumption that they
+#' have a github page.
 #'
 #' ```
 #' ## Major changes

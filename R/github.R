@@ -48,12 +48,12 @@ add_github_links <- function(x, pkg) {
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
   x <- gsub("@(\\w+)", user_link, x)
 
-  github_url <- pkg$github_url
-  if (is.null(github_url)) {
+  report_url <- pkg$desc$get("BugReports")[[1]]
+  if (is.null(report_url)) {
     return(x)
   }
 
-  issue_link <- paste0("<a href='", github_url, "/issues/\\1'>#\\1</a>")
+  issue_link <- paste0("<a href='", report_url, "/\\1'>#\\1</a>")
   x <- gsub("#(\\d+)", issue_link, x)
 
   x

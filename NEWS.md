@@ -1,5 +1,9 @@
 # pkgdown 1.0.0.9000
 
+* Issues in NEWS bullets are now linked using the `BugReports:` field from the package `DESCRIPTION`,
+  enabling linking to other SCM systems (i.e, Github, Github Enterprise, and BitBucket) that use the format
+  `http://URL/issue_number` (#676).
+
 * The Algolia logo was restored in search results (#673)
 
 * Suppress web indexing by setting `noindex: true` under `template:params`

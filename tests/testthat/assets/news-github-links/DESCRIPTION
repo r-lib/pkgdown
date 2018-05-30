@@ -7,3 +7,4 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 URL: https://github.com/hadley/pkgdown
+BugReports: https://github.com/hadley/pkgdown/issues
