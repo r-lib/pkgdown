@@ -21,7 +21,7 @@ test_that("latin1 encoding and `citation(auto = meta) can be read` (#689)", {
 })
 
 test_that("create_meta can read DESCRIPTION with an Encoding", {
-  path <- test_path("assets/site-citation")
+  path <- test_path("assets/site-citation/encoding-UTF-8")
   skip_if_not(dir_exists(path)[[1]])
 
   meta <- create_meta(path)
