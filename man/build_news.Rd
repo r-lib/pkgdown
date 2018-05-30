@@ -36,9 +36,9 @@ The \code{NEWS.md} file should be formatted somewhat like this:\preformatted{# p
 Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
 changes'.
 
-Issues and contributors mentioned in news items are automatically linked to
-github if a \code{URL} entry linking to github.com is provided in the package
-\code{DESCRIPTION}.\preformatted{## Major changes
+Issues are linked to the URL specified in the \code{BugReports} field of the
+package \code{DESCRIPTION} and contributors are linked on the assumption that they
+have a github page.\preformatted{## Major changes
 
 - Lots of bug fixes (@hadley, #100)
 }
