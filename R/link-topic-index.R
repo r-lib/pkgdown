@@ -29,7 +29,7 @@ topic_index_local <- memoise(function(package, path = find.package(package)) {
 topic_index_installed <- memoise(function(package) {
   path <- system.file("help", "aliases.rds", package = package)
   if (path == "")
-    return(NULL)
+    return(character())
 
   readRDS(path)
 })
