@@ -3,7 +3,11 @@
     <div class="page-header">
       <h1>Release notes</h1>
     </div>
-    {{{index}}}
+    <ul>
+    {{#versions}}
+    <li><a href="{{{file_out}}}">Version {{{version}}}</a></li>
+    {{/versions}}
+    </ul>
   </div>
 </div>
 
