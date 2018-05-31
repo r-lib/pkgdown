@@ -63,7 +63,7 @@ build_news <- function(pkg = ".",
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
+  one_page <- purrr::pluck(pkg, "meta", "news", 1, "one_page", .default = TRUE)
 
   if (!has_news(pkg$src_path))
     return()
@@ -122,7 +122,7 @@ build_news_multi <- function(pkg) {
   render_page(
     pkg,
     "news-index",
-    list(versions = news %>% purrr::transpose(), pagetitle = "News"),
+    list(versions = news_paged %>% purrr::transpose(), pagetitle = "News"),
     path("news", "index.html")
   )
 }

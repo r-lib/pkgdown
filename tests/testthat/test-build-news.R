@@ -45,3 +45,17 @@ test_that("correct timeline for first ggplot2 releases", {
 
   expect_equal(timeline, expected)
 })
+
+test_that("multi-page news are rendered", {
+  path <- test_path("assets/news-multi-page")
+  pkg <- as_pkgdown(path)
+  expect_output(build_news(pkg))
+
+  # test that index links are correct
+  lines <- read_lines(path(path, "docs", "news", "index.html"))
+  expect_true(any(grepl("<a href=\"news-2.0.html\">Version 2.0</a>", lines)))
+
+  # test single page structure
+  lines <- read_lines(path(path, "docs", "news", "news-1.0.html"))
+  expect_true(any(grepl("<h1>Changelog <small>1.0</small></h1>", lines)))
+})

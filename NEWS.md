@@ -1,5 +1,8 @@
 # pkgdown 1.0.0.9000
 
+* Multi-page Changelogs (generated from `NEWS.md` by setting `news: one_page:
+  false` in _pkgdown.yml) are now rendered correctly.
+
 * CITATION files with non-UTF-8 encodings (latin1) no longer generate an error.
   For non-UTF-8 locales, ensure you have e.g. `Encoding: latin1` in your `DESCRIPTION`
   (#689).
