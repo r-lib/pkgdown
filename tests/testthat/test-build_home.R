@@ -34,7 +34,7 @@ test_that("intermediate files cleaned up automatically", {
 
 test_that("intermediate files cleaned up automatically", {
   pkg <- test_path("assets/home-readme-rmd")
-  expect_output(build_home(pkg))
+  expect_output(build_site(pkg))
   on.exit(clean_site(pkg))
 
   expect_setequal(
