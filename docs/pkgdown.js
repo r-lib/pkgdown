@@ -19,20 +19,27 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     var cur_path = paths(location.pathname);
-    $("#navbar ul li a").each(function(index, value) {
-      if (value.text == "Home")
-        return;
-      if (value.getAttribute("href") === "#")
-        return;
+    var links = $("#navbar ul li a");
+    var max_length = -1;
+    var pos = -1;
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].getAttribute("href") === "#")
+        continue;
+      var path = paths(links[i].pathname);
 
-      var path = paths(value.pathname);
-      if (is_prefix(cur_path, path)) {
-        // Add class to parent <li>, and enclosing <li> if in dropdown
-        var menu_anchor = $(value);
-        menu_anchor.parent().addClass("active");
-        menu_anchor.closest("li.dropdown").addClass("active");
+      var length = prefix_length(cur_path, path);
+      if (length > max_length) {
+        max_length = length;
+        pos = i;
       }
-    });
+    }
+
+    // Add class to parent <li>, and enclosing <li> if in dropdown
+    if (pos >= 0) {
+      var menu_anchor = $(links[pos]);
+      menu_anchor.parent().addClass("active");
+      menu_anchor.closest("li.dropdown").addClass("active");
+    }
   });
 
   function paths(pathname) {
@@ -45,21 +52,21 @@
     return(pieces);
   }
 
-  function is_prefix(needle, haystack) {
-    if (needle.length > haystack.lengh)
-      return(false);
+  function prefix_length(needle, haystack) {
+    if (needle.length > haystack.length)
+      return(0);
 
     // Special case for length-0 haystack, since for loop won't run
     if (haystack.length === 0) {
-      return(needle.length === 0);
+      return(needle.length === 0 ? 1 : 0);
     }
 
     for (var i = 0; i < haystack.length; i++) {
       if (needle[i] != haystack[i])
-        return(false);
+        return(i);
     }
 
-    return(true);
+    return(haystack.length);
   }
 
   /* Clipboard --------------------------*/
