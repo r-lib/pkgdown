@@ -1,5 +1,9 @@
 # pkgdown 1.0.0.9000
 
+* Highlighting of active nav bar now uses a superior approach (suggested by 
+  @jcheng5). This should mean that the active page is now correctly highlighted
+  in all scenarios (#660).
+
 * Multi-page Changelogs (generated from `NEWS.md` by setting `news: one_page:
   false` in _pkgdown.yml) are now rendered correctly.
 
