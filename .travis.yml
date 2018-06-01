@@ -16,6 +16,11 @@ r:
 - release
 - devel
 
+matrix:
+  include:
+  - r: release
+    pandoc: false
+
 after_success:
   - Rscript -e 'covr::codecov()'
 
