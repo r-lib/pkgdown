@@ -4,7 +4,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
 
   if (rmarkdown::pandoc_available("2.0")) {
     from <- "markdown_github-hard_line_breaks+smart+auto_identifiers"
-  } else if (rmarkdown::pandoc_available("1.12")) {
+  } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks"
   } else {
     stop("Pandoc not available", call. = FALSE)
