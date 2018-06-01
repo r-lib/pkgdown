@@ -13,3 +13,4 @@
 ^tests/testthat/assets/site-citation$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^revdep$
