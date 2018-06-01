@@ -19,6 +19,10 @@
   `TRUE`, the default, will automatically run `devtools::document()` to 
   ensure that your documentation is up to date.
 
+* `build_site()` gains a `new_process` argument, which defaults to `TRUE`.
+  This will run pkgdown in a separate process: this is recommended practice
+  because it improves reproducibility (#647).
+
 * `build_article()` now sets `IN_PKGDOWN` env var so `in_pkgdown()` works 
   (#650).
 

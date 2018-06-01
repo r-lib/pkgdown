@@ -165,9 +165,9 @@ below.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+    <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mathjax</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
+  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
@@ -183,6 +183,11 @@ below.</p>
       <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
 rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>document</th>
+      <td><p>If <code>TRUE</code>, will run <code><a href='http://www.rdocumentation.org/packages/devtools/topics/document'>devtools::document()</a></code> before
+updating the site.</p></td>
     </tr>
     <tr>
       <th>examples</th>
