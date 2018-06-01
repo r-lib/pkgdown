@@ -20,6 +20,10 @@ matrix:
   include:
   - r: release
     pandoc: false
+    env: PANDOC='none'
+  - r: release
+    pandoc_version: 1.19.2.1
+    env: PANDOC='1.19'
 
 after_success:
   - Rscript -e 'covr::codecov()'
