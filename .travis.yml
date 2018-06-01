@@ -22,7 +22,7 @@ matrix:
     pandoc: false
     env: PANDOC='none'
   - r: release
-    pandoc_version: 1.12.1
+    pandoc_version: 1.12
     env: PANDOC='cran'
 
 after_success:
