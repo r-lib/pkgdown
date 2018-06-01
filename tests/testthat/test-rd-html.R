@@ -93,6 +93,7 @@ test_that("Sexprs in file share environment", {
 })
 
 test_that("Sexprs run from package root", {
+  skip_on_travis()
   # Because paths are different during R CMD check
   skip_if_not(file_exists("../../DESCRIPTION"))
 
