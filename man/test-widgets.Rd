@@ -7,7 +7,6 @@
 Test case: widgets
 }
 \examples{
-
 library(leaflet)
 leaflet() \%>\%
   addTiles() \%>\%
@@ -16,12 +15,6 @@ leaflet() \%>\%
     lat=-36.852,
     popup="The birthplace of R"
   )
-
-library(d3heatmap)
-d3heatmap(mtcars, scale = "column", colors = "Blues")
-
-library(DT)
-datatable(iris)
 }
 \seealso{
 Other tests: \code{\link{test-dont}},

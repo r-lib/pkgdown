@@ -91,7 +91,6 @@ NULL
 #' @keywords internal
 #' @family tests
 #' @examples
-#'
 #' library(leaflet)
 #' leaflet() %>%
 #'   addTiles() %>%
@@ -100,10 +99,4 @@ NULL
 #'     lat=-36.852,
 #'     popup="The birthplace of R"
 #'   )
-#'
-#' library(d3heatmap)
-#' d3heatmap(mtcars, scale = "column", colors = "Blues")
-#'
-#' library(DT)
-#' datatable(iris)
 NULL
