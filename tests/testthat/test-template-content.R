@@ -29,6 +29,8 @@ test_that("og tags are populated on home, reference, and articles", {
 })
 
 test_that("if there is no logo.png, there is no og:image tag", {
+  skip_if_no_pandoc()
+
   pkg <- as_pkgdown(test_path("assets/home-readme-rmd"))
   expect_output(build_site(pkg, new_process = FALSE))
   on.exit(clean_site(pkg))
