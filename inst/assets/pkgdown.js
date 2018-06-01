@@ -20,7 +20,7 @@
 
     var cur_path = paths(location.pathname);
     var links = $("#navbar ul li a");
-    var max_length = 0;
+    var max_length = -1;
     var pos = -1;
     for (var i = 0; i < links.length; i++) {
       if (links[i].getAttribute("href") === "#")
