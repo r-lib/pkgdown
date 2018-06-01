@@ -25,6 +25,8 @@ test_that("link_license matches LICENSE", {
 # index -------------------------------------------------------------------
 
 test_that("intermediate files cleaned up automatically", {
+  skip_if_no_pandoc()
+
   pkg <- test_path("assets/home-index-rmd")
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
@@ -33,6 +35,8 @@ test_that("intermediate files cleaned up automatically", {
 })
 
 test_that("intermediate files cleaned up automatically", {
+  skip_if_no_pandoc()
+
   pkg <- test_path("assets/home-readme-rmd")
   expect_output(build_site(pkg))
   on.exit(clean_site(pkg))
@@ -149,6 +153,8 @@ test_that("references in angle brackets are converted to HTML", {
 # empty readme.md ---------------------------------------------------------
 
 test_that("build_home fails with empty readme.md", {
+  skip_if_no_pandoc()
+
   pkg <- test_path("assets/home-empty-readme-md")
   on.exit(clean_site(pkg))
 

@@ -89,6 +89,7 @@ test_that("can link to local articles", {
 })
 
 test_that("can link to remote articles", {
+  skip_on_cran()
   scoped_package_context("test")
 
   expect_equal(

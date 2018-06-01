@@ -1,6 +1,8 @@
 context("test-figure.R")
 
 test_that("can override defaults in _pkgdown.yml", {
+  skip_if_no_pandoc()
+
   figure <- test_path("assets/figure")
   on.exit(clean_site(figure))
 

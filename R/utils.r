@@ -108,3 +108,7 @@ print_yaml <- function(x) {
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
+
+skip_if_no_pandoc <- function() {
+  skip_if_not(rmarkdown::pandoc_available())
+}

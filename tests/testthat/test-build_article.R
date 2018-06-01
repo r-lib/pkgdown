@@ -1,6 +1,8 @@
 context("test-build_article.R")
 
 test_that("render_rmarkdown copies image files in subdirectories", {
+  skip_if_no_pandoc()
+
   tmp <- tempfile()
   expect_output(
     render_rmarkdown(

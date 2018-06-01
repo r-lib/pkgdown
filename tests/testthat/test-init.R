@@ -8,6 +8,7 @@ test_that("extra.css and extra.js copied and linked", {
   expect_true(file_exists(path(pkg, "docs", "extra.css")))
   expect_true(file_exists(path(pkg, "docs", "extra.js")))
 
+  skip_if_no_pandoc()
   # Now check they actually get used .
   expect_output(build_home(pkg))
 

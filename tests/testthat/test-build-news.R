@@ -1,6 +1,8 @@
 context("test-build-news.R")
 
 test_that("github links are added to news items", {
+  skip_if_no_pandoc()
+
   path <- test_path("assets/news-github-links")
   pkg <- as_pkgdown(path)
   news_tbl <- data_news(pkg)
@@ -13,6 +15,8 @@ test_that("github links are added to news items", {
 })
 
 test_that("build_news() uses content in NEWS.md", {
+  skip_if_no_pandoc()
+
   pkg <- test_path("assets/news")
 
   expect_output(build_news(pkg))
@@ -47,6 +51,8 @@ test_that("correct timeline for first ggplot2 releases", {
 })
 
 test_that("multi-page news are rendered", {
+  skip_if_no_pandoc()
+
   path <- test_path("assets/news-multi-page")
   pkg <- as_pkgdown(path)
   expect_output(build_news(pkg))

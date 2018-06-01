@@ -55,5 +55,6 @@ Suggests:
     magick,
     testthat
 VignetteBuilder: knitr
+SystemRequirements: pandoc
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
