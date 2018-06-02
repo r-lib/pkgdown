@@ -10,5 +10,5 @@ clean_site(pkg = ".")
 \item{pkg}{Path to package.}
 }
 \description{
-Deletes all files in \code{doc/} (except for \code{CNAME})
+Delete all files in \code{docs/} (except for \code{CNAME}).
 }

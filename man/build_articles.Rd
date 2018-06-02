@@ -3,7 +3,7 @@
 \name{build_articles}
 \alias{build_articles}
 \alias{build_article}
-\title{Build articles}
+\title{Build articles section}
 \usage{
 build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
   preview = NA)
@@ -32,30 +32,35 @@ relative to \code{vignettes/} without extension, or \code{index} or \code{README
 \item{data}{Additional data to pass on to template.}
 }
 \description{
-Each R Markdown vignette in \code{vignettes/} and its subdirectories is
-rendered and saved to \code{articles/}. Vignettes are rendered using a
-special document format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with
-your pkgdown template.
+Each R Markdown vignette in \code{vignettes/} and its subdirectories is rendered
+and saved to \code{articles/}. Vignettes are rendered using a special document
+format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
+template.
 }
 \section{External files}{
 
-pkgdown differs from base R in its handling of external files. When
-building vignettes, R assumes that vignettes are self-contained
-(a reasonable assumption when most vignettes were PDFs) and only copies
-files explicitly listed in \code{.install_extras}. pkgdown takes a different
-approach based on \link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources}, and it will also
-copy any images that you link to. If for some reason the automatic
-detection doesn't work, you will need to add a \code{resource_files} field to
-the yaml metadata, .e.g\preformatted{---
+pkgdown differs from base R in its handling of external files. When building
+vignettes, R assumes that vignettes are self-contained (a reasonable
+assumption when most vignettes were PDFs) and only copies files explicitly
+listed in \code{.install_extras}. pkgdown takes a different approach based on
+\link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources}, and it will also copy any images that
+you link to. If for some reason the automatic detection doesn't work, you
+will need to add a \code{resource_files} field to the yaml metadata, e.g.:\preformatted{---
 title: My Document
 resource_files:
- - data/mydata.csv
- - images/figure.png
+  - data/mydata.csv
+  - images/figure.png
 ---
 }
 
-Note that you can not use the \code{fig.path} to change the output directory
-of generated figures as the default is a strong assumption of rmarkdown.
+Note that you can not use the \code{fig.path} to change the output directory of
+generated figures as its default value is a strong assumption of rmarkdown.
+}
+
+\section{Ignoring files}{
+
+Vignette files prefixed with an underscore (e.g., \code{_index.Rmd}) are ignored to
+enable rendering of \link{bookdown} sites.
 }
 
 \section{YAML config}{
@@ -111,10 +116,10 @@ If the output format produces a PDF, you'll also need to specify the
 
 
 If you want articles that are not vignettes, either put them in
-subdirectories or list in \code{.Rbuildignore}. An articles link
-will be automatically added to the default navbar if the vignettes
-directory is present: if you do not want this, you will need to
-customise the navbar. See \code{\link[=build_site]{build_site()}} details.
+subdirectories or list in \code{.Rbuildignore}. An articles link will be
+automatically added to the default navbar if the vignettes directory is
+present: if you do not want this, you will need to customise the navbar. See
+\code{\link[=build_site]{build_site()}} details.
 }
 
 \section{Figures}{

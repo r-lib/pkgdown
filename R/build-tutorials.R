@@ -1,4 +1,4 @@
-#' Build tutorials
+#' Build tutorials section
 #'
 #' learnr tutorials must hosted be hosted elsewhere as they require an
 #' R execution engine. Currently, pkgdown will not build or publish tutorials
