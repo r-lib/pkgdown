@@ -42,6 +42,7 @@ Imports:
     rstudioapi,
     tibble,
     tools,
+    usethis,
     whisker,
     xml2 (>= 1.1.1),
     yaml
