@@ -166,6 +166,7 @@ test_that("build_home fails with empty readme.md", {
 # .github files -----------------------------------------------------------
 
 test_that(".github files are copied and linked", {
+  skip_if_no_pandoc()
   # .github in this test is build-ignored to prevent a NOTE about an unexpected
   # hidden directory. Skip on CMD CHECK if the .github directory is not present.
   pkg <- test_path("assets/site-dot-github")
