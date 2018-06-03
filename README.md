@@ -5,6 +5,8 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/r-lib/pkgdown.svg?branch=master)](https://travis-ci.org/r-lib/pkgdown)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgdown?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/pkgdown)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
 [![Coverage
