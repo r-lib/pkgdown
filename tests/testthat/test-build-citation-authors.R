@@ -28,3 +28,12 @@ test_that("create_meta can read DESCRIPTION with an Encoding", {
   expect_type(meta, "list")
   expect_equal(meta$`Authors@R`, 'person(\"Florian\", \"Privé\")')
 })
+
+test_that("source link is added to citation page", {
+  path <- test_path("assets/site-citation/encoding-UTF-8")
+  skip_if_not(dir_exists(path)[[1]])
+  expect_output(build_home(path))
+
+  lines <- read_lines(path(path, "docs", "authors.html"))
+  expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
+})
