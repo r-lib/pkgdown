@@ -11,6 +11,8 @@
 #' an unexpected file during `R CMD CHECK` is an indication you have not correctly
 #' ignored these files.
 #'
+#' @seealso [http://usethis.r-lib.org/reference/use_pkgdown.html]
+#'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
