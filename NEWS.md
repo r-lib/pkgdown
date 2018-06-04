@@ -1,6 +1,6 @@
 # pkgdown 1.1.0.9000
 
-* `build_home()`: a like to the source `inst/CITATION` was added to the authors page (#714).
+* `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 
 # pkgdown 1.1.0
 
