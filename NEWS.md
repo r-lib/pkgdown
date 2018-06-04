@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
+  and `docs/`, preventing a NOTE during R CMD CHECK (#710).
+
 # pkgdown 1.1.0
 
 ## New features
