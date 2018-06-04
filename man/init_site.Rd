@@ -38,6 +38,3 @@ If you include you package logo in the standard location of
 you.
 }
 
-\seealso{
-\link{http://usethis.r-lib.org/reference/use_pkgdown.html}
-}
