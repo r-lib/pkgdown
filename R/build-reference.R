@@ -30,10 +30,10 @@
 #' more complex naming schemes you can use an aribrary regular expression with
 #' `matches("regexp")`. You can also use a leading `-` to exclude matches from a
 #' section. By default, these functions that match multiple topics will exclude
-#' topics with the Rd keyword "internal". To include these, use (e.g.)
+#' topics with the Rd keyword "internal". To include these, use
 #' `starts_with("build_", internal = TRUE)`.
 #'
-#' Alternatively, you can select topics that contain specified concepts with
+#' You can alo select topics that contain specified Rd concepts with
 #' `has_concept("blah")`. Concepts are not currently well-supported by
 #' roxygen2, but may be useful if you write Rd files by hand.
 #'
@@ -45,6 +45,7 @@
 #'   This is a very long and overly flowery description of a
 #'   single simple function.
 #' ```
+#'
 #' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
 #'

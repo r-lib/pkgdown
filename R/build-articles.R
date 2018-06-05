@@ -5,6 +5,10 @@
 #' format that reconciles [rmarkdown::html_document()] with your pkgdown
 #' template.
 #'
+#' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
+#' gets special treatment. It is rendered and linked to in the navbar under
+#' "Get started".
+#'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable

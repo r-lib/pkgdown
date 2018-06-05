@@ -25,6 +25,8 @@ You can configure several aspects of your site. Once your finalized site is buil
 
 1. The `URL` field of your package `DESCRIPTION`, alongside a link to its source:
 
+1. [Twitter](https://twitter.com/dataandme/status/1004008257264988160), including the `#rstats` hash tag.
+
 ```
 URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
 ```
