@@ -51,7 +51,7 @@
 #' news:
 #' - one_page: false
 #' ```
-#' @seealso [http://style.tidyverse.org/news.html]
+#' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
 #'
 #' @inheritParams build_articles
 #' @export

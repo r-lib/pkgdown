@@ -60,5 +60,5 @@ Control whether news is present on one page or multiple pages with the
 }
 
 \seealso{
-\link{http://style.tidyverse.org/news.html}
+\href{http://style.tidyverse.org/news.html}{Tidyverse style for News}
 }
