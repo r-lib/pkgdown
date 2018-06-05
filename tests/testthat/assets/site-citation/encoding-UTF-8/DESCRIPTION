@@ -6,3 +6,4 @@ Date: 2018-02-02
 Authors@R: person("Florian", "Privé")
 Description: Test non-ASCII characters in Authors@R 
 Encoding: UTF-8
+URL: http://github.com/test

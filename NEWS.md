@@ -1,4 +1,8 @@
-# pkgdown 1.0.0.9000
+# pkgdown 1.1.0.9000
+
+* `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
+
+# pkgdown 1.1.0
 
 ## New features
 
@@ -17,8 +21,9 @@
 ## Front end
 
 * Added a keyboard shortcut for searching. Press `shift` + `/` (`?`) to move 
-  focus to the search bar (#642). The Algolia logo is correctly shown in 
-  the search results (#673)
+  focus to the search bar (#642). 
+  
+* The Algolia logo is correctly shown in the search results (#673).
  
 * Navbar active tab highlighting uses a superior approach (suggested by 
   @jcheng5) which should mean that the active page is correctly highlighted
