@@ -26,10 +26,6 @@
 #' Note that you can not use the `fig.path` to change the output directory of
 #' generated figures as its default value is a strong assumption of rmarkdown.
 #'
-#' @section Ignoring files:
-#' Vignette files prefixed with an underscore (e.g., `_index.Rmd`) are ignored to
-#' enable rendering of [bookdown] sites.
-#'
 #' @section YAML config:
 #' To tweak the index page, you need a section called `articles`,
 #' which provides a list of sections containing, a `title`, list of
@@ -83,14 +79,19 @@
 #'   as_is: true
 #'   extension: pdf
 #' ```
-#' @inheritSection build_reference Figures
-#' @section Supressing vignettes:
 #'
+#' @inheritSection build_reference Figures
+#'
+#' @section Supressing vignettes:
 #' If you want articles that are not vignettes, either put them in
 #' subdirectories or list in `.Rbuildignore`. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
+#'
+#' Vignette files prefixed with an underscore (e.g., `_index.Rmd`) are ignored
+#' to enable rendering of [bookdown](https://bookdown.org/yihui/bookdown/)
+#' sites.
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and

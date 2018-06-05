@@ -17,7 +17,17 @@ The goal of pkgdown is to make it easy for package developers to make elegant an
 1. News
 1. Search
 
-To build a pkgdown site, run `pkgdown::build_site()`.
+To build a pkgdown site, run `pkgdown::build_site()`. This will generate a complete site and open your browser for previewing.
+
+You can configure several aspects of your site. Once your finalized site is built and published on the web, you should publicize its URL in a few places:
+
+1. Your repository description on github.com.
+
+1. The `URL` field of your package `DESCRIPTION`, alongside a link to its source:
+
+```
+URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
+```
 
 ## Configuration
 
@@ -249,13 +259,13 @@ See complete details in `build_news()`.
 
 pkgdown websites can integrate search capability using [Docsearch](https://community.algolia.com/docsearch/) from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.
 
-### 1. Ask Docsearch to index your site.
+### Docsearch indexing
 
 Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://community.algolia.com/docsearch/). Docsearch will contact you via e-mail to confirm you are the website owner.
 
 Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawlwer configuration in `docsearch.json` and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate [additional options](https://github.com/algolia/docsearch-configs#introduction) to fine tune the scraping.
 
-### 2. Add Docsearch parameters to your site configuration file.
+### Docsearch configuration
 
 The Docsearch team will e-mail you some JavaScript to integrate into your website.
 

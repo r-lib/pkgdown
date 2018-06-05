@@ -57,12 +57,6 @@ Note that you can not use the \code{fig.path} to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.
 }
 
-\section{Ignoring files}{
-
-Vignette files prefixed with an underscore (e.g., \code{_index.Rmd}) are ignored to
-enable rendering of \link{bookdown} sites.
-}
-
 \section{YAML config}{
 
 To tweak the index page, you need a section called \code{articles},
@@ -114,12 +108,15 @@ If the output format produces a PDF, you'll also need to specify the
 
 \section{Supressing vignettes}{
 
-
 If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 \code{\link[=build_site]{build_site()}} details.
+
+Vignette files prefixed with an underscore (e.g., \code{_index.Rmd}) are ignored
+to enable rendering of \href{https://bookdown.org/yihui/bookdown/}{bookdown}
+sites.
 }
 
 \section{Figures}{
