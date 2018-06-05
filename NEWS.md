@@ -21,8 +21,9 @@
 ## Front end
 
 * Added a keyboard shortcut for searching. Press `shift` + `/` (`?`) to move 
-  focus to the search bar (#642). The Algolia logo is correctly shown in 
-  the search results (#673)
+  focus to the search bar (#642). 
+  
+* The Algolia logo is correctly shown in the search results (#673).
  
 * Navbar active tab highlighting uses a superior approach (suggested by 
   @jcheng5) which should mean that the active page is correctly highlighted
