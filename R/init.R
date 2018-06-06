@@ -1,14 +1,14 @@
-#' Initialise the site
+#' Initialise site infrastructure
 #'
-#' This creates the output directory, creates `favicon.ico` from package
-#' logo, creates a machine readable description of the site, and sets up
+#' This creates the output directory (`docs/`), `favicon.ico` (from the package
+#' logo), a machine readable description of the site, and copies CSS/JS
 #' assets and extra files.
 #'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
 #' will be automatically copied to `docs/` and inserted into the
-#' `<HEAD>` after the default pkgdown CSS and JSS.
+#' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
 #' If you include you package logo in the standard location of

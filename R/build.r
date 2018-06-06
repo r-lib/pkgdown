@@ -1,4 +1,4 @@
-#' Build pkgdown website
+#' Build a complete pkgdown website
 #'
 #' @description
 #' `build_site()` is a convenient wrapper around six functions:
