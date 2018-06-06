@@ -4,6 +4,13 @@
 #' logo), a machine readable description of the site, and copies CSS/JS
 #' assets and extra files.
 #'
+#' @section Build-ignored files:
+#' pkgdown uses `usethis::use_pkgdown()` to build-ignore `docs/` and
+#' `_pkgdown.yml`. If you use an alternative location for your config file,
+#' update `_pkgdown.yml` in `.Rbuildignore` with its location. A `NOTE` about
+#' an unexpected file during `R CMD CHECK` is an indication you have not correctly
+#' ignored these files.
+#'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
@@ -28,6 +35,8 @@ init_site <- function(pkg = ".") {
   build_sitemap(pkg)
   build_docsearch_json(pkg)
   build_logo(pkg)
+
+  usethis::use_pkgdown()
 
   invisible()
 }

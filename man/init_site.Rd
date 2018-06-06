@@ -14,6 +14,15 @@ This creates the output directory (\code{docs/}), \code{favicon.ico} (from the p
 logo), a machine readable description of the site, and copies CSS/JS
 assets and extra files.
 }
+\section{Build-ignored files}{
+
+pkgdown uses \code{usethis::use_pkgdown()} to build-ignore \code{docs/} and
+\code{_pkgdown.yml}. If you use an alternative location for your config file,
+update \code{_pkgdown.yml} in \code{.Rbuildignore} with its location. A \code{NOTE} about
+an unexpected file during \code{R CMD CHECK} is an indication you have not correctly
+ignored these files.
+}
+
 \section{Custom CSS/JS}{
 
 If you want to do minor customisation of your pkgdown site, the easiest
