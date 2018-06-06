@@ -40,16 +40,18 @@ from your package’s `README.md`, and a function reference will be
 generated from the documentation in the `man/` directory. If you are
 using GitHub, the easiest way to make this your package website is to
 check into git, then go settings for your repo and make sure that the
-**GitHub pages** source is set to “master branch /docs folder”.
+**GitHub pages** source is set to “master branch /docs folder”. Be sure
+to update the URL on your github repository homepage so others can
+easily navigate to your new site.
 
-The package also includes an RStudio add-in which you can bind to a
-keyboard shortcut. I recommend `Cmd + Shift + W`: it uses Cmd + Shift,
-like all other package development worksheets, it replaces a rarely used
-command (close all tabs), and the W is mnemonic for website.
-
-To customise your site, create `_pkgdown.yml` and modify it as described
-in the documentation. Alternatively, you can also use
+To customise your site, create `_pkgdown.yml` and modify it [as
+described in the documentation](articles/pkgdown.html). You can also use
 `pkgdown/_pkgdown.yml` if you need other files to customise your site.
+
+The package includes an RStudio add-in that you can bind to a keyboard
+shortcut. I recommend `Cmd` + `Shift` + `W`: it uses `Cmd` + `Shift`,
+like all other package development worksheets, it replaces a rarely used
+command (close all tabs), and the `W` is a mnemonic for website.
 
 ## In the wild
 
@@ -63,7 +65,7 @@ Here are a few examples created by people contributors to pkgdown:
     plotting functions for posterior analysis, model checking, and MCMC
     diagnostics.
 
-  - [valr](https://rnabioco.github.io/valr/)
+  - [valr](https://valr.hesselberthlab.org/)
     \[[source](https://github.com/rnabioco/valr)\]: read and manipulate
     genome intervals and signals.
 
@@ -75,9 +77,8 @@ Here are a few examples created by people contributors to pkgdown:
     \[[source](https://github.com/renozao/NMF)\]: a framework to perform
     non-negative matrix factorization (NMF).
 
-Comparing the output with the source is a great way to learn new pkgdown
-techniques (particularly because ironically, the pkgdown documentation
-isn’t very good yet)
+Comparing the source and output of these sites is a great way to learn
+new pkgdown techniques.
 
 ## Code of conduct
 
