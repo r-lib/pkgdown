@@ -78,6 +78,11 @@ notation:\preformatted{desc: >
   single simple function.
 }
 
+If you have functions with odd names (e.g. that start with a plus symbol
+\code{+}), you can include them by double-escaping. This YAML entry adds the
+\code{+.gg} function to the ggplot2 documentation:\preformatted{- "`+.gg`"
+}
+
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
 }

@@ -249,6 +249,10 @@ notation:</p><pre>desc: &gt;
   This is a very long and overly flowery description of a
   single simple function.
 </pre>
+    <p>If you have functions with odd names (e.g. that start with a plus symbol
+<code>+</code>), you can include them by double-escaping. This YAML entry adds the
+<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
+</pre>
     <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
     
