@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Initialise the site — init_site • pkgdown</title>
+<title>Initialise site infrastructure — init_site • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,10 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Initialise the site — init_site" />
+<meta property="og:title" content="Initialise site infrastructure — init_site" />
 
-<meta property="og:description" content="This creates the output directory, creates favicon.ico from package
-logo, creates a machine readable description of the site, and sets up
+<meta property="og:description" content="This creates the output directory (docs/), favicon.ico (from the package
+logo), a machine readable description of the site, and copies CSS/JS
 assets and extra files." />
 <meta name="twitter:card" content="summary" />
 
@@ -150,15 +150,15 @@ assets and extra files." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Initialise the site</h1>
+    <h1>Initialise site infrastructure</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/init.R'><code>R/init.R</code></a></small>
     <div class="hidden name"><code>init_site.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This creates the output directory, creates <code>favicon.ico</code> from package
-logo, creates a machine readable description of the site, and sets up
+    <p>This creates the output directory (<code>docs/</code>), <code>favicon.ico</code> (from the package
+logo), a machine readable description of the site, and copies CSS/JS
 assets and extra files.</p>
     
     </div>
@@ -174,13 +174,22 @@ assets and extra files.</p>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="build-ignored-files"><a class="anchor" href="#build-ignored-files"></a>Build-ignored files</h2>
+
+    
+    <p>pkgdown uses <code><a href='http://www.rdocumentation.org/packages/usethis/topics/use_pkgdown'>usethis::use_pkgdown()</a></code> to build-ignore <code>docs/</code> and
+<code>_pkgdown.yml</code>. If you use an alternative location for your config file,
+update <code>_pkgdown.yml</code> in <code>.Rbuildignore</code> with its location. A <code>NOTE</code> about
+an unexpected file during <code>R CMD CHECK</code> is an indication you have not correctly
+ignored these files.</p>
+    
     <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
 
     
     <p>If you want to do minor customisation of your pkgdown site, the easiest
 way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
 will be automatically copied to <code>docs/</code> and inserted into the
-<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JSS.</p>
+<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JS.</p>
     
     <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
 
@@ -196,6 +205,8 @@ you.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#build-ignored-files">Build-ignored files</a></li>
+
       <li><a href="#custom-css-js">Custom CSS/JS</a></li>
 
       <li><a href="#favicon">Favicon</a></li>

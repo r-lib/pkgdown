@@ -16,13 +16,12 @@ values in \code{_pkgdown.yml}}
 freshly generated section in browser.}
 }
 \description{
-Your \code{NEWS.md} is parsed in to sections based on your use of headings. By default,
-all releases are displayed on a single page.
+Your \code{NEWS.md} is parsed in to sections based on your use of headings.
 }
 \details{
 The \code{NEWS.md} file should be formatted with level one headings (\code{#})
 containing the package name and version number, level two headings (\code{##})
-with topic headings, and lists of news bullets. Commonly used level two
+with topic headings and lists of news bullets. Commonly used level two
 headings include 'Major changes', 'Bug fixes', or 'Minor changes'.\preformatted{# pkgdown 0.1.0.9000
 
 ## Major changes
@@ -31,8 +30,9 @@ headings include 'Major changes', 'Bug fixes', or 'Minor changes'.\preformatted{
   on YAML files.
 }
 
-If the package is available on CRAN, release dates will be added for listed versions, and
-"Unreleased" will be added versions that are not on CRAN.
+If the package is available on CRAN, release dates will be added to versions
+in level-one headings, and "Unreleased" will be added versions that are not on
+CRAN.
 
 Issues and contributors mentioned in news items are automatically linked to
 github if a \code{URL} entry linking to github.com is provided in the package

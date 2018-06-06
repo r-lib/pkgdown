@@ -65,10 +65,10 @@ functions in a section share a common prefix or suffix, you can use
 more complex naming schemes you can use an aribrary regular expression with
 \code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
 section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use (e.g.)
+topics with the Rd keyword "internal". To include these, use
 \code{starts_with("build_", internal = TRUE)}.
 
-Alternatively, you can select topics that contain specified concepts with
+You can alo select topics that contain specified Rd concepts with
 \code{has_concept("blah")}. Concepts are not currently well-supported by
 roxygen2, but may be useful if you write Rd files by hand.
 

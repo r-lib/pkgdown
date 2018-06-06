@@ -37,6 +37,11 @@ and saved to \code{articles/}. Vignettes are rendered using a special document
 format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
 template.
 }
+\details{
+A vignette with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd})
+gets special treatment. It is rendered and linked to in the navbar under
+"Get started".
+}
 \section{External files}{
 
 pkgdown differs from base R in its handling of external files. When building

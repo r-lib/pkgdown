@@ -2,7 +2,7 @@
 % Please edit documentation in R/build-home.R
 \name{build_home}
 \alias{build_home}
-\title{Build home page section}
+\title{Build home section}
 \usage{
 build_home(pkg = ".", override = list(), preview = NA, quiet = TRUE)
 }
@@ -19,8 +19,11 @@ freshly generated section in browser.}
 pandoc. This is useful when debugging.}
 }
 \description{
-First looks for \code{index.Rmd} or \code{README.Rmd}, then \code{index.md} or \code{README.md}.
-If none are found, falls back to the description field in \code{DESCRIPTION}.
+This function is responsible for building \code{.md} (or \code{.Rmd}) files typically
+found in the root directory of the package. It will generate the home page
+from  \code{index.Rmd} or \code{README.Rmd}, then \code{index.md} or \code{README.md}. If none of
+these are found, it falls back to the description field in \code{DESCRIPTION}. It
+also builds any files found in \code{.github/}.
 }
 \section{Images and figures}{
 
@@ -36,6 +39,16 @@ knitr::opts_chunk$set(
 )
 ```
 }
+}
+
+\section{Package logo}{
+
+If you have a package logo, you can include it at the top of your README in a
+level-one heading:\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
+}
+
+\code{\link[=init_site]{init_site()}} will also automaticlly create a favicon.ico from your package
+logo.
 }
 
 \section{YAML config - home}{

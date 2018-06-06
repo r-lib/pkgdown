@@ -122,21 +122,33 @@
 
     
     
-<p>The goal of pkgdown is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support), but it is flexible enough to be used as part of a bigger website. There are five parts to a pkgdown site:</p>
+<p>The goal of pkgdown is to make it easy for package developers to make elegant and useful package websites. The defaults are tailored for smaller packages and for use on GitHub (using <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support), but pkgdown is flexible enough to be used as part of a bigger website. There are six parts to a pkgdown site:</p>
 <ol style="list-style-type: decimal">
 <li>Home page</li>
 <li>Function reference</li>
 <li>Articles</li>
-<li>News</li>
 <li>Navbar</li>
+<li>News</li>
+<li>Search</li>
 </ol>
-<p>To build a pkgdown site, run <code><a href="../reference/build_site.html">build_site()</a></code>. The function has some arguments (mostly to control where the output), but most of the configuration options are controlled by <code>_pkgdown.yaml</code>. These options include:</p>
+<p>To build a pkgdown site, run <code><a href="../reference/build_site.html">pkgdown::build_site()</a></code>. This will generate a complete site and open your browser for previewing.</p>
+<p>You can configure several aspects of your site. Once your finalized site is built and published on the web, you should publicize its URL in a few places:</p>
+<ol style="list-style-type: decimal">
+<li><p>Your repository description on github.com.</p></li>
+<li><p>The <code>URL</code> field of your package <code>DESCRIPTION</code>, alongside a link to its source:</p></li>
+<li><p><a href="https://twitter.com/dataandme/status/1004008257264988160">Twitter</a>, including the <code>#rstats</code> hash tag.</p></li>
+</ol>
+<pre><code>URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown</code></pre>
+<div id="configuration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#configuration" class="anchor"></a>Configuration</h2>
+<p>Most pkgdown configuration options are controlled by a YAML format file named <code>_pkgdown.yml</code>. These options include:</p>
 <ul>
 <li><p>The site <code>title</code>, if different from the package name.</p></li>
 <li><p>A path to a set of <code>template</code>, if you want to override the default page templates provided by the site.</p></li>
 <li><p>A <a href="https://bootswatch.com"><code>bootswatch</code></a> theme name to easily tweak the overall appearance of the site.</p></li>
 </ul>
-<p>Other options control the appearance of the other parts of the site.</p>
+<p>Other options control the appearance of other parts of the site. See the “YAML config” sections of <code><a href="../reference/build_site.html">build_site()</a></code> and the other <code>build_</code> functions for complete details.</p>
 <p>pkgdown checks for a site configuration file in these locations:</p>
 <ol style="list-style-type: decimal">
 <li><code>_pkgdown.yml</code></li>
@@ -145,6 +157,8 @@
 <li><code>inst/_pkgdown.yml</code></li>
 </ol>
 <p>Including the configuration file in <code>inst/</code> enables sites to be built from packages on CRAN without needing the development version of a package.</p>
+<p>pkgdown build-ignores <code>_pkgdown.yml</code> with <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pkgdown">usethis::use_pkgdown()</a></code>. If you use an alternative location be sure to update <code>.Rbuildignore</code> to avoid a <code>NOTE</code> during <code>CMD CHECK</code>.</p>
+</div>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
 <a href="#home-page" class="anchor"></a>Home page</h2>
@@ -155,128 +169,184 @@
 <li><code>index.md</code></li>
 <li><code>README.md</code></li>
 </ol>
-<p>pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both <code>README.md</code> and an <code>index.md</code></p>
-<p>When including big graphics in the README, you may find it easier to use <code><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p>
+<p>pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both <code>README.md</code> and an <code>index.md</code>.</p>
+<p>In addition to home page content from the README (e.g., installation instructions, simple examples), pkgdown looks for several other items to add to the home page.</p>
+<ul>
+<li>A package logo (recommended size 130 x 150 pixels) can be included in the first level one heading in the home page source file. This logo is also used to create a favicon for the site.</li>
+</ul>
+<pre><code>---
+output: github_document
+---
+
+# packagename &lt;img src="man/figures/logo.png" align="right" /&gt;</code></pre>
+<ul>
+<li><p>Badges in the home page source file (e.g. <code>README.Rmd</code>) are linked in the side bar under “Dev status”.</p></li>
+<li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use [<code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_github">usethis::use_github_links()</a></code>] to populate this field.</p></li>
+<li><p>Licensing information is linked in the side bar using the package <code>LICENSE</code> and <code>LICENSE.md</code> files.</p></li>
+<li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar to the <a href="http://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
+<li><p>Author ORCID identification numbers in the <code>DESRIPTION</code> are linked under “Developers” using the ORCID logo (<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD">).</p></li>
+</ul>
+<pre><code>Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
+      comment = c(ORCID = "0000-0003-4757-117X")
+    )</code></pre>
+<ul>
+<li><p>Extra markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) at the base directory or in <code>.github/</code> are copied to <code>docs/</code> and converted to HTML.</p></li>
+<li><p>When including big graphics in the README, you may find it easier to use <code><a href="http://www.rdocumentation.org/packages/knitr/topics/include_graphics">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p></li>
+</ul>
 </div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
-<p>The function reference generates one page for each <code>.Rd</code> file in <code>man/</code>, placing the results in <code>reference/</code>. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.</p>
-<p>pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a <code>reference</code> key in <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">reference:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">      Functions for installing Spark components and managing</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">      connections to Spark</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">contents:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">      <span class="kw">-</span> spark_config</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">      <span class="kw">-</span> spark_connect</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">      <span class="kw">-</span> spark_disconnect</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw">-</span> spark_install</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">      <span class="kw">-</span> spark_log</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="fu">desc:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="fu">contents:</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">      <span class="kw">-</span> starts_with(<span class="st">"spark_read"</span>)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">      <span class="kw">-</span> starts_with(<span class="st">"spark_write"</span>)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">      <span class="kw">-</span> sdf-saveload</a></code></pre></div>
+<p>pkgdown creates a function reference in <code>reference/</code> that includes one page for each <code>.Rd</code> file in <code>man/</code>. This is mostly a straightforward translation of Rd to HTML. pkgdown auto-links internal and external function names to their documentation, so <code><a href="../reference/build_site.html">build_site()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> are linked to the pkgdown and dplyr documentation.</p>
+<p>pkgdown includes the output of Rd <code>@examples</code> on each reference page including data frames and plots. Examples that are bounded by <code>\dontrun { }</code> are displayed in the page without their output.</p>
+<p>pkgdown will generate a complete reference index that by default is just an alphabetically-ordered list of functions. However, the index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> key in <code>_pkgdown.yml</code>.</p>
+<p>Use <code><a href="../reference/templates.html">template_reference()</a></code> to generate a boilerplate reference section in YAML format:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">reference:</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">      Functions for installing Spark components and managing</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">      connections to Spark</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="fu">contents:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw">-</span> spark_config</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="kw">-</span> spark_connect</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw">-</span> spark_disconnect</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="kw">-</span> spark_install</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">      <span class="kw">-</span> spark_log</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="fu">desc:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">    <span class="fu">contents:</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="kw">-</span> starts_with(<span class="st">"spark_read"</span>)</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">      <span class="kw">-</span> starts_with(<span class="st">"spark_write"</span>)</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">      <span class="kw">-</span> matches(<span class="st">"saveload"</span>)</a></code></pre></div>
 <p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
-<p>The objects in <code>reference</code> can also contain a list of <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
+<p>The objects in <code>reference</code> can also contain a list of targets to <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
 <p>pkgdown will warn if you’ve forgotten to include any non-internal functions.</p>
+<p>See complete details in <code><a href="../reference/build_reference.html">build_reference()</a></code>.</p>
 </div>
 <div id="articles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#articles" class="anchor"></a>Articles</h2>
-<p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories. The only exception are <code>.Rmd</code> vignettes that start with ’_’. This enables the use of child documents in <a href="https://bookdown.org/yihui/bookdown/">bookdown</a>. The output of the vignettes is rendered to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
-<p>If you want to include an article on the website, but not in the package (e.g. because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add to <code>.Rbuildignore</code>. As well, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and make sure that DESCRIPTION has no <code>VignetteBuilder</code> field.</p>
-<p>As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">articles:</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Extend shiny"</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">      These packages provide advanced features that can enhance your Shiny </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">      apps.</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="fu">contents:</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="kw">-</span> shinydashboard</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="kw">-</span> shinythemes</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="kw">-</span> shinyjs</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="kw">-</span> htmlwidgets</a></code></pre></div>
+<p>pkgdown will automatically build all <code>.Rmd</code> vignettes, including those in subdirectories. The only exception are <code>.Rmd</code> vignettes that start with <code>_</code> (i.e., <code>_index.Rmd</code>), enabling the use of child documents in <a href="https://bookdown.org/yihui/bookdown/">bookdown</a>. Vignette outputs are rendered to <code>articles/</code>. pkgdown will ignore the output format defined in the yaml header, and always use <code>html_fragment(toc = TRUE, toc_float = TRUE)</code>.</p>
+<p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add it to <code>.Rbuildignore</code>. In addition, you must ensure that there is no <code>vignettes:</code> section in the article’s yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
+<p>Articles get a default index that can be customised by referring to vignette file names.</p>
+<p>Use <code><a href="../reference/templates.html">template_articles()</a></code> to generate boilerplate articles section in YAML format:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">articles:</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Extend shiny"</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">      These packages provide advanced features that can enhance your Shiny </a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">      apps.</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="fu">contents:</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="kw">-</span> shinydashboard</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw">-</span> shinythemes</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw">-</span> shinyjs</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="kw">-</span> htmlwidgets</a></code></pre></div>
+<p>See complete details in <code><a href="../reference/build_articles.html">build_articles()</a></code>.</p>
+</div>
+<div id="navbar" class="section level2">
+<h2 class="hasAnchor">
+<a href="#navbar" class="anchor"></a>Navbar</h2>
+<p>By default, the top navigation bar (“navbar”) will contain links to:</p>
+<ul>
+<li>The home page, with a “home” icon (<i class="fa fa-home fa-lg"></i>).</li>
+<li>“Get Started”, if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</li>
+<li>Reference</li>
+<li>Articles (i.e., vignettes, if present).</li>
+<li>News (if present).</li>
+<li>A “github” icon (<i class="fa fa-github fa-lg"></i>) with a link to your your github repo (if listed in the <code>DESCRIPTION</code> url field).</li>
+</ul>
+<p>You can override these defaults to:</p>
+<ul>
+<li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
+<li><p>Provide deeper add additional hierarchical navigation (like<br><a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a>).</p></li>
+<li><p>Link to other off-site resources.</p></li>
+</ul>
+<p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>.</p>
+<p>Use <code><a href="../reference/templates.html">template_navbar()</a></code> to generate a boilerplate navbar section in YAML format.</p>
+<p>You can set the navbar <code>title</code> and its <a href="https://bootswatch.com/3/cosmo/#navbar">bootswatch styling</a> with <code>inverse</code>. Navbar items take <code>text</code>, <code>href</code>, and optional <code>icon</code> (using <a href="https://fontawesome.com/">FontAwesome</a> icons) values. Finally, positioning of items within the navbar can be controlled with <code>left</code> and <code>right</code> sections.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">navbar:</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="fu">type:</span><span class="at"> inverse</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="fu">left:</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">      <span class="fu">href:</span><span class="at"> articles/ML.html</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">      <span class="fu">href:</span><span class="at"> articles/extensions.html</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">      <span class="fu">href:</span><span class="at"> articles/deployment.html</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">  <span class="fu">right:</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">    <span class="kw">-</span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
-<p>If <code>NEWS.md</code> is present, it will be parsed into pieces broken up by second level headings. These will be rendered to <code>news/</code>, with one page per minor release (so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page).</p>
-<p>If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) <code>vignettes/news</code> and customise the navbar.</p>
-</div>
-<div id="navbar2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#navbar2" class="anchor"></a>Navbar</h2>
-<p>By default, the navbar will show:</p>
-<ul>
-<li>The home page, with a “home” icon.</li>
-<li>“Get Started”, if you have an article with the same name as the package.</li>
-<li>Reference</li>
-<li>Articles, if present.</li>
-<li>News, if present.</li>
-<li>A link to your your github repo (if listed in the <code>DESCRIPTION</code> url field).</li>
-</ul>
-<p>You can override the defaults to:</p>
-<ul>
-<li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
-<li><p>Provide deeper add additional hierarchical navigation (like<br><a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a>).</p></li>
-<li><p>Link to other, off-site, resources.</p></li>
-</ul>
-<p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>. To customise, use the <code>navbar</code> field:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="fu">type:</span><span class="at"> inverse</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="fu">left:</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">      <span class="fu">href:</span><span class="at"> articles/ML.html</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">      <span class="fu">href:</span><span class="at"> articles/extensions.html</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">      <span class="fu">href:</span><span class="at"> articles/deployment.html</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">  <span class="fu">right:</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">    <span class="kw">-</span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
+<p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
+<p>Use <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_news_md">usethis::use_news_md()</a></code> to create and open a template NEWS.md file that can be edited:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># pkgdown 1.1.0</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">## Bug Fixes</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">* Lots of them</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># pkgdown 1.0.0</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">* This is the first release of pkgdown.</a></code></pre></div>
+<p>See more suggestions for writing news bullets in the <a href="http://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
+<p>If you have a large <code>NEWS.md</code> and want to create one page per release, you can create a multi-page change log by configuring the <code>_pkgdown.yml</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">news:</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">-</span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
+<p>In this case the <code>NEWS.md</code> is broken up by the version specified in the level one headings. Each version will be rendered to <code>news/</code>, with one page per minor release, so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page.</p>
+<p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code>vignettes/news</code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">navbar:</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">text:</span><span class="at"> News</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="fu">menu:</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Blog posts"</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Version 1.1.0"</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"------------------"</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Change log"</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">      <span class="fu">href:</span><span class="at"> news/index.html</span></a></code></pre></div>
+<p>See complete details in <code><a href="../reference/build_news.html">build_news()</a></code>.</p>
 </div>
 <div id="search" class="section level2">
 <h2 class="hasAnchor">
 <a href="#search" class="anchor"></a>Search</h2>
 <p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">Docsearch</a> from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.</p>
-<div id="ask-docsearch-to-index-your-site-" class="section level3">
+<div id="docsearch-indexing" class="section level3">
 <h3 class="hasAnchor">
-<a href="#ask-docsearch-to-index-your-site-" class="anchor"></a>1. Ask Docsearch to index your site.</h3>
+<a href="#docsearch-indexing" class="anchor"></a>Docsearch indexing</h3>
 <p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
 <p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawlwer configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
 </div>
-<div id="add-docsearch-parameters-to-your-site-configuration-file-" class="section level3">
+<div id="docsearch-configuration" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add-docsearch-parameters-to-your-site-configuration-file-" class="anchor"></a>2. Add Docsearch parameters to your site configuration file.</h3>
+<a href="#docsearch-configuration" class="anchor"></a>Docsearch configuration</h3>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="op">}</span>)<span class="op">;</span> </a></code></pre></div>
-<p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">template:</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="fu">params:</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="op">}</span>)<span class="op">;</span> </a></code></pre></div>
+<p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code> under <code>template: params</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="fu">template:</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="fu">params:</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
+<p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="fu">url:</span><span class="at"> http://pkgdown.r-lib.org</span></a></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
-<p>Finally, you need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">url:</span><span class="at"> http://pkgdown.r-lib.org</span></a></code></pre></div>
-<p>You should have a functional search bar after re-building your site with this new configuration. Once search is enabled on your site, pressing <code>shift + /</code> (i.e., “?”) will move the focus to the search bar.</p>
+<p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/_pkgdown.yml#L7-L11">pkgdown configuration</a> for a functional search configuration.</p>
+<p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled , pressing <code>shift</code> + <code>/</code> (i.e., “?”) will move the focus to the search bar.</p>
 </div>
 </div>
   </div>
@@ -286,11 +356,12 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#home-page">Home page</a></li>
+<li><a href="#configuration">Configuration</a></li>
+      <li><a href="#home-page">Home page</a></li>
       <li><a href="#reference">Reference</a></li>
       <li><a href="#articles">Articles</a></li>
+      <li><a href="#navbar">Navbar</a></li>
       <li><a href="#news">News</a></li>
-      <li><a href="#navbar2">Navbar</a></li>
       <li><a href="#search">Search</a></li>
       </ul>
 </div>
