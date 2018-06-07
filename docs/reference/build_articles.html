@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build articles — build_articles • pkgdown</title>
+<title>Build articles section — build_articles • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,12 +36,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Build articles — build_articles" />
+<meta property="og:title" content="Build articles section — build_articles" />
 
-<meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is
-rendered and saved to articles/. Vignettes are rendered using a
-special document format that reconciles rmarkdown::html_document() with
-your pkgdown template." />
+<meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is rendered
+and saved to articles/. Vignettes are rendered using a special document
+format that reconciles rmarkdown::html_document() with your pkgdown
+template." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +70,7 @@ your pkgdown template." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.0.0.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.1.0.9000</span>
       </span>
     </div>
 
@@ -151,17 +151,17 @@ your pkgdown template." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build articles</h1>
+    <h1>Build articles section</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-articles.R'><code>R/build-articles.R</code></a></small>
     <div class="hidden name"><code>build_articles.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is
-rendered and saved to <code>articles/</code>. Vignettes are rendered using a
-special document format that reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with
-your pkgdown template.</p>
+    <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is rendered
+and saved to <code>articles/</code>. Vignettes are rendered using a special document
+format that reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
+template.</p>
     
     </div>
 
@@ -209,25 +209,30 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>A vignette with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>)
+gets special treatment. It is rendered and linked to in the navbar under
+"Get started".</p>
+    
     <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
 
     
-    <p>pkgdown differs from base R in its handling of external files. When
-building vignettes, R assumes that vignettes are self-contained
-(a reasonable assumption when most vignettes were PDFs) and only copies
-files explicitly listed in <code>.install_extras</code>. pkgdown takes a different
-approach based on <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also
-copy any images that you link to. If for some reason the automatic
-detection doesn't work, you will need to add a <code>resource_files</code> field to
-the yaml metadata, .e.g</p><pre>---
+    <p>pkgdown differs from base R in its handling of external files. When building
+vignettes, R assumes that vignettes are self-contained (a reasonable
+assumption when most vignettes were PDFs) and only copies files explicitly
+listed in <code>.install_extras</code>. pkgdown takes a different approach based on
+<a href='http://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also copy any images that
+you link to. If for some reason the automatic detection doesn't work, you
+will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><pre>---
 title: My Document
 resource_files:
- - data/mydata.csv
- - images/figure.png
+  - data/mydata.csv
+  - images/figure.png
 ---
 </pre>
-    <p>Note that you can not use the <code>fig.path</code> to change the output directory
-of generated figures as the default is a strong assumption of rmarkdown.</p>
+    <p>Note that you can not use the <code>fig.path</code> to change the output directory of
+generated figures as its default value is a strong assumption of rmarkdown.</p>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
@@ -277,10 +282,13 @@ order to work with pkgdown.</p>
 
     
     <p>If you want articles that are not vignettes, either put them in
-subdirectories or list in <code>.Rbuildignore</code>. An articles link
-will be automatically added to the default navbar if the vignettes
-directory is present: if you do not want this, you will need to
-customise the navbar. See <code><a href='build_site.html'>build_site()</a></code> details.</p>
+subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
+automatically added to the default navbar if the vignettes directory is
+present: if you do not want this, you will need to customise the navbar. See
+<code><a href='build_site.html'>build_site()</a></code> details.</p>
+<p>Vignette files prefixed with an underscore (e.g., <code>_index.Rmd</code>) are ignored
+to enable rendering of <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a>
+sites.</p>
     
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
@@ -304,6 +312,8 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#external-files">External files</a></li>
 
       <li><a href="#yaml-config">YAML config</a></li>

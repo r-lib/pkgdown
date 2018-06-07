@@ -38,10 +38,9 @@
 
 <meta property="og:title" content="Build reference section — build_reference" />
 
-<meta property="og:description" content="By default, pkgdown will generate an index that simply lists all
-the functions in alphabetical order. To override this, provide a
-reference section in your _pkgdown.yml as described
-below." />
+<meta property="og:description" content="By default, pkgdown will generate an index that lists all functions in
+alphabetical order. To override this, provide a reference section in your
+_pkgdown.yml as described below." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +69,7 @@ below." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.0.0.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.1.0.9000</span>
       </span>
     </div>
 
@@ -158,10 +157,9 @@ below." />
 
     <div class="ref-description">
     
-    <p>By default, pkgdown will generate an index that simply lists all
-the functions in alphabetical order. To override this, provide a
-<code>reference</code> section in your <code>_pkgdown.yml</code> as described
-below.</p>
+    <p>By default, pkgdown will generate an index that lists all functions in
+alphabetical order. To override this, provide a <code>reference</code> section in your
+<code>_pkgdown.yml</code> as described below.</p>
     
     </div>
 
@@ -221,9 +219,9 @@ freshly generated section in browser.</p></td>
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>To tweak the index page, you need a section called <code>reference</code>
-which provides a list of sections containing, a <code>title</code>, list of
-<code>contents</code>, and optional <code>description</code>.</p>
+    <p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>
+which provides a list of sections containing, a <code>title</code>, list of <code>contents</code>,
+and an optional <code>description</code>.</p>
 <p>For example, the following code breaks up the functions in pkgdown
 into two groups:</p><pre>reference:
 - title: Render components
@@ -235,18 +233,27 @@ into two groups:</p><pre>reference:
   contents:
   - render_page
 </pre>
-    <p>Note that <code>contents</code> can contain either a list of function names,
-or if the functions in a section share a common prefix or suffix, you
-can use <code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to
-select them all. For more complex naming schemes you can use an aribrary
-regular expression with <code>matches("regexp")</code>. You can also use a leading
-<code>-</code> to exclude matches from a section. By default, these functions that
-match multiple topics will exclude topics with keyword "internal". To
-include, use (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>Alternatively, you can selected topics that contain specified concepts with
+    <p>Note that <code>contents</code> can contain either a list of function names, or if the
+functions in a section share a common prefix or suffix, you can use
+<code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
+more complex naming schemes you can use an aribrary regular expression with
+<code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
+section. By default, these functions that match multiple topics will exclude
+topics with the Rd keyword "internal". To include these, use
+<code>starts_with("build_", internal = TRUE)</code>.</p>
+<p>You can alo select topics that contain specified Rd concepts with
 <code>has_concept("blah")</code>. Concepts are not currently well-supported by
 roxygen2, but may be useful if you write Rd files by hand.</p>
-<p>pkgdown will check that all non-internal topics are included on
+<p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
+notation:</p><pre>desc: &gt;
+  This is a very long and overly flowery description of a
+  single simple function.
+</pre>
+    <p>If you have functions with odd names (e.g. that start with a plus symbol
+<code>+</code>), you can include them by double-escaping. This YAML entry adds the
+<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
+</pre>
+    <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
     
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
@@ -267,10 +274,10 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
     <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
 
     
-    <p>You can optionally supply an icon for each help topic. To do so, you'll
-need a top-level <code>icons</code> directory. This should contain .png files
-that are either 30x30 (for regular display) or 60x60 (if you want
-retina display). Icons are matched to topics by aliases.</p>
+    <p>You can optionally supply an icon for each help topic. To do so, you'll need
+a top-level <code>icons</code> directory. This should contain .png files that are
+either 30x30 (for regular display) or 60x60 (if you want retina display).
+Icons are matched to topics by aliases.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

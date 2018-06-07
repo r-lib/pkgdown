@@ -2,7 +2,7 @@
 % Please edit documentation in R/build-tutorials.R
 \name{build_tutorials}
 \alias{build_tutorials}
-\title{Build tutorials}
+\title{Build tutorials section}
 \usage{
 build_tutorials(pkg = ".", override = list(), preview = NA)
 }

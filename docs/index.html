@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgdown</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.0.0.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.1.0.9000</span>
       </span>
     </div>
 
@@ -136,9 +136,9 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Run pkgdown from the package directory each time you release your package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pkgdown<span class="op">::</span><span class="kw"><a href="http://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</a></code></pre></div>
-<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package’s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “master branch /docs folder”.</p>
-<p>The package also includes an RStudio add-in which you can bind to a keyboard shortcut. I recommend <code>Cmd + Shift + W</code>: it uses Cmd + Shift, like all other package development worksheets, it replaces a rarely used command (close all tabs), and the W is mnemonic for website.</p>
-<p>To customise your site, create <code>_pkgdown.yml</code> and modify it as described in the documentation. Alternatively, you can also use <code>pkgdown/_pkgdown.yml</code> if you need other files to customise your site.</p>
+<p>This will generate a <code>docs/</code> directory. The home page will be generated from your package’s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “master branch /docs folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
+<p>To customise your site, create <code>_pkgdown.yml</code> and modify it <a href="articles/pkgdown.html">as described in the documentation</a>. You can also use <code>pkgdown/_pkgdown.yml</code> if you need other files to customise your site.</p>
+<p>The package includes an RStudio add-in that you can bind to a keyboard shortcut. I recommend <code>Cmd</code> + <code>Shift</code> + <code>W</code>: it uses <code>Cmd</code> + <code>Shift</code>, like all other package development worksheets, it replaces a rarely used command (close all tabs), and the <code>W</code> is a mnemonic for website.</p>
 </div>
 <div id="in-the-wild" class="section level2">
 <h2 class="hasAnchor">
@@ -147,11 +147,11 @@
 <p>Here are a few examples created by people contributors to pkgdown:</p>
 <ul>
 <li><p><a href="http://mc-stan.org/bayesplot/index.html">bayesplot</a> [<a href="https://github.com/stan-dev/bayesplot/tree/gh-pages">source</a>]: plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
-<li><p><a href="https://rnabioco.github.io/valr/">valr</a> [<a href="https://github.com/rnabioco/valr">source</a>]: read and manipulate genome intervals and signals.</p></li>
+<li><p><a href="https://valr.hesselberthlab.org/">valr</a> [<a href="https://github.com/rnabioco/valr">source</a>]: read and manipulate genome intervals and signals.</p></li>
 <li><p><a href="http://jranke.github.io/mkin/">mkin</a> [<a href="https://github.com/jranke/mkin">source</a>]: calculation routines based on the FOCUS Kinetics Report</p></li>
 <li><p><a href="http://renozao.github.io/NMF/master/index.html">NMF</a> [<a href="https://github.com/renozao/NMF">source</a>]: a framework to perform non-negative matrix factorization (NMF).</p></li>
 </ul>
-<p>Comparing the output with the source is a great way to learn new pkgdown techniques (particularly because ironically, the pkgdown documentation isn’t very good yet)</p>
+<p>Comparing the source and output of these sites is a great way to learn new pkgdown techniques.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">

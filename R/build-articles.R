@@ -1,31 +1,34 @@
-#' Build articles
+#' Build articles section
 #'
-#' Each R Markdown vignette in `vignettes/` and its subdirectories is
-#' rendered and saved to `articles/`. Vignettes are rendered using a
-#' special document format that reconciles [rmarkdown::html_document()] with
-#' your pkgdown template.
+#' Each R Markdown vignette in `vignettes/` and its subdirectories is rendered
+#' and saved to `articles/`. Vignettes are rendered using a special document
+#' format that reconciles [rmarkdown::html_document()] with your pkgdown
+#' template.
+#'
+#' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
+#' gets special treatment. It is rendered and linked to in the navbar under
+#' "Get started".
 #'
 #' @section External files:
-#' pkgdown differs from base R in its handling of external files. When
-#' building vignettes, R assumes that vignettes are self-contained
-#' (a reasonable assumption when most vignettes were PDFs) and only copies
-#' files explicitly listed in `.install_extras`. pkgdown takes a different
-#' approach based on [rmarkdown::find_external_resources], and it will also
-#' copy any images that you link to. If for some reason the automatic
-#' detection doesn't work, you will need to add a `resource_files` field to
-#' the yaml metadata, .e.g
+#' pkgdown differs from base R in its handling of external files. When building
+#' vignettes, R assumes that vignettes are self-contained (a reasonable
+#' assumption when most vignettes were PDFs) and only copies files explicitly
+#' listed in `.install_extras`. pkgdown takes a different approach based on
+#' [rmarkdown::find_external_resources], and it will also copy any images that
+#' you link to. If for some reason the automatic detection doesn't work, you
+#' will need to add a `resource_files` field to the yaml metadata, e.g.:
 #'
 #' ```
 #' ---
 #' title: My Document
 #' resource_files:
-#'  - data/mydata.csv
-#'  - images/figure.png
+#'   - data/mydata.csv
+#'   - images/figure.png
 #' ---
 #' ```
 #'
-#' Note that you can not use the `fig.path` to change the output directory
-#' of generated figures as the default is a strong assumption of rmarkdown.
+#' Note that you can not use the `fig.path` to change the output directory of
+#' generated figures as its default value is a strong assumption of rmarkdown.
 #'
 #' @section YAML config:
 #' To tweak the index page, you need a section called `articles`,
@@ -80,14 +83,19 @@
 #'   as_is: true
 #'   extension: pdf
 #' ```
-#' @inheritSection build_reference Figures
-#' @section Supressing vignettes:
 #'
+#' @inheritSection build_reference Figures
+#'
+#' @section Supressing vignettes:
 #' If you want articles that are not vignettes, either put them in
-#' subdirectories or list in `.Rbuildignore`. An articles link
-#' will be automatically added to the default navbar if the vignettes
-#' directory is present: if you do not want this, you will need to
-#' customise the navbar. See [build_site()] details.
+#' subdirectories or list in `.Rbuildignore`. An articles link will be
+#' automatically added to the default navbar if the vignettes directory is
+#' present: if you do not want this, you will need to customise the navbar. See
+#' [build_site()] details.
+#'
+#' Vignette files prefixed with an underscore (e.g., `_index.Rmd`) are ignored
+#' to enable rendering of [bookdown](https://bookdown.org/yihui/bookdown/)
+#' sites.
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and

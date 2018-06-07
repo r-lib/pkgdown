@@ -2,7 +2,7 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\title{Build pkgdown website}
+\title{Build a complete pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, document = TRUE,
   run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
