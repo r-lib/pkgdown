@@ -20,7 +20,7 @@ build_script:
 
 test_script:
   - travis-tool.sh run_tests
-  - travis-tool.sh install_bioc
+  - travis-tool.sh install_bioc BiocInstaller
 
 on_failure:
   - 7z a failure.zip *.Rcheck\*
