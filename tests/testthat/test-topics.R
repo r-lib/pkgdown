@@ -54,3 +54,11 @@ test_that("internal selected by name or with internal = TRUE", {
   expect_equal(select_topics("i", topics), 5)
   expect_equal(select_topics("starts_with('i', internal = TRUE)", topics), 5)
 })
+
+test_that("unmatched selections generate a warning", {
+  expect_warning(
+    select_topics("starts_with('unmatched')", topics),
+    "topic must match a function or concept"
+  )
+})
+

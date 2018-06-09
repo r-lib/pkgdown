@@ -7,14 +7,28 @@ select_topics <- function(match_strings, topics) {
 
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
+  if (length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
+    warning(
+      "Failed to select a topic, all topics will be used for the reference index.",
+      call. = FALSE,
+      immediate. = TRUE
+    )
+  }
+
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
     all_sign(indexes[[1]], match_strings[[0]]),
     "+" = integer(),
     "-" = seq_len(n)[!topics$internal]
   )
+
   for (i in seq_along(indexes)) {
     index <- indexes[[i]]
+
+    if (length(index) == 0) {
+      match_string <- match_strings[[i]]
+      topic_must("match a function or concept", expr = match_string)
+    }
 
     sel <- switch(all_sign(index, match_strings[[i]]),
       "+" = union(sel, index),
