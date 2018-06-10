@@ -8,11 +8,11 @@ select_topics <- function(match_strings, topics) {
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
   if (length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
-    warning(
-      "Failed to select a topic, all topics will be used for the reference index.",
-      call. = FALSE,
-      immediate. = TRUE
+    topic_must(
+      "select at least one function or concept. No topics selected",
+      expr = match_strings
     )
+    return(integer())
   }
 
   # Combine integer positions; adding if +ve, removing if -ve
