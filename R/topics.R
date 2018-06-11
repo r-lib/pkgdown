@@ -1,5 +1,5 @@
 # @return An integer vector giving selected topics
-select_topics <- function(match_strings, topics) {
+select_topics <- function(match_strings, topics, check = FALSE) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
     return(integer())
@@ -7,7 +7,7 @@ select_topics <- function(match_strings, topics) {
 
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
-  if (length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
+  if (length(purrr::keep(indexes, ~ length(.x) > 0)) == 0 && check) {
     topic_must(
       "select at least one function or concept. No topics selected",
       expr = match_strings
@@ -25,7 +25,7 @@ select_topics <- function(match_strings, topics) {
   for (i in seq_along(indexes)) {
     index <- indexes[[i]]
 
-    if (length(index) == 0) {
+    if (length(index) == 0 && check) {
       match_string <- match_strings[[i]]
       topic_must("match a function or concept", expr = match_string)
     }
