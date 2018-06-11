@@ -57,7 +57,7 @@ test_that("internal selected by name or with internal = TRUE", {
 
 test_that("unmatched selections generate a warning", {
   expect_warning(
-    select_topics("starts_with('unmatched')", topics),
+    select_topics("starts_with('unmatched')", topics, check = TRUE),
     "topic must select at least one function or concept"
   )
 })
