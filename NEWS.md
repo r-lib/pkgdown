@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* `build_reference_index()`: Selectors that do not match topics now generate a warning.
+  If none of the specified selectors have a match, no topics are selected (#728).
+  
 * `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
   and `docs/`, preventing a NOTE during R CMD CHECK (#710).
 
