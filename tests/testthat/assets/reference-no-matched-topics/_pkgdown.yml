@@ -1,5 +1,0 @@
-reference:
-  - title: test
-    contents:
-    - starts_with("nothing")
-

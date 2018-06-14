@@ -7,10 +7,12 @@ select_topics <- function(match_strings, topics, check = FALSE) {
 
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
-  if (length(purrr::keep(indexes, ~ length(.x) > 0)) == 0 && check) {
-    topic_must(
-      "select at least one function or concept. No topics selected",
-      expr = match_strings
+  # If none of the specified topics have a match, return no topics
+  if (check && length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
+    warning(
+      "No topics matched in '_pkgdown.yml'. No topics selected.",
+      call. = FALSE,
+      immediate. = TRUE
     )
     return(integer())
   }
@@ -25,9 +27,8 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   for (i in seq_along(indexes)) {
     index <- indexes[[i]]
 
-    if (length(index) == 0 && check) {
-      match_string <- match_strings[[i]]
-      topic_must("match a function or concept", expr = match_string)
+    if (check && length(index) == 0) {
+      topic_must("match a function or concept", expr = match_strings[[i]])
     }
 
     sel <- switch(all_sign(index, match_strings[[i]]),
