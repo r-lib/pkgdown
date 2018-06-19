@@ -26,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' If you supply this, other pkgdown sites will link to your site when needed,
-#' rather than using generic links to \url{rdocumentation.org}.
+#' rather than using generic links to \url{https://rdocumentation.org}.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -151,7 +151,7 @@
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
 #' `href`) and separators (indiciated by a bunch of `-`). You can use `icon`s
-#' from fontawesome: see a full list <http://fontawesome.io/icons/>.
+#' from fontawesome: see a full list <https://fontawesome.io/icons/>.
 #'
 #' This yaml would override the default "articles" component, eliminate
 #' the "home" component, and add a new "twitter" component. Unless you

@@ -64,7 +64,7 @@ paths will be taken relative to the package root.
 
 \code{url} optionally specifies the url where the site will be published.
 If you supply this, other pkgdown sites will link to your site when needed,
-rather than using generic links to \url{rdocumentation.org}.
+rather than using generic links to \url{https://rdocumentation.org}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -176,7 +176,7 @@ The following YAML snippet illustrates some of the most important features.\pref
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
 \code{href}) and separators (indiciated by a bunch of \code{-}). You can use \code{icon}s
-from fontawesome: see a full list \url{http://fontawesome.io/icons/}.
+from fontawesome: see a full list \url{https://fontawesome.io/icons/}.
 
 This yaml would override the default "articles" component, eliminate
 the "home" component, and add a new "twitter" component. Unless you
