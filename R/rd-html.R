@@ -525,7 +525,8 @@ parse_opts <- function(string) {
   names(args) <- args
   arg_env <- child_env(baseenv(), !!!args)
 
-  args <- strsplit(string, ",")[[1]]
+  # replace commas with semicolons so that parse_exprs can process multiple args
+  args <- gsub(",", ";", string)
   exprs <- parse_exprs(args)
 
   env <- child_env(arg_env)
