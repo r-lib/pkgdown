@@ -154,6 +154,7 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Support of multiple arguments in <code>\Sexpr{}</code> was fixed, eliminating <code>x must be a string or a R connection</code> errors when using <code>\doi</code> Rd tags (<a href='https://github.com/r-lib/pkgdown/issues/738'>#738</a>).</p></li>
 <li><p><code><a href="../reference/init_site.html">init_site()</a></code>: now calls <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pkgdown">usethis::use_pkgdown()</a></code> to build-ignore <code>_pkgdown.yml</code> and <code>docs/</code>, preventing a NOTE during R CMD CHECK (<a href='https://github.com/r-lib/pkgdown/issues/710'>#710</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code>inst/CITATION</code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
 </ul>
