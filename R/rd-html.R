@@ -525,9 +525,9 @@ parse_opts <- function(string) {
   names(args) <- args
   arg_env <- child_env(baseenv(), !!!args)
 
-  # replace commas with semicolons so that parse_exprs can process multiple args
-  args <- gsub(",", ";", string)
-  exprs <- parse_exprs(args)
+
+  args <- strsplit(string, ",")[[1]]
+  exprs <- purrr::map(args, parse_expr)
 
   env <- child_env(arg_env)
   purrr::walk(exprs, eval_bare, env = env)
