@@ -138,7 +138,7 @@ test_that("trailing pieces of github URLs are stripped", {
 test_that("source links are valid github URLs", {
   expect_equal(
     github_source_links("https://github.com/tidyverse/reprex#readme", "NEWS.md"),
-    "Source: <a href='https:/github.com/tidyverse/reprex/blob/master/NEWS.md'><code>NEWS.md</code></a>"
+    "Source: <a href='https://github.com/tidyverse/reprex/blob/master/NEWS.md'><code>NEWS.md</code></a>"
   )
 })
 
