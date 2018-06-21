@@ -8,6 +8,8 @@
 
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 
+* `build_articles()`: Specify the depth of the Table of Contents of the sidebar (#732)
+
 # pkgdown 1.1.0
 
 ## New features
