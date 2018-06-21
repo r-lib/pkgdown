@@ -16,3 +16,4 @@
 ^CRAN-RELEASE$
 ^revdep$
 ^appveyor\.yml$
+^\.github$
