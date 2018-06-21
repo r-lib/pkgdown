@@ -1,18 +1,20 @@
-#' Build pkgdown website
+#' Build a complete pkgdown website
 #'
 #' @description
-#' `build_site()` is a convenient wrapper around five functions:
+#' `build_site()` is a convenient wrapper around six functions:
 #'
 #' * [init_site()]
-#' * [build_articles()]
 #' * [build_home()]
 #' * [build_reference()]
+#' * [build_articles()]
+#' * [build_tutorials()]
 #' * [build_news()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site.
 #'
-#' Note if names of generated files were changed, you will need to use [clean_site] first to clean up orphan files.
+#' Note if names of generated files were changed, you will need to use
+#' [clean_site] first to clean up orphan files.
 #'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
@@ -24,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' If you supply this, other pkgdown sites will link to your site when needed,
-#' rather than using generic links to \url{rdocumentation.org}.
+#' rather than using generic links to \url{https://rdocumentation.org}.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -34,14 +36,14 @@
 #' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' \preformatted{
+#' ```
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
 #'   RStudio:
 #'     href: https://www.rstudio.com
-#'     html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
-#' }
+#'     html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
+#' ```
 #'
 #' @section Development mode:
 #' The development mode of a site controls four main things:
@@ -104,47 +106,78 @@
 #' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
-#' `navbar` controls the navbar at the top of the page. It uses the same
+#' `navbar` controls the navbar at the top of the page. It has two primary
+#' components: `structure` and `components`. These components interact in
+#' a somewhat complicated way, but the complexity allows you to make minor
+#' tweaks to part of the navbar while relying on pkgdown to automatically
+#' generate the rest.
+#'
+#' The `structure` defines the layout of the navbar, i.e. the order
+#' of the components, and whether they're right aligned or left aligned.
+#' You can use this component to change the order of the default components,
+#' and to add your own components.
+#'
+#' ```
+#' navbar:
+#'   structure:
+#'     left:  [home, intro, reference, articles, tutorials, news]
+#'     right: [github]
+#' ````
+#'
+#' The `components` describes the appearance of each element in the navbar.
+#' It uses the same
 #' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
 #' The following YAML snippet illustrates some of the most important features.
 #'
-#' \preformatted{
-#' navbar:
-#'   type: inverse
-#'   left:
-#'     - text: "Home"
-#'       href: index.html
-#'     - text: "Reference"
-#'       href: reference/index.html
-#'     - text: "Articles"
-#'       menu:
-#'         - text: "Heading 1"
-#'         - text: "Article A"
-#'           href: articles/page_a.html
-#'         - text: "Article B"
-#'           href: articles/page_b.html
-#'         - text: "---------"
-#'         - text: "Heading 2"
-#'         - text: "Article C"
-#'           href: articles/page_c.html
-#'         - text: "Article D"
-#'           href: articles/page_d.html
-#'   right:
-#'     - icon: fa-github fa-lg
-#'       href: https://example.com
-#' }
+#' ```
+#' components:
+#'   home: ~
+#'   articles:
+#'     text: Articles
+#'     menu:
+#'     - text: Category A
+#'     - text: Title A1
+#'       href: articles/a1.html
+#'     - text: Title A2
+#'       href: articles/a2.html
+#'     - text: -------
+#'     - text: "Category B"
+#'     - text: Title B1
+#'       href: articles/b1.html
+#'    twitter:
+#'      icon: fa-lg fa-twitter
+#'      href: http://twitter.com/hadleywickham
+#' ```
 #'
-#' Use `type` to choose between "default" and "inverse" themes.
-#'
-#' You position elements by placing under either `left` or `right`.
 #' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators. Currently pkgdown only supports fontawesome
-#' icons. You can see a full list of options at
-#' \url{http://fontawesome.io/icons/}.
+#' `href`) and separators (indiciated by a bunch of `-`). You can use `icon`s
+#' from fontawesome: see a full list <https://fontawesome.io/icons/>.
 #'
-#' Any missing components (`type`, `left`, or `right`)
-#' will be automatically filled in from the default navbar: you can see
-#' those values by running [template_navbar()].
+#' This yaml would override the default "articles" component, eliminate
+#' the "home" component, and add a new "twitter" component. Unless you
+#' explicitly mention new components in the `structure` they'll be added
+#' to the far right of the left menu.
+#'
+#' @section YAML config - search:
+#' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
+#' to add search to your site.
+#'
+#' ```
+#' template:
+#'   params:
+#'     docsearch:
+#'       api_key: API_KEY
+#'       index_name: INDEX_NAME
+#' ```
+#'
+#' You also need to add a `url:` field to `_pkgdown.yml` that specifies the
+#' location of your documentation on the web. For pkgdown, the URL field is:
+#'
+#' ```yaml
+#' url: http://pkgdown.r-lib.org
+#' ```
+#'
+#' See `vignette("pkgdown")` for details.
 #'
 #' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the
@@ -156,11 +189,11 @@
 #' by passing on the `bootswatch` template parameter to the built-in
 #' template:
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     bootswatch: cerulean
-#' }
+#' ```
 #'
 #' See a complete list of themes and preview how they look at
 #' \url{https://gallery.shinyapps.io/117-shinythemes/}:
@@ -170,11 +203,20 @@
 #' correspond to your
 #' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   params:
 #'     ganalytics: UA-000000-01
-#' }
+#' ```
+#'
+#' Suppress indexing of your pages by web robots by setting `noindex:
+#' true`:
+#'
+#' ```
+#' template:
+#'   params:
+#'     noindex: true
+#' ```
 #'
 #' You can also override the default templates and provide additional
 #' assets. You can do so by either storing in a `package` with
@@ -182,7 +224,7 @@
 #' or by supplying `path` and `asset_path`. To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
-#' \preformatted{
+#' ```
 #' template:
 #'   package: mycustompackage
 #'
@@ -192,7 +234,7 @@
 #'   path: path/to/templates
 #'   assets: path/to/assets
 #'   default_assets: false
-#' }
+#' ```
 #'
 #' These settings are currently recommended for advanced users only. There
 #' is little documentation, and you'll need to read the existing source
@@ -202,6 +244,9 @@
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
 #'   if the source is newer than the destination.
+#' @param new_process If `TRUE`, will run `build_site()` in a separate process.
+#'   This enhances reproducibility by ensuring nothing that you have loaded
+#'   in the current process affects the build process.
 #' @export
 #' @examples
 #' \dontrun{
@@ -211,23 +256,97 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
+                       document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        mathjax = TRUE,
                        lazy = FALSE,
                        toc_depth = 2,
                        override = list(),
-                       preview = interactive()
+                       preview = NA,
+                       new_process = TRUE) {
+
+  if (new_process) {
+    build_site_external(
+      pkg = pkg,
+      examples = examples,
+      document = document,
+      run_dont_run = run_dont_run,
+      seed = seed,
+      mathjax = mathjax,
+      lazy = lazy,
+      override = override,
+      preview = preview
+    )
+  } else {
+    build_site_local(
+      pkg = pkg,
+      examples = examples,
+      document = document,
+      run_dont_run = run_dont_run,
+      seed = seed,
+      mathjax = mathjax,
+      lazy = lazy,
+      override = override,
+      preview = preview
+    )
+  }
+}
+
+build_site_external <- function(pkg = ".",
+                                examples = TRUE,
+                                document = TRUE,
+                                run_dont_run = FALSE,
+                                seed = 1014,
+                                mathjax = TRUE,
+                                lazy = FALSE,
+                                override = list(),
+                                preview = NA) {
+  args <- list(
+    pkg = pkg,
+    examples = examples,
+    document = document,
+    run_dont_run = run_dont_run,
+    seed = seed,
+    mathjax = mathjax,
+    lazy = lazy,
+    override = override,
+    preview = FALSE,
+    new_process = FALSE
+  )
+  callr::r(
+    function(...) pkgdown::build_site(...),
+    args = args,
+    show = TRUE
+  )
+
+  preview_site(pkg, preview = preview)
+  invisible()
+}
+
+build_site_local <- function(pkg = ".",
+                       examples = TRUE,
+                       document = TRUE,
+                       run_dont_run = FALSE,
+                       seed = 1014,
+                       mathjax = TRUE,
+                       lazy = FALSE,
+                       override = list(),
+                       preview = NA
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Create pkgdown site", right = pkg$dst_path, line = 2)
+  rule("Building pkgdown site", line = 2)
+  cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
+  cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
+
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
+    document = document,
     examples = examples,
     run_dont_run = run_dont_run,
     mathjax = mathjax,
@@ -239,17 +358,6 @@ build_site <- function(pkg = ".",
                  toc_depth = toc_depth)
   build_news(pkg, override = override, preview = FALSE)
 
-  preview_site(pkg, preview = preview)
   rule("DONE", line = 2)
-}
-
-build_site_rstudio <- function(pkg = ".") {
-  devtools::document()
-  callr::r(
-    function(...) pkgdown::build_site(...),
-    args = list(pkg = pkg),
-    show = TRUE
-  )
-  preview_site(pkg)
-  invisible()
+  preview_site(pkg, preview = preview)
 }

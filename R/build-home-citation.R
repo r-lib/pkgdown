@@ -9,6 +9,10 @@ create_meta <- function(path) {
   dcf <- read.dcf(path)
   meta <- as.list(dcf[1, ])
 
+  if (!is.null(meta$Encoding)) {
+    meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  }
+
   meta
 }
 
@@ -47,10 +51,13 @@ data_citations <- function(pkg = ".") {
 build_citation_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  source <- github_source_links(pkg$github_url, "inst/CITATION")
+
   data <- list(
     pagetitle = "Citation and Authors",
     citations = data_citations(pkg),
-    authors = unname(data_authors(pkg)$all)
+    authors = unname(data_authors(pkg)$all),
+    source = source
   )
 
   render_page(pkg, "citation-authors", data, "authors.html")

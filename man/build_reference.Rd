@@ -5,9 +5,9 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, mathjax = TRUE, seed = 1014, override = list(),
-  preview = NA)
+build_reference(pkg = ".", lazy = TRUE, document = FALSE,
+  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
+  override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }
@@ -17,6 +17,9 @@ build_reference_index(pkg = ".")
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
 rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
+
+\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
+updating the site.}
 
 \item{examples}{Run examples?}
 
@@ -34,22 +37,18 @@ values in \code{_pkgdown.yml}}
 freshly generated section in browser.}
 }
 \description{
-By default, pkgdown will generate an index that simply lists all
-the functions in alphabetical order. To override this, provide a
-\code{reference} section in your \code{_pkgdown.yml} as described
-below.
+By default, pkgdown will generate an index that lists all functions in
+alphabetical order. To override this, provide a \code{reference} section in your
+\code{_pkgdown.yml} as described below.
 }
 \section{YAML config}{
 
-To tweak the index page, you need a section called \code{reference}
-which provides a list of sections containing, a \code{title}, list of
-\code{contents}, and optional \code{description}.
+To tweak the index page, add a section called \code{reference} to \code{_pkgdown.yml}
+which provides a list of sections containing, a \code{title}, list of \code{contents},
+and an optional \code{description}.
 
 For example, the following code breaks up the functions in pkgdown
-into two groups:
-
-\preformatted{
-reference:
+into two groups:\preformatted{reference:
 - title: Render components
   desc:  Build each component of the site.
   contents:
@@ -60,29 +59,56 @@ reference:
   - render_page
 }
 
-Note that \code{contents} can contain either a list of function names,
-or if the functions in a section share a common prefix or suffix, you
-can use \code{starts_with("prefix")} and \code{ends_with("suffix")} to
-select them all. For more complex naming schemes you can use an aribrary
-regular expression with \code{matches("regexp")}. You can also use a leading
-\code{-} to exclude matches from a section. By default, these functions that
-match multiple topics will exclude topics with keyword "internal". To
-include, use (e.g.) \code{starts_with("build_", internal = TRUE)}.
+Note that \code{contents} can contain either a list of function names, or if the
+functions in a section share a common prefix or suffix, you can use
+\code{starts_with("prefix")} and \code{ends_with("suffix")} to select them all. For
+more complex naming schemes you can use an aribrary regular expression with
+\code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
+section. By default, these functions that match multiple topics will exclude
+topics with the Rd keyword "internal". To include these, use
+\code{starts_with("build_", internal = TRUE)}.
 
-Alternatively, you can selected topics that contain specified concepts with
+You can alo select topics that contain specified Rd concepts with
 \code{has_concept("blah")}. Concepts are not currently well-supported by
 roxygen2, but may be useful if you write Rd files by hand.
+
+You can provide long descriptions for groups of functions using the YAML \code{>}
+notation:\preformatted{desc: >
+  This is a very long and overly flowery description of a
+  single simple function.
+}
+
+If you have functions with odd names (e.g. that start with a plus symbol
+\code{+}), you can include them by double-escaping. This YAML entry adds the
+\code{+.gg} function to the ggplot2 documentation:\preformatted{- "`+.gg`"
+}
 
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
 }
 
+\section{Figures}{
+
+
+You can control the default rendering of figues by specifying the \code{figures}
+field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+}
+}
+
 \section{Icons}{
 
-You can optionally supply an icon for each help topic. To do so, you'll
-need a top-level \code{icons} directory. This should contain {.png} files
-that are either 40x40 (for regular display) or 80x80 (if you want
-retina display). Icons are matched to topics by aliases.
+You can optionally supply an icon for each help topic. To do so, you'll need
+a top-level \code{icons} directory. This should contain {.png} files that are
+either 30x30 (for regular display) or 60x60 (if you want retina display).
+Icons are matched to topics by aliases.
 }
 
 \examples{

@@ -1,6 +1,6 @@
 #' Clean site
 #'
-#' Deletes all files in `doc/` (except for `CNAME`)
+#' Delete all files in `docs/` (except for `CNAME`).
 #'
 #' @inheritParams build_site
 #' @export

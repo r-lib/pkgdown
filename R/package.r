@@ -46,8 +46,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
       desc = desc,
       meta = meta,
+      figures = meta_figures(meta),
+
       development = development,
       topics = package_topics(pkg, package),
+      tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg),
       topic_index = topic_index_local(package, pkg),
       article_index = article_index_local(package, pkg)
@@ -83,13 +86,17 @@ read_desc <- function(path = ".") {
 read_meta <- function(path) {
   path <- path_first_existing(
     path,
-    c("_pkgdown.yml", "pkgdown/_pkgdown.yml", "_pkgdown.yaml")
+    c("_pkgdown.yml",
+      "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml",
+      "inst/_pkgdown.yml"
+    )
   )
 
   if (is.null(path)) {
     yaml <- list()
   } else {
-    yaml <- yaml::yaml.load_file(path)
+    yaml <- yaml::yaml.load_file(path) %||% list()
   }
 
   yaml
@@ -152,7 +159,7 @@ extract_title <- function(x) {
   x %>%
     purrr::detect(inherits, "tag_title") %>%
     flatten_text(auto_link = FALSE) %>%
-    trimws()
+    str_trim()
 }
 
 extract_source <- function(x) {
@@ -188,6 +195,7 @@ package_vignettes <- function(path = ".") {
   }
   vig_path <- path_rel(vig_path, base)
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
+  vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]
 
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
   title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")

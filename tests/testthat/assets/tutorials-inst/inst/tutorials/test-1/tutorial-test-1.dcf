@@ -1,0 +1,12 @@
+name: tutorial-test-1
+title: tutorial-test-1
+username:
+account: hadley
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 305391
+bundleId: 1282758
+url: https://hadley.shinyapps.io/tutorial-test-1/
+when: 1521734722.72611
+asMultiple: FALSE
+asStatic: FALSE

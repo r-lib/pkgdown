@@ -1,12 +1,23 @@
 url: http://pkgdown.r-lib.org
 
+authors:
+  Jay Hesselberth:
+    href: https://hesselberthlab.org
+
+template:
+  params:
+    docsearch:
+      api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b
+      index_name: pkgdown
+
 development:
   mode: unreleased
 
 reference:
   - title: Build
-    desc:  Build each component of the site.
+    desc:  Build a complete site or its individual section components.
     contents:
+    - build_site
     - init_site
     - starts_with("build_")
     - preview_site

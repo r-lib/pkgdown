@@ -1,14 +1,21 @@
-#' Initialise the site
+#' Initialise site infrastructure
 #'
-#' This creates the output directory, creates `favicon.ico` from package
-#' logo, creates a machine readable description of the site, and sets up
+#' This creates the output directory (`docs/`), `favicon.ico` (from the package
+#' logo), a machine readable description of the site, and copies CSS/JS
 #' assets and extra files.
+#'
+#' @section Build-ignored files:
+#' pkgdown uses `usethis::use_pkgdown()` to build-ignore `docs/` and
+#' `_pkgdown.yml`. If you use an alternative location for your config file,
+#' update `_pkgdown.yml` in `.Rbuildignore` with its location. A `NOTE` about
+#' an unexpected file during `R CMD CHECK` is an indication you have not correctly
+#' ignored these files.
 #'
 #' @section Custom CSS/JS:
 #' If you want to do minor customisation of your pkgdown site, the easiest
 #' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
 #' will be automatically copied to `docs/` and inserted into the
-#' `<HEAD>` after the default pkgdown CSS and JSS.
+#' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
 #' If you include you package logo in the standard location of
@@ -22,51 +29,55 @@ init_site <- function(pkg = ".") {
 
   rule("Initialising site")
   dir_create(pkg$dst_path)
-
-  file_copy_to(pkg, data_assets(pkg))
-  file_copy_to(pkg, data_extras(pkg))
+  copy_assets(pkg)
 
   build_site_meta(pkg)
+  build_sitemap(pkg)
+  build_docsearch_json(pkg)
   build_logo(pkg)
+
+  usethis::use_pkgdown()
 
   invisible()
 }
 
-data_assets <- function(pkg = ".") {
+copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+  template <- purrr::pluck(pkg$meta, "template", .default = list())
 
-  template <- pkg$meta[["template"]]
-
-  if (!is.null(template$assets)) {
-    path <- path_rel(pkg$src_path, template$assets)
-    if (!file_exists(path))
-      stop("Can not find asset path ", src_path(path), call. = FALSE)
-
-  } else if (!is.null(template$package)) {
-    path <- path_package_pkgdown(template$package, "assets")
-  } else {
-    path <- character()
-  }
-
+  # Copy default assets
   if (!identical(template$default_assets, FALSE)) {
-    path <- c(path, path_pkgdown("assets"))
+    copy_asset_dir(pkg, path_pkgdown("assets"))
   }
 
-  dir(path, full.names = TRUE)
+  # Copy extras
+  copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
+
+  # Copy assets from directory
+  if (!is.null(template$assets)) {
+    copy_asset_dir(pkg, template$assets)
+  }
+
+  # Copy assets from package
+  if (!is.null(template$package)) {
+    copy_asset_dir(pkg, path_package_pkgdown(template$package, "assets"))
+  }
 }
 
-data_extras <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  pkgdown <- path(pkg$src_path, "pkgdown")
-  if (!dir_exists(pkgdown)) {
+copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
+  from_path <- path_abs(from_dir, pkg$src_path)
+  if (!file_exists(from_path)) {
     return(character())
   }
 
-  all <- dir_ls(pkgdown)
-  extra <- grepl("^extra", path_file(all))
-  all[extra]
+  files <- dir_ls(from_path)
+  if (!is.null(file_regexp)) {
+    files <- files[grepl(file_regexp, path_file(files))]
+  }
+
+  file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }
+
 
 # Generate site meta data file (available to website viewers)
 build_site_meta <- function(pkg = ".") {

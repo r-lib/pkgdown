@@ -1,4 +1,4 @@
-context("topics")
+context("test-topics.R")
 
 topics <- tibble::tribble(
   ~name, ~alias,        ~internal,  ~concepts,

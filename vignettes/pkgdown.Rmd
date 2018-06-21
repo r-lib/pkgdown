@@ -8,15 +8,32 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The goal of pkgdown is to make it easy for package developers to make elegant and useful packages websites. The defaults are tailored for smaller packages and for use on GitHub (particularly with new [`docs/` directory][docs] support), but it is flexible enough to be used as part of a bigger website. There are five parts to a pkgdown site:
+The goal of pkgdown is to make it easy for package developers to make elegant and useful package websites. The defaults are tailored for smaller packages and for use on GitHub (using [`docs/` directory][docs] support), but pkgdown is flexible enough to be used as part of a bigger website. There are six parts to a pkgdown site:
 
 1. Home page
 1. Function reference
 1. Articles
-1. News
 1. Navbar 
+1. News
+1. Search
 
-To build a pkgdown site, run `build_site()`. The function has some arguments (mostly to control where the output), but most of the configuration options are controlled by `_pkgdown.yaml`. These options include:
+To build a pkgdown site, run `pkgdown::build_site()`. This will generate a complete site and open your browser for previewing.
+
+You can configure several aspects of your site. Once your finalized site is built and published on the web, you should publicize its URL in a few places:
+
+1. Your repository description on github.com.
+
+1. The `URL` field of your package `DESCRIPTION`, alongside a link to its source:
+
+1. [Twitter](https://twitter.com/dataandme/status/1004008257264988160), including the `#rstats` hash tag.
+
+```
+URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
+```
+
+## Configuration
+
+Most pkgdown configuration options are controlled by a YAML format file named `_pkgdown.yml`. These options include:
 
 * The site `title`, if different from the package name.
 
@@ -26,7 +43,18 @@ To build a pkgdown site, run `build_site()`. The function has some arguments (mo
 * A [`bootswatch`](https://bootswatch.com) theme name to easily tweak the
   overall appearance of the site.
 
-Other options control the appearance of the other parts of the site. 
+Other options control the appearance of other parts of the site. See the "YAML config" sections of `build_site()` and the other `build_` functions for complete details.
+
+pkgdown checks for a site configuration file in these locations:
+
+1. `_pkgdown.yml`
+1. `_pkgdown.yaml`
+1. `pkgdown/_pkgdown.yml`
+1. `inst/_pkgdown.yml`
+
+Including the configuration file in `inst/` enables sites to be built from packages on CRAN without needing the development version of a package.
+
+pkgdown build-ignores `_pkgdown.yml` with `usethis::use_pkgdown()`. If you use an alternative location be sure to update `.Rbuildignore` to avoid a `NOTE` during `CMD CHECK`.
 
 ## Home page
 
@@ -37,15 +65,50 @@ The home page will be automatically generated from one of the following four fil
 1. `index.md`
 1. `README.md`
 
-pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and an `index.md`
+pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both `README.md` and an `index.md`.
 
-When including big graphics in the README, you may find it easier to use `knitr::include_graphics("foo.png")` combined with chunk option `out.width = '100%'`. This will make the graphic scale with the size of the page.
+In addition to home page content from the README (e.g., installation instructions, simple examples), pkgdown looks for several other items to add to the home page.
+
+* A package logo (recommended size 130 x 150 pixels) can be included in the first level one heading in the home page source file. This logo is also used to create a favicon for the site.
+
+```
+---
+output: github_document
+---
+
+# packagename <img src="man/figures/logo.png" align="right" />
+```
+
+* Badges in the home page source file (e.g. `README.Rmd`) are linked in the side bar under "Dev status".
+
+* A link for bug reports is added if the `BugReports` field in `DESCRIPTION` contains a link. You can use [`usethis::use_github_links()`] to populate this field.
+
+* Licensing information is linked in the side bar using the package `LICENSE` and `LICENSE.md` files.
+
+* Citation information from a `inst/CITATION` file is linked in the side bar to the [authors page](http://testthat.r-lib.org/authors.html).
+
+* Author ORCID identification numbers in the `DESRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
+
+```
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
+      comment = c(ORCID = "0000-0003-4757-117X")
+    )
+```
+
+* Extra markdown files (e.g., `CODE_OF_CONDUCT.md`) at the base directory or in `.github/` are copied to `docs/` and converted to HTML.
+
+* When including big graphics in the README, you may find it easier to use `knitr::include_graphics("foo.png")` combined with chunk option `out.width = '100%'`. This will make the graphic scale with the size of the page.
 
 ## Reference
 
-The function reference generates one page for each `.Rd` file in `man/`, placing the results in `reference/`. This is mostly a straightforward translation of Rd to HTML, along with evaluating the examples, and auto-linking function names to their documentation.
+pkgdown creates a function reference in `reference/` that includes one page for each `.Rd` file in `man/`. This is mostly a straightforward translation of Rd to HTML. pkgdown auto-links internal and external function names to their documentation, so `build_site()` and `dplyr::select()` are linked to the pkgdown and dplyr documentation.
 
-pkgdown will also generate an overall index, which by default, is just an alphabetically ordered list of functions. However, the index is better with human curation because functions can be grouped by function and described en masse. To override the defaults, provide a `reference` key in `_pkgdown.yml`:
+pkgdown includes the output of Rd `@examples` on each reference page including data frames and plots. Examples that are bounded by `\dontrun { }` are displayed in the page without their output.
+
+pkgdown will generate a complete reference index that by default is just an alphabetically-ordered list of functions. However, the index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` key in `_pkgdown.yml`.
+
+Use `template_reference()` to generate a boilerplate reference section in YAML format:
 
 ```yaml
 reference:
@@ -64,22 +127,26 @@ reference:
     contents:
       - starts_with("spark_read")
       - starts_with("spark_write")
-      - sdf-saveload
+      - matches("saveload")
 ```
 
 The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
 
-The objects in `reference` can also contain a list of `exclude`, which allow you to exclude unwanted topics included via `contents`.
+The objects in `reference` can also contain a list of targets to `exclude`, which allow you to exclude unwanted topics included via `contents`.
 
 pkgdown will warn if you've forgotten to include any non-internal functions.
 
+See complete details in `build_reference()`.
+
 ## Articles
 
-pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with '_'. This enables the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/). The output of the vignettes is rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`.
+pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/). Vignette outputs are rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`. 
 
-If you want to include an article on the website, but not in the package (e.g. because it's large), you can either place it in a subdirectory of `vignettes/` or add to `.Rbuildignore`. As well, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and make sure that DESCRIPTION has no `VignetteBuilder` field.
+If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` or add it to `.Rbuildignore`. In addition, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
-As with the function reference, articles will also get a default index, and it can be customised in a similar way (referring to file names rather than function names):
+Articles get a default index that can be customised by referring to vignette file names.
+
+Use `template_articles()` to generate boilerplate articles section in YAML format:
 
 ```yaml
 articles:
@@ -94,24 +161,20 @@ articles:
     - htmlwidgets
 ```
 
-## News
+See complete details in `build_articles()`.
 
-If `NEWS.md` is present, it will be parsed into pieces broken up by second level headings. These will be rendered to `news/`, with one page per minor release (so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page).
+## Navbar
 
-If you want more detailed release notes (aimed at teaching people about the new features), you could put these in (e.g.) `vignettes/news` and customise the navbar.
+By default, the top navigation bar ("navbar") will contain links to:
 
-## Navbar {#navbar2}
-
-By default, the navbar will show:
-
-* The home page, with a "home" icon.
-* "Get Started", if you have an article with the same name as the package.
+* The home page, with a "home" icon (<i class="fa fa-home fa-lg"></i>).
+* "Get Started", if you have an article with the same name as the package (e.g., `vignettes/pkgdown.Rmd`).
 * Reference
-* Articles, if present.
-* News, if present.
-* A link to your your github repo (if listed in the `DESCRIPTION` url field).
+* Articles (i.e., vignettes, if present).
+* News (if present).
+* A "github" icon (<i class="fa fa-github fa-lg"></i>) with a link to your your github repo (if listed in the `DESCRIPTION` url field).
 
-You can override the defaults to:
+You can override these defaults to:
 
 * Surface important articles directly from the navbar (a la
   <http://spark.rstudio.com>).
@@ -119,9 +182,13 @@ You can override the defaults to:
 * Provide deeper add additional hierarchical navigation (like     
   <http://www.htmlwidgets.org>).
   
-* Link to other, off-site, resources.
+* Link to other off-site resources.
 
-The navbar has a similar structure to the [R Markdown website navbar][rmarkdown navbar]. To customise, use the `navbar` field:
+The navbar has a similar structure to the [R Markdown website navbar][rmarkdown navbar].
+
+Use `template_navbar()` to generate a boilerplate navbar section in YAML format.
+
+You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `inverse`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
 
 ```yaml
 navbar:
@@ -145,7 +212,96 @@ navbar:
       href: https://github.com/rstudio/sparklyr
 ```
 
+## News
 
+If `NEWS.md` is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your `NEWS.md` is formatted using level one headings (`#`) to specify package name and version number, and level two headings (`##`) to provide topical organization for each release.
+
+Use `usethis::use_news_md()` to create and open a template NEWS.md file that can be edited:
+
+```yaml
+# pkgdown 1.1.0
+
+## Bug Fixes
+
+* Lots of them
+
+# pkgdown 1.0.0
+
+* This is the first release of pkgdown.
+```
+
+See more suggestions for writing news bullets in the [tidyverse style guide](http://style.tidyverse.org/news.html). 
+
+If you have a large `NEWS.md` and want to create one page per release, you can create a multi-page change log by configuring the `_pkgdown.yml`:
+
+```yaml
+news:
+- one_page: false
+```
+
+In this case the `NEWS.md` is broken up by the version specified in the level one headings. Each version will be rendered to `news/`, with one page per minor release, so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page.
+
+If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., `vignettes/news` and customise the navbar. See an example of this strategy in action for [readxl](https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml).
+
+```yaml
+navbar:
+  - text: News
+    menu:
+    - text: "Blog posts"
+    - text: "Version 1.1.0"
+      href: https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/
+    - text: "------------------"
+    - text: "Change log"
+      href: news/index.html
+```
+
+See complete details in `build_news()`.
+
+## Search
+
+pkgdown websites can integrate search capability using [Docsearch](https://community.algolia.com/docsearch/) from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.
+
+### Docsearch indexing
+
+Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://community.algolia.com/docsearch/). Docsearch will contact you via e-mail to confirm you are the website owner.
+
+Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawlwer configuration in `docsearch.json` and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate [additional options](https://github.com/algolia/docsearch-configs#introduction) to fine tune the scraping.
+
+### Docsearch configuration
+
+The Docsearch team will e-mail you some JavaScript to integrate into your website.
+
+```js
+<script type="text/javascript">
+  docsearch({ 
+    apiKey: 'API_KEY',  // a long hex string
+    indexName: 'INDEX_NAME', 
+    inputSelector: '### REPLACE ME ####', 
+    debug: false // Set debug to true if you want to inspect the dropdown 
+}); 
+```
+
+Put the value of the `apiKey` and `indexName` parameters into your site `_pkgdown.yml` under `template: params`:
+
+```yaml
+template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+```
+
+You also need to add a `url:` field to `_pkgdown.yml` that specifies the location of your documentation on the web. For pkgdown, the URL field is:
+
+```yaml
+url: http://pkgdown.r-lib.org
+```
+
+If you are building your own custom Docsearch index, you can also include your Docsearch `app_id` in `_pkgdown.yml`.
+
+See the [pkgdown configuration](https://github.com/r-lib/pkgdown/blob/master/_pkgdown.yml#L7-L11) for a functional search configuration.
+
+Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled , pressing `shift` + `/` (i.e., "?") will move the focus to the search bar.
 
 [docs]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch
 [rmarkdown navbar]: http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation

@@ -12,7 +12,7 @@ as_data.NULL <- function(x, ...) {
 #' @export
 as_data.tag_usage <- function(x, ...) {
   text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
-  text <- trimws(text)
+  text <- str_trim(text)
 
   highlight_text(text)
 }
@@ -73,7 +73,9 @@ as_data.tag_note <- function(x, ...) {
 }
 #' @export
 as_data.tag_seealso <- function(x, ...) {
-  parse_section(x, "See also", ...)
+  section <- parse_section(x, "See also", ...)
+  section$contents <- dont_index(section$contents)
+  section
 }
 #' @export
 as_data.tag_section <- function(x, ...) {
@@ -96,8 +98,8 @@ as_data.tag_value <- function(x, ...) {
     values <- x[-seq_len(idx - 1)]
   }
 
-  text <- if (length(text) > 0) flatten_para(text, ...) else NULL
-  values <- if (length(values) > 0) parse_descriptions(values) else NULL
+  text <- flatten_para(text, ...)
+  values <- parse_descriptions(values)
 
   list(
     title = "Value",

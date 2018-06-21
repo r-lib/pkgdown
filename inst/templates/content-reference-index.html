@@ -1,34 +1,33 @@
 <div class="row">
-  <div class="col-md-9">
+  <div class="contents col-md-9">
     <div class="page-header">
       <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      {{#has_icons}}<col class="icon" />{{/has_icons}}
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      {{#sections}}<tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
-            <p class="section-desc">{{{desc}}}</p>
-          </th>
-        </tr>
-        {{#contents}}<tr>
-          <!-- {{#icon}}<img src="icons/{{{.}}}" width="40" height="40" class="icon" />{{/icon}} -->
-          <td>
-            <p>{{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}</p>
-          </td>
-          <td><p>{{{title}}}</p></td>
-        </tr>{{/contents}}
-      </tbody>{{/sections}}
-      </table>
-    </div>
+    {{#sections}}<tbody>
+      <tr>
+        <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
+          <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
+          <p class="section-desc">{{{desc}}}</p>
+        </th>
+      </tr>
+      {{#contents}}<tr>
+        {{#has_icons}}<td>{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" /></a>{{/icon}}</td>{{/has_icons}}
+        <td>
+          <p>{{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}</p>
+        </td>
+        <td><p>{{{title}}}</p></td>
+      </tr>{{/contents}}
+    </tbody>{{/sections}}
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

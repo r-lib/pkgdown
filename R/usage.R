@@ -37,15 +37,21 @@ parse_usage <- function(x) {
 
 short_name <- function(name, type, signature) {
   if (!is_syntactic(name)) {
-    name <- paste0("`", name, "`")
+    qname <- paste0("`", name, "`")
+  } else {
+    qname <- name
   }
 
   if (type == "data") {
-    name
+    qname
   } else if (type == "fun") {
-    paste0(name, "()")
+    if (is_infix(name)) {
+      qname
+    } else {
+      paste0(qname, "()")
+    }
   } else {
-    paste0(name, "(", paste0("<i>&lt;", signature, "&gt;</i>", collapse = ","), ")")
+    paste0(qname, "(", paste0("<i>&lt;", signature, "&gt;</i>", collapse = ","), ")")
   }
 }
 

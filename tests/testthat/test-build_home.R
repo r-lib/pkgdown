@@ -1,19 +1,22 @@
-context("build_home")
+context("test-build_home.R")
 
 
 # license -----------------------------------------------------------------
 
 test_that("link_license matchs exactly", {
+  # R 3.1 uses http url
+  skip_if_not(getRversion() >= "3.2.0")
+
   # Shouldn't match first GPL-2
   expect_equal(
-    autolink_license("LGPL-2") ,
+    autolink_license("LGPL-2"),
     "<a href='https://www.r-project.org/Licenses/LGPL-2'>LGPL-2</a>"
   )
 })
 
 test_that("link_license matches LICENSE", {
   expect_equal(
-    autolink_license("LICENSE") ,
+    autolink_license("LICENSE"),
     "<a href='LICENSE-text.html'>LICENSE</a>"
   )
 })
@@ -22,7 +25,9 @@ test_that("link_license matches LICENSE", {
 # index -------------------------------------------------------------------
 
 test_that("intermediate files cleaned up automatically", {
-  pkg <- test_path("home-index-rmd")
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-index-rmd")
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
@@ -30,11 +35,16 @@ test_that("intermediate files cleaned up automatically", {
 })
 
 test_that("intermediate files cleaned up automatically", {
-  pkg <- test_path("home-readme-rmd")
-  expect_output(build_home(pkg))
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-readme-rmd")
+  expect_output(build_site(pkg))
   on.exit(clean_site(pkg))
 
-  expect_equal(sort(dir(pkg)), sort(c("docs", "DESCRIPTION", "README.md", "README.Rmd")))
+  expect_setequal(
+    dir(pkg),
+    c("docs", "man", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
+  )
 })
 
 
@@ -49,7 +59,7 @@ test_that("page header modification succeeds", {
 
   tweak_homepage_html(html)
 
-  expect_output_file(cat(as.character(html)), "home-page-header.html")
+  expect_output_file(cat(as.character(html)), "assets/home-page-header.html")
 })
 
 test_that("links to vignettes & figures tweaked", {
@@ -60,7 +70,7 @@ test_that("links to vignettes & figures tweaked", {
 
   tweak_homepage_html(html)
 
-  expect_output_file(cat(as.character(html)), "home-links.html")
+  expect_output_file(cat(as.character(html)), "assets/home-links.html")
 })
 
 # repo_link ------------------------------------------------------------
@@ -90,7 +100,7 @@ test_that("package repo verification", {
 # orcid ------------------------------------------------------------------
 
 test_that("ORCID can be identified from all comment styles", {
-  pkg <- as_pkgdown(test_path("site-orcid"))
+  pkg <- as_pkgdown(test_path("assets/site-orcid"))
   author_info <- data_author_info(pkg)
   authors <- pkg %>%
     pkg_authors() %>%
@@ -143,10 +153,28 @@ test_that("references in angle brackets are converted to HTML", {
 # empty readme.md ---------------------------------------------------------
 
 test_that("build_home fails with empty readme.md", {
-  pkg <- test_path("home-empty-readme-md")
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-empty-readme-md")
   on.exit(clean_site(pkg))
 
   expect_output(
     expect_error(build_home(pkg), "non-empty")
   )
+})
+
+# .github files -----------------------------------------------------------
+
+test_that(".github files are copied and linked", {
+  skip_if_no_pandoc()
+  # .github in this test is build-ignored to prevent a NOTE about an unexpected
+  # hidden directory. Skip on CMD CHECK if the .github directory is not present.
+  pkg <- test_path("assets/site-dot-github")
+  skip_if_not(dir_exists(path(pkg, ".github"))[[1]])
+
+  on.exit(clean_site(pkg))
+  expect_output(build_home(pkg))
+
+  lines <- read_lines(path(pkg, "docs", "index.html"))
+  expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))
 })

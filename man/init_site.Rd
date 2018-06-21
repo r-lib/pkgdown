@@ -2,7 +2,7 @@
 % Please edit documentation in R/init.R
 \name{init_site}
 \alias{init_site}
-\title{Initialise the site}
+\title{Initialise site infrastructure}
 \usage{
 init_site(pkg = ".")
 }
@@ -10,16 +10,25 @@ init_site(pkg = ".")
 \item{pkg}{Path to package.}
 }
 \description{
-This creates the output directory, creates \code{favicon.ico} from package
-logo, creates a machine readable description of the site, and sets up
+This creates the output directory (\code{docs/}), \code{favicon.ico} (from the package
+logo), a machine readable description of the site, and copies CSS/JS
 assets and extra files.
 }
+\section{Build-ignored files}{
+
+pkgdown uses \code{usethis::use_pkgdown()} to build-ignore \code{docs/} and
+\code{_pkgdown.yml}. If you use an alternative location for your config file,
+update \code{_pkgdown.yml} in \code{.Rbuildignore} with its location. A \code{NOTE} about
+an unexpected file during \code{R CMD CHECK} is an indication you have not correctly
+ignored these files.
+}
+
 \section{Custom CSS/JS}{
 
 If you want to do minor customisation of your pkgdown site, the easiest
 way is to add \code{pkgdown/extra.css} and \code{pkgdown/extra.js}. These
 will be automatically copied to \code{docs/} and inserted into the
-\code{<HEAD>} after the default pkgdown CSS and JSS.
+\code{<HEAD>} after the default pkgdown CSS and JS.
 }
 
 \section{Favicon}{

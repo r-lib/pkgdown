@@ -33,8 +33,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 
     if (fun_name == "vignette") {
       expr <- lang_standardise(expr)
-      topic <- as.character(expr[[2]])
-      href_article(topic, expr$package)
+      href_article(expr$topic, expr$package)
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
@@ -87,8 +86,9 @@ href_topic_local <- function(topic) {
   }
 
   # If it's a re-exported function, we need to work a little harder to
-  # find out its source so that we can link to it
-  if (rdname == "reexports") {
+  # find out its source so that we can link to it. .getNamespaceInfo()
+  # is only available in R 3.2.0 and above.
+  if (rdname == "reexports" && getRversion() >= "3.1.0") {
     ns <- ns_env(context_get("package"))
     exports <- .getNamespaceInfo(ns, "exports")
 
@@ -96,7 +96,7 @@ href_topic_local <- function(topic) {
       return(NA_character_)
     } else {
       obj <- env_get(ns, topic, inherit = TRUE)
-      package <- ns_env_name(get_env(obj))
+      package <- find_reexport_source(obj, ns, topic)
       return(href_topic_remote(topic, package))
     }
   }

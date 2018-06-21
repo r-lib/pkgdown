@@ -21,11 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Changelog" />
+
 
 
 <!-- mathjax -->
@@ -52,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">1.1.0.9000</span>
       </span>
     </div>
 
@@ -65,7 +77,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/pkgdown.html">Get Started</a>
+  <a href="../articles/pkgdown.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -90,10 +102,16 @@
       <a href="../articles/test/highlight.html">Test: Highlighting</a>
     </li>
     <li>
+      <a href="../articles/test/jss.pdf">Test: JSS article (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/test/output.html">Test: Custom output</a>
     </li>
     <li>
       <a href="../articles/test/pdf.pdf">Test: PDF (PDF)</a>
+    </li>
+    <li>
+      <a href="../articles/test/widget.html">Test: Widgets</a>
     </li>
   </ul>
 </li>
@@ -104,12 +122,19 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hadley/pkgdown">
+  <a href="https://github.com/r-lib/pkgdown">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -117,31 +142,96 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small></small></h1>
-      <small>Source: <a href='https://github.com/hadley/pkgdown/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/r-lib/pkgdown/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
-    <div id="pkgdown-0-1-0-9000" class="section level1">
+    <div id="pkgdown-1-1-0-9000" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-0-1-0-9000" class="anchor"></a>pkgdown 0.1.0.9000</h1>
+<a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Support of multiple arguments in <code>\Sexpr{}</code> was fixed, eliminating <code>x must be a string or a R connection</code> errors when using <code>\doi</code> Rd tags (<a href='https://github.com/r-lib/pkgdown/issues/738'>#738</a>).</p></li>
+<li><p><code><a href="../reference/init_site.html">init_site()</a></code>: now calls <code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_pkgdown">usethis::use_pkgdown()</a></code> to build-ignore <code>_pkgdown.yml</code> and <code>docs/</code>, preventing a NOTE during R CMD CHECK (<a href='https://github.com/r-lib/pkgdown/issues/710'>#710</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code>inst/CITATION</code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
+</ul>
+</div>
+    <div id="pkgdown-1-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#pkgdown-1-1-0" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_site.html">build_site()</a></code> get new <code>document</code> argument. When <code>TRUE</code>, the default, will automatically run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> to ensure that your documentation is up to date.</p></li>
+<li><p><code><a href="../reference/build_site.html">build_site()</a></code> gains a <code>new_process</code> argument, which defaults to <code>TRUE</code>. This will run pkgdown in a separate process, and is recommended practice because it improves reproducibility (<a href='https://github.com/r-lib/pkgdown/issues/647'>#647</a>).</p></li>
+<li><p>Improved display for icons: icons must be 30px and stored in top-level <code>icons/</code> directory. They are embedded in a separate column of reference index table, instead of being inside a comment (!) (<a href='https://github.com/r-lib/pkgdown/issues/607'>#607</a>).</p></li>
+</ul>
+</div>
+<div id="front-end" class="section level2">
+<h2 class="hasAnchor">
+<a href="#front-end" class="anchor"></a>Front end</h2>
+<ul>
+<li><p>Added a keyboard shortcut for searching. Press <code>shift</code> + <code>/</code> (<code>?</code>) to move focus to the search bar (<a href='https://github.com/r-lib/pkgdown/issues/642'>#642</a>).</p></li>
+<li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
+<li>Navbar active tab highlighting uses a superior approach (suggested by
+<p><a href='http://github.com/jcheng5'>@jcheng5</a>) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
+</li>
+<li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
+</ul>
+</div>
+<div id="improvements-to-rd-translation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improvements-to-rd-translation" class="anchor"></a>Improvements to Rd translation</h2>
+<ul>
+<li><p><code>vignette()</code> calls that don’t link to existing vignettes silently fail to link instead of generating an uninformative error messages (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>). Automatic linking works for re-exported objects that are not functions (<a href='http://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/r-lib/pkgdown/issues/666'>#666</a>).</p></li>
+<li><p>Empty <code>\section{}</code>s are ignored (<a href='https://github.com/r-lib/pkgdown/issues/656'>#656</a>). Previously, empty sections caused error <code>Error in rep(TRUE, length(x) - 1)</code>.</p></li>
+<li><p><code>\Sexpr{}</code> supports <code>results=text</code>, <code>results=Rd</code> and <code>results=hide</code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
+<li><p><code>\tabular{}</code> no longer requires a terminal <code>\cr</code> (<a href='https://github.com/r-lib/pkgdown/issues/664'>#664</a>, <a href='https://github.com/r-lib/pkgdown/issues/645'>#645</a>).</p></li>
+</ul>
+</div>
+<div id="minor-bug-fixes-and-improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-bug-fixes-and-improvements" class="anchor"></a>Minor bug fixes and improvements</h2>
+<ul>
+<li><p>Add <code>inst/pkgdown.yml</code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
+<li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
+<li>
+<p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">template:</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">params:</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
+</li>
+<li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: Markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) stored in <code>.github/</code> are copied and linked correctly (<a href='https://github.com/r-lib/pkgdown/issues/682'>#682</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code>news: one_page: false</code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: reference index shows infix functions (like <code>%+%</code>) as <code>`%+%`</code>, not <code>`%+%`()</code> on (<a href='https://github.com/r-lib/pkgdown/issues/659'>#659</a>).</p></li>
+</ul>
+</div>
+</div>
+    <div id="pkgdown-1-0-0" class="section level1">
+<h1 class="page-header">
+<a href="#pkgdown-1-0-0" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
+</h1>
 <ul>
 <li><p>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</p></li>
 <li><p>Similarly, <code><a href="../reference/build_news.html">build_news()</a></code> no longer takes a <code>one_page</code> argument; this should now be specified in the <code>_pkgdown.yml</code> instead. See the documentation for an example.</p></li>
 </ul>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#pkgdown-0-1-0-9000">0.1.0.9000</a></li>
+        <li><a href="#pkgdown-1-1-0-9000">1.1.0.9000</a></li>
+        <li><a href="#pkgdown-1-1-0">1.1.0</a></li>
+        <li><a href="#pkgdown-1-0-0">1.0.0</a></li>
       </ul>
     </div>
   </div>
@@ -150,7 +240,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">
@@ -159,6 +249,25 @@
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
+    indexName: 'pkgdown',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
   </body>
 </html>

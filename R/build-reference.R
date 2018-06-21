@@ -1,19 +1,18 @@
 #' Build reference section
 #'
-#' By default, pkgdown will generate an index that simply lists all
-#' the functions in alphabetical order. To override this, provide a
-#' `reference` section in your `_pkgdown.yml` as described
-#' below.
+#' By default, pkgdown will generate an index that lists all functions in
+#' alphabetical order. To override this, provide a `reference` section in your
+#' `_pkgdown.yml` as described below.
 #'
 #' @section YAML config:
-#' To tweak the index page, you need a section called `reference`
-#' which provides a list of sections containing, a `title`, list of
-#' `contents`, and optional `description`.
+#' To tweak the index page, add a section called `reference` to `_pkgdown.yml`
+#' which provides a list of sections containing, a `title`, list of `contents`,
+#' and an optional `description`.
 #'
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
 #'
-#' \preformatted{
+#' ```
 #' reference:
 #' - title: Render components
 #'   desc:  Build each component of the site.
@@ -23,34 +22,70 @@
 #' - title: Templates
 #'   contents:
 #'   - render_page
-#' }
+#' ```
 #'
-#' Note that `contents` can contain either a list of function names,
-#' or if the functions in a section share a common prefix or suffix, you
-#' can use `starts_with("prefix")` and `ends_with("suffix")` to
-#' select them all. For more complex naming schemes you can use an aribrary
-#' regular expression with `matches("regexp")`. You can also use a leading
-#' `-` to exclude matches from a section. By default, these functions that
-#' match multiple topics will exclude topics with keyword "internal". To
-#' include, use (e.g.) `starts_with("build_", internal = TRUE)`.
+#' Note that `contents` can contain either a list of function names, or if the
+#' functions in a section share a common prefix or suffix, you can use
+#' `starts_with("prefix")` and `ends_with("suffix")` to select them all. For
+#' more complex naming schemes you can use an aribrary regular expression with
+#' `matches("regexp")`. You can also use a leading `-` to exclude matches from a
+#' section. By default, these functions that match multiple topics will exclude
+#' topics with the Rd keyword "internal". To include these, use
+#' `starts_with("build_", internal = TRUE)`.
 #'
-#' Alternatively, you can selected topics that contain specified concepts with
+#' You can alo select topics that contain specified Rd concepts with
 #' `has_concept("blah")`. Concepts are not currently well-supported by
 #' roxygen2, but may be useful if you write Rd files by hand.
+#'
+#' You can provide long descriptions for groups of functions using the YAML `>`
+#' notation:
+#'
+#' ```
+#' desc: >
+#'   This is a very long and overly flowery description of a
+#'   single simple function.
+#' ```
+#'
+#' If you have functions with odd names (e.g. that start with a plus symbol
+#' `+`), you can include them by double-escaping. This YAML entry adds the
+#' `+.gg` function to the ggplot2 documentation:
+#'
+#' ```
+#' - "`+.gg`"
+#' ```
 #'
 #' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
 #'
+#' @section Figures:
+#'
+#' You can control the default rendering of figues by specifying the `figures`
+#' field in `_pkgdown.yml`. The default settings are equivalent to:
+#'
+#' ```
+#' figures:
+#'   dev: grDevices::png
+#'   dpi: 96
+#'   dev.args: []
+#'   fig.ext: png
+#'   fig.width: 7.2916667
+#'   fig.height: ~
+#'   fig.retina: 2
+#'   fig.asp: 1.618
+#' ```
+#'
 #' @section Icons:
-#' You can optionally supply an icon for each help topic. To do so, you'll
-#' need a top-level `icons` directory. This should contain {.png} files
-#' that are either 40x40 (for regular display) or 80x80 (if you want
-#' retina display). Icons are matched to topics by aliases.
+#' You can optionally supply an icon for each help topic. To do so, you'll need
+#' a top-level `icons` directory. This should contain {.png} files that are
+#' either 30x30 (for regular display) or 60x60 (if you want retina display).
+#' Icons are matched to topics by aliases.
 #'
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
 #'   rapidly protoype. It is set to `FALSE` by [build_site()].
+#' @param document If `TRUE`, will run [devtools::document()] before
+#'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param mathjax Use mathjax to render math symbols?
@@ -85,6 +120,7 @@
 #' }
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
+                            document = FALSE,
                             examples = TRUE,
                             run_dont_run = FALSE,
                             mathjax = TRUE,
@@ -93,7 +129,12 @@ build_reference <- function(pkg = ".",
                             preview = NA
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+
   rule("Building function reference")
+  if (document && (pkg$package != "pkgdown")) {
+    devtools::document(pkg$src_path)
+  }
+
   build_reference_index(pkg)
 
   # copy everything from man/figures to docs/reference/figures
@@ -107,7 +148,7 @@ build_reference <- function(pkg = ".",
     # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
     if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
-      pkgload::load_all(pkg$src_path)
+      devtools::load_all(pkg$src_path)
     }
 
     old_dir <- setwd(path(pkg$dst_path, "reference"))
@@ -167,7 +208,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Building ", src_path("man", topic$file_in))
+  cat_line("Reading ", src_path("man", topic$file_in))
   scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- data_reference_topic(
@@ -207,6 +248,7 @@ data_reference_topic <- function(topic,
 
   # File source
   out$source <- github_source_links(pkg$github_url, topic$source)
+  out$filename <- topic$file_in
 
   # Multiple top-level converted to string
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)

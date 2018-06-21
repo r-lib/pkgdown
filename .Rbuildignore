@@ -10,4 +10,10 @@
 ^codecov\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^LICENSE\.md$
-^tests/testthat/site-citation$
+^tests/testthat/assets/site-citation$
+^tests/testthat/assets/site-dot-github/.github$
+^cran-comments\.md$
+^CRAN-RELEASE$
+^revdep$
+^appveyor\.yml$
+^\.github$

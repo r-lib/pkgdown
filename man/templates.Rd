@@ -20,3 +20,17 @@ Use these function to generate the default YAML that pkgdown uses for
 the different parts of \code{_pkgdown.yml}. This are useful starting
 points if you want to customise your site.
 }
+\examples{
+\dontrun{
+pkgdown::template_navbar()
+}
+
+\dontrun{
+pkgdown::template_reference()
+}
+
+\dontrun{
+pkgdown::template_articles()
+}
+
+}

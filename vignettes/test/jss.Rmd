@@ -1,0 +1,38 @@
+---
+author:
+  - name: FirstName LastName
+    affiliation: University/Company
+    address: >
+      First line
+      Second line
+    email: \email{name@company.com}
+    url: http://rstudio.com
+  - name: Second Author
+    affiliation: Affiliation
+title:
+  plain:     "Test: JSS article"
+  formatted: "Test: JSS article"
+  short:     "Test: JSS article"
+pagetitle:   "Test: JSS article"
+abstract: >
+  The abstract of the article.
+keywords:
+  plain:     [keywords, not capitalized, Java]
+  formatted: [keywords, not capitalized, "\\proglang{Java}"]
+output: rticles::jss_article
+classoption: nojss
+bibliography: jss.bib
+pkgdown:
+  as_is: true
+  extension: pdf
+---
+
+# Introduction
+
+Some text and a reference [@JSSv059i10].
+
+```{r}
+1 +
+  2
+```
+

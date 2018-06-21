@@ -1,21 +1,28 @@
-# @return An function that generates the navbar given the depth beneath
-#   the docs root directory
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  default <- default_navbar(pkg)
+  # Take structure as is from meta
+  navbar <- purrr::pluck(pkg, "meta", "navbar")
+  structure <- navbar$structure %||% navbar_structure()
 
-  navbar <- list(
-    title =  pkg$meta$navbar$title %||% default$title,
-    type =   pkg$meta$navbar$type  %||% default$type,
-    left =   pkg$meta$navbar$left  %||% default$left,
-    right =  pkg$meta$navbar$right  %||% default$right
+  # Merge components from meta
+  components <- navbar_components(pkg)
+  components <- utils::modifyList(components, navbar$components %||% list())
+
+  # Any unplaced components go to the right of the left navbar
+  right_comp <- intersect(structure$right, names(components))
+  left_comp <- intersect(structure$left, names(components))
+  extra_comp <- setdiff(names(components), c(left_comp, right_comp))
+
+  # Backward compatiblity
+  left <- navbar$left %||% components[c(left_comp, extra_comp)]
+  right <- navbar$right %||% components[right_comp]
+
+  list(
+    type = navbar$type %||% "default",
+    left = render_navbar_links(left, depth = depth),
+    right = render_navbar_links(right, depth = depth)
   )
-
-  navbar$left <- render_navbar_links(navbar$left, depth = depth)
-  navbar$right <- render_navbar_links(navbar$right, depth = depth)
-
-  print_yaml(navbar)
 }
 
 render_navbar_links <- function(x, depth = 0L) {
@@ -41,14 +48,21 @@ render_navbar_links <- function(x, depth = 0L) {
 
 # Default navbar ----------------------------------------------------------
 
-default_navbar <- function(pkg = ".") {
+navbar_structure <- function() {
+  print_yaml(list(
+    left = c("home", "intro", "reference", "articles", "tutorials", "news"),
+    right = "github"
+  ))
+}
+
+navbar_components <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  left <- list()
-
-  left$home <- list(
-    icon = "fa-home fa-lg",
-    href = "index.html"
+  menu <- list()
+  menu$home <- menu_icon("home", "index.html")
+  menu$reference <- menu_link("Reference", "reference/index.html")
+  menu$tutorials <- menu("Tutorials",
+    menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
   )
 
   vignettes <- pkg$vignettes
@@ -57,67 +71,39 @@ default_navbar <- function(pkg = ".") {
     intro <- vignettes[pkg_intro, , drop = FALSE]
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
 
-    left$intro <- list(
-      text = "Get Started",
-      href = intro$file_out
-    )
+    menu$intro <- menu_link("Get started", intro$file_out)
   }
-
-  left$reference <- list(
-    text = "Reference",
-    href = "reference/index.html"
-  )
-
-  if (nrow(vignettes) > 0) {
-    articles <- purrr::map2(
-      vignettes$title, vignettes$file_out,
-      ~ list(text = .x, href = .y)
-    )
-
-    left$articles <- list(
-      text = "Articles",
-      menu = articles
-    )
-  }
-
-  releases_meta <- pkg$meta$news$releases
-  if (!is.null(releases_meta)) {
-    left$news <- list(
-      text = "News",
-      menu = c(
-        list(list(text = "Releases")),
-        releases_meta,
-        list(
-          list(text = "------------------"),
-          list(
-            text = "Changelog",
-            href = "news/index.html"
-          )
-        )
-      )
-    )
-  } else if (has_news(pkg$src_path)) {
-    left$news <- list(
-      text = "Changelog",
-      href = "news/index.html"
-    )
-  }
+  menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+  menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {
-    right <- list(
-      list(
-        icon = "fa-github fa-lg",
-        href = pkg$github_url
-      )
-    )
-  } else {
-    right <- list()
+    menu$github <- menu_icon("github", pkg$github_url)
   }
 
-  print_yaml(list(
-    title = pkg$package,
-    type = "default",
-    left = unname(left),
-    right = unname(right)
-  ))
+  print_yaml(menu)
 }
+
+
+# Menu helpers -------------------------------------------------------------
+
+menu <- function(text, children) {
+  if (length(children) == 0)
+    return()
+  list(text = text, menu = children)
+}
+menu_link <- function(text, href) {
+  list(text = text, href = href)
+}
+menu_links <- function(text, href) {
+  purrr::map2(text, href, ~ list(text = .x, href = .y))
+}
+menu_icon <- function(icon, href) {
+  list(icon = paste0("fa-", icon, " fa-lg"), href = href)
+}
+menu_text <- function(text) {
+  list(text = text)
+}
+menu_spacer <- function() {
+   menu_text("---------")
+}
+

@@ -1,13 +1,14 @@
 context("test-init.R")
 
 test_that("extra.css and extra.js copied and linked", {
-  pkg <- test_path("init-extra")
+  pkg <- test_path("assets/init-extra-2")
   expect_output(init_site(pkg))
   on.exit(clean_site(pkg))
 
   expect_true(file_exists(path(pkg, "docs", "extra.css")))
   expect_true(file_exists(path(pkg, "docs", "extra.js")))
 
+  skip_if_no_pandoc()
   # Now check they actually get used .
   expect_output(build_home(pkg))
 
@@ -16,4 +17,12 @@ test_that("extra.css and extra.js copied and linked", {
   paths <- xml2::xml_attr(links, "href")
 
   expect_true("extra.css" %in% paths)
+})
+
+test_that("single extra.css correctly copied", {
+  pkg <- test_path("assets/init-extra-1")
+  expect_output(init_site(pkg))
+  on.exit(clean_site(pkg))
+
+  expect_true(file_exists(path(pkg, "docs", "extra.css")))
 })

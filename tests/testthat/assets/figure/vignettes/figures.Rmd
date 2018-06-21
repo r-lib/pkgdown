@@ -1,0 +1,7 @@
+---
+title: "Test: Figures"
+---
+
+```{r}
+plot(1:10)
+```

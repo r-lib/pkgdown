@@ -2,14 +2,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>{{{title}}}</h1>
-    {{#source}}<small>{{{.}}}</small>{{/source}}
+    {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
+    <div class="hidden name"><code>{{filename}}</code></div>
     </div>
 
+    <div class="ref-description">
     {{#description}}
     {{#contents}}
     {{{.}}}
     {{/contents}}
     {{/description}}
+    </div>
 
     {{#usage}}
     <pre class="usage">{{{.}}}</pre>

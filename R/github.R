@@ -5,7 +5,7 @@ pkg_github_url <- function(desc) {
   gh_links <- desc$get("URL")[[1]] %>%
     strsplit(",") %>%
     `[[`(1) %>%
-    trimws()
+    str_trim()
   gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
 
   if (length(gh_links) == 0)
@@ -14,8 +14,13 @@ pkg_github_url <- function(desc) {
   gh_links[[1]]
 }
 
-github_source <- function(base, path) {
-  file.path(base, "blob" , "master", path)
+github_source <- function(base, paths) {
+  # Don't need to touch those that are already a full url
+  ifelse(
+    grepl("^https?://", paths),
+    paths,
+    file.path(base, "blob" , "master", paths)
+  )
 }
 
 github_source_links <- function(base, paths) {

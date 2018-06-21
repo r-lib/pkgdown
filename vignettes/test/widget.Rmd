@@ -1,0 +1,24 @@
+---
+title: "Test: Widgets"
+---
+
+Test spacing above widget.
+
+```{r, echo=FALSE}
+# set seed for reproducible widget id
+if (requireNamespace("htmltools", quietly = TRUE)) {
+  htmlwidgets::setWidgetIdSeed(42)
+}
+
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lng=174.768,
+    lat=-36.852,
+    popup="The birthplace of R"
+  )
+```
+
+Test spacing below widget.

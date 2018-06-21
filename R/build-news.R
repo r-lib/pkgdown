@@ -1,60 +1,57 @@
 #' Build news section
 #'
-#' Your `NEWS.md` is parsed in to sections based on your use of
-#' headings. Each minor version (i.e. the combination of first and second
-#' components) gets on one page, with all patch versions (i.e. the third
-#' component) on a single page. News items for development versions (by
-#' convention those versions with a fourth component) are displayed on an
-#' an "unreleased" page.
+#' Your `NEWS.md` is parsed in to sections based on your use of headings.
 #'
-#' The `NEWS.md` file should be formatted somewhat like this:
+#' The `NEWS.md` file should be formatted with level one headings (`#`)
+#' containing the package name and version number, level two headings (`##`)
+#' with topic headings and lists of news bullets. Commonly used level two
+#' headings include 'Major changes', 'Bug fixes', or 'Minor changes'.
 #'
-#' \preformatted{
+#' ```
 #' # pkgdown 0.1.0.9000
 #'
 #' ## Major changes
 #'
-#'  - Fresh approach based on the staticdocs package. Site configuration now based on YAML files.
+#' - Fresh approach based on the staticdocs package. Site configuration now based
+#'   on YAML files.
+#' ```
 #'
-#' ...
-#' }
-#'
-#' Commonly used subsection headers include 'Major changes', 'Bug fixes', 'Minor
-#' changes'.
+#' If the package is available on CRAN, release dates will be added to versions
+#' in level-one headings, and "Unreleased" will be added versions that are not on
+#' CRAN.
 #'
 #' Issues and contributors mentioned in news items are automatically linked to
 #' github if a `URL` entry linking to github.com is provided in the package
 #' `DESCRIPTION`.
 #'
-#' \preformatted{
+#' ```
 #' ## Major changes
 #'
 #'   - Lots of bug fixes (@hadley, #100)
-#' }
-#'
-#' If the package is available on CRAN, release dates will be added for listed versions.
+#' ```
 #'
 #' @section YAML config:
 #'
 #' To automatically link to release announcements, include a `releases`
 #' section.
 #'
-#' \preformatted{
+#' ```
 #' news:
 #'  releases:
 #'  - text: "usethis 1.3.0"
 #'    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
 #'  - text: "usethis 1.0.0 (and 1.1.0)"
 #'    href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
-#' }
+#' ```
 #'
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' \preformatted{
+#' ```
 #' news:
 #' - one_page: false
-#' }
+#' ```
+#' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
 #'
 #' @inheritParams build_articles
 #' @export
@@ -63,7 +60,7 @@ build_news <- function(pkg = ".",
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
+  one_page <- purrr::pluck(pkg, "meta", "news", 1, "one_page", .default = TRUE)
 
   if (!has_news(pkg$src_path))
     return()
@@ -122,7 +119,7 @@ build_news_multi <- function(pkg) {
   render_page(
     pkg,
     "news-index",
-    list(versions = news %>% purrr::transpose(), pagetitle = "News"),
+    list(versions = news_paged %>% purrr::transpose(), pagetitle = "News"),
     path("news", "index.html")
   )
 }
@@ -177,7 +174,25 @@ data_news <- function(pkg = ".") {
     html = html
   )
 
-  news[is_version, , drop = FALSE]
+  news
+}
+
+navbar_news <- function(pkg) {
+  releases_meta <- pkg$meta$news$releases
+  if (!is.null(releases_meta)) {
+    menu("News",
+      c(
+        list(menu_text("Releases")),
+        releases_meta,
+        list(
+          menu_spacer(),
+          menu_link("Changelog", "news/index.html")
+        )
+      )
+    )
+  } else if (has_news(pkg$src_path)) {
+    menu_link("Changelog", "news/index.html")
+  }
 }
 
 has_news <- function(path = ".") {

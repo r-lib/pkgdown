@@ -1,7 +1,7 @@
 article_index <- function(package) {
   if (is.null(package)) {
     context_get("article_index")
-  } else if (is_devtools_package(package)) {
+  } else if (devtools_loaded(package)) {
     # Use live docs for in-development packages
     article_index_local(package)
   } else {
@@ -48,8 +48,11 @@ article_index_remote <- function(package) {
 }
 
 find_article <- function(package, name) {
-  index <- article_index(package)
+  if (!(is.character(package) || is.null(package)) || !is.character(name)) {
+    return()
+  }
 
+  index <- article_index(package)
   if (has_name(index, name)) {
     index[[name]]
   } else {

@@ -20,10 +20,21 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="{{#site}}{{root}}{{/site}}pkgdown.css" rel="stylesheet">
-<script src="{{#site}}{{root}}{{/site}}jquery.sticky-kit.min.js"></script>
 <script src="{{#site}}{{root}}{{/site}}pkgdown.js"></script>
+
+{{#yaml}}{{#docsearch}}
+<!-- docsearch -->
+<script src="{{#site}}{{root}}{{/site}}docsearch.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="{{#site}}{{root}}{{/site}}docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+{{/docsearch}}{{/yaml}}
+
 {{#extra}}
   {{#css}}<link href="{{#site}}{{root}}{{/site}}extra.css" rel="stylesheet">{{/css}}
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
@@ -32,7 +43,7 @@
 <meta property="og:title" content="{{{pagetitle}}}" />
 {{#opengraph}}
 {{#description}}
-<meta property="og:description" content="{{{.}}}" />
+<meta property="og:description" content="{{.}}" />
 {{/description}}
 {{#image}}
 <meta property="og:image" content="{{{.}}}" />
@@ -40,9 +51,8 @@
 <meta name="twitter:card" content="summary" />
 {{/opengraph}}
 
-{{#development}}{{#in_dev}}
-<meta name="robots" content="noindex">
-{{/in_dev}}{{/development}}
+{{#yaml}}{{#noindex}}<meta name="robots" content="noindex" />{{/noindex}}{{/yaml}}
+{{#development}}{{#in_dev}}<meta name="robots" content="noindex">{{/in_dev}}{{/development}}
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -53,16 +63,13 @@
 <![endif]-->
 
 {{#yaml}}{{#ganalytics}}
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{.}}"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', '{{.}}', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', '{{.}}');
 </script>
-{{/ganalytics}}
-{{/yaml}}
+{{/ganalytics}}{{/yaml}}

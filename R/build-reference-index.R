@@ -26,9 +26,12 @@ data_reference_index <- function(pkg = ".") {
     )
   }
 
+  icons <- sections %>% purrr::map("contents") %>% purrr::flatten() %>% purrr::map("icon")
+
   print_yaml(list(
     pagetitle = "Function reference",
-    sections = sections
+    sections = sections,
+    has_icons = purrr::some(icons, ~ !is.null(.x))
   ))
 }
 

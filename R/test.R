@@ -21,6 +21,7 @@
 #'   \item{b}{2}
 #' }
 #' @keywords internal
+#' @family tests
 #' @name test-lists
 NULL
 
@@ -28,6 +29,7 @@ NULL
 #'
 #' @name test-links
 #' @keywords internal
+#' @family tests
 #' @examples
 #' magrittr::subtract(10, 1)
 #'
@@ -41,6 +43,7 @@ NULL
 #'
 #' @name test-figures
 #' @keywords internal
+#' @family tests
 #' @examples
 #' x <- seq(0, 2 * pi, length = 25)
 #' plot(x, sin(x))
@@ -50,6 +53,7 @@ NULL
 #'
 #' @name test-dont
 #' @keywords internal
+#' @family tests
 #' @examples
 #' \dontrun{
 #' 1 + 3
@@ -72,3 +76,11 @@ NULL
 #' @importFrom MASS addterm
 #' @export
 MASS::addterm
+
+#' Test case: params
+#'
+#' @name test-params
+#' @param ... ellipsis
+#' @keywords internal
+#' @family tests
+NULL

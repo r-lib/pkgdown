@@ -49,10 +49,16 @@ tweak_md_links <- function(html) {
   hrefs <- xml2::xml_attr(links, "href")
   md_exts <- grepl("\\.md$", hrefs)
 
+  fix_links <- function(x) {
+    x <- gsub("\\.md$", ".html", x)
+    x <- gsub("\\.github/", "", x)
+    x
+  }
+
   if (any(md_exts)) {
     purrr::walk2(
       links[md_exts],
-      gsub("\\.md$", ".html", hrefs[md_exts]),
+      fix_links(hrefs[md_exts]),
       xml2::xml_set_attr,
       attr = "href"
     )
@@ -181,8 +187,7 @@ tweak_rmarkdown_html <- function(html, input_path) {
 }
 
 tweak_homepage_html <- function(html, strip_header = FALSE) {
-  first_para <- xml2::xml_find_first(html, "//p")
-  badges <- badges_extract(first_para)
+  badges <- badges_extract(html)
   if (length(badges) > 0) {
     list <- sidebar_section("Dev status", badges)
     list_div <- paste0("<div>", list, "</div>")
@@ -192,8 +197,6 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
     list_html %>%
       xml2::xml_children() %>%
       purrr::walk(~ xml2::xml_add_child(sidebar, .))
-
-    xml2::xml_remove(first_para)
   }
 
   # Always remove dummy page header
@@ -222,15 +225,20 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   invisible()
 }
 
-badges_extract <- function(x) {
-  if (is.character(x)) {
-    x <- xml2::read_xml(x)
+# Mutates `html`, removing the badge container
+badges_extract <- function(html) {
+  # First try specially named div; then try first paragraph
+  x <- xml2::xml_find_first(html, "//div[@id='badges']")
+  if (length(x) == 0) {
+    x <- xml2::xml_find_first(html, "//p")
   }
 
-  if (any(is.na(x))) {
+  # No paragraph
+  if (length(x) == 0) {
     return(character())
   }
 
+  # No non-whitespace characters outside of tags
   if (xml2::xml_text(x, trim = TRUE) != "") {
     return(character())
   }
@@ -244,7 +252,14 @@ badges_extract <- function(x) {
     return(character())
   }
 
-  as.character(badges, options = character())
+  xml2::xml_remove(x)
+
+  as.character(badges)
+}
+
+badges_extract_text <- function(x) {
+  xml <- xml2::read_html(x)
+  badges_extract(xml)
 }
 
 # Update file on disk -----------------------------------------------------

@@ -19,6 +19,8 @@ build_home_md <- function(pkg) {
 render_md <- function(pkg, filename) {
   body <- markdown(path = filename, strip_header = TRUE)
 
+  cat_line("Reading ", src_path(path_rel(filename, pkg$src_path)))
+
   render_page(pkg, "title-body",
     data = list(pagetitle = attr(body, "title"), body = body),
     path = path_ext_set(basename(filename), "html")

@@ -2,16 +2,19 @@
 % Please edit documentation in R/build.r
 \name{build_site}
 \alias{build_site}
-\title{Build pkgdown website}
+\title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  seed = 1014, mathjax = TRUE, lazy = FALSE, toc_depth = 2,
-  override = list(), preview = interactive())
+build_site(pkg = ".", examples = TRUE, document = TRUE,
+  run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
+  toc_depth = 2, override = list(), preview = NA, new_process = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
+
+\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
+updating the site.}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
@@ -30,21 +33,27 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
+This enhances reproducibility by ensuring nothing that you have loaded
+in the current process affects the build process.}
 }
 \description{
-\code{build_site()} is a convenient wrapper around five functions:
+\code{build_site()} is a convenient wrapper around six functions:
 \itemize{
 \item \code{\link[=init_site]{init_site()}}
-\item \code{\link[=build_articles]{build_articles()}}
 \item \code{\link[=build_home]{build_home()}}
 \item \code{\link[=build_reference]{build_reference()}}
+\item \code{\link[=build_articles]{build_articles()}}
+\item \code{\link[=build_tutorials]{build_tutorials()}}
 \item \code{\link[=build_news]{build_news()}}
 }
 
 See the documentation for the each function to learn how to control
 that aspect of the site.
 
-Note if names of generated files were changed, you will need to use \link{clean_site} first to clean up orphan files.
+Note if names of generated files were changed, you will need to use
+\link{clean_site} first to clean up orphan files.
 }
 \section{YAML config}{
 
@@ -57,7 +66,7 @@ paths will be taken relative to the package root.
 
 \code{url} optionally specifies the url where the site will be published.
 If you supply this, other pkgdown sites will link to your site when needed,
-rather than using generic links to \url{rdocumentation.org}.
+rather than using generic links to \url{https://rdocumentation.org}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -65,15 +74,12 @@ It's used in the page title and default navbar.
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including \code{href} to add a link, or \code{html} to override the
-text:
-
-\preformatted{
-authors:
+text:\preformatted{authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: <img src="http://tidyverse.org/rstudio-logo.svg" height="24" />
+    html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
 }
 }
 
@@ -133,47 +139,68 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-\code{navbar} controls the navbar at the top of the page. It uses the same
-syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.
+\code{navbar} controls the navbar at the top of the page. It has two primary
+components: \code{structure} and \code{components}. These components interact in
+a somewhat complicated way, but the complexity allows you to make minor
+tweaks to part of the navbar while relying on pkgdown to automatically
+generate the rest.
 
-\preformatted{
-navbar:
-  type: inverse
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "Reference"
-      href: reference/index.html
-    - text: "Articles"
-      menu:
-        - text: "Heading 1"
-        - text: "Article A"
-          href: articles/page_a.html
-        - text: "Article B"
-          href: articles/page_b.html
-        - text: "---------"
-        - text: "Heading 2"
-        - text: "Article C"
-          href: articles/page_c.html
-        - text: "Article D"
-          href: articles/page_d.html
-  right:
-    - icon: fa-github fa-lg
-      href: https://example.com
+The \code{structure} defines the layout of the navbar, i.e. the order
+of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components,
+and to add your own components.\preformatted{navbar:
+  structure:
+    left:  [home, intro, reference, articles, tutorials, news]
+    right: [github]
 }
 
-Use \code{type} to choose between "default" and "inverse" themes.
+The \code{components} describes the appearance of each element in the navbar.
+It uses the same
+syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
+The following YAML snippet illustrates some of the most important features.\preformatted{components:
+  home: ~
+  articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      href: articles/b1.html
+   twitter:
+     icon: fa-lg fa-twitter
+     href: http://twitter.com/hadleywickham
+}
 
-You position elements by placing under either \code{left} or \code{right}.
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators. Currently pkgdown only supports fontawesome
-icons. You can see a full list of options at
-\url{http://fontawesome.io/icons/}.
+\code{href}) and separators (indiciated by a bunch of \code{-}). You can use \code{icon}s
+from fontawesome: see a full list \url{https://fontawesome.io/icons/}.
 
-Any missing components (\code{type}, \code{left}, or \code{right})
-will be automatically filled in from the default navbar: you can see
-those values by running \code{\link[=template_navbar]{template_navbar()}}.
+This yaml would override the default "articles" component, eliminate
+the "home" component, and add a new "twitter" component. Unless you
+explicitly mention new components in the \code{structure} they'll be added
+to the far right of the left menu.
+}
+
+\section{YAML config - search}{
+
+You can use \href{https://community.algolia.com/docsearch/}{docsearch} by algolia
+to add search to your site.\preformatted{template:
+  params:
+    docsearch:
+      api_key: API_KEY
+      index_name: INDEX_NAME
+}
+
+You also need to add a \code{url:} field to \code{_pkgdown.yml} that specifies the
+location of your documentation on the web. For pkgdown, the URL field is:\preformatted{url: http://pkgdown.r-lib.org
+}
+
+See \code{vignette("pkgdown")} for details.
 }
 
 \section{YAML config - template}{
@@ -185,10 +212,7 @@ used to render the page in the browser.
 
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
-template:
-
-\preformatted{
-template:
+template:\preformatted{template:
   params:
     bootswatch: cerulean
 }
@@ -199,22 +223,21 @@ See a complete list of themes and preview how they look at
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
-
-\preformatted{
-template:
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
   params:
     ganalytics: UA-000000-01
+}
+
+Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
+  params:
+    noindex: true
 }
 
 You can also override the default templates and provide additional
 assets. You can do so by either storing in a \code{package} with
 directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
 or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-of the default assets, set \code{default_assets} to false.
-
-\preformatted{
-template:
+of the default assets, set \code{default_assets} to false.\preformatted{template:
   package: mycustompackage
 
 # OR:

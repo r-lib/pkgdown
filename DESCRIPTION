@@ -1,54 +1,60 @@
 Package: pkgdown
-Version: 0.1.0.9000
 Title: Make Static HTML Documentation for a Package
-Description: Generate a beautiful and useful website from a source package.
+Version: 1.1.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0003-4757-117X")
     ),
+    person("Jay", "Hesselberth", role = "aut", 
+      comment = c(ORCID = "0000-0002-6299-179X")
+    ),
     person("RStudio", role = c("cph", "fnd"))
     )
+Description: Generate an attractive and useful website from a source package.
+    'pkgdown' converts your documentation, vignettes, 'README', and more to 
+    'HTML' making it easy to share information about your package online.
 License: MIT + file LICENSE
-Depends:
-    R (>= 3.2.0)
+URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
+BugReports: https://github.com/r-lib/pkgdown/issues
+Depends: 
+    R (>= 3.1.0)
 Imports: 
     callr (>= 2.0.2),
     cli,
     crayon,
     desc,
+    devtools,
     digest,
     evaluate,
+    fs (>= 1.2.0),
     highlight,
     httr,
-    MASS,
     magrittr,
+    MASS,
     memoise,
     purrr,
-    pkgload,
     R6,
     rematch,
-    rlang,
+    rlang (>= 0.2.0),
     rmarkdown (>= 1.1.9007),
     roxygen2,
+    rsconnect,
     rstudioapi,
     tibble,
     tools,
+    usethis,
     whisker,
-    yaml,
     xml2 (>= 1.1.1),
-    fs (>= 1.2.0)
-Suggests:
-    devtools,
+    yaml
+Suggests: 
+    covr,
+    htmlwidgets,
+    jsonlite,
     knitr,
+    leaflet,
     magick,
-    testthat,
-    BiocInstaller,
-    covr
-Remotes:
-    r-lib/pkgload,
-    r-lib/usethis
+    testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
-URL: http://pkgdown.r-lib.org, https://github.com/hadley/pkgdown
-BugReports: https://github.com/hadley/pkgdown/issues
+SystemRequirements: pandoc
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
