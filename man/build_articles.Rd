@@ -6,10 +6,10 @@
 \title{Build articles}
 \usage{
 build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
-  preview = NA)
+  preview = NA, toc_depth = 2)
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE,
-  quiet = TRUE)
+  toc_depth = toc_depth, quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -25,6 +25,8 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{toc_depth}{The Table of Contents depth of the sidebar.}
 
 \item{name}{Name of article to render. This should be either a path
 relative to \code{vignettes/} without extension, or \code{index} or \code{README}.}

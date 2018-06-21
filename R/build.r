@@ -215,6 +215,7 @@ build_site <- function(pkg = ".",
                        seed = 1014,
                        mathjax = TRUE,
                        lazy = FALSE,
+                       toc_depth = 2,
                        override = list(),
                        preview = interactive()
                        ) {
@@ -234,7 +235,8 @@ build_site <- function(pkg = ".",
     override = override,
     preview = FALSE
   )
-  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_articles(pkg, lazy = lazy, override = override, preview = FALSE,
+                 toc_depth = toc_depth)
   build_news(pkg, override = override, preview = FALSE)
 
   preview_site(pkg, preview = preview)

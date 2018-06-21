@@ -5,8 +5,8 @@
 \title{Build pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  seed = 1014, mathjax = TRUE, lazy = FALSE, override = list(),
-  preview = interactive())
+  seed = 1014, mathjax = TRUE, lazy = FALSE, toc_depth = 2,
+  override = list(), preview = interactive())
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -22,6 +22,8 @@ reproducible.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
+
+\item{toc_depth}{The Table of Contents depth of the sidebar.}
 
 \item{override}{An optional named list used to temporarily override
 values in \code{_pkgdown.yml}}

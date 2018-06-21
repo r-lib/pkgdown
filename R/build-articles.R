@@ -96,12 +96,14 @@
 #'   modified more recently than the output file.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
+#' @param toc_depth The Table of Contents depth of the sidebar.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
                            override = list(),
-                           preview = NA) {
+                           preview = NA,
+                           toc_depth = 2) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (nrow(pkg$vignettes) == 0L) {
@@ -115,7 +117,8 @@ build_articles <- function(pkg = ".",
     pkg$vignettes$name, build_article,
     pkg = pkg,
     quiet = quiet,
-    lazy = lazy
+    lazy = lazy,
+    toc_depth = toc_depth
   )
 
   preview_site(pkg, "articles", preview = preview)
@@ -130,6 +133,7 @@ build_article <- function(name,
                            pkg = ".",
                            data = list(),
                            lazy = FALSE,
+                           toc_depth = toc_depth,
                            quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
@@ -182,7 +186,8 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
+    format <- build_rmarkdown_format(pkg, depth = depth, toc_depth = toc_depth,
+                                     data = data, toc = TRUE)
     options <- NULL
   }
 
@@ -197,6 +202,7 @@ build_article <- function(name,
 
 build_rmarkdown_format <- function(pkg,
                                    depth = 1L,
+                                   toc_depth = toc_depth,
                                    data = list(),
                                    toc = TRUE) {
 
@@ -204,7 +210,7 @@ build_rmarkdown_format <- function(pkg,
 
   out <- rmarkdown::html_document(
     toc = toc,
-    toc_depth = 2,
+    toc_depth = toc_depth,
     self_contained = FALSE,
     theme = NULL,
     template = template$path
