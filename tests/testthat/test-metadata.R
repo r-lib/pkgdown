@@ -1,6 +1,7 @@
 context("test-metadata.R")
 
 test_that("remote_package_url discovers pkgdown site", {
+  skip_on_os("solaris")
   scoped_package_context("test")
 
   expect_equal(
