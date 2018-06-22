@@ -41,11 +41,40 @@ replay_html.list <- function(x, ...) {
   # keep only high level plots
   parts <- merge_low_plot(parts)
 
-  pieces <- character(length(parts))
+  pieces <- list()
+  meta <- list()
+  # replay each part, keeping both output and dependencies
   for (i in seq_along(parts)) {
-    pieces[i] <- replay_html(parts[[i]], ...)
+    output <- replay_html(parts[[i]], ...)
+
+    pieces[[i]] <- output
+    meta[[i]] <- attr(output, "knit_meta")
   }
-  paste0(pieces, collapse = "")
+
+  # end up in example div blocks in each topic
+  blocks <- paste0(pieces, collapse = "")
+  out <- list(blocks = blocks)
+
+  meta <- collate_knit_meta(meta)
+  attr(out, "html_deps") <- meta
+
+  out
+}
+
+# collect and relocate html dependencies
+collate_knit_meta <- function(meta, lib_dir = "lib", output_dir = ".") {
+  meta <- unique(purrr::flatten(meta)) %>%
+    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
+    purrr::map(htmltools::makeDependencyRelative, output_dir)
+
+  htmltools::renderDependencies(
+    meta,
+    "file",
+    encodeFunc = identity,
+    hrefFilter = function(path) {
+      rmarkdown::relative_to(output_dir, path)
+    }
+  )
 }
 
 #' @export
@@ -96,6 +125,14 @@ replay_html.error <- function(x, ...) {
 #' @export
 replay_html.recordedplot <- function(x, topic, obj_id, ...) {
   fig_save_default(x, fig_name(topic, obj_id))
+}
+
+#' @export
+replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
+  # wrap in own div because <pre> breaks htmlwidgets stylesheet
+  output <- htmltools::HTML(paste0("<div class='knit_asis'>", x, "</div>"))
+  attr(output, "knit_meta") <- attr(x, "knit_meta")
+  output
 }
 
 # Knitr functions ------------------------------------------------------------

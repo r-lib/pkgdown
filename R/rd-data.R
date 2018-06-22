@@ -150,14 +150,13 @@ as_data.tag_examples <- function(x, ...,
 
   id_generator <- UniqueId$new()
 
-  html <- purrr::pmap_chr(
+  purrr::pmap(
     list(code = code, run = run, show = show),
     format_example_chunk,
     env = child_env(env),
     topic = topic,
     obj_id = id_generator$id
   )
-  paste(html, collapse = "")
 }
 
 format_example_chunk <- function(code, run, show,
@@ -172,7 +171,23 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
-  expr <- evaluate::evaluate(code, env, new_device = TRUE)
+  output_handler <- evaluate::new_output_handler(
+    value = function(x) {
+      knitr::knit_print(x, options = list(screenshot.force = FALSE))
+    }
+  )
+
+  if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+    # Freeze htmlwidget id for caching
+    htmlwidgets::setWidgetIdSeed(42)
+  }
+
+  expr <- evaluate::evaluate(
+    code,
+    env,
+    output_handler = output_handler,
+    new_device = TRUE
+  )
 
   if (show) {
     replay_html(expr, topic = topic, obj_id = obj_id)

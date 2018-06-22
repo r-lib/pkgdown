@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* htmlwidgets (e.g., leaflet) can now be used in Rd `@examples`. See
+  `test-widgets` for examples.
+
 * Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
   string or a R connection` errors when using `\doi` Rd tags (#738).
 
