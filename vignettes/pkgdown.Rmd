@@ -163,9 +163,9 @@ articles:
 
 See complete details in `build_articles()`.
 
-## Navbar
+## Navigation bar
 
-By default, the top navigation bar ("navbar") will contain links to:
+By default, the top navigation bar (the "navbar") will contain links to:
 
 * The home page, with a "home" icon (<i class="fa fa-home fa-lg"></i>).
 * "Get Started", if you have an article with the same name as the package (e.g., `vignettes/pkgdown.Rmd`).
