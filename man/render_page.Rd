@@ -6,7 +6,7 @@
 \title{Render page with template}
 \usage{
 render_page(pkg = ".", name, data, path = "", depth = NULL,
-  quiet = FALSE)
+  quiet = FALSE, parallel = FALSE)
 
 data_template(pkg = ".", depth = 0L)
 }

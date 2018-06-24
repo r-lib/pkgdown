@@ -26,6 +26,8 @@ Imports:
     devtools,
     digest,
     evaluate,
+    future,
+    furrr,
     fs (>= 1.2.0),
     highlight,
     httr,

@@ -263,7 +263,10 @@ build_site <- function(pkg = ".",
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
-                       new_process = TRUE) {
+                       new_process = TRUE,
+                       parallel = FALSE,
+                       progress = TRUE,
+                       workers = future::availableCores()) {
 
   if (new_process) {
     build_site_external(
@@ -275,7 +278,10 @@ build_site <- function(pkg = ".",
       mathjax = mathjax,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      parallel = parallel,
+      progress = progress,
+      workers = workers
     )
   } else {
     build_site_local(
@@ -287,7 +293,10 @@ build_site <- function(pkg = ".",
       mathjax = mathjax,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      parallel = parallel,
+      progress = progress,
+      workers = workers
     )
   }
 }
@@ -300,7 +309,10 @@ build_site_external <- function(pkg = ".",
                                 mathjax = TRUE,
                                 lazy = FALSE,
                                 override = list(),
-                                preview = NA) {
+                                preview = NA,
+                                parallel = FALSE,
+                                progress = TRUE,
+                                workers = future::availableCores()) {
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -311,7 +323,10 @@ build_site_external <- function(pkg = ".",
     lazy = lazy,
     override = override,
     preview = FALSE,
-    new_process = FALSE
+    new_process = FALSE,
+    parallel = parallel,
+    progress = progress,
+    workers = workers
   )
   callr::r(
     function(...) pkgdown::build_site(...),
@@ -331,7 +346,10 @@ build_site_local <- function(pkg = ".",
                        mathjax = TRUE,
                        lazy = FALSE,
                        override = list(),
-                       preview = NA
+                       preview = NA,
+                       parallel = FALSE,
+                       progress = TRUE,
+                       workers = future::availableCores()
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
@@ -351,9 +369,13 @@ build_site_local <- function(pkg = ".",
     mathjax = mathjax,
     seed = seed,
     override = override,
-    preview = FALSE
+    preview = FALSE,
+    parallel = parallel,
+    progress = progress,
+    workers = workers
   )
-  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_articles(pkg, lazy = lazy, override = override, preview = FALSE,
+                 parallel = parallel, progress = progress, workers = workers)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 

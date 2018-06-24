@@ -6,10 +6,11 @@
 \title{Build articles section}
 \usage{
 build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
-  preview = NA)
+  preview = NA, parallel = FALSE, workers = availableCores(),
+  progress = TRUE)
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE,
-  quiet = TRUE)
+  quiet = TRUE, parallel = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -25,6 +26,13 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{parallel}{if \code{TRUE} uses \code{\link[=future_walk]{future_walk()}} to build vignettes in parallel.}
+
+\item{workers}{The number of workers when building in parallel. Default uses
+all available cores.}
+
+\item{progress}{Whether to show progress output when building in parallel.}
 
 \item{name}{Name of article to render. This should be either a path
 relative to \code{vignettes/} without extension, or \code{index} or \code{README}.}

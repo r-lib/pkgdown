@@ -126,7 +126,10 @@ build_reference <- function(pkg = ".",
                             mathjax = TRUE,
                             seed = 1014,
                             override = list(),
-                            preview = NA
+                            preview = NA,
+                            parallel = FALSE,
+                            workers = future::availableCores(),
+                            progress = TRUE
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
@@ -161,21 +164,35 @@ build_reference <- function(pkg = ".",
   }
 
   topics <- purrr::transpose(pkg$topics)
-  purrr::map(topics,
-    build_reference_topic,
-    pkg = pkg,
-    lazy = lazy,
-    examples = examples,
-    run_dont_run = run_dont_run,
-    mathjax = mathjax
-  )
+  if (isTRUE(parallel)) {
+    future::plan("multiprocess", workers = workers)
+    furrr::future_map(topics,
+                      build_reference_topic,
+                      pkg = pkg,
+                      lazy = lazy,
+                      examples = examples,
+                      run_dont_run = run_dont_run,
+                      mathjax = mathjax,
+                      .progress = progress,
+                      parallel = parallel)
+  }
+  else {
+    purrr::map(topics,
+               build_reference_topic,
+               pkg = pkg,
+               lazy = lazy,
+               examples = examples,
+               run_dont_run = run_dont_run,
+               mathjax = mathjax
+    )
+  }
 
   preview_site(pkg, "reference", preview = preview)
 }
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".") {
+build_reference_index <- function(pkg = ".", parallel = FALSE) {
   pkg <- as_pkgdown(pkg)
   dir_create(path(pkg$dst_path, "reference"))
 
@@ -189,7 +206,8 @@ build_reference_index <- function(pkg = ".") {
   render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg),
-    path = "reference/index.html"
+    path = "reference/index.html",
+    parallel = parallel
   )
 }
 
@@ -199,7 +217,8 @@ build_reference_topic <- function(topic,
                                   lazy = TRUE,
                                   examples = TRUE,
                                   run_dont_run = FALSE,
-                                  mathjax = TRUE
+                                  mathjax = TRUE,
+                                  parallel = FALSE
                                   ) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
@@ -208,7 +227,9 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Reading ", src_path("man", topic$file_in))
+  if (!isTRUE(parallel)) {
+    cat_line("Reading ", src_path("man", topic$file_in))
+  }
   scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- data_reference_topic(
@@ -221,7 +242,8 @@ build_reference_topic <- function(topic,
   render_page(
     pkg, "reference-topic",
     data = data,
-    path = path("reference", topic$file_out)
+    path = path("reference", topic$file_out),
+    parallel = parallel
   )
   invisible()
 }

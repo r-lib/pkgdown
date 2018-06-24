@@ -8,6 +8,10 @@
 
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 
+* `build_articles()`: Option to build articles in parallel (#744).
+
+* `build_reference()`: Option to build reference in parallel (#744).
+
 # pkgdown 1.1.0
 
 ## New features
