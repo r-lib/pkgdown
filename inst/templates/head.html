@@ -35,6 +35,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 {{/docsearch}}{{/yaml}}
 
+<!-- JS dependencies for htmlwidgets -->
+{{{html_deps}}}
+
 {{#extra}}
   {{#css}}<link href="{{#site}}{{root}}{{/site}}extra.css" rel="stylesheet">{{/css}}
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
@@ -61,9 +64,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-<!-- JS dependencies for htmlwidgets -->
-{{{html_deps}}}
 
 {{#yaml}}{{#ganalytics}}
 <!-- Global site tag (gtag.js) - Google Analytics -->

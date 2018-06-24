@@ -43,6 +43,7 @@ replay_html.list <- function(x, ...) {
 
   pieces <- list()
   meta <- list()
+
   # replay each part, keeping both output and dependencies
   for (i in seq_along(parts)) {
     output <- replay_html(parts[[i]], ...)
@@ -51,9 +52,15 @@ replay_html.list <- function(x, ...) {
     meta[[i]] <- attr(output, "knit_meta")
   }
 
-  # end up in example div blocks in each topic
-  blocks <- paste0(pieces, collapse = "")
-  out <- list(blocks = blocks)
+  if (length(meta) == 0) {
+    # no html deps, one big pre block
+    out <- paste0(
+      c(pre_start(), unlist(pieces), pre_end()),
+      collapse = ""
+    )
+  } else {
+    out <- pre_blocks(pieces, meta)
+  }
 
   meta <- collate_knit_meta(meta)
   attr(out, "html_deps") <- meta
@@ -61,8 +68,56 @@ replay_html.list <- function(x, ...) {
   out
 }
 
-# collect and relocate html dependencies
-collate_knit_meta <- function(meta, lib_dir = "lib", output_dir = ".") {
+# Format pre blocks --------------------------------------------------
+
+pre_blocks <- function(pieces, meta) {
+
+  out <- list(pre_start())
+
+  for (i in seq_along(pieces)) {
+
+    cur <- pieces[i][[1]]
+    nxt <- pieces[i+1][[1]]
+
+    if (!is_html(cur) && !is_html(nxt)) {
+      out <- c(out, cur)
+    }
+    else if (!is_html(cur) && (is_html(nxt) && has_dep(meta[[i+1]][[1]]))) {
+      out <- c(out, cur, pre_end())
+    }
+    else if (is_html(cur)) {
+      if (!is_html(nxt) && !is.null(nxt)) {
+        out <- c(out, cur, pre_start())
+      } else {
+        out <- c(out, cur)
+      }
+    }
+  }
+
+  if (!is_html(pieces[[length(pieces)]])) {
+    out <- c(out, pre_end())
+  }
+
+  paste0(unlist(out, recursive = TRUE), collapse = "")
+}
+
+pre_start <- function() {
+  "<pre class='examples'>"
+}
+pre_end <- function() {
+  "</pre>"
+}
+is_html <- function(x) {
+  inherits(x, "html")
+}
+has_dep <- function(x) {
+  inherits(x, "html_dependency")
+}
+is_chr <- function(x) {
+  inherits(x, "character")
+}
+
+collate_knit_meta <- function(meta, lib_dir = "assets", output_dir = ".") {
   meta <- unique(purrr::flatten(meta)) %>%
     purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
     purrr::map(htmltools::makeDependencyRelative, output_dir)
@@ -76,6 +131,8 @@ collate_knit_meta <- function(meta, lib_dir = "lib", output_dir = ".") {
     }
   )
 }
+
+# replay_html ------------------------------------------------
 
 #' @export
 replay_html.NULL <- function(x, ...) ""
