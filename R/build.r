@@ -276,7 +276,8 @@ build_site <- function(pkg = ".",
       mathjax = mathjax,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      toc_depth = toc_depth
     )
   } else {
     build_site_local(
@@ -288,7 +289,8 @@ build_site <- function(pkg = ".",
       mathjax = mathjax,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      toc_depth = toc_depth
     )
   }
 }
@@ -301,7 +303,8 @@ build_site_external <- function(pkg = ".",
                                 mathjax = TRUE,
                                 lazy = FALSE,
                                 override = list(),
-                                preview = NA) {
+                                preview = NA,
+                                toc_depth = 2) {
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -332,7 +335,8 @@ build_site_local <- function(pkg = ".",
                        mathjax = TRUE,
                        lazy = FALSE,
                        override = list(),
-                       preview = NA
+                       preview = NA,
+                       toc_depth = 2
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
