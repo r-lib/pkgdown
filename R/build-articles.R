@@ -127,8 +127,8 @@ build_articles <- function(pkg = ".",
 
   build_articles_index(pkg, parallel = parallel)
   if (isTRUE(parallel)) {
-    future::plan("multiprocess", workers = workers)
-    furrr::future_walk(
+    plan("multiprocess", workers = workers)
+    future_walk(
       pkg$vignettes$name, build_article,
       pkg = pkg,
       quiet = quiet,

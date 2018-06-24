@@ -266,7 +266,7 @@ build_site <- function(pkg = ".",
                        new_process = TRUE,
                        parallel = FALSE,
                        progress = TRUE,
-                       workers = future::availableCores()) {
+                       workers = availableCores()) {
 
   if (new_process) {
     build_site_external(
@@ -312,7 +312,7 @@ build_site_external <- function(pkg = ".",
                                 preview = NA,
                                 parallel = FALSE,
                                 progress = TRUE,
-                                workers = future::availableCores()) {
+                                workers = availableCores()) {
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -349,7 +349,7 @@ build_site_local <- function(pkg = ".",
                        preview = NA,
                        parallel = FALSE,
                        progress = TRUE,
-                       workers = future::availableCores()
+                       workers = availableCores()
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)

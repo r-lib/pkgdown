@@ -532,8 +532,8 @@ parse_opts <- function(string, parallel = parallel, workers = workers, progress 
 
   env <- child_env(arg_env)
   if (isTRUE(parallel)) {
-    future::plan("multiprocess", workers = workers)
-    furrr::future_walk(exprs, eval_bare, env = env,
+    plan("multiprocess", workers = workers)
+    future_walk(exprs, eval_bare, env = env,
       .progress = progress
     )
   }

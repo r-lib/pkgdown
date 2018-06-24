@@ -128,7 +128,7 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             parallel = FALSE,
-                            workers = future::availableCores(),
+                            workers = availableCores(),
                             progress = TRUE
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
@@ -165,8 +165,8 @@ build_reference <- function(pkg = ".",
 
   topics <- purrr::transpose(pkg$topics)
   if (isTRUE(parallel)) {
-    future::plan("multiprocess", workers = workers)
-    furrr::future_map(topics,
+    plan("multiprocess", workers = workers)
+    future_map(topics,
                       build_reference_topic,
                       pkg = pkg,
                       lazy = lazy,
