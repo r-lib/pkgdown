@@ -87,7 +87,7 @@ output: github_document
 
 * Citation information from a `inst/CITATION` file is linked in the side bar to the [authors page](http://testthat.r-lib.org/authors.html).
 
-* Author ORCID identification numbers in the `DESRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
+* Author ORCID identification numbers in the `DESCRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
 
 ```
 Authors@R: c(
@@ -163,9 +163,9 @@ articles:
 
 See complete details in `build_articles()`.
 
-## Navbar
+## Navigation bar
 
-By default, the top navigation bar ("navbar") will contain links to:
+By default, the top navigation bar (the "navbar") will contain links to:
 
 * The home page, with a "home" icon (<i class="fa fa-home fa-lg"></i>).
 * "Get Started", if you have an article with the same name as the package (e.g., `vignettes/pkgdown.Rmd`).

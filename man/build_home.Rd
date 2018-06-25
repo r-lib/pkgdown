@@ -47,7 +47,7 @@ If you have a package logo, you can include it at the top of your README in a
 level-one heading:\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
 }
 
-\code{\link[=init_site]{init_site()}} will also automaticlly create a favicon.ico from your package
+\code{\link[=init_site]{init_site()}} will also automatically create a favicon.ico from your package
 logo.
 }
 

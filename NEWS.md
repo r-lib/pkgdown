@@ -3,6 +3,9 @@
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
   
+* Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
+  string or a R connection` errors when using `\doi` Rd tags (#738).
+
 * `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
   and `docs/`, preventing a NOTE during R CMD CHECK (#710).
 

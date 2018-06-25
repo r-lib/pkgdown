@@ -107,6 +107,26 @@ test_that("Sexprs run from package root", {
   )
 })
 
+test_that("Sexprs with multiple args are parsed", {
+  scoped_package_context("pkgdown")
+  scoped_file_context()
+
+  expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
+})
+
+test_that("DOIs are linked", {
+  # Because paths are different during R CMD check
+  skip_if_not(file_exists("../../DESCRIPTION"))
+
+  scoped_package_context("pkgdown", src_path = "../..")
+  scoped_file_context()
+
+  expect_equal(
+    rd2html("\\doi{10.1177/0163278703255230}"),
+    "doi: <a href='http://doi.org/10.1177/0163278703255230'>10.1177/0163278703255230</a>"
+  )
+})
+
 # links -------------------------------------------------------------------
 
 test_that("href orders arguments correctly", {
