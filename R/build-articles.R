@@ -54,7 +54,7 @@
 #' common prefix or suffix, you can use `starts_with("prefix")` and
 #' `ends_with("suffix")` to select them all. If you don't care about
 #' position within the string, use `contains("word")`. For more complex
-#' naming schemes you can use an aribrary regular expression with
+#' naming schemes you can use an arbitrary regular expression with
 #' `matches("regexp")`.
 #'
 #' pkgdown will check that all vignettes are included in the index
@@ -86,7 +86,7 @@
 #'
 #' @inheritSection build_reference Figures
 #'
-#' @section Supressing vignettes:
+#' @section Suppressing vignettes:
 #' If you want articles that are not vignettes, either put them in
 #' subdirectories or list in `.Rbuildignore`. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
