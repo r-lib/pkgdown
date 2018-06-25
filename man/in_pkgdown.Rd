@@ -7,7 +7,7 @@
 in_pkgdown()
 }
 \description{
-This is occassionally useful when you need different behaviour by
+This is occasionally useful when you need different behaviour by
 pkgdown and regular documentation.
 }
 \examples{
