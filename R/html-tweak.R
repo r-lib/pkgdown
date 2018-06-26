@@ -153,7 +153,7 @@ find_qualifier <- function(node) {
     return(NA_character_)
   }
 
-  rematch2::re_match(xml2::xml_text(qual), "([[:alnum:]]+)$")[, 2]
+  rematch2::re_match(xml2::xml_text(qual), "([[:alnum:]]+)$")[[".match"]]
 }
 
 # File level tweaks --------------------------------------------
