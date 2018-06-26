@@ -1,5 +1,5 @@
 # @return An integer vector giving selected topics
-select_topics <- function(match_strings, topics) {
+select_topics <- function(match_strings, topics, check = FALSE) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
     return(integer())
@@ -7,14 +7,29 @@ select_topics <- function(match_strings, topics) {
 
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
+  # If none of the specified topics have a match, return no topics
+  if (check && length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
+    warning(
+      "No topics matched in '_pkgdown.yml'. No topics selected.",
+      call. = FALSE,
+      immediate. = TRUE
+    )
+    return(integer())
+  }
+
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
     all_sign(indexes[[1]], match_strings[[0]]),
     "+" = integer(),
     "-" = seq_len(n)[!topics$internal]
   )
+
   for (i in seq_along(indexes)) {
     index <- indexes[[i]]
+
+    if (check && length(index) == 0) {
+      topic_must("match a function or concept", expr = match_strings[[i]])
+    }
 
     sel <- switch(all_sign(index, match_strings[[i]]),
       "+" = union(sel, index),
