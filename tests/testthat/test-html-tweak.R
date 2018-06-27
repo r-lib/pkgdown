@@ -12,6 +12,16 @@ test_that("tables get class='table'", {
     expect_equal("table")
 })
 
+test_that("tables get class='table' prepended to existing classes", {
+  html <- xml2::read_html("<body><table class = 'foo bar'>\n</table></body>")
+  tweak_tables(html)
+
+  html %>%
+    xml2::xml_find_all(".//table") %>%
+    xml2::xml_attr("class") %>%
+    expect_equal("table foo bar")
+})
+
 # anchors -------------------------------------------------------------
 
 test_that("anchors don't get additional newline", {
