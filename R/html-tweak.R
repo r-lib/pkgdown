@@ -73,7 +73,9 @@ tweak_tables <- function(html) {
   # prepend existing classes, so that existing classes can overrwrite .table css
   existing_classes <- xml2::xml_attr(table, "class")
   new_classes <- "table"
-  if (!is.na(existing_classes)) new_classes <- paste(new_classes, existing_classes)
+  if (!is.na(existing_classes)) {
+    new_classes <- paste(new_classes, existing_classes)
+  }
   xml2::xml_attr(table, "class") <- new_classes
 
   invisible()
