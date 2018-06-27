@@ -87,7 +87,7 @@ output: github_document
 
 * Citation information from a `inst/CITATION` file is linked in the side bar to the [authors page](http://testthat.r-lib.org/authors.html).
 
-* Author ORCID identification numbers in the `DESRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
+* Author ORCID identification numbers in the `DESCRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
 
 ```
 Authors@R: c(

@@ -12,7 +12,7 @@ data_reference_index <- function(pkg = ".") {
 
   # Cross-reference complete list of topics vs. topics found in index page
   all_topics <- meta %>%
-    purrr::map(~ select_topics(.$contents, pkg$topics)) %>%
+    purrr::map(~ select_topics(.$contents, pkg$topics, check = TRUE)) %>%
     purrr::reduce(union)
   in_index <- seq_along(pkg$topics$name) %in% all_topics
 

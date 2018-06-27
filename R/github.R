@@ -1,17 +1,39 @@
+# adapted from usethis R/browse.R
+github_url_rx <- function() {
+  paste0(
+    "^",
+    "(?:https?://github.com/)",
+    "(?<owner>[^/]+)/",
+    "(?<repo>[^/#]+)",
+    "/?",
+    "(?<fragment>.*)",
+    "$"
+  )
+}
+
+# adapted from usethis R/browse.R
+#
+## takes URL return by github_link() and strips it down to support
+## appending path parts for issues or pull requests
+##  input: "https://github.com/simsem/semTools/wiki"
+## output: "https://github.com/simsem/semTools"
+##  input: "https://github.com/r-lib/gh#readme"
+## output: "https://github.com/r-lib/gh"
 pkg_github_url <- function(desc) {
-  if (!desc$has_fields("URL"))
+  urls <- desc$get_urls()
+  gh_links <- grep("^https?://github.com/", urls, value = TRUE)
+
+  if (length(gh_links) == 0) {
     return()
+  }
 
-  gh_links <- desc$get("URL")[[1]] %>%
-    strsplit(",") %>%
-    `[[`(1) %>%
-    str_trim()
-  gh_links <- grep("^https?://github.com/", gh_links, value = TRUE)
+  gh_link <- gsub("/$", "", gh_links[[1]])
+  parse_github_link(gh_link)
+}
 
-  if (length(gh_links) == 0)
-    return()
-
-  gh_links[[1]]
+parse_github_link <- function(link) {
+  x <- rematch2::re_match(link, github_url_rx())
+  paste0("https://github.com/", x$owner, "/", x$repo)
 }
 
 github_source <- function(base, paths) {
@@ -19,7 +41,10 @@ github_source <- function(base, paths) {
   ifelse(
     grepl("^https?://", paths),
     paths,
-    file.path(base, "blob" , "master", paths)
+    file.path(
+      parse_github_link(base),
+      "blob" , "master", paths
+    )
   )
 }
 
@@ -46,7 +71,7 @@ github_source_links <- function(base, paths) {
 
 add_github_links <- function(x, pkg) {
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
-  x <- gsub("@(\\w+)", user_link, x)
+  x <- gsub("@([-\\w]+)", user_link, x, perl = TRUE)
 
   github_url <- pkg$github_url
   if (is.null(github_url)) {

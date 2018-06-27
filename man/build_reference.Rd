@@ -16,7 +16,7 @@ build_reference_index(pkg = ".")
 
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
-rapidly protoype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
+rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
 
 \item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
 updating the site.}
@@ -62,7 +62,7 @@ into two groups:\preformatted{reference:
 Note that \code{contents} can contain either a list of function names, or if the
 functions in a section share a common prefix or suffix, you can use
 \code{starts_with("prefix")} and \code{ends_with("suffix")} to select them all. For
-more complex naming schemes you can use an aribrary regular expression with
+more complex naming schemes you can use an arbitrary regular expression with
 \code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
 section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
@@ -90,7 +90,7 @@ this page, and will generate a warning if you have missed any.
 \section{Figures}{
 
 
-You can control the default rendering of figues by specifying the \code{figures}
+You can control the default rendering of figures by specifying the \code{figures}
 field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
   dev: grDevices::png
   dpi: 96

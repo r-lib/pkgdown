@@ -180,7 +180,7 @@ alphabetical order. To override this, provide a <code>reference</code> section i
       <th>lazy</th>
       <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
-rapidly protoype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+rapidly prototype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     <tr>
       <th>document</th>
@@ -236,7 +236,7 @@ into two groups:</p><pre>reference:
     <p>Note that <code>contents</code> can contain either a list of function names, or if the
 functions in a section share a common prefix or suffix, you can use
 <code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
-more complex naming schemes you can use an aribrary regular expression with
+more complex naming schemes you can use an arbitrary regular expression with
 <code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
 section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
@@ -259,7 +259,7 @@ this page, and will generate a warning if you have missed any.</p>
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
     
-    <p>You can control the default rendering of figues by specifying the <code>figures</code>
+    <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
   dev: grDevices::png
   dpi: 96
