@@ -61,7 +61,7 @@ replay_html.list <- function(x, ...) {
 
   # no html, return one big pre block
   if (!any(html)) {
-    return(paste0("<pre class='examples'", unlist(pieces), "</pre>"))
+    return(paste0("<pre class='examples'>", unlist(pieces), "</pre>"))
   }
 
   pre_group <- cumsum(!html | c(FALSE, html[-1] != html[-length(html)]))
