@@ -71,7 +71,7 @@ github_source_links <- function(base, paths) {
 
 add_github_links <- function(x, pkg) {
   user_link <- paste0("<a href='http://github.com/\\1'>@\\1</a>")
-  x <- gsub("@(\\w+)", user_link, x)
+  x <- gsub("@([-\\w]+)", user_link, x, perl = TRUE)
 
   github_url <- pkg$github_url
   if (is.null(github_url)) {

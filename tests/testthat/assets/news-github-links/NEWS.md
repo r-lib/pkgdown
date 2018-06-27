@@ -3,3 +3,5 @@
 ## Major changes
 
 - Bug fixes (@hadley, #100)
+
+- Merges (@josue-rodriguez)
