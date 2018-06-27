@@ -150,7 +150,7 @@
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators (indiciated by a bunch of `-`). You can use `icon`s
+#' `href`) and separators (indicated by a bunch of `-`). You can use `icon`s
 #' from fontawesome: see a full list <https://fontawesome.io/icons/>.
 #'
 #' This yaml would override the default "articles" component, eliminate

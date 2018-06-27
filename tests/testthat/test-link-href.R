@@ -124,6 +124,24 @@ test_that("github_source returns (possibly many) URLs", {
   )
 })
 
+test_that("trailing pieces of github URLs are stripped", {
+  expect_equal(
+    parse_github_link("https://github.com/simsem/semTools/wiki"),
+    "https://github.com/simsem/semTools"
+  )
+  expect_equal(
+    parse_github_link("https://github.com/r-lib/gh#readme"),
+    "https://github.com/r-lib/gh"
+  )
+})
+
+test_that("source links are valid github URLs", {
+  expect_equal(
+    github_source_links("https://github.com/tidyverse/reprex#readme", "NEWS.md"),
+    "Source: <a href='https://github.com/tidyverse/reprex/blob/master/NEWS.md'><code>NEWS.md</code></a>"
+  )
+})
+
 test_that("fail gracefully with non-working calls", {
   scoped_package_context("test")
 

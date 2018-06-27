@@ -27,7 +27,7 @@
 #' Note that `contents` can contain either a list of function names, or if the
 #' functions in a section share a common prefix or suffix, you can use
 #' `starts_with("prefix")` and `ends_with("suffix")` to select them all. For
-#' more complex naming schemes you can use an aribrary regular expression with
+#' more complex naming schemes you can use an arbitrary regular expression with
 #' `matches("regexp")`. You can also use a leading `-` to exclude matches from a
 #' section. By default, these functions that match multiple topics will exclude
 #' topics with the Rd keyword "internal". To include these, use
@@ -59,7 +59,7 @@
 #'
 #' @section Figures:
 #'
-#' You can control the default rendering of figues by specifying the `figures`
+#' You can control the default rendering of figures by specifying the `figures`
 #' field in `_pkgdown.yml`. The default settings are equivalent to:
 #'
 #' ```
@@ -83,7 +83,7 @@
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
-#'   rapidly protoype. It is set to `FALSE` by [build_site()].
+#'   rapidly prototype. It is set to `FALSE` by [build_site()].
 #' @param document If `TRUE`, will run [devtools::document()] before
 #'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?

@@ -84,7 +84,7 @@ Note that \code{contents} can contain either a list of vignette names
 common prefix or suffix, you can use \code{starts_with("prefix")} and
 \code{ends_with("suffix")} to select them all. If you don't care about
 position within the string, use \code{contains("word")}. For more complex
-naming schemes you can use an aribrary regular expression with
+naming schemes you can use an arbitrary regular expression with
 \code{matches("regexp")}.
 
 pkgdown will check that all vignettes are included in the index
@@ -111,7 +111,7 @@ If the output format produces a PDF, you'll also need to specify the
 }
 }
 
-\section{Supressing vignettes}{
+\section{Suppressing vignettes}{
 
 If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link will be
@@ -127,7 +127,7 @@ sites.
 \section{Figures}{
 
 
-You can control the default rendering of figues by specifying the \code{figures}
+You can control the default rendering of figures by specifying the \code{figures}
 field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
   dev: grDevices::png
   dpi: 96
