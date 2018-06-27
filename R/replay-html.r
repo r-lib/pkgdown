@@ -56,24 +56,37 @@ replay_html.list <- function(x, ...) {
     inherits(x, "html")
   }
 
-  # stitch adjacent pre blocks together
-  html <- purrr::map_lgl(pieces, ~ is_html(.x))
+  # find html pieces with meta dependencies
+  html_meta <- purrr::map_lgl(
+    seq_along(pieces),
+    ~ is_html(pieces[[.x]]) && !is.null(meta[[.x]])
+  )
 
-  # no html, return one big pre block
-  if (!any(html)) {
-    return(paste0("<pre class='examples'>", unlist(pieces), "</pre>"))
+  # no html with dependencies, return one big pre block
+  if (!any(html_meta)) {
+    out <- list(
+      content = paste0(
+        c("<pre class='examples'>", unlist(pieces), "</pre>"),
+        collapse = ""
+      )
+    )
+    return(out)
   }
 
-  pre_group <- cumsum(!html | c(FALSE, html[-1] != html[-length(html)]))
+  # identify html and break into chunks
+  pre_group <- cumsum(
+    !html_meta | c(FALSE, html_meta[-1] != html_meta[-length(html_meta)])
+  )
   pre_parts <- split(pieces, pre_group)
 
+  # add surrounding pre tags to non-html blocks
   out <- purrr::map_if(
     pre_parts,
     ~ !is_html(.x[[1]]),
     ~ paste0("<pre class='examples'>", unlist(.x), "</pre>")
   )
 
-  out <- paste0(unlist(out), collapse = "\n")
+  out <- list(content = paste0(unlist(out), collapse = ""))
 
   meta <- collate_knit_meta(meta)
   attr(out, "html_deps") <- meta
