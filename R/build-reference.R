@@ -266,6 +266,7 @@ data_reference_topic <- function(topic,
 
   out$examples <- as_data(
     tags$tag_examples[[1]],
+    pkg = pkg,
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
     examples = examples,

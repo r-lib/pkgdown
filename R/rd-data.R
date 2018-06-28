@@ -111,6 +111,7 @@ as_data.tag_value <- function(x, ...) {
 
 #' @export
 as_data.tag_examples <- function(x, ...,
+                                 pkg = pkg,
                                  examples = TRUE,
                                  run_dont_run = FALSE,
                                  topic = "unknown",
@@ -196,26 +197,27 @@ as_data.tag_examples <- function(x, ...,
   )
 
   out <- list(content = paste0(unlist(out), collapse = ""))
-  meta <- collate_knit_meta(pieces)
+  meta <- collate_knit_meta(pkg, pieces)
 
   attr(out, "html_deps") <- meta
 
   out
 }
 
-collate_knit_meta <- function(pieces, lib_dir = "assets", output_dir = ".") {
+collate_knit_meta <- function(pkg, pieces) {
   meta <- purrr::map(pieces, ~ attr(.x, "knit_meta"))
+  lib_dir <- path(pkg$dst_path, "assets")
 
   meta <- unique(purrr::flatten(meta)) %>%
     purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
-    purrr::map(htmltools::makeDependencyRelative, output_dir)
+    purrr::map(htmltools::makeDependencyRelative, pkg$dst_path)
 
   htmltools::renderDependencies(
     meta,
     "file",
     encodeFunc = identity,
     hrefFilter = function(path) {
-      rmarkdown::relative_to(output_dir, path)
+      path(path_rel(pkg$dst_path), path)
     }
   )
 }
