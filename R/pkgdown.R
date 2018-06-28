@@ -2,6 +2,7 @@
 #' @importFrom roxygen2 roxygenise
 #' @importFrom R6 R6Class
 #' @import rlang
+#' @import htmltools
 #' @import fs
 NULL
 
