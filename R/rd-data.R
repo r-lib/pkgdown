@@ -150,14 +150,76 @@ as_data.tag_examples <- function(x, ...,
 
   id_generator <- UniqueId$new()
 
-  purrr::pmap(
+  pieces <- purrr::pmap(
     list(code = code, run = run, show = show),
     format_example_chunk,
     env = child_env(env),
     topic = topic,
     obj_id = id_generator$id
+  ) %>% purrr::flatten()
+
+  is_html <- function(x) {
+    inherits(x, "html")
+  }
+  has_meta <- function(x) {
+    length(attr(x, "knit_meta")) > 0
+  }
+
+  # find html pieces with meta dependencies
+  html_meta <- purrr::map_lgl(
+    pieces,
+    ~ is_html(.x) && has_meta(.x)
+  )
+
+  # no html with dependencies, return one big pre block
+  if (!any(html_meta)) {
+    content <- paste0(
+      c("<pre class='examples'>", unlist(pieces), "</pre>"),
+      collapse = ""
+    )
+
+    out <- list(content = content)
+    return(out)
+  }
+
+  # identify html and break into chunks
+  pre_group <- cumsum(
+    !html_meta | c(FALSE, html_meta[-1] != html_meta[-length(html_meta)])
+  )
+  pre_parts <- split(pieces, pre_group)
+
+  # add surrounding pre tags to non-html blocks
+  out <- purrr::map_if(
+    pre_parts,
+    ~ !is_html(.x[[1]]),
+    ~ paste0("<pre class='examples'>", unlist(.x), "</pre>")
+  )
+
+  out <- list(content = paste0(unlist(out), collapse = ""))
+  meta <- collate_knit_meta(pieces)
+
+  attr(out, "html_deps") <- meta
+
+  out
+}
+
+collate_knit_meta <- function(pieces, lib_dir = "assets", output_dir = ".") {
+  meta <- purrr::map(pieces, ~ attr(.x, "knit_meta"))
+
+  meta <- unique(purrr::flatten(meta)) %>%
+    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
+    purrr::map(htmltools::makeDependencyRelative, output_dir)
+
+  htmltools::renderDependencies(
+    meta,
+    "file",
+    encodeFunc = identity,
+    hrefFilter = function(path) {
+      rmarkdown::relative_to(output_dir, path)
+    }
   )
 }
+
 
 format_example_chunk <- function(code, run, show,
                                  topic = "unknown",

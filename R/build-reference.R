@@ -273,7 +273,7 @@ data_reference_topic <- function(topic,
   )
 
   # add dependencies for widgets
-  out$html_deps <- attr(out$examples[[1]], "html_deps")
+  out$html_deps <- attr(out$examples, "html_deps")
 
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(

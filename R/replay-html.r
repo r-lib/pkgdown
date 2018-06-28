@@ -44,71 +44,13 @@ replay_html.list <- function(x, ...) {
   pieces <- list()
   meta <- list()
 
-  # replay each part, keeping output and dependencies
+  # replay each part, keeping outputs sepaarate
   for (i in seq_along(parts)) {
     output <- replay_html(parts[[i]], ...)
-
     pieces[[i]] <- output
-    meta[[i]] <- attr(output, "knit_meta")
   }
 
-  is_html <- function(x) {
-    inherits(x, "html")
-  }
-
-  # find html pieces with meta dependencies
-  html_meta <- purrr::map_lgl(
-    seq_along(pieces),
-    ~ is_html(pieces[[.x]]) && !is.null(meta[[.x]])
-  )
-
-  # no html with dependencies, return one big pre block
-  if (!any(html_meta)) {
-    out <- list(
-      content = paste0(
-        c("<pre class='examples'>", unlist(pieces), "</pre>"),
-        collapse = ""
-      )
-    )
-    return(out)
-  }
-
-  # identify html and break into chunks
-  pre_group <- cumsum(
-    !html_meta | c(FALSE, html_meta[-1] != html_meta[-length(html_meta)])
-  )
-  pre_parts <- split(pieces, pre_group)
-
-  # add surrounding pre tags to non-html blocks
-  out <- purrr::map_if(
-    pre_parts,
-    ~ !is_html(.x[[1]]),
-    ~ paste0("<pre class='examples'>", unlist(.x), "</pre>")
-  )
-
-  out <- list(content = paste0(unlist(out), collapse = ""))
-
-  meta <- collate_knit_meta(meta)
-  attr(out, "html_deps") <- meta
-
-  out
-}
-
-# Format pre blocks --------------------------------------------------
-
-collate_knit_meta <- function(meta, lib_dir = "assets", output_dir = ".") {
-  meta <- unique(purrr::flatten(meta)) %>%
-    purrr::map(htmltools::copyDependencyToDir, lib_dir) %>%
-    purrr::map(htmltools::makeDependencyRelative, output_dir)
-
-  htmltools::renderDependencies(
-    meta,
-    "file",
-    encodeFunc = identity,
-    hrefFilter = function(path) {
-      rmarkdown::relative_to(output_dir, path)
-    }
-  )
+  pieces
 }
 
 # replay_html ------------------------------------------------
