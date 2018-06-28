@@ -41,10 +41,8 @@ replay_html.list <- function(x, ...) {
   # keep only high level plots
   parts <- merge_low_plot(parts)
 
-  pieces <- list()
-  meta <- list()
-
   # replay each part, keeping outputs sepaarate
+  pieces <- list()
   for (i in seq_along(parts)) {
     output <- replay_html(parts[[i]], ...)
     pieces[[i]] <- output
