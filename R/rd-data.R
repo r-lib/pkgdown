@@ -191,7 +191,7 @@ as_data.tag_examples <- function(x, ...,
   # add surrounding pre tags to non-html blocks
   out <- purrr::map_if(
     pre_parts,
-    ~ !is_html(.x[[1]]),
+    ~ !is_html(.x[[1]]) && !has_meta(.x[[1]]),
     ~ paste0(c("<pre class='examples'>", unlist(.x), "</pre>"))
   )
 
