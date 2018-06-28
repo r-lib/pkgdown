@@ -192,7 +192,7 @@ as_data.tag_examples <- function(x, ...,
   out <- purrr::map_if(
     pre_parts,
     ~ !is_html(.x[[1]]),
-    ~ paste0("<pre class='examples'>", unlist(.x), "</pre>")
+    ~ paste0(c("<pre class='examples'>", unlist(.x), "</pre>"))
   )
 
   out <- list(content = paste0(unlist(out), collapse = ""))
