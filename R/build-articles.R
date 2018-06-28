@@ -218,6 +218,7 @@ build_rmarkdown_format <- function(pkg,
     toc_depth = 2,
     self_contained = FALSE,
     theme = NULL,
+    lib_dir = path(pkg$dst_path, "assets"),
     template = template$path
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
