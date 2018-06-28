@@ -45,7 +45,8 @@ Imports:
     usethis,
     whisker,
     xml2 (>= 1.1.1),
-    yaml
+    yaml,
+    htmltools
 Suggests: 
     covr,
     htmlwidgets,
