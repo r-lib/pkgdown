@@ -82,7 +82,7 @@
 #'
 #' @section htmlwidgets:
 #' htmlwidgets in `@examples` will be included in reference topic output.
-#' See an example in [test-widget].
+#' See an example in [test-widgets].
 #'
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`

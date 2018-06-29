@@ -114,7 +114,7 @@ Icons are matched to topics by aliases.
 \section{htmlwidgets}{
 
 htmlwidgets in \code{@examples} will be included in reference topic output.
-See an example in \link{test-widget}.
+See an example in \link{test-widgets}.
 }
 
 \examples{
