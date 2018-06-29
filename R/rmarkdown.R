@@ -2,7 +2,7 @@
 #'
 #' @noRd
 render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE,
-                             quiet = TRUE, parallel = FALSE) {
+                             quiet = TRUE) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -10,10 +10,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE,
   if (!file_exists(input_path)) {
     stop("Can't find ", src_path(input), call. = FALSE)
   }
-
-  if (!isTRUE(parallel)) {
-    cat_line("Reading ", src_path(input))
-  }
+  cat_line("Reading ", src_path(input))
   digest <- file_digest(output_path)
 
   args <- list(
@@ -43,9 +40,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE,
     update_html(path, tweak_rmarkdown_html, input_path = path_dir(input_path))
   }
   if (digest != file_digest(output_path)) {
-    if (!isTRUE(parallel)) {
-      cat_line("Writing ", dst_path(output))
-    }
+    cat_line("Writing ", dst_path(output))
   }
 
   # Copy over images needed by the document

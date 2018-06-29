@@ -128,8 +128,7 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             parallel = FALSE,
-                            workers = availableCores(),
-                            progress = TRUE
+                            workers = availableCores()/2
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
@@ -173,7 +172,6 @@ build_reference <- function(pkg = ".",
                       examples = examples,
                       run_dont_run = run_dont_run,
                       mathjax = mathjax,
-                      .progress = progress,
                       parallel = parallel)
   }
   else {
@@ -227,9 +225,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  if (!isTRUE(parallel)) {
-    cat_line("Reading ", src_path("man", topic$file_in))
-  }
+  cat_line("Reading ", src_path("man", topic$file_in))
   scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- data_reference_topic(

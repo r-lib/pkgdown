@@ -7,7 +7,7 @@
 build_site(pkg = ".", examples = TRUE, document = TRUE,
   run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE, parallel = FALSE,
-  progress = TRUE, workers = future::availableCores())
+  workers = availableCores()/2)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -37,9 +37,7 @@ freshly generated section in browser.}
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
 
-\item{parallel}{if \code{TRUE} uses \code{\link[=future_walk]{future_walk()}} to build vignettes in parallel.}
-
-\item{progress}{Whether to show progress output when building in parallel.}
+\item{parallel}{if \code{TRUE} uses \code{\link[furrr:future_walk]{furrr::future_walk()}} to build vignettes in parallel.}
 
 \item{workers}{The number of workers when building in parallel. Default uses
 all available cores.}

@@ -32,6 +32,8 @@ If \code{""} (the default), prints to standard out.}
 \item{depth}{Depth of path relative to base directory.}
 
 \item{quiet}{If \code{quiet}, will suppress output messages}
+
+\item{parallel}{if \code{TRUE} uses \code{\link[=future_walk]{future_walk()}} to build vignettes in parallel.}
 }
 \description{
 Each page is composed of four templates: "head", "header", "content", and

@@ -104,10 +104,9 @@
 #'   modified more recently than the output file.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
-#' @param parallel if `TRUE` uses [future_walk()] to build vignettes in parallel.
+#' @param parallel if `TRUE` uses [furrr::future_walk()] to build vignettes in parallel.
 #' @param workers The number of workers when building in parallel. Default uses
 #'   all available cores.
-#' @param progress Whether to show progress output when building in parallel.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
@@ -115,8 +114,8 @@ build_articles <- function(pkg = ".",
                            override = list(),
                            preview = NA,
                            parallel = FALSE,
-                           workers = availableCores(),
-                           progress = TRUE) {
+                           workers = availableCores()/2
+                           ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (nrow(pkg$vignettes) == 0L) {
@@ -133,8 +132,8 @@ build_articles <- function(pkg = ".",
       pkg = pkg,
       quiet = quiet,
       lazy = lazy,
-      .progress = progress,
-      parallel = parallel
+      parallel = parallel,
+      .progress = TRUE
     )
   }
   else {
@@ -223,8 +222,7 @@ build_article <- function(name,
     output = output_file,
     output_format = format,
     output_options = options,
-    quiet = quiet,
-    parallel = parallel
+    quiet = quiet
   )
 }
 

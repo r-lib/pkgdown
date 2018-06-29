@@ -265,8 +265,7 @@ build_site <- function(pkg = ".",
                        preview = NA,
                        new_process = TRUE,
                        parallel = FALSE,
-                       progress = TRUE,
-                       workers = availableCores()) {
+                       workers = availableCores()/2) {
 
   if (new_process) {
     build_site_external(
@@ -280,7 +279,6 @@ build_site <- function(pkg = ".",
       override = override,
       preview = preview,
       parallel = parallel,
-      progress = progress,
       workers = workers
     )
   } else {
@@ -295,7 +293,6 @@ build_site <- function(pkg = ".",
       override = override,
       preview = preview,
       parallel = parallel,
-      progress = progress,
       workers = workers
     )
   }
@@ -311,8 +308,7 @@ build_site_external <- function(pkg = ".",
                                 override = list(),
                                 preview = NA,
                                 parallel = FALSE,
-                                progress = TRUE,
-                                workers = availableCores()) {
+                                workers = availableCores()/2) {
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -325,7 +321,6 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     parallel = parallel,
-    progress = progress,
     workers = workers
   )
   callr::r(
@@ -348,8 +343,7 @@ build_site_local <- function(pkg = ".",
                        override = list(),
                        preview = NA,
                        parallel = FALSE,
-                       progress = TRUE,
-                       workers = availableCores()
+                       workers = availableCores()/2
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
@@ -371,11 +365,10 @@ build_site_local <- function(pkg = ".",
     override = override,
     preview = FALSE,
     parallel = parallel,
-    progress = progress,
     workers = workers
   )
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE,
-                 parallel = parallel, progress = progress, workers = workers)
+                 parallel = parallel, workers = workers)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 

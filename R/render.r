@@ -19,6 +19,7 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
+#' @param parallel if `TRUE` uses [future_walk()] to build vignettes in parallel.
 #' @export
 render_page <- function(pkg = ".", name, data, path = "", depth = NULL,
                         quiet = FALSE, parallel = FALSE) {
@@ -156,9 +157,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE,
     return(FALSE)
   }
 
-  if (!quiet && !isTRUE(parallel)) {
-    cat_line("Writing ", dst_path(path))
-  }
+  cat_line("Writing ", dst_path(path))
   write_lines(contents, path = full_path)
   TRUE
 }
