@@ -360,6 +360,7 @@ build_site_local <- function(pkg = ".",
   )
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE,
                  toc_depth = toc_depth)
+  build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 
   rule("DONE", line = 2)
