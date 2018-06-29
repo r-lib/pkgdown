@@ -80,6 +80,10 @@
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
+#' @section htmlwidgets:
+#' htmlwidgets in `@examples` will be included in reference topic output.
+#' See an example in [test-widget].
+#'
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to

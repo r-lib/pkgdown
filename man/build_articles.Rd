@@ -111,6 +111,12 @@ If the output format produces a PDF, you'll also need to specify the
 }
 }
 
+\section{htmlwidgets}{
+
+If you include htmlwidgets in your vignettes, set the chunk option
+\code{out.width = '100\%'} to ensure widgets span the width of the container.
+}
+
 \section{Suppressing vignettes}{
 
 If you want articles that are not vignettes, either put them in

@@ -84,6 +84,10 @@
 #'   extension: pdf
 #' ```
 #'
+#' @section htmlwidgets:
+#' If you include htmlwidgets in your vignettes, set the chunk option
+#' \code{out.width = '100\%'} to ensure widgets span the width of the container.
+#'
 #' @inheritSection build_reference Figures
 #'
 #' @section Suppressing vignettes:

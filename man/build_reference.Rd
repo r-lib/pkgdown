@@ -111,6 +111,12 @@ either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }
 
+\section{htmlwidgets}{
+
+htmlwidgets in \code{@examples} will be included in reference topic output.
+See an example in \link{test-widget}.
+}
+
 \examples{
 # This example illustrates some important output types
 # The following output should be wrapped over multiple lines

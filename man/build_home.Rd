@@ -97,3 +97,9 @@ This section is automatically populated if the first paragraph of the
 homepage consists solely of status badges as linked images.
 }
 
+\section{htmlwidgets}{
+
+If you include htmlwidgets on your \code{README.Rmd}, you will need to add
+\code{always_allow_html: yes} to the YAML front matter.
+}
+

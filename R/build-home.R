@@ -81,6 +81,10 @@
 #' This section is automatically populated if the first paragraph of the
 #' homepage consists solely of status badges as linked images.
 #'
+#' @section htmlwidgets:
+#' If you include htmlwidgets on your `README.Rmd`, you will need to add
+#' `always_allow_html: yes` to the YAML front matter.
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",
