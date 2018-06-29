@@ -22,6 +22,14 @@ test_that("tables get class='table' prepended to existing classes", {
     expect_equal("table foo bar")
 })
 
+test_that("tweaking tables does not touch other html", {
+  html_untouched <- html <- xml2::read_html("<body><em>foo</em></body>")
+  tweak_tables(html)
+
+  html %>%
+    expect_equal(html_untouched)
+})
+
 # anchors -------------------------------------------------------------
 
 test_that("anchors don't get additional newline", {
