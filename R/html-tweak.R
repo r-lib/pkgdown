@@ -70,13 +70,18 @@ tweak_md_links <- function(html) {
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
-  # prepend existing classes, so that existing classes can overrwrite .table css
-  existing_classes <- xml2::xml_attr(table, "class")
-  new_classes <- "table"
-  if (!is.na(existing_classes)) {
-    new_classes <- paste(new_classes, existing_classes)
+
+  if (length(table) != 0) {
+
+    existing <- xml2::xml_attr(table, "class")
+
+    tweaked <- "table"
+    if (!is.na(existing)) {
+      tweaked <- paste(tweaked, existing)
+    }
+
+    xml2::xml_attr(table, "class") <- tweaked
   }
-  xml2::xml_attr(table, "class") <- new_classes
 
   invisible()
 }
