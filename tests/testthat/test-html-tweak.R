@@ -27,7 +27,7 @@ test_that("tweaking tables does not touch other html", {
   tweak_tables(html)
 
   html %>%
-    expect_equal(html_untouched)
+    expect_equivalent(html_untouched)
 })
 
 # anchors -------------------------------------------------------------
