@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test case: params — test-params • pkgdown</title>
+<title>Test case: output styles — test-output-styles • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Test case: params — test-params" />
+<meta property="og:title" content="Test case: output styles — test-output-styles" />
 
-<meta property="og:description" content="Test case: params" />
+<meta property="og:description" content="Test case: output styles" />
 
 <meta property="og:image" content="http://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -150,43 +150,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test case: params</h1>
+    <h1>Test case: output styles</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
-    <div class="hidden name"><code>test-params.Rd</code></div>
+    <div class="hidden name"><code>test-output-styles.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Test case: params</p>
+    <p>Test case: output styles</p>
     
     </div>
 
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>...</th>
-      <td><p>ellipsis</p></td>
-    </tr>
-    </table>
-    
+        
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other tests: <code><a href='test-dont.html'>test-dont</a></code>,
   <code><a href='test-figures.html'>test-figures</a></code>, <code><a href='test-links.html'>test-links</a></code>,
-  <code><a href='test-lists.html'>test-lists</a></code>,
-  <code><a href='test-output-styles.html'>test-output-styles</a></code></p></div>
+  <code><a href='test-lists.html'>test-lists</a></code>, <code><a href='test-params.html'>test-params</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This example illustrates some important output types</span>
+<span class='co'># The following output should be wrapped over multiple lines</span>
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>100</span>
+<span class='no'>a</span></div><div class='output co'>#&gt;   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+#&gt;  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+#&gt;  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+#&gt;  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+#&gt;  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+#&gt;  [91]  91  92  93  94  95  96  97  98  99 100</div><div class='input'>
+<span class='fu'>cat</span>(<span class='st'>"This some text!\n"</span>)</div><div class='output co'>#&gt; This some text!</div><div class='input'><span class='fu'>message</span>(<span class='st'>"This is a message!"</span>)</div><div class='output co'>#&gt; <span class='message'>This is a message!</span></div><div class='input'><span class='fu'>warning</span>(<span class='st'>"This is a warning!"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: This is a warning!</span></div><div class='input'>
+<span class='co'># This is a multi-line block</span>
+{
+  <span class='fl'>1</span> + <span class='fl'>2</span>
+  <span class='fl'>2</span> + <span class='fl'>2</span>
+}</div><div class='output co'>#&gt; [1] 4</div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>stop</span>(<span class='st'>"This is an error!"</span>, <span class='kw'>call.</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span><div class='input'>
+</div><div class='input'><span class='co'># This code won't generally be run by CRAN. But it</span>
+<span class='co'># will be run by pkgdown</span>
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
+<span class='no'>a</span> + <span class='no'>b</span></div><div class='output co'>#&gt;   [1]  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
+#&gt;  [19]  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46
+#&gt;  [37]  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64
+#&gt;  [55]  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82
+#&gt;  [73]  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100
+#&gt;  [91] 101 102 103 104 105 106 107 108 109 110</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
