@@ -111,30 +111,3 @@ either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }
 
-\examples{
-# This example illustrates some important output types
-# The following output should be wrapped over multiple lines
-a <- 1:100
-a
-
-cat("This some text!\\n")
-message("This is a message!")
-warning("This is a warning!")
-
-# This is a multi-line block
-{
-  1 + 2
-  2 + 2
-}
-
-\dontrun{
-stop("This is an error!", call. = FALSE)
-}
-
-\donttest{
-# This code won't generally be run by CRAN. But it
-# will be run by pkgdown
-b <- 10
-a + b
-}
-}
