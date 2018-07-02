@@ -42,13 +42,7 @@ replay_html.list <- function(x, ...) {
   parts <- merge_low_plot(parts)
 
   # replay each part, keeping outputs sepaarate
-  pieces <- list()
-  for (i in seq_along(parts)) {
-    output <- replay_html(parts[[i]], ...)
-    pieces[[i]] <- output
-  }
-
-  pieces
+  purrr::map(parts, replay_html, ...)
 }
 
 # replay_html ------------------------------------------------
@@ -104,11 +98,10 @@ replay_html.recordedplot <- function(x, topic, obj_id, ...) {
 }
 
 #' @export
-replay_html.knit_asis <- function(x, name_prefix, obj_id, ...) {
-  # wrap in own div because <pre> breaks htmlwidgets stylesheet
-  output <- htmltools::HTML(paste0("<div class='knit_asis'>", x, "</div>"))
-  attr(output, "knit_meta") <- attr(x, "knit_meta")
-  output
+replay_html.knit_asis <- function(x, ...) {
+  out <- paste0("<div class='knit_asis'>", x, "</div>")
+  attr(out, "knit_meta") <- attr(x, "knit_meta")
+  out
 }
 
 # Knitr functions ------------------------------------------------------------

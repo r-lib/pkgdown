@@ -157,20 +157,17 @@ as_data.tag_examples <- function(x, ...,
     env = child_env(env),
     topic = topic,
     obj_id = id_generator$id
-  ) %>% purrr::flatten()
+  )
 
-  is_html <- function(x) {
-    inherits(x, "html")
-  }
-  has_meta <- function(x) {
+  # flatten here to ensure that input and output blocks are at the same level.
+  pieces <- unname(purrr::flatten(pieces))
+
+  has_html_meta <- function(x) {
     length(attr(x, "knit_meta")) > 0
   }
 
   # find html pieces with meta dependencies
-  html_meta <- purrr::map_lgl(
-    pieces,
-    ~ is_html(.x) && has_meta(.x)
-  )
+  html_meta <- purrr::map_lgl(pieces, ~ has_html_meta(.x))
 
   # no html with dependencies, return one big pre block
   if (!any(html_meta)) {
@@ -178,9 +175,7 @@ as_data.tag_examples <- function(x, ...,
       c("<pre class='examples'>", unlist(pieces), "</pre>"),
       collapse = ""
     )
-
-    out <- list(content = content)
-    return(out)
+    return(list(content = content))
   }
 
   # identify html and break into chunks
@@ -192,7 +187,7 @@ as_data.tag_examples <- function(x, ...,
   # add surrounding pre tags to non-html blocks
   out <- purrr::map_if(
     pre_parts,
-    ~ !is_html(.x[[1]]) && !has_meta(.x[[1]]),
+    ~ !has_html_meta(.x[[1]]),
     ~ paste0(c("<pre class='examples'>", unlist(.x), "</pre>"))
   )
 
