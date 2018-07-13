@@ -1,5 +1,12 @@
 # pkgdown 1.1.0.9000
 
+* Automatic CRAN link creation can be skipped to prevent curl timeout errors (#762):
+
+  ```yaml
+  development:
+    github_only: true
+  ```
+
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
   

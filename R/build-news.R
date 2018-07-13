@@ -209,6 +209,10 @@ is_dev <- function(version) {
 }
 
 pkg_timeline <- function(package) {
+  if (is_github_only(pkg$meta)) {
+    return(NULL)
+  }
+
   url <- paste0("http://crandb.r-pkg.org/", package, "/all")
 
   resp <- httr::GET(url)

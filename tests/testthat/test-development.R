@@ -24,3 +24,12 @@ test_that("dev_mode recognises basic version structure", {
   expect_equal(dev_mode(package_version("0.1.0")), "release")
   expect_equal(dev_mode(package_version("1.0.0.9000")), "devel")
 })
+
+test_that("github_only gets correct defaults", {
+  dev <- meta_development(
+    list(development = list(github_only = "true"))
+  )
+  expect_true(dev$github_only)
+  dev <- meta_development(list())
+  expect_false(dev$github_only)
+})
