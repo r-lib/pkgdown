@@ -119,20 +119,25 @@ The mode will be automatically determined based on the version number:
 \item everything else -> release
 }
 
-There are three other options that you can control:\preformatted{development:
+There are four other options that you can control:\preformatted{development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
+  github_only: true
 }
-
-\code{destination} allows you to override the default subdirectory used for the
-development site; it defaults to \code{dev/}. \code{version_label} allows you to
-override the style used for development (and unreleased) versions of the
-package. It defaults to "danger", but you can set to "default", "info", or
-"warning" instead. (The precise colours are determined by your bootstrap
-theme, but become progressively more eye catching as you go from default
-to danger). Finally, you can choose to override the default tooltip with
-\code{version_tooltip}.
+\itemize{
+\item \code{destination} allows you to override the default subdirectory used for the
+development site; it defaults to \code{dev/}.
+\item \code{version_label} allows you to override the style used for development (and
+unreleased) versions of the package. It defaults to "danger", but you can set
+to "default", "info", or "warning" instead. (The precise colours are
+determined by your bootstrap theme, but become progressively more eye
+catching as you go from default to danger).
+\item \code{version_tooltip} allows you can choose to override the default
+tooltip.
+\item \code{github_only} indicates a package is only developed on github and so
+automatic CRAN link creation will be skipped.
+}
 }
 
 \section{YAML config - navbar}{

@@ -31,12 +31,15 @@ meta_development <- function(meta, version) {
 
   in_dev <- mode == "devel"
 
+  github_only <- purrr::pluck(development, "github_only", .default = FALSE) == "true"
+
   list(
     destination = destination,
     mode = mode,
     version_label = version_label,
     version_tooltip = version_tooltip,
-    in_dev = in_dev
+    in_dev = in_dev,
+    github_only = github_only
   )
 }
 

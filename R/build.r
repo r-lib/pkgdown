@@ -87,23 +87,27 @@
 #' * four version components: development
 #' * everything else -> release
 #'
-#' There are three other options that you can control:
+#' There are four other options that you can control:
 #'
 #' ```
 #' development:
 #'   destination: dev
 #'   version_label: danger
 #'   version_tooltip: "Custom message here"
+#'   github_only: true
 #' ```
 #'
-#' `destination` allows you to override the default subdirectory used for the
-#' development site; it defaults to `dev/`. `version_label` allows you to
-#' override the style used for development (and unreleased) versions of the
-#' package. It defaults to "danger", but you can set to "default", "info", or
-#' "warning" instead. (The precise colours are determined by your bootstrap
-#' theme, but become progressively more eye catching as you go from default
-#' to danger). Finally, you can choose to override the default tooltip with
-#' `version_tooltip`.
+#' - `destination` allows you to override the default subdirectory used for the
+#' development site; it defaults to `dev/`.
+#' - `version_label` allows you to override the style used for development (and
+#' unreleased) versions of the package. It defaults to "danger", but you can set
+#' to "default", "info", or "warning" instead. (The precise colours are
+#' determined by your bootstrap theme, but become progressively more eye
+#' catching as you go from default to danger).
+#' - `version_tooltip` allows you can choose to override the default
+#' tooltip.
+#' - `github_only` indicates a package is only developed on github and so
+#' automatic CRAN link creation will be skipped.
 #'
 #' @section YAML config - navbar:
 #' `navbar` controls the navbar at the top of the page. It has two primary
