@@ -19,3 +19,9 @@ test_that("find_reexport_source_from_imports", {
     "R6"
   )
 })
+
+test_that("can check for internet connectivity", {
+  # add after next testthat release (>2.0.0)
+  # skip_if_offline()
+  expect_true(has_internet())
+})

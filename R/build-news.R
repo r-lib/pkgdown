@@ -211,6 +211,10 @@ is_dev <- function(version) {
 pkg_timeline <- function(package) {
   url <- paste0("http://crandb.r-pkg.org/", package, "/all")
 
+  if (!has_internet(host = url)) {
+    return(NULL)
+  }
+
   resp <- httr::GET(url)
   if (httr::http_error(resp)) {
     return(NULL)

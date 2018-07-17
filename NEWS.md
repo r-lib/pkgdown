@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* pkgdown now checks for an internet connection to avoid build errors for users
+  with limited internet connectivity.
+
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
   
