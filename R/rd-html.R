@@ -216,7 +216,8 @@ method_usage <- function(x, type) {
 #' @export
 as_html.tag_Sexpr <- function(x, ...) {
   code <- flatten_text(x, escape = FALSE)
-  options <- parse_opts(attr(x, "Rd_option"))
+  options <- parse_opts(attr(x, "Rd_option"), parallel = parallel,
+                        workers = workers)
 
   # Needs to be package root
   old_wd <- setwd(context_get("src_path"))
@@ -516,7 +517,7 @@ trim_ws_nodes <- function(x, side = c("both", "left", "right")) {
 
 # Helpers -----------------------------------------------------------------
 
-parse_opts <- function(string) {
+parse_opts <- function(string, parallel = parallel, workers = workers) {
   if (is.null(string)) {
     return(list())
   }
@@ -530,7 +531,13 @@ parse_opts <- function(string) {
   exprs <- purrr::map(args, parse_expr)
 
   env <- child_env(arg_env)
+  if (isTRUE(parallel)) {
+    plan("multiprocess", workers = workers)
+    future_walk(exprs, eval_bare, env = env)
+  }
+  else {
   purrr::walk(exprs, eval_bare, env = env)
+  }
 
   as.list(env)
 }

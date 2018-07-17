@@ -7,9 +7,10 @@
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
   examples = TRUE, run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  override = list(), preview = NA)
+  override = list(), preview = NA, parallel = FALSE,
+  workers = availableCores()/2)
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", parallel = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -35,6 +36,11 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{parallel}{if \code{TRUE} uses \code{\link[furrr:future_walk]{furrr::future_walk()}} to build vignettes in parallel.}
+
+\item{workers}{The number of workers when building in parallel. Default uses
+all available cores.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in

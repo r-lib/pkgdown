@@ -1,7 +1,8 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE,
+                             quiet = TRUE) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -9,7 +10,6 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   if (!file_exists(input_path)) {
     stop("Can't find ", src_path(input), call. = FALSE)
   }
-
   cat_line("Reading ", src_path(input))
   digest <- file_digest(output_path)
 

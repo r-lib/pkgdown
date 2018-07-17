@@ -3,6 +3,8 @@
 #' @importFrom R6 R6Class
 #' @import rlang
 #' @import fs
+#' @import furrr
+#' @import future
 NULL
 
 #' Determine if code is executed by pkgdown

@@ -104,12 +104,18 @@
 #'   modified more recently than the output file.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
+#' @param parallel if `TRUE` uses [furrr::future_walk()] to build vignettes in parallel.
+#' @param workers The number of workers when building in parallel. Default uses
+#'   all available cores.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
                            override = list(),
-                           preview = NA) {
+                           preview = NA,
+                           parallel = FALSE,
+                           workers = availableCores()/2
+                           ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (nrow(pkg$vignettes) == 0L) {
@@ -118,13 +124,26 @@ build_articles <- function(pkg = ".",
 
   rule("Building articles")
 
-  build_articles_index(pkg)
-  purrr::walk(
-    pkg$vignettes$name, build_article,
-    pkg = pkg,
-    quiet = quiet,
-    lazy = lazy
-  )
+  build_articles_index(pkg, parallel = parallel)
+  if (isTRUE(parallel)) {
+    plan("multiprocess", workers = workers)
+    future_walk(
+      pkg$vignettes$name, build_article,
+      pkg = pkg,
+      quiet = quiet,
+      lazy = lazy,
+      parallel = parallel,
+      .progress = TRUE
+    )
+  }
+  else {
+    purrr::walk(
+      pkg$vignettes$name, build_article,
+      pkg = pkg,
+      quiet = quiet,
+      lazy = lazy
+    )
+  }
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -138,7 +157,8 @@ build_article <- function(name,
                            pkg = ".",
                            data = list(),
                            lazy = FALSE,
-                           quiet = TRUE) {
+                           quiet = TRUE,
+                           parallel = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
@@ -231,9 +251,10 @@ build_rmarkdown_format <- function(pkg,
 # inst/template/article-vignette.html
 # Output is a path + environment; when the environment is garbage collected
 # the path will be deleted
-rmarkdown_template <- function(pkg, data, depth) {
+rmarkdown_template <- function(pkg, data, depth, parallel) {
   path <- tempfile(fileext = ".html")
-  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
+  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE,
+              parallel = parallel)
 
   # Remove template file when format object is GC'd
   e <- env()
@@ -244,13 +265,14 @@ rmarkdown_template <- function(pkg, data, depth) {
 
 # Articles index ----------------------------------------------------------
 
-build_articles_index <- function(pkg = ".") {
+build_articles_index <- function(pkg = ".", parallel = parallel) {
   dir_create(path(pkg$dst_path, "articles"))
   render_page(
     pkg,
     "article-index",
     data = data_articles_index(pkg),
-    path = path("articles", "index.html")
+    path = path("articles", "index.html"),
+    parallel = parallel
   )
 }
 

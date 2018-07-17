@@ -19,8 +19,10 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
+#' @param parallel if `TRUE` uses [future_walk()] to build vignettes in parallel.
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL,
+                        quiet = FALSE, parallel = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -41,7 +43,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # render complete layout
   template <- find_template("layout", name, template_path = template_path(pkg))
   rendered <- render_template(template, components)
-  write_if_different(pkg, rendered, path, quiet = quiet)
+  write_if_different(pkg, rendered, path, quiet = quiet, parallel = parallel)
 }
 
 #' @export
@@ -139,7 +141,8 @@ find_template <- function(type, name, ext = ".html", template_path = NULL) {
 }
 
 
-write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
+write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE,
+                               parallel = FALSE) {
   # Almost all uses are relative to destination, except for rmarkdown templates
   full_path <- path_abs(path, start = pkg$dst_path)
 
@@ -154,9 +157,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
     return(FALSE)
   }
 
-  if (!quiet) {
-    cat_line("Writing ", dst_path(path))
-  }
+  cat_line("Writing ", dst_path(path))
   write_lines(contents, path = full_path)
   TRUE
 }
