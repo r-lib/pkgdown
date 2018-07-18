@@ -117,5 +117,6 @@ skip_if_no_pandoc <- function() {
 
 # from testthat::skip_if_offline()
 has_internet <- function(host = "r-project.org") {
+  if(identical(getOption('pkgdown.internet'), FALSE)) return(FALSE)
   !is.null(curl::nslookup(host, error = FALSE))
 }
