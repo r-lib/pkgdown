@@ -103,10 +103,6 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
 repo_link <- memoise(function(pkg) {
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
 
-  if (!has_internet()) {
-    return(NULL)
-  }
-
   if (!httr::http_error(cran_url)) {
     return(list(repo = "CRAN", url = cran_url))
   }
