@@ -22,7 +22,6 @@ Imports:
     callr (>= 2.0.2),
     cli,
     crayon,
-    curl,
     desc,
     devtools,
     digest,

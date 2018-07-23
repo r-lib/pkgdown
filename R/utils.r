@@ -112,10 +112,3 @@ print.print_yaml <- function(x, ...) {
 skip_if_no_pandoc <- function() {
   testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
 }
-
-# internet connectivity -------------------------------------------------------
-
-# from testthat::skip_if_offline()
-has_internet <- function(host = "r-project.org") {
-  !is.null(curl::nslookup(host, error = FALSE))
-}
