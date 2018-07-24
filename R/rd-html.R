@@ -28,7 +28,16 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map_chr(x, as_html, ...)
+  # Wrangling useful debugging information for some as_html() calls
+  section_tagname <- class(x)[1]
+  section_name <- paste(
+    toupper(substr(section_tagname, 5, 5)),
+    substr(section_tagname, 6, nchar(section_tagname)),
+    sep = ""
+  )
+
+  # Calling as_html() on `x` with section_name passed through dots
+  html <- purrr::map_chr(x, as_html, section_name = section_name, ...)
   blocks <- html %>%
     split(groups) %>%
     purrr::map_chr(paste, collapse = "")
@@ -100,7 +109,17 @@ as_html.tag_subsection <- function(x, ...) {
 
 #' @export
 as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
-  stopifnot(length(x) <= 2)
+  if ( length(x) > 2 ) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "An \\eqn{} Rd tag contains a bad equation in the",
+      section_name, "section of the", file_name, "file."
+    )
+    stop(message1)
+  }
+
   if (isTRUE(mathjax)){
     latex_rep <- x[[1]]
     paste0("\\(", flatten_text(latex_rep, ...), "\\)")
@@ -112,7 +131,17 @@ as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
 
 #' @export
 as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
-  stopifnot(length(x) <= 2)
+  if ( length(x) > 2 ) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "A \\deqn{} Rd tag contains a bad equation in the",
+      section_name, "section of the", file_name, "file."
+    )
+    stop(message1)
+  }
+
   if (isTRUE(mathjax)) {
     latex_rep <- x[[1]]
     paste0("$$", flatten_text(latex_rep, ...), "$$")
@@ -125,20 +154,59 @@ as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
 # Links ----------------------------------------------------------------------
 #' @export
 as_html.tag_url <- function(x, ...) {
-  stopifnot(length(x) == 1)
+  if ( length(x) != 1 ) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "A \\url Rd tag contains a bad URL in the",
+      section_name, "section of the", file_name, "file."
+    )
+    if ( length(x) == 0 ) {
+      message2 <- paste(
+        message1, "Check for empty \\url{} tags."
+      )
+      stop(message2)
+    } else {
+      message2 <- paste(
+        message1,
+        "This could be caused by a \\url tag that spans a line break."
+      )
+      stop(message2)
+    }
+  }
 
   text <- flatten_text(x[[1]])
   a(text, href = text)
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
-  stopifnot(length(x) == 2)
+  if ( length(x) != 2 ) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "A \\href Rd tag contains a bad label or destination in the",
+      section_name, "section of the", file_name, "file."
+    )
+    stop(message1)
+  }
 
   a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
-  stopifnot(length(x) %in% c(1L, 2L))
+  if ( !(length(x) %in% c(1L, 2L))) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "An \\email Rd tag contains a bad label or email in the",
+      section_name, "section of the", file_name, "file."
+    )
+    stop(message1)
+  }
+
   paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
@@ -185,7 +253,16 @@ as_html.tag_link <- function(x, ...) {
 
 #' @export
 as_html.tag_linkS4class <- function(x, ...) {
-  stopifnot(length(x) == 1)
+  if ( length(x) != 1 ) {
+    dots <- list(...)
+    section_name <- dots$section_name
+    file_name <- dots$file_name
+    message1 <- paste(
+      "A \\linkS4class{} Rd tag contains bad link in the",
+      section_name, "section of the", file_name, "file."
+    )
+    stop(message1)
+  }
 
   text <- flatten_text(x[[1]])
   href <- href_topic_local(paste0(text, "-class"))

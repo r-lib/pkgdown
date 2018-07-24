@@ -346,3 +346,36 @@ test_that("titles don't get autolinked code", {
   rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<code>foo()</code>")
 })
+
+# Handling URL failures verbosely -----------------------------------------
+
+
+test_that("URLs handled well", {
+
+  rd_file_name <- "test.Rd"
+  section_name <- "Details"
+
+  expect_equal(
+    html <- rd2html(
+      x = "\\url{http://google.com}",
+      file_name = rd_file_name,
+      section_name = section_name
+    ),
+    a("http://google.com", href = "http://google.com")
+  )
+  expect_error(
+    html <- rd2html(
+      x = "\\url{}",
+      file_name = rd_file_name,
+      section_name = section_name
+    )
+  )
+  expect_error(
+    rd2html(
+      x = "\\url{http://go \n ogle.com}",
+      file_name = rd_file_name,
+      section_name = section_name
+    )
+  )
+
+})
