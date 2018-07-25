@@ -112,3 +112,7 @@ print.print_yaml <- function(x, ...) {
 skip_if_no_pandoc <- function() {
   testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
 }
+
+has_internet <- function() {
+  return(getOption("pkgdown.internet", default = TRUE))
+}

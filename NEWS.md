@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
+  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()`.
+  
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
   

@@ -19,3 +19,9 @@ test_that("find_reexport_source_from_imports", {
     "R6"
   )
 })
+
+test_that("pkgdown.internet can be set and read", {
+  options(pkgdown.internet = FALSE)
+  expect_false(has_internet())
+})
+
