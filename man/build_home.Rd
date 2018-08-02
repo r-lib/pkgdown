@@ -4,7 +4,8 @@
 \alias{build_home}
 \title{Build home section}
 \usage{
-build_home(pkg = ".", override = list(), preview = NA, quiet = TRUE)
+build_home(pkg = ".", override = list(), preview = NA,
+  quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}

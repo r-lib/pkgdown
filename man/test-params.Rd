@@ -15,4 +15,5 @@ Other tests: \code{\link{test-dont}},
   \code{\link{test-lists}},
   \code{\link{test-output-styles}}
 }
+\concept{tests}
 \keyword{internal}

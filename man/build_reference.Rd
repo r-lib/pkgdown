@@ -6,8 +6,8 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
-  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  override = list(), preview = NA)
+  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE,
+  seed = 1014, override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }
@@ -69,8 +69,7 @@ topics with the Rd keyword "internal". To include these, use
 \code{starts_with("build_", internal = TRUE)}.
 
 You can alo select topics that contain specified Rd concepts with
-\code{has_concept("blah")}. Concepts are not currently well-supported by
-roxygen2, but may be useful if you write Rd files by hand.
+\code{has_concept("blah")}.
 
 You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >
