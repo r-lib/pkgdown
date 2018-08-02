@@ -34,8 +34,7 @@
 #' `starts_with("build_", internal = TRUE)`.
 #'
 #' You can alo select topics that contain specified Rd concepts with
-#' `has_concept("blah")`. Concepts are not currently well-supported by
-#' roxygen2, but may be useful if you write Rd files by hand.
+#' `has_concept("blah")`.
 #'
 #' You can provide long descriptions for groups of functions using the YAML `>`
 #' notation:
