@@ -27,4 +27,5 @@ Other tests: \code{\link{test-figures}},
   \code{\link{test-output-styles}},
   \code{\link{test-params}}
 }
+\concept{tests}
 \keyword{internal}

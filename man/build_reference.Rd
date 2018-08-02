@@ -6,8 +6,8 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
-  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE, seed = 1014,
-  override = list(), preview = NA)
+  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE,
+  seed = 1014, override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }

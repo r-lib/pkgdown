@@ -5,8 +5,8 @@
 \alias{build_article}
 \title{Build articles section}
 \usage{
-build_articles(pkg = ".", quiet = TRUE, lazy = TRUE, override = list(),
-  preview = NA)
+build_articles(pkg = ".", quiet = TRUE, lazy = TRUE,
+  override = list(), preview = NA)
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE,
   quiet = TRUE)
