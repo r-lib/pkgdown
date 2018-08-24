@@ -47,6 +47,31 @@ test_that("intermediate files cleaned up automatically", {
   )
 })
 
+test_that("home template is used with index.md", {
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-index-template-md")
+  build_site(pkg)
+  on.exit(clean_site(pkg))
+
+  rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
+  is_custom <- any(grepl("custom template", rendered_lines))
+  expect_true(is_custom)
+
+})
+
+test_that("home template is used with index.Rmd", {
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-index-template-rmd")
+  build_site(pkg)
+  on.exit(clean_site(pkg))
+
+  rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
+  is_custom <- any(grepl("custom template", rendered_lines))
+  expect_true(is_custom)
+
+})
 
 # tweaks ------------------------------------------------------------------
 
