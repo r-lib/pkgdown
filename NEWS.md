@@ -1,6 +1,8 @@
 # pkgdown 1.1.0.9000
 
 * `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+* `deploy_site()` added to build and deploy a site to GitHub Pages from the
+  Travis CI service (@jimhester).
 
 * `init_site()` now creates a CNAME file if one doesn't already exist and the
   site's metadata includes a `url` field.
