@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* `init_site()` now creates a CNAME file if one doesn't already exist and the
+  site's metadata includes a `url` field.
+
 * Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
   by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774).
   
