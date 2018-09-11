@@ -2,7 +2,7 @@
 github_url_rx <- function() {
   paste0(
     "^",
-    "(?:https?://github.com/)",
+    "(?<endpoint>https?://(github|ghe(.*?)).com/)",
     "(?<owner>[^/]+)/",
     "(?<repo>[^/#]+)",
     "/?",
@@ -21,7 +21,7 @@ github_url_rx <- function() {
 ## output: "https://github.com/r-lib/gh"
 pkg_github_url <- function(desc) {
   urls <- desc$get_urls()
-  gh_links <- grep("^https?://github.com/", urls, value = TRUE)
+  gh_links <- grep("^https?://(github|ghe(.*?)).com/", urls, value = TRUE)
 
   if (length(gh_links) == 0) {
     return()
@@ -33,7 +33,7 @@ pkg_github_url <- function(desc) {
 
 parse_github_link <- function(link) {
   x <- rematch2::re_match(link, github_url_rx())
-  paste0("https://github.com/", x$owner, "/", x$repo)
+  paste0(x$endpoint, x$owner, "/", x$repo)
 }
 
 github_source <- function(base, paths) {
