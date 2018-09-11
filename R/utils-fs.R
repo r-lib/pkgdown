@@ -84,10 +84,10 @@ path_package_pkgdown <- function(package, ...) {
     stop(package, " is not installed", call. = FALSE)
   }
 
-  pkg_path <- system.file("pkgdown", ..., package = package, mustWork = TRUE)
+  pkg_path <- system.file("pkgdown", ..., package = package, mustWork = FALSE)
   if (pkg_path == "") {
     stop(
-      package, " does not contain ", src_path("inst/pkgdown/", path),
+      package, " does not contain ", src_path("inst/pkgdown/", ...),
       call. = FALSE
     )
   }
