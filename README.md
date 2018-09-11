@@ -1,16 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pkgdown <img src="man/figures/logo.png" align="right" />
+# pkgdown <img src="man/figures/logo.png" align="right" alt="" />
 
-[![Travis-CI Build
-Status](https://travis-ci.org/r-lib/pkgdown.svg?branch=master)](https://travis-ci.org/r-lib/pkgdown)
+[![Travis-CI build
+status](https://travis-ci.org/r-lib/pkgdown.svg?branch=master)](https://travis-ci.org/r-lib/pkgdown)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgdown?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/pkgdown)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/r-lib/pkgdown/master.svg)](https://codecov.io/github/r-lib/pkgdown?branch=master)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![CRAN
+Status](http://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
+[![Codecov test
+coverage](https://img.shields.io/codecov/c/github/r-lib/pkgdown/master.svg)](https://codecov.io/github/r-lib/pkgdown?branch=master)
 
 pkgdown is designed to make it quick and easy to build a website for
 your package. You can see pkgdown in action at
