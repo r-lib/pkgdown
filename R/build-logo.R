@@ -7,7 +7,7 @@ build_logo <- function(pkg = ".") {
 
   file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
   if (!requireNamespace("magick", quietly = TRUE)) {
-    message("Magick not avaliable, not creating favicon.ico")
+    message("magick not available, not creating favicon.ico")
     return()
   }
 
