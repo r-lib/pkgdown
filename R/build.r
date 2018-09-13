@@ -311,12 +311,17 @@ build_site_external <- function(pkg = ".",
     lazy = lazy,
     override = override,
     preview = FALSE,
-    new_process = FALSE
+    new_process = FALSE,
+    crayon_enabled = crayon::has_color(),
+    crayon_colors = crayon::num_colors()
   )
   callr::r(
-    function(...) pkgdown::build_site(...),
+    function(..., crayon_enabled, crayon_colors) {
+      options(crayon.enabled = crayon_enabled, crayon.colors = crayon_colors)
+      pkgdown::build_site(...)
+    },
     args = args,
-    show = TRUE
+    show = TRUE,
   )
 
   preview_site(pkg, preview = preview)
