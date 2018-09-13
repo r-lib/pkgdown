@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+
 * `init_site()` now creates a CNAME file if one doesn't already exist and the
   site's metadata includes a `url` field.
 
