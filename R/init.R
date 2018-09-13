@@ -27,6 +27,10 @@
 init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
+  if (is_non_pkgdown_site(pkg$dst_path)) {
+    stop(dst_path(pkg$dst_path), " is non-empty and not built by pkgdown", call. = FALSE)
+  }
+
   rule("Initialising site")
   dir_create(pkg$dst_path)
   copy_assets(pkg)
@@ -99,4 +103,15 @@ build_site_meta <- function(pkg = ".") {
   path_meta <- path(pkg$dst_path, "pkgdown.yml")
   write_yaml(meta, path_meta)
   invisible()
+}
+
+is_non_pkgdown_site <- function(dst_path) {
+  if (!dir_exists(dst_path)) {
+    return(FALSE)
+  }
+
+  top_level <- dir_ls(dst_path)
+  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
+
+  length(top_level) > 1 && !"pkgdown.yml" %in% path_file(top_level)
 }
