@@ -8,7 +8,7 @@ build_cname <- function(pkg = ".") {
     cname <- sub("//$", "", cname)
     cname_path <- path(pkg$dst_path, "CNAME")
 
-    write_if_different(pkg, cname, cname_path)
+    write_if_different(pkg, cname, cname_path, check = FALSE)
   }
 
   invisible()
