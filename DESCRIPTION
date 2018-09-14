@@ -32,7 +32,9 @@ Imports:
     magrittr,
     MASS,
     memoise,
+    openssl,
     purrr,
+    processx,
     R6,
     rematch2,
     rlang (>= 0.2.0),
@@ -56,6 +58,6 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 SystemRequirements: pandoc
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
+Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
