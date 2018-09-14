@@ -54,6 +54,9 @@ deploy_site_github <- function(
     stop("No repo detected, please supply one with `repo_slug`", call. = FALSE)
   }
 
+  # force execution before changing working directory
+  force(commit_message)
+
   rule("Deploying site", line = 2)
   rule("Installing package", line = 1)
   callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
