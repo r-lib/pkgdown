@@ -113,5 +113,5 @@ is_non_pkgdown_site <- function(dst_path) {
   top_level <- dir_ls(dst_path)
   top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
 
-  length(top_level) > 1 && !"pkgdown.yml" %in% path_file(top_level)
+  length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
 }
