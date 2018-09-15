@@ -73,15 +73,18 @@ deploy_site_github <- function(
   fs::file_chmod(ssh_id_file, "0600")
 
   rule("Commiting built site", line = 1)
+
+  git <- function(...) {
+    processx::run("git", c(...), echo_cmd = verbose, echo = verbose)
+  }
   with_dir("docs", {
-    processx::run("git", "init", echo = verbose)
-    processx::run("git", c("add", "-A", "."), echo = verbose)
-    processx::run("git", c("remote", "add", "origin", remote_url), echo = verbose)
-    processx::run("git", c("commit", "-m", commit_message), echo = verbose)
+    git("add", "-A", ".")
+    git("remote", "add", "origin", remote_url)
+    git("commit", "-m", commit_message)
 
     rule("Deploying to GitHub Pages", line = 1)
-    processx::run("git", c("remote", "-v"), echo = verbose)
-    processx::run("git", c("push", "--force", "origin", "HEAD:gh-pages"), echo = verbose)
+    git("remote", "-v")
+    git("push", "--force", "origin", "HEAD:gh-pages")
   })
 
   rule("Deploy completed", line = 2)
