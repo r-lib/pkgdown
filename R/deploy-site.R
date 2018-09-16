@@ -63,7 +63,7 @@ deploy_site_github <- function(
 
   build_site(pkg, ...)
 
-  remote_url <- sprintf("git@github.com:{%s}.git", repo_slug)
+  remote_url <- sprintf("git@github.com:%s.git", repo_slug)
 
   ssh_id_file <- "~/.ssh/id_rsa"
   rule("Setting up SSH id", line = 1)
