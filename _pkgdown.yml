@@ -20,6 +20,7 @@ reference:
     - build_site
     - init_site
     - starts_with("build_")
+    - starts_with("deploy_")
     - preview_site
   - title: Templates
     contents:

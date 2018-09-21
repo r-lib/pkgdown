@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatic link references and articles in an HTML package — autolink_html • pkgdown</title>
+<title>Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github • pkgdown</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,16 +36,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Automatic link references and articles in an HTML package — autolink_html" />
+<meta property="og:title" content="Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github" />
 
-<meta property="og:description" content="The autolinker is built around two XPath expressions:
-//pre[contains(@class, 'r')]:
-this finds all &amp;lt;div&amp;gt;s with class sourceCode and r. The contents
-must be syntax-highlighted using pygments.
-(This is default in rmarkdown::html_document when theme = NULL.)
-.//code[count(*) = 0]: this finds all &amp;lt;code&amp;gt; that contain only
-text (and no other tags).
-" />
+<meta property="og:description" content="deploy_site_github() sets up your SSH keys for deployment, builds the
+site with build_site(), commits the site to the gh-pages branch and then pushes
+the results back to GitHub. deploy_site_github() is meant only to be used
+by the CI system on Travis, it should not be called locally. See 'Setup' for
+details on setting up your repository to use this." />
 
 <meta property="og:image" content="http://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -158,73 +155,84 @@ text (and no other tags).
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Automatic link references and articles in an HTML package</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/autolink_html.R'><code>R/autolink_html.R</code></a></small>
-    <div class="hidden name"><code>autolink_html.Rd</code></div>
+    <h1>Deploy a pkgdown site on Travis-CI to Github Pages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/deploy-site.R'><code>R/deploy-site.R</code></a></small>
+    <div class="hidden name"><code>deploy_site_github.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The autolinker is built around two XPath expressions:</p><ul>
-<li><p><code>//pre[contains(@class, 'r')]</code>:
-this finds all <code>&lt;div&gt;</code>s with class <code>sourceCode</code> and <code>r</code>. The contents
-must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
-(This is default in <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document</a> when <code>theme = NULL</code>.)</p></li>
-<li><p><code>.//code[count(*) = 0]</code>: this finds all <code>&lt;code&gt;</code> that contain only
-text (and no other tags).</p></li>
-</ul>
+    <p><code>deploy_site_github()</code> sets up your SSH keys for deployment, builds the
+site with <code><a href='build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
+the results back to GitHub. <code>deploy_site_github()</code> is meant only to be used
+by the CI system on Travis, it should not be called locally. See 'Setup' for
+details on setting up your repository to use this.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'>character</span>())</pre>
+    <pre class="usage"><span class='fu'>deploy_site_github</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>tarball</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
+  <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
+  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>),
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input, output</th>
-      <td><p>Input and output paths for HTML file</p></td>
+      <th>pkg</th>
+      <td><p>Path to package.</p></td>
     </tr>
     <tr>
-      <th>local_packages</th>
-      <td><p>A named character vector providing relative paths
-(value) to packages (name) that can be reached with relative links
-from the target HTML document.</p></td>
+      <th>tarball</th>
+      <td><p>The location of the built package tarball. The default Travis
+configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></td>
+    </tr>
+    <tr>
+      <th>ssh_id</th>
+      <td><p>The private id to use, a base64 encoded content of the private
+pem file. This should <em>not</em> be your personal private key. Instead create a
+new keypair specifically for deploying the site. The easiest way is to use
+<code>travis::use_travis_deploy()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>repo_slug</th>
+      <td><p>The <code>user/repo</code> slug for the repository.</p></td>
+    </tr>
+    <tr>
+      <th>commit_message</th>
+      <td><p>The commit message to be used for the commit.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Print verbose output</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="setup"><a class="anchor" href="#setup"></a>Setup</h2>
 
-    <p>Currently the following expressions are linked:</p><ul>
-<li><p>Function calls, <code>foo()</code></p></li>
-<li><p>Function calls qualified with the package name, <code>bar::foo()</code></p></li>
-<li><p>Symbols qualified with the package name, <code>bar::baz</code></p></li>
-<li><p>Help calls, <code>?foo</code>, <code>package?foo</code>, and <code>?bar::foo</code></p></li>
-<li><p>Vignette calls, <code>vignette(baz)</code>, <code>vignette(baz, package = "bar")</code></p></li>
-</ul>
-    <p>Calls to <code>library()</code> and <code>require()</code> are used to find the topics connected
-to unqualified references.</p>
+    
+    <p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_deploy: Rscript -e 'install.packages("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+</pre>
+    <p>Then you will need to setup your deployment keys. The easiest way is to call
+<code>travis::use_travis_deploy()</code>. This will generate and push the necessary
+keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>autolink_html</span>(<span class='st'>"path/to/file.html"</span>,
-  <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'>c</span>(
-    <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='st'>"shiny"</span>,
-    <span class='kw'>shinydashboard</span> <span class='kw'>=</span> <span class='st'>"shinydashboard"</span>
-  )
-)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#setup">Setup</a></li>
+          </ul>
 
   </div>
 </div>
