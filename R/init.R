@@ -41,7 +41,7 @@ init_site <- function(pkg = ".") {
   build_logo(pkg)
   build_cname(pkg)
 
-  usethis::use_pkgdown()
+  usethis::use_pkgdown(dst_path = pkg$dst_path, config_file = pkg$config_file)
 
   invisible()
 }

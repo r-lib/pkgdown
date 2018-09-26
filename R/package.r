@@ -17,7 +17,8 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   }
 
   desc <- read_desc(pkg)
-  meta <- read_meta(pkg)
+  config <- find_config(pkg)
+  meta <- read_config(config)
   meta <- utils::modifyList(meta, override)
 
   package <- desc$get("Package")[[1]]
@@ -40,6 +41,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       package = package,
       version = version,
 
+      config_file = path_abs(config),
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
       github_url = pkg_github_url(desc),
@@ -83,8 +85,8 @@ read_desc <- function(path = ".") {
 
 # Metadata ----------------------------------------------------------------
 
-read_meta <- function(path) {
-  path <- path_first_existing(
+find_config <- function(path) {
+  path_first_existing(
     path,
     c("_pkgdown.yml",
       "_pkgdown.yaml",
@@ -92,7 +94,9 @@ read_meta <- function(path) {
       "inst/_pkgdown.yml"
     )
   )
+}
 
+read_config <- function(path) {
   if (is.null(path)) {
     yaml <- list()
   } else {
