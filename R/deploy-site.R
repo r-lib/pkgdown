@@ -14,6 +14,7 @@
 #' deploy:
 #'   provider: script
 #'   script: Rscript -e 'pkgdown::deploy_site_github()'
+#'   skip_cleanup: true
 #' ```
 #'
 #' Then you will need to setup your deployment keys. The easiest way is to call
