@@ -140,7 +140,7 @@
 <li><p>The <code>URL</code> field of your package <code>DESCRIPTION</code>, alongside a link to its source:</p></li>
 <li><p><a href="https://twitter.com/dataandme/status/1004008257264988160">Twitter</a>, including the <code>#rstats</code> hash tag.</p></li>
 </ol>
-<pre><code>URL: http://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown</code></pre>
+<pre><code>URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown</code></pre>
 <div id="configuration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#configuration" class="anchor"></a>Configuration</h2>
@@ -185,7 +185,7 @@ output: github_document
 <li><p>Badges in the home page source file (e.g. <code>README.Rmd</code>) are linked in the side bar under “Dev status”.</p></li>
 <li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use [<code><a href="http://www.rdocumentation.org/packages/usethis/topics/use_github_links">usethis::use_github_links()</a></code>] to populate this field.</p></li>
 <li><p>Licensing information is linked in the side bar using the package <code>LICENSE</code> and <code>LICENSE.md</code> files.</p></li>
-<li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar to the <a href="http://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
+<li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar to the <a href="https://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
 <li><p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked under “Developers” using the ORCID logo (<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD">).</p></li>
 </ul>
 <pre><code>Authors@R: c(
@@ -259,11 +259,11 @@ output: github_document
 </ul>
 <p>You can override these defaults to:</p>
 <ul>
-<li><p>Surface important articles directly from the navbar (a la <a href="http://spark.rstudio.com" class="uri">http://spark.rstudio.com</a>).</p></li>
-<li><p>Provide deeper add additional hierarchical navigation (like<br><a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a>).</p></li>
+<li><p>Surface important articles directly from the navbar (a la <a href="https://spark.rstudio.com" class="uri">https://spark.rstudio.com</a>).</p></li>
+<li><p>Provide deeper add additional hierarchical navigation (like<br><a href="https://www.htmlwidgets.org" class="uri">https://www.htmlwidgets.org</a>).</p></li>
 <li><p>Link to other off-site resources.</p></li>
 </ul>
-<p>The navbar has a similar structure to the <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>.</p>
+<p>The navbar has a similar structure to the <a href="https://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>.</p>
 <p>Use <code><a href="../reference/templates.html">template_navbar()</a></code> to generate a boilerplate navbar section in YAML format.</p>
 <p>You can set the navbar <code>title</code> and its <a href="https://bootswatch.com/3/cosmo/#navbar">bootswatch styling</a> with <code>inverse</code>. Navbar items take <code>text</code>, <code>href</code>, and optional <code>icon</code> (using <a href="https://fontawesome.com/">FontAwesome</a> icons) values. Finally, positioning of items within the navbar can be controlled with <code>left</code> and <code>right</code> sections.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">navbar:</span></a>
@@ -300,7 +300,7 @@ output: github_document
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># pkgdown 1.0.0</span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">* This is the first release of pkgdown.</a></code></pre></div>
-<p>See more suggestions for writing news bullets in the <a href="http://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
+<p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
 <p>If you have a large <code>NEWS.md</code> and want to create one page per release, you can create a multi-page change log by configuring the <code>_pkgdown.yml</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">news:</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">-</span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
@@ -345,7 +345,7 @@ output: github_document
 <a class="sourceLine" id="cb11-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
 <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="fu">url:</span><span class="at"> http://pkgdown.r-lib.org</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="fu">url:</span><span class="at"> https://pkgdown.r-lib.org</span></a></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
 <p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/_pkgdown.yml#L7-L11">pkgdown configuration</a> for a functional search configuration.</p>
 <p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled , pressing <code>shift</code> + <code>/</code> (i.e., “?”) will move the focus to the search bar.</p>
