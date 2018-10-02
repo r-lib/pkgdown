@@ -124,6 +124,13 @@ to enable rendering of \href{https://bookdown.org/yihui/bookdown/}{bookdown}
 sites.
 }
 
+\section{Tables of contents}{
+
+You can control the TOC depth via the YAML configuration file:\preformatted{toc:
+  depth: 2
+}
+}
+
 \section{Figures}{
 
 
