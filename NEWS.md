@@ -1,5 +1,12 @@
 # pkgdown 1.1.0.9000
 
+* The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml`:
+
+  ```yaml
+  toc:
+    depth: 2
+  ```
+
 * `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
 
 * `deploy_site_github()` added to build and deploy a site to GitHub Pages from the
