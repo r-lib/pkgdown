@@ -212,10 +212,15 @@ build_rmarkdown_format <- function(pkg,
                                    toc = TRUE) {
 
   template <- rmarkdown_template(pkg, depth = depth, data = data)
+  if(!is.null(pkg$meta$toc_depth)){
+    toc_depth = pkg$meta$toc_depth
+  }else{
+    toc_depth = 2
+  }
 
   out <- rmarkdown::html_document(
     toc = toc,
-    toc_depth = 2,
+    toc_depth = toc_depth,
     self_contained = FALSE,
     theme = NULL,
     template = template$path
