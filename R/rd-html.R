@@ -267,6 +267,11 @@ as_html.tag_tabular <- function(x, ...) {
   cell_contents <- vapply(cells, flatten_text, ...,
     FUN.VALUE = character(1), USE.NAMES = FALSE)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
+
+  if(length(cell_contents)%%length(align)>0){
+    cell_contents <- head(cell_contents,-(length(cell_contents)%%length(align)))
+  }
+
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
 
   rows <- apply(cell_contents, 1, paste0, collapse = "")

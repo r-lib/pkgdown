@@ -62,12 +62,24 @@ data_home_sidebar <- function(pkg = ".") {
     return(pkg$meta$home$sidebar)
 
   paste0(
+    data_home_sidebar_hex(pkg),
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
     data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"
   )
+}
+
+data_home_sidebar_hex <- function(pkg = ".") {
+
+  pkg <- as_pkgdown(pkg)
+
+  if(is.null(pkg$meta$hexURL))
+    return(NULL)
+
+    sidebar_section("", sprintf("<img src='%s' alt='' />", pkg$meta$hexURL))
+
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

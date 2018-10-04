@@ -75,7 +75,7 @@ test_that("links to vignettes & figures tweaked", {
 
 # repo_link ------------------------------------------------------------
 
-options(pkgdown.internet = TRUE)
+#options(pkgdown.internet = TRUE)
 
 test_that("package repo verification", {
   skip_on_cran() # requires internet connection
