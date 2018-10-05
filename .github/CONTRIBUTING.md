@@ -1,3 +1,15 @@
+# pkgdown build issues
+
+If you encounter unexpected errors after running `pkgdown::build_site()`, try
+to build a minimal package that recreates the error. An ideal minimal package has
+*no dependencies*, making it easy to install and quickly reproduce the error. An
+example of a minimal package was [this issue](https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145),
+where a minimal package containing a single `.R` file with two lines could reproduce
+the error.
+
+Once you have built a minimal package that recreates the error, create a github
+repository from the pacakge, and file an issue with a link to the repository.
+
 # Contributing to pkgdown
 
 This outlines how to propose a change to pkgdown. For more detailed
