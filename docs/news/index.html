@@ -158,6 +158,11 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">depth:</span><span class="at"> 2</span></a></code></pre></div>
+</li>
 <li><p><code><a href="../reference/build_site.html">build_site()</a></code> now uses colors even if <code>new_process = TRUE</code> (<a href='http://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> added to build and deploy a site to GitHub Pages from the Travis CI service (<a href='http://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/init_site.html">init_site()</a></code> now creates a CNAME file if one doesn’t already exist and the site’s metadata includes a <code>url</code> field.</p></li>
@@ -211,9 +216,9 @@
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
 <p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">template:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">params:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">template:</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="fu">params:</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
