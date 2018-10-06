@@ -10,6 +10,8 @@ the error.
 Once you have built a minimal package that recreates the error, create a github
 repository from the pacakge, and file an issue with a link to the repository.
 
+The quickest way to set up minimal example package is with `usethis::create_package()`.
+
 # Contributing to pkgdown
 
 This outlines how to propose a change to pkgdown. For more detailed
