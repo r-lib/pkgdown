@@ -10,14 +10,14 @@ status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgdown?branch=
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
-Status](http://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
+Status](https://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
 [![Codecov test
 coverage](https://img.shields.io/codecov/c/github/r-lib/pkgdown/master.svg)](https://codecov.io/github/r-lib/pkgdown?branch=master)
 
 pkgdown is designed to make it quick and easy to build a website for
 your package. You can see pkgdown in action at
-<http://pkgdown.r-lib.org>: this is the output of pkgdown applied to the
-latest version of pkgdown. Learn more in `vignette("pkgdown")` or
+<https://pkgdown.r-lib.org>: this is the output of pkgdown applied to
+the latest version of pkgdown. Learn more in `vignette("pkgdown")` or
 `?build_site`.
 
 ## Installation
@@ -89,5 +89,5 @@ new pkgdown techniques.
 ## Code of conduct
 
 Please note that this project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
-to abide by its terms.
+Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project
+you agree to abide by its terms.
