@@ -1,6 +1,8 @@
 # pkgdown 1.1.0.9000
 
-* The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml`:
+* A default favicon is now used if no logo is provided (#827).
+
+* The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
 
   ```yaml
   toc:
