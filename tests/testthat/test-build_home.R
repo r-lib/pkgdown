@@ -51,7 +51,7 @@ test_that("home template is used with index.md", {
   skip_if_no_pandoc()
 
   pkg <- test_path("assets/home-index-template-md")
-  build_site(pkg)
+  expect_output(build_site(pkg, new_process = TRUE))
   on.exit(clean_site(pkg))
 
   rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
@@ -64,7 +64,7 @@ test_that("home template is used with index.Rmd", {
   skip_if_no_pandoc()
 
   pkg <- test_path("assets/home-index-template-rmd")
-  build_site(pkg)
+  expect_output(build_site(pkg, new_process = TRUE))
   on.exit(clean_site(pkg))
 
   rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
