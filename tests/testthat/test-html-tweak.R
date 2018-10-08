@@ -12,7 +12,7 @@ test_that("tables get class='table'", {
     expect_equal("table")
 })
 
-test_that("multiple tables with existing classes are handled", {
+test_that("multiple tables with existing classes are prepended", {
   html <- xml2::read_html(
     "<body>
     <table class='a'></table>
@@ -20,7 +20,7 @@ test_that("multiple tables with existing classes are handled", {
     <table></table>
     </body>"
   )
-  tweak_tables(html)
+  expect_silent(tweak_tables(html))
 
   html %>%
     xml2::xml_find_all(".//table") %>%
