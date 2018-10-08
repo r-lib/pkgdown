@@ -1,14 +1,14 @@
+
 build_cname <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  if (!is.null(pkg$meta$url)) {
-    # CNAME files don't have protocols
-    cname <- sub("^https?://", "", pkg$meta$url)
-    # or trailing slashes
-    cname <- sub("//$", "", cname)
+  url <- pkg$meta$url
 
-    # don't create CNAME if URL has trailing path
-    if (length(strsplit(cname, "/")[[1]]) > 1) {
+  if (!is.null(url)) {
+
+    cname <- cname_url(url)
+
+    if (is.null(cname)) {
       return()
     }
 
@@ -18,4 +18,20 @@ build_cname <- function(pkg = ".") {
   }
 
   invisible()
+}
+
+cname_url <- function(url) {
+
+  # CNAME files don't have protocols
+  cname <- sub("^https?://", "", url)
+  # or trailing slashes
+  cname <- sub("/$", "", cname)
+
+  # Check whether the cleaned URL has a path.
+  # e.g., check.com is OK; check.com/path is not.
+  if (length(strsplit(cname, "/")[[1]]) > 1) {
+    return(NULL)
+  }
+
+  cname
 }
