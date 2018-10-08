@@ -82,11 +82,11 @@ tweak_tables <- function(html) {
   invisible()
 }
 
-prepend_class <- function(x) {
+prepend_class <- function(x, class = "table") {
   if (length(x) == 0) {
-    c(class = "table")
+    c(class = class)
   } else {
-    c(class = paste("table", x[["class"]]))
+    c(class = paste(class, x[["class"]]))
   }
 }
 
