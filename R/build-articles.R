@@ -189,7 +189,7 @@ build_article <- function(name,
     format <- NULL
 
     if (identical(ext, "html")) {
-      template <- rmarkdown_template(pkg, depth = depth, data = data)
+      template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
 
       options <- list(
         template = template$path,
@@ -200,7 +200,8 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
+    format <- build_rmarkdown_format(pkg, "article", depth = depth,
+                                     data = data, toc = TRUE)
     options <- NULL
   }
 
@@ -215,11 +216,12 @@ build_article <- function(name,
 }
 
 build_rmarkdown_format <- function(pkg,
+                                   name,
                                    depth = 1L,
                                    data = list(),
                                    toc = TRUE) {
 
-  template <- rmarkdown_template(pkg, depth = depth, data = data)
+  template <- rmarkdown_template(pkg, name, depth = depth, data = data)
 
   out <- rmarkdown::html_document(
     toc = toc,
@@ -239,9 +241,9 @@ build_rmarkdown_format <- function(pkg,
 # inst/template/article-vignette.html
 # Output is a path + environment; when the environment is garbage collected
 # the path will be deleted
-rmarkdown_template <- function(pkg, data, depth) {
+rmarkdown_template <- function(pkg, name, data, depth) {
   path <- tempfile(fileext = ".html")
-  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
+  render_page(pkg, name, data, path, depth = depth, quiet = TRUE)
 
   # Remove template file when format object is GC'd
   e <- env()

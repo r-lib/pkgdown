@@ -55,7 +55,9 @@ test_that("home template is used with index.md", {
   on.exit(clean_site(pkg))
 
   rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
+  uses_content <- any(grepl("This is a test", rendered_lines))
   is_custom <- any(grepl("custom template", rendered_lines))
+  expect_true(uses_content)
   expect_true(is_custom)
 
 })
@@ -68,7 +70,9 @@ test_that("home template is used with index.Rmd", {
   on.exit(clean_site(pkg))
 
   rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
+  uses_content <- any(grepl("This is a test", rendered_lines))
   is_custom <- any(grepl("custom template", rendered_lines))
+  expect_true(uses_content)
   expect_true(is_custom)
 
 })
