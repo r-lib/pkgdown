@@ -1,4 +1,4 @@
-context("build_cname")
+context("test-build_cname.R")
 
 test_that("a CNAME record is built if a url exists in metadata", {
   cname <- test_path("assets/cname")
@@ -11,4 +11,12 @@ test_that("a CNAME record is built if a url exists in metadata", {
 
   expect_output(build_cname(cname))
   expect_equal(read_lines(path(cname, "docs", "CNAME")), "testpackage.r-lib.org")
+})
+
+test_that("CNAME URLs are valid", {
+  expect_equal(cname_url("http://google.com/"), "google.com")
+  expect_equal(cname_url("https://google.com/"), "google.com")
+
+  # this is not a valid URL because it has a trailing path
+  expect_null(cname_url("http://google.com/path/"))
 })
