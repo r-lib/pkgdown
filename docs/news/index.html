@@ -8,6 +8,8 @@
 
 <title>Changelog • pkgdown</title>
 
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -44,7 +46,7 @@
 
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -158,8 +160,9 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>A default favicon is now used if no logo is provided (<a href='https://github.com/r-lib/pkgdown/issues/827'>#827</a>).</p></li>
 <li>
-<p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code>:</p>
+<p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">depth:</span><span class="at"> 2</span></a></code></pre></div>
 </li>
