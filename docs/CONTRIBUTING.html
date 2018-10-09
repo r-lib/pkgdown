@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MIT License • pkgdown</title>
+<title>pkgdown build issues • pkgdown</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
@@ -38,7 +38,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="MIT License" />
+<meta property="og:title" content="pkgdown build issues" />
 
 <meta property="og:image" content="http://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -151,16 +151,64 @@
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
-      <h1>MIT License</h1>
+      <h1>pkgdown build issues</h1>
     </div>
 
-<div id="mit-license" class="section level1">
 
-<p>Copyright (c) 2014-2018 RStudio</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<div id="pkgdown-build-issues" class="section level1">
+
+<p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
+<p>Once you have built a minimal package that recreates the error, create a github repository from the pacakge, and file an issue with a link to the repository.</p>
+<p>The quickest way to set up minimal example package is with <code><a href="http://www.rdocumentation.org/packages/usethis/topics/create_package">usethis::create_package()</a></code>.</p>
 </div>
+<div id="contributing-to-pkgdown" class="section level1">
+<h1 class="hasAnchor">
+<a href="#contributing-to-pkgdown" class="anchor"></a>Contributing to pkgdown</h1>
+<p>This outlines how to propose a change to pkgdown. For more detailed info about contributing to this, and other tidyverse packages, please see the <a href="https://rstd.io/tidy-contrib"><strong>development contributing guide</strong></a>.</p>
+<div id="fixing-typos" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fixing-typos" class="anchor"></a>Fixing typos</h3>
+<p>Small typos or grammatical errors in documentation may be edited directly using the GitHub web interface, so long as the changes are made in the <em>source</em> file.</p>
+<ul>
+<li>YES: you edit a roxygen comment in a <code>.R</code> file below <code>R/</code>.</li>
+<li>NO: you edit an <code>.Rd</code> file below <code>man/</code>.</li>
+</ul>
+</div>
+<div id="prerequisites" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prerequisites" class="anchor"></a>Prerequisites</h3>
+<p>Before you make a substantial pull request, you should always file an issue and make sure someone from the team agrees that it’s a problem. If you’ve found a bug, create an associated issue and illustrate the bug with a minimal <a href="https://www.tidyverse.org/help/#reprex">reprex</a>.</p>
+</div>
+<div id="pull-request-process" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pull-request-process" class="anchor"></a>Pull request process</h3>
+<ul>
+<li>We recommend that you create a Git branch for each pull request (PR).<br>
+</li>
+<li>Look at the Travis and AppVeyor build status before and after making changes. The <code>README</code> should contain badges for any continuous integration services used by the package.<br>
+</li>
+<li>New code should follow the tidyverse <a href="http://style.tidyverse.org">style guide</a>. You can use the <a href="https://CRAN.R-project.org/package=styler">styler</a> package to apply these styles, but please don’t restyle code that has nothing to do with your PR.<br>
+</li>
+<li>We use <a href="https://cran.r-project.org/package=roxygen2">roxygen2</a>, with <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">Markdown syntax</a>, for documentation.<br>
+</li>
+<li>We use <a href="https://cran.r-project.org/package=testthat">testthat</a>. Contributions with test cases included are easier to accept.<br>
+</li>
+<li>For user-facing changes, add a bullet to the top of <code>NEWS.md</code> below the current development version header describing the changes made followed by your GitHub username, and links to relevant issue(s)/PR(s).</li>
+</ul>
+</div>
+<div id="code-of-conduct" class="section level3">
+<h3 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h3>
+<p>Please note that the pkgdown project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project you agree to abide by its terms.</p>
+</div>
+<div id="see-tidyverse-development-contributing-guide" class="section level3">
+<h3 class="hasAnchor">
+<a href="#see-tidyverse-development-contributing-guide" class="anchor"></a>See tidyverse <a href="https://rstd.io/tidy-contrib">development contributing guide</a>
+</h3>
+<p>for further details.</p>
+</div>
+</div>
+
 
   </div>
 

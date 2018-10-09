@@ -31,6 +31,9 @@
     <loc>http://pkgdown.r-lib.org/reference/clean_site.html</loc>
   </url>
   <url>
+    <loc>http://pkgdown.r-lib.org/reference/deploy_site_github.html</loc>
+  </url>
+  <url>
     <loc>http://pkgdown.r-lib.org/reference/in_pkgdown.html</loc>
   </url>
   <url>
