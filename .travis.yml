@@ -15,11 +15,6 @@ matrix:
   - r: release
     pandoc: false
     env: PANDOC='none'
-    before_deploy: Rscript -e 'install.packages("pkgdown")'
-    deploy:
-      provider: script
-      script: Rscript -e 'pkgdown::deploy_site_github()'
-      skip_cleanup: true
     after_success:
     - Rscript -e 'covr::codecov()'
   - r: release
