@@ -265,7 +265,7 @@ pkgdown websites can integrate search capability using [Docsearch](https://commu
 
 Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://community.algolia.com/docsearch/). Docsearch will contact you via e-mail to confirm you are the website owner.
 
-Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawlwer configuration in `docsearch.json` and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate [additional options](https://github.com/algolia/docsearch-configs#introduction) to fine tune the scraping.
+Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in `docsearch.json` and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate [additional options](https://github.com/algolia/docsearch-configs#introduction) to fine tune the scraping.
 
 ### Docsearch configuration
 
