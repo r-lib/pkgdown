@@ -99,21 +99,26 @@ fun_info <- function(x) {
   stopifnot(is.call(x))
 
   if (is.call(x[[1]])) {
-    x <- x[[1]]
-    if (identical(x[[1]], quote(S3method))) {
+    xx <- x[[1]]
+    if (identical(xx[[1]], quote(S3method))) {
       list(
         type = "s3",
-        name = as.character(x[[2]]),
-        signature = as.character(x[[3]])
+        name = as.character(xx[[2]]),
+        signature = as.character(xx[[3]])
       )
-    } else if (identical(x[[1]], quote(S4method))) {
+    } else if (identical(xx[[1]], quote(S4method))) {
       list(
         type = "s4",
-        name = as.character(x[[2]]),
-        signature = purrr::map_chr(as.list(x[[3]][-1]), as.character)
+        name = as.character(xx[[2]]),
+        signature = purrr::map_chr(as.list(xx[[3]][-1]), as.character)
+      )
+    } else if (!is_call(x, "list", ns = "")) {
+      list(
+        type = "fun",
+        name = call_name(x)
       )
     } else {
-      stop("Unknown call: ", as.character(x[[1]]))
+      stop("Unknown call: ", as.character(xx[[1]]))
     }
   } else {
     list(
