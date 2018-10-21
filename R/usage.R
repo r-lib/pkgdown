@@ -95,35 +95,36 @@ is_infix <- function(x) {
   grepl("^%.*%$", x) || x %in% ops
 }
 
-fun_info <- function(x) {
-  stopifnot(is.call(x))
+fun_info <- function(fun) {
+  stopifnot(is.call(fun))
 
-  if (is.call(x[[1]])) {
-    xx <- x[[1]]
-    if (identical(xx[[1]], quote(S3method))) {
+  if (is.call(fun[[1]])) {
+    x <- fun[[1]]
+    if (identical(x[[1]], quote(S3method))) {
       list(
         type = "s3",
-        name = as.character(xx[[2]]),
-        signature = as.character(xx[[3]])
+        name = as.character(x[[2]]),
+        signature = as.character(x[[3]])
       )
-    } else if (identical(xx[[1]], quote(S4method))) {
+    } else if (identical(x[[1]], quote(S4method))) {
       list(
         type = "s4",
-        name = as.character(xx[[2]]),
-        signature = purrr::map_chr(as.list(xx[[3]][-1]), as.character)
+        name = as.character(x[[2]]),
+        signature = purrr::map_chr(as.list(x[[3]][-1]), as.character)
       )
-    } else if (!is_call(x, "list", ns = "")) {
+    } else if (!is_call(fun, "list", ns = "")) {
+      # TRUE if fun has a namespace, pkg::fun()
       list(
         type = "fun",
-        name = call_name(x)
+        name = call_name(fun)
       )
     } else {
-      stop("Unknown call: ", as.character(xx[[1]]))
+      stop("Unknown call: ", as.character(x[[1]]))
     }
   } else {
     list(
       type = "fun",
-      name = as.character(x[[1]]),
+      name = as.character(fun[[1]]),
       signature = NULL
     )
   }
