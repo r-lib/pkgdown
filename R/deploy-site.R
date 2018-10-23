@@ -95,5 +95,5 @@ deploy_site_github <- function(
 construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {
   pkg <- as_pkgdown(pkg)
 
-  sprintf("Built site for {%s}: {%s}@{%s}", pkg$package, pkg$version, commit)
+  sprintf("Built site for %s: %s@%s", pkg$package, pkg$version, commit)
 }
