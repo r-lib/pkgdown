@@ -200,8 +200,10 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(pkg, "article", depth = depth,
-                                     data = data, toc = TRUE)
+    format <- build_rmarkdown_format(pkg, "article",
+                                     depth = depth,
+                                     data = data, toc = TRUE
+    )
     options <- NULL
   }
 
