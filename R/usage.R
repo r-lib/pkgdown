@@ -112,7 +112,7 @@ fun_info <- function(fun) {
         name = as.character(x[[2]]),
         signature = purrr::map_chr(as.list(x[[3]][-1]), as.character)
       )
-    } else if (is_call(fun, c("::", ":::"))) {
+    } else if (is_call(x, c("::", ":::"))) {
       # TRUE if fun has a namespace, pkg::fun()
       list(
         type = "fun",
