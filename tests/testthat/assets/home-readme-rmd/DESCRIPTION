@@ -7,3 +7,4 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd"))
     )
 RoxygenNote: 6.1.0
+Encoding: UTF-8
