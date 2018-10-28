@@ -6,7 +6,7 @@ test_that("remote_package_url discovers pkgdown site", {
 
   expect_equal(
     remote_package_reference_url("pkgdown"),
-    "http://pkgdown.r-lib.org/reference"
+    "https://pkgdown.r-lib.org/reference"
   )
 })
 
