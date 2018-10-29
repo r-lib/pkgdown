@@ -74,10 +74,9 @@ deploy_site_github <- function(
 
   rule("Commiting built site", line = 1)
   with_dir("docs", {
-    processx::run("git", "init", echo = verbose)
+    processx::run("git", c("clone", "--depth", "1", remote_url), echo = verbose)
     processx::run("git", c("add", "-A", "."), echo = verbose)
-    processx::run("git", c("remote", "add", "origin", remote_url), echo = verbose)
-    processx::run("git", c("commit", "-m", commit_message), echo = verbose)
+    processx::run("git", c("commit", "--amend", "-m", commit_message), echo = verbose)
 
     rule("Deploying to GitHub Pages", line = 1)
     processx::run("git", c("remote", "-v"), echo = verbose)
