@@ -15,11 +15,11 @@ matrix:
   - r: release
     after_success:
     - Rscript -e 'covr::codecov()'
+    before_deploy:
+    - R CMD INSTALL .
     deploy:
       provider: script
-      script:
-      - R CMD INSTALL .
-      - Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
   - r: release
     pandoc: false
