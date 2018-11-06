@@ -1,4 +1,4 @@
-url: http://pkgdown.r-lib.org
+url: https://pkgdown.r-lib.org
 
 authors:
   Jay Hesselberth:
@@ -20,6 +20,7 @@ reference:
     - build_site
     - init_site
     - starts_with("build_")
+    - starts_with("deploy_")
     - preview_site
   - title: Templates
     contents:

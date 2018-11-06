@@ -6,8 +6,13 @@ build_logo <- function(pkg = ".") {
     return()
 
   file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
+
   if (!requireNamespace("magick", quietly = TRUE)) {
-    message("magick not available, not creating favicon.ico")
+    message("magick not available, using default pkgdown favicon.ico")
+
+    if (!file_exists(path(pkg$dst_path, "favicon.ico"))) {
+      file_copy(path_pkgdown("assets", "favicon.ico"), pkg$dst_path)
+    }
     return()
   }
 

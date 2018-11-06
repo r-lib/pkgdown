@@ -97,6 +97,14 @@
 #' to enable rendering of [bookdown](https://bookdown.org/yihui/bookdown/)
 #' sites.
 #'
+#' @section Tables of contents:
+#' You can control the TOC depth via the YAML configuration file:
+#'
+#' ```
+#' toc:
+#'   depth: 2
+#' ```
+#'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.
@@ -215,7 +223,7 @@ build_rmarkdown_format <- function(pkg,
 
   out <- rmarkdown::html_document(
     toc = toc,
-    toc_depth = 2,
+    toc_depth = pkg$meta$toc$depth %||% 2,
     self_contained = FALSE,
     theme = NULL,
     template = template$path

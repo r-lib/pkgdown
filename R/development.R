@@ -23,9 +23,9 @@ meta_development <- function(meta, version) {
   version_tooltip <- purrr::pluck(development, "version_tooltip")
   if (is.null(version_tooltip)) {
     version_tooltip <- switch(mode,
-      release = "Released package",
-      devel = "In-development package",
-      unreleased = "Unreleased package"
+      release = "Released version",
+      devel = "In-development version",
+      unreleased = "Unreleased version"
     )
   }
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Open site in browser — preview_site • pkgdown</title>
+<title>Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github • pkgdown</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
@@ -38,9 +38,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Open site in browser — preview_site" />
+<meta property="og:title" content="Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github" />
 
-<meta property="og:description" content="Open site in browser" />
+<meta property="og:description" content="deploy_site_github() sets up your SSH keys for deployment, builds the
+site with build_site(), commits the site to the gh-pages branch and then pushes
+the results back to GitHub. deploy_site_github() is meant only to be used
+by the CI system on Travis, it should not be called locally. See 'Setup' for
+details on setting up your repository to use this." />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -153,18 +157,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Open site in browser</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/preview.R'><code>R/preview.R</code></a></small>
-    <div class="hidden name"><code>preview_site.Rd</code></div>
+    <h1>Deploy a pkgdown site on Travis-CI to Github Pages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/deploy-site.R'><code>R/deploy-site.R</code></a></small>
+    <div class="hidden name"><code>deploy_site_github.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Open site in browser</p>
+    <p><code>deploy_site_github()</code> sets up your SSH keys for deployment, builds the
+site with <code><a href='build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
+the results back to GitHub. <code>deploy_site_github()</code> is meant only to be used
+by the CI system on Travis, it should not be called locally. See 'Setup' for
+details on setting up your repository to use this.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>preview_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>deploy_site_github</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>tarball</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
+  <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
+  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>),
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,15 +185,47 @@
       <td><p>Path to package.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>Path relative to destination</p></td>
+      <th>tarball</th>
+      <td><p>The location of the built package tarball. The default Travis
+configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></td>
     </tr>
     <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
-freshly generated section in browser.</p></td>
+      <th>ssh_id</th>
+      <td><p>The private id to use, a base64 encoded content of the private
+pem file. This should <em>not</em> be your personal private key. Instead create a
+new keypair specifically for deploying the site. The easiest way is to use
+<code>travis::use_travis_deploy()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>repo_slug</th>
+      <td><p>The <code>user/repo</code> slug for the repository.</p></td>
+    </tr>
+    <tr>
+      <th>commit_message</th>
+      <td><p>The commit message to be used for the commit.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Print verbose output</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="setup"><a class="anchor" href="#setup"></a>Setup</h2>
+
+    
+    <p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_deploy: Rscript -e 'install.packages("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
+</pre>
+    <p>Then you will need to setup your deployment keys. The easiest way is to call
+<code>travis::use_travis_deploy()</code>. This will generate and push the necessary
+keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p>
     
 
   </div>
@@ -190,7 +233,9 @@ freshly generated section in browser.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#setup">Setup</a></li>
+          </ul>
 
   </div>
 </div>

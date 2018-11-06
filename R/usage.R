@@ -95,11 +95,11 @@ is_infix <- function(x) {
   grepl("^%.*%$", x) || x %in% ops
 }
 
-fun_info <- function(x) {
-  stopifnot(is.call(x))
+fun_info <- function(fun) {
+  stopifnot(is.call(fun))
 
-  if (is.call(x[[1]])) {
-    x <- x[[1]]
+  if (is.call(fun[[1]])) {
+    x <- fun[[1]]
     if (identical(x[[1]], quote(S3method))) {
       list(
         type = "s3",
@@ -112,13 +112,19 @@ fun_info <- function(x) {
         name = as.character(x[[2]]),
         signature = purrr::map_chr(as.list(x[[3]][-1]), as.character)
       )
+    } else if (is_call(x, c("::", ":::"))) {
+      # TRUE if fun has a namespace, pkg::fun()
+      list(
+        type = "fun",
+        name = call_name(fun)
+      )
     } else {
       stop("Unknown call: ", as.character(x[[1]]))
     }
   } else {
     list(
       type = "fun",
-      name = as.character(x[[1]]),
+      name = as.character(fun[[1]]),
       signature = NULL
     )
   }

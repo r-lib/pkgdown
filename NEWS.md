@@ -1,5 +1,21 @@
 # pkgdown 1.1.0.9000
 
+* Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
+
+* A default favicon is now used if no logo is provided (#827).
+
+* The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
+
+  ```yaml
+  toc:
+    depth: 2
+  ```
+
+* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+
+* `deploy_site_github()` added to build and deploy a site to GitHub Pages from the
+  Travis CI service (@jimhester).
+
 * `init_site()` now creates a CNAME file if one doesn't already exist and the
   site's metadata includes a `url` field.
 

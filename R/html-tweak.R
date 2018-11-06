@@ -73,17 +73,21 @@ tweak_tables <- function(html) {
 
   if (length(table) != 0) {
 
-    existing <- xml2::xml_attr(table, "class")
+    existing <- xml2::xml_attrs(table, "class")
+    tweaked <- purrr::map(existing, prepend_class)
 
-    tweaked <- "table"
-    if (!is.na(existing)) {
-      tweaked <- paste(tweaked, existing)
-    }
-
-    xml2::xml_attr(table, "class") <- tweaked
+    xml2::xml_attrs(table, "class") <- tweaked
   }
 
   invisible()
+}
+
+prepend_class <- function(x, class = "table") {
+  if (length(x) == 0) {
+    c(class = class)
+  } else {
+    c(class = paste(class, x[["class"]]))
+  }
 }
 
 # Autolinking -------------------------------------------------------------
