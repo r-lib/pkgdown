@@ -13,10 +13,15 @@ matrix:
   include:
   - r: devel
   - r: release
-    pandoc: false
-    env: PANDOC='none'
     after_success:
     - Rscript -e 'covr::codecov()'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
+  - r: release
+    pandoc: false
+    env: PANDOC='none'
   - r: release
     os: osx
     osx_image: xcode7.3 # CRAN: El Capitan
@@ -35,4 +40,3 @@ matrix:
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
-
