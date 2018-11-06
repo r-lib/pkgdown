@@ -35,3 +35,6 @@ reference:
   - title: Regression tests
     contents:
     - starts_with("test", internal = TRUE)
+
+hexURL:
+  - https://github.com/r-lib/pkgdown/blob/master/man/figures/logo.png?raw=true
