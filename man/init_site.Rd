@@ -16,11 +16,11 @@ assets and extra files.
 }
 \section{Build-ignored files}{
 
-pkgdown uses \code{usethis::use_pkgdown()} to build-ignore \code{docs/} and
-\code{_pkgdown.yml}. If you use an alternative location for your config file,
-update \code{_pkgdown.yml} in \code{.Rbuildignore} with its location. A \code{NOTE} about
-an unexpected file during \code{R CMD CHECK} is an indication you have not correctly
-ignored these files.
+We recommend using \code{usethis::use_pkgdown()} to build-ignore \code{docs/} and
+\code{_pkgdown.yml}. If use another directory, or create the site manually,
+you'll need to add them to \code{.Rbuildignore} yourself. A \code{NOTE} about
+an unexpected file during \code{R CMD CHECK} is an indication you have not
+correctly ignored these files.
 }
 
 \section{Custom CSS/JS}{
