@@ -18,7 +18,7 @@ matrix:
     deploy:
       provider: script
       script:
-      - R CMD install .
+      - R CMD INSTALL .
       - Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
   - r: release
