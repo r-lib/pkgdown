@@ -3,6 +3,8 @@
 * The default css has been tweaked to ensure that icons are visible on all
   browsers (#852).
 
+* Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
+
 * A default favicon is now used if no logo is provided (#827).
 
 * The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
