@@ -178,3 +178,15 @@ test_that(".github files are copied and linked", {
   lines <- read_lines(path(pkg, "docs", "index.html"))
   expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))
 })
+
+# check url and email -----------------------------------------------------
+
+test_that("urls and emails are validated", {
+  expect_true(is_email("foo@bar.com"))
+  expect_false(is_email("http://google.com"))
+
+  expect_true(is_url("http://google.com"))
+  expect_true(is_url("https://google.com"))
+  expect_true(is_url("google.com"))
+  expect_false(is_url("foo@bar.com"))
+})

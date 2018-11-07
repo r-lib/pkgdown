@@ -75,11 +75,12 @@ data_home_sidebar_links <- function(pkg = ".") {
 
   repo <- repo_link(pkg$package)
   meta <- purrr::pluck(pkg, "meta", "home", "links")
+  bug_report <- bug_report_link(pkg)
 
   links <- c(
     link_url(paste0("Download from ", repo$repo), repo$url),
     link_url("Browse source code", pkg$github_url),
-    link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
+    link_url("Report a bug", bug_report),
     purrr::map_chr(meta, ~ link_url(.$text, .$href))
   )
 
@@ -120,3 +121,27 @@ repo_link <- memoise(function(pkg) {
 
   NULL
 })
+
+is_url <- function(x) {
+  # https://www.regextester.com/94502
+  pat <- "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+  grepl(pat, x, perl = TRUE)
+}
+
+is_email <- function(x) {
+  # https://www.regextester.com/19
+  pat <- "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+  grepl(pat, x, perl = TRUE)
+}
+
+bug_report_link <- function(pkg) {
+  x <- pkg$desc$get("BugReports")[[1]]
+
+  # check that value listed in BugReports field
+  # is a url or email
+  if (is_url(x) || is_email(x)) {
+    return(x)
+  }
+  # default is maintainer email
+  pkg$desc$get_authors()[1]$email
+}
