@@ -17,6 +17,19 @@ rd_file <- function(path, pkg_path = NULL) {
   }
 }
 
+#' Translate an Rd string to its HTML output
+#'
+#' @param x Rd string. Backslashes must be double-escaped ("\\\\").
+#' @param fragment logical indicating whether this represents a complete Rd file
+#'
+#' @examples
+#' rd2html("a\n%b\nc")
+#'
+#' rd2html("a & b")
+#'
+#' rd2html(tools:::Rd_expr_doi("10.11177/0163278703255230"))
+#'
+#' @export
 rd2html <- function(x, fragment = TRUE, ...) {
   html <- as_html(rd_text(x, fragment = fragment), ...)
   str_trim(strsplit(str_trim(html), "\n")[[1]])

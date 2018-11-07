@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* `rd2html()` is now exported to facilitate creation of translation reprexes.
+
 * Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
 
 * A default favicon is now used if no logo is provided (#827).
