@@ -79,8 +79,9 @@ deploy_site_github <- function(
     processx::run("git", c(...), echo_cmd = verbose, echo = verbose)
   }
   with_dir("docs", {
-    git("clone", "--single-branch", "-b", "gh-pages", "--depth", "1", remote_url, ".")
+    git("init")
     git("add", "-A", ".")
+    git("remote", "add", "origin", remote_url)
     git("commit", "-m", commit_message)
 
     rule("Deploying to GitHub Pages", line = 1)
