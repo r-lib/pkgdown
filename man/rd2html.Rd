@@ -10,6 +10,8 @@ rd2html(x, fragment = TRUE, ...)
 \item{x}{Rd string. Backslashes must be double-escaped ("\\").}
 
 \item{fragment}{logical indicating whether this represents a complete Rd file}
+
+\item{...}{additional arguments for as_html}
 }
 \description{
 Translate an Rd string to its HTML output

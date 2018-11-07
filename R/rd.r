@@ -21,6 +21,7 @@ rd_file <- function(path, pkg_path = NULL) {
 #'
 #' @param x Rd string. Backslashes must be double-escaped ("\\\\").
 #' @param fragment logical indicating whether this represents a complete Rd file
+#' @param ... additional arguments for as_html
 #'
 #' @examples
 #' rd2html("a\n%b\nc")
