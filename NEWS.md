@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* The default css has been tweaked to ensure that icons are visible on all
+  browsers (#852).
+
 * `build_home()` no longer includes an NA link for bug reports in the
   sidebar if the `DESCRIPTION` has no "BugReports" field (#855).
 
