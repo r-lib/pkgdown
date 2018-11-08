@@ -3,6 +3,9 @@
 * The default css has been tweaked to ensure that icons are visible on all
   browsers (#852).
 
+* `build_home()` no longer includes an NA link for bug reports in the
+  sidebar if the `DESCRIPTION` has no "BugReports" field (#855).
+
 * Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
 
 * A default favicon is now used if no logo is provided (#827).
@@ -30,9 +33,6 @@
   
 * Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
   string or a R connection` errors when using `\doi` Rd tags (#738).
-
-* `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
-  and `docs/`, preventing a NOTE during R CMD CHECK (#710).
 
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 

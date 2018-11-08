@@ -62,7 +62,7 @@ deploy_site_github <- function(
   rule("Installing package", line = 1)
   callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
 
-  build_site(pkg, ...)
+  build_site(pkg, ..., document = FALSE)
 
   remote_url <- sprintf("git@github.com:%s.git", repo_slug)
 

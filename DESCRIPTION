@@ -44,7 +44,6 @@ Imports:
     rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     xml2 (>= 1.1.1),
     yaml
@@ -55,7 +54,8 @@ Suggests:
     knitr,
     leaflet,
     magick,
-    testthat
+    testthat,
+    rticles
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 6.1.0
