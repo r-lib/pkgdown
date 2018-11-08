@@ -5,7 +5,7 @@
 \title{Build a complete pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, document = TRUE,
-  run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
+  run_dont_run = FALSE, seed = 1014, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE)
 }
 \arguments{
@@ -20,8 +20,6 @@ updating the site.}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
-
-\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}

@@ -87,7 +87,6 @@
 #'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
-#' @param mathjax Use mathjax to render math symbols?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @export
@@ -96,7 +95,6 @@ build_reference <- function(pkg = ".",
                             document = FALSE,
                             examples = TRUE,
                             run_dont_run = FALSE,
-                            mathjax = TRUE,
                             seed = 1014,
                             override = list(),
                             preview = NA
@@ -139,8 +137,7 @@ build_reference <- function(pkg = ".",
     pkg = pkg,
     lazy = lazy,
     examples = examples,
-    run_dont_run = run_dont_run,
-    mathjax = mathjax
+    run_dont_run = run_dont_run
   )
 
   preview_site(pkg, "reference", preview = preview)
@@ -171,8 +168,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples = TRUE,
-                                  run_dont_run = FALSE,
-                                  mathjax = TRUE
+                                  run_dont_run = FALSE
                                   ) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
@@ -188,8 +184,7 @@ build_reference_topic <- function(topic,
     topic,
     pkg,
     examples = examples,
-    run_dont_run = run_dont_run,
-    mathjax = mathjax
+    run_dont_run = run_dont_run
   )
   render_page(
     pkg, "reference-topic",
@@ -205,8 +200,7 @@ build_reference_topic <- function(topic,
 data_reference_topic <- function(topic,
                                  pkg,
                                  examples = TRUE,
-                                 run_dont_run = FALSE,
-                                 mathjax = TRUE
+                                 run_dont_run = FALSE
                                  ) {
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)

@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Vestigal `mathjax` removed. This didn't appear to do anything and no one
+  could remember why it existed (#785).
+
 * `build_reference()` no longer loads unexported functions or test helpers 
   (#789)
 

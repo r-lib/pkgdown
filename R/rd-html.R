@@ -99,27 +99,18 @@ as_html.tag_subsection <- function(x, ...) {
 # Equations ------------------------------------------------------------------
 
 #' @export
-as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
+as_html.tag_eqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
-  if (isTRUE(mathjax)){
-    latex_rep <- x[[1]]
-    paste0("\\(", flatten_text(latex_rep, ...), "\\)")
-  }else{
-    ascii_rep <- x[[length(x)]]
-    paste0("<code class = 'eq'>", flatten_text(ascii_rep, ...), "</code>")
-  }
+
+  latex_rep <- x[[1]]
+  paste0("\\(", flatten_text(latex_rep, ...), "\\)")
 }
 
 #' @export
-as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
+as_html.tag_deqn <- function(x, ...) {
   stopifnot(length(x) <= 2)
-  if (isTRUE(mathjax)) {
-    latex_rep <- x[[1]]
-    paste0("$$", flatten_text(latex_rep, ...), "$$")
-  }else{
-    ascii_rep <- x[[length(x)]]
-    paste0("<pre class = 'eq'>", flatten_text(ascii_rep, ...), "</pre>")
-  }
+  latex_rep <- x[[1]]
+  paste0("$$", flatten_text(latex_rep, ...), "$$")
 }
 
 # Links ----------------------------------------------------------------------
