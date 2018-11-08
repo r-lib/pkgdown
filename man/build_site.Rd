@@ -77,7 +77,7 @@ text:\preformatted{authors:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
+    html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 }
 }
 
