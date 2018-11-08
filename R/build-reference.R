@@ -218,8 +218,8 @@ data_reference_topic <- function(topic,
   out$filename <- topic$file_in
 
   # Multiple top-level converted to string
+  out$author <- purrr::map_chr(tags$tag_author %||% list(), flatten_para)
   out$aliases <- purrr::map_chr(tags$tag_alias %||% list(), flatten_text)
-  out$author <- purrr::map_chr(tags$tag_author %||% list(), flatten_text)
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
