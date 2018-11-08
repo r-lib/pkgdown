@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* `build_reference()` no longer loads unexported functions or test helpers 
+  (#789)
+
 * The default css has been tweaked to ensure that icons are visible on all
   browsers (#852).
 
