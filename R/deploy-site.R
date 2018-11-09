@@ -76,11 +76,9 @@ deploy_local <- function(
                          repo_slug = NULL,
                          commit_message = construct_commit_message(pkg)
                          ) {
-  # force execution before changing working directory
-  force(commit_message)
 
-  dest_dir <- tempfile()
-  fs::dir_create(dest_dir)
+  dest_dir <- fs::dir_create(fs::file_temp())
+  on.exit(fs::dir_delete(dest_dir))
 
   pkg <- as_pkgdown(pkg)
   if (is.null(repo_slug)) {
@@ -111,7 +109,10 @@ github_clone <- function(dir, repo_slug) {
 }
 
 github_push <- function(dir, commit_message) {
-  rule("Commiting updates site", line = 1)
+  # force execution before changing working directory
+  force(commit_message)
+
+  rule("Commiting updated site", line = 1)
 
   with_dir(dir, {
     git("add", "-A", ".")
