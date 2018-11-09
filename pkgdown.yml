@@ -1,0 +1,17 @@
+pandoc: '2.2'
+pkgdown: 1.1.0.9000
+pkgdown_sha: ~
+articles:
+  pkgdown: pkgdown.html
+  details: test/details.html
+  external: test/external.html
+  figures: test/figures.html
+  highlight: test/highlight.html
+  jss: test/jss.html
+  output: test/output.html
+  pdf: test/pdf.html
+  widget: test/widget.html
+urls:
+  reference: https://pkgdown.r-lib.org/reference
+  article: https://pkgdown.r-lib.org/articles
+

@@ -1,0 +1,66 @@
+\documentclass[article,nojss]{jss}
+\usepackage[utf8]{inputenc}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\author{
+FirstName LastName\\University/Company \And Second Author\\Affiliation
+}
+\title{Test: JSS article}
+
+\Plainauthor{FirstName LastName, Second Author}
+\Plaintitle{Test: JSS article}
+\Shorttitle{Test: JSS article}
+
+\Abstract{
+The abstract of the article.
+}
+
+\Keywords{keywords, not capitalized, \proglang{Java}}
+\Plainkeywords{keywords, not capitalized, Java}
+
+%% publication information
+%% \Volume{50}
+%% \Issue{9}
+%% \Month{June}
+%% \Year{2012}
+%% \Submitdate{}
+%% \Acceptdate{2012-06-04}
+
+\Address{
+    FirstName LastName\\
+  University/Company\\
+  First line Second line\\
+  E-mail: \email{name@company.com}\\
+  URL: \url{http://rstudio.com}\\~\\
+    }
+
+% Pandoc header
+
+
+
+\begin{document}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Some text and a reference \citep{JSSv059i10}.
+
+\begin{CodeChunk}
+
+\begin{CodeInput}
+R> 1 +
+R+   2
+\end{CodeInput}
+
+\begin{CodeOutput}
+[1] 3
+\end{CodeOutput}
+\end{CodeChunk}
+
+\bibliography{jss.bib}
+
+
+\end{document}
+
