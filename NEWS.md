@@ -32,7 +32,7 @@
   site's metadata includes a `url` field.
 
 * Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
-  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774).
+  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774, #877).
   
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
