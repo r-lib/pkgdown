@@ -32,7 +32,7 @@ Imports:
     MASS,
     memoise,
     openssl,
-    pkgload (>= 1.0.2)
+    pkgload (>= 1.0.2),
     purrr,
     processx,
     R6,
