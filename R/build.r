@@ -313,9 +313,11 @@ build_site_external <- function(pkg = ".",
   )
   callr::r(
     function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
-      options(crayon.enabled = crayon_enabled,
-              crayon.colors = crayon_colors,
-              pkgdown.internet = pkgdown_internet)
+      options(
+        crayon.enabled = crayon_enabled,
+        crayon.colors = crayon_colors,
+        pkgdown.internet = pkgdown_internet
+      )
       pkgdown::build_site(...)
     },
     args = args,
