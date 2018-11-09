@@ -1,0 +1,25 @@
+{
+	"favicon_generation": {
+		"api_key": "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
+		"master_picture": {
+			"type": "inline",
+			"content": "{{logo_string}}"
+		},
+		"files_location": {
+			"type": "path",
+			"path": "{{url}}"
+		},
+		"favicon_design": {
+			"desktop_browser": {},
+			"ios": {
+				"picture_aspect": "no_change",
+				"assets": {
+					"ios6_and_prior_icons": false,
+					"ios7_and_later_icons": true,
+					"precomposed_icons": false,
+					"declare_only_default_icon": true
+				}
+			}
+		},
+	}
+}
