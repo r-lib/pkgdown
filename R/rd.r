@@ -28,7 +28,7 @@ rd_file <- function(path, pkg_path = NULL) {
 #'
 #' rd2html("a & b")
 #'
-#' rd2html(tools:::Rd_expr_doi("10.11177/0163278703255230"))
+#' rd2html("\\strong{\\emph{x}}")
 #'
 #' @export
 rd2html <- function(x, fragment = TRUE, ...) {

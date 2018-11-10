@@ -21,6 +21,6 @@ rd2html("a\\n\%b\\nc")
 
 rd2html("a & b")
 
-rd2html(tools:::Rd_expr_doi("10.11177/0163278703255230"))
+rd2html("\\\\strong{\\\\emph{x}}")
 
 }
