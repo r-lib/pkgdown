@@ -98,9 +98,3 @@ This section is automatically populated if the first paragraph of the
 homepage consists solely of status badges as linked images.
 }
 
-\section{Internet}{
-
-Users with limited internet connectivity can disable CRAN checks by setting
-\code{options(pkgdown.internet = FALSE)}.
-}
-

@@ -249,6 +249,15 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
 
+\section{Internet}{
+
+Users with limited internet connectivity can disable CRAN checks by setting
+\code{options(pkgdown.internet = FALSE)}. This will disable some features from
+pkgdown that requires an internet connectivity. However, if it is used to
+build docs for a package that needs internet connectivity in examples or
+vignettes, this connection is required as this options won't apply on them.
+}
+
 \examples{
 \dontrun{
 build_site()
