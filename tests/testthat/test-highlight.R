@@ -16,14 +16,23 @@ test_that("can link to external topics that use ::", {
   )
 })
 
-
 test_that("can link to implicit remote topics with library()", {
-  scoped_package_context("test", c("foo" = "bar"))
+  scoped_package_context("test")
   scoped_file_context()
   register_attached_packages("MASS")
 
   expect_equal(
     highlight_text("addterm()"),
     "<span class='fu'><a href='http://www.rdocumentation.org/packages/MASS/topics/addterm'>addterm</a></span>()"
+  )
+})
+
+test_that("can link to implicit base topics", {
+  scoped_package_context("test")
+  scoped_file_context()
+
+  expect_equal(
+    highlight_text("median()"),
+    "<span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>()"
   )
 })
