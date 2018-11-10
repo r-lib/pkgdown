@@ -308,11 +308,16 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     crayon_enabled = crayon::has_color(),
-    crayon_colors = crayon::num_colors()
+    crayon_colors = crayon::num_colors(),
+    pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., crayon_enabled, crayon_colors) {
-      options(crayon.enabled = crayon_enabled, crayon.colors = crayon_colors)
+    function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
+      options(
+        crayon.enabled = crayon_enabled,
+        crayon.colors = crayon_colors,
+        pkgdown.internet = pkgdown_internet
+      )
       pkgdown::build_site(...)
     },
     args = args,
