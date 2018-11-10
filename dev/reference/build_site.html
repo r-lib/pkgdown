@@ -411,6 +411,15 @@ of the default assets, set <code>default_assets</code> to false.</p><pre>templat
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
     
+    <h2 class="hasAnchor" id="internet"><a class="anchor" href="#internet"></a>Internet</h2>
+
+    
+    <p>Users with limited internet connectivity can disable CRAN checks by setting
+<code>options(pkgdown.internet = FALSE)</code>. This will disable some features from
+pkgdown that requires an internet connectivity. However, if it is used to
+build docs for a package that needs internet connectivity in examples or
+vignettes, this connection is required as this options won't apply on them.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -433,6 +442,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
       <li><a href="#yaml-config-search">YAML config - search</a></li>
 
       <li><a href="#yaml-config-template">YAML config - template</a></li>
+
+      <li><a href="#internet">Internet</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
