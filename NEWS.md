@@ -2,6 +2,18 @@
 
 * `rd2html()` is now exported to facilitate creation of translation reprexes.
 
+* Vestigal `mathjax` removed. This didn't appear to do anything and no one
+  could remember why it existed (#785).
+
+* `build_reference()` no longer loads unexported functions or test helpers 
+  (#789)
+
+* The default css has been tweaked to ensure that icons are visible on all
+  browsers (#852).
+
+* `build_home()` no longer includes an NA link for bug reports in the
+  sidebar if the `DESCRIPTION` has no "BugReports" field (#855).
+
 * Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
 
 * A default favicon is now used if no logo is provided (#827).
@@ -22,16 +34,13 @@
   site's metadata includes a `url` field.
 
 * Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
-  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774).
+  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774, #877).
   
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).
   
 * Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
   string or a R connection` errors when using `\doi` Rd tags (#738).
-
-* `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
-  and `docs/`, preventing a NOTE during R CMD CHECK (#710).
 
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 

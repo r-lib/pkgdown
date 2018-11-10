@@ -11,7 +11,7 @@ template:
       index_name: pkgdown
 
 development:
-  mode: unreleased
+  mode: auto
 
 reference:
   - title: Build
