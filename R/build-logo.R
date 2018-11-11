@@ -9,7 +9,7 @@ build_logo <- function(pkg = ".") {
 
   cat_line("Creating ", dst_path("favicon.ico"))
 
-  logo_string <- readBin(logo_path, what = "raw", n = 99999) %>%
+  logo_string <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size) %>%
     openssl::base64_encode()
 
   template <- find_template("config", "favicon", ext = ".json")
