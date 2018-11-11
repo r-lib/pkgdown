@@ -272,23 +272,15 @@ test_that("S3 methods gets comment", {
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")
   expect_equal(out, "\\(\\alpha\\)")
-  out <- rd2html(" \\eqn{\\alpha}{alpha}", mathjax = FALSE)
-  expect_equal(out, "<code class = 'eq'>alpha</code>")
   out <- rd2html(" \\eqn{x}")
   expect_equal(out, "\\(x\\)")
-  out <- rd2html(" \\eqn{x}", mathjax = FALSE)
-  expect_equal(out, "<code class = 'eq'>x</code>")
 })
 
 test_that("deqn", {
   out <- rd2html(" \\deqn{\\alpha}{alpha}")
   expect_equal(out, "$$\\alpha$$")
-  out <- rd2html(" \\deqn{\\alpha}{alpha}", mathjax = FALSE)
-  expect_equal(out, "<pre class = 'eq'>alpha</pre>")
   out <- rd2html(" \\deqn{x}")
   expect_equal(out, "$$x$$")
-  out <- rd2html(" \\deqn{x}", mathjax = FALSE)
-  expect_equal(out, "<pre class = 'eq'>x</pre>")
 })
 
 

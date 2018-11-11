@@ -23,7 +23,6 @@ Imports:
     cli,
     crayon,
     desc,
-    devtools,
     digest,
     evaluate,
     fs (>= 1.2.0),
@@ -33,6 +32,7 @@ Imports:
     MASS,
     memoise,
     openssl,
+    pkgload (>= 1.0.2),
     purrr,
     processx,
     R6,
@@ -44,20 +44,21 @@ Imports:
     rstudioapi,
     tibble,
     tools,
-    usethis,
     whisker,
     xml2 (>= 1.1.1),
     yaml
 Suggests: 
     covr,
+    devtools,
     htmlwidgets,
     jsonlite,
     knitr,
     leaflet,
     magick,
-    testthat
+    testthat,
+    rticles
 VignetteBuilder: knitr
 SystemRequirements: pandoc
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

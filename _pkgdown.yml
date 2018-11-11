@@ -1,4 +1,4 @@
-url: http://pkgdown.r-lib.org
+url: https://pkgdown.r-lib.org
 
 authors:
   Jay Hesselberth:
@@ -11,7 +11,7 @@ template:
       index_name: pkgdown
 
 development:
-  mode: unreleased
+  mode: auto
 
 reference:
   - title: Build
@@ -30,6 +30,7 @@ reference:
     contents:
     - autolink_html
     - clean_site
+    - rd2html
     - as_pkgdown
     - in_pkgdown
   - title: Regression tests

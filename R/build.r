@@ -42,7 +42,7 @@
 #'     href: http://hadley.nz
 #'   RStudio:
 #'     href: https://www.rstudio.com
-#'     html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
+#'     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 #' ```
 #'
 #' @section Development mode:
@@ -240,6 +240,13 @@
 #' is little documentation, and you'll need to read the existing source
 #' for pkgdown templates to ensure that you use the correct components.
 #'
+#' @section Internet:
+#' Users with limited internet connectivity can disable CRAN checks by setting
+#' `options(pkgdown.internet = FALSE)`. This will also disable some features
+#' from pkgdown that requires an internet connectivity. However, if it is used
+#' to build docs for a package that requires internet connectivity in examples
+#' or vignettes, this connection is required as this option won't apply on them.
+#'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
@@ -259,7 +266,6 @@ build_site <- function(pkg = ".",
                        document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
-                       mathjax = TRUE,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
@@ -272,7 +278,6 @@ build_site <- function(pkg = ".",
       document = document,
       run_dont_run = run_dont_run,
       seed = seed,
-      mathjax = mathjax,
       lazy = lazy,
       override = override,
       preview = preview
@@ -284,7 +289,6 @@ build_site <- function(pkg = ".",
       document = document,
       run_dont_run = run_dont_run,
       seed = seed,
-      mathjax = mathjax,
       lazy = lazy,
       override = override,
       preview = preview
@@ -297,7 +301,6 @@ build_site_external <- function(pkg = ".",
                                 document = TRUE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
-                                mathjax = TRUE,
                                 lazy = FALSE,
                                 override = list(),
                                 preview = NA) {
@@ -307,17 +310,21 @@ build_site_external <- function(pkg = ".",
     document = document,
     run_dont_run = run_dont_run,
     seed = seed,
-    mathjax = mathjax,
     lazy = lazy,
     override = override,
     preview = FALSE,
     new_process = FALSE,
     crayon_enabled = crayon::has_color(),
-    crayon_colors = crayon::num_colors()
+    crayon_colors = crayon::num_colors(),
+    pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., crayon_enabled, crayon_colors) {
-      options(crayon.enabled = crayon_enabled, crayon.colors = crayon_colors)
+    function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
+      options(
+        crayon.enabled = crayon_enabled,
+        crayon.colors = crayon_colors,
+        pkgdown.internet = pkgdown_internet
+      )
       pkgdown::build_site(...)
     },
     args = args,
@@ -333,7 +340,6 @@ build_site_local <- function(pkg = ".",
                        document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
-                       mathjax = TRUE,
                        lazy = FALSE,
                        override = list(),
                        preview = NA
@@ -353,7 +359,6 @@ build_site_local <- function(pkg = ".",
     document = document,
     examples = examples,
     run_dont_run = run_dont_run,
-    mathjax = mathjax,
     seed = seed,
     override = override,
     preview = FALSE

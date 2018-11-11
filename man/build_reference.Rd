@@ -6,8 +6,8 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
-  examples = TRUE, run_dont_run = FALSE, mathjax = TRUE,
-  seed = 1014, override = list(), preview = NA)
+  examples = TRUE, run_dont_run = FALSE, seed = 1014,
+  override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }
@@ -24,8 +24,6 @@ updating the site.}
 \item{examples}{Run examples?}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
-
-\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}

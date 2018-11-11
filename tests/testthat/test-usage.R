@@ -27,6 +27,14 @@ test_that("can parse function/methods", {
   expect_equal(usage$type, "s4")
   expect_equal(usage$name, "f")
   expect_equal(usage$signature, c("bar", "baz"))
+
+  usage <- parse_usage("pkg::func()")[[1]]
+  expect_equal(usage$type, "fun")
+  expect_equal(usage$name, "func")
+
+  usage <- parse_usage("pkg:::func()")[[1]]
+  expect_equal(usage$type, "fun")
+  expect_equal(usage$name, "func")
 })
 
 test_that("can parse replacement functions", {
@@ -81,7 +89,6 @@ test_that("can parse dots", {
   usage <- parse_usage("f(\\dots)")[[1]]
   expect_equal(usage$name, "f")
 })
-
 
 # short_name --------------------------------------------------------------
 

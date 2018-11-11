@@ -1,4 +1,4 @@
-pandoc: '2.3'
+pandoc: 2.3.1
 pkgdown: 1.1.0.9000
 pkgdown_sha: ~
 articles:
@@ -12,6 +12,6 @@ articles:
   pdf: test/pdf.html
   widget: test/widget.html
 urls:
-  reference: http://pkgdown.r-lib.org/reference
-  article: http://pkgdown.r-lib.org/articles
+  reference: https://pkgdown.r-lib.org/reference
+  article: https://pkgdown.r-lib.org/articles
 

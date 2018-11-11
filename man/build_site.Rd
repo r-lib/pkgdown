@@ -5,7 +5,7 @@
 \title{Build a complete pkgdown website}
 \usage{
 build_site(pkg = ".", examples = TRUE, document = TRUE,
-  run_dont_run = FALSE, seed = 1014, mathjax = TRUE, lazy = FALSE,
+  run_dont_run = FALSE, seed = 1014, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE)
 }
 \arguments{
@@ -20,8 +20,6 @@ updating the site.}
 
 \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
-
-\item{mathjax}{Use mathjax to render math symbols?}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
@@ -77,7 +75,7 @@ text:\preformatted{authors:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
-    html: <img src="https://tidyverse.org/rstudio-logo.svg" height="24" />
+    html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 }
 }
 
@@ -249,6 +247,15 @@ template:
 These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
+}
+
+\section{Internet}{
+
+Users with limited internet connectivity can disable CRAN checks by setting
+\code{options(pkgdown.internet = FALSE)}. This will disable some features from
+pkgdown that requires an internet connectivity. However, if it is used to
+build docs for a package that needs internet connectivity in examples or
+vignettes, this connection is required as this options won't apply on them.
 }
 
 \examples{

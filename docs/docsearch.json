@@ -2,21 +2,21 @@
   "index_name": "pkgdown",
   "start_urls": [
     {
-      "url": "http://pkgdown.r-lib.org/index.html",
+      "url": "https://pkgdown.r-lib.org/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "http://pkgdown.r-lib.org/reference",
+      "url": "https://pkgdown.r-lib.org/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "http://pkgdown.r-lib.org/articles",
+      "url": "https://pkgdown.r-lib.org/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "http://pkgdown.r-lib.org/sitemap.xml"
+    "https://pkgdown.r-lib.org/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

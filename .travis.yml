@@ -8,16 +8,19 @@ addons:
   apt:
     packages:
       - libmagick++-dev
-r:
-- 3.1
-- 3.2
-- 3.3
-- oldrel
-- release
-- devel
 
 matrix:
   include:
+  - r: devel
+  - r: release
+    after_success:
+    - Rscript -e 'covr::codecov()'
+    before_deploy:
+    - R CMD INSTALL .
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
   - r: release
     pandoc: false
     env: PANDOC='none'
@@ -31,9 +34,10 @@ matrix:
       - sudo installer -pkg "/Volumes/pandoc/pandoc-1.12.pkg" -allowUntrusted -target /
       - sudo hdiutil detach /Volumes/pandoc
     env: PANDOC='mac-cran'
-
-after_success:
-  - Rscript -e 'covr::codecov()'
+  - r: oldrel
+  - r: 3.3
+  - r: 3.2
+  - r: 3.1
 
 env:
   global:

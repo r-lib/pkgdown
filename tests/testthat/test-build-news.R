@@ -57,6 +57,7 @@ test_that("multi-page news are rendered", {
 
   path <- test_path("assets/news-multi-page")
   pkg <- as_pkgdown(path)
+  on.exit(clean_site(pkg))
   expect_output(build_news(pkg))
 
   # test that index links are correct
