@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* `rd2html()` is now exported to facilitate creation of translation reprexes.
+
 * Vestigal `mathjax` removed. This didn't appear to do anything and no one
   could remember why it existed (#785).
 
