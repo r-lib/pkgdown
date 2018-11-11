@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* `build_home()` now uses the `content-home.html` template when the content is a .Rmd file (@goldingn #787).
+
 * A default favicon is now used if no logo is provided (#827).
 
 * The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
