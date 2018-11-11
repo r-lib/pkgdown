@@ -159,7 +159,19 @@
 
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
 <p>Once you have built a minimal package that recreates the error, create a github repository from the pacakge, and file an issue with a link to the repository.</p>
-<p>The quickest way to set up minimal example package is with <code><a href="http://www.rdocumentation.org/packages/usethis/topics/create_package">usethis::create_package()</a></code>.</p>
+<p>The quickest way to set up minimal example package is with <code><a href="http://www.rdocumentation.org/packages/usethis/topics/create_package">usethis::create_package()</a></code>:</p>
+<pre><code><a href="http://www.rdocumentation.org/packages/base/topics/library">library(usethis)
+library(pkgdown)
+
+tmp &lt;- file.path(tempdir(), "test")
+usethis::create_package(tmp, open)
+# ... edit files ...
+pkgdown::build_site(tmp, new_process = FALSE, preview = FALSE)</a></code></pre>
+<p>If you encounter problems with Rd tags, you can use <code><a href="reference/rd2html.html">rd2html()</a></code> to create translation reprexes:</p>
+<pre><code><a href="http://www.rdocumentation.org/packages/base/topics/library">library(pkgdown)
+
+rd2html("a\n%b\nc")
+rd2html("a &amp; b")</a></code></pre>
 </div>
 <div id="contributing-to-pkgdown" class="section level1">
 <h1 class="hasAnchor">

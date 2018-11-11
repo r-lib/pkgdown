@@ -171,14 +171,14 @@ text (and no other tags).
 <li><p><code>//pre[contains(@class, 'r')]</code>:
 this finds all <code>&lt;div&gt;</code>s with class <code>sourceCode</code> and <code>r</code>. The contents
 must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
-(This is default in <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document</a> when <code>theme = NULL</code>.)</p></li>
+(This is default in <a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document</a> when <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>theme = NULL</a></code>.)</p></li>
 <li><p><code>.//code[count(*) = 0]</code>: this finds all <code>&lt;code&gt;</code> that contain only
 text (and no other tags).</p></li>
 </ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'>character</span>())</pre>
+    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/character'>character</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,14 +204,14 @@ from the target HTML document.</p></td>
 <li><p>Help calls, <code>?foo</code>, <code>package?foo</code>, and <code>?bar::foo</code></p></li>
 <li><p>Vignette calls, <code>vignette(baz)</code>, <code>vignette(baz, package = "bar")</code></p></li>
 </ul>
-    <p>Calls to <code>library()</code> and <code>require()</code> are used to find the topics connected
+    <p>Calls to <code><a href='http://www.rdocumentation.org/packages/base/topics/library'>library()</a></code> and <code><a href='http://www.rdocumentation.org/packages/base/topics/library'>require()</a></code> are used to find the topics connected
 to unqualified references.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'>autolink_html</span>(<span class='st'>"path/to/file.html"</span>,
-  <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'>c</span>(
+  <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
     <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='st'>"shiny"</span>,
     <span class='kw'>shinydashboard</span> <span class='kw'>=</span> <span class='st'>"shinydashboard"</span>
   )

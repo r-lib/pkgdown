@@ -160,6 +160,7 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/rd2html.html">rd2html()</a></code> is now exported to facilitate creation of translation reprexes.</p></li>
 <li><p>Vestigal <code>mathjax</code> removed. This didn’t appear to do anything and no one could remember why it existed (<a href='https://github.com/r-lib/pkgdown/issues/785'>#785</a>).</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer loads unexported functions or test helpers (<a href='https://github.com/r-lib/pkgdown/issues/789'>#789</a>)</p></li>
 <li><p>The default css has been tweaked to ensure that icons are visible on all browsers (<a href='https://github.com/r-lib/pkgdown/issues/852'>#852</a>).</p></li>
@@ -167,17 +168,17 @@
 <li><p>Support of qualified functions in <code><a href='http://github.com/usage'>@usage</a></code> statments was fixed, eliminating <code>Error in fun_info(x) : Unknown call: ::</code> errors (<a href='https://github.com/r-lib/pkgdown/issues/795'>#795</a>).</p></li>
 <li><p>A default favicon is now used if no logo is provided (<a href='https://github.com/r-lib/pkgdown/issues/827'>#827</a>).</p></li>
 <li>
-<p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
+<p>The display depth of vignette tables of contents can be configured by setting <code><a href="http://www.rdocumentation.org/packages/base/topics/Colon">toc: depth</a></code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">depth:</span><span class="at"> 2</span></a></code></pre></div>
 </li>
-<li><p><code><a href="../reference/build_site.html">build_site()</a></code> now uses colors even if <code>new_process = TRUE</code> (<a href='http://github.com/jimhester'>@jimhester</a>).</p></li>
+<li><p><code><a href="../reference/build_site.html">build_site()</a></code> now uses colors even if <code><a href="http://www.rdocumentation.org/packages/base/topics/assignOps">new_process = TRUE</a></code> (<a href='http://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> added to build and deploy a site to GitHub Pages from the Travis CI service (<a href='http://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/init_site.html">init_site()</a></code> now creates a CNAME file if one doesn’t already exist and the site’s metadata includes a <code>url</code> field.</p></li>
-<li><p>Users with limited internet connectivity can explicitly disable pkgdown CRAN checks by setting <code>options(pkgdown.internet = FALSE)</code> prior to running <code><a href="../reference/build_site.html">build_site()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
+<li><p>Users with limited internet connectivity can explicitly disable pkgdown CRAN checks by setting <code><a href="http://www.rdocumentation.org/packages/base/topics/options">options(pkgdown.internet = FALSE)</a></code> prior to running <code><a href="../reference/build_site.html">build_site()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference_index()</a></code>: Selectors that do not match topics now generate a warning. If none of the specified selectors have a match, no topics are selected (<a href='https://github.com/r-lib/pkgdown/issues/728'>#728</a>).</p></li>
 <li><p>Support of multiple arguments in <code>\Sexpr{}</code> was fixed, eliminating <code>x must be a string or a R connection</code> errors when using <code>\doi</code> Rd tags (<a href='https://github.com/r-lib/pkgdown/issues/738'>#738</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code>inst/CITATION</code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code><a href="http://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/CITATION</a></code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
 </ul>
 </div>
     <div id="pkgdown-1-1-0" class="section level1">
@@ -211,7 +212,7 @@
 <ul>
 <li><p><code>vignette()</code> calls that don’t link to existing vignettes silently fail to link instead of generating an uninformative error messages (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>). Automatic linking works for re-exported objects that are not functions (<a href='http://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/r-lib/pkgdown/issues/666'>#666</a>).</p></li>
 <li><p>Empty <code>\section{}</code>s are ignored (<a href='https://github.com/r-lib/pkgdown/issues/656'>#656</a>). Previously, empty sections caused error <code>Error in rep(TRUE, length(x) - 1)</code>.</p></li>
-<li><p><code>\Sexpr{}</code> supports <code>results=text</code>, <code>results=Rd</code> and <code>results=hide</code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
+<li><p><code>\Sexpr{}</code> supports <code><a href="http://www.rdocumentation.org/packages/base/topics/assignOps">results=text</a></code>, <code><a href="http://www.rdocumentation.org/packages/base/topics/assignOps">results=Rd</a></code> and <code><a href="http://www.rdocumentation.org/packages/base/topics/assignOps">results=hide</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
 <li><p><code>\tabular{}</code> no longer requires a terminal <code>\cr</code> (<a href='https://github.com/r-lib/pkgdown/issues/664'>#664</a>, <a href='https://github.com/r-lib/pkgdown/issues/645'>#645</a>).</p></li>
 </ul>
 </div>
@@ -219,18 +220,18 @@
 <h2 class="hasAnchor">
 <a href="#minor-bug-fixes-and-improvements" class="anchor"></a>Minor bug fixes and improvements</h2>
 <ul>
-<li><p>Add <code>inst/pkgdown.yml</code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
+<li><p>Add <code><a href="http://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/pkgdown.yml</a></code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
-<p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
+<p>You can suppress indexing by search engines by setting <code><a href="http://www.rdocumentation.org/packages/base/topics/Colon">noindex: true</a></code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">template:</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="fu">params:</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code><a href="http://www.rdocumentation.org/packages/base/topics/Colon">Encoding: latin1</a></code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: Markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) stored in <code>.github/</code> are copied and linked correctly (<a href='https://github.com/r-lib/pkgdown/issues/682'>#682</a>).</p></li>
-<li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code>news: one_page: false</code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code><a href="http://www.rdocumentation.org/packages/base/topics/Colon">news: one_page: false</a></code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: reference index shows infix functions (like <code>%+%</code>) as <code>`%+%`</code>, not <code>`%+%`()</code> on (<a href='https://github.com/r-lib/pkgdown/issues/659'>#659</a>).</p></li>
 </ul>
 </div>
