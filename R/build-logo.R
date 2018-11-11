@@ -26,7 +26,7 @@ build_logo <- function(pkg = ".") {
 
   api_answer <- httr::content(request)
 
-  if (api_answer$favicon_generation_result$result$status == "success") {
+  if (identical(api_answer$favicon_generation_result$result$status, "success")) {
 
     result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url)
 
