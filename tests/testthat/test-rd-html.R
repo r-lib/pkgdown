@@ -352,27 +352,22 @@ test_that("titles don't get autolinked code", {
 
 test_that("URLs handled well", {
 
-  rd_file_name <- "test.Rd"
-  # section_name <- "Details"
+  ## Binding the rdname to the context environment allows
+  # stop_on_bad_html_tag() to grab the filename via rlang
+  rlang::env_bind(.env = context, rdname = "test-rd-html.R")
+  ## Without this, the error message in this test file is:
+  # Error: Context `rdname` has not been initialised
 
+  ## Good URLs do not throw erros and complete as desired
   expect_equal(
-    html <- rd2html(
-      x = "\\url{http://google.com}",
-      file_name = rd_file_name
-    ),
+    rd2html(x = "\\url{http://google.com}"),
     a("http://google.com", href = "http://google.com")
   )
-  expect_error(
-    html <- rd2html(
-      x = "\\url{}",
-      file_name = rd_file_name
-    )
-  )
-  expect_error(
-    rd2html(
-      x = "\\url{http://go \n ogle.com}",
-      file_name = rd_file_name
-    )
-  )
+
+  ## Empty URLs throw errors
+  expect_error( rd2html(x = "\\url{}") )
+
+  ## Bad URLs throw errors
+  expect_error( rd2html(x = "\\url{http://go \n ogle.com}") )
 
 })

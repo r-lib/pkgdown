@@ -230,19 +230,10 @@ data_reference_topic <- function(topic,
   out$keywords <- purrr::map_chr(tags$tag_keyword %||% list(), flatten_text)
 
   # Sections that contain arbitrary text and need cross-referencing
-  out$description <- as_data(
-    x = tags$tag_description[[1]],
-    file_name = out$filename # file_name sometimes passed to as_html() for debug
-  )
+  out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
-  out$usage <- as_data(
-    tags$tag_usage[[1]],
-    file_name = out$filename # file_name sometimes passed to as_html() for debug
-  )
-  out$arguments <- as_data(
-    tags$tag_arguments[[1]],
-    file_name = out$filename # file_name sometimes passed to as_html() for debug
-  )
+  out$usage <- as_data(tags$tag_usage[[1]])
+  out$arguments <- as_data(tags$tag_arguments[[1]])
   if (length(out$arguments)) {
     out$has_args <- TRUE # Work around mustache deficiency
   }
@@ -252,8 +243,7 @@ data_reference_topic <- function(topic,
     env = new.env(parent = globalenv()),
     topic = tools::file_path_sans_ext(topic$file_in),
     examples = examples,
-    run_dont_run = run_dont_run,
-    file_name = out$filename # file_name sometimes passed to as_html() for debug
+    run_dont_run = run_dont_run
   )
 
   # Everything else stays in original order, and becomes a list of sections.
@@ -263,7 +253,7 @@ data_reference_topic <- function(topic,
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
-    purrr::map(as_data, file_name = out$filename) %>%
+    purrr::map(as_data) %>%
     purrr::map(add_slug)
 
   out

@@ -101,13 +101,7 @@ as_html.tag_subsection <- function(x, ...) {
 #' @export
 as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
   if ( length(x) > 2 ) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "An \\eqn{} Rd tag contains a bad equation in the",
-      file_name, "file."
-    )
-    stop(message1)
+    stop_on_bad_html_tag(tag_type = "\\eqn{}", tag_log = "equation")
   }
 
   if (isTRUE(mathjax)){
@@ -122,13 +116,7 @@ as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
 #' @export
 as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
   if ( length(x) > 2 ) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "A \\deqn{} Rd tag contains a bad equation in the",
-      file_name, "file."
-    )
-    stop(message1)
+    stop_on_bad_html_tag(tag_type = "\\deqn{}", tag_log = "equation")
   }
 
   if (isTRUE(mathjax)) {
@@ -144,24 +132,16 @@ as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
 #' @export
 as_html.tag_url <- function(x, ...) {
   if ( length(x) != 1 ) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "A \\url Rd tag contains a bad URL in the",
-      file_name, "file."
-    )
     if ( length(x) == 0 ) {
-      message2 <- paste(
-        message1, "Check for empty \\url{} tags."
-      )
-      stop(message2)
+      debug_mess <- "Check for empty \\url{} tags."
     } else {
-      message2 <- paste(
-        message1,
-        "This could be caused by a \\url tag that spans a line break."
-      )
-      stop(message2)
+      debug_mess <- "This may be caused by a \\url tag that spans a line break."
     }
+    stop_on_bad_html_tag(
+      tag_type = "\\url",
+      tag_log = "URL",
+      debug_message = debug_mess
+    )
   }
 
   text <- flatten_text(x[[1]])
@@ -170,13 +150,7 @@ as_html.tag_url <- function(x, ...) {
 #' @export
 as_html.tag_href <- function(x, ...) {
   if ( length(x) != 2 ) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "A \\href Rd tag contains a bad label or destination in the",
-      file_name, "file."
-    )
-    stop(message1)
+    stop_on_bad_html_tag(tag_type = "\\href", tag_log = "label or destination")
   }
 
   a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
@@ -184,13 +158,7 @@ as_html.tag_href <- function(x, ...) {
 #' @export
 as_html.tag_email <- function(x, ...) {
   if ( !(length(x) %in% c(1L, 2L))) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "An \\email Rd tag contains a bad label or email in the",
-      file_name, "file."
-    )
-    stop(message1)
+    stop_on_bad_html_tag(tag_type = "\\email", tag_log = "label or email")
   }
 
   paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
@@ -240,13 +208,7 @@ as_html.tag_link <- function(x, ...) {
 #' @export
 as_html.tag_linkS4class <- function(x, ...) {
   if ( length(x) != 1 ) {
-    dots <- list(...)
-    file_name <- dots$file_name
-    message1 <- paste(
-      "A \\linkS4class{} Rd tag contains bad link in the",
-      file_name, "file."
-    )
-    stop(message1)
+    stop_on_bad_html_tag(tag_type = "\\linkS4class{}", tag_log = "link")
   }
 
   text <- flatten_text(x[[1]])
@@ -576,6 +538,20 @@ trim_ws_nodes <- function(x, side = c("both", "left", "right")) {
 }
 
 
+# Helper for debugging bad Rd tags in as_html() ----------------------------
+
+stop_on_bad_html_tag <- function(tag_type, tag_log, debug_message = NULL) {
+
+  file_name <- context_get("rdname")
+  error_message <- paste(
+    "A", tag_type, "Rd tag",
+    "contains a bad", tag_log,
+    "in the", file_name, "file.",
+    debug_message
+  )
+  stop(error_message)
+}
+
 # Helpers -----------------------------------------------------------------
 
 parse_opts <- function(string) {
@@ -596,4 +572,5 @@ parse_opts <- function(string) {
 
   as.list(env)
 }
+
 
