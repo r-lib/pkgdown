@@ -28,16 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  # Wrangling useful debugging information for some as_html() calls
-  section_tagname <- class(x)[1]
-  section_name <- paste(
-    toupper(substr(section_tagname, 5, 5)),
-    substr(section_tagname, 6, nchar(section_tagname)),
-    sep = ""
-  )
-
-  # Calling as_html() on `x` with section_name passed through dots
-  html <- purrr::map_chr(x, as_html, section_name = section_name, ...)
+  html <- purrr::map_chr(x, as_html, ...)
   blocks <- html %>%
     split(groups) %>%
     purrr::map_chr(paste, collapse = "")
@@ -111,11 +102,10 @@ as_html.tag_subsection <- function(x, ...) {
 as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
   if ( length(x) > 2 ) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "An \\eqn{} Rd tag contains a bad equation in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     stop(message1)
   }
@@ -133,11 +123,10 @@ as_html.tag_eqn <- function(x, ..., mathjax = TRUE) {
 as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
   if ( length(x) > 2 ) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "A \\deqn{} Rd tag contains a bad equation in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     stop(message1)
   }
@@ -156,11 +145,10 @@ as_html.tag_deqn <- function(x, ..., mathjax = TRUE) {
 as_html.tag_url <- function(x, ...) {
   if ( length(x) != 1 ) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "A \\url Rd tag contains a bad URL in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     if ( length(x) == 0 ) {
       message2 <- paste(
@@ -183,11 +171,10 @@ as_html.tag_url <- function(x, ...) {
 as_html.tag_href <- function(x, ...) {
   if ( length(x) != 2 ) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "A \\href Rd tag contains a bad label or destination in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     stop(message1)
   }
@@ -198,11 +185,10 @@ as_html.tag_href <- function(x, ...) {
 as_html.tag_email <- function(x, ...) {
   if ( !(length(x) %in% c(1L, 2L))) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "An \\email Rd tag contains a bad label or email in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     stop(message1)
   }
@@ -255,11 +241,10 @@ as_html.tag_link <- function(x, ...) {
 as_html.tag_linkS4class <- function(x, ...) {
   if ( length(x) != 1 ) {
     dots <- list(...)
-    section_name <- dots$section_name
     file_name <- dots$file_name
     message1 <- paste(
       "A \\linkS4class{} Rd tag contains bad link in the",
-      section_name, "section of the", file_name, "file."
+      file_name, "file."
     )
     stop(message1)
   }
