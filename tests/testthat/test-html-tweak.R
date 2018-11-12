@@ -74,6 +74,28 @@ test_that("Stripping HTML tags", {
   )
 })
 
+
+# links -------------------------------------------------------------------
+
+test_that("only local md links are tweaked", {
+  html <- xml2::read_html('
+    <div class="contents">
+      <div id="x">
+        <a href="local.md"></a>
+        <a href="http://remote.com/remote.md"></a>
+      </div>
+    </div>')
+
+  tweak_md_links(html)
+
+  href <- html %>%
+    xml2::xml_find_all(".//a") %>%
+    xml2::xml_attr("href")
+
+  expect_equal(href[[1]], "local.html")
+  expect_equal(href[[2]], "http://remote.com/remote.md")
+})
+
 # find badges -------------------------------------------------------------
 
 test_that("no paragraph", {

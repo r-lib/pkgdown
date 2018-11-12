@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Links to remote `.md` files are no longer "helpfully" tweaked to end in 
+  `.html` (#763).
+
 * `build_home()` now uses the `content-home.html` template when the content is a .Rmd file (@goldingn #787).
 
 * `rd2html()` is now exported to facilitate creation of translation reprexes.
