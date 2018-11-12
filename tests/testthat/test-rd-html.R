@@ -141,7 +141,7 @@ test_that("can convert cross links to online documentation url", {
 
   expect_equal(
     rd2html("\\link[base]{library}"),
-    a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
+    a("library", href = "https://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
