@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Navbar version now gets class "version" so you can more easily control the
+  display if you want (#680).
+
 * Can now build sites for older packages that don't have a `Authors@R` field 
   (#727).
 
