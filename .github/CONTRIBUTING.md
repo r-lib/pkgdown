@@ -1,4 +1,4 @@
-# pkgdown build issues
+# Package reprexes
 
 If you encounter unexpected errors after running `pkgdown::build_site()`, try
 to build a minimal package that recreates the error. An ideal minimal package has
@@ -12,7 +12,7 @@ repository from the pacakge, and file an issue with a link to the repository.
 
 The quickest way to set up minimal example package is with `usethis::create_package()`:
 
-```
+```R
 library(usethis)
 library(pkgdown)
 
@@ -22,9 +22,11 @@ usethis::create_package(tmp, open)
 pkgdown::build_site(tmp, new_process = FALSE, preview = FALSE)
 ```
 
-If you encounter problems with Rd tags, you can use `rd2html()` to create translation reprexes:
+# Rd translsation
 
-```
+If you encounter problems with Rd tags, please use `rd2html()` to create a reprexes:
+
+```R
 library(pkgdown)
 
 rd2html("a\n%b\nc")
