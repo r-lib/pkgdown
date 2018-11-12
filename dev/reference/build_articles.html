@@ -165,15 +165,15 @@ template." />
     
     <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is rendered
 and saved to <code>articles/</code>. Vignettes are rendered using a special document
-format that reconciles <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
+format that reconciles <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> with your pkgdown
 template.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
-<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -216,7 +216,7 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A vignette with the same name as the package (e.g., <code><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>vignettes/pkgdown.Rmd</a></code>)
+    <p>A vignette with the same name as the package (e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>vignettes/pkgdown.Rmd</a></code>)
 gets special treatment. It is rendered and linked to in the navbar under
 "Get started".</p>
     
@@ -227,7 +227,7 @@ gets special treatment. It is rendered and linked to in the navbar under
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
-<a href='http://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also copy any images that
+<a href='https://www.rdocumentation.org/packages/rmarkdown/topics/find_external_resources'>rmarkdown::find_external_resources</a>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
 will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><pre>---
 title: My Document
@@ -268,7 +268,7 @@ this page, and will generate a warning if you have missed any.</p>
     <h2 class="hasAnchor" id="yaml-header"><a class="anchor" href="#yaml-header"></a>YAML header</h2>
 
     
-    <p>By default, pkgdown builds all articles with <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code>
+    <p>By default, pkgdown builds all articles with <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code>
 using setting the <code>template</code> parameter to a custom built template that
 matches the site template. You can override this with a <code>pkgdown</code> field
 in your yaml metadata:</p><pre>pkgdown:
@@ -348,7 +348,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
