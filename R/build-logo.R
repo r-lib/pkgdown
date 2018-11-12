@@ -35,8 +35,16 @@ build_logo <- function(pkg = ".") {
     )
   )
 
+  # It may take some time to generate the whole favicon set so we need to set
+  # a high timeout value.
   request <- httr::POST("https://realfavicongenerator.net/api/favicon",
-                        body = json_request, encode = "json")
+                        body = json_request, encode = "json",
+                        httr::timeout(10000))
+
+  if (httr::http_error(request)) {
+    stop("The API could not be reached. Please check your internet connection ",
+         "or try again later.")
+  }
 
   api_answer <- httr::content(request)
 
