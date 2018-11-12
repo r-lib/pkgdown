@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Can now build sites for older packages that don't have a `Authors@R` field 
+  (#727).
+
 * Links to remote `.md` files are no longer "helpfully" tweaked to end in 
   `.html` (#763).
 

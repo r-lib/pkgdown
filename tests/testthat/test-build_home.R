@@ -55,6 +55,15 @@ test_that("home template is used with index.Rmd", {
 
 })
 
+test_that("can build site even if no Authors@R present", {
+  skip_if_no_pandoc()
+
+  pkg <- test_path("assets/home-old-skool")
+  expect_output(build_home(pkg))
+  on.exit(clean_site(pkg))
+})
+
+
 # empty readme.md ---------------------------------------------------------
 
 test_that("build_home fails with empty readme.md", {

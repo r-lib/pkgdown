@@ -20,7 +20,13 @@ data_authors <- function(pkg = ".") {
 }
 
 pkg_authors <- function(pkg, role = NULL) {
-  authors <- unclass(pkg$desc$get_authors())
+  if (pkg$desc$has_fields("Authors@R")) {
+    authors <- unclass(pkg$desc$get_authors())
+  } else {
+    # Just show maintainer
+    authors <- unclass(as.person(pkg$desc$get_maintainer()))
+    authors[[1]]$role <- "cre"
+  }
 
   if (is.null(role)) {
     authors
