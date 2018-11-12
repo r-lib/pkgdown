@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* `build_home()` now uses the `content-home.html` template when the content is a .Rmd file (@goldingn #787).
+
 * `rd2html()` is now exported to facilitate creation of translation reprexes.
 
 * Vestigal `mathjax` removed. This didn't appear to do anything and no one
