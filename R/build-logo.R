@@ -9,28 +9,41 @@ build_logo <- function(pkg = ".") {
 
   cat_line("Creating ", dst_path("favicon.ico"))
 
-  logo_string <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size) %>%
-    openssl::base64_encode()
+  logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
-  template <- find_template("config", "favicon", ext = ".json")
+  logo_base64 <- openssl::base64_encode(logo)
 
-  data <- list(
-    url = pkg$meta$url,
-    logo_string = logo_string
+  json_request <- list(
+    "favicon_generation" = list(
+      "api_key" = "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
+      "master_picture" = list(
+        "type"= "inline",
+        "content"= logo_base64
+      ),
+      "favicon_design" = list(
+        "desktop_browser" = list(),
+        "ios" = list(
+          "picture_aspect" = "no_change",
+          "assets" = list(
+            "ios6_and_prior_icons" = FALSE,
+            "ios7_and_later_icons" = TRUE,
+            "precomposed_icons" = FALSE,
+            "declare_only_default_icon" = TRUE
+          )
+        )
+      )
+    )
   )
 
-  json_favicon <- render_template(template, data)
-
   request <- httr::POST("https://realfavicongenerator.net/api/favicon",
-                        body = json_favicon, encode = "json")
+                        body = json_request, encode = "json")
 
   api_answer <- httr::content(request)
 
   if (identical(api_answer$favicon_generation_result$result$status, "success")) {
 
-    result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url)
-
-    writeBin(httr::content(result), path(pkg$dst_path, "favicon_set.zip"))
+    result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
+                        httr::write_disk(path(pkg$dst_path, "favicon_set.zip"), overwrite = TRUE))
 
     unzip(path(pkg$dst_path, "favicon_set.zip"), exdir = pkg$dst_path)
 
