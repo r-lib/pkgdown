@@ -45,7 +45,7 @@ build_logo <- function(pkg = ".") {
     result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
                         httr::write_disk(path(pkg$dst_path, "favicon_set.zip"), overwrite = TRUE))
 
-    unzip(path(pkg$dst_path, "favicon_set.zip"), exdir = pkg$dst_path)
+    utils::unzip(path(pkg$dst_path, "favicon_set.zip"), exdir = pkg$dst_path)
 
     unlink(path(pkg$dst_path, "favicon_set.zip"))
 
