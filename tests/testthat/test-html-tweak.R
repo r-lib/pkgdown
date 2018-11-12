@@ -96,6 +96,33 @@ test_that("only local md links are tweaked", {
   expect_equal(href[[2]], "http://remote.com/remote.md")
 })
 
+
+# homepage ----------------------------------------------------------------
+
+test_that("page header modification succeeds", {
+  html <- xml2::read_html('
+    <h1 class="hasAnchor">
+      <a href="#plot" class="anchor"> </a>
+      <img src="someimage" alt=""> some text
+    </h1>')
+
+  tweak_homepage_html(html)
+
+  expect_output_file(cat(as.character(html)), "assets/home-page-header.html")
+})
+
+test_that("links to vignettes & figures tweaked", {
+  html <- xml2::read_html('
+    <img src="vignettes/x.png" />
+    <img src="man/figures/x.png" />
+  ')
+
+  tweak_homepage_html(html)
+
+  expect_output_file(cat(as.character(html)), "assets/home-links.html")
+})
+
+
 # find badges -------------------------------------------------------------
 
 test_that("no paragraph", {
