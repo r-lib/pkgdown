@@ -269,14 +269,16 @@ this page, and will generate a warning if you have missed any.</p>
 
     
     <p>By default, pkgdown builds all articles with <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code>
-using setting the <code>template</code> parameter to a custom built template that
-matches the site template. You can override this with a <code>pkgdown</code> field
-in your yaml metadata:</p><pre>pkgdown:
+using setting the <code>template</code> parameter. This overrides any custom settings
+you have in your YAML metadata, ensuring that all articles are rendered
+in the same way (and receive the default site template).</p>
+<p>If you need to override the output format, or set any options, you'll need
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre>pkgdown:
   as_is: true
 </pre>
-    <p>This will tell pkgdown to use the <code>output_format</code> that you have specified.
-This format must accept <code>template</code>, <code>theme</code>, and <code>self_contained</code> in
-order to work with pkgdown.</p>
+    <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
+have specified. This format must accept <code>template</code>, <code>theme</code>, and
+<code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
 <code>extension</code> field:</p><pre>pkgdown:
   as_is: true
