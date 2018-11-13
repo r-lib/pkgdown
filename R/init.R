@@ -18,9 +18,12 @@
 #' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
-#' If you include you package logo in the standard location of
-#' `man/figures/logo.png`, a favicon will be automatically created for
-#' you.
+#' You should manually run [build_favicon()] once to generate the favicon set
+#' from your logo. The location location is auto-detected if use the name
+#' `logo.svg` or `logo.png` and put it either at the root of your package or
+#' in `man/figures`. The result of [build_favicon()] is stored in
+#' `pkgdown/favicon` and will automatically be copied to the relevant location
+#' when you run [init_site()].
 #'
 #' @inheritParams build_articles
 #' @export

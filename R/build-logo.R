@@ -10,6 +10,21 @@ build_logo <- function(pkg = ".") {
 
 }
 
+
+#' Create a complete set of favicons with different sizes from your package logo
+#'
+#' This function auto-detects the location of your package logo (with the name
+#' `logo.csv` (recommended format) or `logo.png`) and runs it through the
+#' <https://realfavicongenerator.net> API to build a complete set of favicons
+#' with different sizes, as needed for modern web usage.
+#'
+#' You only need to run the function once. The favicon set will be stored in
+#' `pkgdown/favicon` and copied by [init_site()] to the relevant location each
+#' time the website is rebuilt.
+#'
+#' @inheritParams as_pkgdown
+#'
+#' @export
 build_favicon <- function(pkg = ".") {
 
   pkg <- as_pkgdown(pkg)

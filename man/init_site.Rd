@@ -33,8 +33,11 @@ will be automatically copied to \code{docs/} and inserted into the
 
 \section{Favicon}{
 
-If you include you package logo in the standard location of
-\code{man/figures/logo.png}, a favicon will be automatically created for
-you.
+You should manually run \code{\link[=build_favicon]{build_favicon()}} once to generate the favicon set
+from your logo. The location location is auto-detected if use the name
+\code{logo.svg} or \code{logo.png} and put it either at the root of your package or
+in \code{man/figures}. The result of \code{\link[=build_favicon]{build_favicon()}} is stored in
+\code{pkgdown/favicon} and will automatically be copied to the relevant location
+when you run \code{\link[=init_site]{init_site()}}.
 }
 
