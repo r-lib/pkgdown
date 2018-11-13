@@ -84,6 +84,15 @@ build_favicon <- function(pkg = ".") {
 
 
 find_logo <- function(path) {
+
+  logo_path <- path(path, "logo.svg")
+  if (file_exists(logo_path))
+    return(logo_path)
+
+  logo_path <- path(path, "man", "figures", "logo.svg")
+  if (file_exists(logo_path))
+    return(logo_path)
+
   logo_path <- path(path, "logo.png")
   if (file_exists(logo_path))
     return(logo_path)
