@@ -26,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' If you supply this, other pkgdown sites will link to your site when needed,
-#' rather than using generic links to \url{https://rdocumentation.org}.
+#' rather than using generic links to <https://rdocumentation.org>.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -126,7 +126,7 @@
 #'
 #' The `components` describes the appearance of each element in the navbar.
 #' It uses the same
-#' syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
+#' syntax as [RMarkdown](http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation).
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' ```
@@ -196,7 +196,7 @@
 #' ```
 #'
 #' See a complete list of themes and preview how they look at
-#' \url{https://gallery.shinyapps.io/117-shinythemes/}:
+#' <https://gallery.shinyapps.io/117-shinythemes/>:
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
 #' [Google Analytics](https://www.google.com/analytics/). It should
