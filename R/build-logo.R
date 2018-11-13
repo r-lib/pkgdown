@@ -2,7 +2,7 @@ build_logo <- function(pkg = ".") {
 
   pkg <- as_pkgdown(pkg)
 
-  if (!dir.exists(path(pkg$src_path, "pkgdown", "favicon")) {
+  if (!dir_exists(path(pkg$src_path, "pkgdown", "favicon")) {
     return()
   }
 
