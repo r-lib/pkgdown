@@ -33,11 +33,11 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
   copy_assets(pkg)
+  copy_favicons(pkg)
 
   build_site_meta(pkg)
   build_sitemap(pkg)
   build_docsearch_json(pkg)
-  build_logo(pkg)
   build_cname(pkg)
 
   invisible()

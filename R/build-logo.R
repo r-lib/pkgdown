@@ -1,15 +1,12 @@
-build_logo <- function(pkg = ".") {
-
+copy_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  if (!dir_exists(path(pkg$src_path, "pkgdown", "favicon"))) {
+  favicons <- path(pkg$src_path, "pkgdown", "favicon")
+  if (!dir_exists(favicons))
     return()
-  }
 
-  dir_copy_to(pkg, path(pkg$src_path, "pkgdown", "favicon"), pkg$dst_path)
-
+  dir_copy_to(pkg, favicons, pkg$dst_path)
 }
-
 
 #' Create favicons from package logo
 #'
