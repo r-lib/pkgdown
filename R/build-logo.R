@@ -36,8 +36,6 @@ build_favicon <- function(pkg = ".") {
          call. = FALSE)
   }
 
-  message("Creating favicon set.")
-
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
   json_request <- list(
