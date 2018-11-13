@@ -74,55 +74,6 @@ test_that("Stripping HTML tags", {
   )
 })
 
-
-# links -------------------------------------------------------------------
-
-test_that("only local md links are tweaked", {
-  html <- xml2::read_html('
-    <div class="contents">
-      <div id="x">
-        <a href="local.md"></a>
-        <a href="http://remote.com/remote.md"></a>
-      </div>
-    </div>')
-
-  tweak_md_links(html)
-
-  href <- html %>%
-    xml2::xml_find_all(".//a") %>%
-    xml2::xml_attr("href")
-
-  expect_equal(href[[1]], "local.html")
-  expect_equal(href[[2]], "http://remote.com/remote.md")
-})
-
-
-# homepage ----------------------------------------------------------------
-
-test_that("page header modification succeeds", {
-  html <- xml2::read_html('
-    <h1 class="hasAnchor">
-      <a href="#plot" class="anchor"> </a>
-      <img src="someimage" alt=""> some text
-    </h1>')
-
-  tweak_homepage_html(html)
-
-  expect_output_file(cat(as.character(html)), "assets/home-page-header.html")
-})
-
-test_that("links to vignettes & figures tweaked", {
-  html <- xml2::read_html('
-    <img src="vignettes/x.png" />
-    <img src="man/figures/x.png" />
-  ')
-
-  tweak_homepage_html(html)
-
-  expect_output_file(cat(as.character(html)), "assets/home-links.html")
-})
-
-
 # find badges -------------------------------------------------------------
 
 test_that("no paragraph", {
