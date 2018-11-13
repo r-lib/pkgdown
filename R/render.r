@@ -14,7 +14,7 @@
 #'   * `yaml`: the `template` key from `_pkgdown.yml`.
 #'   * `package`: package metadata including `name` and`version`.
 #'
-#'   See the full contents by running `data_template()`.
+#'   See the full contents by running [data_template()].
 #' @param path Location to create file; relative to destination directory.
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.

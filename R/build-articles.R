@@ -14,7 +14,7 @@
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
 #' assumption when most vignettes were PDFs) and only copies files explicitly
 #' listed in `.install_extras`. pkgdown takes a different approach based on
-#' [rmarkdown::find_external_resources], and it will also copy any images that
+#' [rmarkdown::find_external_resources()], and it will also copy any images that
 #' you link to. If for some reason the automatic detection doesn't work, you
 #' will need to add a `resource_files` field to the yaml metadata, e.g.:
 #'
@@ -36,7 +36,7 @@
 #' `contents`, and optional `description`.
 #'
 #' For example, this imaginary file describes some of the structure of
-#' the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
+#' the [R markdown articles](http://rmarkdown.rstudio.com/articles.html):
 #'
 #' ```
 #' articles:

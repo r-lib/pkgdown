@@ -6,7 +6,7 @@
 #' * `//pre[contains(@class, 'r')]`:
 #'   this finds all `<div>`s with class `sourceCode` and `r`. The contents
 #'   must be syntax-highlighted using [pygments](http://pygments.org/).
-#'   (This is default in [rmarkdown::html_document] when `theme = NULL`.)
+#'   (This is default in [rmarkdown::html_document()] when `theme = NULL`.)
 #'
 #' * `.//code[count(*) = 0]`: this finds all `<code>` that contain only
 #'   text (and no other tags).
