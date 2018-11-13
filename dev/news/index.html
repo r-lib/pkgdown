@@ -8,7 +8,12 @@
 
 <title>Changelog • pkgdown</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -160,6 +165,7 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>New function <code><a href="../reference/build_favicon.html">build_favicon()</a></code> creates high resolution favicons, which are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). For this, it uses the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API. As a side effect, this change also removes the dependency to the magick package (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Navbar version now gets class “version” so you can more easily control the display if you want (<a href='https://github.com/r-lib/pkgdown/issues/680'>#680</a>).</p></li>
 <li><p>Can now build sites for older packages that don’t have a <code><a href="https://www.rdocumentation.org/packages/base/topics/slotOp">Authors<a href='https://github.com/R'>@R</a></a></code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
 <li><p>Links to remote <code>.md</code> files are no longer “helpfully” tweaked to end in <code>.html</code> (<a href='https://github.com/r-lib/pkgdown/issues/763'>#763</a>).</p></li>

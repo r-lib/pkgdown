@@ -8,7 +8,12 @@
 
 <title>Initialise site infrastructure — init_site • pkgdown</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -40,9 +45,8 @@
 
 <meta property="og:title" content="Initialise site infrastructure — init_site" />
 
-<meta property="og:description" content="This creates the output directory (docs/), favicon.ico (from the package
-logo), a machine readable description of the site, and copies CSS/JS
-assets and extra files." />
+<meta property="og:description" content="This creates the output directory (docs/), a machine readable description
+of the site, and copies CSS/JS assets and extra files." />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -162,9 +166,8 @@ assets and extra files." />
 
     <div class="ref-description">
     
-    <p>This creates the output directory (<code>docs/</code>), <code>favicon.ico</code> (from the package
-logo), a machine readable description of the site, and copies CSS/JS
-assets and extra files.</p>
+    <p>This creates the output directory (<code>docs/</code>), a machine readable description
+of the site, and copies CSS/JS assets and extra files.</p>
     
     </div>
 
@@ -199,9 +202,9 @@ will be automatically copied to <code>docs/</code> and inserted into the
     <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
 
     
-    <p>If you include you package logo in the standard location of
-<code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>man/figures/logo.png</a></code>, a favicon will be automatically created for
-you.</p>
+    <p>You should manually run <code><a href='build_favicon.html'>build_favicon()</a></code> once to generate the favicon set
+from your logo. The result is stored in <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>pkgdown/favicon</a></code> and will
+automatically be copied to the relevant location when you run <code>init_site()</code>.</p>
     
 
   </div>

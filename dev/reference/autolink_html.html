@@ -8,7 +8,12 @@
 
 <title>Automatic link references and articles in an HTML package — autolink_html • pkgdown</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -44,7 +49,7 @@
 //pre[contains(@class, 'r')]:
 this finds all &amp;lt;div&amp;gt;s with class sourceCode and r. The contents
 must be syntax-highlighted using pygments.
-(This is default in rmarkdown::html_document when theme = NULL.)
+(This is default in rmarkdown::html_document() when theme = NULL.)
 .//code[count(*) = 0]: this finds all &amp;lt;code&amp;gt; that contain only
 text (and no other tags).
 " />
@@ -171,7 +176,7 @@ text (and no other tags).
 <li><p><code>//pre[contains(@class, 'r')]</code>:
 this finds all <code>&lt;div&gt;</code>s with class <code>sourceCode</code> and <code>r</code>. The contents
 must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
-(This is default in <a href='https://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document</a> when <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>theme = NULL</a></code>.)</p></li>
+(This is default in <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/html_document'>rmarkdown::html_document()</a></code> when <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>theme = NULL</a></code>.)</p></li>
 <li><p><code>.//code[count(*) = 0]</code>: this finds all <code>&lt;code&gt;</code> that contain only
 text (and no other tags).</p></li>
 </ul>
