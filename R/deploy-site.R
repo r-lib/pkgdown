@@ -18,7 +18,7 @@
 #' ```
 #'
 #' Then you will need to setup your deployment keys. The easiest way is to call
-#' [travis::use_travis_deploy()]. This will generate and push the necessary
+#' `travis::use_travis_deploy()`. This will generate and push the necessary
 #' keys to your GitHub and Travis accounts. See the [travis package
 #' website](https://ropenscilabs.github.io/travis/) for more details.
 #'

@@ -45,7 +45,7 @@ deploy:
 }
 
 Then you will need to setup your deployment keys. The easiest way is to call
-\code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}. This will generate and push the necessary
+\code{travis::use_travis_deploy()}. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the \href{https://ropenscilabs.github.io/travis/}{travis package website} for more details.
 }
 
