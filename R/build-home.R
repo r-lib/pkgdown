@@ -28,7 +28,7 @@
 #' # pkgdown <img src="man/figures/logo.png" align="right" />
 #' ```
 #'
-#' [init_site()] will also automatically create a favicon.ico from your package
+#' [init_site()] will also automatically create a favicon set from your package
 #' logo.
 #'
 #' @section YAML config - home:

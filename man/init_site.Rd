@@ -10,9 +10,8 @@ init_site(pkg = ".")
 \item{pkg}{Path to package.}
 }
 \description{
-This creates the output directory (\code{docs/}), \code{favicon.ico} (from the package
-logo), a machine readable description of the site, and copies CSS/JS
-assets and extra files.
+This creates the output directory (\code{docs/}), a machine readable description
+of the site, and copies CSS/JS assets and extra files.
 }
 \section{Build-ignored files}{
 
@@ -34,10 +33,7 @@ will be automatically copied to \code{docs/} and inserted into the
 \section{Favicon}{
 
 You should manually run \code{\link[=build_favicon]{build_favicon()}} once to generate the favicon set
-from your logo. The location location is auto-detected if use the name
-\code{logo.svg} or \code{logo.png} and put it either at the root of your package or
-in \code{man/figures}. The result of \code{\link[=build_favicon]{build_favicon()}} is stored in
-\code{pkgdown/favicon} and will automatically be copied to the relevant location
-when you run \code{\link[=init_site]{init_site()}}.
+from your logo. The result is stored in \code{pkgdown/favicon} and will
+automatically be copied to the relevant location when you run \code{\link[=init_site]{init_site()}}.
 }
 
