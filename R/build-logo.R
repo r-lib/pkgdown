@@ -63,19 +63,22 @@ build_favicon <- function(pkg = ".") {
 
   api_answer <- httr::content(request)
 
-  if (identical(api_answer$favicon_generation_result$result$status, "success")) {
-
-    tmp <- tempfile()
-
-    result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
-                        httr::write_disk(tmp)
-                        )
-
-    utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
-
-    unlink(tmp)
-
+  if (!identical(api_answer$favicon_generation_result$result$status, "success")) {
+    stop("API request failed: please check that you are using supported file ",
+         "formats",
+         call. = FALSE
+    )
   }
+
+  tmp <- tempfile()
+
+  result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
+                      httr::write_disk(tmp)
+                      )
+
+  utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
+
+  unlink(tmp)
 
 }
 
