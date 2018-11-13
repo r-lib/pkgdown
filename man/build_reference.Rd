@@ -6,8 +6,8 @@
 \title{Build reference section}
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
-  examples = TRUE, run_dont_run = FALSE, seed = 1014,
-  override = list(), preview = NA)
+  examples = TRUE, load_all = TRUE, run_dont_run = FALSE,
+  seed = 1014, override = list(), preview = NA)
 
 build_reference_index(pkg = ".")
 }
@@ -22,6 +22,10 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 updating the site.}
 
 \item{examples}{Run examples?}
+
+\item{load_all}{If \code{TRUE}, will load development version of package using
+\code{\link[pkgload:load_all]{pkgload::load_all()}}; if \code{FALSE}, will load installed version of
+package using \code{\link[=library]{library()}}.}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 

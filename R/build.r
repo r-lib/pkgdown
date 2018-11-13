@@ -263,6 +263,7 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
+                       load_all = !new_process,
                        document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
@@ -275,6 +276,7 @@ build_site <- function(pkg = ".",
     build_site_external(
       pkg = pkg,
       examples = examples,
+      load_all = load_all,
       document = document,
       run_dont_run = run_dont_run,
       seed = seed,
@@ -286,6 +288,7 @@ build_site <- function(pkg = ".",
     build_site_local(
       pkg = pkg,
       examples = examples,
+      load_all = load_all,
       document = document,
       run_dont_run = run_dont_run,
       seed = seed,
@@ -298,12 +301,27 @@ build_site <- function(pkg = ".",
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
+                                load_all = load_all,
                                 document = TRUE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
                                 override = list(),
                                 preview = NA) {
+
+  pkg <- as_pkgdown(pkg)
+
+  rule(paste0("Installing ", pkg$package, " (to temporary library)"))
+  lib_dir <- fs::dir_create(fs::file_temp("library"))
+  on.exit(fs::dir_delete(lib_dir), add = TRUE)
+  install.packages(
+    pkg$src_path,
+    lib = lib_dir,
+    repo = NULL,
+    type = "source",
+    quiet = TRUE
+  )
+
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -312,6 +330,7 @@ build_site_external <- function(pkg = ".",
     seed = seed,
     lazy = lazy,
     override = override,
+    load_all = FALSE,
     preview = FALSE,
     new_process = FALSE,
     crayon_enabled = crayon::has_color(),
@@ -327,6 +346,7 @@ build_site_external <- function(pkg = ".",
       )
       pkgdown::build_site(...)
     },
+    libpath = c(lib_dir, .libPaths()),
     args = args,
     show = TRUE,
   )
@@ -337,6 +357,7 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
+                       load_all = TRUE,
                        document = TRUE,
                        run_dont_run = FALSE,
                        seed = 1014,
@@ -358,6 +379,7 @@ build_site_local <- function(pkg = ".",
     lazy = lazy,
     document = document,
     examples = examples,
+    load_all = load_all,
     run_dont_run = run_dont_run,
     seed = seed,
     override = override,

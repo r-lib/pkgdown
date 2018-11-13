@@ -90,7 +90,8 @@ deploy_local <- function(
   build_site(".",
     override = list(destination = dest_dir),
     document = FALSE,
-    preview = FALSE
+    preview = FALSE,
+    new_process = FALSE
   )
   github_push(dest_dir, commit_message)
 

@@ -4,14 +4,18 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, document = TRUE,
-  run_dont_run = FALSE, seed = 1014, lazy = FALSE,
+build_site(pkg = ".", examples = TRUE, load_all = !new_process,
+  document = TRUE, run_dont_run = FALSE, seed = 1014, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
+
+\item{load_all}{If \code{TRUE}, will load development version of package using
+\code{\link[pkgload:load_all]{pkgload::load_all()}}; if \code{FALSE}, will load installed version of
+package using \code{\link[=library]{library()}}.}
 
 \item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
 updating the site.}

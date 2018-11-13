@@ -87,6 +87,9 @@
 #'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
+#' @param load_all If `TRUE`, will load development version of package using
+#'   [pkgload::load_all()]; if `FALSE`, will load installed version of
+#'   package using [library()].
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
 #' @export
@@ -94,6 +97,7 @@ build_reference <- function(pkg = ".",
                             lazy = TRUE,
                             document = FALSE,
                             examples = TRUE,
+                            load_all = TRUE,
                             run_dont_run = FALSE,
                             seed = 1014,
                             override = list(),
@@ -116,9 +120,7 @@ build_reference <- function(pkg = ".",
   }
 
   if (examples) {
-    # Re-loading pkgdown while it's running causes weird behaviour with
-    # the context cache
-    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
+    if (load_all && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
     } else {
       library(pkg$package, character.only = TRUE)
