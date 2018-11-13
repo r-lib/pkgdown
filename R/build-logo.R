@@ -1,24 +1,36 @@
 build_logo <- function(pkg = ".") {
+
+  pkg <- as_pkgdown(pkg)
+
+  if (!dir.exists(path(pkg$src_path, "pkgdown", "favicon")) {
+    return()
+  }
+
+  dir_copy_to(pkg, path(pkg$src_path, "pkgdown", "favicon"), pkg$dst_path)
+
+}
+
+build_favicon <- function(pkg = ".") {
+
   pkg <- as_pkgdown(pkg)
 
   logo_path <- find_logo(pkg$src_path)
-  if (is.null(logo_path))
-    return()
 
-  file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
+  if (is.null(logo_path)) {
+    stop("Package logo could not be found. Aborting favicon creation.",
+         call. = FALSE)
+  }
 
-  cat_line("Creating ", dst_path("favicon.ico"))
+  message("Creating favicon set.")
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
-
-  logo_base64 <- openssl::base64_encode(logo)
 
   json_request <- list(
     "favicon_generation" = list(
       "api_key" = "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
       "master_picture" = list(
         "type"= "inline",
-        "content"= logo_base64
+        "content"= openssl::base64_encode(logo)
       ),
       "favicon_design" = list(
         "desktop_browser" = list(),
@@ -39,25 +51,32 @@ build_logo <- function(pkg = ".") {
   # a high timeout value.
   request <- httr::POST("https://realfavicongenerator.net/api/favicon",
                         body = json_request, encode = "json",
-                        httr::timeout(10000))
+                        httr::timeout(10000)
+                        )
 
   if (httr::http_error(request)) {
     stop("The API could not be reached. Please check your internet connection ",
-         "or try again later.")
+         "or try again later.",
+         call. = FALSE
+         )
   }
 
   api_answer <- httr::content(request)
 
   if (identical(api_answer$favicon_generation_result$result$status, "success")) {
 
+    tmp <- tempfile()
+
     result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
-                        httr::write_disk(path(pkg$dst_path, "favicon_set.zip"), overwrite = TRUE))
+                        httr::write_disk(tmp)
+                        )
 
-    utils::unzip(path(pkg$dst_path, "favicon_set.zip"), exdir = pkg$dst_path)
+    utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
 
-    unlink(path(pkg$dst_path, "favicon_set.zip"))
+    unlink(tmp)
 
   }
+
 }
 
 
