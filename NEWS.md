@@ -4,7 +4,7 @@
   better suited for modern web usage (e.g. retina display screens, desktop
   shortcuts, etc.).  For this, it uses the <http://realfavicongenerator.net>
   API. As a side effect, this change also removes the dependency to the
-  magick package (#883).
+  magick package (@bisaloo, #883).
 
 * Navbar version now gets class "version" so you can more easily control the
   display if you want (#680).
