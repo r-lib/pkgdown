@@ -2,23 +2,33 @@
 #'
 #' @noMd
 #' @description
-#' \itemize{\item a}
 #'
+#' \subsection{Bulleted list}{
 #' \itemize{
 #'   \item a
 #'   \item This is an item...
 #'
 #'     That spans multiple paragraphs.
 #' }
+#' }
 #'
+#' \subsection{Bulleted list (single item)}{
+#' \itemize{\item a}
+#' }
+#'
+#' \subsection{Numbered list}{
 #' \enumerate{
 #'   \item a
 #'   \item b
 #' }
+#' }
 #'
+#' \subsection{Definition list}{
 #' \describe{
 #'   \item{a}{1}
 #'   \item{b}{2}
+#'   \item{This is a very long definition term}{}
+#' }
 #' }
 #' @keywords internal
 #' @family tests

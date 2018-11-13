@@ -55,16 +55,9 @@ deploy_site_github <- function(
     stop("No repo detected, please supply one with `repo_slug`", call. = FALSE)
   }
 
-  # force execution before changing working directory
-  force(commit_message)
-
   rule("Deploying site", line = 2)
   rule("Installing package", line = 1)
   callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
-
-  build_site(pkg, ...)
-
-  remote_url <- sprintf("git@github.com:%s.git", repo_slug)
 
   ssh_id_file <- "~/.ssh/id_rsa"
   rule("Setting up SSH id", line = 1)
@@ -73,13 +66,55 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  rule("Commiting built site", line = 1)
+  deploy_local(pkg, repo_slug = repo_slug, commit_message = commit_message)
 
-  git <- function(...) {
-    processx::run("git", c(...), echo_cmd = verbose, echo = verbose)
+  rule("Deploy completed", line = 2)
+}
+
+deploy_local <- function(
+                         pkg = ".",
+                         repo_slug = NULL,
+                         commit_message = construct_commit_message(pkg)
+                         ) {
+
+  dest_dir <- fs::dir_create(fs::file_temp())
+  on.exit(fs::dir_delete(dest_dir))
+
+  pkg <- as_pkgdown(pkg)
+  if (is.null(repo_slug)) {
+    gh <- rematch2::re_match(pkg$github_url, github_url_rx())
+    repo_slug <- paste0(gh$owner, "/", gh$repo)
   }
-  with_dir("docs", {
-    git("clone", "--single-branch", "-b", "gh-pages", "--depth", "1", remote_url, ".")
+
+  github_clone(dest_dir, repo_slug)
+  build_site(".",
+    override = list(destination = dest_dir),
+    document = FALSE,
+    preview = FALSE
+  )
+  github_push(dest_dir, commit_message)
+
+  invisible()
+}
+
+github_clone <- function(dir, repo_slug) {
+  remote_url <- sprintf("git@github.com:%s.git", repo_slug)
+  rule("Cloning existing site", line = 1)
+  git("clone",
+    "--single-branch", "-b", "gh-pages",
+    "--depth", "1",
+    remote_url,
+    dir
+  )
+}
+
+github_push <- function(dir, commit_message) {
+  # force execution before changing working directory
+  force(commit_message)
+
+  rule("Commiting updated site", line = 1)
+
+  with_dir(dir, {
     git("add", "-A", ".")
     git("commit", "-m", commit_message)
 
@@ -87,8 +122,10 @@ deploy_site_github <- function(
     git("remote", "-v")
     git("push", "--force", "origin", "HEAD:gh-pages")
   })
+}
 
-  rule("Deploy completed", line = 2)
+git <- function(...) {
+  processx::run("git", c(...), echo_cmd = TRUE, echo = TRUE)
 }
 
 construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {

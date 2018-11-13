@@ -28,6 +28,22 @@ test_that("can link remote objects", {
   expect_equal(href_expr_(MASS::blah), NA_character_)
 })
 
+test_that("can link to functions in registered packages", {
+  scoped_package_context("test")
+  register_attached_packages("MASS")
+
+  expect_equal(href_expr_(addterm()), href_topic_remote("addterm", "MASS"))
+  expect_equal(href_expr_(addterm.default()), href_topic_remote("addterm", "MASS"))
+})
+
+test_that("can link to functions in base packages", {
+  scoped_package_context("test")
+  scoped_file_context() # package registry maintained on per-file basis
+
+  expect_equal(href_expr_(library()), href_topic_remote("library", "base"))
+  expect_equal(href_expr_(median()), href_topic_remote("median", "stats"))
+})
+
 test_that("links to home of re-exported functions", {
   # can't easily access exports in 3.1
   skip_if_not(getRversion() >= "3.2.0")

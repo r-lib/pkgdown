@@ -125,7 +125,7 @@ href_topic_remote <- function(topic, package) {
     paste0(reference_url, paste0("/", rdname, ".html"))
   } else {
     # Fall back to rdocumentation.org which almost certainly works
-    paste0("http://www.rdocumentation.org/packages/", package, "/topics/", rdname)
+    paste0("https://www.rdocumentation.org/packages/", package, "/topics/", rdname)
   }
 }
 

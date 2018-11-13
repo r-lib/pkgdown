@@ -1,0 +1,8 @@
+Package: testpackage
+Version: 1.0.0
+Title: A test package
+Description: A test package
+Author: Hadley Wickham
+Maintainer: Hadley Wickham <hadley@rstudio.com>
+RoxygenNote: 6.1.1
+Encoding: UTF-8

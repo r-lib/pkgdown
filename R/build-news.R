@@ -213,7 +213,7 @@ pkg_timeline <- function(package) {
     return(NULL)
   }
 
-  url <- paste0("http://crandb.r-pkg.org/", package, "/all")
+  url <- paste0("https://crandb.r-pkg.org/", package, "/all")
 
   resp <- httr::GET(url)
   if (httr::http_error(resp)) {

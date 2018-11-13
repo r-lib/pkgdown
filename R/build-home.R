@@ -81,10 +81,6 @@
 #' This section is automatically populated if the first paragraph of the
 #' homepage consists solely of status badges as linked images.
 #'
-#' @section Internet:
-#' Users with limited internet connectivity can disable CRAN checks by setting
-#' `options(pkgdown.internet = FALSE)`.
-#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",

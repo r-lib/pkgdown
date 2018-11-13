@@ -94,15 +94,18 @@ this page, and will generate a warning if you have missed any.
 \section{YAML header}{
 
 By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
-using setting the \code{template} parameter to a custom built template that
-matches the site template. You can override this with a \code{pkgdown} field
-in your yaml metadata:\preformatted{pkgdown:
+using setting the \code{template} parameter. This overrides any custom settings
+you have in your YAML metadata, ensuring that all articles are rendered
+in the same way (and receive the default site template).
+
+If you need to override the output format, or set any options, you'll need
+to add a \code{pkgdown} field to your yaml metadata:\preformatted{pkgdown:
   as_is: true
 }
 
-This will tell pkgdown to use the \code{output_format} that you have specified.
-This format must accept \code{template}, \code{theme}, and \code{self_contained} in
-order to work with pkgdown.
+This will tell pkgdown to use the \code{output_format} (and options) that you
+have specified. This format must accept \code{template}, \code{theme}, and
+\code{self_contained} in order to work with pkgdown.
 
 If the output format produces a PDF, you'll also need to specify the
 \code{extension} field:\preformatted{pkgdown:
