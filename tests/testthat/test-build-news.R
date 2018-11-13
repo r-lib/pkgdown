@@ -7,8 +7,8 @@ test_that("github links are added to news items", {
   pkg <- as_pkgdown(path)
   news_tbl <- data_news(pkg)
 
-  user_link <- "<a href='http://github.com/hadley'>@hadley</a>"
-  user_link2 <- "<a href='http://github.com/josue-rodriguez'>@josue-rodriguez</a>"
+  user_link <- "<a href='https://github.com/hadley'>@hadley</a>"
+  user_link2 <- "<a href='https://github.com/josue-rodriguez'>@josue-rodriguez</a>"
   issue_link <- "<a href='https://github.com/hadley/pkgdown/issues/100'>#100</a>"
 
   expect_true(grepl(user_link, news_tbl$html))
@@ -57,6 +57,7 @@ test_that("multi-page news are rendered", {
 
   path <- test_path("assets/news-multi-page")
   pkg <- as_pkgdown(path)
+  on.exit(clean_site(pkg))
   expect_output(build_news(pkg))
 
   # test that index links are correct

@@ -47,7 +47,7 @@ tweak_md_links <- function(html) {
     return()
 
   hrefs <- xml2::xml_attr(links, "href")
-  md_exts <- grepl("\\.md$", hrefs)
+  needs_tweak <- grepl("\\.md$", hrefs) & xml2::url_parse(hrefs)$scheme == ""
 
   fix_links <- function(x) {
     x <- gsub("\\.md$", ".html", x)
@@ -55,10 +55,10 @@ tweak_md_links <- function(html) {
     x
   }
 
-  if (any(md_exts)) {
+  if (any(needs_tweak)) {
     purrr::walk2(
-      links[md_exts],
-      fix_links(hrefs[md_exts]),
+      links[needs_tweak],
+      fix_links(hrefs[needs_tweak]),
       xml2::xml_set_attr,
       attr = "href"
     )
