@@ -6,15 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a complete set of favicons with different sizes from your package logo — build_favicon • pkgdown</title>
+<title>Create favicons from package logo — build_favicon • pkgdown</title>
 
+<!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -43,10 +43,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Create a complete set of favicons with different sizes from your package logo — build_favicon" />
+<meta property="og:title" content="Create favicons from package logo — build_favicon" />
 
 <meta property="og:description" content="This function auto-detects the location of your package logo (with the name
-logo.csv (recommended format) or logo.png) and runs it through the
+logo.svg (recommended format) or logo.png) and runs it through the
 https://realfavicongenerator.net API to build a complete set of favicons
 with different sizes, as needed for modern web usage." />
 
@@ -161,7 +161,7 @@ with different sizes, as needed for modern web usage." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a complete set of favicons with different sizes from your package logo</h1>
+    <h1>Create favicons from package logo</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-logo.R'><code>R/build-logo.R</code></a></small>
     <div class="hidden name"><code>build_favicon.Rd</code></div>
     </div>
@@ -169,7 +169,7 @@ with different sizes, as needed for modern web usage." />
     <div class="ref-description">
     
     <p>This function auto-detects the location of your package logo (with the name
-<code>logo.csv</code> (recommended format) or <code>logo.png</code>) and runs it through the
+<code>logo.svg</code> (recommended format) or <code>logo.png</code>) and runs it through the
 <a href='https://realfavicongenerator.net'>https://realfavicongenerator.net</a> API to build a complete set of favicons
 with different sizes, as needed for modern web usage.</p>
     
@@ -189,8 +189,8 @@ with different sizes, as needed for modern web usage.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You only need to run the function once. The favicon set will be stored in
-<code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>pkgdown/favicon</a></code> and copied by <code><a href='init_site.html'>init_site()</a></code> to the relevant location each
-time the website is rebuilt.</p>
+<code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>pkgdown/favicon</a></code> and copied by <code><a href='init_site.html'>init_site()</a></code> to the relevant location when
+the website is rebuilt.</p>
     
 
   </div>
