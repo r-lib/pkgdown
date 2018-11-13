@@ -1,29 +1,111 @@
 build_logo <- function(pkg = ".") {
+
   pkg <- as_pkgdown(pkg)
 
-  logo_path <- find_logo(pkg$src_path)
-  if (is.null(logo_path))
-    return()
-
-  file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
-
-  if (!requireNamespace("magick", quietly = TRUE)) {
-    message("magick not available, using default pkgdown favicon.ico")
-
-    if (!file_exists(path(pkg$dst_path, "favicon.ico"))) {
-      file_copy(path_pkgdown("assets", "favicon.ico"), pkg$dst_path)
-    }
+  if (!dir_exists(path(pkg$src_path, "pkgdown", "favicon"))) {
     return()
   }
 
-  cat_line("Creating ", dst_path("favicon.ico"))
-  magick::image_read(logo_path) %>%
-	  magick::image_scale("32x32") %>%
-	  magick::image_write(path(pkg$dst_path, "favicon.ico"), format = "png")
+  dir_copy_to(pkg, path(pkg$src_path, "pkgdown", "favicon"), pkg$dst_path)
+
+}
+
+
+#' Create a complete set of favicons with different sizes from your package logo
+#'
+#' This function auto-detects the location of your package logo (with the name
+#' `logo.csv` (recommended format) or `logo.png`) and runs it through the
+#' <https://realfavicongenerator.net> API to build a complete set of favicons
+#' with different sizes, as needed for modern web usage.
+#'
+#' You only need to run the function once. The favicon set will be stored in
+#' `pkgdown/favicon` and copied by [init_site()] to the relevant location each
+#' time the website is rebuilt.
+#'
+#' @inheritParams as_pkgdown
+#'
+#' @export
+build_favicon <- function(pkg = ".") {
+
+  pkg <- as_pkgdown(pkg)
+
+  logo_path <- find_logo(pkg$src_path)
+
+  if (is.null(logo_path)) {
+    stop("Package logo could not be found. Aborting favicon creation.",
+         call. = FALSE)
+  }
+
+  logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
+
+  json_request <- list(
+    "favicon_generation" = list(
+      "api_key" = "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
+      "master_picture" = list(
+        "type"= "inline",
+        "content"= openssl::base64_encode(logo)
+      ),
+      "favicon_design" = list(
+        "desktop_browser" = list(),
+        "ios" = list(
+          "picture_aspect" = "no_change",
+          "assets" = list(
+            "ios6_and_prior_icons" = FALSE,
+            "ios7_and_later_icons" = TRUE,
+            "precomposed_icons" = FALSE,
+            "declare_only_default_icon" = TRUE
+          )
+        )
+      )
+    )
+  )
+
+  # It may take some time to generate the whole favicon set so we need to set
+  # a high timeout value.
+  request <- httr::POST("https://realfavicongenerator.net/api/favicon",
+                        body = json_request, encode = "json",
+                        httr::timeout(10000)
+                        )
+
+  if (httr::http_error(request)) {
+    stop("The API could not be reached. Please check your internet connection ",
+         "or try again later.",
+         call. = FALSE
+         )
+  }
+
+  api_answer <- httr::content(request)
+
+  if (!identical(api_answer$favicon_generation_result$result$status, "success")) {
+    stop("API request failed: please check that you are using supported file ",
+         "formats",
+         call. = FALSE
+    )
+  }
+
+  tmp <- tempfile()
+
+  result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
+                      httr::write_disk(tmp)
+                      )
+
+  utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
+
+  unlink(tmp)
+
 }
 
 
 find_logo <- function(path) {
+
+  logo_path <- path(path, "logo.svg")
+  if (file_exists(logo_path))
+    return(logo_path)
+
+  logo_path <- path(path, "man", "figures", "logo.svg")
+  if (file_exists(logo_path))
+    return(logo_path)
+
   logo_path <- path(path, "logo.png")
   if (file_exists(logo_path))
     return(logo_path)

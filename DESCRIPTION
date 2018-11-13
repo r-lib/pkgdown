@@ -54,7 +54,6 @@ Suggests:
     jsonlite,
     knitr,
     leaflet,
-    magick,
     testthat,
     rticles
 VignetteBuilder: knitr
