@@ -28,9 +28,6 @@
 * Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
   string or a R connection` errors when using `\doi` Rd tags (#738).
 
-* `init_site()`: now calls `usethis::use_pkgdown()` to build-ignore `_pkgdown.yml`
-  and `docs/`, preventing a NOTE during R CMD CHECK (#710).
-
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 
 # pkgdown 1.1.0
