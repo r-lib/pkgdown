@@ -11,29 +11,25 @@ build_logo <- function(pkg = ".") {
 }
 
 
-#' Create a complete set of favicons with different sizes from your package logo
+#' Create favicons from package logo
 #'
 #' This function auto-detects the location of your package logo (with the name
-#' `logo.csv` (recommended format) or `logo.png`) and runs it through the
+#' `logo.svg` (recommended format) or `logo.png`) and runs it through the
 #' <https://realfavicongenerator.net> API to build a complete set of favicons
 #' with different sizes, as needed for modern web usage.
 #'
 #' You only need to run the function once. The favicon set will be stored in
-#' `pkgdown/favicon` and copied by [init_site()] to the relevant location each
-#' time the website is rebuilt.
+#' `pkgdown/favicon` and copied by [init_site()] to the relevant location when
+#' the website is rebuilt.
 #'
 #' @inheritParams as_pkgdown
-#'
 #' @export
 build_favicon <- function(pkg = ".") {
-
   pkg <- as_pkgdown(pkg)
 
   logo_path <- find_logo(pkg$src_path)
-
   if (is.null(logo_path)) {
-    stop("Package logo could not be found. Aborting favicon creation.",
-         call. = FALSE)
+    stop("Can't find package logo.", call. = FALSE)
   }
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
@@ -42,8 +38,8 @@ build_favicon <- function(pkg = ".") {
     "favicon_generation" = list(
       "api_key" = "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
       "master_picture" = list(
-        "type"= "inline",
-        "content"= openssl::base64_encode(logo)
+        "type" = "inline",
+        "content" = openssl::base64_encode(logo)
       ),
       "favicon_design" = list(
         "desktop_browser" = list(),
@@ -60,39 +56,31 @@ build_favicon <- function(pkg = ".") {
     )
   )
 
-  # It may take some time to generate the whole favicon set so we need to set
-  # a high timeout value.
-  request <- httr::POST("https://realfavicongenerator.net/api/favicon",
-                        body = json_request, encode = "json",
-                        httr::timeout(10000)
-                        )
-
-  if (httr::http_error(request)) {
-    stop("The API could not be reached. Please check your internet connection ",
-         "or try again later.",
-         call. = FALSE
-         )
+  resp <- httr::POST(
+    "https://realfavicongenerator.net/api/favicon",
+    body = json_request, encode = "json",
+  )
+  if (httr::http_error(resp)) {
+    stop("API request failed.", call. = FALSE)
   }
 
-  api_answer <- httr::content(request)
+  content <- httr::content(resp)
+  result <- content$favicon_generation_result
 
-  if (!identical(api_answer$favicon_generation_result$result$status, "success")) {
-    stop("API request failed: please check that you are using supported file ",
-         "formats",
-         call. = FALSE
+  if (!identical(result$result$status, "success")) {
+    stop(
+      "API request failed. ", "
+      Please submit bug report to <http://github.com/r-lib/pkgdown/issues>",
+      call. = FALSE
     )
   }
 
   tmp <- tempfile()
-
-  result <- httr::GET(api_answer$favicon_generation_result$favicon$package_url,
-                      httr::write_disk(tmp)
-                      )
-
+  on.exit(unlink(tmp))
+  result <- httr::GET(result$favicon$package_url, httr::write_disk(tmp))
   utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
 
-  unlink(tmp)
-
+  invisible()
 }
 
 

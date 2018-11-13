@@ -2,7 +2,7 @@
 % Please edit documentation in R/build-logo.R
 \name{build_favicon}
 \alias{build_favicon}
-\title{Create a complete set of favicons with different sizes from your package logo}
+\title{Create favicons from package logo}
 \usage{
 build_favicon(pkg = ".")
 }
@@ -11,12 +11,12 @@ build_favicon(pkg = ".")
 }
 \description{
 This function auto-detects the location of your package logo (with the name
-\code{logo.csv} (recommended format) or \code{logo.png}) and runs it through the
+\code{logo.svg} (recommended format) or \code{logo.png}) and runs it through the
 \url{https://realfavicongenerator.net} API to build a complete set of favicons
 with different sizes, as needed for modern web usage.
 }
 \details{
 You only need to run the function once. The favicon set will be stored in
-\code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location each
-time the website is rebuilt.
+\code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location when
+the website is rebuilt.
 }
