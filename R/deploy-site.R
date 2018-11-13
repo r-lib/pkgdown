@@ -91,7 +91,8 @@ deploy_local <- function(
     override = list(destination = dest_dir),
     document = FALSE,
     preview = FALSE,
-    new_process = FALSE
+    new_process = FALSE,
+    load_all = FALSE
   )
   github_push(dest_dir, commit_message)
 
