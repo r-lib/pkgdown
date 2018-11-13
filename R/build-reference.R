@@ -120,6 +120,8 @@ build_reference <- function(pkg = ".",
     # the context cache
     if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
+    } else {
+      library(pkg$package, character.only = TRUE)
     }
 
     old_dir <- setwd(path(pkg$dst_path, "reference"))
