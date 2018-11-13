@@ -28,6 +28,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
+  data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   # render template components

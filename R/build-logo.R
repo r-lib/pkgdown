@@ -80,6 +80,11 @@ build_favicon <- function(pkg = ".") {
   invisible()
 }
 
+has_favicons <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  file.exists(path(pkg$src_path, "pkgdown", "favicon"))
+}
 
 find_logo <- function(path) {
 
