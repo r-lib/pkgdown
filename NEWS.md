@@ -1,5 +1,7 @@
 # pkgdown 1.1.0.9000
 
+* Incorrect Rd tags now generate more informative errors (@BarkleyBG, #771, #891)
+
 * New function `build_favicon()` creates high resolution favicons, which are 
   better suited for modern web usage (e.g. retina display screens, desktop
   shortcuts, etc.).  For this, it uses the <http://realfavicongenerator.net>
