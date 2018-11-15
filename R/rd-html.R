@@ -544,11 +544,11 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  file_name <- context_get("rdname")
+  fxn <- context_get("rdname")
 
   msg <- paste0(
-    "File ", file_name,
-    " contains a bad Rd tag of type `", tag,
+    "Function `", fxn,
+    "` contains a bad Rd tag of type `", tag,
     "`. ", msg
   )
 
