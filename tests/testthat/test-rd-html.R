@@ -349,7 +349,15 @@ test_that("bad Rd tags throw errors", {
     "contains a bad Rd tag of type `url`. Check for empty"
   )
   expect_error(
+    rd2html("\\url{a\nb}"),
+    "contains a bad Rd tag of type `url`. This may be"
+  )
+  expect_error(
     rd2html("\\email{}"),
     "contains a bad Rd tag of type `email`"
+  )
+  expect_error(
+    rd2html("\\linkS4class{}"),
+    "contains a bad Rd tag of type `linkS4class`"
   )
 })

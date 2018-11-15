@@ -191,7 +191,7 @@ as_html.tag_link <- function(x, ...) {
 
 #' @export
 as_html.tag_linkS4class <- function(x, ...) {
-  if (length(x) == 1) {
+  if (length(x) != 1) {
     stop_bad_tag("linkS4class")
   }
 
