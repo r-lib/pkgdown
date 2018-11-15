@@ -338,3 +338,26 @@ test_that("titles don't get autolinked code", {
   rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<code>foo()</code>")
 })
+
+# Rd tag errors ------------------------------------------------------------------
+
+test_that("bad Rd tags throw errors", {
+  scoped_file_context("test-rd-html.R")
+
+  expect_error(
+    rd2html("\\url{}"),
+    "contains a bad Rd tag of type `url`. Check for empty"
+  )
+  expect_error(
+    rd2html("\\url{a\nb}"),
+    "contains a bad Rd tag of type `url`. This may be"
+  )
+  expect_error(
+    rd2html("\\email{}"),
+    "contains a bad Rd tag of type `email`"
+  )
+  expect_error(
+    rd2html("\\linkS4class{}"),
+    "contains a bad Rd tag of type `linkS4class`"
+  )
+})

@@ -100,7 +100,9 @@ as_html.tag_subsection <- function(x, ...) {
 
 #' @export
 as_html.tag_eqn <- function(x, ...) {
-  stopifnot(length(x) <= 2)
+  if (length(x) > 2) {
+    stop_bad_tag("eqn")
+  }
 
   latex_rep <- x[[1]]
   paste0("\\(", flatten_text(latex_rep, ...), "\\)")
@@ -108,7 +110,9 @@ as_html.tag_eqn <- function(x, ...) {
 
 #' @export
 as_html.tag_deqn <- function(x, ...) {
-  stopifnot(length(x) <= 2)
+  if (length(x) > 2) {
+    stop_bad_tag("deqn")
+  }
   latex_rep <- x[[1]]
   paste0("$$", flatten_text(latex_rep, ...), "$$")
 }
@@ -116,20 +120,31 @@ as_html.tag_deqn <- function(x, ...) {
 # Links ----------------------------------------------------------------------
 #' @export
 as_html.tag_url <- function(x, ...) {
-  stopifnot(length(x) == 1)
+  if (length(x) != 1) {
+    if (length(x) == 0) {
+      msg <- "Check for empty \\url{} tags."
+    } else {
+      msg <- "This may be caused by a \\url tag that spans a line break."
+    }
+    stop_bad_tag("url", msg)
+  }
 
   text <- flatten_text(x[[1]])
   a(text, href = text)
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
-  stopifnot(length(x) == 2)
+  if (length(x) != 2) {
+    stop_bad_tag("href")
+  }
 
   a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
-  stopifnot(length(x) %in% c(1L, 2L))
+  if (!length(x) %in% c(1L, 2L)) {
+    stop_bad_tag("email")
+  }
   paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
 }
 
@@ -176,7 +191,9 @@ as_html.tag_link <- function(x, ...) {
 
 #' @export
 as_html.tag_linkS4class <- function(x, ...) {
-  stopifnot(length(x) == 1)
+  if (length(x) != 1) {
+    stop_bad_tag("linkS4class")
+  }
 
   text <- flatten_text(x[[1]])
   href <- href_topic_local(paste0(text, "-class"))
@@ -526,3 +543,14 @@ parse_opts <- function(string) {
   as.list(env)
 }
 
+stop_bad_tag <- function(tag, msg = NULL) {
+  fxn <- context_get("rdname")
+
+  msg <- paste0(
+    "Function `", fxn,
+    "` contains a bad Rd tag of type `", tag,
+    "`. ", msg
+  )
+
+  stop(msg, call. = FALSE)
+}
