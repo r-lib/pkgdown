@@ -230,13 +230,6 @@ pkg_timeline <- function(package) {
   )
 }
 
-rel_date_html <- function(date) {
-  if (is.na(date))
-    return("<small> Unreleased</small>")
-
-  paste0("<small> ", date, "</small>")
-}
-
 tweak_news_heading <- function(x, versions, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
