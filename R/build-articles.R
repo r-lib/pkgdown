@@ -211,10 +211,10 @@ build_article <- function(name,
       toc = TRUE
     )
     format$knitr$knit_hooks <- list(
-      output = colourise_chunk("output"),
-      message = colourise_chunk("message"),
-      warning = colourise_chunk("warning"),
-      error = colourise_chunk("error")
+      output = colourise_chunk,
+      message = colourise_chunk,
+      warning = colourise_chunk,
+      error = colourise_chunk
     )
 
     options <- NULL
