@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="contents col-lg-9">
     <div class="page-header">
       <h1>Reference</h1>
     </div>
@@ -30,11 +30,11 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-lg-3 d-none d-md-block" id="sidebar">
     <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills flex-column">
     {{#sections}}
-      <li><a href="#{{slug}}">{{title}}</a></li>
+      <li class="nav-item"><a href="#{{slug}}" class="nav-link">{{title}}</a></li>
     {{/sections}}
     </ul>
   </div>
