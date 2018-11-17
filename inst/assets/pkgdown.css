@@ -164,6 +164,7 @@ pre {
 pre, code {
   background-color: #f8f8f8;
   color: #333;
+  padding: 9.5px;
 }
 
 pre code {
