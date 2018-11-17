@@ -48,10 +48,10 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills flex-column">
       {{#has_args}}
-      <li class="nav-item"><a href="#arguments">Arguments</a></li>
+      <li class="nav-item"><a href="#arguments" class="nav-link">Arguments</a></li>
       {{/has_args}}
       {{#sections}}
-      <li><a href="#{{slug}}" class="nav-link">{{{title}}}</a></li>
+      <li class="nav-item"><a href="#{{slug}}" class="nav-link">{{{title}}}</a></li>
       {{/sections}}
       {{#examples}}
       <li class="nav-item"><a href="#examples" class="nav-link">Examples</a></li>
