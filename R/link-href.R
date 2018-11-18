@@ -29,6 +29,12 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     if (grepl("^%.*%$", fun_name))
       return(NA_character_)
 
+    # prevent spurious links to Authors@R, content-home.html,
+    # toc: depth, etc.
+    # Black list `@`, `:`, and arithmetic operators
+    if (fun_name %in% c("@", "+", "-", "/", "*", "=", ":"))
+      return(NA_character_)
+
     n_args <- length(expr) - 1
 
     if (fun_name == "vignette") {
