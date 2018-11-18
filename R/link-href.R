@@ -12,10 +12,10 @@ href_expr <- function(expr, bare_symbol = FALSE) {
   if (is_symbol(expr) && bare_symbol) {
     # foo
     href_topic_local(as.character(expr))
-  } else if (is_lang(expr)) {
+  } else if (is_call(expr)) {
     fun <- expr[[1]]
 
-    if (is_lang(fun, "::", n = 2)) {
+    if (is_call(fun, "::", n = 2)) {
       pkg <- as.character(fun[[2]])
       fun <- fun[[3]]
     } else {
@@ -37,7 +37,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
-        if (is_lang(topic, "::")) {
+        if (is_call(topic, "::")) {
           # ?pkg::x
           href_topic(as.character(topic[[3]]), as.character(topic[[2]]))
         } else if (is_symbol(topic) || is_string(topic)) {
