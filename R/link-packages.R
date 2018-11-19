@@ -2,9 +2,9 @@ extract_package_attach <- function(expr) {
   if (is.expression(expr)) {
     packages <- purrr::map(expr, extract_package_attach)
     purrr::flatten_chr(packages)
-  } else if (is_lang(expr)) {
-    if (is_lang(expr, c("library", "require"))) {
-      expr <- rlang::lang_standardise(expr)
+  } else if (is_call(expr)) {
+    if (is_call(expr, c("library", "require"))) {
+      expr <- rlang::call_standardise(expr)
       if (!is_true(expr$character.only)) {
         as.character(expr$package)
       } else {
