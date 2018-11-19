@@ -174,7 +174,7 @@ is_prefix <- function(fun) {
   special <- c(
     "(", "{", "if", "for", "while", "repeat", "next", "break", "function"
   )
-  if (fun %in% infix) {
+  if (fun %in% special) {
     return(FALSE)
   }
 
