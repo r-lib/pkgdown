@@ -26,14 +26,10 @@ href_expr <- function(expr, bare_symbol = FALSE) {
       return(NA_character_)
 
     fun_name <- as.character(fun)
-    if (grepl("^%.*%$", fun_name))
-      return(NA_character_)
 
-    # prevent spurious links to Authors@R, content-home.html,
-    # toc: depth, etc.
-    # Black list `@`, `:`, and arithmetic operators
-    if (fun_name %in% c("@", "+", "-", "/", "*", "=", ":"))
+    if (!is_prefix(fun_name)) {
       return(NA_character_)
+    }
 
     n_args <- length(expr) - 1
 
@@ -157,4 +153,29 @@ href_article <- function(article, package = NULL) {
       paste0(base_url, "/", path)
     }
   }
+}
+
+is_prefix <- function(fun) {
+  if (grepl("^%.*%$", fun)) {
+    return(FALSE)
+  }
+
+  # all infix except "::", ":::", and "?", which we want to link
+  infix <- c(
+    "$", "@", "[", "[[", "^", "-", "+", ":", "<",
+    ">", "<=", ">=", "==", "!=", "!", "&", "&&", "|", "||", "~",
+    "->", "->>", "<-", "<<-", "="
+  )
+  if (fun %in% infix) {
+    return(FALSE)
+  }
+
+  special <- c(
+    "(", "{", "if", "for", "while", "repeat", "next", "break", "function"
+  )
+  if (fun %in% infix) {
+    return(FALSE)
+  }
+
+  TRUE
 }
