@@ -230,7 +230,7 @@ mark {
   margin-bottom: 10px;
 }
 
-pre.r {
-  margin-top: -13.5px;
+div + div > pre.r {
+  margin-top: -40px;
   border: 0;
 }
