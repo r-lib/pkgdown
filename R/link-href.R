@@ -27,7 +27,9 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 
     fun_name <- as.character(fun)
 
-    if (!is_prefix(fun_name)) {
+    # we need to include the `::` and `?` infix operators
+    # so that `?build_site()` and `pkgdown::build_site()` are linked
+    if (!is_prefix(fun_name) && !fun_name %in% c("::", "?")) {
       return(NA_character_)
     }
 
@@ -160,11 +162,10 @@ is_prefix <- function(fun) {
     return(FALSE)
   }
 
-  # all infix except "::", ":::", and "?", which we want to link
   infix <- c(
-    "$", "@", "[", "[[", "^", "-", "+", ":", "<",
+    "::", ":::", "$", "@", "[", "[[", "^", "-", "+", ":", "<",
     ">", "<=", ">=", "==", "!=", "!", "&", "&&", "|", "||", "~",
-    "->", "->>", "<-", "<<-", "="
+    "->", "->>", "<-", "<<-", "=", "?"
   )
   if (fun %in% infix) {
     return(FALSE)
