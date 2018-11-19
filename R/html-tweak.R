@@ -114,58 +114,6 @@ tweak_code <- function(x) {
       ]") %>%
     tweak_code_nodeset()
 
-  # Collapse all HTML output divs to their corresponding source divs
-  x %>%
-    xml2::xml_find_all("
-        .// div [
-          contains(@class, 'sourceCode')
-        ] [
-          pre [
-            contains(@class, 'r')
-          ]
-        ] [
-          following-sibling :: div [
-            pre [
-              contains(@class, 'knitr')
-            ]
-          ]
-        ]
-    ") %>%
-    collapse_output_div()
-
-  invisible()
-}
-
-collapse_output_div <- function(nodes) {
-  code_nodes <- xml2::xml_find_first(nodes, ".// code")
-
-  following_div <- xml2::xml_find_first(nodes, "
-    ./ following-sibling :: div
-    / pre [
-      contains(@class, 'knitr')
-    ]")
-
-  contents <- purrr::map(following_div, xml2::xml_contents)
-
-  for (i in seq_along(code_nodes)) {
-
-    # Prepend a newline to the first node
-    txt <- xml2::xml_text(contents[[i]][[1]])
-    xml2::xml_text(contents[[i]][[1]]) <- paste0("\n", txt)
-
-    # add a new <span class = "co"> child
-    span <- xml2::xml_add_child(code_nodes[[i]], "span", class = "co")
-
-    for (j in seq_along(contents[[i]])) {
-
-      # Move the contents over to the source pre
-      xml2::xml_add_child(span, contents[[i]][[j]], .copy = FALSE)
-    }
-
-    # Remove the remaining empty remaining <div><pre>
-    xml2::xml_remove(xml2::xml_parent(following_div[[i]]))
-  }
-
   invisible()
 }
 
