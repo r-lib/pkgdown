@@ -32,19 +32,16 @@ test_that("ifelse generates html", {
   expect_equal(rd2html("\\ifelse{latex}{x}{\\bold{a}}"), "<b>a</b>")
 })
 
-test_that("tabular converted to html", {
-  table <- "\\tabular{ll}{a \\tab b \\cr}"
-  expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td></tr>", "</table>")
-  expect_equal(rd2html(table), expectation)
+test_that("out is for raw html", {
+  expect_equal(rd2html("\\out{<hr />}"), "<hr />")
 })
 
-test_that("can omit trailing \\crs", {
-  table <- "\\tabular{l}{a \\cr b \\cr c}"
-  expectation <- c("<table class='table'>", "<tr><td>a</td></tr>", "<tr><td>b</td></tr>", "<tr><td>c</td></tr>", "</table>")
-  expect_equal(rd2html(table), expectation)
 
-  table <- "\\tabular{lll}{a \\tab b \\tab c}"
-  expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td><td>c</td></tr>", "</table>")
+# tables ------------------------------------------------------------------
+
+test_that("tabular genereates complete table html", {
+  table <- "\\tabular{ll}{a \\tab b \\cr}"
+  expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td></tr>", "</table>")
   expect_equal(rd2html(table), expectation)
 })
 
@@ -54,11 +51,40 @@ test_that("internal \\crs are stripped", {
   expect_equal(rd2html(table), expectation)
 })
 
-
-test_that("out is for raw html", {
-  expect_equal(rd2html("\\out{<hr />}"), "<hr />")
+test_that("can convert single row", {
+  expect_equal(
+    rd2html("\\tabular{lll}{A \\tab B \\tab C \\cr}")[[2]],
+    "<tr><td>A</td><td>B</td><td>C</td></tr>"
+  )
 })
 
+
+test_that("don't need internal whitespace", {
+  expect_equal(
+    rd2html("\\tabular{lll}{\\tab\\tab C\\cr}")[[2]],
+    "<tr><td></td><td></td><td>C</td></tr>"
+  )
+  expect_equal(
+    rd2html("\\tabular{lll}{\\tab B \\tab\\cr}")[[2]],
+    "<tr><td></td><td>B</td><td></td></tr>"
+  )
+  expect_equal(
+    rd2html("\\tabular{lll}{A\\tab\\tab\\cr}")[[2]],
+    "<tr><td>A</td><td></td><td></td></tr>"
+  )
+
+  expect_equal(
+    rd2html("\\tabular{lll}{\\tab\\tab\\cr}")[[2]],
+    "<tr><td></td><td></td><td></td></tr>"
+  )
+})
+
+test_that("can skip trailing \\cr", {
+  expect_equal(
+    rd2html("\\tabular{lll}{A \\tab B \\tab C}")[[2]],
+    "<tr><td>A</td><td>B</td><td>C</td></tr>"
+  )
+})
 
 # sexpr  ------------------------------------------------------------------
 

@@ -265,15 +265,22 @@ as_html.tag_tabular <- function(x, ...) {
   align <- unname(c("r" = "right", "l" = "left", "c" = "center")[align_abbr])
 
   contents <- x[[2]]
-  row_sep <- purrr::map_lgl(contents, inherits, "tag_cr")
-  col_sep <- purrr::map_lgl(contents, inherits, "tag_tab")
+  class <- purrr::map_chr(contents, ~ class(.x)[[1]])
+  cell_contents <- purrr::map_chr(contents, flatten_text, ...)
 
+  row_sep <- class == "tag_cr"
+  contents[row_sep] <- list("")
+  col_sep <- class == "tag_tab"
   sep <- col_sep | row_sep
-  cell_grp <- cumsum(sep)
-  cells <- split(contents[!sep], cell_grp[!sep])
 
-  cell_contents <- vapply(cells, flatten_text, ...,
-    FUN.VALUE = character(1), USE.NAMES = FALSE)
+  # Look for separators that have no text in front of them
+  no_text <- c(TRUE, class[-length(class)] != "TEXT")
+  keep <- !(sep & !no_text)
+  # data.frame(class, sep, no_text, keep)
+
+  cell_grp <- cumsum(keep)
+  cells <- unname(split(contents[keep], cell_grp[keep]))
+  cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
 
