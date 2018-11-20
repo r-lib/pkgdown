@@ -1,4 +1,4 @@
-# pkgdown 1.1.0.9000
+# pkgdown 1.2.0
 
 ## New features
 
