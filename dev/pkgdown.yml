@@ -8,6 +8,7 @@ articles:
   figures: test/figures.html
   highlight: test/highlight.html
   jss: test/jss.html
+  mathjax: test/mathjax.html
   output: test/output.html
   pdf: test/pdf.html
   widget: test/widget.html
