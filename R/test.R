@@ -128,3 +128,19 @@ NULL
 #' a + b
 #' }
 NULL
+
+
+#' Test case: crayon
+#'
+#' @name test-crayon
+#' @keywords internal
+#' @family tests
+#'
+#' @examples
+#' cat(crayon::red("This is red\n"))
+#' cat(crayon::blue("This is blue\n"))
+#'
+#' message(crayon::green("This is green"))
+#'
+#' warning(crayon::bold("This is bold"))
+NULL
