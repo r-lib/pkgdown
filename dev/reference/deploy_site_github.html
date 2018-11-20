@@ -237,7 +237,16 @@ deploy:
     <p>Then you will need to setup your deployment keys. The easiest way is to call
 <code>travis::use_travis_deploy()</code>. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p>
-<p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
+<p>Next, make sure that a gh-pages branch exists. The simplest way to do
+so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages
+git rm -rf .
+touch README.md
+git add README.md
+git commit -m 'initial gh-pages commit'
+git push origin gh-pages
+git checkout master
+</pre>
+    <p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
 <code>_pkgdown.yaml</code>:</p><pre>url: http://pkgdown.r-lib.org
 </pre>
     
@@ -260,9 +269,8 @@ keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.g
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.1.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
