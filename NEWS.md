@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* All third party resources are now fetched from a single CDN and are associated
+  with a SRI hash (@bisaloo, #893).
+  
 * Stricter regular expression when added links to GitHub authors in `NEWS.md`
   (#902)
 
