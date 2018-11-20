@@ -79,10 +79,6 @@ devtools_meta <- function(x) {
   ns[[".__DEVTOOLS__"]]
 }
 
-strip_space <- function(x) {
-  gsub("[[:space:]]+", "", x)
-}
-
 # CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {

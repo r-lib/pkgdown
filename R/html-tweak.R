@@ -98,20 +98,13 @@ tweak_code <- function(x) {
 
   # <pre class="sourceCode r">
   x %>%
-    xml2::xml_find_all("
-        .// pre [
-          contains(@class, 'r')
-        ]
-    ") %>%
+    xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
     purrr::map(tweak_pre_node)
 
   # Needs to second so have all packages loaded in chunks
   # <code> with no children (just text)
   x %>%
-    xml2::xml_find_all("
-      .//code [
-        count(*) = 0
-      ]") %>%
+    xml2::xml_find_all(".//code[count(*) = 0]") %>%
     tweak_code_nodeset()
 
   invisible()
@@ -134,7 +127,6 @@ tweak_code_nodeset <- function(nodes, ...) {
 tweak_pre_node <- function(node, ...) {
   # Register attached packages
   text <- node %>% xml2::xml_text()
-
   expr <- tryCatch(parse(text = text), error = function(e) NULL)
   packages <- extract_package_attach(expr)
   register_attached_packages(packages)
