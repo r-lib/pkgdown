@@ -56,15 +56,15 @@ your site.
 
 The package includes an RStudio add-in that you can bind to a keyboard
 shortcut. I recommend `Cmd` + `Shift` + `W`: it uses `Cmd` + `Shift`,
-like all other package development worksheets, it replaces a rarely used
+like all other package development shortcuts, it replaces a rarely used
 command (close all tabs), and the `W` is a mnemonic for website.
 
 ## In the wild
 
-As at last count, pkgdown is used [by over 2500
+At last count, pkgdown is used [by over 2500
 packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code).
 
-Here are a few examples created by people contributors to pkgdown:
+Here are a few examples created by contributors to pkgdown:
 
   - [bayesplot](http://mc-stan.org/bayesplot/index.html)
     \[[source](https://github.com/stan-dev/bayesplot/tree/gh-pages)\]:
