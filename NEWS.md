@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* The default footer now displays the version of pkgdown used to build 
+  the site (#876). 
+
 * Better conversion for `\tabular{}` tags containing empty cells (#780).
 
 * All third party resources are now fetched from a single CDN and are associated
