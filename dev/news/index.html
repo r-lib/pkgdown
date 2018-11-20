@@ -165,10 +165,11 @@
 <a href="#pkgdown-1-1-0-9000" class="anchor"></a>pkgdown 1.1.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Stricter regular expression when added links to GitHub authors in <code>NEWS.md</code> (<a href='https://github.com/r-lib/pkgdown/issues/902'>#902</a>)</p></li>
 <li><p>Incorrect Rd tags now generate more informative errors (<a href='https://github.com/BarkleyBG'>@BarkleyBG</a>, <a href='https://github.com/r-lib/pkgdown/issues/771'>#771</a>, <a href='https://github.com/r-lib/pkgdown/issues/891'>#891</a>)</p></li>
 <li><p>New function <code><a href="../reference/build_favicon.html">build_favicon()</a></code> creates high resolution favicons, which are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). For this, it uses the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API. As a side effect, this change also removes the dependency to the magick package (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Navbar version now gets class “version” so you can more easily control the display if you want (<a href='https://github.com/r-lib/pkgdown/issues/680'>#680</a>).</p></li>
-<li><p>Can now build sites for older packages that don’t have a <code><a href="https://www.rdocumentation.org/packages/base/topics/slotOp">Authors<a href='https://github.com/R'>@R</a></a></code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
+<li><p>Can now build sites for older packages that don’t have a <code><a href="https://www.rdocumentation.org/packages/base/topics/slotOp">Authors@R</a></code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
 <li><p>Links to remote <code>.md</code> files are no longer “helpfully” tweaked to end in <code>.html</code> (<a href='https://github.com/r-lib/pkgdown/issues/763'>#763</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now uses the <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">content-home.html</a></code> template when the content is a .Rmd file (<a href='https://github.com/goldingn'>@goldingn</a> <a href='https://github.com/r-lib/pkgdown/issues/787'>#787</a>).</p></li>
 <li><p><code><a href="../reference/rd2html.html">rd2html()</a></code> is now exported to facilitate creation of translation reprexes.</p></li>
@@ -176,7 +177,7 @@
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer loads unexported functions or test helpers (<a href='https://github.com/r-lib/pkgdown/issues/789'>#789</a>)</p></li>
 <li><p>The default css has been tweaked to ensure that icons are visible on all browsers (<a href='https://github.com/r-lib/pkgdown/issues/852'>#852</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> no longer includes an NA link for bug reports in the sidebar if the <code>DESCRIPTION</code> has no “BugReports” field (<a href='https://github.com/r-lib/pkgdown/issues/855'>#855</a>).</p></li>
-<li><p>Support of qualified functions in <code><a href='https://github.com/usage'>@usage</a></code> statments was fixed, eliminating <code>Error in fun_info(x) : Unknown call: ::</code> errors (<a href='https://github.com/r-lib/pkgdown/issues/795'>#795</a>).</p></li>
+<li><p>Support of qualified functions in <code>@usage</code> statments was fixed, eliminating <code>Error in fun_info(x) : Unknown call: ::</code> errors (<a href='https://github.com/r-lib/pkgdown/issues/795'>#795</a>).</p></li>
 <li>
 <p>The display depth of vignette tables of contents can be configured by setting <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">toc: depth</a></code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
@@ -211,7 +212,7 @@
 <li><p>Added a keyboard shortcut for searching. Press <code>shift</code> + <code>/</code> (<code>?</code>) to move focus to the search bar (<a href='https://github.com/r-lib/pkgdown/issues/642'>#642</a>).</p></li>
 <li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
 <li>Navbar active tab highlighting uses a superior approach (suggested by
-<p><a href='https://github.com/jcheng5'>@jcheng5</a>) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
+<p>@jcheng5) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
 </li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
 </ul>
