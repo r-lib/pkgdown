@@ -1,76 +1,95 @@
 # pkgdown 1.1.0.9000
 
-* The default footer now displays the version of pkgdown used to build 
-  the site (#876). 
+## New features
 
-* Better conversion for `\tabular{}` tags containing empty cells (#780).
+* `deploy_site_github()` can be used from continuous intergration systems
+  (like travis) to automatically deploy your package website to GitHub Pages.
+  See documentation for how to set up details (@jimhester).
 
-* All third party resources are now fetched from a single CDN and are associated
-  with a SRI hash (@bisaloo, #893).
-  
-* Stricter regular expression when added links to GitHub authors in `NEWS.md`
-  (#902)
+* `build_favicon()` creates high resolution favicons from the package logo,
+  and saves them in `pkgdown/`. They are created using the 
+  <http://realfavicongenerator.net> API, and are better suited for modern web 
+  usage (e.g. retina display screens, desktop shortcuts, etc.). This also 
+  removes the dependency on the magick package, making automated deployment
+  a little easier (@bisaloo, #883).
 
-* Incorrect Rd tags now generate more informative errors (@BarkleyBG, #771, #891)
+* Users with limited internet connectivity can explicitly disable internet
+  usage by pkgdown by setting `options(pkgdown.internet = FALSE)` (#774, #877).
 
-* New function `build_favicon()` creates high resolution favicons, which are 
-  better suited for modern web usage (e.g. retina display screens, desktop
-  shortcuts, etc.).  For this, it uses the <http://realfavicongenerator.net>
-  API. As a side effect, this change also removes the dependency to the
-  magick package (@bisaloo, #883).
-
-* Navbar version now gets class "version" so you can more easily control the
-  display if you want (#680).
-
-* Can now build sites for older packages that don't have a `Authors@R` field 
-  (#727).
-
-* Links to remote `.md` files are no longer "helpfully" tweaked to end in 
-  `.html` (#763).
-
-* `build_home()` now uses the `content-home.html` template when the content is a .Rmd file (@goldingn #787).
+## Improvements to Rd translation
 
 * `rd2html()` is now exported to facilitate creation of translation reprexes.
 
-* Vestigal `mathjax` removed. This didn't appear to do anything and no one
-  could remember why it existed (#785).
+* `\Sexpr{}` conversion supports multiple arguments, eliminating 
+  `x must be a string or a R connection` errors when using `\doi{}` (#738).
 
-* `build_reference()` no longer loads unexported functions or test helpers 
-  (#789)
+* `\tabular{}` conversion better handles empty cells (#780).
+
+* `\usage{}` now supports qualified functions eliminating  
+  `Error in fun_info(x) : Unknown call: ::` errors (#795).
+
+* Invalid tags now generate more informative errors (@BarkleyBG, #771, #891)
+
+## Front end
+
+* The default footer now displays the version of pkgdown used to build 
+  the site (#876). 
+
+* All third party resources are now fetched from a single CDN and are
+  give a SRI hash (@bisaloo, #893).
+  
+* The navbar version now has class "version" so you can more easily control 
+  its display (#680).
 
 * The default css has been tweaked to ensure that icons are visible on all
   browsers (#852).
 
-* `build_home()` no longer includes an NA link for bug reports in the
-  sidebar if the `DESCRIPTION` has no "BugReports" field (#855).
+## Bug fixes and minor improvements
 
-* Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
+### Home page
 
-* The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
+* Can now build sites for older packages that don't have a `Authors@R` field 
+  (#727).
+
+* Remote urls ending in `.md` are no tweaked to end in `.html` (#763).
+
+* Bug report link is only shown if there's a "BugReports" field (#855).
+
+* `content-home.html` template is now used when the homepage is an `.Rmd` 
+  (@goldingn, #787).
+
+* A link to the source `inst/CITATION` was added to the authors page (#714).
+
+### News
+
+* Uses stricter regular expression when linking to GitHub authors (#902).
+
+### Reference
+
+* Unexported functions and test helpers are no longer loaded (#789).
+  
+* Selectors that do not match topics now generate a warning. If none of the 
+  specified selectors have a match, no topics are selected (#728).
+
+### Articles
+
+* The display depth of vignette tables of contents can be configured by 
+  setting `toc: depth` in `_pkgdown.yml` (#821):
 
   ```yaml
   toc:
     depth: 2
   ```
 
-* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
-
-* `deploy_site_github()` added to build and deploy a site to GitHub Pages from the
-  Travis CI service (@jimhester).
+### Overall site
 
 * `init_site()` now creates a CNAME file if one doesn't already exist and the
   site's metadata includes a `url` field.
 
-* Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
-  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774, #877).
-  
-* `build_reference_index()`: Selectors that do not match topics now generate a warning.
-  If none of the specified selectors have a match, no topics are selected (#728).
-  
-* Support of multiple arguments in `\Sexpr{}` was fixed, eliminating `x must be a
-  string or a R connection` errors when using `\doi` Rd tags (#738).
+* `build_site()` loses vestigal `mathjax` parameter. This didn't appear to do 
+  anything and  no one could remember why it existed (#785).
 
-* `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
+* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
 
 # pkgdown 1.1.0
 
