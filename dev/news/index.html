@@ -101,6 +101,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/test/crayon.html">Test: crayon</a>
+    </li>
+    <li>
       <a href="../articles/test/details.html">Test: Details tag</a>
     </li>
     <li>
@@ -173,9 +176,9 @@
 <li><p>Incorrect Rd tags now generate more informative errors (<a href='https://github.com/BarkleyBG'>@BarkleyBG</a>, <a href='https://github.com/r-lib/pkgdown/issues/771'>#771</a>, <a href='https://github.com/r-lib/pkgdown/issues/891'>#891</a>)</p></li>
 <li><p>New function <code><a href="../reference/build_favicon.html">build_favicon()</a></code> creates high resolution favicons, which are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). For this, it uses the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API. As a side effect, this change also removes the dependency to the magick package (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Navbar version now gets class “version” so you can more easily control the display if you want (<a href='https://github.com/r-lib/pkgdown/issues/680'>#680</a>).</p></li>
-<li><p>Can now build sites for older packages that don’t have a <code><a href="https://www.rdocumentation.org/packages/base/topics/slotOp">Authors@R</a></code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
+<li><p>Can now build sites for older packages that don’t have a <code>Authors@R</code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
 <li><p>Links to remote <code>.md</code> files are no longer “helpfully” tweaked to end in <code>.html</code> (<a href='https://github.com/r-lib/pkgdown/issues/763'>#763</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now uses the <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">content-home.html</a></code> template when the content is a .Rmd file (<a href='https://github.com/goldingn'>@goldingn</a> <a href='https://github.com/r-lib/pkgdown/issues/787'>#787</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now uses the <code>content-home.html</code> template when the content is a .Rmd file (<a href='https://github.com/goldingn'>@goldingn</a> <a href='https://github.com/r-lib/pkgdown/issues/787'>#787</a>).</p></li>
 <li><p><code><a href="../reference/rd2html.html">rd2html()</a></code> is now exported to facilitate creation of translation reprexes.</p></li>
 <li><p>Vestigal <code>mathjax</code> removed. This didn’t appear to do anything and no one could remember why it existed (<a href='https://github.com/r-lib/pkgdown/issues/785'>#785</a>).</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer loads unexported functions or test helpers (<a href='https://github.com/r-lib/pkgdown/issues/789'>#789</a>)</p></li>
@@ -183,11 +186,11 @@
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> no longer includes an NA link for bug reports in the sidebar if the <code>DESCRIPTION</code> has no “BugReports” field (<a href='https://github.com/r-lib/pkgdown/issues/855'>#855</a>).</p></li>
 <li><p>Support of qualified functions in <code>@usage</code> statments was fixed, eliminating <code>Error in fun_info(x) : Unknown call: ::</code> errors (<a href='https://github.com/r-lib/pkgdown/issues/795'>#795</a>).</p></li>
 <li>
-<p>The display depth of vignette tables of contents can be configured by setting <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">toc: depth</a></code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
+<p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">depth:</span><span class="at"> 2</span></a></code></pre></div>
 </li>
-<li><p><code><a href="../reference/build_site.html">build_site()</a></code> now uses colors even if <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">new_process = TRUE</a></code> (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
+<li><p><code><a href="../reference/build_site.html">build_site()</a></code> now uses colors even if <code>new_process = TRUE</code> (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> added to build and deploy a site to GitHub Pages from the Travis CI service (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
 <li><p><code><a href="../reference/init_site.html">init_site()</a></code> now creates a CNAME file if one doesn’t already exist and the site’s metadata includes a <code>url</code> field.</p></li>
 <li><p>Users with limited internet connectivity can explicitly disable pkgdown CRAN checks by setting <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options(pkgdown.internet = FALSE)</a></code> prior to running <code><a href="../reference/build_site.html">build_site()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
@@ -227,7 +230,7 @@
 <ul>
 <li><p><code>vignette()</code> calls that don’t link to existing vignettes silently fail to link instead of generating an uninformative error messages (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>). Automatic linking works for re-exported objects that are not functions (<a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/r-lib/pkgdown/issues/666'>#666</a>).</p></li>
 <li><p>Empty <code>\section{}</code>s are ignored (<a href='https://github.com/r-lib/pkgdown/issues/656'>#656</a>). Previously, empty sections caused error <code>Error in rep(TRUE, length(x) - 1)</code>.</p></li>
-<li><p><code>\Sexpr{}</code> supports <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">results=text</a></code>, <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">results=Rd</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">results=hide</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
+<li><p><code>\Sexpr{}</code> supports <code>results=text</code>, <code>results=Rd</code> and <code>results=hide</code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
 <li><p><code>\tabular{}</code> no longer requires a terminal <code>\cr</code> (<a href='https://github.com/r-lib/pkgdown/issues/664'>#664</a>, <a href='https://github.com/r-lib/pkgdown/issues/645'>#645</a>).</p></li>
 </ul>
 </div>
@@ -238,15 +241,15 @@
 <li><p>Add <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/pkgdown.yml</a></code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
-<p>You can suppress indexing by search engines by setting <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">noindex: true</a></code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
+<p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">template:</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="fu">params:</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">Encoding: latin1</a></code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: Markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) stored in <code>.github/</code> are copied and linked correctly (<a href='https://github.com/r-lib/pkgdown/issues/682'>#682</a>).</p></li>
-<li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">news: one_page: false</a></code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code>news: one_page: false</code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: reference index shows infix functions (like <code>%+%</code>) as <code>`%+%`</code>, not <code>`%+%`()</code> on (<a href='https://github.com/r-lib/pkgdown/issues/659'>#659</a>).</p></li>
 </ul>
 </div>

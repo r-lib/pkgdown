@@ -3,6 +3,7 @@ pkgdown: 1.1.0.9000
 pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
+  crayon: test/crayon.html
   details: test/details.html
   external: test/external.html
   figures: test/figures.html
