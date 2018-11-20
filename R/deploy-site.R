@@ -22,6 +22,14 @@
 #' keys to your GitHub and Travis accounts. See the [travis package
 #' website](https://ropenscilabs.github.io/travis/) for more details.
 #'
+#'
+#' If you're using a custom CNAME, make sure you have set the `url` in
+#' `_pkgdown.yaml`:
+#'
+#' ```yaml
+#' url: http://pkgdown.r-lib.org
+#' ```
+#'
 #' @inheritParams build_site
 #' @param tarball The location of the built package tarball. The default Travis
 #'   configuration for R packages sets `PKG_TARBALL` to this path.

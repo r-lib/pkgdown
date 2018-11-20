@@ -25,8 +25,16 @@
 #' paths will be taken relative to the package root.
 #'
 #' `url` optionally specifies the url where the site will be published.
-#' If you supply this, other pkgdown sites will link to your site when needed,
-#' rather than using generic links to <https://rdocumentation.org>.
+#' Supplying this will:
+#' * Allow other pkgdown sites will link to your site when needed,
+#'   rather than using generic links to <https://rdocumentation.org>.
+#' * Generate a `sitemap.xml`, increasing the searchability of your site.
+#' * Automatically generate a `CNAME` when
+#'   [deploying to github][deploy_site_github].
+#'
+#' ```yaml
+#' url: http://pkgdown.r-lib.org
+#' ```
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -170,14 +178,7 @@
 #'       index_name: INDEX_NAME
 #' ```
 #'
-#' You also need to add a `url:` field to `_pkgdown.yml` that specifies the
-#' location of your documentation on the web. For pkgdown, the URL field is:
-#'
-#' ```yaml
-#' url: http://pkgdown.r-lib.org
-#' ```
-#'
-#' See `vignette("pkgdown")` for details.
+#' You also need to add a `url:` field, see above.
 #'
 #' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the

@@ -47,5 +47,9 @@ deploy:
 Then you will need to setup your deployment keys. The easiest way is to call
 \code{travis::use_travis_deploy()}. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the \href{https://ropenscilabs.github.io/travis/}{travis package website} for more details.
+
+If you're using a custom CNAME, make sure you have set the \code{url} in
+\code{_pkgdown.yaml}:\preformatted{url: http://pkgdown.r-lib.org
+}
 }
 

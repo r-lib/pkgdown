@@ -61,8 +61,15 @@ There are four top-level YAML settings that affect the entire site:
 paths will be taken relative to the package root.
 
 \code{url} optionally specifies the url where the site will be published.
-If you supply this, other pkgdown sites will link to your site when needed,
+Supplying this will:
+\itemize{
+\item Allow other pkgdown sites will link to your site when needed,
 rather than using generic links to \url{https://rdocumentation.org}.
+\item Generate a \code{sitemap.xml}, increasing the searchability of your site.
+\item Automatically generate a \code{CNAME} when
+\link[=deploy_site_github]{deploying to github}.
+}\preformatted{url: http://pkgdown.r-lib.org
+}
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -192,11 +199,7 @@ to add search to your site.\preformatted{template:
       index_name: INDEX_NAME
 }
 
-You also need to add a \code{url:} field to \code{_pkgdown.yml} that specifies the
-location of your documentation on the web. For pkgdown, the URL field is:\preformatted{url: http://pkgdown.r-lib.org
-}
-
-See \code{vignette("pkgdown")} for details.
+You also need to add a \code{url:} field, see above.
 }
 
 \section{YAML config - template}{
