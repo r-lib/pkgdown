@@ -229,8 +229,3 @@ mark {
 .html-widget {
   margin-bottom: 10px;
 }
-
-div + div > pre.r {
-  margin-top: -40px;
-  border: 0;
-}

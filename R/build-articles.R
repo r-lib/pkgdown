@@ -210,12 +210,6 @@ build_article <- function(name,
       data = data,
       toc = TRUE
     )
-    format$knitr$knit_hooks <- list(
-      output = colourise_chunk,
-      message = colourise_chunk,
-      warning = colourise_chunk,
-      error = colourise_chunk
-    )
 
     options <- NULL
   }
