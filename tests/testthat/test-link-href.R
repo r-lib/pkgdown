@@ -166,3 +166,11 @@ test_that("fail gracefully with non-working calls", {
   expect_equal(href_expr_(vignette(1, 2)), NA_character_)
   expect_equal(href_expr_(vignette(, )), NA_character_)
 })
+
+test_that("spurious functions are not linked (#889)", {
+  scoped_package_context("test")
+
+  expect_equal(href_expr_(Authors@R), NA_character_)
+  expect_equal(href_expr_(content-home.html), NA_character_)
+  expect_equal(href_expr_(toc: depth), NA_character_)
+})

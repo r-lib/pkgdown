@@ -26,8 +26,12 @@ href_expr <- function(expr, bare_symbol = FALSE) {
       return(NA_character_)
 
     fun_name <- as.character(fun)
-    if (grepl("^%.*%$", fun_name))
+
+    # we need to include the `::` and `?` infix operators
+    # so that `?build_site()` and `pkgdown::build_site()` are linked
+    if (!is_prefix(fun_name) && !fun_name %in% c("::", "?")) {
       return(NA_character_)
+    }
 
     n_args <- length(expr) - 1
 
@@ -151,4 +155,28 @@ href_article <- function(article, package = NULL) {
       paste0(base_url, "/", path)
     }
   }
+}
+
+is_prefix <- function(fun) {
+  if (grepl("^%.*%$", fun)) {
+    return(FALSE)
+  }
+
+  infix <- c(
+    "::", ":::", "$", "@", "[", "[[", "^", "-", "+", ":", "<",
+    ">", "<=", ">=", "==", "!=", "!", "&", "&&", "|", "||", "~",
+    "->", "->>", "<-", "<<-", "=", "?"
+  )
+  if (fun %in% infix) {
+    return(FALSE)
+  }
+
+  special <- c(
+    "(", "{", "if", "for", "while", "repeat", "next", "break", "function"
+  )
+  if (fun %in% special) {
+    return(FALSE)
+  }
+
+  TRUE
 }
