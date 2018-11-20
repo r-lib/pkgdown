@@ -79,7 +79,6 @@ devtools_meta <- function(x) {
   ns[[".__DEVTOOLS__"]]
 }
 
-
 # CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {

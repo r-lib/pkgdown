@@ -172,7 +172,13 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
-  expr <- evaluate::evaluate(code, env, new_device = TRUE)
+  withr::with_options(
+    list(
+      crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
+      crayon.colors = getOption("crayon.colors", crayon::num_colors())
+    ),
+    expr <- evaluate::evaluate(code, env, new_device = TRUE)
+  )
 
   if (show) {
     replay_html(expr, topic = topic, obj_id = obj_id)

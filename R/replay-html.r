@@ -45,7 +45,11 @@ replay_html.list <- function(x, ...) {
   for (i in seq_along(parts)) {
     pieces[i] <- replay_html(parts[[i]], ...)
   }
-  paste0(pieces, collapse = "")
+  res <- paste0(pieces, collapse = "")
+
+  # convert ansi escapes
+  res <- fansi::sgr_to_html(res)
+  res
 }
 
 #' @export
