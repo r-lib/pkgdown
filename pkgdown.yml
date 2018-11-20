@@ -1,13 +1,15 @@
 pandoc: '2.2'
-pkgdown: 1.1.0.9000
+pkgdown: 1.2.0
 pkgdown_sha: ~
 articles:
   pkgdown: pkgdown.html
+  crayon: test/crayon.html
   details: test/details.html
   external: test/external.html
   figures: test/figures.html
   highlight: test/highlight.html
   jss: test/jss.html
+  mathjax: test/mathjax.html
   output: test/output.html
   pdf: test/pdf.html
   widget: test/widget.html

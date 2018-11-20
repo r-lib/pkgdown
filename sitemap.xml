@@ -13,6 +13,9 @@
     <loc>https://pkgdown.r-lib.org/reference/build_articles.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/reference/build_favicon.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/reference/build_home.html</loc>
   </url>
   <url>
@@ -46,6 +49,9 @@
     <loc>https://pkgdown.r-lib.org/reference/preview_site.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/reference/reexports.html</loc>
   </url>
   <url>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/reference/templates.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/reference/test-crayon.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/reference/test-dont.html</loc>
@@ -76,6 +85,9 @@
     <loc>https://pkgdown.r-lib.org/articles/pkgdown.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/articles/test/crayon.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/articles/test/details.html</loc>
   </url>
   <url>
@@ -89,6 +101,9 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/articles/test/jss.pdf</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/articles/test/mathjax.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/articles/test/output.html</loc>

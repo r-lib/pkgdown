@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test case: figures — test-figures • pkgdown</title>
+<title>Test case: crayon — test-crayon • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Test case: figures — test-figures" />
+<meta property="og:title" content="Test case: crayon — test-crayon" />
 
-<meta property="og:description" content="" />
+<meta property="og:description" content="Test case: crayon" />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -164,30 +164,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test case: figures</h1>
+    <h1>Test case: crayon</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
-    <div class="hidden name"><code>test-figures.Rd</code></div>
+    <div class="hidden name"><code>test-crayon.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><img src='figures/bacon.jpg' alt='' /></p>
+    <p>Test case: crayon</p>
     
     </div>
 
         
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other tests: <code><a href='test-crayon.html'>test-crayon</a></code>,
-  <code><a href='test-dont.html'>test-dont</a></code>, <code><a href='test-links.html'>test-links</a></code>,
+    <div class='dont-index'><p>Other tests: <code><a href='test-dont.html'>test-dont</a></code>,
+  <code><a href='test-figures.html'>test-figures</a></code>, <code><a href='test-links.html'>test-links</a></code>,
   <code><a href='test-lists.html'>test-lists</a></code>,
   <code><a href='test-output-styles.html'>test-output-styles</a></code>,
   <code><a href='test-params.html'>test-params</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span> * <span class='no'>pi</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>25</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Trig'>sin</a></span>(<span class='no'>x</span>))</div><div class='img'><img src='test-figures-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/crayon/topics/crayon'>red</a></span>(<span class='st'>"This is red"</span>), <span class='st'>"\n"</span>)</div><div class='output co'>#&gt; <span style='color: #BB0000;'>This is red</span><span> </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/crayon/topics/crayon'>blue</a></span>(<span class='st'>"This is blue"</span>), <span class='st'>"\n"</span>)</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'>This is blue</span><span> </div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>message</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/crayon/topics/crayon'>green</a></span>(<span class='st'>"This is green"</span>))</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>This is green</span><span></span></div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/warning'>warning</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/crayon/topics/crayon'>bold</a></span>(<span class='st'>"This is bold"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: </span><span style='font-weight: bold;'>This is bold</span><span></span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

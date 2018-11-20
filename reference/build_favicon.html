@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test case: figures — test-figures • pkgdown</title>
+<title>Create favicons from package logo — build_favicon • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Test case: figures — test-figures" />
+<meta property="og:title" content="Create favicons from package logo — build_favicon" />
 
-<meta property="og:description" content="" />
+<meta property="og:description" content="This function auto-detects the location of your package logo (with the name
+logo.svg (recommended format) or logo.png) and runs it through the
+https://realfavicongenerator.net API to build a complete set of favicons
+with different sizes, as needed for modern web usage." />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -164,39 +167,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test case: figures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
-    <div class="hidden name"><code>test-figures.Rd</code></div>
+    <h1>Create favicons from package logo</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-logo.R'><code>R/build-logo.R</code></a></small>
+    <div class="hidden name"><code>build_favicon.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><img src='figures/bacon.jpg' alt='' /></p>
+    <p>This function auto-detects the location of your package logo (with the name
+<code>logo.svg</code> (recommended format) or <code>logo.png</code>) and runs it through the
+<a href='https://realfavicongenerator.net'>https://realfavicongenerator.net</a> API to build a complete set of favicons
+with different sizes, as needed for modern web usage.</p>
     
     </div>
 
-        
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <pre class="usage"><span class='fu'>build_favicon</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pkg</th>
+      <td><p>Path to package.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>Other tests: <code><a href='test-crayon.html'>test-crayon</a></code>,
-  <code><a href='test-dont.html'>test-dont</a></code>, <code><a href='test-links.html'>test-links</a></code>,
-  <code><a href='test-lists.html'>test-lists</a></code>,
-  <code><a href='test-output-styles.html'>test-output-styles</a></code>,
-  <code><a href='test-params.html'>test-params</a></code></p></div>
+    <p>You only need to run the function once. The favicon set will be stored in
+<code>pkgdown/favicon</code> and copied by <code><a href='init_site.html'>init_site()</a></code> to the relevant location when
+the website is rebuilt.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span> * <span class='no'>pi</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>25</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Trig'>sin</a></span>(<span class='no'>x</span>))</div><div class='img'><img src='test-figures-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
