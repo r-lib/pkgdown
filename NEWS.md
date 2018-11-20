@@ -1,5 +1,8 @@
 # pkgdown 1.1.0.9000
 
+* Stricter regular expression when added links to GitHub authors in `NEWS.md`
+  (#902)
+
 * Incorrect Rd tags now generate more informative errors (@BarkleyBG, #771, #891)
 
 * New function `build_favicon()` creates high resolution favicons, which are 
