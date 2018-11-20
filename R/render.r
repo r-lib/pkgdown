@@ -14,7 +14,7 @@
 #'   * `yaml`: the `template` key from `_pkgdown.yml`.
 #'   * `package`: package metadata including `name` and`version`.
 #'
-#'   See the full contents by running `data_template()`.
+#'   See the full contents by running [data_template()].
 #' @param path Location to create file; relative to destination directory.
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
@@ -28,6 +28,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
+  data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   # render template components

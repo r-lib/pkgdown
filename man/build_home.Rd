@@ -48,7 +48,7 @@ If you have a package logo, you can include it at the top of your README in a
 level-one heading:\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
 }
 
-\code{\link[=init_site]{init_site()}} will also automatically create a favicon.ico from your package
+\code{\link[=init_site]{init_site()}} will also automatically create a favicon set from your package
 logo.
 }
 
@@ -96,11 +96,5 @@ are defined in the \code{DESCRIPTION}:\preformatted{person("Jay", "Hesselberth",
 Status badges are displayed in the sidebar under the section "Dev status".
 This section is automatically populated if the first paragraph of the
 homepage consists solely of status badges as linked images.
-}
-
-\section{Internet}{
-
-Users with limited internet connectivity can disable CRAN checks by setting
-\code{options(pkgdown.internet = FALSE)}.
 }
 

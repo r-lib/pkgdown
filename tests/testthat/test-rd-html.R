@@ -141,7 +141,7 @@ test_that("can convert cross links to online documentation url", {
 
   expect_equal(
     rd2html("\\link[base]{library}"),
-    a("library", href = "http://www.rdocumentation.org/packages/base/topics/library")
+    a("library", href = "https://www.rdocumentation.org/packages/base/topics/library")
   )
 })
 
@@ -272,23 +272,15 @@ test_that("S3 methods gets comment", {
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")
   expect_equal(out, "\\(\\alpha\\)")
-  out <- rd2html(" \\eqn{\\alpha}{alpha}", mathjax = FALSE)
-  expect_equal(out, "<code class = 'eq'>alpha</code>")
   out <- rd2html(" \\eqn{x}")
   expect_equal(out, "\\(x\\)")
-  out <- rd2html(" \\eqn{x}", mathjax = FALSE)
-  expect_equal(out, "<code class = 'eq'>x</code>")
 })
 
 test_that("deqn", {
   out <- rd2html(" \\deqn{\\alpha}{alpha}")
   expect_equal(out, "$$\\alpha$$")
-  out <- rd2html(" \\deqn{\\alpha}{alpha}", mathjax = FALSE)
-  expect_equal(out, "<pre class = 'eq'>alpha</pre>")
   out <- rd2html(" \\deqn{x}")
   expect_equal(out, "$$x$$")
-  out <- rd2html(" \\deqn{x}", mathjax = FALSE)
-  expect_equal(out, "<pre class = 'eq'>x</pre>")
 })
 
 
@@ -345,4 +337,27 @@ test_that("titles can contain other markup", {
 test_that("titles don't get autolinked code", {
   rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<code>foo()</code>")
+})
+
+# Rd tag errors ------------------------------------------------------------------
+
+test_that("bad Rd tags throw errors", {
+  scoped_file_context("test-rd-html.R")
+
+  expect_error(
+    rd2html("\\url{}"),
+    "contains a bad Rd tag of type `url`. Check for empty"
+  )
+  expect_error(
+    rd2html("\\url{a\nb}"),
+    "contains a bad Rd tag of type `url`. This may be"
+  )
+  expect_error(
+    rd2html("\\email{}"),
+    "contains a bad Rd tag of type `email`"
+  )
+  expect_error(
+    rd2html("\\linkS4class{}"),
+    "contains a bad Rd tag of type `linkS4class`"
+  )
 })

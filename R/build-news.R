@@ -213,7 +213,7 @@ pkg_timeline <- function(package) {
     return(NULL)
   }
 
-  url <- paste0("http://crandb.r-pkg.org/", package, "/all")
+  url <- paste0("https://crandb.r-pkg.org/", package, "/all")
 
   resp <- httr::GET(url)
   if (httr::http_error(resp)) {
@@ -228,13 +228,6 @@ pkg_timeline <- function(package) {
     date = as.Date(unlist(timeline)),
     stringsAsFactors = FALSE
   )
-}
-
-rel_date_html <- function(date) {
-  if (is.na(date))
-    return("<small> Unreleased</small>")
-
-  paste0("<small> ", date, "</small>")
 }
 
 tweak_news_heading <- function(x, versions, timeline) {

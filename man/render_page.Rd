@@ -24,7 +24,7 @@ This is automatically supplemented with three lists:
 \item \code{package}: package metadata including \code{name} and\code{version}.
 }
 
-See the full contents by running \code{data_template()}.}
+See the full contents by running \code{\link[=data_template]{data_template()}}.}
 
 \item{path}{Location to create file; relative to destination directory.
 If \code{""} (the default), prints to standard out.}

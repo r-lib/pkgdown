@@ -28,6 +28,22 @@ test_that("can link remote objects", {
   expect_equal(href_expr_(MASS::blah), NA_character_)
 })
 
+test_that("can link to functions in registered packages", {
+  scoped_package_context("test")
+  register_attached_packages("MASS")
+
+  expect_equal(href_expr_(addterm()), href_topic_remote("addterm", "MASS"))
+  expect_equal(href_expr_(addterm.default()), href_topic_remote("addterm", "MASS"))
+})
+
+test_that("can link to functions in base packages", {
+  scoped_package_context("test")
+  scoped_file_context() # package registry maintained on per-file basis
+
+  expect_equal(href_expr_(library()), href_topic_remote("library", "base"))
+  expect_equal(href_expr_(median()), href_topic_remote("median", "stats"))
+})
+
 test_that("links to home of re-exported functions", {
   # can't easily access exports in 3.1
   skip_if_not(getRversion() >= "3.2.0")
@@ -149,4 +165,12 @@ test_that("fail gracefully with non-working calls", {
   expect_equal(href_expr_(vignette(package = package)), NA_character_)
   expect_equal(href_expr_(vignette(1, 2)), NA_character_)
   expect_equal(href_expr_(vignette(, )), NA_character_)
+})
+
+test_that("spurious functions are not linked (#889)", {
+  scoped_package_context("test")
+
+  expect_equal(href_expr_(Authors@R), NA_character_)
+  expect_equal(href_expr_(content-home.html), NA_character_)
+  expect_equal(href_expr_(toc: depth), NA_character_)
 })

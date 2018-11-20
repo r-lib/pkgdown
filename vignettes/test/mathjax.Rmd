@@ -1,0 +1,7 @@
+---
+title: "Test: Mathjax"
+---
+
+$$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
+
+Inline equations: $y=x^2$

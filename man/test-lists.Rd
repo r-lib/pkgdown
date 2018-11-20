@@ -4,28 +4,38 @@
 \alias{test-lists}
 \title{Test case: lists}
 \description{
-\itemize{\item a}
-
+\subsection{Bulleted list}{
 \itemize{
   \item a
   \item This is an item...
 
     That spans multiple paragraphs.
 }
+}
 
+\subsection{Bulleted list (single item)}{
+\itemize{\item a}
+}
+
+\subsection{Numbered list}{
 \enumerate{
   \item a
   \item b
 }
+}
 
+\subsection{Definition list}{
 \describe{
   \item{a}{1}
   \item{b}{2}
+  \item{This is a very long definition term}{}
+}
 }
 }
 \seealso{
-Other tests: \code{\link{test-dont}},
-  \code{\link{test-figures}}, \code{\link{test-links}},
+Other tests: \code{\link{test-crayon}},
+  \code{\link{test-dont}}, \code{\link{test-figures}},
+  \code{\link{test-links}},
   \code{\link{test-output-styles}},
   \code{\link{test-params}}
 }

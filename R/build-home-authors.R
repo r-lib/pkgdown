@@ -20,7 +20,13 @@ data_authors <- function(pkg = ".") {
 }
 
 pkg_authors <- function(pkg, role = NULL) {
-  authors <- unclass(pkg$desc$get_authors())
+  if (pkg$desc$has_fields("Authors@R")) {
+    authors <- unclass(pkg$desc$get_authors())
+  } else {
+    # Just show maintainer
+    authors <- unclass(utils::as.person(pkg$desc$get_maintainer()))
+    authors[[1]]$role <- "cre"
+  }
 
   if (is.null(role)) {
     authors
@@ -39,7 +45,7 @@ data_author_info <- function(pkg = ".") {
     ),
     "RStudio" = list(
       href = "https://www.rstudio.com",
-      html = "<img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' />"
+      html = "<img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' />"
     ),
     "R Consortium" = list(
       href = "https://www.r-consortium.org"

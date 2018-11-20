@@ -11,8 +11,9 @@ x <- seq(0, 2 * pi, length = 25)
 plot(x, sin(x))
 }
 \seealso{
-Other tests: \code{\link{test-dont}},
-  \code{\link{test-links}}, \code{\link{test-lists}},
+Other tests: \code{\link{test-crayon}},
+  \code{\link{test-dont}}, \code{\link{test-links}},
+  \code{\link{test-lists}},
   \code{\link{test-output-styles}},
   \code{\link{test-params}}
 }

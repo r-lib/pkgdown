@@ -1,0 +1,38 @@
+url: https://pkgdown.r-lib.org
+
+authors:
+  Jay Hesselberth:
+    href: https://hesselberthlab.org
+
+template:
+  params:
+    docsearch:
+      api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b
+      index_name: pkgdown
+
+development:
+  mode: auto
+
+reference:
+  - title: Build
+    desc:  Build a complete site or its individual section components.
+    contents:
+    - build_site
+    - init_site
+    - starts_with("build_")
+    - starts_with("deploy_")
+    - preview_site
+  - title: Templates
+    contents:
+    - template_navbar
+    - render_page
+  - title: Helpers
+    contents:
+    - autolink_html
+    - clean_site
+    - rd2html
+    - as_pkgdown
+    - in_pkgdown
+  - title: Regression tests
+    contents:
+    - starts_with("test", internal = TRUE)

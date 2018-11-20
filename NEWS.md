@@ -1,8 +1,45 @@
 # pkgdown 1.1.0.9000
 
-* Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
+* All third party resources are now fetched from a single CDN and are associated
+  with a SRI hash (@bisaloo, #893).
+  
+* Stricter regular expression when added links to GitHub authors in `NEWS.md`
+  (#902)
 
-* A default favicon is now used if no logo is provided (#827).
+* Incorrect Rd tags now generate more informative errors (@BarkleyBG, #771, #891)
+
+* New function `build_favicon()` creates high resolution favicons, which are 
+  better suited for modern web usage (e.g. retina display screens, desktop
+  shortcuts, etc.).  For this, it uses the <http://realfavicongenerator.net>
+  API. As a side effect, this change also removes the dependency to the
+  magick package (@bisaloo, #883).
+
+* Navbar version now gets class "version" so you can more easily control the
+  display if you want (#680).
+
+* Can now build sites for older packages that don't have a `Authors@R` field 
+  (#727).
+
+* Links to remote `.md` files are no longer "helpfully" tweaked to end in 
+  `.html` (#763).
+
+* `build_home()` now uses the `content-home.html` template when the content is a .Rmd file (@goldingn #787).
+
+* `rd2html()` is now exported to facilitate creation of translation reprexes.
+
+* Vestigal `mathjax` removed. This didn't appear to do anything and no one
+  could remember why it existed (#785).
+
+* `build_reference()` no longer loads unexported functions or test helpers 
+  (#789)
+
+* The default css has been tweaked to ensure that icons are visible on all
+  browsers (#852).
+
+* `build_home()` no longer includes an NA link for bug reports in the
+  sidebar if the `DESCRIPTION` has no "BugReports" field (#855).
+
+* Support of qualified functions in `@usage` statments was fixed, eliminating `Error in fun_info(x) : Unknown call: ::` errors (#795).
 
 * The display depth of vignette tables of contents can be configured by setting `toc: depth` in `_pkgdown.yml` (#821):
 
@@ -20,7 +57,7 @@
   site's metadata includes a `url` field.
 
 * Users with limited internet connectivity can explicitly disable pkgdown CRAN checks
-  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774).
+  by setting `options(pkgdown.internet = FALSE)` prior to running `build_site()` (#774, #877).
   
 * `build_reference_index()`: Selectors that do not match topics now generate a warning.
   If none of the specified selectors have a match, no topics are selected (#728).

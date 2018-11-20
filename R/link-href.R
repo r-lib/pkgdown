@@ -12,10 +12,10 @@ href_expr <- function(expr, bare_symbol = FALSE) {
   if (is_symbol(expr) && bare_symbol) {
     # foo
     href_topic_local(as.character(expr))
-  } else if (is_lang(expr)) {
+  } else if (is_call(expr)) {
     fun <- expr[[1]]
 
-    if (is_lang(fun, "::", n = 2)) {
+    if (is_call(fun, "::", n = 2)) {
       pkg <- as.character(fun[[2]])
       fun <- fun[[3]]
     } else {
@@ -26,8 +26,12 @@ href_expr <- function(expr, bare_symbol = FALSE) {
       return(NA_character_)
 
     fun_name <- as.character(fun)
-    if (grepl("^%.*%$", fun_name))
+
+    # we need to include the `::` and `?` infix operators
+    # so that `?build_site()` and `pkgdown::build_site()` are linked
+    if (!is_prefix(fun_name) && !fun_name %in% c("::", "?")) {
       return(NA_character_)
+    }
 
     n_args <- length(expr) - 1
 
@@ -37,7 +41,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     } else if (fun_name == "?") {
       if (n_args == 1) {
         topic <- expr[[2]]
-        if (is_lang(topic, "::")) {
+        if (is_call(topic, "::")) {
           # ?pkg::x
           href_topic(as.character(topic[[3]]), as.character(topic[[2]]))
         } else if (is_symbol(topic) || is_string(topic)) {
@@ -125,7 +129,7 @@ href_topic_remote <- function(topic, package) {
     paste0(reference_url, paste0("/", rdname, ".html"))
   } else {
     # Fall back to rdocumentation.org which almost certainly works
-    paste0("http://www.rdocumentation.org/packages/", package, "/topics/", rdname)
+    paste0("https://www.rdocumentation.org/packages/", package, "/topics/", rdname)
   }
 }
 
@@ -151,4 +155,28 @@ href_article <- function(article, package = NULL) {
       paste0(base_url, "/", path)
     }
   }
+}
+
+is_prefix <- function(fun) {
+  if (grepl("^%.*%$", fun)) {
+    return(FALSE)
+  }
+
+  infix <- c(
+    "::", ":::", "$", "@", "[", "[[", "^", "-", "+", ":", "<",
+    ">", "<=", ">=", "==", "!=", "!", "&", "&&", "|", "||", "~",
+    "->", "->>", "<-", "<<-", "=", "?"
+  )
+  if (fun %in% infix) {
+    return(FALSE)
+  }
+
+  special <- c(
+    "(", "{", "if", "for", "while", "repeat", "next", "break", "function"
+  )
+  if (fun %in% special) {
+    return(FALSE)
+  }
+
+  TRUE
 }

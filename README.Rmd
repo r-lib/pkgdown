@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pkgdown <img src="man/figures/logo.png" align="right" alt="" />
+# pkgdown <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![Travis-CI build status](https://travis-ci.org/r-lib/pkgdown.svg?branch=master)](https://travis-ci.org/r-lib/pkgdown)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgdown?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/pkgdown)
@@ -48,7 +48,7 @@ The package includes an RStudio add-in that you can bind to a keyboard shortcut.
 
 ## In the wild
 
-As at last count, pkgdown is used [by over 2000 packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code). 
+As at last count, pkgdown is used [by over 2500 packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code). 
 
 Here are a few examples created by people contributors to pkgdown:
 

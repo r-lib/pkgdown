@@ -14,7 +14,7 @@
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
 #' assumption when most vignettes were PDFs) and only copies files explicitly
 #' listed in `.install_extras`. pkgdown takes a different approach based on
-#' [rmarkdown::find_external_resources], and it will also copy any images that
+#' [rmarkdown::find_external_resources()], and it will also copy any images that
 #' you link to. If for some reason the automatic detection doesn't work, you
 #' will need to add a `resource_files` field to the yaml metadata, e.g.:
 #'
@@ -36,7 +36,7 @@
 #' `contents`, and optional `description`.
 #'
 #' For example, this imaginary file describes some of the structure of
-#' the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:
+#' the [R markdown articles](http://rmarkdown.rstudio.com/articles.html):
 #'
 #' ```
 #' articles:
@@ -62,18 +62,21 @@
 #'
 #' @section YAML header:
 #' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' using setting the `template` parameter to a custom built template that
-#' matches the site template. You can override this with a `pkgdown` field
-#' in your yaml metadata:
+#' using setting the `template` parameter. This overrides any custom settings
+#' you have in your YAML metadata, ensuring that all articles are rendered
+#' in the same way (and receive the default site template).
+#'
+#' If you need to override the output format, or set any options, you'll need
+#' to add a `pkgdown` field to your yaml metadata:
 #'
 #' ```
 #' pkgdown:
 #'   as_is: true
 #' ```
 #'
-#' This will tell pkgdown to use the `output_format` that you have specified.
-#' This format must accept `template`, `theme`, and `self_contained` in
-#' order to work with pkgdown.
+#' This will tell pkgdown to use the `output_format` (and options) that you
+#' have specified. This format must accept `template`, `theme`, and
+#' `self_contained` in order to work with pkgdown.
 #'
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
@@ -189,7 +192,7 @@ build_article <- function(name,
     format <- NULL
 
     if (identical(ext, "html")) {
-      template <- rmarkdown_template(pkg, depth = depth, data = data)
+      template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
 
       options <- list(
         template = template$path,
@@ -200,7 +203,13 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(pkg, depth = depth, data = data, toc = TRUE)
+    format <- build_rmarkdown_format(
+      pkg = pkg,
+      name = "article",
+      depth = depth,
+      data = data,
+      toc = TRUE
+    )
     options <- NULL
   }
 
@@ -215,11 +224,12 @@ build_article <- function(name,
 }
 
 build_rmarkdown_format <- function(pkg,
+                                   name,
                                    depth = 1L,
                                    data = list(),
                                    toc = TRUE) {
 
-  template <- rmarkdown_template(pkg, depth = depth, data = data)
+  template <- rmarkdown_template(pkg, name, depth = depth, data = data)
 
   out <- rmarkdown::html_document(
     toc = toc,
@@ -239,9 +249,9 @@ build_rmarkdown_format <- function(pkg,
 # inst/template/article-vignette.html
 # Output is a path + environment; when the environment is garbage collected
 # the path will be deleted
-rmarkdown_template <- function(pkg, data, depth) {
+rmarkdown_template <- function(pkg, name, data, depth) {
   path <- tempfile(fileext = ".html")
-  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
+  render_page(pkg, name, data, path, depth = depth, quiet = TRUE)
 
   # Remove template file when format object is GC'd
   e <- env()

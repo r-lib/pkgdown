@@ -3,7 +3,8 @@
 #' @importFrom R6 R6Class
 #' @import rlang
 #' @import fs
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 #' Determine if code is executed by pkgdown
 #'

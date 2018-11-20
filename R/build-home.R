@@ -28,7 +28,7 @@
 #' # pkgdown <img src="man/figures/logo.png" align="right" />
 #' ```
 #'
-#' [init_site()] will also automatically create a favicon.ico from your package
+#' [init_site()] will also automatically create a favicon set from your package
 #' logo.
 #'
 #' @section YAML config - home:
@@ -80,10 +80,6 @@
 #' Status badges are displayed in the sidebar under the section "Dev status".
 #' This section is automatically populated if the first paragraph of the
 #' homepage consists solely of status badges as linked images.
-#'
-#' @section Internet:
-#' Users with limited internet connectivity can disable CRAN checks by setting
-#' `options(pkgdown.internet = FALSE)`.
 #'
 #' @inheritParams build_articles
 #' @export

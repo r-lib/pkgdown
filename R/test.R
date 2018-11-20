@@ -2,23 +2,33 @@
 #'
 #' @noMd
 #' @description
-#' \itemize{\item a}
 #'
+#' \subsection{Bulleted list}{
 #' \itemize{
 #'   \item a
 #'   \item This is an item...
 #'
 #'     That spans multiple paragraphs.
 #' }
+#' }
 #'
+#' \subsection{Bulleted list (single item)}{
+#' \itemize{\item a}
+#' }
+#'
+#' \subsection{Numbered list}{
 #' \enumerate{
 #'   \item a
 #'   \item b
 #' }
+#' }
 #'
+#' \subsection{Definition list}{
 #' \describe{
 #'   \item{a}{1}
 #'   \item{b}{2}
+#'   \item{This is a very long definition term}{}
+#' }
 #' }
 #' @keywords internal
 #' @family tests
@@ -117,4 +127,20 @@ NULL
 #' b <- 10
 #' a + b
 #' }
+NULL
+
+
+#' Test case: crayon
+#'
+#' @name test-crayon
+#' @keywords internal
+#' @family tests
+#'
+#' @examples
+#' cat(crayon::red("This is red"), "\n")
+#' cat(crayon::blue("This is blue"), "\n")
+#'
+#' message(crayon::green("This is green"))
+#'
+#' warning(crayon::bold("This is bold"))
 NULL

@@ -1,11 +1,10 @@
 #' Initialise site infrastructure
 #'
-#' This creates the output directory (`docs/`), `favicon.ico` (from the package
-#' logo), a machine readable description of the site, and copies CSS/JS
-#' assets and extra files.
+#' This creates the output directory (`docs/`), a machine readable description
+#' of the site, and copies CSS/JS assets and extra files.
 #'
 #' @section Build-ignored files:
-#' We recommend using `usethis::use_pkgdown()` to build-ignore `docs/` and
+#' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
 #' `_pkgdown.yml`. If use another directory, or create the site manually,
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
 #' an unexpected file during `R CMD CHECK` is an indication you have not
@@ -18,9 +17,9 @@
 #' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
-#' If you include you package logo in the standard location of
-#' `man/figures/logo.png`, a favicon will be automatically created for
-#' you.
+#' You should manually run [build_favicon()] once to generate the favicon set
+#' from your logo. The result is stored in `pkgdown/favicon` and will
+#' automatically be copied to the relevant location when you run [init_site()].
 #'
 #' @inheritParams build_articles
 #' @export
@@ -34,11 +33,11 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
   copy_assets(pkg)
+  copy_favicons(pkg)
 
   build_site_meta(pkg)
   build_sitemap(pkg)
   build_docsearch_json(pkg)
-  build_logo(pkg)
   build_cname(pkg)
 
   invisible()

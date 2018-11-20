@@ -22,6 +22,15 @@ Remote:
 * `MASS::enlist()`
 * `?MASS::enlist`
 
+## Spurious links
+
+These shouldn't be linked.
+
+* `Authors@R`
+* `content-home.html`
+* `toc: depth`
+* `x = y`
+
 ## Code blocks
 
 ```{r, eval = FALSE}
