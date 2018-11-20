@@ -136,7 +136,7 @@ github_push <- function(dir, commit_message) {
 
   with_dir(dir, {
     git("add", "-A", ".")
-    git("commit", "-m", commit_message)
+    git("commit", "--allow-empty", "-m", commit_message)
 
     rule("Deploying to GitHub Pages", line = 1)
     git("remote", "-v")
