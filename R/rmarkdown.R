@@ -25,9 +25,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   )
 
   path <- callr::r_safe(
-    function(...) {
-      rmarkdown::render(...)
-    },
+    function(...) rmarkdown::render(...),
     args = args,
     show = !quiet,
     env = c(

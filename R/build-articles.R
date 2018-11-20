@@ -210,7 +210,6 @@ build_article <- function(name,
       data = data,
       toc = TRUE
     )
-
     options <- NULL
   }
 
