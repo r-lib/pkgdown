@@ -1,9 +1,8 @@
 ---
-author: "Hadley Wickham"
 title: "Introduction to pkgdown"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{pkgdown}
+  %\VignetteIndexEntry{Introduction to pkgdown}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -69,36 +68,50 @@ pkgdown tries them in order, which means that if you want different display for 
 
 In addition to home page content from the README (e.g., installation instructions, simple examples), pkgdown looks for several other items to add to the home page.
 
-* A package logo (recommended size 130 x 150 pixels) can be included in the first level one heading in the home page source file. This logo is also used to create a favicon for the site.
+*   A package logo (recommended size 240 x 278 pixels) can be included in the 
+    first level one heading in the home page source file. 
 
-```
----
-output: github_document
----
+    ```
+    ---
+    output: github_document
+    ---
+    
+    # pkgdown <img src="man/figures/logo.png" align="right" alt="" width="120" />
+    ```
+    
+    Convert your package logo to a favicon with `build_favicon()`
+  
 
-# packagename <img src="man/figures/logo.png" align="right" />
-```
+*   Badges in the home page source file (e.g. `README.Rmd`) are linked in the 
+    sidebar under "Dev status".
 
-* Badges in the home page source file (e.g. `README.Rmd`) are linked in the side bar under "Dev status".
+*   A link for bug reports is added if the `BugReports` field in 
+    `DESCRIPTION` contains a link. You can use `usethis::use_github_links()` 
+    to populate this field.
 
-* A link for bug reports is added if the `BugReports` field in `DESCRIPTION` contains a link. You can use [`usethis::use_github_links()`] to populate this field.
+*   Licensing information is linked in the side bar using the package 
+    `LICENSE` and `LICENSE.md` files.
 
-* Licensing information is linked in the side bar using the package `LICENSE` and `LICENSE.md` files.
+*   Citation information from a `inst/CITATION` file is linked in the side bar 
+    to the [authors page](https://testthat.r-lib.org/authors.html).
 
-* Citation information from a `inst/CITATION` file is linked in the side bar to the [authors page](https://testthat.r-lib.org/authors.html).
+*   Author ORCID identification numbers in the `DESCRIPTION` are linked under 
+    "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
 
-* Author ORCID identification numbers in the `DESCRIPTION` are linked under "Developers" using the ORCID logo (![ORCID iD](https://orcid.org/sites/default/files/images/orcid_16x16.png)).
+    ```
+    Authors@R: c(
+        person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
+          comment = c(ORCID = "0000-0003-4757-117X")
+        )
+    ```
 
-```
-Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
-      comment = c(ORCID = "0000-0003-4757-117X")
-    )
-```
+*   Extra markdown files (e.g., `CODE_OF_CONDUCT.md`) at the base directory or 
+    in `.github/` are copied to `docs/` and converted to HTML.
 
-* Extra markdown files (e.g., `CODE_OF_CONDUCT.md`) at the base directory or in `.github/` are copied to `docs/` and converted to HTML.
-
-* When including big graphics in the README, you may find it easier to use `knitr::include_graphics("foo.png")` combined with chunk option `out.width = '100%'`. This will make the graphic scale with the size of the page.
+*   When including big graphics in the README, you may find it easier to use 
+    `knitr::include_graphics("foo.png")` combined with chunk option 
+    `out.width = '100%'`. This will make the graphic scale with the size of 
+    the page.
 
 ## Reference
 
