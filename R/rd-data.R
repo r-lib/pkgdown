@@ -172,10 +172,11 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
-  withr::with_options(list(
+  withr::with_options(
+    list(
       crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
-      crayon.colors = getOption("crayon.colors", crayon::num_colors())),
-
+      crayon.colors = getOption("crayon.colors", crayon::num_colors())
+    ),
     expr <- evaluate::evaluate(code, env, new_device = TRUE)
   )
 
