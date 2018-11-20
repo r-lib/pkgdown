@@ -83,7 +83,7 @@ tweak_tables <- function(html) {
 }
 
 prepend_class <- function(x, class = "table") {
-  if (!'class'%in%names(x)) {
+  if (!('class' %in% names(x))) {
     c(class = class)
   } else {
     c(class = paste(class, x[["class"]]))
