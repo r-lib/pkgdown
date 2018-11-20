@@ -312,7 +312,7 @@ url: https://pkgdown.r-lib.org
 
 If you are building your own custom Docsearch index, you can also include your Docsearch `app_id` in `_pkgdown.yml`.
 
-See the [pkgdown configuration](https://github.com/r-lib/pkgdown/blob/master/_pkgdown.yml#L7-L11) for a functional search configuration.
+See the [pkgdown configuration](https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11) for a functional search configuration.
 
 Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled , pressing `shift` + `/` (i.e., "?") will move the focus to the search bar.
 

@@ -159,7 +159,7 @@
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
 #' `href`) and separators (indicated by a bunch of `-`). You can use `icon`s
-#' from fontawesome: see a full list <https://fontawesome.io/icons/>.
+#' from fontawesome: see a full list <https://fontawesome.com/icons>.
 #'
 #' This yaml would override the default "articles" component, eliminate
 #' the "home" component, and add a new "twitter" component. Unless you
