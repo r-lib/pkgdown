@@ -67,8 +67,7 @@
 
 * `build_home()`: a link to the source `inst/CITATION` was added to the authors page (#714).
 
-* `prepend_class()`: Generalized to allow `tweak_tables()` to handle multiple
-  html tables and allow for multiple attributes in each table (@yonicd #868).
+* Tables with multiple attributes are now properly handled (@yonicd #868).
 
 # pkgdown 1.1.0
 
