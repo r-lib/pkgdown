@@ -197,7 +197,7 @@
 <li><p>Users with limited internet connectivity can explicitly disable pkgdown CRAN checks by setting <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options(pkgdown.internet = FALSE)</a></code> prior to running <code><a href="../reference/build_site.html">build_site()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference_index()</a></code>: Selectors that do not match topics now generate a warning. If none of the specified selectors have a match, no topics are selected (<a href='https://github.com/r-lib/pkgdown/issues/728'>#728</a>).</p></li>
 <li><p>Support of multiple arguments in <code>\Sexpr{}</code> was fixed, eliminating <code>x must be a string or a R connection</code> errors when using <code>\doi</code> Rd tags (<a href='https://github.com/r-lib/pkgdown/issues/738'>#738</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/CITATION</a></code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: a link to the source <code>inst/CITATION</code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
 </ul>
 </div>
     <div id="pkgdown-1-1-0" class="section level1">
@@ -239,7 +239,7 @@
 <h2 class="hasAnchor">
 <a href="#minor-bug-fixes-and-improvements" class="anchor"></a>Minor bug fixes and improvements</h2>
 <ul>
-<li><p>Add <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/pkgdown.yml</a></code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
+<li><p>Add <code>inst/pkgdown.yml</code> as a possible site configuration file so that packages on CRAN can be built without needing the development version (<a href='https://github.com/r-lib/pkgdown/issues/662'>#662</a>).</p></li>
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
 <p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>

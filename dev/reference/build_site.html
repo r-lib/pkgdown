@@ -260,9 +260,15 @@ in the current process affects the build process.</p></td>
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.</p>
 <p><code>url</code> optionally specifies the url where the site will be published.
-If you supply this, other pkgdown sites will link to your site when needed,
-rather than using generic links to <a href='https://rdocumentation.org'>https://rdocumentation.org</a>.</p>
-<p><code>title</code> overrides the default site title, which is the package name.
+Supplying this will:</p><ul>
+<li><p>Allow other pkgdown sites will link to your site when needed,
+rather than using generic links to <a href='https://rdocumentation.org'>https://rdocumentation.org</a>.</p></li>
+<li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
+<li><p>Automatically generate a <code>CNAME</code> when
+<a href='deploy_site_github.html'>deploying to github</a>.</p></li>
+</ul><pre>url: http://pkgdown.r-lib.org
+</pre>
+    <p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
@@ -375,10 +381,7 @@ to add search to your site.</p><pre>template:
       api_key: API_KEY
       index_name: INDEX_NAME
 </pre>
-    <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the
-location of your documentation on the web. For pkgdown, the URL field is:</p><pre>url: http://pkgdown.r-lib.org
-</pre>
-    <p>See <code><a href='../articles/pkgdown.html'>vignette("pkgdown")</a></code> for details.</p>
+    <p>You also need to add a <code>url:</code> field, see above.</p>
     
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
@@ -408,7 +411,7 @@ correspond to your
 </pre>
     <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
-directories <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>inst/pkgdown/assets</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>inst/pkgdown/templates</a></code>,
+directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
 of the default assets, set <code>default_assets</code> to false.</p><pre>template:
   package: mycustompackage

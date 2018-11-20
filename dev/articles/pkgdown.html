@@ -126,10 +126,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to pkgdown</h1>
-                        <h4 class="author">Hadley Wickham</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/pkgdown.Rmd"><code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">vignettes/pkgdown.Rmd</a></code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/pkgdown.Rmd"><code>vignettes/pkgdown.Rmd</code></a></small>
       <div class="hidden name"><code>pkgdown.Rmd</code></div>
 
     </div>
@@ -186,25 +185,26 @@
 <p>pkgdown tries them in order, which means that if you want different display for GitHub and pkgdown, you can have both <code>README.md</code> and an <code>index.md</code>.</p>
 <p>In addition to home page content from the README (e.g., installation instructions, simple examples), pkgdown looks for several other items to add to the home page.</p>
 <ul>
-<li>A package logo (recommended size 130 x 150 pixels) can be included in the first level one heading in the home page source file. This logo is also used to create a favicon for the site.</li>
-</ul>
+<li>
+<p>A package logo (recommended size 240 x 278 pixels) can be included in the first level one heading in the home page source file.</p>
 <pre><code>---
 output: github_document
 ---
 
-# packagename &lt;img src="man/figures/logo.png" align="right" /&gt;</code></pre>
-<ul>
-<li><p>Badges in the home page source file (e.g. <code>README.Rmd</code>) are linked in the side bar under “Dev status”.</p></li>
-<li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use [<code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_github_links">usethis::use_github_links()</a></code>] to populate this field.</p></li>
+# pkgdown &lt;img src="man/figures/logo.png" align="right" alt="" width="120" /&gt;</code></pre>
+<p>Convert your package logo to a favicon with <code><a href="../reference/build_favicon.html">build_favicon()</a></code></p>
+</li>
+<li><p>Badges in the home page source file (e.g. <code>README.Rmd</code>) are linked in the sidebar under “Dev status”.</p></li>
+<li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_github_links">usethis::use_github_links()</a></code> to populate this field.</p></li>
 <li><p>Licensing information is linked in the side bar using the package <code>LICENSE</code> and <code>LICENSE.md</code> files.</p></li>
-<li><p>Citation information from a <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">inst/CITATION</a></code> file is linked in the side bar to the <a href="https://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
-<li><p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked under “Developers” using the ORCID logo (<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD">).</p></li>
-</ul>
+<li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar to the <a href="https://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
+<li>
+<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked under “Developers” using the ORCID logo (<img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD">).</p>
 <pre><code>Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0003-4757-117X")
     )</code></pre>
-<ul>
+</li>
 <li><p>Extra markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) at the base directory or in <code>.github/</code> are copied to <code>docs/</code> and converted to HTML.</p></li>
 <li><p>When including big graphics in the README, you may find it easier to use <code><a href="https://www.rdocumentation.org/packages/knitr/topics/include_graphics">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p></li>
 </ul>
@@ -263,7 +263,7 @@ output: github_document
 <p>By default, the top navigation bar (the “navbar”) will contain links to:</p>
 <ul>
 <li>The home page, with a “home” icon (<i class="fa fa-home fa-lg"></i>).</li>
-<li>“Get Started”, if you have an article with the same name as the package (e.g., <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">vignettes/pkgdown.Rmd</a></code>).</li>
+<li>“Get Started”, if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</li>
 <li>Reference</li>
 <li>Articles (i.e., vignettes, if present).</li>
 <li>News (if present).</li>
@@ -317,7 +317,7 @@ output: github_document
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">news:</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
 <p>In this case the <code>NEWS.md</code> is broken up by the version specified in the level one headings. Each version will be rendered to <code>news/</code>, with one page per minor release, so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page.</p>
-<p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">vignettes/news</a></code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
+<p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code>vignettes/news</code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">navbar:</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> News</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="fu">menu:</span></a>
