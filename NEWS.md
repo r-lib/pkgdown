@@ -1,5 +1,7 @@
 # pkgdown 1.2.0.9000
 
+* Restore accidentally removed `docsearch.css` file.
+
 # pkgdown 1.2.0
 
 ## New features
