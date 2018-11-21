@@ -28,6 +28,21 @@ test_that("multiple tables with existing classes are prepended", {
     expect_equal(c("table a", "table b", "table"))
 })
 
+test_that("multiple tables with existing classes are prepended and attributes", {
+  html <- xml2::read_html(
+    '<body>
+    <table style="width:100%;" class="a"></table>
+    <table class="b"></table>
+    <table></table>
+    </body>'
+  )
+  expect_silent(tweak_tables(html))
+  html %>%
+    xml2::xml_find_all(".//table") %>%
+    xml2::xml_attr("class") %>%
+    expect_equal(c("table a", "table b", "table"))
+})
+
 test_that("tables get class='table' prepended to existing classes", {
   html <- xml2::read_html("<body><table class = 'foo bar'>\n</table></body>")
   tweak_tables(html)
