@@ -112,6 +112,9 @@
     <loc>https://pkgdown.r-lib.org/articles/test/pdf.pdf</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/articles/test/table.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/articles/test/widget.html</loc>
   </url>
 </urlset>

@@ -12,6 +12,7 @@ articles:
   mathjax: test/mathjax.html
   output: test/output.html
   pdf: test/pdf.html
+  table: test/table.html
   widget: test/widget.html
 urls:
   reference: https://pkgdown.r-lib.org/reference
