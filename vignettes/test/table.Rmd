@@ -1,0 +1,8 @@
+---
+title: "Test: Table"
+output: html_document
+---
+
+| col 1 | col 2 | col 3 | col 4 |
+|:---------------|:-----------|:-------:|:---------:|
+| Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |

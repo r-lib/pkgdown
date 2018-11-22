@@ -2,6 +2,8 @@
 
 * Fix sidebar hiding on mobile home pages (#913).
 
+* Tweaking of HTML table classes was fixed (@yonicd, #912)
+
 * Restore accidentally removed `docsearch.css` file.
 
 # pkgdown 1.2.0
