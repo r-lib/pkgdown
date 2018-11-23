@@ -59,7 +59,7 @@
 * Can now build sites for older packages that don't have a `Authors@R` field 
   (#727).
 
-* Remote urls ending in `.md` are no tweaked to end in `.html` (#763).
+* Remote urls ending in `.md` are no longer tweaked to end in `.html` (#763).
 
 * Bug report link is only shown if there's a "BugReports" field (#855).
 
