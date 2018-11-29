@@ -88,7 +88,7 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  deploy_local(pkg, repo_slug = repo_slug, commit_message = commit_message)
+  deploy_local(pkg, repo_slug = repo_slug, commit_message = commit_message, ...)
 
   rule("Deploy completed", line = 2)
 }
@@ -96,7 +96,8 @@ deploy_site_github <- function(
 deploy_local <- function(
                          pkg = ".",
                          repo_slug = NULL,
-                         commit_message = construct_commit_message(pkg)
+                         commit_message = construct_commit_message(pkg),
+                         ...
                          ) {
 
   dest_dir <- fs::dir_create(fs::file_temp())
@@ -112,7 +113,8 @@ deploy_local <- function(
   build_site(".",
     override = list(destination = dest_dir),
     document = FALSE,
-    preview = FALSE
+    preview = FALSE,
+    ...
   )
   github_push(dest_dir, commit_message)
 
