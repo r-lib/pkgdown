@@ -1,6 +1,6 @@
 # pkgdown 1.2.0.9000
 
-* Fix sidebar hiding on mobile home pages (#913).
+* Regressions introduced by changing the home page template were fixed (#913, #919).
 
 * Tweaking of HTML table classes was fixed (@yonicd, #912)
 
