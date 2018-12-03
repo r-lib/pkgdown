@@ -6,6 +6,8 @@
 
 * Restore accidentally removed `docsearch.css` file.
 
+* `deploy_site_github()` now passes parameters to `build_site()` (@noamross, #922)
+
 # pkgdown 1.2.0
 
 ## New features
