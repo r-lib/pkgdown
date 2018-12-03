@@ -232,7 +232,7 @@ new keypair specifically for deploying the site. The easiest way is to use
     <h2 class="hasAnchor" id="setup"><a class="anchor" href="#setup"></a>Setup</h2>
 
     
-    <p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_deploy: Rscript -e 'install.packages("pkgdown")'
+    <p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
