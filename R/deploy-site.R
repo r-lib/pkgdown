@@ -28,12 +28,14 @@
 #' ```
 #' git checkout --orphan gh-pages
 #' git rm -rf .
-#' touch README.md
-#' git add README.md
-#' git commit -m 'initial gh-pages commit'
+#' git commit --allow-empty -m 'Initial gh-pages commit'
 #' git push origin gh-pages
 #' git checkout master
 #' ```
+#'
+#' We recommend doing this outside of RStudio (with the project closed) as
+#' from RStudio's perspective you end up deleting all the files and then
+#' re-creating them.
 #'
 #' If you're using a custom CNAME, make sure you have set the `url` in
 #' `_pkgdown.yaml`:
