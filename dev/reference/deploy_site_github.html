@@ -244,13 +244,14 @@ keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.g
 <p>Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages
 git rm -rf .
-touch README.md
-git add README.md
-git commit -m 'initial gh-pages commit'
+git commit --allow-empty -m 'Initial gh-pages commit'
 git push origin gh-pages
 git checkout master
 </pre>
-    <p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
+    <p>We recommend doing this outside of RStudio (with the project closed) as
+from RStudio's perspective you end up deleting all the files and then
+re-creating them.</p>
+<p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
 <code>_pkgdown.yaml</code>:</p><pre>url: http://pkgdown.r-lib.org
 </pre>
     
