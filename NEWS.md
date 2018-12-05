@@ -1,5 +1,8 @@
 # pkgdown 1.2.0.9000
 
+* Correct off-by-one error in navbar highlighting javascript; now no navbar
+  is highlighted if none match the current path (#911).
+
 * Regressions introduced by changing the home page template were fixed (#913, #919).
 
 * Tweaking of HTML table classes was fixed (@yonicd, #912)
