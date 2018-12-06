@@ -25,36 +25,6 @@ test_that("intermediate files cleaned up automatically", {
   )
 })
 
-test_that("home template is used with index.md", {
-  skip_if_no_pandoc()
-
-  pkg <- test_path("assets/home-index-template-md")
-  expect_output(build_site(pkg))
-  on.exit(clean_site(pkg))
-
-  rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
-  uses_content <- any(grepl("This is a test", rendered_lines))
-  is_custom <- any(grepl("custom template", rendered_lines))
-  expect_true(uses_content)
-  expect_true(is_custom)
-
-})
-
-test_that("home template is used with index.Rmd", {
-  skip_if_no_pandoc()
-
-  pkg <- test_path("assets/home-index-template-rmd")
-  expect_output(build_site(pkg))
-  on.exit(clean_site(pkg))
-
-  rendered_lines <- read_lines(file.path(pkg, "docs", "index.html"))
-  uses_content <- any(grepl("This is a test", rendered_lines))
-  is_custom <- any(grepl("custom template", rendered_lines))
-  expect_true(uses_content)
-  expect_true(is_custom)
-
-})
-
 test_that("can build site even if no Authors@R present", {
   skip_if_no_pandoc()
 
