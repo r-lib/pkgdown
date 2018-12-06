@@ -1,13 +1,13 @@
 # pkgdown 1.2.0.9000
 
+* `content-home.html` template is no longer used when the homepage
+  is an `.Rmd` (Reverts #834. Fixes #927, #929)
+
 * `deploy_site_github()` now passes parameters to `build_site()` 
   (@noamross, #922), and the documentation gives slightly better advice.
 
 * Correct off-by-one error in navbar highlighting javascript; now no navbar
   is highlighted if none match the current path (#911).
-
-* Regressions introduced by changing the home page template were fixed 
-  (#913, #919).
 
 * Tweaking of HTML table classes was fixed (@yonicd, #912)
 
