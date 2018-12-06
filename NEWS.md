@@ -1,5 +1,8 @@
 # pkgdown 1.2.0.9000
 
+* Restore accidentally deleted `build_logo()` function so that logos
+  are once more copied to the website.
+
 * Fix to `pkgdown.css` so page header has correct amount of top margin.
 
 * `content-home.html` template is no longer used when the homepage
