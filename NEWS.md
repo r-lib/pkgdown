@@ -1,5 +1,7 @@
 # pkgdown 1.2.0.9000
 
+* Fix to `pkgdown.css` so page header has correct amount of top margin.
+
 * `content-home.html` template is no longer used when the homepage
   is an `.Rmd` (Reverts #834. Fixes #927, #929)
 
