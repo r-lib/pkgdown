@@ -1,4 +1,4 @@
-# pkgdown 1.2.0.9000
+# pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos
   are once more copied to the website.
