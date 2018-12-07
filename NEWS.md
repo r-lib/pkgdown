@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos
