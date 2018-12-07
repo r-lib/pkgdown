@@ -39,6 +39,7 @@
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
@@ -75,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -128,6 +129,9 @@
       <a href="../articles/test/pdf.pdf">Test: PDF (PDF)</a>
     </li>
     <li>
+      <a href="../articles/test/table.html">Test: Table</a>
+    </li>
+    <li>
       <a href="../articles/test/widget.html">Test: Widgets</a>
     </li>
   </ul>
@@ -166,6 +170,20 @@
       <small>Source: <a href='https://github.com/r-lib/pkgdown/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="pkgdown-1-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#pkgdown-1-3-0" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
+</h1>
+<ul>
+<li><p>Restore accidentally deleted <code>build_logo()</code> function so that logos are once more copied to the website.</p></li>
+<li><p>Fix to <code>pkgdown.css</code> so page header has correct amount of top margin.</p></li>
+<li><p><code>content-home.html</code> template is no longer used when the homepage is an <code>.Rmd</code> (Reverts <a href='https://github.com/r-lib/pkgdown/issues/834'>#834</a>. Fixes <a href='https://github.com/r-lib/pkgdown/issues/927'>#927</a>, <a href='https://github.com/r-lib/pkgdown/issues/929'>#929</a>)</p></li>
+<li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> now passes parameters to <code><a href="../reference/build_site.html">build_site()</a></code> (<a href='https://github.com/noamross'>@noamross</a>, <a href='https://github.com/r-lib/pkgdown/issues/922'>#922</a>), and the documentation gives slightly better advice.</p></li>
+<li><p>Correct off-by-one error in navbar highlighting javascript; now no navbar is highlighted if none match the current path (<a href='https://github.com/r-lib/pkgdown/issues/911'>#911</a>).</p></li>
+<li><p>Tweaking of HTML table classes was fixed (<a href='https://github.com/yonicd'>@yonicd</a>, <a href='https://github.com/r-lib/pkgdown/issues/912'>#912</a>)</p></li>
+<li><p>Restore accidentally removed <code>docsearch.css</code> file.</p></li>
+</ul>
+</div>
     <div id="pkgdown-1-2-0" class="section level1">
 <h1 class="page-header">
 <a href="#pkgdown-1-2-0" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
@@ -208,7 +226,7 @@
 <a href="#home-page" class="anchor"></a>Home page</h3>
 <ul>
 <li><p>Can now build sites for older packages that don’t have a <code>Authors@R</code> field (<a href='https://github.com/r-lib/pkgdown/issues/727'>#727</a>).</p></li>
-<li><p>Remote urls ending in <code>.md</code> are no tweaked to end in <code>.html</code> (<a href='https://github.com/r-lib/pkgdown/issues/763'>#763</a>).</p></li>
+<li><p>Remote urls ending in <code>.md</code> are no longer tweaked to end in <code>.html</code> (<a href='https://github.com/r-lib/pkgdown/issues/763'>#763</a>).</p></li>
 <li><p>Bug report link is only shown if there’s a “BugReports” field (<a href='https://github.com/r-lib/pkgdown/issues/855'>#855</a>).</p></li>
 <li><p><code>content-home.html</code> template is now used when the homepage is an <code>.Rmd</code> (<a href='https://github.com/goldingn'>@goldingn</a>, <a href='https://github.com/r-lib/pkgdown/issues/787'>#787</a>).</p></li>
 <li><p>A link to the source <code>inst/CITATION</code> was added to the authors page (<a href='https://github.com/r-lib/pkgdown/issues/714'>#714</a>).</p></li>
@@ -321,6 +339,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#pkgdown-1-3-0">1.3.0</a></li>
         <li><a href="#pkgdown-1-2-0">1.2.0</a></li>
         <li><a href="#pkgdown-1-1-0">1.1.0</a></li>
         <li><a href="#pkgdown-1-0-0">1.0.0</a></li>
@@ -336,7 +355,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
