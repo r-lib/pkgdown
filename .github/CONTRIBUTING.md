@@ -7,8 +7,8 @@ example of a minimal package was [this issue](https://github.com/r-lib/pkgdown/i
 where a minimal package containing a single `.R` file with two lines could reproduce
 the error.
 
-Once you have built a minimal package that recreates the error, create a github
-repository from the pacakge, and file an issue with a link to the repository.
+Once you have built a minimal package that recreates the error, create a GitHub
+repository from the package, and file an issue with a link to the repository.
 
 The quickest way to set up minimal example package is with `usethis::create_package()`:
 
@@ -22,7 +22,7 @@ usethis::create_package(tmp, open)
 pkgdown::build_site(tmp, new_process = FALSE, preview = FALSE)
 ```
 
-# Rd translsation
+# Rd translation
 
 If you encounter problems with Rd tags, please use `rd2html()` to create a reprexes:
 
