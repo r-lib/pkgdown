@@ -173,7 +173,7 @@
 <div id="package-reprexes" class="section level1">
 
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
-<p>Once you have built a minimal package that recreates the error, create a github repository from the pacakge, and file an issue with a link to the repository.</p>
+<p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package, and file an issue with a link to the repository.</p>
 <p>The quickest way to set up minimal example package is with <code><a href="https://www.rdocumentation.org/packages/usethis/topics/create_package">usethis::create_package()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(usethis)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pkgdown)</a>
@@ -183,9 +183,9 @@
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># ... edit files ...</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">pkgdown<span class="op">::</span><span class="kw"><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>(tmp, <span class="dt">new_process =</span> <span class="ot">FALSE</span>, <span class="dt">preview =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
-<div id="rd-translsation" class="section level1">
+<div id="rd-translation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#rd-translsation" class="anchor"></a>Rd translsation</h1>
+<a href="#rd-translation" class="anchor"></a>Rd translation</h1>
 <p>If you encounter problems with Rd tags, please use <code><a href="reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pkgdown)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
