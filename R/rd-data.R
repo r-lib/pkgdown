@@ -172,12 +172,21 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
+  output_handler <- evaluate::new_output_handler(
+    value = function(x) knitr::knit_print(x)
+  )
+
   withr::with_options(
     list(
       crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
       crayon.colors = getOption("crayon.colors", crayon::num_colors())
     ),
-    expr <- evaluate::evaluate(code, env, new_device = TRUE)
+    expr <- evaluate::evaluate(
+      code,
+      env,
+      new_device = TRUE,
+      output_handler = output_handler
+    )
   )
 
   if (show) {
