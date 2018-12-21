@@ -160,6 +160,12 @@ as_data.tag_examples <- function(x, ...,
   paste(html, collapse = "")
 }
 
+make_print_handler <- function(options = NULL, inline = NULL) {
+  evaluate::new_output_handler(
+    value = function(x) knitr::knit_print(x, options, inline)
+  )
+}
+
 format_example_chunk <- function(code, run, show,
                                  topic = "unknown",
                                  obj_id,
@@ -172,8 +178,16 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
-  output_handler <- evaluate::new_output_handler(
-    value = function(x) knitr::knit_print(x, options = context_get("figures"))
+  output_handler <- make_print_handler(
+    options = list(
+      dev = "png",
+      dpi = 96L,
+      fig.retina = 2,
+      dev.args = list(),
+      fig.width = 700 / 96,
+      fig.height = NULL,
+      fig.asp = 1 / 1.618
+    )
   )
 
   withr::with_options(
@@ -184,6 +198,7 @@ format_example_chunk <- function(code, run, show,
     expr <- evaluate::evaluate(
       code,
       env,
+      debug = TRUE,
       new_device = TRUE,
       output_handler = output_handler
     )
