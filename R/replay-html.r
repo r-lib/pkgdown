@@ -102,6 +102,12 @@ replay_html.recordedplot <- function(x, topic, obj_id, ...) {
   fig_save_default(x, fig_name(topic, obj_id))
 }
 
+#' @export
+replay_html.knit_asis <- function(x, ...) {
+  out <- paste0("<div class='knit_asis'>", x, "</div>")
+  out
+}
+
 # Knitr functions ------------------------------------------------------------
 # The functions below come from package knitr (Yihui Xie) in file plot.R
 
