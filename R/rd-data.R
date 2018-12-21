@@ -173,7 +173,7 @@ format_example_chunk <- function(code, run, show,
   }
 
   output_handler <- evaluate::new_output_handler(
-    value = function(x) knitr::knit_print(x)
+    value = function(x) knitr::knit_print(x, options = context_get("figures"))
   )
 
   withr::with_options(
