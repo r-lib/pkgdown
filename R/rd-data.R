@@ -181,12 +181,13 @@ format_example_chunk <- function(code, run, show,
   output_handler <- make_print_handler(
     options = list(
       dev = "png",
-      dpi = 96L,
+      dpi = 96,
       fig.retina = 2,
       dev.args = list(),
-      fig.width = 700 / 96,
-      fig.height = NULL,
-      fig.asp = 1 / 1.618
+      fig.width = 7.291667,
+      fig.height = 4.506593,
+      fig.asp = 0.618047,
+      fig.path = "figures/example"
     )
   )
 
@@ -198,7 +199,6 @@ format_example_chunk <- function(code, run, show,
     expr <- evaluate::evaluate(
       code,
       env,
-      debug = TRUE,
       new_device = TRUE,
       output_handler = output_handler
     )

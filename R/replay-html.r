@@ -103,9 +103,8 @@ replay_html.recordedplot <- function(x, topic, obj_id, ...) {
 }
 
 #' @export
-replay_html.knit_asis <- function(x, ...) {
-  out <- paste0("<div class='knit_asis'>", x, "</div>")
-  out
+replay_html.knit_image_paths <- function(x, ...) {
+  paste0("<img width='100%' src='", x, "'/>")
 }
 
 # Knitr functions ------------------------------------------------------------
