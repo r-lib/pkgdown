@@ -104,7 +104,7 @@ replay_html.recordedplot <- function(x, topic, obj_id, ...) {
 
 #' @export
 replay_html.knit_image_paths <- function(x, ...) {
-  paste0("<img width='100%' src='", x, "'/>")
+  paste0("<div class='img'><img src='", x, "' alt='' width='700' /></div>")
 }
 
 # Knitr functions ------------------------------------------------------------
