@@ -160,15 +160,10 @@ as_data.tag_examples <- function(x, ...,
   paste(html, collapse = "")
 }
 
-make_print_handler <- function(options = NULL, inline = NULL) {
-  evaluate::new_output_handler(
-    value = function(x) knitr::knit_print(x, options, inline)
-  )
-}
 
 example_chunk_opts <- function(topic, obj_id) {
-  # these are the default pkgdown figure settings
-  # in list format, with an additional fig.path specified.
+  # default pkgdown figure settings in list format,
+  # with additional fig.path and fig.cur.
   list(
     dev = "png",
     dpi = 96,
@@ -177,9 +172,11 @@ example_chunk_opts <- function(topic, obj_id) {
     fig.width = 7.291667,
     fig.height = 4.506593,
     fig.asp = 0.618047,
-    fig.path = paste0("figures/", topic, "-", obj_id(topic))
+    fig.path = paste0("figures/", topic),
+    # fig.cur is an internal chunk option that specifies
+    # an index when there are multiple figures (i.e., per-topic).
+    fig.cur = obj_id(topic)
   )
-
 }
 
 format_example_chunk <- function(code, run, show,
@@ -194,8 +191,11 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
-  output_handler <- make_print_handler(
-    options = example_chunk_opts(topic, obj_id)
+  output_handler <- evaluate::new_output_handler(
+    value = function(x) {
+      options = example_chunk_opts(topic, obj_id)
+      knitr::knit_print(x, options)
+    }
   )
 
   withr::with_options(
