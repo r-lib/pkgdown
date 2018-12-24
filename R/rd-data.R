@@ -160,23 +160,31 @@ as_data.tag_examples <- function(x, ...,
   paste(html, collapse = "")
 }
 
+example_fig_chunk_opts <- function(topic, obj_id) {
+  opts <- as.list(formals(fig_save))
 
-example_chunk_opts <- function(topic, obj_id) {
-  # default pkgdown figure settings in list format,
-  # with additional fig.path and fig.cur.
-  list(
-    dev = "png",
-    dpi = 96,
-    fig.retina = 2,
-    dev.args = list(),
-    fig.width = 7.291667,
-    fig.height = 4.506593,
-    fig.asp = 0.618047,
-    fig.path = paste0("figures/", topic),
-    # fig.cur is an internal chunk option that specifies
-    # an index when there are multiple figures (i.e., per-topic).
-    fig.cur = obj_id(topic)
-  )
+  # plot and name are not valid chunk opts
+  opts$plot <- NULL
+  opts$name <- NULL
+
+  # evaluate in case they are specified as ratios (the default)
+  opts$fig.width <- eval(opts$fig.width)
+  opts$fig.asp <- eval(opts$fig.asp)
+  opts$dev.args <- eval(opts$dev.args)
+
+  opts$fig.height <- opts$fig.width * opts$fig.asp
+
+  # convert e.g. grDevices::png to png
+  opts$dev <- fun_name(opts$dev)
+
+  # set the output path
+  opts$fig.path = paste0("figures/", topic)
+
+  # fig.cur is an internal chunk option that specifies
+  # an index when there are multiple figures (i.e., per-topic).
+  opts$fig.cur = obj_id(topic)
+
+  opts
 }
 
 format_example_chunk <- function(code, run, show,
@@ -193,7 +201,7 @@ format_example_chunk <- function(code, run, show,
 
   output_handler <- evaluate::new_output_handler(
     value = function(x) {
-      options = example_chunk_opts(topic, obj_id)
+      options = example_fig_chunk_opts(topic, obj_id)
       knitr::knit_print(x, options)
     }
   )
