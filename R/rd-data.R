@@ -166,6 +166,22 @@ make_print_handler <- function(options = NULL, inline = NULL) {
   )
 }
 
+example_chunk_opts <- function(topic, obj_id) {
+  # these are the default pkgdown figure settings
+  # in list format, with an additional fig.path specified.
+  list(
+    dev = "png",
+    dpi = 96,
+    fig.retina = 2,
+    dev.args = list(),
+    fig.width = 7.291667,
+    fig.height = 4.506593,
+    fig.asp = 0.618047,
+    fig.path = paste0("figures/", topic, "-", obj_id(topic))
+  )
+
+}
+
 format_example_chunk <- function(code, run, show,
                                  topic = "unknown",
                                  obj_id,
@@ -179,16 +195,7 @@ format_example_chunk <- function(code, run, show,
   }
 
   output_handler <- make_print_handler(
-    options = list(
-      dev = "png",
-      dpi = 96,
-      fig.retina = 2,
-      dev.args = list(),
-      fig.width = 7.291667,
-      fig.height = 4.506593,
-      fig.asp = 0.618047,
-      fig.path = "figures/example"
-    )
+    options = example_chunk_opts(topic, obj_id)
   )
 
   withr::with_options(
