@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
+
 # pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos

@@ -37,3 +37,9 @@ from your logo. The result is stored in \code{pkgdown/favicon} and will
 automatically be copied to the relevant location when you run \code{\link[=init_site]{init_site()}}.
 }
 
+\section{404}{
+
+pkgdown creates a default 404 page (\code{404.html}). You can customize 404
+page content using \code{.github/404.md}.
+}
+
