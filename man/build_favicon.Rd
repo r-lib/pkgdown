@@ -19,4 +19,7 @@ with different sizes, as needed for modern web usage.
 You only need to run the function once. The favicon set will be stored in
 \code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location when
 the website is rebuilt.
+
+Once complete, you should add \code{pkgdown/} to \code{.Rbuildignore } to avoid a NOTE
+during package checking.
 }
