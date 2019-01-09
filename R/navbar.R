@@ -9,6 +9,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   components <- navbar_components(pkg)
   components_meta <- navbar$components %||% list()
   components[names(components_meta)] <- components_meta
+  components <- purrr::compact(components)
 
   # Any unplaced components go to the right of the left navbar
   right_comp <- intersect(structure$right, names(components))
