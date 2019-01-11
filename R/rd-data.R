@@ -172,12 +172,16 @@ format_example_chunk <- function(code, run, show,
     return(highlight_text(code))
   }
 
+  # the default is to print values
+  oh <- evaluate::new_output_handler(value = function(x, visible) {
+    structure(list(value = x, visible = visible), class = 'value')
+  })
   withr::with_options(
     list(
       crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
       crayon.colors = getOption("crayon.colors", crayon::num_colors())
     ),
-    expr <- evaluate::evaluate(code, env, new_device = TRUE)
+    expr <- evaluate::evaluate(code, env, output_handler = oh, new_device = TRUE)
   )
 
   if (show) {

@@ -9,13 +9,17 @@ label_lines <- function(x, class = NULL, prompt = "#> ") {
   paste0(escape_html(prompt), lines)
 }
 
-label_output <- function(x, class = NULL, prompt = "#> ") {
-  lines <- label_lines(x, class = class, prompt = prompt)
+wrap_output <- function(lines) {
   paste0(
     "<div class='output co'>",
     paste0(lines, collapse = "\n"),
     "</div>"
   )
+}
+
+label_output <- function(x, class = NULL, prompt = "#> ") {
+  lines <- label_lines(x, class = class, prompt = prompt)
+  wrap_output(lines)
 }
 
 # Replay a list of evaluated results, just like you'd run them in a R
@@ -62,10 +66,15 @@ replay_html.character <- function(x, ...) {
 
 #' @export
 replay_html.value <- function(x, ...) {
-  if (!x$visible) return()
+  if (!x$visible) return("")
 
-  printed <- paste0(utils::capture.output(print(x$value)), collapse = "\n")
-  label_output(printed)
+  html <- repr::repr_html(x$value)
+  if (!is.null(html)) {
+    wrap_output(html)
+  } else {
+    text <- repr::repr_text(x$value)
+    label_output(if (is.null(text)) "" else text)
+  }
 }
 
 #' @export
