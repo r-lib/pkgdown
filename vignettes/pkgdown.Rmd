@@ -176,6 +176,23 @@ articles:
 
 See complete details in `build_articles()`.
 
+### Embedding a Shiny app
+
+If you would like to embed a Shiny app into an article, the app will have to be hosted indpendently, somewhere like [shinyapps.io](https://www.shinyapps.io). Then, you can embed the app into your article using an `iframe`. To customise its appearance, you may wish to [include some css code](../reference/build_site.html#yaml-config-template); you can use [this css code](https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856) as a starting point.\
+
+To embed the `iframe`, you can use functions from the [htmltools](https://CRAN.R-project.org/package=htmltools) package:
+
+```r
+library(htmltools)
+
+tags$div(
+  class = "shiny-app-frame",
+  tags$iframe(src = "https://gallery.shinyapps.io/083-front-page")
+)
+```
+
+In this example, we gave the `div` a class of `"shiny-app-frame"` in order to let the css code know what to customise. 
+ 
 ## Navigation bar
 
 By default, the top navigation bar (the "navbar") will contain links to:
