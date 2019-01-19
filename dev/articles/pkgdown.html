@@ -262,6 +262,19 @@ output: github_document
 <a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> shinyjs</a>
 <a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> htmlwidgets</a></code></pre></div>
 <p>See complete details in <code><a href="../reference/build_articles.html">build_articles()</a></code>.</p>
+<div id="embedding-a-shiny-app" class="section level3">
+<h3 class="hasAnchor">
+<a href="#embedding-a-shiny-app" class="anchor"></a>Embedding a Shiny app</h3>
+<p>If you would like to embed a Shiny app into an article, the app will have to be hosted indpendently, somewhere like <a href="https://www.shinyapps.io">shinyapps.io</a>. Then, you can embed the app into your article using an <code>iframe</code>. To customise its appearance, you may wish to <a href="../reference/build_site.html#yaml-config-template">include some css code</a>; you can use <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">this css code</a> as a starting point.<br></p>
+<p>To embed the <code>iframe</code>, you can use functions from the <a href="https://CRAN.R-project.org/package=htmltools">htmltools</a> package:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(htmltools)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">div</a></span>(</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">class =</span> <span class="st">"shiny-app-frame"</span>,</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  tags<span class="op">$</span><span class="kw">iframe</span>(<span class="dt">src =</span> <span class="st">"https://gallery.shinyapps.io/083-front-page"</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">)</a></code></pre></div>
+<p>In this example, we gave the <code>div</code> a class of <code>"shiny-app-frame"</code> in order to let the css code know what to customise.</p>
+</div>
 </div>
 <div id="navigation-bar" class="section level2">
 <h2 class="hasAnchor">
@@ -284,55 +297,55 @@ output: github_document
 <p>The navbar has a similar structure to the <a href="https://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation">R Markdown website navbar</a>.</p>
 <p>Use <code><a href="../reference/templates.html">template_navbar()</a></code> to generate a boilerplate navbar section in YAML format.</p>
 <p>You can set the navbar <code>title</code> and its <a href="https://bootswatch.com/3/cosmo/#navbar">bootswatch styling</a> with <code>inverse</code>. Navbar items take <code>text</code>, <code>href</code>, and optional <code>icon</code> (using <a href="https://fontawesome.com/">FontAwesome</a> icons) values. Finally, positioning of items within the navbar can be controlled with <code>left</code> and <code>right</code> sections.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="fu">type:</span><span class="at"> inverse</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="fu">left:</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">      <span class="fu">href:</span><span class="at"> articles/ML.html</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">      <span class="fu">href:</span><span class="at"> articles/extensions.html</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">      <span class="fu">href:</span><span class="at"> articles/deployment.html</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16">      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17">  <span class="fu">right:</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="fu">navbar:</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="fu">type:</span><span class="at"> inverse</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="fu">left:</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">      <span class="fu">href:</span><span class="at"> articles/ML.html</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">      <span class="fu">href:</span><span class="at"> articles/extensions.html</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">      <span class="fu">href:</span><span class="at"> articles/deployment.html</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="fu">right:</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
 <p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
 <p>Use <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_news_md">usethis::use_news_md()</a></code> to create and open a template NEWS.md file that can be edited:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># pkgdown 1.1.0</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">## Bug Fixes</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">* Lots of them</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># pkgdown 1.0.0</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">* This is the first release of pkgdown.</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># pkgdown 1.1.0</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">## Bug Fixes</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">* Lots of them</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co"># pkgdown 1.0.0</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">* This is the first release of pkgdown.</a></code></pre></div>
 <p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
 <p>If you have a large <code>NEWS.md</code> and want to create one page per release, you can create a multi-page change log by configuring the <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">news:</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">news:</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
 <p>In this case the <code>NEWS.md</code> is broken up by the version specified in the level one headings. Each version will be rendered to <code>news/</code>, with one page per minor release, so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page.</p>
 <p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code>vignettes/news</code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> News</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="fu">menu:</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Blog posts"</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Version 1.1.0"</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"------------------"</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Change log"</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">      <span class="fu">href:</span><span class="at"> news/index.html</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">navbar:</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> News</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="fu">menu:</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Blog posts"</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Version 1.1.0"</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"------------------"</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Change log"</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">      <span class="fu">href:</span><span class="at"> news/index.html</span></a></code></pre></div>
 <p>See complete details in <code><a href="../reference/build_news.html">build_news()</a></code>.</p>
 </div>
 <div id="search" class="section level2">
@@ -349,21 +362,21 @@ output: github_document
 <h3 class="hasAnchor">
 <a href="#docsearch-configuration" class="anchor"></a>Docsearch configuration</h3>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="op">}</span>)<span class="op">;</span> </a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="at">docsearch</span>(<span class="op">{</span> </a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="op">}</span>)<span class="op">;</span> </a></code></pre></div>
 <p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code> under <code>template: params</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="fu">template:</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="fu">params:</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="fu">template:</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="fu">params:</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">    <span class="fu">docsearch:</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">      <span class="fu">api_key:</span><span class="at"> API_KEY</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">      <span class="fu">index_name:</span><span class="at"> INDEX_NAME</span></a></code></pre></div>
 <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="fu">url:</span><span class="at"> https://pkgdown.r-lib.org</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="fu">url:</span><span class="at"> https://pkgdown.r-lib.org</span></a></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
 <p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11">pkgdown configuration</a> for a functional search configuration.</p>
 <p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled , pressing <code>shift</code> + <code>/</code> (i.e., “?”) will move the focus to the search bar.</p>
