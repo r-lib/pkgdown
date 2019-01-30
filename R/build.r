@@ -79,7 +79,7 @@
 #'
 #' ```
 #' development:
-#'   mode: development
+#'   mode: devel
 #' ```
 #'
 #' You can also have pkgdown automatically detect the mode with:
