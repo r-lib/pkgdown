@@ -1,13 +1,10 @@
 build_404 <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  page_md <- path(pkg$src_path, "404.md")
+  # if this file exists, it will be handled by build_home_md()
+  page_md <- path(pkg$src_path, ".github", "404.md")
 
-  if (file_exists(page_md)) {
-    render_md(pkg, page_md)
-  } else {
-    cat_line("Creating default 404 page")
-
+  if (!file_exists(page_md)) {
     render_page(
       pkg, "title-body",
       data = list(
