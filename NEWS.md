@@ -2,6 +2,8 @@
 
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
+* Optionally, opt of out of installation in `deploy_site_github()`
+
 # pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos

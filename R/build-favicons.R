@@ -19,6 +19,9 @@ copy_favicons <- function(pkg = ".") {
 #' `pkgdown/favicon` and copied by [init_site()] to the relevant location when
 #' the website is rebuilt.
 #'
+#' Once complete, you should add `pkgdown/` to `.Rbuildignore ` to avoid a NOTE
+#' during package checking.
+#'
 #' @inheritParams as_pkgdown
 #' @export
 build_favicon <- function(pkg = ".") {
