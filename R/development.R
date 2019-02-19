@@ -10,7 +10,7 @@ meta_development <- function(meta, version) {
     devel = ,
     unreleased = mode,
     stop(
-      "development$mode` in `_pkgdown.yml must be one of auto, release, devel, or unreleaed",
+      "development$mode` in `_pkgdown.yml must be one of auto, release, devel, or unreleased",
       call. = FALSE
     )
   )

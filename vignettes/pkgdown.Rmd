@@ -24,11 +24,11 @@ You can configure several aspects of your site. Once your finalized site is buil
 
 1. The `URL` field of your package `DESCRIPTION`, alongside a link to its source:
 
-1. [Twitter](https://twitter.com/dataandme/status/1004008257264988160), including the `#rstats` hash tag.
+    ```
+    URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
+    ```
 
-```
-URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
-```
+1. [Twitter](https://twitter.com/dataandme/status/1004008257264988160), including the `#rstats` hash tag.
 
 ## Configuration
 
@@ -53,7 +53,7 @@ pkgdown checks for a site configuration file in these locations:
 
 Including the configuration file in `inst/` enables sites to be built from packages on CRAN without needing the development version of a package.
 
-pkgdown build-ignores `_pkgdown.yml` with `usethis::use_pkgdown()`. If you use an alternative location be sure to update `.Rbuildignore` to avoid a `NOTE` during `CMD CHECK`.
+You can build-ignore pkgdown files (e.g., `_pkgdown.yml`) with `usethis::use_pkgdown()`. If you use an alternative location be sure to update `.Rbuildignore` to avoid a `NOTE` during `CMD CHECK`.
 
 ## Home page
 
@@ -176,6 +176,23 @@ articles:
 
 See complete details in `build_articles()`.
 
+### Embedding a Shiny app
+
+If you would like to embed a Shiny app into an article, the app will have to be hosted indpendently, somewhere like [shinyapps.io](https://www.shinyapps.io). Then, you can embed the app into your article using an `iframe`. To customise its appearance, you may wish to [include some css code](../reference/build_site.html#yaml-config-template); you can use [this css code](https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856) as a starting point.\
+
+To embed the `iframe`, you can use functions from the [htmltools](https://CRAN.R-project.org/package=htmltools) package:
+
+```r
+library(htmltools)
+
+tags$div(
+  class = "shiny-app-frame",
+  tags$iframe(src = "https://gallery.shinyapps.io/083-front-page")
+)
+```
+
+In this example, we gave the `div` a class of `"shiny-app-frame"` in order to let the css code know what to customise. 
+ 
 ## Navigation bar
 
 By default, the top navigation bar (the "navbar") will contain links to:

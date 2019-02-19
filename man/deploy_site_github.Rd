@@ -4,13 +4,17 @@
 \alias{deploy_site_github}
 \title{Deploy a pkgdown site on Travis-CI to Github Pages}
 \usage{
-deploy_site_github(pkg = ".", tarball = Sys.getenv("PKG_TARBALL", ""),
+deploy_site_github(pkg = ".", install = TRUE,
+  tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
   commit_message = construct_commit_message(pkg), verbose = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Path to package.}
+
+\item{install}{Optionally, opt-out of automatic installation. This is
+necessary if the package you're document is a dependency of pkgdown}
 
 \item{tarball}{The location of the built package tarball. The default Travis
 configuration for R packages sets \code{PKG_TARBALL} to this path.}

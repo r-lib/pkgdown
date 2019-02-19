@@ -45,6 +45,8 @@
 #' ```
 #'
 #' @inheritParams build_site
+#' @param install Optionally, opt-out of automatic installation. This is
+#'   necessary if the package you're document is a dependency of pkgdown
 #' @param tarball The location of the built package tarball. The default Travis
 #'   configuration for R packages sets `PKG_TARBALL` to this path.
 #' @param ssh_id The private id to use, a base64 encoded content of the private
@@ -58,6 +60,7 @@
 #' @export
 deploy_site_github <- function(
   pkg = ".",
+  install = TRUE,
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
@@ -78,8 +81,10 @@ deploy_site_github <- function(
   }
 
   rule("Deploying site", line = 2)
-  rule("Installing package", line = 1)
-  callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
+  if (install) {
+    rule("Installing package", line = 1)
+    callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
+  }
 
   ssh_id_file <- "~/.ssh/id_rsa"
   rule("Setting up SSH id", line = 1)
