@@ -86,6 +86,25 @@ test_that("can skip trailing \\cr", {
   )
 })
 
+test_that("code blocks in tables render (#978)", {
+  expect_equal(
+    rd2html('\\tabular{ll}{a \\tab \\code{b} \\cr foo \\tab bar}')[[2]],
+    "<tr><td>a</td><td><code>b</code></td></tr>"
+  )
+})
+
+test_that("tables with tailing \n (#978)", {
+  expect_equal(
+    rd2html('
+      \\tabular{ll}{
+        a   \\tab     \\cr
+        foo \\tab bar
+      }
+    ')[[2]],
+    "<tr><td>a</td><td></td></tr>"
+  )
+})
+
 # sexpr  ------------------------------------------------------------------
 
 test_that("code inside Sexpr is evaluated", {
