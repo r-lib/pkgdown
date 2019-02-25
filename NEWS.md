@@ -2,6 +2,8 @@
 
 * Optionally, opt of out of installation in `deploy_site_github()`
 
+* `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
+
 # pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos
