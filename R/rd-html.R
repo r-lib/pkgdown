@@ -278,7 +278,7 @@ as_html.tag_tabular <- function(x, ...) {
   keep <- !(sep & !no_text)
   # data.frame(class, sep, no_text, keep)
 
-  cell_grp <- cumsum(keep)
+  cell_grp <- cumsum(sep)
   cells <- unname(split(contents[keep], cell_grp[keep]))
   cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
