@@ -273,13 +273,12 @@ as_html.tag_tabular <- function(x, ...) {
   col_sep <- class == "tag_tab"
   sep <- col_sep | row_sep
 
-  # Look for separators that have no text in front of them
-  no_text <- c(TRUE, class[-length(class)] != "TEXT")
-  keep <- !(sep & !no_text)
-  # data.frame(class, sep, no_text, keep)
-
-  cell_grp <- cumsum(keep)
-  cells <- unname(split(contents[keep], cell_grp[keep]))
+  # Identify groups in reverse order (preserve empty cells)
+  # Negative maintains correct ordering once reversed
+  cell_grp <- rev(cumsum(-rev(sep)))
+  cells <- unname(split(contents, cell_grp))
+  # Remove tailing content (that does not match the dimensions of the table)
+  cells <- cells[seq_len(length(cells) - length(cells)%%length(align))]
   cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
