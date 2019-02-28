@@ -79,7 +79,7 @@ navbar_components <- function(pkg = ".") {
   menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {
-    menu$github <- menu_icon("github", pkg$github_url)
+    menu$github <- menu_icon("github", pkg$github_url, style = "fab")
   }
 
   print_yaml(menu)
@@ -99,8 +99,8 @@ menu_link <- function(text, href) {
 menu_links <- function(text, href) {
   purrr::map2(text, href, ~ list(text = .x, href = .y))
 }
-menu_icon <- function(icon, href) {
-  list(icon = paste0("fa-", icon, " fa-lg"), href = href)
+menu_icon <- function(icon, href, style = "fas") {
+  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href)
 }
 menu_text <- function(text) {
   list(text = text)
