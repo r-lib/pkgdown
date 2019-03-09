@@ -48,7 +48,7 @@ The package includes an RStudio add-in that you can bind to a keyboard shortcut.
 
 ## In the wild
 
-At last count, pkgdown is used [by over 2500 packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code). 
+At last count, pkgdown is used [by over 3000 packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code). 
 
 Here are a few examples created by contributors to pkgdown:
 
