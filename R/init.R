@@ -21,6 +21,10 @@
 #' from your logo. The result is stored in `pkgdown/favicon` and will
 #' automatically be copied to the relevant location when you run [init_site()].
 #'
+#' @section 404:
+#' pkgdown creates a default 404 page (`404.html`). You can customize 404
+#' page content using `.github/404.md`.
+#'
 #' @inheritParams build_articles
 #' @export
 init_site <- function(pkg = ".") {
@@ -40,6 +44,7 @@ init_site <- function(pkg = ".") {
   build_docsearch_json(pkg)
   build_cname(pkg)
   build_logo(pkg)
+  build_404(pkg)
 
   invisible()
 }

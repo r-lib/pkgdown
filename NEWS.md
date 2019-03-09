@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
+
 * Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use),
   so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note
   that brands now have a separate prefix (`fab fa-github`) (#953).
