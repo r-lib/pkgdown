@@ -153,13 +153,13 @@
 #'     - text: Title B1
 #'       href: articles/b1.html
 #'    twitter:
-#'      icon: fa-lg fa-twitter
+#'      icon: "fab fa-twitter fa-lg"
 #'      href: http://twitter.com/hadleywickham
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators (indicated by a bunch of `-`). You can use `icon`s
-#' from fontawesome: see a full list <https://fontawesome.com/icons>.
+#' `href`) and separators (indicated by a bunch of `-`). You can also use `icon`s
+#' from [fontawesome](https://fontawesome.com/icons?d=gallery).
 #'
 #' This yaml would override the default "articles" component, eliminate
 #' the "home" component, and add a new "twitter" component. Unless you
