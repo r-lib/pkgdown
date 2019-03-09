@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 1.3.0.9000 (development version)
 
 * Optionally, opt of out of installation in `deploy_site_github()`
 
