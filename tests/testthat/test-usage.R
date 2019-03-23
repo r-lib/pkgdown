@@ -28,6 +28,11 @@ test_that("can parse function/methods", {
   expect_equal(usage$name, "f")
   expect_equal(usage$signature, c("bar", "baz"))
 
+  usage <- parse_usage("\\S4method{f}{NULL}(x)")[[1]]
+  expect_equal(usage$type, "s4")
+  expect_equal(usage$name, "f")
+  expect_equal(usage$signature, c("NULL"))
+
   usage <- parse_usage("pkg::func()")[[1]]
   expect_equal(usage$type, "fun")
   expect_equal(usage$name, "func")
