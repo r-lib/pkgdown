@@ -95,6 +95,9 @@ are defined in the \code{DESCRIPTION}:\preformatted{person("Jay", "Hesselberth",
 
 Status badges are displayed in the sidebar under the section "Dev status".
 This section is automatically populated if the first paragraph of the
-homepage consists solely of status badges as linked images.
+homepage consists solely of status badges as linked images, or if one
+paragraph, not necessarily the first, starts with \code{<!-- badges: start -->}
+and ends with \code{<!-- badges: end -->},
+and consists solely of status badges as linked images.
 }
 
