@@ -163,8 +163,16 @@ test_that("badges can't contain an extra text", {
 })
 
 test_that("badges-paragraph à la usethis can be found", {
-  badges_page_path <- test_path("assets/badges-a-la-usethis.html")
-  badges_page <- xml2::read_html(badges_page_path)
+  pkg <- test_path("assets/badges-a-la-usethis")
+
+  on.exit(clean_site(pkg))
+  data <- data_home(pkg)
+  data$index <- markdown(file.path(pkg, "README.md"))
+
+  render_page(pkg, "home", data, "index.html")
+
+  badges_page <- xml2::read_html(file.path(badges_page_path,
+                                           "docs", "index.html"))
   expect_true(length(find_badges_paragraph(badges_page)) > 0)
   expect_equal(length(badges_extract(badges_page)), 7)
 })

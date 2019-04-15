@@ -110,7 +110,7 @@ label, and the message indicates the package is not yet on CRAN.
 
 The default development mode is "release". You can override it by adding a
 new \code{development} field to \code{_pkgdown.yml}, e.g.\preformatted{development:
-  mode: development
+  mode: devel
 }
 
 You can also have pkgdown automatically detect the mode with:\preformatted{development:
