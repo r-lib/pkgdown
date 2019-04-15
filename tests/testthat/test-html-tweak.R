@@ -162,13 +162,6 @@ test_that("badges can't contain an extra text", {
   )
 })
 
-test_that("badges can be in special div", {
-  expect_equal(
-    badges_extract_text('<p></p><div id="badges"><a href="x"><img src="y"></a></div>'),
-    '<a href="x"><img src="y"></a>'
-  )
-})
-
 test_that("badges-paragraph à la usethis can be found", {
   badges_page_path <- test_path("assets/badges-a-la-usethis.html")
   badges_page <- xml2::read_html(badges_page_path)
