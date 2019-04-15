@@ -4,12 +4,6 @@
 
 <!-- badges: start -->
 [![Linux Build Status](https://travis-ci.org/thisisatest/thisisatest.svg?branch=master)](https://travis-ci.org/thisisatest/thisisatest)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/thisisatest/thisisatest?svg=true)](https://ci.appveyor.com/project/thisisatest/thisisatest)
-[![](http://www.r-pkg.org/badges/version/thisisatest)](http://www.r-pkg.org/pkg/thisisatest)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/thisisatest)](http://www.r-pkg.org/pkg/thisisatest)
-[![Coverage Status](https://img.shields.io/codecov/c/github/thisisatest/thisisatest/master.svg)](https://codecov.io/github/thisisatest/thisisatest?branch=master)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/thisisatest/community)
 <!-- badges: end -->
 
 ## Introduction

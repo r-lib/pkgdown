@@ -174,5 +174,5 @@ test_that("badges-paragraph à la usethis can be found", {
   badges_page <- xml2::read_html(file.path(badges_page_path,
                                            "docs", "index.html"))
   expect_true(length(find_badges_paragraph(badges_page)) > 0)
-  expect_equal(length(badges_extract(badges_page)), 7)
+  expect_equal(length(badges_extract(badges_page)), 1)
 })
