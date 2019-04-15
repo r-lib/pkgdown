@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
+
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
 * Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use),
