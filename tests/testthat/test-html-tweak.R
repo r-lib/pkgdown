@@ -163,16 +163,19 @@ test_that("badges can't contain an extra text", {
 })
 
 test_that("badges-paragraph à la usethis can be found", {
-  pkg <- test_path("assets/badges-a-la-usethis")
+  string <- '
+<blockquote>
+<p>Connect to thisisatest, from R</p>
+</blockquote>
+<!-- badges: start -->
+<p><a href="https://travis-ci.org/thisisatest/thisisatest"><img src="https://travis-ci.org/thisisatest/thisisatest.svg?branch=master" alt="Linux Build Status"></a> <!-- badges: end --></p>
+<div id="introduction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h2>
+<p>The thingie is a blabla.</p>
+<p>The <code>thisisatest</code> package also blabla.</p>'
 
-  on.exit(clean_site(pkg))
-  data <- data_home(pkg)
-  data$index <- markdown(file.path(pkg, "README.md"))
-
-  render_page(pkg, "home", data, "index.html")
-
-  badges_page <- xml2::read_html(file.path(badges_page_path,
-                                           "docs", "index.html"))
+  badges_page <- xml2::read_html(string)
   expect_true(length(find_badges_paragraph(badges_page)) > 0)
   expect_equal(length(badges_extract(badges_page)), 1)
 })
