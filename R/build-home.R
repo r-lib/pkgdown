@@ -79,10 +79,13 @@
 #' @section Badges:
 #' Status badges are displayed in the sidebar under the section "Dev status".
 #' This section is automatically populated if the first paragraph of the
-#' homepage consists solely of status badges as linked images, or if one
+#' homepage source (index.Rmd, index.md, README.Rmd, README.md)
+#' consists solely of status badges as linked images, or if one
 #' paragraph, not necessarily the first, starts with `<!-- badges: start -->`
 #' and ends with `<!-- badges: end -->`,
-#' and consists solely of status badges as linked images.
+#' and consists solely of status badges as linked images, which is the case
+#'  if the homepage source is a README created via
+#' `usethis::use_readme_md()` or `usethis::use_readme_rmd()`.
 #'
 #' @inheritParams build_articles
 #' @export

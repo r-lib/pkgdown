@@ -83,7 +83,10 @@ In addition to home page content from the README (e.g., installation instruction
   
 
 *   Badges in the home page source file (e.g. `README.Rmd`) are linked in the 
-    sidebar under "Dev status".
+    sidebar under "Dev status". This section is automatically populated if the first paragraph of the homepage source consists solely of status badges as linked images, or if one
+ paragraph, not necessarily the first, starts with `<!-- badges: start -->` and ends with `<!-- badges: end -->`,
+ and consists solely of status badges as linked images, which is the case if the homepage source is a README created via 
+ `usethis::use_readme_md()` or `usethis::use_readme_rmd()`.
 
 *   A link for bug reports is added if the `BugReports` field in 
     `DESCRIPTION` contains a link. You can use `usethis::use_github_links()` 
