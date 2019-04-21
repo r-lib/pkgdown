@@ -213,7 +213,7 @@ output: github_document
     )</code></pre>
 </li>
 <li><p>Extra markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) at the base directory or in <code>.github/</code> are copied to <code>docs/</code> and converted to HTML.</p></li>
-<li><p>When including big graphics in the README, you may find it easier to use <code><a href="https://www.rdocumentation.org/packages/knitr/topics/include_graphics">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p></li>
+<li><p>When including big graphics in the README, you may find it easier to use <code><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">knitr::include_graphics("foo.png")</a></code> combined with chunk option <code>out.width = '100%'</code>. This will make the graphic scale with the size of the page.</p></li>
 </ul>
 </div>
 <div id="reference" class="section level2">
@@ -224,22 +224,22 @@ output: github_document
 <p>pkgdown will generate a complete reference index that by default is just an alphabetically-ordered list of functions. However, the index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> key in <code>_pkgdown.yml</code>.</p>
 <p>Use <code><a href="../reference/templates.html">template_reference()</a></code> to generate a boilerplate reference section in YAML format:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">reference:</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">      Functions for installing Spark components and managing</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">      connections to Spark</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="fu">contents:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> spark_config</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> spark_connect</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> spark_disconnect</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> spark_install</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> spark_log</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> spark_config</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> spark_connect</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> spark_disconnect</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> spark_install</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> spark_log</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="fu">desc:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">    <span class="fu">contents:</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> starts_with(<span class="st">"spark_read"</span>)</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> starts_with(<span class="st">"spark_write"</span>)</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> matches(<span class="st">"saveload"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> starts_with(<span class="st">"spark_read"</span>)</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> starts_with(<span class="st">"spark_write"</span>)</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">      <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> matches(<span class="st">"saveload"</span>)</a></code></pre></div>
 <p>The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
 <p>The objects in <code>reference</code> can also contain a list of targets to <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>.</p>
 <p>pkgdown will warn if you’ve forgotten to include any non-internal functions.</p>
@@ -253,24 +253,24 @@ output: github_document
 <p>Articles get a default index that can be customised by referring to vignette file names.</p>
 <p>Use <code><a href="../reference/templates.html">template_articles()</a></code> to generate boilerplate articles section in YAML format:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">articles:</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Extend shiny"</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">title:</span><span class="at"> </span><span class="st">"Extend shiny"</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="fu">desc:</span><span class="at"> &gt;</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">      These packages provide advanced features that can enhance your Shiny </a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">      apps.</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="fu">contents:</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> shinydashboard</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> shinythemes</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> shinyjs</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> htmlwidgets</a></code></pre></div>
+<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> shinydashboard</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> shinythemes</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> shinyjs</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> htmlwidgets</a></code></pre></div>
 <p>See complete details in <code><a href="../reference/build_articles.html">build_articles()</a></code>.</p>
 <div id="embedding-a-shiny-app" class="section level3">
 <h3 class="hasAnchor">
 <a href="#embedding-a-shiny-app" class="anchor"></a>Embedding a Shiny app</h3>
 <p>If you would like to embed a Shiny app into an article, the app will have to be hosted indpendently, somewhere like <a href="https://www.shinyapps.io">shinyapps.io</a>. Then, you can embed the app into your article using an <code>iframe</code>. To customise its appearance, you may wish to <a href="../reference/build_site.html#yaml-config-template">include some css code</a>; you can use <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">this css code</a> as a starting point.<br></p>
 <p>To embed the <code>iframe</code>, you can use functions from the <a href="https://CRAN.R-project.org/package=htmltools">htmltools</a> package:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(htmltools)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(htmltools)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">tags<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/htmltools/topics/builder">div</a></span>(</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">tags<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">div</a></span>(</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">class =</span> <span class="st">"shiny-app-frame"</span>,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">  tags<span class="op">$</span><span class="kw">iframe</span>(<span class="dt">src =</span> <span class="st">"https://gallery.shinyapps.io/083-front-page"</span>)</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">)</a></code></pre></div>
@@ -302,20 +302,20 @@ output: github_document
 <a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> </span><span class="st">"sparklyr"</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="fu">type:</span><span class="at"> inverse</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="fu">left:</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"dplyr"</span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8">      <span class="fu">href:</span><span class="at"> articles/dplyr.html</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"ML"</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10">      <span class="fu">href:</span><span class="at"> articles/ML.html</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Extensions"</span></a>
 <a class="sourceLine" id="cb7-12" data-line-number="12">      <span class="fu">href:</span><span class="at"> articles/extensions.html</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Deployment"</span></a>
 <a class="sourceLine" id="cb7-14" data-line-number="14">      <span class="fu">href:</span><span class="at"> articles/deployment.html</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Reference"</span></a>
 <a class="sourceLine" id="cb7-16" data-line-number="16">      <span class="fu">href:</span><span class="at"> </span><span class="st">"reference/"</span></a>
 <a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="fu">right:</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">icon:</span><span class="at"> fa-github</span></a>
 <a class="sourceLine" id="cb7-19" data-line-number="19">      <span class="fu">href:</span><span class="at"> https://github.com/rstudio/sparklyr</span></a></code></pre></div>
 </div>
 <div id="news" class="section level2">
@@ -335,17 +335,17 @@ output: github_document
 <p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
 <p>If you have a large <code>NEWS.md</code> and want to create one page per release, you can create a multi-page change log by configuring the <code>_pkgdown.yml</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">news:</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">one_page:</span><span class="at"> false</span></a></code></pre></div>
 <p>In this case the <code>NEWS.md</code> is broken up by the version specified in the level one headings. Each version will be rendered to <code>news/</code>, with one page per minor release, so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page.</p>
 <p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code>vignettes/news</code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> News</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> News</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="fu">menu:</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Blog posts"</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Version 1.1.0"</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Blog posts"</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Version 1.1.0"</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"------------------"</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Change log"</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"------------------"</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Change log"</span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9">      <span class="fu">href:</span><span class="at"> news/index.html</span></a></code></pre></div>
 <p>See complete details in <code><a href="../reference/build_news.html">build_news()</a></code>.</p>
 </div>

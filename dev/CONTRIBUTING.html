@@ -176,10 +176,10 @@
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
 <p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package, and file an issue with a link to the repository.</p>
 <p>The quickest way to set up minimal example package is with <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_package()</a></code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(usethis)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pkgdown)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(usethis)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(pkgdown)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"test"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">tmp &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"test"</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(tmp, open)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># ... edit files ...</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">pkgdown<span class="op">::</span><span class="kw"><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>(tmp, <span class="dt">new_process =</span> <span class="ot">FALSE</span>, <span class="dt">preview =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
@@ -188,7 +188,7 @@
 <h1 class="hasAnchor">
 <a href="#rd-translation" class="anchor"></a>Rd translation</h1>
 <p>If you encounter problems with Rd tags, please use <code><a href="reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pkgdown)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(pkgdown)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/rd2html.html">rd2html</a></span>(<span class="st">"a</span><span class="ch">\n</span><span class="st">%b</span><span class="ch">\n</span><span class="st">c"</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="reference/rd2html.html">rd2html</a></span>(<span class="st">"a &amp; b"</span>)</a></code></pre></div>
