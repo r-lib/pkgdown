@@ -128,9 +128,17 @@ href_topic_remote <- function(topic, package) {
   if (!is.null(reference_url)) {
     paste0(reference_url, paste0("/", rdname, ".html"))
   } else {
-    # Fall back to rdocumentation.org which almost certainly works
-    paste0("https://www.rdocumentation.org/packages/", package, "/topics/", rdname)
+    # Fall back to rdrr.io
+    if (is_base_package(package)) {
+      paste0("https://rdrr.io/r/", package, "/", rdname, ".html")
+    } else {
+      paste0("https://rdrr.io/pkg/", package, "/man/", rdname, ".html")
+    }
   }
+}
+
+is_base_package <- function(x) {
+  x %in% as.vector(utils::installed.packages(priority = "base")[, "Package"])
 }
 
 href_article <- function(article, package = NULL) {

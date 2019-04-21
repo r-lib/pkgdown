@@ -6,13 +6,13 @@ test_that("can link to external topics that use ::", {
   # Functions
   expect_equal(
     highlight_text("MASS::addterm()"),
-    "<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/MASS/topics/addterm'>addterm</a></span>()"
+    "<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MASS/man/addterm.html'>addterm</a></span>()"
   )
 
   # And bare symbols
   expect_equal(
     highlight_text("MASS::addterm"),
-    "<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/MASS/topics/addterm'>addterm</a></span>"
+    "<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/MASS/man/addterm.html'>addterm</a></span>"
   )
 })
 
@@ -23,7 +23,7 @@ test_that("can link to implicit remote topics with library()", {
 
   expect_equal(
     highlight_text("addterm()"),
-    "<span class='fu'><a href='https://www.rdocumentation.org/packages/MASS/topics/addterm'>addterm</a></span>()"
+    "<span class='fu'><a href='https://rdrr.io/pkg/MASS/man/addterm.html'>addterm</a></span>()"
   )
 })
 
@@ -33,6 +33,6 @@ test_that("can link to implicit base topics", {
 
   expect_equal(
     highlight_text("median()"),
-    "<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>()"
+    "<span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>()"
   )
 })
