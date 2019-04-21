@@ -177,7 +177,7 @@
 <li><code>inst/_pkgdown.yml</code></li>
 </ol>
 <p>Including the configuration file in <code>inst/</code> enables sites to be built from packages on CRAN without needing the development version of a package.</p>
-<p>You can build-ignore pkgdown files (e.g., <code>_pkgdown.yml</code>) with <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_pkgdown">usethis::use_pkgdown()</a></code>. If you use an alternative location be sure to update <code>.Rbuildignore</code> to avoid a <code>NOTE</code> during <code>CMD CHECK</code>.</p>
+<p>You can build-ignore pkgdown files (e.g., <code>_pkgdown.yml</code>) with <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown()</a></code>. If you use an alternative location be sure to update <code>.Rbuildignore</code> to avoid a <code>NOTE</code> during <code>CMD CHECK</code>.</p>
 </div>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
@@ -202,7 +202,7 @@ output: github_document
 <p>Convert your package logo to a favicon with <code><a href="../reference/build_favicon.html">build_favicon()</a></code></p>
 </li>
 <li><p>Badges in the home page source file (e.g. <code>README.Rmd</code>) are linked in the sidebar under “Dev status”.</p></li>
-<li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_github_links">usethis::use_github_links()</a></code> to populate this field.</p></li>
+<li><p>A link for bug reports is added if the <code>BugReports</code> field in <code>DESCRIPTION</code> contains a link. You can use <code><a href="https://usethis.r-lib.org/reference/use_github_links.html">usethis::use_github_links()</a></code> to populate this field.</p></li>
 <li><p>Licensing information is linked in the side bar using the package <code>LICENSE</code> and <code>LICENSE.md</code> files.</p></li>
 <li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar to the <a href="https://testthat.r-lib.org/authors.html">authors page</a>.</p></li>
 <li>
@@ -322,7 +322,7 @@ output: github_document
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
 <p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
-<p>Use <code><a href="https://www.rdocumentation.org/packages/usethis/topics/use_news_md">usethis::use_news_md()</a></code> to create and open a template NEWS.md file that can be edited:</p>
+<p>Use <code><a href="https://usethis.r-lib.org/reference/use_news_md.html">usethis::use_news_md()</a></code> to create and open a template NEWS.md file that can be edited:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># pkgdown 1.1.0</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">## Bug Fixes</span></a>
