@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
+
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
 * Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use),
