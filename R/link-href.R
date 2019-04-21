@@ -129,8 +129,16 @@ href_topic_remote <- function(topic, package) {
     paste0(reference_url, paste0("/", rdname, ".html"))
   } else {
     # Fall back to rdrr.io
-    paste0("https://rdrr.io/pkg/", package, "/man/", rdname, ".html")
+    if (is_base_package(package)) {
+      paste0("https://rdrr.io/r/", package, "/", rdname, ".html")
+    } else {
+      paste0("https://rdrr.io/pkg/", package, "/man/", rdname, ".html")
+    }
   }
+}
+
+is_base_package <- function(x) {
+  x %in% c("base", "stats", "graphics", "grDevices", "utils", "datasets")
 }
 
 href_article <- function(article, package = NULL) {

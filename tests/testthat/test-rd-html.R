@@ -186,7 +186,7 @@ test_that("can convert cross links to online documentation url", {
 
   expect_equal(
     rd2html("\\link[base]{library}"),
-    a("library", href = "https://rdrr.io/pkg/base/man/library.html")
+    a("library", href = "https://rdrr.io/r/base/library.html")
   )
 })
 

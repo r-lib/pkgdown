@@ -33,6 +33,6 @@ test_that("can link to implicit base topics", {
 
   expect_equal(
     highlight_text("median()"),
-    "<span class='fu'><a href='https://rdrr.io/pkg/stats/man/median.html'>median</a></span>()"
+    "<span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>()"
   )
 })
