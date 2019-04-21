@@ -138,7 +138,7 @@ href_topic_remote <- function(topic, package) {
 }
 
 is_base_package <- function(x) {
-  x %in% as.vector(installed.packages(priority = "base")[, "Package"])
+  x %in% as.vector(utils::installed.packages(priority = "base")[, "Package"])
 }
 
 href_article <- function(article, package = NULL) {
