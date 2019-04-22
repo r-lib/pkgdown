@@ -41,6 +41,6 @@ test_that("page title can be overridden", {
   expect_equal(
     as.character(data_home(pkg))[[1]],
     "Such a cool package"
-    )
+  )
 
 })
