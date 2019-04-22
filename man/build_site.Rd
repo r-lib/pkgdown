@@ -64,7 +64,7 @@ paths will be taken relative to the package root.
 Supplying this will:
 \itemize{
 \item Allow other pkgdown sites will link to your site when needed,
-rather than using generic links to \url{https://rdocumentation.org}.
+rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
