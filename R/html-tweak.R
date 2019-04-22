@@ -243,7 +243,8 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 # Mutates `html`, removing the badge container
 badges_extract <- function(html) {
   # First try usethis-readme-like paragraph; then try first paragraph
-  x <- find_badges_paragraph(html)
+  x <- xml2::xml_find_all(html, ".//*/comment()[contains(., 'badges: start')]/following-sibling::p[1]")
+
   if (length(x) == 0) {
     x <- xml2::xml_find_first(html, "//p")
   }
@@ -275,10 +276,6 @@ badges_extract <- function(html) {
 badges_extract_text <- function(x) {
   xml <- xml2::read_html(x)
   badges_extract(xml)
-}
-
-find_badges_paragraph <- function(html){
-  xml2::xml_find_all(html, ".//*/comment()[contains(., 'badges: start')]/following-sibling::p[1]")
 }
 # Update file on disk -----------------------------------------------------
 
