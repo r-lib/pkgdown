@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* One can override the title of the homepage via a `title` field in the config (#957, @maelle).
+
 * Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
 
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
