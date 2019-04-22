@@ -25,7 +25,7 @@ test_that("package repo verification", {
   )
 })
 
-test_that("page title",{
+test_that("page title can be overridden",{
   pkg <- test_path("assets/pagetitle")
   expect_equal(as.character(data_home(pkg))[[1]],
                "Such a cool package")
