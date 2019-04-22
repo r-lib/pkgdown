@@ -25,12 +25,19 @@ test_that("package repo verification", {
   )
 })
 
-test_that("page title can be overridden",{
-  pkg <- test_path("assets/pagetitle")
-  expect_equal(as.character(data_home(pkg))[[1]],
-               "Such a cool package")
-
+test_that("page title defaults to package title", {
   pkg <- test_path("assets/home-index-rmd")
-  expect_equal(as.character(data_home(pkg))[[1]],
-               "A test package")
+  expect_equal(
+    as.character(data_home(pkg))[[1]],
+    "A test package"
+  )
+})
+
+test_that("page title can be overridden", {
+  pkg <- test_path("assets/pagetitle")
+  expect_equal(
+    as.character(data_home(pkg))[[1]],
+    "Such a cool package"
+    )
+
 })
