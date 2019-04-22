@@ -162,7 +162,7 @@ test_that("badges can't contain an extra text", {
   )
 })
 
-test_that("badges-paragraph à la usethis can be found", {
+test_that("badges-paragraph a la usethis can be found", {
   string <- '
 <blockquote>
 <p>Connect to thisisatest, from R</p>
