@@ -34,7 +34,10 @@ test_that("page title defaults to package title", {
 })
 
 test_that("page title can be overridden", {
-  pkg <- test_path("assets/pagetitle")
+  pkg <- test_path("assets/home-index-rmd")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta <- list(title = "Such a cool package")
+
   expect_equal(
     as.character(data_home(pkg))[[1]],
     "Such a cool package"
