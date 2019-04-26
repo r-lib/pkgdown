@@ -289,8 +289,15 @@ are defined in the <code>DESCRIPTION</code>:</p><pre>person("Jay", "Hesselberth"
 
     
     <p>Status badges are displayed in the sidebar under the section "Dev status".
-This section is automatically populated if the first paragraph of the
-homepage consists solely of status badges as linked images.</p>
+This section is automatically populated if there is an identifiable badges
+paragraph in the homepage source (index.Rmd, index.md, README.Rmd,
+README.md):</p><ul>
+<li><p>pkgdown first looks for a paragraph starting with <code>&lt;!-- badges: start --&gt;</code>
+and ending with <code>&lt;!-- badges: end --&gt;</code> as created by
+<code><a href='https://usethis.r-lib.org/reference/use_readme_rmd.html'>usethis::use_readme_md()</a></code> or <code><a href='https://usethis.r-lib.org/reference/use_readme_rmd.html'>usethis::use_readme_rmd()</a></code>;</p></li>
+<li><p>failing that, pkgdown looks at the first paragraph, and uses it if it
+only contains images.</p></li>
+</ul>
     
 
   </div>
