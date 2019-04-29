@@ -17,8 +17,8 @@
 #' [clean_site] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are four top-level YAML settings that affect the entire site:
-#' `destination`, `url`, `title`, `template`, and `navbar`.
+#' There are five top-level YAML settings that affect the entire site:
+#' `destination`, `url`, `title`, `pagetitle`, `template`, and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
@@ -38,6 +38,11 @@
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
+#'
+#' `pagetitle` overrides
+#' * the part the default homepage title before `title`, by default the
+#' package title from `DESCRIPTION`;
+#' * the title of the Twitter cards.
 #'
 #' You can also provided information to override the default display of
 #' the authors. Provided a list named with the name of each author,

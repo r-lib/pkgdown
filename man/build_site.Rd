@@ -53,8 +53,8 @@ Note if names of generated files were changed, you will need to use
 }
 \section{YAML config}{
 
-There are four top-level YAML settings that affect the entire site:
-\code{destination}, \code{url}, \code{title}, \code{template}, and \code{navbar}.
+There are five top-level YAML settings that affect the entire site:
+\code{destination}, \code{url}, \code{title}, \code{pagetitle}, \code{template}, and \code{navbar}.
 
 \code{destination} controls where the site will be generated. It defaults to
 \code{docs/} (for GitHub pages), but you can override if desired. Relative
@@ -73,6 +73,13 @@ rather than using generic links to \url{https://rdrr.io}.
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
+
+\code{pagetitle} overrides
+\itemize{
+\item the part the default homepage title before \code{title}, by default the
+package title from \code{DESCRIPTION};
+\item the title of the Twitter cards.
+}
 
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,

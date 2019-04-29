@@ -57,11 +57,11 @@
 #'
 #' The homepage title that will be displayed in the browser tab,
 #' and in Twitter metadata, is by default the package title from
-#' `DESCRIPTION`. You can override it by adding a field called `title`
+#' `DESCRIPTION`. You can override it by adding a field called `pagetitle`
 #' to the `pkgdown` config:
 #'
 #' ```
-#' title: "Such a cool package"
+#' pagetitle: "Such a cool package"
 #' ```
 #'
 #' @section YAML config - authors:

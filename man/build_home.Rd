@@ -75,8 +75,8 @@ You can remove the first heading with:\preformatted{home:
 
 The homepage title that will be displayed in the browser tab,
 and in Twitter metadata, is by default the package title from
-\code{DESCRIPTION}. You can override it by adding a field called \code{title}
-to the \code{pkgdown} config:\preformatted{title: "Such a cool package"
+\code{DESCRIPTION}. You can override it by adding a field called \code{pagetitle}
+to the \code{pkgdown} config:\preformatted{pagetitle: "Such a cool package"
 }
 }
 
