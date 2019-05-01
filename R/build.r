@@ -330,6 +330,7 @@ build_site_external <- function(pkg = ".",
     },
     args = args,
     show = TRUE,
+    timeout = getOption('pkgdown.timeout', Inf)
   )
 
   preview_site(pkg, preview = preview)
