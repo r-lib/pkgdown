@@ -16,7 +16,7 @@ test_that("intermediate files cleaned up automatically", {
   skip_if_no_pandoc()
 
   pkg <- test_path("assets/home-readme-rmd")
-  expect_output(build_site(pkg))
+  expect_output(build_site(pkg, document = TRUE))
   on.exit(clean_site(pkg))
 
   expect_setequal(

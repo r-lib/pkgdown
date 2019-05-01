@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Function `build_site()` now defaults to `document = FALSE`
+
 * Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
 
 * One can override the title of the homepage via a `title` field in the config (#957, @maelle).
