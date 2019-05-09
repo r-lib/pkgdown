@@ -1,6 +1,6 @@
 #' Build tutorials section
 #'
-#' learnr tutorials must hosted be hosted elsewhere as they require an
+#' learnr tutorials must be hosted elsewhere as they require an
 #' R execution engine. Currently, pkgdown will not build or publish tutorials
 #' for you, but makes it easy to embed (using `<iframe>`s) published tutorials.
 #' Tutorials are automatically discovered from published tutorials in
