@@ -1,0 +1,7 @@
+---
+title: "Test: header functions"
+---
+
+## `build_site()`
+
+Testing auto-linking of function headers.

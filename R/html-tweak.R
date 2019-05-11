@@ -104,9 +104,8 @@ tweak_code <- function(x) {
   # Needs to second so have all packages loaded in chunks
   # <code> with no children (just text)
   x %>%
-    xml2::xml_find_all(".//code[count(*) = 0]") %>%
+    xml2::xml_find_all("./div[not(@id='tocnav')]//code[count(*) = 0]") %>%
     tweak_code_nodeset()
-
 
   invisible()
 }
