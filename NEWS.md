@@ -1,5 +1,9 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
+  Thereby stalled builds in a cron job can get killed automatically, preventing the
+  process from hanging indefinitely.
+
 * Function `build_site()` now defaults to `document = FALSE`
 
 * Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
