@@ -4,7 +4,7 @@ dir_copy_to <- function(pkg, from, to, overwrite = TRUE) {
     path_abs(path_rel(path, start = from), start = to)
   }
 
-  contents <- dir_ls(from, recursive = TRUE)
+  contents <- dir_ls(from, recurse = TRUE)
   is_dir <- fs::is_dir(contents)
 
   # First create directories

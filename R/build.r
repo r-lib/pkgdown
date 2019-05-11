@@ -264,7 +264,7 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
-                       document = TRUE,
+                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
@@ -299,7 +299,7 @@ build_site <- function(pkg = ".",
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
-                                document = TRUE,
+                                document = FALSE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
@@ -330,6 +330,7 @@ build_site_external <- function(pkg = ".",
     },
     args = args,
     show = TRUE,
+    timeout = getOption('pkgdown.timeout', Inf)
   )
 
   preview_site(pkg, preview = preview)
@@ -338,7 +339,7 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
-                       document = TRUE,
+                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,

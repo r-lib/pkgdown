@@ -70,6 +70,16 @@ You can remove the first heading with:\preformatted{home:
 }
 }
 
+\section{YAML config - pagetitle}{
+
+
+The homepage title that will be displayed in the browser tab,
+and in Twitter metadata, is by default the package title from
+\code{DESCRIPTION}. You can override it by adding a field called \code{title}
+to the \code{pkgdown} config:\preformatted{title: "Such a cool package"
+}
+}
+
 \section{YAML config - authors}{
 
 The "developers" list is populated by the maintainer ("cre"), authors
@@ -94,7 +104,15 @@ are defined in the \code{DESCRIPTION}:\preformatted{person("Jay", "Hesselberth",
 \section{Badges}{
 
 Status badges are displayed in the sidebar under the section "Dev status".
-This section is automatically populated if the first paragraph of the
-homepage consists solely of status badges as linked images.
+This section is automatically populated if there is an identifiable badges
+paragraph in the homepage source (index.Rmd, index.md, README.Rmd,
+README.md):
+\itemize{
+\item pkgdown first looks for a paragraph starting with \code{<!-- badges: start -->}
+and ending with \code{<!-- badges: end -->} as created by
+\code{usethis::use_readme_md()} or \code{usethis::use_readme_rmd()};
+\item failing that, pkgdown looks at the first paragraph, and uses it if it
+only contains images.
+}
 }
 

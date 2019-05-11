@@ -4,7 +4,7 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, document = TRUE,
+build_site(pkg = ".", examples = TRUE, document = FALSE,
   run_dont_run = FALSE, seed = 1014, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE)
 }

@@ -1,6 +1,6 @@
 #' Build tutorials section
 #'
-#' learnr tutorials must hosted be hosted elsewhere as they require an
+#' learnr tutorials must be hosted elsewhere as they require an
 #' R execution engine. Currently, pkgdown will not build or publish tutorials
 #' for you, but makes it easy to embed (using `<iframe>`s) published tutorials.
 #' Tutorials are automatically discovered from published tutorials in
@@ -95,7 +95,7 @@ find_tutorials <- function(path = ".") {
     stop("rsconnect package must be installed to scan for tutorials", call. = FALSE)
   }
 
-  rmds <- unname(dir_ls(path, recursive = TRUE, regexp = "\\.[Rr]md$"))
+  rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$"))
   info <- purrr::map(rmds, tutorial_info, base_path = path)
   purrr::compact(info)
 }

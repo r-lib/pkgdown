@@ -53,6 +53,17 @@
 #'   strip_header: true
 #' ```
 #'
+#' @section YAML config - pagetitle:
+#'
+#' The homepage title that will be displayed in the browser tab,
+#' and in Twitter metadata, is by default the package title from
+#' `DESCRIPTION`. You can override it by adding a field called `title`
+#' to the `pkgdown` config:
+#'
+#' ```
+#' title: "Such a cool package"
+#' ```
+#'
 #' @section YAML config - authors:
 #' The "developers" list is populated by the maintainer ("cre"), authors
 #' ("aut"), and funder ("fnd") from the `DESCRIPTION`. You can modify their
@@ -78,8 +89,14 @@
 #'
 #' @section Badges:
 #' Status badges are displayed in the sidebar under the section "Dev status".
-#' This section is automatically populated if the first paragraph of the
-#' homepage consists solely of status badges as linked images.
+#' This section is automatically populated if there is an identifiable badges
+#'  paragraph in the homepage source (index.Rmd, index.md, README.Rmd,
+#'  README.md):
+#'  * pkgdown first looks for a paragraph starting with `<!-- badges: start -->`
+#' and ending with `<!-- badges: end -->` as created by
+#' `usethis::use_readme_md()` or `usethis::use_readme_rmd()`;
+#'  * failing that, pkgdown looks at the first paragraph, and uses it if it
+#'   only contains images.
 #'
 #' @inheritParams build_articles
 #' @export
