@@ -1,5 +1,8 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Package is now loaded with library() instead of pkgload. This requires that
+  the package is installed before building the site.
+
 * Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
   Thereby stalled builds in a cron job can get killed automatically, preventing the
   process from hanging indefinitely.

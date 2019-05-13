@@ -116,12 +116,10 @@ build_reference <- function(pkg = ".",
   }
 
   if (examples) {
-    # Re-loading pkgdown while it's running causes weird behaviour with
-    # the context cache
-    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
-      pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
-    } else {
-      library(pkg$package, character.only = TRUE)
+    library(pkg$package, character.only = TRUE)
+    if(pkg$version != packageVersion(pkg$package)){
+      warning(sprintf("Installed version of %s (%s) does not match target version (%s).",
+                      pkg$package, packageVersion(pkg$package), pkg$version))
     }
 
     old_dir <- setwd(path(pkg$dst_path, "reference"))
