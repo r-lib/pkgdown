@@ -116,7 +116,10 @@ build_reference <- function(pkg = ".",
   }
 
   if (examples) {
-    library(pkg$package, character.only = TRUE)
+    tryCatch(library(pkg$package, character.only = TRUE), error = function(e){
+      remotes::install_local(pkg$src_path, lib = tempdir())
+      library(pkg$package, character.only = TRUE, lib.loc = tempdir())
+    })
     if(pkg$version != packageVersion(pkg$package)){
       warning(sprintf("Installed version of %s (%s) does not match target version (%s).",
                       pkg$package, packageVersion(pkg$package), pkg$version))

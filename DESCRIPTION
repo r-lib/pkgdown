@@ -37,6 +37,7 @@ Imports:
     processx,
     R6,
     rematch2,
+    remotes,
     rlang (>= 0.2.0),
     rmarkdown (>= 1.1.9007),
     roxygen2,
