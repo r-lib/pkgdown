@@ -8,8 +8,6 @@
 
 * Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
 
-* One can override the title of the homepage via a `title` field in the config (#957, @maelle).
-
 * Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
 
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
