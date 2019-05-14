@@ -41,18 +41,19 @@ details on setting up your repository to use this.
 }
 \section{Setup}{
 
-Add the following to your \code{.travis.yml} file.\preformatted{before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+For a quick setup, you can use \code{\link[usethis:use_pkgdown_travis]{usethis::use_pkgdown_travis()}}. It  will help you
+with the following detailed steps.
+\itemize{
+\item Add the following to your \code{.travis.yml} file.\preformatted{before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
   skip_cleanup: true
 }
-
-Then you will need to setup your deployment keys. The easiest way is to call
+\item Then you will need to setup your deployment keys. The easiest way is to call
 \code{travis::use_travis_deploy()}. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the \href{https://ropenscilabs.github.io/travis/}{travis package website} for more details.
-
-Next, make sure that a gh-pages branch exists. The simplest way to do
+\item Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:\preformatted{git checkout --orphan gh-pages
 git rm -rf .
 git commit --allow-empty -m 'Initial gh-pages commit'
@@ -63,9 +64,9 @@ git checkout master
 We recommend doing this outside of RStudio (with the project closed) as
 from RStudio's perspective you end up deleting all the files and then
 re-creating them.
-
-If you're using a custom CNAME, make sure you have set the \code{url} in
+\item If you're using a custom CNAME, make sure you have set the \code{url} in
 \code{_pkgdown.yaml}:\preformatted{url: http://pkgdown.r-lib.org
+}
 }
 }
 
