@@ -117,6 +117,9 @@ a.anchor {
 
 #sidebar {
   margin-top: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;
 }
 #sidebar h2 {
   font-size: 1.5em;
