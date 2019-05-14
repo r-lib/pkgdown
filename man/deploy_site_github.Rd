@@ -41,7 +41,7 @@ details on setting up your repository to use this.
 }
 \section{Setup}{
 
-Add the following to your \code{.travis.yml} file.\preformatted{before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+Add the following to your \code{.travis.yml} file.\preformatted{before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'

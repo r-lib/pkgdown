@@ -10,7 +10,7 @@
 #' Add the following to your `.travis.yml` file.
 #'
 #' ```
-#' before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+#' before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 #' deploy:
 #'   provider: script
 #'   script: Rscript -e 'pkgdown::deploy_site_github()'
