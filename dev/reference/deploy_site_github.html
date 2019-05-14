@@ -239,16 +239,18 @@ new keypair specifically for deploying the site. The easiest way is to use
     <h2 class="hasAnchor" id="setup"><a class="anchor" href="#setup"></a>Setup</h2>
 
     
-    <p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+    <p>For a quick setup, you can use <code><a href='https://usethis.r-lib.org/reference/use_pkgdown.html'>usethis::use_pkgdown_travis()</a></code>. It  will help you
+with the following detailed steps.</p><ul>
+<li><p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
   skip_cleanup: true
-</pre>
-    <p>Then you will need to setup your deployment keys. The easiest way is to call
+</pre></li>
+<li><p>Then you will need to setup your deployment keys. The easiest way is to call
 <code>travis::use_travis_deploy()</code>. This will generate and push the necessary
-keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p>
-<p>Next, make sure that a gh-pages branch exists. The simplest way to do
+keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p></li>
+<li><p>Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages
 git rm -rf .
 git commit --allow-empty -m 'Initial gh-pages commit'
@@ -257,10 +259,11 @@ git checkout master
 </pre>
     <p>We recommend doing this outside of RStudio (with the project closed) as
 from RStudio's perspective you end up deleting all the files and then
-re-creating them.</p>
-<p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
+re-creating them.</p></li>
+<li><p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
 <code>_pkgdown.yaml</code>:</p><pre>url: http://pkgdown.r-lib.org
-</pre>
+</pre></li>
+</ul>
     
 
   </div>
