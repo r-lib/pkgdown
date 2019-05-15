@@ -1,12 +1,17 @@
-build_home_index <- function(pkg = ".", quiet = TRUE) {
+build_home_index <- function(pkg = ".", quiet = TRUE, knit = TRUE) {
   pkg <- as_pkgdown(pkg)
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
+  # When knit = FALSE, prefer pre-rendered md file if exists
   src_path <- path_first_existing(
     pkg$src_path,
-    c("index.Rmd", "README.Rmd", "index.md", "README.md")
+    if(knit){
+      c("index.Rmd", "README.Rmd", "index.md", "README.md")
+    } else {
+      c("index.md", "README.md","index.Rmd", "README.Rmd")
+    }
   )
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
@@ -17,7 +22,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   } else {
     file_ext <- path_ext(src_path)
 
-    if (file_ext == "md") {
+    if (file_ext == "md" || (!knit && file_ext == "Rmd")) {
       data$index <- markdown(src_path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {

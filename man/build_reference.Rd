@@ -7,7 +7,7 @@
 \usage{
 build_reference(pkg = ".", lazy = TRUE, document = FALSE,
   examples = TRUE, run_dont_run = FALSE, seed = 1014,
-  override = list(), preview = NA)
+  override = list(), preview = NA, devel = TRUE)
 
 build_reference_index(pkg = ".")
 }
@@ -33,6 +33,9 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{devel}{if \code{FALSE}, uses the installed package version and does not re-
+generate documentation and  \code{README.md} from \code{README.Rmd}.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in

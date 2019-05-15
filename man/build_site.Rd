@@ -4,9 +4,10 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, document = FALSE,
+build_site(pkg = ".", examples = TRUE, document = devel,
   run_dont_run = FALSE, seed = 1014, lazy = FALSE,
-  override = list(), preview = NA, new_process = TRUE)
+  override = list(), preview = NA, new_process = TRUE,
+  devel = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -33,6 +34,9 @@ freshly generated section in browser.}
 \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
+
+\item{devel}{if \code{FALSE}, uses the installed package version and does not re-
+generate documentation and  \code{README.md} from \code{README.Rmd}.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around six functions:

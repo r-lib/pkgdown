@@ -88,11 +88,13 @@
 #'   only contains images.
 #'
 #' @inheritParams build_articles
+#' @param knit if FALSE, do not knit `Rmd` files but render as plain markdown.
 #' @export
 build_home <- function(pkg = ".",
                        override = list(),
                        preview = NA,
-                       quiet = TRUE) {
+                       quiet = TRUE,
+                       knit = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
@@ -105,7 +107,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg, quiet = quiet)
+  build_home_index(pkg, quiet = quiet, knit = knit)
 
   preview_site(pkg, "/", preview = preview)
 }

@@ -89,6 +89,8 @@
 #' @param examples Run examples?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
+#' @param devel if `FALSE`, uses the installed package version and does not re-
+#'   generate documentation and  `README.md` from `README.Rmd`.
 #' @export
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
@@ -97,7 +99,8 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             seed = 1014,
                             override = list(),
-                            preview = NA
+                            preview = NA,
+                            devel = TRUE
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
@@ -118,7 +121,7 @@ build_reference <- function(pkg = ".",
   if (examples) {
     # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
-    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
+    if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
     } else {
       library(pkg$package, character.only = TRUE)
