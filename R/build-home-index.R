@@ -7,7 +7,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE, knit = TRUE) {
   # When knit = FALSE, prefer pre-rendered md file if exists
   src_path <- path_first_existing(
     pkg$src_path,
-    if(knit){
+    if (knit){
       c("index.Rmd", "README.Rmd", "index.md", "README.md")
     } else {
       c("index.md", "README.md","index.Rmd", "README.Rmd")
