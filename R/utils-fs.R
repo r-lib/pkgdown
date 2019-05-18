@@ -32,9 +32,12 @@ file_copy_to <- function(pkg,
     return()
   }
 
-  dir_create(to_dir)
   from_rel <- path_rel(from_paths, from_dir)
   to_paths <- path_abs(from_rel, to_dir)
+
+  # Ensure all the "to" directories exist
+  dirs_to_paths <- unique(fs::path_dir(to_paths))
+  dir_create(dirs_to_paths)
 
   eq <- purrr::map2_lgl(from_paths, to_paths, file_equal)
   if (any(!eq)) {
