@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
+
 * The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
 * Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
