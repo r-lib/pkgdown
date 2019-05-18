@@ -29,6 +29,10 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
@@ -183,6 +187,7 @@
 <a href="#pkgdown-1-3-0-9000-development-version" class="anchor"></a>pkgdown 1.3.0.9000 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/">headroom.js</a>.</p></li>
 <li><p>The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
 <li><p>Allow setting hard timeout for build_site(new_process = TRUE) via options(‘pkgdown.timeout’). Thereby stalled builds in a cron job can get killed automatically, preventing the process from hanging indefinitely.</p></li>
 <li><p>Function <code><a href="../reference/build_site.html">build_site()</a></code> now defaults to <code>document = FALSE</code></p></li>
