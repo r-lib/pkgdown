@@ -36,7 +36,7 @@ Most pkgdown configuration options are controlled by a YAML format file named `_
 
 * The site `title`, if different from the package name.
 
-* The second part of the homepage title and the "og:description" (Open Graph 
+* The second part of the homepage title and the "og:title" (Open Graph 
 metadata, also used for Twitter metadata),  as a `title` subcomponent of 
 `home`, if different from the DESCRIPTION Title.
 
