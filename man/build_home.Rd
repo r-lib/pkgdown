@@ -74,7 +74,7 @@ You can remove the first heading with:\preformatted{home:
 
 
 The homepage title that will be displayed in the browser tab,
-and in Twitter metadata (Open Graph "og:description"),
+and in Twitter metadata (Open Graph "og:title"),
 is by default the package title from
 \code{DESCRIPTION}. You can override it by adding a field called \code{title}
 as a subcomponent of home in the \code{pkgdown} config:\preformatted{home:
