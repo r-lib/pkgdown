@@ -52,10 +52,11 @@
 #' home:
 #'   strip_header: true
 #' ```
-#' @section YAML config - pagetitle:
+#' @section YAML config - home title:
 #'
 #' The homepage title that will be displayed in the browser tab,
-#' and in Twitter metadata, is by default the package title from
+#' and in Twitter metadata (Open Graph "og:description"),
+#' is by default the package title from
 #' `DESCRIPTION`. You can override it by adding a field called `title`
 #'  as a subcomponent of home in the `pkgdown` config:
 #'
