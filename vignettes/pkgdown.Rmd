@@ -82,8 +82,9 @@ In addition to home page content from the README (e.g., installation instruction
     Convert your package logo to a favicon with `build_favicon()`
   
 
-*   Badges in the home page source file (e.g. `README.Rmd`) are linked in the 
-    sidebar under "Dev status".
+*   Badges in the home page source file (index.Rmd, index.md, README.Rmd, README.md) are automatically displayed in the sidebar under the section "Dev status" if there is an identifiable badges paragraph:
+    * pkgdown first looks for a paragraph starting with `<!-- badges: start -->` and ending with `<!-- badges: end -->` as created by `usethis::use_readme_md()` or `usethis::use_readme_rmd()`;
+    * failing that, pkgdown looks at the first paragraph, and uses it if it only contains images.
 
 *   A link for bug reports is added if the `BugReports` field in 
     `DESCRIPTION` contains a link. You can use `usethis::use_github_links()` 
@@ -197,12 +198,12 @@ In this example, we gave the `div` a class of `"shiny-app-frame"` in order to le
 
 By default, the top navigation bar (the "navbar") will contain links to:
 
-* The home page, with a "home" icon (<i class="fa fa-home fa-lg"></i>).
+* The home page, with a "home" icon (<i class="fas fa-home fa-lg"></i>).
 * "Get Started", if you have an article with the same name as the package (e.g., `vignettes/pkgdown.Rmd`).
 * Reference
 * Articles (i.e., vignettes, if present).
 * News (if present).
-* A "github" icon (<i class="fa fa-github fa-lg"></i>) with a link to your your github repo (if listed in the `DESCRIPTION` url field).
+* A "github" icon (<i class="fab fa-github fa-lg"></i>) with a link to your your github repo (if listed in the `DESCRIPTION` url field).
 
 You can override these defaults to:
 

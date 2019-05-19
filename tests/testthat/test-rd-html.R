@@ -86,6 +86,25 @@ test_that("can skip trailing \\cr", {
   )
 })
 
+test_that("code blocks in tables render (#978)", {
+  expect_equal(
+    rd2html('\\tabular{ll}{a \\tab \\code{b} \\cr foo \\tab bar}')[[2]],
+    "<tr><td>a</td><td><code>b</code></td></tr>"
+  )
+})
+
+test_that("tables with tailing \n (#978)", {
+  expect_equal(
+    rd2html('
+      \\tabular{ll}{
+        a   \\tab     \\cr
+        foo \\tab bar
+      }
+    ')[[2]],
+    "<tr><td>a</td><td></td></tr>"
+  )
+})
+
 # sexpr  ------------------------------------------------------------------
 
 test_that("code inside Sexpr is evaluated", {
@@ -167,7 +186,7 @@ test_that("can convert cross links to online documentation url", {
 
   expect_equal(
     rd2html("\\link[base]{library}"),
-    a("library", href = "https://www.rdocumentation.org/packages/base/topics/library")
+    a("library", href = "https://rdrr.io/r/base/library.html")
   )
 })
 
@@ -195,7 +214,7 @@ test_that("can parse local links with topic!=label", {
   )
 })
 
-test_that("functions in other packages generates link to rdocumentation.org", {
+test_that("functions in other packages generates link to rdrr.io", {
   scoped_package_context("mypkg", c(x = "x", y = "y"))
   scoped_file_context("x")
 

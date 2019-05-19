@@ -16,7 +16,7 @@ test_that("intermediate files cleaned up automatically", {
   skip_if_no_pandoc()
 
   pkg <- test_path("assets/home-readme-rmd")
-  expect_output(build_site(pkg))
+  expect_output(build_site(pkg, document = TRUE))
   on.exit(clean_site(pkg))
 
   expect_setequal(
@@ -61,4 +61,5 @@ test_that(".github files are copied and linked", {
 
   lines <- read_lines(path(pkg, "docs", "index.html"))
   expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))
+  expect_true(file_exists(path(pkg, "docs", "404.html")))
 })

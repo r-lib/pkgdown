@@ -4,7 +4,7 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, document = TRUE,
+build_site(pkg = ".", examples = TRUE, document = FALSE,
   run_dont_run = FALSE, seed = 1014, lazy = FALSE,
   override = list(), preview = NA, new_process = TRUE)
 }
@@ -64,7 +64,7 @@ paths will be taken relative to the package root.
 Supplying this will:
 \itemize{
 \item Allow other pkgdown sites will link to your site when needed,
-rather than using generic links to \url{https://rdocumentation.org}.
+rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
@@ -110,7 +110,7 @@ label, and the message indicates the package is not yet on CRAN.
 
 The default development mode is "release". You can override it by adding a
 new \code{development} field to \code{_pkgdown.yml}, e.g.\preformatted{development:
-  mode: development
+  mode: devel
 }
 
 You can also have pkgdown automatically detect the mode with:\preformatted{development:
@@ -175,13 +175,13 @@ The following YAML snippet illustrates some of the most important features.\pref
     - text: Title B1
       href: articles/b1.html
    twitter:
-     icon: fa-lg fa-twitter
+     icon: "fab fa-twitter fa-lg"
      href: http://twitter.com/hadleywickham
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators (indicated by a bunch of \code{-}). You can use \code{icon}s
-from fontawesome: see a full list \url{https://fontawesome.com/icons}.
+\code{href}) and separators (indicated by a bunch of \code{-}). You can also use \code{icon}s
+from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
 
 This yaml would override the default "articles" component, eliminate
 the "home" component, and add a new "twitter" component. Unless you

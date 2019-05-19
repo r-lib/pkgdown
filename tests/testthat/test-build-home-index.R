@@ -25,3 +25,10 @@ test_that("package repo verification", {
   )
 })
 
+test_that("page title defaults to package title", {
+  pkg <- test_path("assets/home-index-rmd")
+  expect_equal(
+    as.character(data_home(pkg))[[1]],
+    "A test package"
+  )
+})

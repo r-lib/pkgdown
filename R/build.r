@@ -27,7 +27,7 @@
 #' `url` optionally specifies the url where the site will be published.
 #' Supplying this will:
 #' * Allow other pkgdown sites will link to your site when needed,
-#'   rather than using generic links to <https://rdocumentation.org>.
+#'   rather than using generic links to <https://rdrr.io>.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
@@ -79,7 +79,7 @@
 #'
 #' ```
 #' development:
-#'   mode: development
+#'   mode: devel
 #' ```
 #'
 #' You can also have pkgdown automatically detect the mode with:
@@ -153,13 +153,13 @@
 #'     - text: Title B1
 #'       href: articles/b1.html
 #'    twitter:
-#'      icon: fa-lg fa-twitter
+#'      icon: "fab fa-twitter fa-lg"
 #'      href: http://twitter.com/hadleywickham
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators (indicated by a bunch of `-`). You can use `icon`s
-#' from fontawesome: see a full list <https://fontawesome.com/icons>.
+#' `href`) and separators (indicated by a bunch of `-`). You can also use `icon`s
+#' from [fontawesome](https://fontawesome.com/icons?d=gallery).
 #'
 #' This yaml would override the default "articles" component, eliminate
 #' the "home" component, and add a new "twitter" component. Unless you
@@ -264,7 +264,7 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
-                       document = TRUE,
+                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
@@ -299,7 +299,7 @@ build_site <- function(pkg = ".",
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
-                                document = TRUE,
+                                document = FALSE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
@@ -330,6 +330,7 @@ build_site_external <- function(pkg = ".",
     },
     args = args,
     show = TRUE,
+    timeout = getOption('pkgdown.timeout', Inf)
   )
 
   preview_site(pkg, preview = preview)
@@ -338,7 +339,7 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
-                       document = TRUE,
+                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,

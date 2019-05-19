@@ -1,6 +1,28 @@
-# pkgdown (development version)
+# pkgdown 1.3.0.9000 (development version)
+
+* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
+
+* The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
+
+* Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
+  Thereby stalled builds in a cron job can get killed automatically, preventing the
+  process from hanging indefinitely.
+
+* Function `build_site()` now defaults to `document = FALSE`
+
+* Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
+
+* Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
+
+* A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
+
+* Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use),
+  so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note
+  that brands now have a separate prefix (`fab fa-github`) (#953).
 
 * Optionally, opt of out of installation in `deploy_site_github()`
+
+* `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
 
 # pkgdown 1.3.0
 
