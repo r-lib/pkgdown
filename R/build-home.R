@@ -52,6 +52,18 @@
 #' home:
 #'   strip_header: true
 #' ```
+#' @section YAML config - pagetitle:
+#'
+#' The homepage title that will be displayed in the browser tab,
+#' and in Twitter metadata, is by default the package title from
+#' `DESCRIPTION`. You can override it by adding a field called `title`
+#'  as a subcomponent of home in the `pkgdown` config:
+#'
+#' ```
+#' home:
+#'   title: "This is my package title"
+#' ```
+#'
 #'
 #' @section YAML config - authors:
 #' The "developers" list is populated by the maintainer ("cre"), authors
