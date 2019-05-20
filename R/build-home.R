@@ -66,8 +66,8 @@
 #'
 #' ```
 #' home:
-#'   title: "This is my package title"
-#'   description: "No word has to be quoted whilst describing the package"
+#'   title: This is my package title
+#'   description: No word has to be quoted whilst describing the package
 #' ```
 #'
 #'
