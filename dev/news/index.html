@@ -187,6 +187,7 @@
 <a href="#pkgdown-1-3-0-9000-development-version" class="anchor"></a>pkgdown 1.3.0.9000 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for license files spelled either as LICENSE or LICENCE (<a href='https://github.com/r-lib/pkgdown/issues/972'>#972</a>).</p></li>
 <li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/">headroom.js</a>.</p></li>
 <li><p>The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
 <li><p>Allow setting hard timeout for build_site(new_process = TRUE) via options(‘pkgdown.timeout’). Thereby stalled builds in a cron job can get killed automatically, preventing the process from hanging indefinitely.</p></li>
