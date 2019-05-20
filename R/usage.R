@@ -79,7 +79,7 @@ usage_type <- function(x) {
 
     out
   } else {
-    stop("Unknown type: ", typeof(x), call. = FALSE)
+    stop("Unknown type: ", typeof(x), " (in ", as.character(x), ")",  call. = FALSE)
   }
 }
 

@@ -9,7 +9,7 @@ build_home_md <- function(pkg) {
   }
 
   # Remove files handled elsewhere
-  handled <- c("README.md", "LICENSE.md", "NEWS.md", "cran-comments.md")
+  handled <- c("README.md", "LICENSE.md", "LICENCE.md", "NEWS.md", "cran-comments.md")
   mds <- mds[!path_file(mds) %in% handled]
 
   lapply(mds, render_md, pkg = pkg)

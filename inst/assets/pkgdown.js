@@ -2,6 +2,8 @@
 (function($) {
   $(function() {
 
+    $('.navbar-fixed-top').headroom();
+
     $('body').scrollspy({
       target: '#sidebar',
       offset: 60
