@@ -25,7 +25,7 @@ test_that("package repo verification", {
   )
 })
 
-test_that("page title defaults to package title", {
+test_that("homepage title defaults to package Title", {
   pkg <- test_path("assets/home-index-rmd")
   expect_equal(
     as.character(data_home(pkg))[[1]],
@@ -33,7 +33,7 @@ test_that("page title defaults to package title", {
   )
 })
 
-test_that("page title can be overridden", {
+test_that("homepage title can be overridden", {
   pkg <- test_path("assets/home-index-rmd")
   pkg <- as_pkgdown(pkg)
   pkg$meta <- list(home = list(
@@ -45,3 +45,27 @@ test_that("page title can be overridden", {
   )
 
 })
+
+test_that("homepage description defaults to package Description", {
+  pkg <- test_path("assets/home-index-rmd")
+  expect_true(
+    grepl("A test package",
+    as.character(data_home(pkg))[[3]],
+  )
+  )
+})
+
+test_that("homepage description can be overridden", {
+  pkg <- test_path("assets/home-index-rmd")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta <- list(home = list(
+    description = "No word has to be quoted whilst describing the package"))
+
+  expect_true(
+    grepl("No word has to be quoted whilst describing the package",
+          as.character(data_home(pkg))[[3]],
+    )
+  )
+
+})
+

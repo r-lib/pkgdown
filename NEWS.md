@@ -1,6 +1,6 @@
 # pkgdown 1.3.0.9000 (development version)
 
-* One can override the title of the homepage via a `title` field in the home section of config (#957, @maelle).
+* One can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
 
 * The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
 

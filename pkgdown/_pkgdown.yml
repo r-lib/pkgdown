@@ -1,5 +1,10 @@
 url: https://pkgdown.r-lib.org
 
+home:
+  description: Generate an attractive and useful website from a source package.
+    pkgdown converts your documentation, vignettes, README, and more to
+    HTML making it easy to share information about your package online.
+
 authors:
   Jay Hesselberth:
     href: https://hesselberthlab.org

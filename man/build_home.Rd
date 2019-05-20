@@ -70,15 +70,20 @@ You can remove the first heading with:\preformatted{home:
 }
 }
 
-\section{YAML config - home title}{
+\section{YAML config - home title and description}{
 
 
 The homepage title that will be displayed in the browser tab,
-and in Twitter metadata (Open Graph "og:title"),
-is by default the package title from
-\code{DESCRIPTION}. You can override it by adding a field called \code{title}
-as a subcomponent of home in the \code{pkgdown} config:\preformatted{home:
+and the title of homepage in Twitter/Open Graph metadata ("og:title"),
+is by default the package Title from \code{DESCRIPTION}.
+
+The description of the homepage in Twitter/Open Graph metadata ("og:description")
+is by default the package Description from \code{DESCRIPTION}.
+
+You can override these values by adding a \code{home} section in the pkgdown
+config file, and add \code{title} and/or \code{description}.\preformatted{home:
   title: "This is my package title"
+  description: "No word has to be quoted whilst describing the package"
 }
 }
 

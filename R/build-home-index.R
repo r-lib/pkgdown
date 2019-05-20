@@ -56,7 +56,7 @@ data_home <- function(pkg = ".") {
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||% pkg$desc$get("Title")[[1]],
     sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$desc$get("Description")[[1]])
+    opengraph = list(description = pkg$meta$home[["description"]] %||% pkg$desc$get("Description")[[1]])
   ))
 }
 

@@ -40,6 +40,8 @@ Most pkgdown configuration options are controlled by a YAML format file named `_
 metadata, also used for Twitter metadata),  as a `title` subcomponent of 
 `home`, if different from the DESCRIPTION Title.
 
+* The homepage "og:description" as a `description` subcomponent of `home`, if different from the DESCRIPTION Description
+
 * A path to a set of `template`, if you want to override the default
   page templates provided by the site.
 
