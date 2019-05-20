@@ -1,5 +1,8 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* News page recognises more version specfications (including the 
+  "(development version)" now used by usethis) (#980).
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 
