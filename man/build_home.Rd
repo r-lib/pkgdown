@@ -5,7 +5,7 @@
 \title{Build home section}
 \usage{
 build_home(pkg = ".", override = list(), preview = NA,
-  quiet = TRUE, knit = TRUE)
+  quiet = TRUE, devel = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -19,7 +19,10 @@ freshly generated section in browser.}
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
 
-\item{knit}{if FALSE, do not knit \code{Rmd} files but render as plain markdown.}
+\item{devel}{If \code{TRUE}, assumes you are doing active development, and
+re-knits all \code{.Rmd} files. If \code{FALSE}, assumes Rmarkdown files have
+already rendered to \code{.md}, falling back to rendering as plain markdown
+if they have not.}
 }
 \description{
 This function is responsible for building \code{.md} (or \code{.Rmd}) files typically

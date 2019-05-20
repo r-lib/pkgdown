@@ -264,20 +264,24 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
-                       document = devel,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
                        new_process = TRUE,
-                       devel = TRUE) {
+                       devel = TRUE,
+                       document = "DEPRECATED") {
+
+  if (!missing(document)) {
+    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+    devel <- !document
+  }
 
   if (new_process) {
     build_site_external(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
@@ -289,7 +293,6 @@ build_site <- function(pkg = ".",
     build_site_local(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
@@ -302,7 +305,6 @@ build_site <- function(pkg = ".",
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
-                                document = FALSE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
@@ -312,7 +314,6 @@ build_site_external <- function(pkg = ".",
   args <- list(
     pkg = pkg,
     examples = examples,
-    document = document,
     run_dont_run = run_dont_run,
     seed = seed,
     lazy = lazy,
@@ -344,7 +345,6 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
-                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
@@ -361,10 +361,9 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE, knit = devel)
+  build_home(pkg, override = override, preview = FALSE, devel = devel)
   build_reference(pkg,
     lazy = lazy,
-    document = document,
     examples = examples,
     run_dont_run = run_dont_run,
     seed = seed,

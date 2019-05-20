@@ -88,13 +88,16 @@
 #'   only contains images.
 #'
 #' @inheritParams build_articles
-#' @param knit if FALSE, do not knit `Rmd` files but render as plain markdown.
+#' @param devel If `TRUE`, assumes you are doing active development, and
+#'   re-knits all `.Rmd` files. If `FALSE`, assumes Rmarkdown files have
+#'   already rendered to `.md`, falling back to rendering as plain markdown
+#'   if they have not.
 #' @export
 build_home <- function(pkg = ".",
                        override = list(),
                        preview = NA,
                        quiet = TRUE,
-                       knit = TRUE) {
+                       devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
@@ -107,7 +110,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg, quiet = quiet, knit = knit)
+  build_home_index(pkg, quiet = quiet, knit = devel)
 
   preview_site(pkg, "/", preview = preview)
 }
