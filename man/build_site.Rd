@@ -252,13 +252,17 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
 
-\section{Internet}{
+\section{Options}{
 
 Users with limited internet connectivity can disable CRAN checks by setting
 \code{options(pkgdown.internet = FALSE)}. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.
+
+Users can set a timeout for \code{build_site(new_process = TRUE)} with
+\code{options(pkgdown.timeout = Inf)}, which is useful to prevent stalled builds from
+hanging in cron jobs.
 }
 
 \examples{

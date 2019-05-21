@@ -4,9 +4,7 @@
 
 * The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
-* Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
-  Thereby stalled builds in a cron job can get killed automatically, preventing the
-  process from hanging indefinitely.
+* A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
 
 * Function `build_site()` now defaults to `document = FALSE`
 
