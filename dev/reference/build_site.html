@@ -441,7 +441,7 @@ of the default assets, set <code>default_assets</code> to false.</p><pre>templat
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
     
-    <h2 class="hasAnchor" id="internet"><a class="anchor" href="#internet"></a>Internet</h2>
+    <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
     <p>Users with limited internet connectivity can disable CRAN checks by setting
@@ -449,6 +449,9 @@ for pkgdown templates to ensure that you use the correct components.</p>
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.</p>
+<p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
+<code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.timeout = Inf)</a></code>, which is useful to prevent stalled builds from
+hanging in cron jobs.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -473,7 +476,7 @@ or vignettes, this connection is required as this option won't apply on them.</p
 
       <li><a href="#yaml-config-template">YAML config - template</a></li>
 
-      <li><a href="#internet">Internet</a></li>
+      <li><a href="#options">Options</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
