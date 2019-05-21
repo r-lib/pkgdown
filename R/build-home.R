@@ -59,15 +59,17 @@
 #' is by default the package Title from `DESCRIPTION`.
 #'
 #' The description of the homepage in Twitter/Open Graph metadata ("og:description")
-#' is by default the package Description from `DESCRIPTION`.
+#' is by default the package Description from `DESCRIPTION`, with words quoted
+#' with '' unquoted.
 #'
 #' You can override these values by adding a `home` section in the pkgdown
-#' config file, and add `title` and/or `description`.
+#' config file, and add `title` and/or `description`, with words quoted by
+#' '' unquoted.
 #'
 #' ```
 #' home:
 #'   title: This is my package title
-#'   description: No word has to be quoted whilst describing the package
+#'   description: This is a free description of my package
 #' ```
 #'
 #'

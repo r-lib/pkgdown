@@ -59,10 +59,10 @@ test_that("homepage description can be overridden", {
   pkg <- test_path("assets/home-index-rmd")
   pkg <- as_pkgdown(pkg)
   pkg$meta <- list(home = list(
-    description = "No word has to be quoted whilst describing the package"))
+    description = "A free description."))
 
   expect_true(
-    grepl("No word has to be quoted whilst describing the package",
+    grepl("A free description.",
           as.character(data_home(pkg))[[3]],
     )
   )

@@ -121,3 +121,7 @@ with_dir <- function(new, code) {
   on.exit(setwd(old))
   force(code)
 }
+
+uncranquote <- function(string) {
+  gsub("\\'(.*?)\\'", "\\1", string)
+}

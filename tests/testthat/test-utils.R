@@ -25,3 +25,12 @@ test_that("pkgdown.internet can be set and read", {
   expect_false(has_internet())
 })
 
+test_that("uncranquote works", {
+  expect_equal(uncranquote("Quoting is CRAN's thing."),
+               "Quoting is CRAN's thing.")
+  expect_equal(uncranquote("'R-hub' is great!"),
+               "R-hub is great!")
+  expect_equal(uncranquote("From 'README' to 'html' with 'pkgdown'"),
+               "From README to html with pkgdown")
+})
+

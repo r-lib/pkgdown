@@ -78,12 +78,14 @@ and the title of homepage in Twitter/Open Graph metadata ("og:title"),
 is by default the package Title from \code{DESCRIPTION}.
 
 The description of the homepage in Twitter/Open Graph metadata ("og:description")
-is by default the package Description from \code{DESCRIPTION}.
+is by default the package Description from \code{DESCRIPTION}, with words quoted
+with '' unquoted.
 
 You can override these values by adding a \code{home} section in the pkgdown
-config file, and add \code{title} and/or \code{description}.\preformatted{home:
-  title: "This is my package title"
-  description: "No word has to be quoted whilst describing the package"
+config file, and add \code{title} and/or \code{description}, with words quoted by
+'' unquoted.\preformatted{home:
+  title: This is my package title
+  description: This is a free description of my package
 }
 }
 
