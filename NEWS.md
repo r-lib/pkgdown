@@ -2,6 +2,9 @@
 
 * The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
 
+* `build_home()` now looks for license files spelled either as LICENSE or 
+  LICENCE (#972).
+
 * The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
 
 * The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)

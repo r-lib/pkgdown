@@ -97,7 +97,7 @@ In addition to home page content from the README (e.g., installation instruction
     to populate this field.
 
 *   Licensing information is linked in the side bar using the package 
-    `LICENSE` and `LICENSE.md` files.
+    `LICENSE`/`LICENCE` and `LICENSE.md`/`LICENCE.md` files.
 
 *   Citation information from a `inst/CITATION` file is linked in the side bar 
     to the [authors page](https://testthat.r-lib.org/authors.html).
