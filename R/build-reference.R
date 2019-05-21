@@ -107,7 +107,7 @@ build_reference <- function(pkg = ".",
 
   if (!missing(document)) {
     warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
-    devel <- !document
+    devel <- document
   }
 
   rule("Building function reference")
