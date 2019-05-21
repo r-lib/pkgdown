@@ -102,7 +102,7 @@ clean_site first to clean up orphan files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9100</span>
       </span>
     </div>
 
@@ -215,9 +215,9 @@ that aspect of the site.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>new_process</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>new_process</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,11 +229,6 @@ that aspect of the site.</p>
     <tr>
       <th>examples</th>
       <td><p>Run examples?</p></td>
-    </tr>
-    <tr>
-      <th>document</th>
-      <td><p>If <code>TRUE</code>, will run <code><a href='https://rdrr.io/pkg/devtools/man/document.html'>devtools::document()</a></code> before
-updating the site.</p></td>
     </tr>
     <tr>
       <th>run_dont_run</th>
@@ -264,6 +259,17 @@ freshly generated section in browser.</p></td>
       <td><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></td>
+    </tr>
+    <tr>
+      <th>devel</th>
+      <td><p>If <code>TRUE</code> (the default), assumes you are in a live development
+environment, so automatically runs <code><a href='https://rdrr.io/pkg/devtools/man/document.html'>devtools::document()</a></code> and loads
+package with <code><a href='https://rdrr.io/pkg/devtools/man/load_all.html'>devtools::load_all()</a></code>. If <code>FALSE</code>, does not re-document,
+and uses the installed version of the package for examples.</p></td>
+    </tr>
+    <tr>
+      <th>document</th>
+      <td><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></td>
     </tr>
     </table>
     
@@ -490,7 +496,7 @@ hanging in cron jobs.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
       </footer>
    </div>
