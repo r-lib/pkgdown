@@ -268,57 +268,63 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
-                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
-                       new_process = TRUE) {
+                       new_process = TRUE,
+                       devel = TRUE,
+                       document = "DEPRECATED") {
+
+  if (!missing(document)) {
+    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+    devel <- document
+  }
 
   if (new_process) {
     build_site_external(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      devel = devel
     )
   } else {
     build_site_local(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      devel = devel
     )
   }
 }
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
-                                document = FALSE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
                                 override = list(),
-                                preview = NA) {
+                                preview = NA,
+                                devel = TRUE) {
   args <- list(
     pkg = pkg,
     examples = examples,
-    document = document,
     run_dont_run = run_dont_run,
     seed = seed,
     lazy = lazy,
     override = override,
     preview = FALSE,
     new_process = FALSE,
+    devel = devel,
     crayon_enabled = crayon::has_color(),
     crayon_colors = crayon::num_colors(),
     pkgdown_internet = has_internet()
@@ -343,12 +349,12 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
-                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
                        override = list(),
-                       preview = NA
+                       preview = NA,
+                       devel = TRUE
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
@@ -359,15 +365,15 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE)
+  build_home(pkg, override = override, preview = FALSE, devel = devel)
   build_reference(pkg,
     lazy = lazy,
-    document = document,
     examples = examples,
     run_dont_run = run_dont_run,
     seed = seed,
     override = override,
-    preview = FALSE
+    preview = FALSE,
+    devel = devel
   )
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)

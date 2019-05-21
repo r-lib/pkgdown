@@ -5,9 +5,9 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", lazy = TRUE, document = FALSE,
-  examples = TRUE, run_dont_run = FALSE, seed = 1014,
-  override = list(), preview = NA)
+build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
+  run_dont_run = FALSE, seed = 1014, override = list(),
+  preview = NA, devel = TRUE, document = "DEPRECATED")
 
 build_reference_index(pkg = ".")
 }
@@ -17,9 +17,6 @@ build_reference_index(pkg = ".")
 \item{lazy}{If \code{TRUE}, only rebuild pages where the \code{.Rd}
 is more recent than the \code{.html}. This makes it much easier to
 rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_site()}}.}
-
-\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
-updating the site.}
 
 \item{examples}{Run examples?}
 
@@ -33,6 +30,13 @@ values in \code{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{devel}{If \code{TRUE} (the default), assumes you are in a live development
+environment, so automatically runs \code{\link[devtools:document]{devtools::document()}} and loads
+package with \code{\link[devtools:load_all]{devtools::load_all()}}. If \code{FALSE}, does not re-document,
+and uses the installed version of the package for examples.}
+
+\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in

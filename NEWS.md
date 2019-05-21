@@ -1,15 +1,10 @@
 # pkgdown 1.3.0.9000 (development version)
 
-* `build_home()` now looks for license files spelled either as LICENSE or 
-  LICENCE (#972).
-
-* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
+* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
 
 * The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
 * A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
-
-* Function `build_site()` now defaults to `document = FALSE`
 
 * Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
 
