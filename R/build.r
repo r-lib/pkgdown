@@ -275,7 +275,7 @@ build_site <- function(pkg = ".",
 
   if (!missing(document)) {
     warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
-    devel <- !document
+    devel <- document
   }
 
   if (new_process) {
