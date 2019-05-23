@@ -187,6 +187,8 @@
 <a href="#pkgdown-1-3-0-9000-development-version" class="anchor"></a>pkgdown 1.3.0.9000 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for license files spelled either as LICENSE or LICENCE (<a href='https://github.com/r-lib/pkgdown/issues/972'>#972</a>).</p></li>
+<li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/">headroom.js</a>.</p></li>
 <li><p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which can be set to <code>FALSE</code> to disable redocumenting and reloading the package, and knitting of home <code>Rmd</code> file. This generalises and replaces (with deprecation) the existing <code>document</code> argument.</p></li>
 <li><p>The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
 <li><p>A timeout for <code><a href="../reference/build_site.html">build_site(new_process = TRUE)</a></code> can be set with <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.timeout = Inf)</a></code> to prevent stalled builds from hanging cron jobs.</p></li>
