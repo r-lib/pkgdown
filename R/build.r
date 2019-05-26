@@ -204,6 +204,11 @@
 #' correspond to your
 #' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
+#' When enabling Google Analytics, be aware of the type and amount of
+#' user information that you are collecting. You may wish to limit the
+#' extent of data collection or to add a privacy disclosure to your
+#' site, in keeping with current laws and regulations.
+#'
 #' ```
 #' template:
 #'   params:
