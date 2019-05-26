@@ -226,7 +226,12 @@ See a complete list of themes and preview how they look at
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
+
+When enabling Google Analytics, be aware of the type and amount of
+user information that you are collecting. You may wish to limit the
+extent of data collection or to add a privacy disclosure to your
+site, in keeping with current laws and regulations.\preformatted{template:
   params:
     ganalytics: UA-000000-01
 }
