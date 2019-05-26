@@ -221,27 +221,7 @@ Use `template_navbar()` to generate a boilerplate navbar section in YAML format.
 
 You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `inverse`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
 
-```yaml
-navbar:
-  title: "sparklyr"
-  type: inverse
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "dplyr"
-      href: articles/dplyr.html
-    - text: "ML"
-      href: articles/ML.html
-    - text: "Extensions"
-      href: articles/extensions.html
-    - text: "Deployment"
-      href: articles/deployment.html
-    - text: "Reference"
-      href: "reference/"
-  right:
-    - icon: fa-github
-      href: https://github.com/rstudio/sparklyr
-```
+See `build_site()` for an example navbar YAML configuration.
 
 ## News
 
