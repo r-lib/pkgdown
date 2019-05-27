@@ -122,6 +122,8 @@ with_dir <- function(new, code) {
   force(code)
 }
 
-uncranquote <- function(string) {
+# remove '' quoting
+# e.g. 'title' becomes title.s
+cran_unquote <- function(string) {
   gsub("\\'(.*?)\\'", "\\1", string)
 }

@@ -55,10 +55,10 @@ data_home <- function(pkg = ".") {
 
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||%
-      uncranquote(pkg$desc$get("Title")[[1]]),
+      cran_unquote(pkg$desc$get("Title")[[1]]),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       uncranquote(pkg$desc$get("Description")[[1]]))
+                       cran_unquote(pkg$desc$get("Description")[[1]]))
   ))
 }
 
