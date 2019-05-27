@@ -1,0 +1,31 @@
+---
+title: "Linking between pkgdown sites"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Documentation can be maintain across multiple pkgdown sites by ensuring that URL links are provided in specific places.
+
+First, if you maintain a package with a pkgdown site, add the pkgdown site to `URL` field of the package `DESCRIPTION`. An example is the documentation to the [dplyr package](https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/DESCRIPTION#L15).
+
+```
+URL: http://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr
+```
+
+Second, ensure that the `url` field is defined in your [`pkgdown.yml` configuration file](https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/_pkgdown.yml#L1). During the build process, pkgdown will generate a web-accessible [`pkgdown.yml` file](https://dplyr.tidyverse.org/pkgdown.yml) containing a link to the package documentation (the `reference` URL below).
+
+```
+pandoc: '2.2'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+...
+urls:
+  reference: https://dplyr.tidyverse.org/reference
+```
+
+Now, when you build a pkgdown site for a package site that links to the dplyr documentation (e.g., `dplyr::mutate()`), pkgdown looks for the `pkgdown.yml` file for dplyr, and if found, pkgdown uses the URL in the `reference` field for linking to dplyr functions. If not, pkgdown falls back to linking to the documentation site [`rdrr.io`](https://rdrr.io).

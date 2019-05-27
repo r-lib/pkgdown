@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* A new vignette on linking describes how to link documentation across pkgdown sites.
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 
