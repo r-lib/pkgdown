@@ -54,11 +54,15 @@ enlist(5)
 enlist(5)
 ```
 
+---
+
 # Figures
 
 ```{r}
 plot(1:10)
 ```
+
+---
 
 # External files
 
@@ -68,6 +72,8 @@ x
 ```
 
 ![](bacon.jpg)
+
+---
 
 # Details tag
 
@@ -83,17 +89,23 @@ x
 ```
 </details>
 
+---
+
 # Tables
 
 | col 1 | col 2 | col 3 | col 4 |
 |:---------------|:-----------|:-------:|:---------:|
 | Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
 
+---
+
 # Mathjax
 
 $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
 Inline equations: $y=x^2$
+
+---
 
 # Widgets
 
@@ -117,6 +129,8 @@ leaflet() %>%
 ```
 
 Test spacing below widget.
+
+---
 
 # Crayon
 
