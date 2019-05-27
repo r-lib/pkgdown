@@ -38,6 +38,9 @@ reference:
     contents:
     - starts_with("test", internal = TRUE)
 
+toc:
+  depth: 1
+
 navbar:
   components:
     articles:
