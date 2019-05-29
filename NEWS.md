@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* Function names can now be included in headers without spurious auto-linking (#948).
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 

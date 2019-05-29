@@ -7,3 +7,5 @@ library(MASS)
 ```
 
 `addterm()`
+
+# `pkgdown::build_site()`
