@@ -7,7 +7,7 @@
 #' also builds any files found in `.github/`.
 #'
 #' @section Images and figures:
-#' If you want to include images in your `README.md`, they must be stored in
+#' If you want to include images in your `README.md`, they must be stored
 #' somewhere in the package so that they can be displayed on the CRAN website.
 #' The best place to put them is `man/figures`. If you are generating figures
 #' with R Markdown, make sure you set up `fig.path` as followed:

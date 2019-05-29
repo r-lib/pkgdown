@@ -33,7 +33,7 @@
 #' topics with the Rd keyword "internal". To include these, use
 #' `starts_with("build_", internal = TRUE)`.
 #'
-#' You can alo select topics that contain specified Rd concepts with
+#' You can also select topics that contain specified Rd concepts with
 #' `has_concept("blah")`.
 #'
 #' You can provide long descriptions for groups of functions using the YAML `>`

@@ -7,7 +7,7 @@
 
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
 
-* The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
+* The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
 * A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
 
@@ -49,7 +49,7 @@
 
 ## New features
 
-* `deploy_site_github()` can be used from continuous intergration systems
+* `deploy_site_github()` can be used from continuous integration systems
   (like travis) to automatically deploy your package website to GitHub Pages.
   See documentation for how to set up details (@jimhester).
 
@@ -136,7 +136,7 @@
 * `build_site()` loses vestigal `mathjax` parameter. This didn't appear to do 
   anything and  no one could remember why it existed (#785).
 
-* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+* `build_site()` now uses colours even if `new_process = TRUE` (@jimhester).
 
 # pkgdown 1.1.0
 

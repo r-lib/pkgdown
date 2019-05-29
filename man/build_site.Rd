@@ -53,7 +53,7 @@ See the documentation for the each function to learn how to control
 that aspect of the site.
 
 Note if names of generated files were changed, you will need to use
-\link{clean_site} first to clean up orphan files.
+\code{\link[=clean_site]{clean_site()}} first to clean up orphan files.
 }
 \section{YAML config}{
 
