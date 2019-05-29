@@ -12,4 +12,6 @@ test_that("code is linked", {
 test_that("headers are not linked", {
   h1 <- out %>% xml2::xml_find_first(".//h1/code")
   expect_false(xml2::xml_has_attr(h1, "a"))
+  h2 <- out %>% xml2::xml_find_first(".//h2/code")
+  expect_false(xml2::xml_has_attr(h2, "a"))
 })
