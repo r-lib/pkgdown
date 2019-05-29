@@ -101,11 +101,16 @@ tweak_code <- function(x) {
     xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
     purrr::map(tweak_pre_node)
 
-  # Identify <code> with no children (just text), and are not in a header
-  x %>%
-    xml2::xml_find_all(".//code[count(*) = 0 and not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5)]") %>%
-    tweak_code_nodeset()
+  # Identify <code> with no children (just text), and are not ancestors of a
+  # header
+  xpath <- paste0(
+    ".//code[count(*) = 0 and ",
+    "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5)]"
+  )
 
+  x %>%
+    xml2::xml_find_all(xpath) %>%
+    tweak_code_nodeset()
 
   invisible()
 }
