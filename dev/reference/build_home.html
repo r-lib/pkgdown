@@ -273,6 +273,22 @@ elements:</p><pre>home:
   strip_header: true
 </pre>
     
+    <h2 class="hasAnchor" id="yaml-config-home-title-and-description"><a class="anchor" href="#yaml-config-home-title-and-description"></a>YAML config - home title and description</h2>
+
+    
+    <p>The homepage title that will be displayed in the browser tab,
+and the title of homepage in Twitter/Open Graph metadata ("og:title"),
+is by default the package Title from <code>DESCRIPTION</code>.</p>
+<p>The description of the homepage in Twitter/Open Graph metadata ("og:description")
+is by default the package Description from <code>DESCRIPTION</code>, with words quoted
+with '' unquoted.</p>
+<p>You can override these values by adding a <code>home</code> section in the pkgdown
+config file, and add <code>title</code> and/or <code>description</code>, with words quoted by
+'' unquoted.</p><pre>home:
+  title: This is my package title
+  description: This is a free description of my package
+</pre>
+    
     <h2 class="hasAnchor" id="yaml-config-authors"><a class="anchor" href="#yaml-config-authors"></a>YAML config - authors</h2>
 
     
@@ -320,6 +336,8 @@ only contains images.</p></li>
       <li><a href="#package-logo">Package logo</a></li>
 
       <li><a href="#yaml-config-home">YAML config - home</a></li>
+
+      <li><a href="#yaml-config-home-title-and-description">YAML config - home title and description</a></li>
 
       <li><a href="#yaml-config-authors">YAML config - authors</a></li>
 

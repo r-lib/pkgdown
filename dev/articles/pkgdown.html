@@ -171,6 +171,8 @@
 <p>Most pkgdown configuration options are controlled by a YAML format file named <code>_pkgdown.yml</code>. These options include:</p>
 <ul>
 <li><p>The site <code>title</code>, if different from the package name.</p></li>
+<li><p>The second part of the homepage title and the “og:title” (Open Graph metadata, also used for Twitter metadata), as a <code>title</code> subcomponent of <code>home</code>, if different from the unquoted DESCRIPTION Title.</p></li>
+<li><p>The homepage “og:description” as a <code>description</code> subcomponent of <code>home</code>, if different from the unquoted DESCRIPTION Description</p></li>
 <li><p>A path to a set of <code>template</code>, if you want to override the default page templates provided by the site.</p></li>
 <li><p>A <a href="https://bootswatch.com"><code>bootswatch</code></a> theme name to easily tweak the overall appearance of the site.</p></li>
 </ul>
