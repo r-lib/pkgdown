@@ -4,6 +4,11 @@
 
     $('.navbar-fixed-top').headroom();
 
+    $('body').css('padding-top', $('.navbar').height() + 10);
+    $(window).resize(function(){
+      $('body').css('padding-top', $('.navbar').height() + 10);
+    });
+
     $('body').scrollspy({
       target: '#sidebar',
       offset: 60
@@ -37,13 +42,6 @@
       menu_anchor.parent().addClass("active");
       menu_anchor.closest("li.dropdown").addClass("active");
     }
-  });
-
-  $(function() {
-      $(document.body).css('padding-top', $('#topnavbar').height() + 10);
-      $(window).resize(function(){
-          $(document.body).css('padding-top', $('#topnavbar').height() + 10);
-      });
   });
 
   function paths(pathname) {
