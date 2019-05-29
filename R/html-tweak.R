@@ -103,7 +103,7 @@ tweak_code <- function(x) {
 
   # Identify <code> with no children (just text), and are not in a header
   x %>%
-    xml2::xml_find_all(".//code[count(*) = 0 and not(ancestor::h1|h2|h3|h4|h5)]") %>%
+    xml2::xml_find_all(".//code[count(*) = 0 and not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5)]") %>%
     tweak_code_nodeset()
 
 
