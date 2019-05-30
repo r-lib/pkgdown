@@ -52,6 +52,26 @@
 #' home:
 #'   strip_header: true
 #' ```
+#' @section YAML config - home title and description:
+#'
+#' The homepage title that will be displayed in the browser tab,
+#' and the title of homepage in Twitter/Open Graph metadata ("og:title"),
+#' is by default the package Title from `DESCRIPTION`.
+#'
+#' The description of the homepage in Twitter/Open Graph metadata ("og:description")
+#' is by default the package Description from `DESCRIPTION`, with words quoted
+#' with '' unquoted.
+#'
+#' You can override these values by adding a `home` section in the pkgdown
+#' config file, and add `title` and/or `description`, with words quoted by
+#' '' unquoted.
+#'
+#' ```
+#' home:
+#'   title: This is my package title
+#'   description: This is a free description of my package
+#' ```
+#'
 #'
 #' @section YAML config - authors:
 #' The "developers" list is populated by the maintainer ("cre"), authors

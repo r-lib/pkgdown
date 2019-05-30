@@ -2,6 +2,8 @@
 
 * Function names can now be included in headers without spurious auto-linking (#948).
 
+* The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 
