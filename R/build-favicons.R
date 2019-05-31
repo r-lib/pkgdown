@@ -1,13 +1,3 @@
-copy_favicons <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  favicons <- path(pkg$src_path, "pkgdown", "favicon")
-  if (!dir_exists(favicons))
-    return()
-
-  dir_copy_to(pkg, favicons, pkg$dst_path)
-}
-
 #' Create favicons from package logo
 #'
 #' This function auto-detects the location of your package logo (with the name
@@ -23,13 +13,22 @@ copy_favicons <- function(pkg = ".") {
 #' during package checking.
 #'
 #' @inheritParams as_pkgdown
+#' @param clobber If `TRUE`, then existing logo files will be overwritten.
 #' @export
-build_favicon <- function(pkg = ".") {
+build_favicons <- function(pkg = ".", clobber = FALSE) {
   pkg <- as_pkgdown(pkg)
+
+  rule("Building favicons")
+
+  if (has_favicons(pkg) && !clobber) {
+    message("Favicons already exist. Set `clobber = TRUE` to re-create.")
+    return()
+  }
 
   logo_path <- find_logo(pkg$src_path)
   if (is.null(logo_path)) {
-    stop("Can't find package logo.", call. = FALSE)
+    message("Can't find package logo to create favicons.")
+    return()
   }
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
@@ -78,15 +77,27 @@ build_favicon <- function(pkg = ".") {
   tmp <- tempfile()
   on.exit(unlink(tmp))
   result <- httr::GET(result$favicon$package_url, httr::write_disk(tmp))
-  utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
+  utils::unzip(tmp, exdir = favicons_path(pkg))
 
   invisible()
 }
 
+favicons_path <- function(pkg = ".") {
+  path(pkg$src_path, "pkgdown", "favicon")
+}
+
 has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+  dir_exists(favicons_path(pkg))
+}
 
-  file.exists(path(pkg$src_path, "pkgdown", "favicon"))
+copy_favicons <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  if (!has_favicons(pkg))
+    return()
+
+  dir_copy_to(pkg, favicons_path(pkg), pkg$dst_path)
 }
 
 find_logo <- function(path) {
