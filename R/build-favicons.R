@@ -18,8 +18,6 @@
 build_favicons <- function(pkg = ".", clobber = FALSE) {
   pkg <- as_pkgdown(pkg)
 
-  rule("Building favicons")
-
   if (has_favicons(pkg) && !clobber) {
     message("Favicons already exist. Set `clobber = TRUE` to re-create.")
     return()
@@ -30,6 +28,8 @@ build_favicons <- function(pkg = ".", clobber = FALSE) {
     message("Can't find package logo to create favicons.")
     return()
   }
+
+  rule("Building favicons")
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
