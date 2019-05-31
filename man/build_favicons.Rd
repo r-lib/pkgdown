@@ -9,7 +9,7 @@ build_favicons(pkg = ".", clobber = FALSE)
 \arguments{
 \item{pkg}{Path to package.}
 
-\item{clobber}{If \code{TRUE}, then existing logo files will be overwritten.}
+\item{clobber}{If \code{TRUE}, then existing favicon files will be overwritten.}
 }
 \description{
 This function auto-detects the location of your package logo (with the name

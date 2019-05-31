@@ -13,7 +13,7 @@
 #' during package checking.
 #'
 #' @inheritParams as_pkgdown
-#' @param clobber If `TRUE`, then existing logo files will be overwritten.
+#' @param clobber If `TRUE`, then existing favicon files will be overwritten.
 #' @export
 build_favicons <- function(pkg = ".", clobber = FALSE) {
   pkg <- as_pkgdown(pkg)
