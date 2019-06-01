@@ -17,7 +17,7 @@
 #' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
-#' You should manually run [build_favicon()] once to generate the favicon set
+#' You should manually run [build_favicons()] once to generate the favicon set
 #' from your logo. The result is stored in `pkgdown/favicon` and will
 #' automatically be copied to the relevant location when you run [init_site()].
 #'
@@ -37,6 +37,8 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
   copy_assets(pkg)
+
+  build_favicons(pkg)
   copy_favicons(pkg)
 
   build_site_meta(pkg)

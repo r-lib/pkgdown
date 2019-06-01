@@ -1,13 +1,3 @@
-copy_favicons <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  favicons <- path(pkg$src_path, "pkgdown", "favicon")
-  if (!dir_exists(favicons))
-    return()
-
-  dir_copy_to(pkg, favicons, pkg$dst_path)
-}
-
 #' Create favicons from package logo
 #'
 #' This function auto-detects the location of your package logo (with the name
@@ -23,15 +13,33 @@ copy_favicons <- function(pkg = ".") {
 #' during package checking.
 #'
 #' @inheritParams as_pkgdown
+#' @param clobber If `TRUE`, re-create favicons from package logo.
 #' @export
-build_favicon <- function(pkg = ".") {
+build_favicons <- function(pkg = ".", clobber = FALSE) {
   pkg <- as_pkgdown(pkg)
 
+  rule("Building favicons")
+
   logo_path <- find_logo(pkg$src_path)
+
   if (is.null(logo_path)) {
-    stop("Can't find package logo.", call. = FALSE)
+    message("Can't find pacakge logo PNG or SVG to build favicons.")
+    return()
   }
 
+  if (has_favicons(pkg) && !clobber) {
+    message("Favicons already exist in `pkgdown/`. Copying to site.")
+    return()
+  }
+
+  build_favicons_api(pkg)
+
+  invisible()
+}
+
+build_favicons_api <- function(pkg) {
+
+  logo_path <- find_logo(pkg$src_path)
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
   json_request <- list(
@@ -78,9 +86,28 @@ build_favicon <- function(pkg = ".") {
   tmp <- tempfile()
   on.exit(unlink(tmp))
   result <- httr::GET(result$favicon$package_url, httr::write_disk(tmp))
-  utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
+
+  tryCatch({
+    utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
+  },
+  warning = function(e) {
+    warning("Your logo file couldn't be processed and may be corrupt.")
+  },
+  error = function(e) {
+    warning("Your logo file couldn't be processed and may be corrupt.")
+  })
 
   invisible()
+}
+
+copy_favicons <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  favicons <- path(pkg$src_path, "pkgdown", "favicon")
+  if (!dir_exists(favicons))
+    return()
+
+  dir_copy_to(pkg, favicons, pkg$dst_path)
 }
 
 has_favicons <- function(pkg = ".") {

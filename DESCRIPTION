@@ -56,7 +56,7 @@ Suggests:
     jsonlite,
     knitr,
     leaflet,
-    testthat,
+    testthat (>= 2.1.0),
     rticles
 VignetteBuilder: knitr
 SystemRequirements: pandoc
