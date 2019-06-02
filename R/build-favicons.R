@@ -23,7 +23,7 @@ build_favicons <- function(pkg = ".", clobber = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    message("Can't find pacakge logo PNG or SVG to build favicons.")
+    message("Can't find package logo PNG or SVG to build favicons.")
     return()
   }
 
