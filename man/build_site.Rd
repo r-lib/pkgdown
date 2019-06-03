@@ -123,7 +123,7 @@ You can also have pkgdown automatically detect the mode with:\preformatted{devel
 
 The mode will be automatically determined based on the version number:
 \itemize{
-\item \code{0.0.0.9000}: unreleased
+\item \code{0.0.0.9000} (\code{0.0.0.*}): unreleased
 \item four version components: development
 \item everything else -> release
 }
