@@ -21,6 +21,8 @@ test_that("mode = auto uses version", {
 test_that("dev_mode recognises basic version structure", {
   expect_equal(dev_mode(package_version("0.0.0.9000")), "unreleased")
   expect_equal(dev_mode(package_version("0.0.0.9001")), "unreleased")
+  expect_equal(dev_mode(package_version("0.0.0.9999")), "unreleased")
+  expect_equal(dev_mode(package_version("0.0.1")), "release")
   expect_equal(dev_mode(package_version("0.1.0")), "release")
   expect_equal(dev_mode(package_version("1.0.0.9000")), "devel")
 })
