@@ -120,6 +120,8 @@ test_that("can control \\Sexpr output", {
 
   expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
   expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
+  expect_equal(rd2html("\\Sexpr[results=verbatim]{1 + 2}"), "<pre>[1] 3</pre>")
+  expect_equal(rd2html("\\Sexpr[results=verbatim]{cat(1)}"), "<pre>1</pre>")
   expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
 })
 

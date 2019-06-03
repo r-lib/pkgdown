@@ -231,13 +231,19 @@ as_html.tag_Sexpr <- function(x, ...) {
   on.exit(setwd(old_wd), add = TRUE)
 
   # Environment shared across a file
-  res <- eval(parse(text = code), context_get("sexpr_env"))
+  std_out <- capture.output({
+    out <- withVisible(eval(parse(text = code), context_get("sexpr_env")))
+    res <- out$value
+    if(out$visible)
+      print(res)
+  })
 
   results <- options$results %||% "rd"
   switch(results,
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
+    verbatim = paste0("<pre>", escape_html(paste(std_out, collapse = "\n")), "</pre>"),
     stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
   )
 }
