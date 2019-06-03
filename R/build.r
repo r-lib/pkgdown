@@ -91,7 +91,7 @@
 #'
 #' The mode will be automatically determined based on the version number:
 #'
-#' * `0.0.0.9000`: unreleased
+#' * `0.0.0.9000` (`0.0.0.*`): unreleased
 #' * four version components: development
 #' * everything else -> release
 #'
