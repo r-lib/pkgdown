@@ -4,12 +4,12 @@
 \alias{build_favicons}
 \title{Create favicons from package logo}
 \usage{
-build_favicons(pkg = ".", clobber = FALSE)
+build_favicons(pkg = ".", overwrite = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
 
-\item{clobber}{If \code{TRUE}, re-create favicons from package logo.}
+\item{overwrite}{If \code{TRUE}, re-create favicons from package logo.}
 }
 \description{
 This function auto-detects the location of your package logo (with the name

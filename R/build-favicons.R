@@ -13,9 +13,9 @@
 #' during package checking.
 #'
 #' @inheritParams as_pkgdown
-#' @param clobber If `TRUE`, re-create favicons from package logo.
+#' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
-build_favicons <- function(pkg = ".", clobber = FALSE) {
+build_favicons <- function(pkg = ".", overwrite = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")
@@ -23,12 +23,11 @@ build_favicons <- function(pkg = ".", clobber = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    message("Can't find package logo PNG or SVG to build favicons.")
-    return()
+    stop("Can't find package logo PNG or SVG to build favicons.")
   }
 
-  if (has_favicons(pkg) && !clobber) {
-    message("Favicons already exist in `pkgdown/`. Copying to site.")
+  if (has_favicons(pkg) && !overwrite) {
+    message("Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.")
     return()
   }
 
@@ -38,6 +37,8 @@ build_favicons <- function(pkg = ".", clobber = FALSE) {
 }
 
 build_favicons_api <- function(pkg) {
+
+  message("Building favicons with realfavicongenerator.net...")
 
   logo_path <- find_logo(pkg$src_path)
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
@@ -117,22 +118,15 @@ has_favicons <- function(pkg = ".") {
 }
 
 find_logo <- function(path) {
+  path_first_existing(
+    path(path, "logo.svg"),
+    path(path, "man", "figures", "logo.svg"),
+    path(path, "logo.png"),
+    path(path, "man", "figures", "logo.png")
+  )
+}
 
-  logo_path <- path(path, "logo.svg")
-  if (file_exists(logo_path))
-    return(logo_path)
-
-  logo_path <- path(path, "man", "figures", "logo.svg")
-  if (file_exists(logo_path))
-    return(logo_path)
-
-  logo_path <- path(path, "logo.png")
-  if (file_exists(logo_path))
-    return(logo_path)
-
-  logo_path <- path(path, "man", "figures", "logo.png")
-  if (file_exists(logo_path))
-    return(logo_path)
-
-  NULL
+has_logo <- function(pkg) {
+  logo_path <- find_logo(pkg$src_path)
+  !is.null(logo_path)
 }

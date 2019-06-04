@@ -38,8 +38,10 @@ init_site <- function(pkg = ".") {
   dir_create(pkg$dst_path)
   copy_assets(pkg)
 
-  build_favicons(pkg)
-  copy_favicons(pkg)
+  if (has_logo(pkg)) {
+    build_favicons(pkg)
+    copy_favicons(pkg)
+  }
 
   build_site_meta(pkg)
   build_sitemap(pkg)

@@ -5,7 +5,7 @@ test_that("missing logo generates message", {
   on.exit(clean_site(pkg))
 
   pkg <- as_pkgdown(pkg)
-  expect_message(
+  expect_error(
     expect_output(build_favicons(pkg)),
     "Can't find package logo"
   )
@@ -29,7 +29,7 @@ test_that("existing logo generates message", {
   )
 })
 
-test_that("faviconare built from logo.png", {
+test_that("favicons are built from logo.png", {
   skip_on_cran() # requires internet connection
   skip_on_travis()
   skip_if_offline()
@@ -76,7 +76,7 @@ test_that("existing logo can be clobbered", {
   fs::dir_create(favicon_path)
   fs::file_touch(path(favicon_path, "favicon.ico"))
 
-  # file exists, but clobber it
-  expect_output(build_favicons(pkg, clobber = TRUE))
+  # file exists, but ensure we can overwrite
+  expect_output(build_favicons(pkg, overwrite = TRUE))
   expect_true(fs::file_size(favicon_path) > 0)
 })
