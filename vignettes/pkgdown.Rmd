@@ -99,6 +99,8 @@ In addition to home page content from the README (e.g., installation instruction
 *   Licensing information is linked in the side bar using the package 
     `LICENSE`/`LICENCE` and `LICENSE.md`/`LICENCE.md` files.
 
+*   Community information is linked in the side bar using the `.github/CONTRIBUTING.md` and `.github/CODE_OF_CONDUCT.md` files, if present.
+
 *   Citation information from a `inst/CITATION` file is linked in the side bar 
     to the [authors page](https://testthat.r-lib.org/authors.html).
 
