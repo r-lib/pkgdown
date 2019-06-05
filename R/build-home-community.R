@@ -25,6 +25,8 @@ data_home_sidebar_community <- function(pkg){
     return("")
   }
 
-  sidebar_section("Community", links)}
+  sidebar_section("Community", links)
+
+}
 
 
