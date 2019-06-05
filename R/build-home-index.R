@@ -75,6 +75,7 @@ data_home_sidebar <- function(pkg = ".") {
   paste0(
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
+    data_home_sidebar_community(pkg),
     data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"
