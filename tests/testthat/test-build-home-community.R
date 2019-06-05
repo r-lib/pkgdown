@@ -2,8 +2,8 @@ context("test-build-home-community.R")
 
 test_that("community section is added if COC present", {
   skip_if_no_pandoc()
-  skip_if_not(dir_exists(path(pkg, ".github"))[[1]])
   path <- test_path("assets/site-dot-github")
+  skip_if_not(dir_exists(path(path, ".github"))[[1]])
 
   expect_output(build_home(path))
   on.exit(clean_site(path))
