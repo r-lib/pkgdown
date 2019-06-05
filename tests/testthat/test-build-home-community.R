@@ -13,10 +13,8 @@ test_that("has_contributing works", {
 
 test_that("community section is added if COC present", {
 
-  path <- test_path("assets/site-dot-github")
-  skip_if_not(dir_exists(path(path, ".github"))[[1]])
-
-  pkg <- as_pkgdown(path)
+  pkg <- test_path("assets/site-dot-github")
+  skip_if_not(dir_exists(path(pkg, ".github"))[[1]])
 
   comm <- data_home_sidebar_community(pkg)
   expect_equal(comm,
@@ -24,9 +22,7 @@ test_that("community section is added if COC present", {
 })
 
 test_that("community section is not added if no community files", {
-  path <- test_path("assets/site-orcid")
-
-  pkg <- as_pkgdown(path)
+  pkg <- test_path("assets/site-orcid")
 
   comm <- data_home_sidebar_community(pkg)
 

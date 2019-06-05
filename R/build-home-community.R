@@ -10,6 +10,8 @@ has_coc <- function(path = ".") {
 
 data_home_sidebar_community <- function (pkg){
 
+  pkg <- as_pkgdown(pkg)
+
   links <- NULL
 
   if (has_contributing(pkg$src_path)) {
