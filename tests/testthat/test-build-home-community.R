@@ -1,12 +1,14 @@
 context("test-build-home-community.R")
 
 test_that("has_coc works", {
+  skip_if_not(dir_exists(path(test_path("assets/site-dot-github"),
+                              ".github"))[[1]])
   expect_true(has_coc(test_path("assets/site-dot-github")))
   expect_false(has_coc(test_path("assets/site-orcid")))
 })
 
 test_that("has_contributing works", {
-  expect_false(has_contributing(test_path("assets/site-dot-github")))
+  expect_false(has_contributing(test_path("assets/site-orcid")))
 })
 
 test_that("community section is added if COC present", {
