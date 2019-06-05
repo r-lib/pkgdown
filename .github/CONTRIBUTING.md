@@ -2,7 +2,7 @@
 
 This document outlines how to propose a change to pkgdown. For more detailed
 info about contributing to this and other tidyverse packages, please see the
-[**development contributing guide**](https://rstd.io/tidy-contrib).
+[**tidyverse contribution guide**](https://rstd.io/tidy-contrib).
 
 ## Package reprexes
 
