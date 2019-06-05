@@ -23,7 +23,7 @@ test_that("community section is added if COC present", {
                "<div class='community'>\n<h2>Community</h2>\n<ul class='list-unstyled'>\n<li><a href=\"CODE_OF_CONDUCT.html\">Code of conduct</a></li>\n</ul>\n</div>\n")
 })
 
-test_that("community section is not added", {
+test_that("community section is not added if no community files", {
   path <- test_path("assets/site-orcid")
 
   pkg <- as_pkgdown(path)
