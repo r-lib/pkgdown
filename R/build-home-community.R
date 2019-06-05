@@ -1,10 +1,10 @@
 has_contributing <- function(path = ".") {
-  file_exists(path(path, 'CONTRIBUTING.md')) |
+  file_exists(path(path, 'CONTRIBUTING.md')) ||
     file_exists(path(path, '.github', 'CONTRIBUTING.md'))
 }
 
 has_coc <- function(path = ".") {
-  file_exists(path(path, 'CODE_OF_CONDUCT.md')) |
+  file_exists(path(path, 'CODE_OF_CONDUCT.md')) ||
     file_exists(path(path, '.github', 'CODE_OF_CONDUCT.md'))
 }
 
