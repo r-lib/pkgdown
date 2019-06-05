@@ -8,7 +8,7 @@ has_coc <- function(path = ".") {
     file_exists(path(path, '.github', 'CODE_OF_CONDUCT.md'))
 }
 
-data_home_sidebar_community <- function(pkg){
+data_home_sidebar_community <- function (pkg){
 
   links <- NULL
 
