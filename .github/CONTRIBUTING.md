@@ -73,6 +73,8 @@ with test cases included are easier to accept.
 current development version header describing the changes made followed by your
 GitHub username, and links to relevant issue(s)/PR(s).
 
+* We might ask you for a Netlify preview of your changes i.e. how does the updated version of the pkgdown package make the pkgdown pkgdown website look like. Build and install the amended package, then re-build the website which will update the docs/ folder of pkgdown itself. Log into Netlify at https://app.netlify.com/sites/, scroll down. You'll see a box with dashed outline that says "Want to deploy a new site without connecting to Git?". Open up a file browser, navigate to the "docs" directory of the site, and drag the folder to that dashed box, which will copy all the files into a temporary netlify site. Once complete, it will generate a temp URL at the top you can copy/paste in the PR discussion.
+
 ### Code of Conduct
 
 Please note that the pkgdown project is released with a
