@@ -8,7 +8,7 @@ test_that("community section is added if COC present", {
   on.exit(clean_site(path))
 
   lines <- read_lines(path(path, "docs", "index.html"))
-  expect_true(any(grepl('<a href="CODE_OF_CONDUCT.html">Code of conduct</a>',
+  expect_true(any(grepl('Code of conduct</a>',
                         lines)))
 })
 
