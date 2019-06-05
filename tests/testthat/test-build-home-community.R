@@ -1,5 +1,14 @@
 context("test-build-home-community.R")
 
+test_that("has_coc works", {
+  expect_true(has_coc(test_path("assets/site-dot-github")))
+  expect_false(has_coc(test_path("assets/site-orcid")))
+})
+
+test_that("has_contributing works", {
+  expect_false(has_contributing(test_path("assets/site-dot-github")))
+})
+
 test_that("community section is added if COC present", {
 
   path <- test_path("assets/site-dot-github")
