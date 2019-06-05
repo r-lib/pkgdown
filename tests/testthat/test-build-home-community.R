@@ -15,7 +15,6 @@ test_that("community section is added if COC present", {
 test_that("community section is not added", {
   path <- test_path("assets/site-orcid")
 
-
   pkg <- as_pkgdown(path)
 
   comm <- data_home_sidebar_community(pkg)
