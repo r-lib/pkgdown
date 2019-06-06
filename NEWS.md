@@ -1,5 +1,7 @@
 # pkgdown 1.3.0.9000 (development version)
 
+* A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
+
 * Function names can now be included in headers without spurious auto-linking (#948).
 
 * The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
