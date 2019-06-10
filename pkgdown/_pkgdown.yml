@@ -1,5 +1,10 @@
 url: https://pkgdown.r-lib.org
 
+home:
+  links:
+  - text: Ask a question about pkgdown
+    href: https://community.rstudio.com/
+
 authors:
   Jay Hesselberth:
     href: https://hesselberthlab.org
