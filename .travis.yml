@@ -7,6 +7,7 @@ cache: packages
 matrix:
   include:
   - r: devel
+    env: _R_CHECK_LENGTH_1_LOGIC2_=true
   - r: release
     after_success:
     - Rscript -e 'covr::codecov()'
