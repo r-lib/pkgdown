@@ -26,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' Supplying this will:
-#' * Allow other pkgdown sites will link to your site when needed,
+#' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
