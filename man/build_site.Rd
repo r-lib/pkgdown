@@ -67,7 +67,7 @@ paths will be taken relative to the package root.
 \code{url} optionally specifies the url where the site will be published.
 Supplying this will:
 \itemize{
-\item Allow other pkgdown sites will link to your site when needed,
+\item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
