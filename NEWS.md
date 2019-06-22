@@ -3,18 +3,22 @@
 * News page recognises more version specfications (including the 
   "(development version)" now used by usethis) (#980).
 
+* A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
+
+* Function names can now be included in headers without spurious auto-linking (#948).
+
+* The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 
 * The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
 
-* The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
+* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
 
-* Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
-  Thereby stalled builds in a cron job can get killed automatically, preventing the
-  process from hanging indefinitely.
+* The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
-* Function `build_site()` now defaults to `document = FALSE`
+* A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
 
 * Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
 
@@ -54,7 +58,7 @@
 
 ## New features
 
-* `deploy_site_github()` can be used from continuous intergration systems
+* `deploy_site_github()` can be used from continuous integration systems
   (like travis) to automatically deploy your package website to GitHub Pages.
   See documentation for how to set up details (@jimhester).
 
@@ -141,7 +145,7 @@
 * `build_site()` loses vestigal `mathjax` parameter. This didn't appear to do 
   anything and  no one could remember why it existed (#785).
 
-* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+* `build_site()` now uses colours even if `new_process = TRUE` (@jimhester).
 
 # pkgdown 1.1.0
 

@@ -9,19 +9,19 @@ test_that("intermediate files cleaned up automatically", {
   expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
-  expect_equal(sort(dir(pkg)), sort(c("docs", "DESCRIPTION", "index.Rmd")))
+  expect_setequal(dir(pkg), c("docs", "DESCRIPTION", "index.Rmd"))
 })
 
 test_that("intermediate files cleaned up automatically", {
   skip_if_no_pandoc()
 
   pkg <- test_path("assets/home-readme-rmd")
-  expect_output(build_site(pkg, document = TRUE))
+  expect_output(build_home(pkg))
   on.exit(clean_site(pkg))
 
   expect_setequal(
     dir(pkg),
-    c("docs", "man", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
+    c("docs", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
   )
 })
 

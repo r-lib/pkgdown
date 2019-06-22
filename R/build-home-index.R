@@ -1,12 +1,17 @@
-build_home_index <- function(pkg = ".", quiet = TRUE) {
+build_home_index <- function(pkg = ".", quiet = TRUE, knit = TRUE) {
   pkg <- as_pkgdown(pkg)
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
+  # When knit = FALSE, prefer pre-rendered md file if exists
   src_path <- path_first_existing(
     pkg$src_path,
-    c("index.Rmd", "README.Rmd", "index.md", "README.md")
+    if (knit){
+      c("index.Rmd", "README.Rmd", "index.md", "README.md")
+    } else {
+      c("index.md", "README.md","index.Rmd", "README.Rmd")
+    }
   )
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
@@ -17,7 +22,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   } else {
     file_ext <- path_ext(src_path)
 
-    if (file_ext == "md") {
+    if (file_ext == "md" || (!knit && file_ext == "Rmd")) {
       data$index <- markdown(src_path)
       render_page(pkg, "home", data, "index.html")
     } else if (file_ext == "Rmd") {
@@ -54,9 +59,11 @@ data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   print_yaml(list(
-    pagetitle = pkg$desc$get("Title")[[1]],
+    pagetitle = pkg$meta$home[["title"]] %||%
+      cran_unquote(pkg$desc$get("Title")[[1]]),
     sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$desc$get("Description")[[1]])
+    opengraph = list(description = pkg$meta$home[["description"]] %||%
+                       cran_unquote(pkg$desc$get("Description")[[1]]))
   ))
 }
 
@@ -68,6 +75,7 @@ data_home_sidebar <- function(pkg = ".") {
   paste0(
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
+    data_home_sidebar_community(pkg),
     data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"

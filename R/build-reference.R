@@ -33,7 +33,7 @@
 #' topics with the Rd keyword "internal". To include these, use
 #' `starts_with("build_", internal = TRUE)`.
 #'
-#' You can alo select topics that contain specified Rd concepts with
+#' You can also select topics that contain specified Rd concepts with
 #' `has_concept("blah")`.
 #'
 #' You can provide long descriptions for groups of functions using the YAML `>`
@@ -83,26 +83,35 @@
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
-#' @param document If `TRUE`, will run [devtools::document()] before
-#'   updating the site.
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
+#' @param devel If `TRUE` (the default), assumes you are in a live development
+#'   environment, so automatically runs [devtools::document()] and loads
+#'   package with [devtools::load_all()]. If `FALSE`, does not re-document,
+#'   and uses the installed version of the package for examples.
+#' @param document **Deprecated** Use `devel` instead.
 #' @export
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
-                            document = FALSE,
                             examples = TRUE,
                             run_dont_run = FALSE,
                             seed = 1014,
                             override = list(),
-                            preview = NA
+                            preview = NA,
+                            devel = TRUE,
+                            document = "DEPRECATED"
                             ) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
+  if (!missing(document)) {
+    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+    devel <- document
+  }
+
   rule("Building function reference")
-  if (document && (pkg$package != "pkgdown") && is_installed("devtools")) {
+  if (devel && (pkg$package != "pkgdown") && is_installed("devtools")) {
     devtools::document(pkg$src_path)
   }
 
@@ -118,7 +127,7 @@ build_reference <- function(pkg = ".",
   if (examples) {
     # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
-    if (!(pkg$package %in% c("pkgdown", "rprojroot"))) {
+    if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
       pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
     } else {
       library(pkg$package, character.only = TRUE)
