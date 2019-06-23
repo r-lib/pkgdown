@@ -168,20 +168,16 @@ data_news <- function(pkg = ".") {
 
 news_version <- function(x) {
   pattern <- "(?x)
-    ^([[:alnum:],\\.]+)\\s+             # alpha-numeric package name
-    (
-      (?:                               # version specification
-        v?                              # optional v
-        (?:\\d+[.-]\\d+)(?:[.-]\\d+)*   # followed by digits, dots and dashes
-      )|                                # OR
-      (?:\\(development\\ version\\))   # literal used by usethis
+    ^(?<package>[[:alnum:],\\.]+)\\s+ # alpha-numeric package name
+    (?<version>
+      v?                              # optional v
+      (\\d+[.-]\\d+)(?:[.-]\\d+)*     # followed by digits, dots and dashes
+      |                               # OR
+      (\\(development\\ version\\))   # literal used by usethis
     )
   "
-  re <- regexec(pattern, x, perl = TRUE)
-  pieces <- regmatches(x, re)
-
-  versions <- purrr::map_chr(pieces, 3, .default = NA)
-  gsub("^[v(]|[)]$", "", versions)
+  pieces <- rematch2::re_match(x, pattern)
+  gsub("^[v(]|[)]$", "", pieces$version)
 }
 
 version_page <- function(x) {
