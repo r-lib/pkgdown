@@ -103,13 +103,14 @@ tweak_code <- function(x) {
 
   # Identify <code> with no children (just text), and are not ancestors of a
   # header
-  xpath <- paste0(
-    ".//code[count(*) = 0 and ",
-    "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5)]"
-  )
-
   x %>%
-    xml2::xml_find_all(xpath) %>%
+    xml2::xml_find_all(
+      paste0(
+        ".//code[count(*) = 0 and ",
+        "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5) and",
+        "not(ancestor::div[contains(@id, 'tocnav')])]"
+      )
+    ) %>%
     tweak_code_nodeset()
 
   invisible()
