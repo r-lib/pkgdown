@@ -107,7 +107,7 @@ tweak_code <- function(x) {
     xml2::xml_find_all(
       paste0(
         ".//code[count(*) = 0 and ",
-        "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5) and",
+        "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5) and ",
         "not(ancestor::div[contains(@id, 'tocnav')])]"
       )
     ) %>%
