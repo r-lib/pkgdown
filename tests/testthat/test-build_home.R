@@ -21,7 +21,7 @@ test_that("intermediate files cleaned up automatically", {
 
   expect_setequal(
     dir(pkg),
-    c("docs", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
+    c("docs", "NAMESPACE", "man", "DESCRIPTION", "README.md", "README.Rmd")
   )
 })
 
