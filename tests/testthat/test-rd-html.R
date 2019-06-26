@@ -166,9 +166,13 @@ test_that("DOIs are linked", {
   scoped_package_context("pkgdown", src_path = "../..")
   scoped_file_context()
 
-  expect_equal(
-    rd2html("\\doi{10.1177/0163278703255230}"),
-    "doi: <a href='https://doi.org/10.1177/0163278703255230'>10.1177/0163278703255230</a>"
+  expect_true(
+    # tools:::Rd_expr_doi generates https for \doi tags as of
+    # wch/r-source@d78c5e9a41f40707b0482eebfccbcf942a79dcd4
+    rd2html("\\doi{10.1177/0163278703255230}") %in% c(
+      "doi: <a href='http://doi.org/10.1177/0163278703255230'>10.1177/0163278703255230</a>",
+      "doi: <a href='https://doi.org/10.1177/0163278703255230'>10.1177/0163278703255230</a>"
+    )
   )
 })
 
