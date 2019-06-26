@@ -144,7 +144,7 @@ tweak_pre_node <- function(node, ...) {
 
   # Extract text and link
   text <- span %>% xml2::xml_text()
-  href <- chr_along(text)
+  href <- rep_along(text, na_chr)
   href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
   href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
 

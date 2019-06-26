@@ -36,7 +36,7 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     n_args <- length(expr) - 1
 
     if (fun_name == "vignette") {
-      expr <- lang_standardise(expr)
+      expr <- call_standardise(expr)
       href_article(expr$topic, expr$package)
     } else if (fun_name == "?") {
       if (n_args == 1) {
