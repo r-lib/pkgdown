@@ -42,3 +42,24 @@ reference:
   - title: Regression tests
     contents:
     - starts_with("test", internal = TRUE)
+
+toc:
+  depth: 1
+
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: 'Linking between pkgdown sites'
+        href: articles/linking.html
+      - text: '---'
+      - text: 'Tests'
+      - text: 'Output Rendering'
+        href: articles/test/rendering.html
+      - text: 'Custom output'
+        href: articles/test/output.html
+      - text: 'PDF (PDF)'
+        href: articles/test/pdf.pdf
+      - text: 'JSS article (PDF)'
+        href: articles/test/jss.pdf
