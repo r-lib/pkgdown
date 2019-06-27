@@ -82,28 +82,13 @@
     <loc>https://pkgdown.r-lib.org/reference/test-params.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/articles/linking.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/articles/pkgdown.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/crayon.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/details.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/external.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/figures.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/highlight.html</loc>
-  </url>
-  <url>
     <loc>https://pkgdown.r-lib.org/articles/test/jss.pdf</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/mathjax.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/articles/test/output.html</loc>
@@ -112,9 +97,6 @@
     <loc>https://pkgdown.r-lib.org/articles/test/pdf.pdf</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/table.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/widget.html</loc>
+    <loc>https://pkgdown.r-lib.org/articles/test/rendering.html</loc>
   </url>
 </urlset>

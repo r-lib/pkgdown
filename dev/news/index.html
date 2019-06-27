@@ -115,37 +115,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/test/crayon.html">Test: crayon</a>
+      <a href="../articles/linking.html">Linking between pkgdown sites</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Tests</li>
+    <li>
+      <a href="../articles/test/rendering.html">Output Rendering</a>
     </li>
     <li>
-      <a href="../articles/test/details.html">Test: Details tag</a>
+      <a href="../articles/test/output.html">Custom output</a>
     </li>
     <li>
-      <a href="../articles/test/external.html">Test: External file tests</a>
+      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
     </li>
     <li>
-      <a href="../articles/test/figures.html">Test: Figures</a>
-    </li>
-    <li>
-      <a href="../articles/test/highlight.html">Test: Highlighting</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">Test: JSS article (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/mathjax.html">Test: Mathjax</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Test: Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">Test: PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/table.html">Test: Table</a>
-    </li>
-    <li>
-      <a href="../articles/test/widget.html">Test: Widgets</a>
+      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
     </li>
   </ul>
 </li>
@@ -193,6 +177,7 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li><p>Links to external documentation now point to <a href="https://rdrr.io">rdrr.io</a> (<a href='https://github.com/r-lib/pkgdown/issues/998'>#998</a>).</p></li>
+<li><p>A new vignette on linking describes how to link documentation across pkgdown sites.</p></li>
 <li><p>A default 404 page (<code>404.html</code>) is built from content in <code>.github/404.md</code> (<a href='https://github.com/r-lib/pkgdown/issues/947'>#947</a>).</p></li>
 <li><p>A community section is created in the sidebar if there is either a code of conduct (<code>.github/CODE_OF_CONDUCT.md</code>) or a contributing guide (<code>.github/CONTRIBUTING.md</code>) or both, with links to their rendered html version (<a href='https://github.com/r-lib/pkgdown/issues/1044'>#1044</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
 <li><p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which can be set to <code>FALSE</code> to disable redocumenting and reloading the package, and knitting of home <code>Rmd</code> file. This generalises and replaces (with deprecation) the existing <code>document</code> argument.</p></li>
