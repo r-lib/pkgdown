@@ -121,3 +121,9 @@ with_dir <- function(new, code) {
   on.exit(setwd(old))
   force(code)
 }
+
+# remove '' quoting
+# e.g. 'title' becomes title.s
+cran_unquote <- function(string) {
+  gsub("\\'(.*?)\\'", "\\1", string)
+}

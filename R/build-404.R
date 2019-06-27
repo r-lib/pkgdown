@@ -13,7 +13,7 @@ build_404 <- function(pkg = ".") {
       ),
       path = "404.html"
     )
-
-    invisible()
   }
+
+  invisible()
 }

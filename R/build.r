@@ -14,7 +14,7 @@
 #' that aspect of the site.
 #'
 #' Note if names of generated files were changed, you will need to use
-#' [clean_site] first to clean up orphan files.
+#' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
@@ -26,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' Supplying this will:
-#' * Allow other pkgdown sites will link to your site when needed,
+#' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
@@ -91,7 +91,7 @@
 #'
 #' The mode will be automatically determined based on the version number:
 #'
-#' * `0.0.0.9000`: unreleased
+#' * `0.0.0.9000` (`0.0.0.*`): unreleased
 #' * four version components: development
 #' * everything else -> release
 #'

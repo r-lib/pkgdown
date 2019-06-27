@@ -59,9 +59,11 @@ data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   print_yaml(list(
-    pagetitle = pkg$desc$get("Title")[[1]],
+    pagetitle = pkg$meta$home[["title"]] %||%
+      cran_unquote(pkg$desc$get("Title")[[1]]),
     sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$desc$get("Description")[[1]])
+    opengraph = list(description = pkg$meta$home[["description"]] %||%
+                       cran_unquote(pkg$desc$get("Description")[[1]]))
   ))
 }
 
@@ -73,6 +75,7 @@ data_home_sidebar <- function(pkg = ".") {
   paste0(
     data_home_sidebar_links(pkg),
     data_home_sidebar_license(pkg),
+    data_home_sidebar_community(pkg),
     data_home_sidebar_citation(pkg),
     data_home_sidebar_authors(pkg),
     collapse = "\n"
