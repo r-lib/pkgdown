@@ -4,6 +4,8 @@
 
 * Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
 
+* A new vignette on linking describes how to link documentation across pkgdown sites.
+
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
 * A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
