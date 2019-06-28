@@ -48,7 +48,7 @@ pkgdown_renderer <- function() {
 }
 
 href_tokens <- function(tokens, styles) {
-  href <- chr_along(tokens)
+  href <- rep_along(tokens, na_chr)
 
   # SYMBOL_PACKAGE must always be followed NS_GET (or NS_GET_INT)
   # SYMBOL_FUNCTION_CALL or SYMBOL

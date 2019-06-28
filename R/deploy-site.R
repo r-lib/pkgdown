@@ -120,7 +120,7 @@ deploy_local <- function(
   github_clone(dest_dir, repo_slug)
   build_site(".",
     override = list(destination = dest_dir),
-    document = FALSE,
+    devel = FALSE,
     preview = FALSE,
     ...
   )

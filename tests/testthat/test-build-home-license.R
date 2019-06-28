@@ -16,4 +16,8 @@ test_that("link_license matches LICENSE", {
     autolink_license("LICENSE"),
     "<a href='LICENSE-text.html'>LICENSE</a>"
   )
+  expect_equal(
+    autolink_license("LICENCE"),
+    "<a href='LICENSE-text.html'>LICENCE</a>"
+  )
 })

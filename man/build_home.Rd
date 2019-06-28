@@ -5,7 +5,7 @@
 \title{Build home section}
 \usage{
 build_home(pkg = ".", override = list(), preview = NA,
-  quiet = TRUE)
+  quiet = TRUE, devel = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -18,6 +18,11 @@ freshly generated section in browser.}
 
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
+
+\item{devel}{If \code{TRUE}, assumes you are doing active development, and
+re-knits all \code{.Rmd} files. If \code{FALSE}, assumes Rmarkdown files have
+already rendered to \code{.md}, falling back to rendering as plain markdown
+if they have not.}
 }
 \description{
 This function is responsible for building \code{.md} (or \code{.Rmd}) files typically
@@ -28,7 +33,7 @@ also builds any files found in \code{.github/}.
 }
 \section{Images and figures}{
 
-If you want to include images in your \code{README.md}, they must be stored in
+If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is \code{man/figures}. If you are generating figures
 with R Markdown, make sure you set up \code{fig.path} as followed:
@@ -67,6 +72,25 @@ elements:\preformatted{home:
 
 You can remove the first heading with:\preformatted{home:
   strip_header: true
+}
+}
+
+\section{YAML config - home title and description}{
+
+
+The homepage title that will be displayed in the browser tab,
+and the title of homepage in Twitter/Open Graph metadata ("og:title"),
+is by default the package Title from \code{DESCRIPTION}.
+
+The description of the homepage in Twitter/Open Graph metadata ("og:description")
+is by default the package Description from \code{DESCRIPTION}, with words quoted
+with '' unquoted.
+
+You can override these values by adding a \code{home} section in the pkgdown
+config file, and add \code{title} and/or \code{description}, with words quoted by
+'' unquoted.\preformatted{home:
+  title: This is my package title
+  description: This is a free description of my package
 }
 }
 

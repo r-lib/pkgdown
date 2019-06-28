@@ -101,12 +101,17 @@ tweak_code <- function(x) {
     xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
     purrr::map(tweak_pre_node)
 
-  # Needs to second so have all packages loaded in chunks
-  # <code> with no children (just text)
+  # Identify <code> with no children (just text), and are not ancestors of a
+  # header
   x %>%
-    xml2::xml_find_all(".//code[count(*) = 0]") %>%
+    xml2::xml_find_all(
+      paste0(
+        ".//code[count(*) = 0 and ",
+        "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5) and ",
+        "not(ancestor::div[contains(@id, 'tocnav')])]"
+      )
+    ) %>%
     tweak_code_nodeset()
-
 
   invisible()
 }
@@ -139,7 +144,7 @@ tweak_pre_node <- function(node, ...) {
 
   # Extract text and link
   text <- span %>% xml2::xml_text()
-  href <- chr_along(text)
+  href <- rep_along(text, na_chr)
   href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
   href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
 

@@ -79,7 +79,7 @@ usage_type <- function(x) {
 
     out
   } else {
-    stop("Unknown type: ", typeof(x), call. = FALSE)
+    stop("Unknown type: ", typeof(x), " (in ", as.character(x), ")",  call. = FALSE)
   }
 }
 
@@ -110,7 +110,7 @@ fun_info <- function(fun) {
       list(
         type = "s4",
         name = as.character(x[[2]]),
-        signature = as.character(purrr::pluck(x[[3]][-1]))
+        signature = as.character(x[[3]][-1])
       )
     } else if (is_call(x, c("::", ":::"))) {
       # TRUE if fun has a namespace, pkg::fun()

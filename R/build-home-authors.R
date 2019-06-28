@@ -153,7 +153,7 @@ orcid_link <- function(orcid) {
 
   paste0(
     "<a href='https://orcid.org/", orcid, "' target='orcid.widget'>",
-    "<img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>"
+    "<img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID'></a>"
   )
 }
 
