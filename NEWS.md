@@ -8,6 +8,8 @@
 
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
+* Subdirectories are supported for assets (#939, @ijlyttle).
+
 * A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
 
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
