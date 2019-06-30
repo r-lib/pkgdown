@@ -119,8 +119,8 @@ test_that("can link to remote articles", {
   )
 
   expect_equal(
-    href_expr_(vignette("highlight", "pkgdown")),
-    "https://pkgdown.r-lib.org/articles/test/highlight.html"
+    href_expr_(vignette("rendering", "pkgdown")),
+    "https://pkgdown.r-lib.org/articles/test/rendering.html"
   )
 })
 
