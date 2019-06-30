@@ -1,6 +1,7 @@
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
+
 split_at_linebreaks <- function(text) {
   if (length(text) < 1)
     return(character())
