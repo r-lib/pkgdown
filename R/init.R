@@ -78,7 +78,7 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
     return(character())
   }
 
-  files <- dir_ls(from_path, recursive = TRUE)
+  files <- dir_ls(from_path, recurse = TRUE)
 
   # Remove directories from files
   files <- files[!fs::is_dir(files)]
