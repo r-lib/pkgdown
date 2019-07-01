@@ -29,6 +29,10 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   for (i in seq_along(headings)[has_heading]) {
     # Insert anchor in first element of header
     heading <- headings[[i]]
+    if (length(xml2::xml_contents(heading)) == 0) {
+      # skip empty headings
+      next
+    }
 
     xml2::xml_attr(heading, "class") <- "hasAnchor"
     xml2::xml_add_sibling(
