@@ -95,7 +95,7 @@ find_tutorials <- function(path = ".") {
     stop("rsconnect package must be installed to scan for tutorials", call. = FALSE)
   }
 
-  rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$"))
+  rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$", type = "file"))
   info <- purrr::map(rmds, tutorial_info, base_path = path)
   purrr::compact(info)
 }
