@@ -1,28 +1,47 @@
-# pkgdown 1.3.0.9000 (development version)
+# pkgdown (development version)
 
-* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
-
-* The sticky behavior of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
-
-* Allow setting hard timeout for build_site(new_process = TRUE) via options('pkgdown.timeout'). 
-  Thereby stalled builds in a cron job can get killed automatically, preventing the
-  process from hanging indefinitely.
-
-* Function `build_site()` now defaults to `document = FALSE`
-
-* Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
+## New features
 
 * Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
 
+* A new vignette on linking describes how to link documentation across pkgdown sites.
+
 * A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
 
-* Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use),
-  so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note
-  that brands now have a separate prefix (`fab fa-github`) (#953).
+* Subdirectories are supported for assets (#939, @ijlyttle).
 
-* Optionally, opt of out of installation in `deploy_site_github()`
+* A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
+
+* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
+
+* The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
+
+* A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
+
+* Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
+
+## Improvements to Rd translation
 
 * `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
+
+## Front end
+
+* Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) (#953).
+
+* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
+
+* The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
+
+## Bug fixes and minor improvements
+
+* News page recognises more version specfications (including the  "(development version)" now used by usethis) (#980).
+
+* Function names can now be included in headers without spurious auto-linking (#948).
+
+* `build_home()` now looks for license files spelled either as LICENSE or 
+  LICENCE (#972).
+
+* Optionally, opt of out of installation in `deploy_site_github()`
 
 # pkgdown 1.3.0
 
@@ -48,7 +67,7 @@
 
 ## New features
 
-* `deploy_site_github()` can be used from continuous intergration systems
+* `deploy_site_github()` can be used from continuous integration systems
   (like travis) to automatically deploy your package website to GitHub Pages.
   See documentation for how to set up details (@jimhester).
 
@@ -135,7 +154,7 @@
 * `build_site()` loses vestigal `mathjax` parameter. This didn't appear to do 
   anything and  no one could remember why it existed (#785).
 
-* `build_site()` now uses colors even if `new_process = TRUE` (@jimhester).
+* `build_site()` now uses colours even if `new_process = TRUE` (@jimhester).
 
 # pkgdown 1.1.0
 

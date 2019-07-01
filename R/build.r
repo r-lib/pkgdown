@@ -14,7 +14,7 @@
 #' that aspect of the site.
 #'
 #' Note if names of generated files were changed, you will need to use
-#' [clean_site] first to clean up orphan files.
+#' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
 #' There are four top-level YAML settings that affect the entire site:
@@ -26,7 +26,7 @@
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' Supplying this will:
-#' * Allow other pkgdown sites will link to your site when needed,
+#' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
@@ -91,7 +91,7 @@
 #'
 #' The mode will be automatically determined based on the version number:
 #'
-#' * `0.0.0.9000`: unreleased
+#' * `0.0.0.9000` (`0.0.0.*`): unreleased
 #' * four version components: development
 #' * everything else -> release
 #'
@@ -204,6 +204,11 @@
 #' correspond to your
 #' [tracking id](https://support.google.com/analytics/answer/1032385).
 #'
+#' When enabling Google Analytics, be aware of the type and amount of
+#' user information that you are collecting. You may wish to limit the
+#' extent of data collection or to add a privacy disclosure to your
+#' site, in keeping with current laws and regulations.
+#'
 #' ```
 #' template:
 #'   params:
@@ -241,12 +246,16 @@
 #' is little documentation, and you'll need to read the existing source
 #' for pkgdown templates to ensure that you use the correct components.
 #'
-#' @section Internet:
+#' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used
 #' to build docs for a package that requires internet connectivity in examples
 #' or vignettes, this connection is required as this option won't apply on them.
+#'
+#' Users can set a timeout for `build_site(new_process = TRUE)` with
+#' `options(pkgdown.timeout = Inf)`, which is useful to prevent stalled builds from
+#' hanging in cron jobs.
 #'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
@@ -264,57 +273,63 @@
 #' }
 build_site <- function(pkg = ".",
                        examples = TRUE,
-                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
-                       new_process = TRUE) {
+                       new_process = TRUE,
+                       devel = TRUE,
+                       document = "DEPRECATED") {
+
+  if (!missing(document)) {
+    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+    devel <- document
+  }
 
   if (new_process) {
     build_site_external(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      devel = devel
     )
   } else {
     build_site_local(
       pkg = pkg,
       examples = examples,
-      document = document,
       run_dont_run = run_dont_run,
       seed = seed,
       lazy = lazy,
       override = override,
-      preview = preview
+      preview = preview,
+      devel = devel
     )
   }
 }
 
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
-                                document = FALSE,
                                 run_dont_run = FALSE,
                                 seed = 1014,
                                 lazy = FALSE,
                                 override = list(),
-                                preview = NA) {
+                                preview = NA,
+                                devel = TRUE) {
   args <- list(
     pkg = pkg,
     examples = examples,
-    document = document,
     run_dont_run = run_dont_run,
     seed = seed,
     lazy = lazy,
     override = override,
     preview = FALSE,
     new_process = FALSE,
+    devel = devel,
     crayon_enabled = crayon::has_color(),
     crayon_colors = crayon::num_colors(),
     pkgdown_internet = has_internet()
@@ -339,12 +354,12 @@ build_site_external <- function(pkg = ".",
 
 build_site_local <- function(pkg = ".",
                        examples = TRUE,
-                       document = FALSE,
                        run_dont_run = FALSE,
                        seed = 1014,
                        lazy = FALSE,
                        override = list(),
-                       preview = NA
+                       preview = NA,
+                       devel = TRUE
                        ) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
@@ -355,15 +370,15 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE)
+  build_home(pkg, override = override, preview = FALSE, devel = devel)
   build_reference(pkg,
     lazy = lazy,
-    document = document,
     examples = examples,
     run_dont_run = run_dont_run,
     seed = seed,
     override = override,
-    preview = FALSE
+    preview = FALSE,
+    devel = devel
   )
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)

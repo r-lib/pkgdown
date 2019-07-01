@@ -1,12 +1,12 @@
 # Renders LICENSE text file into html
 build_home_license <- function(pkg) {
-  license_md <- path(pkg$src_path, "LICENSE.md")
-  if (file_exists(license_md)) {
+  license_md <- path_first_existing(pkg$src_path, c("LICENSE.md", "LICENCE.md"))
+  if (!is.null(license_md)) {
     render_md(pkg, license_md)
   }
 
-  license_raw <- path(pkg$src_path, "LICENSE")
-  if (file_exists(license_raw)) {
+  license_raw <- path_first_existing(pkg$src_path, c("LICENSE", "LICENCE"))
+  if (!is.null(license_raw)) {
     render_page(pkg, "title-body",
       data = list(
         pagetitle = "License",
@@ -16,7 +16,6 @@ build_home_license <- function(pkg) {
     )
     return()
   }
-
 }
 
 data_home_sidebar_license <- function(pkg = ".") {
@@ -24,8 +23,8 @@ data_home_sidebar_license <- function(pkg = ".") {
 
   link <- autolink_license(pkg$desc$get("License")[[1]])
 
-  has_license_md <- file_exists(path(pkg$src_path, "LICENSE.md"))
-  if (has_license_md) {
+  license_md <- path_first_existing(pkg$src_path, c("LICENSE.md", "LICENCE.md"))
+  if (!is.null(license_md)) {
     link <- c(
       "<a href='LICENSE.html'>Full license</a>",
       paste0("<small>", link, "</small>")
@@ -55,8 +54,8 @@ licenses_db <- function() {
   url <- db$URL
 
   # Add entry for LICENSE file
-  abbr <- c(abbr, "LICENSE")
-  url <- c(url, "LICENSE-text.html")
+  abbr <- c(abbr, "LICENSE", "LICENCE")
+  url <- c(url, "LICENSE-text.html", "LICENSE-text.html")
 
   out <- tibble::tibble(abbr, url)
   out$a <- paste0("<a href='", url, "'>", abbr, "</a>")

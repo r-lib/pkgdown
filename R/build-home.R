@@ -7,7 +7,7 @@
 #' also builds any files found in `.github/`.
 #'
 #' @section Images and figures:
-#' If you want to include images in your `README.md`, they must be stored in
+#' If you want to include images in your `README.md`, they must be stored
 #' somewhere in the package so that they can be displayed on the CRAN website.
 #' The best place to put them is `man/figures`. If you are generating figures
 #' with R Markdown, make sure you set up `fig.path` as followed:
@@ -52,6 +52,26 @@
 #' home:
 #'   strip_header: true
 #' ```
+#' @section YAML config - home title and description:
+#'
+#' The homepage title that will be displayed in the browser tab,
+#' and the title of homepage in Twitter/Open Graph metadata ("og:title"),
+#' is by default the package Title from `DESCRIPTION`.
+#'
+#' The description of the homepage in Twitter/Open Graph metadata ("og:description")
+#' is by default the package Description from `DESCRIPTION`, with words quoted
+#' with '' unquoted.
+#'
+#' You can override these values by adding a `home` section in the pkgdown
+#' config file, and add `title` and/or `description`, with words quoted by
+#' '' unquoted.
+#'
+#' ```
+#' home:
+#'   title: This is my package title
+#'   description: This is a free description of my package
+#' ```
+#'
 #'
 #' @section YAML config - authors:
 #' The "developers" list is populated by the maintainer ("cre"), authors
@@ -88,11 +108,16 @@
 #'   only contains images.
 #'
 #' @inheritParams build_articles
+#' @param devel If `TRUE`, assumes you are doing active development, and
+#'   re-knits all `.Rmd` files. If `FALSE`, assumes Rmarkdown files have
+#'   already rendered to `.md`, falling back to rendering as plain markdown
+#'   if they have not.
 #' @export
 build_home <- function(pkg = ".",
                        override = list(),
                        preview = NA,
-                       quiet = TRUE) {
+                       quiet = TRUE,
+                       devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
@@ -105,7 +130,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg, quiet = quiet)
+  build_home_index(pkg, quiet = quiet, knit = devel)
 
   preview_site(pkg, "/", preview = preview)
 }

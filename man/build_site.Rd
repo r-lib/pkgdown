@@ -4,17 +4,14 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, document = FALSE,
-  run_dont_run = FALSE, seed = 1014, lazy = FALSE,
-  override = list(), preview = NA, new_process = TRUE)
+build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
+  seed = 1014, lazy = FALSE, override = list(), preview = NA,
+  new_process = TRUE, devel = TRUE, document = "DEPRECATED")
 }
 \arguments{
 \item{pkg}{Path to package.}
 
 \item{examples}{Run examples?}
-
-\item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
-updating the site.}
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
@@ -33,6 +30,13 @@ freshly generated section in browser.}
 \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
+
+\item{devel}{If \code{TRUE} (the default), assumes you are in a live development
+environment, so automatically runs \code{\link[devtools:document]{devtools::document()}} and loads
+package with \code{\link[devtools:load_all]{devtools::load_all()}}. If \code{FALSE}, does not re-document,
+and uses the installed version of the package for examples.}
+
+\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around six functions:
@@ -49,7 +53,7 @@ See the documentation for the each function to learn how to control
 that aspect of the site.
 
 Note if names of generated files were changed, you will need to use
-\link{clean_site} first to clean up orphan files.
+\code{\link[=clean_site]{clean_site()}} first to clean up orphan files.
 }
 \section{YAML config}{
 
@@ -63,7 +67,7 @@ paths will be taken relative to the package root.
 \code{url} optionally specifies the url where the site will be published.
 Supplying this will:
 \itemize{
-\item Allow other pkgdown sites will link to your site when needed,
+\item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
@@ -119,7 +123,7 @@ You can also have pkgdown automatically detect the mode with:\preformatted{devel
 
 The mode will be automatically determined based on the version number:
 \itemize{
-\item \code{0.0.0.9000}: unreleased
+\item \code{0.0.0.9000} (\code{0.0.0.*}): unreleased
 \item four version components: development
 \item everything else -> release
 }
@@ -222,7 +226,12 @@ See a complete list of themes and preview how they look at
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://www.google.com/analytics/}{Google Analytics}. It should
 correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.\preformatted{template:
+\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
+
+When enabling Google Analytics, be aware of the type and amount of
+user information that you are collecting. You may wish to limit the
+extent of data collection or to add a privacy disclosure to your
+site, in keeping with current laws and regulations.\preformatted{template:
   params:
     ganalytics: UA-000000-01
 }
@@ -252,13 +261,17 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
 
-\section{Internet}{
+\section{Options}{
 
 Users with limited internet connectivity can disable CRAN checks by setting
 \code{options(pkgdown.internet = FALSE)}. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.
+
+Users can set a timeout for \code{build_site(new_process = TRUE)} with
+\code{options(pkgdown.timeout = Inf)}, which is useful to prevent stalled builds from
+hanging in cron jobs.
 }
 
 \examples{
