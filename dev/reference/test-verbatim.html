@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build reference section — build_reference • pkgdown</title>
+<title>Test case: verbatim blocks — test-verbatim • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,11 +45,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Build reference section — build_reference" />
+<meta property="og:title" content="Test case: verbatim blocks — test-verbatim" />
 
-<meta property="og:description" content="By default, pkgdown will generate an index that lists all functions in
-alphabetical order. To override this, provide a reference section in your
-_pkgdown.yml as described below." />
+<meta property="og:description" content="This description block is required so that verbatim blocks are recognized
+and rendered correctly." />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -168,156 +167,52 @@ _pkgdown.yml as described below." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build reference section</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-reference.R'><code>R/build-reference.R</code></a></small>
-    <div class="hidden name"><code>build_reference.Rd</code></div>
+    <h1>Test case: verbatim blocks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/test.R'><code>R/test.R</code></a></small>
+    <div class="hidden name"><code>test-verbatim.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>By default, pkgdown will generate an index that lists all functions in
-alphabetical order. To override this, provide a <code>reference</code> section in your
-<code>_pkgdown.yml</code> as described below.</p>
+    <p>This description block is required so that verbatim blocks are recognized
+and rendered correctly.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)
-
-<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>pkg</th>
-      <td><p>Path to package.</p></td>
-    </tr>
-    <tr>
-      <th>lazy</th>
-      <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
-is more recent than the <code>.html</code>. This makes it much easier to
-rapidly prototype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>examples</th>
-      <td><p>Run examples?</p></td>
-    </tr>
-    <tr>
-      <th>run_dont_run</th>
-      <td><p>Run examples that are surrounded in \dontrun?</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p>Seed used to initialize so that random examples are
-reproducible.</p></td>
-    </tr>
-    <tr>
-      <th>override</th>
-      <td><p>An optional named list used to temporarily override
-values in <code>_pkgdown.yml</code></p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
-freshly generated section in browser.</p></td>
-    </tr>
-    <tr>
-      <th>devel</th>
-      <td><p>If <code>TRUE</code> (the default), assumes you are in a live development
-environment, so automatically runs <code><a href='https://rdrr.io/pkg/devtools/man/document.html'>devtools::document()</a></code> and loads
-package with <code><a href='https://rdrr.io/pkg/devtools/man/load_all.html'>devtools::load_all()</a></code>. If <code>FALSE</code>, does not re-document,
-and uses the installed version of the package for examples.</p></td>
-    </tr>
-    <tr>
-      <th>document</th>
-      <td><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
+<pre>foo
 
-<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>
-which provides a list of sections containing, a <code>title</code>, list of <code>contents</code>,
-and an optional <code>description</code>.</p>
-<p>For example, the following code breaks up the functions in pkgdown
-into two groups:</p><pre>reference:
-- title: Render components
-  desc:  Build each component of the site.
-  contents:
-  - starts_with("build_")
-  - init_site
-- title: Templates
-  contents:
-  - render_page
-</pre>
+bar
+</pre><pre>yaml:
+  this
 
-<p>Note that <code>contents</code> can contain either a list of function names, or if the
-functions in a section share a common prefix or suffix, you can use
-<code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
-more complex naming schemes you can use an arbitrary regular expression with
-<code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
-section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use
-<code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>You can also select topics that contain specified Rd concepts with
-<code>has_concept("blah")</code>.</p>
-<p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
-notation:</p><pre>desc: &gt;
-  This is a very long and overly flowery description of a
-  single simple function.
-</pre>
+OR:
 
-<p>If you have functions with odd names (e.g. that start with a plus symbol
-<code>+</code>), you can include them by double-escaping. This YAML entry adds the
-<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
-</pre>
-
-<p>pkgdown will check that all non-internal topics are included on
-this page, and will generate a warning if you have missed any.</p>
-    
-    <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
-
-    
-
-
-<p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
-  dev: grDevices::png
-  dpi: 96
-  dev.args: []
-  fig.ext: png
-  fig.width: 7.2916667
-  fig.height: ~
-  fig.retina: 2
-  fig.asp: 1.618
+yaml:
+  that
 </pre>
 
     
-    <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    
-
-<p>You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level <code>icons</code> directory. This should contain .png files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.</p>
+    <div class='dont-index'><p>Other tests: <code><a href='test-crayon.html'>test-crayon</a></code>,
+  <code><a href='test-dont.html'>test-dont</a></code>, <code><a href='test-figures.html'>test-figures</a></code>,
+  <code><a href='test-links.html'>test-links</a></code>, <code><a href='test-lists.html'>test-lists</a></code>,
+  <code><a href='test-output-styles.html'>test-output-styles</a></code>,
+  <code><a href='test-params.html'>test-params</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#yaml-config">YAML config</a></li>
+      <li><a href="#details">Details</a></li>
 
-      <li><a href="#figures">Figures</a></li>
-
-      <li><a href="#icons">Icons</a></li>
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

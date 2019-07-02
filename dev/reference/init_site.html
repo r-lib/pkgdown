@@ -193,7 +193,8 @@ of the site, and copies CSS/JS assets and extra files.</p>
     <h2 class="hasAnchor" id="build-ignored-files"><a class="anchor" href="#build-ignored-files"></a>Build-ignored files</h2>
 
     
-    <p>We recommend using <code><a href='https://usethis.r-lib.org/reference/use_pkgdown.html'>usethis::use_pkgdown()</a></code> to build-ignore <code>docs/</code> and
+
+<p>We recommend using <code><a href='https://usethis.r-lib.org/reference/use_pkgdown.html'>usethis::use_pkgdown()</a></code> to build-ignore <code>docs/</code> and
 <code>_pkgdown.yml</code>. If use another directory, or create the site manually,
 you'll need to add them to <code>.Rbuildignore</code> yourself. A <code>NOTE</code> about
 an unexpected file during <code>R CMD CHECK</code> is an indication you have not
@@ -202,7 +203,8 @@ correctly ignored these files.</p>
     <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
 
     
-    <p>If you want to do minor customisation of your pkgdown site, the easiest
+
+<p>If you want to do minor customisation of your pkgdown site, the easiest
 way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
 will be automatically copied to <code>docs/</code> and inserted into the
 <code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JS.</p>
@@ -210,14 +212,16 @@ will be automatically copied to <code>docs/</code> and inserted into the
     <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
 
     
-    <p>You should manually run <code><a href='build_favicon.html'>build_favicon()</a></code> once to generate the favicon set
+
+<p>You should manually run <code><a href='build_favicon.html'>build_favicon()</a></code> once to generate the favicon set
 from your logo. The result is stored in <code>pkgdown/favicon</code> and will
 automatically be copied to the relevant location when you run <code>init_site()</code>.</p>
     
     <h2 class="hasAnchor" id="-"><a class="anchor" href="#-"></a>404</h2>
 
     
-    <p>pkgdown creates a default 404 page (<code>404.html</code>). You can customize 404
+
+<p>pkgdown creates a default 404 page (<code>404.html</code>). You can customize 404
 page content using <code>.github/404.md</code>.</p>
     
 

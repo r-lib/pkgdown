@@ -236,7 +236,8 @@ gets special treatment. It is rendered and linked to in the navbar under
     <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
 
     
-    <p>pkgdown differs from base R in its handling of external files. When building
+
+<p>pkgdown differs from base R in its handling of external files. When building
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
@@ -249,13 +250,15 @@ resource_files:
   - images/figure.png
 ---
 </pre>
-    <p>Note that you can not use the <code>fig.path</code> to change the output directory of
+
+<p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
     
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>To tweak the index page, you need a section called <code>articles</code>,
+
+<p>To tweak the index page, you need a section called <code>articles</code>,
 which provides a list of sections containing, a <code>title</code>, list of
 <code>contents</code>, and optional <code>description</code>.</p>
 <p>For example, this imaginary file describes some of the structure of
@@ -268,7 +271,8 @@ the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>
   - rmarkdown_websites
   - rmarkdown_site_generators
 </pre>
-    <p>Note that <code>contents</code> can contain either a list of vignette names
+
+<p>Note that <code>contents</code> can contain either a list of vignette names
 (including subdirectories), or if the functions in a section share a
 common prefix or suffix, you can use <code>starts_with("prefix")</code> and
 <code>ends_with("suffix")</code> to select them all. If you don't care about
@@ -281,7 +285,8 @@ this page, and will generate a warning if you have missed any.</p>
     <h2 class="hasAnchor" id="yaml-header"><a class="anchor" href="#yaml-header"></a>YAML header</h2>
 
     
-    <p>By default, pkgdown builds all articles with <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code>
+
+<p>By default, pkgdown builds all articles with <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code>
 using setting the <code>template</code> parameter. This overrides any custom settings
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
@@ -289,7 +294,8 @@ in the same way (and receive the default site template).</p>
 to add a <code>pkgdown</code> field to your yaml metadata:</p><pre>pkgdown:
   as_is: true
 </pre>
-    <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
+
+<p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
@@ -297,11 +303,13 @@ have specified. This format must accept <code>template</code>, <code>theme</code
   as_is: true
   extension: pdf
 </pre>
+
     
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
     
-    <p>If you want articles that are not vignettes, either put them in
+
+<p>If you want articles that are not vignettes, either put them in
 subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
@@ -313,14 +321,18 @@ sites.</p>
     <h2 class="hasAnchor" id="tables-of-contents"><a class="anchor" href="#tables-of-contents"></a>Tables of contents</h2>
 
     
-    <p>You can control the TOC depth via the YAML configuration file:</p><pre>toc:
+
+<p>You can control the TOC depth via the YAML configuration file:</p><pre>toc:
   depth: 2
 </pre>
+
     
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
     
-    <p>You can control the default rendering of figures by specifying the <code>figures</code>
+
+
+<p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
   dev: grDevices::png
   dpi: 96
@@ -331,6 +343,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.retina: 2
   fig.asp: 1.618
 </pre>
+
     
 
   </div>

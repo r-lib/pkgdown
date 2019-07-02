@@ -54,9 +54,9 @@ build_reference()
 build_articles()
 build_tutorials()
 build_news()
-" />
 
-<meta property="og:description" content="See the documentation for the each function to learn how to control
+
+See the documentation for the each function to learn how to control
 that aspect of the site.
 Note if names of generated files were changed, you will need to use
 clean_site() first to clean up orphan files." />
@@ -194,7 +194,7 @@ clean_site() first to clean up orphan files." />
 <li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
 </ul>
 
-    <p>See the documentation for the each function to learn how to control
+<p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
 <p>Note if names of generated files were changed, you will need to use
 <code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
@@ -262,7 +262,8 @@ and uses the installed version of the package for examples.</p></td>
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>There are four top-level YAML settings that affect the entire site:
+
+<p>There are four top-level YAML settings that affect the entire site:
 <code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
 <p><code>destination</code> controls where the site will be generated. It defaults to
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
@@ -276,7 +277,8 @@ rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>
 <a href='deploy_site_github.html'>deploying to github</a>.</p></li>
 </ul><pre>url: http://pkgdown.r-lib.org
 </pre>
-    <p><code>title</code> overrides the default site title, which is the package name.
+
+<p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
@@ -288,17 +290,20 @@ text:</p><pre>authors:
     href: https://www.rstudio.com
     html: &lt;img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" /&gt;
 </pre>
+
     
     <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode"></a>Development mode</h2>
 
     
-    <p>The development mode of a site controls four main things:</p><ul>
+
+<p>The development mode of a site controls four main things:</p><ul>
 <li><p>Where the site is built.</p></li>
 <li><p>The colour of the package version in the navbar.</p></li>
 <li><p>The optional tooltip associated with the version.</p></li>
 <li><p>The indexing of the site by search engines.</p></li>
 </ul>
-    <p>There are currently three possible development modes:</p><ul>
+
+<p>There are currently three possible development modes:</p><ul>
 <li><p><strong>release</strong>: site written to <code>docs/</code>, the version gets the default
 colouring, and no message.</p></li>
 <li><p><strong>development</strong>: written to <code>docs/dev/</code>, the version gets a danger label,
@@ -308,24 +313,29 @@ not indexed by search engines.</p></li>
 <li><p><strong>unreleased</strong>: the package is written to <code>docs/</code>, the version gets a "danger"
 label, and the message indicates the package is not yet on CRAN.</p></li>
 </ul>
-    <p>The default development mode is "release". You can override it by adding a
+
+<p>The default development mode is "release". You can override it by adding a
 new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>development:
   mode: devel
 </pre>
-    <p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
+
+<p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
   mode: auto
 </pre>
-    <p>The mode will be automatically determined based on the version number:</p><ul>
+
+<p>The mode will be automatically determined based on the version number:</p><ul>
 <li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
 <li><p>four version components: development</p></li>
 <li><p>everything else -&gt; release</p></li>
 </ul>
-    <p>There are three other options that you can control:</p><pre>development:
+
+<p>There are three other options that you can control:</p><pre>development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
 </pre>
-    <p><code>destination</code> allows you to override the default subdirectory used for the
+
+<p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
 override the style used for development (and unreleased) versions of the
 package. It defaults to "danger", but you can set to "default", "info", or
@@ -337,7 +347,8 @@ to danger). Finally, you can choose to override the default tooltip with
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
     
-    <p><code>navbar</code> controls the navbar at the top of the page. It has two primary
+
+<p><code>navbar</code> controls the navbar at the top of the page. It has two primary
 components: <code>structure</code> and <code>components</code>. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically
@@ -350,7 +361,8 @@ and to add your own components.</p><pre>navbar:
     left:  [home, intro, reference, articles, tutorials, news]
     right: [github]
 </pre>
-    <p>The <code>components</code> describes the appearance of each element in the navbar.
+
+<p>The <code>components</code> describes the appearance of each element in the navbar.
 It uses the same
 syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p><pre>components:
@@ -371,7 +383,8 @@ The following YAML snippet illustrates some of the most important features.</p><
      icon: "fab fa-twitter fa-lg"
      href: http://twitter.com/hadleywickham
 </pre>
-    <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
+
+<p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
 <code>href</code>) and separators (indicated by a bunch of <code>-</code>). You can also use <code>icon</code>s
 from <a href='https://fontawesome.com/icons?d=gallery'>fontawesome</a>.</p>
 <p>This yaml would override the default "articles" component, eliminate
@@ -382,19 +395,22 @@ to the far right of the left menu.</p>
     <h2 class="hasAnchor" id="yaml-config-search"><a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
 
     
-    <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
+
+<p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
 to add search to your site.</p><pre>template:
   params:
     docsearch:
       api_key: API_KEY
       index_name: INDEX_NAME
 </pre>
-    <p>You also need to add a <code>url:</code> field, see above.</p>
+
+<p>You also need to add a <code>url:</code> field, see above.</p>
     
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
     
-    <p>You can get complete control over the appearance of the site using the
+
+<p>You can get complete control over the appearance of the site using the
 <code>template</code> component. There are two components to the template:
 the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
@@ -404,7 +420,8 @@ template:</p><pre>template:
   params:
     bootswatch: cerulean
 </pre>
-    <p>See a complete list of themes and preview how they look at
+
+<p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
@@ -417,30 +434,36 @@ site, in keeping with current laws and regulations.</p><pre>template:
   params:
     ganalytics: UA-000000-01
 </pre>
-    <p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
+
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
   params:
     noindex: true
 </pre>
-    <p>You can also override the default templates and provide additional
+
+<p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
 of the default assets, set <code>default_assets</code> to false.</p><pre>template:
   package: mycustompackage
-    # OR:
-    template:
+
+# OR:
+
+template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
 </pre>
-    <p>These settings are currently recommended for advanced users only. There
+
+<p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
     
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
-    <p>Users with limited internet connectivity can disable CRAN checks by setting
+
+<p>Users with limited internet connectivity can disable CRAN checks by setting
 <code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.internet = FALSE)</a></code>. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
