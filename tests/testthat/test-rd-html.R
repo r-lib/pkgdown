@@ -301,6 +301,18 @@ test_that("cr generates line break", {
   expect_equal(out, "<p>a <br /> b</p>")
 })
 
+# Verbatim ----------------------------------------------------------------
+
+test_that("newlines are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\nb\n\nc}"))
+  expect_equal(out, "<pre>a\n\nb\n\nc</pre>\n")
+})
+
+test_that("spaces are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\n  b\n\n  c}"))
+  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>\n")
+})
+
 # Usage -------------------------------------------------------------------
 
 test_that("S4 methods gets comment", {
