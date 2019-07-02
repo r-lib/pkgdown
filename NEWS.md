@@ -24,6 +24,8 @@
 
 * `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
 
+* Content in verbatim blocks (`preformatted{}`) is now handled more robustly (#951).
+
 ## Front end
 
 * Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) (#953).
