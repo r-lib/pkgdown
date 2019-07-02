@@ -51,7 +51,7 @@ flatten_para <- function(x, ...) {
 
   blocks[needs_p] <- paste0("<p>", str_trim(blocks[needs_p]), "</p>")
 
-  str_trim(paste0(blocks, collapse = ""))
+  paste0(blocks, collapse = "")
 }
 
 
