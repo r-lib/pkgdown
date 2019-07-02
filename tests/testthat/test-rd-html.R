@@ -288,7 +288,7 @@ test_that("inline tags + empty line breaks", {
 
 test_that("single item can have multiple paragraphs", {
   out <- flatten_para(rd_text("\\itemize{\\item a\n\nb}"))
-  expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>")
+  expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>\n")
 })
 
 test_that("nl after tag doesn't trigger paragraphs", {
@@ -305,12 +305,12 @@ test_that("cr generates line break", {
 
 test_that("newlines are preserved in preformatted blocks", {
   out <- flatten_para(rd_text("\\preformatted{a\n\nb\n\nc}"))
-  expect_equal(out, "<pre>a\n\nb\n\nc</pre>")
+  expect_equal(out, "<pre>a\n\nb\n\nc</pre>\n")
 })
 
 test_that("spaces are preserved in preformatted blocks", {
   out <- flatten_para(rd_text("\\preformatted{a\n\n  b\n\n  c}"))
-  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>")
+  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>\n")
 })
 
 # Usage -------------------------------------------------------------------
