@@ -288,7 +288,7 @@ test_that("inline tags + empty line breaks", {
 
 test_that("single item can have multiple paragraphs", {
   out <- flatten_para(rd_text("\\itemize{\\item a\n\nb}"))
-  expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>\n")
+  expect_equal(out, "<ul>\n<li><p>a</p>\n<p>b</p></li>\n</ul>")
 })
 
 test_that("nl after tag doesn't trigger paragraphs", {
