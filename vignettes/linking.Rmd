@@ -1,5 +1,10 @@
 ---
 title: "Linking between pkgdown sites"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linking between pkgdown sites}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
