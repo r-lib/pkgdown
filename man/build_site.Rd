@@ -53,7 +53,7 @@ See the documentation for the each function to learn how to control
 that aspect of the site.
 
 Note if names of generated files were changed, you will need to use
-\link{clean_site} first to clean up orphan files.
+\code{\link[=clean_site]{clean_site()}} first to clean up orphan files.
 }
 \section{YAML config}{
 
@@ -67,7 +67,7 @@ paths will be taken relative to the package root.
 \code{url} optionally specifies the url where the site will be published.
 Supplying this will:
 \itemize{
-\item Allow other pkgdown sites will link to your site when needed,
+\item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
@@ -123,7 +123,7 @@ You can also have pkgdown automatically detect the mode with:\preformatted{devel
 
 The mode will be automatically determined based on the version number:
 \itemize{
-\item \code{0.0.0.9000}: unreleased
+\item \code{0.0.0.9000} (\code{0.0.0.*}): unreleased
 \item four version components: development
 \item everything else -> release
 }

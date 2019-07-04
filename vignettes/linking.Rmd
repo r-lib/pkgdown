@@ -1,0 +1,36 @@
+---
+title: "Linking between pkgdown sites"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linking between pkgdown sites}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Documentation can be linked across multiple pkgdown sites by ensuring that specific URL links are defined.
+
+First, to enable linking to a package's pkgdown site, it must define the pkgdown site in the `URL` field of its `DESCRIPTION` file. An example of this approach is the `DESCRIPTION` file for for [dplyr ](https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/DESCRIPTION#L15), which lists its pkgdown site <https://dplyr.tidyverse.org>:
+
+```
+URL: http://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr
+```
+
+Second, the `url` field must defined in the package's [`pkgdown.yml` file](https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/_pkgdown.yml#L1). If defined, pkgdown will generate a web-accessible [`pkgdown.yml` file](https://dplyr.tidyverse.org/pkgdown.yml) containing a link to the package documentation (the `reference` URL below).
+
+```
+pandoc: '2.2'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+...
+urls:
+  reference: https://dplyr.tidyverse.org/reference
+```
+
+Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., `dplyr::mutate()`), pkgdown looks for the `pkgdown.yml` file for dplyr, and if found, pkgdown uses the URL in the `reference` field to link to dplyr functions. If this file cannot be found, pkgdown generates links to the [`rdrr.io`](https://rdrr.io) R package documentation site.

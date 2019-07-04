@@ -68,3 +68,21 @@ test_that("multi-page news are rendered", {
   lines <- read_lines(path(path, "docs", "news", "news-1.0.html"))
   expect_true(any(grepl("<h1>Changelog <small>1.0</small></h1>", lines)))
 })
+
+
+# news_title and version_page -----------------------------------------------
+
+test_that("can recognise common forms of title", {
+  version <- news_version(c(
+    "pkgdown 1.3.0",
+    "pkgdown v1.3.0",
+    "pkgdown (development version)"
+  ))
+  expect_equal(version, c("1.3.0", "1.3.0", "development version"))
+})
+
+test_that("correctly collapses version to page for common cases", {
+  versions <- c("1.0.0", "1.0.0.0", "1.0.0.9000", "development version")
+  pages <- purrr::map_chr(versions, version_page)
+  expect_equal(pages, c("1.0", "1.0", "dev", "dev"))
+})

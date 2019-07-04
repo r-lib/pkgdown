@@ -39,11 +39,10 @@ as_data.tag_item <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- flatten_para(x, ...)
-  paras <- split_at_linebreaks(text)
 
   list(
     title = title,
-    contents = paras
+    contents = text
   )
 }
 

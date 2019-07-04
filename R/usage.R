@@ -150,13 +150,15 @@ usage_code.NULL <- function(x) character()
 #' @export
 usage_code.tag <- function(x) {
   if (!identical(class(x), "tag")) {
-    stop("Undefined tag ", class(x)[[1]], call. = FALSE)
+    stop("Undefined tag in usage ", class(x)[[1]], call. = FALSE)
   }
   paste0(purrr::flatten_chr(purrr::map(x, usage_code)), collapse = "")
 }
 
 #' @export
 usage_code.tag_dots <- function(x) "..."
+#' @export
+usage_code.tag_ldots <- function(x) "..."
 
 #' @export
 usage_code.TEXT <-    function(x) as.character(x)

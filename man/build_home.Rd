@@ -33,7 +33,7 @@ also builds any files found in \code{.github/}.
 }
 \section{Images and figures}{
 
-If you want to include images in your \code{README.md}, they must be stored in
+If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is \code{man/figures}. If you are generating figures
 with R Markdown, make sure you set up \code{fig.path} as followed:

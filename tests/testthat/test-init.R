@@ -26,3 +26,12 @@ test_that("single extra.css correctly copied", {
 
   expect_true(file_exists(path(pkg, "docs", "extra.css")))
 })
+
+test_that("asset subdirectories are copied", {
+  pkg <- test_path("assets/init-asset-subdirs")
+  expect_output(init_site(pkg))
+  on.exit(clean_site(pkg))
+
+  expect_true(file_exists(path(pkg, "docs", "subdir1", "file1.txt")))
+  expect_true(file_exists(path(pkg, "docs", "subdir1", "subdir2", "file2.txt")))
+})
