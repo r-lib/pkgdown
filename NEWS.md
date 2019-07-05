@@ -36,6 +36,8 @@
 
 ## Bug fixes and minor improvements
 
+* Infix operators (e.g., `%in%` and `%*%`) are now linked to their documentation (#1082).
+
 * News page recognises more version specfications (including the  "(development version)" now used by usethis) (#980).
 
 * Function names can now be included in headers without spurious auto-linking (#948).
