@@ -17,9 +17,8 @@
 #' `<HEAD>` after the default pkgdown CSS and JS.
 #'
 #' @section Favicon:
-#' You should manually run [build_favicons()] once to generate the favicon set
-#' from your logo. The result is stored in `pkgdown/favicon` and will
-#' automatically be copied to the relevant location when you run [init_site()].
+#' Favicons are built automatically from a logo PNG or SVG by [init_site()] and
+#' copied to `pkgdown/favicon`.
 #'
 #' @section 404:
 #' pkgdown creates a default 404 page (`404.html`). You can customize 404
@@ -38,7 +37,7 @@ init_site <- function(pkg = ".") {
   dir_create(pkg$dst_path)
   copy_assets(pkg)
 
-  if (has_logo(pkg)) {
+  if (has_logo(pkg) && !has_favicons(pkg)) {
     build_favicons(pkg)
     copy_favicons(pkg)
   }

@@ -23,7 +23,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    stop("Can't find package logo PNG or SVG to build favicons.")
+    stop("Can't find package logo PNG or SVG to build favicons.", call. = FALSE)
   }
 
   if (has_favicons(pkg) && !overwrite) {
@@ -31,16 +31,8 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     return()
   }
 
-  build_favicons_api(pkg)
-
-  invisible()
-}
-
-build_favicons_api <- function(pkg) {
-
   message("Building favicons with realfavicongenerator.net...")
 
-  logo_path <- find_logo(pkg$src_path)
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
   json_request <- list(
@@ -92,10 +84,10 @@ build_favicons_api <- function(pkg) {
     utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
   },
   warning = function(e) {
-    warning("Your logo file couldn't be processed and may be corrupt.")
+    stop("Your logo file couldn't be processed and may be corrupt.", call. = FALSE)
   },
   error = function(e) {
-    warning("Your logo file couldn't be processed and may be corrupt.")
+    stop("Your logo file couldn't be processed and may be corrupt.", call. = FALSE)
   })
 
   invisible()

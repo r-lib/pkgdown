@@ -46,7 +46,7 @@ test_that("favicons are built from logo.png", {
 })
 
 
-test_that("bad logos generate a warning", {
+test_that("bad logos generate an error", {
   skip_on_cran() # requires internet connection
   skip_on_travis()
   skip_if_offline()
@@ -54,8 +54,8 @@ test_that("bad logos generate a warning", {
   pkg <- as_pkgdown(test_path("assets/site-bad-logo"))
   on.exit(dir_delete(path(pkg$src_path, "pkgdown")))
 
-  expect_warning(
-    build_favicons_api(pkg),
+  expect_error(
+    expect_output(build_favicons(pkg)),
     "Your logo file couldn't be processed"
   )
 })
