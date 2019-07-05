@@ -166,9 +166,11 @@ test_that("DOIs are linked", {
   scoped_package_context("pkgdown", src_path = "../..")
   scoped_file_context()
 
-  expect_equal(
-    rd2html("\\doi{10.1177/0163278703255230}"),
-    "doi: <a href='http://doi.org/10.1177/0163278703255230'>10.1177/0163278703255230</a>"
+  expect_true(
+    rd2html("\\doi{test}") %in%
+      c("doi: <a href='http://doi.org/test'>test</a>",
+        "doi: <a href='https://doi.org/test'>test</a>"
+      )
   )
 })
 
@@ -297,6 +299,18 @@ test_that("nl after tag doesn't trigger paragraphs", {
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
   expect_equal(out, "<p>a <br /> b</p>")
+})
+
+# Verbatim ----------------------------------------------------------------
+
+test_that("newlines are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\nb\n\nc}"))
+  expect_equal(out, "<pre>a\n\nb\n\nc</pre>\n")
+})
+
+test_that("spaces are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\n  b\n\n  c}"))
+  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>\n")
 })
 
 # Usage -------------------------------------------------------------------

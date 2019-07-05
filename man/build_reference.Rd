@@ -70,7 +70,7 @@ section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
 \code{starts_with("build_", internal = TRUE)}.
 
-You can alo select topics that contain specified Rd concepts with
+You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
 
 You can provide long descriptions for groups of functions using the YAML \code{>}

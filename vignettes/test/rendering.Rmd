@@ -1,0 +1,151 @@
+---
+title: "Test: Output Rendering"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette tests pkgdown output rendering for several use cases.
+
+# Highlighting
+
+This document uses a variety of linking styles for testing purposes
+
+## Inline code
+
+Local:
+
+* `vignette("pkgdown")`
+* `build_site()`
+* `?template_navbar`
+
+Remote:
+
+* `MASS::enlist`
+* `MASS::enlist()`
+* `?MASS::enlist`
+
+## Spurious links
+
+These shouldn't be linked.
+
+* `Authors@R`
+* `content-home.html`
+* `toc: depth`
+* `x = y`
+
+## Code blocks
+
+```{r, eval = FALSE}
+# Shouldn't get linked
+enlist(5)
+# Should get linked
+MASS::enlist(5)
+```
+
+```{r}
+library(MASS)
+enlist(5)
+```
+
+```{r}
+# Should get linked because MASS was loaded previously
+enlist(5)
+```
+
+---
+
+# Figures
+
+```{r}
+plot(1:10)
+```
+
+---
+
+# External files
+
+```{r}
+x <- readLines("test.txt")
+x
+```
+
+![](bacon.jpg)
+
+---
+
+# Details tag
+
+<details>
+  This should only be shown when required
+</details>
+
+<details>
+<summary>Some R code</summary>
+  
+```{r}
+1 + 2
+```
+</details>
+
+---
+
+# Tables
+
+| col 1 | col 2 | col 3 | col 4 |
+|:---------------|:-----------|:-------:|:---------:|
+| Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
+
+---
+
+# Mathjax
+
+$$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
+
+Inline equations: $y=x^2$
+
+---
+
+# Widgets
+
+Test spacing above widget.
+
+```{r, echo=FALSE}
+# set seed for reproducible widget id
+if (requireNamespace("htmltools", quietly = TRUE)) {
+  htmlwidgets::setWidgetIdSeed(42)
+}
+
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lng=174.768,
+    lat=-36.852,
+    popup="The birthplace of R"
+  )
+```
+
+Test spacing below widget.
+
+---
+
+# Crayon
+
+```{r}
+cat(crayon::red("This is red"), "\n")
+cat(crayon::blue("This is blue\n"), "\n")
+
+message(crayon::green("This is green"))
+
+warning(crayon::bold("This is bold"))
+```
+Some text
+
+```{r, error = TRUE}
+stop(crayon::italic("This is italic"))
+```
+
+Some more text

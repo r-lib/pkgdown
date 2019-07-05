@@ -38,7 +38,7 @@ Imports:
     processx,
     R6,
     rematch2,
-    rlang (>= 0.2.0),
+    rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
     roxygen2,
     rsconnect,
@@ -63,3 +63,5 @@ SystemRequirements: pandoc
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Remotes:
+    r-lib/xml2#261

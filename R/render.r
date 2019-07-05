@@ -119,7 +119,7 @@ template_path <- function(pkg = ".") {
 }
 
 render_template <- function(path, data) {
-  template <- read_lines(path)
+  template <- read_file(path)
   if (length(template) == 0)
     return("")
 
