@@ -202,6 +202,7 @@
 <li><p>Updated fontawesome to 5.7.1. <a href="https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use">fontawesome 5 deprecated the <code>fa</code> prefix style</a>, so fontawesome users need to migrate their icons from <code>fa fa-home</code> to <code>fas fa-home</code>. Note that brands now have a separate prefix (<code>fab fa-github</code>) (<a href='https://github.com/r-lib/pkgdown/issues/953'>#953</a>).</p></li>
 <li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/">headroom.js</a>.</p></li>
 <li><p>The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
+<li><p>Favicons are now automatically built from a package logo (<a href='https://github.com/r-lib/pkgdown/issues/949'>#949</a>).</p></li>
 </ul>
 </div>
 <div id="bug-fixes-and-minor-improvements" class="section level2">
@@ -239,7 +240,7 @@
 <a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> can be used from continuous integration systems (like travis) to automatically deploy your package website to GitHub Pages. See documentation for how to set up details (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
-<li><p><code><a href="../reference/build_favicon.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
+<li><p><code>build_favicon()</code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Users with limited internet connectivity can explicitly disable internet usage by pkgdown by setting <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.internet = FALSE)</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 </ul>
 </div>

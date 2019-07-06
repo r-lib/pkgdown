@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Initialise site infrastructure — init_site • pkgdown</title>
+<title>Create favicons from package logo — build_favicons • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,10 +45,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Initialise site infrastructure — init_site" />
+<meta property="og:title" content="Create favicons from package logo — build_favicons" />
 
-<meta property="og:description" content="This creates the output directory (docs/), a machine readable description
-of the site, and copies CSS/JS assets and extra files." />
+<meta property="og:description" content="This function auto-detects the location of your package logo (with the name
+logo.svg (recommended format) or logo.png) and runs it through the
+https://realfavicongenerator.net API to build a complete set of favicons
+with different sizes, as needed for modern web usage." />
 
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -167,19 +169,21 @@ of the site, and copies CSS/JS assets and extra files." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Initialise site infrastructure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/init.R'><code>R/init.R</code></a></small>
-    <div class="hidden name"><code>init_site.Rd</code></div>
+    <h1>Create favicons from package logo</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-favicons.R'><code>R/build-favicons.R</code></a></small>
+    <div class="hidden name"><code>build_favicons.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This creates the output directory (<code>docs/</code>), a machine readable description
-of the site, and copies CSS/JS assets and extra files.</p>
+    <p>This function auto-detects the location of your package logo (with the name
+<code>logo.svg</code> (recommended format) or <code>logo.png</code>) and runs it through the
+<a href='https://realfavicongenerator.net'>https://realfavicongenerator.net</a> API to build a complete set of favicons
+with different sizes, as needed for modern web usage.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>init_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>build_favicons</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,40 +192,19 @@ of the site, and copies CSS/JS assets and extra files.</p>
       <th>pkg</th>
       <td><p>Path to package.</p></td>
     </tr>
+    <tr>
+      <th>overwrite</th>
+      <td><p>If <code>TRUE</code>, re-create favicons from package logo.</p></td>
+    </tr>
     </table>
     
-    <h2 class="hasAnchor" id="build-ignored-files"><a class="anchor" href="#build-ignored-files"></a>Build-ignored files</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-
-<p>We recommend using <code><a href='https://usethis.r-lib.org/reference/use_pkgdown.html'>usethis::use_pkgdown()</a></code> to build-ignore <code>docs/</code> and
-<code>_pkgdown.yml</code>. If use another directory, or create the site manually,
-you'll need to add them to <code>.Rbuildignore</code> yourself. A <code>NOTE</code> about
-an unexpected file during <code>R CMD CHECK</code> is an indication you have not
-correctly ignored these files.</p>
-    
-    <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
-
-    
-
-<p>If you want to do minor customisation of your pkgdown site, the easiest
-way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. These
-will be automatically copied to <code>docs/</code> and inserted into the
-<code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JS.</p>
-    
-    <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon"></a>Favicon</h2>
-
-    
-
-<p>Favicons are built automatically from a logo PNG or SVG by <code>init_site()</code> and
-copied to <code>pkgdown/favicon</code>.</p>
-    
-    <h2 class="hasAnchor" id="-"><a class="anchor" href="#-"></a>404</h2>
-
-    
-
-<p>pkgdown creates a default 404 page (<code>404.html</code>). You can customize 404
-page content using <code>.github/404.md</code>.</p>
+    <p>You only need to run the function once. The favicon set will be stored in
+<code>pkgdown/favicon</code> and copied by <code><a href='init_site.html'>init_site()</a></code> to the relevant location when
+the website is rebuilt.</p>
+<p>Once complete, you should add <code>pkgdown/</code> to <code>.Rbuildignore </code> to avoid a NOTE
+during package checking.</p>
     
 
   </div>
@@ -230,13 +213,7 @@ page content using <code>.github/404.md</code>.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#build-ignored-files">Build-ignored files</a></li>
-
-      <li><a href="#custom-css-js">Custom CSS/JS</a></li>
-
-      <li><a href="#favicon">Favicon</a></li>
-
-      <li><a href="#-">404</a></li>
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>
