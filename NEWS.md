@@ -34,6 +34,8 @@
 
 * The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
+* Favicons are now automatically built from a package logo (#949).
+
 ## Bug fixes and minor improvements
 
 * Infix operators (e.g., `%in%` and `%*%`) are now linked to their documentation (#1082).

@@ -32,9 +32,8 @@ will be automatically copied to \code{docs/} and inserted into the
 
 \section{Favicon}{
 
-You should manually run \code{\link[=build_favicon]{build_favicon()}} once to generate the favicon set
-from your logo. The result is stored in \code{pkgdown/favicon} and will
-automatically be copied to the relevant location when you run \code{\link[=init_site]{init_site()}}.
+Favicons are built automatically from a logo PNG or SVG by \code{\link[=init_site]{init_site()}} and
+copied to \code{pkgdown/favicon}.
 }
 
 \section{404}{
