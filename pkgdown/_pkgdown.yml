@@ -44,7 +44,7 @@ reference:
     - starts_with("test", internal = TRUE)
 
 toc:
-  depth: 1
+  depth: 2
 
 navbar:
   components:
