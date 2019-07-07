@@ -50,7 +50,7 @@ licenses_db <- function() {
   path <- path(R.home("share"), "licenses", "license.db")
   db <- tibble::as_tibble(read.dcf(path))
 
-  db <- tweak_mpl_licenses(db)
+  db <- add_missing_sss(db)
 
   abbr <- ifelse(is.na(db$SSS), db$Abbrev, db$SSS)
   url <- db$URL
@@ -65,12 +65,12 @@ licenses_db <- function() {
   out[!is.na(out$abbr), ]
 }
 
-# Update SSS for Mozilla Public Licences
-tweak_mpl_licenses <- function(db) {
-  is_mpl <- db$Abbrev == "MPL" & !is.na(db$Abbrev)
-  mpl <- db[is_mpl, ]
+# Add SSS for some missing licenses (e.g., Mozilla Public Licences)
+add_missing_sss <- function(db) {
+  needs_sss <- !is.na(db$Abbrev) & !is.na(db$Version) & is.na(db$SSS)
+  x <- db[needs_sss, ]
 
-  db[is_mpl, "SSS"] <- paste0(mpl$Abbrev, "-", mpl$Version)
+  db[needs_sss, "SSS"] <- paste0(x$Abbrev, "-", x$Version)
 
   db
 }
