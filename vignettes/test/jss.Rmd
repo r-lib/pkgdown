@@ -20,6 +20,7 @@ keywords:
   plain:     [keywords, not capitalized, Java]
   formatted: [keywords, not capitalized, "\\proglang{Java}"]
 output: rticles::jss_article
+documentclass: jss
 classoption: nojss
 bibliography: jss.bib
 pkgdown:
