@@ -15,7 +15,7 @@
 #' @inheritParams as_pkgdown
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
-build_favicons <- function(pkg = ".", overwrite = FALSE) {
+build_favicon <- function(pkg = ".", overwrite = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")

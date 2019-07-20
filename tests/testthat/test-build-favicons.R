@@ -1,4 +1,4 @@
-context("test-build-favicons.R")
+context("test-build-favicon.R")
 
 test_that("missing logo generates message", {
   pkg <- test_path("assets/site-empty")
@@ -6,7 +6,7 @@ test_that("missing logo generates message", {
 
   pkg <- as_pkgdown(pkg)
   expect_error(
-    expect_output(build_favicons(pkg)),
+    expect_output(build_favicon(pkg)),
     "Can't find package logo"
   )
 })
@@ -24,7 +24,7 @@ test_that("existing logo generates message", {
   fs::file_touch(path(favicon_path, "favicon.ico"))
 
   expect_message(
-    expect_output(build_favicons(pkg)),
+    expect_output(build_favicon(pkg)),
     "Favicons already exist"
   )
 })
@@ -41,7 +41,7 @@ test_that("favicons are built from logo.png", {
 
   on.exit(dir_delete(path(pkg$src_path, "pkgdown")))
 
-  expect_output(build_favicons(pkg))
+  expect_output(build_favicon(pkg))
   expect_true(file_exists(path(favicon_path, "favicon.ico")))
 })
 
@@ -55,7 +55,7 @@ test_that("bad logos generate an error", {
   on.exit(dir_delete(path(pkg$src_path, "pkgdown")))
 
   expect_error(
-    expect_output(build_favicons(pkg)),
+    expect_output(build_favicon(pkg)),
     "Your logo file couldn't be processed"
   )
 })
@@ -77,6 +77,6 @@ test_that("existing logo can be clobbered", {
   fs::file_touch(path(favicon_path, "favicon.ico"))
 
   # file exists, but ensure we can overwrite
-  expect_output(build_favicons(pkg, overwrite = TRUE))
+  expect_output(build_favicon(pkg, overwrite = TRUE))
   expect_true(fs::file_size(favicon_path) > 0)
 })
