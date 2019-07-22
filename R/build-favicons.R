@@ -15,7 +15,7 @@
 #' @inheritParams as_pkgdown
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
-build_favicon <- function(pkg = ".", overwrite = FALSE) {
+build_favicons <- function(pkg = ".", overwrite = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")
@@ -91,6 +91,17 @@ build_favicon <- function(pkg = ".", overwrite = FALSE) {
   })
 
   invisible()
+}
+
+#' Deprecated as of pkgdown 1.4.0
+#' @rdname build_favicons
+#' @export
+build_favicon <- function(...) {
+  message(
+    "`build_favicon()` is deprecated as of pkgdown 1.4.0. ",
+    "Please use `build_favicons()` instead."
+  )
+  build_favicons(...)
 }
 
 copy_favicons <- function(pkg = ".") {
