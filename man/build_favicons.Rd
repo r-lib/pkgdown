@@ -7,7 +7,7 @@
 \usage{
 build_favicons(pkg = ".", overwrite = FALSE)
 
-build_favicon(...)
+build_favicon(pkg, overwrite)
 }
 \arguments{
 \item{pkg}{Path to package.}

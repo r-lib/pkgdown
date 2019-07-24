@@ -95,13 +95,14 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 
 #' Deprecated as of pkgdown 1.4.0
 #' @rdname build_favicons
+#' @inheritParams build_favicons
 #' @export
-build_favicon <- function(...) {
+build_favicon <- function(pkg, overwrite) {
   message(
     "`build_favicon()` is deprecated as of pkgdown 1.4.0. ",
     "Please use `build_favicons()` instead."
   )
-  build_favicons(...)
+  build_favicons(pkg, overwrite)
 }
 
 copy_favicons <- function(pkg = ".") {
