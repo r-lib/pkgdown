@@ -28,7 +28,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 
   if (has_favicons(pkg) && !overwrite) {
     message("Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.")
-    return()
+    return(invisible())
   }
 
   message("Building favicons with realfavicongenerator.net...")
