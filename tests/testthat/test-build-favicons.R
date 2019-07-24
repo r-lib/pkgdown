@@ -1,19 +1,5 @@
 context("test-build-favicons.R")
 
-test_that("build_favicon generates deprecation message", {
-  pkg <- test_path("assets/site-favicons")
-  pkg <- as_pkgdown(pkg)
-
-  favicon_path <- path(pkg$src_path, "pkgdown", "favicon")
-  on.exit(dir_delete(path(pkg$src_path, "pkgdown")))
-
-  expect_message(
-    expect_output(build_favicon(pkg)),
-    "`build_favicon()` is deprecated",
-    "Building favicons"
-  )
-})
-
 test_that("missing logo generates message", {
   pkg <- test_path("assets/site-empty")
   on.exit(clean_site(pkg))
