@@ -227,7 +227,7 @@ The navbar has a similar structure to the [R Markdown website navbar][rmarkdown 
 
 Use `template_navbar()` to generate a boilerplate navbar section in YAML format.
 
-You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `inverse`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
+You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `type`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
 
 See `build_site()` for an example navbar YAML configuration.
 
