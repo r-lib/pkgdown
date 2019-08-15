@@ -21,7 +21,8 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   right <- navbar$right %||% components[right_comp]
 
   list(
-    type = navbar$type %||% "default",
+    type = navbar$type %||% "dark",
+    bg = navbar$bg %||% "primary",
     left = render_navbar_links(left, depth = depth),
     right = render_navbar_links(right, depth = depth)
   )
@@ -45,7 +46,8 @@ render_navbar_links <- function(x, depth = 0L) {
   if (depth != 0L) {
     x <- lapply(x, tweak)
   }
-  rmarkdown::navbar_links_html(x)
+
+  bs4_navbar_links_html(x)
 }
 
 # Default navbar ----------------------------------------------------------
@@ -85,7 +87,6 @@ navbar_components <- function(pkg = ".") {
   print_yaml(menu)
 }
 
-
 # Menu helpers -------------------------------------------------------------
 
 menu <- function(text, children) {
@@ -109,3 +110,57 @@ menu_spacer <- function() {
    menu_text("---------")
 }
 
+# Bootstrap 4 ---------------------------------------------------------
+
+# this replaces rmarkdown::narbar_links_html()
+
+#' @keywords internal
+#' @importFrom htmltools tags tagList
+bs4_navbar_links_html <- function(x) {
+
+  # BS4 navbar link
+  #
+  # <li class="nav-item">
+  #   <a class="nav-link" href="#">Link</a>
+  # </li>
+
+  # BS4 navbar dropdown
+  #
+  # <li class="nav-item dropdown">
+  #   <a class="nav-link dropdown-toggle">Dropdown</a>
+  #   <div class="dropdown-menu">
+  #     <a class="dropdown-item" href="#">Action</a>
+  #     <div class="dropdown-divider"></div>
+  #   </div>
+  # </li>
+
+}
+
+bs4_li_nav_item <- function(x) {
+  xml2::read_html(
+    paste0(
+      "<li class='nav-item'><a class='nav-link'>",
+      x, "</a></li>"
+    )
+  )
+}
+
+bs4_li_dropdown <- function(x) {
+  xml2::read_html(
+    paste0(
+      "<li class='nav-item dropdown'><a ", x, "</a></li>"
+    )
+  )
+}
+
+bs4_div_dropdown <- function(x) {
+  xml2::read_html("<div class='dropdown-menu'></div>")
+}
+
+bs4_a_dropdown <- function(x) {
+  xml2::read_html("<a class='dropdown-item'></a>")
+}
+
+bs4_a_dropdown <- function(x) {
+  xml2::read_html("<div class='dropdown-divider'></div>")
+}

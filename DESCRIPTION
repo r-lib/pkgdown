@@ -29,6 +29,7 @@ Imports:
     fansi,
     highlight,
     httr,
+    htmltools,
     magrittr,
     MASS,
     memoise,

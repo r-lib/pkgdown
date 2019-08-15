@@ -30,12 +30,12 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down hidden-sm" id="sidebar">
     <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills flex-column">
     {{#sections}}
-      <li><a href="#{{slug}}">{{title}}</a></li>
+      <li class="nav-item"><a class="nav-link" href="#{{slug}}">{{title}}</a></li>
     {{/sections}}
     </ul>
-  </div>
+  </nav>
 </div>

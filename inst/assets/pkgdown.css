@@ -1,18 +1,3 @@
-/* Sticky footer */
-
-/**
- * Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
- * Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
- *
- * .Site -> body > .container
- * .Site-content -> body > .container .row
- * .footer -> footer
- *
- * Key idea seems to be to ensure that .container and __all its parents__
- * have height set to 100%
- *
- */
-
 html, body {
   height: 100%;
 }
@@ -35,15 +20,19 @@ footer {
   display: flex;
   flex-shrink: 0;
 }
+
 footer p {
   margin-bottom: 0;
 }
+
 footer div {
   flex: 1;
 }
+
 footer .pkgdown {
   text-align: right;
 }
+
 footer p {
   margin-bottom: 0;
 }
@@ -62,7 +51,6 @@ summary {
 }
 
 /* Typographic tweaking ---------------------------------*/
-
 .contents .page-header {
   margin-top: calc(-60px + 1em);
 }
@@ -104,10 +92,13 @@ a.anchor {
 
 #sidebar {
   margin-top: 30px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 70px;
 }
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
+}
+
 #sidebar h2 {
   font-size: 1.5em;
   margin-top: 1em;
@@ -162,6 +153,8 @@ pre {
 pre, code {
   background-color: #f8f8f8;
   color: #333;
+  padding: 9.5px;
+  border-radius: 4px;
 }
 
 pre code {
@@ -242,7 +235,6 @@ mark {
 }
 
 /* fontawesome ------------------------ */
-
 .fab {
     font-family: "Font Awesome 5 Brands" !important;
 }
