@@ -2,7 +2,7 @@
 (function($) {
   $(function() {
 
-    $('.navbar-fixed-top').headroom();
+    $('nav.navbar').headroom();
 
     $('body').css('padding-top', $('.navbar').height() + 10);
     $(window).resize(function(){
