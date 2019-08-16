@@ -147,19 +147,15 @@ table {
 pre {
   word-wrap: normal;
   word-break: normal;
-  border: 1px solid #eee;
-}
-
-pre, code {
   background-color: #f8f8f8;
   color: #333;
   padding: 9.5px;
   border-radius: 4px;
+  border: 1px solid #eee;
 }
 
-pre code {
+pre.sourceCode {
   overflow: auto;
-  word-wrap: normal;
   white-space: pre;
 }
 
