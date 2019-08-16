@@ -29,7 +29,7 @@ $endfor$
       $endif$
 
       {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-      <div class="hidden name"><code>{{filename}}</code></div>
+      <div class="d-none name"><code>{{filename}}</code></div>
 
     </div>
 
@@ -47,7 +47,7 @@ $endfor$
 $body$
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 d-none d-md-block" id="sidebar">
     <div class="sticky-top">
       {{#sidebar}}
       {{{.}}}

@@ -30,12 +30,5 @@
     </table>
   </div>
 
-  <nav class="col-sm-3 col-md-2 hidden-xs-down hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills flex-column">
-    {{#sections}}
-      <li class="nav-item"><a class="nav-link" href="#{{slug}}">{{title}}</a></li>
-    {{/sections}}
-    </ul>
-  </nav>
+  <nav class="sticky-top d-none d-md-block" id="toc" data-toggle="toc"></nav>
 </div>

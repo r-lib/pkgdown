@@ -3,7 +3,7 @@
     <div class="page-header">
     <h1>{{{title}}}</h1>
     {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-    <div class="hidden name"><code>{{filename}}</code></div>
+    <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
     <div class="ref-description">
@@ -44,7 +44,7 @@
     <pre class="examples">{{{ . }}}</pre>
     {{/examples}}
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 d-none d-md-block" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills flex-column">
       {{#has_args}}
