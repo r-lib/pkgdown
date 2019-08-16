@@ -44,23 +44,9 @@
     <pre class="examples">{{{ . }}}</pre>
     {{/examples}}
   </div>
-  <div class="col-md-3 d-none d-md-block" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills flex-column">
-      {{#has_args}}
-      <li class="nav-item"><a class="nav-link" href="#arguments">Arguments</a></li>
-      {{/has_args}}
-      {{#sections}}
-      <li class="nav-item"><a class="nav-link" href="#{{slug}}">{{{title}}}</a></li>
-      {{/sections}}
-      {{#examples}}
-      <li class="nav-item"><a class="nav-link" href="#examples">Examples</a></li>
-      {{/examples}}
-    </ul>
 
-    {{#author}}
-    <h2>Author</h2>
-    {{{ author }}}
-    {{/author}}
+  <div class="col-md-3 d-none d-md-block" id="sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
   </div>
+
 </div>
