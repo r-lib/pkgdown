@@ -110,57 +110,99 @@ menu_spacer <- function() {
    menu_text("---------")
 }
 
-# Bootstrap 4 ---------------------------------------------------------
+# navbar_links ------------------------------------------------------------
 
-# this replaces rmarkdown::narbar_links_html()
+bs4_navbar_links_html <- function(links) {
+  as.character(bs4_navbar_links_tags(links))
+}
 
-#' @keywords internal
 #' @importFrom htmltools tags tagList
-bs4_navbar_links_html <- function(x) {
+bs4_navbar_links_tags <- function(links, depth = 0L) {
 
-  # BS4 navbar link
-  #
-  # <li class="nav-item">
-  #   <a class="nav-link" href="#">Link</a>
-  # </li>
+  # sub-menu
+  is_submenu <- depth > 0L
 
-  # BS4 navbar dropdown
-  #
-  # <li class="nav-item dropdown">
-  #   <a class="nav-link dropdown-toggle">Dropdown</a>
-  #   <div class="dropdown-menu">
-  #     <a class="dropdown-item" href="#">Action</a>
-  #     <div class="dropdown-divider"></div>
-  #   </div>
-  # </li>
+  if (!is.null(links)) {
 
+    tags <- lapply(links, function(x) {
+
+      if (!is.null(x$menu)) {
+
+
+        if (is_submenu) {
+          menu_class <- "dropdown-item"
+          link_text <- bs4_navbar_link_text(x)
+        } else {
+          menu_class <- "nav-item dropdown"
+          link_text <- bs4_navbar_link_text(x, " ", tags$span(class = "caret"))
+        }
+
+        submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+
+        tags$li(
+          class = menu_class,
+          tags$a(
+            href = "#", class = "nav-link dropdown-toggle",
+            `data-toggle` = "dropdown", role = "button",
+            `aria-expanded` = "false", `aria-haspopup` = "true",
+            link_text
+          ),
+          tags$div(
+            class = "dropdown-menu",
+            `aria-labelledby` ="navbarDropdown",
+            submenuLinks
+          )
+        )
+
+      } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
+
+        # divider
+        tags$div(class = "dropdown-divider")
+
+      } else if (!is.null(x$text) && is.null(x$href)) {
+        # header
+        tags$h6(class = "dropdown-header", x$text)
+
+      } else {
+        # standard menu item
+        textTags <- bs4_navbar_link_text(x)
+
+        if (is_submenu) {
+          tags$a(
+            class = "dropdown-item",
+            href = x$href,
+            textTags
+          )
+        } else {
+          tags$li(
+            class = "nav-item",
+            tags$a(
+              class = "nav-link",
+              href = x$href,
+              textTags
+            )
+          )
+        }
+      }
+    })
+    tagList(tags)
+  } else {
+    tagList()
+  }
 }
 
-bs4_li_nav_item <- function(x) {
-  xml2::read_html(
-    paste0(
-      "<li class='nav-item'><a class='nav-link'>",
-      x, "</a></li>"
-    )
-  )
+bs4_navbar_link_text <- function(x, ...) {
+
+  if (!is.null(x$icon)) {
+    # find the iconset
+    split <- strsplit(x$icon, "-")
+    if (length(split[[1]]) > 1)
+      iconset <- split[[1]][[1]]
+    else
+      iconset <- ""
+    tagList(tags$span(class = paste(iconset, x$icon)), " ", x$text, ...)
+  }
+  else
+    tagList(x$text, ...)
 }
 
-bs4_li_dropdown <- function(x) {
-  xml2::read_html(
-    paste0(
-      "<li class='nav-item dropdown'><a ", x, "</a></li>"
-    )
-  )
-}
-
-bs4_div_dropdown <- function(x) {
-  xml2::read_html("<div class='dropdown-menu'></div>")
-}
-
-bs4_a_dropdown <- function(x) {
-  xml2::read_html("<a class='dropdown-item'></a>")
-}
-
-bs4_a_dropdown <- function(x) {
-  xml2::read_html("<div class='dropdown-divider'></div>")
-}
