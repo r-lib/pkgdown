@@ -45,16 +45,6 @@ img {
   max-width: 100%;
 }
 
-/* Fix bug in bootstrap (only seen in firefox) */
-summary {
-  display: list-item;
-}
-
-/* Typographic tweaking ---------------------------------*/
-.contents .page-header {
-  margin-top: 2em;
-}
-
 /* Section anchors ---------------------------------*/
 
 a.anchor {
@@ -80,11 +70,10 @@ a.anchor {
   }
 }
 
-
 /* Fixes for fixed navbar --------------------------*/
 
 .contents {
-  margin-top: 30px;
+  margin-top: 4em;
 }
 
 .contents h1, .contents h2, .contents h3, .contents h4 {

@@ -5,36 +5,19 @@
     </div>
 
     {{#sections}}
-    <div class="card m-2">
-      <div class="card-header">
-        <h5>{{title}}</h5>
-      </div>
+    <div class="card">
+      <h5 class="card-header">{{title}}</h5>
       <div class="card-body">
-        <p class="card-text">{{{desc}}}</p>
-
-        <table class="ref-index">
-          <colgroup>
-            {{#has_icons}}<col class="icon" />{{/has_icons}}
-            <col class="alias" />
-            <col class="title" />
-          </colgroup>
-
-          <tbody>
-            <tr>
-              <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}"></th>
-            </tr>
-            {{#contents}}
-            <tr>
-              {{#has_icons}}<td>{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" /></a>{{/icon}}</td>{{/has_icons}}
-              <td>
-                <p>{{#aliases}}<h6><code><a href="{{path}}">{{{.}}}</a></code></h6>{{/aliases}}</p>
-              </td>
-              <td><p>{{{title}}}</p></td>
-            </tr>
-            {{/contents}}
-          </tbody>
-
-        </table>
+        <h6 class="card-title">{{{desc}}}</h6>
+        <dl class="row">
+          {{#contents}}
+          {{#has_icons}}
+          <dt class="col-sm-3">{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" /></a>{{/icon}}</dt>
+          {{/has_icons}}
+          <dt class="col-sm-4">{{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}</dt>
+          <dd class="col-sm-8">{{{title}}}</dd>
+          {{/contents}}
+        </dl>
       </div>
     </div>
     {{/sections}}

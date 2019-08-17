@@ -2,11 +2,12 @@
 <nav class="navbar fixed-top navbar-{{{type}}} navbar-expand-lg bg-{{{bg}}}">
   <div class="container">
     <a class="navbar-brand mb-0 h1" href="{{#site}}{{root}}{{/site}}index.html">{{#site}}{{title}}{{/site}}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" class="btn btn-{{#development}}{{version_label}}{{/development}} d-none d-md-block" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{#development}}{{version_tooltip}}{{/development}}">{{#package}}{{version}}{{/package}}</button>
+    <button type="button" class="badge badge-{{#development}}{{version_label}}{{/development}} d-none d-lg-block" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{#development}}{{version_tooltip}}{{/development}}">{{#package}}{{version}}{{/package}}</button>
 
     <div id="navbar" class="collapse navbar-collapse">
       {{#left}}
