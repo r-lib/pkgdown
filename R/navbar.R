@@ -161,7 +161,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
       } else if (!is.null(x$text) && is.null(x$href)) {
         # header
-        tags$h6(class = "dropdown-header", x$text)
+        tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text)
 
       } else {
         # standard menu item
