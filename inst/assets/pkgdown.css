@@ -52,7 +52,7 @@ summary {
 
 /* Typographic tweaking ---------------------------------*/
 .contents .page-header {
-  margin-top: calc(-60px + 1em);
+  margin-top: 2em;
 }
 
 /* Section anchors ---------------------------------*/
@@ -82,6 +82,10 @@ a.anchor {
 
 
 /* Fixes for fixed navbar --------------------------*/
+
+.contents {
+  margin-top: 30px;
+}
 
 .contents h1, .contents h2, .contents h3, .contents h4 {
   padding-top: 60px;
