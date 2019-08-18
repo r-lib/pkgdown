@@ -134,7 +134,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           link_text <- bs4_navbar_link_text(x)
         } else {
           menu_class <- "nav-item dropdown"
-          link_text <- bs4_navbar_link_text(x, " ", tags$span(class = "caret"))
+          link_text <- bs4_navbar_link_text(x)
         }
 
         submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
