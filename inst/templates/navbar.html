@@ -11,20 +11,22 @@
 
     <div id="navbar" class="collapse navbar-collapse">
       {{#left}}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mr-auto ml-3">
       {{{.}}}
       </ul>
       {{/left}}
-      {{#right}}
-      <ul class="navbar-nav mr-auto">
-      {{{.}}}
-      </ul>
-      {{/right}}
+
       {{#yaml}}{{#docsearch}}
       <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control mr-sm-2" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
       </form>
       {{/docsearch}}{{/yaml}}
+
+      {{#right}}
+      <ul class="navbar-nav ml-1">
+      {{{.}}}
+      </ul>
+      {{/right}}
     </div>
   </div>
 </nav>
