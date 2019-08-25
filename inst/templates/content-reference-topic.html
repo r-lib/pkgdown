@@ -20,10 +20,10 @@
 
     {{#has_args}}
     <h2>Arguments</h2>
-    <dl class="row" id="arguments">
+    <dl class="row" id="ref-arguments">
     {{#arguments}}
-      <dt class="col-sm-3 text-truncate">{{{name}}}</dt>
-      <dd class="col-sm-9">{{{description}}}</dd>
+      <dt class="col-sm-3 text-truncate" id="ref-arguments name">{{{name}}}</dt>
+      <dd class="col-sm-9 text-truncate" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
     </dl>
     {{/has_args}}
