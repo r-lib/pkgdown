@@ -15,7 +15,8 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("simple replacements work as expected", {
-  expect_equal(rd2html("\\ldots"), "&#8230;")
+  expect_equal(rd2html("\\ldots"), "...")
+  expect_equal(rd2html("\\dots"), "...")
 })
 
 test_that("subsection generates h3", {

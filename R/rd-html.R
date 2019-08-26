@@ -466,9 +466,9 @@ tag_insert <- function(value) {
 #' @export
 as_html.tag_R <-        tag_insert('<span style="R">R</span>')
 #' @export
-as_html.tag_dots <-     tag_insert("&#8230;")
+as_html.tag_dots <-     tag_insert("...")
 #' @export
-as_html.tag_ldots <-    tag_insert("&#8230;")
+as_html.tag_ldots <-    tag_insert("...")
 
 #' @export
 as_html.tag_cr <-       tag_insert("<br >")
