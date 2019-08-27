@@ -25,6 +25,8 @@ Remote:
 * `MASS::enlist`
 * `MASS::enlist()`
 * `?MASS::enlist`
+* `%in%`
+* `` ?`%in%` ``
 
 ## Spurious links
 

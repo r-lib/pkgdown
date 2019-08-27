@@ -8,6 +8,7 @@ test_that("og tags are populated on home, reference, and articles", {
   pkg <- as_pkgdown(test_path("assets/open-graph"))
   setup(expect_output(build_site(pkg, new_process = FALSE)))
   on.exit(clean_site(pkg))
+  on.exit(dir_delete(path(pkg$src_path, "pkgdown")))
 
   index_html <- read_lines(path(pkg$dst_path, "index.html"))
   desc <- '<meta property="og:description" content="A longer statement about the package.">'

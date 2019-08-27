@@ -144,3 +144,29 @@ NULL
 #'
 #' warning(crayon::bold("This is bold"))
 NULL
+
+#' Test case: verbatim blocks
+#'
+#' This description block is required so that verbatim blocks are recognized
+#' and rendered correctly.
+#'
+#' ```
+#' foo
+#'
+#' bar
+#' ```
+#'
+#' ```
+#' yaml:
+#'   this
+#'
+#' OR:
+#'
+#' yaml:
+#'   that
+#' ```
+#'
+#' @name test-verbatim
+#' @keywords internal
+#' @family tests
+NULL
