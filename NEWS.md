@@ -24,6 +24,11 @@
 
 * `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
 
+* Content in verbatim blocks (`preformatted{}`) is now handled more robustly (#951).
+
+* `\dots` and `\ldots` are now translated to `...` instead of the ellipsis,
+  since they're often found in code (#1114).
+
 ## Front end
 
 * Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) (#953).
@@ -32,7 +37,11 @@
 
 * The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
 
+* Favicons are now automatically built from a package logo (#949).
+
 ## Bug fixes and minor improvements
+
+* Infix operators (e.g., `%in%` and `%*%`) are now linked to their documentation (#1082).
 
 * News page recognises more version specfications (including the  "(development version)" now used by usethis) (#980).
 

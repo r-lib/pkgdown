@@ -15,7 +15,8 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("simple replacements work as expected", {
-  expect_equal(rd2html("\\ldots"), "&#8230;")
+  expect_equal(rd2html("\\ldots"), "...")
+  expect_equal(rd2html("\\dots"), "...")
 })
 
 test_that("subsection generates h3", {
@@ -299,6 +300,18 @@ test_that("nl after tag doesn't trigger paragraphs", {
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
   expect_equal(out, "<p>a <br /> b</p>")
+})
+
+# Verbatim ----------------------------------------------------------------
+
+test_that("newlines are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\nb\n\nc}"))
+  expect_equal(out, "<pre>a\n\nb\n\nc</pre>\n")
+})
+
+test_that("spaces are preserved in preformatted blocks", {
+  out <- flatten_para(rd_text("\\preformatted{a\n\n  b\n\n  c}"))
+  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>\n")
 })
 
 # Usage -------------------------------------------------------------------

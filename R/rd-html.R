@@ -29,6 +29,12 @@ flatten_para <- function(x, ...) {
   groups <- cumsum(before_break | after_break)
 
   html <- purrr::map_chr(x, as_html, ...)
+
+  # split at line breaks for everything except blocks
+  empty <- purrr::map_lgl(x, purrr::is_empty)
+  needs_split <- !is_block & !empty
+  html[needs_split] <- purrr::map(html[needs_split], split_at_linebreaks)
+
   blocks <- html %>%
     split(groups) %>%
     purrr::map_chr(paste, collapse = "")
@@ -460,9 +466,9 @@ tag_insert <- function(value) {
 #' @export
 as_html.tag_R <-        tag_insert('<span style="R">R</span>')
 #' @export
-as_html.tag_dots <-     tag_insert("&#8230;")
+as_html.tag_dots <-     tag_insert("...")
 #' @export
-as_html.tag_ldots <-    tag_insert("&#8230;")
+as_html.tag_ldots <-    tag_insert("...")
 
 #' @export
 as_html.tag_cr <-       tag_insert("<br >")

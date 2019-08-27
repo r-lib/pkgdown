@@ -60,7 +60,12 @@ GitHub username, and links to relevant issue(s)/PR(s).
 
 ### Netlify
 
-We might ask you for a Netlify preview of your changes i.e. how does the updated version of the pkgdown package make the pkgdown pkgdown website look like. Build and install the amended package, then re-build the website (`clean_site()` and then `build_site()`) which will update the docs/ folder. Log into Netlify at https://app.netlify.com/sites/, scroll down. You'll see a box with dashed outline that says "Want to deploy a new site without connecting to Git?". Open up a file browser, navigate to the "docs" directory of the site, and drag the folder to that dashed box, which will copy all the files into a temporary netlify site. Once complete, it will generate a temp URL at the top you can copy/paste in the PR discussion.
+We might ask you for a Netlify preview of your changes i.e. how do your local changes affect the pkgdown website?
+
+1. Build and install the amended package, then re-build the website (`clean_site()` and then `build_site()`) which will update the docs/ folder.
+1. Log into Netlify at https://app.netlify.com/sites/, and scroll to the bottom. You'll see a box with dashed outline that says "Want to deploy a new site without connecting to Git?".
+1. Open up a file browser, navigate to `docs/`, and drag the `docs/` folder to the dashed box, which will copy all the files into a temporary netlify site.
+1. After the file transfer completes, netlify will generate a temporary URL on a new page that you can copy/paste in the PR discussion.
 
 ## Fixing typos
 

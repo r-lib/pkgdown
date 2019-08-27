@@ -50,6 +50,8 @@ licenses_db <- function() {
   path <- path(R.home("share"), "licenses", "license.db")
   db <- tibble::as_tibble(read.dcf(path))
 
+  db <- add_missing_sss(db)
+
   abbr <- ifelse(is.na(db$SSS), db$Abbrev, db$SSS)
   url <- db$URL
 
@@ -61,4 +63,16 @@ licenses_db <- function() {
   out$a <- paste0("<a href='", url, "'>", abbr, "</a>")
 
   out[!is.na(out$abbr), ]
+}
+
+# Add missing standard short specification (SSS) for some licenses
+# (e.g., Mozilla Public Licences)
+# see src/library/tools/R/license.R in R source for details
+add_missing_sss <- function(db) {
+  needs_sss <- !is.na(db$Abbrev) & !is.na(db$Version) & is.na(db$SSS)
+  x <- db[needs_sss, ]
+
+  db[needs_sss, "SSS"] <- paste0(x$Abbrev, "-", x$Version)
+
+  db
 }

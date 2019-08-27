@@ -86,6 +86,10 @@ usage_type <- function(x) {
 }
 
 is_infix <- function(x) {
+  if (is.null(x)) {
+    return(FALSE)
+  }
+
   x <- as.character(x)
   ops <- c(
     "+", "-", "*", "^", "/",

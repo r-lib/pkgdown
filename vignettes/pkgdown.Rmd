@@ -218,7 +218,7 @@ You can override these defaults to:
 * Surface important articles directly from the navbar (a la
   <https://spark.rstudio.com>).
 
-* Provide deeper add additional hierarchical navigation (like     
+* Provide deeper and additional hierarchical navigation (like     
   <https://www.htmlwidgets.org>).
   
 * Link to other off-site resources.
