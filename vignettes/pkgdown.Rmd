@@ -211,7 +211,7 @@ By default, the top navigation bar (the "navbar") will contain links to:
 * Reference
 * Articles (i.e., vignettes, if present).
 * News (if present).
-* A "github" icon (<i class="fab fa-github fa-lg"></i>) with a link to your your github repo (if listed in the `DESCRIPTION` url field).
+* A "github" icon (<i class="fab fa-github fa-lg"></i>) with a link to your github repo (if listed in the `DESCRIPTION` url field).
 
 You can override these defaults to:
 
@@ -227,7 +227,7 @@ The navbar has a similar structure to the [R Markdown website navbar][rmarkdown 
 
 Use `template_navbar()` to generate a boilerplate navbar section in YAML format.
 
-You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `inverse`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
+You can set the navbar `title` and its [bootswatch styling](https://bootswatch.com/3/cosmo/#navbar) with `type`. Navbar items take `text`, `href`, and optional `icon` (using [FontAwesome](https://fontawesome.com/) icons) values. Finally, positioning of items within the navbar can be controlled with `left` and `right` sections.
 
 See `build_site()` for an example navbar YAML configuration.
 
