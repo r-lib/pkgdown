@@ -78,8 +78,6 @@ usage_type <- function(x) {
     }
 
     out
-  } else if (is.character(x)) {
-    list(type = "data", name = x)
   } else {
     stop("Unknown type: ", typeof(x), " (in ", as.character(x), ")",  call. = FALSE)
   }
