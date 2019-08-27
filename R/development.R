@@ -46,9 +46,8 @@ dev_mode <- function(version) {
   if (length(version) <= 3) {
     "release"
   } else if (identical(version[1:3], c(0L, 0L, 0L))) {
-      "unreleased"
+    "unreleased"
   } else {
     "devel"
   }
-
 }
