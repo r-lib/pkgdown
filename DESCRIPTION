@@ -33,14 +33,12 @@ Imports:
     MASS,
     memoise,
     openssl,
-    pkgload (>= 1.0.2),
     purrr,
     processx,
     R6,
     rematch2,
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
-    roxygen2,
     rstudioapi,
     tibble,
     tools,
@@ -50,11 +48,11 @@ Imports:
     yaml
 Suggests: 
     covr,
-    devtools,
     htmlwidgets,
     jsonlite,
     knitr,
     leaflet,
+    pkgload (>= 1.0.2),
     testthat (>= 2.1.0),
     rticles,
     rsconnect

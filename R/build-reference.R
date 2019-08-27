@@ -87,10 +87,10 @@
 #' @param examples Run examples?
 #' @param seed Seed used to initialize so that random examples are
 #'   reproducible.
-#' @param devel If `TRUE` (the default), assumes you are in a live development
-#'   environment, so automatically runs [devtools::document()] and loads
-#'   package with [devtools::load_all()]. If `FALSE`, does not re-document,
-#'   and uses the installed version of the package for examples.
+#' @param devel Determines how code is loaded in order to run examples.
+#'   If `TRUE` (the default), assumes you are in a live development
+#'   environment, and loads source package with [pkgload::load_all()].
+#'   If `FALSE`, uses the installed version of the package.
 #' @param document **Deprecated** Use `devel` instead.
 #' @export
 build_reference <- function(pkg = ".",
@@ -111,10 +111,6 @@ build_reference <- function(pkg = ".",
   }
 
   rule("Building function reference")
-  if (devel && (pkg$package != "pkgdown") && is_installed("devtools")) {
-    devtools::document(pkg$src_path)
-  }
-
   build_reference_index(pkg)
 
   # copy everything from man/figures to docs/reference/figures
@@ -128,6 +124,9 @@ build_reference <- function(pkg = ".",
     # Re-loading pkgdown while it's running causes weird behaviour with
     # the context cache
     if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
+      if (!is_installed("pkgload")) {
+        abort("Please install pkgload to use `build_reference(devel = TRUE)`")
+      }
       pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
     } else {
       library(pkg$package, character.only = TRUE)

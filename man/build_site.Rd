@@ -31,10 +31,10 @@ freshly generated section in browser.}
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
 
-\item{devel}{If \code{TRUE} (the default), assumes you are in a live development
-environment, so automatically runs \code{\link[devtools:document]{devtools::document()}} and loads
-package with \code{\link[devtools:load_all]{devtools::load_all()}}. If \code{FALSE}, does not re-document,
-and uses the installed version of the package for examples.}
+\item{devel}{Determines how code is loaded in order to run examples.
+If \code{TRUE} (the default), assumes you are in a live development
+environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
+If \code{FALSE}, uses the installed version of the package.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }

@@ -14,6 +14,8 @@
 
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
 
+    `build_reference()` no longer automatically runs `devtools::document()` when `devel`/`document` is `TRUE` (#1079). This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in `doc/`.
+
 * The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
 
 * A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
