@@ -12,9 +12,11 @@
 
 * A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
 
-* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
+* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which controls whether you're in development or "deployment" mode.  `devel` generalises and replaces (with deprecation) the existing `document` argument.
 
-    `build_reference()` no longer automatically runs `devtools::document()` when `devel`/`document` is `TRUE` (#1079). This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in `doc/`.
+    Development mode is optimised for rapid iteration and is the default for `build_reference()` and `build_home()`. Additionally, `build_reference()` no longer automatically runs `devtools::document()` when `devel`/`document` is `TRUE` (#1079). This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in `doc/`.
+  
+    Deployment mode is slower, but guarantees correct results. It installs the package into a temporary library, and runs examples/articles in a new process.
 
 * The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
 

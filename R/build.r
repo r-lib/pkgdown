@@ -261,6 +261,19 @@
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
 #'   if the source is newer than the destination.
+#' @param devel Use development or deployment process?
+#'
+#'   If `TRUE`, uses lighter-weight process suitable for rapid
+#'   iteration; it will run examples and vignettes in the current process,
+#'   and will load code with `pkgload::load_call()`.
+#'
+#'   If `FALSE`, will first install the package to a temporary library,
+#'   and will run all examples and vignettes in a new process.
+#'
+#'   `build_site()` defaults to `devel = FALSE` so that you get high fidelity
+#'   outputs when you building the complete site; `build_reference()`,
+#'   `build_home()` and friends default to `devel = TRUE` so that you can
+#'   rapidly iterate during development.
 #' @param new_process If `TRUE`, will run `build_site()` in a separate process.
 #'   This enhances reproducibility by ensuring nothing that you have loaded
 #'   in the current process affects the build process.
@@ -278,13 +291,20 @@ build_site <- function(pkg = ".",
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
-                       new_process = TRUE,
-                       devel = TRUE,
+                       devel = FALSE,
+                       new_process = !devel,
                        document = "DEPRECATED") {
+  pkg <- as_pkgdown(pkg)
 
   if (!missing(document)) {
     warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
     devel <- document
+  }
+
+  if (!devel) {
+    withr::local_temp_libpaths()
+    rule("Installing temporary version of package")
+    utils::install.packages(pkg$src_path, repo = NULL, type = "source", quiet = TRUE)
   }
 
   if (new_process) {
