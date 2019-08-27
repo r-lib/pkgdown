@@ -26,6 +26,9 @@
 
 * `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
 
+* `\subsection{}` contents are now treated as paragraphs, not inline text 
+  (#991).
+
 * Content in verbatim blocks (`preformatted{}`) is now handled more robustly (#951).
 
 * `\dots` and `\ldots` are now translated to `...` instead of the ellipsis,

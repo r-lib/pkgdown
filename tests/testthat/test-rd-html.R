@@ -20,7 +20,14 @@ test_that("simple replacements work as expected", {
 })
 
 test_that("subsection generates h3", {
-  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "B"))
+  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "<p>B</p>"))
+})
+test_that("subsection generates h3", {
+  expect_equal(rd2html("\\subsection{A}{
+    p1
+
+    p2
+  }"), c("<h3>A</h3>", "<p>p1</p>", "<p>p2</p>"))
 })
 
 test_that("if generates html", {

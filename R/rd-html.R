@@ -98,7 +98,7 @@ as_html.USERMACRO <-  function(x, ...) ""
 as_html.tag_subsection <- function(x, ...) {
   paste0(
     "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
-    flatten_text(x[[2]], ...)
+    flatten_para(x[[2]], ...)
   )
 }
 
