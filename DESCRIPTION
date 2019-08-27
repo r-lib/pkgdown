@@ -41,7 +41,6 @@ Imports:
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
     roxygen2,
-    rsconnect,
     rstudioapi,
     tibble,
     tools,
@@ -57,7 +56,8 @@ Suggests:
     knitr,
     leaflet,
     testthat (>= 2.1.0),
-    rticles
+    rticles,
+    rsconnect
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 6.1.1
