@@ -225,10 +225,10 @@ freshly generated section in browser.</p></td>
     </tr>
     <tr>
       <th>devel</th>
-      <td><p>If <code>TRUE</code> (the default), assumes you are in a live development
-environment, so automatically runs <code><a href='https://rdrr.io/pkg/devtools/man/document.html'>devtools::document()</a></code> and loads
-package with <code><a href='https://rdrr.io/pkg/devtools/man/load_all.html'>devtools::load_all()</a></code>. If <code>FALSE</code>, does not re-document,
-and uses the installed version of the package for examples.</p></td>
+      <td><p>Determines how code is loaded in order to run examples.
+If <code>TRUE</code> (the default), assumes you are in a live development
+environment, and loads source package with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.
+If <code>FALSE</code>, uses the installed version of the package.</p></td>
     </tr>
     <tr>
       <th>document</th>
