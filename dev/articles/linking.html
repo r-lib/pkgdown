@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linking between pkgdown sites • pkgdown</title>
+<title>Auto-linking • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Linking between pkgdown sites">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Auto-linking">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
 <meta name="twitter:card" content="summary">
@@ -121,7 +121,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Linking between pkgdown sites</h1>
+      <h1>Auto-linking</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/linking.Rmd"><code>vignettes/linking.Rmd</code></a></small>
@@ -131,20 +131,69 @@
 
     
     
-<p>Documentation can be linked across multiple pkgdown sites by ensuring that specific URL links are defined.</p>
-<p>First, to enable linking to a package’s pkgdown site, it must define the pkgdown site in the <code>URL</code> field of its <code>DESCRIPTION</code> file. An example of this approach is the <code>DESCRIPTION</code> file for for <a href="https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/DESCRIPTION#L15">dplyr</a>, which lists its pkgdown site <a href="https://dplyr.tidyverse.org" class="uri">https://dplyr.tidyverse.org</a>:</p>
+<div id="within-a-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#within-a-package" class="anchor"></a>Within a package</h2>
+<p>pkgdown will automatically link to documentation and articles wherever it’s possible to do unabmiguously. This includes:</p>
+<ul>
+<li>Bare function calls, like <code><a href="../reference/build_site.html">build_site()</a></code>.</li>
+<li>Calls to <code>?</code>, like <code><a href="../reference/build_site.html">?build_site</a></code> or <code><a href="../reference/pkgdown-package.html">package?pkgdown</a></code>.</li>
+<li>Calls to <code>vignette()</code>, like <code><a href="../articles/pkgdown.html">vignette("pkgdown")</a></code>
+</li>
+</ul>
+</div>
+<div id="across-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#across-packages" class="anchor"></a>Across packages</h2>
+<p>Linking to documentation in another package is straightforward. Just adapt the call in the usual way:</p>
+<ul>
+<li>
+<code>dplyr::filter()</code>, <code><a href="https://rdrr.io/pkg/MASS/man/addterm.html">MASS::addterm()</a></code>.</li>
+<li>
+<code>?dplyr::filter</code>, <code><a href="https://rdrr.io/pkg/MASS/man/addterm.html">?MASS::addterm</a></code>.</li>
+<li>
+<code>vignette("two-table", package = "dplyr")</code>, <code><a href="https://cran.rstudio.com/web/packages/rpart/vignettes/longintro.pdf">vignette("longintro", package = "rpart")</a></code>
+</li>
+</ul>
+<p>If pkgdown can find a pkgdown site for the remote package, it will link to it; otherwise it will link to <a href="http://rdrr.io/" class="uri">http://rdrr.io/</a> for documentation, and CRAN for vignettes. In order for a pkgdown site to be findable, it needs to be listed in two places:</p>
+<ul>
+<li>
+<p>In the <code>URL</code> field in the <code>DESCRIPTION</code>, as in <a href="https://github.com/tidyverse/dplyr/blob/85faf79c1fd74f4b4f95319e5be6a124a8075502/DESCRIPTION#L15">dplyr</a>:</p>
 <pre><code>URL: http://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr</code></pre>
-<p>Second, the <code>url</code> field must defined in the package’s <a href="https://github.com/tidyverse/dplyr/blob/1da336ce4adcaaaef40d525c8263919a4e8e70bd/_pkgdown.yml#L1"><code>pkgdown.yml</code> file</a>. If defined, pkgdown will generate a web-accessible <a href="https://dplyr.tidyverse.org/pkgdown.yml"><code>pkgdown.yml</code> file</a> containing a link to the package documentation (the <code>reference</code> URL below).</p>
-<pre><code>pandoc: '2.2'
-pkgdown: 1.3.0
-pkgdown_sha: ~
-...
-urls:
-  reference: https://dplyr.tidyverse.org/reference</code></pre>
-<p>Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., <code>dplyr::mutate()</code>), pkgdown looks for the <code>pkgdown.yml</code> file for dplyr, and if found, pkgdown uses the URL in the <code>reference</code> field to link to dplyr functions. If this file cannot be found, pkgdown generates links to the <a href="https://rdrr.io"><code>rdrr.io</code></a> R package documentation site.</p>
+</li>
+<li>
+<p>In the <code>url</code> field in <code>_pkgdown.yml</code>, as in <a href="https://github.com/tidyverse/dplyr/blob/master/_pkgdown.yml#L1">dplyr</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">url:</span><span class="at"> https://dplyr.tidyverse.org</span></a></code></pre></div>
+<p>When this field is defined, pkgdown generate a public facing <a href="https://dplyr.tidyverse.org/pkgdown.yml"><code>pkgdown.yml</code> file</a> that provdies metadata about the site:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">pandoc:</span><span class="at"> </span><span class="st">'2.2'</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="fu">pkgdown:</span><span class="at"> 1.3.0</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="fu">pkgdown_sha:</span><span class="at"> ~</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="fu">articles:</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="fu">compatibility:</span><span class="at"> compatibility.html</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="fu">dplyr:</span><span class="at"> dplyr.html</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="fu">dplyr_0.8.0:</span><span class="at"> future/dplyr_0.8.0.html</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="fu">dplyr_0.8.0_new_hybrid:</span><span class="at"> future/dplyr_0.8.0_new_hybrid.html</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="fu">programming:</span><span class="at"> programming.html</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="fu">two-table:</span><span class="at"> two-table.html</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  <span class="fu">window-functions:</span><span class="at"> window-functions.html</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="fu">urls:</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">  <span class="fu">reference:</span><span class="at"> https://dplyr.tidyverse.org/reference</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">  <span class="fu">article:</span><span class="at"> https://dplyr.tidyverse.org/articles</span></a></code></pre></div>
+</li>
+</ul>
+<p>Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., <code>dplyr::mutate()</code>), pkgdown looks first in dplyr’s <code>DESCRIPTION</code> to find its website, then it looks for <code>pkgdown.yml</code>, and uses the metadata to generate the corect links.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#within-a-package">Within a package</a></li>
+      <li><a href="#across-packages">Across packages</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
