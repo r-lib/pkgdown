@@ -2,22 +2,6 @@
 
 ## New features
 
-* Links to external documentation now point to [rdrr.io](https://rdrr.io) 
-  (#998).
-
-* A new vignette on linking describes how to link documentation across pkgdown 
-  sites.
-
-* A default 404 page (`404.html`) is built from content in `.github/404.md` 
-  (#947).
-
-* Subdirectories are supported for assets (#939, @ijlyttle).
-
-* A community section is created in the sidebar if there is either a code of 
-  conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide 
-  (`.github/CONTRIBUTING.md`) or both, with links to their rendered html
-  version (#1044, @maelle).
-
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter 
   `devel` which can be set to `FALSE` to disable redocumenting and reloading 
   the package, and knitting of home `Rmd` file. This generalises and replaces 
@@ -28,37 +12,32 @@
     responsibility of pkgdown more clear: it now only creates/modifies 
     files in `doc/`.
 
-* The title and description of the homepage now corresponds by default to an 
-  unquoted version of the DESCRIPTION Title and Description. Furthermore, one 
-  can override the title and description of the homepage via the `title` 
-  and `description` fields in the home section of config (#957, @maelle).
+* `build_home()` now strips quotes from `Title` and `Description` fields 
+  when generating page metadata. Additionally, you can now override the defaults 
+  via the `title` and `description` fields in the `home` section of 
+  `_pkgdown.yml` (#957, @maelle).
 
-* A timeout for `build_site(new_process = TRUE)` can be set with 
-  `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging 
-  cron jobs. 
-
-* Badges can be extracted from the README paragraph coming after the comment 
-  `<!-- badges: start -->`, to build the "dev status" section of the sidebar 
-  (#670, @gaborcsardi, @maelle)
+* `vignette("linking")` describes how pkgdown's automatic linking works, and
+  how to ensure that cross-package links point to the right place.
 
 ## Improvements to Rd translation
 
-* `\tabular{}` conversion better handles code (@mitchelloharawild, #978).
+* `\dots` and `\ldots` are translated to `...` instead of the ellipsis,
+  since they're often found in code (#1114).
+
+* `\tabular{}` translation handles code better (@mitchelloharawild, #978).
 
 * `\subsection{}` contents are now treated as paragraphs, not inline text 
   (#991).
 
-* Content in verbatim blocks (`preformatted{}`) is now handled more robustly (#951).
-
-* `\dots` and `\ldots` are now translated to `...` instead of the ellipsis,
-  since they're often found in code (#1114).
+* `\preformatted{}` blocks preserve important whitespace (#951).
 
 ## Front end
 
-* Updated fontawesome to 5.7.1. fontawesome 5 [deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), 
-  so fontawesome users need to migrate their icons from `fa fa-home` to 
-  `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) 
-  (#953).
+* Updated fontawesome to v5.7.1. fontawesome 5 [deprecated the `fa` prefix](https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes).
+  If you have used custom icons in your navbar, you'll should update them from
+  (e.g.) `fa fa-home` to `fas fa-home`. Brands now have a separate prefix so
+  `fa fa-github` becomes `fab fa-github` (#953).
 
 * The navbar is now automatically hidden with 
   [headroom.js](https://wicky.nillia.ms/headroom.js/).
@@ -79,14 +58,34 @@
 * Function names can now be included in headers without spurious auto-linking 
   (#948).
 
+* Subdirectories are supported for assets (#939, @ijlyttle).
+
+* Links to external documentation now point to [rdrr.io](https://rdrr.io) 
+  (#998).
+
+* A default 404 page (`404.html`) is built from content in `.github/404.md` 
+  (#947).
+
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
 
-* Optionally, opt of out of installation in `deploy_site_github()`
+* `build_home()` can find badges in paragraph coming after the comment 
+  `<!-- badges: start -->` (#670, @gaborcsardi, @maelle).
+
+* `build_home()` will add a community section to the sidebar if there is either 
+  a code of  conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide 
+  (`.github/CONTRIBUTING.md`) (#1044, @maelle).
+
+* `build_site(new_process = TRUE)` gains a timeout, 
+  e.g. `options(pkgdown.timeout = 10)`, that can be used to prevent stalled 
+  builds. 
+
+* `deploy_site_github(install = FALSE)` makes it possible to opt installation.
 
 * `dev_mode()` now recognises `0.1.9000` as a development version of a package
   (this is an emerging standard we use for packages with backward incompatible
   changes) (#1101).
+  
 
 # pkgdown 1.3.0
 
