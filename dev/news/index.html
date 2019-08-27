@@ -176,37 +176,31 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li><p>Links to external documentation now point to <a href="https://rdrr.io">rdrr.io</a> (<a href='https://github.com/r-lib/pkgdown/issues/998'>#998</a>).</p></li>
-<li><p>A new vignette on linking describes how to link documentation across pkgdown sites.</p></li>
-<li><p>A default 404 page (<code>404.html</code>) is built from content in <code>.github/404.md</code> (<a href='https://github.com/r-lib/pkgdown/issues/947'>#947</a>).</p></li>
-<li><p>Subdirectories are supported for assets (<a href='https://github.com/r-lib/pkgdown/issues/939'>#939</a>, <a href='https://github.com/ijlyttle'>@ijlyttle</a>).</p></li>
-<li><p>A community section is created in the sidebar if there is either a code of conduct (<code>.github/CODE_OF_CONDUCT.md</code>) or a contributing guide (<code>.github/CONTRIBUTING.md</code>) or both, with links to their rendered html version (<a href='https://github.com/r-lib/pkgdown/issues/1044'>#1044</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
 <li>
 <p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which can be set to <code>FALSE</code> to disable redocumenting and reloading the package, and knitting of home <code>Rmd</code> file. This generalises and replaces (with deprecation) the existing <code>document</code> argument.</p>
 <p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer automatically runs <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> when <code>devel</code>/<code>document</code> is <code>TRUE</code> (<a href='https://github.com/r-lib/pkgdown/issues/1079'>#1079</a>). This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p>
 </li>
-<li><p>The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the <code>title</code> and <code>description</code> fields in the home section of config (<a href='https://github.com/r-lib/pkgdown/issues/957'>#957</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
-<li><p>A timeout for <code><a href="../reference/build_site.html">build_site(new_process = TRUE)</a></code> can be set with <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.timeout = Inf)</a></code> to prevent stalled builds from hanging cron jobs.</p></li>
-<li><p>Badges can be extracted from the README paragraph coming after the comment <code>&lt;!-- badges: start --&gt;</code>, to build the “dev status” section of the sidebar (<a href='https://github.com/r-lib/pkgdown/issues/670'>#670</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/maelle'>@maelle</a>)</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now strips quotes from <code>Title</code> and <code>Description</code> fields when generating page metadata. Additionally, you can now override the defaults via the <code>title</code> and <code>description</code> fields in the <code>home</code> section of <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/957'>#957</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
+<li><p><code><a href="../articles/linking.html">vignette("linking")</a></code> describes how pkgdown’s automatic linking works, and how to ensure that cross-package links point to the right place.</p></li>
 </ul>
 </div>
 <div id="improvements-to-rd-translation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements-to-rd-translation" class="anchor"></a>Improvements to Rd translation</h2>
 <ul>
-<li><p><code>\tabular{}</code> conversion better handles code (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>, <a href='https://github.com/r-lib/pkgdown/issues/978'>#978</a>).</p></li>
+<li><p><code>\dots</code> and <code>\ldots</code> are translated to <code>...</code> instead of the ellipsis, since they’re often found in code (<a href='https://github.com/r-lib/pkgdown/issues/1114'>#1114</a>).</p></li>
+<li><p><code>\tabular{}</code> translation handles code better (<a href='https://github.com/mitchelloharawild'>@mitchelloharawild</a>, <a href='https://github.com/r-lib/pkgdown/issues/978'>#978</a>).</p></li>
 <li><p><code>\subsection{}</code> contents are now treated as paragraphs, not inline text (<a href='https://github.com/r-lib/pkgdown/issues/991'>#991</a>).</p></li>
-<li><p>Content in verbatim blocks (<code>preformatted{}</code>) is now handled more robustly (<a href='https://github.com/r-lib/pkgdown/issues/951'>#951</a>).</p></li>
-<li><p><code>\dots</code> and <code>\ldots</code> are now translated to <code>...</code> instead of the ellipsis, since they’re often found in code (<a href='https://github.com/r-lib/pkgdown/issues/1114'>#1114</a>).</p></li>
+<li><p><code>\preformatted{}</code> blocks preserve important whitespace (<a href='https://github.com/r-lib/pkgdown/issues/951'>#951</a>).</p></li>
 </ul>
 </div>
 <div id="front-end" class="section level2">
 <h2 class="hasAnchor">
 <a href="#front-end" class="anchor"></a>Front end</h2>
 <ul>
-<li><p>Updated fontawesome to 5.7.1. <a href="https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use">fontawesome 5 deprecated the <code>fa</code> prefix style</a>, so fontawesome users need to migrate their icons from <code>fa fa-home</code> to <code>fas fa-home</code>. Note that brands now have a separate prefix (<code>fab fa-github</code>) (<a href='https://github.com/r-lib/pkgdown/issues/953'>#953</a>).</p></li>
+<li><p>Updated fontawesome to v5.7.1. fontawesome 5 <a href="https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes">deprecated the <code>fa</code> prefix</a>. If you have used custom icons in your navbar, you’ll should update them from (e.g.) <code>fa fa-home</code> to <code>fas fa-home</code>. Brands now have a separate prefix so <code>fa fa-github</code> becomes <code>fab fa-github</code> (<a href='https://github.com/r-lib/pkgdown/issues/953'>#953</a>).</p></li>
 <li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/">headroom.js</a>.</p></li>
-<li><p>The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
+<li><p>The sticky behaviour of the navbar is now implemented in pure CSS instead of relying a the 3rd party javascript library (<a href='https://github.com/r-lib/pkgdown/issues/1016'>#1016</a>, <a href='https://github.com/bisaloo'>@bisaloo</a>)</p></li>
 <li><p>Favicons are now automatically built from a package logo (<a href='https://github.com/r-lib/pkgdown/issues/949'>#949</a>).</p></li>
 </ul>
 </div>
@@ -215,10 +209,17 @@
 <a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p>Infix operators (e.g., <code><a href="https://rdrr.io/r/base/match.html">%in%</a></code> and <code><a href="https://rdrr.io/r/base/matmult.html">%*%</a></code>) are now linked to their documentation (<a href='https://github.com/r-lib/pkgdown/issues/1082'>#1082</a>).</p></li>
-<li><p>News page recognises more version specfications (including the “(development version)” now used by usethis) (<a href='https://github.com/r-lib/pkgdown/issues/980'>#980</a>).</p></li>
+<li><p>News page recognises more version specfications (including the<br>
+“(development version)” now used by usethis) (<a href='https://github.com/r-lib/pkgdown/issues/980'>#980</a>).</p></li>
 <li><p>Function names can now be included in headers without spurious auto-linking (<a href='https://github.com/r-lib/pkgdown/issues/948'>#948</a>).</p></li>
+<li><p>Subdirectories are supported for assets (<a href='https://github.com/r-lib/pkgdown/issues/939'>#939</a>, <a href='https://github.com/ijlyttle'>@ijlyttle</a>).</p></li>
+<li><p>Links to external documentation now point to <a href="https://rdrr.io">rdrr.io</a> (<a href='https://github.com/r-lib/pkgdown/issues/998'>#998</a>).</p></li>
+<li><p>A default 404 page (<code>404.html</code>) is built from content in <code>.github/404.md</code> (<a href='https://github.com/r-lib/pkgdown/issues/947'>#947</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for license files spelled either as LICENSE or LICENCE (<a href='https://github.com/r-lib/pkgdown/issues/972'>#972</a>).</p></li>
-<li><p>Optionally, opt of out of installation in <code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code></p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> can find badges in paragraph coming after the comment <code>&lt;!-- badges: start --&gt;</code> (<a href='https://github.com/r-lib/pkgdown/issues/670'>#670</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> will add a community section to the sidebar if there is either a code of conduct (<code>.github/CODE_OF_CONDUCT.md</code>) or a contributing guide (<code>.github/CONTRIBUTING.md</code>) (<a href='https://github.com/r-lib/pkgdown/issues/1044'>#1044</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
+<li><p><code><a href="../reference/build_site.html">build_site(new_process = TRUE)</a></code> gains a timeout, e.g. <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.timeout = 10)</a></code>, that can be used to prevent stalled builds.</p></li>
+<li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github(install = FALSE)</a></code> makes it possible to opt installation.</p></li>
 <li><p><code>dev_mode()</code> now recognises <code>0.1.9000</code> as a development version of a package (this is an emerging standard we use for packages with backward incompatible changes) (<a href='https://github.com/r-lib/pkgdown/issues/1101'>#1101</a>).</p></li>
 </ul>
 </div>
