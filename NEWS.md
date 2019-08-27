@@ -2,25 +2,44 @@
 
 ## New features
 
-* Links to external documentation now point to [rdrr.io](https://rdrr.io) (#998).
+* Links to external documentation now point to [rdrr.io](https://rdrr.io) 
+  (#998).
 
-* A new vignette on linking describes how to link documentation across pkgdown sites.
+* A new vignette on linking describes how to link documentation across pkgdown 
+  sites.
 
-* A default 404 page (`404.html`) is built from content in `.github/404.md` (#947).
+* A default 404 page (`404.html`) is built from content in `.github/404.md` 
+  (#947).
 
 * Subdirectories are supported for assets (#939, @ijlyttle).
 
-* A community section is created in the sidebar if there is either a code of conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide (`.github/CONTRIBUTING.md`) or both, with links to their rendered html version (#1044, @maelle).
+* A community section is created in the sidebar if there is either a code of 
+  conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide 
+  (`.github/CONTRIBUTING.md`) or both, with links to their rendered html
+  version (#1044, @maelle).
 
-* `build_site()`, `build_reference()` and `build_home()` gain a parameter `devel` which can be set to `FALSE` to disable redocumenting and reloading the package, and knitting of home `Rmd` file. This generalises and replaces (with deprecation) the existing `document` argument.
+* `build_site()`, `build_reference()` and `build_home()` gain a parameter 
+  `devel` which can be set to `FALSE` to disable redocumenting and reloading 
+  the package, and knitting of home `Rmd` file. This generalises and replaces 
+  (with deprecation) the existing `document` argument.
 
-    `build_reference()` no longer automatically runs `devtools::document()` when `devel`/`document` is `TRUE` (#1079). This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in `doc/`.
+    `build_reference()` no longer automatically runs `devtools::document()` 
+    when `devel`/`document` is `TRUE` (#1079). This makes the scope of 
+    responsibility of pkgdown more clear: it now only creates/modifies 
+    files in `doc/`.
 
-* The title and description of the homepage now corresponds by default to an unquoted version of the DESCRIPTION Title and Description. Furthermore, one can override the title and description of the homepage via the `title` and `description` fields in the home section of config (#957, @maelle).
+* The title and description of the homepage now corresponds by default to an 
+  unquoted version of the DESCRIPTION Title and Description. Furthermore, one 
+  can override the title and description of the homepage via the `title` 
+  and `description` fields in the home section of config (#957, @maelle).
 
-* A timeout for `build_site(new_process = TRUE)` can be set with `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging cron jobs. 
+* A timeout for `build_site(new_process = TRUE)` can be set with 
+  `options(pkgdown.timeout = Inf)` to prevent stalled builds from hanging 
+  cron jobs. 
 
-* Badges can be extracted from the README paragraph coming after the comment `<!-- badges: start -->`, to build the "dev status" section of the sidebar (#670, @gaborcsardi, @maelle)
+* Badges can be extracted from the README paragraph coming after the comment 
+  `<!-- badges: start -->`, to build the "dev status" section of the sidebar 
+  (#670, @gaborcsardi, @maelle)
 
 ## Improvements to Rd translation
 
@@ -36,21 +55,29 @@
 
 ## Front end
 
-* Updated fontawesome to 5.7.1. [fontawesome 5 deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), so fontawesome users need to migrate their icons from `fa fa-home` to `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) (#953).
+* Updated fontawesome to 5.7.1. fontawesome 5 [deprecated the `fa` prefix style](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use), 
+  so fontawesome users need to migrate their icons from `fa fa-home` to 
+  `fas fa-home`. Note that brands now have a separate prefix (`fab fa-github`) 
+  (#953).
 
-* The navbar is now automatically hidden with [headroom.js](https://wicky.nillia.ms/headroom.js/).
+* The navbar is now automatically hidden with 
+  [headroom.js](https://wicky.nillia.ms/headroom.js/).
 
-* The sticky behaviour of the navbar is now implemented in pure CSS instead of relying on the 3rd party javascript library (#1016, @bisaloo)
+* The sticky behaviour of the navbar is now implemented in pure CSS instead of 
+  relying a the 3rd party javascript library (#1016, @bisaloo)
 
 * Favicons are now automatically built from a package logo (#949).
 
 ## Bug fixes and minor improvements
 
-* Infix operators (e.g., `%in%` and `%*%`) are now linked to their documentation (#1082).
+* Infix operators (e.g., `%in%` and `%*%`) are now linked to their 
+  documentation (#1082).
 
-* News page recognises more version specfications (including the  "(development version)" now used by usethis) (#980).
+* News page recognises more version specfications (including the  
+  "(development version)" now used by usethis) (#980).
 
-* Function names can now be included in headers without spurious auto-linking (#948).
+* Function names can now be included in headers without spurious auto-linking 
+  (#948).
 
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
