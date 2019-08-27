@@ -8,11 +8,18 @@ Test case: don't
 }
 \examples{
 \dontrun{
-1 + 3
+stop("This is an error!", call. = FALSE)
 }
 
 \donttest{
 1 + 3
+}
+
+# A non-top-level \donttest{}
+if (TRUE) {
+  \donttest{
+  1 + 2
+  }
 }
 
 answer <- 1

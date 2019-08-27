@@ -66,11 +66,18 @@ NULL
 #' @family tests
 #' @examples
 #' \dontrun{
-#' 1 + 3
+#' stop("This is an error!", call. = FALSE)
 #' }
 #'
 #' \donttest{
 #' 1 + 3
+#' }
+#'
+#' # A non-top-level \donttest{}
+#' if (TRUE) {
+#'   \donttest{
+#'   1 + 2
+#'   }
 #' }
 #'
 #' answer <- 1
@@ -115,17 +122,6 @@ NULL
 #' {
 #'   1 + 2
 #'   2 + 2
-#' }
-#'
-#' \dontrun{
-#' stop("This is an error!", call. = FALSE)
-#' }
-#'
-#' \donttest{
-#' # This code won't generally be run by CRAN. But it
-#' # will be run by pkgdown
-#' b <- 10
-#' a + b
 #' }
 NULL
 
