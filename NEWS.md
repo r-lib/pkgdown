@@ -54,6 +54,10 @@
 
 * Optionally, opt of out of installation in `deploy_site_github()`
 
+* `dev_mode()` now recognises `0.1.9000` as a development version of a package
+  (this is an emerging standard we use for packages with backward incompatible
+  changes) (#1101).
+
 # pkgdown 1.3.0
 
 * Restore accidentally deleted `build_logo()` function so that logos
