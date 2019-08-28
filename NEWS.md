@@ -86,8 +86,8 @@
   (this is an emerging standard we use for packages with backward incompatible
   changes) (#1101).
   
-* `build_article()` now uses the unprocessed vignette title as page title and
-   as og:title (@maelle, #1037).
+* `build_article()` now uses the vignette title with "`" occurrences removed
+   as page title and as og:title (@maelle, #1037).
 
 # pkgdown 1.3.0
 
