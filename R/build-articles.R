@@ -178,7 +178,7 @@ build_article <- function(name,
   front <- rmarkdown::yaml_front_matter(input_path)
 
   default_data <- list(
-    pagetitle = front$title,
+    pagetitle = gsub("`", "", front$title),
     opengraph = list(description = "$description$"),
     source = github_source_links(pkg$github_url, path_rel(input, pkg$src_path)),
     filename = path_file(input)
