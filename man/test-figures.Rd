@@ -9,6 +9,9 @@
 \examples{
 x <- seq(0, 2 * pi, length = 25)
 plot(x, sin(x))
+
+plot(1:10)
+lines(1:10)
 }
 \seealso{
 Other tests: \code{\link{test-crayon}},

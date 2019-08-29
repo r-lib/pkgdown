@@ -7,7 +7,8 @@
 \usage{
 build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
   run_dont_run = FALSE, seed = 1014, override = list(),
-  preview = NA, devel = TRUE, document = "DEPRECATED")
+  preview = NA, devel = TRUE, document = "DEPRECATED",
+  topics = NULL)
 
 build_reference_index(pkg = ".")
 }
@@ -37,6 +38,8 @@ environment, and loads source package with \code{\link[pkgload:load_all]{pkgload
 If \code{FALSE}, uses the installed version of the package.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
+
+\item{topics}{Build only specified topics. If supplied, sets \code{lazy`` and }preview\code{to}FALSE`.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in

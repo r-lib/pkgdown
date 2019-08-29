@@ -566,3 +566,14 @@ stop_bad_tag <- function(tag, msg = NULL) {
 
   stop(msg, call. = FALSE)
 }
+
+is_newline <- function(x, trim = FALSE) {
+  if (!inherits(x, "TEXT") && !inherits(x, "RCODE") && !inherits(x, "VERB"))
+    return(FALSE)
+
+  text <- x[[1]]
+  if (trim) {
+    text <- gsub("^[ \t]+|[ \t]+$", "", text)
+  }
+  identical(text, "\n")
+}

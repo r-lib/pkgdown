@@ -76,6 +76,14 @@
   a code of  conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide 
   (`.github/CONTRIBUTING.md`) (#1044, @maelle).
 
+* `build_reference()` has completely overhauled example rendering so it
+  now first converts the entire mixed Rd-R block to R prior to processing.
+  This considerably improves the fidelity of the translation for a small
+  cost of no longer being able to remove block `\donttest()` etc (#1087).
+
+* `build_reference()` gains a `topics` argument which allows you to re-build
+  only specified topics.
+
 * `build_site(new_process = TRUE)` gains a timeout, 
   e.g. `options(pkgdown.timeout = 10)`, that can be used to prevent stalled 
   builds. 

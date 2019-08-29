@@ -1,5 +1,4 @@
 #' @importFrom magrittr %>%
-#' @importFrom R6 R6Class
 #' @importFrom utils installed.packages
 #' @import rlang
 #' @import fs

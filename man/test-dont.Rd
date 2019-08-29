@@ -8,14 +8,19 @@ Test case: don't
 }
 \examples{
 \dontrun{
-stop("This is an error!", call. = FALSE)
+  stop("This is an error!", call. = FALSE)
 }
 
+# Inline \donttest is silently ommitted
+\donttest{message("Hi!")}
+
+# Block \donttest indicated with comments
 \donttest{
+# This is a comment
 1 + 3
 }
 
-# A non-top-level \donttest{}
+# And works even when not at the top level
 if (TRUE) {
   \donttest{
   1 + 2
