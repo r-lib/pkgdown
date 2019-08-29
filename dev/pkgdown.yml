@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   linking: linking.html
   pkgdown: pkgdown.html
+  search: search.html
   jss: test/jss.html
   output: test/output.html
   pdf: test/pdf.html

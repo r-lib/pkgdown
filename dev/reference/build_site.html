@@ -131,7 +131,10 @@ clean_site() first to clean up orphan files." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/linking.html">Linking between pkgdown sites</a>
+      <a href="../articles/linking.html">Auto-linking</a>
+    </li>
+    <li>
+      <a href="../articles/search.html">Search</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -357,7 +360,19 @@ to danger). Finally, you can choose to override the default tooltip with
 
     
 
-<p><code>navbar</code> controls the navbar at the top of the page. It has two primary
+
+<p>By default, the top navigation bar (the "navbar") will contain links to:</p><ul>
+<li><p>The home page, with a "home" icon.</p></li>
+<li><p>"Get Started", if you have an article with the same name as the package
+(e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
+<li><p>Reference</p></li>
+<li><p>Articles (i.e., vignettes, if present).</p></li>
+<li><p>News (if present).</p></li>
+<li><p>A "github" icon with a link to your
+github repo (if listed in the <code>DESCRIPTION</code> url field).</p></li>
+</ul>
+
+<p>You can override these defaults with the  <code>navbar</code> field. It has two primary
 components: <code>structure</code> and <code>components</code>. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically

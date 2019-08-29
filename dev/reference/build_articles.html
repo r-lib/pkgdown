@@ -50,7 +50,9 @@
 
 <meta property="og:title" content="Build articles section — build_articles" />
 <meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is rendered
-and saved to articles/. Vignettes are rendered using a special document
+and saved to articles/.
+The only exception are .Rmd vignettes that start with _ (i.e., _index.Rmd), enabling the use of child documents in bookdown, and vignettes in a tutorials subdirectory, which is reserved for tutorials built with build_tutorials()
+Vignettes are rendered using a special document
 format that reconciles rmarkdown::html_document() with your pkgdown
 template.
 Note that when run by itself (i.e. not by build_site()), vignettes will
@@ -125,7 +127,10 @@ version." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/linking.html">Linking between pkgdown sites</a>
+      <a href="../articles/linking.html">Auto-linking</a>
+    </li>
+    <li>
+      <a href="../articles/search.html">Search</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -180,7 +185,9 @@ version." />
 
     <div class="ref-description">
     <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is rendered
-and saved to <code>articles/</code>. Vignettes are rendered using a special document
+and saved to <code>articles/</code>.</p>
+<p>The only exception are <code>.Rmd</code> vignettes that start with <code>_</code> (i.e., <code>_index.Rmd</code>), enabling the use of child documents in <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a>, and vignettes in a <code>tutorials</code> subdirectory, which is reserved for tutorials built with <code><a href='build_tutorials.html'>build_tutorials()</a></code></p>
+<p>Vignettes are rendered using a special document
 format that reconciles <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with your pkgdown
 template.</p>
 <p>Note that when run by itself (i.e. not by <code><a href='build_site.html'>build_site()</a></code>), vignettes will
@@ -260,6 +267,16 @@ resource_files:
 
 <p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
+    <h2 class="hasAnchor" id="embedding-shiny-apps"><a class="anchor" href="#embedding-shiny-apps"></a>Embedding Shiny apps</h2>
+
+    
+
+<p>If you would like to embed a Shiny app into an article, the app will have
+to be hosted independently, (e.g. <a href='https://www.shinyapps.io'>https://www.shinyapps.io</a>). Then, you
+can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
+<code>&lt;iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app"&gt;</code>.</p>
+<p>See <a href='https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856'>https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
+some hints on how to customise the appearance with CSS.</p>
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
@@ -354,6 +371,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#get-started-vignette">Get started vignette</a></li>
       <li><a href="#external-files">External files</a></li>
+      <li><a href="#embedding-shiny-apps">Embedding Shiny apps</a></li>
       <li><a href="#yaml-config">YAML config</a></li>
       <li><a href="#yaml-header">YAML header</a></li>
       <li><a href="#suppressing-vignettes">Suppressing vignettes</a></li>
