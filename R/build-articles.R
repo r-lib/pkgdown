@@ -7,7 +7,8 @@
 #'
 #' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
 #' gets special treatment. It is rendered and linked to in the navbar under
-#' "Get started".
+#' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,
+#' because these are assumed to contain tutorials, see `build_tutorials()`.
 #'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
