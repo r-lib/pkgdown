@@ -62,7 +62,7 @@
 #'
 #' @section YAML header:
 #' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' using setting the `template` parameter. This overrides any custom settings
+#' by setting the `template` parameter. This overrides any custom settings
 #' you have in your YAML metadata, ensuring that all articles are rendered
 #' in the same way (and receive the default site template).
 #'
