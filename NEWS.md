@@ -22,6 +22,9 @@
 
 ## Improvements to Rd translation
 
+* `\item{}`s in `\describe{}` containing whitespace are translated correctly
+  (#1117).
+
 * `\dots` and `\ldots` are translated to `...` instead of the ellipsis,
   since they're often found in code (#1114).
 

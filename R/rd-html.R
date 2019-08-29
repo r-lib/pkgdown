@@ -28,8 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map_chr(x, as_html, ...)
-
+  html <- purrr::map(x, as_html, ...)
   # split at line breaks for everything except blocks
   empty <- purrr::map_lgl(x, purrr::is_empty)
   needs_split <- !is_block & !empty
@@ -37,6 +36,7 @@ flatten_para <- function(x, ...) {
 
   blocks <- html %>%
     split(groups) %>%
+    purrr::map(unlist) %>%
     purrr::map_chr(paste, collapse = "")
 
   # There are three types of blocks:
@@ -329,7 +329,7 @@ as_html.tag_enumerate <- function(x, ...) {
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>")
+  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "\n</dl>")
 }
 
 # Effectively does nothing: only used by parse_items() to split up

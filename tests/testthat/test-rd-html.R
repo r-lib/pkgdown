@@ -309,6 +309,20 @@ test_that("cr generates line break", {
   expect_equal(out, "<p>a <br /> b</p>")
 })
 
+test_that("nested item with whitespace parsed correctly", {
+  out <- rd2html("
+    \\describe{
+    \\item{Label}{
+
+      This text is indented in a way pkgdown doesn't like.
+  }}")
+  expect_equal(out, c(
+    "<dl class='dl-horizontal'>",
+    "<dt>Label</dt><dd><p>This text is indented in a way pkgdown doesn't like.</p></dd>",
+    "</dl>"
+  ))
+})
+
 # Verbatim ----------------------------------------------------------------
 
 test_that("newlines are preserved in preformatted blocks", {
