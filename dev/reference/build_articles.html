@@ -230,7 +230,8 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
 
     <p>A vignette with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>)
 gets special treatment. It is rendered and linked to in the navbar under
-"Get started".</p>
+"Get started". Rmarkdown files in <code>vignettes/tutorials/</code> are ignored,
+because these are assumed to contain tutorials, see <code><a href='build_tutorials.html'>build_tutorials()</a></code>.</p>
     <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
 
     
@@ -283,7 +284,7 @@ this page, and will generate a warning if you have missed any.</p>
     
 
 <p>By default, pkgdown builds all articles with <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code>
-using setting the <code>template</code> parameter. This overrides any custom settings
+by setting the <code>template</code> parameter. This overrides any custom settings
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
