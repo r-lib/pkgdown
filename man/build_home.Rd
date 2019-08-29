@@ -5,7 +5,7 @@
 \title{Build home section}
 \usage{
 build_home(pkg = ".", override = list(), preview = NA,
-  quiet = TRUE, devel = TRUE)
+  quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -18,18 +18,14 @@ freshly generated section in browser.}
 
 \item{quiet}{Set to \code{FALSE} to display output of knitr and
 pandoc. This is useful when debugging.}
-
-\item{devel}{If \code{TRUE}, assumes you are doing active development, and
-re-knits all \code{.Rmd} files. If \code{FALSE}, assumes Rmarkdown files have
-already rendered to \code{.md}, falling back to rendering as plain markdown
-if they have not.}
 }
 \description{
-This function is responsible for building \code{.md} (or \code{.Rmd}) files typically
-found in the root directory of the package. It will generate the home page
-from  \code{index.Rmd} or \code{README.Rmd}, then \code{index.md} or \code{README.md}. If none of
-these are found, it falls back to the description field in \code{DESCRIPTION}. It
-also builds any files found in \code{.github/}.
+This function generates the home pagea, for converting other \code{.md} files
+typically found in the package root and in \code{.github/}. It generates the home
+page from  \code{index.md} or \code{README.md}, falling back to the description field
+in \code{DESCRIPTION} if neither is found. It also builds an authors page
+from the \code{DESCRIPTION} and \code{inst/CITATION} (if present) and
+a license page, and converts any \code{.md} files found in
 }
 \section{Images and figures}{
 

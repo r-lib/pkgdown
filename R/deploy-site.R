@@ -122,6 +122,7 @@ deploy_local <- function(
     override = list(destination = dest_dir),
     devel = FALSE,
     preview = FALSE,
+    install = FALSE,
     ...
   )
   github_push(dest_dir, commit_message)
