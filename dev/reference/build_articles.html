@@ -52,7 +52,10 @@
 <meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is rendered
 and saved to articles/. Vignettes are rendered using a special document
 format that reconciles rmarkdown::html_document() with your pkgdown
-template." />
+template.
+Note that when run by itself (i.e. not by build_site()), vignettes will
+use a previous installed version of the package, not the current source
+version." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -180,6 +183,9 @@ template." />
 and saved to <code>articles/</code>. Vignettes are rendered using a special document
 format that reconciles <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with your pkgdown
 template.</p>
+<p>Note that when run by itself (i.e. not by <code><a href='build_site.html'>build_site()</a></code>), vignettes will
+use a previous installed version of the package, not the current source
+version.</p>
     </div>
 
     <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -226,9 +232,11 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="get-started-vignette"><a class="anchor" href="#get-started-vignette"></a>Get started vignette</h2>
 
-    <p>A vignette with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>)
+    
+
+<p>A vignette with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>)
 gets special treatment. It is rendered and linked to in the navbar under
 "Get started". Rmarkdown files in <code>vignettes/tutorials/</code> are ignored,
 because these are assumed to contain tutorials, see <code><a href='build_tutorials.html'>build_tutorials()</a></code>.</p>
@@ -344,7 +352,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#get-started-vignette">Get started vignette</a></li>
       <li><a href="#external-files">External files</a></li>
       <li><a href="#yaml-config">YAML config</a></li>
       <li><a href="#yaml-header">YAML header</a></li>

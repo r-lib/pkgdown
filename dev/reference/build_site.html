@@ -202,7 +202,8 @@ that aspect of the site.</p>
 
     <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>new_process</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
+  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>new_process</span> <span class='kw'>=</span> !<span class='no'>devel</span>, <span class='kw'>install</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
+  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,17 +241,28 @@ values in <code>_pkgdown.yml</code></p></td>
 freshly generated section in browser.</p></td>
     </tr>
     <tr>
+      <th>devel</th>
+      <td><p>Use development or deployment process?</p>
+<p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
+iteration; it will run examples and vignettes in the current process,
+and will load code with <code>pkgload::load_call()</code>.</p>
+<p>If <code>FALSE</code>, will first install the package to a temporary library,
+and will run all examples and vignettes in a new process.</p>
+<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+outputs when you building the complete site; <code><a href='build_reference.html'>build_reference()</a></code>,
+<code><a href='build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
+rapidly iterate during development.</p></td>
+    </tr>
+    <tr>
       <th>new_process</th>
       <td><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></td>
     </tr>
     <tr>
-      <th>devel</th>
-      <td><p>Determines how code is loaded in order to run examples.
-If <code>TRUE</code> (the default), assumes you are in a live development
-environment, and loads source package with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.
-If <code>FALSE</code>, uses the installed version of the package.</p></td>
+      <th>install</th>
+      <td><p>If <code>TRUE</code>, will install the package in a temporary library
+so it is available for vignettes.</p></td>
     </tr>
     <tr>
       <th>document</th>
