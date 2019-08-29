@@ -27,6 +27,43 @@ in \code{DESCRIPTION} if neither is found. It also builds an authors page
 from the \code{DESCRIPTION} and \code{inst/CITATION} (if present) and
 a license page, and converts any \code{.md} files found in
 }
+\section{Sidebar}{
+
+The sidebar is automatically populated with:
+\itemize{
+\item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
+identifies badge paragraphs in two ways:
+\itemize{
+\item A paragraph starting with \code{<!-- badges: start -->} and ending with
+\code{<!-- badges: end -->} as created by \code{usethis::use_readme_md()}. or
+\code{usethis::use_readme_rmd()}.
+\item The first paragraph, if it only contains images.
+}
+\item A link for bug reports is added if the \code{BugReports} field in
+\code{DESCRIPTION} contains a link. You can use \code{usethis::use_github_links()}
+to populate this field.
+\item Licensing information if \code{LICENSE}/\code{LICENCE} or \code{LICENSE.md}/\code{LICENCE.md}
+files are present.
+\item Community information is linked in the side bar using the
+\code{.github/CONTRIBUTING.md} and \code{.github/CODE_OF_CONDUCT.md} files,
+if present.
+\item Extra markdown files in the base directory or in \code{.github/} are copied
+to \code{docs/} and converted to HTML.
+\item Citation information from a \code{inst/CITATION} file is linked in the side bar
+to the \href{https://testthat.r-lib.org/authors.html}{authors page}.
+\item Author ORCID identification numbers in the \code{DESCRIPTION} are linked under
+"Developers" using the ORCID logo:\preformatted{Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-4757-117X")
+    ),
+    person("Jay", "Hesselberth", role = "aut",
+      comment = c(ORCID = "0000-0002-6299-179X")
+    )
+  )
+}
+}
+}
+
 \section{Images and figures}{
 
 If you want to include images in your \code{README.md}, they must be stored
@@ -98,30 +135,6 @@ name should match the value in \code{DESCRIPTION}:\preformatted{authors:
   name:
     href: "http://name-website.com"
     html: "<img src='name-picture.png' height=24>"
-}
-}
-
-\section{ORCID}{
-
-ORCID identification numbers are added to author info if they
-are defined in the \code{DESCRIPTION}:\preformatted{person("Jay", "Hesselberth", role = "aut",
-  comment = c(ORCID = "0000-0002-6299-179X")
-),
-}
-}
-
-\section{Badges}{
-
-Status badges are displayed in the sidebar under the section "Dev status".
-This section is automatically populated if there is an identifiable badges
-paragraph in the homepage source (index.Rmd, index.md, README.Rmd,
-README.md):
-\itemize{
-\item pkgdown first looks for a paragraph starting with \code{<!-- badges: start -->}
-and ending with \code{<!-- badges: end -->} as created by
-\code{usethis::use_readme_md()} or \code{usethis::use_readme_rmd()};
-\item failing that, pkgdown looks at the first paragraph, and uses it if it
-only contains images.
 }
 }
 

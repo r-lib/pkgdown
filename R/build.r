@@ -114,7 +114,19 @@
 #' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
-#' `navbar` controls the navbar at the top of the page. It has two primary
+#'
+#' By default, the top navigation bar (the "navbar") will contain links to:
+#'
+#' * The home page, with a "home" icon.
+#' * "Get Started", if you have an article with the same name as the package
+#'   (e.g., `vignettes/pkgdown.Rmd`).
+#' * Reference
+#' * Articles (i.e., vignettes, if present).
+#' * News (if present).
+#' * A "github" icon with a link to your
+#'   github repo (if listed in the `DESCRIPTION` url field).
+#'
+#' You can override these defaults with the  `navbar` field. It has two primary
 #' components: `structure` and `components`. These components interact in
 #' a somewhat complicated way, but the complexity allows you to make minor
 #' tweaks to part of the navbar while relying on pkgdown to automatically

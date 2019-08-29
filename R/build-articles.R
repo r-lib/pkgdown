@@ -2,7 +2,11 @@
 #'
 #' @description
 #' Each R Markdown vignette in `vignettes/` and its subdirectories is rendered
-#' and saved to `articles/`. Vignettes are rendered using a special document
+#' and saved to `articles/`.
+#'
+#' The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/), and vignettes in a `tutorials` subdirectory, which is reserved for tutorials built with `build_tutorials()`
+#'
+#' Vignettes are rendered using a special document
 #' format that reconciles [rmarkdown::html_document()] with your pkgdown
 #' template.
 #'
@@ -36,6 +40,15 @@
 #'
 #' Note that you can not use the `fig.path` to change the output directory of
 #' generated figures as its default value is a strong assumption of rmarkdown.
+#'
+#' @section Embedding Shiny apps:
+#' If you would like to embed a Shiny app into an article, the app will have
+#' to be hosted independently, (e.g. <https://www.shinyapps.io>). Then, you
+#' can embed the app into your article using an `<iframe>`, e.g.
+#' `<iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app">`.
+#'
+#' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
+#' some hints on how to customise the appearance with CSS.
 #'
 #' @section YAML config:
 #' To tweak the index page, you need a section called `articles`,

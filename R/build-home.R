@@ -7,6 +7,49 @@
 #' from the `DESCRIPTION` and `inst/CITATION` (if present) and
 #' a license page, and converts any `.md` files found in
 #'
+#' @section Sidebar:
+#' The sidebar is automatically populated with:
+#'
+#' *   Development status badges found in `README.md`/`index.md`. pkgdown
+#'     identifies badge paragraphs in two ways:
+#'
+#'     * A paragraph starting with `<!-- badges: start -->` and ending with
+#'       `<!-- badges: end -->` as created by `usethis::use_readme_md()`. or
+#'       `usethis::use_readme_rmd()`.
+#'
+#'     * The first paragraph, if it only contains images.
+#'
+#' *   A link for bug reports is added if the `BugReports` field in
+#'     `DESCRIPTION` contains a link. You can use `usethis::use_github_links()`
+#'     to populate this field.
+#'
+#' *   Licensing information if `LICENSE`/`LICENCE` or `LICENSE.md`/`LICENCE.md`
+#'     files are present.
+#'
+#' *   Community information is linked in the side bar using the
+#'     `.github/CONTRIBUTING.md` and `.github/CODE_OF_CONDUCT.md` files,
+#'     if present.
+#'
+#' *   Extra markdown files in the base directory or in `.github/` are copied
+#'     to `docs/` and converted to HTML.
+#'
+#' *   Citation information from a `inst/CITATION` file is linked in the side bar
+#'     to the [authors page](https://testthat.r-lib.org/authors.html).
+#'
+#' *   Author ORCID identification numbers in the `DESCRIPTION` are linked under
+#'     "Developers" using the ORCID logo:
+#'
+#'     ```
+#'     Authors@R: c(
+#'         person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+#'           comment = c(ORCID = "0000-0003-4757-117X")
+#'         ),
+#'         person("Jay", "Hesselberth", role = "aut",
+#'           comment = c(ORCID = "0000-0002-6299-179X")
+#'         )
+#'       )
+#'     ```
+#'
 #' @section Images and figures:
 #' If you want to include images in your `README.md`, they must be stored
 #' somewhere in the package so that they can be displayed on the CRAN website.
@@ -87,28 +130,6 @@
 #'     href: "http://name-website.com"
 #'     html: "<img src='name-picture.png' height=24>"
 #' ```
-#'
-#' @section ORCID:
-#' ORCID identification numbers are added to author info if they
-#' are defined in the `DESCRIPTION`:
-#'
-#' ```
-#' person("Jay", "Hesselberth", role = "aut",
-#'   comment = c(ORCID = "0000-0002-6299-179X")
-#' ),
-#' ```
-#'
-#' @section Badges:
-#' Status badges are displayed in the sidebar under the section "Dev status".
-#' This section is automatically populated if there is an identifiable badges
-#'  paragraph in the homepage source (index.Rmd, index.md, README.Rmd,
-#'  README.md):
-#'  * pkgdown first looks for a paragraph starting with `<!-- badges: start -->`
-#' and ending with `<!-- badges: end -->` as created by
-#' `usethis::use_readme_md()` or `usethis::use_readme_rmd()`;
-#'  * failing that, pkgdown looks at the first paragraph, and uses it if it
-#'   only contains images.
-#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",

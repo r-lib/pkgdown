@@ -159,7 +159,20 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-\code{navbar} controls the navbar at the top of the page. It has two primary
+
+By default, the top navigation bar (the "navbar") will contain links to:
+\itemize{
+\item The home page, with a "home" icon.
+\item "Get Started", if you have an article with the same name as the package
+(e.g., \code{vignettes/pkgdown.Rmd}).
+\item Reference
+\item Articles (i.e., vignettes, if present).
+\item News (if present).
+\item A "github" icon with a link to your
+github repo (if listed in the \code{DESCRIPTION} url field).
+}
+
+You can override these defaults with the  \code{navbar} field. It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically

@@ -52,8 +52,10 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: 'Linking between pkgdown sites'
+      - text: 'Auto-linking'
         href: articles/linking.html
+      - text: 'Search'
+        href: articles/search.html
       - text: '---'
       - text: 'Tests'
       - text: 'Output Rendering'
