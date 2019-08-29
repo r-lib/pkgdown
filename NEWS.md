@@ -8,14 +8,17 @@
   argument.
   
     Development mode is optimised for rapid iteration and is the default
-    for `build_reference()` and `build_home()`. `build_reference()` no
-    runs `devtools::document()` when `devel`/`document` is `TRUE` (#1079). 
-    This makes the scope of responsibility of pkgdown more clear: it now 
-    only creates/modifies files in `doc/`.
+    for `build_reference()`. It uses `pkgload::load_all()` to load code
+    directly from disk in order.
     
     Deployment mode is slower, but guarantees correct results, and is the
     default for `build_site()`. It installs the package into a temporary
     library, and runs examples/articles in a new process.
+
+* `build_reference()` no longer runs `devtools::document()` (#1079) and
+  `build_home() no longer re-builds `README.Rmd`.  This makes the scope 
+  of responsibility of pkgdown more clear: it now only creates/modifies 
+  files in `doc/`.
 
 * `build_home()` now strips quotes from `Title` and `Description` fields 
   when generating page metadata. Additionally, you can now override the defaults 

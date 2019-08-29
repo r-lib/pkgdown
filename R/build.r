@@ -393,7 +393,7 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE, devel = devel)
+  build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
     examples = examples,

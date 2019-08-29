@@ -1,10 +1,11 @@
 #' Build home section
 #'
-#' This function is responsible for building `.md` (or `.Rmd`) files typically
-#' found in the root directory of the package. It will generate the home page
-#' from  `index.Rmd` or `README.Rmd`, then `index.md` or `README.md`. If none of
-#' these are found, it falls back to the description field in `DESCRIPTION`. It
-#' also builds any files found in `.github/`.
+#' This function generates the home page, and converts other `.md` files
+#' typically found in the package root and in `.github/`. It generates the home
+#' page from  `index.md` or `README.md`, falling back to the description field
+#' in `DESCRIPTION` if neither is found. It also builds an authors page
+#' from the `DESCRIPTION` and `inst/CITATION` (if present) and
+#' a license page, and converts any `.md` files found in
 #'
 #' @section Images and figures:
 #' If you want to include images in your `README.md`, they must be stored
@@ -108,16 +109,11 @@
 #'   only contains images.
 #'
 #' @inheritParams build_articles
-#' @param devel If `TRUE`, assumes you are doing active development, and
-#'   re-knits all `.Rmd` files. If `FALSE`, assumes Rmarkdown files have
-#'   already rendered to `.md`, falling back to rendering as plain markdown
-#'   if they have not.
 #' @export
 build_home <- function(pkg = ".",
                        override = list(),
                        preview = NA,
-                       quiet = TRUE,
-                       devel = TRUE) {
+                       quiet = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
   rule("Building home")
@@ -130,7 +126,7 @@ build_home <- function(pkg = ".",
   }
   build_home_md(pkg)
   build_home_license(pkg)
-  build_home_index(pkg, quiet = quiet, knit = devel)
+  build_home_index(pkg, quiet = quiet)
 
   preview_site(pkg, "/", preview = preview)
 }

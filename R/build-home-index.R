@@ -1,35 +1,21 @@
-build_home_index <- function(pkg = ".", quiet = TRUE, knit = TRUE) {
+build_home_index <- function(pkg = ".", quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
-  # When knit = FALSE, prefer pre-rendered md file if exists
-  src_path <- path_first_existing(
-    pkg$src_path,
-    if (knit){
-      c("index.Rmd", "README.Rmd", "index.md", "README.md")
-    } else {
-      c("index.md", "README.md","index.Rmd", "README.Rmd")
-    }
+  src_path <- path_first_existing(pkg$src_path,
+    c("index.md", "README.md", "index.Rmd", "README.Rmd")
   )
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
-    render_page(pkg, "home", data, "index.html")
   } else {
-    file_ext <- path_ext(src_path)
-
-    if (file_ext == "md" || (!knit && file_ext == "Rmd")) {
-      data$index <- markdown(src_path)
-      render_page(pkg, "home", data, "index.html")
-    } else if (file_ext == "Rmd") {
-      data$index <- "$body$"
-      render_index(pkg, path_rel(src_path, pkg$src_path), data = data, quiet = quiet)
-    }
+    data$index <- markdown(src_path)
   }
+  render_page(pkg, "home", data, "index.html")
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
   update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
