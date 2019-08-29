@@ -16,19 +16,27 @@
     library, and runs examples/articles in a new process.
 
 * `build_reference()` no longer runs `devtools::document()` (#1079) and
-  `build_home() no longer re-builds `README.Rmd`.  This makes the scope 
+  `build_home()` no longer re-builds `README.Rmd`.  This makes the scope 
   of responsibility of pkgdown more clear: it now only creates/modifies 
   files in `doc/`.
 
 * `build_home()` now strips quotes from `Title` and `Description` fields 
-  when generating page metadata. Additionally, you can now override the defaults 
-  via the `title` and `description` fields in the `home` section of 
+  when generating page metadata. Additionally, you can now override the 
+  defaults via the `title` and `description` fields in the `home` section of 
   `_pkgdown.yml` (#957, @maelle).
 
 * `vignette("linking")` describes how pkgdown's automatic linking works, and
   how to ensure that cross-package links point to the right place.
 
-## Improvements to Rd translation
+## Bug fixes and minor improvements
+
+### Rd translation
+
+* `\examples{}` rendering has been completely overhauled so it now first 
+  converts the entire mixed Rd-R block to R prior, and then evaluates the
+  whole thing. This considerably improves the fidelity of the translation 
+  at a small cost of no longer being able to remove `\donttest{}` and
+  friends (#1087).
 
 * `\item{}`s in `\describe{}` containing whitespace are translated correctly
   (#1117).
@@ -43,7 +51,7 @@
 
 * `\preformatted{}` blocks preserve important whitespace (#951).
 
-## Front end
+### Front end
 
 * Updated fontawesome to v5.7.1. fontawesome 5 [deprecated the `fa` prefix](https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes).
   If you have used custom icons in your navbar, you'll should update them from
@@ -58,24 +66,29 @@
 
 * Favicons are now automatically built from a package logo (#949).
 
-## Bug fixes and minor improvements
+### Linking
 
 * Infix operators (e.g., `%in%` and `%*%`) are now linked to their 
   documentation (#1082).
 
-* News page recognises more version specfications (including the  
-  "(development version)" now used by usethis) (#980).
-
 * Function names can now be included in headers without spurious auto-linking 
   (#948).
-
-* Subdirectories are supported for assets (#939, @ijlyttle).
 
 * Links to external documentation now point to [rdrr.io](https://rdrr.io) 
   (#998).
 
+### Other
+
+* News page recognises more version specfications (including the  
+  "(development version)" now used by usethis) (#980).
+
+* Subdirectories are supported for assets (#939, @ijlyttle).
+
 * A default 404 page (`404.html`) is built from content in `.github/404.md` 
   (#947).
+
+* `build_article()` now uses the raw vignette title as page `<title>` 
+  and `og:title` (@maelle, #1037).
 
 * `build_home()` now looks for license files spelled either as LICENSE or 
   LICENCE (#972).
@@ -87,26 +100,19 @@
   a code of  conduct (`.github/CODE_OF_CONDUCT.md`) or a contributing guide 
   (`.github/CONTRIBUTING.md`) (#1044, @maelle).
 
-* `build_reference()` has completely overhauled example rendering so it
-  now first converts the entire mixed Rd-R block to R prior to processing.
-  This considerably improves the fidelity of the translation for a small
-  cost of no longer being able to remove block `\donttest()` etc (#1087).
-
 * `build_reference()` gains a `topics` argument which allows you to re-build
   only specified topics.
 
 * `build_site(new_process = TRUE)` gains a timeout, 
-  e.g. `options(pkgdown.timeout = 10)`, that can be used to prevent stalled 
+  `options(pkgdown.timeout = 10)`, that can be used to prevent stalled 
   builds. 
 
-* `deploy_site_github(install = FALSE)` makes it possible to opt installation.
+* `deploy_site_github(install = FALSE)` makes it possible to opt out of 
+  installation.
 
 * `dev_mode()` now recognises `0.1.9000` as a development version of a package
   (this is an emerging standard we use for packages with backward incompatible
   changes) (#1101).
-  
-* `build_article()` now uses the unprocessed vignette title as page title and
-  as og:title (@maelle, #1037).
 
 # pkgdown 1.3.0
 
