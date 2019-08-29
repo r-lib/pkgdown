@@ -40,7 +40,8 @@ template.
 \details{
 A vignette with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd})
 gets special treatment. It is rendered and linked to in the navbar under
-"Get started".
+"Get started". Rmarkdown files in \code{vignettes/tutorials/} are ignored,
+because these are assumed to contain tutorials, see \code{build_tutorials()}.
 }
 \section{External files}{
 
