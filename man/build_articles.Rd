@@ -94,7 +94,7 @@ this page, and will generate a warning if you have missed any.
 \section{YAML header}{
 
 By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
-using setting the \code{template} parameter. This overrides any custom settings
+by setting the \code{template} parameter. This overrides any custom settings
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).
 
