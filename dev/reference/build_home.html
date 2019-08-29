@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -45,16 +47,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Build home section — build_home" />
 
+<meta property="og:title" content="Build home section — build_home" />
 <meta property="og:description" content="This function is responsible for building .md (or .Rmd) files typically
 found in the root directory of the package. It will generate the home page
 from  index.Rmd or README.Rmd, then index.md or README.md. If none of
 these are found, it falls back to the description field in DESCRIPTION. It
 also builds any files found in .github/." />
-
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -143,7 +145,6 @@ also builds any files found in .github/." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-lib/pkgdown">
@@ -176,18 +177,16 @@ also builds any files found in .github/." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function is responsible for building <code>.md</code> (or <code>.Rmd</code>) files typically
 found in the root directory of the package. It will generate the home page
 from  <code>index.Rmd</code> or <code>README.Rmd</code>, then <code>index.md</code> or <code>README.md</code>. If none of
 these are found, it falls back to the description field in <code>DESCRIPTION</code>. It
 also builds any files found in <code>.github/</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -218,7 +217,7 @@ already rendered to <code>.md</code>, falling back to rendering as plain markdow
 if they have not.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="images-and-figures"><a class="anchor" href="#images-and-figures"></a>Images and figures</h2>
 
     
@@ -235,7 +234,6 @@ knitr::opts_chunk$set(
 ```
 </pre>
 
-    
     <h2 class="hasAnchor" id="package-logo"><a class="anchor" href="#package-logo"></a>Package logo</h2>
 
     
@@ -246,7 +244,6 @@ level-one heading:</p><pre># pkgdown &lt;img src="man/figures/logo.png" align="r
 
 <p><code><a href='init_site.html'>init_site()</a></code> will also automatically create a favicon set from your package
 logo.</p>
-    
     <h2 class="hasAnchor" id="yaml-config-home"><a class="anchor" href="#yaml-config-home"></a>YAML config - home</h2>
 
     
@@ -265,7 +262,6 @@ elements:</p><pre>home:
   strip_header: true
 </pre>
 
-    
     <h2 class="hasAnchor" id="yaml-config-home-title-and-description"><a class="anchor" href="#yaml-config-home-title-and-description"></a>YAML config - home title and description</h2>
 
     
@@ -284,7 +280,6 @@ config file, and add <code>title</code> and/or <code>description</code>, with wo
   description: This is a free description of my package
 </pre>
 
-    
     <h2 class="hasAnchor" id="yaml-config-authors"><a class="anchor" href="#yaml-config-authors"></a>YAML config - authors</h2>
 
     
@@ -298,7 +293,6 @@ name should match the value in <code>DESCRIPTION</code>:</p><pre>authors:
     html: "&lt;img src='name-picture.png' height=24&gt;"
 </pre>
 
-    
     <h2 class="hasAnchor" id="orcid"><a class="anchor" href="#orcid"></a>ORCID</h2>
 
     
@@ -309,7 +303,6 @@ are defined in the <code>DESCRIPTION</code>:</p><pre>person("Jay", "Hesselberth"
 ),
 </pre>
 
-    
     <h2 class="hasAnchor" id="badges"><a class="anchor" href="#badges"></a>Badges</h2>
 
     
@@ -325,28 +318,20 @@ and ending with <code>&lt;!-- badges: end --&gt;</code> as created by
 only contains images.</p></li>
 </ul>
 
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#images-and-figures">Images and figures</a></li>
-
       <li><a href="#package-logo">Package logo</a></li>
-
       <li><a href="#yaml-config-home">YAML config - home</a></li>
-
       <li><a href="#yaml-config-home-title-and-description">YAML config - home title and description</a></li>
-
       <li><a href="#yaml-config-authors">YAML config - authors</a></li>
-
       <li><a href="#orcid">ORCID</a></li>
-
       <li><a href="#badges">Badges</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

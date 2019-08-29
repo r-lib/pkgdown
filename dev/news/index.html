@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -45,10 +47,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -137,7 +140,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-lib/pkgdown">
@@ -218,6 +220,8 @@
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for license files spelled either as LICENSE or LICENCE (<a href='https://github.com/r-lib/pkgdown/issues/972'>#972</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> can find badges in paragraph coming after the comment <code>&lt;!-- badges: start --&gt;</code> (<a href='https://github.com/r-lib/pkgdown/issues/670'>#670</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> will add a community section to the sidebar if there is either a code of conduct (<code>.github/CODE_OF_CONDUCT.md</code>) or a contributing guide (<code>.github/CONTRIBUTING.md</code>) (<a href='https://github.com/r-lib/pkgdown/issues/1044'>#1044</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> has completely overhauled example rendering so it now first converts the entire mixed Rd-R block to R prior to processing. This considerably improves the fidelity of the translation for a small cost of no longer being able to remove block <code>\donttest()</code> etc (<a href='https://github.com/r-lib/pkgdown/issues/1087'>#1087</a>).</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> gains a <code>topics</code> argument which allows you to re-build only specified topics.</p></li>
 <li><p><code><a href="../reference/build_site.html">build_site(new_process = TRUE)</a></code> gains a timeout, e.g. <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.timeout = 10)</a></code>, that can be used to prevent stalled builds.</p></li>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github(install = FALSE)</a></code> makes it possible to opt installation.</p></li>
 <li><p><code>dev_mode()</code> now recognises <code>0.1.9000</code> as a development version of a package (this is an emerging standard we use for packages with backward incompatible changes) (<a href='https://github.com/r-lib/pkgdown/issues/1101'>#1101</a>).</p></li>

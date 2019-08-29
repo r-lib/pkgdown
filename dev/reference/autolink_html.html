@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -45,8 +47,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Automatic link references and articles in an HTML package — autolink_html" />
 
+<meta property="og:title" content="Automatic link references and articles in an HTML package — autolink_html" />
 <meta property="og:description" content="The autolinker is built around two XPath expressions:
 //pre[contains(@class, 'r')]:
 this finds all &amp;lt;div&amp;gt;s with class sourceCode and r. The contents
@@ -56,9 +58,9 @@ must be syntax-highlighted using pygments.
 text (and no other tags).
 
 " />
-
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -147,7 +149,6 @@ text (and no other tags).
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-lib/pkgdown">
@@ -180,7 +181,6 @@ text (and no other tags).
     </div>
 
     <div class="ref-description">
-    
     <p>The autolinker is built around two XPath expressions:</p><ul>
 <li><p><code>//pre[contains(@class, 'r')]</code>:
 this finds all <code>&lt;div&gt;</code>s with class <code>sourceCode</code> and <code>r</code>. The contents
@@ -190,11 +190,10 @@ must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
 text (and no other tags).</p></li>
 </ul>
 
-    
     </div>
 
     <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -209,7 +208,7 @@ text (and no other tags).</p></li>
 from the target HTML document.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Currently the following expressions are linked:</p><ul>
@@ -222,25 +221,22 @@ from the target HTML document.</p></td>
 
 <p>Calls to <code><a href='https://rdrr.io/r/base/library.html'>library()</a></code> and <code><a href='https://rdrr.io/r/base/library.html'>require()</a></code> are used to find the topics connected
 to unqualified references.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>autolink_html</span>(<span class='st'>"path/to/file.html"</span>,
   <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
     <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='st'>"shiny"</span>,
     <span class='kw'>shinydashboard</span> <span class='kw'>=</span> <span class='st'>"shinydashboard"</span>
   )
 )
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

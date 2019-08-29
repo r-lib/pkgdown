@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -45,15 +47,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Create favicons from package logo — build_favicons" />
 
+<meta property="og:title" content="Create favicons from package logo — build_favicons" />
 <meta property="og:description" content="This function auto-detects the location of your package logo (with the name
 logo.svg (recommended format) or logo.png) and runs it through the
 https://realfavicongenerator.net API to build a complete set of favicons
 with different sizes, as needed for modern web usage." />
-
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -142,7 +144,6 @@ with different sizes, as needed for modern web usage." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-lib/pkgdown">
@@ -175,18 +176,16 @@ with different sizes, as needed for modern web usage." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function auto-detects the location of your package logo (with the name
 <code>logo.svg</code> (recommended format) or <code>logo.png</code>) and runs it through the
 <a href='https://realfavicongenerator.net'>https://realfavicongenerator.net</a> API to build a complete set of favicons
 with different sizes, as needed for modern web usage.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>build_favicons</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>build_favicon</span>(<span class='no'>pkg</span>, <span class='no'>overwrite</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -199,7 +198,7 @@ with different sizes, as needed for modern web usage.</p>
       <td><p>If <code>TRUE</code>, re-create favicons from package logo.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You only need to run the function once. The favicon set will be stored in
@@ -207,16 +206,14 @@ with different sizes, as needed for modern web usage.</p>
 the website is rebuilt.</p>
 <p>Once complete, you should add <code>pkgdown/</code> to <code>.Rbuildignore </code> to avoid a NOTE
 during package checking.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>
