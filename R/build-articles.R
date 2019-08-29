@@ -176,8 +176,10 @@ build_article <- function(name,
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
+  front <- rmarkdown::yaml_front_matter(input_path)
+
   default_data <- list(
-    pagetitle = "$title$",
+    pagetitle = front$title,
     opengraph = list(description = "$description$"),
     source = github_source_links(pkg$github_url, path_rel(input, pkg$src_path)),
     filename = path_file(input)
@@ -185,7 +187,6 @@ build_article <- function(name,
   data <- utils::modifyList(default_data, data)
 
   # Allow users to opt-in to their own template
-  front <- rmarkdown::yaml_front_matter(input_path)
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
