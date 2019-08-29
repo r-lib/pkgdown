@@ -1,10 +1,16 @@
 #' Build articles section
 #'
+#' @description
 #' Each R Markdown vignette in `vignettes/` and its subdirectories is rendered
 #' and saved to `articles/`. Vignettes are rendered using a special document
 #' format that reconciles [rmarkdown::html_document()] with your pkgdown
 #' template.
 #'
+#' Note that when run by itself (i.e. not by `build_site()`), vignettes will
+#' use a previous installed version of the package, not the current source
+#' version.
+#'
+#' @section Get started vignette:
 #' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
 #' gets special treatment. It is rendered and linked to in the navbar under
 #' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,

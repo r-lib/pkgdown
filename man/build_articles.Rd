@@ -36,13 +36,19 @@ Each R Markdown vignette in \code{vignettes/} and its subdirectories is rendered
 and saved to \code{articles/}. Vignettes are rendered using a special document
 format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
 template.
+
+Note that when run by itself (i.e. not by \code{build_site()}), vignettes will
+use a previous installed version of the package, not the current source
+version.
 }
-\details{
+\section{Get started vignette}{
+
 A vignette with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd})
 gets special treatment. It is rendered and linked to in the navbar under
 "Get started". Rmarkdown files in \code{vignettes/tutorials/} are ignored,
 because these are assumed to contain tutorials, see \code{build_tutorials()}.
 }
+
 \section{External files}{
 
 pkgdown differs from base R in its handling of external files. When building
