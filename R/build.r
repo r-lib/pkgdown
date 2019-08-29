@@ -297,7 +297,7 @@ build_site <- function(pkg = ".",
                        new_process = !devel,
                        install = !devel,
                        document = "DEPRECATED") {
-  pkg <- as_pkgdown(pkg)
+  pkg <- as_pkgdown(pkg, override = override)
 
   if (!missing(document)) {
     warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
@@ -350,6 +350,7 @@ build_site_external <- function(pkg = ".",
     seed = seed,
     lazy = lazy,
     override = override,
+    install = FALSE,
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
