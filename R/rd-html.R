@@ -28,8 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map_chr(x, as_html, ...)
-
+  html <- purrr::map(x, as_html, ...)
   # split at line breaks for everything except blocks
   empty <- purrr::map_lgl(x, purrr::is_empty)
   needs_split <- !is_block & !empty
@@ -37,6 +36,7 @@ flatten_para <- function(x, ...) {
 
   blocks <- html %>%
     split(groups) %>%
+    purrr::map(unlist) %>%
     purrr::map_chr(paste, collapse = "")
 
   # There are three types of blocks:
@@ -98,7 +98,7 @@ as_html.USERMACRO <-  function(x, ...) ""
 as_html.tag_subsection <- function(x, ...) {
   paste0(
     "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
-    flatten_text(x[[2]], ...)
+    flatten_para(x[[2]], ...)
   )
 }
 
@@ -329,7 +329,7 @@ as_html.tag_enumerate <- function(x, ...) {
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "</dl>")
+  paste0("<dl class='dl-horizontal'>\n", parse_descriptions(x[-1], ...), "\n</dl>")
 }
 
 # Effectively does nothing: only used by parse_items() to split up
@@ -565,4 +565,15 @@ stop_bad_tag <- function(tag, msg = NULL) {
   )
 
   stop(msg, call. = FALSE)
+}
+
+is_newline <- function(x, trim = FALSE) {
+  if (!inherits(x, "TEXT") && !inherits(x, "RCODE") && !inherits(x, "VERB"))
+    return(FALSE)
+
+  text <- x[[1]]
+  if (trim) {
+    text <- gsub("^[ \t]+|[ \t]+$", "", text)
+  }
+  identical(text, "\n")
 }

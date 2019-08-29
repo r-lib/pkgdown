@@ -57,6 +57,9 @@ NULL
 #' @examples
 #' x <- seq(0, 2 * pi, length = 25)
 #' plot(x, sin(x))
+#'
+#' plot(1:10)
+#' lines(1:10)
 NULL
 
 #' Test case: don't
@@ -66,11 +69,23 @@ NULL
 #' @family tests
 #' @examples
 #' \dontrun{
+#'   stop("This is an error!", call. = FALSE)
+#' }
+#'
+#' # Inline \donttest is silently ommitted
+#' \donttest{message("Hi!")}
+#'
+#' # Block \donttest indicated with comments
+#' \donttest{
+#' # This is a comment
 #' 1 + 3
 #' }
 #'
-#' \donttest{
-#' 1 + 3
+#' # And works even when not at the top level
+#' if (TRUE) {
+#'   \donttest{
+#'   1 + 2
+#'   }
 #' }
 #'
 #' answer <- 1
@@ -115,17 +130,6 @@ NULL
 #' {
 #'   1 + 2
 #'   2 + 2
-#' }
-#'
-#' \dontrun{
-#' stop("This is an error!", call. = FALSE)
-#' }
-#'
-#' \donttest{
-#' # This code won't generally be run by CRAN. But it
-#' # will be run by pkgdown
-#' b <- 10
-#' a + b
 #' }
 NULL
 

@@ -20,7 +20,14 @@ test_that("simple replacements work as expected", {
 })
 
 test_that("subsection generates h3", {
-  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "B"))
+  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "<p>B</p>"))
+})
+test_that("subsection generates h3", {
+  expect_equal(rd2html("\\subsection{A}{
+    p1
+
+    p2
+  }"), c("<h3>A</h3>", "<p>p1</p>", "<p>p2</p>"))
 })
 
 test_that("if generates html", {
@@ -300,6 +307,20 @@ test_that("nl after tag doesn't trigger paragraphs", {
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
   expect_equal(out, "<p>a <br /> b</p>")
+})
+
+test_that("nested item with whitespace parsed correctly", {
+  out <- rd2html("
+    \\describe{
+    \\item{Label}{
+
+      This text is indented in a way pkgdown doesn't like.
+  }}")
+  expect_equal(out, c(
+    "<dl class='dl-horizontal'>",
+    "<dt>Label</dt><dd><p>This text is indented in a way pkgdown doesn't like.</p></dd>",
+    "</dl>"
+  ))
 })
 
 # Verbatim ----------------------------------------------------------------

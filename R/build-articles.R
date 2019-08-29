@@ -7,7 +7,8 @@
 #'
 #' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
 #' gets special treatment. It is rendered and linked to in the navbar under
-#' "Get started".
+#' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,
+#' because these are assumed to contain tutorials, see `build_tutorials()`.
 #'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
@@ -62,7 +63,7 @@
 #'
 #' @section YAML header:
 #' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' using setting the `template` parameter. This overrides any custom settings
+#' by setting the `template` parameter. This overrides any custom settings
 #' you have in your YAML metadata, ensuring that all articles are rendered
 #' in the same way (and receive the default site template).
 #'
@@ -175,8 +176,10 @@ build_article <- function(name,
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
+  front <- rmarkdown::yaml_front_matter(input_path)
+
   default_data <- list(
-    pagetitle = "$title$",
+    pagetitle = front$title,
     opengraph = list(description = "$description$"),
     source = github_source_links(pkg$github_url, path_rel(input, pkg$src_path)),
     filename = path_file(input)
@@ -184,7 +187,6 @@ build_article <- function(name,
   data <- utils::modifyList(default_data, data)
 
   # Allow users to opt-in to their own template
-  front <- rmarkdown::yaml_front_matter(input_path)
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 

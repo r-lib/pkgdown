@@ -43,12 +43,17 @@ meta_development <- function(meta, version) {
 dev_mode <- function(version) {
   version <- unclass(version)[[1]]
 
-  if (length(version) <= 3) {
+  if (length(version) < 3) {
     "release"
+  } else if (length(version) == 3) {
+    if (version[3] >= 9000) {
+      "devel"
+    } else {
+      "release"
+    }
   } else if (identical(version[1:3], c(0L, 0L, 0L))) {
-      "unreleased"
+    "unreleased"
   } else {
     "devel"
   }
-
 }

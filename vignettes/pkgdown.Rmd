@@ -162,7 +162,7 @@ See complete details in `build_reference()`.
 
 ## Articles
 
-pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/). Vignette outputs are rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`. 
+pkgdown will automatically build all `.Rmd` vignettes, including those in subdirectories. The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/), and vignettes in a `tutorials` subdirectory, which is reserved for tutorials built with `build_tutorials()`. Vignette outputs are rendered to `articles/`. pkgdown will ignore the output format defined in the yaml header, and always use `html_fragment(toc = TRUE, toc_float = TRUE)`. 
 
 If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` or add it to `.Rbuildignore`. In addition, you must ensure that there is no `vignettes:` section in the article's yaml header. In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 

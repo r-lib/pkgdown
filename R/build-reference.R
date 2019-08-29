@@ -92,6 +92,8 @@
 #'   environment, and loads source package with [pkgload::load_all()].
 #'   If `FALSE`, uses the installed version of the package.
 #' @param document **Deprecated** Use `devel` instead.
+#' @param topics Build only specified topics. If supplied, sets `lazy``
+#'   and `preview` to `FALSE`.
 #' @export
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
@@ -101,8 +103,8 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             devel = TRUE,
-                            document = "DEPRECATED"
-                            ) {
+                            document = "DEPRECATED",
+                            topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (!missing(document)) {
@@ -141,7 +143,14 @@ build_reference <- function(pkg = ".",
     set.seed(seed)
   }
 
-  topics <- purrr::transpose(pkg$topics)
+  if (!is.null(topics)) {
+    topics <- purrr::transpose(pkg$topics[pkg$topics$name %in% topics, ])
+    lazy <- FALSE
+    preview <- FALSE
+  } else {
+    topics <- purrr::transpose(pkg$topics)
+  }
+
   purrr::map(topics,
     build_reference_topic,
     pkg = pkg,
@@ -241,13 +250,15 @@ data_reference_topic <- function(topic,
     out$has_args <- TRUE # Work around mustache deficiency
   }
 
-  out$examples <- as_data(
-    tags$tag_examples[[1]],
-    env = new.env(parent = globalenv()),
-    topic = tools::file_path_sans_ext(topic$file_in),
-    examples = examples,
-    run_dont_run = run_dont_run
-  )
+  if (!is.null(tags$tag_examples)) {
+    out$examples <- run_examples(
+      tags$tag_examples[[1]],
+      env = new.env(parent = globalenv()),
+      topic = tools::file_path_sans_ext(topic$file_in),
+      run_examples = examples,
+      run_dont_run = run_dont_run
+    )
+  }
 
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(
