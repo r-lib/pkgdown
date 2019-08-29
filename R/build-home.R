@@ -37,7 +37,7 @@
 #'
 #' By default, the page title and description are extracted automatically
 #' from the `Title` and `Description` fields `DESCRIPTION` (stripping
-#' `'` from quoted words). CRAN ensures that these fields don't contain
+#' single quotes off quoted words). CRAN ensures that these fields don't contain
 #' phrases like "R package" because that's obvious on CRAN. To make your
 #' package more findable with google, it's good practice to override the
 #' `title` and `description`, thinking about what people might search for:

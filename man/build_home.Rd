@@ -59,7 +59,7 @@ To tweak the home page, you need a section called \code{home}.
 
 By default, the page title and description are extracted automatically
 from the \code{Title} and \code{Description} fields \code{DESCRIPTION} (stripping
-\code{'} from quoted words). CRAN ensures that these fields don't contain
+single quotes off quoted words). CRAN ensures that these fields don't contain
 phrases like "R package" because that's obvious on CRAN. To make your
 package more findable with google, it's good practice to override the
 \code{title} and \code{description}, thinking about what people might search for:\preformatted{home:
