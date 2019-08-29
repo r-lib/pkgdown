@@ -6,7 +6,8 @@
 \usage{
 build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
   seed = 1014, lazy = FALSE, override = list(), preview = NA,
-  devel = FALSE, new_process = !devel, document = "DEPRECATED")
+  devel = FALSE, new_process = !devel, install = !devel,
+  document = "DEPRECATED")
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -37,11 +38,16 @@ If \code{FALSE}, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.
 
 \code{build_site()} defaults to \code{devel = FALSE} so that you get high fidelity
-outputs when you building the complete site; \code{build_reference()`` defaults to }devel = TRUE` so that you can rapidly iterate.}
+outputs when you building the complete site; \code{build_reference()},
+\code{build_home()} and friends default to \code{devel = TRUE} so that you can
+rapidly iterate during development.}
 
 \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
+
+\item{install}{If \code{TRUE}, will install the package in a temporary library
+so it is available for vignettes.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }

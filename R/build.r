@@ -277,6 +277,8 @@
 #' @param new_process If `TRUE`, will run `build_site()` in a separate process.
 #'   This enhances reproducibility by ensuring nothing that you have loaded
 #'   in the current process affects the build process.
+#' @param install If `TRUE`, will install the package in a temporary library
+#'   so it is available for vignettes.
 #' @export
 #' @examples
 #' \dontrun{
@@ -293,6 +295,7 @@ build_site <- function(pkg = ".",
                        preview = NA,
                        devel = FALSE,
                        new_process = !devel,
+                       install = !devel,
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg)
 
@@ -301,9 +304,9 @@ build_site <- function(pkg = ".",
     devel <- document
   }
 
-  if (!devel) {
+  if (install) {
     withr::local_temp_libpaths()
-    rule("Installing temporary version of package")
+    rule("Installing package into temporary library")
     utils::install.packages(pkg$src_path, repo = NULL, type = "source", quiet = TRUE)
   }
 
