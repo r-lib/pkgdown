@@ -84,8 +84,8 @@
 
 * Subdirectories are supported for assets (#939, @ijlyttle).
 
-* A default 404 page (`404.html`) is built from content in `.github/404.md` 
-  (#947).
+* A default 404 page (`404.html`) is built, unless a custom `.github/404.md` 
+  is provided (#947).
 
 * `build_article()` now uses the raw vignette title as page `<title>` 
   and `og:title` (@maelle, #1037).
