@@ -49,8 +49,17 @@
 #'
 #' ```
 #' news:
-#' - one_page: false
+#'   one_page: false
 #' ```
+#'
+#'  Cran release dates is added to news items by default. If those dates have been
+#'  in `NEWS.md`, set the `cran_date` to `false` to avoid duplicated dates.
+#'
+#'  ```
+#'  news:
+#'   cran_date: false
+#' ```
+#'
 #' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
 #'
 #' @inheritParams build_articles
@@ -60,7 +69,7 @@ build_news <- function(pkg = ".",
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  one_page <- purrr::pluck(pkg, "meta", "news", 1, "one_page", .default = TRUE)
+  one_page <- purrr::pluck(pkg, "meta", "news", "one_page", .default = TRUE)
 
   if (!has_news(pkg$src_path))
     return()
@@ -149,7 +158,15 @@ data_news <- function(pkg = ".") {
   anchors <- anchors[!is.na(versions)]
   versions <- versions[!is.na(versions)]
 
-  timeline <- pkg_timeline(pkg$package)
+  # add para news: cran_date in _pkgdown.yml to control whether add cran release
+  # dates to the news items.
+  cran_date <- purrr::pluck(pkg, "meta", "news", "cran_date", .default = TRUE)
+  if (cran_date) {
+    timeline <- pkg_timeline(pkg$package)
+  } else {
+    timeline <- NULL
+  }
+
   html <- sections %>%
     purrr::walk(tweak_code) %>%
     purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%

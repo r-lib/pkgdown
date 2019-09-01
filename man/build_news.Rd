@@ -55,7 +55,12 @@ section.\preformatted{news:
 
 Control whether news is present on one page or multiple pages with the
 \code{one_page} field. The default is \code{true}.\preformatted{news:
-- one_page: false
+  one_page: false
+}
+
+Cran release dates is added to news items by default. If those dates have been
+in \code{NEWS.md}, set the \code{cran_date} to \code{false} to avoid duplicated dates.\preformatted{news:
+ cran_date: false
 }
 }
 

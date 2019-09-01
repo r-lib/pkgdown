@@ -121,10 +121,17 @@ If you have a large `NEWS.md` and want to create one page per release, you can c
 
 ```yaml
 news:
-- one_page: false
+  one_page: false
 ```
 
 In this case the `NEWS.md` is broken up by the version specified in the level one headings. Each version will be rendered to `news/`, with one page per minor release, so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page.
+
+Cran release dates is added to news items by default. If those dates have been in `NEWS.md`, set the `cran_date` field to `false` to avoid duplicated dates.
+
+```yaml
+news:
+  cran_date: false
+```
 
 If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., `vignettes/news` and customise the navbar. See an example of this strategy in action for [readxl](https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml).
 
