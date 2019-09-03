@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 1.4.0
 
 ## New features
