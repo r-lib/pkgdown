@@ -53,6 +53,9 @@
 
 ### Front end
 
+* Links to online documentation for functions in code chunks are no longer 
+  displayed when printing (#1135, @bisaloo).
+
 * Updated fontawesome to v5.7.1. fontawesome 5 [deprecated the `fa` prefix](https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes).
   If you have used custom icons in your navbar, you'll should update them from
   (e.g.) `fa fa-home` to `fas fa-home`. Brands now have a separate prefix so
