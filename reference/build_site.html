@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -43,8 +47,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Build a complete pkgdown website — build_site" />
 
+<meta property="og:title" content="Build a complete pkgdown website — build_site" />
 <meta property="og:description" content="build_site() is a convenient wrapper around six functions:
 init_site()
 build_home()
@@ -52,15 +56,15 @@ build_reference()
 build_articles()
 build_tutorials()
 build_news()
-" />
 
-<meta property="og:description" content="See the documentation for the each function to learn how to control
+
+See the documentation for the each function to learn how to control
 that aspect of the site.
 Note if names of generated files were changed, you will need to use
-clean_site first to clean up orphan files." />
-
+clean_site() first to clean up orphan files." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -72,6 +76,17 @@ clean_site first to clean up orphan files." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-115082821-1');
+</script>
 
 
   </head>
@@ -90,7 +105,7 @@ clean_site first to clean up orphan files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -98,7 +113,7 @@ clean_site first to clean up orphan files." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,37 +131,24 @@ clean_site first to clean up orphan files." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/test/crayon.html">Test: crayon</a>
+      <a href="../articles/linking.html">Auto-linking</a>
     </li>
     <li>
-      <a href="../articles/test/details.html">Test: Details tag</a>
+      <a href="../articles/search.html">Search</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Tests</li>
+    <li>
+      <a href="../articles/test/rendering.html">Output Rendering</a>
     </li>
     <li>
-      <a href="../articles/test/external.html">Test: External file tests</a>
+      <a href="../articles/test/output.html">Custom output</a>
     </li>
     <li>
-      <a href="../articles/test/figures.html">Test: Figures</a>
+      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
     </li>
     <li>
-      <a href="../articles/test/highlight.html">Test: Highlighting</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">Test: JSS article (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/mathjax.html">Test: Mathjax</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Test: Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">Test: PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/table.html">Test: Table</a>
-    </li>
-    <li>
-      <a href="../articles/test/widget.html">Test: Widgets</a>
+      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
     </li>
   </ul>
 </li>
@@ -154,17 +156,16 @@ clean_site first to clean up orphan files." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-lib/pkgdown">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -175,6 +176,7 @@ clean_site first to clean up orphan files." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -186,7 +188,6 @@ clean_site first to clean up orphan files." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul>
 <li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
 <li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
@@ -196,17 +197,17 @@ clean_site first to clean up orphan files." />
 <li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
 </ul>
 
-    <p>See the documentation for the each function to learn how to control
+<p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
 <p>Note if names of generated files were changed, you will need to use
-<a href='clean_site.html'>clean_site</a> first to clean up orphan files.</p>
-    
+<code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>new_process</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>new_process</span> <span class='kw'>=</span> !<span class='no'>devel</span>, <span class='kw'>install</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
+  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -217,11 +218,6 @@ that aspect of the site.</p>
     <tr>
       <th>examples</th>
       <td><p>Run examples?</p></td>
-    </tr>
-    <tr>
-      <th>document</th>
-      <td><p>If <code>TRUE</code>, will run <code><a href='https://www.rdocumentation.org/packages/devtools/topics/document'>devtools::document()</a></code> before
-updating the site.</p></td>
     </tr>
     <tr>
       <th>run_dont_run</th>
@@ -248,31 +244,55 @@ values in <code>_pkgdown.yml</code></p></td>
 freshly generated section in browser.</p></td>
     </tr>
     <tr>
+      <th>devel</th>
+      <td><p>Use development or deployment process?</p>
+<p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
+iteration; it will run examples and vignettes in the current process,
+and will load code with <code>pkgload::load_call()</code>.</p>
+<p>If <code>FALSE</code>, will first install the package to a temporary library,
+and will run all examples and vignettes in a new process.</p>
+<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+outputs when you building the complete site; <code><a href='build_reference.html'>build_reference()</a></code>,
+<code><a href='build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
+rapidly iterate during development.</p></td>
+    </tr>
+    <tr>
       <th>new_process</th>
       <td><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></td>
     </tr>
+    <tr>
+      <th>install</th>
+      <td><p>If <code>TRUE</code>, will install the package in a temporary library
+so it is available for vignettes.</p></td>
+    </tr>
+    <tr>
+      <th>document</th>
+      <td><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
 
     
-    <p>There are four top-level YAML settings that affect the entire site:
+
+<p>There are four top-level YAML settings that affect the entire site:
 <code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
 <p><code>destination</code> controls where the site will be generated. It defaults to
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.</p>
 <p><code>url</code> optionally specifies the url where the site will be published.
 Supplying this will:</p><ul>
-<li><p>Allow other pkgdown sites will link to your site when needed,
-rather than using generic links to <a href='https://rdocumentation.org'>https://rdocumentation.org</a>.</p></li>
+<li><p>Allow other pkgdown sites to link to your site when needed,
+rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
 <a href='deploy_site_github.html'>deploying to github</a>.</p></li>
 </ul><pre>url: http://pkgdown.r-lib.org
 </pre>
-    <p><code>title</code> overrides the default site title, which is the package name.
+
+<p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
@@ -284,17 +304,19 @@ text:</p><pre>authors:
     href: https://www.rstudio.com
     html: &lt;img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" /&gt;
 </pre>
-    
+
     <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode"></a>Development mode</h2>
 
     
-    <p>The development mode of a site controls four main things:</p><ul>
+
+<p>The development mode of a site controls four main things:</p><ul>
 <li><p>Where the site is built.</p></li>
 <li><p>The colour of the package version in the navbar.</p></li>
 <li><p>The optional tooltip associated with the version.</p></li>
 <li><p>The indexing of the site by search engines.</p></li>
 </ul>
-    <p>There are currently three possible development modes:</p><ul>
+
+<p>There are currently three possible development modes:</p><ul>
 <li><p><strong>release</strong>: site written to <code>docs/</code>, the version gets the default
 colouring, and no message.</p></li>
 <li><p><strong>development</strong>: written to <code>docs/dev/</code>, the version gets a danger label,
@@ -304,24 +326,29 @@ not indexed by search engines.</p></li>
 <li><p><strong>unreleased</strong>: the package is written to <code>docs/</code>, the version gets a "danger"
 label, and the message indicates the package is not yet on CRAN.</p></li>
 </ul>
-    <p>The default development mode is "release". You can override it by adding a
+
+<p>The default development mode is "release". You can override it by adding a
 new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>development:
-  mode: development
+  mode: devel
 </pre>
-    <p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
+
+<p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
   mode: auto
 </pre>
-    <p>The mode will be automatically determined based on the version number:</p><ul>
-<li><p><code>0.0.0.9000</code>: unreleased</p></li>
+
+<p>The mode will be automatically determined based on the version number:</p><ul>
+<li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
 <li><p>four version components: development</p></li>
 <li><p>everything else -&gt; release</p></li>
 </ul>
-    <p>There are three other options that you can control:</p><pre>development:
+
+<p>There are three other options that you can control:</p><pre>development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
 </pre>
-    <p><code>destination</code> allows you to override the default subdirectory used for the
+
+<p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
 override the style used for development (and unreleased) versions of the
 package. It defaults to "danger", but you can set to "default", "info", or
@@ -329,11 +356,23 @@ package. It defaults to "danger", but you can set to "default", "info", or
 theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
-    
     <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
 
     
-    <p><code>navbar</code> controls the navbar at the top of the page. It has two primary
+
+
+<p>By default, the top navigation bar (the "navbar") will contain links to:</p><ul>
+<li><p>The home page, with a "home" icon.</p></li>
+<li><p>"Get Started", if you have an article with the same name as the package
+(e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
+<li><p>Reference</p></li>
+<li><p>Articles (i.e., vignettes, if present).</p></li>
+<li><p>News (if present).</p></li>
+<li><p>A "github" icon with a link to your
+github repo (if listed in the <code>DESCRIPTION</code> url field).</p></li>
+</ul>
+
+<p>You can override these defaults with the  <code>navbar</code> field. It has two primary
 components: <code>structure</code> and <code>components</code>. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically
@@ -346,7 +385,8 @@ and to add your own components.</p><pre>navbar:
     left:  [home, intro, reference, articles, tutorials, news]
     right: [github]
 </pre>
-    <p>The <code>components</code> describes the appearance of each element in the navbar.
+
+<p>The <code>components</code> describes the appearance of each element in the navbar.
 It uses the same
 syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p><pre>components:
@@ -364,33 +404,35 @@ The following YAML snippet illustrates some of the most important features.</p><
     - text: Title B1
       href: articles/b1.html
    twitter:
-     icon: fa-lg fa-twitter
+     icon: "fab fa-twitter fa-lg"
      href: http://twitter.com/hadleywickham
 </pre>
-    <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
-<code>href</code>) and separators (indicated by a bunch of <code>-</code>). You can use <code>icon</code>s
-from fontawesome: see a full list <a href='https://fontawesome.com/icons'>https://fontawesome.com/icons</a>.</p>
+
+<p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
+<code>href</code>) and separators (indicated by a bunch of <code>-</code>). You can also use <code>icon</code>s
+from <a href='https://fontawesome.com/icons?d=gallery'>fontawesome</a>.</p>
 <p>This yaml would override the default "articles" component, eliminate
 the "home" component, and add a new "twitter" component. Unless you
 explicitly mention new components in the <code>structure</code> they'll be added
 to the far right of the left menu.</p>
-    
     <h2 class="hasAnchor" id="yaml-config-search"><a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
 
     
-    <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
+
+<p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
 to add search to your site.</p><pre>template:
   params:
     docsearch:
       api_key: API_KEY
       index_name: INDEX_NAME
 </pre>
-    <p>You also need to add a <code>url:</code> field, see above.</p>
-    
+
+<p>You also need to add a <code>url:</code> field, see above.</p>
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
 
     
-    <p>You can get complete control over the appearance of the site using the
+
+<p>You can get complete control over the appearance of the site using the
 <code>template</code> component. There are two components to the template:
 the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
@@ -400,74 +442,80 @@ template:</p><pre>template:
   params:
     bootswatch: cerulean
 </pre>
-    <p>See a complete list of themes and preview how they look at
+
+<p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href='https://www.google.com/analytics/'>Google Analytics</a>. It should
 correspond to your
-<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p><pre>template:
+<a href='https://support.google.com/analytics/answer/1032385'>tracking id</a>.</p>
+<p>When enabling Google Analytics, be aware of the type and amount of
+user information that you are collecting. You may wish to limit the
+extent of data collection or to add a privacy disclosure to your
+site, in keeping with current laws and regulations.</p><pre>template:
   params:
     ganalytics: UA-000000-01
 </pre>
-    <p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
+
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
   params:
     noindex: true
 </pre>
-    <p>You can also override the default templates and provide additional
+
+<p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
 of the default assets, set <code>default_assets</code> to false.</p><pre>template:
   package: mycustompackage
-    # OR:
-    template:
+
+# OR:
+
+template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
 </pre>
-    <p>These settings are currently recommended for advanced users only. There
+
+<p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
-    
-    <h2 class="hasAnchor" id="internet"><a class="anchor" href="#internet"></a>Internet</h2>
+    <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
-    <p>Users with limited internet connectivity can disable CRAN checks by setting
-<code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(pkgdown.internet = FALSE)</a></code>. This will also disable some features
+
+<p>Users with limited internet connectivity can disable CRAN checks by setting
+<code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.internet = FALSE)</a></code>. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.</p>
-    
+<p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
+<code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.timeout = Inf)</a></code>, which is useful to prevent stalled builds from
+hanging in cron jobs.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>build_site</span>()
 
-<span class='fu'>build_site</span>(<span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>destination</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()))
-<span class='co'># }</span></pre>
+<span class='fu'>build_site</span>(<span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>destination</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#yaml-config">YAML config</a></li>
-
       <li><a href="#development-mode">Development mode</a></li>
-
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
-
       <li><a href="#yaml-config-search">YAML config - search</a></li>
-
       <li><a href="#yaml-config-template">YAML config - template</a></li>
-
-      <li><a href="#internet">Internet</a></li>
-      
+      <li><a href="#options">Options</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -475,8 +523,9 @@ or vignettes, this connection is required as this option won't apply on them.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
@@ -499,6 +548,8 @@ or vignettes, this connection is required as this option won't apply on them.</p
 </script>
 
 
+
   </body>
 </html>
+
 

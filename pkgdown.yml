@@ -1,19 +1,14 @@
 pandoc: '2.2'
-pkgdown: 1.3.0
+pkgdown: 1.4.0
 pkgdown_sha: ~
 articles:
+  linking: linking.html
   pkgdown: pkgdown.html
-  crayon: test/crayon.html
-  details: test/details.html
-  external: test/external.html
-  figures: test/figures.html
-  highlight: test/highlight.html
+  search: search.html
   jss: test/jss.html
-  mathjax: test/mathjax.html
   output: test/output.html
   pdf: test/pdf.html
-  table: test/table.html
-  widget: test/widget.html
+  rendering: test/rendering.html
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
