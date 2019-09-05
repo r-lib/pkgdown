@@ -66,3 +66,18 @@ navbar:
         href: articles/test/pdf.pdf
       - text: 'JSS article (PDF)'
         href: articles/test/jss.pdf
+    news:
+      text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 1.4.0"
+        href: https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/
+      - text: "Version 1.3.0"
+        href: https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/
+      - text: "Version 1.1.0"
+        href: https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/
+      - text: "Version 1.0.0"
+        href: https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
