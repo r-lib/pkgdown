@@ -61,8 +61,8 @@ command (close all tabs), and the `W` is a mnemonic for website.
 
 ## In the wild
 
-At last count, pkgdown is used [by over 3500
-packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code).
+At last count, pkgdown is used [by over 4,500
+packages](https://github.com/search?q=pkgdown.css+in%3Apath&type=Code).
 
 Here are a few examples created by contributors to pkgdown:
 
