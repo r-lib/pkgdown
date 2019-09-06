@@ -18,8 +18,8 @@
     library, and runs examples/articles in a new process.
 
 * `build_reference()` no longer runs `devtools::document()` (#1079) and
-  `build_home()` no longer re-builds `README.Rmd`.  This makes the scope 
-  of responsibility of pkgdown more clear: it now only creates/modifies 
+  `build_home()` no longer re-builds `index.Rmd` or `README.Rmd`.  This makes 
+  the scope of responsibility of pkgdown more clear: it now only creates/modifies 
   files in `doc/`.
 
 * `build_home()` now strips quotes from `Title` and `Description` fields 
