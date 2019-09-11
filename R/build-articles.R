@@ -196,6 +196,10 @@ build_article <- function(name,
   scoped_file_context(depth = depth)
 
   front <- rmarkdown::yaml_front_matter(input_path)
+  # Take opengraph from article's yaml front matter
+  data$opengraph <- utils::modifyList(
+    data$opengraph %||% list(), front$opengraph %||% list()
+  )
 
   default_data <- list(
     pagetitle = front$title,

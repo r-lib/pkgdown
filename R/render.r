@@ -94,14 +94,19 @@ data_template <- function(pkg = ".", depth = 0L) {
 
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  og <- list()
-  if (!is.null(find_logo(pkg$src_path))) {
+  og <- pkg$meta$template$opengraph %||% list()
+  if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
+    og$image <- "logo.png"
+  }
+  if (!is.null(og$image) && !grepl("^http", og$image)) {
     site_url <- pkg$meta$url %||% "/"
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
-    og$image <- paste0(site_url, "logo.png")
+    og$image <- paste0(site_url, og$image)
   }
+  og$twitter_creator <- og$twitter_creator %||% og$twitter
+  og$twitter_site <- og$twitter_site %||% og$twitter
   og
 }
 
