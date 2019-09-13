@@ -9,24 +9,4 @@
 
 ## revdepcheck results
 
-We checked 66 reverse dependencies (65 from CRAN + 1 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 1 new problems
- * We failed to check 4 packages
-
-Issues with CRAN packages are summarised below.
-
-### New problems
-(This reports the first line of each new failure)
-
-* arrow
-  checking installed package size ... NOTE
-  
-  This is unrelated to pkgdown.
-
-### Failed to check
-
-* colorednoise  (NA)
-* corrcoverage  (NA)
-* FSelectorRcpp (NA)
-* nlmixr        (NA)
+This is a fix for a CRAN check failure. I did not check revdeps.
