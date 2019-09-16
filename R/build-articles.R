@@ -381,34 +381,35 @@ navbar_articles <- function(pkg = ".") {
 
   # if an explicit navbar is supplied in meta, use that; otherwise
   # use a default-constructed navbar entry
-  meta_navbar <- pkg$meta$vignettes$navbar
-  if (is.null(meta_navbar))
+  menu <- pkg$meta$vignettes$menu
+  if (is.null(menu))
     return(menu("Articles", menu_links(vignettes$title, vignettes$file_out)))
 
-  # construct navbar (detect whether user has only provided menu entries,
-  # versus specific text + menu entries)
-  navbar <- meta_navbar
-  if (is.null(names(navbar)))
-    navbar <- list(text = "Articles", menu = navbar)
+  # ensure we have a names vector to work with
+  names(menu) <- names(menu) %||% rep.int("", length(menu))
 
-  # expand some short-form menu items
-  navbar$menu <- lapply(navbar$menu, function(item) {
+  # map vignette short-forms into menus
+  remapped <- lapply(menu, function(entries) {
 
-    # vignette: <name>
-    if (is.character(item$vignette) && item$vignette %in% vignettes$name) {
-      vignette <- vignettes[vignettes$name == item$vignette, ]
-      item <- menu_link(vignette$title, vignette$file_out)
+    # if this is a named length-one list, extract it
+    section <- NULL
+    if (is.list(entries) && length(entries) == 1) {
+      section <- names(entries)
+      entries <- entries[[1]]
     }
 
-    # section: <title>
-    if (is.character(item$section)) {
-      item <- list(text = item$section)
-    }
+    # extract vignettes and build items
+    matched <- vignettes[match(entries, vignettes$name, nomatch = 0L), ]
+    items <- menu_links(matched$title, matched$file_out)
 
-    item
+    # build menu outputs
+    header <- if (!is.null(section)) list(list(text = section))
+    c(header, items)
 
   })
 
-  navbar
+  # unlist and return menu item
+  links <- unlist(remapped, recursive = FALSE, use.names = FALSE)
+  menu("Articles", links)
 
 }
