@@ -381,7 +381,7 @@ navbar_articles <- function(pkg = ".") {
 
   # if an explicit navbar is supplied in meta, use that; otherwise
   # use a default-constructed navbar entry
-  meta_navbar <- pkg$meta$articles$navbar
+  meta_navbar <- pkg$meta$vignettes$navbar
   if (is.null(meta_navbar))
     return(menu("Articles", menu_links(vignettes$title, vignettes$file_out)))
 
