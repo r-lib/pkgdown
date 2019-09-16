@@ -75,7 +75,7 @@ navbar_components <- function(pkg = ".") {
 
     menu$intro <- menu_link("Get started", intro$file_out)
   }
-  menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+  menu$articles <-  navbar_articles(pkg)
   menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {

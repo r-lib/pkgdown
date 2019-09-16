@@ -374,3 +374,41 @@ default_articles_index <- function(pkg = ".") {
   ))
 
 }
+
+navbar_articles <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+  vignettes <- pkg$vignettes
+
+  # if an explicit navbar is supplied in meta, use that; otherwise
+  # use a default-constructed navbar entry
+  meta_navbar <- pkg$meta$articles$navbar
+  if (is.null(meta_navbar))
+    return(menu("Articles", menu_links(vignettes$title, vignettes$file_out)))
+
+  # construct navbar (detect whether user has only provided menu entries,
+  # versus specific text + menu entries)
+  navbar <- meta_navbar
+  if (is.null(names(navbar)))
+    navbar <- list(text = "Articles", menu = navbar)
+
+  # expand some short-form menu items
+  navbar$menu <- lapply(navbar$menu, function(item) {
+
+    # vignette: <name>
+    if (is.character(item$vignette) && item$vignette %in% vignettes$name) {
+      vignette <- vignettes[vignettes$name == item$vignette, ]
+      item <- menu_link(vignette$title, vignette$file_out)
+    }
+
+    # section: <title>
+    if (is.character(item$section)) {
+      item <- list(text = item$section)
+    }
+
+    item
+
+  })
+
+  navbar
+
+}
