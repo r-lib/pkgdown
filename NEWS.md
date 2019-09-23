@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
+  querying it from members.orcid.org (@bisaloo, #1153)
+
 # pkgdown 1.4.1
 
 * Don't install test package in user library (fixes CRAN failure).
