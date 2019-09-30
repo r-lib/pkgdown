@@ -23,24 +23,6 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   invisible()
 }
 
-# Stripped down version of build_article
-render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
-  pkg <- as_pkgdown(pkg)
-
-  format <- build_rmarkdown_format(pkg, "article",
-                                   depth = 0L,
-                                   data = data, toc = FALSE
-  )
-  render_rmarkdown(
-    pkg = pkg,
-    input = path,
-    output = "index.html",
-    output_format = format,
-    quiet = quiet,
-    copy_images = FALSE
-  )
-}
-
 data_home <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
