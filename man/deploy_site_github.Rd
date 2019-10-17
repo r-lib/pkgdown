@@ -7,7 +7,7 @@
 deploy_site_github(pkg = ".", install = TRUE,
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
-  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
+  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""), host = "github.com",
   commit_message = construct_commit_message(pkg), verbose = FALSE, ...)
 }
 \arguments{
@@ -25,6 +25,8 @@ new keypair specifically for deploying the site. The easiest way is to use
 \code{travis::use_travis_deploy()}.}
 
 \item{repo_slug}{The \code{user/repo} slug for the repository.}
+
+\item{host}{The github host url.}
 
 \item{commit_message}{The commit message to be used for the commit.}
 
