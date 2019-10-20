@@ -152,8 +152,8 @@ orcid_link <- function(orcid) {
   if (is.null(orcid)) return(NULL)
 
   paste0(
-    "<a href='https://orcid.org/", orcid, "' target='orcid.widget'>",
-    "<img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID'></a>"
+    "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
+    "<span class='fab fa-orcid orcid' aria-hidden='true'></span></a>"
   )
 }
 
