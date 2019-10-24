@@ -93,7 +93,7 @@ While working on the reference index you might want to run `build_reference_inde
 
 ## Articles
 
-pkgdown will automatically build all vignettes found in `vignettes`, translating them to HTML files in `ariticles/`. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
+pkgdown will automatically build all vignettes found in `vignettes`, translating them to HTML files in `articles/`. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
 
 If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` or add it to `.Rbuildignore` (and make sure that there's  no `vignettes:` section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
