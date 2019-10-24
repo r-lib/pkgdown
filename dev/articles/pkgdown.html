@@ -228,7 +228,7 @@
 <div id="articles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#articles" class="anchor"></a>Articles</h2>
-<p>pkgdown will automatically build all vignettes found in <code>vignettes</code>, translating them to HTML files in <code>ariticles/</code>. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.</p>
+<p>pkgdown will automatically build all vignettes found in <code>vignettes</code>, translating them to HTML files in <code>articles/</code>. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.</p>
 <p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add it to <code>.Rbuildignore</code> (and make sure that there’s no <code>vignettes:</code> section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
 <p>More details can be found in <code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
 </div>
