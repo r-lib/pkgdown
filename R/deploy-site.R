@@ -104,13 +104,11 @@ deploy_site_github <- function(
 }
 
 deploy_local <- function(
-  pkg = ".",
-  repo_slug = NULL,
-  host,
-  commit_message = construct_commit_message(pkg),
-  ...
-) {
-
+                         pkg = ".",
+                         repo_slug = NULL,
+                         host,
+                         commit_message = construct_commit_message(pkg),
+                         ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
@@ -122,11 +120,11 @@ deploy_local <- function(
 
   github_clone(dest_dir, repo_slug, host)
   build_site(".",
-             override = list(destination = dest_dir),
-             devel = FALSE,
-             preview = FALSE,
-             install = FALSE,
-             ...
+    override = list(destination = dest_dir),
+    devel = FALSE,
+    preview = FALSE,
+    install = FALSE,
+    ...
   )
   github_push(dest_dir, commit_message)
 
@@ -136,11 +134,12 @@ deploy_local <- function(
 github_clone <- function(dir, repo_slug, host) {
   remote_url <- sprintf("git@%s:%s.git", host, repo_slug)
   rule("Cloning existing site", line = 1)
-  git("clone",
-      "--single-branch", "-b", "gh-pages",
-      "--depth", "1",
-      remote_url,
-      dir
+  git(
+    "clone",
+    "--single-branch", "-b", "gh-pages",
+    "--depth", "1",
+    remote_url,
+    dir
   )
 }
 
