@@ -108,7 +108,8 @@ deploy_local <- function(
                          repo_slug = NULL,
                          host,
                          commit_message = construct_commit_message(pkg),
-                         ...) {
+                         ...
+                         ) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
@@ -134,8 +135,7 @@ deploy_local <- function(
 github_clone <- function(dir, repo_slug, host) {
   remote_url <- sprintf("git@%s:%s.git", host, repo_slug)
   rule("Cloning existing site", line = 1)
-  git(
-    "clone",
+  git("clone",
     "--single-branch", "-b", "gh-pages",
     "--depth", "1",
     remote_url,
