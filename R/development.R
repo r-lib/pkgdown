@@ -41,7 +41,7 @@ meta_development <- function(meta, version) {
 }
 
 dev_mode <- function(version) {
-  version <- unclass(version)[[1]]
+  version <- unclass(utils::packageVersion(version))[[1]]
 
   if (length(version) < 3) {
     "release"
