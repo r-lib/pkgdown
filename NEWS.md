@@ -3,10 +3,11 @@
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
+* `deploy_site_github()` now accepts a `host` argument enabling users to leverage this for github enterprise - (@dimagor)
+
 # pkgdown 1.4.1
 
 * Don't install test package in user library (fixes CRAN failure).
-* `deploy_site_github()` now accepts a `host` argument enabling users to leverage this for github enterprise - (@dimagor)
 
 # pkgdown 1.4.0
 
