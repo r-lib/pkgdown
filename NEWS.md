@@ -13,6 +13,9 @@
 
 ## New features
 
+* build citation as specified by the `textVersion` argument of `citEntry` in the
+  `CITATION` file (#1096, @yiluheihei)
+
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter 
   `devel` which controls whether you're in deployment or development mode.
   It generalises and replaces (with deprecation) the existing `document` 
