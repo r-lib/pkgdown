@@ -221,6 +221,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
+<li><p>build citation as specified by the <code>textVersion</code> argument of <code>citEntry</code> in the <code>CITATION</code> file (<a href='https://github.com/r-lib/pkgdown/issues/1096'>#1096</a>, <a href='https://github.com/yiluheihei'>@yiluheihei</a>)</p></li>
 <li>
 <p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which controls whether you’re in deployment or development mode. It generalises and replaces (with deprecation) the existing <code>document</code> argument.</p>
 <p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
