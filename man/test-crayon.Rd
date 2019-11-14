@@ -15,11 +15,14 @@ message(crayon::green("This is green"))
 warning(crayon::bold("This is bold"))
 }
 \seealso{
-Other tests: \code{\link{test-dont}},
-  \code{\link{test-figures}}, \code{\link{test-links}},
-  \code{\link{test-lists}},
-  \code{\link{test-output-styles}},
-  \code{\link{test-params}}, \code{\link{test-verbatim}}
+Other tests: 
+\code{\link{test-dont}},
+\code{\link{test-figures}},
+\code{\link{test-links}},
+\code{\link{test-lists}},
+\code{\link{test-output-styles}},
+\code{\link{test-params}},
+\code{\link{test-verbatim}}
 }
 \concept{tests}
 \keyword{internal}

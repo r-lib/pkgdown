@@ -10,7 +10,7 @@ build_tutorials(pkg = ".", override = list(), preview = NA)
 \item{pkg}{Path to package.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
@@ -18,10 +18,10 @@ freshly generated section in browser.}
 \description{
 learnr tutorials must be hosted elsewhere as they require an
 R execution engine. Currently, pkgdown will not build or publish tutorials
-for you, but makes it easy to embed (using \code{<iframe>}s) published tutorials.
+for you, but makes it easy to embed (using \verb{<iframe>}s) published tutorials.
 Tutorials are automatically discovered from published tutorials in
 \code{inst/tutorials} and \code{vignettes/tutorials}. Alternatively, you can
-list in \code{_pkgdown.yml} as described below.
+list in \verb{_pkgdown.yml} as described below.
 }
 \section{YAML config}{
 

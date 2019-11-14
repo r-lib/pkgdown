@@ -4,11 +4,17 @@
 \alias{deploy_site_github}
 \title{Deploy a pkgdown site on Travis-CI to Github Pages}
 \usage{
-deploy_site_github(pkg = ".", install = TRUE,
+deploy_site_github(
+  pkg = ".",
+  install = TRUE,
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
-  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""), host = "github.com",
-  commit_message = construct_commit_message(pkg), verbose = FALSE, ...)
+  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
+  host = "github.com",
+  commit_message = construct_commit_message(pkg),
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -67,8 +73,8 @@ We recommend doing this outside of RStudio (with the project closed) as
 from RStudio's perspective you end up deleting all the files and then
 re-creating them.
 \item If you're using a custom CNAME, make sure you have set the \code{url} in
-\code{_pkgdown.yaml}:\preformatted{url: http://pkgdown.r-lib.org
-}
+\verb{_pkgdown.yaml}:\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
+}\if{html}{\out{</div>}}
 }
 }
 

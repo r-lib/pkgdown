@@ -7,7 +7,7 @@
 rd2html(x, fragment = TRUE, ...)
 }
 \arguments{
-\item{x}{Rd string. Backslashes must be double-escaped ("\\").}
+\item{x}{Rd string. Backslashes must be double-escaped ("\\\\").}
 
 \item{fragment}{logical indicating whether this represents a complete Rd file}
 

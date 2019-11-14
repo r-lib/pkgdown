@@ -5,10 +5,18 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, seed = 1014, override = list(),
-  preview = NA, devel = TRUE, document = "DEPRECATED",
-  topics = NULL)
+build_reference(
+  pkg = ".",
+  lazy = TRUE,
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014,
+  override = list(),
+  preview = NA,
+  devel = TRUE,
+  document = "DEPRECATED",
+  topics = NULL
+)
 
 build_reference_index(pkg = ".")
 }
@@ -27,7 +35,7 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 reproducible.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
@@ -39,16 +47,16 @@ If \code{FALSE}, uses the installed version of the package.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
 
-\item{topics}{Build only specified topics. If supplied, sets \code{lazy`` and }preview\code{to}FALSE`.}
+\item{topics}{Build only specified topics. If supplied, sets \verb{lazy`` and }preview\code{to}FALSE`.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a \code{reference} section in your
-\code{_pkgdown.yml} as described below.
+\verb{_pkgdown.yml} as described below.
 }
 \section{YAML config}{
 
-To tweak the index page, add a section called \code{reference} to \code{_pkgdown.yml}
+To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}
 which provides a list of sections containing, a \code{title}, list of \code{contents},
 and an optional \code{description}.
 
@@ -68,7 +76,7 @@ Note that \code{contents} can contain either a list of function names, or if the
 functions in a section share a common prefix or suffix, you can use
 \code{starts_with("prefix")} and \code{ends_with("suffix")} to select them all. For
 more complex naming schemes you can use an arbitrary regular expression with
-\code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
+\code{matches("regexp")}. You can also use a leading \verb{-} to exclude matches from a
 section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
 \code{starts_with("build_", internal = TRUE)}.
@@ -76,14 +84,14 @@ topics with the Rd keyword "internal". To include these, use
 You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
 
-You can provide long descriptions for groups of functions using the YAML \code{>}
+You can provide long descriptions for groups of functions using the YAML \verb{>}
 notation:\preformatted{desc: >
   This is a very long and overly flowery description of a
   single simple function.
 }
 
 If you have functions with odd names (e.g. that start with a plus symbol
-\code{+}), you can include them by double-escaping. This YAML entry adds the
+\verb{+}), you can include them by double-escaping. This YAML entry adds the
 \code{+.gg} function to the ggplot2 documentation:\preformatted{- "`+.gg`"
 }
 
@@ -95,7 +103,7 @@ this page, and will generate a warning if you have missed any.
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
   dev: grDevices::png
   dpi: 96
   dev.args: []
