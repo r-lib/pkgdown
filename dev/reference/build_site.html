@@ -226,10 +226,19 @@ that aspect of the site.</p>
 <code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_site</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>new_process</span> <span class='kw'>=</span> !<span class='no'>devel</span>, <span class='kw'>install</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
-  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
+    <pre class="usage"><span class='fu'>build_site</span>(
+  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
+  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>new_process</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
+  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -312,9 +321,8 @@ rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
 <a href='deploy_site_github.html'>deploying to github</a>.</p></li>
-</ul><pre>url: http://pkgdown.r-lib.org
-</pre>
-
+</ul><p><div class="yaml"></p><pre>url: http://pkgdown.r-lib.org
+</pre><p></div></p>
 <p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
