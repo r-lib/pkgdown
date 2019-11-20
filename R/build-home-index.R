@@ -15,7 +15,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   } else {
     data$index <- markdown(src_path)
   }
-  render_page(pkg, "home", data, "index.html")
+  render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
   update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
