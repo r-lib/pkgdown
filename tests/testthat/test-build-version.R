@@ -1,0 +1,9 @@
+context("test-build-version.R")
+
+test_that("formatting in DESCRIPTION version is preserved", {
+  pkg <- as_pkgdown(test_path("assets/version-formatting"))
+  expect_equal(pkg$version, "1.0.0-9000")
+  build_home_index(pkg, quiet = TRUE)
+  index <- read_lines(test_path("assets/version-formatting/docs/index.html"))
+  expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
+})
