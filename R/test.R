@@ -113,6 +113,19 @@ NULL
 #' answer <- 42
 #' }
 #' answer # should be 42
+#'
+#' # To hide the \dontshow part, for conditional examples
+#' \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' answer <- 43
+#' \dontshow{\}) # examplesIf}
+#' answer # should be still 42
+#'
+#' # But this one runs, and the condition is hidden
+#' \dontshow{if (TRUE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' answer <- 43
+#' \dontshow{\}) # examplesIf}
+#' answer
+
 NULL
 
 #' Test case: params

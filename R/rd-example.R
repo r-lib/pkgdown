@@ -25,6 +25,7 @@ run_examples <- function(x,
     x <- x[-1]
   }
 
+  x <- process_conditional_examples(x)
   code <- flatten_ex(x, run_dont_run = run_dont_run)
 
   if (!can_parse(code)) {
@@ -36,6 +37,54 @@ run_examples <- function(x,
     highlight_examples(code, topic, env = env)
   } else {
     highlight_text(code)
+  }
+}
+
+process_conditional_examples <- function(rd) {
+  if (is.list(rd)) {
+    which_exif <- which(purrr::map_lgl(rd, function(x) {
+      "tag_dontshow" %in% class(x) &&
+        is.character(x[[1]]) &&
+        grepl("# examplesIf$", x[[1]])
+    }))
+    if (length(which_exif) == 0) return(rd)
+    if (length(which_exif) %% 2 != 0) stop("@examplesIf error, not closed?")
+    remove <- integer()
+    modes <- c("begin", "end")
+    for (idx in which_exif) {
+      if (rd[[idx]] != "}) # examplesIf") {
+        # Start of @examplesIf
+        if (modes[1] == "end") stop("@examplesIf error, not closed?")
+        cond_expr <- parse(text = paste0(rd[[idx]], "\n})"))[[1]][[2]]
+        cond <- eval(cond_expr)
+        if (isTRUE(cond)) {
+          remove <- c(remove, idx, idx + 1L)
+        } else {
+          if (deparse(cond_expr) != "FALSE") {
+            warning(
+              "@examplesIf condition `",
+              deparse(cond_expr),
+              "` is FALSE"
+            )
+          }
+          rd[[idx]] <- structure(list("if (FALSE) {"), class = c("RCODE", "tag"))
+        }
+      } else {
+        # End of @examplesIf
+        if (modes[1] == "begin") stop("@examplesIf error, closed twice?")
+        if (isTRUE(cond)) {
+          remove <- c(remove, idx, idx + 1L)
+        } else {
+          rd[[idx]] <- structure(list("}"), class = c("RCODE", "tag"))
+        }
+      }
+      modes <- rev(modes)
+    }
+    if (length(remove)) rd <- rd[-remove]
+    rd
+
+  } else {
+    rd
   }
 }
 
