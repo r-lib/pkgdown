@@ -45,22 +45,8 @@
     {{/examples}}
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      {{#has_args}}
-      <li><a href="#arguments">Arguments</a></li>
-      {{/has_args}}
-      {{#sections}}
-      <li><a href="#{{slug}}">{{{title}}}</a></li>
-      {{/sections}}
-      {{#examples}}
-      <li><a href="#examples">Examples</a></li>
-      {{/examples}}
-    </ul>
-
-    {{#author}}
-    <h2>Author</h2>
-    {{{ author }}}
-    {{/author}}
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>

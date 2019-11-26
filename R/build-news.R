@@ -249,13 +249,13 @@ tweak_news_heading <- function(x, versions, timeline) {
   date <- timeline$date[match(versions, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+  date_nodes <- paste(" <h6 data-toc-skip> CRAN release: ", date_str, "</h6>", collapse = "") %>%
     xml2::read_html() %>%
-    xml2::xml_find_all(".//small")
+    xml2::xml_find_all(".//h6")
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_child(date_nodes, .where = 1)
+    xml2::xml_add_sibling(date_nodes, .where = "after")
 
   invisible()
 }
