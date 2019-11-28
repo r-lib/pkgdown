@@ -280,7 +280,7 @@ freshly generated section in browser.</p></td>
       <td><p>Use development or deployment process?</p>
 <p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with <code>pkgload::load_call()</code>.</p>
+and will load code with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.</p>
 <p>If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.</p>
 <p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
