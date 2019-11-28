@@ -41,7 +41,7 @@ freshly generated section in browser.}
 
 If \code{TRUE}, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with \code{pkgload::load_call()}.
+and will load code with \code{pkgload::load_all()}.
 
 If \code{FALSE}, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.
