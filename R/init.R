@@ -102,7 +102,8 @@ build_site_meta <- function(pkg = ".") {
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageVersion("pkgdown")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
-    articles = as.list(pkg$article_index)
+    articles = as.list(pkg$article_index),
+    last_built = as.character(Sys.time())
   )
 
   if (!is.null(pkg$meta$url)) {
