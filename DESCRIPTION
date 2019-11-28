@@ -57,6 +57,6 @@ Suggests:
     rsconnect
 VignetteBuilder: knitr
 SystemRequirements: pandoc
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

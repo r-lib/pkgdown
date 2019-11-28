@@ -7,8 +7,8 @@
 Test case: crayon
 }
 \examples{
-cat(crayon::red("This is red"), "\\n")
-cat(crayon::blue("This is blue"), "\\n")
+cat(crayon::red("This is red"), "\n")
+cat(crayon::blue("This is blue"), "\n")
 
 message(crayon::green("This is green"))
 
