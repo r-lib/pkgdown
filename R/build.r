@@ -319,7 +319,7 @@ build_site <- function(pkg = ".",
   if (install) {
     withr::local_temp_libpaths()
     rule("Installing package into temporary library")
-    utils::install.packages(pkg$src_path, repo = NULL, type = "source", quiet = TRUE)
+    utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
   }
 
   if (new_process) {
