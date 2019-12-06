@@ -17,7 +17,7 @@ rd2html(x, fragment = TRUE, ...)
 Translate an Rd string to its HTML output
 }
 \examples{
-rd2html("a\\n\%b\\nc")
+rd2html("a\n\%b\nc")
 
 rd2html("a & b")
 

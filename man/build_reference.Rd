@@ -76,7 +76,7 @@ Note that \code{contents} can contain either a list of function names, or if the
 functions in a section share a common prefix or suffix, you can use
 \code{starts_with("prefix")} and \code{ends_with("suffix")} to select them all. For
 more complex naming schemes you can use an arbitrary regular expression with
-\code{matches("regexp")}. You can also use a leading \verb{-} to exclude matches from a
+\code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
 section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
 \code{starts_with("build_", internal = TRUE)}.
@@ -84,14 +84,14 @@ topics with the Rd keyword "internal". To include these, use
 You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
 
-You can provide long descriptions for groups of functions using the YAML \verb{>}
+You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >
   This is a very long and overly flowery description of a
   single simple function.
 }
 
 If you have functions with odd names (e.g. that start with a plus symbol
-\verb{+}), you can include them by double-escaping. This YAML entry adds the
+\code{+}), you can include them by double-escaping. This YAML entry adds the
 \code{+.gg} function to the ggplot2 documentation:\preformatted{- "`+.gg`"
 }
 

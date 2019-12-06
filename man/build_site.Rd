@@ -219,7 +219,7 @@ The following YAML snippet illustrates some of the most important features.\pref
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators (indicated by a bunch of \verb{-}). You can also use \code{icon}s
+\code{href}) and separators (indicated by a bunch of \code{-}). You can also use \code{icon}s
 from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
 
 This yaml would override the default "articles" component, eliminate

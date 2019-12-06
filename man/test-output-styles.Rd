@@ -12,7 +12,7 @@ Test case: output styles
 a <- 1:100
 a
 
-cat("This some text!\\n")
+cat("This some text!\n")
 message("This is a message!")
 warning("This is a warning!")
 
