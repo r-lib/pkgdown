@@ -3,7 +3,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
   on.exit(file_delete(tmp), add = TRUE)
 
   if (rmarkdown::pandoc_available("2.0")) {
-    from <- "markdown_github-hard_line_breaks+smart+auto_identifiers"
+    from <- "gfm-hard_line_breaks+smart+auto_identifiers"
   } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks"
   } else {
