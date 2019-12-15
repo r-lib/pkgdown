@@ -48,9 +48,9 @@ data_author_info <- function(pkg = ".") {
       html = "<img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' />"
     ),
     "R Consortium" = list(
-      href = "https://www.r-consortium.org"
+      href = "https://www.r-consortium.org",
+      html = "<img src='https://www.r-consortium.org/wp-content/uploads/sites/13/2016/09/RConsortium_Horizontal_Pantone.png' height=24 />"
     )
-
   )
 
   utils::modifyList(defaults, pkg$meta$authors %||% list())
