@@ -5,6 +5,9 @@
 
 * `deploy_site_github()` now accepts a `host` argument enabling users to leverage this for github enterprise - (@dimagor)
 
+* `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
+addition to the top-level `index` or `README` files (@nteetor, #1184)
+
 # pkgdown 1.4.1
 
 * Don't install test package in user library (fixes CRAN failure).
