@@ -1,9 +1,5 @@
 # pkgdown (development version)
 
-* When pandoc 2.0 is available, markdown is now parsed as 'gfm' instead of the legacy
-  'github_markdown' dialect as recommended in the Pandoc manual. This should make the
-  output more consistent with Github and rmarkdown.
-
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
