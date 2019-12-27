@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Within a package
 
-pkgdown will automatically link to documentation and articles wherever it's possible to do unabmiguously. This includes:
+pkgdown will automatically link to documentation and articles wherever it's possible to do unambiguously. This includes:
 
 * Bare function calls, like `build_site()`.
 * Calls to `?`, like `?build_site` or `package?pkgdown`.
@@ -47,7 +47,7 @@ If pkgdown can find a pkgdown site for the remote package, it will link to it; o
     ```
     
     When this field is defined, pkgdown generate a public facing
-    [`pkgdown.yml` file](https://dplyr.tidyverse.org/pkgdown.yml) that provdies
+    [`pkgdown.yml` file](https://dplyr.tidyverse.org/pkgdown.yml) that provides
     metadata about the site:
     
     ```yaml
@@ -67,4 +67,4 @@ If pkgdown can find a pkgdown site for the remote package, it will link to it; o
       article: https://dplyr.tidyverse.org/articles
     ```
 
-Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., `dplyr::mutate()`), pkgdown looks first in dplyr's `DESCRIPTION` to find its website, then it looks for `pkgdown.yml`, and uses the metadata to generate the corect links.
+Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., `dplyr::mutate()`), pkgdown looks first in dplyr's `DESCRIPTION` to find its website, then it looks for `pkgdown.yml`, and uses the metadata to generate the correct links.
