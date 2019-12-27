@@ -96,7 +96,7 @@
 
 ### Other
 
-* News page recognises more version specfications (including the  
+* News page recognises more version specifications (including the  
   "(development version)" now used by usethis) (#980).
 
 * Subdirectories are supported for assets (#939, @ijlyttle).
