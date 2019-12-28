@@ -201,23 +201,22 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>When pandoc 2.0 is available, markdown is now parsed as ‘gfm’ instead of the legacy ‘github_markdown’ dialect as recommended in the Pandoc manual. This should make the output more consistent with Github and rmarkdown.</p></li>
 <li><p>pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of querying it from members.orcid.org (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/1153'>#1153</a>)</p></li>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> now accepts a <code>host</code> argument enabling users to leverage this for github enterprise - (<a href='https://github.com/dimagor'>@dimagor</a>)</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for <code>pkgdown/index.md</code> and <code>pkgdown/index.Rmd</code> in addition to the top-level <code>index</code> or <code>README</code> files (<a href='https://github.com/nteetor'>@nteetor</a>, <a href='https://github.com/r-lib/pkgdown/issues/1184'>#1184</a>)</p></li>
 </ul>
 </div>
-    <div id="pkgdown-141" class="section level1">
+    <div id="pkgdown-1-4-1" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-141" class="anchor"></a>pkgdown 1.4.1<small> 2019-09-14 </small>
+<a href="#pkgdown-1-4-1" class="anchor"></a>pkgdown 1.4.1<small> 2019-09-14 </small>
 </h1>
 <ul>
 <li>Don’t install test package in user library (fixes CRAN failure).</li>
 </ul>
 </div>
-    <div id="pkgdown-140" class="section level1">
+    <div id="pkgdown-1-4-0" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-140" class="anchor"></a>pkgdown 1.4.0<small> 2019-09-03 </small>
+<a href="#pkgdown-1-4-0" class="anchor"></a>pkgdown 1.4.0<small> 2019-09-03 </small>
 </h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
@@ -289,9 +288,9 @@
 </div>
 </div>
 </div>
-    <div id="pkgdown-130" class="section level1">
+    <div id="pkgdown-1-3-0" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-130" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
+<a href="#pkgdown-1-3-0" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
 </h1>
 <ul>
 <li><p>Restore accidentally deleted <code>build_logo()</code> function so that logos are once more copied to the website.</p></li>
@@ -303,16 +302,16 @@
 <li><p>Restore accidentally removed <code>docsearch.css</code> file.</p></li>
 </ul>
 </div>
-    <div id="pkgdown-120" class="section level1">
+    <div id="pkgdown-1-2-0" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-120" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
+<a href="#pkgdown-1-2-0" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
 </h1>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> can be used from continuous integration systems (like travis) to automatically deploy your package website to GitHub Pages. See documentation for how to set up details (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
-<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
+<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="http://realfavicongenerator.net" class="uri">http://realfavicongenerator.net</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Users with limited internet connectivity can explicitly disable internet usage by pkgdown by setting <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.internet = FALSE)</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 </ul>
 </div>
@@ -388,9 +387,9 @@
 </div>
 </div>
 </div>
-    <div id="pkgdown-110" class="section level1">
+    <div id="pkgdown-1-1-0" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-110" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
+<a href="#pkgdown-1-1-0" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
 </h1>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
@@ -407,7 +406,9 @@
 <ul>
 <li><p>Added a keyboard shortcut for searching. Press <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> (<code>?</code>) to move focus to the search bar (<a href='https://github.com/r-lib/pkgdown/issues/642'>#642</a>).</p></li>
 <li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
-<li><p>Navbar active tab highlighting uses a superior approach (suggested by <a href='https://github.com/jcheng5'>@jcheng5</a>) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p></li>
+<li>Navbar active tab highlighting uses a superior approach (suggested by
+<p>@jcheng5) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
+</li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
 </ul>
 </div>
@@ -441,9 +442,9 @@
 </ul>
 </div>
 </div>
-    <div id="pkgdown-100" class="section level1">
+    <div id="pkgdown-1-0-0" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-100" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
+<a href="#pkgdown-1-0-0" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
 </h1>
 <ul>
 <li><p>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</p></li>
@@ -457,12 +458,12 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#pkgdown-development-version">development version</a></li>
-        <li><a href="#pkgdown-141">1.4.1</a></li>
-        <li><a href="#pkgdown-140">1.4.0</a></li>
-        <li><a href="#pkgdown-130">1.3.0</a></li>
-        <li><a href="#pkgdown-120">1.2.0</a></li>
-        <li><a href="#pkgdown-110">1.1.0</a></li>
-        <li><a href="#pkgdown-100">1.0.0</a></li>
+        <li><a href="#pkgdown-1-4-1">1.4.1</a></li>
+        <li><a href="#pkgdown-1-4-0">1.4.0</a></li>
+        <li><a href="#pkgdown-1-3-0">1.3.0</a></li>
+        <li><a href="#pkgdown-1-2-0">1.2.0</a></li>
+        <li><a href="#pkgdown-1-1-0">1.1.0</a></li>
+        <li><a href="#pkgdown-1-0-0">1.0.0</a></li>
       </ul>
     </div>
   </div>
