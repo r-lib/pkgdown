@@ -23,7 +23,7 @@
 #' * Then you will need to setup your deployment keys. The easiest way is to call
 #' `travis::use_travis_deploy()`. This will generate and push the necessary
 #' keys to your GitHub and Travis accounts. See the [travis package
-#' website](https://ropenscilabs.github.io/travis/) for more details.
+#' website](https://docs.ropensci.org/travis/index.html) for more details.
 #'
 #' * Next, make sure that a gh-pages branch exists. The simplest way to do
 #' so is to run the following git commands locally:
@@ -49,7 +49,7 @@
 #'
 #' @inheritParams build_site
 #' @param install Optionally, opt-out of automatic installation. This is
-#'   necessary if the package you're document is a dependency of pkgdown
+#'   necessary if the package you're documenting is a dependency of pkgdown
 #' @param tarball The location of the built package tarball. The default Travis
 #'   configuration for R packages sets `PKG_TARBALL` to this path.
 #' @param ssh_id The private id to use, a base64 encoded content of the private
