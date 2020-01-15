@@ -79,7 +79,12 @@ navbar_components <- function(pkg = ".") {
   menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {
-    menu$github <- menu_icon("github", pkg$github_url, style = "fab")
+    if (grepl('github', pkg$github_url, perl = TRUE))
+      menu$github <- menu_icon("github", pkg$github_url, style = "fab")
+    else if (grepl('gitlab', pkg$github_url, perl = TRUE))
+      menu$github <- menu_icon("gitlab", pkg$github_url, style = "fab")
+    else
+      menu$github <- menu_icon("git", pkg$github_url, style = "fab")
   }
 
   print_yaml(menu)
