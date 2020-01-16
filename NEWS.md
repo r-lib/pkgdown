@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
+
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
