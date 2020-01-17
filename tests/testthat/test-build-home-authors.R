@@ -32,7 +32,8 @@ test_that("Comments in authors info are linkified", {
             roles = "rev",
             comment = "Jane Doe did this, see <https://httpbin.org/>")
 
-  expect_true(grepl(
-    " &lt;<a href='https://httpbin.org/'>https://httpbin.org/</a>&gt;)</small>",
-                    author_desc(p)))
+  expect_match(
+    author_desc(p),
+    " &lt;<a href='https://httpbin.org/'>https://httpbin.org/</a>&gt;)</small>"
+    )
 })
