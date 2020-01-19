@@ -15,6 +15,7 @@ flatten_para <- function(x, ...) {
   is_text_prev <- c(FALSE, is_text[-length(x)])
   has_next <- c(rep(TRUE, length(x) - 1), FALSE)
   is_para_break <- is_nl & is_text_prev & has_next
+  is_preserved <- is_preserved_html(x)
 
   # Or tags that are converted to HTML blocks
   block_tags <- c(
@@ -48,6 +49,12 @@ flatten_para <- function(x, ...) {
   needs_p <- (!(is_nl | is_block)) %>%
     split(groups) %>%
     purrr::map_lgl(any)
+
+  preserve_block <- is_preserved %>%
+    split(groups) %>%
+    purrr::map_lgl(any)
+
+  needs_p <- needs_p & !preserve_block
 
   blocks[needs_p] <- paste0("<p>", str_trim(blocks[needs_p]), "</p>")
 
@@ -582,4 +589,49 @@ is_newline <- function(x, trim = FALSE) {
     text <- gsub("^[ \t]+|[ \t]+$", "", text)
   }
   identical(text, "\n")
+}
+
+is_preserved_html <- function(x) {
+  is_open <- purrr::map_lgl(x, is_open_preserved_html)
+  is_close <- purrr::map_lgl(x, is_close_preserved_html)
+
+  stack <- rep.int(0, length(x))
+  stack[is_open] <- 1
+  stack[is_close] <- -1
+
+  is_preserved <- as.logical(cumsum(stack))
+
+  is_preserved
+}
+
+is_open_preserved_html <- function(x) {
+  if (!inherits(x, "tag_if")) {
+    return(FALSE)
+  }
+
+  cdr <- x[[2]]
+
+  if (!inherits(cdr, "tag")) {
+    return(FALSE)
+  }
+
+  text <- purrr::flatten_chr(cdr[[1]])
+
+  any(grepl("<!--html_preserve-->", text, fixed = TRUE))
+}
+
+is_close_preserved_html <- function(x) {
+  if (!inherits(x, "tag_if")) {
+    return(FALSE)
+  }
+
+  cdr <- x[[2]]
+
+  if (!inherits(cdr, "tag")) {
+    return(FALSE)
+  }
+
+  text <- purrr::flatten_chr(cdr[[1]])
+
+  any(grepl("<!--/html_preserve-->", text, fixed = TRUE))
 }
