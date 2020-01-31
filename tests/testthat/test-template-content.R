@@ -30,7 +30,7 @@ describe("og tags are populated on home, reference, and articles", {
     dir_create(pkg_tmp_dir, "reference")
     with_dir(
       pkg_tmp_dir,
-      expect_output(build_reference(pkg, preview = FALSE))
+      expect_output(build_reference(pkg, preview = FALSE, examples = FALSE))
     )
     ref_html <- read_lines(ref_page_path)
 
@@ -101,7 +101,7 @@ describe("customized open graph tags", {
     dir_create(pkg_tmp_dir, "reference")
     with_dir(
       pkg_tmp_dir,
-      expect_output(build_reference(pkg, preview = FALSE))
+      expect_output(build_reference(pkg, preview = FALSE, examples = FALSE))
     )
     ref_page <- read_lines(ref_page_path)
     desc <- '<meta property="og:description" content="Title"'
