@@ -103,6 +103,7 @@ data_open_graph <- function(pkg = ".") {
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
+    og$image$src <- gsub("^man/figures/", "reference/figures/", og$image$src)
     og$image$src <- paste0(site_url, og$image$src)
   }
   if (length(og$twitter) &&
