@@ -3,9 +3,11 @@ author: "Mara Averick"
 title: "Introduction to Open Graph"
 description: "The Open Graph protocol is a standard for web page metadata."
 opengraph:
-  image: "http://example.com/pkg/batpig.png"
-  twitter_card: summary
-  twitter_creator: "@dataandme"
+  image: 
+    src: "http://example.com/pkg/batpig.png"
+  twitter:
+    card: summary
+    creator: "@dataandme"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{og}

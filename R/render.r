@@ -96,17 +96,24 @@ data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- pkg$meta$template$opengraph %||% list()
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
-    og$image <- path_file(find_logo(pkg$src_path))
+    og$image <- list(src = path_file(find_logo(pkg$src_path)))
   }
-  if (!is.null(og$image) && !grepl("^http", og$image)) {
+  if (!is.null(og$image) && !grepl("^http", og$image$src)) {
     site_url <- pkg$meta$url %||% "/"
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
-    og$image <- paste0(site_url, og$image)
+    og$image$src <- paste0(site_url, og$image$src)
   }
-  og$twitter_creator <- og$twitter_creator %||% og$twitter
-  og$twitter_site <- og$twitter_site %||% og$twitter
+  if (length(og$twitter) &&
+      is.null(og$twitter$creator) &&
+      is.null(og$twitter$site)) {
+    abort(
+      "Twitter open graph information must include either 'creator' or 'site'."
+    )
+  }
+  og$twitter$creator <- og$twitter$creator %||% og$twitter$site
+  og$twitter$site <- og$twitter$site %||% og$twitter$creator
   og
 }
 

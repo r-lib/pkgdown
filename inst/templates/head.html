@@ -58,23 +58,25 @@
 <meta property="og:description" content="{{.}}" />
 {{/description}}
 {{#image}}
-<meta property="og:image" content="{{{.}}}" />
-{{/image}}
-{{#image_alt}}
+<meta property="og:image" content="{{{src}}}" />
+{{#alt}}
 <meta property="og:image:alt" content="{{{.}}}" />
-{{/image_alt}}
-{{#twitter_card}}
+{{/alt}}
+{{/image}}
+{{#twitter}}
+{{#card}}
 <meta name="twitter:card" content="{{{.}}}" />
-{{/twitter_card}}
-{{^twitter_card}}
+{{/card}}
+{{^card}}
 <meta name="twitter:card" content="summary" />
-{{/twitter_card}}
-{{#twitter_creator}}
+{{/card}}
+{{#creator}}
 <meta name="twitter:creator" content="{{{.}}}" />
-{{/twitter_creator}}
-{{#twitter_site}}
+{{/creator}}
+{{#site}}
 <meta name="twitter:site" content="{{{.}}}" />
-{{/twitter_site}}
+{{/site}}
+{{/twitter}}
 {{/opengraph}}
 
 {{#yaml}}{{#noindex}}<meta name="robots" content="noindex" />{{/noindex}}{{/yaml}}
