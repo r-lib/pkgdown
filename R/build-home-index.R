@@ -4,8 +4,15 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
-  src_path <- path_first_existing(pkg$src_path,
-    c("index.md", "README.md", "index.Rmd", "README.Rmd")
+  src_path <- path_first_existing(
+    pkg$src_path,
+    c("pkgdown/index.md",
+      "pkgdown/index.Rmd",
+      "index.md",
+      "README.md",
+      "index.Rmd",
+      "README.Rmd"
+    )
   )
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)

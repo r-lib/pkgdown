@@ -1,8 +1,23 @@
 # pkgdown (development version)
 
+* pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
+  querying it from members.orcid.org (@bisaloo, #1153)
+
+* `deploy_site_github()` now accepts a `host` argument enabling users to leverage this for github enterprise - (@dimagor)
+
+* `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
+addition to the top-level `index` or `README` files (@nteetor, #1184)
+
+# pkgdown 1.4.1
+
+* Don't install test package in user library (fixes CRAN failure).
+
 # pkgdown 1.4.0
 
 ## New features
+
+* build citation as specified by the `textVersion` argument of `citEntry` in the
+  `CITATION` file (#1096, @yiluheihei)
 
 * `build_site()`, `build_reference()` and `build_home()` gain a parameter 
   `devel` which controls whether you're in deployment or development mode.
@@ -84,7 +99,7 @@
 
 ### Other
 
-* News page recognises more version specfications (including the  
+* News page recognises more version specifications (including the  
   "(development version)" now used by usethis) (#980).
 
 * Subdirectories are supported for assets (#939, @ijlyttle).

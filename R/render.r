@@ -96,7 +96,7 @@ data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- pkg$meta$template$opengraph %||% list()
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
-    og$image <- "logo.png"
+    og$image <- path_file(find_logo(pkg$src_path))
   }
   if (!is.null(og$image) && !grepl("^http", og$image)) {
     site_url <- pkg$meta$url %||% "/"

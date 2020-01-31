@@ -7,7 +7,7 @@
 rd2html(x, fragment = TRUE, ...)
 }
 \arguments{
-\item{x}{Rd string. Backslashes must be double-escaped ("\\").}
+\item{x}{Rd string. Backslashes must be double-escaped ("\\\\").}
 
 \item{fragment}{logical indicating whether this represents a complete Rd file}
 
@@ -17,7 +17,7 @@ rd2html(x, fragment = TRUE, ...)
 Translate an Rd string to its HTML output
 }
 \examples{
-rd2html("a\\n\%b\\nc")
+rd2html("a\n\%b\nc")
 
 rd2html("a & b")
 

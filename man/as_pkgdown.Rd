@@ -10,7 +10,7 @@ as_pkgdown(pkg = ".", override = list())
 \item{pkg}{Path to package.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 }
 \description{
 You will generally not need to use this unless you need a custom site
