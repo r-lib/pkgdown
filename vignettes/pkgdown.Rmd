@@ -45,21 +45,8 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
         ganalytics: UA-000000-01
     ```
     
-*   Customize metadata used by Twitter and the [Open Graph protocol](https://ogp.me/)
-    for rich social media cards. Store social media card preview images in
-    `man/figures/` 
-    
-    ```yaml
-    template:
-      opengraph:
-        image: 
-          src: man/figures/card.png
-          alt: "A card image for my package"
-        twitter: 
-          creator: "@hadleywickham"
-          card: summary_large_image
-          site: "@rstudio"
-    ```
+*   Customize metadata used for social media cards, as described in 
+    `vignette("opengraph")`.
 
 *   Package search, as described in `vignette("search")`.
 
