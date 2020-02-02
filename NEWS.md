@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* submenu feature added (@ijlyttle, @wendtke, #1213)
+
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
