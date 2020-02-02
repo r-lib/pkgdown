@@ -204,7 +204,10 @@ The following YAML snippet illustrates some of the most important features.\pref
   articles:
     text: Articles
     menu:
+    components:
     - text: Category A
+     - text: Sub-topic 1
+     - text: Sub-topic 2
     - text: Title A1
       href: articles/a1.html
     - text: Title A2
