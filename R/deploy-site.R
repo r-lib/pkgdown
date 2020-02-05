@@ -46,6 +46,10 @@
 #'    ```yaml
 #'    url: http://pkgdown.r-lib.org
 #'    ```
+#' * If needed, on your `.travis.yml` file, specify the `ssh_id` on your call
+#' to `deploy_site_github()`. For example,
+#' `ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", "")`. Check the Travis logs to
+#' find the environment variable name used for storing the deployment ssh key.
 #'
 #' @inheritParams build_site
 #' @param install Optionally, opt-out of automatic installation. This is

@@ -20,7 +20,7 @@ deploy_site_github(
 \item{pkg}{Path to package.}
 
 \item{install}{Optionally, opt-out of automatic installation. This is
-necessary if the package you're document is a dependency of pkgdown}
+necessary if the package you're documenting is a dependency of pkgdown}
 
 \item{tarball}{The location of the built package tarball. The default Travis
 configuration for R packages sets \code{PKG_TARBALL} to this path.}
@@ -60,7 +60,7 @@ deploy:
 }
 \item Then you will need to setup your deployment keys. The easiest way is to call
 \code{travis::use_travis_deploy()}. This will generate and push the necessary
-keys to your GitHub and Travis accounts. See the \href{https://ropenscilabs.github.io/travis/}{travis package website} for more details.
+keys to your GitHub and Travis accounts. See the \href{https://docs.ropensci.org/travis/index.html}{travis package website} for more details.
 \item Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:\preformatted{git checkout --orphan gh-pages
 git rm -rf .
@@ -75,6 +75,10 @@ re-creating them.
 \item If you're using a custom CNAME, make sure you have set the \code{url} in
 \verb{_pkgdown.yaml}:\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
+\item If needed, on your \code{.travis.yml} file, specify the \code{ssh_id} on your call
+to \code{deploy_site_github()}. For example,
+\code{ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", "")}. Check the Travis logs to
+find the environment variable name used for storing the deployment ssh key.
 }
 }
 
