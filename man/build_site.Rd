@@ -204,10 +204,7 @@ The following YAML snippet illustrates some of the most important features.\pref
   articles:
     text: Articles
     menu:
-    components:
     - text: Category A
-     - text: Sub-topic 1
-     - text: Sub-topic 2
     - text: Title A1
       href: articles/a1.html
     - text: Title A2
@@ -215,7 +212,9 @@ The following YAML snippet illustrates some of the most important features.\pref
     - text: -------
     - text: "Category B"
     - text: Title B1
-      href: articles/b1.html
+      menu:
+      - text "Sub-category B11"
+        href: articles/b11.html
    twitter:
      icon: "fab fa-twitter fa-lg"
      href: http://twitter.com/hadleywickham
