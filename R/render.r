@@ -95,6 +95,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- pkg$meta$template$opengraph %||% list()
+  og <- keep_supported_open_graph(og)
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
     og$image <- list(src = path_file(find_logo(pkg$src_path)))
   }
@@ -116,6 +117,18 @@ data_open_graph <- function(pkg = ".") {
   og$twitter$creator <- og$twitter$creator %||% og$twitter$site
   og$twitter$site <- og$twitter$site %||% og$twitter$creator
   og
+}
+
+keep_supported_open_graph <- function(og) {
+  supported_fields <- c("image", "twitter")
+  unsupported_fields <- setdiff(names(og), supported_fields)
+  if (length(unsupported_fields)) {
+    warn(paste0(
+      "Unsupported opengraph field", if (length(unsupported_fields) > 1) "s", ": ",
+      paste(unsupported_fields, collapse = ", ")
+    ))
+  }
+  og[intersect(supported_fields, names(og))]
 }
 
 template_path <- function(pkg = ".") {

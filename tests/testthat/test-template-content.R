@@ -116,7 +116,10 @@ describe("customized open graph tags", {
 
   it("OpenGraph tags are populated in articles", {
     dir_create(pkg_tmp_dir, "articles")
-    expect_output(build_article("open-graph", pkg = pkg, quiet = TRUE))
+    expect_warning(
+      expect_output(build_article("open-graph", pkg = pkg, quiet = TRUE)),
+      "Unsupported opengraph field:"
+    )
     articles_page_path <- path(pkg_tmp_dir, "articles", "open-graph.html")
     articles_page <- read_lines(articles_page_path)
 
@@ -132,4 +135,26 @@ describe("customized open graph tags", {
     expect_equal(n_matches(articles_page, twitter_site), 1)
     expect_equal(n_matches(articles_page, twitter_card_vig), 1)
   })
+})
+
+test_that("keep_supported_open_graph() returns only supported items", {
+  og_exp <- list(
+    image = list(src = "logo.png", alt = "logo"),
+    twitter = list(creator = "@hadley", site = "@rstudio", card = "summary_card")
+  )
+
+  expect_identical(keep_supported_open_graph(og_exp), og_exp)
+
+  og_extra <- og_exp
+  og_extra$description <- "nope"
+  expect_identical(
+    expect_warning(keep_supported_open_graph(og_extra), "opengraph field:"),
+    og_exp
+  )
+
+  og_extra$facebook <- "nope again"
+  expect_identical(
+    expect_warning(keep_supported_open_graph(og_extra), "opengraph fields:"),
+    og_exp
+  )
 })
