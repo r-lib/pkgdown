@@ -9,6 +9,8 @@ deploy_local(pkg = ".", commit_message = construct_commit_message(pkg), ...)
 \arguments{
 \item{pkg}{Path to package.}
 
+\item{commit_message}{The commit message to be used for the commit.}
+
 \item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
 }
 \description{

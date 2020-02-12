@@ -104,6 +104,7 @@ deploy_site_github <- function(
 #' Build and deploy a site locally
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
+#' @inheritParams deploy_site_github
 #' @export
 deploy_local <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
