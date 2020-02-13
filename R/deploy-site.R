@@ -3,8 +3,9 @@
 #' `deploy_site_github()` sets up your SSH keys for deployment, builds the
 #' site with [build_site()], commits the site to the `gh-pages` branch and then pushes
 #' the results back to GitHub. `deploy_site_github()` is meant only to be used
-#' by the CI system on Travis, it should not be called locally. See 'Setup' for
-#' details on setting up your repository to use this.
+#' by the CI system on Travis, it should not be called locally.
+#' [deploy_local()] can be used to deploy a site directly to GitHub Pages
+#' locally. See 'Setup' for details on setting up your repository to use this.
 #'
 #' @section Setup:
 #' For a quick setup, you can use [usethis::use_pkgdown_travis()]. It  will help you
@@ -56,20 +57,20 @@
 #'   pem file. This should _not_ be your personal private key. Instead create a
 #'   new keypair specifically for deploying the site. The easiest way is to use
 #'   `travis::use_travis_deploy()`.
-#' @param repo_slug The `user/repo` slug for the repository.
 #' @param commit_message The commit message to be used for the commit.
 #' @param verbose Print verbose output
 #' @param ... Additional arguments passed to [build_site()].
+#' @param repo_slug **Deprecated** No longer used.
 #' @export
 deploy_site_github <- function(
   pkg = ".",
   install = TRUE,
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
-  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
   commit_message = construct_commit_message(pkg),
   verbose = FALSE,
-  ...) {
+  ...,
+  repo_slug = "DEPRECATED") {
 
   if (!nzchar(tarball)) {
     stop("No built tarball detected, please provide the location of one with `tarball`", call. = FALSE)
@@ -79,8 +80,8 @@ deploy_site_github <- function(
     stop("No deploy key found, please setup with `travis::use_travis_deploy()`", call. = FALSE)
   }
 
-  if (!nzchar(repo_slug)) {
-    stop("No repo detected, please supply one with `repo_slug`", call. = FALSE)
+  if (!missing(repo_slug)) {
+    warning("`repo_slug` is deprecated. It is no longer used.", call. = FALSE)
   }
 
   rule("Deploying site", line = 2)
