@@ -4,7 +4,7 @@
 #' site with [build_site()], commits the site to the `gh-pages` branch and then pushes
 #' the results back to GitHub. `deploy_site_github()` is meant only to be used
 #' by the CI system on Travis, it should not be called locally.
-#' [deploy_local()] can be used to deploy a site directly to GitHub Pages
+#' [deploy_to_branch()] can be used to deploy a site directly to GitHub Pages
 #' locally. See 'Setup' for details on setting up your repository to use this.
 #'
 #' @section Setup:
@@ -97,23 +97,26 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  deploy_local(pkg, commit_message = commit_message, ...)
+  deploy_to_branch(pkg, commit_message = commit_message, branch = "gh-pages", ...)
 
   rule("Deploy completed", line = 2)
 }
 
 #' Build and deploy a site locally
+#'
+#' @param branch The git branch to deploy to
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
 #' @export
-deploy_local <- function(pkg = ".",
+deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
+                         branch = "gh-pages",
                          ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
-  git("fetch", "origin", "gh-pages")
+  git("fetch", "origin", branch)
   github_worktree_add(dest_dir)
   build_site(".",
     override = list(destination = dest_dir),
@@ -122,22 +125,22 @@ deploy_local <- function(pkg = ".",
     install = FALSE,
     ...
   )
-  github_push(dest_dir, commit_message)
+  github_push(dest_dir, commit_message, branch)
 
   invisible()
 }
 
-github_worktree_add <- function(dir) {
+github_worktree_add <- function(dir, branch) {
   rule("Adding worktree", line = 1)
   git("worktree",
     "add",
-    "--track", "-b", "gh-pages",
+    "--track", "-b", branch,
     dir,
-    "origin/gh-pages"
+    paste0("origin/", branch)
   )
 }
 
-github_push <- function(dir, commit_message) {
+github_push <- function(dir, commit_message, branch) {
   # force execution before changing working directory
   force(commit_message)
 
@@ -149,7 +152,7 @@ github_push <- function(dir, commit_message) {
 
     rule("Deploying to GitHub Pages", line = 1)
     git("remote", "-v")
-    git("push", "--force", "origin", "HEAD:gh-pages")
+    git("push", "--force", "origin", paste0("HEAD:", branch))
   })
 }
 

@@ -42,7 +42,7 @@ new keypair specifically for deploying the site. The easiest way is to use
 site with \code{\link[=build_site]{build_site()}}, commits the site to the \code{gh-pages} branch and then pushes
 the results back to GitHub. \code{deploy_site_github()} is meant only to be used
 by the CI system on Travis, it should not be called locally.
-\code{\link[=deploy_local]{deploy_local()}} can be used to deploy a site directly to GitHub Pages
+\code{\link[=deploy_to_branch]{deploy_to_branch()}} can be used to deploy a site directly to GitHub Pages
 locally. See 'Setup' for details on setting up your repository to use this.
 }
 \section{Setup}{
