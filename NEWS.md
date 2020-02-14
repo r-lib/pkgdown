@@ -3,10 +3,14 @@
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
-* `deploy_site_github()` now accepts a `host` argument enabling users to leverage this for github enterprise - (@dimagor)
-
 * `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
 addition to the top-level `index` or `README` files (@nteetor, #1184)
+
+* New `deploy_to_branch()` function to build and deploy a site to a branch,
+  defaulting to `gh-pages` to use with GitHub Pages. (@jimhester, #1221)
+
+* `deploy_site_github()` argument `repo_slug` has been deprecated and is no
+  longer needed or used. (@jimhester, #1221)
 
 # pkgdown 1.4.1
 
