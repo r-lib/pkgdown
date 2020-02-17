@@ -117,7 +117,7 @@ deploy_to_branch <- function(pkg = ".",
   on.exit(fs::dir_delete(dest_dir))
 
   git("fetch", "origin", branch)
-  github_worktree_add(dest_dir)
+  github_worktree_add(dest_dir, branch)
   build_site(".",
     override = list(destination = dest_dir),
     devel = FALSE,
