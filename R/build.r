@@ -163,7 +163,9 @@
 #'     - text: -------
 #'     - text: "Category B"
 #'     - text: Title B1
-#'       href: articles/b1.html
+#'       menu:
+#'       - text "Sub-category B11"
+#'         href: articles/b11.html
 #'    twitter:
 #'      icon: "fab fa-twitter fa-lg"
 #'      href: http://twitter.com/hadleywickham
