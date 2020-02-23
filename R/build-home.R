@@ -141,6 +141,15 @@ build_home <- function(pkg = ".",
   rule("Building home")
   dir_create(pkg$dst_path)
 
+  # copy everything from man/figures to docs/reference/figures
+  # because all links to man/figures are converted to docs/reference/figures by
+  # tweak_homepage_html()
+  src_figures <- path(pkg$src_path, "man", "figures")
+  dst_figures <- path(pkg$dst_path, "reference", "figures")
+  if (file_exists(src_figures)) {
+    dir_copy_to(pkg, src_figures, dst_figures)
+  }
+
   if (has_citation(pkg$src_path)) {
     build_citation_authors(pkg)
   } else {
