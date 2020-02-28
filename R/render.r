@@ -130,7 +130,7 @@ check_open_graph <- function(og) {
     ))
   }
   if ("twitter" %in% names(og)) {
-    if (is.character(og$twitter) && grepl("^@", og$twitter)) {
+    if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
       abort(paste(
         "The `opengraph: twitter` option must be a list. Did you mean this?",
         "opengraph:",
