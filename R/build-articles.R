@@ -197,7 +197,7 @@ build_article <- function(name,
 
   front <- rmarkdown::yaml_front_matter(input_path)
   # Take opengraph from article's yaml front matter
-  front_opengraph <- keep_supported_open_graph(front$opengraph %||% list())
+  front_opengraph <- check_open_graph(front$opengraph %||% list())
   data$opengraph <- utils::modifyList(
     data$opengraph %||% list(), front_opengraph
   )

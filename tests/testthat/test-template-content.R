@@ -137,24 +137,24 @@ describe("customized open graph tags", {
   })
 })
 
-test_that("keep_supported_open_graph() returns only supported items", {
+test_that("check_open_graph() returns only supported items", {
   og_exp <- list(
     image = list(src = "logo.png", alt = "logo"),
     twitter = list(creator = "@hadley", site = "@rstudio", card = "summary_card")
   )
 
-  expect_identical(keep_supported_open_graph(og_exp), og_exp)
+  expect_identical(check_open_graph(og_exp), og_exp)
 
   og_extra <- og_exp
   og_extra$description <- "nope"
   expect_identical(
-    expect_warning(keep_supported_open_graph(og_extra), "opengraph field:"),
+    expect_warning(check_open_graph(og_extra), "opengraph field:"),
     og_exp
   )
 
   og_extra$facebook <- "nope again"
   expect_identical(
-    expect_warning(keep_supported_open_graph(og_extra), "opengraph fields:"),
+    expect_warning(check_open_graph(og_extra), "opengraph fields:"),
     og_exp
   )
 })
