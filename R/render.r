@@ -148,6 +148,20 @@ check_open_graph <- function(og) {
       )
     }
   }
+  if ("image" %in% names(og)) {
+    if (is.character(og$image) && length(og$image) == 1) {
+      abort(paste(
+        "The `opengraph: image` option must be a list. Did you mean this?",
+        "opengraph",
+        "  image:",
+        paste("    src:", og$image),
+        sep = "\n"
+      ))
+    }
+    if (!is.list(og$image)) {
+      abort("The `opengraph: image` option must be a list.")
+    }
+  }
   og[intersect(supported_fields, names(og))]
 }
 

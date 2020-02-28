@@ -175,10 +175,18 @@ test_that("check_open_graph() returns only supported items", {
   )
 })
 
-test_that("check_open_graph() aborts if twitter$site or twitter$creator not available", {
+test_that("check_open_graph() aborts when `twitter` has unexpected structure", {
   og_exp$twitter <- list(card = "summary_card")
-  expect_error(check_open_graph(og_exp), "must include.+creator.+site")
+  expect_error(check_open_graph(og_exp), "twitter.+must include.+creator.+site")
 
   og_exp$twitter <- "@hadley"
-  expect_error(check_open_graph(og_exp), "must be a list")
+  expect_error(check_open_graph(og_exp), "twitter.+must be a list")
+})
+
+test_that("check_open_graph() errors when `image` has unexpected structure", {
+  og_exp$image <- "logo.png"
+  expect_error(check_open_graph(og_exp), "image.+must be a list\\. Did you mean")
+
+  og_exp$image <- c("logo.png", "logo2.png")
+  expect_error(check_open_graph(og_exp), "image.+must be a list")
 })
