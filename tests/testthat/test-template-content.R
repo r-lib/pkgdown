@@ -118,17 +118,35 @@ test_that("customized open graph tags are populated on home, reference, and arti
   articles_page_path <- path(pkg_tmp_dir, "articles", "open-graph.html")
   articles_page <- read_lines(articles_page_path)
 
+  title <- '<meta property="og:title" content="Introduction to Open Graph"'
   desc <- '<meta property="og:description" content="The Open Graph protocol is a standard for web page metadata."'
   img_vig <- '<meta property="og:image" content="http://example.com/pkg/batpig.png"'
   twitter_creator_vig <- '<meta name="twitter:creator" content="@dataandme"'
   twitter_card_vig <- '<meta name="twitter:card" content="summary"'
 
+  expect_equal(n_matches(articles_page, title), 1)
   expect_equal(n_matches(articles_page, desc), 1)
   expect_equal(n_matches(articles_page, img_vig), 1)
   expect_equal(n_matches(articles_page, img_alt), 1)
   expect_equal(n_matches(articles_page, twitter_creator_vig), 1)
   expect_equal(n_matches(articles_page, twitter_site), 1)
   expect_equal(n_matches(articles_page, twitter_card_vig), 1)
+
+  # default article description is the package title
+  expect_output(build_article("no-description", pkg = pkg, quiet = TRUE))
+  no_desc_page_path <- path(pkg_tmp_dir, "articles", "no-description.html")
+  no_desc_page <- read_lines(no_desc_page_path)
+
+  title <- '<meta property="og:title" content="No Description"'
+  desc <- '<meta property="og:description" content="testpackage"'
+
+  expect_equal(n_matches(no_desc_page, title), 1)
+  expect_equal(n_matches(no_desc_page, desc), 1)
+  expect_equal(n_matches(no_desc_page, img), 1)     # site-wide default
+  expect_equal(n_matches(no_desc_page, img_alt), 1) # site-wide default
+  expect_equal(n_matches(no_desc_page, twitter_creator_vig), 1)
+  expect_equal(n_matches(no_desc_page, twitter_site), 1)
+  expect_equal(n_matches(no_desc_page, twitter_card_vig), 1)
 })
 
 og_exp <- list(
