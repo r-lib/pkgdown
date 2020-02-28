@@ -56,6 +56,8 @@ navbar:
         href: articles/linking.html
       - text: 'Search'
         href: articles/search.html
+      - text: 'Metadata'
+        href: articles/metadata.html
       - text: '---'
       - text: 'Tests'
       - text: 'Output Rendering'
