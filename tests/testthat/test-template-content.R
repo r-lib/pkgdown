@@ -118,7 +118,7 @@ describe("customized open graph tags", {
     dir_create(pkg_tmp_dir, "articles")
     expect_warning(
       expect_output(build_article("open-graph", pkg = pkg, quiet = TRUE)),
-      "Unsupported opengraph field:"
+      "Unsupported `opengraph` field:"
     )
     articles_page_path <- path(pkg_tmp_dir, "articles", "open-graph.html")
     articles_page <- read_lines(articles_page_path)
@@ -137,24 +137,36 @@ describe("customized open graph tags", {
   })
 })
 
-test_that("check_open_graph() returns only supported items", {
-  og_exp <- list(
-    image = list(src = "logo.png", alt = "logo"),
-    twitter = list(creator = "@hadley", site = "@rstudio", card = "summary_card")
-  )
+og_exp <- list(
+  image = list(src = "logo.png", alt = "logo"),
+  twitter = list(creator = "@hadley", site = "@rstudio", card = "summary_card")
+)
 
+test_that("check_open_graph() errors when opengraph is not a list", {
+  expect_error(check_open_graph("@hadley"), "must be a list")
+})
+
+test_that("check_open_graph() returns only supported items", {
   expect_identical(check_open_graph(og_exp), og_exp)
 
   og_extra <- og_exp
   og_extra$description <- "nope"
   expect_identical(
-    expect_warning(check_open_graph(og_extra), "opengraph field:"),
+    expect_warning(check_open_graph(og_extra), "`opengraph` field:"),
     og_exp
   )
 
   og_extra$facebook <- "nope again"
   expect_identical(
-    expect_warning(check_open_graph(og_extra), "opengraph fields:"),
+    expect_warning(check_open_graph(og_extra), "`opengraph` fields:"),
     og_exp
   )
+})
+
+test_that("check_open_graph() aborts if twitter$site or twitter$creator not available", {
+  og_exp$twitter <- list(card = "summary_card")
+  expect_error(check_open_graph(og_exp), "must include.+creator.+site")
+
+  og_exp$twitter <- "@hadley"
+  expect_error(check_open_graph(og_exp), "must be a list")
 })
