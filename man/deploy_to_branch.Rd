@@ -8,6 +8,7 @@ deploy_to_branch(
   pkg = ".",
   commit_message = construct_commit_message(pkg),
   branch = "gh-pages",
+  remote = "origin",
   ...
 )
 }
@@ -17,6 +18,8 @@ deploy_to_branch(
 \item{commit_message}{The commit message to be used for the commit.}
 
 \item{branch}{The git branch to deploy to}
+
+\item{remote}{The git remote to deploy to}
 
 \item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
 }
