@@ -92,8 +92,19 @@ match_env <- function(topics) {
         purrr::map_lgl(any)
 
       which(match & is_public(internal))
+    },
+    none_of_concepts = function(x, internal = FALSE) {
+      nomatch <- topics$concepts %>%
+        unname() %>%
+        purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
+        purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
+
+      which(nomatch & is_public(internal))
     }
   )
+
+  # To exploit 'has_concept' defined above
+  funs[['none_of_concepts']]
 
   # Each alias is mapped to the position of its topic
   lengths <- purrr::map_int(topics$alias, length)

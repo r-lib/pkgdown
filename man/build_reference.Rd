@@ -84,6 +84,12 @@ topics with the Rd keyword "internal". To include these, use
 You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
 
+You can also select topics that do not contain any of a vector of specified
+Rd concepts with
+\code{none_of_concepts(c("concept1", "concept2"))}.
+This can for example be used to make a group of topics that are not
+caught by any number of \code{has_concept("blah")}.
+
 You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >
   This is a very long and overly flowery description of a
