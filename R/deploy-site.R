@@ -116,7 +116,28 @@ deploy_to_branch <- function(pkg = ".",
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
-  git("fetch", "origin", branch)
+  tryCatch(
+    git("fetch", "origin", branch),
+
+    system_command_status_error = function(e) {
+      no_remote_branch <- grepl("couldn't find remote ref", e$stderr)
+      if (!no_remote_branch) {
+        stop(e)
+      }
+
+      # If no remote branch, we need to create it
+      git("checkout", "--orphan", branch)
+      git("rm", "-rf", "--quiet", ".")
+      git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+      git("push", "origin", paste0("HEAD:", branch))
+
+      # checkout the previous branch, we assume master.
+      # Unfortunately the @{-1} syntax doesn't seem to work for switching back
+      # from orphan branches :(
+      git("checkout", "master")
+    }
+  )
+
   github_worktree_add(dest_dir, branch)
   build_site(".",
     override = list(destination = dest_dir),
@@ -134,7 +155,7 @@ github_worktree_add <- function(dir, branch) {
   rule("Adding worktree", line = 1)
   git("worktree",
     "add",
-    "--track", "-b", branch,
+    "--track", "-B", branch,
     dir,
     paste0("origin/", branch)
   )
