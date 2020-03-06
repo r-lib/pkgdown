@@ -13,8 +13,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
@@ -148,26 +148,26 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="pkgdown" class="section level1">
+<div id="pkgdown-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#pkgdown" class="anchor"></a>pkgdown <img src="reference/figures/logo.png" align="right" alt="" width="120">
+<a href="#pkgdown-" class="anchor"></a>pkgdown <img src="reference/figures/logo.png" align="right" alt="" width="120">
 </h1></div>
 
 <p>pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <a href="https://pkgdown.r-lib.org" class="uri">https://pkgdown.r-lib.org</a>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> or <code><a href="reference/build_site.html">?build_site</a></code>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Install release version from CRAN</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pkgdown"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Install development version from GitHub</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"r-lib/pkgdown"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Install release version from CRAN</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pkgdown"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Install development version from GitHub</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"r-lib/pkgdown"</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Run pkgdown from the package directory each time you release your package:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pkgdown<span class="op">::</span><span class="kw"><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pkgdown<span class="op">::</span><span class="kw"><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</span></code></pre></div>
 <p>This will generate a <code>docs/</code> directory. The home page will be generated from your package’s <code>README.md</code>, and a function reference will be generated from the documentation in the <code>man/</code> directory. If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “master branch /docs folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
 <p>To customise your site, create <code>_pkgdown.yml</code> and modify it <a href="http://pkgdown.r-lib.org/articles/pkgdown.html">as described in the documentation</a>. You can also use <code>pkgdown/_pkgdown.yml</code> if you need other files to customise your site.</p>
 <p>The package includes an RStudio add-in that you can bind to a keyboard shortcut. I recommend <code>Cmd</code> + <code>Shift</code> + <code>W</code>: it uses <code>Cmd</code> + <code>Shift</code>, like all other package development shortcuts, it replaces a rarely used command (close all tabs), and the <code>W</code> is a mnemonic for website.</p>
@@ -178,10 +178,10 @@
 <p>At last count, pkgdown is used <a href="https://github.com/search?q=pkgdown.css+in%3Apath&amp;type=Code">by over 4,500 packages</a>.</p>
 <p>Here are a few examples created by contributors to pkgdown:</p>
 <ul>
-<li><p><a href="http://mc-stan.org/bayesplot/index.html">bayesplot</a> <br><span class="math display">[<em>s</em><em>o</em><em>u</em><em>r</em><em>c</em><em>e</em>](<em>h</em><em>t</em><em>t</em><em>p</em><em>s</em> : //<em>g</em><em>i</em><em>t</em><em>h</em><em>u</em><em>b</em>.<em>c</em><em>o</em><em>m</em>/<em>s</em><em>t</em><em>a</em><em>n</em> − <em>d</em><em>e</em><em>v</em>/<em>b</em><em>a</em><em>y</em><em>e</em><em>s</em><em>p</em><em>l</em><em>o</em><em>t</em>/<em>t</em><em>r</em><em>e</em><em>e</em>/<em>g</em><em>h</em> − <em>p</em><em>a</em><em>g</em><em>e</em><em>s</em>)</span><br>: plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
-<li><p><a href="https://valr.hesselberthlab.org/">valr</a> <br><span class="math display">[<em>s</em><em>o</em><em>u</em><em>r</em><em>c</em><em>e</em>](<em>h</em><em>t</em><em>t</em><em>p</em><em>s</em> : //<em>g</em><em>i</em><em>t</em><em>h</em><em>u</em><em>b</em>.<em>c</em><em>o</em><em>m</em>/<em>r</em><em>n</em><em>a</em><em>b</em><em>i</em><em>o</em><em>c</em><em>o</em>/<em>v</em><em>a</em><em>l</em><em>r</em>)</span><br>: read and manipulate genome intervals and signals.</p></li>
-<li><p><a href="http://jranke.github.io/mkin/">mkin</a> <br><span class="math display">[<em>s</em><em>o</em><em>u</em><em>r</em><em>c</em><em>e</em>](<em>h</em><em>t</em><em>t</em><em>p</em><em>s</em> : //<em>g</em><em>i</em><em>t</em><em>h</em><em>u</em><em>b</em>.<em>c</em><em>o</em><em>m</em>/<em>j</em><em>r</em><em>a</em><em>n</em><em>k</em><em>e</em>/<em>m</em><em>k</em><em>i</em><em>n</em>)</span><br>: calculation routines based on the FOCUS Kinetics Report</p></li>
-<li><p><a href="http://renozao.github.io/NMF/master/index.html">NMF</a> <br><span class="math display">[<em>s</em><em>o</em><em>u</em><em>r</em><em>c</em><em>e</em>](<em>h</em><em>t</em><em>t</em><em>p</em><em>s</em> : //<em>g</em><em>i</em><em>t</em><em>h</em><em>u</em><em>b</em>.<em>c</em><em>o</em><em>m</em>/<em>r</em><em>e</em><em>n</em><em>o</em><em>z</em><em>a</em><em>o</em>/<em>N</em><em>M</em><em>F</em>)</span><br>: a framework to perform non-negative matrix factorization (NMF).</p></li>
+<li><p><a href="http://mc-stan.org/bayesplot/index.html">bayesplot</a> [<a href="https://github.com/stan-dev/bayesplot/tree/gh-pages">source</a>]: plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
+<li><p><a href="https://valr.hesselberthlab.org/">valr</a> [<a href="https://github.com/rnabioco/valr">source</a>]: read and manipulate genome intervals and signals.</p></li>
+<li><p><a href="http://jranke.github.io/mkin/">mkin</a> [<a href="https://github.com/jranke/mkin">source</a>]: calculation routines based on the FOCUS Kinetics Report</p></li>
+<li><p><a href="http://renozao.github.io/NMF/master/index.html">NMF</a> [<a href="https://github.com/renozao/NMF">source</a>]: a framework to perform non-negative matrix factorization (NMF).</p></li>
 </ul>
 <p>Comparing the source and output of these sites is a great way to learn new pkgdown techniques.</p>
 </div>
@@ -193,7 +193,7 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -225,15 +225,25 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
-<a href="https://hesselberthlab.org">Jay Hesselberth</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6299-179X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://hesselberthlab.org">Jay Hesselberth</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6299-179X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
 <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.org/r-lib/pkgdown"><img src="https://travis-ci.org/r-lib/pkgdown.svg?branch=master" alt="Travis-CI build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/r-lib/pkgdown"><img src="https://ci.appveyor.com/api/projects/status/github/r-lib/pkgdown?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://cran.r-project.org/package=pkgdown"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status"></a></li>
+<li><a href="https://codecov.io/gh/r-lib/pkgdown?branch=master"><img src="https://codecov.io/gh/r-lib/pkgdown/branch/master/graphs/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -242,7 +252,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

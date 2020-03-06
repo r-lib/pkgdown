@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build reference section — build_reference • pkgdown</title>
+<title>Build and deploy a site locally — deploy_to_branch • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,10 +48,8 @@
 
 
 
-<meta property="og:title" content="Build reference section — build_reference" />
-<meta property="og:description" content="By default, pkgdown will generate an index that lists all functions in
-alphabetical order. To override this, provide a reference section in your
-_pkgdown.yml as described below." />
+<meta property="og:title" content="Build and deploy a site locally — deploy_to_branch" />
+<meta property="og:description" content="Build and deploy a site locally" />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -195,31 +193,22 @@ _pkgdown.yml as described below." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build reference section</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/build-reference.R'><code>R/build-reference.R</code></a></small>
-    <div class="hidden name"><code>build_reference.Rd</code></div>
+    <h1>Build and deploy a site locally</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/deploy-site.R'><code>R/deploy-site.R</code></a></small>
+    <div class="hidden name"><code>deploy_to_branch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>By default, pkgdown will generate an index that lists all functions in
-alphabetical order. To override this, provide a <code>reference</code> section in your
-<code>_pkgdown.yml</code> as described below.</p>
+    <p>Build and deploy a site locally</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span>(
+    <pre class="usage"><span class='fu'>deploy_to_branch</span>(
   <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
-  <span class='kw'>topics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
-
-<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
+  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
+  <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,127 +218,29 @@ alphabetical order. To override this, provide a <code>reference</code> section i
       <td><p>Path to package.</p></td>
     </tr>
     <tr>
-      <th>lazy</th>
-      <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
-is more recent than the <code>.html</code>. This makes it much easier to
-rapidly prototype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+      <th>commit_message</th>
+      <td><p>The commit message to be used for the commit.</p></td>
     </tr>
     <tr>
-      <th>examples</th>
-      <td><p>Run examples?</p></td>
+      <th>branch</th>
+      <td><p>The git branch to deploy to</p></td>
     </tr>
     <tr>
-      <th>run_dont_run</th>
-      <td><p>Run examples that are surrounded in \dontrun?</p></td>
+      <th>remote</th>
+      <td><p>The git remote to deploy to</p></td>
     </tr>
     <tr>
-      <th>seed</th>
-      <td><p>Seed used to initialize so that random examples are
-reproducible.</p></td>
-    </tr>
-    <tr>
-      <th>override</th>
-      <td><p>An optional named list used to temporarily override
-values in <code>_pkgdown.yml</code></p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
-freshly generated section in browser.</p></td>
-    </tr>
-    <tr>
-      <th>devel</th>
-      <td><p>Determines how code is loaded in order to run examples.
-If <code>TRUE</code> (the default), assumes you are in a live development
-environment, and loads source package with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.
-If <code>FALSE</code>, uses the installed version of the package.</p></td>
-    </tr>
-    <tr>
-      <th>document</th>
-      <td><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></td>
-    </tr>
-    <tr>
-      <th>topics</th>
-      <td><p>Build only specified topics. If supplied, sets <code>lazy`` and </code>preview<code>to</code>FALSE`.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
-
-    
-
-<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>
-which provides a list of sections containing, a <code>title</code>, list of <code>contents</code>,
-and an optional <code>description</code>.</p>
-<p>For example, the following code breaks up the functions in pkgdown
-into two groups:</p><pre>reference:
-- title: Render components
-  desc:  Build each component of the site.
-  contents:
-  - starts_with("build_")
-  - init_site
-- title: Templates
-  contents:
-  - render_page
-</pre>
-
-<p>Note that <code>contents</code> can contain either a list of function names, or if the
-functions in a section share a common prefix or suffix, you can use
-<code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
-more complex naming schemes you can use an arbitrary regular expression with
-<code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
-section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use
-<code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>You can also select topics that contain specified Rd concepts with
-<code>has_concept("blah")</code>.</p>
-<p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
-notation:</p><pre>desc: &gt;
-  This is a very long and overly flowery description of a
-  single simple function.
-</pre>
-
-<p>If you have functions with odd names (e.g. that start with a plus symbol
-<code>+</code>), you can include them by double-escaping. This YAML entry adds the
-<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
-</pre>
-
-<p>pkgdown will check that all non-internal topics are included on
-this page, and will generate a warning if you have missed any.</p>
-    <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
-
-    
-
-
-<p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
-  dev: grDevices::png
-  dpi: 96
-  dev.args: []
-  fig.ext: png
-  fig.width: 7.2916667
-  fig.height: ~
-  fig.retina: 2
-  fig.asp: 1.618
-</pre>
-
-    <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
-
-    
-
-<p>You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level <code>icons</code> directory. This should contain .png files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#yaml-config">YAML config</a></li>
-      <li><a href="#figures">Figures</a></li>
-      <li><a href="#icons">Icons</a></li>
     </ul>
 
   </div>

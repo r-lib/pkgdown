@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -201,22 +201,24 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>add support for navbar submenus: you can create submenus following the convention established in <a href="https://github.com/rstudio/rmarkdown/issues/721">rstudio/rmarkdown<a href='https://github.com/r-lib/pkgdown/issues/721'>#721</a></a> (<a href='https://github.com/ijlyttle'>@ijlyttle</a>, <a href='https://github.com/wendtke'>@wendtke</a>, <a href='https://github.com/r-lib/pkgdown/issues/1213'>#1213</a>)</p></li>
 <li><p>pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of querying it from members.orcid.org (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/1153'>#1153</a>)</p></li>
-<li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> now accepts a <code>host</code> argument enabling users to leverage this for github enterprise - (<a href='https://github.com/dimagor'>@dimagor</a>)</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now looks for <code>pkgdown/index.md</code> and <code>pkgdown/index.Rmd</code> in addition to the top-level <code>index</code> or <code>README</code> files (<a href='https://github.com/nteetor'>@nteetor</a>, <a href='https://github.com/r-lib/pkgdown/issues/1184'>#1184</a>)</p></li>
+<li><p>New <code><a href="../reference/deploy_to_branch.html">deploy_to_branch()</a></code> function to build and deploy a site to a branch, defaulting to <code>gh-pages</code> to use with GitHub Pages. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/pkgdown/issues/1221'>#1221</a>)</p></li>
+<li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> argument <code>repo_slug</code> has been deprecated and is no longer needed or used. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/pkgdown/issues/1221'>#1221</a>)</p></li>
 </ul>
 </div>
-    <div id="pkgdown-1-4-1" class="section level1">
+    <div id="pkgdown-141" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-4-1" class="anchor"></a>pkgdown 1.4.1<small> 2019-09-14 </small>
+<a href="#pkgdown-141" class="anchor"></a>pkgdown 1.4.1<small> 2019-09-14 </small>
 </h1>
 <ul>
 <li>Don’t install test package in user library (fixes CRAN failure).</li>
 </ul>
 </div>
-    <div id="pkgdown-1-4-0" class="section level1">
+    <div id="pkgdown-140" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-4-0" class="anchor"></a>pkgdown 1.4.0<small> 2019-09-03 </small>
+<a href="#pkgdown-140" class="anchor"></a>pkgdown 1.4.0<small> 2019-09-03 </small>
 </h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
@@ -228,7 +230,7 @@
 <p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
 <p>Deployment mode is slower, but guarantees correct results, and is the default for <code><a href="../reference/build_site.html">build_site()</a></code>. It installs the package into a temporary library, and runs examples/articles in a new process.</p>
 </li>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code>devtools::document()</code> (<a href='https://github.com/r-lib/pkgdown/issues/1079'>#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/1079'>#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now strips quotes from <code>Title</code> and <code>Description</code> fields when generating page metadata. Additionally, you can now override the defaults via the <code>title</code> and <code>description</code> fields in the <code>home</code> section of <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/957'>#957</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
 <li><p><code><a href="../articles/linking.html">vignette("linking")</a></code> describes how pkgdown’s automatic linking works, and how to ensure that cross-package links point to the right place.</p></li>
 </ul>
@@ -288,9 +290,9 @@
 </div>
 </div>
 </div>
-    <div id="pkgdown-1-3-0" class="section level1">
+    <div id="pkgdown-130" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-3-0" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
+<a href="#pkgdown-130" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
 </h1>
 <ul>
 <li><p>Restore accidentally deleted <code>build_logo()</code> function so that logos are once more copied to the website.</p></li>
@@ -302,9 +304,9 @@
 <li><p>Restore accidentally removed <code>docsearch.css</code> file.</p></li>
 </ul>
 </div>
-    <div id="pkgdown-1-2-0" class="section level1">
+    <div id="pkgdown-120" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-2-0" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
+<a href="#pkgdown-120" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
 </h1>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
@@ -371,8 +373,8 @@
 <ul>
 <li>
 <p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">toc:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">depth:</span><span class="at"> 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">toc</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">depth</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -387,15 +389,15 @@
 </div>
 </div>
 </div>
-    <div id="pkgdown-1-1-0" class="section level1">
+    <div id="pkgdown-110" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-1-0" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
+<a href="#pkgdown-110" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
 </h1>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_site.html">build_site()</a></code> get new <code>document</code> argument. When <code>TRUE</code>, the default, will automatically run <code>devtools::document()</code> to ensure that your documentation is up to date.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_site.html">build_site()</a></code> get new <code>document</code> argument. When <code>TRUE</code>, the default, will automatically run <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> to ensure that your documentation is up to date.</p></li>
 <li><p><code><a href="../reference/build_site.html">build_site()</a></code> gains a <code>new_process</code> argument, which defaults to <code>TRUE</code>. This will run pkgdown in a separate process, and is recommended practice because it improves reproducibility (<a href='https://github.com/r-lib/pkgdown/issues/647'>#647</a>).</p></li>
 <li><p>Improved display for icons: icons must be 30px and stored in top-level <code>icons/</code> directory. They are embedded in a separate column of reference index table, instead of being inside a comment (!) (<a href='https://github.com/r-lib/pkgdown/issues/607'>#607</a>).</p></li>
 </ul>
@@ -406,7 +408,8 @@
 <ul>
 <li><p>Added a keyboard shortcut for searching. Press <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> (<code>?</code>) to move focus to the search bar (<a href='https://github.com/r-lib/pkgdown/issues/642'>#642</a>).</p></li>
 <li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
-<li>Navbar active tab highlighting uses a superior approach (suggested by
+<li>
+<p>Navbar active tab highlighting uses a superior approach (suggested by</p>
 <p>@jcheng5) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
 </li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
@@ -430,21 +433,21 @@
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
 <p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">template:</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="fu">params:</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="fu">noindex:</span><span class="at"> true</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: Markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) stored in <code>.github/</code> are copied and linked correctly (<a href='https://github.com/r-lib/pkgdown/issues/682'>#682</a>).</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code>news: one_page: false</code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: reference index shows infix functions (like <code>%+%</code>) as <code>`%+%`</code>, not <code>`%+%`()</code> on (<a href='https://github.com/r-lib/pkgdown/issues/659'>#659</a>).</p></li>
 </ul>
 </div>
 </div>
-    <div id="pkgdown-1-0-0" class="section level1">
+    <div id="pkgdown-100" class="section level1">
 <h1 class="page-header">
-<a href="#pkgdown-1-0-0" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
+<a href="#pkgdown-100" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
 </h1>
 <ul>
 <li><p>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</p></li>
@@ -453,17 +456,17 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#pkgdown-development-version">development version</a></li>
-        <li><a href="#pkgdown-1-4-1">1.4.1</a></li>
-        <li><a href="#pkgdown-1-4-0">1.4.0</a></li>
-        <li><a href="#pkgdown-1-3-0">1.3.0</a></li>
-        <li><a href="#pkgdown-1-2-0">1.2.0</a></li>
-        <li><a href="#pkgdown-1-1-0">1.1.0</a></li>
-        <li><a href="#pkgdown-1-0-0">1.0.0</a></li>
+        <li><a href="#pkgdown-141">1.4.1</a></li>
+        <li><a href="#pkgdown-140">1.4.0</a></li>
+        <li><a href="#pkgdown-130">1.3.0</a></li>
+        <li><a href="#pkgdown-120">1.2.0</a></li>
+        <li><a href="#pkgdown-110">1.1.0</a></li>
+        <li><a href="#pkgdown-100">1.0.0</a></li>
       </ul>
     </div>
   </div>
@@ -477,7 +480,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
