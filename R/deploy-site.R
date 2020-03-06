@@ -116,14 +116,8 @@ deploy_to_branch <- function(pkg = ".",
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
-  tryCatch(
-    git("fetch", "origin", branch),
-
-    system_command_status_error = function(e) {
-      no_remote_branch <- grepl("couldn't find remote ref", e$stderr)
-      if (!no_remote_branch) {
-        stop(e)
-      }
+  if (!git_has_remote_branch(branch)) {
+      old_branch <- git_current_branch()
 
       # If no remote branch, we need to create it
       git("checkout", "--orphan", branch)
@@ -131,12 +125,12 @@ deploy_to_branch <- function(pkg = ".",
       git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
       git("push", "origin", paste0("HEAD:", branch))
 
-      # checkout the previous branch, we assume master.
-      # Unfortunately the @{-1} syntax doesn't seem to work for switching back
-      # from orphan branches :(
-      git("checkout", "master")
-    }
-  )
+      # checkout the previous branch
+      git("checkout", old_branch)
+
+  }
+
+  git("fetch", "origin", branch)
 
   github_worktree_add(dest_dir, branch)
   build_site(".",
@@ -149,6 +143,14 @@ deploy_to_branch <- function(pkg = ".",
   github_push(dest_dir, commit_message, branch)
 
   invisible()
+}
+
+git_has_remote_branch <- function(branch) {
+  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", "origin", branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
+}
+git_current_branch <- function() {
+  branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
+  sub("\n$", "", branch)
 }
 
 github_worktree_add <- function(dir, branch) {
@@ -177,8 +179,8 @@ github_push <- function(dir, commit_message, branch) {
   })
 }
 
-git <- function(...) {
-  processx::run("git", c(...), echo_cmd = TRUE, echo = TRUE)
+git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
+  processx::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
 construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {
