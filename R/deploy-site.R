@@ -134,7 +134,7 @@ deploy_to_branch <- function(pkg = ".",
 
   git("fetch", remote, branch)
 
-  github_worktree_add(dest_dir, branch)
+  github_worktree_add(dest_dir, remote, branch)
   build_site(".",
     override = list(destination = dest_dir),
     devel = FALSE,
@@ -155,7 +155,7 @@ git_current_branch <- function() {
   sub("\n$", "", branch)
 }
 
-github_worktree_add <- function(dir, branch) {
+github_worktree_add <- function(dir, remote, branch) {
   rule("Adding worktree", line = 1)
   git("worktree",
     "add",
