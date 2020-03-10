@@ -4,8 +4,15 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = 0L)
 
-  src_path <- path_first_existing(pkg$src_path,
-    c("index.md", "README.md", "index.Rmd", "README.Rmd")
+  src_path <- path_first_existing(
+    pkg$src_path,
+    c("pkgdown/index.md",
+      "pkgdown/index.Rmd",
+      "index.md",
+      "README.md",
+      "index.Rmd",
+      "README.Rmd"
+    )
   )
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
@@ -21,24 +28,6 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
 
   invisible()
-}
-
-# Stripped down version of build_article
-render_index <- function(pkg = ".", path, data = list(), quiet = TRUE) {
-  pkg <- as_pkgdown(pkg)
-
-  format <- build_rmarkdown_format(pkg, "article",
-                                   depth = 0L,
-                                   data = data, toc = FALSE
-  )
-  render_rmarkdown(
-    pkg = pkg,
-    input = path,
-    output = "index.html",
-    output_format = format,
-    quiet = quiet,
-    copy_images = FALSE
-  )
 }
 
 data_home <- function(pkg = ".") {

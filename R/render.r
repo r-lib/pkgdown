@@ -95,12 +95,13 @@ data_template <- function(pkg = ".", depth = 0L) {
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   og <- list()
-  if (!is.null(find_logo(pkg$src_path))) {
+  logo <- find_logo(pkg$src_path)
+  if (!is.null(logo)) {
     site_url <- pkg$meta$url %||% "/"
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
-    og$image <- paste0(site_url, "logo.png")
+    og$image <- paste0(site_url, path_file(logo))
   }
   og
 }

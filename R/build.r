@@ -163,7 +163,9 @@
 #'     - text: -------
 #'     - text: "Category B"
 #'     - text: Title B1
-#'       href: articles/b1.html
+#'       menu:
+#'       - text "Sub-category B11"
+#'         href: articles/b11.html
 #'    twitter:
 #'      icon: "fab fa-twitter fa-lg"
 #'      href: http://twitter.com/hadleywickham
@@ -277,7 +279,7 @@
 #'
 #'   If `TRUE`, uses lighter-weight process suitable for rapid
 #'   iteration; it will run examples and vignettes in the current process,
-#'   and will load code with `pkgload::load_call()`.
+#'   and will load code with `pkgload::load_all()`.
 #'
 #'   If `FALSE`, will first install the package to a temporary library,
 #'   and will run all examples and vignettes in a new process.
@@ -319,7 +321,7 @@ build_site <- function(pkg = ".",
   if (install) {
     withr::local_temp_libpaths()
     rule("Installing package into temporary library")
-    utils::install.packages(pkg$src_path, repo = NULL, type = "source", quiet = TRUE)
+    utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
   }
 
   if (new_process) {

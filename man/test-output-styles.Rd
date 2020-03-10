@@ -12,7 +12,7 @@ Test case: output styles
 a <- 1:100
 a
 
-cat("This some text!\\n")
+cat("This some text!\n")
 message("This is a message!")
 warning("This is a warning!")
 
@@ -23,10 +23,14 @@ warning("This is a warning!")
 }
 }
 \seealso{
-Other tests: \code{\link{test-crayon}},
-  \code{\link{test-dont}}, \code{\link{test-figures}},
-  \code{\link{test-links}}, \code{\link{test-lists}},
-  \code{\link{test-params}}, \code{\link{test-verbatim}}
+Other tests: 
+\code{\link{test-crayon}},
+\code{\link{test-dont}},
+\code{\link{test-figures}},
+\code{\link{test-links}},
+\code{\link{test-lists}},
+\code{\link{test-params}},
+\code{\link{test-verbatim}}
 }
 \concept{tests}
 \keyword{internal}

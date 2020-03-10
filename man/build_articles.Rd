@@ -5,11 +5,15 @@
 \alias{build_article}
 \title{Build articles section}
 \usage{
-build_articles(pkg = ".", quiet = TRUE, lazy = TRUE,
-  override = list(), preview = NA)
+build_articles(
+  pkg = ".",
+  quiet = TRUE,
+  lazy = TRUE,
+  override = list(),
+  preview = NA
+)
 
-build_article(name, pkg = ".", data = list(), lazy = FALSE,
-  quiet = TRUE)
+build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -21,21 +25,21 @@ pandoc. This is useful when debugging.}
 modified more recently than the output file.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
 
 \item{name}{Name of article to render. This should be either a path
-relative to \code{vignettes/} without extension, or \code{index} or \code{README}.}
+relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
 
 \item{data}{Additional data to pass on to template.}
 }
 \description{
-Each R Markdown vignette in \code{vignettes/} and its subdirectories is rendered
-and saved to \code{articles/}.
+Each R Markdown vignette in \verb{vignettes/} and its subdirectories is rendered
+and saved to \verb{articles/}.
 
-The only exception are \code{.Rmd} vignettes that start with \code{_} (i.e., \code{_index.Rmd}), enabling the use of child documents in \href{https://bookdown.org/yihui/bookdown/}{bookdown}, and vignettes in a \code{tutorials} subdirectory, which is reserved for tutorials built with \code{build_tutorials()}
+The only exception are \code{.Rmd} vignettes that start with \verb{_} (i.e., \verb{_index.Rmd}), enabling the use of child documents in \href{https://bookdown.org/yihui/bookdown/}{bookdown}, and vignettes in a \code{tutorials} subdirectory, which is reserved for tutorials built with \code{build_tutorials()}
 
 Vignettes are rendered using a special document
 format that reconciles \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} with your pkgdown
@@ -49,7 +53,7 @@ version.
 
 A vignette with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd})
 gets special treatment. It is rendered and linked to in the navbar under
-"Get started". Rmarkdown files in \code{vignettes/tutorials/} are ignored,
+"Get started". Rmarkdown files in \verb{vignettes/tutorials/} are ignored,
 because these are assumed to contain tutorials, see \code{build_tutorials()}.
 }
 
@@ -77,8 +81,8 @@ generated figures as its default value is a strong assumption of rmarkdown.
 
 If you would like to embed a Shiny app into an article, the app will have
 to be hosted independently, (e.g. \url{https://www.shinyapps.io}). Then, you
-can embed the app into your article using an \code{<iframe>}, e.g.
-\code{<iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app">}.
+can embed the app into your article using an \verb{<iframe>}, e.g.
+\verb{<iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app">}.
 
 See \url{https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856} for
 some hints on how to customise the appearance with CSS.
@@ -144,7 +148,7 @@ automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 \code{\link[=build_site]{build_site()}} details.
 
-Vignette files prefixed with an underscore (e.g., \code{_index.Rmd}) are ignored
+Vignette files prefixed with an underscore (e.g., \verb{_index.Rmd}) are ignored
 to enable rendering of \href{https://bookdown.org/yihui/bookdown/}{bookdown}
 sites.
 }
@@ -160,7 +164,7 @@ You can control the TOC depth via the YAML configuration file:\preformatted{toc:
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
   dev: grDevices::png
   dpi: 96
   dev.args: []
