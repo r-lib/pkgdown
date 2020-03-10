@@ -105,6 +105,7 @@ deploy_site_github <- function(
 #' Build and deploy a site locally
 #'
 #' @param branch The git branch to deploy to
+#' @param remote The git remote to deploy to
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
@@ -112,12 +113,28 @@ deploy_site_github <- function(
 deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
                          branch = "gh-pages",
+                         remote = "origin",
                          ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
-  git("fetch", "origin", branch)
-  github_worktree_add(dest_dir, branch)
+  if (!git_has_remote_branch(remote, branch)) {
+      old_branch <- git_current_branch()
+
+      # If no remote branch, we need to create it
+      git("checkout", "--orphan", branch)
+      git("rm", "-rf", "--quiet", ".")
+      git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+      git("push", remote, paste0("HEAD:", branch))
+
+      # checkout the previous branch
+      git("checkout", old_branch)
+
+  }
+
+  git("fetch", remote, branch)
+
+  github_worktree_add(dest_dir, remote, branch)
   build_site(".",
     override = list(destination = dest_dir),
     devel = FALSE,
@@ -125,22 +142,30 @@ deploy_to_branch <- function(pkg = ".",
     install = FALSE,
     ...
   )
-  github_push(dest_dir, commit_message, branch)
+  github_push(dest_dir, commit_message, remote, branch)
 
   invisible()
 }
 
-github_worktree_add <- function(dir, branch) {
+git_has_remote_branch <- function(remote, branch) {
+  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
+}
+git_current_branch <- function() {
+  branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
+  sub("\n$", "", branch)
+}
+
+github_worktree_add <- function(dir, remote, branch) {
   rule("Adding worktree", line = 1)
   git("worktree",
     "add",
-    "--track", "-b", branch,
+    "--track", "-B", branch,
     dir,
-    paste0("origin/", branch)
+    paste0(remote, "/", branch)
   )
 }
 
-github_push <- function(dir, commit_message, branch) {
+github_push <- function(dir, commit_message, remote, branch) {
   # force execution before changing working directory
   force(commit_message)
 
@@ -152,12 +177,12 @@ github_push <- function(dir, commit_message, branch) {
 
     rule("Deploying to GitHub Pages", line = 1)
     git("remote", "-v")
-    git("push", "--force", "origin", paste0("HEAD:", branch))
+    git("push", "--force", remote, paste0("HEAD:", branch))
   })
 }
 
-git <- function(...) {
-  processx::run("git", c(...), echo_cmd = TRUE, echo = TRUE)
+git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
+  processx::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
 construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {
