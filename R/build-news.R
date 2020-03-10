@@ -52,11 +52,13 @@
 #'   one_page: false
 #' ```
 #'
-#'  Cran release dates is added to news items by default. If those dates have been
-#'  in `NEWS.md`, set the `cran_date` to `false` to avoid duplicated dates.
+#' CRAN release dates are automatically added to news items by default.
+#' The parameter `cran_date` can be used to control this: if `false`, no
+#' attempt will be made to add these dates. This is useful if you've already
+#' added the dates by hand.
 #'
-#'  ```
-#'  news:
+#' ```
+#' news:
 #'   cran_date: false
 #' ```
 #'

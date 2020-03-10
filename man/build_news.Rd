@@ -58,9 +58,11 @@ Control whether news is present on one page or multiple pages with the
   one_page: false
 }
 
-Cran release dates is added to news items by default. If those dates have been
-in \code{NEWS.md}, set the \code{cran_date} to \code{false} to avoid duplicated dates.\preformatted{news:
- cran_date: false
+CRAN release dates are automatically added to news items by default.
+The parameter \code{cran_date} can be used to control this: if \code{false}, no
+attempt will be made to add these dates. This is useful if you've already
+added the dates by hand.\preformatted{news:
+  cran_date: false
 }
 }
 
