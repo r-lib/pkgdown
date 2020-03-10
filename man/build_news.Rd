@@ -10,7 +10,7 @@ build_news(pkg = ".", override = list(), preview = NA)
 \item{pkg}{Path to package.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
@@ -19,8 +19,8 @@ freshly generated section in browser.}
 Your \code{NEWS.md} is parsed in to sections based on your use of headings.
 }
 \details{
-The \code{NEWS.md} file should be formatted with level one headings (\code{#})
-containing the package name and version number, level two headings (\code{##})
+The \code{NEWS.md} file should be formatted with level one headings (\verb{#})
+containing the package name and version number, level two headings (\verb{##})
 with topic headings and lists of news bullets. Commonly used level two
 headings include 'Major changes', 'Bug fixes', or 'Minor changes'.\preformatted{# pkgdown 0.1.0.9000
 
@@ -38,7 +38,7 @@ Issues and contributors mentioned in news items are automatically linked to
 github if a \code{URL} entry linking to github.com is provided in the package
 \code{DESCRIPTION}.\preformatted{## Major changes
 
-- Lots of bug fixes (@hadley, #100)
+  - Lots of bug fixes (@hadley, #100)
 }
 }
 \section{YAML config}{

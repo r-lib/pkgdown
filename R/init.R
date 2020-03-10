@@ -37,7 +37,9 @@ init_site <- function(pkg = ".") {
   dir_create(pkg$dst_path)
   copy_assets(pkg)
 
-  if (has_logo(pkg) && !has_favicons(pkg)) {
+  if (has_favicons(pkg)) {
+    copy_favicons(pkg)
+  } else if (has_logo(pkg)) {
     build_favicons(pkg)
     copy_favicons(pkg)
   }

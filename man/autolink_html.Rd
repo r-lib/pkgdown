@@ -16,11 +16,11 @@ from the target HTML document.}
 \description{
 The autolinker is built around two XPath expressions:
 \itemize{
-\item \code{//pre[contains(@class, 'r')]}:
-this finds all \code{<div>}s with class \code{sourceCode} and \code{r}. The contents
+\item \verb{//pre[contains(@class, 'r')]}:
+this finds all \verb{<div>}s with class \code{sourceCode} and \code{r}. The contents
 must be syntax-highlighted using \href{http://pygments.org/}{pygments}.
 (This is default in \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} when \code{theme = NULL}.)
-\item \code{.//code[count(*) = 0]}: this finds all \code{<code>} that contain only
+\item \verb{.//code[count(*) = 0]}: this finds all \verb{<code>} that contain only
 text (and no other tags).
 }
 }

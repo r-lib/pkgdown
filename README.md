@@ -61,8 +61,8 @@ command (close all tabs), and the `W` is a mnemonic for website.
 
 ## In the wild
 
-At last count, pkgdown is used [by over 3500
-packages](https://github.com/search?o=desc&q=pkgdown.css+in%3Apath+path%3Adocs&s=indexed&type=Code).
+At last count, pkgdown is used [by over 4,500
+packages](https://github.com/search?q=pkgdown.css+in%3Apath&type=Code).
 
 Here are a few examples created by contributors to pkgdown:
 
@@ -89,5 +89,5 @@ new pkgdown techniques.
 ## Code of conduct
 
 Please note that this project is released with a [Contributor Code of
-Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
+Conduct](https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html). By
+participating in this project you agree to abide by its terms.

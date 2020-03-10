@@ -17,7 +17,7 @@ template_articles(path = ".")
 }
 \description{
 Use these function to generate the default YAML that pkgdown uses for
-the different parts of \code{_pkgdown.yml}. This are useful starting
+the different parts of \verb{_pkgdown.yml}. This are useful starting
 points if you want to customise your site.
 }
 \examples{

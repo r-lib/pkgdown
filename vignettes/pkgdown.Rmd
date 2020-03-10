@@ -65,7 +65,7 @@ pkgdown creates a function reference in `reference/` that includes one page for 
 * pkgdown executes all examples, inserting the rendered results in the 
   generated HTML files.
 
-By default, pkgdown generates a reference index is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
+By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
 
 ```yaml
 reference:
@@ -93,7 +93,7 @@ While working on the reference index you might want to run `build_reference_inde
 
 ## Articles
 
-pkgdown will automatically build all vignettes found in `vignettes`, translating them to HTML files in `ariticles/`. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
+pkgdown will automatically build all vignettes found in `vignettes`, translating them to HTML files in `articles/`. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
 
 If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` or add it to `.Rbuildignore` (and make sure that there's  no `vignettes:` section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
