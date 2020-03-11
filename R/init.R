@@ -95,6 +95,11 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }
 
+timestamp <- function() {
+  x <- Sys.time()
+  attr(x, "tzone") <- "UTC"
+  strptime(x, "%Y-%m-%d %H:%M", tz = "UTC")
+}
 
 # Generate site meta data file (available to website viewers)
 build_site_meta <- function(pkg = ".") {
@@ -103,7 +108,7 @@ build_site_meta <- function(pkg = ".") {
     pkgdown = as.character(utils::packageVersion("pkgdown")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
     articles = as.list(pkg$article_index),
-    last_built = as.character(Sys.time())
+    last_built = timestamp()
   )
 
   if (!is.null(pkg$meta$url)) {
