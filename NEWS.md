@@ -4,6 +4,17 @@
   as it has been specified in the DESCRIPTION file. In particular, version
   separators (e.g. `.` and `-`) are preserved. (#1170, @kevinushey)
 
+* `\preformatted{}` blocks are now automatically linked if they parse
+  as R code (#1180).
+
+* `library(pkgdown)` is now automatically linked to the reference index for 
+  "pkgdown" not the documentation for `library()` (#1161).
+
+* `help("topic")` is now automatically linked to the documentation for "topic",
+  not to the documentation for `help()` (#1210)
+
+* pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
+
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
 
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 

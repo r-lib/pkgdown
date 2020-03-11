@@ -13,9 +13,13 @@ topic_index <- function(package) {
   }
 }
 
-topic_index_local <- memoise(function(package, path = find.package(package)) {
+topic_index_local <- memoise(function(package, path = NULL) {
   if (!is_installed(package)) {
     return(character())
+  }
+
+  if (is.null(path)) {
+    path <- find.package(package)
   }
 
   rd <- package_rd(path)

@@ -37,6 +37,10 @@ NULL
 
 #' Test case: links
 #'
+#' ```{r}
+#' magrittr::subtract(10, 1)
+#' ```
+#'
 #' @name test-links
 #' @keywords internal
 #' @family tests
