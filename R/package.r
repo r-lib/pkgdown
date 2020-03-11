@@ -21,7 +21,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- utils::modifyList(meta, override)
 
   package <- desc$get("Package")[[1]]
-  version <- desc$get_version()
+  version <- desc$get_field("Version")
 
   development <- meta_development(meta, version)
 

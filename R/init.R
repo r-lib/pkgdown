@@ -100,7 +100,7 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
 build_site_meta <- function(pkg = ".") {
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
-    pkgdown = as.character(utils::packageVersion("pkgdown")),
+    pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
     articles = as.list(pkg$article_index)
   )

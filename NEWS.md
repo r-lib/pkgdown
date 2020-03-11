@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* pkgdown now formats the package version displayed in the navbar the same way
+  as it has been specified in the DESCRIPTION file. In particular, version
+  separators (e.g. `.` and `-`) are preserved. (#1170, @kevinushey)
+
 * `\preformatted{}` blocks are now automatically linked if they parse
   as R code (#1180).
 
@@ -17,7 +21,7 @@
   querying it from members.orcid.org (@bisaloo, #1153)
 
 * `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
-addition to the top-level `index` or `README` files (@nteetor, #1184)
+  addition to the top-level `index` or `README` files (@nteetor, #1184)
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,
   defaulting to `gh-pages` to use with GitHub Pages. (@jimhester, #1221)

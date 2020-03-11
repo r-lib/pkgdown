@@ -29,7 +29,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
-    version = utils::packageVersion("pkgdown")
+    version = utils::packageDescription("pkgdown", fields = "Version")
   )
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
