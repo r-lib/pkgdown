@@ -28,9 +28,11 @@ test_that("names can be removed from persons", {
 })
 
 test_that("Comments in authors info are linkified", {
-  p <- list(name = "Jane Doe",
-            roles = "rev",
-            comment = "Jane Doe did this, see <https://httpbin.org/>")
+  p <- list(
+    name = "Jane Doe",
+    roles = "rev",
+    comment = "Jane Doe did this, see <https://httpbin.org/>"
+    )
 
   expect_match(
     author_desc(p),
