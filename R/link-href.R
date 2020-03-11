@@ -141,17 +141,20 @@ href_topic_remote <- function(topic, package) {
     return(NA_character_)
   }
 
-  reference_url <- remote_package_reference_url(package)
+  paste0(href_package_reference(package), "/", rdname, ".html")
+}
 
+href_package_reference <- function(package) {
+  reference_url <- remote_package_reference_url(package)
   if (!is.null(reference_url)) {
-    paste0(reference_url, paste0("/", rdname, ".html"))
+    return(reference_url)
+  }
+
+  # Fall back to rdrr.io
+  if (is_base_package(package)) {
+    paste0("https://rdrr.io/r/", package)
   } else {
-    # Fall back to rdrr.io
-    if (is_base_package(package)) {
-      paste0("https://rdrr.io/r/", package, "/", rdname, ".html")
-    } else {
-      paste0("https://rdrr.io/pkg/", package, "/man/", rdname, ".html")
-    }
+    paste0("https://rdrr.io/pkg/", package, "/man")
   }
 }
 
