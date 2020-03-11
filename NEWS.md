@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `\preformatted{}` blocks are now automatically linked if they parse
+  as R code (#1180).
+
 * `library(pkgdown)` is now automatically linked to the reference index for 
   "pkgdown" not the documentation for `library()` (#1161).
 
