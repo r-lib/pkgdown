@@ -1,12 +1,16 @@
 # pkgdown (development version)
 
+* pkgdown now formats the package version displayed in the navbar the same way
+  as it has been specified in the DESCRIPTION file. In particular, version
+  separators (e.g. `.` and `-`) are preserved. (#1170, @kevinushey)
+
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
 
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
 * `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
-addition to the top-level `index` or `README` files (@nteetor, #1184)
+  addition to the top-level `index` or `README` files (@nteetor, #1184)
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,
   defaulting to `gh-pages` to use with GitHub Pages. (@jimhester, #1221)
