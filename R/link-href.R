@@ -42,7 +42,10 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 
     n_args <- length(expr) - 1
 
-    if (fun_name == "vignette") {
+    if (fun_name %in% c("library", "require", "requireNamespace")) {
+      pkg <- as.character(expr[[2]])
+      href_package_reference(pkg)
+    } else if (fun_name == "vignette") {
       expr <- call_standardise(expr)
       href_article(expr$topic, expr$package)
     } else if (fun_name == "?") {
@@ -67,6 +70,8 @@ href_expr <- function(expr, bare_symbol = FALSE) {
         href_topic(as.character(expr$topic), as.character(expr$package))
       } else if (!is.null(expr$topic) && is.null(expr$package)) {
         href_topic(as.character(expr$topic))
+      } else if (is.null(expr$topic) && !is.null(expr$package)) {
+        href_package_reference(as.character(expr$package))
       } else {
         NA_character_
       }

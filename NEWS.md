@@ -1,7 +1,10 @@
 # pkgdown (development version)
 
+* `library(pkgdown)` is now automatically linked to the reference index for 
+  "pkgdown" not the documentation for `library()` (#1161).
+
 * `help("topic")` is now automatically linked to the documentation for "topic",
-  not to the documentation for "help" (#1210)
+  not to the documentation for `help()` (#1210)
 
 * pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
 
