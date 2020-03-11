@@ -133,7 +133,7 @@ author_desc <- function(x, comment = TRUE) {
     if (!is.null(x$orcid))
       x$orcid,
     if (comment && !is.null(x$comment) && length(x$comment) != 0)
-      paste0("<br/>\n<small>(", x$comment, ")</small>")
+      paste0("<br/>\n<small>(", linkify(x$comment), ")</small>")
   )
 }
 

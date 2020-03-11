@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
+
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
 
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
