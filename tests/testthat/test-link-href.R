@@ -17,6 +17,9 @@ test_that("can link function calls", {
 
   expect_equal(href_expr_(foo()), "bar.html")
   expect_equal(href_expr_(foo(1, 2, 3)), "bar.html")
+  # even if namespaced
+  expect_equal(href_expr_(test::foo()), "bar.html")
+  expect_equal(href_expr_(test::foo(1, 2, 3)), "bar.html")
 })
 
 test_that("respects href_topic_local args", {
@@ -99,7 +102,7 @@ test_that("can link ? calls", {
 
   expect_equal(href_expr_(?foo), "foo.html")
   expect_equal(href_expr_(?"foo"), "foo.html")
-  expect_equal(href_expr_(test::foo), "foo.html")
+  expect_equal(href_expr_(?test::foo), "foo.html")
   expect_equal(href_expr_(package?foo), "foo-package.html")
 })
 
