@@ -122,6 +122,7 @@ test_that("can link help calls", {
 test_that("library() linked to package reference", {
   scoped_package_context("test", c(foo = "bar"))
 
+  expect_equal(href_expr_(library()), NA_character_)
   expect_equal(href_expr_(library(pkgdown)), "https://pkgdown.r-lib.org/reference")
   expect_equal(href_expr_(library(MASS)), "https://rdrr.io/pkg/MASS/man")
 })

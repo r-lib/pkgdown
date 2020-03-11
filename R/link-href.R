@@ -43,6 +43,9 @@ href_expr <- function(expr, bare_symbol = FALSE) {
     n_args <- length(expr) - 1
 
     if (fun_name %in% c("library", "require", "requireNamespace")) {
+      if (length(expr) == 1) {
+        return(NA_character_)
+      }
       pkg <- as.character(expr[[2]])
       href_package_reference(pkg)
     } else if (fun_name == "vignette") {
