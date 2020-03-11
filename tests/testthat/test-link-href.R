@@ -107,6 +107,16 @@ test_that("can link ? calls", {
 })
 
 
+test_that("can link help calls", {
+  scoped_package_context("test", c(foo = "foo", "foo-package" = "foo-package"))
+  scoped_file_context("bar")
+
+  expect_equal(href_expr_(help("foo")), "foo.html")
+  expect_equal(href_expr_(help("foo", "test")), "foo.html")
+  expect_equal(href_expr_(help()), NA_character_)
+})
+
+
 # vignette ----------------------------------------------------------------
 
 test_that("can link to local articles", {

@@ -61,6 +61,15 @@ href_expr <- function(expr, bare_symbol = FALSE) {
         # package?x
         href_topic(paste0(expr[[3]], "-", expr[[2]]))
       }
+    } else if (fun_name == "help") {
+      expr <- call_standardise(expr)
+      if (!is.null(expr$topic) && !is.null(expr$package)) {
+        href_topic(as.character(expr$topic), as.character(expr$package))
+      } else if (!is.null(expr$topic) && is.null(expr$package)) {
+        href_topic(as.character(expr$topic))
+      } else {
+        NA_character_
+      }
     } else if (fun_name == "::") {
       href_topic(as.character(expr[[3]]), as.character(expr[[2]]))
     } else {
