@@ -68,7 +68,7 @@ pkgdown creates a function reference in `reference/` that includes one page for 
 * pkgdown executes all examples, inserting the rendered results in the 
   generated HTML files.
 
-By default, pkgdown generates a reference index is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
+By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of objects containing `title`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for functional grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression.
 
 ```yaml
 reference:
