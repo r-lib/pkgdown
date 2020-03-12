@@ -10,23 +10,19 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      warning(
-        "No topics matched in '_pkgdown.yml'. No topics selected.",
-        call. = FALSE,
-        immediate. = TRUE
-      )
+      warn("No topics matched in '_pkgdown.yml'. No topics selected.")
     }
     return(integer())
   }
 
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
-    all_sign(indexes[[1]], match_strings[[0]]),
+    all_sign(indexes[[1]], match_strings[[1]]),
     "+" = integer(),
     "-" = seq_len(n)[!topics$internal]
   )
 
-  for (i in seq_along(indexes)) {
+  for (i in seq2(1, length(indexes))) {
     index <- indexes[[i]]
 
     if (check && length(index) == 0) {

@@ -18,6 +18,6 @@ x Not 'starts_with'
 Warning: In '_pkgdown.yml', topic must be a string or function call
 x Not '1'
 
-> t <- select_topics(starts_with("y"), topics, check = TRUE)
-Error in starts_with("y"): could not find function "starts_with"
+> t <- select_topics("starts_with('y')", topics, check = TRUE)
+Warning: No topics matched in '_pkgdown.yml'. No topics selected.
 
