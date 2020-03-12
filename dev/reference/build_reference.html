@@ -304,7 +304,14 @@ section. By default, these functions that match multiple topics will exclude
 topics with the Rd keyword "internal". To include these, use
 <code>starts_with("build_", internal = TRUE)</code>.</p>
 <p>You can also select topics that contain specified Rd concepts with
-<code>has_concept("blah")</code>.</p>
+<code>has_concept("blah")</code>.
+It is also possible to select topics that do not contain any
+of a vector of specified Rd concepts with
+<code>lacks_concepts(c("concept1", "concept2"))</code>.
+Note that topics without concepts will lack any concept and
+thus be included in any <code>lacks_concepts()</code>.
+This can for example be used to make a group of topics that are not
+caught by any number of <code>has_concept("blah")</code>.</p>
 <p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
 notation:</p><pre>desc: &gt;
   This is a very long and overly flowery description of a
