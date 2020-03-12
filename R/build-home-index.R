@@ -7,11 +7,8 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   src_path <- path_first_existing(
     pkg$src_path,
     c("pkgdown/index.md",
-      "pkgdown/index.Rmd",
       "index.md",
-      "README.md",
-      "index.Rmd",
-      "README.Rmd"
+      "README.md"
     )
   )
   dst_path <- path(pkg$dst_path, "index.html")

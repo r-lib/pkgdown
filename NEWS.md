@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
+  corresponding `.md` files are not found.
+
 * You can have much richer control over Open Graph and Twitter metadata for 
   the site as the whole, and for individual articles. See `vignette("metadata")`
   for details (@gadenbuie, #936).
@@ -27,8 +30,8 @@
 * pkgdown now uses the ORCiD logo included in Font Awesome 5.11 instead of 
   querying it from members.orcid.org (@bisaloo, #1153)
 
-* `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
-  addition to the top-level `index` or `README` files (@nteetor, #1184)
+* `build_home()` now looks for `pkgdown/index.md` in addition to the top-level 
+  `index` or `README` files (@nteetor, #1031)
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,
   defaulting to `gh-pages` to use with GitHub Pages. (@jimhester, #1221)
@@ -63,9 +66,9 @@
     library, and runs examples/articles in a new process.
 
 * `build_reference()` no longer runs `devtools::document()` (#1079) and
-  `build_home()` no longer re-builds `README.Rmd`.  This makes the scope 
-  of responsibility of pkgdown more clear: it now only creates/modifies 
-  files in `doc/`.
+  `build_home()` no longer re-builds `README.Rmd` or `index.Rmd`. This makes 
+  the scope of responsibility of pkgdown more clear: it now only 
+  creates/modifies files in `doc/`.
 
 * `build_home()` now strips quotes from `Title` and `Description` fields 
   when generating page metadata. Additionally, you can now override the 

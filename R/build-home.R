@@ -1,11 +1,20 @@
 #' Build home section
 #'
-#' This function generates the home page, and converts other `.md` files
-#' typically found in the package root and in `.github/`. It generates the home
-#' page from  `index.md` or `README.md`, falling back to the description field
-#' in `DESCRIPTION` if neither is found. It also builds an authors page
-#' from the `DESCRIPTION` and `inst/CITATION` (if present) and
-#' a license page, and converts any `.md` files found in
+#' This function generates the home page, converts `.md` files found in the
+#' package root (and in `.github/`), and builds an authors page from
+#' `DESCRIPTION` and `inst/CITATION` (if present).
+#'
+#' @section Home page:
+#' The home page (`index.html`) is generated from `_pkgdown/index.md`,
+#' `index.md`, or `README.md`, in that order. Most packages will use `README.md`
+#' because that's also displayed by GitHub and CRAN. Use `index.md` if you want
+#' your package website to look different to your README, and use
+#' `_pkgdown/index.md` if you don't want that file to live in your package
+#' root directory.
+#'
+#' If you use `index.Rmd` or `README.Rmd` it's your responsibility to knit
+#' the document to create the corresponding `.md`. pkgdown does not do this
+#' for you because it only touches files in the `doc/` directory.
 #'
 #' @section Sidebar:
 #' The sidebar is automatically populated with:
