@@ -5,6 +5,7 @@ test_that("a CNAME record is built if a url exists in metadata", {
   on.exit({
     clean_site(cname)
     file_delete(path(cname, "docs", "CNAME"))
+    file_delete(path(cname, "docs", ".nojekyll"))
   })
 
   expect_output(build_github_pages(cname))
