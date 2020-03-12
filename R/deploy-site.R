@@ -141,6 +141,7 @@ deploy_to_branch <- function(pkg = ".",
   git("fetch", remote, branch)
 
   github_worktree_add(dest_dir, remote, branch)
+  on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
   build_site(pkg,
     override = list(destination = dest_dir),
@@ -176,6 +177,11 @@ github_worktree_add <- function(dir, remote, branch) {
     dir,
     paste0(remote, "/", branch)
   )
+}
+
+github_worktree_remove <- function(dir) {
+  rule("Removing worktree", line = 1)
+  git("worktree", "remove", dir)
 }
 
 github_push <- function(dir, commit_message, remote, branch) {
