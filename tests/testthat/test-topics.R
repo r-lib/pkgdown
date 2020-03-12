@@ -31,8 +31,8 @@ test_that("can select by name or alias", {
   expect_equal(select_topics("a2", topics), 1)
 
   # Even if name is non-syntactic
-  expect_equal(select_topics("a-b", bad_topics), 1)
-  expect_equal(select_topics("b-a", bad_topics), 1)
+  expect_equal(select_topics("a-b", topics), 3)
+  expect_equal(select_topics("b-a", topics), 3)
 
   # Or missing
   expect_warning(select_topics("a4", topics), "known topic")
