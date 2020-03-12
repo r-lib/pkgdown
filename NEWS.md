@@ -20,7 +20,6 @@
 * `help("topic")` is now automatically linked to the documentation for "topic",
   not to the documentation for `help()` (#1210)
 
->>>>>>> master
 * pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
 
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
