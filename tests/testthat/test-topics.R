@@ -12,7 +12,23 @@ topics <- tibble::tribble(
 test_that("can select by any alias", {
   expect_equal(select_topics("a1", topics), 1)
   expect_equal(select_topics("a2", topics), 1)
-  expect_equal(select_topics("a4", topics), integer())
+  expect_warning(select_topics("a4", topics), "known topic")
+})
+
+test_that("bad inputs give informative warnings", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
+  )
+
+  verify_output(test_path("test-topics-warnings.txt"), {
+    t <- select_topics("x + ", topics)
+    t <- select_topics("y", topics)
+    t <- select_topics("paste(1)", topics)
+    t <- select_topics("starts_with", topics)
+    t <- select_topics("1", topics)
+  })
+
 })
 
 test_that("can select by name or topic that uses -", {
@@ -31,7 +47,8 @@ test_that("can select by name or topic that uses -", {
 test_that("can select by name", {
   expect_equal(select_topics("starts_with('x')", topics), 1)
   expect_equal(select_topics("x", topics), 1)
-  expect_equal(select_topics("z", topics), integer())
+  expect_equal(select_topics("'x'", topics), 1)
+  expect_warning(select_topics("z", topics), "known topic")
 })
 
 test_that("preserves order", {
@@ -91,4 +108,3 @@ test_that("no topics are returned if no topics are matched", {
     "No topics selected"
   )
 })
-

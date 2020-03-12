@@ -30,7 +30,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     index <- indexes[[i]]
 
     if (check && length(index) == 0) {
-      topic_must("match a function or concept", expr = match_strings[[i]])
+      topic_must("match a function or concept", match_strings[[i]])
     }
 
     sel <- switch(all_sign(index, match_strings[[i]]),
@@ -57,6 +57,25 @@ all_sign <- function(x, text) {
 }
 
 match_env <- function(topics) {
+  out <- env(empty_env(),
+    "-" = function(x) -x,
+    "c" = function(...) c(...)
+  )
+
+  topic_index <- seq_along(topics$name)
+
+  # Each name is mapped to the position of its topic
+  env_bind(out, !!!set_names(topic_index, topics$name))
+
+  # As is each alias
+  aliases <- set_names(
+    rep(topic_index, lengths(topics$alias)),
+    unlist(topics$alias)
+  )
+  env_bind(out, !!!aliases)
+
+  # dplyr-like matching functions
+
   any_alias <- function(f, ..., .internal = FALSE) {
     alias_match <- topics$alias %>%
       unname() %>%
@@ -72,100 +91,82 @@ match_env <- function(topics) {
   is_public <- function(internal) {
     if (!internal) !topics$internal else rep(TRUE, nrow(topics))
   }
+  out$starts_with <- function(x, internal = FALSE) {
+    any_alias(~ grepl(paste0("^", x), .), .internal = internal)
+  }
+  out$ends_with <- function(x, internal = FALSE) {
+    any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
+  }
+  out$matches <- function(x, internal = FALSE) {
+    any_alias(~ grepl(x, .), .internal = internal)
+  }
+  out$contains <- function(x, internal = FALSE) {
+    any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
+  }
+  out$has_keyword <- function(x) {
+    which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
+  }
+  out$has_concept <- function(x, internal = FALSE) {
+    match <- topics$concepts %>%
+      purrr::map(~ str_trim(.) == x) %>%
+      purrr::map_lgl(any)
 
-  # dplyr-like matching functions
-  funs <- list(
-    starts_with = function(x, internal = FALSE) {
-      any_alias(~ grepl(paste0("^", x), .), .internal = internal)
-    },
-    ends_with = function(x, internal = FALSE) {
-      any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
-    },
-    matches = function(x, internal = FALSE) {
-      any_alias(~ grepl(x, .), .internal = internal)
-    },
-    contains = function(x, internal = FALSE) {
-      any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
-    },
-    has_keyword = function(x) {
-      which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
-    },
-    has_concept = function(x, internal = FALSE) {
-      match <- topics$concepts %>%
-        unname() %>%
-        purrr::map(~ str_trim(.) == x) %>%
-        purrr::map_lgl(any)
+    which(match & is_public(internal))
+  }
+  out$lacks_concepts <- function(x, internal = FALSE) {
+    nomatch <- topics$concepts %>%
+      purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
+      purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
 
-      which(match & is_public(internal))
-    },
-    lacks_concepts = function(x, internal = FALSE) {
-      nomatch <- topics$concepts %>%
-        unname() %>%
-        purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
-        purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
+    which(nomatch & is_public(internal))
+  }
 
-      which(nomatch & is_public(internal))
-    }
-  )
-
-  # Each alias is mapped to the position of its topic
-  lengths <- purrr::map_int(topics$alias, length)
-  aliases <- seq_along(topics$alias) %>%
-    rep(lengths) %>%
-    as.list() %>%
-    stats::setNames(purrr::flatten_chr(topics$alias))
-
-  # Each name is mapped to the position of its topic
-  names <- seq_along(topics$name) %>%
-    as.list() %>%
-    stats::setNames(topics$name)
-
-  # funs must come last in case package contains functions with same names
-  list2env(c(names, aliases, funs))
+  out
 }
 
 
 match_eval <- function(string, env) {
-  if (!is.character(string) || length(string) != 1) {
-    topic_must("be a string", value = string)
+  # Early return in case string already matches symbol
+  if (env_has(env, string)) {
+    val <- env[[string]]
+    if (is.integer(val)) {
+      return(val)
+    }
+  }
+
+  expr <- tryCatch(parse_expr(string), error = function(e) NULL)
+  if (is.null(expr)) {
+    topic_must("be valid R code", string)
     return(integer())
   }
 
-  if (exists(string, envir = env, inherits = FALSE)) {
-    value <- env[[string]]
+  if (is_string(expr) || is_symbol(expr)) {
+    expr <- as.character(expr)
+    val <- env_get(env, expr, default = NULL)
+    if (is.integer(val)) {
+      val
+    } else {
+      topic_must("be a known topic name or alias", string)
+      integer()
+    }
+  } else if (is_call(expr)) {
+    value <- tryCatch(eval(expr, env), error = function(e) NULL)
+
+    if (is.null(value)) {
+      topic_must("be a known selector function", string)
+      integer()
+    } else {
+      value
+    }
   } else {
-    value <- tryCatch(
-      {
-        expr <- parse(text = string)[[1]]
-        eval(expr, env)
-      },
-      error = function(e) {
-        topic_must("be a valid R expression", expr = string)
-        integer()
-      }
-    )
+    topic_must("be a string or function call", string)
+    integer()
   }
-
-  if (!is.numeric(value)) {
-    topic_must("evaluate to a numeric vector", value = value, expr = string)
-    return(integer())
-  }
-
-  value
 }
 
-topic_must <- function(..., expr = NULL, value = NULL) {
-  if (!is.null(expr)) {
-    expr <- paste0("\nProblem topic: ", encodeString(expr, quote = "`"))
-  }
-
-  if (!is.null(value)) {
-    value <- paste0("\nActual value:  ", paste0(deparse(value), collapse = "\n"))
-  }
-
-  warning(
-    "In '_pkgdown.yml', topic must ", ..., ".", expr, value,
-    call. = FALSE,
-    immediate. = TRUE
-  )
+topic_must <- function(message, topic) {
+  warn(c(
+    paste0("In '_pkgdown.yml', topic must ", message),
+    x = paste0("Not ", encodeString(topic, quote = "'"))
+  ))
 }

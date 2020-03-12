@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_reference()` gives better warnings if your `_pkgdown.yml` is
+  constructed incorrectly (#1025).
+
 * New `has_keyword()` topic selector for `reference`. `has_keyword("data")`
   is particularly useful for selecting all data documentation (#760).
 
