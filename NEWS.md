@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* You can have much richer control over Open Graph and Twitter metadata for 
+  the site as the whole, and for individual articles. See `vignette("metadata")`
+  for details (@gadenbuie, #936).
+
 * pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
 
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
