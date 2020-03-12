@@ -29,6 +29,8 @@
 * `deploy_site_github()` argument `repo_slug` has been deprecated and is no
   longer needed or used. (@jimhester, #1221)
 
+* A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
+
 # pkgdown 1.4.1
 
 * Don't install test package in user library (fixes CRAN failure).
