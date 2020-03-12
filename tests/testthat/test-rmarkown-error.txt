@@ -1,0 +1,7 @@
+> render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html")
+Reading 'assets/pandoc-fail.Rmd'
+
+Error: Failed to render RMarkdown
+* File path-to-image.png not found in resource path
+* Error : pandoc document conversion failed with error 99
+
