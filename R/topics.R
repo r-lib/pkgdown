@@ -8,12 +8,14 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
 
   # If none of the specified topics have a match, return no topics
-  if (check && length(purrr::keep(indexes, ~ length(.x) > 0)) == 0) {
-    warning(
-      "No topics matched in '_pkgdown.yml'. No topics selected.",
-      call. = FALSE,
-      immediate. = TRUE
-    )
+  if (purrr::every(indexes, is_empty)) {
+    if (check) {
+      warning(
+        "No topics matched in '_pkgdown.yml'. No topics selected.",
+        call. = FALSE,
+        immediate. = TRUE
+      )
+    }
     return(integer())
   }
 
@@ -84,6 +86,9 @@ match_env <- function(topics) {
     },
     contains = function(x, internal = FALSE) {
       any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
+    },
+    has_keyword = function(x) {
+      which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
     },
     has_concept = function(x, internal = FALSE) {
       match <- topics$concepts %>%

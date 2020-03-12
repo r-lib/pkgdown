@@ -12,6 +12,7 @@ topics <- tibble::tribble(
 test_that("can select by any alias", {
   expect_equal(select_topics("a1", topics), 1)
   expect_equal(select_topics("a2", topics), 1)
+  expect_equal(select_topics("a4", topics), integer())
 })
 
 test_that("can select by name or topic that uses -", {
@@ -30,7 +31,7 @@ test_that("can select by name or topic that uses -", {
 test_that("can select by name", {
   expect_equal(select_topics("starts_with('x')", topics), 1)
   expect_equal(select_topics("x", topics), 1)
-
+  expect_equal(select_topics("z", topics), integer())
 })
 
 test_that("preserves order", {
@@ -39,6 +40,18 @@ test_that("preserves order", {
 
 test_that("can select by concept", {
   expect_equal(select_topics("has_concept('b')", topics), c(3, 4))
+})
+
+test_that("can select by keyword", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~keywords,
+    "b1",  "b1",          FALSE,      "a",
+    "b2",  "b2",          FALSE,      c("a", "b"),
+  )
+  topics$alias <- as.list(topics$alias)
+  expect_equal(select_topics("has_keyword('a')", topics), c(1, 2))
+  expect_equal(select_topics("has_keyword('b')", topics), c(2))
+  expect_equal(select_topics("has_keyword('c')", topics), integer())
 })
 
 test_that("initial negative drops selected", {

@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* New `has_keyword()` topic selector for `reference`. `has_keyword("data")`
+  is particularly useful for selecting all data documentation (#760).
+
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
   corresponding `.md` files are not found.
 

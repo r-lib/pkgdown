@@ -33,6 +33,8 @@
 #' topics with the Rd keyword "internal". To include these, use
 #' `starts_with("build_", internal = TRUE)`.
 #'
+#' Select all topics with keyword "x" with `has_keyword("x")`.
+#'
 #' You can also select topics that contain specified Rd concepts with
 #' `has_concept("blah")`.
 #'

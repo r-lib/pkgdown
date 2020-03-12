@@ -114,8 +114,9 @@ package_topics <- function(path = ".", package = "pkgdown") {
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names <- purrr::map_chr(rd, extract_tag, "tag_name")
   titles <- purrr::map_chr(rd, extract_title)
-  concepts <- purrr::map(rd, extract_tag, "tag_concept")
-  internal <- purrr::map_lgl(rd, is_internal)
+  concepts <- unname(purrr::map(rd, extract_tag, "tag_concept"))
+  keywords <- unname(purrr::map(rd, extract_tag, "tag_keyword"))
+  internal <- purrr::map_lgl(keywords, ~ "internal" %in% .)
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
@@ -132,6 +133,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
     title = titles,
     rd = rd,
     source = source,
+    keywords = keywords,
     concepts = concepts,
     internal = internal
   )
@@ -177,11 +179,6 @@ extract_source <- function(x) {
   m <- gregexpr("R/[^ ]+\\.[rR]", text)
   regmatches(text, m)[[1]]
 }
-
-is_internal <- function(x) {
-  any(extract_tag(x, "tag_keyword") %in% "internal")
-}
-
 
 # Vignettes ---------------------------------------------------------------
 
