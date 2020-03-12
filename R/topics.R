@@ -92,6 +92,14 @@ match_env <- function(topics) {
         purrr::map_lgl(any)
 
       which(match & is_public(internal))
+    },
+    lacks_concepts = function(x, internal = FALSE) {
+      nomatch <- topics$concepts %>%
+        unname() %>%
+        purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
+        purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
+
+      which(nomatch & is_public(internal))
     }
   )
 

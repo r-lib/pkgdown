@@ -40,6 +40,9 @@
 
 * `deploy_site_github()` argument `repo_slug` has been deprecated and is no
   longer needed or used. (@jimhester, #1221)
+  
+* New `lacks_concepts()` can select topics that do not contain any of 
+  a number of specified concepts. (@mikldk, #1232)
 
 * A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
 
