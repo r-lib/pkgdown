@@ -125,17 +125,16 @@ deploy_to_branch <- function(pkg = ".",
   on.exit(fs::dir_delete(dest_dir))
 
   if (!git_has_remote_branch(remote, branch)) {
-      old_branch <- git_current_branch()
+    old_branch <- git_current_branch()
 
-      # If no remote branch, we need to create it
-      git("checkout", "--orphan", branch)
-      git("rm", "-rf", "--quiet", ".")
-      git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
-      git("push", remote, paste0("HEAD:", branch))
+    # If no remote branch, we need to create it
+    git("checkout", "--orphan", branch)
+    git("rm", "-rf", "--quiet", ".")
+    git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+    git("push", remote, paste0("HEAD:", branch))
 
-      # checkout the previous branch
-      git("checkout", old_branch)
-
+    # checkout the previous branch
+    git("checkout", old_branch)
   }
 
   git("fetch", remote, branch)
