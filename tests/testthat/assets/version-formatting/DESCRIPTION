@@ -1,0 +1,9 @@
+Package: testpackage
+Version: 1.0.0-9000
+Title: A test package
+Description: A longer statement about the package.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+    )
+RoxygenNote: 6.0.1

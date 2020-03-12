@@ -421,6 +421,15 @@ as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
   href <- href_expr(expr)
   paste0("<code>", a(text, href = href), "</code>")
 }
+
+#' @export
+as_html.tag_preformatted <- function(x, ...) {
+  text <- flatten_text(x, ...)
+  # highlight_text() does nothing if not parseable
+  paste0("<pre>", highlight_text(text), "</pre>")
+}
+
+
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
 #' @export
@@ -441,9 +450,6 @@ as_html.tag_env <-          tag_wrapper('<code class="env">', '</code>')
 as_html.tag_option <-       tag_wrapper('<span class="option">',"</span>")
 #' @export
 as_html.tag_command <-      tag_wrapper("<code class='command'>", "</code>")
-
-#' @export
-as_html.tag_preformatted <- tag_wrapper('<pre>','</pre>')
 
 #' @export
 as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")

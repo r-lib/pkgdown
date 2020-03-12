@@ -2,7 +2,7 @@
 % Please edit documentation in R/autolink_html.R
 \name{autolink_html}
 \alias{autolink_html}
-\title{Automatic link references and articles in an HTML package}
+\title{Automatically link references and articles in an HTML page}
 \usage{
 autolink_html(input, output = input, local_packages = character())
 }
@@ -30,7 +30,9 @@ Currently the following expressions are linked:
 \item Function calls, \code{foo()}
 \item Function calls qualified with the package name, \code{bar::foo()}
 \item Symbols qualified with the package name, \code{bar::baz}
-\item Help calls, \code{?foo}, \code{package?foo}, and \code{?bar::foo}
+\item \code{library()}, \code{require()} and \code{requireNamespace()} calls.
+\item Help calls, \code{?foo}, \code{package?foo}, \code{?bar::foo}, \code{help(foo)},
+\code{help(foo, package = bar)}, \code{help(package = bar)}.
 \item Vignette calls, \code{vignette(baz)}, \code{vignette(baz, package = "bar")}
 }
 

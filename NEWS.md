@@ -4,6 +4,23 @@
   the site as the whole, and for individual articles. See `vignette("metadata")`
   for details (@gadenbuie, #936).
 
+* Markdown conversion now explicitly allows markdown inside of HTML blocks;
+  this was previously accidentally disabled (#1220).
+
+* pkgdown now formats the package version displayed in the navbar the same way
+  as it has been specified in the DESCRIPTION file. In particular, version
+  separators (e.g. `.` and `-`) are preserved. (#1170, @kevinushey)
+
+* `\preformatted{}` blocks are now automatically linked if they parse
+  as R code (#1180).
+
+* `library(pkgdown)` is now automatically linked to the reference index for 
+  "pkgdown" not the documentation for `library()` (#1161).
+
+* `help("topic")` is now automatically linked to the documentation for "topic",
+  not to the documentation for `help()` (#1210)
+
+>>>>>>> master
 * pkgdown now escapes html and linkifies links in comments in author info from DESCRIPTION (@maelle, #1204)
 
 * add support for navbar submenus: you can create submenus following the convention established in [rstudio/rmarkdown#721](https://github.com/rstudio/rmarkdown/issues/721) (@ijlyttle, @wendtke, #1213)
@@ -12,13 +29,15 @@
   querying it from members.orcid.org (@bisaloo, #1153)
 
 * `build_home()` now looks for `pkgdown/index.md` and `pkgdown/index.Rmd` in
-addition to the top-level `index` or `README` files (@nteetor, #1184)
+  addition to the top-level `index` or `README` files (@nteetor, #1184)
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,
   defaulting to `gh-pages` to use with GitHub Pages. (@jimhester, #1221)
 
 * `deploy_site_github()` argument `repo_slug` has been deprecated and is no
   longer needed or used. (@jimhester, #1221)
+
+* A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
 
 # pkgdown 1.4.1
 
