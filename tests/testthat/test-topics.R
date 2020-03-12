@@ -41,11 +41,11 @@ test_that("can select by concept", {
   expect_equal(select_topics("has_concept('b')", topics), c(3, 4))
 })
 
-test_that("can select by none of a number of concepts", {
-  expect_equal(select_topics("none_of_concepts('a')", topics), c(1, 2, 3)) # 5 is internal
-  expect_equal(select_topics("none_of_concepts('b')", topics), c(1, 2)) # 5 is internal
-  expect_equal(select_topics("none_of_concepts(c('a', 'b'))", topics), c(1, 2)) # 5 is internal
-  expect_equal(select_topics("none_of_concepts('zzz')", topics), c(1, 2, 3, 4)) # 5 is internal
+test_that("can select by lacking a number of concepts", {
+  expect_equal(select_topics("lacks_concepts('a')", topics), c(1, 2, 3)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts('b')", topics), c(1, 2)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts(c('a', 'b'))", topics), c(1, 2)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts('zzz')", topics), c(1, 2, 3, 4)) # 5 is internal
 })
 
 test_that("initial negative drops selected", {

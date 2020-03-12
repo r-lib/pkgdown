@@ -93,7 +93,10 @@ match_env <- function(topics) {
 
       which(match & is_public(internal))
     },
-    none_of_concepts = function(x, internal = FALSE) {
+    # Implementation here: cannot exploit has_concept() above,
+    # but the alternative of implementing later was
+    # considered worse.
+    lacks_concepts = function(x, internal = FALSE) {
       nomatch <- topics$concepts %>%
         unname() %>%
         purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
@@ -102,9 +105,6 @@ match_env <- function(topics) {
       which(nomatch & is_public(internal))
     }
   )
-
-  # To exploit 'has_concept' defined above
-  funs[['none_of_concepts']]
 
   # Each alias is mapped to the position of its topic
   lengths <- purrr::map_int(topics$alias, length)

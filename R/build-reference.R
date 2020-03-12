@@ -35,10 +35,11 @@
 #'
 #' You can also select topics that contain specified Rd concepts with
 #' `has_concept("blah")`.
-#'
-#' You can also select topics that do not contain any of a vector of specified
-#' Rd concepts with
-#' `none_of_concepts(c("concept1", "concept2"))`.
+#' It is also possible to select topics that do not contain any
+#' of a vector of specified Rd concepts with
+#' `lacks_concepts(c("concept1", "concept2"))`.
+#' Note that topics without concepts will lack any concept and
+#' thus be included in any `lacks_concepts()`.
 #' This can for example be used to make a group of topics that are not
 #' caught by any number of `has_concept("blah")`.
 #'
