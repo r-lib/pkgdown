@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Markdown conversion now explicitly allows markdown inside of HTML blocks;
+  this was previously accidentally disabled (#1220).
+
 * pkgdown now formats the package version displayed in the navbar the same way
   as it has been specified in the DESCRIPTION file. In particular, version
   separators (e.g. `.` and `-`) are preserved. (#1170, @kevinushey)
