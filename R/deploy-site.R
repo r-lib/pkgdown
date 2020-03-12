@@ -104,8 +104,14 @@ deploy_site_github <- function(
 
 #' Build and deploy a site locally
 #'
+#' Assumes that you're in a git clone of the project, and the package is
+#' already installed.
+#'
 #' @param branch The git branch to deploy to
 #' @param remote The git remote to deploy to
+#' @param github_pages Is this a GitHub pages deploy. If `TRUE`, adds a `CNAME`
+#'   file for custom domain name support, and a `.nojekyll` file to suppress
+#'   jekyll rendering.
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
@@ -114,38 +120,40 @@ deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
                          branch = "gh-pages",
                          remote = "origin",
+                         github_pages = (branch == "gh-pages"),
                          ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
   if (!git_has_remote_branch(remote, branch)) {
-      old_branch <- git_current_branch()
+    old_branch <- git_current_branch()
 
-      # If no remote branch, we need to create it
-      git("checkout", "--orphan", branch)
-      git("rm", "-rf", "--quiet", ".")
-      git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
-      git("push", remote, paste0("HEAD:", branch))
+    # If no remote branch, we need to create it
+    git("checkout", "--orphan", branch)
+    git("rm", "-rf", "--quiet", ".")
+    git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+    git("push", remote, paste0("HEAD:", branch))
 
-      # checkout the previous branch
-      git("checkout", old_branch)
-
+    # checkout the previous branch
+    git("checkout", old_branch)
   }
 
   git("fetch", remote, branch)
 
   github_worktree_add(dest_dir, remote, branch)
-  build_site(".",
-    override = list(destination = dest_dir),
-    devel = FALSE,
-    preview = FALSE,
-    install = FALSE,
-    ...
-  )
+  on.exit(github_worktree_remove(dest_dir), add = TRUE)
+
+  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
+  build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
+  if (github_pages) {
+    build_github_pages(pkg)
+  }
+
   github_push(dest_dir, commit_message, remote, branch)
 
   invisible()
 }
+
 
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
@@ -163,6 +171,11 @@ github_worktree_add <- function(dir, remote, branch) {
     dir,
     paste0(remote, "/", branch)
   )
+}
+
+github_worktree_remove <- function(dir) {
+  rule("Removing worktree", line = 1)
+  git("worktree", "remove", dir)
 }
 
 github_push <- function(dir, commit_message, remote, branch) {
