@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* A topic named `index` will not longer clobber the reference index (#1110).
+
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
   corresponding `.md` files are not found.
 

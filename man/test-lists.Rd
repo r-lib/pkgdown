@@ -34,6 +34,7 @@
 }
 \seealso{
 Other tests: 
+\code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
 \code{\link{test-figures}},

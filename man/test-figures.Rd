@@ -15,6 +15,7 @@ lines(1:10)
 }
 \seealso{
 Other tests: 
+\code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
 \code{\link{test-links}},

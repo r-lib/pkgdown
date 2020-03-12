@@ -178,3 +178,12 @@ NULL
 #' @keywords internal
 #' @family tests
 NULL
+
+
+#' Index
+#'
+#' @aliases test-index
+#' @name index
+#' @keywords internal
+#' @family tests
+NULL
