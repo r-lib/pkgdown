@@ -9,6 +9,7 @@ deploy_to_branch(
   commit_message = construct_commit_message(pkg),
   branch = "gh-pages",
   remote = "origin",
+  build_cname = (branch == "gh-pages"),
   ...
 )
 }
@@ -21,8 +22,12 @@ deploy_to_branch(
 
 \item{remote}{The git remote to deploy to}
 
+\item{build_cname}{Add a \code{CNAME} file containing the URL to the site.
+Needed for GitHub pages with custom domains.}
+
 \item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
 }
 \description{
-Build and deploy a site locally
+Assumes that you're in a git clone of the project, and the package is
+already installed.
 }

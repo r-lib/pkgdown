@@ -104,8 +104,13 @@ deploy_site_github <- function(
 
 #' Build and deploy a site locally
 #'
+#' Assumes that you're in a git clone of the project, and the package is
+#' already installed.
+#'
 #' @param branch The git branch to deploy to
 #' @param remote The git remote to deploy to
+#' @param build_cname Add a `CNAME` file containing the URL to the site.
+#'   Needed for GitHub pages with custom domains.
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
@@ -114,6 +119,7 @@ deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
                          branch = "gh-pages",
                          remote = "origin",
+                         build_cname = (branch == "gh-pages"),
                          ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
@@ -135,17 +141,22 @@ deploy_to_branch <- function(pkg = ".",
   git("fetch", remote, branch)
 
   github_worktree_add(dest_dir, remote, branch)
-  build_site(".",
+  build_site(pkg,
     override = list(destination = dest_dir),
     devel = FALSE,
     preview = FALSE,
     install = FALSE,
     ...
   )
+  if (build_cname) {
+    build_cname(pkg)
+  }
+
   github_push(dest_dir, commit_message, remote, branch)
 
   invisible()
 }
+
 
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0

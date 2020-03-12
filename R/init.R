@@ -47,7 +47,6 @@ init_site <- function(pkg = ".") {
   build_site_meta(pkg)
   build_sitemap(pkg)
   build_docsearch_json(pkg)
-  build_cname(pkg)
   build_logo(pkg)
   build_404(pkg)
 
