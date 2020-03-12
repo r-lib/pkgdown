@@ -54,6 +54,13 @@ test_that("can select by keyword", {
   expect_equal(select_topics("has_keyword('c')", topics), integer())
 })
 
+test_that("can select by lacking a number of concepts", {
+  expect_equal(select_topics("lacks_concepts('a')", topics), c(1, 2, 3)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts('b')", topics), c(1, 2)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts(c('a', 'b'))", topics), c(1, 2)) # 5 is internal
+  expect_equal(select_topics("lacks_concepts('zzz')", topics), c(1, 2, 3, 4)) # 5 is internal
+})
+
 test_that("initial negative drops selected", {
   expect_equal(select_topics("-a1", topics), 2:4)
 })

@@ -85,6 +85,13 @@ Select all topics with keyword "x" with \code{has_keyword("x")}.
 
 You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
+It is also possible to select topics that do not contain any
+of a vector of specified Rd concepts with
+\code{lacks_concepts(c("concept1", "concept2"))}.
+Note that topics without concepts will lack any concept and
+thus be included in any \code{lacks_concepts()}.
+This can for example be used to make a group of topics that are not
+caught by any number of \code{has_concept("blah")}.
 
 You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >

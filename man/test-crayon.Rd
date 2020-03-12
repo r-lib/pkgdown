@@ -16,6 +16,7 @@ warning(crayon::bold("This is bold"))
 }
 \seealso{
 Other tests: 
+\code{\link{index}},
 \code{\link{test-dont}},
 \code{\link{test-figures}},
 \code{\link{test-links}},

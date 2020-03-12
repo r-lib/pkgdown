@@ -3,6 +3,8 @@
 * New `has_keyword()` topic selector for `reference`. `has_keyword("data")`
   is particularly useful for selecting all data documentation (#760).
 
+* A topic named `index` will not longer clobber the reference index (#1110).
+
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
   corresponding `.md` files are not found.
 
@@ -41,6 +43,9 @@
 
 * `deploy_site_github()` argument `repo_slug` has been deprecated and is no
   longer needed or used. (@jimhester, #1221)
+  
+* New `lacks_concepts()` can select topics that do not contain any of 
+  a number of specified concepts. (@mikldk, #1232)
 
 * A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
 
