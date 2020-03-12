@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Topic names/aliases on reference index are now escaped (#1216). 
+
 * A topic named `index` will not longer clobber the reference index (#1110).
 
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
