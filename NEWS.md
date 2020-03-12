@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_article()` failures now print more information to help you debug
+  the problem (#952).
+
 * `deploy_to_branch(github_pages = TRUE)` generates a `.nojekyll` to prevent
   jekyll ever executing (#1242).
 
