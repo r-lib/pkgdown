@@ -44,6 +44,9 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
       params:
         ganalytics: UA-000000-01
     ```
+    
+*   Customize metadata used for social media cards, as described in 
+    `vignette("metadata")`.
 
 *   Package search, as described in `vignette("search")`.
 

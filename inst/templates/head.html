@@ -58,9 +58,25 @@
 <meta property="og:description" content="{{.}}" />
 {{/description}}
 {{#image}}
-<meta property="og:image" content="{{{.}}}" />
+<meta property="og:image" content="{{{src}}}" />
+{{#alt}}
+<meta property="og:image:alt" content="{{{.}}}" />
+{{/alt}}
 {{/image}}
+{{#twitter}}
+{{#card}}
+<meta name="twitter:card" content="{{{.}}}" />
+{{/card}}
+{{^card}}
 <meta name="twitter:card" content="summary" />
+{{/card}}
+{{#creator}}
+<meta name="twitter:creator" content="{{{.}}}" />
+{{/creator}}
+{{#site}}
+<meta name="twitter:site" content="{{{.}}}" />
+{{/site}}
+{{/twitter}}
 {{/opengraph}}
 
 {{#yaml}}{{#noindex}}<meta name="robots" content="noindex" />{{/noindex}}{{/yaml}}

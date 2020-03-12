@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* You can have much richer control over Open Graph and Twitter metadata for 
+  the site as the whole, and for individual articles. See `vignette("metadata")`
+  for details (@gadenbuie, #936).
+
 * Markdown conversion now explicitly allows markdown inside of HTML blocks;
   this was previously accidentally disabled (#1220).
 

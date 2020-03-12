@@ -196,10 +196,15 @@ build_article <- function(name,
   scoped_file_context(depth = depth)
 
   front <- rmarkdown::yaml_front_matter(input_path)
+  # Take opengraph from article's yaml front matter
+  front_opengraph <- check_open_graph(front$opengraph %||% list())
+  data$opengraph <- utils::modifyList(
+    data$opengraph %||% list(), front_opengraph
+  )
 
   default_data <- list(
     pagetitle = front$title,
-    opengraph = list(description = "$description$"),
+    opengraph = list(description = front$description %||% pkg$package),
     source = github_source_links(pkg$github_url, path_rel(input, pkg$src_path)),
     filename = path_file(input)
   )

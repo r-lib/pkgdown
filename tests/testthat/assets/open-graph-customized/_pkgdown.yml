@@ -1,0 +1,11 @@
+url: http://example.com/pkg
+
+template:
+  opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "The social media card of the example.com package"
+    twitter:
+      site: "@rstudio"
+      creator: "@hadley"
+      card: summary_large_image

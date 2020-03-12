@@ -94,16 +94,75 @@ data_template <- function(pkg = ".", depth = 0L) {
 
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  og <- list()
-  logo <- find_logo(pkg$src_path)
-  if (!is.null(logo)) {
+  og <- pkg$meta$template$opengraph %||% list()
+  og <- check_open_graph(og)
+  if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
+    og$image <- list(src = path_file(find_logo(pkg$src_path)))
+  }
+  if (!is.null(og$image) && !grepl("^http", og$image$src)) {
     site_url <- pkg$meta$url %||% "/"
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
-    og$image <- paste0(site_url, path_file(logo))
+    og$image$src <- gsub("^man/figures/", "reference/figures/", og$image$src)
+    og$image$src <- paste0(site_url, og$image$src)
   }
+
+  og$twitter$creator <- og$twitter$creator %||% og$twitter$site
+  og$twitter$site <- og$twitter$site %||% og$twitter$creator
   og
+}
+
+check_open_graph <- function(og) {
+  if (!is.list(og)) {
+    abort(paste(
+      "`opengraph` must be a list, not",
+      rlang::friendly_type(rlang::type_of(og))
+    ))
+  }
+  supported_fields <- c("image", "twitter")
+  unsupported_fields <- setdiff(names(og), supported_fields)
+  if (length(unsupported_fields)) {
+    warn(paste0(
+      "Unsupported `opengraph` ",
+      ngettext(length(unsupported_fields), "field", "fields"), ": ",
+      paste(unsupported_fields, collapse = ", ")
+    ))
+  }
+  if ("twitter" %in% names(og)) {
+    if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
+      abort(paste(
+        "The `opengraph: twitter` option must be a list. Did you mean this?",
+        "opengraph:",
+        "  twitter:",
+        paste("    creator:", og$twitter),
+        sep = "\n"
+      ))
+    }
+    if (!is.list(og$twitter)) {
+      abort("The `opengraph: twitter` option must be a list.")
+    }
+    if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+      abort(
+        "The `opengraph: twitter` option must include either 'creator' or 'site'."
+      )
+    }
+  }
+  if ("image" %in% names(og)) {
+    if (is.character(og$image) && length(og$image) == 1) {
+      abort(paste(
+        "The `opengraph: image` option must be a list. Did you mean this?",
+        "opengraph",
+        "  image:",
+        paste("    src:", og$image),
+        sep = "\n"
+      ))
+    }
+    if (!is.list(og$image)) {
+      abort("The `opengraph: image` option must be a list.")
+    }
+  }
+  og[intersect(supported_fields, names(og))]
 }
 
 template_path <- function(pkg = ".") {

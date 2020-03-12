@@ -1,0 +1,14 @@
+---
+title: No Description
+opengraph:
+  twitter:
+    card: summary
+    creator: "@dataandme"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{No Description}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Content goes here

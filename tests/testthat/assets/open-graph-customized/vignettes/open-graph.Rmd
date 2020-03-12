@@ -1,0 +1,19 @@
+---
+author: "Mara Averick"
+title: "Introduction to Open Graph"
+description: "The Open Graph protocol is a standard for web page metadata."
+opengraph:
+  description: This should be ignored
+  image: 
+    src: "http://example.com/pkg/batpig.png"
+  twitter:
+    card: summary
+    creator: "@dataandme"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{og}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Content goes here
