@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatic link references and articles in an HTML package — autolink_html • pkgdown</title>
+<title>Automatically link references and articles in an HTML page — autolink_html • pkgdown</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
 
 
 
-<meta property="og:title" content="Automatic link references and articles in an HTML package — autolink_html" />
+<meta property="og:title" content="Automatically link references and articles in an HTML page — autolink_html" />
 <meta property="og:description" content="The autolinker is built around two XPath expressions:
 //pre[contains(@class, 'r')]:
 this finds all &amp;lt;div&amp;gt;s with class sourceCode and r. The contents
@@ -59,7 +59,6 @@ text (and no other tags).
 
 " />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -132,6 +131,9 @@ text (and no other tags).
     <li>
       <a href="../articles/search.html">Search</a>
     </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
     <li>
@@ -201,7 +203,7 @@ text (and no other tags).
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Automatic link references and articles in an HTML package</h1>
+    <h1>Automatically link references and articles in an HTML page</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/pkgdown/blob/master/R/autolink_html.R'><code>R/autolink_html.R</code></a></small>
     <div class="hidden name"><code>autolink_html.Rd</code></div>
     </div>
@@ -241,11 +243,13 @@ from the target HTML document.</p></td>
 <li><p>Function calls, <code>foo()</code></p></li>
 <li><p>Function calls qualified with the package name, <code>bar::foo()</code></p></li>
 <li><p>Symbols qualified with the package name, <code>bar::baz</code></p></li>
-<li><p>Help calls, <code>?foo</code>, <code>package?foo</code>, and <code>?bar::foo</code></p></li>
+<li><p><code>library()</code>, <code>require()</code> and <code>requireNamespace()</code> calls.</p></li>
+<li><p>Help calls, <code>?foo</code>, <code>package?foo</code>, <code>?bar::foo</code>, <code>help(foo)</code>,
+<code>help(foo, package = bar)</code>, <code><a href='https://rdrr.io/pkg/bar/man'>help(package = bar)</a></code>.</p></li>
 <li><p>Vignette calls, <code>vignette(baz)</code>, <code>vignette(baz, package = "bar")</code></p></li>
 </ul>
 
-<p>Calls to <code><a href='https://rdrr.io/r/base/library.html'>library()</a></code> and <code><a href='https://rdrr.io/r/base/library.html'>require()</a></code> are used to find the topics connected
+<p>Calls to <code>library()</code> and <code>require()</code> are used to find the topics connected
 to unqualified references.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -258,7 +262,7 @@ to unqualified references.</p>
 )
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -276,7 +280,7 @@ to unqualified references.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

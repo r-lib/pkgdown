@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -49,9 +49,9 @@
 
 
 <meta property="og:title" content="Build and deploy a site locally — deploy_to_branch" />
-<meta property="og:description" content="Build and deploy a site locally" />
+<meta property="og:description" content="Assumes that you're in a git clone of the project, and the package is
+already installed." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -123,6 +123,9 @@
     </li>
     <li>
       <a href="../articles/search.html">Search</a>
+    </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -199,7 +202,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Build and deploy a site locally</p>
+    <p>Assumes that you're in a git clone of the project, and the package is
+already installed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>deploy_to_branch</span>(
@@ -207,6 +211,7 @@
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
   <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
   <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>,
+  <span class='kw'>build_cname</span> <span class='kw'>=</span> (<span class='no'>branch</span> <span class='kw'>==</span> <span class='st'>"gh-pages"</span>),
   <span class='no'>...</span>
 )</pre>
 
@@ -230,6 +235,11 @@
       <td><p>The git remote to deploy to</p></td>
     </tr>
     <tr>
+      <th>build_cname</th>
+      <td><p>Add a <code>CNAME</code> file containing the URL to the site.
+Needed for GitHub pages with custom domains.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
@@ -237,7 +247,7 @@
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -253,7 +263,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

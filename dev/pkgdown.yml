@@ -1,14 +1,25 @@
 pandoc: 2.7.3
-pkgdown: 1.4.1
+pkgdown: 1.4.1.9000
 pkgdown_sha: ~
 articles:
   linking: linking.html
+  metadata: metadata.html
   pkgdown: pkgdown.html
   search: search.html
   jss: test/jss.html
   output: test/output.html
   pdf: test/pdf.html
   rendering: test/rendering.html
+last_built:
+  sec: 0.0
+  min: 48
+  hour: 15
+  mday: 12
+  mon: 2
+  year: 120
+  wday: 4
+  yday: 71
+  isdst: 0
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles

@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -59,7 +59,6 @@ Note that when run by itself (i.e. not by build_site()), vignettes will
 use a previous installed version of the package, not the current source
 version." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -131,6 +130,9 @@ version." />
     </li>
     <li>
       <a href="../articles/search.html">Search</a>
+    </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -340,18 +342,16 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre>pkgdown:
-  as_is: true
-</pre>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='no'>pkgdown</span>:
+  <span class='no'>as_is</span>: <span class='no'>true</span></pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre>pkgdown:
-  as_is: true
-  extension: pdf
-</pre>
+<code>extension</code> field:</p><pre><span class='no'>pkgdown</span>:
+  <span class='no'>as_is</span>: <span class='no'>true</span>
+  <span class='no'>extension</span>: <span class='no'>pdf</span></pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
@@ -369,9 +369,8 @@ sites.</p>
 
     
 
-<p>You can control the TOC depth via the YAML configuration file:</p><pre>toc:
-  depth: 2
-</pre>
+<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='no'>toc</span>:
+  <span class='no'>depth</span>: <span class='fl'>2</span></pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
@@ -392,7 +391,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -416,7 +415,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

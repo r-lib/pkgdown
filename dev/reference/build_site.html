@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -63,7 +63,6 @@ that aspect of the site.
 Note if names of generated files were changed, you will need to use
 clean_site() first to clean up orphan files." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -135,6 +134,9 @@ clean_site() first to clean up orphan files." />
     </li>
     <li>
       <a href="../articles/search.html">Search</a>
+    </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -359,13 +361,11 @@ label, and the message indicates the package is not yet on CRAN.</p></li>
 </ul>
 
 <p>The default development mode is "release". You can override it by adding a
-new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>development:
-  mode: devel
-</pre>
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='no'>development</span>:
+  <span class='no'>mode</span>: <span class='no'>devel</span></pre>
 
-<p>You can also have pkgdown automatically detect the mode with:</p><pre>development:
-  mode: auto
-</pre>
+<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='no'>development</span>:
+  <span class='no'>mode</span>: <span class='no'>auto</span></pre>
 
 <p>The mode will be automatically determined based on the version number:</p><ul>
 <li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
@@ -373,11 +373,10 @@ new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre>de
 <li><p>everything else -&gt; release</p></li>
 </ul>
 
-<p>There are three other options that you can control:</p><pre>development:
-  destination: dev
-  version_label: danger
-  version_tooltip: "Custom message here"
-</pre>
+<p>There are three other options that you can control:</p><pre><span class='no'>development</span>:
+  <span class='no'>destination</span>: <span class='no'>dev</span>
+  <span class='no'>version_label</span>: <span class='no'>danger</span>
+  <span class='no'>version_tooltip</span>: <span class='st'>"Custom message here"</span></pre>
 
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
@@ -453,12 +452,11 @@ to the far right of the left menu.</p>
     
 
 <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
-to add search to your site.</p><pre>template:
-  params:
-    docsearch:
-      api_key: API_KEY
-      index_name: INDEX_NAME
-</pre>
+to add search to your site.</p><pre><span class='no'>template</span>:
+  <span class='no'>params</span>:
+    <span class='no'>docsearch</span>:
+      <span class='no'>api_key</span>: <span class='no'>API_KEY</span>
+      <span class='no'>index_name</span>: <span class='no'>INDEX_NAME</span></pre>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
@@ -471,10 +469,9 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre>template:
-  params:
-    bootswatch: cerulean
-</pre>
+template:</p><pre><span class='no'>template</span>:
+  <span class='no'>params</span>:
+    <span class='no'>bootswatch</span>: <span class='no'>cerulean</span></pre>
 
 <p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
@@ -485,30 +482,27 @@ correspond to your
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.</p><pre>template:
-  params:
-    ganalytics: UA-000000-01
-</pre>
+site, in keeping with current laws and regulations.</p><pre><span class='no'>template</span>:
+  <span class='no'>params</span>:
+    <span class='no'>ganalytics</span>: <span class='no'>UA</span>-<span class='fl'>000000</span>-<span class='fl'>01</span></pre>
 
-<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre>template:
-  params:
-    noindex: true
-</pre>
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='no'>template</span>:
+  <span class='no'>params</span>:
+    <span class='no'>noindex</span>: <span class='no'>true</span></pre>
 
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre>template:
-  package: mycustompackage
+of the default assets, set <code>default_assets</code> to false.</p><pre><span class='no'>template</span>:
+  <span class='no'>package</span>: <span class='no'>mycustompackage</span>
 
-# OR:
+<span class='co'># OR:</span>
 
-template:
-  path: path/to/templates
-  assets: path/to/assets
-  default_assets: false
-</pre>
+<span class='no'>template</span>:
+  <span class='no'>path</span>: <span class='no'>path</span>/<span class='no'>to</span>/<span class='no'>templates</span>
+  <span class='no'>assets</span>: <span class='no'>path</span>/<span class='no'>to</span>/<span class='no'>assets</span>
+  <span class='no'>default_assets</span>: <span class='no'>false</span></pre>
 
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
@@ -533,7 +527,7 @@ hanging in cron jobs.</p>
 <span class='fu'>build_site</span>(<span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>destination</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -556,7 +550,7 @@ hanging in cron jobs.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

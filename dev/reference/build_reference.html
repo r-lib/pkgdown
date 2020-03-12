@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -53,7 +53,6 @@
 alphabetical order. To override this, provide a reference section in your
 _pkgdown.yml as described below." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 <meta name="robots" content="noindex">
@@ -125,6 +124,9 @@ _pkgdown.yml as described below." />
     </li>
     <li>
       <a href="../articles/search.html">Search</a>
+    </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Tests</li>
@@ -311,8 +313,7 @@ notation:</p><pre>desc: &gt;
 
 <p>If you have functions with odd names (e.g. that start with a plus symbol
 <code>+</code>), you can include them by double-escaping. This YAML entry adds the
-<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
-</pre>
+<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- <span class='st'>"`+.gg`"</span></pre>
 
 <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
@@ -343,7 +344,7 @@ either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -362,7 +363,7 @@ Icons are matched to topics by aliases.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
