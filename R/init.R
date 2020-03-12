@@ -98,7 +98,7 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
 timestamp <- function() {
   x <- Sys.time()
   attr(x, "tzone") <- "UTC"
-  strptime(x, "%Y-%m-%d %H:%M", tz = "UTC")
+  strftime(x, "%Y-%m-%dT%H:%MZ", tz = "UTC")
 }
 
 # Generate site meta data file (available to website viewers)
