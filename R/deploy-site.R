@@ -143,16 +143,10 @@ deploy_to_branch <- function(pkg = ".",
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
-  build_site(pkg,
-    override = list(destination = dest_dir),
-    devel = FALSE,
-    preview = FALSE,
-    install = FALSE,
-    ...
-  )
+  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
+  build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
   if (github_pages) {
-    build_cname(pkg)
-    fs::file_touch(path(dest_dir, ".nojekyll"))
+    build_github_pages(pkg)
   }
 
   github_push(dest_dir, commit_message, remote, branch)
