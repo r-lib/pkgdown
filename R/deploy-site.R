@@ -109,8 +109,9 @@ deploy_site_github <- function(
 #'
 #' @param branch The git branch to deploy to
 #' @param remote The git remote to deploy to
-#' @param build_cname Add a `CNAME` file containing the URL to the site.
-#'   Needed for GitHub pages with custom domains.
+#' @param github_pages Is this a GitHub pages deploy. If `TRUE`, adds a `CNAME`
+#'   file for custom domain name support, and a `.nojekyll` file to suppress
+#'   jekyll rendering.
 #' @param ... Additional arguments passed to [build_site()].
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
@@ -119,7 +120,7 @@ deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
                          branch = "gh-pages",
                          remote = "origin",
-                         build_cname = (branch == "gh-pages"),
+                         github_pages = (branch == "gh-pages"),
                          ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
@@ -140,6 +141,7 @@ deploy_to_branch <- function(pkg = ".",
   git("fetch", remote, branch)
 
   github_worktree_add(dest_dir, remote, branch)
+
   build_site(pkg,
     override = list(destination = dest_dir),
     devel = FALSE,
@@ -147,8 +149,9 @@ deploy_to_branch <- function(pkg = ".",
     install = FALSE,
     ...
   )
-  if (build_cname) {
+  if (github_pages) {
     build_cname(pkg)
+    fs::file_touch(path(dest_dir, ".nojekyll"))
   }
 
   github_push(dest_dir, commit_message, remote, branch)
