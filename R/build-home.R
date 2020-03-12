@@ -64,6 +64,11 @@
 #' ```
 #' }
 #'
+#' Note that `build_home()` does not copy the figures from `man/figures` to the
+#' directory where they are needed to be shown on the website. This copying is 
+#' effected by running `build_reference()`. So if you want to update the figures
+#' on the home page, be sure to run `build_reference()` in addition to `build_home()`.
+#'
 #' @section Package logo:
 #' If you have a package logo, you can include it at the top of your README in a
 #' level-one heading:
