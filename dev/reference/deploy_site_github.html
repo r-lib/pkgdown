@@ -247,7 +247,7 @@ configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></td
       <td><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
-<code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p></td>
+<code>travis::use_travis_deploy()</code>.</p></td>
     </tr>
     <tr>
       <th>commit_message</th>
@@ -271,7 +271,7 @@ new keypair specifically for deploying the site. The easiest way is to use
 
     
 
-<p>For a quick setup, you can use <code><a href='https://usethis.r-lib.org/reference/use_pkgdown.html'>usethis::use_pkgdown_travis()</a></code>. It  will help you
+<p>For a quick setup, you can use <code>usethis::use_pkgdown_travis()</code>. It  will help you
 with the following detailed steps.</p><ul>
 <li><p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
@@ -280,7 +280,7 @@ deploy:
   skip_cleanup: true
 </pre></li>
 <li><p>Then you will need to setup your deployment keys. The easiest way is to call
-<code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>. This will generate and push the necessary
+<code>travis::use_travis_deploy()</code>. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the <a href='https://docs.ropensci.org/travis/index.html'>travis package website</a> for more details.</p></li>
 <li><p>Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages

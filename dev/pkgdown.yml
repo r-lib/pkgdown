@@ -10,16 +10,7 @@ articles:
   output: test/output.html
   pdf: test/pdf.html
   rendering: test/rendering.html
-last_built:
-  sec: 0.0
-  min: 6
-  hour: 19
-  mday: 12
-  mon: 2
-  year: 120
-  wday: 4
-  yday: 71
-  isdst: 0
+last_built: 2020-03-12T22:18Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
