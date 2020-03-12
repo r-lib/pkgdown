@@ -93,9 +93,6 @@ match_env <- function(topics) {
 
       which(match & is_public(internal))
     },
-    # Implementation here: cannot exploit has_concept() above,
-    # but the alternative of implementing later was
-    # considered worse.
     lacks_concepts = function(x, internal = FALSE) {
       nomatch <- topics$concepts %>%
         unname() %>%

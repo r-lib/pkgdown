@@ -13,6 +13,9 @@ addition to the top-level `index` or `README` files (@nteetor, #1184)
 
 * `deploy_site_github()` argument `repo_slug` has been deprecated and is no
   longer needed or used. (@jimhester, #1221)
+  
+* New `lacks_concepts()` can select topics that do not contain any of 
+  a number of specified concepts. (@mikldk, #1232)
 
 # pkgdown 1.4.1
 
