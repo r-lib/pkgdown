@@ -119,7 +119,9 @@ package_topics <- function(path = ".", package = "pkgdown") {
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
+
   file_out <- gsub("\\.Rd$", ".html", file_in)
+  file_out[file_out == "index.html"] <- "index-topic.html"
 
   funs <- purrr::map(rd, topic_funs)
 
