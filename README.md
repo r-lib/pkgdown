@@ -33,55 +33,54 @@ devtools::install_github("r-lib/pkgdown")
 
 ## Usage
 
-Run pkgdown from the package directory each time you release your
-package:
+Get started with [usethis](http://usethis.r-lib.org/):
 
 ``` r
+# Run once to configure your package to use pkgdown
+usethis::use_pkgdown()
+```
+
+Use pkgdown to update your website:
+
+``` r
+# Run to build the website
 pkgdown::build_site()
 ```
 
-This will generate a `docs/` directory. The home page will be generated
-from your package’s `README.md`, and a function reference will be
-generated from the documentation in the `man/` directory. If you are
-using GitHub, the easiest way to make this your package website is to
-check into git, then go to settings for your repo and make sure that the
-**GitHub pages** source is set to “master branch /docs folder”. Be sure
-to update the URL on your github repository homepage so others can
-easily navigate to your new site.
+This generates a `docs/` directory containing a website. Your
+`README.md` becomes the homepage, documentation in `man/` generates a
+function reference, and vignettes will be rendered into `articles/`.
+Read `vignette("pkgdown")` for more details and to learn how to
+customise your site.
 
-To customise your site, create `_pkgdown.yml` and modify it [as
-described in the
-documentation](http://pkgdown.r-lib.org/articles/pkgdown.html). You can
-also use `pkgdown/_pkgdown.yml` if you need other files to customise
-your site.
-
-The package includes an RStudio add-in that you can bind to a keyboard
-shortcut. I recommend `Cmd` + `Shift` + `W`: it uses `Cmd` + `Shift`,
-like all other package development shortcuts, it replaces a rarely used
-command (close all tabs), and the `W` is a mnemonic for website.
+If you are using GitHub, the easiest way to make this your package
+website is to check into git, then go to settings for your repo and make
+sure that the **GitHub pages** source is set to “master branch /docs
+folder”. Be sure to update the URL on your github repository homepage so
+others can easily navigate to your new site.
 
 ## In the wild
 
-At last count, pkgdown is used [by over 4,500
+At last count, pkgdown is used [by over 5,000
 packages](https://github.com/search?q=pkgdown.css+in%3Apath&type=Code).
 
 Here are a few examples created by contributors to pkgdown:
 
   - [bayesplot](http://mc-stan.org/bayesplot/index.html)
-    \[[source](https://github.com/stan-dev/bayesplot/tree/gh-pages)\]:
+    ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
     plotting functions for posterior analysis, model checking, and MCMC
     diagnostics.
 
   - [valr](https://valr.hesselberthlab.org/)
-    \[[source](https://github.com/rnabioco/valr)\]: read and manipulate
+    ([source](https://github.com/rnabioco/valr)): read and manipulate
     genome intervals and signals.
 
   - [mkin](http://jranke.github.io/mkin/)
-    \[[source](https://github.com/jranke/mkin)\]: calculation routines
+    ([source](https://github.com/jranke/mkin)): calculation routines
     based on the FOCUS Kinetics Report
 
   - [NMF](http://renozao.github.io/NMF/master/index.html)
-    \[[source](https://github.com/renozao/NMF)\]: a framework to perform
+    ([source](https://github.com/renozao/NMF)): a framework to perform
     non-negative matrix factorization (NMF).
 
 Comparing the source and output of these sites is a great way to learn
