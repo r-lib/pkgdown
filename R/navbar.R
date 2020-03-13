@@ -63,10 +63,12 @@ navbar_components <- function(pkg = ".") {
   menu <- list()
   menu$home <- menu_icon("home", "index.html")
   menu$reference <- menu_link("Reference", "reference/index.html")
-  menu$tutorials <- menu("Tutorials",
-    menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
-  )
 
+  if (!is.null(pkg$tutorials)) {
+    menu$tutorials <- menu("Tutorials",
+      menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
+    )
+  }
   menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {
@@ -74,7 +76,8 @@ navbar_components <- function(pkg = ".") {
   }
 
   menu <- c(menu, navbar_articles(pkg))
-  menu
+
+  print_yaml(menu)
 }
 
 navbar_articles <- function(pkg = ".") {
@@ -146,3 +149,29 @@ menu_spacer <- function() {
    menu_text("---------")
 }
 
+
+# Testing helpers ---------------------------------------------------------
+# Simulate minimal package structure so we can more easily test
+
+pkg_navbar <- function(
+                           meta = NULL,
+                           vignettes = pkg_navbar_vignettes(),
+                           github_url = NULL) {
+  structure(
+    list(
+      package = "test",
+      src_path = file_temp(),
+      meta = meta,
+      vignettes = vignettes,
+      github_url = github_url
+    ),
+    class = "pkgdown"
+  )
+}
+
+pkg_navbar_vignettes <- function(
+                                 name = character(),
+                                 title = character(),
+                                 file_out = character()) {
+  tibble::tibble(name = name, title = title, file_out)
+}
