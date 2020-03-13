@@ -44,9 +44,6 @@ reference:
     contents:
     - starts_with("test", internal = TRUE)
 
-toc:
-  depth: 2
-
 news:
   releases:
   - text: "Version 1.4.0"
