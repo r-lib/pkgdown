@@ -21,41 +21,41 @@ development:
   mode: auto
 
 articles:
-  - title: Customise your site
-    navbar: customise
-    contents:
-    - pkgdown
-    - linking
-    - search
-    - metadata
-  - title: Testing
-    navbar: testing
-    contents:
-    - starts_with("test")
+- title: Customise your site
+  navbar: customise
+  contents:
+  - pkgdown
+  - linking
+  - search
+  - metadata
+- title: Testing
+  navbar: testing
+  contents:
+  - starts_with("test")
 
 reference:
-  - title: Build
-    desc:  Build a complete site or its individual section components.
-    contents:
-    - build_site
-    - init_site
-    - starts_with("build_")
-    - starts_with("deploy_")
-    - preview_site
-  - title: Templates
-    contents:
-    - template_navbar
-    - render_page
-  - title: Helpers
-    contents:
-    - autolink_html
-    - clean_site
-    - rd2html
-    - as_pkgdown
-    - in_pkgdown
-  - title: Regression tests
-    contents:
-    - starts_with("test", internal = TRUE)
+- title: Build
+  desc:  Build a complete site or its individual section components.
+  contents:
+  - build_site
+  - init_site
+  - starts_with("build_")
+  - starts_with("deploy_")
+  - preview_site
+- title: Templates
+  contents:
+  - template_navbar
+  - render_page
+- title: Helpers
+  contents:
+  - autolink_html
+  - clean_site
+  - rd2html
+  - as_pkgdown
+  - in_pkgdown
+- title: Regression tests
+  contents:
+  - starts_with("test", internal = TRUE)
 
 toc:
   depth: 2
