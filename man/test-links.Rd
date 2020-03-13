@@ -4,7 +4,8 @@
 \alias{test-links}
 \title{Test case: links}
 \description{
-Test case: links
+\if{html}{\out{<div class="{r}">}}\preformatted{magrittr::subtract(10, 1)
+}\if{html}{\out{</div>}}
 }
 \examples{
 magrittr::subtract(10, 1)
@@ -13,11 +14,15 @@ library(magrittr, warn.conflicts = FALSE)
 subtract(10, 1)
 }
 \seealso{
-Other tests: \code{\link{test-crayon}},
-  \code{\link{test-dont}}, \code{\link{test-figures}},
-  \code{\link{test-lists}},
-  \code{\link{test-output-styles}},
-  \code{\link{test-params}}, \code{\link{test-verbatim}}
+Other tests: 
+\code{\link{index}},
+\code{\link{test-crayon}},
+\code{\link{test-dont}},
+\code{\link{test-figures}},
+\code{\link{test-lists}},
+\code{\link{test-output-styles}},
+\code{\link{test-params}},
+\code{\link{test-verbatim}}
 }
 \concept{tests}
 \keyword{internal}

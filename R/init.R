@@ -37,7 +37,9 @@ init_site <- function(pkg = ".") {
   dir_create(pkg$dst_path)
   copy_assets(pkg)
 
-  if (has_logo(pkg) && !has_favicons(pkg)) {
+  if (has_favicons(pkg)) {
+    copy_favicons(pkg)
+  } else if (has_logo(pkg)) {
     build_favicons(pkg)
     copy_favicons(pkg)
   }
@@ -45,7 +47,6 @@ init_site <- function(pkg = ".") {
   build_site_meta(pkg)
   build_sitemap(pkg)
   build_docsearch_json(pkg)
-  build_cname(pkg)
   build_logo(pkg)
   build_404(pkg)
 
@@ -93,14 +94,20 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }
 
+timestamp <- function() {
+  x <- Sys.time()
+  attr(x, "tzone") <- "UTC"
+  strftime(x, "%Y-%m-%dT%H:%MZ", tz = "UTC")
+}
 
 # Generate site meta data file (available to website viewers)
 build_site_meta <- function(pkg = ".") {
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
-    pkgdown = as.character(utils::packageVersion("pkgdown")),
+    pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
-    articles = as.list(pkg$article_index)
+    articles = as.list(pkg$article_index),
+    last_built = timestamp()
   )
 
   if (!is.null(pkg$meta$url)) {

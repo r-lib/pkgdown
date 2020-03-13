@@ -20,7 +20,7 @@ test_that("intermediate files cleaned up automatically", {
   on.exit(clean_site(pkg))
 
   expect_setequal(
-    dir(pkg),
+    setdiff(dir(pkg), "man"),
     c("docs", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
   )
 })

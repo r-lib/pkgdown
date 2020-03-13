@@ -1,6 +1,7 @@
 url: https://pkgdown.r-lib.org
 
 home:
+  title: Build websites for R packages
   links:
   - text: Ask a question about pkgdown
     href: https://community.rstudio.com/
@@ -43,16 +44,28 @@ reference:
     contents:
     - starts_with("test", internal = TRUE)
 
-toc:
-  depth: 2
+news:
+  releases:
+  - text: "Version 1.4.0"
+    href: https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/
+  - text: "Version 1.3.0"
+    href: https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/
+  - text: "Version 1.1.0"
+    href: https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/
+  - text: "Version 1.0.0"
+    href: https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/
 
 navbar:
   components:
     articles:
       text: Articles
       menu:
-      - text: 'Linking between pkgdown sites'
+      - text: 'Auto-linking'
         href: articles/linking.html
+      - text: 'Search'
+        href: articles/search.html
+      - text: 'Metadata'
+        href: articles/metadata.html
       - text: '---'
       - text: 'Tests'
       - text: 'Output Rendering'

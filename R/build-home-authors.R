@@ -133,7 +133,7 @@ author_desc <- function(x, comment = TRUE) {
     if (!is.null(x$orcid))
       x$orcid,
     if (comment && !is.null(x$comment) && length(x$comment) != 0)
-      paste0("<br/>\n<small>(", x$comment, ")</small>")
+      paste0("<br/>\n<small>(", linkify(x$comment), ")</small>")
   )
 }
 
@@ -152,8 +152,8 @@ orcid_link <- function(orcid) {
   if (is.null(orcid)) return(NULL)
 
   paste0(
-    "<a href='https://orcid.org/", orcid, "' target='orcid.widget'>",
-    "<img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID'></a>"
+    "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
+    "<span class='fab fa-orcid orcid' aria-hidden='true'></span></a>"
   )
 }
 

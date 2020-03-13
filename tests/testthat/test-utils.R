@@ -14,10 +14,6 @@ test_that("find_reexport_source_from_imports", {
     find_reexport_source_from_imports(ns, "ns_env_name"),
     "rlang"
   )
-  expect_equal(
-    find_reexport_source_from_imports(ns, "R6Class"),
-    "R6"
-  )
 })
 
 test_that("pkgdown.internet can be set and read", {

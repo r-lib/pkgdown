@@ -99,7 +99,7 @@ replay_html.error <- function(x, ...) {
 
 #' @export
 replay_html.recordedplot <- function(x, topic, obj_id, ...) {
-  fig_save_default(x, fig_name(topic, obj_id))
+  fig_save_default(x, paste0(topic, "-", obj_id()))
 }
 
 # Knitr functions ------------------------------------------------------------

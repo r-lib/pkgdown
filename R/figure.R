@@ -1,7 +1,3 @@
-fig_name <- function(topic, obj_id) {
-  paste0(topic, "-", obj_id(topic))
-}
-
 fig_save_default <- function(plot, name) {
   do.call(fig_save, c(list(plot, name), context_get("figures")))
 }

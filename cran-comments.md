@@ -9,20 +9,4 @@
 
 ## revdepcheck results
 
-We checked 26 reverse dependencies (25 from CRAN + 1 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 1 new problems
- * We failed to check 1 packages
-
-Issues with CRAN packages are summarised below.
-
-### New problems
-(This reports the first line of each new failure)
-
-* eplusr
-  checking examples ... ERROR
-  Random internet failure.
-
-### Failed to check
-
-* FSelectorRcpp (failed to install)
+This is a fix for a CRAN check failure. I did not check revdeps.

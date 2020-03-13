@@ -1,13 +1,24 @@
 #' Build articles section
 #'
+#' @description
 #' Each R Markdown vignette in `vignettes/` and its subdirectories is rendered
-#' and saved to `articles/`. Vignettes are rendered using a special document
+#' and saved to `articles/`.
+#'
+#' The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/), and vignettes in a `tutorials` subdirectory, which is reserved for tutorials built with `build_tutorials()`
+#'
+#' Vignettes are rendered using a special document
 #' format that reconciles [rmarkdown::html_document()] with your pkgdown
 #' template.
 #'
+#' Note that when run by itself (i.e. not by `build_site()`), vignettes will
+#' use a previous installed version of the package, not the current source
+#' version.
+#'
+#' @section Get started vignette:
 #' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
 #' gets special treatment. It is rendered and linked to in the navbar under
-#' "Get started".
+#' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,
+#' because these are assumed to contain tutorials, see `build_tutorials()`.
 #'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
@@ -29,6 +40,15 @@
 #'
 #' Note that you can not use the `fig.path` to change the output directory of
 #' generated figures as its default value is a strong assumption of rmarkdown.
+#'
+#' @section Embedding Shiny apps:
+#' If you would like to embed a Shiny app into an article, the app will have
+#' to be hosted independently, (e.g. <https://www.shinyapps.io>). Then, you
+#' can embed the app into your article using an `<iframe>`, e.g.
+#' `<iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app">`.
+#'
+#' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
+#' some hints on how to customise the appearance with CSS.
 #'
 #' @section YAML config:
 #' To tweak the index page, you need a section called `articles`,
@@ -62,7 +82,7 @@
 #'
 #' @section YAML header:
 #' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' using setting the `template` parameter. This overrides any custom settings
+#' by setting the `template` parameter. This overrides any custom settings
 #' you have in your YAML metadata, ensuring that all articles are rendered
 #' in the same way (and receive the default site template).
 #'
@@ -175,16 +195,22 @@ build_article <- function(name,
   scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
   scoped_file_context(depth = depth)
 
+  front <- rmarkdown::yaml_front_matter(input_path)
+  # Take opengraph from article's yaml front matter
+  front_opengraph <- check_open_graph(front$opengraph %||% list())
+  data$opengraph <- utils::modifyList(
+    data$opengraph %||% list(), front_opengraph
+  )
+
   default_data <- list(
-    pagetitle = "$title$",
-    opengraph = list(description = "$description$"),
+    pagetitle = front$title,
+    opengraph = list(description = front$description %||% pkg$package),
     source = github_source_links(pkg$github_url, path_rel(input, pkg$src_path)),
     filename = path_file(input)
   )
   data <- utils::modifyList(default_data, data)
 
   # Allow users to opt-in to their own template
-  front <- rmarkdown::yaml_front_matter(input_path)
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 

@@ -1,5 +1,3 @@
-context("test-build_cname.R")
-
 test_that("a CNAME record is built if a url exists in metadata", {
   cname <- test_path("assets/cname")
   dir_create(path(cname, "docs"))
@@ -7,9 +5,10 @@ test_that("a CNAME record is built if a url exists in metadata", {
   on.exit({
     clean_site(cname)
     file_delete(path(cname, "docs", "CNAME"))
+    file_delete(path(cname, "docs", ".nojekyll"))
   })
 
-  expect_output(build_cname(cname))
+  expect_output(build_github_pages(cname))
   expect_equal(read_lines(path(cname, "docs", "CNAME")), "testpackage.r-lib.org")
 })
 

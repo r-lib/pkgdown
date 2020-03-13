@@ -42,7 +42,13 @@ href_expr <- function(expr, bare_symbol = FALSE) {
 
     n_args <- length(expr) - 1
 
-    if (fun_name == "vignette") {
+    if (fun_name %in% c("library", "require", "requireNamespace")) {
+      if (length(expr) == 1) {
+        return(NA_character_)
+      }
+      pkg <- as.character(expr[[2]])
+      href_package_reference(pkg)
+    } else if (fun_name == "vignette") {
       expr <- call_standardise(expr)
       href_article(expr$topic, expr$package)
     } else if (fun_name == "?") {
@@ -60,6 +66,17 @@ href_expr <- function(expr, bare_symbol = FALSE) {
       } else if (n_args == 2) {
         # package?x
         href_topic(paste0(expr[[3]], "-", expr[[2]]))
+      }
+    } else if (fun_name == "help") {
+      expr <- call_standardise(expr)
+      if (!is.null(expr$topic) && !is.null(expr$package)) {
+        href_topic(as.character(expr$topic), as.character(expr$package))
+      } else if (!is.null(expr$topic) && is.null(expr$package)) {
+        href_topic(as.character(expr$topic))
+      } else if (is.null(expr$topic) && !is.null(expr$package)) {
+        href_package_reference(as.character(expr$package))
+      } else {
+        NA_character_
       }
     } else if (fun_name == "::") {
       href_topic(as.character(expr[[3]]), as.character(expr[[2]]))
@@ -132,17 +149,20 @@ href_topic_remote <- function(topic, package) {
     return(NA_character_)
   }
 
-  reference_url <- remote_package_reference_url(package)
+  paste0(href_package_reference(package), "/", rdname, ".html")
+}
 
+href_package_reference <- function(package) {
+  reference_url <- remote_package_reference_url(package)
   if (!is.null(reference_url)) {
-    paste0(reference_url, paste0("/", rdname, ".html"))
+    return(reference_url)
+  }
+
+  # Fall back to rdrr.io
+  if (is_base_package(package)) {
+    paste0("https://rdrr.io/r/", package)
   } else {
-    # Fall back to rdrr.io
-    if (is_base_package(package)) {
-      paste0("https://rdrr.io/r/", package, "/", rdname, ".html")
-    } else {
-      paste0("https://rdrr.io/pkg/", package, "/man/", rdname, ".html")
-    }
+    paste0("https://rdrr.io/pkg/", package, "/man")
   }
 }
 

@@ -2,9 +2,12 @@
 % Please edit documentation in R/build-favicons.R
 \name{build_favicons}
 \alias{build_favicons}
+\alias{build_favicon}
 \title{Create favicons from package logo}
 \usage{
 build_favicons(pkg = ".", overwrite = FALSE)
+
+build_favicon(pkg, overwrite)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -22,6 +25,6 @@ You only need to run the function once. The favicon set will be stored in
 \code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location when
 the website is rebuilt.
 
-Once complete, you should add \code{pkgdown/} to \code{.Rbuildignore } to avoid a NOTE
+Once complete, you should add \verb{pkgdown/} to \code{.Rbuildignore } to avoid a NOTE
 during package checking.
 }

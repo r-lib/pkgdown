@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/v4-shims.min.css" integrity="sha256-DRxbpLKdtC2t9h+ecwQzH6g1/nMruwKCKtoXqaY8IV8=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -58,9 +58,25 @@
 <meta property="og:description" content="{{.}}" />
 {{/description}}
 {{#image}}
-<meta property="og:image" content="{{{.}}}" />
+<meta property="og:image" content="{{{src}}}" />
+{{#alt}}
+<meta property="og:image:alt" content="{{{.}}}" />
+{{/alt}}
 {{/image}}
+{{#twitter}}
+{{#card}}
+<meta name="twitter:card" content="{{{.}}}" />
+{{/card}}
+{{^card}}
 <meta name="twitter:card" content="summary" />
+{{/card}}
+{{#creator}}
+<meta name="twitter:creator" content="{{{.}}}" />
+{{/creator}}
+{{#site}}
+<meta name="twitter:site" content="{{{.}}}" />
+{{/site}}
+{{/twitter}}
 {{/opengraph}}
 
 {{#yaml}}{{#noindex}}<meta name="robots" content="noindex" />{{/noindex}}{{/yaml}}

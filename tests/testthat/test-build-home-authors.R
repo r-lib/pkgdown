@@ -26,3 +26,12 @@ test_that("names can be removed from persons", {
   expect_length(remove_name(p4$comment, "ORCID"), 0)
   expect_length(remove_name(p5$comment, "ORCID"), 0)
 })
+
+test_that("Comments in authors info are linkified", {
+  p <- list(name = "Jane Doe", roles = "rev", comment = "<https://x.org/>")
+
+  expect_match(
+    author_desc(p),
+    "&lt;<a href='https://x.org/'>https://x.org/</a>&gt;)</small>"
+  )
+})

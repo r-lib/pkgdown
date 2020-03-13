@@ -6,7 +6,7 @@
 \alias{pkgdown-package}
 \title{pkgdown: Make Static HTML Documentation for a Package}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Generate an attractive and useful website from a source package.
     'pkgdown' converts your documentation, vignettes, 'README', and more to 
@@ -22,11 +22,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com} (0000-0003-4757-117X)
+\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
 
 Authors:
 \itemize{
-  \item Jay Hesselberth (0000-0002-6299-179X)
+  \item Jay Hesselberth (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
 }
 
 Other contributors:

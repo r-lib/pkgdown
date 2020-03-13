@@ -5,9 +5,18 @@
 \alias{build_reference_index}
 \title{Build reference section}
 \usage{
-build_reference(pkg = ".", lazy = TRUE, examples = TRUE,
-  run_dont_run = FALSE, seed = 1014, override = list(),
-  preview = NA, devel = TRUE, document = "DEPRECATED")
+build_reference(
+  pkg = ".",
+  lazy = TRUE,
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014,
+  override = list(),
+  preview = NA,
+  devel = TRUE,
+  document = "DEPRECATED",
+  topics = NULL
+)
 
 build_reference_index(pkg = ".")
 }
@@ -26,26 +35,28 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 reproducible.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
 
-\item{devel}{If \code{TRUE} (the default), assumes you are in a live development
-environment, so automatically runs \code{\link[devtools:document]{devtools::document()}} and loads
-package with \code{\link[devtools:load_all]{devtools::load_all()}}. If \code{FALSE}, does not re-document,
-and uses the installed version of the package for examples.}
+\item{devel}{Determines how code is loaded in order to run examples.
+If \code{TRUE} (the default), assumes you are in a live development
+environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
+If \code{FALSE}, uses the installed version of the package.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
+
+\item{topics}{Build only specified topics. If supplied, sets \verb{lazy`` and }preview\code{to}FALSE`.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a \code{reference} section in your
-\code{_pkgdown.yml} as described below.
+\verb{_pkgdown.yml} as described below.
 }
 \section{YAML config}{
 
-To tweak the index page, add a section called \code{reference} to \code{_pkgdown.yml}
+To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}
 which provides a list of sections containing, a \code{title}, list of \code{contents},
 and an optional \code{description}.
 
@@ -72,6 +83,13 @@ topics with the Rd keyword "internal". To include these, use
 
 You can also select topics that contain specified Rd concepts with
 \code{has_concept("blah")}.
+It is also possible to select topics that do not contain any
+of a vector of specified Rd concepts with
+\code{lacks_concepts(c("concept1", "concept2"))}.
+Note that topics without concepts will lack any concept and
+thus be included in any \code{lacks_concepts()}.
+This can for example be used to make a group of topics that are not
+caught by any number of \code{has_concept("blah")}.
 
 You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >
@@ -92,7 +110,7 @@ this page, and will generate a warning if you have missed any.
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \code{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
   dev: grDevices::png
   dpi: 96
   dev.args: []

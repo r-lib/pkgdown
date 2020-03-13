@@ -114,7 +114,19 @@
 #' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
-#' `navbar` controls the navbar at the top of the page. It has two primary
+#'
+#' By default, the top navigation bar (the "navbar") will contain links to:
+#'
+#' * The home page, with a "home" icon.
+#' * "Get Started", if you have an article with the same name as the package
+#'   (e.g., `vignettes/pkgdown.Rmd`).
+#' * Reference
+#' * Articles (i.e., vignettes, if present).
+#' * News (if present).
+#' * A "github" icon with a link to your
+#'   github repo (if listed in the `DESCRIPTION` url field).
+#'
+#' You can override these defaults with the  `navbar` field. It has two primary
 #' components: `structure` and `components`. These components interact in
 #' a somewhat complicated way, but the complexity allows you to make minor
 #' tweaks to part of the navbar while relying on pkgdown to automatically
@@ -151,7 +163,9 @@
 #'     - text: -------
 #'     - text: "Category B"
 #'     - text: Title B1
-#'       href: articles/b1.html
+#'       menu:
+#'       - text "Sub-category B11"
+#'         href: articles/b11.html
 #'    twitter:
 #'      icon: "fab fa-twitter fa-lg"
 #'      href: http://twitter.com/hadleywickham
@@ -261,9 +275,24 @@
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
 #'   if the source is newer than the destination.
+#' @param devel Use development or deployment process?
+#'
+#'   If `TRUE`, uses lighter-weight process suitable for rapid
+#'   iteration; it will run examples and vignettes in the current process,
+#'   and will load code with `pkgload::load_all()`.
+#'
+#'   If `FALSE`, will first install the package to a temporary library,
+#'   and will run all examples and vignettes in a new process.
+#'
+#'   `build_site()` defaults to `devel = FALSE` so that you get high fidelity
+#'   outputs when you building the complete site; `build_reference()`,
+#'   `build_home()` and friends default to `devel = TRUE` so that you can
+#'   rapidly iterate during development.
 #' @param new_process If `TRUE`, will run `build_site()` in a separate process.
 #'   This enhances reproducibility by ensuring nothing that you have loaded
 #'   in the current process affects the build process.
+#' @param install If `TRUE`, will install the package in a temporary library
+#'   so it is available for vignettes.
 #' @export
 #' @examples
 #' \dontrun{
@@ -278,13 +307,21 @@ build_site <- function(pkg = ".",
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
-                       new_process = TRUE,
-                       devel = TRUE,
+                       devel = FALSE,
+                       new_process = !devel,
+                       install = !devel,
                        document = "DEPRECATED") {
+  pkg <- as_pkgdown(pkg, override = override)
 
   if (!missing(document)) {
     warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
     devel <- document
+  }
+
+  if (install) {
+    withr::local_temp_libpaths()
+    rule("Installing package into temporary library")
+    utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
   }
 
   if (new_process) {
@@ -327,6 +364,7 @@ build_site_external <- function(pkg = ".",
     seed = seed,
     lazy = lazy,
     override = override,
+    install = FALSE,
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
@@ -370,7 +408,7 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE, devel = devel)
+  build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
     examples = examples,

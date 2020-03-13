@@ -28,7 +28,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 
   if (has_favicons(pkg) && !overwrite) {
     message("Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.")
-    return()
+    return(invisible())
   }
 
   message("Building favicons with realfavicongenerator.net...")
@@ -91,6 +91,18 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   })
 
   invisible()
+}
+
+#' Deprecated as of pkgdown 1.4.0
+#' @rdname build_favicons
+#' @inheritParams build_favicons
+#' @export
+build_favicon <- function(pkg, overwrite) {
+  message(
+    "`build_favicon()` is deprecated as of pkgdown 1.4.0. ",
+    "Please use `build_favicons()` instead."
+  )
+  build_favicons(pkg, overwrite)
 }
 
 copy_favicons <- function(pkg = ".") {

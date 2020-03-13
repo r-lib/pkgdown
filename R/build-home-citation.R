@@ -43,7 +43,7 @@ data_citations <- function(pkg = ".") {
   cit <- read_citation(pkg$src_path)
 
   list(
-    html = format(cit, style = "html"),
+    html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
     bibtex = format(cit, style = "bibtex")
   ) %>% purrr::transpose()
 }

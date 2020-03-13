@@ -4,9 +4,19 @@
 \alias{build_site}
 \title{Build a complete pkgdown website}
 \usage{
-build_site(pkg = ".", examples = TRUE, run_dont_run = FALSE,
-  seed = 1014, lazy = FALSE, override = list(), preview = NA,
-  new_process = TRUE, devel = TRUE, document = "DEPRECATED")
+build_site(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = FALSE,
+  new_process = !devel,
+  install = !devel,
+  document = "DEPRECATED"
+)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -22,19 +32,31 @@ reproducible.}
 if the source is newer than the destination.}
 
 \item{override}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
 
 \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+
+\item{devel}{Use development or deployment process?
+
+If \code{TRUE}, uses lighter-weight process suitable for rapid
+iteration; it will run examples and vignettes in the current process,
+and will load code with \code{pkgload::load_all()}.
+
+If \code{FALSE}, will first install the package to a temporary library,
+and will run all examples and vignettes in a new process.
+
+\code{build_site()} defaults to \code{devel = FALSE} so that you get high fidelity
+outputs when you building the complete site; \code{build_reference()},
+\code{build_home()} and friends default to \code{devel = TRUE} so that you can
+rapidly iterate during development.}
 
 \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
 
-\item{devel}{If \code{TRUE} (the default), assumes you are in a live development
-environment, so automatically runs \code{\link[devtools:document]{devtools::document()}} and loads
-package with \code{\link[devtools:load_all]{devtools::load_all()}}. If \code{FALSE}, does not re-document,
-and uses the installed version of the package for examples.}
+\item{install}{If \code{TRUE}, will install the package in a temporary library
+so it is available for vignettes.}
 
 \item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }
@@ -61,7 +83,7 @@ There are four top-level YAML settings that affect the entire site:
 \code{destination}, \code{url}, \code{title}, \code{template}, and \code{navbar}.
 
 \code{destination} controls where the site will be generated. It defaults to
-\code{docs/} (for GitHub pages), but you can override if desired. Relative
+\verb{docs/} (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.
 
 \code{url} optionally specifies the url where the site will be published.
@@ -72,8 +94,8 @@ rather than using generic links to \url{https://rdrr.io}.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
-}\preformatted{url: http://pkgdown.r-lib.org
-}
+}\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
+}\if{html}{\out{</div>}}
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -102,18 +124,18 @@ The development mode of a site controls four main things:
 
 There are currently three possible development modes:
 \itemize{
-\item \strong{release}: site written to \code{docs/}, the version gets the default
+\item \strong{release}: site written to \verb{docs/}, the version gets the default
 colouring, and no message.
-\item \strong{development}: written to \code{docs/dev/}, the version gets a danger label,
+\item \strong{development}: written to \verb{docs/dev/}, the version gets a danger label,
 and message stating these are docs for an in-development version of the
 package. The \code{noindex} meta tag is used to ensure that these packages are
 not indexed by search engines.
-\item \strong{unreleased}: the package is written to \code{docs/}, the version gets a "danger"
+\item \strong{unreleased}: the package is written to \verb{docs/}, the version gets a "danger"
 label, and the message indicates the package is not yet on CRAN.
 }
 
 The default development mode is "release". You can override it by adding a
-new \code{development} field to \code{_pkgdown.yml}, e.g.\preformatted{development:
+new \code{development} field to \verb{_pkgdown.yml}, e.g.\preformatted{development:
   mode: devel
 }
 
@@ -123,7 +145,7 @@ You can also have pkgdown automatically detect the mode with:\preformatted{devel
 
 The mode will be automatically determined based on the version number:
 \itemize{
-\item \code{0.0.0.9000} (\code{0.0.0.*}): unreleased
+\item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased
 \item four version components: development
 \item everything else -> release
 }
@@ -135,7 +157,7 @@ There are three other options that you can control:\preformatted{development:
 }
 
 \code{destination} allows you to override the default subdirectory used for the
-development site; it defaults to \code{dev/}. \code{version_label} allows you to
+development site; it defaults to \verb{dev/}. \code{version_label} allows you to
 override the style used for development (and unreleased) versions of the
 package. It defaults to "danger", but you can set to "default", "info", or
 "warning" instead. (The precise colours are determined by your bootstrap
@@ -146,7 +168,20 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-\code{navbar} controls the navbar at the top of the page. It has two primary
+
+By default, the top navigation bar (the "navbar") will contain links to:
+\itemize{
+\item The home page, with a "home" icon.
+\item "Get Started", if you have an article with the same name as the package
+(e.g., \code{vignettes/pkgdown.Rmd}).
+\item Reference
+\item Articles (i.e., vignettes, if present).
+\item News (if present).
+\item A "github" icon with a link to your
+github repo (if listed in the \code{DESCRIPTION} url field).
+}
+
+You can override these defaults with the  \code{navbar} field. It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically
@@ -177,7 +212,9 @@ The following YAML snippet illustrates some of the most important features.\pref
     - text: -------
     - text: "Category B"
     - text: Title B1
-      href: articles/b1.html
+      menu:
+      - text "Sub-category B11"
+        href: articles/b11.html
    twitter:
      icon: "fab fa-twitter fa-lg"
      href: http://twitter.com/hadleywickham
@@ -203,7 +240,7 @@ to add search to your site.\preformatted{template:
       index_name: INDEX_NAME
 }
 
-You also need to add a \code{url:} field, see above.
+You also need to add a \verb{url:} field, see above.
 }
 
 \section{YAML config - template}{

@@ -8,11 +8,23 @@ Test case: don't
 }
 \examples{
 \dontrun{
+  stop("This is an error!", call. = FALSE)
+}
+
+# Inline \donttest is silently ommitted
+\donttest{message("Hi!")}
+
+# Block \donttest indicated with comments
+\donttest{
+# This is a comment
 1 + 3
 }
 
-\donttest{
-1 + 3
+# And works even when not at the top level
+if (TRUE) {
+  \donttest{
+  1 + 2
+  }
 }
 
 answer <- 1
@@ -22,11 +34,15 @@ answer <- 42
 answer # should be 42
 }
 \seealso{
-Other tests: \code{\link{test-crayon}},
-  \code{\link{test-figures}}, \code{\link{test-links}},
-  \code{\link{test-lists}},
-  \code{\link{test-output-styles}},
-  \code{\link{test-params}}, \code{\link{test-verbatim}}
+Other tests: 
+\code{\link{index}},
+\code{\link{test-crayon}},
+\code{\link{test-figures}},
+\code{\link{test-links}},
+\code{\link{test-lists}},
+\code{\link{test-output-styles}},
+\code{\link{test-params}},
+\code{\link{test-verbatim}}
 }
 \concept{tests}
 \keyword{internal}

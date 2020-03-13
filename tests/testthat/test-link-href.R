@@ -17,6 +17,9 @@ test_that("can link function calls", {
 
   expect_equal(href_expr_(foo()), "bar.html")
   expect_equal(href_expr_(foo(1, 2, 3)), "bar.html")
+  # even if namespaced
+  expect_equal(href_expr_(test::foo()), "bar.html")
+  expect_equal(href_expr_(test::foo(1, 2, 3)), "bar.html")
 })
 
 test_that("respects href_topic_local args", {
@@ -51,7 +54,7 @@ test_that("can link to functions in base packages", {
   scoped_package_context("test")
   scoped_file_context() # package registry maintained on per-file basis
 
-  expect_equal(href_expr_(library()), href_topic_remote("library", "base"))
+  expect_equal(href_expr_(abbreviate()), href_topic_remote("abbreviate", "base"))
   expect_equal(href_expr_(median()), href_topic_remote("median", "stats"))
 })
 
@@ -99,10 +102,30 @@ test_that("can link ? calls", {
 
   expect_equal(href_expr_(?foo), "foo.html")
   expect_equal(href_expr_(?"foo"), "foo.html")
-  expect_equal(href_expr_(test::foo), "foo.html")
+  expect_equal(href_expr_(?test::foo), "foo.html")
   expect_equal(href_expr_(package?foo), "foo-package.html")
 })
 
+test_that("can link help calls", {
+  scoped_package_context("test", c(foo = "foo", "foo-package" = "foo-package"))
+  scoped_file_context("bar")
+
+  expect_equal(href_expr_(help("foo")), "foo.html")
+  expect_equal(href_expr_(help("foo", "test")), "foo.html")
+  expect_equal(href_expr_(help(package = "MASS")), "https://rdrr.io/pkg/MASS/man")
+  expect_equal(href_expr_(help()), NA_character_)
+})
+
+
+# library and friends -----------------------------------------------------
+
+test_that("library() linked to package reference", {
+  scoped_package_context("test", c(foo = "bar"))
+
+  expect_equal(href_expr_(library()), NA_character_)
+  expect_equal(href_expr_(library(pkgdown)), "https://pkgdown.r-lib.org/reference")
+  expect_equal(href_expr_(library(MASS)), "https://rdrr.io/pkg/MASS/man")
+})
 
 # vignette ----------------------------------------------------------------
 
@@ -130,8 +153,8 @@ test_that("can link to remote articles", {
   )
 
   expect_equal(
-    href_expr_(vignette("highlight", "pkgdown")),
-    "https://pkgdown.r-lib.org/articles/test/highlight.html"
+    href_expr_(vignette("pkgdown", "pkgdown")),
+    "https://pkgdown.r-lib.org/articles/pkgdown.html"
   )
 })
 

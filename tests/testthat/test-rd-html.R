@@ -15,11 +15,19 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("simple replacements work as expected", {
-  expect_equal(rd2html("\\ldots"), "&#8230;")
+  expect_equal(rd2html("\\ldots"), "...")
+  expect_equal(rd2html("\\dots"), "...")
 })
 
 test_that("subsection generates h3", {
-  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "B"))
+  expect_equal(rd2html("\\subsection{A}{B}"), c("<h3>A</h3>", "<p>B</p>"))
+})
+test_that("subsection generates h3", {
+  expect_equal(rd2html("\\subsection{A}{
+    p1
+
+    p2
+  }"), c("<h3>A</h3>", "<p>p1</p>", "<p>p2</p>"))
 })
 
 test_that("if generates html", {
@@ -301,16 +309,37 @@ test_that("cr generates line break", {
   expect_equal(out, "<p>a <br /> b</p>")
 })
 
+test_that("nested item with whitespace parsed correctly", {
+  out <- rd2html("
+    \\describe{
+    \\item{Label}{
+
+      This text is indented in a way pkgdown doesn't like.
+  }}")
+  expect_equal(out, c(
+    "<dl class='dl-horizontal'>",
+    "<dt>Label</dt><dd><p>This text is indented in a way pkgdown doesn't like.</p></dd>",
+    "</dl>"
+  ))
+})
+
 # Verbatim ----------------------------------------------------------------
 
+
+test_that("parseable preformatted blocks are highlighted", {
+  out <- flatten_para(rd_text("\\preformatted{1}"))
+  expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
+})
+
+
 test_that("newlines are preserved in preformatted blocks", {
-  out <- flatten_para(rd_text("\\preformatted{a\n\nb\n\nc}"))
-  expect_equal(out, "<pre>a\n\nb\n\nc</pre>\n")
+  out <- flatten_para(rd_text("\\preformatted{^\n\nb\n\nc}"))
+  expect_equal(out, "<pre>^\n\nb\n\nc</pre>\n")
 })
 
 test_that("spaces are preserved in preformatted blocks", {
-  out <- flatten_para(rd_text("\\preformatted{a\n\n  b\n\n  c}"))
-  expect_equal(out, "<pre>a\n\n  b\n\n  c</pre>\n")
+  out <- flatten_para(rd_text("\\preformatted{^\n\n  b\n\n  c}"))
+  expect_equal(out, "<pre>^\n\n  b\n\n  c</pre>\n")
 })
 
 # Usage -------------------------------------------------------------------

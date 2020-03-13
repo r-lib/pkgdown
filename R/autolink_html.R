@@ -1,4 +1,4 @@
-#' Automatic link references and articles in an HTML package
+#' Automatically link references and articles in an HTML page
 #'
 #' @description
 #' The autolinker is built around two XPath expressions:
@@ -17,7 +17,9 @@
 #' * Function calls, `foo()`
 #' * Function calls qualified with the package name, `bar::foo()`
 #' * Symbols qualified with the package name, `bar::baz`
-#' * Help calls, `?foo`, `package?foo`, and `?bar::foo`
+#' * `library()`, `require()` and `requireNamespace()` calls.
+#' * Help calls, `?foo`, `package?foo`, `?bar::foo`, `help(foo)`,
+#'   `help(foo, package = bar)`, `help(package = bar)`.
 #' * Vignette calls, `vignette(baz)`, `vignette(baz, package = "bar")`
 #'
 #' Calls to `library()` and `require()` are used to find the topics connected

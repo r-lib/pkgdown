@@ -21,7 +21,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- utils::modifyList(meta, override)
 
   package <- desc$get("Package")[[1]]
-  version <- desc$get_version()
+  version <- desc$get_field("Version")
 
   development <- meta_development(meta, version)
 
@@ -119,7 +119,9 @@ package_topics <- function(path = ".", package = "pkgdown") {
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
+
   file_out <- gsub("\\.Rd$", ".html", file_in)
+  file_out[file_out == "index.html"] <- "index-topic.html"
 
   funs <- purrr::map(rd, topic_funs)
 

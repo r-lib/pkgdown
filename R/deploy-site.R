@@ -3,8 +3,9 @@
 #' `deploy_site_github()` sets up your SSH keys for deployment, builds the
 #' site with [build_site()], commits the site to the `gh-pages` branch and then pushes
 #' the results back to GitHub. `deploy_site_github()` is meant only to be used
-#' by the CI system on Travis, it should not be called locally. See 'Setup' for
-#' details on setting up your repository to use this.
+#' by the CI system on Travis, it should not be called locally.
+#' [deploy_to_branch()] can be used to deploy a site directly to GitHub Pages
+#' locally. See 'Setup' for details on setting up your repository to use this.
 #'
 #' @section Setup:
 #' For a quick setup, you can use [usethis::use_pkgdown_travis()]. It  will help you
@@ -23,7 +24,7 @@
 #' * Then you will need to setup your deployment keys. The easiest way is to call
 #' `travis::use_travis_deploy()`. This will generate and push the necessary
 #' keys to your GitHub and Travis accounts. See the [travis package
-#' website](https://ropenscilabs.github.io/travis/) for more details.
+#' website](https://docs.ropensci.org/travis/index.html) for more details.
 #'
 #' * Next, make sure that a gh-pages branch exists. The simplest way to do
 #' so is to run the following git commands locally:
@@ -49,27 +50,27 @@
 #'
 #' @inheritParams build_site
 #' @param install Optionally, opt-out of automatic installation. This is
-#'   necessary if the package you're document is a dependency of pkgdown
+#'   necessary if the package you're documenting is a dependency of pkgdown
 #' @param tarball The location of the built package tarball. The default Travis
 #'   configuration for R packages sets `PKG_TARBALL` to this path.
 #' @param ssh_id The private id to use, a base64 encoded content of the private
 #'   pem file. This should _not_ be your personal private key. Instead create a
 #'   new keypair specifically for deploying the site. The easiest way is to use
 #'   `travis::use_travis_deploy()`.
-#' @param repo_slug The `user/repo` slug for the repository.
 #' @param commit_message The commit message to be used for the commit.
 #' @param verbose Print verbose output
 #' @param ... Additional arguments passed to [build_site()].
+#' @param repo_slug **Deprecated** No longer used.
 #' @export
 deploy_site_github <- function(
   pkg = ".",
   install = TRUE,
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
-  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", ""),
   commit_message = construct_commit_message(pkg),
   verbose = FALSE,
-  ...) {
+  ...,
+  repo_slug = "DEPRECATED") {
 
   if (!nzchar(tarball)) {
     stop("No built tarball detected, please provide the location of one with `tarball`", call. = FALSE)
@@ -79,8 +80,8 @@ deploy_site_github <- function(
     stop("No deploy key found, please setup with `travis::use_travis_deploy()`", call. = FALSE)
   }
 
-  if (!nzchar(repo_slug)) {
-    stop("No repo detected, please supply one with `repo_slug`", call. = FALSE)
+  if (!missing(repo_slug)) {
+    warning("`repo_slug` is deprecated. It is no longer used.", call. = FALSE)
   }
 
   rule("Deploying site", line = 2)
@@ -96,51 +97,88 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  deploy_local(pkg, repo_slug = repo_slug, commit_message = commit_message, ...)
+  deploy_to_branch(pkg, commit_message = commit_message, branch = "gh-pages", ...)
 
   rule("Deploy completed", line = 2)
 }
 
-deploy_local <- function(
-                         pkg = ".",
-                         repo_slug = NULL,
+#' Build and deploy a site locally
+#'
+#' Assumes that you're in a git clone of the project, and the package is
+#' already installed.
+#'
+#' @param branch The git branch to deploy to
+#' @param remote The git remote to deploy to
+#' @param github_pages Is this a GitHub pages deploy. If `TRUE`, adds a `CNAME`
+#'   file for custom domain name support, and a `.nojekyll` file to suppress
+#'   jekyll rendering.
+#' @param ... Additional arguments passed to [build_site()].
+#' @inheritParams build_site
+#' @inheritParams deploy_site_github
+#' @export
+deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
-                         ...
-                         ) {
-
+                         branch = "gh-pages",
+                         remote = "origin",
+                         github_pages = (branch == "gh-pages"),
+                         ...) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
-  pkg <- as_pkgdown(pkg)
-  if (is.null(repo_slug)) {
-    gh <- rematch2::re_match(pkg$github_url, github_url_rx())
-    repo_slug <- paste0(gh$owner, "/", gh$repo)
+  if (!git_has_remote_branch(remote, branch)) {
+    old_branch <- git_current_branch()
+
+    # If no remote branch, we need to create it
+    git("checkout", "--orphan", branch)
+    git("rm", "-rf", "--quiet", ".")
+    git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+    git("push", remote, paste0("HEAD:", branch))
+
+    # checkout the previous branch
+    git("checkout", old_branch)
   }
 
-  github_clone(dest_dir, repo_slug)
-  build_site(".",
-    override = list(destination = dest_dir),
-    devel = FALSE,
-    preview = FALSE,
-    ...
-  )
-  github_push(dest_dir, commit_message)
+  git("fetch", remote, branch)
+
+  github_worktree_add(dest_dir, remote, branch)
+  on.exit(github_worktree_remove(dest_dir), add = TRUE)
+
+  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
+  build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
+  if (github_pages) {
+    build_github_pages(pkg)
+  }
+
+  github_push(dest_dir, commit_message, remote, branch)
 
   invisible()
 }
 
-github_clone <- function(dir, repo_slug) {
-  remote_url <- sprintf("git@github.com:%s.git", repo_slug)
-  rule("Cloning existing site", line = 1)
-  git("clone",
-    "--single-branch", "-b", "gh-pages",
-    "--depth", "1",
-    remote_url,
-    dir
+
+git_has_remote_branch <- function(remote, branch) {
+  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
+}
+git_current_branch <- function() {
+  branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
+  sub("\n$", "", branch)
+}
+
+github_worktree_add <- function(dir, remote, branch) {
+  rule("Adding worktree", line = 1)
+  git("worktree",
+    "add",
+    "--track", "-B", branch,
+    dir,
+    paste0(remote, "/", branch)
   )
 }
 
-github_push <- function(dir, commit_message) {
+github_worktree_remove <- function(dir) {
+  rule("Removing worktree", line = 1)
+  git("worktree", "remove", dir)
+}
+
+github_push <- function(dir, commit_message, remote, branch) {
   # force execution before changing working directory
   force(commit_message)
 
@@ -152,12 +190,12 @@ github_push <- function(dir, commit_message) {
 
     rule("Deploying to GitHub Pages", line = 1)
     git("remote", "-v")
-    git("push", "--force", "origin", "HEAD:gh-pages")
+    git("push", "--force", remote, paste0("HEAD:", branch))
   })
 }
 
-git <- function(...) {
-  processx::run("git", c(...), echo_cmd = TRUE, echo = TRUE)
+git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
+  processx::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
 construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {

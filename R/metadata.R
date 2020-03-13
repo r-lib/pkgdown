@@ -28,7 +28,7 @@ remote_metadata <- memoise(function(package) {
   }
 
   desc <- read_desc(path)
-  urls <- desc$get_urls()
+  urls <- sub_special_cases(desc$get_urls())
 
   for (url in urls) {
     url <- paste0(url, "/pkgdown.yml")
@@ -51,4 +51,10 @@ fetch_yaml <- function(url) {
 
   text <- httr::content(resp, as = "text", encoding = "UTF-8")
   yaml::yaml.load(text)
+}
+
+# All rOpenSci repositories have a known pkgdown URL.
+# Todo: could generalise this concept for other orgs.
+sub_special_cases <- function(urls){
+  sub("^https?://github.com/ropensci/(\\w+).*$", "https://docs.ropensci.org/\\1", urls)
 }

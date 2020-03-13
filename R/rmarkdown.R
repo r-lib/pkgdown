@@ -24,16 +24,24 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     quiet = quiet
   )
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = args,
-    show = !quiet,
-    env = c(
-      callr::rcmd_safe_env(),
-      BSTINPUTS = bst_paths(input_path),
-      TEXINPUTS = tex_paths(input_path),
-      BIBINPUTS = bib_paths(input_path)
-    )
+  path <- tryCatch(
+    callr::r_safe(
+      function(...) rmarkdown::render(...),
+      args = args,
+      show = !quiet,
+      env = c(
+        callr::rcmd_safe_env(),
+        BSTINPUTS = bst_paths(input_path),
+        TEXINPUTS = tex_paths(input_path),
+        BIBINPUTS = bib_paths(input_path)
+      )
+    ),
+    error = function(cnd) {
+      abort(
+        c("Failed to render RMarkdown", strsplit(cnd$stderr, "\r?\n")[[1]]),
+        parent = cnd
+      )
+    }
   )
 
   if (identical(path_ext(path)[[1]], "html")) {
@@ -45,7 +53,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
 
   # Copy over images needed by the document
   if (copy_images) {
-    ext <- rmarkdown::find_external_resources(input_path, "UTF-8")
+    ext <- rmarkdown::find_external_resources(input_path)
     ext_path <- ext$path[ext$web | ext$explicit]
     src <- path(path_dir(input_path), ext_path)
     dst <- path(path_dir(output_path), ext_path)
