@@ -29,6 +29,9 @@ articles:
   - search
   - metadata
 - title: Testing
+  desc: >
+    These articles are used to test and demonstrate various pkgdown features
+    that can not be testing automatically.
   navbar: testing
   contents:
   - starts_with("test")
