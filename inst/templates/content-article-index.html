@@ -9,11 +9,12 @@
       <h3>{{title}}</h3>
       <p class="section-desc">{{{desc}}}</p>
 
-      <ul>
+      <dl>
         {{#contents}}
-        <li><a href="{{path}}">{{title}}</a></li>
+        <dt><a href="{{path}}">{{title}}</a></dt>
+        <dd>{{{description}}}</dt>
         {{/contents}}
-      </ul>
+      </dl>
     </div>
     {{/sections}}
   </div>

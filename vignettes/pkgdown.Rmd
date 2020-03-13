@@ -1,5 +1,7 @@
 ---
 title: "Introduction to pkgdown"
+description: >
+  Learn how to get started with the basics of pkgdown.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to pkgdown}

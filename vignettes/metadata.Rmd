@@ -1,6 +1,7 @@
 ---
 title: "Metadata"
-description: Customizing metadata and social media cards for pkgdown websites.
+description: >
+  Customise metadata and social media cards for pkgdown websites.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Metadata}

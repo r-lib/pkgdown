@@ -1,6 +1,9 @@
 ---
 title: "Auto-linking"
 output: rmarkdown::html_vignette
+description: >
+  Learn how pkgdown's automatic linking works, and how you can 
+  customise it.
 vignette: >
   %\VignetteIndexEntry{Linking between pkgdown sites}
   %\VignetteEngine{knitr::rmarkdown}

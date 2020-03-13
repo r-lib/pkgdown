@@ -1,5 +1,8 @@
 ---
 title: "Search"
+description: >
+  Learn how to set up search for your pkgdown site using 
+  [DocSearch](https://community.algolia.com/docsearch/) from Algolia.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Search}
@@ -14,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-pkgdown websites can integrate search capability using [Docsearch](https://community.algolia.com/docsearch/) from Algolia. Docsearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable Docsearch on a pkgdown website.
+pkgdown websites can integrate search capability using [DocSearch](https://community.algolia.com/docsearch/) from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.
 
 ## Indexing
 

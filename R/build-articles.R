@@ -347,7 +347,8 @@ data_articles_index_section <- function(section, pkg) {
   contents <- tibble::tibble(
     name = section_vignettes$name,
     path = path_rel(section_vignettes$file_out, "articles"),
-    title = section_vignettes$title
+    title = section_vignettes$title,
+    description = lapply(section_vignettes$description, markdown_text),
   )
 
   list(

@@ -22,7 +22,7 @@ development:
 
 articles:
 - title: Customise your site
-  navbar: customise
+  navbar: ""
   contents:
   - pkgdown
   - linking
@@ -30,9 +30,9 @@ articles:
   - metadata
 - title: Testing
   desc: >
-    These articles are used to test and demonstrate various pkgdown features
-    that can not be testing automatically.
-  navbar: testing
+    These articles are used to test various pkgdown features that can not
+    easily be tested automatically.
+  navbar: Tests
   contents:
   - starts_with("test")
 

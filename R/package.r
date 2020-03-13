@@ -201,6 +201,7 @@ package_vignettes <- function(path = ".") {
 
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
   title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")
+  desc <- purrr::map_chr(yaml, list("description", 1), .default = NA_character_)
   ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
   title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
 
@@ -208,6 +209,7 @@ package_vignettes <- function(path = ".") {
     name = path_ext_remove(vig_path),
     file_in = path("vignettes", vig_path),
     file_out = path("articles", path_ext_set(vig_path, ext)),
-    title = title
+    title = title,
+    description = desc
   )
 }
