@@ -262,9 +262,7 @@ badges_extract <- function(html) {
     # which are followed by the end comment.
     x <- xml2::xml_find_all(html, "
       //comment()[contains(., 'badges: start')][1]
-        /following-sibling::*[
-          following-sibling::comment()[contains(., 'badges: end')]
-        ]
+      /following-sibling::*[following-sibling::comment()[contains(., 'badges: end')]]
     ")
   }
 
@@ -309,4 +307,3 @@ update_html <- function(path, tweak, ...) {
   xml2::write_html(html, path, format = FALSE)
   path
 }
-
