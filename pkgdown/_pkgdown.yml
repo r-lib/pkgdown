@@ -20,6 +20,19 @@ template:
 development:
   mode: auto
 
+articles:
+  - title: Customise your site
+    navbar: customise
+    contents:
+    - pkgdown
+    - linking
+    - search
+    - metadata
+  - title: Testing
+    navbar: testing
+    contents:
+    - starts_with("test")
+
 reference:
   - title: Build
     desc:  Build a complete site or its individual section components.
