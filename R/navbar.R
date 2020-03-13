@@ -67,22 +67,59 @@ navbar_components <- function(pkg = ".") {
     menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
   )
 
-  vignettes <- pkg$vignettes
-  pkg_intro <- vignettes$name == pkg$package
-  if (any(pkg_intro)) {
-    intro <- vignettes[pkg_intro, , drop = FALSE]
-    vignettes <- vignettes[!pkg_intro, , drop = FALSE]
-
-    menu$intro <- menu_link("Get started", intro$file_out)
-  }
-  menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
   menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$github_url)) {
     menu$github <- menu_icon("github", pkg$github_url, style = "fab")
   }
 
-  print_yaml(menu)
+  menu <- c(menu, navbar_articles(pkg))
+  menu
+}
+
+navbar_articles <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  menu <- list()
+
+  vignettes <- pkg$vignettes
+  pkg_intro <- vignettes$name == pkg$package
+  if (any(pkg_intro)) {
+    intro <- vignettes[pkg_intro, , drop = FALSE]
+
+    menu$intro <- menu_link("Get started", intro$file_out)
+  }
+
+  meta <- pkg$meta
+
+  if (!has_name(meta, "articles")) {
+    vignettes <- vignettes[!pkg_intro, , drop = FALSE]
+    menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+  } else {
+    articles <- meta$articles
+
+    navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
+    if (length(navbar) == 0) {
+      # No articles to be included in navbar so just link to index
+      menu$articles <- menu_link("Articles", "articles/index.html")
+    } else {
+      sections <- lapply(navbar, function(section) {
+        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), ]
+        vig <- vig[vig$name != pkg$package, ]
+        c(
+          if (!is.null(section$navbar)) list(menu_spacer(), menu_text(section$navbar)),
+          menu_links(vig$title, vig$file_out)
+        )
+      })
+      children <- unlist(sections, recursive = FALSE, use.names = FALSE)
+
+      if (length(navbar) != length(articles)) {
+        children <- c(children, list(menu_spacer(), menu_link("More...", "articles/index.html")))
+      }
+      menu$articles <- menu("Articles", children)
+    }
+  }
+  menu
 }
 
 

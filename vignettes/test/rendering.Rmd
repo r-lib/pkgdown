@@ -1,5 +1,5 @@
 ---
-title: "Test: Output Rendering"
+title: "Output Rendering"
 ---
 
 ```{r include = FALSE}

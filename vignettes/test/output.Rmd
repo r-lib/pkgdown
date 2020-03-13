@@ -1,5 +1,5 @@
 ---
-title: "Test: Custom output"
+title: "Custom output"
 output: 
   html_document:
     toc: false

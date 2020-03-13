@@ -22,7 +22,7 @@ development:
 
 articles:
 - title: Customise your site
-  navbar: ""
+  navbar: ~
   contents:
   - pkgdown
   - linking
@@ -32,7 +32,6 @@ articles:
   desc: >
     These articles are used to test various pkgdown features that can not
     easily be tested automatically.
-  navbar: Tests
   contents:
   - starts_with("test")
 
@@ -65,25 +64,6 @@ toc:
 
 navbar:
   components:
-    articles:
-      text: Articles
-      menu:
-      - text: 'Auto-linking'
-        href: articles/linking.html
-      - text: 'Search'
-        href: articles/search.html
-      - text: 'Metadata'
-        href: articles/metadata.html
-      - text: '---'
-      - text: 'Tests'
-      - text: 'Output Rendering'
-        href: articles/test/rendering.html
-      - text: 'Custom output'
-        href: articles/test/output.html
-      - text: 'PDF (PDF)'
-        href: articles/test/pdf.pdf
-      - text: 'JSS article (PDF)'
-        href: articles/test/jss.pdf
     news:
       text: News
       menu:

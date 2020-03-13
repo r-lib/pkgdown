@@ -1,5 +1,5 @@
 ---
-title: "Test: PDF"
+title: "PDF"
 output: pdf_document
 pkgdown:
   as_is: true
