@@ -14,6 +14,10 @@
       use the new `navbar` field to control whether or not each section
       appears in the navbar (#1101, #1146).
 
+* Updated JS libraries: jquery 3.3.1 -> 3.4.1; bootswatch 3.3.7 -> 3.4.0;
+  bootstrap 3.3.7 -> bootstrap 3.4.1; docsearch 2.6.1 -> 2.6.3 
+  (@jayhesselberth).
+
 * `build_article()` failures now print more information to help you debug
   the problem (#952).
 
