@@ -6,6 +6,12 @@ test_that("adds github link when available", {
     pkg <- pkg_navbar(github_url = "https://github.org/r-lib/pkgdown")
     navbar_components(pkg)
   })
+})
 
-  expect_equal(2 * 2, 4)
+test_that("vignette with package name turns into getting started", {
+  verify_output(test_path("test-navbar/getting-started.txt"), {
+    vig <- pkg_navbar_vignettes("test", "Testing", "test.html")
+    pkg <- pkg_navbar(vignettes = vig)
+    navbar_components(pkg)
+  })
 })
