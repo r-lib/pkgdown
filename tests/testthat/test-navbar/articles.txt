@@ -1,0 +1,61 @@
+> pkg <- (function(...) {
++   vig <- pkg_navbar_vignettes(c("a", "b"))
++   pkg_navbar(vignettes = vig, meta = list(...))
++ })
+> # Default: show all alpabetically
+> navbar_articles(pkg())
+articles:
+  text: Articles
+  menu:
+  - text: Title a
+    href: a.html
+  - text: Title b
+    href: b.html
+
+
+> # No navbar sections: link to index
+> navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b")))))
+articles:
+  text: Articles
+  href: articles/index.html
+
+
+> # navbar without text
+> navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b"),
++ navbar = NULL))))
+articles:
+  text: Articles
+  menu:
+  - text: Title a
+    href: a.html
+  - text: Title b
+    href: b.html
+
+
+> # navbar with label
+> navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b"),
++ navbar = "Label"))))
+articles:
+  text: Articles
+  menu:
+  - text: '---------'
+  - text: Label
+  - text: Title a
+    href: a.html
+  - text: Title b
+    href: b.html
+
+
+> # navbar with only some articles
+> navbar_articles(pkg(articles = list(list(name = "a", contents = "a", navbar = NULL),
++ list(name = "b", contents = "b"))))
+articles:
+  text: Articles
+  menu:
+  - text: Title a
+    href: a.html
+  - text: '---------'
+  - text: More...
+    href: articles/index.html
+
+

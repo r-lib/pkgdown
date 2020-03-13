@@ -122,7 +122,7 @@ navbar_articles <- function(pkg = ".") {
       menu$articles <- menu("Articles", children)
     }
   }
-  menu
+  print_yaml(menu)
 }
 
 
@@ -171,7 +171,10 @@ pkg_navbar <- function(
 
 pkg_navbar_vignettes <- function(
                                  name = character(),
-                                 title = character(),
-                                 file_out = character()) {
+                                 title = NULL,
+                                 file_out = NULL) {
+  title <- title %||% paste0("Title ", name)
+  file_out <- file_out %||% paste0(name, ".html")
+
   tibble::tibble(name = name, title = title, file_out)
 }
