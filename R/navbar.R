@@ -97,7 +97,7 @@ navbar_articles <- function(pkg = ".") {
 
   if (!has_name(meta, "articles")) {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
-    menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+    menu$articles <- menu("Articles", menu_links(vignettes$title, vignettes$file_out))
   } else {
     articles <- meta$articles
 
@@ -107,8 +107,8 @@ navbar_articles <- function(pkg = ".") {
       menu$articles <- menu_link("Articles", "articles/index.html")
     } else {
       sections <- lapply(navbar, function(section) {
-        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), ]
-        vig <- vig[vig$name != pkg$package, ]
+        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
+        vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) list(menu_spacer(), menu_text(section$navbar)),
           menu_links(vig$title, vig$file_out)
