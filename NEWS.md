@@ -1,5 +1,19 @@
 # pkgdown (development version)
 
+* The articles index page and navbar have been overhauled. There are two
+  major new features in this release:
+  
+    * The articles index page now displays article `description`s,
+      taken from YAML metadata belonging to each article. This lets you provide 
+      more context about each article and describe why one might want to read 
+      it (#1227).
+      
+    * The articles navbar is now also controlled by the `articles` section
+      in `_pkgdown.yml`. The ordering of the sections, and articles within
+      them, control the order of the articles in the navbar, and you can
+      use the new `navbar` field to control whether or not each section
+      appears in the navbar (#1101, #1146).
+
 * `build_article()` failures now print more information to help you debug
   the problem (#952).
 

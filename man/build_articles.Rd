@@ -57,6 +57,49 @@ gets special treatment. It is rendered and linked to in the navbar under
 because these are assumed to contain tutorials, see \code{build_tutorials()}.
 }
 
+\section{Index and navbar}{
+
+You can control the index page and navbar with \code{articles}, which defines a
+list of sections. Each section has four fields:
+\itemize{
+\item \code{title} (required): title of section, which appears as a heading on the
+articles index.
+\item \code{desc} (optional): An optional markdown description displayed underneath
+the section title.
+\item \code{navbar} (optional): A couple of words used to label this section in
+the navbar. If omitted, this section of vignettes will not appear in the
+navbar. The navbar will automatically include a link to the articles
+index when not all vignettes are listed individually.
+\item \code{contents} (required): a list of article names to include in the
+section. This can either be names of individual vignettes or a
+call to \code{starts_with()}. The name of a vignette includes is it's
+path under \code{vignettes} without extension so that the name of the vignette
+found at \code{vignettes/pizza/slice.Rmd} is \code{pizza/slice}.
+}
+
+The title and description of individual vignettes displayed on the index
+comes from \code{title} and \code{description} fields of the YAML header in the Rmds.
+
+For example, this yaml might be used for some version of dplyr:\preformatted{articles:
+- title: Main verbs
+  navbar: ~
+  contents:
+  - one-table
+  - two-table
+  - rowwise
+  - colwise
+
+- title: Developer
+  desc: Vignettes aimed at package developers
+  contents:
+  - programming
+  - packages
+}
+
+Note the use of \verb{navbar: ~}: this ensures that the vignettes for main verbs
+appear in the navbar but don't get their own heading.
+}
+
 \section{External files}{
 
 pkgdown differs from base R in its handling of external files. When building
@@ -86,35 +129,6 @@ can embed the app into your article using an \verb{<iframe>}, e.g.
 
 See \url{https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856} for
 some hints on how to customise the appearance with CSS.
-}
-
-\section{YAML config}{
-
-To tweak the index page, you need a section called \code{articles},
-which provides a list of sections containing, a \code{title}, list of
-\code{contents}, and optional \code{description}.
-
-For example, this imaginary file describes some of the structure of
-the \href{http://rmarkdown.rstudio.com/articles.html}{R markdown articles}:\preformatted{articles:
-- title: R Markdown
-  contents:
-  - starts_with("authoring")
-- title: Websites
-  contents:
-  - rmarkdown_websites
-  - rmarkdown_site_generators
-}
-
-Note that \code{contents} can contain either a list of vignette names
-(including subdirectories), or if the functions in a section share a
-common prefix or suffix, you can use \code{starts_with("prefix")} and
-\code{ends_with("suffix")} to select them all. If you don't care about
-position within the string, use \code{contains("word")}. For more complex
-naming schemes you can use an arbitrary regular expression with
-\code{matches("regexp")}.
-
-pkgdown will check that all vignettes are included in the index
-this page, and will generate a warning if you have missed any.
 }
 
 \section{YAML header}{

@@ -20,6 +20,52 @@
 #' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,
 #' because these are assumed to contain tutorials, see `build_tutorials()`.
 #'
+#' @section Index and navbar:
+#' You can control the index page and navbar with `articles`, which defines a
+#' list of sections. Each section has four fields:
+#'
+#' * `title` (required): title of section, which appears as a heading on the
+#'   articles index.
+#'
+#' * `desc` (optional): An optional markdown description displayed underneath
+#'   the section title.
+#'
+#' * `navbar` (optional): A couple of words used to label this section in
+#'   the navbar. If omitted, this section of vignettes will not appear in the
+#'   navbar. The navbar will automatically include a link to the articles
+#'   index when not all vignettes are listed individually.
+#'
+#' * `contents` (required): a list of article names to include in the
+#'   section. This can either be names of individual vignettes or a
+#'   call to `starts_with()`. The name of a vignette includes is it's
+#'   path under `vignettes` without extension so that the name of the vignette
+#'   found at `vignettes/pizza/slice.Rmd` is `pizza/slice`.
+#'
+#' The title and description of individual vignettes displayed on the index
+#' comes from `title` and `description` fields of the YAML header in the Rmds.
+#'
+#' For example, this yaml might be used for some version of dplyr:
+#'
+#' ```
+#' articles:
+#' - title: Main verbs
+#'   navbar: ~
+#'   contents:
+#'   - one-table
+#'   - two-table
+#'   - rowwise
+#'   - colwise
+#'
+#' - title: Developer
+#'   desc: Vignettes aimed at package developers
+#'   contents:
+#'   - programming
+#'   - packages
+#' ```
+#'
+#' Note the use of `navbar: ~`: this ensures that the vignettes for main verbs
+#' appear in the navbar but don't get their own heading.
+#'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
@@ -49,36 +95,6 @@
 #'
 #' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
 #' some hints on how to customise the appearance with CSS.
-#'
-#' @section YAML config:
-#' To tweak the index page, you need a section called `articles`,
-#' which provides a list of sections containing, a `title`, list of
-#' `contents`, and optional `description`.
-#'
-#' For example, this imaginary file describes some of the structure of
-#' the [R markdown articles](http://rmarkdown.rstudio.com/articles.html):
-#'
-#' ```
-#' articles:
-#' - title: R Markdown
-#'   contents:
-#'   - starts_with("authoring")
-#' - title: Websites
-#'   contents:
-#'   - rmarkdown_websites
-#'   - rmarkdown_site_generators
-#' ```
-#'
-#' Note that `contents` can contain either a list of vignette names
-#' (including subdirectories), or if the functions in a section share a
-#' common prefix or suffix, you can use `starts_with("prefix")` and
-#' `ends_with("suffix")` to select them all. If you don't care about
-#' position within the string, use `contains("word")`. For more complex
-#' naming schemes you can use an arbitrary regular expression with
-#' `matches("regexp")`.
-#'
-#' pkgdown will check that all vignettes are included in the index
-#' this page, and will generate a warning if you have missed any.
 #'
 #' @section YAML header:
 #' By default, pkgdown builds all articles with [rmarkdown::html_document()]
