@@ -62,6 +62,10 @@
 
 * A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
 
+* badges are now extracted from everything between `<!--badges: start-->`
+  and `<!--badges: end-->`. They used to be extracted only if they were
+  direct children of the first `<p/>` after `<!--badges: start-->`.
+
 # pkgdown 1.4.1
 
 * Don't install test package in user library (fixes CRAN failure).
