@@ -224,6 +224,7 @@
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> argument <code>repo_slug</code> has been deprecated and is no longer needed or used. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/pkgdown/issues/1221'>#1221</a>)</p></li>
 <li><p>New <code>lacks_concepts()</code> can select topics that do not contain any of a number of specified concepts. (<a href='https://github.com/mikldk'>@mikldk</a>, <a href='https://github.com/r-lib/pkgdown/issues/1232'>#1232</a>)</p></li>
 <li><p>A timestamp for the last site build is reported in <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/1122'>#1122</a>).</p></li>
+<li><p>badges are now extracted from everything between <code>&lt;!--badges: start--&gt;</code> and <code>&lt;!--badges: end--&gt;</code>. They used to be extracted only if they were direct children of the first <code>&lt;p/&gt;</code> after <code>&lt;!--badges: start--&gt;</code>.</p></li>
 </ul>
 </div>
     <div id="pkgdown-141" class="section level1">

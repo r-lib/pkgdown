@@ -253,11 +253,12 @@ for you because it only touches files in the <code>doc/</code> directory.</p>
 
 <p>The sidebar is automatically populated with:</p><ul>
 <li><p>Development status badges found in <code>README.md</code>/<code>index.md</code>. pkgdown
-identifies badge paragraphs in two ways:</p><ul>
-<li><p>A paragraph starting with <code>&lt;!-- badges: start --&gt;</code> and ending with
-<code>&lt;!-- badges: end --&gt;</code> as created by <code>usethis::use_readme_md()</code>. or
-<code>usethis::use_readme_rmd()</code>.</p></li>
-<li><p>The first paragraph, if it only contains images.</p></li>
+identifies badges in three ways:</p><ul>
+<li><p>Any image-containing links between <code>&lt;!-- badges: start --&gt;</code> and
+<code>&lt;!-- badges: end --&gt;</code>, as e.g. created by <code>usethis::use_readme_md()</code>
+or <code>usethis::use_readme_rmd()</code>.</p></li>
+<li><p>Any image-containing links within <code>&lt;div id="badges"&gt;&lt;/div&gt;</code>.</p></li>
+<li><p>Within the first paragraph, if it only contains image-containing links.</p></li>
 </ul></li>
 <li><p>A link for bug reports is added if the <code>BugReports</code> field in
 <code>DESCRIPTION</code> contains a link. You can use <code>usethis::use_github_links()</code>
