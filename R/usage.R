@@ -36,6 +36,8 @@ parse_usage <- function(x) {
 }
 
 short_name <- function(name, type, signature) {
+  name <- escape_html(name)
+
   if (!is_syntactic(name)) {
     qname <- paste0("`", name, "`")
   } else {
@@ -51,7 +53,8 @@ short_name <- function(name, type, signature) {
       paste0(qname, "()")
     }
   } else {
-    paste0(qname, "(", paste0("<i>&lt;", signature, "&gt;</i>", collapse = ","), ")")
+    sig <- paste0("<i>&lt;", escape_html(signature), "&gt;</i>", collapse = ",")
+    paste0(qname, "(", sig, ")")
   }
 }
 
