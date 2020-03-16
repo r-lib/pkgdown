@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `deploy_to_branch()` now correctly captures the commit SHA on GitHub Actions
+  (@coatless, #1252).
+
 * `build_reference()` gives better warnings if your `_pkgdown.yml` is
   constructed incorrectly (#1025).
 
@@ -71,10 +74,6 @@
 * badges are now extracted from everything between `<!--badges: start-->`
   and `<!--badges: end-->`. They used to be extracted only if they were
   direct children of the first `<p/>` after `<!--badges: start-->`.
-  
-* `construct_commit_message()` gains the ability to detect the commit SHA on 
-  GitHub Actions. (@coatless, #1252)
-
 
 # pkgdown 1.4.1
 
