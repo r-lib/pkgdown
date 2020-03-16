@@ -32,7 +32,8 @@
 #' * `starts_with("prefix")` to select all functions with common prefix.
 #' * `ends_with("suffix")` to select all functions with common suffix.
 #' * `matches("regexp")` for more complex regular expressions.
-#' * `has_keyword("x")` to select all topics with keyword "x".
+#' * `has_keyword("x")` to select all topics with keyword "x";
+#'   `has_keyword("datasets")` selects all data documentation.
 #' * `has_concept("blah")` to select all topics with concept "blah".
 #' * `lacks_concepts(c("concept1", "concept2"))` to select all topics
 #'    without those concepts. This is useful to capture topics not otherwise

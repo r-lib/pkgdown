@@ -3,7 +3,7 @@
 * `build_reference()` gives better warnings if your `_pkgdown.yml` is
   constructed incorrectly (#1025).
 
-* New `has_keyword()` topic selector for `reference`. `has_keyword("data")`
+* New `has_keyword()` topic selector for `reference`. `has_keyword("datasets")`
   is particularly useful for selecting all data documentation (#760).
 
 * A topic named `index` will not longer clobber the reference index (#1110).

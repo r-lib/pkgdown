@@ -80,7 +80,8 @@ R, e.g. \code{"`+.gg`"}.
 \item \code{starts_with("prefix")} to select all functions with common prefix.
 \item \code{ends_with("suffix")} to select all functions with common suffix.
 \item \code{matches("regexp")} for more complex regular expressions.
-\item \code{has_keyword("x")} to select all topics with keyword "x".
+\item \code{has_keyword("x")} to select all topics with keyword "x";
+\code{has_keyword("datasets")} selects all data documentation.
 \item \code{has_concept("blah")} to select all topics with concept "blah".
 \item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
 without those concepts. This is useful to capture topics not otherwise
