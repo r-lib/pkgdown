@@ -163,17 +163,6 @@ test_that("or local sites, if registered", {
   expect_equal(href_expr_(vignette("sha1", "digest")), "digest/articles/sha1.html")
 })
 
-test_that("trailing pieces of github URLs are stripped", {
-  expect_equal(
-    parse_github_link("https://github.com/simsem/semTools/wiki"),
-    "https://github.com/simsem/semTools"
-  )
-  expect_equal(
-    parse_github_link("https://github.com/r-lib/gh#readme"),
-    "https://github.com/r-lib/gh"
-  )
-})
-
 test_that("fail gracefully with non-working calls", {
   scoped_package_context("test")
 

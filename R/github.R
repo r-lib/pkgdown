@@ -1,75 +1,82 @@
-# adapted from usethis R/browse.R
-github_url_rx <- function() {
-  paste0(
-    "^",
-    "(?:https?://github.com/)",
-    "(?<owner>[^/]+)/",
-    "(?<repo>[^/#]+)",
-    "/?",
-    "(?<fragment>.*)",
-    "$"
-  )
-}
-
-# adapted from usethis R/browse.R
-#
-## takes URL return by github_link() and strips it down to support
-## appending path parts for issues or pull requests
-##  input: "https://github.com/simsem/semTools/wiki"
-## output: "https://github.com/simsem/semTools"
-##  input: "https://github.com/r-lib/gh#readme"
-## output: "https://github.com/r-lib/gh"
-pkg_github_url <- function(desc) {
-  urls <- desc$get_urls()
-  gh_links <- grep("^https?://github.com/", urls, value = TRUE)
-
-  if (length(gh_links) == 0) {
+repo_source <- function(pkg, paths) {
+  url <- pkg$repo$url
+  if (is.null(url$source) || length(paths) == 0) {
     return()
   }
 
-  gh_link <- gsub("/$", "", gh_links[[1]])
-  parse_github_link(gh_link)
-}
-
-parse_github_link <- function(link) {
-  x <- rematch2::re_match(link, github_url_rx())
-  paste0("https://github.com/", x$owner, "/", x$repo)
-}
-
-repo_source <- function(pkg, paths) {
-  base <- pkg$github_url
-  if (is.null(base) || length(paths) == 0) {
-    return(character())
-  }
-
-  href <- file.path(base, "blob" , "master", paths)
-  source_links <- paste0(
-    "<a href='", href, "'>",
-    "<code>", escape_html(paths), "</code></a>"
+  links <- a(
+    paste0("<code>", escape_html(paths), "</code>"),
+    paste0(url$source, "/", paths)
   )
 
-  n <- length(source_links)
+  n <- length(links)
   if (n >= 4) {
-    source_links <- c(
-      source_links[1:3],
-      paste0("and ", n - 3, " more")
-    )
+    links <- c(links[1:3], paste0("and ", n - 3, " more"))
   }
 
-  paste0("Source: ", paste(source_links, collapse = ", "))
+  paste0("Source: ", paste(links, collapse = ", "))
 }
 
-add_github_links <- function(x, pkg) {
-  user_link <- paste0("\\1<a href='https://github.com/\\2'>@\\2</a>")
-  x <- gsub("(\\s|^|\\()@([-\\w]+)", user_link, x, perl = TRUE)
+repo_auto_link <- function(pkg, text) {
+  url <- pkg$repo$url
 
-  github_url <- pkg$github_url
-  if (is.null(github_url)) {
-    return(x)
+  if (!is.null(url$user)) {
+    user_link <- paste0("\\1<a href='", url$user, "\\2'>@\\2</a>")
+    text <- gsub("(\\s|^|\\()@([-\\w]+)", user_link, text, perl = TRUE)
   }
 
-  issue_link <- paste0("<a href='", github_url, "/issues/\\1'>#\\1</a>")
-  x <- gsub("#(\\d+)", issue_link, x)
+  if (!is.null(url$issue)) {
+    issue_link <- paste0("<a href='", url$issue, "\\1'>#\\1</a>")
+    text <- gsub("#(\\d+)", issue_link, text, perl = TRUE)
+  }
 
-  x
+  text
+}
+
+# Package data -------------------------------------------------------------
+
+package_repo <- function(desc, meta) {
+  # Use metadata if available
+  if (has_name(meta, "repo")) {
+    return(meta[["repo"]])
+  }
+
+  # Otherwise try and guess from BugReports + URLs
+  urls <- c(
+    desc$get_field("BugReports", default = character()),
+    desc$get_urls()
+  )
+
+  gh_links <- grep("^https?://github.com/", urls, value = TRUE)
+  if (length(gh_links) > 0) {
+    gh <- parse_github_url(gh_links[[1]])
+    return(repo_meta(
+      paste0("https://github.com/", gh$owner, "/", gh$repo, "/blob/master/"),
+      paste0("https://github.com/", gh$owner, "/", gh$repo, "/issues/"),
+      "https://github.com/"
+    ))
+  }
+
+  NULL
+}
+
+repo_meta <- function(source = NULL, issue = NULL, user = NULL) {
+  list(
+    url = list(
+      source = source,
+      issue = issue,
+      user = user
+    )
+  )
+}
+
+# adapted from usethis:::github_link()
+parse_github_url <- function(link) {
+  rx <- paste0(
+    "^",
+    "(?:https?://github.com/)",
+    "(?<owner>[^/]+)/",
+    "(?<repo>[^/#]+)"
+  )
+  rematch2::re_match(link, rx)
 }

@@ -154,7 +154,7 @@ data_news <- function(pkg = ".") {
     purrr::walk(tweak_code) %>%
     purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
     purrr::map_chr(as.character) %>%
-    purrr::map_chr(add_github_links, pkg = pkg)
+    purrr::map_chr(repo_auto_link, pkg = pkg)
 
   news <- tibble::tibble(
     version = versions,
