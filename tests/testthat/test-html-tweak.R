@@ -155,17 +155,23 @@ test_that("finds single badge", {
   )
 })
 
-test_that("badges can't contain an extra text", {
+test_that("badges aren't extracted from first paragraph if it contains extra text", {
   expect_equal(
     badges_extract_text('<p><a href="url"><img src="img" alt="alt" /></a>Hi!</p>'),
     character()
   )
 })
 
-
-test_that("badges can be in special div", {
+test_that("badges can be in special element", {
   expect_equal(
     badges_extract_text('<p></p><div id="badges"><a href="x"><img src="y"></a></div>'),
+    '<a href="x"><img src="y"></a>'
+  )
+})
+
+test_that("badges in special element can be accompanied by text", {
+  expect_equal(
+    badges_extract_text('<p></p><p><span id="badges"><a href="x"><img src="y"></a>Hi!</span></p>'),
     '<a href="x"><img src="y"></a>'
   )
 })
@@ -176,7 +182,12 @@ test_that("badges-paragraph a la usethis can be found", {
   <p>Connect to thisisatest, from R</p>
   </blockquote>
   <!-- badges: start -->
-  <p><a href="https://travis-ci.org/thisisatest/thisisatest"><img src="https://travis-ci.org/thisisatest/thisisatest.svg?branch=master" alt="Linux Build Status"></a> <!-- badges: end --></p>
+  <p>
+  <a href="https://travis-ci.org/thisisatest/thisisatest">
+    <img src="https://travis-ci.org/thisisatest/thisisatest.svg?branch=master" alt="Linux Build Status">
+  </a>
+  </p>
+  <!-- badges: end -->
   <div id="introduction" class="section level2">
   <h2 class="hasAnchor">
   <a href="#introduction" class="anchor"></a>Introduction</h2>
@@ -185,4 +196,19 @@ test_that("badges-paragraph a la usethis can be found", {
 
   badges_page <- xml2::read_html(string)
   expect_equal(length(badges_extract(badges_page)), 1)
+})
+
+test_that("multiple badges-paragraphs can be found between comments", {
+  string <- '
+  <p></p>
+  <!-- badges: start -->
+  <ul>
+  <li><a href="x"><img src="y"></a></li>
+  <li><a href="z"><img src="f"></a></li>
+  </ul>
+  <!-- badges: end -->
+  <p></p>'
+
+  badges_page <- xml2::read_html(string)
+  expect_equal(length(badges_extract(badges_page)), 2)
 })

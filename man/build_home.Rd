@@ -42,12 +42,13 @@ for you because it only touches files in the \verb{doc/} directory.
 The sidebar is automatically populated with:
 \itemize{
 \item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
-identifies badge paragraphs in two ways:
+identifies badges in three ways:
 \itemize{
-\item A paragraph starting with \verb{<!-- badges: start -->} and ending with
-\verb{<!-- badges: end -->} as created by \code{usethis::use_readme_md()}. or
-\code{usethis::use_readme_rmd()}.
-\item The first paragraph, if it only contains images.
+\item Any image-containing links between \verb{<!-- badges: start -->} and
+\verb{<!-- badges: end -->}, as e.g. created by \code{usethis::use_readme_md()}
+or \code{usethis::use_readme_rmd()}.
+\item Any image-containing links within \verb{<div id="badges"></div>}.
+\item Within the first paragraph, if it only contains image-containing links.
 }
 \item A link for bug reports is added if the \code{BugReports} field in
 \code{DESCRIPTION} contains a link. You can use \code{usethis::use_github_links()}

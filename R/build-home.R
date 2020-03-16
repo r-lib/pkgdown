@@ -20,13 +20,15 @@
 #' The sidebar is automatically populated with:
 #'
 #' *   Development status badges found in `README.md`/`index.md`. pkgdown
-#'     identifies badge paragraphs in two ways:
+#'     identifies badges in three ways:
 #'
-#'     * A paragraph starting with `<!-- badges: start -->` and ending with
-#'       `<!-- badges: end -->` as created by `usethis::use_readme_md()`. or
-#'       `usethis::use_readme_rmd()`.
+#'     * Any image-containing links between `<!-- badges: start -->` and
+#'       `<!-- badges: end -->`, as e.g. created by `usethis::use_readme_md()`
+#'       or `usethis::use_readme_rmd()`.
 #'
-#'     * The first paragraph, if it only contains images.
+#'     * Any image-containing links within `<div id="badges"></div>`.
+#'
+#'     * Within the first paragraph, if it only contains image-containing links.
 #'
 #' *   A link for bug reports is added if the `BugReports` field in
 #'     `DESCRIPTION` contains a link. You can use `usethis::use_github_links()`
