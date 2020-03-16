@@ -298,6 +298,24 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
 
+\section{YAML config - repo}{
+
+pkgdown automatically generates links to the source repository in a couple
+of places: articles and documentation topics are linked back to the
+underlying source file, and issues and users are automatically linked
+in the news file. pkgdown automatically figures out the URLs if you link
+to a GitHub repo in your \code{BugReports} or \code{URL} field. Otherwise, you can
+supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+  url:
+    source: https://github.com/r-lib/pkgdown/blob/master/
+    issue: https://github.com/r-lib/pkgdown/issues/
+    user: https://github.com/
+}\if{html}{\out{</div>}}
+
+The varying components (e.g. path, issue number, user name) are pasted on
+the end of these URLs so they should have trailing \code{/}s.
+}
+
 \section{Options}{
 
 Users with limited internet connectivity can disable CRAN checks by setting
