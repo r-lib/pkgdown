@@ -73,7 +73,7 @@
   direct children of the first `<p/>` after `<!--badges: start-->`.
   
 * `construct_commit_message()` gains the ability to detect the commit SHA on 
-  GitHub Actions. (@coatless)
+  GitHub Actions. (@coatless, #1252)
 
 
 # pkgdown 1.4.1
