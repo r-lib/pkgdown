@@ -198,8 +198,34 @@ git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   processx::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
-construct_commit_message <- function(pkg, commit = Sys.getenv("TRAVIS_COMMIT")) {
+construct_commit_message <- function(pkg, commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
 
   sprintf("Built site for %s: %s@%s", pkg$package, pkg$version, substr(commit, 1, 7))
+}
+
+
+#' Commit SHA Value
+#'
+#' Attempts to obtain the commit SHA identifier the CI platform is using to
+#' build the package and refresh the website.
+#'
+#' @details
+#' Depending on the CI environment used, the underlying commit SHA variable
+#' may be named differently. Below are the supported CI variables for retrieving
+#' a commit ID.
+#'
+#' - Travis-CI: [`TRAVIS_COMMIT`](https://docs.travis-ci.com/user/environment-variables/#default-environment-variables)
+#' - GitHub Actions: [`GITHUB_SHA`](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables)
+#'
+#' @keywords internal
+ci_commit_sha <- function() {
+
+  env_vars <- c("TRAVIS_COMMIT", "GITHUB_SHA")
+
+  for (var in env_vars) {
+    if ((commit_sha <- Sys.getenv(var, "")) != "") break
+  }
+
+  commit_sha
 }
