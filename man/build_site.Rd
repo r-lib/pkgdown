@@ -310,8 +310,8 @@ underlying source file.
 }
 
 pkgdown automatically figures out the necessary URLs if you link to a GitHub
-repo in your \code{BugReports} or \code{URL} field. Otherwise, you can supply your
-own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+or GitLab repo in your \code{BugReports} or \code{URL} field. Otherwise, you can
+supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
   url:
     home: https://github.com/r-lib/pkgdown/
     source: https://github.com/r-lib/pkgdown/blob/master/

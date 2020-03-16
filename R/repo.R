@@ -6,7 +6,7 @@ repo_source <- function(pkg, paths) {
 
   links <- a(
     paste0("<code>", escape_html(paths), "</code>"),
-    paste0(url$source, "/", paths)
+    paste0(url$source, paths)
   )
 
   n <- length(links)
@@ -47,15 +47,9 @@ package_repo <- function(desc, meta) {
     desc$get_urls()
   )
 
-  gh_links <- grep("^https?://github.com/", urls, value = TRUE)
+  gh_links <- grep("^https?://git(hub|lab).com/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    gh <- parse_github_url(gh_links[[1]])
-    return(repo_meta(
-      paste0("https://github.com/", gh$owner, "/", gh$repo),
-      paste0("https://github.com/", gh$owner, "/", gh$repo, "/blob/master/"),
-      paste0("https://github.com/", gh$owner, "/", gh$repo, "/issues/"),
-      "https://github.com/"
-    ))
+    return(repo_meta_gh_like(gh_links[[1]]))
   }
 
   NULL
@@ -72,11 +66,21 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
   )
 }
 
+repo_meta_gh_like <- function(link) {
+  gh <- parse_github_like_url(link)
+  repo_meta(
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/master/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
+    paste0(gh$host, "/")
+  )
+}
+
 # adapted from usethis:::github_link()
-parse_github_url <- function(link) {
+parse_github_like_url <- function(link) {
   rx <- paste0(
     "^",
-    "(?:https?://github.com/)",
+    "(?<host>https?://[^/]+)/",
     "(?<owner>[^/]+)/",
     "(?<repo>[^/#]+)"
   )

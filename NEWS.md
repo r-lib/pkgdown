@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now detects GitLab urls (since they use the same structure as GitHub)
+  and auto-generates correct links (#1045). 
+
 * You can now control the links to source files (in reference pages and 
   articles) and issues and users (in the NEWS) with new `repo$url` config
   option (#1238). This makes it easier to use pkgdown with GitHub enterprise,

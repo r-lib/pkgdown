@@ -272,8 +272,8 @@
 #' * The homepage provides a link to  "Browse source code"
 #'
 #' pkgdown automatically figures out the necessary URLs if you link to a GitHub
-#' repo in your `BugReports` or `URL` field. Otherwise, you can supply your
-#' own in the `repo` component:
+#' or GitLab repo in your `BugReports` or `URL` field. Otherwise, you can
+#' supply your own in the `repo` component:
 #'
 #' ```yaml
 #' repo:

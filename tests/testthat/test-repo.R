@@ -20,7 +20,7 @@ test_that("issues are automatically linked", {
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {
-  pkg <- list(repo = repo_meta("https://github.com/r-lib/pkgdown/blob/master"))
+  pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
   verify_output(test_path("test-repo-source.txt"), {
     cat(repo_source(pkg, character()))
@@ -33,11 +33,7 @@ test_that("repo_source() truncates automatically", {
 # package_repo ------------------------------------------------------------
 
 test_that("can find github from BugReports or URL", {
-  ref <- repo_meta(
-    "https://github.com/r-lib/pkgdown/blob/master/",
-    "https://github.com/r-lib/pkgdown/issues/",
-    "https://github.com/"
-  )
+  ref <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
 
   # BugReports beats URL
   desc <- desc::desc(text = c(
@@ -55,6 +51,14 @@ test_that("can find github from BugReports or URL", {
   desc <- desc::desc(text = c(
     "URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown")
   )
+  expect_equal(package_repo(desc, list()), ref)
+})
+
+test_that("can find gitlab url", {
+  ref <- repo_meta_gh_like("https://gitlab.com/msberends/AMR")
+  desc <- desc::desc(text = c(
+    "BugReports: https://gitlab.com/msberends/AMR"
+  ))
   expect_equal(package_repo(desc, list()), ref)
 })
 
