@@ -8,6 +8,7 @@
     ```yaml
     repo:
       url:
+        home: https://github.com/r-lib/pkgdown/
         source: https://github.com/r-lib/pkgdown/blob/master/
         issue: https://github.com/r-lib/pkgdown/issues/
         user: https://github.com/

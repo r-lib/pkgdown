@@ -51,6 +51,7 @@ package_repo <- function(desc, meta) {
   if (length(gh_links) > 0) {
     gh <- parse_github_url(gh_links[[1]])
     return(repo_meta(
+      paste0("https://github.com/", gh$owner, "/", gh$repo),
       paste0("https://github.com/", gh$owner, "/", gh$repo, "/blob/master/"),
       paste0("https://github.com/", gh$owner, "/", gh$repo, "/issues/"),
       "https://github.com/"
@@ -60,9 +61,10 @@ package_repo <- function(desc, meta) {
   NULL
 }
 
-repo_meta <- function(source = NULL, issue = NULL, user = NULL) {
+repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
   list(
     url = list(
+      home = home,
       source = source,
       issue = issue,
       user = user

@@ -57,12 +57,12 @@ data_home_sidebar <- function(pkg = ".") {
 data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  repo <- repo_link(pkg$package)
+  repo <- cran_link(pkg$package)
   meta <- purrr::pluck(pkg, "meta", "home", "links")
 
   links <- c(
     link_url(paste0("Download from ", repo$repo), repo$url),
-    link_url("Browse source code", pkg$github_url),
+    link_url("Browse source code", pkg$repo$url$home),
     if (pkg$desc$has_fields("BugReports"))
       link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
     purrr::map_chr(meta, ~ link_url(.$text, .$href))
@@ -85,7 +85,7 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   )
 }
 
-repo_link <- memoise(function(pkg) {
+cran_link <- memoise(function(pkg) {
   if (!has_internet()) {
     return(NULL)
   }
