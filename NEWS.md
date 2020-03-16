@@ -72,8 +72,8 @@
   and `<!--badges: end-->`. They used to be extracted only if they were
   direct children of the first `<p/>` after `<!--badges: start-->`.
   
-* `deploy_to_branch()` gains the ability to detect the commit SHA on GitHub
-  Actions. (@coatless)
+* `construct_commit_message()` gains the ability to detect the commit SHA on 
+  GitHub Actions. (@coatless)
 
 
 # pkgdown 1.4.1
