@@ -72,34 +72,33 @@ into two groups:\preformatted{reference:
   - render_page
 }
 
-Note that \code{contents} can contain either a list of function names, or if the
-functions in a section share a common prefix or suffix, you can use
-\code{starts_with("prefix")} and \code{ends_with("suffix")} to select them all. For
-more complex naming schemes you can use an arbitrary regular expression with
-\code{matches("regexp")}. You can also use a leading \code{-} to exclude matches from a
-section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use
-\code{starts_with("build_", internal = TRUE)}.
+\code{contents} can contain:
+\itemize{
+\item Individual function/topic names.
+\item Weirdly named functions with doubled quoting, once for YAML and once for
+R, e.g. \code{"`+.gg`"}.
+\item \code{starts_with("prefix")} to select all functions with common prefix.
+\item \code{ends_with("suffix")} to select all functions with common suffix.
+\item \code{matches("regexp")} for more complex regular expressions.
+\item \code{has_keyword("x")} to select all topics with keyword "x";
+\code{has_keyword("datasets")} selects all data documentation.
+\item \code{has_concept("blah")} to select all topics with concept "blah".
+\item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
+without those concepts. This is useful to capture topics not otherwise
+captured by \code{has_concepts()}.
+}
 
-You can also select topics that contain specified Rd concepts with
-\code{has_concept("blah")}.
-It is also possible to select topics that do not contain any
-of a vector of specified Rd concepts with
-\code{lacks_concepts(c("concept1", "concept2"))}.
-Note that topics without concepts will lack any concept and
-thus be included in any \code{lacks_concepts()}.
-This can for example be used to make a group of topics that are not
-caught by any number of \code{has_concept("blah")}.
+All functions (except for \code{has_keywords()}) automatically exclude internal
+topics (i.e. those with \verb{\\keyword\{internal\}}). You can choose to include
+with (e.g.) \code{starts_with("build_", internal = TRUE)}.
+
+Use a leading \code{-} to remove topics from a section, e.g. \code{-topic_name},
+\code{-starts_with("foo")}.
 
 You can provide long descriptions for groups of functions using the YAML \code{>}
 notation:\preformatted{desc: >
   This is a very long and overly flowery description of a
   single simple function.
-}
-
-If you have functions with odd names (e.g. that start with a plus symbol
-\code{+}), you can include them by double-escaping. This YAML entry adds the
-\code{+.gg} function to the ggplot2 documentation:\preformatted{- "`+.gg`"
 }
 
 pkgdown will check that all non-internal topics are included on

@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* `build_reference()` gives better warnings if your `_pkgdown.yml` is
+  constructed incorrectly (#1025).
+
+* New `has_keyword()` topic selector for `reference`. `has_keyword("datasets")`
+  is particularly useful for selecting all data documentation (#760).
+
 * Updated JS libraries: jquery 3.3.1 -> 3.4.1; bootswatch 3.3.7 -> 3.4.0;
   bootstrap 3.3.7 -> bootstrap 3.4.1; docsearch 2.6.1 -> 2.6.3 
   (@jayhesselberth).
@@ -16,6 +22,7 @@
 
 * Topic names/aliases on reference index are now escaped (#1216). 
 
+>>>>>>> master
 * A topic named `index` will not longer clobber the reference index (#1110).
 
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
