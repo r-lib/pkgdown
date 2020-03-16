@@ -251,17 +251,24 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
 
 # Mutates `html`, removing the badge container
 badges_extract <- function(html) {
-  # First try specially named div;
+  # First try specially named element;
   x <- xml2::xml_find_first(html, "//div[@id='badges']")
+  strict <- FALSE
 
   # then try usethis-readme-like paragraph;
   if (length(x) == 0) {
-    x <- xml2::xml_find_all(html, ".//*/comment()[contains(., 'badges: start')]/following-sibling::p[1]")
+    # Find start comment, then all elements after
+    # which are followed by the end comment.
+    x <- xml2::xml_find_all(html, "
+      //comment()[contains(., 'badges: start')][1]
+      /following-sibling::*[following-sibling::comment()[contains(., 'badges: end')]]
+    ")
   }
 
   # finally try first paragraph
   if (length(x) == 0) {
     x <- xml2::xml_find_first(html, "//p")
+    strict <- TRUE
   }
 
   # No paragraph
@@ -269,17 +276,15 @@ badges_extract <- function(html) {
     return(character())
   }
 
-  # No non-whitespace characters outside of tags
-  if (xml2::xml_text(x, trim = TRUE) != "") {
+  # If we guessed the element,
+  # we only proceed if there is no text
+  if (strict && any(xml2::xml_text(x, trim = TRUE) != "")) {
     return(character())
   }
 
-  badges <- xml2::xml_children(x)
+  # Proceed if we find image-containing links
+  badges <- xml2::xml_find_all(x, "//a[img]")
   if (length(badges) == 0) {
-    return(character())
-  }
-
-  if (!all(xml2::xml_name(badges) %in% "a")) {
     return(character())
   }
 
@@ -301,4 +306,3 @@ update_html <- function(path, tweak, ...) {
   xml2::write_html(html, path, format = FALSE)
   path
 }
-

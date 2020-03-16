@@ -24,16 +24,24 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     quiet = quiet
   )
 
-  path <- callr::r_safe(
-    function(...) rmarkdown::render(...),
-    args = args,
-    show = !quiet,
-    env = c(
-      callr::rcmd_safe_env(),
-      BSTINPUTS = bst_paths(input_path),
-      TEXINPUTS = tex_paths(input_path),
-      BIBINPUTS = bib_paths(input_path)
-    )
+  path <- tryCatch(
+    callr::r_safe(
+      function(...) rmarkdown::render(...),
+      args = args,
+      show = !quiet,
+      env = c(
+        callr::rcmd_safe_env(),
+        BSTINPUTS = bst_paths(input_path),
+        TEXINPUTS = tex_paths(input_path),
+        BIBINPUTS = bib_paths(input_path)
+      )
+    ),
+    error = function(cnd) {
+      abort(
+        c("Failed to render RMarkdown", strsplit(cnd$stderr, "\r?\n")[[1]]),
+        parent = cnd
+      )
+    }
   )
 
   if (identical(path_ext(path)[[1]], "html")) {

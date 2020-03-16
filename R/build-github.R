@@ -1,13 +1,17 @@
-build_cname <- function(pkg = ".") {
+build_github_pages <- function(pkg = ".") {
+  rule("Extra files for GitHub pages")
   pkg <- as_pkgdown(pkg)
 
+  # Add .nojekyll since site is static HTML
+  write_if_different(pkg, "", ".nojekyll", check = FALSE)
+
+  # Add CNAME if url present
   cname <- cname_url(pkg$meta$url)
   if (is.null(cname)) {
     return(invisible())
   }
 
-  cname_path <- path(pkg$dst_path, "CNAME")
-  write_if_different(pkg, cname, cname_path, check = FALSE)
+  write_if_different(pkg, cname, "CNAME", check = FALSE)
   invisible()
 }
 
