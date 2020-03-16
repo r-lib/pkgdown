@@ -51,7 +51,7 @@ data_citations <- function(pkg = ".") {
 build_citation_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  source <- github_source_links(pkg$github_url, "inst/CITATION")
+  source <- repo_source(pkg, "inst/CITATION")
 
   data <- list(
     pagetitle = "Citation and Authors",

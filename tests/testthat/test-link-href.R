@@ -163,17 +163,6 @@ test_that("or local sites, if registered", {
   expect_equal(href_expr_(vignette("sha1", "digest")), "digest/articles/sha1.html")
 })
 
-test_that("github_source returns (possibly many) URLs", {
-  base <- "https://github.com/r-lib/pkgdown"
-  expect_equal(
-    github_source(base, c("http://example.com", "R/example.R")),
-    c(
-      "http://example.com", # Already is a URL, so not modified
-      "https://github.com/r-lib/pkgdown/blob/master/R/example.R"
-    )
-  )
-})
-
 test_that("trailing pieces of github URLs are stripped", {
   expect_equal(
     parse_github_link("https://github.com/simsem/semTools/wiki"),
@@ -182,13 +171,6 @@ test_that("trailing pieces of github URLs are stripped", {
   expect_equal(
     parse_github_link("https://github.com/r-lib/gh#readme"),
     "https://github.com/r-lib/gh"
-  )
-})
-
-test_that("source links are valid github URLs", {
-  expect_equal(
-    github_source_links("https://github.com/tidyverse/reprex#readme", "NEWS.md"),
-    "Source: <a href='https://github.com/tidyverse/reprex/blob/master/NEWS.md'><code>NEWS.md</code></a>"
   )
 })
 

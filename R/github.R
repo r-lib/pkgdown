@@ -36,25 +36,15 @@ parse_github_link <- function(link) {
   paste0("https://github.com/", x$owner, "/", x$repo)
 }
 
-github_source <- function(base, paths) {
-  # Don't need to touch those that are already a full url
-  ifelse(
-    grepl("^https?://", paths),
-    paths,
-    file.path(
-      parse_github_link(base),
-      "blob" , "master", paths
-    )
-  )
-}
-
-github_source_links <- function(base, paths) {
+repo_source <- function(pkg, paths) {
+  base <- pkg$github_url
   if (is.null(base) || length(paths) == 0) {
     return(character())
   }
 
+  href <- file.path(base, "blob" , "master", paths)
   source_links <- paste0(
-    "<a href='", github_source(base, paths), "'>",
+    "<a href='", href, "'>",
     "<code>", escape_html(paths), "</code></a>"
   )
 
@@ -62,7 +52,7 @@ github_source_links <- function(base, paths) {
   if (n >= 4) {
     source_links <- c(
       source_links[1:3],
-      paste0("and ", n - 2, " more")
+      paste0("and ", n - 3, " more")
     )
   }
 
