@@ -24,7 +24,9 @@ test_that("commit sha is retrieved GitHub Actions env variable", {
 })
 
 test_that("commit sha not found gives empty string", {
-  testthat::skip_on_travis()
+  skip_on_travis()
+  skip_if(identical(Sys.getenv("GITHUB_ACTIONS"), "true"))
+
   expect_equal(ci_commit_sha(), "")
 })
 
