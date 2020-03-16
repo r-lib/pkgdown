@@ -295,32 +295,31 @@ into two groups:</p><pre>reference:
   - render_page
 </pre>
 
-<p>Note that <code>contents</code> can contain either a list of function names, or if the
-functions in a section share a common prefix or suffix, you can use
-<code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
-more complex naming schemes you can use an arbitrary regular expression with
-<code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
-section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use
-<code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>You can also select topics that contain specified Rd concepts with
-<code>has_concept("blah")</code>.
-It is also possible to select topics that do not contain any
-of a vector of specified Rd concepts with
-<code>lacks_concepts(c("concept1", "concept2"))</code>.
-Note that topics without concepts will lack any concept and
-thus be included in any <code>lacks_concepts()</code>.
-This can for example be used to make a group of topics that are not
-caught by any number of <code>has_concept("blah")</code>.</p>
+<p><code>contents</code> can contain:</p><ul>
+<li><p>Individual function/topic names.</p></li>
+<li><p>Weirdly named functions with doubled quoting, once for YAML and once for
+R, e.g. <code>"`+.gg`"</code>.</p></li>
+<li><p><code>starts_with("prefix")</code> to select all functions with common prefix.</p></li>
+<li><p><code>ends_with("suffix")</code> to select all functions with common suffix.</p></li>
+<li><p><code>matches("regexp")</code> for more complex regular expressions.</p></li>
+<li><p><code>has_keyword("x")</code> to select all topics with keyword "x";
+<code>has_keyword("datasets")</code> selects all data documentation.</p></li>
+<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".</p></li>
+<li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
+without those concepts. This is useful to capture topics not otherwise
+captured by <code>has_concepts()</code>.</p></li>
+</ul>
+
+<p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
+topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
+with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
+<p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
+<code>-starts_with("foo")</code>.</p>
 <p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
 notation:</p><pre>desc: &gt;
   This is a very long and overly flowery description of a
   single simple function.
 </pre>
-
-<p>If you have functions with odd names (e.g. that start with a plus symbol
-<code>+</code>), you can include them by double-escaping. This YAML entry adds the
-<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- <span class='st'>"`+.gg`"</span></pre>
 
 <p>pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.</p>
