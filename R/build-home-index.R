@@ -62,7 +62,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 
   links <- c(
     link_url(paste0("Download from ", repo$repo), repo$url),
-    link_url("Browse source code", pkg$repo$url$home),
+    link_url("Browse source code", repo_home(pkg)),
     if (pkg$desc$has_fields("BugReports"))
       link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
     purrr::map_chr(meta, ~ link_url(.$text, .$href))

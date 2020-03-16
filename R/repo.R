@@ -1,3 +1,7 @@
+repo_home <- function(pkg, paths) {
+  pkg$repo$url$home
+}
+
 repo_source <- function(pkg, paths) {
   url <- pkg$repo$url
   if (is.null(url$source) || length(paths) == 0) {
