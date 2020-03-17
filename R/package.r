@@ -204,7 +204,7 @@ package_vignettes <- function(path = ".") {
   tibble::tibble(
     name = path_ext_remove(vig_path),
     file_in = path("vignettes", vig_path),
-    file_out = path("articles", path_ext_set(vig_path, ext)),
+    file_out = path("articles", paste0(path_ext_remove(vig_path), ".", ext)),
     title = title
   )
 }

@@ -20,6 +20,9 @@
     The individual components (e.g. path, issue number, username) are pasted on 
     the end of these urls so they should have trailing `/`s.
 
+* `deploy_to_branch()` now correctly captures the commit SHA on GitHub Actions
+  (@coatless, #1252).
+
 * `build_reference()` gives better warnings if your `_pkgdown.yml` is
   constructed incorrectly (#1025).
 
@@ -42,7 +45,6 @@
 
 * Topic names/aliases on reference index are now escaped (#1216). 
 
->>>>>>> master
 * A topic named `index` will not longer clobber the reference index (#1110).
 
 * `build_home()` no longer uses (unrendered) `README.Rmd` or `index.Rmd` if
