@@ -183,7 +183,7 @@ clean_site() first to clean up orphan files." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-lib/pkgdown">
+  <a href="https://github.com/r-lib/pkgdown/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -507,6 +507,35 @@ of the default assets, set <code>default_assets</code> to false.</p><pre><span c
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
+    <h2 class="hasAnchor" id="yaml-config-repo"><a class="anchor" href="#yaml-config-repo"></a>YAML config - repo</h2>
+
+    
+
+<p>pkgdown automatically generates links to the source repository in a few
+places</p><ul>
+<li><p>Articles and documentation topics are linked back to the
+underlying source file.</p></li>
+<li><p>The NEWS automatically links issue numbers and user names.</p></li>
+<li><p>The homepage provides a link to  "Browse source code"</p></li>
+</ul>
+
+<p>pkgdown automatically figures out the necessary URLs if you link to a GitHub
+or GitLab repo in your <code>BugReports</code> or <code>URL</code> field. Otherwise, you can
+supply your own in the <code>repo</code> component:<div class="yaml"></p><pre>repo:
+  url:
+    home: https://github.com/r-lib/pkgdown/
+    source: https://github.com/r-lib/pkgdown/blob/master/
+    issue: https://github.com/r-lib/pkgdown/issues/
+    user: https://github.com/
+</pre><p></div></p><ul>
+<li><p><code>home</code>: path to package home on source code repository.</p></li>
+<li><p><code>source:</code>: path to source of individual file in master branch.</p></li>
+<li><p><code>issue</code>: path to individual issue.</p></li>
+<li><p><code>user</code>: path to user.</p></li>
+</ul>
+
+<p>The varying components (e.g. path, issue number, user name) are pasted on
+the end of these URLs so they should have trailing <code>/</code>s.</p>
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
@@ -536,6 +565,7 @@ hanging in cron jobs.</p>
       <li><a href="#yaml-config-navbar">YAML config - navbar</a></li>
       <li><a href="#yaml-config-search">YAML config - search</a></li>
       <li><a href="#yaml-config-template">YAML config - template</a></li>
+      <li><a href="#yaml-config-repo">YAML config - repo</a></li>
       <li><a href="#options">Options</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
