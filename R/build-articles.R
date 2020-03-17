@@ -37,7 +37,7 @@
 #'
 #' * `contents` (required): a list of article names to include in the
 #'   section. This can either be names of individual vignettes or a
-#'   call to `starts_with()`. The name of a vignette includes is it's
+#'   call to `starts_with()`. The name of a vignette includes its
 #'   path under `vignettes` without extension so that the name of the vignette
 #'   found at `vignettes/pizza/slice.Rmd` is `pizza/slice`.
 #'
