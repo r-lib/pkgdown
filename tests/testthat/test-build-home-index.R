@@ -6,10 +6,10 @@ context("test-build-home-index")
 test_that("package repo verification", {
   skip_on_cran() # requires internet connection
 
-  expect_null(repo_link("notarealpkg"))
+  expect_null(cran_link("notarealpkg"))
 
   expect_equal(
-    repo_link("dplyr"),
+    cran_link("dplyr"),
     list(
       repo = "CRAN",
       url = "https://cloud.r-project.org/package=dplyr"
@@ -17,7 +17,7 @@ test_that("package repo verification", {
   )
 
   expect_equal(
-    repo_link("Biobase"),
+    cran_link("Biobase"),
     list(
       repo = "BIOC",
       url = "https://www.bioconductor.org/packages/Biobase"

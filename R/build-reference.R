@@ -235,7 +235,7 @@ data_reference_topic <- function(topic,
   out$pagetitle <- paste0(out$title, " \u2014 ", out$name)
 
   # File source
-  out$source <- github_source_links(pkg$github_url, topic$source)
+  out$source <- repo_source(pkg, topic$source)
   out$filename <- topic$file_in
 
   # Multiple top-level converted to string

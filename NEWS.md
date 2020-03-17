@@ -1,5 +1,25 @@
 # pkgdown (development version)
 
+* pkgdown now detects GitLab urls (since they use the same structure as GitHub)
+  and auto-generates correct links (#1045). 
+
+* You can now control the links to source files (in reference pages and 
+  articles) and issues and users (in the NEWS) with new `repo$url` config
+  option (#1238). This makes it easier to use pkgdown with GitHub enterprise,
+  packages in subdirectories, and other source hosts (like bitbucket).
+  
+    ```yaml
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
+        source: https://github.com/r-lib/pkgdown/blob/master/
+        issue: https://github.com/r-lib/pkgdown/issues/
+        user: https://github.com/
+    ```
+    
+    The individual components (e.g. path, issue number, username) are pasted on 
+    the end of these urls so they should have trailing `/`s.
+
 * `deploy_to_branch()` now correctly captures the commit SHA on GitHub Actions
   (@coatless, #1252).
 
