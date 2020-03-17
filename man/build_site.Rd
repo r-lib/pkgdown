@@ -318,6 +318,12 @@ supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}
     issue: https://github.com/r-lib/pkgdown/issues/
     user: https://github.com/
 }\if{html}{\out{</div>}}
+\itemize{
+\item \code{home}: path to package home on source code repository.
+\item \verb{source:}: path to source of individual file in master branch.
+\item \code{issue}: path to individual issue.
+\item \code{user}: path to user.
+}
 
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.

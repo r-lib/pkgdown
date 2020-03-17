@@ -284,6 +284,11 @@
 #'     user: https://github.com/
 #' ```
 #'
+#' * `home`: path to package home on source code repository.
+#' * `source:`: path to source of individual file in master branch.
+#' * `issue`: path to individual issue.
+#' * `user`: path to user.
+#'
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
