@@ -14,6 +14,35 @@
       use the new `navbar` field to control whether or not each section
       appears in the navbar (#1101, #1146).
 
+* pkgdown now detects GitLab urls (since they use the same structure as GitHub)
+  and auto-generates correct links (#1045). 
+
+* You can now control the links to source files (in reference pages and 
+  articles) and issues and users (in the NEWS) with new `repo$url` config
+  option (#1238). This makes it easier to use pkgdown with GitHub enterprise,
+  packages in subdirectories, and other source hosts (like bitbucket).
+  
+    ```yaml
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
+        source: https://github.com/r-lib/pkgdown/blob/master/
+        issue: https://github.com/r-lib/pkgdown/issues/
+        user: https://github.com/
+    ```
+    
+    The individual components (e.g. path, issue number, username) are pasted on 
+    the end of these urls so they should have trailing `/`s.
+
+* `deploy_to_branch()` now correctly captures the commit SHA on GitHub Actions
+  (@coatless, #1252).
+
+* `build_reference()` gives better warnings if your `_pkgdown.yml` is
+  constructed incorrectly (#1025).
+
+* New `has_keyword()` topic selector for `reference`. `has_keyword("datasets")`
+  is particularly useful for selecting all data documentation (#760).
+
 * Updated JS libraries: jquery 3.3.1 -> 3.4.1; bootswatch 3.3.7 -> 3.4.0;
   bootstrap 3.3.7 -> bootstrap 3.4.1; docsearch 2.6.1 -> 2.6.3 
   (@jayhesselberth).
@@ -75,6 +104,10 @@
   a number of specified concepts. (@mikldk, #1232)
 
 * A timestamp for the last site build is reported in `pkgdown.yml` (#1122).
+
+* badges are now extracted from everything between `<!--badges: start-->`
+  and `<!--badges: end-->`. They used to be extracted only if they were
+  direct children of the first `<p/>` after `<!--badges: start-->`.
 
 # pkgdown 1.4.1
 

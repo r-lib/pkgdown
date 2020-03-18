@@ -100,3 +100,8 @@ test_that("can parse dots", {
 test_that("infix functions left as", {
   expect_equal(short_name("%||%", "fun"), "`%||%`")
 })
+
+test_that("function name and signature is escaped", {
+  expect_equal(short_name("%<%", "fun"), "`%&lt;%`")
+  expect_equal(short_name("f", "S3", "<"), "f(<i>&lt;&lt;&gt;</i>)")
+})

@@ -93,8 +93,11 @@ navbar_articles <- function(pkg = ".") {
     menu$intro <- menu_link("Get started", intro$file_out)
   }
 
-  meta <- pkg$meta
+  if (!is.null(pkg$repo$url$home)) {
+    menu$github <- menu_icon("github", repo_home(pkg), style = "fab")
+  }
 
+  meta <- pkg$meta
   if (!has_name(meta, "articles")) {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
     menu$articles <- menu("Articles", menu_links(vignettes$title, vignettes$file_out))

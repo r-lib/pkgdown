@@ -86,7 +86,7 @@ build_news_single <- function(pkg) {
     list(
       contents = purrr::transpose(news),
       pagetitle = "Changelog",
-      source = github_source_links(pkg$github_url, "NEWS.md")
+      source = repo_source(pkg, "NEWS.md")
     ),
     path("news", "index.html")
   )
@@ -154,7 +154,7 @@ data_news <- function(pkg = ".") {
     purrr::walk(tweak_code) %>%
     purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
     purrr::map_chr(as.character) %>%
-    purrr::map_chr(add_github_links, pkg = pkg)
+    purrr::map_chr(repo_auto_link, pkg = pkg)
 
   news <- tibble::tibble(
     version = versions,
