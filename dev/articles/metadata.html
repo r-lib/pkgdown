@@ -19,7 +19,8 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Metadata">
-<meta property="og:description" content="Customizing metadata and social media cards for pkgdown websites.">
+<meta property="og:description" content="Customise metadata and social media cards for pkgdown websites.
+">
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -81,18 +82,8 @@
       <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Tests</li>
     <li>
-      <a href="../articles/test/rendering.html">Output Rendering</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -224,7 +215,7 @@
 <p>Use the <code>title</code>, <code>description</code>, and <code>author</code> fields to specify the title, description, and (optional) author of the vignette or article.</p>
 <ul>
 <li><p>The <code>title</code> field is used as the title of your article in your pkgdown site and should always be included.</p></li>
-<li><p>Both <code>title</code> and <code>description</code> are used by pkgdown for the page’s social media card. If <code>description</code> is not included in the article’s YAML front matter, then the name of the package is used instead.</p></li>
+<li><p>Both <code>title</code> and <code>description</code> are used by pkgdown for the page’s social media card. If <code>description</code> is not included in the article’s YAML front matter, then the name of the package is used instead. The <code>description</code> is also displayed on the articles index.</p></li>
 <li><p>The <code>author</code> field is only used in the text of the vignette or article. How the author name is displayed depends on the <code>output</code> format.</p></li>
 </ul>
 <p>In articles, the <code>opengraph</code> section works in the same way as the site-wide <code>template: opengraph</code> settings, but is only applied to the article or vignette. This allows you to specify social media card preview images for individual articles, or to associate an article with a particular Twitter account. If not specified, the <code>opengraph</code> settings from the site-wide configuration are used.</p>

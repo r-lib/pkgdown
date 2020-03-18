@@ -126,18 +126,8 @@
       <a href="../articles/metadata.html">Metadata</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Tests</li>
     <li>
-      <a href="../articles/test/rendering.html">Output Rendering</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -203,6 +193,13 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>The articles index page and navbar have been overhauled. There are two major new features in this release:</p>
+<ul>
+<li><p>The articles index page now displays article <code>description</code>s, taken from YAML metadata belonging to each article. This lets you provide more context about each article and describe why one might want to read it (<a href='https://github.com/r-lib/pkgdown/issues/1227'>#1227</a>).</p></li>
+<li><p>The articles navbar is now also controlled by the <code>articles</code> section in <code>_pkgdown.yml</code>. The ordering of the sections, and articles within them, control the order of the articles in the navbar, and you can use the new <code>navbar</code> field to control whether or not each section appears in the navbar (<a href='https://github.com/r-lib/pkgdown/issues/1101'>#1101</a>, <a href='https://github.com/r-lib/pkgdown/issues/1146'>#1146</a>).</p></li>
+</ul>
+</li>
 <li><p>pkgdown now detects GitLab urls (since they use the same structure as GitHub) and auto-generates correct links (<a href='https://github.com/r-lib/pkgdown/issues/1045'>#1045</a>).</p></li>
 <li>
 <p>You can now control the links to source files (in reference pages and articles) and issues and users (in the NEWS) with new <code>repo$url</code> config option (<a href='https://github.com/r-lib/pkgdown/issues/1238'>#1238</a>). This makes it easier to use pkgdown with GitHub enterprise, packages in subdirectories, and other source hosts (like bitbucket).</p>
