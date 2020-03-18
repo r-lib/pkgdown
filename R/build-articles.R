@@ -1,28 +1,29 @@
 #' Build articles section
 #'
 #' @description
-#' Each R Markdown vignette in `vignettes/` and its subdirectories is rendered
-#' and saved to `articles/`.
+#' `build_articles()` renders each R Markdown file underneath `vignettes/` and
+#' saves it to `articles/`. There are two exceptions:
 #'
-#' The only exception are `.Rmd` vignettes that start with `_` (i.e., `_index.Rmd`), enabling the use of child documents in [bookdown](https://bookdown.org/yihui/bookdown/), and vignettes in a `tutorials` subdirectory, which is reserved for tutorials built with `build_tutorials()`
+#' * Files that start with `_` (e.g., `_index.Rmd`) are ignored,
+#'   enabling the use of child documents in
+#'   [bookdown](https://bookdown.org/yihui/bookdown/)
 #'
-#' Vignettes are rendered using a special document
-#' format that reconciles [rmarkdown::html_document()] with your pkgdown
-#' template.
+#' * Files in `vignettes/tutorials` are handled by [build_tutorials()]
 #'
-#' Note that when run by itself (i.e. not by `build_site()`), vignettes will
-#' use a previous installed version of the package, not the current source
-#' version.
+#' Vignettes are rendered using a special document format that reconciles
+#' [rmarkdown::html_document()] with the pkgdown template. This means articles
+#' behave slightly differently to vignettes, particularly with respect to
+#' external files, and custom output formats. See below for more details.
 #'
-#' @section Get started vignette:
-#' A vignette with the same name as the package (e.g., `vignettes/pkgdown.Rmd`)
-#' gets special treatment. It is rendered and linked to in the navbar under
-#' "Get started". Rmarkdown files in `vignettes/tutorials/` are ignored,
-#' because these are assumed to contain tutorials, see `build_tutorials()`.
+#' Note that when you run `build_articles()` directly (outside of
+#' [build_site()]) vignettes will use the currently installed version of the
+#' package, not the current source version. This makes iteration quicker when
+#' you are primarily working on the text of an article.
 #'
 #' @section Index and navbar:
-#' You can control the index page and navbar with `articles`, which defines a
-#' list of sections. Each section has four fields:
+#' You can control the articles index and navbar with a `articles` section in
+#' your `_pkgdown.yaml`. It defines a list of sections, eaach of which
+#' can contain four fields:
 #'
 #' * `title` (required): title of section, which appears as a heading on the
 #'   articles index.
@@ -32,9 +33,7 @@
 #'
 #' * `navbar` (optional): A couple of words used to label this section in
 #'   the navbar. If omitted, this section of vignettes will not appear in the
-#'   navbar. If some vignettes appear in the navbar dropdown list and others do not, 
-#'   the list will automatically include a "More ..." link to the articles index.
-#'   If no vignettes appear in the navbar, it will link directly to the articles index. 
+#'   navbar.
 #'
 #' * `contents` (required): a list of article names to include in the
 #'   section. This can either be names of individual vignettes or a
@@ -64,8 +63,23 @@
 #'   - packages
 #' ```
 #'
-#' Note the use of `navbar: ~`: this ensures that the vignettes for main verbs
-#' appear in the navbar but don't get their own heading.
+#' Note the use of the `navbar` fields. `navbar: ~` means that the "Main verbs"
+#' will appear in the navbar without a heading; the absence of the `navbar`
+#' field in the for the developer vignettes means that they will only be
+#' accessible via the articles index.
+#'
+#' ## Special links
+#'
+#' * A vignette with the same name as the package (e.g.,
+#'   `vignettes/pkgdown.Rmd`) automatically becomes a top-level "Get started"
+#'   link, and will not appear in the articles drop-down.
+#'
+#' * The navbar will include a link to the articles index if one or more
+#'   vignettes are not available through the navbar. If some vignettes appear
+#'   in the navbar drop-down list and others do not, the list will automatically
+#'   include a "More ..." link at the bottom; if no vignettes appear in the
+#'   the navbar, it will link directly to the articles index instead of
+#'   providing a drop-down.
 #'
 #' @section External files:
 #' pkgdown differs from base R in its handling of external files. When building
@@ -132,10 +146,6 @@
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
-#'
-#' Vignette files prefixed with an underscore (e.g., `_index.Rmd`) are ignored
-#' to enable rendering of [bookdown](https://bookdown.org/yihui/bookdown/)
-#' sites.
 #'
 #' @section Tables of contents:
 #' You can control the TOC depth via the YAML configuration file:
