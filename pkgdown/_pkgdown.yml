@@ -20,29 +20,44 @@ template:
 development:
   mode: auto
 
+articles:
+- title: Customise your site
+  navbar: ~
+  contents:
+  - pkgdown
+  - linking
+  - search
+  - metadata
+- title: Testing
+  desc: >
+    These articles are used to test various pkgdown features that can not
+    easily be tested automatically.
+  contents:
+  - starts_with("test")
+
 reference:
-  - title: Build
-    desc:  Build a complete site or its individual section components.
-    contents:
-    - build_site
-    - init_site
-    - starts_with("build_")
-    - starts_with("deploy_")
-    - preview_site
-  - title: Templates
-    contents:
-    - template_navbar
-    - render_page
-  - title: Helpers
-    contents:
-    - autolink_html
-    - clean_site
-    - rd2html
-    - as_pkgdown
-    - in_pkgdown
-  - title: Regression tests
-    contents:
-    - starts_with("test", internal = TRUE)
+- title: Build
+  desc:  Build a complete site or its individual section components.
+  contents:
+  - build_site
+  - init_site
+  - starts_with("build_")
+  - starts_with("deploy_")
+  - preview_site
+- title: Templates
+  contents:
+  - template_navbar
+  - render_page
+- title: Helpers
+  contents:
+  - autolink_html
+  - clean_site
+  - rd2html
+  - as_pkgdown
+  - in_pkgdown
+- title: Regression tests
+  contents:
+  - starts_with("test", internal = TRUE)
 
 news:
   releases:
@@ -54,25 +69,3 @@ news:
     href: https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/
   - text: "Version 1.0.0"
     href: https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/
-
-navbar:
-  components:
-    articles:
-      text: Articles
-      menu:
-      - text: 'Auto-linking'
-        href: articles/linking.html
-      - text: 'Search'
-        href: articles/search.html
-      - text: 'Metadata'
-        href: articles/metadata.html
-      - text: '---'
-      - text: 'Tests'
-      - text: 'Output Rendering'
-        href: articles/test/rendering.html
-      - text: 'Custom output'
-        href: articles/test/output.html
-      - text: 'PDF (PDF)'
-        href: articles/test/pdf.pdf
-      - text: 'JSS article (PDF)'
-        href: articles/test/jss.pdf

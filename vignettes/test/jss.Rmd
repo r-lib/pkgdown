@@ -10,10 +10,10 @@ author:
   - name: Second Author
     affiliation: Affiliation
 title:
-  plain:     "Test: JSS article"
-  formatted: "Test: JSS article"
-  short:     "Test: JSS article"
-pagetitle:   "Test: JSS article"
+  plain:     "JSS article"
+  formatted: "JSS article"
+  short:     "JSS article"
+pagetitle:   "JSS article"
 abstract: >
   The abstract of the article.
 keywords:

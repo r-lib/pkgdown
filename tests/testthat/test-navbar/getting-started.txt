@@ -1,0 +1,14 @@
+> vig <- pkg_navbar_vignettes("test")
+> pkg <- pkg_navbar(vignettes = vig)
+> navbar_components(pkg)
+home:
+  icon: fas fa-home fa-lg
+  href: index.html
+reference:
+  text: Reference
+  href: reference/index.html
+intro:
+  text: Get started
+  href: test.html
+
+

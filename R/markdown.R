@@ -58,8 +58,10 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
 }
 
 markdown_text <- function(text, ...) {
-  if (is.null(text))
-    return(text)
+  if (identical(text, NA_character_) || is.null(text)) {
+    return(NULL)
+  }
+
 
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)

@@ -63,25 +63,68 @@ navbar_components <- function(pkg = ".") {
   menu <- list()
   menu$home <- menu_icon("home", "index.html")
   menu$reference <- menu_link("Reference", "reference/index.html")
-  menu$tutorials <- menu("Tutorials",
-    menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
-  )
+
+  if (!is.null(pkg$tutorials)) {
+    menu$tutorials <- menu("Tutorials",
+      menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
+    )
+  }
+  menu$news <- navbar_news(pkg)
+
+  if (!is.null(pkg$github_url)) {
+    menu$github <- menu_icon("github", pkg$github_url, style = "fab")
+  }
+
+  menu <- c(menu, navbar_articles(pkg))
+
+  print_yaml(menu)
+}
+
+navbar_articles <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  menu <- list()
 
   vignettes <- pkg$vignettes
   pkg_intro <- vignettes$name == pkg$package
   if (any(pkg_intro)) {
     intro <- vignettes[pkg_intro, , drop = FALSE]
-    vignettes <- vignettes[!pkg_intro, , drop = FALSE]
 
     menu$intro <- menu_link("Get started", intro$file_out)
   }
-  menu$articles <-  menu("Articles", menu_links(vignettes$title, vignettes$file_out))
-  menu$news <- navbar_news(pkg)
 
   if (!is.null(pkg$repo$url$home)) {
     menu$github <- menu_icon("github", repo_home(pkg), style = "fab")
   }
 
+  meta <- pkg$meta
+  if (!has_name(meta, "articles")) {
+    vignettes <- vignettes[!pkg_intro, , drop = FALSE]
+    menu$articles <- menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+  } else {
+    articles <- meta$articles
+
+    navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
+    if (length(navbar) == 0) {
+      # No articles to be included in navbar so just link to index
+      menu$articles <- menu_link("Articles", "articles/index.html")
+    } else {
+      sections <- lapply(navbar, function(section) {
+        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
+        vig <- vig[vig$name != pkg$package, , drop = FALSE]
+        c(
+          if (!is.null(section$navbar)) list(menu_spacer(), menu_text(section$navbar)),
+          menu_links(vig$title, vig$file_out)
+        )
+      })
+      children <- unlist(sections, recursive = FALSE, use.names = FALSE)
+
+      if (length(navbar) != length(articles)) {
+        children <- c(children, list(menu_spacer(), menu_link("More...", "articles/index.html")))
+      }
+      menu$articles <- menu("Articles", children)
+    }
+  }
   print_yaml(menu)
 }
 
@@ -109,3 +152,32 @@ menu_spacer <- function() {
    menu_text("---------")
 }
 
+
+# Testing helpers ---------------------------------------------------------
+# Simulate minimal package structure so we can more easily test
+
+pkg_navbar <- function(
+                           meta = NULL,
+                           vignettes = pkg_navbar_vignettes(),
+                           github_url = NULL) {
+  structure(
+    list(
+      package = "test",
+      src_path = file_temp(),
+      meta = meta,
+      vignettes = vignettes,
+      github_url = github_url
+    ),
+    class = "pkgdown"
+  )
+}
+
+pkg_navbar_vignettes <- function(
+                                 name = character(),
+                                 title = NULL,
+                                 file_out = NULL) {
+  title <- title %||% paste0("Title ", name)
+  file_out <- file_out %||% paste0(name, ".html")
+
+  tibble::tibble(name = name, title = title, file_out)
+}

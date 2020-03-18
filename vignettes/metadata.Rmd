@@ -1,6 +1,7 @@
 ---
 title: "Metadata"
-description: Customizing metadata and social media cards for pkgdown websites.
+description: >
+  Customise metadata and social media cards for pkgdown websites.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Metadata}
@@ -104,7 +105,8 @@ Use the `title`, `description`, and `author` fields to specify the title, descri
 
 * Both `title` and `description` are used by pkgdown for the page's social 
   media card. If `description` is not included in the article's YAML front 
-  matter, then the name of the package is used instead.
+  matter, then the name of the package is used instead. The `description`
+  is also displayed on the articles index.
 
 - The `author` field is only used in the text of the vignette or article.
   How the author name is displayed depends on the `output` format.
