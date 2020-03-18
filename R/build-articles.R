@@ -32,8 +32,9 @@
 #'
 #' * `navbar` (optional): A couple of words used to label this section in
 #'   the navbar. If omitted, this section of vignettes will not appear in the
-#'   navbar. The navbar will automatically include a link to the articles
-#'   index when not all vignettes are listed individually.
+#'   navbar. If some vignettes appear in the navbar dropdown list and others do not, 
+#'   the list will automatically include a "More ..." link to the articles index.
+#'   If no vignettes appear in the navbar, it will link directly to the articles index. 
 #'
 #' * `contents` (required): a list of article names to include in the
 #'   section. This can either be names of individual vignettes or a
