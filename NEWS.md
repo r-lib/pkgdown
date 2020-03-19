@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Tables of contents in sidebars now use [bootstrap-toc](https://afeld.github.io/bootstrap-toc/).
+
 * The articles index page and navbar have been overhauled. There are two
   major new features in this release:
   
