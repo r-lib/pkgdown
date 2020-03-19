@@ -152,7 +152,7 @@ data_news <- function(pkg = ".") {
   timeline <- pkg_timeline(pkg$package)
   html <- sections %>%
     purrr::walk(tweak_code) %>%
-    purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
+    purrr::walk2(versions, tweak_news_heading, package = pkg$package, timeline = timeline) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
@@ -238,10 +238,14 @@ pkg_timeline <- function(package) {
   )
 }
 
-tweak_news_heading <- function(x, versions, timeline) {
+tweak_news_heading <- function(x, versions, package, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_set_attr("class", "page-header")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("data-toc-text", paste(package, versions))
 
   if (is.null(timeline))
     return(x)
@@ -249,13 +253,13 @@ tweak_news_heading <- function(x, versions, timeline) {
   date <- timeline$date[match(versions, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  date_nodes <- paste(" <h6 data-toc-skip> CRAN release: ", date_str, "</h6>", collapse = "") %>%
+  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
     xml2::read_html() %>%
-    xml2::xml_find_all(".//h6")
+    xml2::xml_find_all(".//small")
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_sibling(date_nodes, .where = "after")
+    xml2::xml_add_child(date_nodes, .where = 1)
 
   invisible()
 }
