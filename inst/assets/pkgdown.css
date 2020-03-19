@@ -185,7 +185,7 @@ nav[data-toggle='toc'] .nav > li > a {
 
 nav[data-toggle='toc'] .nav > li > a:hover,
 nav[data-toggle='toc'] .nav > li > a:focus {
-  padding-left: 6px;
+  padding-left: 5px;
   color: inherit;
   border-left: 1px solid #878787;
 }
@@ -193,7 +193,7 @@ nav[data-toggle='toc'] .nav > li > a:focus {
 nav[data-toggle='toc'] .nav > .active > a,
 nav[data-toggle='toc'] .nav > .active:hover > a,
 nav[data-toggle='toc'] .nav > .active:focus > a {
-  padding-left: 6px;
+  padding-left: 5px;
   font-size: 1.4rem;
   font-weight: 500;
   color: inherit;
@@ -214,14 +214,15 @@ nav[data-toggle='toc'] .nav .nav > li > a {
 
 nav[data-toggle='toc'] .nav .nav > li > a:hover,
 nav[data-toggle='toc'] .nav .nav > li > a:focus {
-  padding-left: 16px;
+  padding-left: 15px;
 }
 
 nav[data-toggle='toc'] .nav .nav > .active > a,
 nav[data-toggle='toc'] .nav .nav > .active:hover > a,
 nav[data-toggle='toc'] .nav .nav > .active:focus > a {
-  padding-left: 16px;
-  font-weight: normal;
+  padding-left: 15px;
+  font-weight: 450;
+  font-size: 0.8em;
 }
 
 /* orcid ------------------------------------------------------------------- */
