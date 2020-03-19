@@ -209,7 +209,7 @@ nav[data-toggle='toc'] .nav .nav {
 
 nav[data-toggle='toc'] .nav .nav > li > a {
   padding-left: 16px;
-  font-size: 0.8em;
+  font-size: 1.25rem;
 }
 
 nav[data-toggle='toc'] .nav .nav > li > a:hover,
@@ -222,7 +222,7 @@ nav[data-toggle='toc'] .nav .nav > .active:hover > a,
 nav[data-toggle='toc'] .nav .nav > .active:focus > a {
   padding-left: 15px;
   font-weight: 450;
-  font-size: 0.8em;
+  font-size: 1.25rem;
 }
 
 /* orcid ------------------------------------------------------------------- */
