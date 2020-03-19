@@ -172,28 +172,58 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
-/* bootstrap-toc tweaks */
-nav[data-toggle="toc"] .nav > li > a {
-  font-size: 17px;
+/* bootstrap-toc tweaks ------------------------------------------------------*/
+
+/* All levels of nav */
+
+nav[data-toggle='toc'] .nav > li > a {
+  padding: 4px 20px 4px 6px;
+  font-size: 0.9em;
+  font-weight: normal;
   color: inherit;
 }
 
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus {
+nav[data-toggle='toc'] .nav > li > a:hover,
+nav[data-toggle='toc'] .nav > li > a:focus {
+  padding-left: 6px;
   color: inherit;
-  border-left: 1px solid #000000;
+  border-left: 1px solid #878787;
 }
 
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus {
+nav[data-toggle='toc'] .nav > .active > a,
+nav[data-toggle='toc'] .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav > .active:focus > a {
+  padding-left: 6px;
+  font-weight: normal;
   color: inherit;
-  border-left: 2px solid #000000;
+  border-left: 2px solid #878787;
 }
 
-nav[data-toggle="toc"] .nav .nav > li > a {
-  font-size: 15px;
+/* Nav: second level (shown on .active) */
+
+nav[data-toggle='toc'] .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
 }
+
+nav[data-toggle='toc'] .nav .nav > li > a {
+  padding-left: 16px;
+  font-size: 0.8em;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a:hover,
+nav[data-toggle='toc'] .nav .nav > li > a:focus {
+  padding-left: 16px;
+}
+
+nav[data-toggle='toc'] .nav .nav > .active > a,
+nav[data-toggle='toc'] .nav .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav .nav > .active:focus > a {
+  padding-left: 16px;
+  font-weight: normal;
+}
+
+/* orcid ------------------------------------------------------------------- */
 
 .orcid {
   font-size: 16px;
