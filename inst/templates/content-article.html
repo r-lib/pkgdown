@@ -5,7 +5,7 @@ $endfor$
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>$title$</h1>
+      <h1 data-toc-skip>$title$</h1>
       $if(subtitle)$
       <h3 class="subtitle">$subtitle$</h3>
       $endif$
@@ -53,10 +53,9 @@ $body$
     {{/sidebar}}
 
     $if(toc)$
-    <div id="tocnav">
-      <h2>Contents</h2>
-      $toc$
-    </div>
+    <nav id="toc" data-toggle="toc">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
     $endif$
   </div>
 

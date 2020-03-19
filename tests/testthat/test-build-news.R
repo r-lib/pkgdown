@@ -66,7 +66,7 @@ test_that("multi-page news are rendered", {
 
   # test single page structure
   lines <- read_lines(path(path, "docs", "news", "news-1.0.html"))
-  expect_true(any(grepl("<h1>Changelog <small>1.0</small></h1>", lines)))
+  expect_true(any(grepl("<h1 data-toc-skip>Changelog <small>1.0</small></h1>", lines)))
 })
 
 

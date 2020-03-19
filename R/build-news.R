@@ -152,7 +152,7 @@ data_news <- function(pkg = ".") {
   timeline <- pkg_timeline(pkg$package)
   html <- sections %>%
     purrr::walk(tweak_code) %>%
-    purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
+    purrr::walk2(versions, tweak_news_heading, package = pkg$package, timeline = timeline) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
@@ -238,10 +238,14 @@ pkg_timeline <- function(package) {
   )
 }
 
-tweak_news_heading <- function(x, versions, timeline) {
+tweak_news_heading <- function(x, versions, package, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_set_attr("class", "page-header")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("data-toc-text", paste(package, versions))
 
   if (is.null(timeline))
     return(x)
