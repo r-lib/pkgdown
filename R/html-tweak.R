@@ -283,7 +283,7 @@ badges_extract <- function(html) {
   }
 
   # Proceed if we find image-containing links
-  badges <- xml2::xml_find_all(x, "//a[img]")
+  badges <- xml2::xml_find_all(x, ".//a[img]")
   if (length(badges) == 0) {
     return(character())
   }
