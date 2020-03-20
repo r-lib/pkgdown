@@ -171,7 +171,7 @@ test_that("badges can be in special element", {
 
 test_that("badges in special element can be accompanied by text", {
   expect_equal(
-    badges_extract_text('<p></p><p><span id="badges"><a href="x"><img src="y"></a>Hi!</span></p>'),
+    badges_extract_text('<p></p><p><div id="badges"><a href="x"><img src="y"></a>Hi!</div></p>'),
     '<a href="x"><img src="y"></a>'
   )
 })
