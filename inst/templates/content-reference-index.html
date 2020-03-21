@@ -12,21 +12,21 @@
       <col class="title" />
     </colgroup>
 
-    {{#sections}}<tbody>
-      <tr>
+    {{#rows}}<tbody>
+      {{#title}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
           <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
           <p class="section-desc">{{{desc}}}</p>
         </th>
-      </tr>
-      {{#contents}}<tr>
+      </tr>{{/title}}
+      {{#topics}}<tr>
         {{#has_icons}}<td>{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" alt="" /></a>{{/icon}}</td>{{/has_icons}}
         <td>
           <p>{{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}</p>
         </td>
         <td><p>{{{title}}}</p></td>
-      </tr>{{/contents}}
-    </tbody>{{/sections}}
+      </tr>{{/topics}}
+    </tbody>{{/rows}}
     </table>
   </div>
 
