@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* The reference index now has two levels of heading hierarchy: `title` and
+  `subtitle` (#327).
+
 * You can optional suppress the CRAN release dates added to the news page.
   See `build_news()` for details (#1118).
 

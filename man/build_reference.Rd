@@ -57,8 +57,8 @@ alphabetical order. To override this, provide a \code{reference} section in your
 \section{YAML config}{
 
 To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}
-which provides a list of sections containing, a \code{title}, list of \code{contents},
-and an optional \code{description}.
+which provides a list of sections containing a \code{title} or \code{subtitle},
+list of \code{contents}, and an optional \code{desc}ription.
 
 For example, the following code breaks up the functions in pkgdown
 into two groups:\preformatted{reference:
@@ -71,6 +71,14 @@ into two groups:\preformatted{reference:
   contents:
   - render_page
 }
+
+Use \code{title} and \code{subtitle} to break up a long page into multiple groups,
+using \code{desc} to provide a little context for the grouping. \code{desc} should
+be markdown, and if you have a long description use the YAML \code{>} notation:\preformatted{desc: >
+  This is a very _long_ and **overly** flowery description of a
+  single simple function.
+}
+\subsection{Topic matching}{
 
 \code{contents} can contain:
 \itemize{
@@ -95,14 +103,9 @@ with (e.g.) \code{starts_with("build_", internal = TRUE)}.
 Use a leading \code{-} to remove topics from a section, e.g. \code{-topic_name},
 \code{-starts_with("foo")}.
 
-You can provide long descriptions for groups of functions using the YAML \code{>}
-notation:\preformatted{desc: >
-  This is a very long and overly flowery description of a
-  single simple function.
-}
-
 pkgdown will check that all non-internal topics are included on
 this page, and will generate a warning if you have missed any.
+}
 }
 
 \section{Figures}{

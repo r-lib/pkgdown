@@ -6,8 +6,8 @@
 #'
 #' @section YAML config:
 #' To tweak the index page, add a section called `reference` to `_pkgdown.yml`
-#' which provides a list of sections containing, a `title`, list of `contents`,
-#' and an optional `description`.
+#' which provides a list of sections containing a `title` or `subtitle`,
+#' list of `contents`, and an optional `desc`ription.
 #'
 #' For example, the following code breaks up the functions in pkgdown
 #' into two groups:
@@ -24,6 +24,17 @@
 #'   - render_page
 #' ```
 #'
+#' Use `title` and `subtitle` to break up a long page into multiple groups,
+#' using `desc` to provide a little context for the grouping. `desc` should
+#' be markdown, and if you have a long description use the YAML `>` notation:
+#'
+#' ```
+#' desc: >
+#'   This is a very _long_ and **overly** flowery description of a
+#'   single simple function.
+#' ```
+#'
+#' ## Topic matching
 #' `contents` can contain:
 #'
 #' * Individual function/topic names.
@@ -45,15 +56,6 @@
 #'
 #' Use a leading `-` to remove topics from a section, e.g. `-topic_name`,
 #' `-starts_with("foo")`.
-#'
-#' You can provide long descriptions for groups of functions using the YAML `>`
-#' notation:
-#'
-#' ```
-#' desc: >
-#'   This is a very long and overly flowery description of a
-#'   single simple function.
-#' ```
 #'
 #' pkgdown will check that all non-internal topics are included on
 #' this page, and will generate a warning if you have missed any.
