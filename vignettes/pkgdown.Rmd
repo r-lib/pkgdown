@@ -122,30 +122,10 @@ If `NEWS.md` is present, it will be rendered into a single-page Changelog based 
 
 See more suggestions for writing news bullets in the [tidyverse style guide](https://style.tidyverse.org/news.html). 
 
-If you have a large `NEWS.md` and want to create one page per release, you can create a multi-page change log by configuring the `_pkgdown.yml`:
+See `?build_news` for more customisation options including how to:
 
-```yaml
-news:
-  one_page: false
-```
-
-In this case the `NEWS.md` is broken up by the version specified in the level one headings. Each version will be rendered to `news/`, with one page per minor release, so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page.
-
-If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., `vignettes/news` and customise the navbar. See an example of this strategy in action for [readxl](https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml).
-
-```yaml
-navbar:
-  - text: News
-    menu:
-    - text: "Blog posts"
-    - text: "Version 1.1.0"
-      href: https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/
-    - text: "------------------"
-    - text: "Change log"
-      href: news/index.html
-```
-
-See complete details in `?build_news`.
+* Create one page for each major version and related minor versions.
+* Add release announcements to the news navbar drop-down.
 
 ## Publishing
 
