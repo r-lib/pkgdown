@@ -23,15 +23,6 @@ data_reference_index <- function(pkg = ".") {
 }
 
 data_reference_index_rows <- function(section, pkg) {
-  if (!set_contains(names(section), c("title", "contents"))) {
-    warning(
-      "Section must have components `title`, `contents`",
-      call. = FALSE,
-      immediate. = TRUE
-    )
-    return(NULL)
-  }
-
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
@@ -40,6 +31,15 @@ data_reference_index_rows <- function(section, pkg) {
       desc = markdown_text(section$desc)
     )
   }
+
+  if (has_name(section, "subtitle")) {
+    rows[[2]] <- list(
+      subtitle = section$subtitle,
+      slug = paste0("section-", make_slug(section$subtitle)),
+      desc = markdown_text(section$desc)
+    )
+  }
+
 
   if (has_name(section, "contents")) {
     in_section <- select_topics(section$contents, pkg$topics)
@@ -56,7 +56,7 @@ data_reference_index_rows <- function(section, pkg) {
       icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
     )
 
-    rows[[2]] <- list(
+    rows[[3]] <- list(
       topics = purrr::transpose(contents),
       names = topics$name,
       has_icons = !purrr::every(contents$icon, is.null)
