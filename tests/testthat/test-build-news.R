@@ -39,6 +39,10 @@ test_that("pkg_timeline fails cleanly for unknown package", {
   expect_null(pkg_timeline("__XYZ___"))
 })
 
+test_that("pkg_timeline returns NULL if CRAN dates suppressed", {
+  expect_null(pkg_timeline(list(meta = list(news = list(cran_dates = FALSE)))))
+})
+
 test_that("correct timeline for first ggplot2 releases", {
   skip_on_cran()
 

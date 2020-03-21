@@ -1,18 +1,11 @@
 # pkgdown (development version)
 
-* Multi-page news style gets a better yaml specification:
+* You can optional suppress the CRAN release dates added to the news page.
+  See `build_news()` for details (#1118).
 
-    ```yaml
-    news:
-      one_page: false
-    ```
-    
-    The old style will continue to work:
-
-    ```yaml
-    news:
-    - one_page: false
-    ```
+* Multi-page news style gets a better yaml specification. See `build_news()`
+  for details (the old style will continue to work so no need to change
+  existing YAML).
 
 * Tables of contents in sidebars now use [bootstrap-toc](https://afeld.github.io/bootstrap-toc/).
 

@@ -51,6 +51,14 @@
 #' news:
 #'   one_page: false
 #' ```
+#'
+#' Suppress the default addition of CRAN release dates with:
+#'
+#' ```
+#' news:
+#'   cran_dates: false
+#' ```
+#'
 #' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
 #'
 #' @inheritParams build_articles
@@ -214,6 +222,11 @@ has_news <- function(path = ".") {
 
 pkg_timeline <- function(package) {
   if (!has_internet()) {
+    return(NULL)
+  }
+
+  show_dates <- purrr::pluck(package, "meta", "news", "cran_dates", .default = TRUE)
+  if (!show_dates) {
     return(NULL)
   }
 
