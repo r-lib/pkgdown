@@ -22,7 +22,7 @@ test_that("latin1 encoding and `citation(auto = meta) can be read` (#689)", {
 test_that("create_meta can read DESCRIPTION with an Encoding", {
   path <- test_path("assets/site-citation/encoding-UTF-8")
 
-  meta <- create_meta(path)
+  meta <- create_citation_meta(path)
   expect_type(meta, "list")
   expect_equal(meta$`Authors@R`, 'person(\"Florian\", \"Privé\")')
 })
