@@ -49,7 +49,7 @@
 #'
 #' ```
 #' news:
-#' - one_page: false
+#'   one_page: false
 #' ```
 #' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
 #'
@@ -59,20 +59,16 @@ build_news <- function(pkg = ".",
                        override = list(),
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
-
-  one_page <- purrr::pluck(pkg, "meta", "news", 1, "one_page", .default = TRUE)
-
   if (!has_news(pkg$src_path))
     return()
 
   rule("Building news")
   dir_create(path(pkg$dst_path, "news"))
 
-  if (one_page) {
-    build_news_single(pkg)
-  } else {
-    build_news_multi(pkg)
-  }
+  switch(news_style(pkg$meta),
+    single = build_news_single(pkg),
+    multi = build_news_multi(pkg)
+  )
 
   preview_site(pkg, "news", preview = preview)
 }
@@ -262,4 +258,12 @@ tweak_news_heading <- function(x, versions, timeline) {
     xml2::xml_add_child(date_nodes, .where = 1)
 
   invisible()
+}
+
+news_style <- function(meta) {
+  one_page <- purrr::pluck(meta, "news", "one_page") %||%
+    purrr::pluck(meta, "news", 1, "one_page") %||%
+    TRUE
+
+  if (one_page) "single" else "multi"
 }

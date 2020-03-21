@@ -126,7 +126,7 @@ If you have a large `NEWS.md` and want to create one page per release, you can c
 
 ```yaml
 news:
-- one_page: false
+  one_page: false
 ```
 
 In this case the `NEWS.md` is broken up by the version specified in the level one headings. Each version will be rendered to `news/`, with one page per minor release, so that `2.2.0`, `2.2.1`, and `2.2.2` are all described on a single page.

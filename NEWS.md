@@ -1,5 +1,19 @@
 # pkgdown (development version)
 
+* Multi-page news style gets a better yaml specification:
+
+    ```yaml
+    news:
+      one_page: false
+    ```
+    
+    The old style will continue to work:
+
+    ```yaml
+    news:
+    - one_page: false
+    ```
+
 * Tables of contents in sidebars now use [bootstrap-toc](https://afeld.github.io/bootstrap-toc/).
 
 * The articles index page and navbar have been overhauled. There are two

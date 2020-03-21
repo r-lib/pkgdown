@@ -52,6 +52,12 @@ test_that("correct timeline for first ggplot2 releases", {
   expect_equal(timeline, expected)
 })
 
+test_that("determines page style from meta", {
+  expect_equal(news_style(meta = list()), "single")
+  expect_equal(news_style(meta = list(news = list(one_page = FALSE))), "multi")
+  expect_equal(news_style(meta = list(news = list(list(one_page = FALSE)))), "multi")
+})
+
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
