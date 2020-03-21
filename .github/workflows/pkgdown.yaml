@@ -32,6 +32,8 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("remotes")
+          # To get links for homepage
+          install.packages("devtools")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
         shell: Rscript {0}
