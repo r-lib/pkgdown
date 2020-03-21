@@ -12,6 +12,7 @@ create_meta <- function(path) {
   if (!is.null(meta$Encoding)) {
     meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
   }
+  meta$Encoding <- "UTF-8"
 
   meta
 }
