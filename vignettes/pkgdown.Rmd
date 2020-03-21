@@ -32,13 +32,14 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
 
 *   A [`bootswatch`](https://bootswatch.com) theme that affects the overall
     appearance of the whole site. 
+    
     ```yaml
     template:
       params:
         bootswatch: cerulean
     ```
 
-*   A google analytics user ID if you want to track the people who are using your
+*   A Google analytics user ID if you want to track the people who are using your
     site
 
     ```yaml
@@ -52,8 +53,6 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
 
 *   Package search, as described in `vignette("search")`.
 
-This also allows you to control the default navbar.
-
 [^other-locations]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep the package root clutter free, or in `inst/_pkgdown.yml` if you want to make it available when your package is installed.
 
 ## Home page
@@ -64,7 +63,7 @@ The contents of home page is automatically generated from `index.md` or `README.
 
 pkgdown creates a function reference in `reference/` that includes one page for each `.Rd` help topic in `man/`. The translation of individual help topics from Rd to HTML is generally straightforward, but there are a couple of things you should bear in mind:
 
-* pkgdown does it's best to autolink all references to help topics and 
+* pkgdown does its best to autolink all references to help topics and 
   articles described in `vignette("linking")`.
   
 * pkgdown executes all examples, inserting the rendered results in the 
@@ -74,22 +73,22 @@ By default, pkgdown generates a reference index that is just an alphabetically-o
 
 ```yaml
 reference:
-  - title: "Connecting to Spark"
-    desc: >
-      Functions for installing Spark components and managing
-      connections to Spark
-    contents: 
-      - spark_config
-      - spark_connect
-      - spark_disconnect
-      - spark_install
-      - spark_log
-  - title: "Reading and Writing Data"
-    desc: "Functions for reading and writing Spark DataFrames."
-    contents:
-      - starts_with("spark_read")
-      - starts_with("spark_write")
-      - matches("saveload")
+- title: "Connecting to Spark"
+  desc: >
+    Functions for installing Spark components and managing
+    connections to Spark
+  contents: 
+  - spark_config
+  - spark_connect
+  - spark_disconnect
+  - spark_install
+  - spark_log
+- title: "Reading and Writing Data"
+  desc: "Functions for reading and writing Spark DataFrames."
+  contents:
+  - starts_with("spark_read")
+  - starts_with("spark_write")
+  - matches("saveload")
 ```
 
 The objects in `reference` can also contain a list of targets to `exclude`, which allow you to exclude unwanted topics included via `contents`. See complete details in `?build_reference`.
@@ -129,7 +128,7 @@ See `?build_news` for more customisation options including how to:
 
 ## Publishing
 
-The easiest way to publish your website is to use GitHub [`docs/` directory][docs] support. If you want to build and publish your packge automatically with travis, see the instructions in `?usethis::use_pkgdown_travis()`.
+The easiest way to publish your website is to use GitHub [`docs/` directory][docs] support. If you want to build and publish your package automatically with GitHub actions, try `usethis::use_github_action("pkgdown")`.
 
 ## Promoting
 
