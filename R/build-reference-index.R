@@ -11,7 +11,7 @@ data_reference_index <- function(pkg = ".") {
     purrr::compact() %>%
     unlist(recursive = FALSE)
 
-  has_icons <- purrr::some(rows, ~ .x$has_icons %||% FALSE)
+  has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
   check_missing_topics(rows, pkg)
 
@@ -59,7 +59,7 @@ data_reference_index_rows <- function(section, pkg) {
     rows[[3]] <- list(
       topics = purrr::transpose(contents),
       names = topics$name,
-      has_icons = !purrr::every(contents$icon, is.null)
+      row_has_icons = !purrr::every(contents$icon, is.null)
     )
   }
 
