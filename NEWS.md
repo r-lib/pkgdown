@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Examples and Rmd now use exactly the same syntax highlighting strategy.
+
 * In examples and Rmd, calls of the form `current_package::foo` now get
   a local link (#1262).
 
