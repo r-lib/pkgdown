@@ -176,7 +176,7 @@
 <span id="cb2-3"><a href="#cb2-3"></a><span class="at">    </span><span class="fu">bootswatch</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> cerulean</span></span></code></pre></div>
 </li>
 <li>
-<p>A google analytics user ID if you want to track the people who are using your site</p>
+<p>A Google analytics user ID if you want to track the people who are using your site</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">ganalytics</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> UA-000000-01</span></span></code></pre></div>
@@ -184,7 +184,6 @@
 <li><p>Customize metadata used for social media cards, as described in <code><a href="../articles/metadata.html">vignette("metadata")</a></code>.</p></li>
 <li><p>Package search, as described in <code><a href="../articles/search.html">vignette("search")</a></code>.</p></li>
 </ul>
-<p>This also allows you to control the default navbar.</p>
 </div>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
@@ -196,27 +195,27 @@
 <a href="#reference" class="anchor"></a>Reference</h2>
 <p>pkgdown creates a function reference in <code>reference/</code> that includes one page for each <code>.Rd</code> help topic in <code>man/</code>. The translation of individual help topics from Rd to HTML is generally straightforward, but there are a couple of things you should bear in mind:</p>
 <ul>
-<li><p>pkgdown does it’s best to autolink all references to help topics and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
+<li><p>pkgdown does its best to autolink all references to help topics and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
 <li><p>pkgdown executes all examples, inserting the rendered results in the generated HTML files.</p></li>
 </ul>
 <p>By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> field in <code>_pkgdown.yml</code>. The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">reference</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">title</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">    desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>      Functions for installing Spark components and managing</span>
-<span id="cb4-5"><a href="#cb4-5"></a>      connections to Spark</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">contents</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_config</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_connect</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_disconnect</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_install</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_log</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">title</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="at">    </span><span class="fu">desc</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="at">    </span><span class="fu">contents</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> starts_with("spark_read")</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> starts_with("spark_write")</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> matches("saveload")</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">title</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    Functions for installing Spark components and managing</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    connections to Spark</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">  </span><span class="fu">contents</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_config</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_connect</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_disconnect</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_install</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> spark_log</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">title</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="at">  </span><span class="fu">desc</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="at">  </span><span class="fu">contents</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> starts_with("spark_read")</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> starts_with("spark_write")</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> matches("saveload")</span></span></code></pre></div>
 <p>The objects in <code>reference</code> can also contain a list of targets to <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
 <p>While working on the reference index you might want to run <code><a href="../reference/build_reference.html">build_reference_index()</a></code> instead of <code><a href="../reference/build_site.html">build_site()</a></code>; that will considerably reduce your iteration time.</p>
 </div>
@@ -241,26 +240,16 @@
 <span id="cb5-8"><a href="#cb5-8"></a></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="at">* This is the first release of pkgdown.</span></span></code></pre></div>
 <p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
-<p>If you have a large <code>NEWS.md</code> and want to create one page per release, you can create a multi-page change log by configuring the <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">news</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">one_page</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
-<p>In this case the <code>NEWS.md</code> is broken up by the version specified in the level one headings. Each version will be rendered to <code>news/</code>, with one page per minor release, so that <code>2.2.0</code>, <code>2.2.1</code>, and <code>2.2.2</code> are all described on a single page.</p>
-<p>If you want to provide detailed release notes aimed at teaching people about the new features, you can put these in e.g., <code>vignettes/news</code> and customise the navbar. See an example of this strategy in action for <a href="https://github.com/tidyverse/readxl/blob/master/_pkgdown.yml">readxl</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">navbar</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="at">  </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">text</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> News</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="at">    </span><span class="fu">menu</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="at">    </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">text</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Blog posts"</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="at">    </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">text</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Version 1.1.0"</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="at">      </span><span class="fu">href</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> https://www.tidyverse.org/articles/2018/04/readxl-1-1-0/</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="at">    </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">text</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"------------------"</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="at">    </span><span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span><span class="at"> </span><span class="fu">text</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> </span><span class="st">"Change log"</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="at">      </span><span class="fu">href</span><span class="kw"><a href="https://rdrr.io/r/base/Colon.html">:</a></span><span class="at"> news/index.html</span></span></code></pre></div>
-<p>See complete details in <code><a href="../reference/build_news.html">?build_news</a></code>.</p>
+<p>See <code><a href="../reference/build_news.html">?build_news</a></code> for more customisation options including how to:</p>
+<ul>
+<li>Create one page for each major version and related minor versions.</li>
+<li>Add release announcements to the news navbar drop-down.</li>
+</ul>
 </div>
 <div id="publishing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#publishing" class="anchor"></a>Publishing</h2>
-<p>The easiest way to publish your website is to use GitHub <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support. If you want to build and publish your packge automatically with travis, see the instructions in <code>?usethis::use_pkgdown_travis()</code>.</p>
+<p>The easiest way to publish your website is to use GitHub <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support. If you want to build and publish your package automatically with GitHub actions, try <code>usethis::use_github_action("pkgdown")</code>.</p>
 </div>
 <div id="promoting" class="section level2">
 <h2 class="hasAnchor">
