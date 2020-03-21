@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* In examples and Rmd, calls of the form `current_package::foo` now get
+  a local link (#1262).
+
 * You can optional suppress the CRAN release dates added to the news page.
   See `build_news()` for details (#1118).
 

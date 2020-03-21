@@ -144,13 +144,13 @@ tweak_pre_node <- function(node, ...) {
   # Find nodes with class kw and look backward to see if its qualified
   span <- node %>% xml2::xml_find_all(".//span[@class = 'kw']")
   pkg <- span %>% purrr::map_chr(find_qualifier)
-  has_pkg <- !is.na(pkg)
+  local_pkg <- is.na(pkg) | pkg == context_get("package")
 
   # Extract text and link
   text <- span %>% xml2::xml_text()
   href <- rep_along(text, na_chr)
-  href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
-  href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
+  href[!local_pkg] <- purrr::map2_chr(text[!local_pkg], pkg[!local_pkg], href_topic_remote)
+  href[local_pkg] <- purrr::map_chr(text[local_pkg], href_topic_local)
 
   has_link <- !is.na(href)
 

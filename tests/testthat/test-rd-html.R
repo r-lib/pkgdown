@@ -325,8 +325,8 @@ test_that("nested item with whitespace parsed correctly", {
 
 # Verbatim ----------------------------------------------------------------
 
-
 test_that("parseable preformatted blocks are highlighted", {
+  scoped_package_context("test")
   out <- flatten_para(rd_text("\\preformatted{1}"))
   expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
 })
