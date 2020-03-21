@@ -3,7 +3,7 @@ has_citation <- function(path = ".") {
   file_exists(path(path, 'inst/CITATION'))
 }
 
-create_meta <- function(path) {
+create_citation_meta <- function(path) {
   path <- path(path, "DESCRIPTION")
 
   dcf <- read.dcf(path)
@@ -11,8 +11,9 @@ create_meta <- function(path) {
 
   if (!is.null(meta$Encoding)) {
     meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  } else {
+    meta$Encoding <- "UTF-8"
   }
-  meta$Encoding <- "UTF-8"
 
   meta
 }
@@ -21,7 +22,7 @@ read_citation <- function(path = ".") {
   if (!has_citation(path)) {
     return(character())
   }
-  meta <- create_meta(path)
+  meta <- create_citation_meta(path)
   cit_path <- path(path, 'inst/CITATION')
 
   utils::readCitationFile(cit_path, meta = meta)
