@@ -86,7 +86,7 @@ navbar_articles <- function(pkg = ".") {
   menu <- list()
 
   vignettes <- pkg$vignettes
-  pkg_intro <- vignettes$name == pkg$package
+  pkg_intro <- article_is_intro(vignettes$name, pkg$package)
   if (any(pkg_intro)) {
     intro <- vignettes[pkg_intro, , drop = FALSE]
 
