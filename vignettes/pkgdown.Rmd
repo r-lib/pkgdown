@@ -69,7 +69,11 @@ pkgdown creates a function reference in `reference/` that includes one page for 
 * pkgdown executes all examples, inserting the rendered results in the 
   generated HTML files.
 
-By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of objects containing `title` or `subtitle`, `desc` (description), and list of `contents`. Since common prefix and suffixes are often used for function grouping, you can use the functions `starts_with()` and `ends_with()` to automatically include all functions with a common prefix or suffix. To match more complex patterns, use `matches()` with a regular expression. See complete details in `?build_reference`.
+By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is much more useful with human curation because functions can be grouped and described in categories. To override the default, provide a `reference` field in `_pkgdown.yml`. The `reference` should be an array of three types objects:
+
+* A title, defined by `title` and optional `desc` (description) fields. 
+* A subtitle, defined by `subtitle` and optional `desc` (description) fields.
+* A list of topics defined by a `contents` field.
 
 ```yaml
 reference:
@@ -77,7 +81,7 @@ reference:
   desc: >
     Functions for installing Spark components and managing
     connections to Spark
-  contents: 
+- contents: 
   - spark_config
   - spark_connect
   - spark_disconnect
@@ -85,11 +89,13 @@ reference:
   - spark_log
 - title: "Reading and Writing Data"
   desc: "Functions for reading and writing Spark DataFrames."
-  contents:
+- contents:
   - starts_with("spark_read")
   - starts_with("spark_write")
   - matches("saveload")
 ```
+
+Note the use of `starts_with()` to select all functions with a common prefix. You can also use `ends_with()` and `matches()`. See complete details in `?build_reference`.
 
 While working on the reference index you might want to run `build_reference_index()` instead of `build_site()`; that will considerably reduce your iteration time.
 
