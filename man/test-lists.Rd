@@ -26,9 +26,24 @@
 
 \subsection{Definition list}{
 \describe{
-  \item{a}{1}
-  \item{b}{2}
-  \item{This is a very long definition term}{}
+  \item{short}{short}
+  \item{short}{Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+  ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+  mollit anim id est laborum.}
+  \item{Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua.}{short}
+  \item{Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua.}{Lorem ipsum
+  adipiscing elit, sed do  eiusmod tempor incididunt ut labore et dolore ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+  ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+  mollit anim id est laborum.}
 }
 }
 }
