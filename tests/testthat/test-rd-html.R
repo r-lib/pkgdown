@@ -317,7 +317,7 @@ test_that("nested item with whitespace parsed correctly", {
       This text is indented in a way pkgdown doesn't like.
   }}")
   expect_equal(out, c(
-    "<dl class='dl-horizontal'>",
+    "<dl'>",
     "<dt>Label</dt><dd><p>This text is indented in a way pkgdown doesn't like.</p></dd>",
     "</dl>"
   ))
