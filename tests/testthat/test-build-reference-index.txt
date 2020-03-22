@@ -1,0 +1,30 @@
+> data_reference_index(pkg)
+pagetitle: Function reference
+rows:
+- title: A
+  slug: section-a
+  desc: ~
+- subtitle: B
+  slug: section-b
+  desc: ~
+- topics:
+  - path: a.html
+    aliases: a()
+    title: A
+    icon: ~
+  - path: b.html
+    aliases: b()
+    title: B
+    icon: ~
+  - path: c.html
+    aliases: c()
+    title: C
+    icon: ~
+  names:
+  - a
+  - b
+  - c
+  row_has_icons: no
+has_icons: no
+
+
