@@ -54,29 +54,54 @@ By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a \code{reference} section in your
 \verb{_pkgdown.yml} as described below.
 }
-\section{YAML config}{
+\section{Reference index}{
 
-To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}
-which provides a list of sections containing a \code{title} or \code{subtitle},
-list of \code{contents}, and an optional \code{desc}ription.
+To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}.
+It can contain three different types of element:
+\itemize{
+\item A \strong{title} (\code{title} + \code{desc}), which generates an row containing an \verb{<h2>}
+with optional paragraph description.
+\item A \strong{subtitle} (\code{subtitle} + \code{desc}), which generates an row containing an
+\verb{<h3>} with optional paragraph description.
+\item A \strong{list of topics} (\code{contents}), which generates one row for each topic,
+with a list of aliases for the topic on the left, and the topic title
+on the right.
+}
 
-For example, the following code breaks up the functions in pkgdown
-into two groups:\preformatted{reference:
-- title: Render components
-  desc:  Build each component of the site.
-  contents:
+(For historical reasons you can include \code{contents} with a title or
+subtitle, but this is no longer recommended).
+
+Most packages will only need to use \code{title} and \code{contents} components.
+For example, here's a snippet from the YAML that pkgdown uses to generate
+its own reference index:\preformatted{reference:
+- title: Build
+  desc:  Build a complete site or its individual section components.
+- contents:
   - starts_with("build_")
-  - init_site
 - title: Templates
-  contents:
+- contents:
+  - template_navbar
   - render_page
 }
 
-Use \code{title} and \code{subtitle} to break up a long page into multiple groups,
-using \code{desc} to provide a little context for the grouping. \code{desc} should
-be markdown, and if you have a long description use the YAML \code{>} notation:\preformatted{desc: >
+Bigger packages, e.g. ggplot2, may need an additional layer of
+structure in order to clearly organise large number of functions:\preformatted{reference:
+- title: Layers
+- subtitle: Geoms
+  desc: Geom is short for geometric element
+- contents:
+  - starts_with("geom")
+- subtitle: Stats
+  desc: Statistical transformations transform data before display.
+  contents:
+  - starts_with("stat")
+}
+
+\code{desc} can use markdown, and if you have a long description it's a good
+idea to take advantage of the YAML \code{>} notation:\preformatted{desc: >
   This is a very _long_ and **overly** flowery description of a
-  single simple function.
+  single simple function. By using `>`, it's easy to write a description
+  that runs over multiple lines.
 }
 \subsection{Topic matching}{
 
@@ -104,7 +129,15 @@ Use a leading \code{-} to remove topics from a section, e.g. \code{-topic_name},
 \code{-starts_with("foo")}.
 
 pkgdown will check that all non-internal topics are included on
-this page, and will generate a warning if you have missed any.
+the reference index page, and will generate a warning if you have missed any.
+}
+
+\subsection{Icons}{
+
+You can optionally supply an icon for each help topic. To do so, you'll need
+a top-level \code{icons} directory. This should contain {.png} files that are
+either 30x30 (for regular display) or 60x60 (if you want retina display).
+Icons are matched to topics by aliases.
 }
 }
 
@@ -122,13 +155,5 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.retina: 2
   fig.asp: 1.618
 }
-}
-
-\section{Icons}{
-
-You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level \code{icons} directory. This should contain {.png} files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.
 }
 
