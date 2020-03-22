@@ -4,26 +4,64 @@
 #' alphabetical order. To override this, provide a `reference` section in your
 #' `_pkgdown.yml` as described below.
 #'
-#' @section YAML config:
-#' To tweak the index page, add a section called `reference` to `_pkgdown.yml`
-#' which provides a list of sections containing, a `title`, list of `contents`,
-#' and an optional `description`.
+#' @section Reference index:
+#' To tweak the index page, add a section called `reference` to `_pkgdown.yml`.
+#' It can contain three different types of element:
 #'
-#' For example, the following code breaks up the functions in pkgdown
-#' into two groups:
+#' * A **title** (`title` + `desc`), which generates an row containing an `<h2>`
+#'   with optional paragraph description.
+#' * A **subtitle** (`subtitle` + `desc`), which generates an row containing an
+#'   `<h3>` with optional paragraph description.
+#' * A **list of topics** (`contents`), which generates one row for each topic,
+#'   with a list of aliases for the topic on the left, and the topic title
+#'   on the right.
+#'
+#' (For historical reasons you can include `contents` with a title or
+#' subtitle, but this is no longer recommended).
+#'
+#' Most packages will only need to use `title` and `contents` components.
+#' For example, here's a snippet from the YAML that pkgdown uses to generate
+#' its own reference index:
 #'
 #' ```
 #' reference:
-#' - title: Render components
-#'   desc:  Build each component of the site.
-#'   contents:
+#' - title: Build
+#'   desc:  Build a complete site or its individual section components.
+#' - contents:
 #'   - starts_with("build_")
-#'   - init_site
 #' - title: Templates
-#'   contents:
+#' - contents:
+#'   - template_navbar
 #'   - render_page
 #' ```
 #'
+#' Bigger packages, e.g. ggplot2, may need an additional layer of
+#' structure in order to clearly organise large number of functions:
+#'
+#' ```
+#' reference:
+#' - title: Layers
+#' - subtitle: Geoms
+#'   desc: Geom is short for geometric element
+#' - contents:
+#'   - starts_with("geom")
+#' - subtitle: Stats
+#'   desc: Statistical transformations transform data before display.
+#'   contents:
+#'   - starts_with("stat")
+#' ```
+#'
+#' `desc` can use markdown, and if you have a long description it's a good
+#' idea to take advantage of the YAML `>` notation:
+#'
+#' ```
+#' desc: >
+#'   This is a very _long_ and **overly** flowery description of a
+#'   single simple function. By using `>`, it's easy to write a description
+#'   that runs over multiple lines.
+#' ```
+#'
+#' ## Topic matching
 #' `contents` can contain:
 #'
 #' * Individual function/topic names.
@@ -46,17 +84,14 @@
 #' Use a leading `-` to remove topics from a section, e.g. `-topic_name`,
 #' `-starts_with("foo")`.
 #'
-#' You can provide long descriptions for groups of functions using the YAML `>`
-#' notation:
-#'
-#' ```
-#' desc: >
-#'   This is a very long and overly flowery description of a
-#'   single simple function.
-#' ```
-#'
 #' pkgdown will check that all non-internal topics are included on
-#' this page, and will generate a warning if you have missed any.
+#' the reference index page, and will generate a warning if you have missed any.
+#'
+#' ## Icons
+#' You can optionally supply an icon for each help topic. To do so, you'll need
+#' a top-level `icons` directory. This should contain {.png} files that are
+#' either 30x30 (for regular display) or 60x60 (if you want retina display).
+#' Icons are matched to topics by aliases.
 #'
 #' @section Figures:
 #'
@@ -74,12 +109,6 @@
 #'   fig.retina: 2
 #'   fig.asp: 1.618
 #' ```
-#'
-#' @section Icons:
-#' You can optionally supply an icon for each help topic. To do so, you'll need
-#' a top-level `icons` directory. This should contain {.png} files that are
-#' either 30x30 (for regular display) or 60x60 (if you want retina display).
-#' Icons are matched to topics by aliases.
 #'
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`

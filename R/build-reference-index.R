@@ -6,66 +6,64 @@ data_reference_index <- function(pkg = ".") {
     return(list())
   }
 
-  sections <- meta %>%
-    purrr::map(data_reference_index_section, pkg = pkg) %>%
-    purrr::compact()
+  rows <- meta %>%
+    purrr::map(data_reference_index_rows, pkg = pkg) %>%
+    purrr::compact() %>%
+    unlist(recursive = FALSE)
 
-  # Cross-reference complete list of topics vs. topics found in index page
-  all_topics <- meta %>%
-    purrr::map(~ select_topics(.$contents, pkg$topics, check = TRUE)) %>%
-    purrr::reduce(union)
-  in_index <- seq_along(pkg$topics$name) %in% all_topics
+  has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
-  missing <- !in_index & !pkg$topics$internal
-  if (any(missing)) {
-    warning(
-      "Topics missing from index: ",
-      paste(pkg$topics$name[missing], collapse = ", "),
-      call. =  FALSE,
-      immediate. = TRUE
-    )
-  }
-
-  icons <- sections %>% purrr::map("contents") %>% purrr::flatten() %>% purrr::map("icon")
+  check_missing_topics(rows, pkg)
 
   print_yaml(list(
     pagetitle = "Function reference",
-    sections = sections,
-    has_icons = purrr::some(icons, ~ !is.null(.x))
+    rows = rows,
+    has_icons = has_icons
   ))
 }
 
-data_reference_index_section <- function(section, pkg) {
-  if (!set_contains(names(section), c("title", "contents"))) {
-    warning(
-      "Section must have components `title`, `contents`",
-      call. = FALSE,
-      immediate. = TRUE
+data_reference_index_rows <- function(section, pkg) {
+  rows <- list()
+  if (has_name(section, "title")) {
+    rows[[1]] <- list(
+      title = section$title,
+      slug = paste0("section-", make_slug(section$title)),
+      desc = markdown_text(section$desc)
     )
-    return(NULL)
   }
 
-  # Find topics in this section
-  in_section <- select_topics(section$contents, pkg$topics)
-  section_topics <- pkg$topics[in_section, ]
+  if (has_name(section, "subtitle")) {
+    rows[[2]] <- list(
+      subtitle = section$subtitle,
+      slug = paste0("section-", make_slug(section$subtitle)),
+      desc = markdown_text(section$desc)
+    )
+  }
 
-  contents <- tibble::tibble(
-    path = section_topics$file_out,
-    aliases = purrr::map2(
-      section_topics$funs,
-      section_topics$name,
-      ~ if (length(.x) > 0) .x else .y
-    ),
-    title = section_topics$title,
-    icon = find_icons(section_topics$alias, path(pkg$src_path, "icons"))
-  )
-  list(
-    title = section$title,
-    slug = paste0("section-", make_slug(section$title)),
-    desc = markdown_text(section$desc),
-    class = section$class,
-    contents = purrr::transpose(contents)
-  )
+
+  if (has_name(section, "contents")) {
+    in_section <- select_topics(section$contents, pkg$topics)
+    topics <- pkg$topics[in_section, ]
+
+    contents <- tibble::tibble(
+      path = topics$file_out,
+      aliases = purrr::map2(
+        topics$funs,
+        topics$name,
+        ~ if (length(.x) > 0) .x else .y
+      ),
+      title = topics$title,
+      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
+    )
+
+    rows[[3]] <- list(
+      topics = purrr::transpose(contents),
+      names = topics$name,
+      row_has_icons = !purrr::every(contents$icon, is.null)
+    )
+  }
+
+  purrr::compact(rows)
 }
 
 
@@ -94,8 +92,18 @@ default_reference_index <- function(pkg = ".") {
   print_yaml(list(
     list(
       title = "All functions",
-      desc = NULL,
       contents = paste0('`', exported$name, '`')
     )
   ))
+}
+
+check_missing_topics <- function(rows, pkg) {
+  # Cross-reference complete list of topics vs. topics found in index page
+  all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
+  in_index <- pkg$topics$name %in% all_topics
+
+  missing <- !in_index & !pkg$topics$internal
+  if (any(missing)) {
+    warn(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+  }
 }

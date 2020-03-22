@@ -1,0 +1,6 @@
+Package: testpackage
+Version: 1.0.0
+Title: A test package
+Description: A test package
+Authors@R: person("Hadley Wickham")
+RoxygenNote: 7.1.0

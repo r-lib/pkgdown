@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* The reference index now has two levels of heading hierarchy: `title` and
+  `subtitle` (#327).
+
 * The name of the vignette mapped to the "Get started" entry in the navbar is
   now more flexible. You can use an article (e.g `articles/{pkgname}`) and if 
   your package has a `.` in its name you can replace it with `-` to generate
