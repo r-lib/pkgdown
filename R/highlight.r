@@ -53,11 +53,17 @@ href_tokens <- function(tokens, styles) {
   # SYMBOL_PACKAGE must always be followed NS_GET (or NS_GET_INT)
   # SYMBOL_FUNCTION_CALL or SYMBOL
   pkg <- which(styles %in% "kw pkg")
+  pkg_local <- tokens[pkg] == context_get("package")
   pkg_call <- pkg + 2
-  href[pkg_call] <- purrr::map2_chr(
-    tokens[pkg_call],
-    tokens[pkg],
+
+  href[pkg_call[!pkg_local]] <- purrr::map2_chr(
+    tokens[pkg_call[!pkg_local]],
+    tokens[pkg[!pkg_local]],
     href_topic_remote
+  )
+  href[pkg_call[pkg_local]] <- purrr::map_chr(
+    tokens[pkg_call[pkg_local]],
+    href_topic_local
   )
 
   call <- which(styles %in% "fu")

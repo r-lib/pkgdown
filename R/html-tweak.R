@@ -102,7 +102,7 @@ tweak_code <- function(x) {
 
   # <pre class="sourceCode r">
   x %>%
-    xml2::xml_find_all(".//pre[contains(@class, 'r')]") %>%
+    xml2::xml_find_all(".//pre[contains(@class, 'sourceCode r')]") %>%
     purrr::map(tweak_pre_node)
 
   # Identify <code> with no children (just text), and are not ancestors of a
@@ -133,31 +133,15 @@ tweak_code_nodeset <- function(nodes, ...) {
   invisible()
 }
 
-# Process in order, because attaching a package affects later code chunks
 tweak_pre_node <- function(node, ...) {
-  # Register attached packages
-  text <- node %>% xml2::xml_text()
-  expr <- tryCatch(parse(text = text), error = function(e) NULL)
-  packages <- extract_package_attach(expr)
-  register_attached_packages(packages)
+  text <- xml2::xml_text(node)
+  html <- highlight_text(text)
+  if (is.null(html)) {
+    return()
+  }
 
-  # Find nodes with class kw and look backward to see if its qualified
-  span <- node %>% xml2::xml_find_all(".//span[@class = 'kw']")
-  pkg <- span %>% purrr::map_chr(find_qualifier)
-  has_pkg <- !is.na(pkg)
-
-  # Extract text and link
-  text <- span %>% xml2::xml_text()
-  href <- rep_along(text, na_chr)
-  href[has_pkg] <- purrr::map2_chr(text[has_pkg], pkg[has_pkg], href_topic_remote)
-  href[!has_pkg] <- purrr::map_chr(text[!has_pkg], href_topic_local)
-
-  has_link <- !is.na(href)
-
-  span[has_link] %>%
-    xml2::xml_contents() %>%
-    xml2::xml_replace("a", href = href[has_link], text[has_link])
-
+  html <- paste0("<pre class='r'>", html, "</pre>")
+  xml2::xml_replace(node, xml2::read_html(html))
   invisible()
 }
 

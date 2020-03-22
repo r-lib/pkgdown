@@ -111,7 +111,7 @@ More details can be found in `?build_articles`.
 
 If `NEWS.md` is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your `NEWS.md` is formatted using level one headings (`#`) to specify package name and version number, and level two headings (`##`) to provide topical organization for each release.
 
-```yaml
+```markdown
 # pkgdown 1.1.0
 
 ## Bug Fixes
