@@ -270,24 +270,57 @@ If <code>FALSE</code>, uses the installed version of the package.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+    <h2 class="hasAnchor" id="reference-index"><a class="anchor" href="#reference-index"></a>Reference index</h2>
 
     
 
-<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>
-which provides a list of sections containing, a <code>title</code>, list of <code>contents</code>,
-and an optional <code>description</code>.</p>
-<p>For example, the following code breaks up the functions in pkgdown
-into two groups:</p><pre>reference:
-- title: Render components
-  desc:  Build each component of the site.
-  contents:
+<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>.
+It can contain three different types of element:</p><ul>
+<li><p>A <strong>title</strong> (<code>title</code> + <code>desc</code>), which generates an row containing an <code>&lt;h2&gt;</code>
+with optional paragraph description.</p></li>
+<li><p>A <strong>subtitle</strong> (<code>subtitle</code> + <code>desc</code>), which generates an row containing an
+<code>&lt;h3&gt;</code> with optional paragraph description.</p></li>
+<li><p>A <strong>list of topics</strong> (<code>contents</code>), which generates one row for each topic,
+with a list of aliases for the topic on the left, and the topic title
+on the right.</p></li>
+</ul>
+
+<p>(For historical reasons you can include <code>contents</code> with a title or
+subtitle, but this is no longer recommended).</p>
+<p>Most packages will only need to use <code>title</code> and <code>contents</code> components.
+For example, here's a snippet from the YAML that pkgdown uses to generate
+its own reference index:</p><pre>reference:
+- title: Build
+  desc:  Build a complete site or its individual section components.
+- contents:
   - starts_with("build_")
-  - init_site
 - title: Templates
-  contents:
+- contents:
+  - template_navbar
   - render_page
 </pre>
+
+<p>Bigger packages, e.g. ggplot2, may need an additional layer of
+structure in order to clearly organise large number of functions:</p><pre>reference:
+- title: Layers
+- subtitle: Geoms
+  desc: Geom is short for geometric element
+- contents:
+  - starts_with("geom")
+- subtitle: Stats
+  desc: Statistical transformations transform data before display.
+  contents:
+  - starts_with("stat")
+</pre>
+
+<p><code>desc</code> can use markdown, and if you have a long description it's a good
+idea to take advantage of the YAML <code>&gt;</code> notation:</p><pre>desc: &gt;
+  This is a very _long_ and **overly** flowery description of a
+  single simple function. By using `&gt;`, it's easy to write a description
+  that runs over multiple lines.
+</pre>
+<h3>Topic matching</h3>
+
 
 <p><code>contents</code> can contain:</p><ul>
 <li><p>Individual function/topic names.</p></li>
@@ -309,14 +342,17 @@ topics (i.e. those with <code>\keyword{internal}</code>). You can choose to incl
 with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
 <p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
 <code>-starts_with("foo")</code>.</p>
-<p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
-notation:</p><pre>desc: &gt;
-  This is a very long and overly flowery description of a
-  single simple function.
-</pre>
-
 <p>pkgdown will check that all non-internal topics are included on
-this page, and will generate a warning if you have missed any.</p>
+the reference index page, and will generate a warning if you have missed any.</p>
+
+<h3>Icons</h3>
+
+
+<p>You can optionally supply an icon for each help topic. To do so, you'll need
+a top-level <code>icons</code> directory. This should contain .png files that are
+either 30x30 (for regular display) or 60x60 (if you want retina display).
+Icons are matched to topics by aliases.</p>
+
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
     
@@ -334,14 +370,6 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.asp: 1.618
 </pre>
 
-    <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
-
-    
-
-<p>You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level <code>icons</code> directory. This should contain .png files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

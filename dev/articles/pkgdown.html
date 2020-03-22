@@ -198,13 +198,18 @@
 <li><p>pkgdown does its best to autolink all references to help topics and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
 <li><p>pkgdown executes all examples, inserting the rendered results in the generated HTML files.</p></li>
 </ul>
-<p>By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> field in <code>_pkgdown.yml</code>. The <code>reference</code> should be an array of objects containing <code>title</code>, <code>desc</code> (description), and list of <code>contents</code>. Since common prefix and suffixes are often used for functional grouping, you can use the functions <code>starts_with()</code> and <code>ends_with()</code> to automatically include all functions with a common prefix or suffix. To match more complex patterns, use <code>matches()</code> with a regular expression.</p>
+<p>By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is much more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> field in <code>_pkgdown.yml</code>. The <code>reference</code> should be an array of three types objects:</p>
+<ul>
+<li>A title, defined by <code>title</code> and optional <code>desc</code> (description) fields.</li>
+<li>A subtitle, defined by <code>subtitle</code> and optional <code>desc</code> (description) fields.</li>
+<li>A list of topics defined by a <code>contents</code> field.</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>    Functions for installing Spark components and managing</span>
 <span id="cb4-5"><a href="#cb4-5"></a>    connections to Spark</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
@@ -212,11 +217,11 @@
 <span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
-<p>The objects in <code>reference</code> can also contain a list of targets to <code>exclude</code>, which allow you to exclude unwanted topics included via <code>contents</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
+<p>Note the use of <code>starts_with()</code> to select all functions with a common prefix. You can also use <code>ends_with()</code> and <code>matches()</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
 <p>While working on the reference index you might want to run <code><a href="../reference/build_reference.html">build_reference_index()</a></code> instead of <code><a href="../reference/build_site.html">build_site()</a></code>; that will considerably reduce your iteration time.</p>
 </div>
 <div id="articles" class="section level2">
