@@ -197,6 +197,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>The name of the vignette mapped to the “Get started” entry in the navbar is now more flexible. You can use an article (e.g <code>articles/{pkgname}</code>) and if your package has a <code>.</code> in its name you can replace it with <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> to generate a valid article name (e.g. the get started vignette for <code>pack.down</code> would be <code>pack-down</code>) (<a href='https://github.com/r-lib/pkgdown/issues/1166'>#1166</a>).</p></li>
 <li><p>Examples and Rmd now use exactly the same syntax highlighting strategy.</p></li>
 <li><p>In examples and Rmd, calls of the form <code>current_package::foo</code> now get a local link (<a href='https://github.com/r-lib/pkgdown/issues/1262'>#1262</a>).</p></li>
 <li><p>You can optional suppress the CRAN release dates added to the news page. See <code><a href="../reference/build_news.html">build_news()</a></code> for details (<a href='https://github.com/r-lib/pkgdown/issues/1118'>#1118</a>).</p></li>
