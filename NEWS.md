@@ -3,6 +3,12 @@
 * The reference index now has two levels of heading hierarchy: `title` and
   `subtitle` (#327).
 
+* The name of the vignette mapped to the "Get started" entry in the navbar is
+  now more flexible. You can use an article (e.g `articles/{pkgname}`) and if 
+  your package has a `.` in its name you can replace it with `-` to generate
+  a valid article name (e.g. the get started vignette for `pack.down` would be
+  `pack-down`) (#1166).
+
 * Examples and Rmd now use exactly the same syntax highlighting strategy.
 
 * In examples and Rmd, calls of the form `current_package::foo` now get

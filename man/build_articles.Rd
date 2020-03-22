@@ -101,8 +101,10 @@ accessible via the articles index.
 \subsection{Special links}{
 \itemize{
 \item A vignette with the same name as the package (e.g.,
-\code{vignettes/pkgdown.Rmd}) automatically becomes a top-level "Get started"
-link, and will not appear in the articles drop-down.
+\code{vignettes/pkgdown.Rmd} or \code{vignettes/articles/pkgdown.Rmd})
+automatically becomes a top-level "Get started" link, and will not appear
+in the articles drop-down. (If your package name include a \code{.}, e.g.
+\code{pack.down}, use a \code{-} in the vignette name, e.g. \code{pack.down.Rmd}.)
 \item The navbar will include a link to the articles index if one or more
 vignettes are not available through the navbar. If some vignettes appear
 in the navbar drop-down list and others do not, the list will automatically
