@@ -44,10 +44,20 @@ data_citations <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   cit <- read_citation(pkg$src_path)
 
-  list(
-    html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
-    bibtex = format(cit, style = "bibtex")
-  ) %>% purrr::transpose()
+  text_version <- format(cit, style = "textVersion")
+  if (text_version == "") {
+    cit <- list(
+      html = format(cit, style = "html"),
+      bibtex = format(cit, style = "bibtex")
+    )
+  } else {
+    cit <- list(
+      html = paste0("<p>",text_version, "</p>"),
+      bibtex = format(cit, style = "bibtex")
+    )
+  }
+
+   purrr::transpose(cit)
 }
 
 build_citation_authors <- function(pkg = ".") {
