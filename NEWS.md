@@ -67,8 +67,9 @@
   is particularly useful for selecting all data documentation (#760).
 
 * Updated JS libraries: jquery 3.3.1 -> 3.4.1; bootswatch 3.3.7 -> 3.4.0;
-  bootstrap 3.3.7 -> bootstrap 3.4.1; docsearch 2.6.1 -> 2.6.3 
-  (@jayhesselberth).
+  bootstrap 3.3.7 -> bootstrap 3.4.1; docsearch 2.6.1 -> 2.6.3;
+  fontawesome 5.11.1 -> 5.12.1; headroom.js 0.9.44 -> 0.11.0; 
+  clipboard.js 2.0.4 -> 2.0.6 (@jayhesselberth).
 
 * `build_article()` failures now print more information to help you debug
   the problem (#952).
