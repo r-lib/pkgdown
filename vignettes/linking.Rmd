@@ -23,7 +23,7 @@ pkgdown will automatically link to documentation and articles wherever it's poss
 
 * Bare function calls, like `build_site()`.
 * Calls to `?`, like `?build_site` or `package?pkgdown`.
-* Calls to `help()`, like `help("pkdown")`.
+* Calls to `help()`, like `help("pkgdown")`.
 * Calls to `vignette()`, like `vignette("pkgdown")`.
 
 ## Across packages
