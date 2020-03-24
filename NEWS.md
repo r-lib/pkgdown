@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-## New featuers
+## New features
 
 * The articles index page and navbar have been overhauled. There are two
   major new features in this release:
