@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -53,7 +57,6 @@
 alphabetical order. To override this, provide a reference section in your
 _pkgdown.yml as described below." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -81,7 +84,7 @@ _pkgdown.yml as described below." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -95,7 +98,7 @@ _pkgdown.yml as described below." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -126,19 +129,12 @@ _pkgdown.yml as described below." />
     <li>
       <a href="../articles/search.html">Search</a>
     </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
+    </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Tests</li>
     <li>
-      <a href="../articles/test/rendering.html">Output Rendering</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -149,7 +145,7 @@ _pkgdown.yml as described below." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
     </li>
@@ -164,14 +160,14 @@ _pkgdown.yml as described below." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-lib/pkgdown">
+  <a href="https://github.com/r-lib/pkgdown/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -206,10 +202,18 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 <code>_pkgdown.yml</code> as described below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
-  <span class='kw'>topics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>build_reference</span>(
+  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
+  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
+  <span class='kw'>topics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
 
@@ -266,48 +270,89 @@ If <code>FALSE</code>, uses the installed version of the package.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
+    <h2 class="hasAnchor" id="reference-index"><a class="anchor" href="#reference-index"></a>Reference index</h2>
 
     
 
-<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>
-which provides a list of sections containing, a <code>title</code>, list of <code>contents</code>,
-and an optional <code>description</code>.</p>
-<p>For example, the following code breaks up the functions in pkgdown
-into two groups:</p><pre>reference:
-- title: Render components
-  desc:  Build each component of the site.
-  contents:
+<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>.
+It can contain three different types of element:</p><ul>
+<li><p>A <strong>title</strong> (<code>title</code> + <code>desc</code>), which generates an row containing an <code>&lt;h2&gt;</code>
+with optional paragraph description.</p></li>
+<li><p>A <strong>subtitle</strong> (<code>subtitle</code> + <code>desc</code>), which generates an row containing an
+<code>&lt;h3&gt;</code> with optional paragraph description.</p></li>
+<li><p>A <strong>list of topics</strong> (<code>contents</code>), which generates one row for each topic,
+with a list of aliases for the topic on the left, and the topic title
+on the right.</p></li>
+</ul>
+
+<p>(For historical reasons you can include <code>contents</code> with a title or
+subtitle, but this is no longer recommended).</p>
+<p>Most packages will only need to use <code>title</code> and <code>contents</code> components.
+For example, here's a snippet from the YAML that pkgdown uses to generate
+its own reference index:</p><pre>reference:
+- title: Build
+  desc:  Build a complete site or its individual section components.
+- contents:
   - starts_with("build_")
-  - init_site
 - title: Templates
-  contents:
+- contents:
+  - template_navbar
   - render_page
 </pre>
 
-<p>Note that <code>contents</code> can contain either a list of function names, or if the
-functions in a section share a common prefix or suffix, you can use
-<code>starts_with("prefix")</code> and <code>ends_with("suffix")</code> to select them all. For
-more complex naming schemes you can use an arbitrary regular expression with
-<code>matches("regexp")</code>. You can also use a leading <code>-</code> to exclude matches from a
-section. By default, these functions that match multiple topics will exclude
-topics with the Rd keyword "internal". To include these, use
-<code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>You can also select topics that contain specified Rd concepts with
-<code>has_concept("blah")</code>.</p>
-<p>You can provide long descriptions for groups of functions using the YAML <code>&gt;</code>
-notation:</p><pre>desc: &gt;
-  This is a very long and overly flowery description of a
-  single simple function.
+<p>Bigger packages, e.g. ggplot2, may need an additional layer of
+structure in order to clearly organise large number of functions:</p><pre>reference:
+- title: Layers
+- subtitle: Geoms
+  desc: Geom is short for geometric element
+- contents:
+  - starts_with("geom")
+- subtitle: Stats
+  desc: Statistical transformations transform data before display.
+  contents:
+  - starts_with("stat")
 </pre>
 
-<p>If you have functions with odd names (e.g. that start with a plus symbol
-<code>+</code>), you can include them by double-escaping. This YAML entry adds the
-<code>+.gg</code> function to the ggplot2 documentation:</p><pre>- "`+.gg`"
+<p><code>desc</code> can use markdown, and if you have a long description it's a good
+idea to take advantage of the YAML <code>&gt;</code> notation:</p><pre>desc: &gt;
+  This is a very _long_ and **overly** flowery description of a
+  single simple function. By using `&gt;`, it's easy to write a description
+  that runs over multiple lines.
 </pre>
+<h3>Topic matching</h3>
 
+
+<p><code>contents</code> can contain:</p><ul>
+<li><p>Individual function/topic names.</p></li>
+<li><p>Weirdly named functions with doubled quoting, once for YAML and once for
+R, e.g. <code>"`+.gg`"</code>.</p></li>
+<li><p><code>starts_with("prefix")</code> to select all functions with common prefix.</p></li>
+<li><p><code>ends_with("suffix")</code> to select all functions with common suffix.</p></li>
+<li><p><code>matches("regexp")</code> for more complex regular expressions.</p></li>
+<li><p><code>has_keyword("x")</code> to select all topics with keyword "x";
+<code>has_keyword("datasets")</code> selects all data documentation.</p></li>
+<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".</p></li>
+<li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
+without those concepts. This is useful to capture topics not otherwise
+captured by <code>has_concepts()</code>.</p></li>
+</ul>
+
+<p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
+topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
+with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
+<p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
+<code>-starts_with("foo")</code>.</p>
 <p>pkgdown will check that all non-internal topics are included on
-this page, and will generate a warning if you have missed any.</p>
+the reference index page, and will generate a warning if you have missed any.</p>
+
+<h3>Icons</h3>
+
+
+<p>You can optionally supply an icon for each help topic. To do so, you'll need
+a top-level <code>icons</code> directory. This should contain .png files that are
+either 30x30 (for regular display) or 60x60 (if you want retina display).
+Icons are matched to topics by aliases.</p>
+
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
     
@@ -325,25 +370,12 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.asp: 1.618
 </pre>
 
-    <h2 class="hasAnchor" id="icons"><a class="anchor" href="#icons"></a>Icons</h2>
-
-    
-
-<p>You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level <code>icons</code> directory. This should contain .png files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#yaml-config">YAML config</a></li>
-      <li><a href="#figures">Figures</a></li>
-      <li><a href="#icons">Icons</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -354,7 +386,7 @@ Icons are matched to topics by aliases.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>

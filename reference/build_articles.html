@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,24 +46,30 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 
 <meta property="og:title" content="Build articles section — build_articles" />
-<meta property="og:description" content="Each R Markdown vignette in vignettes/ and its subdirectories is rendered
-and saved to articles/.
-The only exception are .Rmd vignettes that start with _ (i.e., _index.Rmd), enabling the use of child documents in bookdown, and vignettes in a tutorials subdirectory, which is reserved for tutorials built with build_tutorials()
-Vignettes are rendered using a special document
-format that reconciles rmarkdown::html_document() with your pkgdown
-template.
-Note that when run by itself (i.e. not by build_site()), vignettes will
-use a previous installed version of the package, not the current source
-version." />
+<meta property="og:description" content="build_articles() renders each R Markdown file underneath vignettes/ and
+saves it to articles/. There are two exceptions:
+Files that start with _ (e.g., _index.Rmd) are ignored,
+enabling the use of child documents in
+bookdown
+Files in vignettes/tutorials are handled by build_tutorials()
+
+
+Vignettes are rendered using a special document format that reconciles
+rmarkdown::html_document() with the pkgdown template. This means articles
+behave slightly differently to vignettes, particularly with respect to
+external files, and custom output formats. See below for more details.
+Note that when you run build_articles() directly (outside of
+build_site()) vignettes will use the currently installed version of the
+package, not the current source version. This makes iteration quicker when
+you are primarily working on the text of an article." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -87,7 +97,7 @@ version." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -101,7 +111,7 @@ version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -132,19 +142,12 @@ version." />
     <li>
       <a href="../articles/search.html">Search</a>
     </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
+    </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Tests</li>
     <li>
-      <a href="../articles/test/rendering.html">Output Rendering</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -155,7 +158,7 @@ version." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
     </li>
@@ -170,14 +173,14 @@ version." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-lib/pkgdown">
+  <a href="https://github.com/r-lib/pkgdown/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -207,22 +210,33 @@ version." />
     </div>
 
     <div class="ref-description">
-    <p>Each R Markdown vignette in <code>vignettes/</code> and its subdirectories is rendered
-and saved to <code>articles/</code>.</p>
-<p>The only exception are <code>.Rmd</code> vignettes that start with <code>_</code> (i.e., <code>_index.Rmd</code>), enabling the use of child documents in <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a>, and vignettes in a <code>tutorials</code> subdirectory, which is reserved for tutorials built with <code><a href='build_tutorials.html'>build_tutorials()</a></code></p>
-<p>Vignettes are rendered using a special document
-format that reconciles <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with your pkgdown
-template.</p>
-<p>Note that when run by itself (i.e. not by <code><a href='build_site.html'>build_site()</a></code>), vignettes will
-use a previous installed version of the package, not the current source
-version.</p>
+    <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
+saves it to <code>articles/</code>. There are two exceptions:</p><ul>
+<li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
+enabling the use of child documents in
+<a href='https://bookdown.org/yihui/bookdown/'>bookdown</a></p></li>
+<li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
+</ul>
+
+<p>Vignettes are rendered using a special document format that reconciles
+<code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
+behave slightly differently to vignettes, particularly with respect to
+external files, and custom output formats. See below for more details.</p>
+<p>Note that when you run <code>build_articles()</code> directly (outside of
+<code><a href='build_site.html'>build_site()</a></code>) vignettes will use the currently installed version of the
+package, not the current source version. This makes iteration quicker when
+you are primarily working on the text of an article.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_articles</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+    <pre class="usage"><span class='fu'>build_articles</span>(
+  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+)
 
-<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,14 +276,65 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="get-started-vignette"><a class="anchor" href="#get-started-vignette"></a>Get started vignette</h2>
+    <h2 class="hasAnchor" id="index-and-navbar"><a class="anchor" href="#index-and-navbar"></a>Index and navbar</h2>
 
     
 
-<p>A vignette with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>)
-gets special treatment. It is rendered and linked to in the navbar under
-"Get started". Rmarkdown files in <code>vignettes/tutorials/</code> are ignored,
-because these are assumed to contain tutorials, see <code><a href='build_tutorials.html'>build_tutorials()</a></code>.</p>
+<p>You can control the articles index and navbar with a <code>articles</code> section in
+your <code>_pkgdown.yaml</code>. It defines a list of sections, eaach of which
+can contain four fields:</p><ul>
+<li><p><code>title</code> (required): title of section, which appears as a heading on the
+articles index.</p></li>
+<li><p><code>desc</code> (optional): An optional markdown description displayed underneath
+the section title.</p></li>
+<li><p><code>navbar</code> (optional): A couple of words used to label this section in
+the navbar. If omitted, this section of vignettes will not appear in the
+navbar.</p></li>
+<li><p><code>contents</code> (required): a list of article names to include in the
+section. This can either be names of individual vignettes or a
+call to <code>starts_with()</code>. The name of a vignette includes its
+path under <code>vignettes</code> without extension so that the name of the vignette
+found at <code>vignettes/pizza/slice.Rmd</code> is <code>pizza/slice</code>.</p></li>
+</ul>
+
+<p>The title and description of individual vignettes displayed on the index
+comes from <code>title</code> and <code>description</code> fields of the YAML header in the Rmds.</p>
+<p>For example, this yaml might be used for some version of dplyr:</p><pre>articles:
+- title: Main verbs
+  navbar: ~
+  contents:
+  - one-table
+  - two-table
+  - rowwise
+  - colwise
+
+- title: Developer
+  desc: Vignettes aimed at package developers
+  contents:
+  - programming
+  - packages
+</pre>
+
+<p>Note the use of the <code>navbar</code> fields. <code>navbar: ~</code> means that the "Main verbs"
+will appear in the navbar without a heading; the absence of the <code>navbar</code>
+field in the for the developer vignettes means that they will only be
+accessible via the articles index.</p><h3>Special links</h3>
+
+<ul>
+<li><p>A vignette with the same name as the package (e.g.,
+<code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>)
+automatically becomes a top-level "Get started" link, and will not appear
+in the articles drop-down. (If your package name include a <code>.</code>, e.g.
+<code>pack.down</code>, use a <code>-</code> in the vignette name, e.g. <code>pack.down.Rmd</code>.)</p></li>
+<li><p>The navbar will include a link to the articles index if one or more
+vignettes are not available through the navbar. If some vignettes appear
+in the navbar drop-down list and others do not, the list will automatically
+include a "More ..." link at the bottom; if no vignettes appear in the
+the navbar, it will link directly to the articles index instead of
+providing a drop-down.</p></li>
+</ul>
+
+
     <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
 
     
@@ -300,33 +365,6 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <code>&lt;iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app"&gt;</code>.</p>
 <p>See <a href='https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856'>https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config"></a>YAML config</h2>
-
-    
-
-<p>To tweak the index page, you need a section called <code>articles</code>,
-which provides a list of sections containing, a <code>title</code>, list of
-<code>contents</code>, and optional <code>description</code>.</p>
-<p>For example, this imaginary file describes some of the structure of
-the <a href='http://rmarkdown.rstudio.com/articles.html'>R markdown articles</a>:</p><pre>articles:
-- title: R Markdown
-  contents:
-  - starts_with("authoring")
-- title: Websites
-  contents:
-  - rmarkdown_websites
-  - rmarkdown_site_generators
-</pre>
-
-<p>Note that <code>contents</code> can contain either a list of vignette names
-(including subdirectories), or if the functions in a section share a
-common prefix or suffix, you can use <code>starts_with("prefix")</code> and
-<code>ends_with("suffix")</code> to select them all. If you don't care about
-position within the string, use <code>contains("word")</code>. For more complex
-naming schemes you can use an arbitrary regular expression with
-<code>matches("regexp")</code>.</p>
-<p>pkgdown will check that all vignettes are included in the index
-this page, and will generate a warning if you have missed any.</p>
     <h2 class="hasAnchor" id="yaml-header"><a class="anchor" href="#yaml-header"></a>YAML header</h2>
 
     
@@ -336,18 +374,16 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre>pkgdown:
-  as_is: true
-</pre>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='no'>pkgdown</span>:
+  <span class='no'>as_is</span>: <span class='no'>true</span></pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre>pkgdown:
-  as_is: true
-  extension: pdf
-</pre>
+<code>extension</code> field:</p><pre><span class='no'>pkgdown</span>:
+  <span class='no'>as_is</span>: <span class='no'>true</span>
+  <span class='no'>extension</span>: <span class='no'>pdf</span></pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
@@ -358,16 +394,12 @@ subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 <code><a href='build_site.html'>build_site()</a></code> details.</p>
-<p>Vignette files prefixed with an underscore (e.g., <code>_index.Rmd</code>) are ignored
-to enable rendering of <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a>
-sites.</p>
     <h2 class="hasAnchor" id="tables-of-contents"><a class="anchor" href="#tables-of-contents"></a>Tables of contents</h2>
 
     
 
-<p>You can control the TOC depth via the YAML configuration file:</p><pre>toc:
-  depth: 2
-</pre>
+<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='no'>toc</span>:
+  <span class='no'>depth</span>: <span class='fl'>2</span></pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
@@ -388,20 +420,10 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#get-started-vignette">Get started vignette</a></li>
-      <li><a href="#external-files">External files</a></li>
-      <li><a href="#embedding-shiny-apps">Embedding Shiny apps</a></li>
-      <li><a href="#yaml-config">YAML config</a></li>
-      <li><a href="#yaml-header">YAML header</a></li>
-      <li><a href="#suppressing-vignettes">Suppressing vignettes</a></li>
-      <li><a href="#tables-of-contents">Tables of contents</a></li>
-      <li><a href="#figures">Figures</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -412,7 +434,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>

@@ -37,7 +37,13 @@
     <loc>https://pkgdown.r-lib.org/reference/deploy_site_github.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/reference/deploy_to_branch.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/reference/in_pkgdown.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/reference/index-topic.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/reference/init_site.html</loc>
@@ -86,6 +92,9 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/articles/linking.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/articles/metadata.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/articles/pkgdown.html</loc>

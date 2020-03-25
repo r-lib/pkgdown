@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -52,10 +56,10 @@
 <meta property="og:description" content="deploy_site_github() sets up your SSH keys for deployment, builds the
 site with build_site(), commits the site to the gh-pages branch and then pushes
 the results back to GitHub. deploy_site_github() is meant only to be used
-by the CI system on Travis, it should not be called locally. See 'Setup' for
-details on setting up your repository to use this." />
+by the CI system on Travis, it should not be called locally.
+deploy_to_branch() can be used to deploy a site directly to GitHub Pages
+locally. See 'Setup' for details on setting up your repository to use this." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -83,7 +87,7 @@ details on setting up your repository to use this." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,7 +101,7 @@ details on setting up your repository to use this." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -128,19 +132,12 @@ details on setting up your repository to use this." />
     <li>
       <a href="../articles/search.html">Search</a>
     </li>
+    <li>
+      <a href="../articles/metadata.html">Metadata</a>
+    </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Tests</li>
     <li>
-      <a href="../articles/test/rendering.html">Output Rendering</a>
-    </li>
-    <li>
-      <a href="../articles/test/output.html">Custom output</a>
-    </li>
-    <li>
-      <a href="../articles/test/pdf.pdf">PDF (PDF)</a>
-    </li>
-    <li>
-      <a href="../articles/test/jss.pdf">JSS article (PDF)</a>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -151,7 +148,7 @@ details on setting up your repository to use this." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
     </li>
@@ -166,14 +163,14 @@ details on setting up your repository to use this." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-lib/pkgdown">
+  <a href="https://github.com/r-lib/pkgdown/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -206,15 +203,21 @@ details on setting up your repository to use this." />
     <p><code>deploy_site_github()</code> sets up your SSH keys for deployment, builds the
 site with <code><a href='build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
 the results back to GitHub. <code>deploy_site_github()</code> is meant only to be used
-by the CI system on Travis, it should not be called locally. See 'Setup' for
-details on setting up your repository to use this.</p>
+by the CI system on Travis, it should not be called locally.
+<code><a href='deploy_to_branch.html'>deploy_to_branch()</a></code> can be used to deploy a site directly to GitHub Pages
+locally. See 'Setup' for details on setting up your repository to use this.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>deploy_site_github</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>deploy_site_github</span>(
+  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tarball</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
   <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>),
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,7 +229,7 @@ details on setting up your repository to use this.</p>
     <tr>
       <th>install</th>
       <td><p>Optionally, opt-out of automatic installation. This is
-necessary if the package you're document is a dependency of pkgdown</p></td>
+necessary if the package you're documenting is a dependency of pkgdown</p></td>
     </tr>
     <tr>
       <th>tarball</th>
@@ -241,10 +244,6 @@ new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></td>
     </tr>
     <tr>
-      <th>repo_slug</th>
-      <td><p>The <code>user/repo</code> slug for the repository.</p></td>
-    </tr>
-    <tr>
       <th>commit_message</th>
       <td><p>The commit message to be used for the commit.</p></td>
     </tr>
@@ -255,6 +254,10 @@ new keypair specifically for deploying the site. The easiest way is to use
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>repo_slug</th>
+      <td><p><strong>Deprecated</strong> No longer used.</p></td>
     </tr>
     </table>
 
@@ -272,7 +275,7 @@ deploy:
 </pre></li>
 <li><p>Then you will need to setup your deployment keys. The easiest way is to call
 <code>travis::use_travis_deploy()</code>. This will generate and push the necessary
-keys to your GitHub and Travis accounts. See the <a href='https://ropenscilabs.github.io/travis/'>travis package website</a> for more details.</p></li>
+keys to your GitHub and Travis accounts. See the <a href='https://docs.ropensci.org/travis/index.html'>travis package website</a> for more details.</p></li>
 <li><p>Next, make sure that a gh-pages branch exists. The simplest way to do
 so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages
 git rm -rf .
@@ -285,19 +288,16 @@ git checkout master
 from RStudio's perspective you end up deleting all the files and then
 re-creating them.</p></li>
 <li><p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
-<code>_pkgdown.yaml</code>:</p><pre>url: http://pkgdown.r-lib.org
-</pre></li>
+<code>_pkgdown.yaml</code>:<div class="yaml"></p><pre>url: http://pkgdown.r-lib.org
+</pre><p></div></p></li>
 </ul>
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#setup">Setup</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -308,7 +308,7 @@ re-creating them.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
