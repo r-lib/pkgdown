@@ -71,7 +71,7 @@ Here are a few examples created by contributors to pkgdown:
     plotting functions for posterior analysis, model checking, and MCMC
     diagnostics.
 
-  - [valr](https://valr.hesselberthlab.org/)
+  - [valr](https://rnabioco.github.io/valr)
     ([source](https://github.com/rnabioco/valr)): read and manipulate
     genome intervals and signals.
 
