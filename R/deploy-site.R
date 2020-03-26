@@ -1,11 +1,12 @@
 #' Deploy a pkgdown site on Travis-CI to Github Pages
 #'
 #' `deploy_site_github()` sets up your SSH keys for deployment, builds the
-#' site with [build_site()], commits the site to the `gh-pages` branch and then pushes
-#' the results back to GitHub. `deploy_site_github()` is meant only to be used
-#' by the CI system on Travis, it should not be called locally.
-#' [deploy_to_branch()] can be used to deploy a site directly to GitHub Pages
-#' locally. See 'Setup' for details on setting up your repository to use this.
+#' site with [build_site()], commits the site to the `gh-pages` branch (by
+#' default) and then pushes the results back to GitHub. `deploy_site_github()`
+#' is meant only to be used by the CI system on Travis, it should not be called
+#' locally. [deploy_to_branch()] can be used to deploy a site directly to GitHub
+#' Pages locally. See 'Setup' for details on setting up your repository to use
+#' this.
 #'
 #' @section Setup:
 #' For a quick setup, you can use [usethis::use_pkgdown_travis()]. It  will help you
@@ -26,8 +27,9 @@
 #' keys to your GitHub and Travis accounts. See the [travis package
 #' website](https://docs.ropensci.org/travis/index.html) for more details.
 #'
-#' * Next, make sure that a gh-pages branch exists. The simplest way to do
-#' so is to run the following git commands locally:
+#' * Next, make sure that a gh-pages branch (or some other branch that you'd
+#' like to push to) exists. The simplest way to do so is to run the following
+#' git commands locally:
 #'
 #'     ```
 #'     git checkout --orphan gh-pages
@@ -59,7 +61,8 @@
 #'   `travis::use_travis_deploy()`.
 #' @param commit_message The commit message to be used for the commit.
 #' @param verbose Print verbose output
-#' @param ... Additional arguments passed to [build_site()].
+#' @param ... Additional arguments passed to [build_site()] (or a `branch`
+#' argument to be supplied to [deploy_to_branch()])
 #' @param repo_slug **Deprecated** No longer used.
 #' @export
 deploy_site_github <- function(
@@ -97,7 +100,7 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  deploy_to_branch(pkg, commit_message = commit_message, branch = "gh-pages", ...)
+  deploy_to_branch(pkg, commit_message = commit_message, ...)
 
   rule("Deploy completed", line = 2)
 }

@@ -33,17 +33,19 @@ new keypair specifically for deploying the site. The easiest way is to use
 
 \item{verbose}{Print verbose output}
 
-\item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
+\item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}} (or a \code{branch}
+argument to be supplied to \code{\link[=deploy_to_branch]{deploy_to_branch()}})}
 
 \item{repo_slug}{\strong{Deprecated} No longer used.}
 }
 \description{
 \code{deploy_site_github()} sets up your SSH keys for deployment, builds the
-site with \code{\link[=build_site]{build_site()}}, commits the site to the \code{gh-pages} branch and then pushes
-the results back to GitHub. \code{deploy_site_github()} is meant only to be used
-by the CI system on Travis, it should not be called locally.
-\code{\link[=deploy_to_branch]{deploy_to_branch()}} can be used to deploy a site directly to GitHub Pages
-locally. See 'Setup' for details on setting up your repository to use this.
+site with \code{\link[=build_site]{build_site()}}, commits the site to the \code{gh-pages} branch (by
+default) and then pushes the results back to GitHub. \code{deploy_site_github()}
+is meant only to be used by the CI system on Travis, it should not be called
+locally. \code{\link[=deploy_to_branch]{deploy_to_branch()}} can be used to deploy a site directly to GitHub
+Pages locally. See 'Setup' for details on setting up your repository to use
+this.
 }
 \section{Setup}{
 
@@ -59,8 +61,9 @@ deploy:
 \item Then you will need to setup your deployment keys. The easiest way is to call
 \code{travis::use_travis_deploy()}. This will generate and push the necessary
 keys to your GitHub and Travis accounts. See the \href{https://docs.ropensci.org/travis/index.html}{travis package website} for more details.
-\item Next, make sure that a gh-pages branch exists. The simplest way to do
-so is to run the following git commands locally:\preformatted{git checkout --orphan gh-pages
+\item Next, make sure that a gh-pages branch (or some other branch that you'd
+like to push to) exists. The simplest way to do so is to run the following
+git commands locally:\preformatted{git checkout --orphan gh-pages
 git rm -rf .
 git commit --allow-empty -m 'Initial gh-pages commit'
 git push origin gh-pages
