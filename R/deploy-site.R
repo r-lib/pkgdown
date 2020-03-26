@@ -97,10 +97,13 @@ deploy_site_github <- function(
   cat_line("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
+  cat_line("Setting remote to use the ssh url")
+
+  git("remote", "set-url", "origin", sprintf("git@github.com:%s.git", repo_slug))
+
   deploy_to_branch(
     pkg,
     commit_message = commit_message,
-    remote = sprintf("git@github.com:%s.git", repo_slug),
     branch = "gh-pages",
     ...
   )
