@@ -58,7 +58,7 @@ you are primarily working on the text of an article.
 \section{Index and navbar}{
 
 You can control the articles index and navbar with a \code{articles} section in
-your \verb{_pkgdown.yaml}. It defines a list of sections, eaach of which
+your \verb{_pkgdown.yaml}. It defines a list of sections, each of which
 can contain four fields:
 \itemize{
 \item \code{title} (required): title of section, which appears as a heading on the
