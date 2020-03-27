@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `deploy_site_github()` fixed so that it again works as intended on Travis-CI
+  (@jimhester, #1276).
+
 # pkgdown 1.5.0
 
 ## New features
