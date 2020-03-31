@@ -60,6 +60,7 @@
 #' @param commit_message The commit message to be used for the commit.
 #' @param verbose Print verbose output
 #' @param ... Additional arguments passed to [build_site()].
+#' @param host The GitHub host url.
 #' @param repo_slug The `user/repo` slug for the repository.
 #' @export
 deploy_site_github <- function(
@@ -69,6 +70,7 @@ deploy_site_github <- function(
   ssh_id = Sys.getenv("id_rsa", ""),
   commit_message = construct_commit_message(pkg),
   verbose = FALSE,
+  host = "github.com",
   ...,
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")) {
 
@@ -99,7 +101,7 @@ deploy_site_github <- function(
 
   cat_line("Setting remote to use the ssh url")
 
-  git("remote", "set-url", "origin", sprintf("git@github.com:%s.git", repo_slug))
+  git("remote", "set-url", "origin", sprintf("git@%s:%s.git", host, repo_slug))
 
   deploy_to_branch(
     pkg,
