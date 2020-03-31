@@ -11,6 +11,7 @@ deploy_site_github(
   ssh_id = Sys.getenv("id_rsa", ""),
   commit_message = construct_commit_message(pkg),
   verbose = FALSE,
+  host = "github.com",
   ...,
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")
 )
@@ -32,6 +33,8 @@ new keypair specifically for deploying the site. The easiest way is to use
 \item{commit_message}{The commit message to be used for the commit.}
 
 \item{verbose}{Print verbose output}
+
+\item{host}{The GitHub host url.}
 
 \item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
 
