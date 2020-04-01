@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `deploy_site_github()` now accepts a `host` argument to specify alternate hosts (e.g., Github enterprise) (@dimagor, #1165)
+
 * `deploy_site_github()` fixed so that it again works as intended on Travis-CI
   (@jimhester, #1276).
 
