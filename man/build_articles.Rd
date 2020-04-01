@@ -3,6 +3,7 @@
 \name{build_articles}
 \alias{build_articles}
 \alias{build_article}
+\alias{build_articles_index}
 \title{Build articles section}
 \usage{
 build_articles(
@@ -14,6 +15,8 @@ build_articles(
 )
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
+
+build_articles_index(pkg = ".")
 }
 \arguments{
 \item{pkg}{Path to package.}
