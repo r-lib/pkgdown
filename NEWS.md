@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Rendering empty `.md` file now returns empty string (#1285).
+
 * `build_articles_index()` is now exported to rapidly rebuild the index (#1281)
 
 * `deploy_site_github()` now accepts a `host` argument to specify alternate hosts (e.g., Github enterprise) (@dimagor, #1165)
