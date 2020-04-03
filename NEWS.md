@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Syntax highlighting works on Windows once more (#1282)
+
 * `build_articles_index()` is now exported to rapidly rebuild the index (#1281)
 
 * `deploy_site_github()` now accepts a `host` argument to specify alternate hosts (e.g., Github enterprise) (@dimagor, #1165)

@@ -4,6 +4,7 @@
 highlight_text <- function(text) {
   stopifnot(is.character(text), length(text) == 1)
 
+  text <- gsub("\r", "", text)
   expr <- tryCatch(
     parse(text = text, keep.source = TRUE),
     error = function(e) NULL
@@ -11,7 +12,7 @@ highlight_text <- function(text) {
 
   # Failed to parse, or yielded empty expression
   if (length(expr) == 0) {
-    return(text)
+    return(escape_html(text))
   }
 
   packages <- extract_package_attach(expr)
