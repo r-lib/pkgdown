@@ -45,7 +45,7 @@ data_citations <- function(pkg = ".") {
   cit <- read_citation(pkg$src_path)
 
   text_version <- format(cit, style = "textVersion")
-  if (text_version == "") {
+  if (identical(text_version, "")) {
     cit <- list(
       html = format(cit, style = "html"),
       bibtex = format(cit, style = "bibtex")
