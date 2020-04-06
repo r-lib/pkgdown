@@ -196,7 +196,7 @@ build_reference <- function(pkg = ".",
 #' @export
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg, depth = 1L)
   dir_create(path(pkg$dst_path, "reference"))
 
   # Copy icons, if needed
@@ -206,11 +206,11 @@ build_reference_index <- function(pkg = ".") {
     dir_copy_to(pkg, src_icons, dst_icons)
   }
 
-  render_page(
+  invisible(render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg),
     path = "reference/index.html"
-  )
+  ))
 }
 
 
