@@ -33,20 +33,6 @@ test_that("can build site even if no Authors@R present", {
   on.exit(clean_site(pkg))
 })
 
-
-# empty readme.md ---------------------------------------------------------
-
-test_that("build_home fails with empty readme.md", {
-  skip_if_no_pandoc()
-
-  pkg <- test_path("assets/home-empty-readme-md")
-  on.exit(clean_site(pkg))
-
-  expect_output(
-    expect_error(build_home(pkg), "non-empty")
-  )
-})
-
 # .github files -----------------------------------------------------------
 
 test_that(".github files are copied and linked", {

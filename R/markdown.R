@@ -27,7 +27,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
   xml <- xml2::read_html(tmp, encoding = "UTF-8")
 
   if (!inherits(xml, "xml_node")) {
-    stop(src_path(path), " must be non-empty", call. = FALSE)
+    return("")
   }
 
   # Capture heading, and optional remove
