@@ -120,6 +120,7 @@ test_that("can link help calls", {
 # library and friends -----------------------------------------------------
 
 test_that("library() linked to package reference", {
+  skip_on_os("solaris")
   scoped_package_context("test", c(foo = "bar"))
 
   expect_equal(href_expr_(library()), NA_character_)
