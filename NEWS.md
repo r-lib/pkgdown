@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Syntax highlighting works on Windows once more (#1282)
+
 * Rendering empty `.md` file now returns empty string (#1285).
 
 * `build_articles_index()` is now exported to rapidly rebuild the index (#1281)
