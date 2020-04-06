@@ -64,6 +64,7 @@ match_env <- function(topics) {
   env_bind(out, !!!set_names(topic_index, topics$name))
 
   # As is each alias
+  topics$alias <- lapply(topics$alias, unique)
   aliases <- set_names(
     rep(topic_index, lengths(topics$alias)),
     unlist(topics$alias)
