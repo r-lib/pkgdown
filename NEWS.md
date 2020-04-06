@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Syntax highlighting works on Windows once more (#1282)
+* Syntax highlighting works on Windows once more (#1282).
 
 * pkgdown no longer fails if your `.Rd` files have duplicated `\aliases` 
   as were produced by an older version of roxygen2 (#1290).
@@ -9,10 +9,9 @@
 
 * `build_articles_index()` is now exported to rapidly rebuild the index (#1281)
 
-* `deploy_site_github()` now accepts a `host` argument to specify alternate hosts (e.g., Github enterprise) (@dimagor, #1165)
-
-* `deploy_site_github()` fixed so that it again works as intended on Travis-CI
-  (@jimhester, #1276).
+* `deploy_site_github()` now accepts a `host` argument to specify alternate 
+  hosts (e.g., Github enterprise) (@dimagor, #1165) and once again works as 
+  intended on Travis-CI (@jimhester, #1276).
 
 # pkgdown 1.5.0
 
