@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 1.5.1
 
 * Syntax highlighting works on Windows once more (#1282).
