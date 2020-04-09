@@ -9,17 +9,4 @@
 
 ## revdepcheck results
 
-We checked 75 reverse dependencies (71 from CRAN + 4 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 5 packages
-
-Issues with CRAN packages are summarised below.
-
-### Failed to check
-
-* colorednoise  (NA)
-* corrcoverage  (NA)
-* FSelectorRcpp (NA)
-* nlmixr        (NA)
-* rstap         (NA)
+This release includes a handful of small bug fixes so I did not check reverse dependencies.
