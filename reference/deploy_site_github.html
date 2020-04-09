@@ -101,7 +101,7 @@ locally. See 'Setup' for details on setting up your repository to use this." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
       </span>
     </div>
 
@@ -149,6 +149,9 @@ locally. See 'Setup' for details on setting up your repository to use this." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
     </li>
@@ -215,8 +218,9 @@ locally. See 'Setup' for details on setting up your repository to use this.</p>
   <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
   <span class='no'>...</span>,
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>
+  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -252,12 +256,16 @@ new keypair specifically for deploying the site. The easiest way is to use
       <td><p>Print verbose output</p></td>
     </tr>
     <tr>
+      <th>host</th>
+      <td><p>The GitHub host url.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     <tr>
       <th>repo_slug</th>
-      <td><p><strong>Deprecated</strong> No longer used.</p></td>
+      <td><p>The <code>user/repo</code> slug for the repository.</p></td>
     </tr>
     </table>
 
@@ -308,7 +316,7 @@ re-creating them.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
