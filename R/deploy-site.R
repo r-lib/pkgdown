@@ -58,6 +58,7 @@
 #'   new keypair specifically for deploying the site. The easiest way is to use
 #'   `travis::use_travis_deploy()`.
 #' @param commit_message The commit message to be used for the commit.
+#' @param clean Clean files from the deployed site before building a new one.
 #' @param verbose Print verbose output
 #' @param ... Additional arguments passed to [build_site()].
 #' @param host The GitHub host url.
@@ -69,6 +70,7 @@ deploy_site_github <- function(
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
   commit_message = construct_commit_message(pkg),
+  clean = FALSE,
   verbose = FALSE,
   host = "github.com",
   ...,
@@ -158,6 +160,11 @@ deploy_to_branch <- function(pkg = ".",
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
+  if (clean) {
+    rule("Cleaning files from previously deployed site", line = 1)
+    git("rm", "-rf", "--quiet", ".")
+  }
+
   pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
   build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
   if (github_pages) {
@@ -173,6 +180,7 @@ deploy_to_branch <- function(pkg = ".",
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
 }
+
 git_current_branch <- function() {
   branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
   sub("\n$", "", branch)
