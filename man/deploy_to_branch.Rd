@@ -7,6 +7,7 @@
 deploy_to_branch(
   pkg = ".",
   commit_message = construct_commit_message(pkg),
+  clean = FALSE,
   branch = "gh-pages",
   remote = "origin",
   github_pages = (branch == "gh-pages"),
@@ -17,6 +18,8 @@ deploy_to_branch(
 \item{pkg}{Path to package.}
 
 \item{commit_message}{The commit message to be used for the commit.}
+
+\item{clean}{Clean all files from old site.}
 
 \item{branch}{The git branch to deploy to}
 
