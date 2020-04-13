@@ -108,6 +108,7 @@ deploy_site_github <- function(
   deploy_to_branch(
     pkg,
     commit_message = commit_message,
+    clean = clean,
     branch = "gh-pages",
     ...
   )
@@ -131,6 +132,7 @@ deploy_site_github <- function(
 #' @export
 deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
+                         clean = FALSE,
                          branch = "gh-pages",
                          remote = "origin",
                          github_pages = (branch == "gh-pages"),
@@ -151,6 +153,11 @@ deploy_to_branch <- function(pkg = ".",
     git("checkout", old_branch)
   }
 
+  if (clean) {
+    rule("Cleaning files from previously deployed site", line = 1)
+    git_clean_branch(remote, branch)
+  }
+
   # Explicitly set the branches tracked by the origin remote.
   # Needed if we are using a shallow clone, such as on travis-CI
   git("remote", "set-branches", remote, branch)
@@ -159,11 +166,6 @@ deploy_to_branch <- function(pkg = ".",
 
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
-
-  if (clean) {
-    rule("Cleaning files from previously deployed site", line = 1)
-    git("rm", "-rf", "--quiet", ".")
-  }
 
   pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
   build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
@@ -176,6 +178,17 @@ deploy_to_branch <- function(pkg = ".",
   invisible()
 }
 
+git_clean_branch <- function(remote, branch) {
+  old_branch <- git_current_branch()
+
+  git("checkout", branch)
+  git("rm", "-rf", "--quiet", ".")
+  git("commit", "--allow-empty", "-m", sprintf("Cleaning %s branch", branch))
+  git("push", remote, paste0("HEAD:", branch))
+
+  # checkout the previous branch
+  git("checkout", old_branch)
+}
 
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
