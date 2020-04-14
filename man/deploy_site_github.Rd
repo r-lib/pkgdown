@@ -10,6 +10,7 @@ deploy_site_github(
   tarball = Sys.getenv("PKG_TARBALL", ""),
   ssh_id = Sys.getenv("id_rsa", ""),
   commit_message = construct_commit_message(pkg),
+  clean = FALSE,
   verbose = FALSE,
   host = "github.com",
   ...,
@@ -31,6 +32,8 @@ new keypair specifically for deploying the site. The easiest way is to use
 \code{travis::use_travis_deploy()}.}
 
 \item{commit_message}{The commit message to be used for the commit.}
+
+\item{clean}{Clean all files from old site.}
 
 \item{verbose}{Print verbose output}
 
