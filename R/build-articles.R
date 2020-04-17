@@ -73,8 +73,8 @@
 #' * A vignette with the same name as the package (e.g.,
 #'   `vignettes/pkgdown.Rmd` or `vignettes/articles/pkgdown.Rmd`)
 #'   automatically becomes a top-level "Get started" link, and will not appear
-#'   in the articles drop-down. (If your package name include a `.`, e.g.
-#'   `pack.down`, use a `-` in the vignette name, e.g. `pack.down.Rmd`.)
+#'   in the articles drop-down. (If your package name includes a `.`, e.g.
+#'   `pack.down`, use a `-` in the vignette name, e.g. `pack-down.Rmd`.)
 #'
 #' * The navbar will include a link to the articles index if one or more
 #'   vignettes are not available through the navbar. If some vignettes appear
