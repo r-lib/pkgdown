@@ -98,7 +98,7 @@ cran_link <- memoise(function(pkg) {
 
   # bioconductor always returns a 200 status, redirecting to /removed-packages/
   bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
-  req <- httr::HEAD(bioc_url)
+  req <- httr::RETRY("HEAD", bioc_url)
   if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
     return(list(repo = "BIOC", url = bioc_url))
   }

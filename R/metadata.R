@@ -46,7 +46,7 @@ remote_metadata <- memoise(function(package) {
 })
 
 fetch_yaml <- function(url) {
-  resp <- httr::GET(url, httr::timeout(3))
+  resp <- httr::RETRY("GET", url, httr::timeout(3))
   httr::stop_for_status(resp)
 
   text <- httr::content(resp, as = "text", encoding = "UTF-8")
