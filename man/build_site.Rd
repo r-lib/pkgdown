@@ -199,25 +199,26 @@ and to add your own components.\preformatted{navbar:
 The \code{components} describes the appearance of each element in the navbar.
 It uses the same
 syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.\preformatted{components:
-  home: ~
-  articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Title B1
-      menu:
-      - text "Sub-category B11"
-        href: articles/b11.html
-   twitter:
-     icon: "fab fa-twitter fa-lg"
-     href: http://twitter.com/hadleywickham
+The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
+  components:
+    home: ~
+    articles:
+     text: Articles
+     menu:
+     - text: Category A
+     - text: Title A1
+       href: articles/a1.html
+     - text: Title A2
+       href: articles/a2.html
+     - text: -------
+     - text: "Category B"
+     - text: Title B1
+       menu:
+       - text "Sub-category B11"
+         href: articles/b11.html
+     twitter:
+       icon: "fab fa-twitter fa-lg"
+       href: http://twitter.com/hadleywickham
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing

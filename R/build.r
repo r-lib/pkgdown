@@ -150,25 +150,26 @@
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' ```
-#' components:
-#'   home: ~
-#'   articles:
-#'     text: Articles
-#'     menu:
-#'     - text: Category A
-#'     - text: Title A1
-#'       href: articles/a1.html
-#'     - text: Title A2
-#'       href: articles/a2.html
-#'     - text: -------
-#'     - text: "Category B"
-#'     - text: Title B1
-#'       menu:
-#'       - text "Sub-category B11"
-#'         href: articles/b11.html
-#'    twitter:
-#'      icon: "fab fa-twitter fa-lg"
-#'      href: http://twitter.com/hadleywickham
+#' navbar:
+#'   components:
+#'     home: ~
+#'     articles:
+#'      text: Articles
+#'      menu:
+#'      - text: Category A
+#'      - text: Title A1
+#'        href: articles/a1.html
+#'      - text: Title A2
+#'        href: articles/a2.html
+#'      - text: -------
+#'      - text: "Category B"
+#'      - text: Title B1
+#'        menu:
+#'        - text "Sub-category B11"
+#'          href: articles/b11.html
+#'      twitter:
+#'        icon: "fab fa-twitter fa-lg"
+#'        href: http://twitter.com/hadleywickham
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
