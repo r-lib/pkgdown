@@ -416,25 +416,26 @@ and to add your own components.</p><pre>navbar:
 <p>The <code>components</code> describes the appearance of each element in the navbar.
 It uses the same
 syntax as <a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation'>RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p><pre>components:
-  home: ~
-  articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Title B1
-      menu:
-      - text "Sub-category B11"
-        href: articles/b11.html
-   twitter:
-     icon: "fab fa-twitter fa-lg"
-     href: http://twitter.com/hadleywickham
+The following YAML snippet illustrates some of the most important features.</p><pre>navbar:
+  components:
+    home: ~
+    articles:
+     text: Articles
+     menu:
+     - text: Category A
+     - text: Title A1
+       href: articles/a1.html
+     - text: Title A2
+       href: articles/a2.html
+     - text: -------
+     - text: "Category B"
+     - text: Title B1
+       menu:
+       - text "Sub-category B11"
+         href: articles/b11.html
+     twitter:
+       icon: "fab fa-twitter fa-lg"
+       href: http://twitter.com/hadleywickham
 </pre>
 
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
