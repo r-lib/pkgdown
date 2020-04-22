@@ -334,7 +334,8 @@ R, e.g. <code>"`+.gg`"</code>.</p></li>
 <li><p><code>matches("regexp")</code> for more complex regular expressions.</p></li>
 <li><p><code>has_keyword("x")</code> to select all topics with keyword "x";
 <code>has_keyword("datasets")</code> selects all data documentation.</p></li>
-<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".</p></li>
+<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".
+If you are using roxygen2, <code>has_concept()</code> also matches family tags, because roxygen2 converts them to concept tags.</p></li>
 <li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by <code>has_concepts()</code>.</p></li>
