@@ -10,8 +10,8 @@ highlight_text <- function(text) {
     error = function(e) NULL
   )
 
-  # Failed to parse, or yielded empty expression
-  if (length(expr) == 0) {
+  # Failed to parse
+  if (is.null(expr)) {
     return(escape_html(text))
   }
 
