@@ -73,7 +73,8 @@
 #' * `has_keyword("x")` to select all topics with keyword "x";
 #'   `has_keyword("datasets")` selects all data documentation.
 #' * `has_concept("blah")` to select all topics with concept "blah".
-#'   If you are using [roxygen2], `has_concept()` also matches family tags, because roxygen2 converts them to concept tags.
+#'   If you are using roxygen2, `has_concept()` also matches family tags, because
+#'   roxygen2 converts them to concept tags.
 #' * `lacks_concepts(c("concept1", "concept2"))` to select all topics
 #'    without those concepts. This is useful to capture topics not otherwise
 #'    captured by `has_concepts()`.

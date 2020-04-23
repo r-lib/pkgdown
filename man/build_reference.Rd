@@ -116,7 +116,8 @@ R, e.g. \code{"`+.gg`"}.
 \item \code{has_keyword("x")} to select all topics with keyword "x";
 \code{has_keyword("datasets")} selects all data documentation.
 \item \code{has_concept("blah")} to select all topics with concept "blah".
-If you are using \link{roxygen2}, \code{has_concept()} also matches family tags, because roxygen2 converts them to concept tags.
+If you are using roxygen2, \code{has_concept()} also matches family tags, because
+roxygen2 converts them to concept tags.
 \item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
