@@ -329,7 +329,7 @@ as_html.tag_enumerate <- function(x, ...) {
 }
 #' @export
 as_html.tag_describe <- function(x, ...) {
-  paste0("<dl'>\n", parse_descriptions(x[-1], ...), "\n</dl>")
+  paste0("<dl>\n", parse_descriptions(x[-1], ...), "\n</dl>")
 }
 
 # Effectively does nothing: only used by parse_items() to split up
