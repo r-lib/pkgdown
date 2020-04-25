@@ -239,6 +239,11 @@ as_html.tag_ifelse <- function(x, ...) {
 }
 
 #' @export
+as_html.tag_special <- function(x, ...) {
+  as_html(x[[1]], ...)
+}
+
+#' @export
 `as_html.#ifdef` <- function(x, ...) {
   os <- trimws(flatten_text(x[[1]]))
   if (os == "unix") {
