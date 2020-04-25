@@ -227,7 +227,7 @@ as_html.tag_Sexpr <- function(x, ...) {
 #' @export
 as_html.tag_if <- function(x, ...) {
   if (x[[1]] == "html") {
-    as_html(x[[2]])
+    as_html(x[[2]], ...)
   } else {
     ""
   }
