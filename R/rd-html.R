@@ -425,7 +425,10 @@ as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
 #' @export
 as_html.tag_preformatted <- function(x, ...) {
   text <- flatten_text(x, ...)
-  # highlight_text() does nothing if not parseable
+
+  # Need to unescape so that highlight_text() can tell if it's R code
+  # or not. It'll re-escape if needed
+  text <- unescape_html(text)
   paste0("<pre>", highlight_text(text), "</pre>")
 }
 
