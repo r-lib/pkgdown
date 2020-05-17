@@ -244,7 +244,7 @@ nav[data-toggle='toc'] .nav .nav > .active:focus > a {
 
 .ref-index th {font-weight: normal;}
 
-.ref-index td {vertical-align: top;}
+.ref-index td {vertical-align: top; min-width: 100px}
 .ref-index .icon {width: 40px;}
 .ref-index .alias {width: 40%;}
 .ref-index-icons .alias {width: calc(40% - 40px);}
