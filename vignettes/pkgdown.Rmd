@@ -18,7 +18,7 @@ usethis::use_pkgdown()
 pkgdown::build_site()
 ```
 
-While you'll get a decent website without any additional work, if you want a website that really pops, you'll need read the rest of this vignette. It works through the main components of a pkgdown website:
+While you'll get a decent website without any additional work, if you want a website that really pops, you'll need to read the rest of this vignette. It works through the main components of a pkgdown website:
 
 1. Metadata
 1. Home page
