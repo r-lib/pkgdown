@@ -59,3 +59,20 @@ test_that("unparsed code is still escaped", {
   expect_equal(highlight_text("<"), "&lt;")
 })
 
+test_that("code consisting of comments only is not stripped of tags", {
+  scoped_package_context("test")
+
+  expect_equal(highlight_text("#"), "<span class='co'>#</span>")
+})
+
+test_that("code consisting of an empty string is parsed correctly", {
+  scoped_package_context("test")
+
+  expect_equal(highlight_text(""), "")
+})
+
+test_that("code consisting of white-space only is parsed correctly", {
+  scoped_package_context("test")
+
+  expect_equal(highlight_text("\n\t"), "\n\t")
+})
