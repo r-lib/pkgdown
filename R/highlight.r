@@ -11,7 +11,7 @@ highlight_text <- function(text) {
   )
 
   # Failed to parse or is white-space only/empty
-  if (is.null(expr) || !nchar(trimws(text))) {
+  if (is.null(expr) || trimws(text) == "") {
     return(escape_html(text))
   }
 
