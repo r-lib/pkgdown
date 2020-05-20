@@ -1,6 +1,8 @@
 # pkgdown (development version)
 
-* `\preformatted{}` no longer double escapes its contets (#1311).
+* Highlighting of empty expressions was restored (#1310).
+
+* `\preformatted{}` no longer double escapes its contents (#1311).
 
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the deployed site before building a new one (#1297).
 
