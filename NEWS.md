@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* All HTTP requests are now retried upon failure (@jameslamb, #1305).
+
 * Highlighting of empty expressions was restored (#1310).
 
 * `\preformatted{}` no longer double escapes its contents (#1311).
