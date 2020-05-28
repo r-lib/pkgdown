@@ -3,6 +3,7 @@
 S3method("[",tag)
 S3method(as_data,"NULL")
 S3method(as_data,tag_arguments)
+S3method(as_data,tag_author)
 S3method(as_data,tag_description)
 S3method(as_data,tag_details)
 S3method(as_data,tag_format)
