@@ -71,6 +71,10 @@ as_data.tag_note <- function(x, ...) {
   parse_section(x, "Note", ...)
 }
 #' @export
+as_data.tag_author <- function(x, ...) {
+  parse_section(x, "Author", ...)
+}
+#' @export
 as_data.tag_seealso <- function(x, ...) {
   section <- parse_section(x, "See also", ...)
   section$contents <- dont_index(section$contents)

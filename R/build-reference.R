@@ -296,7 +296,7 @@ data_reference_topic <- function(topic,
   # Everything else stays in original order, and becomes a list of sections.
   section_tags <- c(
     "tag_details", "tag_references", "tag_source", "tag_format",
-    "tag_note", "tag_seealso", "tag_section", "tag_value"
+    "tag_note", "tag_seealso", "tag_section", "tag_value", "tag_author"
   )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
