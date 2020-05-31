@@ -1,11 +1,11 @@
 ---
-title: "Auto-linking"
+title: "Links in pkgdown sites"
 output: rmarkdown::html_vignette
 description: >
   Learn how pkgdown's automatic linking works, and how you can 
   customise it.
 vignette: >
-  %\VignetteIndexEntry{Auto-linking}
+  %\VignetteIndexEntry{Links in pkgdown sites}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
