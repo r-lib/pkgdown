@@ -5,7 +5,7 @@ description: >
   Learn how pkgdown's automatic linking works, and how you can 
   customise it.
 vignette: >
-  %\VignetteIndexEntry{Linking between pkgdown sites}
+  %\VignetteIndexEntry{Auto-linking}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

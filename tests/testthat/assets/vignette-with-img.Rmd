@@ -4,7 +4,7 @@ title: "R Markdown Vignette with an Image"
 description: "The image is in a subdirectory, and we must be sure to copy it."
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{img}
+  %\VignetteIndexEntry{R Markdown Vignette with an Image}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

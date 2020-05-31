@@ -4,7 +4,7 @@ title: "Introduction to Open Graph"
 description: "The Open Graph protocol is a standard for web page metadata."
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{og}
+  %\VignetteIndexEntry{Introduction to Open Graph}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
