@@ -20,10 +20,15 @@ rows:
     aliases: c()
     title: C
     icon: ~
+  - path: help.html
+    aliases: '`?`()'
+    title: D
+    icon: ~
   names:
   - a
   - b
   - c
+  - '?'
   row_has_icons: no
 has_icons: no
 
