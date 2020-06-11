@@ -170,6 +170,17 @@ If the output format produces a PDF, you'll also need to specify the
   as_is: true
   extension: pdf
 }
+
+If you want to set an output format for all your articles, you can do that
+by adding a \verb{vignettes/_site.yml}, much like you would for an
+\href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{rmarkdown website}.
+For example, you can backport some bookdown features such as cross-references
+to all your articles by using the
+\href{https://bookdown.org/yihui/bookdown/a-single-document.html}{bookdown::html_document2}
+format.\preformatted{output:
+  bookdown::html_document2:
+  number_sections: false
+}
 }
 
 \section{Suppressing vignettes}{
