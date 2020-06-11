@@ -390,6 +390,16 @@ have specified. This format must accept <code>template</code>, <code>theme</code
   <span class='no'>as_is</span>: <span class='no'>true</span>
   <span class='no'>extension</span>: <span class='no'>pdf</span></pre>
 
+<p>If you want to set an output format for all your articles, you can do that
+by adding a <code>vignettes/_site.yml</code>, much like you would for an
+<a href='https://rmarkdown.rstudio.com/docs/reference/render_site.html'>rmarkdown website</a>.
+For example, you can backport some bookdown features such as cross-references
+to all your articles by using the
+<a href='https://bookdown.org/yihui/bookdown/a-single-document.html'>bookdown::html_document2</a>
+format.</p><pre><span class='no'>output</span>:
+  <span class='kw pkg'>bookdown</span><span class='kw ns'>::</span><span class='no'>html_document2</span>:
+  <span class='no'>number_sections</span>: <span class='no'>false</span></pre>
+
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
     
