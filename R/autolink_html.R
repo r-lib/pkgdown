@@ -49,7 +49,7 @@ autolink_html <- function(input, output = input, local_packages = character()) {
   scoped_file_context()
 
   html <- xml2::read_html(input, encoding = "UTF-8")
-  tweak_code(html)
+  downlit::downlit_html_node(html)
 
   xml2::write_html(html, output, format = FALSE)
   invisible()

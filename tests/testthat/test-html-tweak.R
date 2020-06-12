@@ -111,24 +111,6 @@ test_that("only local md links are tweaked", {
   expect_equal(href[[2]], "http://remote.com/remote.md")
 })
 
-test_that("code linked to local package", {
-  scoped_package_context("test", c(foo = "bar"))
-  scoped_file_context("test")
-
-  html <- xml2::read_html("<pre>
-    test<span>::</span><span class='kw'>foo</span>
-  </pre>")
-  pre <- xml2::xml_find_first(html, ".//pre")
-
-  tweak_pre_node(pre)
-
-  href <- html %>%
-    xml2::xml_find_all(".//a") %>%
-    xml2::xml_attr("href")
-  expect_equal(href, "bar.html")
-})
-
-
 # homepage ----------------------------------------------------------------
 
 test_that("page header modification succeeds", {

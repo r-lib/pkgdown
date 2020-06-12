@@ -94,81 +94,11 @@ prepend_class <- function(x, class = "table") {
   }
 }
 
-# Autolinking -------------------------------------------------------------
-
-# Assumes generated with rmarkdown (i.e. knitr + pandoc)
-tweak_code <- function(x) {
-  stopifnot(inherits(x, "xml_node"))
-
-  # <pre class="sourceCode r">
-  x %>%
-    xml2::xml_find_all(".//pre[contains(@class, 'sourceCode r')]") %>%
-    purrr::map(tweak_pre_node)
-
-  # Identify <code> with no children (just text), and are not ancestors of a
-  # header
-  x %>%
-    xml2::xml_find_all(
-      paste0(
-        ".//code[count(*) = 0 and ",
-        "not(ancestor::h1|ancestor::h2|ancestor::h3|ancestor::h4|ancestor::h5) and ",
-        "not(ancestor::div[contains(@id, 'tocnav')])]"
-      )
-    ) %>%
-    tweak_code_nodeset()
-
-  invisible()
-}
-
-tweak_code_nodeset <- function(nodes, ...) {
-  text <- nodes %>% xml2::xml_text()
-  href <- text %>% purrr::map_chr(href_string, ...)
-
-  has_link <- !is.na(href)
-
-  nodes[has_link] %>%
-    xml2::xml_contents() %>%
-    xml2::xml_replace("a", href = href[has_link], text[has_link])
-
-  invisible()
-}
-
-tweak_pre_node <- function(node, ...) {
-  text <- xml2::xml_text(node)
-  html <- highlight_text(text)
-  if (is.null(html)) {
-    return()
-  }
-
-  html <- paste0("<pre class='r'>", html, "</pre>")
-  xml2::xml_replace(node, xml2::read_html(html))
-  invisible()
-}
-
-find_qualifier <- function(node) {
-  prev <- rev(xml2::xml_find_all(node, "./preceding-sibling::node()"))
-  if (length(prev) < 2) {
-    return(NA_character_)
-  }
-
-  colons <- prev[[1]]
-  if (xml2::xml_name(colons) != "span" || xml2::xml_text(colons) != "::") {
-    return(NA_character_)
-  }
-
-  qual <- prev[[2]]
-  if (xml2::xml_name(qual) != "text") {
-    return(NA_character_)
-  }
-
-  rematch2::re_match(xml2::xml_text(qual), "([[:alnum:]]+)$")[[".match"]]
-}
-
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path) {
-  # Automatically link funtion mentions
-  tweak_code(html)
+  # Automatically link function mentions
+  downlit::downlit_html_node(html)
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
 

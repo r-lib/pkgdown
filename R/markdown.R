@@ -37,7 +37,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
     xml2::xml_remove(h1)
   }
 
-  tweak_code(xml)
+  downlit::downlit_html_node(xml)
   tweak_md_links(xml)
   tweak_anchors(xml, only_contents = FALSE)
 

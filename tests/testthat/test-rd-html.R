@@ -331,7 +331,7 @@ test_that("parseable preformatted blocks are highlighted", {
   expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
 
   out <- flatten_para(rd_text("\\preformatted{1 > 2}"))
-  expect_equal(out, "<pre><span class='fl'>1</span> <span class='kw'>&gt;</span> <span class='fl'>2</span></pre>\n")
+  expect_equal(out, "<pre><span class='fl'>1</span> <span class='op'>&gt;</span> <span class='fl'>2</span></pre>\n")
 })
 
 test_that("unparseable blocks aren't double escaped", {
