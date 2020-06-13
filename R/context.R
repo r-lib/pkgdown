@@ -57,13 +57,8 @@ scoped_package_context <- function(package,
                                    scope = parent.frame()) {
   stopifnot(is.character(local_packages))
 
-  topic_index <- topic_index %||% topic_index(package)
-  article_index <- article_index %||% article_index(package)
-
   context_set_scoped("package", package, scope = scope)
   context_set_scoped("topic_index", topic_index, scope = scope)
-  context_set_scoped("article_index", article_index, scope = scope)
-  context_set_scoped("local_packages", local_packages, scope = scope)
   context_set_scoped("figures", figures, scope = scope)
   context_set_scoped("src_path", src_path, scope = scope)
 

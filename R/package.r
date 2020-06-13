@@ -51,9 +51,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       development = development,
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),
-      vignettes = package_vignettes(pkg),
-      topic_index = topic_index_local(package, pkg),
-      article_index = article_index_local(package, pkg)
+      vignettes = package_vignettes(pkg)
     ),
     class = "pkgdown"
   )
