@@ -30,7 +30,6 @@ Imports:
     fansi,
     httr,
     magrittr,
-    MASS,
     memoise,
     openssl,
     purrr,

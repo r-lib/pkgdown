@@ -114,13 +114,6 @@ NULL
 #' answer # should be 42
 NULL
 
-
-# Used for testing
-#' @keywords internal
-#' @importFrom MASS addterm
-#' @export
-MASS::addterm
-
 #' Test case: params
 #'
 #' @name test-params
