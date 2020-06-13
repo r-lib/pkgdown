@@ -71,28 +71,12 @@ scoped_package_context <- function(package,
 }
 scoped_file_context <- function(rdname = "",
                                 depth = 0L,
-                                packages = character(),
                                 scope = parent.frame(),
                                 sexpr_env = child_env(globalenv())) {
 
-  # Base packages are always attached
-  packages <- union(
-    packages,
-    c("base", "stats", "graphics", "grDevices", "utils", "datasets")
-  )
-
   context_set_scoped("rdname", rdname, scope = scope)
   context_set_scoped("depth", depth, scope = scope)
-  context_set_scoped("packages", packages, scope = scope)
   context_set_scoped("sexpr_env", sexpr_env, scope = scope)
-}
-
-# Unlike file and package contexts, the attached context can be
-# built up over multiple calls, as we encounter new calls to
-# library() or require()
-register_attached_packages <- function(packages) {
-  packages <- union(packages, context_get("packages"))
-  context_set("packages", packages)
 }
 
 # defer helper ------------------------------------------------------------
