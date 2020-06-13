@@ -28,13 +28,6 @@ article_index_local <- function(package, path = find.package(package)) {
 }
 
 article_index_remote <- function(package) {
-  # Ideally will use published metadata because that includes all articles
-  # not just vignettes
-  metadata <- remote_metadata(package)
-  if (!is.null(metadata)) {
-    return(metadata$articles)
-  }
-
   # Otherwise, fallback to vignette index
   path <- system.file("Meta", "vignette.rds", package = package)
   if (path == "") {

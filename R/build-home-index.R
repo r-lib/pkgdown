@@ -85,6 +85,9 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   )
 }
 
+#' @importFrom memoise memoise
+NULL
+
 cran_link <- memoise(function(pkg) {
   if (!has_internet()) {
     return(NULL)
