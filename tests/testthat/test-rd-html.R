@@ -192,8 +192,6 @@ test_that("href orders arguments correctly", {
 })
 
 test_that("can convert cross links to online documentation url", {
-  scoped_package_context("test")
-
   expect_equal(
     rd2html("\\link[base]{library}"),
     a("library", href = "https://rdrr.io/r/base/library.html")
@@ -201,66 +199,53 @@ test_that("can convert cross links to online documentation url", {
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  scoped_package_context("mypkg", c(foo = "bar", baz = "baz"))
-  scoped_file_context("baz")
+  local_options(
+    "downlit.package" = "test",
+    "downlit.topic_index" = c(x = "y", z = "z"),
+    "downlit.rdname" = "z"
+  )
 
-  expect_equal(
-    rd2html("\\link[mypkg]{foo}"),
-    a("foo", href_topic_local("foo"))
-  )
-  expect_equal(
-    rd2html("\\link[mypkg]{baz}"),
-    "baz"
-  )
+  expect_equal(rd2html("\\link[test]{x}"), "<a href='y.html'>x</a>")
+  # but no self links
+  expect_equal(rd2html("\\link[test]{z}"), "z")
 })
 
 test_that("can parse local links with topic!=label", {
-  scoped_package_context("test", c(x = "y"))
-  scoped_file_context("baz")
-
-  expect_equal(
-    rd2html("\\link[=x]{z}"),
-    a("z", href_topic_local("x"))
+  local_options(
+    "downlit.topic_index" = c(x = "y")
   )
+  expect_equal(rd2html("\\link[=x]{z}"), "<a href='y.html'>z</a>")
 })
 
 test_that("functions in other packages generates link to rdrr.io", {
-  scoped_package_context("mypkg", c(x = "x", y = "y"))
-  scoped_file_context("x")
+  local_options(
+    "downlit.package" = "test",
+    "downlit.topic_index" = c(x = "y", z = "z"),
+  )
 
   expect_equal(
-    rd2html("\\link[stats:acf]{xyz}", current = current),
-    a("xyz", href_topic_remote("acf", "stats"))
+    rd2html("\\link[stats:acf]{xyz}"),
+    a("xyz", downlit::href_topic("acf", "stats"))
   )
 
   # Unless it's the current package
-  expect_equal(
-    rd2html("\\link[mypkg:y]{xyz}", current = current),
-    a("xyz", href_topic_local("y"))
-  )
+  expect_equal(rd2html("\\link[test:x]{xyz}"), "<a href='y.html'>xyz</a>")
 })
 
 test_that("link to non-existing functions return label", {
-  scoped_package_context("mypkg")
-  scoped_file_context("x")
-
-  expect_equal(
-    rd2html("\\link[xyzxyz:xyzxyz]{abc}", current = current),
-    "abc"
-  )
-  expect_equal(
-    rd2html("\\link[base:xyzxyz]{abc}", current = current),
-    "abc"
-  )
+  expect_equal(rd2html("\\link[xyzxyz:xyzxyz]{abc}"), "abc")
+  expect_equal(rd2html("\\link[base:xyzxyz]{abc}"), "abc")
 })
 
 test_that("code blocks autolinked to vignettes", {
-  scoped_package_context("test", article_index = c("abc" = "abc.html"))
-  scoped_file_context(depth = 1L)
+  local_options(
+    "downlit.package" = "test",
+    "downlit.article_index" = c("abc" = "abc.html")
+  )
 
   expect_equal(
     rd2html("\\code{vignette('abc')}"),
-    "<code><a href='../articles/abc.html'>vignette('abc')</a></code>"
+    "<code><a href='abc.html'>vignette('abc')</a></code>"
   )
 })
 

@@ -163,32 +163,20 @@ as_html.tag_link <- function(x, ...) {
 
   if (is.null(opt)) {
     # \link{topic}
-    href <- href_topic_local(in_braces)
+    href <- downlit::href_topic(in_braces)
   } else if (substr(opt, 1, 1) == "=") {
     # \link[=dest]{name}
-    href <- href_topic_local(substr(opt, 2, nchar(opt)))
+    href <- downlit::href_topic(substr(opt, 2, nchar(opt)))
   } else {
     match <- regexec('^([^:]+)(?:|:(.*))$', opt)
     parts <- regmatches(opt, match)[[1]][-1]
 
-    package <- context_get("package")
-
     if (parts[[2]] == "") {
-      if (parts[[1]] == package) {
-        # \link[mypkg]{foo}
-        href <- href_topic_local(in_braces)
-      } else {
-        # \link[pkg]{foo}
-        href <- href_topic_remote(in_braces, opt)
-      }
+      # \link[pkg]{foo}
+      href <- downlit::href_topic(in_braces, opt)
     } else {
-      if (parts[[1]] == package) {
-        # \link[my_pkg:bar]{foo}
-        href <- href_topic_local(parts[[2]])
-      } else {
-        # \link[pkg:bar]{foo}
-        href <- href_topic_remote(parts[[2]], parts[[1]])
-      }
+      # \link[pkg:bar]{foo}
+      href <- downlit::href_topic(parts[[2]], parts[[1]])
     }
   }
 
@@ -202,7 +190,7 @@ as_html.tag_linkS4class <- function(x, ...) {
   }
 
   text <- flatten_text(x[[1]])
-  href <- href_topic_local(paste0(text, "-class"))
+  href <- downlit::href_topic(paste0(text, "-class"))
   a(text, href = href)
 }
 
@@ -409,17 +397,11 @@ as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
 as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
   text <- flatten_text(x, ...)
 
-  if (!auto_link) {
-    return(paste0("<code>", text, "</code>"))
+  if (auto_link) {
+    href <- downlit::autolink_url(text)
+    text <- a(text, href = href)
   }
-
-  expr <- tryCatch(
-    parse(text = text)[[1]],
-    error = function(e) NULL
-  )
-
-  href <- href_expr(expr)
-  paste0("<code>", a(text, href = href), "</code>")
+  paste0("<code>", text, "</code>")
 }
 
 #' @export
