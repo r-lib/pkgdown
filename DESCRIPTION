@@ -54,7 +54,7 @@ Suggests:
     testthat (>= 2.1.0),
     rticles,
     rsconnect
-Remotes: r-lib/downlit
+Remotes: r-lib/downlit, rstudio/rmarkdown
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 7.1.0
