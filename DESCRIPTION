@@ -24,13 +24,12 @@ Imports:
     crayon,
     desc,
     digest,
+    downlit,
     evaluate,
     fs (>= 1.3.0),
     fansi,
-    highlight,
     httr,
     magrittr,
-    MASS,
     memoise,
     openssl,
     purrr,
@@ -55,6 +54,7 @@ Suggests:
     testthat (>= 2.1.0),
     rticles,
     rsconnect
+Remotes: r-lib/downlit, rstudio/rmarkdown
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 7.1.0

@@ -17,14 +17,6 @@ in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true")
 }
 
-set_pkgdown_env <- function(x) {
-  old <- Sys.getenv("IN_PKGDOWN")
-  Sys.setenv("IN_PKGDOWN" = x)
-  invisible(old)
+local_envvar_pkgdown <- function(scope = parent.frame()) {
+  withr::local_envvar(list(IN_PKGDOWN = "true"), .local_envir = scope)
 }
-
-scoped_in_pkgdown <- function(scope = parent.frame()) {
-  old <- set_pkgdown_env("true")
-  defer(set_pkgdown_env(old), scope = scope)
-}
-

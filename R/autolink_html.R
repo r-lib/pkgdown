@@ -1,35 +1,13 @@
 #' Automatically link references and articles in an HTML page
 #'
-#' @description
-#' The autolinker is built around two XPath expressions:
-#'
-#' * `//pre[contains(@class, 'r')]`:
-#'   this finds all `<div>`s with class `sourceCode` and `r`. The contents
-#'   must be syntax-highlighted using [pygments](http://pygments.org/).
-#'   (This is default in [rmarkdown::html_document()] when `theme = NULL`.)
-#'
-#' * `.//code[count(*) = 0]`: this finds all `<code>` that contain only
-#'   text (and no other tags).
-#'
-#' @details
-#' Currently the following expressions are linked:
-#'
-#' * Function calls, `foo()`
-#' * Function calls qualified with the package name, `bar::foo()`
-#' * Symbols qualified with the package name, `bar::baz`
-#' * `library()`, `require()` and `requireNamespace()` calls.
-#' * Help calls, `?foo`, `package?foo`, `?bar::foo`, `help(foo)`,
-#'   `help(foo, package = bar)`, `help(package = bar)`.
-#' * Vignette calls, `vignette(baz)`, `vignette(baz, package = "bar")`
-#'
-#' Calls to `library()` and `require()` are used to find the topics connected
-#' to unqualified references.
+#' Deprecated: please use [downlit::downlit_html_path] instead.
 #'
 #' @param input,output Input and output paths for HTML file
 #' @param local_packages A named character vector providing relative paths
 #'   (value) to packages (name) that can be reached with relative links
 #'   from the target HTML document.
 #' @export
+#' @keywords internal
 #' @examples
 #' \dontrun{
 #' autolink_html("path/to/file.html",
@@ -40,16 +18,13 @@
 #' )
 #' }
 autolink_html <- function(input, output = input, local_packages = character()) {
-  scoped_package_context(
-    package = "",
-    topic_index = character(),
-    article_index = character(),
-    local_packages = local_packages
-  )
-  scoped_file_context()
+  withr::local_options(list(
+    downlit.package = "",
+    downlit.local_packages = local_packages
+  ))
 
   html <- xml2::read_html(input, encoding = "UTF-8")
-  tweak_code(html)
+  downlit::downlit_html_node(html)
 
   xml2::write_html(html, output, format = FALSE)
   invisible()

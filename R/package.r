@@ -51,9 +51,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       development = development,
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),
-      vignettes = package_vignettes(pkg),
-      topic_index = topic_index_local(package, pkg),
-      article_index = article_index_local(package, pkg)
+      vignettes = package_vignettes(pkg)
     ),
     class = "pkgdown"
   )
@@ -94,10 +92,6 @@ read_meta <- function(path) {
 
 package_topics <- function(path = ".", package = "pkgdown") {
   rd <- package_rd(path)
-
-  # In case there are links in titles
-  scoped_package_context(package, topic_index = character(), src_path = path)
-  scoped_file_context()
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
   names <- purrr::map_chr(rd, extract_tag, "tag_name")

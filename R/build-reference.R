@@ -230,14 +230,23 @@ build_reference_topic <- function(topic,
     return(invisible())
 
   cat_line("Reading ", src_path("man", topic$file_in))
-  scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
-  data <- data_reference_topic(
-    topic,
-    pkg,
-    examples = examples,
-    run_dont_run = run_dont_run
+  data <- withCallingHandlers(
+    data_reference_topic(
+      topic,
+      pkg,
+      examples = examples,
+      run_dont_run = run_dont_run
+    ),
+    error = function(err) {
+      msg <- c(
+        paste0("Failed to parse Rd in ", topic$file_in),
+        i = err$message
+      )
+      abort(msg, parent = err)
+    }
   )
+
   render_page(
     pkg, "reference-topic",
     data = data,
@@ -254,6 +263,9 @@ data_reference_topic <- function(topic,
                                  examples = TRUE,
                                  run_dont_run = FALSE
                                  ) {
+  local_context_eval(pkg$figures, pkg$src_path)
+  withr::local_options(list(downlit.rdname = topic$name))
+
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 
