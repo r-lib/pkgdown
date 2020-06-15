@@ -61,18 +61,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
 is_pkgdown <- function(x) inherits(x, "pkgdown")
 
-str_person <- function(pers) {
-  s <- paste0(c(pers$given, pers$family), collapse = ' ')
-
-  if (length(pers$email)) {
-    s <- paste0("<a href='mailto:", pers$email, "'>", s, "</a>")
-  }
-  if (length(pers$role)) {
-    s <- paste0(s, " [", paste0(pers$role, collapse = ", "), "]")
-  }
-  s
-}
-
 read_desc <- function(path = ".") {
   path <- path(path, "DESCRIPTION")
   if (!file_exists(path)) {
