@@ -1,0 +1,14 @@
+> rd2html("\\url{}")
+Error: Failed to parse \url{}.
+i Check for empty \url{} tags.
+
+> rd2html("\\url{a\nb}")
+Error: Failed to parse \url{}.
+i This may be caused by a \url tag that spans a line break.
+
+> rd2html("\\email{}")
+Error: Failed to parse \email{}.
+
+> rd2html("\\linkS4class{}")
+Error: Failed to parse \linkS4class{}.
+

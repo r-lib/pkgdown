@@ -547,15 +547,10 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  fxn <- context_get("rdname")
-
-  msg <- paste0(
-    "Function `", fxn,
-    "` contains a bad Rd tag of type `", tag,
-    "`. ", msg
-  )
-
-  stop(msg, call. = FALSE)
+  abort(c(
+    paste0("Failed to parse \\", tag, "{}."),
+    i = msg
+  ))
 }
 
 is_newline <- function(x, trim = FALSE) {
