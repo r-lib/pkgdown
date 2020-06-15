@@ -1,0 +1,5 @@
+> cat(highlight_examples(
++   "\n      cat(cli::col_blue(\"blue\"))\n      cat(cli::symbol$tick)\n    "))
+<div class='input'>
+      <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw'>cli</span>::<span class='fu'><a href='https://rdrr.io/pkg/cli/man/ansi-styles.html'>col_blue</a></span>(<span class='st'>"blue"</span>))</div><div class='output co'>#&gt; <span style='color: #0000BB;'>blue</span><span></div><div class='input'>      <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw'>cli</span>::<span class='kw'><a href='https://rdrr.io/pkg/cli/man/symbol.html'>symbol</a></span><span class='op'>$</span><span class='kw'>tick</span>)</div><div class='output co'>#&gt; ✔</div><div class='input'>    </div></span>
+

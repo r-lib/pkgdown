@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `autolink_html()` is (soft) deprecated. Please use 
+  `downlit::downlit_html_path()` instead.
+
 * All HTTP requests are now retried upon failure (@jameslamb, #1305).
 
 * Highlighting of empty expressions was restored (#1310).
