@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* pkgdown now uses the new downlit package for all syntax highlighting and 
+  autolinking (in both reference topics and vignettes). There should be very
+  little change in behaviour because the code in downlit was extracted from
+  pkgdown, but this makes it easier to use pkgdown's nice linking/highlighting
+  in more places (#1234).
+
 * `autolink_html()` is (soft) deprecated. Please use 
   `downlit::downlit_html_path()` instead.
 
