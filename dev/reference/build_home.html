@@ -205,7 +205,7 @@ package root (and in <code>.github/</code>), and builds an authors page from
 <code>DESCRIPTION</code> and <code>inst/CITATION</code> (if present).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_home</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_home.html'>build_home</a></span>(pkg = <span class='st'>"."</span>, override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), preview = <span class='fl'>NA</span>, quiet = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -270,12 +270,12 @@ to <code>docs/</code> and converted to HTML.</p></li>
 <li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar
 to the <a href='https://testthat.r-lib.org/authors.html'>authors page</a>.</p></li>
 <li><p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked under
-"Developers" using the ORCID logo:</p><pre><span class='no'>Authors</span>@<span class='kw'>R</span>: <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"Hadley"</span>, <span class='st'>"Wickham"</span>, , <span class='st'>"hadley@rstudio.com"</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"aut"</span>, <span class='st'>"cre"</span>),
-      <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>ORCID</span> <span class='kw'>=</span> <span class='st'>"0000-0003-4757-117X"</span>)
+"Developers" using the ORCID logo:</p><pre><span class='kw'>Authors</span><span class='op'>@</span>R<span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"Hadley"</span>, <span class='st'>"Wickham"</span>, , <span class='st'>"hadley@rstudio.com"</span>, role = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"aut"</span>, <span class='st'>"cre"</span>),
+      comment = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(ORCID = <span class='st'>"0000-0003-4757-117X"</span>)
     ),
-    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"aut"</span>,
-      <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>ORCID</span> <span class='kw'>=</span> <span class='st'>"0000-0002-6299-179X"</span>)
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, role = <span class='st'>"aut"</span>,
+      comment = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(ORCID = <span class='st'>"0000-0002-6299-179X"</span>)
     )
   )</pre></li>
 </ul>
@@ -303,7 +303,7 @@ knitr::opts_chunk$set(
 <p>If you have a package logo, you can include it at the top of your README in a
 level-one heading:</p><pre><span class='co'># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span></pre>
 
-<p><code><a href='init_site.html'>init_site()</a></code> will also automatically create a favicon set from your package
+<p><code><a href='https://pkgdown.r-lib.org/reference/init_site.html'>init_site()</a></code> will also automatically create a favicon set from your package
 logo.</p>
     <h2 class="hasAnchor" id="yaml-config-home"><a class="anchor" href="#yaml-config-home"></a>YAML config - home</h2>
 
@@ -336,8 +336,8 @@ elements:</p><pre>home:
 
 <p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name. If
 that feels duplicative with the package name in the navbar you can
-remove it with <code>strip_header: true</code>:</p><pre><span class='no'>home</span>:
-  <span class='no'>strip_header</span>: <span class='no'>true</span></pre>
+remove it with <code>strip_header: true</code>:</p><pre><span class='kw'>home</span><span class='op'>:</span>
+  <span class='kw'>strip_header</span><span class='op'>:</span> <span class='kw'>true</span></pre>
 
     <h2 class="hasAnchor" id="yaml-config-authors"><a class="anchor" href="#yaml-config-authors"></a>YAML config - authors</h2>
 
@@ -346,10 +346,10 @@ remove it with <code>strip_header: true</code>:</p><pre><span class='no'>home</s
 <p>The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>. You can modify their
 display on the home page by adding a subsection for <code>authors</code>. The author
-name should match the value in <code>DESCRIPTION</code>:</p><pre><span class='no'>authors</span>:
-  <span class='no'>name</span>:
-    <span class='no'>href</span>: <span class='st'>"http://name-website.com"</span>
-    <span class='no'>html</span>: <span class='st'>"&lt;img src='name-picture.png' height=24&gt;"</span></pre>
+name should match the value in <code>DESCRIPTION</code>:</p><pre><span class='kw'>authors</span><span class='op'>:</span>
+  <span class='kw'>name</span><span class='op'>:</span>
+    <span class='kw'>href</span><span class='op'>:</span> <span class='st'>"http://name-website.com"</span>
+    <span class='kw'>html</span><span class='op'>:</span> <span class='st'>"&lt;img src='name-picture.png' height=24&gt;"</span></pre>
 
 
   </div>

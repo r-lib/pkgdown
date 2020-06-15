@@ -210,33 +210,33 @@ clean_site() first to clean up orphan files." />
     </div>
 
     <div class="ref-description">
-    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul>
-<li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
-<li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
-<li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
-<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
-<li><p><code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
-<li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
+    <p><code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> is a convenient wrapper around six functions:</p><ul>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/init_site.html'>init_site()</a></code></p></li>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_home.html'>build_home()</a></code></p></li>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference()</a></code></p></li>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code></p></li>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_tutorials.html'>build_tutorials()</a></code></p></li>
+<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_news.html'>build_news()</a></code></p></li>
 </ul>
 
 <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
 <p>Note if names of generated files were changed, you will need to use
-<code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
+<code><a href='https://pkgdown.r-lib.org/reference/clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_site</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>new_process</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
-  <span class='kw'>install</span> <span class='kw'>=</span> !<span class='no'>devel</span>,
-  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>
+    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>(
+  pkg = <span class='st'>"."</span>,
+  examples = <span class='fl'>TRUE</span>,
+  run_dont_run = <span class='fl'>FALSE</span>,
+  seed = <span class='fl'>1014</span>,
+  lazy = <span class='fl'>FALSE</span>,
+  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  preview = <span class='fl'>NA</span>,
+  devel = <span class='fl'>FALSE</span>,
+  new_process = <span class='op'>!</span><span class='kw'>devel</span>,
+  install = <span class='op'>!</span><span class='kw'>devel</span>,
+  document = <span class='st'>"DEPRECATED"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -282,14 +282,14 @@ iteration; it will run examples and vignettes in the current process,
 and will load code with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.</p>
 <p>If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.</p>
-<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
-outputs when you building the complete site; <code><a href='build_reference.html'>build_reference()</a></code>,
-<code><a href='build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
+<p><code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+outputs when you building the complete site; <code><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference()</a></code>,
+<code><a href='https://pkgdown.r-lib.org/reference/build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></td>
     </tr>
     <tr>
       <th>new_process</th>
-      <td><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
+      <td><p>If <code>TRUE</code>, will run <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></td>
     </tr>
@@ -319,7 +319,7 @@ Supplying this will:</p><ul>
 rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
-<a href='deploy_site_github.html'>deploying to github</a>.</p></li>
+<a href='https://pkgdown.r-lib.org/reference/deploy_site_github.html'>deploying to github</a>.</p></li>
 </ul><p><div class="yaml"></p><pre>url: http://pkgdown.r-lib.org
 </pre><p></div></p>
 <p><code>title</code> overrides the default site title, which is the package name.
@@ -358,11 +358,11 @@ label, and the message indicates the package is not yet on CRAN.</p></li>
 </ul>
 
 <p>The default development mode is "release". You can override it by adding a
-new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='no'>development</span>:
-  <span class='no'>mode</span>: <span class='no'>devel</span></pre>
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='kw'>development</span><span class='op'>:</span>
+  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>devel</span></pre>
 
-<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='no'>development</span>:
-  <span class='no'>mode</span>: <span class='no'>auto</span></pre>
+<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='kw'>development</span><span class='op'>:</span>
+  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>auto</span></pre>
 
 <p>The mode will be automatically determined based on the version number:</p><ul>
 <li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
@@ -370,10 +370,10 @@ new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><s
 <li><p>everything else -&gt; release</p></li>
 </ul>
 
-<p>There are three other options that you can control:</p><pre><span class='no'>development</span>:
-  <span class='no'>destination</span>: <span class='no'>dev</span>
-  <span class='no'>version_label</span>: <span class='no'>danger</span>
-  <span class='no'>version_tooltip</span>: <span class='st'>"Custom message here"</span></pre>
+<p>There are three other options that you can control:</p><pre><span class='kw'>development</span><span class='op'>:</span>
+  <span class='kw'>destination</span><span class='op'>:</span> <span class='kw'>dev</span>
+  <span class='kw'>version_label</span><span class='op'>:</span> <span class='kw'>danger</span>
+  <span class='kw'>version_tooltip</span><span class='op'>:</span> <span class='st'>"Custom message here"</span></pre>
 
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
@@ -439,7 +439,7 @@ The following YAML snippet illustrates some of the most important features.</p><
 </pre>
 
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
-<code>href</code>) and separators (indicated by a bunch of <code>-</code>). You can also use <code>icon</code>s
+<code>href</code>) and separators (indicated by a bunch of <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>). You can also use <code>icon</code>s
 from <a href='https://fontawesome.com/icons?d=gallery'>fontawesome</a>.</p>
 <p>This yaml would override the default "articles" component, eliminate
 the "home" component, and add a new "twitter" component. Unless you
@@ -450,11 +450,11 @@ to the far right of the left menu.</p>
     
 
 <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
-to add search to your site.</p><pre><span class='no'>template</span>:
-  <span class='no'>params</span>:
-    <span class='no'>docsearch</span>:
-      <span class='no'>api_key</span>: <span class='no'>API_KEY</span>
-      <span class='no'>index_name</span>: <span class='no'>INDEX_NAME</span></pre>
+to add search to your site.</p><pre><span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>params</span><span class='op'>:</span>
+    <span class='kw'>docsearch</span><span class='op'>:</span>
+      <span class='kw'>api_key</span><span class='op'>:</span> <span class='kw'>API_KEY</span>
+      <span class='kw'>index_name</span><span class='op'>:</span> <span class='kw'>INDEX_NAME</span></pre>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
@@ -467,9 +467,9 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre><span class='no'>template</span>:
-  <span class='no'>params</span>:
-    <span class='no'>bootswatch</span>: <span class='no'>cerulean</span></pre>
+template:</p><pre><span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>params</span><span class='op'>:</span>
+    <span class='kw'>bootswatch</span><span class='op'>:</span> <span class='kw'>cerulean</span></pre>
 
 <p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
@@ -480,27 +480,27 @@ correspond to your
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.</p><pre><span class='no'>template</span>:
-  <span class='no'>params</span>:
-    <span class='no'>ganalytics</span>: <span class='no'>UA</span>-<span class='fl'>000000</span>-<span class='fl'>01</span></pre>
+site, in keeping with current laws and regulations.</p><pre><span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>params</span><span class='op'>:</span>
+    <span class='kw'>ganalytics</span><span class='op'>:</span> <span class='kw'>UA</span><span class='op'>-</span><span class='fl'>000000</span><span class='op'>-</span><span class='fl'>01</span></pre>
 
-<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='no'>template</span>:
-  <span class='no'>params</span>:
-    <span class='no'>noindex</span>: <span class='no'>true</span></pre>
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>params</span><span class='op'>:</span>
+    <span class='kw'>noindex</span><span class='op'>:</span> <span class='kw'>true</span></pre>
 
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre><span class='no'>template</span>:
-  <span class='no'>package</span>: <span class='no'>mycustompackage</span>
+of the default assets, set <code>default_assets</code> to false.</p><pre><span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>package</span><span class='op'>:</span> <span class='kw'>mycustompackage</span>
 
 <span class='co'># OR:</span>
 
-<span class='no'>template</span>:
-  <span class='no'>path</span>: <span class='no'>path</span>/<span class='no'>to</span>/<span class='no'>templates</span>
-  <span class='no'>assets</span>: <span class='no'>path</span>/<span class='no'>to</span>/<span class='no'>assets</span>
-  <span class='no'>default_assets</span>: <span class='no'>false</span></pre>
+<span class='kw'>template</span><span class='op'>:</span>
+  <span class='kw'>path</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>templates</span>
+  <span class='kw'>assets</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>assets</span>
+  <span class='kw'>default_assets</span><span class='op'>:</span> <span class='kw'>false</span></pre>
 
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
@@ -533,7 +533,7 @@ supply your own in the <code>repo</code> component:<div class="yaml"></p><pre>re
 </ul>
 
 <p>The varying components (e.g. path, issue number, user name) are pasted on
-the end of these URLs so they should have trailing <code>/</code>s.</p>
+the end of these URLs so they should have trailing <code><a href='https://rdrr.io/r/base/Arithmetic.html'>/</a></code>s.</p>
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
@@ -543,15 +543,15 @@ the end of these URLs so they should have trailing <code>/</code>s.</p>
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.</p>
-<p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
+<p>Users can set a timeout for <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site(new_process = TRUE)</a></code> with
 <code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.timeout = Inf)</a></code>, which is useful to prevent stalled builds from
 hanging in cron jobs.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>build_site</span>()
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>()
 
-<span class='fu'>build_site</span>(<span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>destination</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
+<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>(override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(destination = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

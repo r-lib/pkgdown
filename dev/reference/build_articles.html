@@ -213,35 +213,35 @@ you are primarily working on the text of an article." />
     </div>
 
     <div class="ref-description">
-    <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
+    <p><code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul>
 <li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
 <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a></p></li>
-<li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
+<li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href='https://pkgdown.r-lib.org/reference/build_tutorials.html'>build_tutorials()</a></code></p></li>
 </ul>
 
 <p>Vignettes are rendered using a special document format that reconciles
 <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
-<p>Note that when you run <code>build_articles()</code> directly (outside of
-<code><a href='build_site.html'>build_site()</a></code>) vignettes will use the currently installed version of the
+<p>Note that when you run <code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code> directly (outside of
+<code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code>) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_articles</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles</a></span>(
+  pkg = <span class='st'>"."</span>,
+  quiet = <span class='fl'>TRUE</span>,
+  lazy = <span class='fl'>TRUE</span>,
+  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  preview = <span class='fl'>NA</span>
 )
 
-<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_article</a></span>(<span class='kw'>name</span>, pkg = <span class='st'>"."</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), lazy = <span class='fl'>FALSE</span>, quiet = <span class='fl'>TRUE</span>)
 
-<span class='fu'>build_articles_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles_index</a></span>(pkg = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -330,7 +330,7 @@ accessible via the articles index.</p><h3>Special links</h3>
 <code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>)
 automatically becomes a top-level "Get started" link, and will not appear
 in the articles drop-down. (If your package name includes a <code>.</code>, e.g.
-<code>pack.down</code>, use a <code>-</code> in the vignette name, e.g. <code>pack-down.Rmd</code>.)</p></li>
+<code>pack.down</code>, use a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> in the vignette name, e.g. <code>pack-down.Rmd</code>.)</p></li>
 <li><p>The navbar will include a link to the articles index if one or more
 vignettes are not available through the navbar. If some vignettes appear
 in the navbar drop-down list and others do not, the list will automatically
@@ -379,16 +379,16 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='no'>pkgdown</span>:
-  <span class='no'>as_is</span>: <span class='no'>true</span></pre>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
+  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span></pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre><span class='no'>pkgdown</span>:
-  <span class='no'>as_is</span>: <span class='no'>true</span>
-  <span class='no'>extension</span>: <span class='no'>pdf</span></pre>
+<code>extension</code> field:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
+  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
+  <span class='kw'>extension</span><span class='op'>:</span> <span class='kw'>pdf</span></pre>
 
 <p>If you want to set an output format for all your articles, you can do that
 by adding a <code>vignettes/_site.yml</code>, much like you would for an
@@ -396,9 +396,9 @@ by adding a <code>vignettes/_site.yml</code>, much like you would for an
 For example, you can backport some bookdown features such as cross-references
 to all your articles by using the
 <a href='https://bookdown.org/yihui/bookdown/a-single-document.html'>bookdown::html_document2</a>
-format.</p><pre><span class='no'>output</span>:
-  <span class='kw pkg'>bookdown</span><span class='kw ns'>::</span><span class='no'>html_document2</span>:
-  <span class='no'>number_sections</span>: <span class='no'>false</span></pre>
+format.</p><pre><span class='kw'>output</span><span class='op'>:</span>
+  <span class='kw'>bookdown</span>::<span class='kw'>html_document2</span><span class='op'>:</span>
+  <span class='kw'>number_sections</span><span class='op'>:</span> <span class='kw'>false</span></pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
@@ -408,13 +408,13 @@ format.</p><pre><span class='no'>output</span>:
 subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
-<code><a href='build_site.html'>build_site()</a></code> details.</p>
+<code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> details.</p>
     <h2 class="hasAnchor" id="tables-of-contents"><a class="anchor" href="#tables-of-contents"></a>Tables of contents</h2>
 
     
 
-<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='no'>toc</span>:
-  <span class='no'>depth</span>: <span class='fl'>2</span></pre>
+<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='kw'>toc</span><span class='op'>:</span>
+  <span class='kw'>depth</span><span class='op'>:</span> <span class='fl'>2</span></pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 

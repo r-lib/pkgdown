@@ -154,21 +154,27 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install release version from CRAN</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># Install release version from CRAN</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pkgdown"</span>)
 
 <span class="co"># Install development version from GitHub</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"r-lib/pkgdown"</span>)</pre></div>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"r-lib/pkgdown"</span>)
+</pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Get started with <a href="http://usethis.r-lib.org/">usethis</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># Run once to configure your package to use pkgdown</span>
-<span class="kw pkg">usethis</span><span class="kw ns">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">use_pkgdown</a></span>()</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># Run once to configure your package to use pkgdown</span>
+<span class="kw">usethis</span>::<span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">use_pkgdown</a></span>()
+</pre></div>
 <p>Use pkgdown to update your website:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Run to build the website</span>
-<span class="kw pkg">pkgdown</span><span class="kw ns">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span>()</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># Run to build the website</span>
+<span class="kw">pkgdown</span>::<span class="fu"><a href="reference/build_site.html">build_site</a></span>()
+</pre></div>
 <p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details and to learn how to customise your site.</p>
 <p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “master branch /docs folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
 </div>

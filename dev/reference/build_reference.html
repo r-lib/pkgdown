@@ -205,20 +205,20 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 <code>_pkgdown.yml</code> as described below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
-  <span class='kw'>topics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference</a></span>(
+  pkg = <span class='st'>"."</span>,
+  lazy = <span class='fl'>TRUE</span>,
+  examples = <span class='fl'>TRUE</span>,
+  run_dont_run = <span class='fl'>FALSE</span>,
+  seed = <span class='fl'>1014</span>,
+  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  preview = <span class='fl'>NA</span>,
+  devel = <span class='fl'>TRUE</span>,
+  document = <span class='st'>"DEPRECATED"</span>,
+  topics = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference_index</a></span>(pkg = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,7 +231,7 @@ alphabetical order. To override this, provide a <code>reference</code> section i
       <th>lazy</th>
       <td><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
-rapidly prototype. It is set to <code>FALSE</code> by <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+rapidly prototype. It is set to <code>FALSE</code> by <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     <tr>
       <th>examples</th>
@@ -345,7 +345,7 @@ captured by <code>has_concepts()</code>.</p></li>
 <p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
 topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
 with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
+<p>Use a leading <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> to remove topics from a section, e.g. <code>-topic_name</code>,
 <code>-starts_with("foo")</code>.</p>
 <p>pkgdown will check that all non-internal topics are included on
 the reference index page, and will generate a warning if you have missed any.</p>

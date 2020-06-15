@@ -203,25 +203,25 @@ locally. See 'Setup' for details on setting up your repository to use this." />
     </div>
 
     <div class="ref-description">
-    <p><code>deploy_site_github()</code> sets up your SSH keys for deployment, builds the
-site with <code><a href='build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
-the results back to GitHub. <code>deploy_site_github()</code> is meant only to be used
+    <p><code><a href='https://pkgdown.r-lib.org/reference/deploy_site_github.html'>deploy_site_github()</a></code> sets up your SSH keys for deployment, builds the
+site with <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
+the results back to GitHub. <code><a href='https://pkgdown.r-lib.org/reference/deploy_site_github.html'>deploy_site_github()</a></code> is meant only to be used
 by the CI system on Travis, it should not be called locally.
-<code><a href='deploy_to_branch.html'>deploy_to_branch()</a></code> can be used to deploy a site directly to GitHub Pages
+<code><a href='https://pkgdown.r-lib.org/reference/deploy_to_branch.html'>deploy_to_branch()</a></code> can be used to deploy a site directly to GitHub Pages
 locally. See 'Setup' for details on setting up your repository to use this.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>deploy_site_github</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>tarball</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
-  <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
-  <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>)
+    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/deploy_site_github.html'>deploy_site_github</a></span>(
+  pkg = <span class='st'>"."</span>,
+  install = <span class='fl'>TRUE</span>,
+  tarball = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
+  ssh_id = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
+  commit_message = <span class='fu'>construct_commit_message</span>(<span class='kw'>pkg</span>),
+  clean = <span class='fl'>FALSE</span>,
+  verbose = <span class='fl'>FALSE</span>,
+  host = <span class='st'>"github.com"</span>,
+  <span class='kw'>...</span>,
+  repo_slug = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -266,7 +266,7 @@ new keypair specifically for deploying the site. The easiest way is to use
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to <code><a href='build_site.html'>build_site()</a></code>.</p></td>
+      <td><p>Additional arguments passed to <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code>.</p></td>
     </tr>
     <tr>
       <th>repo_slug</th>
