@@ -40,13 +40,10 @@
 #' )
 #' }
 autolink_html <- function(input, output = input, local_packages = character()) {
-  scoped_package_context(
-    package = "",
-    topic_index = character(),
-    article_index = character(),
-    local_packages = local_packages
+  local_options(
+    downlit.package = "",
+    downlit.local_packages = local_packages
   )
-  scoped_file_context()
 
   html <- xml2::read_html(input, encoding = "UTF-8")
   downlit::downlit_html_node(html)

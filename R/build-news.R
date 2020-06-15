@@ -132,7 +132,6 @@ globalVariables(".")
 
 data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  scoped_file_context(depth = 1L)
 
   html <- markdown(path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)

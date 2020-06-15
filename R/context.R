@@ -1,20 +1,35 @@
-section_init <- function(pkg, depth, override = list(), scope = parent.frame()) {
+section_init <- function(pkg, depth, override = list(), .frame = parent.frame()) {
   pkg <- as_pkgdown(pkg, override = override)
 
   rstudio_save_all()
-  scoped_in_pkgdown(scope = scope)
-
-  scoped_package_context(
-    package = pkg$package,
-    topic_index = pkg$topic_index,
-    article_index = pkg$article_index,
-    figures = pkg$figures,
-    src_path = pkg$src_path,
-    scope = scope
-  )
-  scoped_file_context(depth = depth, scope = scope)
+  local_envvar_pkgdown()
+  local_options_link(pkg, depth = depth)
 
   pkg
+}
+
+local_options_link <- function(pkg, depth, .frame = parent.frame()) {
+  article_index <- set_names(path_file(pkg$vignettes$file_in), pkg$vignettes$name)
+  topic_index <- invert_index(set_names(pkg$topics$alias, pkg$topics$name))
+
+  local_options(
+    downlit.package = pkg$package,
+    downlit.article_index = article_index,
+    downlit.topic_index = topic_index,
+    downlit.article_path = paste0(up_path(depth), "/articles"),
+    downlit.topic_path = paste0(up_path(depth), "/reference"),
+    .frame = .frame
+  )
+}
+
+local_context_eval <- function(
+                               figures = NULL,
+                               src_path = getwd(),
+                               sexpr_env = child_env(globalenv()),
+                               .frame = parent.frame()) {
+  context_set_scoped("figures", figures, scope = .frame)
+  context_set_scoped("src_path", src_path, scope = .frame)
+  context_set_scoped("sexpr_env", sexpr_env, scope = .frame)
 }
 
 # Manage current topic index ----------------------------------------------------
@@ -46,32 +61,6 @@ context_get <- function(name) {
 context_set_scoped <- function(name, value, scope = parent.frame()) {
   old <- context_set(name, value)
   defer(context_set(name, old), scope = scope)
-}
-
-scoped_package_context <- function(package,
-                                   topic_index = NULL,
-                                   article_index = NULL,
-                                   local_packages = character(),
-                                   src_path = getwd(),
-                                   figures = list(),
-                                   scope = parent.frame()) {
-  stopifnot(is.character(local_packages))
-
-  context_set_scoped("package", package, scope = scope)
-  context_set_scoped("topic_index", topic_index, scope = scope)
-  context_set_scoped("figures", figures, scope = scope)
-  context_set_scoped("src_path", src_path, scope = scope)
-
-
-}
-scoped_file_context <- function(rdname = "",
-                                depth = 0L,
-                                scope = parent.frame(),
-                                sexpr_env = child_env(globalenv())) {
-
-  context_set_scoped("rdname", rdname, scope = scope)
-  context_set_scoped("depth", depth, scope = scope)
-  context_set_scoped("sexpr_env", sexpr_env, scope = scope)
 }
 
 # defer helper ------------------------------------------------------------

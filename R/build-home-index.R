@@ -1,9 +1,6 @@
 build_home_index <- function(pkg = ".", quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
-  scoped_file_context(depth = 0L)
-
   src_path <- path_first_existing(
     pkg$src_path,
     c("pkgdown/index.md",
@@ -17,6 +14,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   if (is.null(src_path)) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
   } else {
+    local_options_link(pkg, depth = 0L)
     data$index <- markdown(src_path)
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)

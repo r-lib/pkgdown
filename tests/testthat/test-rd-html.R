@@ -116,42 +116,40 @@ test_that("tables with tailing \n (#978)", {
 # sexpr  ------------------------------------------------------------------
 
 test_that("code inside Sexpr is evaluated", {
-  scoped_package_context("pkgdown")
-  scoped_file_context()
-
+  local_context_eval()
   expect_equal(rd2html("\\Sexpr{1 + 2}"), "3")
 })
 
 test_that("can control \\Sexpr output", {
-  scoped_package_context("pkgdown")
-  scoped_file_context()
-
+  local_context_eval()
   expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
   expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
   expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
 })
 
 test_that("Sexpr can contain multiple expressions", {
-  scoped_package_context("pkgdown")
-  scoped_file_context()
-
+  local_context_eval()
   expect_equal(rd2html("\\Sexpr{a <- 1; a}"), "1")
 })
 
-test_that("Sexprs in file share environment", {
-  scoped_package_context("pkgdown")
-  scoped_file_context()
+test_that("Sexprs with multiple args are parsed", {
+  local_context_eval()
+  expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
+})
 
-  expect_equal(rd2html("\\Sexpr{a <- 1}\\Sexpr{a}"), c("1", "1"))
+test_that("Sexprs in file share environment", {
+  local_context_eval()
+  expect_equal(rd2html("\\Sexpr{x <- 1}\\Sexpr{x}"), c("1", "1"))
+
+  local_context_eval()
+  expect_error(rd2html("\\Sexpr{x}"), "not found")
 })
 
 test_that("Sexprs run from package root", {
   skip_on_travis()
   # Because paths are different during R CMD check
   skip_if_not(file_exists("../../DESCRIPTION"))
-
-  scoped_package_context("pkgdown", src_path = "../..")
-  scoped_file_context()
+  local_context_eval(src_path = "../..")
 
   # \packageTitle is built in macro that uses DESCRIPTION
   expect_equal(
@@ -160,19 +158,10 @@ test_that("Sexprs run from package root", {
   )
 })
 
-test_that("Sexprs with multiple args are parsed", {
-  scoped_package_context("pkgdown")
-  scoped_file_context()
-
-  expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
-})
-
 test_that("DOIs are linked", {
   # Because paths are different during R CMD check
   skip_if_not(file_exists("../../DESCRIPTION"))
-
-  scoped_package_context("pkgdown", src_path = "../..")
-  scoped_file_context()
+  local_context_eval(src_path = "../..")
 
   expect_true(
     rd2html("\\doi{test}") %in%
@@ -311,7 +300,6 @@ test_that("nested item with whitespace parsed correctly", {
 # Verbatim ----------------------------------------------------------------
 
 test_that("parseable preformatted blocks are highlighted", {
-  scoped_package_context("test")
   out <- flatten_para(rd_text("\\preformatted{1}"))
   expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
 

@@ -230,7 +230,6 @@ build_reference_topic <- function(topic,
     return(invisible())
 
   cat_line("Reading ", src_path("man", topic$file_in))
-  scoped_file_context(rdname = path_ext_remove(topic$file_in), depth = 1L)
 
   data <- withCallingHandlers(
     data_reference_topic(
@@ -264,6 +263,8 @@ data_reference_topic <- function(topic,
                                  examples = TRUE,
                                  run_dont_run = FALSE
                                  ) {
+  local_context_eval(pkg$figures, pkg$src_path)
+
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
 

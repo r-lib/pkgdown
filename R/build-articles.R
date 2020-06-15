@@ -234,9 +234,8 @@ build_article <- function(name,
     return(invisible())
   }
 
-  scoped_in_pkgdown()
-  scoped_package_context(pkg$package, pkg$topic_index, pkg$article_index)
-  scoped_file_context(depth = depth)
+  local_envvar_pkgdown()
+  local_options_link(pkg, depth = depth)
 
   front <- rmarkdown::yaml_front_matter(input_path)
   # Take opengraph from article's yaml front matter

@@ -23,7 +23,7 @@ set_pkgdown_env <- function(x) {
   invisible(old)
 }
 
-scoped_in_pkgdown <- function(scope = parent.frame()) {
+local_envvar_pkgdown <- function(scope = parent.frame()) {
   old <- set_pkgdown_env("true")
   defer(set_pkgdown_env(old), scope = scope)
 }
