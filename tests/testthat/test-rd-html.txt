@@ -1,0 +1,46 @@
+
+Simple insertions
+=================
+
+> rd2html("\\ldots")
+[1] "..."
+
+> rd2html("\\dots")
+[1] "..."
+
+> rd2html("\\R")
+[1] "<span style=\"R\">R</span>"
+
+> rd2html("\\cr")
+[1] "<br />"
+
+
+Lists
+=====
+
+> rd2html("\\itemize{\\item a}")
+[1] "<ul>"              "<li><p>a</p></li>" "</ul>"            
+
+> rd2html("\\enumerate{\\item a}")
+[1] "<ol>"              "<li><p>a</p></li>" "</ol>"            
+
+
+Links
+=====
+
+> rd2html("\\href{http://bar.com}{BAR}")
+[1] "<a href='http://bar.com'>BAR</a>"
+
+> rd2html("\\email{foo@bar.com}")
+[1] "<a href='mailto:foo@bar.com'>foo@bar.com</a>"
+
+> rd2html("\\url{http://bar.com}")
+[1] "<a href='http://bar.com'>http://bar.com</a>"
+
+> # Macros
+> rd2html("\\newcommand{\\froofy}{'froofy'} \\froofy{}")
+[1] "'froofy'"
+
+> rd2html("\\renewcommand{\\froofy}{'froofy'} \\froofy{}")
+[1] "'froofy'"
+

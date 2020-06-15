@@ -106,19 +106,12 @@ as_html.tag_subsection <- function(x, ...) {
 
 #' @export
 as_html.tag_eqn <- function(x, ...) {
-  if (length(x) > 2) {
-    stop_bad_tag("eqn")
-  }
-
   latex_rep <- x[[1]]
   paste0("\\(", flatten_text(latex_rep, ...), "\\)")
 }
 
 #' @export
 as_html.tag_deqn <- function(x, ...) {
-  if (length(x) > 2) {
-    stop_bad_tag("deqn")
-  }
   latex_rep <- x[[1]]
   paste0("$$", flatten_text(latex_rep, ...), "$$")
 }
@@ -140,18 +133,11 @@ as_html.tag_url <- function(x, ...) {
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
-  if (length(x) != 2) {
-    stop_bad_tag("href")
-  }
-
   a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
-  if (!length(x) %in% c(1L, 2L)) {
-    stop_bad_tag("email")
-  }
-  paste0("<a href='mailto:", x[[1]], "'>", x[[length(x)]], "</a>")
+  paste0("<a href='mailto:", x[[1]], "'>", x[[1]], "</a>")
 }
 
 # If single, need to look up alias to find file name and package
@@ -300,8 +286,6 @@ as_html.tag_figure <- function(x, ...) {
     } else {
       paste0("<img src='figures/", path, "' alt='", opt, "' />")
     }
-  } else {
-    stop("Invalid \\figure{} markup", call. = FALSE)
   }
 }
 
@@ -448,35 +432,27 @@ as_html.tag_out <- function(x, ...) flatten_text(x, ..., escape = FALSE)
 
 # Insertions --------------------------------------------------------------
 
-tag_insert <- function(value) {
-  function(x, ...) {
-    value
-  }
-}
-
 #' @export
-as_html.tag_R <-        tag_insert('<span style="R">R</span>')
+as_html.tag_R <-     function(x, ...) '<span style="R">R</span>'
 #' @export
-as_html.tag_dots <-     tag_insert("...")
+as_html.tag_dots <-  function(x, ...) "..."
 #' @export
-as_html.tag_ldots <-    tag_insert("...")
-
+as_html.tag_ldots <- function(x, ...) "..."
 #' @export
-as_html.tag_cr <-       tag_insert("<br >")
+as_html.tag_cr <-    function(x, ...) "<br >"
 
 # First element of enc is the encoded version (second is the ascii version)
 #' @export
 as_html.tag_enc <- function(x, ...) {
-  as_html(x[[1]], ...)
+  if (length(x) == 2) {
+    as_html(x[[1]], ...)
+  } else {
+    stop_bad_tag("enc")
+  }
 }
-
 
 # Elements that don't return anything ----------------------------------------
 
-#' @export
-as_html.NULL <-         function(x, ...) ""
-#' @export
-as_html.tag_concept <-  function(x, ...) ""
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export

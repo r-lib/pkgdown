@@ -5,6 +5,29 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
+test_that("simple tags translated to known good values", {
+  verify_output(test_path("test-rd-html.txt"), {
+    "# Simple insertions"
+    rd2html("\\ldots")
+    rd2html("\\dots")
+    rd2html("\\R")
+    rd2html("\\cr")
+
+    "# Lists"
+    rd2html("\\itemize{\\item a}")
+    rd2html("\\enumerate{\\item a}")
+
+    "# Links"
+    rd2html("\\href{http://bar.com}{BAR}")
+    rd2html("\\email{foo@bar.com}")
+    rd2html("\\url{http://bar.com}")
+
+    "Macros"
+    rd2html("\\newcommand{\\froofy}{'froofy'} \\froofy{}")
+    rd2html("\\renewcommand{\\froofy}{'froofy'} \\froofy{}")
+  })
+})
+
 test_that("comments converted to html", {
   expect_equal(rd2html("a\n%b\nc"), c("a", "<!-- %b -->", "c"))
 })
@@ -12,11 +35,6 @@ test_that("comments converted to html", {
 test_that("simple wrappers work as expected", {
   expect_equal(rd2html("\\strong{x}"), "<strong>x</strong>")
   expect_equal(rd2html("\\strong{\\emph{x}}"), "<strong><em>x</em></strong>")
-})
-
-test_that("simple replacements work as expected", {
-  expect_equal(rd2html("\\ldots"), "...")
-  expect_equal(rd2html("\\dots"), "...")
 })
 
 test_that("subsection generates h3", {
@@ -137,6 +155,11 @@ test_that("Sexprs with multiple args are parsed", {
   expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
 })
 
+test_that("Sexprs with multiple args are parsed", {
+  local_context_eval()
+  expect_error(rd2html("\\Sexpr[results=verbatim]{1}"), "not yet supported")
+})
+
 test_that("Sexprs in file share environment", {
   local_context_eval()
   expect_equal(rd2html("\\Sexpr{x <- 1}\\Sexpr{x}"), c("1", "1"))
@@ -173,13 +196,6 @@ test_that("DOIs are linked", {
 
 # links -------------------------------------------------------------------
 
-test_that("href orders arguments correctly", {
-  expect_equal(
-    rd2html("\\href{http://a.com}{a}"),
-    a("a", href = "http://a.com")
-  )
-})
-
 test_that("can convert cross links to online documentation url", {
   expect_equal(
     rd2html("\\link[base]{library}"),
@@ -194,6 +210,7 @@ test_that("can convert cross links to the same package (#242)", {
     "downlit.rdname" = "z"
   ))
 
+  expect_equal(rd2html("\\link{x}"), "<a href='y.html'>x</a>")
   expect_equal(rd2html("\\link[test]{x}"), "<a href='y.html'>x</a>")
   # but no self links
   expect_equal(rd2html("\\link[test]{z}"), "z")
@@ -236,6 +253,14 @@ test_that("code blocks autolinked to vignettes", {
     rd2html("\\code{vignette('abc')}"),
     "<code><a href='abc.html'>vignette('abc')</a></code>"
   )
+})
+
+test_that("link to non-existing functions return label", {
+  withr::local_options(list(
+    "downlit.package" = "test",
+    "downlit.topic_index" = c("TEST-class" = "test")
+  ))
+  expect_equal(rd2html("\\linkS4class{TEST}"), "<a href='test.html'>TEST</a>")
 })
 
 # Paragraphs --------------------------------------------------------------
@@ -299,13 +324,13 @@ test_that("nested item with whitespace parsed correctly", {
 
 # Verbatim ----------------------------------------------------------------
 
-test_that("parseable preformatted blocks are highlighted", {
-  out <- flatten_para(rd_text("\\preformatted{1}"))
-  expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
-
-  out <- flatten_para(rd_text("\\preformatted{1 > 2}"))
-  expect_equal(out, "<pre><span class='fl'>1</span> <span class='op'>&gt;</span> <span class='fl'>2</span></pre>\n")
-})
+# test_that("parseable preformatted blocks are highlighted", {
+#   out <- flatten_para(rd_text("\\preformatted{1}"))
+#   expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
+#
+#   out <- flatten_para(rd_text("\\preformatted{1 > 2}"))
+#   expect_equal(out, "<pre><span class='fl'>1</span> <span class='op'>&gt;</span> <span class='fl'>2</span></pre>\n")
+# })
 
 test_that("unparseable blocks aren't double escaped", {
   out <- flatten_para(rd_text("\\preformatted{\\%>\\%}"))
@@ -334,8 +359,11 @@ test_that("S3 methods gets comment", {
   out <- rd2html("\\S3method{fun}{class}(x, y)")
   expect_equal(out[1], "# S3 method for class")
   expect_equal(out[2], "fun(x, y)")
-})
 
+  out <- rd2html("\\method{fun}{class}(x, y)")
+  expect_equal(out[1], "# S3 method for class")
+  expect_equal(out[2], "fun(x, y)")
+})
 
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")
@@ -386,7 +414,6 @@ test_that("figures are converted to img", {
   )
 })
 
-
 # titles ------------------------------------------------------------------
 
 test_that("multiline titles are collapsed", {
@@ -415,5 +442,6 @@ test_that("bad Rd tags throw errors", {
     rd2html("\\url{a\nb}")
     rd2html("\\email{}")
     rd2html("\\linkS4class{}")
+    rd2html("\\enc{}")
   })
 })
