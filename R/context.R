@@ -12,13 +12,15 @@ local_options_link <- function(pkg, depth, .frame = parent.frame()) {
   article_index <- set_names(path_file(pkg$vignettes$file_out), pkg$vignettes$name)
   topic_index <- invert_index(set_names(pkg$topics$alias, pkg$topics$name))
 
-  local_options(
-    downlit.package = pkg$package,
-    downlit.article_index = article_index,
-    downlit.topic_index = topic_index,
-    downlit.article_path = paste0(up_path(depth), "articles/"),
-    downlit.topic_path = paste0(up_path(depth), "reference/"),
-    .frame = .frame
+  withr::local_options(
+    list(
+      downlit.package = pkg$package,
+      downlit.article_index = article_index,
+      downlit.topic_index = topic_index,
+      downlit.article_path = paste0(up_path(depth), "articles/"),
+      downlit.topic_path = paste0(up_path(depth), "reference/")
+    ),
+    .local_envir = .frame
   )
 }
 
@@ -60,16 +62,5 @@ context_get <- function(name) {
 
 context_set_scoped <- function(name, value, scope = parent.frame()) {
   old <- context_set(name, value)
-  defer(context_set(name, old), scope = scope)
-}
-
-# defer helper ------------------------------------------------------------
-
-defer <- function(expr, scope = parent.frame()) {
-  expr <- enquo(expr)
-
-  call <- expr(on.exit(rlang::eval_tidy(!!expr), add = TRUE))
-  eval_bare(call, scope)
-
-  invisible()
+  withr::defer(context_set(name, old), envir = scope)
 }

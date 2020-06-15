@@ -18,10 +18,10 @@
 #' )
 #' }
 autolink_html <- function(input, output = input, local_packages = character()) {
-  local_options(
+  withr::local_options(list(
     downlit.package = "",
     downlit.local_packages = local_packages
-  )
+  ))
 
   html <- xml2::read_html(input, encoding = "UTF-8")
   downlit::downlit_html_node(html)

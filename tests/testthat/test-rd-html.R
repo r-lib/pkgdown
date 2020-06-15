@@ -188,11 +188,11 @@ test_that("can convert cross links to online documentation url", {
 })
 
 test_that("can convert cross links to the same package (#242)", {
-  local_options(
+  withr::local_options(list(
     "downlit.package" = "test",
     "downlit.topic_index" = c(x = "y", z = "z"),
     "downlit.rdname" = "z"
-  )
+  ))
 
   expect_equal(rd2html("\\link[test]{x}"), "<a href='y.html'>x</a>")
   # but no self links
@@ -200,17 +200,17 @@ test_that("can convert cross links to the same package (#242)", {
 })
 
 test_that("can parse local links with topic!=label", {
-  local_options(
+  withr::local_options(list(
     "downlit.topic_index" = c(x = "y")
-  )
+  ))
   expect_equal(rd2html("\\link[=x]{z}"), "<a href='y.html'>z</a>")
 })
 
 test_that("functions in other packages generates link to rdrr.io", {
-  local_options(
+  withr::local_options(list(
     "downlit.package" = "test",
-    "downlit.topic_index" = c(x = "y", z = "z"),
-  )
+    "downlit.topic_index" = c(x = "y", z = "z")
+  ))
 
   expect_equal(
     rd2html("\\link[stats:acf]{xyz}"),
@@ -227,10 +227,10 @@ test_that("link to non-existing functions return label", {
 })
 
 test_that("code blocks autolinked to vignettes", {
-  local_options(
+  withr::local_options(list(
     "downlit.package" = "test",
     "downlit.article_index" = c("abc" = "abc.html")
-  )
+  ))
 
   expect_equal(
     rd2html("\\code{vignette('abc')}"),
