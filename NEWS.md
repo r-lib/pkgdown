@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Suppressing CRAN dates in news file now actualy works.
+
 * All HTTP requests are now retried upon failure (@jameslamb, #1305).
 
 * Highlighting of empty expressions was restored (#1310).

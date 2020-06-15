@@ -4,7 +4,7 @@ test_that("github links are added to news items", {
   skip_if_no_pandoc()
 
   path <- test_path("assets/news-github-links")
-  pkg <- as_pkgdown(path)
+  pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
   news_tbl <- data_news(pkg)
 
   user_link <- "<a href='https://github.com/hadley'>@hadley</a>"
@@ -19,12 +19,13 @@ test_that("github links are added to news items", {
 test_that("build_news() uses content in NEWS.md", {
   skip_if_no_pandoc()
 
-  pkg <- test_path("assets/news")
+  path <- test_path("assets/news")
+  pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
 
   expect_output(build_news(pkg))
-  on.exit(clean_site(pkg))
+  on.exit(clean_site(path))
 
-  lines <- read_lines(path(pkg, "docs", "news", "index.html"))
+  lines <- read_lines(path(path, "docs", "news", "index.html"))
   test_strings <- c(
     "testpackage", "1.0.0.9000", "1.0.0[^\\.]",
     "sub-heading", "@githubuser", "bullet", "#111"
@@ -66,7 +67,7 @@ test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
   path <- test_path("assets/news-multi-page")
-  pkg <- as_pkgdown(path)
+  pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
   on.exit(clean_site(pkg))
   expect_output(build_news(pkg))
 

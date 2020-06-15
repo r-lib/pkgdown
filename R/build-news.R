@@ -153,7 +153,13 @@ data_news <- function(pkg = ".") {
   anchors <- anchors[!is.na(versions)]
   versions <- versions[!is.na(versions)]
 
-  timeline <- pkg_timeline(pkg$package)
+  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = TRUE)
+  if (show_dates) {
+    timeline <- pkg_timeline(pkg$package)
+  } else {
+    timeline <- NULL
+  }
+
   html <- sections %>%
     purrr::walk(tweak_code) %>%
     purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
@@ -222,11 +228,6 @@ has_news <- function(path = ".") {
 
 pkg_timeline <- function(package) {
   if (!has_internet()) {
-    return(NULL)
-  }
-
-  show_dates <- purrr::pluck(package, "meta", "news", "cran_dates", .default = TRUE)
-  if (!show_dates) {
     return(NULL)
   }
 
