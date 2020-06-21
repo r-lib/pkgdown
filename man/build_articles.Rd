@@ -184,7 +184,12 @@ format.\preformatted{output:
 
 By default, YAML option \code{as_is: true} sets \code{theme} to \code{NULL} internally.
 The default value of the argument \code{theme} is hardcoded in
-\code{\link[rmarkdown:html_vignette]{rmarkdown::html_vignette()}}. So, in order to enable the ability to use:\preformatted{output:
+\code{\link[rmarkdown:html_vignette]{rmarkdown::html_vignette()}} too. So in order to enable the ability to use
+either:\preformatted{output:
+  rmarkdown::html_vignette
+}
+
+or\preformatted{output:
   bookdown::html_document2:
     base_format: rmarkdown::html_vignette
 }

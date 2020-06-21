@@ -156,8 +156,14 @@
 #'
 #' By default, YAML option `as_is: true` sets `theme` to `NULL` internally.
 #' The default value of the argument `theme` is hardcoded in
-#' [rmarkdown::html_vignette()]. So, in order to enable the ability to use:
+#' [rmarkdown::html_vignette()] too. So in order to enable the ability to use
+#' either:
 #'
+#' ```
+#' output:
+#'   rmarkdown::html_vignette
+#' ```
+#' or
 #' ```
 #' output:
 #'   bookdown::html_document2:
