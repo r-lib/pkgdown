@@ -255,6 +255,7 @@ build_article <- function(name,
   # Allow users to opt-in to their own template
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
+  set_null_theme <- isTRUE(purrr::pluck(front, "pkgdown", "set_null_theme", .default = TRUE))
 
   if (as_is) {
     format <- NULL
@@ -267,6 +268,9 @@ build_article <- function(name,
         self_contained = FALSE,
         theme = NULL
       )
+      if (!set_null_theme) {
+        options$theme <- NULL
+      }
     } else {
       options <- list()
     }
