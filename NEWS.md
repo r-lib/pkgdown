@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now supports `rmarkdown::html_vignette()` as an output format with
+  YAML option `as_is: true` (@GegznaV, #955, #1352).
+
 * pkgdown now uses the new downlit package for all syntax highlighting and 
   autolinking (in both reference topics and vignettes). There should be very
   little change in behaviour because the code in downlit was extracted from
