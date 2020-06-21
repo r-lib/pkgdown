@@ -154,6 +154,24 @@
 #'   number_sections: false
 #' ```
 #'
+#' By default, YAML option `as_is: true` sets `theme` to `NULL` internally.
+#' The default value of the argument `theme` is hardcoded in
+#' [rmarkdown::html_vignette()]. So, in order to enable the ability to use:
+#'
+#' ```
+#' output:
+#'   bookdown::html_document2:
+#'     base_format: rmarkdown::html_vignette
+#' ```
+#'
+#' in pkgdown, option `set_null_theme` should be set to `false` in YAML as
+#' follows:
+#' ```
+#' pkgdown:
+#'   as_is: true
+#'   set_null_theme: false
+#' ```
+#'
 #' @inheritSection build_reference Figures
 #'
 #' @section Suppressing vignettes:

@@ -181,6 +181,19 @@ format.\preformatted{output:
   bookdown::html_document2:
   number_sections: false
 }
+
+By default, YAML option \code{as_is: true} sets \code{theme} to \code{NULL} internally.
+The default value of the argument \code{theme} is hardcoded in
+\code{\link[rmarkdown:html_vignette]{rmarkdown::html_vignette()}}. So, in order to enable the ability to use:\preformatted{output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+}
+
+in pkgdown, option \code{set_null_theme} should be set to \code{false} in YAML as
+follows:\preformatted{pkgdown:
+  as_is: true
+  set_null_theme: false
+}
 }
 
 \section{Suppressing vignettes}{
