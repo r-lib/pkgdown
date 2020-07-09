@@ -143,8 +143,9 @@
 #' If you want to set an output format for all your articles, you can do that
 #' by adding a `vignettes/_site.yml`, much like you would for an
 #' [rmarkdown website](https://rmarkdown.rstudio.com/docs/reference/render_site.html).
-#' For example, you can backport some bookdown features such as cross-references
-#'  to all your articles by using the
+#' For example, you can backport some bookdown features such as
+#' [cross-references](https://bookdown.org/yihui/bookdown/cross-references.html)
+#' to tables, figures and all your articles by using the
 #' [bookdown::html_document2](https://bookdown.org/yihui/bookdown/a-single-document.html)
 #' format.
 #'
