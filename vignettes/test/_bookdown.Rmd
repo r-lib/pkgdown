@@ -1,0 +1,43 @@
+---
+title: "Test compatibility with `bookdown::html_vignette2()`"
+date: "`r Sys.Date()`"
+output:
+    bookdown::html_vignette2:
+      toc: yes
+      fig_caption: yes
+      number_sections: yes
+vignette: >
+    % \VignetteIndexEntry{Test compatibility with `bookdown::html_vignette2()`}
+    % \VignetteEngine{knitr::rmarkdown}
+    % \VignetteEncoding{UTF-8}
+# Pkgdown --------------------------------------------------------------------
+pkgdown:
+  as_is: true
+  set_null_theme: no
+---
+
+# Plot {#plot}
+
+Equation \@ref(eq:bmi) in section \@ref(table) shows the formula of body mass index (BMI).
+Also see Fig. \@ref(fig:fig1) and Table \@ref(tab:tbl1).
+
+```{r fig1, fig.cap=CAPTION}
+CAPTION <- "Height vs. weight.  "
+plot(women)
+```
+
+# Table {#table}
+
+<!-- Equation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+\begin{equation}
+
+  BMI = \frac{weight~[cm]}{(height~[cm])^2}
+  (\#eq:bmi)
+
+\end{equation}
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+
+```{r tbl1}
+knitr::kable(women, caption = "Dataset 'women'.")
+```
+
