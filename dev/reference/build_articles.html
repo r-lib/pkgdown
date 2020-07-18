@@ -213,25 +213,25 @@ you are primarily working on the text of an article." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code> renders each R Markdown file underneath <code>vignettes/</code> and
+    <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul>
 <li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
 <a href='https://bookdown.org/yihui/bookdown/'>bookdown</a></p></li>
-<li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href='https://pkgdown.r-lib.org/reference/build_tutorials.html'>build_tutorials()</a></code></p></li>
+<li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
 </ul>
 
 <p>Vignettes are rendered using a special document format that reconciles
 <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
-<p>Note that when you run <code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code> directly (outside of
-<code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code>) vignettes will use the currently installed version of the
+<p>Note that when you run <code>build_articles()</code> directly (outside of
+<code><a href='build_site.html'>build_site()</a></code>) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles</a></span>(
+    <pre class="usage"><span class='fu'>build_articles</span>(
   pkg = <span class='st'>"."</span>,
   quiet = <span class='fl'>TRUE</span>,
   lazy = <span class='fl'>TRUE</span>,
@@ -239,9 +239,9 @@ you are primarily working on the text of an article.</p>
   preview = <span class='fl'>NA</span>
 )
 
-<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_article</a></span>(<span class='kw'>name</span>, pkg = <span class='st'>"."</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), lazy = <span class='fl'>FALSE</span>, quiet = <span class='fl'>TRUE</span>)
+<span class='fu'>build_article</span>(<span class='kw'>name</span>, pkg = <span class='st'>"."</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), lazy = <span class='fl'>FALSE</span>, quiet = <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles_index</a></span>(pkg = <span class='st'>"."</span>)</pre>
+<span class='fu'>build_articles_index</span>(pkg = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -408,7 +408,7 @@ format.</p><pre><span class='kw'>output</span><span class='op'>:</span>
 subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
-<code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> details.</p>
+<code><a href='build_site.html'>build_site()</a></code> details.</p>
     <h2 class="hasAnchor" id="tables-of-contents"><a class="anchor" href="#tables-of-contents"></a>Tables of contents</h2>
 
     

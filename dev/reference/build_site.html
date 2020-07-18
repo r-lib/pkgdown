@@ -210,22 +210,22 @@ clean_site() first to clean up orphan files." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> is a convenient wrapper around six functions:</p><ul>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/init_site.html'>init_site()</a></code></p></li>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_home.html'>build_home()</a></code></p></li>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference()</a></code></p></li>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_articles.html'>build_articles()</a></code></p></li>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_tutorials.html'>build_tutorials()</a></code></p></li>
-<li><p><code><a href='https://pkgdown.r-lib.org/reference/build_news.html'>build_news()</a></code></p></li>
+    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul>
+<li><p><code><a href='init_site.html'>init_site()</a></code></p></li>
+<li><p><code><a href='build_home.html'>build_home()</a></code></p></li>
+<li><p><code><a href='build_reference.html'>build_reference()</a></code></p></li>
+<li><p><code><a href='build_articles.html'>build_articles()</a></code></p></li>
+<li><p><code><a href='build_tutorials.html'>build_tutorials()</a></code></p></li>
+<li><p><code><a href='build_news.html'>build_news()</a></code></p></li>
 </ul>
 
 <p>See the documentation for the each function to learn how to control
 that aspect of the site.</p>
 <p>Note if names of generated files were changed, you will need to use
-<code><a href='https://pkgdown.r-lib.org/reference/clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
+<code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>(
+    <pre class="usage"><span class='fu'>build_site</span>(
   pkg = <span class='st'>"."</span>,
   examples = <span class='fl'>TRUE</span>,
   run_dont_run = <span class='fl'>FALSE</span>,
@@ -282,14 +282,14 @@ iteration; it will run examples and vignettes in the current process,
 and will load code with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.</p>
 <p>If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.</p>
-<p><code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> defaults to <code>devel = FALSE</code> so that you get high fidelity
-outputs when you building the complete site; <code><a href='https://pkgdown.r-lib.org/reference/build_reference.html'>build_reference()</a></code>,
-<code><a href='https://pkgdown.r-lib.org/reference/build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
+<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+outputs when you building the complete site; <code><a href='build_reference.html'>build_reference()</a></code>,
+<code><a href='build_home.html'>build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></td>
     </tr>
     <tr>
       <th>new_process</th>
-      <td><p>If <code>TRUE</code>, will run <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site()</a></code> in a separate process.
+      <td><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></td>
     </tr>
@@ -319,7 +319,7 @@ Supplying this will:</p><ul>
 rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
-<a href='https://pkgdown.r-lib.org/reference/deploy_site_github.html'>deploying to github</a>.</p></li>
+<a href='deploy_site_github.html'>deploying to github</a>.</p></li>
 </ul><p><div class="yaml"></p><pre>url: http://pkgdown.r-lib.org
 </pre><p></div></p>
 <p><code>title</code> overrides the default site title, which is the package name.
@@ -543,15 +543,15 @@ the end of these URLs so they should have trailing <code><a href='https://rdrr.i
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
 or vignettes, this connection is required as this option won't apply on them.</p>
-<p>Users can set a timeout for <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site(new_process = TRUE)</a></code> with
+<p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
 <code><a href='https://rdrr.io/r/base/options.html'>options(pkgdown.timeout = Inf)</a></code>, which is useful to prevent stalled builds from
 hanging in cron jobs.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>()
+<span class='fu'>build_site</span>()
 
-<span class='fu'><a href='https://pkgdown.r-lib.org/reference/build_site.html'>build_site</a></span>(override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(destination = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
+<span class='fu'>build_site</span>(override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(destination = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

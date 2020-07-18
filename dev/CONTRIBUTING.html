@@ -200,7 +200,7 @@
 <div id="package-reprexes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-reprexes" class="anchor"></a>Package reprexes</h2>
-<p>If you encounter unexpected errors after running <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
+<p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
 <p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package, and file an issue with a link to the repository.</p>
 <p>The quickest way to set up minimal example package is with <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_package()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
@@ -210,18 +210,18 @@
 <span class="kw">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"test"</span>)
 <span class="kw">usethis</span>::<span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(<span class="kw">tmp</span>, <span class="kw">open</span>)
 <span class="co"># ... edit files ...</span>
-<span class="kw">pkgdown</span>::<span class="fu"><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>(<span class="kw">tmp</span>, new_process = <span class="fl">FALSE</span>, preview = <span class="fl">FALSE</span>)
+<span class="kw">pkgdown</span>::<span class="fu"><a href="reference/build_site.html">build_site</a></span>(<span class="kw">tmp</span>, new_process = <span class="fl">FALSE</span>, preview = <span class="fl">FALSE</span>)
 </pre></div>
 </div>
 <div id="rd-translation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rd-translation" class="anchor"></a>Rd translation</h2>
-<p>If you encounter problems with Rd tags, please use <code><a href="https://pkgdown.r-lib.org/reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
+<p>If you encounter problems with Rd tags, please use <code><a href="reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pkgdown.r-lib.org">pkgdown</a></span>)
 
-<span class="fu"><a href="https://pkgdown.r-lib.org/reference/rd2html.html">rd2html</a></span>(<span class="st">"a\n%b\nc"</span>)
-<span class="fu"><a href="https://pkgdown.r-lib.org/reference/rd2html.html">rd2html</a></span>(<span class="st">"a &amp; b"</span>)
+<span class="fu"><a href="reference/rd2html.html">rd2html</a></span>(<span class="st">"a\n%b\nc"</span>)
+<span class="fu"><a href="reference/rd2html.html">rd2html</a></span>(<span class="st">"a &amp; b"</span>)
 </pre></div>
 </div>
 <div id="pull-request-process" class="section level2">
@@ -245,7 +245,7 @@
 <a href="#netlify" class="anchor"></a>Netlify</h3>
 <p>We might ask you for a Netlify preview of your changes i.e. how do your local changes affect the pkgdown website?</p>
 <ol>
-<li>Build and install the amended package, then re-build the website (<code><a href="https://pkgdown.r-lib.org/reference/clean_site.html">clean_site()</a></code> and then <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">build_site()</a></code>) which will update the docs/ folder.</li>
+<li>Build and install the amended package, then re-build the website (<code><a href="reference/clean_site.html">clean_site()</a></code> and then <code><a href="reference/build_site.html">build_site()</a></code>) which will update the docs/ folder.</li>
 <li>Log into Netlify at <a href="https://app.netlify.com/sites/" class="uri">https://app.netlify.com/sites/</a>, and scroll to the bottom. You’ll see a box with dashed outline that says “Want to deploy a new site without connecting to Git?”.</li>
 <li>Open up a file browser, navigate to <code>docs/</code>, and drag the <code>docs/</code> folder to the dashed box, which will copy all the files into a temporary netlify site.</li>
 <li>After the file transfer completes, netlify will generate a temporary URL on a new page that you can copy/paste in the PR discussion.</li>
