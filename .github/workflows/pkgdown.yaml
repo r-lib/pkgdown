@@ -7,12 +7,12 @@ name: pkgdown
 jobs:
   pkgdown:
     runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
-        with:
-          r-version: 'release'
 
       - uses: r-lib/actions/setup-pandoc@master
 
