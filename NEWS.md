@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* HTML is automatically stripped from the page title (#1318).
+
 * pkgdown now uses the new downlit package for all syntax highlighting and 
   autolinking (in both reference topics and vignettes). There should be very
   little change in behaviour because the code in downlit was extracted from
