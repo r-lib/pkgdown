@@ -80,15 +80,12 @@ to the \href{https://testthat.r-lib.org/authors.html}{authors page}.
 If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is \code{man/figures}. If you are generating figures
-with R Markdown, make sure you set up \code{fig.path} as followed:
-
-\preformatted{
-```\{r, include = FALSE\}
-knitr::opts_chunk$set(
+with R Markdown, make sure you set up \code{fig.path} as followed:\preformatted{knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
-```
 }
+
+This should usually go in a block with \code{include = FALSE}.
 }
 
 \section{Package logo}{
