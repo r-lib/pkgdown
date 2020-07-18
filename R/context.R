@@ -2,8 +2,8 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
   pkg <- as_pkgdown(pkg, override = override)
 
   rstudio_save_all()
-  local_envvar_pkgdown()
-  local_options_link(pkg, depth = depth)
+  local_envvar_pkgdown(.frame)
+  local_options_link(pkg, depth = depth, .frame = .frame)
 
   pkg
 }
