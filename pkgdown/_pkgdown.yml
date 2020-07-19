@@ -50,7 +50,6 @@ reference:
   - render_page
 - title: Helpers
 - contents:
-  - autolink_html
   - clean_site
   - rd2html
   - as_pkgdown

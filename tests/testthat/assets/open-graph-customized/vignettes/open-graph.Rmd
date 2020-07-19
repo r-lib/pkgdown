@@ -11,7 +11,7 @@ opengraph:
     creator: "@dataandme"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{og}
+  %\VignetteIndexEntry{Introduction to Open Graph}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -23,6 +23,7 @@ Other tests:
 \code{\link{test-lists}},
 \code{\link{test-output-styles}},
 \code{\link{test-params}},
+\code{\link{test-sexpr-title}},
 \code{\link{test-verbatim}}
 }
 \concept{tests}

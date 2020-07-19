@@ -195,3 +195,10 @@ NULL
 #' @keywords internal
 #' @family tests
 NULL
+
+#' Test case: \Sexpr[stage=render,results=rd]{"sexpr"}
+#'
+#' @name test-sexpr-title
+#' @keywords internal
+#' @family tests
+NULL

@@ -54,9 +54,9 @@ Suggests:
     testthat (>= 2.1.0),
     rticles,
     rsconnect
-Remotes: r-lib/downlit, rstudio/rmarkdown
+Remotes: r-lib/downlit
 VignetteBuilder: knitr
 SystemRequirements: pandoc
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

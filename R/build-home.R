@@ -67,13 +67,13 @@
 #' The best place to put them is `man/figures`. If you are generating figures
 #' with R Markdown, make sure you set up `fig.path` as followed:
 #'
-#' \preformatted{
-#' ```\{r, include = FALSE\}
+#' ```
 #' knitr::opts_chunk$set(
 #'   fig.path = "man/figures/"
 #' )
 #' ```
-#' }
+#'
+#' This should usually go in a block with `include = FALSE`.
 #'
 #' @section Package logo:
 #' If you have a package logo, you can include it at the top of your README in a

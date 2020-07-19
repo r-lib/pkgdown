@@ -91,6 +91,9 @@ read_meta <- function(path) {
 # Topics ------------------------------------------------------------------
 
 package_topics <- function(path = ".", package = "pkgdown") {
+  # Needed if title contains sexpr
+  local_context_eval()
+
   rd <- package_rd(path)
 
   aliases <- purrr::map(rd, extract_tag, "tag_alias")
