@@ -17,8 +17,9 @@
 #' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are four top-level YAML settings that affect the entire site:
-#' `destination`, `url`, `title`, `template`, and `navbar`.
+#' There are five top-level YAML settings that affect the entire site:
+#' `destination`, `url`, `title`, `template`, `write_meta_to_inst`,
+#' and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
@@ -52,6 +53,10 @@
 #'     href: https://www.rstudio.com
 #'     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 #' ```
+#'
+#' `write_meta_to_inst` controls whether a copy of `pkgdown.yml` should be written
+#' to `inst/`. Doing this allows pkgdown metadata to be installed alongside the package,
+#' and used when building pkgdown websites for other packages to autolink to this package site.
 #'
 #' @section Development mode:
 #' The development mode of a site controls four main things:

@@ -117,6 +117,15 @@ build_site_meta <- function(pkg = ".") {
     )
   }
 
+  write_to_inst <- pkg$write_meta_to_inst %||% FALSE
+
+  if (write_to_inst) {
+    path_meta <- path(pkg$src_path, "inst", "pkgdown.yml")
+
+    dir_create(path_dir(path_meta))
+    write_yaml(meta, path_meta)
+  }
+
   path_meta <- path(pkg$dst_path, "pkgdown.yml")
   write_yaml(meta, path_meta)
   invisible()
