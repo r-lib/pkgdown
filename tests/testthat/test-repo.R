@@ -31,7 +31,7 @@ test_that("repo_source() truncates automatically", {
 
 # repo_source with alternate default branch -------------------------------
 
-test_that("repo_source() truncates automatically", {
+test_that("repo_source() uses the default branch option", {
   withr::with_options(
     list("pkgdown.default.branch" = "main"), {
       pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
