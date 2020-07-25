@@ -72,9 +72,10 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 
 repo_meta_gh_like <- function(link) {
   gh <- parse_github_like_url(link)
+  default_branch <- getOption("pkgdown.default.branch", "master")
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
-    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/master/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", default_branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )
