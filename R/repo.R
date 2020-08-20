@@ -53,7 +53,7 @@ package_repo <- function(desc, meta) {
 
   gh_links <- grep("^https?://git(hub|lab).com/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    return(repo_meta_gh_like(gh_links[[1]]))
+    return(repo_meta_gh_like(gh_links[[1]], meta))
   }
 
   NULL
@@ -70,11 +70,12 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
   )
 }
 
-repo_meta_gh_like <- function(link) {
+repo_meta_gh_like <- function(link, meta = NULL) {
   gh <- parse_github_like_url(link)
+  default_branch <- meta[["default_branch"]] %||% "master"
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
-    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/master/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", default_branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )
