@@ -341,11 +341,18 @@ remove it with <code>strip_header: true</code>:</p><pre><span class='kw'>home</s
 
 <p>The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>. You can modify their
-display on the home page by adding a subsection for <code>authors</code>. The author
-name should match the value in <code>DESCRIPTION</code>:</p><pre><span class='kw'>authors</span><span class='op'>:</span>
-  <span class='kw'>name</span><span class='op'>:</span>
-    <span class='kw'>href</span><span class='op'>:</span> <span class='st'>"http://name-website.com"</span>
-    <span class='kw'>html</span><span class='op'>:</span> <span class='st'>"&lt;img src='name-picture.png' height=24&gt;"</span></pre>
+display on the home page by adding a subsection for <code>authors</code>. Each entry
+in <code>authors</code> should be named with the author's name (matching <code>DESCRIPTION</code>)
+and can contain <code>href</code> and/or <code>html</code> fields:</p><ul>
+<li><p>If <code>href</code> is provided, the author's name will be linked to this url.</p></li>
+<li><p>If <code>html</code> is provided, it will be shown instead of the author's name.
+This is particularly useful if you want to display the logo of a corporate
+sponsor.</p></li>
+</ul><pre>authors:
+  firstname lastname:
+    href: "http://name-website.com"
+    html: "&lt;img src='name-picture.png' height=24&gt;"
+</pre>
 
 
   </div>

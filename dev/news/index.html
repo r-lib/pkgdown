@@ -200,6 +200,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code>#ifdef</code> and <code>#ifndef</code> are now supported; the “current” OS is hard coded to “unix” to ensure reproducible output regardless of where you build the website (<a href='https://github.com/r-lib/pkgdown/issues/1384'>#1384</a>).</p></li>
 <li><p>Nested <code>\subsection{}</code>s now generate appropriate heading levels (h3, h4, h5 etc) (<a href='https://github.com/r-lib/pkgdown/issues/1377'>#1377</a>).</p></li>
 <li><p>HTML is automatically stripped from the page title (<a href='https://github.com/r-lib/pkgdown/issues/1318'>#1318</a>).</p></li>
 <li><p>pkgdown now uses the new downlit package for all syntax highlighting and autolinking (in both reference topics and vignettes). There should be very little change in behaviour because the code in downlit was extracted from pkgdown, but this makes it easier to use pkgdown’s nice linking/highlighting in more places (<a href='https://github.com/r-lib/pkgdown/issues/1234'>#1234</a>).</p></li>
