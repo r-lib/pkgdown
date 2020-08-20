@@ -101,21 +101,24 @@ Note the use of the \code{navbar} fields. \verb{navbar: ~} means that the "Main 
 will appear in the navbar without a heading; the absence of the \code{navbar}
 field in the for the developer vignettes means that they will only be
 accessible via the articles index.
-\subsection{Special links}{
-\itemize{
-\item A vignette with the same name as the package (e.g.,
-\code{vignettes/pkgdown.Rmd} or \code{vignettes/articles/pkgdown.Rmd})
-automatically becomes a top-level "Get started" link, and will not appear
-in the articles drop-down. (If your package name includes a \code{.}, e.g.
-\code{pack.down}, use a \code{-} in the vignette name, e.g. \code{pack-down.Rmd}.)
-\item The navbar will include a link to the articles index if one or more
+
+The navbar will include a link to the articles index if one or more
 vignettes are not available through the navbar. If some vignettes appear
 in the navbar drop-down list and others do not, the list will automatically
 include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.
 }
-}
+
+\section{Get started}{
+
+Note that a vignette with the same name as the package (e.g.,
+\code{vignettes/pkgdown.Rmd} or \code{vignettes/articles/pkgdown.Rmd}) automatically
+becomes a top-level "Get started" link, and will not appear in the articles
+drop-down.
+
+(If your package name includes a \code{.}, e.g. \code{pack.down}, use a \code{-} in the
+vignette name, e.g. \code{pack-down.Rmd}.)
 }
 
 \section{External files}{
