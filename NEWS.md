@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
+  "unix" to ensure reproducible output regardless of where you build the 
+  website (#1384).
+
 * Nested `\subsection{}`s now generate appropriate heading levels 
   (h3, h4, h5 etc) (#1377).
 

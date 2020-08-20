@@ -68,6 +68,21 @@ test_that("out is for raw html", {
   expect_equal(rd2html("\\out{<hr />}"), "<hr />")
 })
 
+test_that("support platform specific code", {
+  os_specific <- function(command, os, output) {
+    rd2html(paste0(
+      "#", command, " ", os, "\n",
+      output, "\n",
+      "#endif"
+    ))
+  }
+
+  expect_equal(os_specific("ifdef", "windows", "X"), character())
+  expect_equal(os_specific("ifdef", "unix", "X"), "X")
+  expect_equal(os_specific("ifndef", "windows", "X"), "X")
+  expect_equal(os_specific("ifndef", "unix", "X"), character())
+})
+
 
 # tables ------------------------------------------------------------------
 

@@ -238,6 +238,26 @@ as_html.tag_ifelse <- function(x, ...) {
   if (x[[1]] == "html") as_html(x[[2]], ...) else as_html(x[[3]], ...)
 }
 
+#' @export
+`as_html.#ifdef` <- function(x, ...) {
+  os <- trimws(flatten_text(x[[1]]))
+  if (os == "unix") {
+    flatten_text(x[[2]])
+  } else {
+    ""
+  }
+}
+
+#' @export
+`as_html.#ifndef` <- function(x, ...) {
+  os <- trimws(flatten_text(x[[1]]))
+  if (os == "windows") {
+    flatten_text(x[[2]])
+  } else {
+    ""
+  }
+}
+
 # Tables ---------------------------------------------------------------------
 
 #' @export
