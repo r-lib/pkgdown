@@ -37,10 +37,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
       )
     ),
     error = function(cnd) {
-      abort(
-        c("Failed to render RMarkdown", strsplit(cnd$stderr, "\r?\n")[[1]]),
-        parent = cnd
-      )
+      cli::cat_rule("RMarkdown error")
+      cat(cnd$stderr)
+      cli::cat_rule()
+      abort("Failed to render RMarkdown", parent = cnd)
     }
   )
 

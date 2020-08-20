@@ -4,6 +4,8 @@
   horizontal space and wasn't very useful since there is already a link to the 
   home page immediately to its right (#1383).
 
+* When `build_article()` fails, it gives the complete failure message (#1379).
+
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
   "unix" to ensure reproducible output regardless of where you build the 
   website (#1384).
