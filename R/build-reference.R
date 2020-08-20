@@ -102,7 +102,7 @@
 #'
 #' ```
 #' figures:
-#'   dev: grDevices::png
+#'   dev: ragg::agg_png
 #'   dpi: 96
 #'   dev.args: []
 #'   fig.ext: png

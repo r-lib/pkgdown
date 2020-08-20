@@ -4,7 +4,7 @@ fig_save_default <- function(plot, name) {
 
 fig_save <- function(plot,
                      name,
-                     dev = "grDevices::png",
+                     dev = "ragg::agg_png",
                      dpi = 96L,
                      dev.args = list(),
                      fig.ext = "png",
@@ -108,6 +108,10 @@ match_fun <- function(x) {
 
 # knitr only takes a function name - user will need to load package
 fun_name <- function(x) {
+  if (x == "ragg::agg_png") {
+    return("ragg_png")
+  }
+
   expr <- parse_expr(x)
   if (is_symbol(expr)) {
     x

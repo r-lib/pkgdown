@@ -204,7 +204,7 @@ You can control the TOC depth via the YAML configuration file:\preformatted{toc:
 
 You can control the default rendering of figures by specifying the \code{figures}
 field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
-  dev: grDevices::png
+  dev: ragg::agg_png
   dpi: 96
   dev.args: []
   fig.ext: png

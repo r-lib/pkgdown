@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* pkgdown now uses the `ragg::agg_png()` device to generate example figures.
+  This should be a little faster and produce higher quality output. Learn
+  more at <https://ragg.r-lib.org> (#1320).
+
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
   "unix" to ensure reproducible output regardless of where you build the 
   website (#1384).
