@@ -95,10 +95,12 @@ as_html.COMMENT <- function(x, ...) {
 as_html.USERMACRO <-  function(x, ...) ""
 
 #' @export
-as_html.tag_subsection <- function(x, ...) {
+as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
+
+  h <- paste0("h", subsection_level)
   paste0(
-    "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
-    flatten_para(x[[2]], ...)
+    "<", h, ">", flatten_text(x[[1]], ...), "</", h, ">\n",
+    flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
   )
 }
 

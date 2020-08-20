@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Nested `\subsection{}`s now generate appropriate heading levels 
+  (h3, h4, h5 etc) (#1377).
+
 * HTML is automatically stripped from the page title (#1318).
 
 * pkgdown now uses the new downlit package for all syntax highlighting and 

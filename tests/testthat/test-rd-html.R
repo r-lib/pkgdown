@@ -47,6 +47,12 @@ test_that("subsection generates h3", {
     p2
   }"), c("<h3>A</h3>", "<p>p1</p>", "<p>p2</p>"))
 })
+test_that("nested subsection generates h4", {
+  expect_equal(
+    rd2html("\\subsection{H3}{\\subsection{H4}{}}"),
+    c("<h3>H3</h3>", "<h4>H4</h4>")
+  )
+})
 
 test_that("if generates html", {
   expect_equal(rd2html("\\if{html}{\\bold{a}}"), "<b>a</b>")
