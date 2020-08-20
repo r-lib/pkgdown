@@ -132,12 +132,18 @@
 #' @section YAML config - authors:
 #' The "developers" list is populated by the maintainer ("cre"), authors
 #' ("aut"), and funder ("fnd") from the `DESCRIPTION`. You can modify their
-#' display on the home page by adding a subsection for `authors`. The author
-#' name should match the value in `DESCRIPTION`:
+#' display on the home page by adding a subsection for `authors`. Each entry
+#' in `authors` should be named with the author's name (matching `DESCRIPTION`)
+#' and can contain `href` and/or `html` fields:
+#'
+#' * If `href` is provided, the author's name will be linked to this url.
+#' * If `html` is provided, it will be shown instead of the author's name.
+#'   This is particularly useful if you want to display the logo of a corporate
+#'   sponsor.
 #'
 #' ```
 #' authors:
-#'   name:
+#'   firstname lastname:
 #'     href: "http://name-website.com"
 #'     html: "<img src='name-picture.png' height=24>"
 #' ```
