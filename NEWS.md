@@ -28,6 +28,14 @@
 
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the 
   deployed site before building a new one (#1297).
+  
+* The branch used for source linking can be configured by setting 
+  `repo: branch: branch_name` in `_pkgdown.yml` (@jonkeane):
+
+  ```yaml
+  repo:
+    branch: main
+  ```
 
 # pkgdown 1.5.1
 

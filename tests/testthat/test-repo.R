@@ -33,7 +33,7 @@ test_that("repo_source() truncates automatically", {
 
 test_that("repo_source() uses the branch setting in meta", {
   desc <- desc::desc(text = c("URL: https://github.com/r-lib/pkgdown"))
-  pkg <- list(repo = package_repo(desc, list(default_branch = "main")))
+  pkg <- list(repo = package_repo(desc, list(repo = list(branch = "main"))))
 
   expect_match(
     repo_source(pkg, "a"),

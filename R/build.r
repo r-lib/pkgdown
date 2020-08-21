@@ -293,6 +293,15 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
+#' pkgdown defaults to using the "master" branch for source file URLs. This can
+#' be configured to use a specific branch when linking to source files by
+#' specifying a branch name:
+#'
+#' ```yaml
+#' repo:
+#'   branch: main
+#' ````
+#'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
