@@ -286,6 +286,7 @@ pre .img {
 }
 
 pre .img img {
+  background-color: #fff;
   display: block;
   height: auto;
 }
