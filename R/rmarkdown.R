@@ -38,7 +38,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     ),
     error = function(cnd) {
       cli::cat_rule("RMarkdown error")
-      cat(cnd$stderr)
+      cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
       cli::cat_rule()
       abort("Failed to render RMarkdown", parent = cnd)
     }
