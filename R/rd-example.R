@@ -40,10 +40,15 @@ run_examples <- function(x,
 }
 
 highlight_examples <- function(x, topic, env = globalenv()) {
+  bg <- context_get("figures")$bg %||% NA
+  device <- function(...) {
+    ragg::agg_png(..., bg = bg)
+  }
+
   withr::local_options(list(
     crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
     crayon.colors = getOption("crayon.colors", crayon::num_colors()),
-    device = ragg::agg_capture
+    device = device
   ))
 
   expr <- evaluate::evaluate(x, child_env(env), new_device = TRUE)

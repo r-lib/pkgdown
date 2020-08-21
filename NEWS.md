@@ -4,6 +4,10 @@
   This should be a little faster and produce higher quality output. Learn
   more at <https://ragg.r-lib.org> (#1320).
 
+* You can now control the background colour of plots with the `figures.bg`
+  option (it is transparent by default, and given a white background by
+  css). See `?build_reference` for an example.
+
 * When `build_article()` fails, it gives the complete failure message (#1379).
 
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to

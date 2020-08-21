@@ -110,6 +110,7 @@
 #'   fig.height: ~
 #'   fig.retina: 2
 #'   fig.asp: 1.618
+#'   bg: NA
 #' ```
 #'
 #' @inheritParams build_articles

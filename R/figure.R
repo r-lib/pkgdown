@@ -11,7 +11,8 @@ fig_save <- function(plot,
                      fig.width = 700 / 96,
                      fig.height = NULL,
                      fig.retina = 2L,
-                     fig.asp = 1 / 1.618 # golden ratio
+                     fig.asp = 1 / 1.618, # golden ratio
+                     bg = NULL
                      ) {
 
 
@@ -43,6 +44,10 @@ fig_save <- function(plot,
       height = fig.height
     )
   }
+
+  # NB: bg is always set to transparent here; it takes effect during
+  # recording in highlight_examples()
+  dev.args$bg <- NA
 
   with_device(dev, c(args, dev.args), plot)
 
@@ -83,6 +88,10 @@ fig_opts_chunk <- function(figures, default) {
     figures$fig.height <- figures$fig.width * figures$fig.asp
     figures$fig.asp <- NULL
   }
+
+  # Copy background into dev.args
+  figures$dev.args <- figures$dev.args %||% list()
+  figures$dev.args$bg <- figures$bg %||% NA
 
   utils::modifyList(default, figures)
 }

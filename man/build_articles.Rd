@@ -215,6 +215,7 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.618
+  bg: NA
 }
 }
 
