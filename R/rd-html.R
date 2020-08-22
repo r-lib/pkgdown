@@ -242,12 +242,12 @@ as_html.tag_ifelse <- function(x, ...) {
 # regular R syntax, either because it is not valid R, or because its usage
 # intentionally deviates from regular R usage. An example of the former is the
 # command line documentation, e.g. `R CMD SHLIB`
-# (src/library/utils/man/SHLIB.Rd in the R source):
+# (https://github.com/wch/r-source/blob/trunk/src/library/utils/man/SHLIB.Rd):
 #
 #    \special{R CMD SHLIB [options] [-o dllname] files}
 #
 # An example of the latter is the documentation shortcut `?`
-# (src/library/utils/man/Question.Rd in the R source):
+# (https://github.com/wch/r-source/blob/trunk/src/library/utils/man/Question.Rd):
 #
 #    \special{?topic}
 #
