@@ -238,6 +238,19 @@ as_html.tag_ifelse <- function(x, ...) {
   if (x[[1]] == "html") as_html(x[[2]], ...) else as_html(x[[3]], ...)
 }
 
+# Used inside a \usage{} Rd tag to prevent the code from being treated as
+# regular R syntax, either because it is not valid R, or because its usage
+# intentionally deviates from regular R usage. An example of the former is the
+# command line documentation, e.g. `R CMD SHLIB`
+# (src/library/utils/man/SHLIB.Rd in the R source):
+#
+#    \special{R CMD SHLIB [options] [-o dllname] files}
+#
+# An example of the latter is the documentation shortcut `?`
+# (src/library/utils/man/Question.Rd in the R source):
+#
+#    \special{?topic}
+#
 #' @export
 as_html.tag_special <- function(x, ...) {
   as_html(x[[1]], ...)
