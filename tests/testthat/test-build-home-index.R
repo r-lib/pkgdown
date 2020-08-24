@@ -68,4 +68,3 @@ test_that("homepage description can be overridden", {
   )
 
 })
-
