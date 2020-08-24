@@ -98,8 +98,12 @@ as_html.USERMACRO <-  function(x, ...) ""
 as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
 
   h <- paste0("h", subsection_level)
+
   paste0(
-    "<", h, ">", flatten_text(x[[1]], ...), "</", h, ">\n",
+    "<", h, " class='hasAnchor' id='arguments'>",
+    "<a class='anchor' href='#arguments'></a>",
+    flatten_text(x[[1]], ...),
+    "</", h, ">\n",
     flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
   )
 }
