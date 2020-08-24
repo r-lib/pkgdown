@@ -74,11 +74,12 @@ NULL
 #' @keywords internal
 #' @family tests
 #' @examples
-#' x <- seq(0, 2 * pi, length = 25)
+#' x <- seq(0, 2 * pi, length.out = 25)
 #' plot(x, sin(x))
 #'
 #' plot(1:10)
 #' lines(1:10)
+#' text(2, 5, "Hello", srt = 30, cex = 2)
 NULL
 
 #' Test case: don't

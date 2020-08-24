@@ -163,6 +163,11 @@ usage_code.tag <- function(x) {
 }
 
 #' @export
+usage_code.tag_special <- function(x) {
+  paste0(purrr::flatten_chr(purrr::map(x, usage_code)), collapse = "")
+}
+
+#' @export
 usage_code.tag_dots <- function(x) "..."
 #' @export
 usage_code.tag_ldots <- function(x) "..."

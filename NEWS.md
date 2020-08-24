@@ -1,11 +1,16 @@
 # pkgdown (development version)
 
+* `\special{}` support inside `\usage{}` added to allow non-standard R usage
+  syntax (@klmr, #1345).
+
+* When `build_article()` fails, it gives the complete failure message (#1379).
+
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
   "unix" to ensure reproducible output regardless of where you build the 
   website (#1384).
 
 * Nested `\subsection{}`s now generate appropriate heading levels 
-  (h3, h4, h5 etc) (#1377).
+  (h3, h4, h5 etc) (#1377), and get anchor links (#1389).
 
 * HTML is automatically stripped from the page title (#1318).
 
