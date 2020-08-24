@@ -8,6 +8,9 @@
   option (it is transparent by default, and given a white background by
   css). See `?build_reference` for an example.
 
+* `\special{}` support inside `\usage{}` added to allow non-standard R usage
+  syntax (@klmr, #1345).
+
 * When `build_article()` fails, it gives the complete failure message (#1379).
 
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
