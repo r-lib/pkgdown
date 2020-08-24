@@ -1,4 +1,0 @@
-
-# Header {.class #id}
-
-Paragraph

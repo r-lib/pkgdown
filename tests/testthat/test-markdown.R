@@ -3,7 +3,7 @@ test_that("empty string works", {
 })
 
 test_that("header attributes are parsed", {
-  index_xml <- markdown_text(read_lines(test_path("assets/readme-with-attr.md")))
+  index_xml <- markdown_text("# Header {.class #id}")
 
   expect_true(grepl("id=\"id\"", index_xml))
   expect_true(grepl("class=\".*? class\"", index_xml))
