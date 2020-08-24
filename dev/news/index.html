@@ -200,6 +200,11 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>The branch used for source linking can be configured by setting <code>repo: branch: branch_name</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1355'>#1355</a>):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
+</li>
 <li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="uri">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
 <li><p>You can now control the background colour of plots with the <code>figures.bg</code> option (it is transparent by default, and given a white background by css). See <code><a href="../reference/build_reference.html">?build_reference</a></code> for an example.</p></li>
 <li><p><code>\special{}</code> support inside <code>\usage{}</code> added to allow non-standard R usage syntax (<a href='https://github.com/klmr'>@klmr</a>, <a href='https://github.com/r-lib/pkgdown/issues/1345'>#1345</a>).</p></li>
@@ -247,12 +252,12 @@
 <li><p>Tables of contents in sidebars now use <a href="https://afeld.github.io/bootstrap-toc/">bootstrap-toc</a>; this considerably improves navigation for long articles and reference pages.</p></li>
 <li>
 <p>You can now control the links to source files (in reference pages and articles) and issues and users (in the NEWS) with new <code>repo$url</code> config option (<a href='https://github.com/r-lib/pkgdown/issues/1238'>#1238</a>). This makes it easier to use pkgdown with GitHub enterprise, packages in subdirectories, and other source hosts (like bitbucket).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/master/</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/master/</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre></div>
 <p>The individual components (e.g. path, issue number, username) are pasted on the end of these urls so they should have trailing <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code>s.</p>
 <p>You don’t need to set these links for GitLab, as pkgdown now detects GitLab urls automatically (since they use the same structure as GitHub) (<a href='https://github.com/r-lib/pkgdown/issues/1045'>#1045</a>).</p>
 </li>
@@ -508,8 +513,8 @@
 <ul>
 <li>
 <p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/821'>#821</a>):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">toc</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">toc</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -568,9 +573,9 @@
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href='https://github.com/r-lib/pkgdown/issues/654'>#654</a>).</p></li>
 <li>
 <p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/686'>#686</a>)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
