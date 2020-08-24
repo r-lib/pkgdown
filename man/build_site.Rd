@@ -328,6 +328,12 @@ supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}
 
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
+
+pkgdown defaults to using the "master" branch for source file URLs. This can
+be configured to use a specific branch when linking to source files by
+specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+  branch: main
+}\if{html}{\out{</div>}}
 }
 
 \section{Options}{

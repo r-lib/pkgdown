@@ -1,4 +1,12 @@
 # pkgdown (development version)
+  
+* The branch used for source linking can be configured by setting 
+  `repo: branch: branch_name` in `_pkgdown.yml` (@jonkeane, #1355):
+
+  ```yaml
+  repo:
+    branch: main
+  ```
 
 * pkgdown now uses the `ragg::agg_png()` device to generate example figures.
   This should be a little faster and produce higher quality output. Learn
