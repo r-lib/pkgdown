@@ -365,7 +365,7 @@ Icons are matched to topics by aliases.</p>
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
-  dev: grDevices::png
+  dev: ragg::agg_png
   dpi: 96
   dev.args: []
   fig.ext: png
@@ -373,6 +373,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.618
+  bg: NA
 </pre>
 
 
