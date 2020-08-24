@@ -200,6 +200,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>When <code>as_is: true</code>, <code><a href="../reference/build_articles.html">build_articles()</a></code> no longer sets the <code>theme</code> argument of the document format to <code>NULL</code>. This should allow it to work with a wider range of output formats including <code>bookdown::html_vignette2()</code> and friends (<a href='https://github.com/GegznaV'>@GegznaV</a>, <a href='https://github.com/r-lib/pkgdown/issues/955'>#955</a>, <a href='https://github.com/r-lib/pkgdown/issues/1352'>#1352</a>).</p></li>
 <li>
 <p>The branch used for source linking can be configured by setting <code>repo: branch: branch_name</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1355'>#1355</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
@@ -219,6 +220,7 @@
 <li><p>Highlighting of empty expressions was restored (<a href='https://github.com/r-lib/pkgdown/issues/1310'>#1310</a>).</p></li>
 <li><p><code>\preformatted{}</code> no longer double escapes its contents (<a href='https://github.com/r-lib/pkgdown/issues/1311'>#1311</a>).</p></li>
 <li><p>Setting <code>clean = TRUE</code> in <code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> removes old files from the deployed site before building a new one (<a href='https://github.com/r-lib/pkgdown/issues/1297'>#1297</a>).</p></li>
+<li><p>Markdown header attributes are now processed in all markdown files (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1343'>#1343</a>)</p></li>
 </ul>
 </div>
     <div id="pkgdown-151" class="section level1">
