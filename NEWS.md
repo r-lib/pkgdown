@@ -1,5 +1,10 @@
 # pkgdown (development version)
   
+* When `as_is: true`, `build_articles()` no longer sets the `theme` argument
+  of the document format to `NULL`. This should allow it to work with a wider
+  range of output formats including `bookdown::html_vignette2()` and 
+  friends (@GegznaV, #955, #1352).
+
 * The branch used for source linking can be configured by setting 
   `repo: branch: branch_name` in `_pkgdown.yml` (@jonkeane, #1355):
 

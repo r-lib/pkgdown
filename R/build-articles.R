@@ -265,8 +265,7 @@ build_article <- function(name,
 
       options <- list(
         template = template$path,
-        self_contained = FALSE,
-        theme = NULL
+        self_contained = FALSE
       )
     } else {
       options <- list()
