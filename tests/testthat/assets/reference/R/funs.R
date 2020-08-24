@@ -9,3 +9,9 @@ b <- function() {}
 #' C
 #' @export
 c <- function() {}
+
+#' D
+#' @usage
+#' \special{?topic}
+#' @export
+`?` <- function() {}
