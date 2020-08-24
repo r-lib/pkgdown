@@ -8,7 +8,7 @@
 
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the deployed site before building a new one (#1297).
 
-* Markdown header attributes are now processed in all markdown files (@jonkeane)
+* Markdown header attributes are now processed in all markdown files (@jonkeane, #1343)
 
 # pkgdown 1.5.1
 
