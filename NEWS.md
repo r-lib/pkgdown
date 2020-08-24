@@ -1,5 +1,13 @@
 # pkgdown (development version)
 
+* pkgdown now uses the `ragg::agg_png()` device to generate example figures.
+  This should be a little faster and produce higher quality output. Learn
+  more at <https://ragg.r-lib.org> (#1320).
+
+* You can now control the background colour of plots with the `figures.bg`
+  option (it is transparent by default, and given a white background by
+  css). See `?build_reference` for an example.
+
 * `\special{}` support inside `\usage{}` added to allow non-standard R usage
   syntax (@klmr, #1345).
 

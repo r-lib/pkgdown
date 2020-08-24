@@ -148,7 +148,7 @@ Icons are matched to topics by aliases.
 
 You can control the default rendering of figures by specifying the \code{figures}
 field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
-  dev: grDevices::png
+  dev: ragg::agg_png
   dpi: 96
   dev.args: []
   fig.ext: png
@@ -156,6 +156,7 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.618
+  bg: NA
 }
 }
 

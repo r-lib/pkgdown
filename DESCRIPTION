@@ -34,6 +34,7 @@ Imports:
     openssl,
     purrr,
     processx,
+    ragg,
     rematch2,
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
