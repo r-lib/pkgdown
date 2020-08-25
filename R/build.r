@@ -444,7 +444,7 @@ build_site_local <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Building pkgdown site", line = 2)
+  rule("Building pkgdown site", line = "=")
   cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
   cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
 
@@ -464,6 +464,6 @@ build_site_local <- function(pkg = ".",
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 
-  rule("DONE", line = 2)
+  rule("DONE", line = "=")
   preview_site(pkg, preview = preview)
 }

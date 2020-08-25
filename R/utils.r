@@ -78,8 +78,20 @@ cat_line <- function(...) {
   cat(paste0(..., "\n"), sep = "")
 }
 
-rule <- function(left, ...) {
-  cli::cat_rule(left = crayon::bold(left), ...)
+rule <- function(x = NULL, line = "-") {
+  width <- getOption("width")
+
+  if (!is.null(x)) {
+    prefix <- paste0(line, line, " ")
+    suffix <- " "
+  } else {
+    prefix <- ""
+    suffix <- ""
+    x <- ""
+  }
+
+  line_length <- width - nchar(x) - nchar(prefix) - nchar(suffix)
+  cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
 }
 
 yaml_list <- function(...) print_yaml(list(...))
