@@ -53,7 +53,7 @@ test_that("extracts conditions from if", {
 
 test_that("@examplesIf", {
   rd <- paste0(
-    "\\dontshow{if (FALSE) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
+    "\\dontshow{if (1 == 0) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
     "answer <- 43\n",
     "\\dontshow{\\}) # examplesIf}"
   )
@@ -62,7 +62,10 @@ test_that("@examplesIf", {
     "answer <- 43",
     "}"
   )
-  expect_equal(rd2ex(rd), exp)
+  expect_warning(
+    expect_equal(rd2ex(rd), exp),
+    "@examplesIf condition"
+  )
 
   rd2 <- paste0(
     "\\dontshow{if (TRUE) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
