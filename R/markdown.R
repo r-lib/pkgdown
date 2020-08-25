@@ -1,6 +1,6 @@
 markdown <- function(path = NULL, ..., strip_header = FALSE) {
   tmp <- tempfile(fileext = ".html")
-  on.exit(file_delete(tmp), add = TRUE)
+  on.exit(unlink(tmp), add = TRUE)
 
   if (rmarkdown::pandoc_available("2.0")) {
     from <- "markdown_github-hard_line_breaks+smart+auto_identifiers+tex_math_dollars+tex_math_single_backslash+markdown_in_html_blocks+header_attributes"
@@ -61,7 +61,6 @@ markdown_text <- function(text, ...) {
   if (identical(text, NA_character_) || is.null(text)) {
     return(NULL)
   }
-
 
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
