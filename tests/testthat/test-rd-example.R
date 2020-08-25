@@ -50,3 +50,31 @@ test_that("extracts conditions from if", {
   expect_equal(rd2ex("\\ifelse{html}{1 + 2}{3 + 4}"), "1 + 2")
   expect_equal(rd2ex("\\ifelse{latex}{1 + 2}{3 + 4}"), "3 + 4")
 })
+
+test_that("@examplesIf", {
+  rd <- paste0(
+    "\\dontshow{if (1 == 0) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
+    "answer <- 43\n",
+    "\\dontshow{\\}) # examplesIf}"
+  )
+  exp <- c(
+    "if (FALSE) { # 1 == 0",
+    "answer <- 43",
+    "}"
+  )
+  expect_warning(
+    expect_equal(rd2ex(rd), exp),
+    "@examplesIf condition"
+  )
+
+  rd2 <- paste0(
+    "\\dontshow{if (TRUE) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
+    "answer <- 43\n",
+    "\\dontshow{\\}) # examplesIf}"
+  )
+  exp2 <- c(
+    "answer <- 43"
+  )
+  expect_equal(rd2ex(rd2), exp2)
+
+})
