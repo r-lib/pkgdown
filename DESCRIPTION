@@ -38,7 +38,6 @@ Imports:
     rematch2,
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
-    rstudioapi,
     tibble,
     tools,
     whisker,
@@ -54,7 +53,8 @@ Suggests:
     pkgload (>= 1.0.2),
     testthat (>= 2.1.0),
     rticles,
-    rsconnect
+    rsconnect,
+    rstudioapi
 Remotes: r-lib/downlit
 VignetteBuilder: knitr
 SystemRequirements: pandoc

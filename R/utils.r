@@ -40,7 +40,7 @@ invert_index <- function(x) {
 }
 
 rstudio_save_all <- function() {
-  if (rstudioapi::hasFun("documentSaveAll")) {
+  if (is_installed("rstudioapi") && rstudioapi::hasFun("documentSaveAll")) {
     rstudioapi::documentSaveAll()
   }
 }
