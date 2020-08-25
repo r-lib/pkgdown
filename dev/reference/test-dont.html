@@ -238,7 +238,15 @@
 <span class='co'># \dontshow{</span>
 <span class='kw'>answer</span> <span class='op'>&lt;-</span> <span class='fl'>42</span>
 <span class='co'># }</span>
-<span class='kw'>answer</span> <span class='co'># should be 42</span></div><div class='output co'>#&gt; [1] 42</div></pre>
+<span class='kw'>answer</span> <span class='co'># should be 42</span></div><div class='output co'>#&gt; [1] 42</div><div class='input'>
+<span class='co'># To hide the \dontshow part, for conditional examples</span>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>answer</span> <span class='op'>&lt;-</span> <span class='fl'>43</span>
+}
+<span class='kw'>answer</span> <span class='co'># should be still 42</span></div><div class='output co'>#&gt; [1] 42</div><div class='input'>
+<span class='co'># But this one runs, and the condition is hidden</span>
+<span class='kw'>answer</span> <span class='op'>&lt;-</span> <span class='fl'>43</span>
+<span class='kw'>answer</span></div><div class='output co'>#&gt; [1] 43</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
