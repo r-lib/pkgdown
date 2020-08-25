@@ -58,7 +58,7 @@ test_that("@examplesIf", {
     "\\dontshow{\\}) # examplesIf}"
   )
   exp <- c(
-    "if (FALSE) {",
+    "if (FALSE) { # 1 == 0",
     "answer <- 43",
     "}"
   )

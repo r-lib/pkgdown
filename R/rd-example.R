@@ -61,14 +61,18 @@ process_conditional_examples <- function(rd) {
         if (isTRUE(cond)) {
           remove <- c(remove, idx, idx + 1L)
         } else {
-          if (deparse(cond_expr) != "FALSE") {
+          is_false <- deparse(cond_expr) == "FALSE"
+          if (!is_false) {
+            new_cond <- paste0("if (FALSE) { # ", deparse(cond_expr))
             warning(
               "@examplesIf condition `",
               deparse(cond_expr),
               "` is FALSE"
             )
+          } else {
+            new_cond <- "if (FALSE) {"
           }
-          rd[[idx]] <- structure(list("if (FALSE) {"), class = c("RCODE", "tag"))
+          rd[[idx]] <- structure(list(new_cond), class = c("RCODE", "tag"))
         }
       } else {
         # End of @examplesIf
