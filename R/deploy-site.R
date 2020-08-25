@@ -220,7 +220,7 @@ github_push <- function(dir, commit_message, remote, branch) {
 }
 
 git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
-  processx::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
+  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
 construct_commit_message <- function(pkg, commit = ci_commit_sha()) {

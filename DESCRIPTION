@@ -32,7 +32,6 @@ Imports:
     memoise,
     openssl,
     purrr,
-    processx,
     ragg,
     rematch2,
     rlang (>= 0.3.0),
