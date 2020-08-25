@@ -1,6 +1,7 @@
 rd2ex <- function(x, ...) {
-  x <- rd_text(paste0("\\examples{", x, "}"), fragment = FALSE)
-  x <- flatten_ex(x[[1]], ...)
+  x <- rd_text(paste0("\\examples{", x, "}"), fragment = FALSE)[[1]]
+  x <- process_conditional_examples(x)
+  x <- flatten_ex(x, ...)
 
   if (grepl("\n", x)) {
     strsplit(x, "\n")[[1]]
