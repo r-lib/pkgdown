@@ -1,30 +1,23 @@
 # pkgdown (development version)
-  
-* When `as_is: true`, `build_articles()` no longer sets the `theme` argument
-  of the document format to `NULL`. This should allow it to work with a wider
-  range of output formats including `bookdown::html_vignette2()` and 
-  friends (@GegznaV, #955, #1352).
 
-* The branch used for source linking can be configured by setting 
-  `repo: branch: branch_name` in `_pkgdown.yml` (@jonkeane, #1355):
+## Major changes
 
-  ```yaml
-  repo:
-    branch: main
-  ```
+* pkgdown now uses the new [downlit](http://downlit.r-lib.org/) package for all 
+  syntax highlighting and autolinking (in both reference topics and vignettes). 
+  There should be very little change in behaviour because the code in downlit 
+  was extracted from pkgdown, but this makes it easier to use pkgdown's nice 
+  linking/highlighting in more places (#1234).
 
 * pkgdown now uses the `ragg::agg_png()` device to generate example figures.
   This should be a little faster and produce higher quality output. Learn
   more at <https://ragg.r-lib.org> (#1320).
 
-* You can now control the background colour of plots with the `figures.bg`
-  option (it is transparent by default, and given a white background by
-  css). See `?build_reference` for an example.
+## Minor improvements and bug fixes
+
+### Rd translation
 
 * `\special{}` support inside `\usage{}` added to allow non-standard R usage
   syntax (@klmr, #1345).
-
-* When `build_article()` fails, it gives the complete failure message (#1379).
 
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
   "unix" to ensure reproducible output regardless of where you build the 
@@ -33,29 +26,48 @@
 * Nested `\subsection{}`s now generate appropriate heading levels 
   (h3, h4, h5 etc) (#1377), and get anchor links (#1389).
 
-* HTML is automatically stripped from the page title (#1318).
+* `\preformatted{}` no longer double escapes its contents (#1311).
 
-* pkgdown now uses the new downlit package for all syntax highlighting and 
-  autolinking (in both reference topics and vignettes). There should be very
-  little change in behaviour because the code in downlit was extracted from
-  pkgdown, but this makes it easier to use pkgdown's nice linking/highlighting
-  in more places (#1234).
+### Articles and vignettes
+
+* `build_articles()` no longer sets the `theme` argument of the document format 
+  to `NULL` when `as_is: true`. This should allow it to work with a wider
+  range of output formats including `bookdown::html_vignette2()` and 
+  friends (@GegznaV, #955, #1352).
+
+* When `build_article()` fails, it gives the complete failure message (#1379).
+
+* Markdown header attributes are now processed in all markdown files (@jonkeane, #1343)
+
+### Auto-linking and syntax highlighting
+
+* The branch used for source linking can be configured by setting 
+  `repo: branch: branch_name` in `_pkgdown.yml` (@jonkeane, #1355):
+
+    ```yaml
+    repo:
+      branch: main
+    ```
 
 * `autolink_html()` is (soft) deprecated. Please use 
   `downlit::downlit_html_path()` instead.
+
+* Highlighting of empty expressions works once more (#1310).
+
+### Other    
+
+* You can now control the background colour of plots with the `figures.bg`
+  option (it is transparent by default, and given a white background by
+  css). See `?build_reference` for an example.
+
+* HTML is automatically stripped from the page title (#1318).
 
 * Suppressing CRAN dates in news file now actually works.
 
 * All HTTP requests are now retried upon failure (@jameslamb, #1305).
 
-* Highlighting of empty expressions was restored (#1310).
-
-* `\preformatted{}` no longer double escapes its contents (#1311).
-
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the 
   deployed site before building a new one (#1297).
-
-* Markdown header attributes are now processed in all markdown files (@jonkeane, #1343)
 
 # pkgdown 1.5.1
 
