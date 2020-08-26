@@ -359,10 +359,12 @@ label, and the message indicates the package is not yet on CRAN.</p></li>
 
 <p>The default development mode is "release". You can override it by adding a
 new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='kw'>development</span><span class='op'>:</span>
-  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>devel</span></pre>
+  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>devel</span>
+</pre>
 
 <p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='kw'>development</span><span class='op'>:</span>
-  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>auto</span></pre>
+  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>auto</span>
+</pre>
 
 <p>The mode will be automatically determined based on the version number:</p><ul>
 <li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
@@ -373,7 +375,8 @@ new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><s
 <p>There are three other options that you can control:</p><pre><span class='kw'>development</span><span class='op'>:</span>
   <span class='kw'>destination</span><span class='op'>:</span> <span class='kw'>dev</span>
   <span class='kw'>version_label</span><span class='op'>:</span> <span class='kw'>danger</span>
-  <span class='kw'>version_tooltip</span><span class='op'>:</span> <span class='st'>"Custom message here"</span></pre>
+  <span class='kw'>version_tooltip</span><span class='op'>:</span> <span class='st'>"Custom message here"</span>
+</pre>
 
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
@@ -454,7 +457,8 @@ to add search to your site.</p><pre><span class='kw'>template</span><span class=
   <span class='kw'>params</span><span class='op'>:</span>
     <span class='kw'>docsearch</span><span class='op'>:</span>
       <span class='kw'>api_key</span><span class='op'>:</span> <span class='kw'>API_KEY</span>
-      <span class='kw'>index_name</span><span class='op'>:</span> <span class='kw'>INDEX_NAME</span></pre>
+      <span class='kw'>index_name</span><span class='op'>:</span> <span class='kw'>INDEX_NAME</span>
+</pre>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
     <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
@@ -469,7 +473,8 @@ used to render the page in the browser.</p>
 by passing on the <code>bootswatch</code> template parameter to the built-in
 template:</p><pre><span class='kw'>template</span><span class='op'>:</span>
   <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>bootswatch</span><span class='op'>:</span> <span class='kw'>cerulean</span></pre>
+    <span class='kw'>bootswatch</span><span class='op'>:</span> <span class='kw'>cerulean</span>
+</pre>
 
 <p>See a complete list of themes and preview how they look at
 <a href='https://gallery.shinyapps.io/117-shinythemes/'>https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
@@ -482,11 +487,13 @@ user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
 site, in keeping with current laws and regulations.</p><pre><span class='kw'>template</span><span class='op'>:</span>
   <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>ganalytics</span><span class='op'>:</span> <span class='kw'>UA</span><span class='op'>-</span><span class='fl'>000000</span><span class='op'>-</span><span class='fl'>01</span></pre>
+    <span class='kw'>ganalytics</span><span class='op'>:</span> <span class='kw'>UA</span><span class='op'>-</span><span class='fl'>000000</span><span class='op'>-</span><span class='fl'>01</span>
+</pre>
 
 <p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='kw'>template</span><span class='op'>:</span>
   <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>noindex</span><span class='op'>:</span> <span class='kw'>true</span></pre>
+    <span class='kw'>noindex</span><span class='op'>:</span> <span class='kw'>true</span>
+</pre>
 
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
@@ -500,7 +507,8 @@ of the default assets, set <code>default_assets</code> to false.</p><pre><span c
 <span class='kw'>template</span><span class='op'>:</span>
   <span class='kw'>path</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>templates</span>
   <span class='kw'>assets</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>assets</span>
-  <span class='kw'>default_assets</span><span class='op'>:</span> <span class='kw'>false</span></pre>
+  <span class='kw'>default_assets</span><span class='op'>:</span> <span class='kw'>false</span>
+</pre>
 
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
@@ -537,7 +545,8 @@ the end of these URLs so they should have trailing <code><a href='https://rdrr.i
 <p>pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
 specifying a branch name:<div class="yaml"></p><pre><span class='kw'>repo</span><span class='op'>:</span>
-  <span class='kw'>branch</span><span class='op'>:</span> <span class='kw'>main</span></pre><p></div></p>
+  <span class='kw'>branch</span><span class='op'>:</span> <span class='kw'>main</span>
+</pre><p></div></p>
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
@@ -556,7 +565,8 @@ hanging in cron jobs.</p>
 <span class='fu'>build_site</span>()
 
 <span class='fu'>build_site</span>(override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(destination = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

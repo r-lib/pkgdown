@@ -380,7 +380,8 @@ you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
 to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
-  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span></pre>
+  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
+</pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
@@ -388,7 +389,8 @@ have specified. This format must accept <code>template</code>, <code>theme</code
 <p>If the output format produces a PDF, you'll also need to specify the
 <code>extension</code> field:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
   <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
-  <span class='kw'>extension</span><span class='op'>:</span> <span class='kw'>pdf</span></pre>
+  <span class='kw'>extension</span><span class='op'>:</span> <span class='kw'>pdf</span>
+</pre>
 
 <p>If you want to set an output format for all your articles, you can do that
 by adding a <code>vignettes/_site.yml</code>, much like you would for an
@@ -398,7 +400,8 @@ to all your articles by using the
 <a href='https://bookdown.org/yihui/bookdown/a-single-document.html'>bookdown::html_document2</a>
 format.</p><pre><span class='kw'>output</span><span class='op'>:</span>
   <span class='kw'>bookdown</span>::<span class='kw'>html_document2</span><span class='op'>:</span>
-  <span class='kw'>number_sections</span><span class='op'>:</span> <span class='kw'>false</span></pre>
+  <span class='kw'>number_sections</span><span class='op'>:</span> <span class='kw'>false</span>
+</pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
@@ -414,7 +417,8 @@ present: if you do not want this, you will need to customise the navbar. See
     
 
 <p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='kw'>toc</span><span class='op'>:</span>
-  <span class='kw'>depth</span><span class='op'>:</span> <span class='fl'>2</span></pre>
+  <span class='kw'>depth</span><span class='op'>:</span> <span class='fl'>2</span>
+</pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 

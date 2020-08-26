@@ -277,7 +277,8 @@ to the <a href='https://testthat.r-lib.org/authors.html'>authors page</a>.</p></
     <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, role = <span class='st'>"aut"</span>,
       comment = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(ORCID = <span class='st'>"0000-0002-6299-179X"</span>)
     )
-  )</pre></li>
+  )
+</pre></li>
 </ul>
 
     <h2 class="hasAnchor" id="images-and-figures"><a class="anchor" href="#images-and-figures"></a>Images and figures</h2>
@@ -289,7 +290,8 @@ somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is <code>man/figures</code>. If you are generating figures
 with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><pre><span class='kw'>knitr</span>::<span class='kw'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span>(
   fig.path = <span class='st'>"man/figures/"</span>
-)</pre>
+)
+</pre>
 
 <p>This should usually go in a block with <code>include = FALSE</code>.</p>
     <h2 class="hasAnchor" id="package-logo"><a class="anchor" href="#package-logo"></a>Package logo</h2>
@@ -297,7 +299,8 @@ with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><pre
     
 
 <p>If you have a package logo, you can include it at the top of your README in a
-level-one heading:</p><pre><span class='co'># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span></pre>
+level-one heading:</p><pre><span class='co'># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span>
+</pre>
 
 <p><code><a href='init_site.html'>init_site()</a></code> will also automatically create a favicon set from your package
 logo.</p>
@@ -333,7 +336,8 @@ elements:</p><pre>home:
 <p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name. If
 that feels duplicative with the package name in the navbar you can
 remove it with <code>strip_header: true</code>:</p><pre><span class='kw'>home</span><span class='op'>:</span>
-  <span class='kw'>strip_header</span><span class='op'>:</span> <span class='kw'>true</span></pre>
+  <span class='kw'>strip_header</span><span class='op'>:</span> <span class='kw'>true</span>
+</pre>
 
     <h2 class="hasAnchor" id="yaml-config-authors"><a class="anchor" href="#yaml-config-authors"></a>YAML config - authors</h2>
 
