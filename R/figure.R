@@ -1,7 +1,3 @@
-fig_save_default <- function(plot, name) {
-  do.call(fig_save, c(list(plot, name), context_get("figures")))
-}
-
 fig_save <- function(plot,
                      name,
                      dev = "ragg::agg_png",
@@ -51,14 +47,8 @@ fig_save <- function(plot,
 
   with_device(dev, c(args, dev.args), plot)
 
-  paste0(
-    "<div class='img'>",
-    "<img src='", escape_html(path), "' alt='' width='", width, "' height='", height, "' />",
-    "</div>"
-  )
+  list(path = path, width = width, height = height)
 }
-
-
 
 meta_figures <- function(meta = list()) {
   # Avoid having two copies of the default settings

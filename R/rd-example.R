@@ -93,20 +93,24 @@ process_conditional_examples <- function(rd) {
   }
 }
 
-highlight_examples <- function(x, topic, env = globalenv()) {
+highlight_examples <- function(code, topic, env = globalenv()) {
   bg <- context_get("figures")$bg %||% NA
-  device <- function(...) {
-    ragg::agg_png(..., bg = bg)
-  }
-
   withr::local_options(list(
-    crayon.enabled = getOption("crayon.enabled", crayon::has_color()),
-    crayon.colors = getOption("crayon.colors", crayon::num_colors()),
-    device = device
+    crayon.enabled = TRUE,
+    crayon.colors = 256,
+    device = function(...) ragg::agg_png(..., bg = bg)
   ))
 
-  expr <- evaluate::evaluate(x, child_env(env), new_device = TRUE)
-  replay_html(expr, topic = topic, obj_id = unique_id())
+  fig_save_topic <- function(plot, id) {
+    name <- paste0(topic, "-", id)
+    do.call(fig_save, c(list(plot, name), context_get("figures")))
+  }
+
+  downlit::evaluate_and_highlight(
+    code,
+    fig_save = fig_save_topic,
+    env = child_env(env)
+  )
 }
 
 # as_example --------------------------------------------------------------
@@ -203,13 +207,4 @@ can_parse <- function(x) {
     parse(text = x)
     TRUE
   }, error = function(e) FALSE)
-}
-
-unique_id <- function() {
-  i <- 0
-
-  function() {
-    i <<- i + 1
-    i
-  }
 }
