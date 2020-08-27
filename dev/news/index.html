@@ -199,29 +199,61 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li><p>When <code>as_is: true</code>, <code><a href="../reference/build_articles.html">build_articles()</a></code> no longer sets the <code>theme</code> argument of the document format to <code>NULL</code>. This should allow it to work with a wider range of output formats including <code>bookdown::html_vignette2()</code> and friends (<a href='https://github.com/GegznaV'>@GegznaV</a>, <a href='https://github.com/r-lib/pkgdown/issues/955'>#955</a>, <a href='https://github.com/r-lib/pkgdown/issues/1352'>#1352</a>).</p></li>
+<li><p>pkgdown now uses the new <a href="http://downlit.r-lib.org/">downlit</a> package for all syntax highlighting and autolinking (in both reference topics and vignettes). There should be very little change in behaviour because the code in downlit was extracted from pkgdown, but this makes it easier to use pkgdown’s nice linking/highlighting in more places (<a href='https://github.com/r-lib/pkgdown/issues/1234'>#1234</a>).</p></li>
+<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="uri">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
+</ul>
+</div>
+<div id="minor-improvements-and-bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-improvements-and-bug-fixes" class="anchor"></a>Minor improvements and bug fixes</h2>
+<div id="rd-translation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rd-translation" class="anchor"></a>Rd translation</h3>
+<ul>
+<li><p><code>\special{}</code> support inside <code>\usage{}</code> added to allow non-standard R usage syntax (<a href='https://github.com/klmr'>@klmr</a>, <a href='https://github.com/r-lib/pkgdown/issues/1345'>#1345</a>).</p></li>
+<li><p><code>#ifdef</code> and <code>#ifndef</code> are now supported; the “current” OS is hard coded to “unix” to ensure reproducible output regardless of where you build the website (<a href='https://github.com/r-lib/pkgdown/issues/1384'>#1384</a>).</p></li>
+<li><p>Nested <code>\subsection{}</code>s now generate appropriate heading levels (h3, h4, h5 etc) (<a href='https://github.com/r-lib/pkgdown/issues/1377'>#1377</a>), and get anchor links (<a href='https://github.com/r-lib/pkgdown/issues/1389'>#1389</a>).</p></li>
+<li><p><code>\preformatted{}</code> no longer double escapes its contents (<a href='https://github.com/r-lib/pkgdown/issues/1311'>#1311</a>).</p></li>
+</ul>
+</div>
+<div id="articles-and-vignettes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#articles-and-vignettes" class="anchor"></a>Articles and vignettes</h3>
+<ul>
+<li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> no longer sets the <code>theme</code> argument of the document format to <code>NULL</code> when <code>as_is: true</code>. This should allow it to work with a wider range of output formats including <code>bookdown::html_vignette2()</code> and friends (<a href='https://github.com/GegznaV'>@GegznaV</a>, <a href='https://github.com/r-lib/pkgdown/issues/955'>#955</a>, <a href='https://github.com/r-lib/pkgdown/issues/1352'>#1352</a>).</p></li>
+<li><p>When <code><a href="../reference/build_articles.html">build_article()</a></code> fails, it gives the complete failure message (<a href='https://github.com/r-lib/pkgdown/issues/1379'>#1379</a>).</p></li>
+<li><p>Markdown header attributes are now processed in all markdown files (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1343'>#1343</a>)</p></li>
+</ul>
+</div>
+<div id="auto-linking-and-syntax-highlighting" class="section level3">
+<h3 class="hasAnchor">
+<a href="#auto-linking-and-syntax-highlighting" class="anchor"></a>Auto-linking and syntax highlighting</h3>
+<ul>
 <li>
 <p>The branch used for source linking can be configured by setting <code>repo: branch: branch_name</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1355'>#1355</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
 </li>
-<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="uri">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
-<li><p>You can now control the background colour of plots with the <code>figures.bg</code> option (it is transparent by default, and given a white background by css). See <code><a href="../reference/build_reference.html">?build_reference</a></code> for an example.</p></li>
-<li><p><code>\special{}</code> support inside <code>\usage{}</code> added to allow non-standard R usage syntax (<a href='https://github.com/klmr'>@klmr</a>, <a href='https://github.com/r-lib/pkgdown/issues/1345'>#1345</a>).</p></li>
-<li><p>When <code><a href="../reference/build_articles.html">build_article()</a></code> fails, it gives the complete failure message (<a href='https://github.com/r-lib/pkgdown/issues/1379'>#1379</a>).</p></li>
-<li><p><code>#ifdef</code> and <code>#ifndef</code> are now supported; the “current” OS is hard coded to “unix” to ensure reproducible output regardless of where you build the website (<a href='https://github.com/r-lib/pkgdown/issues/1384'>#1384</a>).</p></li>
-<li><p>Nested <code>\subsection{}</code>s now generate appropriate heading levels (h3, h4, h5 etc) (<a href='https://github.com/r-lib/pkgdown/issues/1377'>#1377</a>), and get anchor links (<a href='https://github.com/r-lib/pkgdown/issues/1389'>#1389</a>).</p></li>
-<li><p>HTML is automatically stripped from the page title (<a href='https://github.com/r-lib/pkgdown/issues/1318'>#1318</a>).</p></li>
-<li><p>pkgdown now uses the new downlit package for all syntax highlighting and autolinking (in both reference topics and vignettes). There should be very little change in behaviour because the code in downlit was extracted from pkgdown, but this makes it easier to use pkgdown’s nice linking/highlighting in more places (<a href='https://github.com/r-lib/pkgdown/issues/1234'>#1234</a>).</p></li>
 <li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://rdrr.io/pkg/downlit/man/downlit_html_path.html">downlit::downlit_html_path()</a></code> instead.</p></li>
+<li><p>Highlighting of empty expressions works once more (<a href='https://github.com/r-lib/pkgdown/issues/1310'>#1310</a>).</p></li>
+</ul>
+</div>
+<div id="other" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other" class="anchor"></a>Other</h3>
+<ul>
+<li><p>You can now control the background colour of plots with the <code>figures.bg</code> option (it is transparent by default, and given a white background by css). See <code><a href="../reference/build_reference.html">?build_reference</a></code> for an example.</p></li>
+<li><p>HTML is automatically stripped from the page title (<a href='https://github.com/r-lib/pkgdown/issues/1318'>#1318</a>).</p></li>
 <li><p>Suppressing CRAN dates in news file now actually works.</p></li>
 <li><p>All HTTP requests are now retried upon failure (<a href='https://github.com/jameslamb'>@jameslamb</a>, <a href='https://github.com/r-lib/pkgdown/issues/1305'>#1305</a>).</p></li>
-<li><p>Highlighting of empty expressions was restored (<a href='https://github.com/r-lib/pkgdown/issues/1310'>#1310</a>).</p></li>
-<li><p><code>\preformatted{}</code> no longer double escapes its contents (<a href='https://github.com/r-lib/pkgdown/issues/1311'>#1311</a>).</p></li>
 <li><p>Setting <code>clean = TRUE</code> in <code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> removes old files from the deployed site before building a new one (<a href='https://github.com/r-lib/pkgdown/issues/1297'>#1297</a>).</p></li>
-<li><p>Markdown header attributes are now processed in all markdown files (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1343'>#1343</a>)</p></li>
 </ul>
+</div>
+</div>
 </div>
     <div id="pkgdown-151" class="section level1">
 <h1 class="page-header" data-toc-text="1.5.1">
@@ -279,9 +311,9 @@
 <li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code>help()</code> (<a href='https://github.com/r-lib/pkgdown/issues/1210'>#1210</a>)</p></li>
 </ul>
 </div>
-<div id="minor-improvements-and-bug-fixes" class="section level2">
+<div id="minor-improvements-and-bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-improvements-and-bug-fixes" class="anchor"></a>Minor improvements and bug fixes</h2>
+<a href="#minor-improvements-and-bug-fixes-1" class="anchor"></a>Minor improvements and bug fixes</h2>
 <div id="articles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#articles" class="anchor"></a>Articles</h3>
@@ -339,9 +371,9 @@
 <li><p>add support for navbar submenus: you can create submenus following the convention established in <a href="https://github.com/rstudio/rmarkdown/issues/721">rstudio/rmarkdown<a href='https://github.com/r-lib/pkgdown/issues/721'>#721</a></a> (<a href='https://github.com/ijlyttle'>@ijlyttle</a>, <a href='https://github.com/wendtke'>@wendtke</a>, <a href='https://github.com/r-lib/pkgdown/issues/1213'>#1213</a>)</p></li>
 </ul>
 </div>
-<div id="other" class="section level3">
+<div id="other-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#other" class="anchor"></a>Other</h3>
+<a href="#other-1" class="anchor"></a>Other</h3>
 <ul>
 <li><p>Updated JS libraries: jquery 3.3.1 -&gt; 3.4.1; bootswatch 3.3.7 -&gt; 3.4.0; bootstrap 3.3.7 -&gt; bootstrap 3.4.1; docsearch 2.6.1 -&gt; 2.6.3 (<a href='https://github.com/jayhesselberth'>@jayhesselberth</a>).</p></li>
 <li><p>Markdown conversion now explicitly allows markdown inside of HTML blocks; this was previously accidentally disabled (<a href='https://github.com/r-lib/pkgdown/issues/1220'>#1220</a>).</p></li>
@@ -380,9 +412,9 @@
 <div id="bug-fixes-and-minor-improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
-<div id="rd-translation" class="section level3">
+<div id="rd-translation-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#rd-translation" class="anchor"></a>Rd translation</h3>
+<a href="#rd-translation-1" class="anchor"></a>Rd translation</h3>
 <ul>
 <li><p><code>\examples{}</code> rendering has been completely overhauled so it now first converts the entire mixed Rd-R block to R prior, and then evaluates the whole thing. This considerably improves the fidelity of the translation at a small cost of no longer being able to remove <code>\donttest{}</code> and friends (<a href='https://github.com/r-lib/pkgdown/issues/1087'>#1087</a>).</p></li>
 <li><p><code>\item{}</code>s in <code>\describe{}</code> containing whitespace are translated correctly (<a href='https://github.com/r-lib/pkgdown/issues/1117'>#1117</a>).</p></li>
@@ -412,9 +444,9 @@
 <li><p>Links to external documentation now point to <a href="https://rdrr.io">rdrr.io</a> (<a href='https://github.com/r-lib/pkgdown/issues/998'>#998</a>).</p></li>
 </ul>
 </div>
-<div id="other-1" class="section level3">
+<div id="other-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#other-1" class="anchor"></a>Other</h3>
+<a href="#other-2" class="anchor"></a>Other</h3>
 <ul>
 <li><p>News page recognises more version specifications (including the<br>
 “(development version)” now used by usethis) (<a href='https://github.com/r-lib/pkgdown/issues/980'>#980</a>).</p></li>
