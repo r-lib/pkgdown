@@ -18,7 +18,12 @@ test_that("warns if missing topics", {
   )
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+  old_ci <- Sys.getenv("CI")
+  Sys.setenv(CI = "false")
   expect_warning(data_reference_index(pkg), "Topics missing")
+  Sys.setenv(CI = "true")
+  expect_error(data_reference_index(pkg), "Topics missing")
+  Sys.setenv(CI = old_ci)
 })
 
 test_that("default reference includes all functions", {
