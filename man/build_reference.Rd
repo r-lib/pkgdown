@@ -132,6 +132,9 @@ Use a leading \code{-} to remove topics from a section, e.g. \code{-topic_name},
 
 pkgdown will check that all non-internal topics are included on
 the reference index page, and will generate a warning if you have missed any.
+When the environment variable \code{CI} is set to \code{"true"}, this warning is turned
+into an error.
+This makes the CI system fail in case of missing topics.
 }
 
 \subsection{Icons}{

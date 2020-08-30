@@ -88,6 +88,9 @@
 #'
 #' pkgdown will check that all non-internal topics are included on
 #' the reference index page, and will generate a warning if you have missed any.
+#' When the environment variable `CI` is set to `"true"`, this warning is turned
+#' into an error.
+#' This makes the CI system fail in case of missing topics.
 #'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
