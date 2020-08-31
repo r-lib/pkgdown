@@ -35,7 +35,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     dst_path <- path(dst_path, development$destination)
   }
 
-  write_meta_to_inst <- meta$write_meta_to_inst %||% FALSE
+
+
+  install_metadata <- meta$deploy$install_metadata %||% FALSE
 
   structure(
     list(
@@ -44,7 +46,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
-      write_meta_to_inst = write_meta_to_inst,
+      install_metadata = install_metadata,
 
       desc = desc,
       meta = meta,
