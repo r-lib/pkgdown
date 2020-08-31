@@ -18,7 +18,7 @@
 #'
 #' @section YAML config:
 #' There are five top-level YAML settings that affect the entire site:
-#' `destination`, `url`, `title`, `template`, `write_meta_to_inst`,
+#' `destination`, `url`, `title`, `template`, `deploy`,
 #' and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
@@ -29,6 +29,10 @@
 #' Supplying this will:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
+#'   * This is done by hosting machine readable metadata about your site at
+#'     `<site_home>/pkgdown.yml`.
+#'   * Other pkgdown sites read this at build-time by following the URL given
+#'     in `DESCRIPTION`, and reading `your_url/pkgdown.yml` to find the links.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
@@ -36,6 +40,20 @@
 #' ```yaml
 #' url: http://pkgdown.r-lib.org
 #' ```
+#'
+#' `deploy` optionally specifies further mechanisms for allowing pkgdown sites
+#'  to link to your package, if your website isn't publically reachable at build-time.
+#'  * To enable autolinking to your privately hosted packag, add a `deploy` field,
+#'    and set its `install_metadata` flag to `true`
+#'    ```yaml
+#'    deploy:
+#'      install_metadata: true
+#'    ```
+#'    * `install_metadata` controls whether a copy of `pkgdown.yml` should be
+#'       written to `inst/`.
+#'       Doing this allows pkgdown metadata to be installed alongside the
+#'       package, and used when building pkgdown websites for other packages
+#'      to autolink to this package site.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -53,10 +71,6 @@
 #'     href: https://www.rstudio.com
 #'     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 #' ```
-#'
-#' `write_meta_to_inst` controls whether a copy of `pkgdown.yml` should be written
-#' to `inst/`. Doing this allows pkgdown metadata to be installed alongside the package,
-#' and used when building pkgdown websites for other packages to autolink to this package site.
 #'
 #' @section Development mode:
 #' The development mode of a site controls four main things:
