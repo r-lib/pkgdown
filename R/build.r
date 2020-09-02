@@ -17,7 +17,7 @@
 #' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are four top-level YAML settings that affect the entire site:
+#' There are five top-level YAML settings that affect the entire site:
 #' `destination`, `url`, `title`, `template`, and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
@@ -28,6 +28,7 @@
 #' Supplying this will:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
+#'   See `vignette("linking")` for more information.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
@@ -301,6 +302,20 @@
 #' repo:
 #'   branch: main
 #' ````
+#'
+#' @section YAML config - deploy:
+#' `deploy` currently offers a single parameter:
+#'
+#' *  `install_metadata` allows you to install package index metadata into
+#'    the package itself. Normally this metadata is made available on the
+#'    published site; installing it into your package means that it's
+#'    available for autolinking even if your website is not reachable at build
+#'    time (e.g. because it's only behind the firewall or requires auth).
+#'
+#'    ```yaml
+#'    deploy:
+#'      install_metadata: true
+#'    ```
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting

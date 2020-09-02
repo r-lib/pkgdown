@@ -54,6 +54,11 @@
 
 * Highlighting of empty expressions works once more (#1310).
 
+* New `deploy$install_metadata` option in `_pkgdown.yml`. Setting it to
+  `true` will store site metadata in the package itself, allowing offline
+  access for packages that to autolink to the package's website 
+  (@mstr3336, #1336).
+
 ### Other    
 
 * You can now control the background colour of plots with the `figures.bg`
