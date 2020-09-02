@@ -308,7 +308,7 @@ so it is available for vignettes.</p></td>
 
     
 
-<p>There are four top-level YAML settings that affect the entire site:
+<p>There are five top-level YAML settings that affect the entire site:
 <code>destination</code>, <code>url</code>, <code>title</code>, <code>template</code>, and <code>navbar</code>.</p>
 <p><code>destination</code> controls where the site will be generated. It defaults to
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
@@ -316,7 +316,8 @@ paths will be taken relative to the package root.</p>
 <p><code>url</code> optionally specifies the url where the site will be published.
 Supplying this will:</p><ul>
 <li><p>Allow other pkgdown sites to link to your site when needed,
-rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>.</p></li>
+rather than using generic links to <a href='https://rdrr.io'>https://rdrr.io</a>.
+See <code><a href='../articles/linking.html'>vignette("linking")</a></code> for more information.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
 <a href='deploy_site_github.html'>deploying to github</a>.</p></li>
@@ -547,6 +548,20 @@ be configured to use a specific branch when linking to source files by
 specifying a branch name:<div class="yaml"></p><pre><span class='kw'>repo</span><span class='op'>:</span>
   <span class='kw'>branch</span><span class='op'>:</span> <span class='kw'>main</span>
 </pre><p></div></p>
+    <h2 class="hasAnchor" id="yaml-config-deploy"><a class="anchor" href="#yaml-config-deploy"></a>YAML config - deploy</h2>
+
+    
+
+<p><code>deploy</code> currently offers a single parameter:</p><ul>
+<li><p><code>install_metadata</code> allows you to install package index metadata into
+the package itself. Normally this metadata is made available on the
+published site; installing it into your package means that it's
+available for autolinking even if your website is not reachable at build
+time (e.g. because it's only behind the firewall or requires auth).<div class="yaml"></p><pre><span class='kw'>deploy</span><span class='op'>:</span>
+  <span class='kw'>install_metadata</span><span class='op'>:</span> <span class='kw'>true</span>
+</pre><p></div></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
