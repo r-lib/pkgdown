@@ -17,7 +17,7 @@
 #' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are five top-level YAML settings that affect the entire site:
+#' There are six top-level YAML settings that affect the entire site:
 #' `destination`, `url`, `title`, `template`, `deploy`,
 #' and `navbar`.
 #'
