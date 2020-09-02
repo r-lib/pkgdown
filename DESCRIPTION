@@ -20,24 +20,20 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     callr (>= 2.0.2),
-    cli,
     crayon,
     desc,
     digest,
     downlit,
-    evaluate,
     fs (>= 1.3.0),
-    fansi,
-    httr,
+    httr (>= 1.4.2),
     magrittr,
     memoise,
     openssl,
     purrr,
-    processx,
+    ragg,
     rematch2,
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
-    rstudioapi,
     tibble,
     tools,
     whisker,
@@ -53,7 +49,8 @@ Suggests:
     pkgload (>= 1.0.2),
     testthat (>= 2.1.0),
     rticles,
-    rsconnect
+    rsconnect,
+    rstudioapi
 Remotes: r-lib/downlit
 VignetteBuilder: knitr
 SystemRequirements: pandoc

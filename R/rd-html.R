@@ -95,10 +95,16 @@ as_html.COMMENT <- function(x, ...) {
 as_html.USERMACRO <-  function(x, ...) ""
 
 #' @export
-as_html.tag_subsection <- function(x, ...) {
+as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
+
+  h <- paste0("h", subsection_level)
+
   paste0(
-    "<h3>", flatten_text(x[[1]], ...), "</h3>\n",
-    flatten_para(x[[2]], ...)
+    "<", h, " class='hasAnchor' id='arguments'>",
+    "<a class='anchor' href='#arguments'></a>",
+    flatten_text(x[[1]], ...),
+    "</", h, ">\n",
+    flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
   )
 }
 
@@ -225,7 +231,7 @@ as_html.tag_Sexpr <- function(x, ...) {
 #' @export
 as_html.tag_if <- function(x, ...) {
   if (x[[1]] == "html") {
-    as_html(x[[2]])
+    as_html(x[[2]], ...)
   } else {
     ""
   }
@@ -234,6 +240,44 @@ as_html.tag_if <- function(x, ...) {
 #' @export
 as_html.tag_ifelse <- function(x, ...) {
   if (x[[1]] == "html") as_html(x[[2]], ...) else as_html(x[[3]], ...)
+}
+
+# Used inside a \usage{} Rd tag to prevent the code from being treated as
+# regular R syntax, either because it is not valid R, or because its usage
+# intentionally deviates from regular R usage. An example of the former is the
+# command line documentation, e.g. `R CMD SHLIB`
+# (https://github.com/wch/r-source/blob/trunk/src/library/utils/man/SHLIB.Rd):
+#
+#    \special{R CMD SHLIB [options] [-o dllname] files}
+#
+# An example of the latter is the documentation shortcut `?`
+# (https://github.com/wch/r-source/blob/trunk/src/library/utils/man/Question.Rd):
+#
+#    \special{?topic}
+#
+#' @export
+as_html.tag_special <- function(x, ...) {
+  as_html(x[[1]], ...)
+}
+
+#' @export
+`as_html.#ifdef` <- function(x, ...) {
+  os <- trimws(flatten_text(x[[1]]))
+  if (os == "unix") {
+    flatten_text(x[[2]])
+  } else {
+    ""
+  }
+}
+
+#' @export
+`as_html.#ifndef` <- function(x, ...) {
+  os <- trimws(flatten_text(x[[1]]))
+  if (os == "windows") {
+    flatten_text(x[[2]])
+  } else {
+    ""
+  }
 }
 
 # Tables ---------------------------------------------------------------------

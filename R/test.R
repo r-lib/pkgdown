@@ -74,11 +74,12 @@ NULL
 #' @keywords internal
 #' @family tests
 #' @examples
-#' x <- seq(0, 2 * pi, length = 25)
+#' x <- seq(0, 2 * pi, length.out = 25)
 #' plot(x, sin(x))
 #'
 #' plot(1:10)
 #' lines(1:10)
+#' text(2, 5, "Hello", srt = 30, cex = 2)
 NULL
 
 #' Test case: don't
@@ -112,6 +113,19 @@ NULL
 #' answer <- 42
 #' }
 #' answer # should be 42
+#'
+#' # To hide the \dontshow part, for conditional examples
+#' \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' answer <- 43
+#' \dontshow{\}) # examplesIf}
+#' answer # should be still 42
+#'
+#' # But this one runs, and the condition is hidden
+#' \dontshow{if (TRUE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' answer <- 43
+#' \dontshow{\}) # examplesIf}
+#' answer
+
 NULL
 
 #' Test case: params

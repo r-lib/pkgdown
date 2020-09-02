@@ -138,9 +138,16 @@ remove it with \code{strip_header: true}:\preformatted{home:
 
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the \code{DESCRIPTION}. You can modify their
-display on the home page by adding a subsection for \code{authors}. The author
-name should match the value in \code{DESCRIPTION}:\preformatted{authors:
-  name:
+display on the home page by adding a subsection for \code{authors}. Each entry
+in \code{authors} should be named with the author's name (matching \code{DESCRIPTION})
+and can contain \code{href} and/or \code{html} fields:
+\itemize{
+\item If \code{href} is provided, the author's name will be linked to this url.
+\item If \code{html} is provided, it will be shown instead of the author's name.
+This is particularly useful if you want to display the logo of a corporate
+sponsor.
+}\preformatted{authors:
+  firstname lastname:
     href: "http://name-website.com"
     html: "<img src='name-picture.png' height=24>"
 }

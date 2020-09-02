@@ -1,17 +1,14 @@
-fig_save_default <- function(plot, name) {
-  do.call(fig_save, c(list(plot, name), context_get("figures")))
-}
-
 fig_save <- function(plot,
                      name,
-                     dev = "grDevices::png",
+                     dev = "ragg::agg_png",
                      dpi = 96L,
                      dev.args = list(),
                      fig.ext = "png",
                      fig.width = 700 / 96,
                      fig.height = NULL,
                      fig.retina = 2L,
-                     fig.asp = 1 / 1.618 # golden ratio
+                     fig.asp = 1 / 1.618, # golden ratio
+                     bg = NULL
                      ) {
 
 
@@ -44,16 +41,14 @@ fig_save <- function(plot,
     )
   }
 
+  # NB: bg is always set to transparent here; it takes effect during
+  # recording in highlight_examples()
+  dev.args$bg <- NA
+
   with_device(dev, c(args, dev.args), plot)
 
-  paste0(
-    "<div class='img'>",
-    "<img src='", escape_html(path), "' alt='' width='", width, "' height='", height, "' />",
-    "</div>"
-  )
+  list(path = path, width = width, height = height)
 }
-
-
 
 meta_figures <- function(meta = list()) {
   # Avoid having two copies of the default settings
@@ -84,6 +79,10 @@ fig_opts_chunk <- function(figures, default) {
     figures$fig.asp <- NULL
   }
 
+  # Copy background into dev.args
+  figures$dev.args <- figures$dev.args %||% list()
+  figures$dev.args$bg <- figures$bg %||% NA
+
   utils::modifyList(default, figures)
 }
 
@@ -108,6 +107,10 @@ match_fun <- function(x) {
 
 # knitr only takes a function name - user will need to load package
 fun_name <- function(x) {
+  if (x == "ragg::agg_png") {
+    return("ragg_png")
+  }
+
   expr <- parse_expr(x)
   if (is_symbol(expr)) {
     x

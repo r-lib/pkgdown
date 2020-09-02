@@ -41,7 +41,7 @@ repo_auto_link <- function(pkg, text) {
 
 package_repo <- function(desc, meta) {
   # Use metadata if available
-  if (has_name(meta, "repo")) {
+  if (has_name(meta, "repo") && has_name(meta[["repo"]], "url")) {
     return(meta[["repo"]])
   }
 
@@ -53,7 +53,7 @@ package_repo <- function(desc, meta) {
 
   gh_links <- grep("^https?://git(hub|lab).com/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    return(repo_meta_gh_like(gh_links[[1]]))
+    return(repo_meta_gh_like(gh_links[[1]], meta[["repo"]][["branch"]]))
   }
 
   NULL
@@ -70,11 +70,12 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
   )
 }
 
-repo_meta_gh_like <- function(link) {
+repo_meta_gh_like <- function(link, branch = NULL) {
   gh <- parse_github_like_url(link)
+  branch <- branch %||% "master"
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
-    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/master/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )

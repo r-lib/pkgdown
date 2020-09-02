@@ -294,6 +294,15 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
+#' pkgdown defaults to using the "master" branch for source file URLs. This can
+#' be configured to use a specific branch when linking to source files by
+#' specifying a branch name:
+#'
+#' ```yaml
+#' repo:
+#'   branch: main
+#' ````
+#'
 #' @section YAML config - deploy:
 #' `deploy` currently offers a single parameter:
 #'
@@ -450,7 +459,7 @@ build_site_local <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Building pkgdown site", line = 2)
+  rule("Building pkgdown site", line = "=")
   cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
   cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
 
@@ -470,6 +479,6 @@ build_site_local <- function(pkg = ".",
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
 
-  rule("DONE", line = 2)
+  rule("DONE", line = "=")
   preview_site(pkg, preview = preview)
 }
