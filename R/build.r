@@ -29,10 +29,7 @@
 #' Supplying this will:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
-#'   * This is done by hosting machine readable metadata about your site at
-#'     `<site_home>/pkgdown.yml`.
-#'   * Other pkgdown sites read this at build-time by following the URL given
-#'     in `DESCRIPTION`, and reading `your_url/pkgdown.yml` to find the links.
+#'   See `vignette("linking")` for more information.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
@@ -49,11 +46,11 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#'    * `install_metadata` controls whether a copy of `pkgdown.yml` should be
-#'       written to `inst/`.
-#'       Doing this allows pkgdown metadata to be installed alongside the
-#'       package, and used when building pkgdown websites for other packages
-#'      to autolink to this package site.
+#'    `install_metadata` controls whether a copy of `pkgdown.yml` should be
+#'    written to `inst/`.
+#'    Doing this allows pkgdown metadata to be installed alongside the
+#'    package, and used when building pkgdown websites for other packages
+#'    to autolink to this package site.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
