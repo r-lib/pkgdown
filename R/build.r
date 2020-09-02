@@ -17,9 +17,8 @@
 #' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are six top-level YAML settings that affect the entire site:
-#' `destination`, `url`, `title`, `template`, `deploy`,
-#' and `navbar`.
+#' There are five top-level YAML settings that affect the entire site:
+#' `destination`, `url`, `title`, `template`, and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
@@ -37,20 +36,6 @@
 #' ```yaml
 #' url: http://pkgdown.r-lib.org
 #' ```
-#'
-#' `deploy` optionally specifies further mechanisms for allowing pkgdown sites
-#'  to link to your package, if your website isn't publically reachable at build-time.
-#'  * To enable autolinking to your privately hosted packag, add a `deploy` field,
-#'    and set its `install_metadata` flag to `true`
-#'    ```yaml
-#'    deploy:
-#'      install_metadata: true
-#'    ```
-#'    `install_metadata` controls whether a copy of `pkgdown.yml` should be
-#'    written to `inst/`.
-#'    Doing this allows pkgdown metadata to be installed alongside the
-#'    package, and used when building pkgdown websites for other packages
-#'    to autolink to this package site.
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -308,6 +293,20 @@
 #'
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
+#'
+#' @section YAML config - deploy:
+#' `deploy` currently offers a single parameter:
+#'
+#' *  `install_metadata` allows you to install package index metadata into
+#'    the package itself. Normally this metadata is made available on the
+#'    published site; installing it into your package means that it's
+#'    available for autolinking even if your website is not reachable at build
+#'    time (e.g. because it's only behind the firewall or requires auth).
+#'
+#'    ```yaml
+#'    deploy:
+#'      install_metadata: true
+#'    ```
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting

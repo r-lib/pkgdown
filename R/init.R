@@ -118,8 +118,6 @@ build_site_meta <- function(pkg = ".") {
   }
 
   # Install pkgdown.yml to ./inst if requested,
-  # so that this package's pkgdown.yml may be used offline if this package is
-  # installed
   install_metadata <- pkg$install_metadata %||% FALSE
   if (install_metadata) {
     path_meta <- path(pkg$src_path, "inst", "pkgdown.yml")

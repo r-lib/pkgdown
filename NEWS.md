@@ -22,14 +22,10 @@
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the 
   deployed site before building a new one (#1297).
 
-* New top level option, `deploy` added to `_pkgdown.yml`. 
-  By setting 
-  ```yaml
-  deploy:
-    install_metadata: true
-  ```
-  `pkgdown.yml` is installed to `inst`, allowing offline access for packages
-  trying to autolink to the package's website.
+* New `deploy$install_metadata` option in `_pkgdown.yml`. Setting it to
+  `true` will store site metadata in the package itself, allowing offline
+  access for packages that to autolink to the package's website 
+  (@mstr3336, #1336).
 
 # pkgdown 1.5.1
 
