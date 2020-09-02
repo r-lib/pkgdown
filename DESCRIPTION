@@ -51,7 +51,6 @@ Suggests:
     rticles,
     rsconnect,
     rstudioapi
-Remotes: r-lib/downlit
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 7.1.1
