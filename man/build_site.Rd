@@ -95,7 +95,7 @@ See \code{vignette("linking")} for more information.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
-}\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
+}\if{html}{\out{<div class="yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
 \code{title} overrides the default site title, which is the package name.
@@ -219,7 +219,7 @@ The following YAML snippet illustrates some of the most important features.\pref
          href: articles/b11.html
      twitter:
        icon: "fab fa-twitter fa-lg"
-       href: http://twitter.com/hadleywickham
+       href: https://twitter.com/hadleywickham
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
@@ -263,9 +263,9 @@ See a complete list of themes and preview how they look at
 \url{https://gallery.shinyapps.io/117-shinythemes/}:
 
 Optionally provide the \code{ganalytics} template parameter to enable
-\href{https://www.google.com/analytics/}{Google Analytics}. It should
-correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
+\href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
+It should correspond to your
+\href{https://support.google.com/analytics/answer/1008080}{tracking id}.
 
 When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the

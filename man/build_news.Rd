@@ -64,5 +64,5 @@ Suppress the default addition of CRAN release dates with:\preformatted{news:
 }
 
 \seealso{
-\href{http://style.tidyverse.org/news.html}{Tidyverse style for News}
+\href{https://style.tidyverse.org/news.html}{Tidyverse style for News}
 }

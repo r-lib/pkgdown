@@ -33,7 +33,7 @@ devtools::install_github("r-lib/pkgdown")
 
 ## Usage
 
-Get started with [usethis](http://usethis.r-lib.org/):
+Get started with [usethis](https://usethis.r-lib.org/):
 
 ``` r
 # Run once to configure your package to use pkgdown
@@ -71,7 +71,7 @@ Here are a few examples created by contributors to pkgdown:
     plotting functions for posterior analysis, model checking, and MCMC
     diagnostics.
 
-  - [valr](https://rnabioco.github.io/valr)
+  - [valr](https://rnabioco.github.io/valr/)
     ([source](https://github.com/rnabioco/valr)): read and manipulate
     genome intervals and signals.
 

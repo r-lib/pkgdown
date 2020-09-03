@@ -74,7 +74,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   if (!identical(result$result$status, "success")) {
     stop(
       "API request failed. ", "
-      Please submit bug report to <http://github.com/r-lib/pkgdown/issues>",
+      Please submit bug report to <https://github.com/r-lib/pkgdown/issues>",
       call. = FALSE
     )
   }

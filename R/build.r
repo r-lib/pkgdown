@@ -34,7 +34,7 @@
 #'   [deploying to github][deploy_site_github].
 #'
 #' ```yaml
-#' url: http://pkgdown.r-lib.org
+#' url: https://pkgdown.r-lib.org
 #' ```
 #'
 #' `title` overrides the default site title, which is the package name.
@@ -170,7 +170,7 @@
 #'          href: articles/b11.html
 #'      twitter:
 #'        icon: "fab fa-twitter fa-lg"
-#'        href: http://twitter.com/hadleywickham
+#'        href: https://twitter.com/hadleywickham
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
@@ -216,9 +216,9 @@
 #' <https://gallery.shinyapps.io/117-shinythemes/>:
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
-#' [Google Analytics](https://www.google.com/analytics/). It should
-#' correspond to your
-#' [tracking id](https://support.google.com/analytics/answer/1032385).
+#' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
+#' It should correspond to your
+#' [tracking id](https://support.google.com/analytics/answer/1008080).
 #'
 #' When enabling Google Analytics, be aware of the type and amount of
 #' user information that you are collecting. You may wish to limit the

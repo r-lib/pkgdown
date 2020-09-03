@@ -2,7 +2,7 @@
 
 ## Major changes
 
-* pkgdown now uses the new [downlit](http://downlit.r-lib.org/) package for all 
+* pkgdown now uses the new [downlit](https://downlit.r-lib.org/) package for all 
   syntax highlighting and autolinking (in both reference topics and vignettes). 
   There should be very little change in behaviour because the code in downlit 
   was extracted from pkgdown, but this makes it easier to use pkgdown's nice 
@@ -411,7 +411,7 @@ See additional details in `?build_news`:
 
 * `build_favicon()` creates high resolution favicons from the package logo,
   and saves them in `pkgdown/`. They are created using the 
-  <http://realfavicongenerator.net> API, and are better suited for modern web 
+  <https://realfavicongenerator.net/> API, and are better suited for modern web 
   usage (e.g. retina display screens, desktop shortcuts, etc.). This also 
   removes the dependency on the magick package, making automated deployment
   a little easier (@bisaloo, #883).
