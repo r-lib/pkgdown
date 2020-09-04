@@ -1,4 +1,4 @@
-#' @importFrom magrittr %>%
+#' @importFrom tibble %>%
 #' @importFrom utils installed.packages
 #' @import rlang
 #' @import fs
