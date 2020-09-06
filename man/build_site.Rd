@@ -199,7 +199,7 @@ and to add your own components.\preformatted{navbar:
 
 The \code{components} describes the appearance of each element in the navbar.
 It uses the same
-syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
+syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
   components:
     home: ~

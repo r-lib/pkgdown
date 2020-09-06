@@ -1,3 +1,7 @@
+This is a resubmission including an updated URL.
+
+---
+
 ## Test environments
 * local OS X install, R 3.5
 * travis-ci: R 3.1, 3.2, 3.3, 3.4, release, devel.

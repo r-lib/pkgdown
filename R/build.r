@@ -147,7 +147,7 @@
 #'
 #' The `components` describes the appearance of each element in the navbar.
 #' It uses the same
-#' syntax as [RMarkdown](http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation).
+#' syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' ```
