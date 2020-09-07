@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -213,12 +213,17 @@
 <code><a href='test-lists.html'>test-lists</a></code>,
 <code><a href='test-output-styles.html'>test-output-styles</a></code>,
 <code><a href='test-params.html'>test-params</a></code>,
+<code><a href='test-sexpr-title.html'>test-sexpr-title</a></code>,
 <code><a href='test-verbatim.html'>test-verbatim</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>red</a></span>(<span class='st'>"This is red"</span>), <span class='st'>"\n"</span>)</div><div class='output co'>#&gt; <span style='color: #BB0000;'>This is red</span><span> </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>blue</a></span>(<span class='st'>"This is blue"</span>), <span class='st'>"\n"</span>)</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'>This is blue</span><span> </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>green</a></span>(<span class='st'>"This is green"</span>))</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>This is green</span><span></span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/warning.html'>warning</a></span>(<span class='kw pkg'>crayon</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>bold</a></span>(<span class='st'>"This is bold"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: </span><span style='font-weight: bold;'>This is bold</span><span></span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw'>crayon</span>::<span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>red</a></span>(<span class='st'>"This is red"</span>), <span class='st'>"\n"</span>)
+</div><div class='output co'>#&gt; <span style='color: #BB0000;'>This is red</span><span> </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='kw'>crayon</span>::<span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>blue</a></span>(<span class='st'>"This is blue"</span>), <span class='st'>"\n"</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'>This is blue</span><span> </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='kw'>crayon</span>::<span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>green</a></span>(<span class='st'>"This is green"</span>))
+</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>This is green</span><span></span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/warning.html'>warning</a></span>(<span class='kw'>crayon</span>::<span class='fu'><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>bold</a></span>(<span class='st'>"This is bold"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span><span style='font-weight: bold;'>This is bold</span><span></span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -234,7 +239,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

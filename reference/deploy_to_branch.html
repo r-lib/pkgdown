@@ -97,7 +97,7 @@ already installed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -204,12 +204,13 @@ already installed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>deploy_to_branch</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
-  <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>,
-  <span class='kw'>github_pages</span> <span class='kw'>=</span> (<span class='no'>branch</span> <span class='kw'>==</span> <span class='st'>"gh-pages"</span>),
-  <span class='no'>...</span>
+  pkg = <span class='st'>"."</span>,
+  commit_message = <span class='fu'>construct_commit_message</span>(<span class='kw'>pkg</span>),
+  clean = <span class='fl'>FALSE</span>,
+  branch = <span class='st'>"gh-pages"</span>,
+  remote = <span class='st'>"origin"</span>,
+  github_pages = (<span class='kw'>branch</span> <span class='op'>==</span> <span class='st'>"gh-pages"</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -222,6 +223,10 @@ already installed.</p>
     <tr>
       <th>commit_message</th>
       <td><p>The commit message to be used for the commit.</p></td>
+    </tr>
+    <tr>
+      <th>clean</th>
+      <td><p>Clean all files from old site.</p></td>
     </tr>
     <tr>
       <th>branch</th>
@@ -259,7 +264,7 @@ jekyll rendering.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

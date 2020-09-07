@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@
     <p>Translate an Rd string to its HTML output</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rd2html</span>(<span class='no'>x</span>, <span class='kw'>fragment</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>rd2html</span>(<span class='kw'>x</span>, fragment = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,9 +222,12 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rd2html</span>(<span class='st'>"a\n%b\nc"</span>)</div><div class='output co'>#&gt; [1] "a"           "&lt;!-- %b --&gt;" "c"          </div><div class='input'>
-<span class='fu'>rd2html</span>(<span class='st'>"a &amp; b"</span>)</div><div class='output co'>#&gt; [1] "a &amp;amp; b"</div><div class='input'>
-<span class='fu'>rd2html</span>(<span class='st'>"\\strong{\\emph{x}}"</span>)</div><div class='output co'>#&gt; [1] "&lt;strong&gt;&lt;em&gt;x&lt;/em&gt;&lt;/strong&gt;"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>rd2html</span>(<span class='st'>"a\n%b\nc"</span>)
+</div><div class='output co'>#&gt; [1] "a"           "&lt;!-- %b --&gt;" "c"          </div><div class='input'>
+<span class='fu'>rd2html</span>(<span class='st'>"a &amp; b"</span>)
+</div><div class='output co'>#&gt; [1] "a &amp;amp; b"</div><div class='input'>
+<span class='fu'>rd2html</span>(<span class='st'>"\\strong{\\emph{x}}"</span>)
+</div><div class='output co'>#&gt; [1] "&lt;strong&gt;&lt;em&gt;x&lt;/em&gt;&lt;/strong&gt;"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -241,7 +244,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -58,9 +58,6 @@
     <loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/reexports.html</loc>
-  </url>
-  <url>
     <loc>https://pkgdown.r-lib.org/reference/render_page.html</loc>
   </url>
   <url>
@@ -86,6 +83,9 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/reference/test-params.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/reference/test-sexpr-title.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/reference/test-verbatim.html</loc>

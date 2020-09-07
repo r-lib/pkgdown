@@ -111,7 +111,7 @@ you are primarily working on the text of an article." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -232,16 +232,16 @@ you are primarily working on the text of an article.</p>
     </div>
 
     <pre class="usage"><span class='fu'>build_articles</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+  pkg = <span class='st'>"."</span>,
+  quiet = <span class='fl'>TRUE</span>,
+  lazy = <span class='fl'>TRUE</span>,
+  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  preview = <span class='fl'>NA</span>
 )
 
-<span class='fu'>build_article</span>(<span class='no'>name</span>, <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>build_article</span>(<span class='kw'>name</span>, pkg = <span class='st'>"."</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), lazy = <span class='fl'>FALSE</span>, quiet = <span class='fl'>TRUE</span>)
 
-<span class='fu'>build_articles_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+<span class='fu'>build_articles_index</span>(pkg = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -323,23 +323,23 @@ comes from <code>title</code> and <code>description</code> fields of the YAML he
 <p>Note the use of the <code>navbar</code> fields. <code>navbar: ~</code> means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the <code>navbar</code>
 field in the for the developer vignettes means that they will only be
-accessible via the articles index.</p><h3>Special links</h3>
-
-<ul>
-<li><p>A vignette with the same name as the package (e.g.,
-<code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>)
-automatically becomes a top-level "Get started" link, and will not appear
-in the articles drop-down. (If your package name include a <code>.</code>, e.g.
-<code>pack.down</code>, use a <code>-</code> in the vignette name, e.g. <code>pack.down.Rmd</code>.)</p></li>
-<li><p>The navbar will include a link to the articles index if one or more
+accessible via the articles index.</p>
+<p>The navbar will include a link to the articles index if one or more
 vignettes are not available through the navbar. If some vignettes appear
 in the navbar drop-down list and others do not, the list will automatically
 include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
-providing a drop-down.</p></li>
-</ul>
+providing a drop-down.</p>
+    <h2 class="hasAnchor" id="get-started"><a class="anchor" href="#get-started"></a>Get started</h2>
 
+    
 
+<p>Note that a vignette with the same name as the package (e.g.,
+<code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>) automatically
+becomes a top-level "Get started" link, and will not appear in the articles
+drop-down.</p>
+<p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> in the
+vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
     <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files"></a>External files</h2>
 
     
@@ -379,16 +379,29 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='no'>pkgdown</span>:
-  <span class='no'>as_is</span>: <span class='no'>true</span></pre>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
+  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
+</pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre><span class='no'>pkgdown</span>:
-  <span class='no'>as_is</span>: <span class='no'>true</span>
-  <span class='no'>extension</span>: <span class='no'>pdf</span></pre>
+<code>extension</code> field:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
+  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
+  <span class='kw'>extension</span><span class='op'>:</span> <span class='kw'>pdf</span>
+</pre>
+
+<p>If you want to set an output format for all your articles, you can do that
+by adding a <code>vignettes/_site.yml</code>, much like you would for an
+<a href='https://rmarkdown.rstudio.com/docs/reference/render_site.html'>rmarkdown website</a>.
+For example, you can backport some bookdown features such as cross-references
+to all your articles by using the
+<a href='https://bookdown.org/yihui/bookdown/a-single-document.html'>bookdown::html_document2</a>
+format.</p><pre><span class='kw'>output</span><span class='op'>:</span>
+  <span class='kw'>bookdown</span>::<span class='kw'>html_document2</span><span class='op'>:</span>
+  <span class='kw'>number_sections</span><span class='op'>:</span> <span class='kw'>false</span>
+</pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
 
@@ -403,8 +416,9 @@ present: if you do not want this, you will need to customise the navbar. See
 
     
 
-<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='no'>toc</span>:
-  <span class='no'>depth</span>: <span class='fl'>2</span></pre>
+<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='kw'>toc</span><span class='op'>:</span>
+  <span class='kw'>depth</span><span class='op'>:</span> <span class='fl'>2</span>
+</pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>
 
@@ -413,7 +427,7 @@ present: if you do not want this, you will need to customise the navbar. See
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
-  dev: grDevices::png
+  dev: ragg::agg_png
   dpi: 96
   dev.args: []
   fig.ext: png
@@ -421,6 +435,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.618
+  bg: NA
 </pre>
 
 
@@ -439,7 +454,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

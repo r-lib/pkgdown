@@ -101,7 +101,7 @@ locally. See 'Setup' for details on setting up your repository to use this." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -212,15 +212,16 @@ locally. See 'Setup' for details on setting up your repository to use this.</p>
     </div>
 
     <pre class="usage"><span class='fu'>deploy_site_github</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>tarball</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
-  <span class='kw'>ssh_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='fu'>construct_commit_message</span>(<span class='no'>pkg</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>)
+  pkg = <span class='st'>"."</span>,
+  install = <span class='fl'>TRUE</span>,
+  tarball = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"PKG_TARBALL"</span>, <span class='st'>""</span>),
+  ssh_id = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"id_rsa"</span>, <span class='st'>""</span>),
+  commit_message = <span class='fu'>construct_commit_message</span>(<span class='kw'>pkg</span>),
+  clean = <span class='fl'>FALSE</span>,
+  verbose = <span class='fl'>FALSE</span>,
+  host = <span class='st'>"github.com"</span>,
+  <span class='kw'>...</span>,
+  repo_slug = <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"TRAVIS_REPO_SLUG"</span>, <span class='st'>""</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -250,6 +251,10 @@ new keypair specifically for deploying the site. The easiest way is to use
     <tr>
       <th>commit_message</th>
       <td><p>The commit message to be used for the commit.</p></td>
+    </tr>
+    <tr>
+      <th>clean</th>
+      <td><p>Clean all files from old site.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -296,7 +301,7 @@ git checkout master
 from RStudio's perspective you end up deleting all the files and then
 re-creating them.</p></li>
 <li><p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
-<code>_pkgdown.yaml</code>:<div class="yaml"></p><pre>url: http://pkgdown.r-lib.org
+<code>_pkgdown.yaml</code>:<div class="yaml"></p><pre>url: https://pkgdown.r-lib.org
 </pre><p></div></p></li>
 </ul>
 
@@ -316,7 +321,7 @@ re-creating them.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

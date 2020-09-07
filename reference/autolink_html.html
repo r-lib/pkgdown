@@ -53,15 +53,7 @@
 
 
 <meta property="og:title" content="Automatically link references and articles in an HTML page — autolink_html" />
-<meta property="og:description" content="The autolinker is built around two XPath expressions:
-//pre[contains(@class, 'r')]:
-this finds all &amp;lt;div&amp;gt;s with class sourceCode and r. The contents
-must be syntax-highlighted using pygments.
-(This is default in rmarkdown::html_document() when theme = NULL.)
-.//code[count(*) = 0]: this finds all &amp;lt;code&amp;gt; that contain only
-text (and no other tags).
-
-" />
+<meta property="og:description" content="Deprecated: please use downlit::downlit_html_path instead." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 
 
@@ -104,7 +96,7 @@ text (and no other tags).
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -206,18 +198,10 @@ text (and no other tags).
     </div>
 
     <div class="ref-description">
-    <p>The autolinker is built around two XPath expressions:</p><ul>
-<li><p><code>//pre[contains(@class, 'r')]</code>:
-this finds all <code>&lt;div&gt;</code>s with class <code>sourceCode</code> and <code>r</code>. The contents
-must be syntax-highlighted using <a href='http://pygments.org/'>pygments</a>.
-(This is default in <code><a href='https://rdrr.io/pkg/rmarkdown/man/html_document.html'>rmarkdown::html_document()</a></code> when <code>theme = NULL</code>.)</p></li>
-<li><p><code>.//code[count(*) = 0]</code>: this finds all <code>&lt;code&gt;</code> that contain only
-text (and no other tags).</p></li>
-</ul>
-
+    <p>Deprecated: please use <a href='https://downlit.r-lib.org/reference/downlit_html_path.html'>downlit::downlit_html_path</a> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='no'>input</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='no'>input</span>, <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())</pre>
+    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='kw'>input</span>, output = <span class='kw'>input</span>, local_packages = <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,30 +218,17 @@ from the target HTML document.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Currently the following expressions are linked:</p><ul>
-<li><p>Function calls, <code>foo()</code></p></li>
-<li><p>Function calls qualified with the package name, <code>bar::foo()</code></p></li>
-<li><p>Symbols qualified with the package name, <code>bar::baz</code></p></li>
-<li><p><code>library()</code>, <code>require()</code> and <code>requireNamespace()</code> calls.</p></li>
-<li><p>Help calls, <code>?foo</code>, <code>package?foo</code>, <code>?bar::foo</code>, <code>help(foo)</code>,
-<code>help(foo, package = bar)</code>, <code><a href='https://rdrr.io/pkg/bar/man'>help(package = bar)</a></code>.</p></li>
-<li><p>Vignette calls, <code>vignette(baz)</code>, <code>vignette(baz, package = "bar")</code></p></li>
-</ul>
-
-<p>Calls to <code>library()</code> and <code>require()</code> are used to find the topics connected
-to unqualified references.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>autolink_html</span>(<span class='st'>"path/to/file.html"</span>,
-  <span class='kw'>local_packages</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='kw'>shiny</span> <span class='kw'>=</span> <span class='st'>"shiny"</span>,
-    <span class='kw'>shinydashboard</span> <span class='kw'>=</span> <span class='st'>"shinydashboard"</span>
+  local_packages = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    shiny = <span class='st'>"shiny"</span>,
+    shinydashboard = <span class='st'>"shinydashboard"</span>
   )
 )
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -273,7 +244,7 @@ to unqualified references.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

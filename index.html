@@ -48,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -153,21 +153,24 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install release version from CRAN</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># Install release version from CRAN</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pkgdown"</span>)
 
 <span class="co"># Install development version from GitHub</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"r-lib/pkgdown"</span>)</pre></div>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"r-lib/pkgdown"</span>)</pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Get started with <a href="http://usethis.r-lib.org/">usethis</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># Run once to configure your package to use pkgdown</span>
-<span class="kw pkg">usethis</span><span class="kw ns">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">use_pkgdown</a></span>()</pre></div>
+<p>Get started with <a href="https://usethis.r-lib.org/">usethis</a>:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># Run once to configure your package to use pkgdown</span>
+<span class="kw">usethis</span>::<span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">use_pkgdown</a></span>()</pre></div>
 <p>Use pkgdown to update your website:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Run to build the website</span>
-<span class="kw pkg">pkgdown</span><span class="kw ns">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span>()</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># Run to build the website</span>
+<span class="kw">pkgdown</span>::<span class="fu"><a href="reference/build_site.html">build_site</a></span>()</pre></div>
 <p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details and to learn how to customise your site.</p>
 <p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “master branch /docs folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
 </div>
@@ -178,7 +181,7 @@
 <p>Here are a few examples created by contributors to pkgdown:</p>
 <ul>
 <li><p><a href="http://mc-stan.org/bayesplot/index.html">bayesplot</a> (<a href="https://github.com/stan-dev/bayesplot/tree/gh-pages">source</a>): plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
-<li><p><a href="https://rnabioco.github.io/valr">valr</a> (<a href="https://github.com/rnabioco/valr">source</a>): read and manipulate genome intervals and signals.</p></li>
+<li><p><a href="https://rnabioco.github.io/valr/">valr</a> (<a href="https://github.com/rnabioco/valr">source</a>): read and manipulate genome intervals and signals.</p></li>
 <li><p><a href="http://jranke.github.io/mkin/">mkin</a> (<a href="https://github.com/jranke/mkin">source</a>): calculation routines based on the FOCUS Kinetics Report</p></li>
 <li><p><a href="http://renozao.github.io/NMF/master/index.html">NMF</a> (<a href="https://github.com/renozao/NMF">source</a>): a framework to perform non-negative matrix factorization (NMF).</p></li>
 </ul>
@@ -238,7 +241,7 @@
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=pkgdown"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status"></a></li>
 <li><a href="https://github.com/r-lib/pkgdown/actions"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/r-lib/pkgdown?branch=master"><img src="https://codecov.io/gh/r-lib/pkgdown/branch/master/graphs/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://codecov.io/gh/r-lib/pkgdown?branch=master"><img src="https://codecov.io/gh/r-lib/pkgdown/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
@@ -250,7 +253,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

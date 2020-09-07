@@ -98,7 +98,7 @@ _pkgdown.yml as described below." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -206,19 +206,19 @@ alphabetical order. To override this, provide a <code>reference</code> section i
     </div>
 
     <pre class="usage"><span class='fu'>build_reference</span>(
-  <span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>examples</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run_dont_run</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1014</span>,
-  <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>devel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>document</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
-  <span class='kw'>topics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  pkg = <span class='st'>"."</span>,
+  lazy = <span class='fl'>TRUE</span>,
+  examples = <span class='fl'>TRUE</span>,
+  run_dont_run = <span class='fl'>FALSE</span>,
+  seed = <span class='fl'>1014</span>,
+  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  preview = <span class='fl'>NA</span>,
+  devel = <span class='fl'>TRUE</span>,
+  document = <span class='st'>"DEPRECATED"</span>,
+  topics = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>build_reference_index</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+<span class='fu'>build_reference_index</span>(pkg = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -317,12 +317,12 @@ structure in order to clearly organise large number of functions:</p><pre>refere
 </pre>
 
 <p><code>desc</code> can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML <code>&gt;</code> notation:</p><pre>desc: &amp;gt;
+idea to take advantage of the YAML <code>&gt;</code> notation:</p><pre>desc: &gt;
   This is a very _long_ and **overly** flowery description of a
-  single simple function. By using `&amp;gt;`, it's easy to write a description
+  single simple function. By using `&gt;`, it's easy to write a description
   that runs over multiple lines.
 </pre>
-<h3>Topic matching</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Topic matching</h3>
 
 
 <p><code>contents</code> can contain:</p><ul>
@@ -334,7 +334,9 @@ R, e.g. <code>"`+.gg`"</code>.</p></li>
 <li><p><code>matches("regexp")</code> for more complex regular expressions.</p></li>
 <li><p><code>has_keyword("x")</code> to select all topics with keyword "x";
 <code>has_keyword("datasets")</code> selects all data documentation.</p></li>
-<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".</p></li>
+<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".
+If you are using roxygen2, <code>has_concept()</code> also matches family tags, because
+roxygen2 converts them to concept tags.</p></li>
 <li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by <code>has_concepts()</code>.</p></li>
@@ -343,12 +345,12 @@ captured by <code>has_concepts()</code>.</p></li>
 <p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
 topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
 with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
+<p>Use a leading <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> to remove topics from a section, e.g. <code>-topic_name</code>,
 <code>-starts_with("foo")</code>.</p>
 <p>pkgdown will check that all non-internal topics are included on
 the reference index page, and will generate a warning if you have missed any.</p>
 
-<h3>Icons</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Icons</h3>
 
 
 <p>You can optionally supply an icon for each help topic. To do so, you'll need
@@ -363,7 +365,7 @@ Icons are matched to topics by aliases.</p>
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre>figures:
-  dev: grDevices::png
+  dev: ragg::agg_png
   dpi: 96
   dev.args: []
   fig.ext: png
@@ -371,6 +373,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.618
+  bg: NA
 </pre>
 
 
@@ -389,7 +392,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

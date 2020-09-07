@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@
     <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of headings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_news</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>override</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>preview</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_news</span>(pkg = <span class='st'>"."</span>, override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), preview = <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,15 +260,17 @@ section.</p><pre>news:
 </pre>
 
 <p>Control whether news is present on one page or multiple pages with the
-<code>one_page</code> field. The default is <code>true</code>.</p><pre><span class='no'>news</span>:
-  <span class='no'>one_page</span>: <span class='no'>false</span></pre>
+<code>one_page</code> field. The default is <code>true</code>.</p><pre><span class='kw'>news</span><span class='op'>:</span>
+  <span class='kw'>one_page</span><span class='op'>:</span> <span class='kw'>false</span>
+</pre>
 
-<p>Suppress the default addition of CRAN release dates with:</p><pre><span class='no'>news</span>:
-  <span class='no'>cran_dates</span>: <span class='no'>false</span></pre>
+<p>Suppress the default addition of CRAN release dates with:</p><pre><span class='kw'>news</span><span class='op'>:</span>
+  <span class='kw'>cran_dates</span><span class='op'>:</span> <span class='kw'>false</span>
+</pre>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://style.tidyverse.org/news.html'>Tidyverse style for News</a></p></div>
+    <div class='dont-index'><p><a href='https://style.tidyverse.org/news.html'>Tidyverse style for News</a></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -285,7 +287,7 @@ section.</p><pre>news:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
