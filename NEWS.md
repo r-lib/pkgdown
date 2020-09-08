@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Vignettes are once again listed in the articles index (#1401).
+
 # pkgdown 1.6.0
 
 ## Major changes

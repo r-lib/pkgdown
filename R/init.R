@@ -102,11 +102,13 @@ timestamp <- function() {
 
 # Generate site meta data file (available to website viewers)
 build_site_meta <- function(pkg = ".") {
+  article_index <- set_names(path_file(pkg$vignettes$file_out), pkg$vignettes$name)
+
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
-    articles = as.list(pkg$article_index),
+    articles = as.list(article_index),
     last_built = timestamp()
   )
 
