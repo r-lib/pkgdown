@@ -1,7 +1,3 @@
-This is a resubmission including an updated URL.
-
----
-
 ## Test environments
 * local OS X install, R 3.5
 * travis-ci: R 3.1, 3.2, 3.3, 3.4, release, devel.
@@ -9,7 +5,11 @@ This is a resubmission including an updated URL.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
+
+* Days since last update: 3
+  Apologies for the resubmission - I discovered a rather serious bug that
+  slipped through my testing.
 
 ## revdepcheck results
 
