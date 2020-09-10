@@ -35,3 +35,19 @@ test_that("asset subdirectories are copied", {
   expect_true(file_exists(path(pkg, "docs", "subdir1", "file1.txt")))
   expect_true(file_exists(path(pkg, "docs", "subdir1", "subdir2", "file2.txt")))
 })
+
+test_that("site meta doesn't break unexpectedly", {
+  # Because paths are different during R CMD check
+  skip_if_not(file_exists("../../DESCRIPTION"))
+  pkgdown <- as_pkgdown(test_path("../.."))
+
+  # null out components that will vary
+  yaml <- site_meta(pkgdown)
+  yaml$pkgdown <- "{version}"
+  yaml$pkgdown_sha <- "{sha}"
+  yaml$pandoc <- "{version}"
+  yaml$last_built <- timestamp(as.POSIXct("2020-01-01"))
+
+  # TODO: use snapshot test
+  verify_output(test_path("test-init-meta.txt"), yaml)
+})
