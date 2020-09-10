@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
-* Vignettes are once again listed in the articles index (#1401).
+* The article index (used for autolinking vignettes across packages) 
+  once again works (#1401).
 
 # pkgdown 1.6.0
 

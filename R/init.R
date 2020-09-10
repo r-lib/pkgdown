@@ -94,14 +94,30 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }
 
-timestamp <- function() {
-  x <- Sys.time()
-  attr(x, "tzone") <- "UTC"
-  strftime(x, "%Y-%m-%dT%H:%MZ", tz = "UTC")
+timestamp <- function(time = Sys.time()) {
+  attr(time, "tzone") <- "UTC"
+  strftime(time, "%Y-%m-%dT%H:%MZ", tz = "UTC")
 }
 
 # Generate site meta data file (available to website viewers)
 build_site_meta <- function(pkg = ".") {
+  meta <- site_meta(pkg)
+
+  # Install pkgdown.yml to ./inst if requested,
+  install_metadata <- pkg$install_metadata %||% FALSE
+  if (install_metadata) {
+    path_meta <- path(pkg$src_path, "inst", "pkgdown.yml")
+
+    dir_create(path_dir(path_meta))
+    write_yaml(meta, path_meta)
+  }
+
+  path_meta <- path(pkg$dst_path, "pkgdown.yml")
+  write_yaml(meta, path_meta)
+  invisible()
+}
+
+site_meta <- function(pkg) {
   article_index <- set_names(path_file(pkg$vignettes$file_out), pkg$vignettes$name)
 
   meta <- list(
@@ -119,18 +135,7 @@ build_site_meta <- function(pkg = ".") {
     )
   }
 
-  # Install pkgdown.yml to ./inst if requested,
-  install_metadata <- pkg$install_metadata %||% FALSE
-  if (install_metadata) {
-    path_meta <- path(pkg$src_path, "inst", "pkgdown.yml")
-
-    dir_create(path_dir(path_meta))
-    write_yaml(meta, path_meta)
-  }
-
-  path_meta <- path(pkg$dst_path, "pkgdown.yml")
-  write_yaml(meta, path_meta)
-  invisible()
+  print_yaml(meta)
 }
 
 is_non_pkgdown_site <- function(dst_path) {
