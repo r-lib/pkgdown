@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.6.0.9000
+pkgdown: 1.6.1.9000
 pkgdown_sha: ~
 articles:
   linking: linking.html
@@ -10,7 +10,7 @@ articles:
   test/output: output.html
   test/pdf: pdf.pdf
   test/rendering: rendering.html
-last_built: 2020-09-10T21:56Z
+last_built: 2020-09-12T15:23Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
