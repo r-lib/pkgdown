@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 1.6.1
 
 * The article index (used for autolinking vignettes across packages) 
