@@ -2,7 +2,7 @@
 
 * The default navbar no longer includes a home icon - this took up precious
   horizontal space and wasn't very useful since there is already a link to the 
-  home page immediately to its right (#1383).
+  home page immediately to its left (#1383).
 
 # pkgdown 1.6.1
 
