@@ -1,8 +1,15 @@
 # pkgdown (development version)
 
+# pkgdown 1.6.1
+
+* The article index (used for autolinking vignettes across packages) 
+  once again works (#1401).
+
+# pkgdown 1.6.0
+
 ## Major changes
 
-* pkgdown now uses the new [downlit](http://downlit.r-lib.org/) package for all 
+* pkgdown now uses the new [downlit](https://downlit.r-lib.org/) package for all 
   syntax highlighting and autolinking (in both reference topics and vignettes). 
   There should be very little change in behaviour because the code in downlit 
   was extracted from pkgdown, but this makes it easier to use pkgdown's nice 
@@ -53,6 +60,11 @@
   `downlit::downlit_html_path()` instead.
 
 * Highlighting of empty expressions works once more (#1310).
+
+* New `deploy$install_metadata` option in `_pkgdown.yml`. Setting it to
+  `true` will store site metadata in the package itself, allowing offline
+  access for packages that to autolink to the package's website 
+  (@mstr3336, #1336).
 
 ### Other    
 
@@ -409,7 +421,7 @@ See additional details in `?build_news`:
 
 * `build_favicon()` creates high resolution favicons from the package logo,
   and saves them in `pkgdown/`. They are created using the 
-  <http://realfavicongenerator.net> API, and are better suited for modern web 
+  <https://realfavicongenerator.net/> API, and are better suited for modern web 
   usage (e.g. retina display screens, desktop shortcuts, etc.). This also 
   removes the dependency on the magick package, making automated deployment
   a little easier (@bisaloo, #883).

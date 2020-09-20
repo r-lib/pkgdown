@@ -17,7 +17,7 @@
 #' [clean_site()] first to clean up orphan files.
 #'
 #' @section YAML config:
-#' There are four top-level YAML settings that affect the entire site:
+#' There are five top-level YAML settings that affect the entire site:
 #' `destination`, `url`, `title`, `template`, and `navbar`.
 #'
 #' `destination` controls where the site will be generated. It defaults to
@@ -28,12 +28,13 @@
 #' Supplying this will:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
+#'   See `vignette("linking")` for more information.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
 #'
 #' ```yaml
-#' url: http://pkgdown.r-lib.org
+#' url: https://pkgdown.r-lib.org
 #' ```
 #'
 #' `title` overrides the default site title, which is the package name.
@@ -146,7 +147,7 @@
 #'
 #' The `components` describes the appearance of each element in the navbar.
 #' It uses the same
-#' syntax as [RMarkdown](http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation).
+#' syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 #' The following YAML snippet illustrates some of the most important features.
 #'
 #' ```
@@ -169,7 +170,7 @@
 #'          href: articles/b11.html
 #'      twitter:
 #'        icon: "fab fa-twitter fa-lg"
-#'        href: http://twitter.com/hadleywickham
+#'        href: https://twitter.com/hadleywickham
 #' ```
 #'
 #' Components can contain sub-`menu`s with headings (indicated by missing
@@ -215,9 +216,9 @@
 #' <https://gallery.shinyapps.io/117-shinythemes/>:
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
-#' [Google Analytics](https://www.google.com/analytics/). It should
-#' correspond to your
-#' [tracking id](https://support.google.com/analytics/answer/1032385).
+#' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
+#' It should correspond to your
+#' [tracking id](https://support.google.com/analytics/answer/1008080).
 #'
 #' When enabling Google Analytics, be aware of the type and amount of
 #' user information that you are collecting. You may wish to limit the
@@ -301,6 +302,20 @@
 #' repo:
 #'   branch: main
 #' ````
+#'
+#' @section YAML config - deploy:
+#' `deploy` currently offers a single parameter:
+#'
+#' *  `install_metadata` allows you to install package index metadata into
+#'    the package itself. Normally this metadata is made available on the
+#'    published site; installing it into your package means that it's
+#'    available for autolinking even if your website is not reachable at build
+#'    time (e.g. because it's only behind the firewall or requires auth).
+#'
+#'    ```yaml
+#'    deploy:
+#'      install_metadata: true
+#'    ```
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting

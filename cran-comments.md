@@ -5,8 +5,16 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
+
+* Days since last update: 3
+  Apologies for the resubmission - I discovered a rather serious bug that
+  slipped through my testing.
 
 ## revdepcheck results
 
-This release includes a handful of small bug fixes so I did not check reverse dependencies.
+We checked 90 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+

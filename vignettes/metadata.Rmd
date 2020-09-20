@@ -87,7 +87,7 @@ description: "A brief introduction to pool noodles in R."
 author: "Mara Averick"
 opengraph:
   image: 
-    src: "http://example.com/pkg/batpig.png"
+    src: "https://example.com/pkg/batpig.png"
   twitter:
     card: summary
     creator: "@dataandme"
@@ -116,4 +116,4 @@ In articles, the `opengraph` section works in the same way as the site-wide `tem
 [ogp]: https://ogp.me/
 [twitter-validator]: https://cards-dev.twitter.com/validator
 [ogp-validator]: https://search.google.com/structured-data/testing-tool
-[twitter-card]: https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards
+[twitter-card]: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards

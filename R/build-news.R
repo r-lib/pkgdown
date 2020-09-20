@@ -59,7 +59,7 @@
 #'   cran_dates: false
 #' ```
 #'
-#' @seealso [Tidyverse style for News](http://style.tidyverse.org/news.html)
+#' @seealso [Tidyverse style for News](https://style.tidyverse.org/news.html)
 #'
 #' @inheritParams build_articles
 #' @export

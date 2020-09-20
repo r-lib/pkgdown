@@ -45,7 +45,7 @@
 #' `_pkgdown.yaml`:
 #'
 #'    ```yaml
-#'    url: http://pkgdown.r-lib.org
+#'    url: https://pkgdown.r-lib.org
 #'    ```
 #'
 #' @inheritParams build_site
