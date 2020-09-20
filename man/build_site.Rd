@@ -79,7 +79,7 @@ Note if names of generated files were changed, you will need to use
 }
 \section{YAML config}{
 
-There are four top-level YAML settings that affect the entire site:
+There are five top-level YAML settings that affect the entire site:
 \code{destination}, \code{url}, \code{title}, \code{template}, and \code{navbar}.
 
 \code{destination} controls where the site will be generated. It defaults to
@@ -91,10 +91,11 @@ Supplying this will:
 \itemize{
 \item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
+See \code{vignette("linking")} for more information.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
-}\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
+}\if{html}{\out{<div class="yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
 \code{title} overrides the default site title, which is the package name.
@@ -198,7 +199,7 @@ and to add your own components.\preformatted{navbar:
 
 The \code{components} describes the appearance of each element in the navbar.
 It uses the same
-syntax as \href{http://rmarkdown.rstudio.com/rmarkdown_websites.html#site_navigation}{RMarkdown}.
+syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
   components:
     home: ~
@@ -218,7 +219,7 @@ The following YAML snippet illustrates some of the most important features.\pref
          href: articles/b11.html
      twitter:
        icon: "fab fa-twitter fa-lg"
-       href: http://twitter.com/hadleywickham
+       href: https://twitter.com/hadleywickham
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
@@ -262,9 +263,9 @@ See a complete list of themes and preview how they look at
 \url{https://gallery.shinyapps.io/117-shinythemes/}:
 
 Optionally provide the \code{ganalytics} template parameter to enable
-\href{https://www.google.com/analytics/}{Google Analytics}. It should
-correspond to your
-\href{https://support.google.com/analytics/answer/1032385}{tracking id}.
+\href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
+It should correspond to your
+\href{https://support.google.com/analytics/answer/1008080}{tracking id}.
 
 When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
@@ -328,6 +329,26 @@ supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}
 
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
+
+pkgdown defaults to using the "master" branch for source file URLs. This can
+be configured to use a specific branch when linking to source files by
+specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+  branch: main
+}\if{html}{\out{</div>}}
+}
+
+\section{YAML config - deploy}{
+
+\code{deploy} currently offers a single parameter:
+\itemize{
+\item \code{install_metadata} allows you to install package index metadata into
+the package itself. Normally this metadata is made available on the
+published site; installing it into your package means that it's
+available for autolinking even if your website is not reachable at build
+time (e.g. because it's only behind the firewall or requires auth).\if{html}{\out{<div class="yaml">}}\preformatted{deploy:
+  install_metadata: true
+}\if{html}{\out{</div>}}
+}
 }
 
 \section{Options}{

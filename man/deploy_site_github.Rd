@@ -77,7 +77,7 @@ We recommend doing this outside of RStudio (with the project closed) as
 from RStudio's perspective you end up deleting all the files and then
 re-creating them.
 \item If you're using a custom CNAME, make sure you have set the \code{url} in
-\verb{_pkgdown.yaml}:\if{html}{\out{<div class="yaml">}}\preformatted{url: http://pkgdown.r-lib.org
+\verb{_pkgdown.yaml}:\if{html}{\out{<div class="yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 }
 }

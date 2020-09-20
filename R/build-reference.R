@@ -102,7 +102,7 @@
 #'
 #' ```
 #' figures:
-#'   dev: grDevices::png
+#'   dev: ragg::agg_png
 #'   dpi: 96
 #'   dev.args: []
 #'   fig.ext: png
@@ -110,6 +110,7 @@
 #'   fig.height: ~
 #'   fig.retina: 2
 #'   fig.asp: 1.618
+#'   bg: NA
 #' ```
 #'
 #' @inheritParams build_articles
