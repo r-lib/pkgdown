@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Missing topics makes the build fail when the environment variable `CI` is set
+  to `"true"` (@ThierryO, #1378).
+
 # pkgdown 1.6.1
 
 * The article index (used for autolinking vignettes across packages) 
@@ -80,9 +83,6 @@
 
 * Setting `clean = TRUE` in `deploy_site_github()` removes old files from the 
   deployed site before building a new one (#1297).
-
-* Missing topics makes the build fail when the environment variable `CI` is set
-  to `"true"` (@ThierryO, #1378).
 
 # pkgdown 1.5.1
 
