@@ -29,7 +29,6 @@
 
 * `\special{}` support inside `\usage{}` added to allow non-standard R usage
   syntax (@klmr, #1345).
->>>>>>> cc9c7b1be8573f8af3453f6e5d0422d86c916701
 
 * `#ifdef` and `#ifndef` are now supported; the "current" OS is hard coded to
   "unix" to ensure reproducible output regardless of where you build the 
