@@ -104,6 +104,14 @@ check_missing_topics <- function(rows, pkg) {
 
   missing <- !in_index & !pkg$topics$internal
   if (any(missing)) {
-    warn(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+    if (on_ci()) {
+      stop(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+    } else {
+      warn(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+    }
   }
+}
+
+on_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI")))
 }
