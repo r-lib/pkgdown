@@ -172,7 +172,6 @@ to danger). Finally, you can choose to override the default tooltip with
 
 By default, the top navigation bar (the "navbar") will contain links to:
 \itemize{
-\item The home page, with a "home" icon.
 \item "Get Started", if you have an article with the same name as the package
 (e.g., \code{vignettes/pkgdown.Rmd}).
 \item Reference
@@ -193,7 +192,7 @@ of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
 and to add your own components.\preformatted{navbar:
   structure:
-    left:  [home, intro, reference, articles, tutorials, news]
+    left:  [intro, reference, articles, tutorials, news]
     right: [github]
 }
 
@@ -202,7 +201,6 @@ It uses the same
 syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
   components:
-    home: ~
     articles:
      text: Articles
      menu:
@@ -223,13 +221,13 @@ The following YAML snippet illustrates some of the most important features.\pref
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators (indicated by a bunch of \code{-}). You can also use \code{icon}s
-from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+\code{href}) and separators (indicated by a bunch of \code{-}). You can also use
+\code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
 
-This yaml would override the default "articles" component, eliminate
-the "home" component, and add a new "twitter" component. Unless you
-explicitly mention new components in the \code{structure} they'll be added
-to the far right of the left menu.
+This yaml would override the default "articles" component,
+and add a new "twitter" component. Unless you explicitly mention new
+components in the \code{structure} they'll be added to the far right of the
+left menu.
 }
 
 \section{YAML config - search}{

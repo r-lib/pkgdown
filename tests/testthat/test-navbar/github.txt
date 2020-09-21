@@ -1,8 +1,5 @@
 > pkg <- pkg_navbar()
 > navbar_components(pkg)
-home:
-  icon: fas fa-home fa-lg
-  href: index.html
 reference:
   text: Reference
   href: reference/index.html
@@ -10,9 +7,6 @@ reference:
 
 > pkg <- pkg_navbar(github_url = "https://github.org/r-lib/pkgdown")
 > navbar_components(pkg)
-home:
-  icon: fas fa-home fa-lg
-  href: index.html
 reference:
   text: Reference
   href: reference/index.html

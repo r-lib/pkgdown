@@ -52,7 +52,7 @@ render_navbar_links <- function(x, depth = 0L) {
 
 navbar_structure <- function() {
   print_yaml(list(
-    left = c("home", "intro", "reference", "articles", "tutorials", "news"),
+    left = c("intro", "reference", "articles", "tutorials", "news"),
     right = "github"
   ))
 }
@@ -61,7 +61,6 @@ navbar_components <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   menu <- list()
-  menu$home <- menu_icon("home", "index.html")
   menu$reference <- menu_link("Reference", "reference/index.html")
 
   if (!is.null(pkg$tutorials)) {
