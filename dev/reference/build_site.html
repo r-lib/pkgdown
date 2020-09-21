@@ -115,12 +115,6 @@ clean_site() first to clean up orphan files." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/pkgdown.html">Get started</a>
 </li>
 <li>
@@ -396,7 +390,6 @@ to danger). Finally, you can choose to override the default tooltip with
 
 
 <p>By default, the top navigation bar (the "navbar") will contain links to:</p><ul>
-<li><p>The home page, with a "home" icon.</p></li>
 <li><p>"Get Started", if you have an article with the same name as the package
 (e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
 <li><p>Reference</p></li>
@@ -416,7 +409,7 @@ of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
 and to add your own components.</p><pre>navbar:
   structure:
-    left:  [home, intro, reference, articles, tutorials, news]
+    left:  [intro, reference, articles, tutorials, news]
     right: [github]
 </pre>
 
@@ -425,7 +418,6 @@ It uses the same
 syntax as <a href='https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation'>RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p><pre>navbar:
   components:
-    home: ~
     articles:
      text: Articles
      menu:
@@ -446,12 +438,12 @@ The following YAML snippet illustrates some of the most important features.</p><
 </pre>
 
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
-<code>href</code>) and separators (indicated by a bunch of <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>). You can also use <code>icon</code>s
-from <a href='https://fontawesome.com/icons?d=gallery'>fontawesome</a>.</p>
-<p>This yaml would override the default "articles" component, eliminate
-the "home" component, and add a new "twitter" component. Unless you
-explicitly mention new components in the <code>structure</code> they'll be added
-to the far right of the left menu.</p>
+<code>href</code>) and separators (indicated by a bunch of <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>). You can also use
+<code>icon</code>s from <a href='https://fontawesome.com/icons?d=gallery'>fontawesome</a>.</p>
+<p>This yaml would override the default "articles" component,
+and add a new "twitter" component. Unless you explicitly mention new
+components in the <code>structure</code> they'll be added to the far right of the
+left menu.</p>
     <h2 class="hasAnchor" id="yaml-config-search"><a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
 
     
