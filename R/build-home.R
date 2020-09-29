@@ -147,6 +147,18 @@
 #'     href: "http://name-website.com"
 #'     html: "<img src='name-picture.png' height=24>"
 #' ```
+#'
+#' @section YAML config - citation:
+#' Even in the absence of `inst/CITATION`, standard information on how to cite
+#' the package will be added to the authors page and linked from the sidebar if
+#'
+#' ```
+#' forcecitation: true
+#' ```
+#'
+#' If you want to encourage users of your package to cite an article or book
+#' instead, add a file `inst/CITATION` with more specific information.
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",
@@ -158,11 +170,12 @@ build_home <- function(pkg = ".",
   rule("Building home")
   dir_create(pkg$dst_path)
 
-  if (has_citation(pkg$src_path)) {
+  if (need_citation(pkg)) {
     build_citation_authors(pkg)
   } else {
     build_authors(pkg)
   }
+
   build_home_md(pkg)
   build_home_license(pkg)
   build_home_index(pkg, quiet = quiet)

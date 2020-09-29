@@ -153,3 +153,13 @@ sponsor.
 }
 }
 
+\section{YAML config - citation}{
+
+Even in the absence of \code{inst/CITATION}, standard information on how to cite
+the package will be added to the authors page and linked from the sidebar if\preformatted{forcecitation: true
+}
+
+If you want to encourage users of your package to cite an article or book
+instead, add a file \code{inst/CITATION} with more specific information.
+}
+

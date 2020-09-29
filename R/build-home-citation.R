@@ -3,6 +3,10 @@ has_citation <- function(path = ".") {
   file_exists(path(path, 'inst/CITATION'))
 }
 
+need_citation <- function(pkg) {
+  has_citation(pkg$src_path) || identical(pkg$meta$forcecitation, TRUE)
+}
+
 create_citation_meta <- function(path) {
   path <- path(path, "DESCRIPTION")
 
@@ -31,7 +35,7 @@ read_citation <- function(path = ".") {
 data_home_sidebar_citation <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  if (!has_citation(pkg$src_path)) {
+  if (!need_citation(pkg)) {
     return(character())
   }
 
@@ -42,35 +46,52 @@ data_home_sidebar_citation <- function(pkg = ".") {
 
 data_citations <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  cit <- read_citation(pkg$src_path)
 
-  text_version <- format(cit, style = "textVersion")
-  if (identical(text_version, "")) {
-    cit <- list(
-      html = format(cit, style = "html"),
-      bibtex = format(cit, style = "bibtex")
-    )
-  } else {
-    cit <- list(
-      html = paste0("<p>",text_version, "</p>"),
-      bibtex = format(cit, style = "bibtex")
-    )
+  if (has_citation(pkg$src_path)) {
+
+    cit <- read_citation(pkg$src_path)
+
+    text_version <- format(cit, style = "textVersion")
+    if (identical(text_version, "")) {
+      cit <- list(
+        html = format(cit, style = "html"),
+        bibtex = format(cit, style = "bibtex")
+      )
+    } else {
+      cit <- list(
+        html = paste0("<p>",text_version, "</p>"),
+        bibtex = format(cit, style = "bibtex")
+      )
+    }
+
+    return(purrr::transpose(cit))
   }
 
-   purrr::transpose(cit)
+  autocit <- packageDescription(pkg$package)
+  autocit$`Date/Publication` <- Sys.time()
+  cit <- citation(auto = autocit)
+  list(
+    html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
+    bibtex = format(cit, style = "Bibtex")
+    )
 }
 
 build_citation_authors <- function(pkg = ".") {
+
   pkg <- as_pkgdown(pkg)
-
-  source <- repo_source(pkg, "inst/CITATION")
-
   data <- list(
     pagetitle = "Citation and Authors",
     citations = data_citations(pkg),
     authors = unname(data_authors(pkg)$all),
     source = source
   )
+
+  if(has_citation(pkg$src_path)) {
+    data$source <- repo_source(pkg, "inst/CITATION")
+  } else {
+    data$source <- repo_source(pkg, "DESCRIPTION")
+  }
+
 
   render_page(pkg, "citation-authors", data, "authors.html")
 }

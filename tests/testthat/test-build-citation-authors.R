@@ -36,3 +36,23 @@ test_that("source link is added to citation page", {
   lines <- read_lines(path(path, "docs", "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
 })
+
+test_that("default source link is added to citation page", {
+  path <- test_path("assets/site-citation/default-citation")
+
+  expect_output(build_home(path))
+  on.exit(clean_site(path))
+
+  lines <- read_lines(path(path, "docs", "authors.html"))
+  expect_true(any(grepl("<code>DESCRIPTION</code></a></small>", lines)))
+})
+
+test_that("default citation can be created", {
+  path <- test_path("assets/site-citation/default-citation")
+
+  expect_output(build_home(path))
+  on.exit(clean_site(path))
+
+  lines <- read_lines(path(path, "docs", "authors.html"))
+  expect_true(any(grepl("<pre>@Manual\\{", lines)))
+})
