@@ -67,9 +67,9 @@ data_citations <- function(pkg = ".") {
     return(purrr::transpose(cit))
   }
 
-  autocit <- packageDescription(pkg$package)
+  autocit <- utils::packageDescription(pkg$package)
   autocit$`Date/Publication` <- Sys.time()
-  cit <- citation(auto = autocit)
+  cit <- utils::citation(auto = autocit)
   list(
     html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
     bibtex = format(cit, style = "bibtex")
