@@ -72,7 +72,7 @@ data_citations <- function(pkg = ".") {
   cit <- citation(auto = autocit)
   list(
     html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
-    bibtex = format(cit, style = "Bibtex")
+    bibtex = format(cit, style = "bibtex")
     )
 }
 
