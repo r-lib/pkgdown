@@ -7,6 +7,8 @@
   horizontal space and wasn't very useful since there is already a link to the 
   home page immediately to its left (#1383).
 
+* `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
+
 # pkgdown 1.6.1
 
 * The article index (used for autolinking vignettes across packages) 
