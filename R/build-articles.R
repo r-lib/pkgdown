@@ -172,6 +172,14 @@
 #'   depth: 2
 #' ```
 #'
+#' To omit a section from the TOC write the heading in HTML and pass it a `data-skip-toc` boolean [HTML data attribute](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes):
+#'
+#' ```rmd
+#' <h3 data-toc-skip> Section Not in TOC {data-toc-skip} </h3>
+#' ```
+#'
+#' The [`.unlisted`](https://pandoc.org/MANUAL.html#heading-identifiers) class used by pandoc is not supported by the pkgdown template.
+#'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and
 #'   pandoc. This is useful when debugging.

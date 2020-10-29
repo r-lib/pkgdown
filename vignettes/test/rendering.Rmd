@@ -85,7 +85,7 @@ x
 
 <details>
 <summary>Some R code</summary>
-  
+
 ```{r}
 1 + 2
 ```
@@ -151,3 +151,16 @@ stop(crayon::italic("This is italic"))
 ```
 
 Some more text
+
+
+---
+
+# TOC
+
+## An `.unlisted` Section {.unlisted}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+<h3 data-toc-skip> A `data-toc-skip`ped Section {data-toc-skip} </h3>
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
