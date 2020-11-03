@@ -166,7 +166,7 @@ build_reference <- function(pkg = ".",
       if (!is_installed("pkgload")) {
         abort("Please install pkgload to use `build_reference(devel = TRUE)`")
       }
-      pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE)
+      pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE, quiet = TRUE)
     } else {
       library(pkg$package, character.only = TRUE)
     }

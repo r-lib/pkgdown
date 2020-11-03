@@ -46,6 +46,5 @@ test_that("site meta doesn't break unexpectedly", {
   yaml$pandoc <- "{version}"
   yaml$last_built <- timestamp(as.POSIXct("2020-01-01"))
 
-  # TODO: use snapshot test
-  verify_output(test_path("test-init-meta.txt"), yaml)
+  expect_snapshot_output(yaml)
 })

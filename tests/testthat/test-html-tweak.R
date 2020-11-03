@@ -63,19 +63,14 @@ test_that("tweaking tables does not touch other html", {
 # anchors -------------------------------------------------------------
 
 test_that("anchors don't get additional newline", {
-  html <- xml2::read_html('<div class="contents">
+  html <- xml2::read_xml('<div class="contents">
                           <div id="x">
                           <h1>abc</h1>
                           </div>
                           </div>')
 
   tweak_anchors(html)
-
-  expect_output_file(
-    html %>% xml2::xml_find_first(".//h1") %>% as.character() %>% cat(),
-    "assets/tweak-anchor.html",
-    update = TRUE
-  )
+  expect_snapshot_output(show_xml(html))
 })
 
 # tags -------------------------------------------------------------
@@ -112,26 +107,24 @@ test_that("only local md links are tweaked", {
 # homepage ----------------------------------------------------------------
 
 test_that("page header modification succeeds", {
-  html <- xml2::read_html('
+  html <- xml2::read_xml('
     <h1 class="hasAnchor">
       <a href="#plot" class="anchor"> </a>
-      <img src="someimage" alt=""> some text
+      <img src="someimage" alt="" /> some text
     </h1>')
 
   tweak_homepage_html(html)
-
-  expect_output_file(cat(as.character(html)), "assets/home-page-header.html")
+  expect_snapshot_output(show_xml(html))
 })
 
 test_that("links to vignettes & figures tweaked", {
-  html <- xml2::read_html('
+  html <- xml2::read_xml('<body>
     <img src="vignettes/x.png" />
     <img src="man/figures/x.png" />
-  ')
+  </body>')
 
   tweak_homepage_html(html)
-
-  expect_output_file(cat(as.character(html)), "assets/home-links.html")
+  expect_snapshot_output(show_xml(html))
 })
 
 

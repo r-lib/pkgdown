@@ -47,7 +47,7 @@ Suggests:
     knitr,
     leaflet,
     pkgload (>= 1.0.2),
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     rticles,
     rsconnect,
     rstudioapi
@@ -56,3 +56,4 @@ SystemRequirements: pandoc
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Config/testthat/edition: 3

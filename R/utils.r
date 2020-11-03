@@ -124,3 +124,7 @@ with_dir <- function(new, code) {
 cran_unquote <- function(string) {
   gsub("\\'(.*?)\\'", "\\1", string)
 }
+
+show_xml <- function(x) {
+  cat(as.character(x, options = c("format", "no_declaration")))
+}
