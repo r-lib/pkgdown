@@ -7,7 +7,7 @@ test_that("render_rmarkdown copies image files in subdirectories", {
     render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
   )
   expect_equal(
-    path_rel(dir_ls(tmp, type = "file", recurse = TRUE), tmp),
+    as.character(path_rel(dir_ls(tmp, type = "file", recurse = TRUE), tmp)),
     c("open-graph/logo.png", "test.html")
   )
 })
