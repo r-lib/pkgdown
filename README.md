@@ -55,7 +55,7 @@ customise your site.
 
 If you are using GitHub, the easiest way to make this your package
 website is to check into git, then go to settings for your repo and make
-sure that the **GitHub pages** source is set to “master branch /docs
+sure that the **GitHub pages** source is set to “gh-pages branch /(root)
 folder”. Be sure to update the URL on your github repository homepage so
 others can easily navigate to your new site.
 
@@ -66,20 +66,20 @@ packages](https://github.com/search?q=pkgdown.css+in%3Apath&type=Code).
 
 Here are a few examples created by contributors to pkgdown:
 
-  - [bayesplot](http://mc-stan.org/bayesplot/index.html)
+-   [bayesplot](http://mc-stan.org/bayesplot/index.html)
     ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
     plotting functions for posterior analysis, model checking, and MCMC
     diagnostics.
 
-  - [valr](https://rnabioco.github.io/valr/)
+-   [valr](https://rnabioco.github.io/valr/)
     ([source](https://github.com/rnabioco/valr)): read and manipulate
     genome intervals and signals.
 
-  - [mkin](http://jranke.github.io/mkin/)
+-   [mkin](http://jranke.github.io/mkin/)
     ([source](https://github.com/jranke/mkin)): calculation routines
     based on the FOCUS Kinetics Report
 
-  - [NMF](http://renozao.github.io/NMF/master/index.html)
+-   [NMF](http://renozao.github.io/NMF/master/index.html)
     ([source](https://github.com/renozao/NMF)): a framework to perform
     non-negative matrix factorization (NMF).
 
