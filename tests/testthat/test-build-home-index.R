@@ -1,6 +1,3 @@
-context("test-build-home-index")
-
-
 # repo_link ------------------------------------------------------------
 
 test_that("package repo verification", {

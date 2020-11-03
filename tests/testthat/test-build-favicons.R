@@ -1,5 +1,3 @@
-context("test-build-favicons.R")
-
 test_that("missing logo generates message", {
   pkg <- test_path("assets/site-empty")
   on.exit(clean_site(pkg))

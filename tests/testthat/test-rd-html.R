@@ -1,5 +1,3 @@
-context("test-rd-html.R")
-
 test_that("special characters are escaped", {
   out <- rd2html("a & b")
   expect_equal(out, "a &amp; b")

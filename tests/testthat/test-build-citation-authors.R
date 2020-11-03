@@ -1,5 +1,3 @@
-context("test-build-citation-authors.R")
-
 # A CITATION file anywhere except in `inst/CITATION` is an R CMD check note
 # so 'site-citation' is build-ignored, and so the tests must be skipped
 # during R CMD check

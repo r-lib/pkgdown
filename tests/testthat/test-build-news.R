@@ -1,5 +1,3 @@
-context("test-build-news.R")
-
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
 

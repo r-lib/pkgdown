@@ -1,5 +1,3 @@
-context("test-usage.R")
-
 test_that("can parse data", {
   usage <- parse_usage("f")[[1]]
   expect_equal(usage, list(type = "data", name = "f"))

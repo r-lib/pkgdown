@@ -1,5 +1,3 @@
-context("test-build-home-authors")
-
 # orcid ------------------------------------------------------------------
 
 test_that("ORCID can be identified from all comment styles", {

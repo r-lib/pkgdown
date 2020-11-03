@@ -1,5 +1,3 @@
-context("test-development.R")
-
 test_that("empty yaml gets correct defaults", {
   dev <- meta_development(list())
   expect_equal(dev$mode, "release")

@@ -1,5 +1,3 @@
-context("test-topics.R")
-
 test_that("bad inputs give informative warnings", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,  ~concepts,

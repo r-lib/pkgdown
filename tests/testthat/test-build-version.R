@@ -1,5 +1,3 @@
-context("test-build-version.R")
-
 test_that("formatting in DESCRIPTION version is preserved", {
   pkg <- as_pkgdown(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")

@@ -1,5 +1,3 @@
-context("test-tutorials.R")
-
 jj_examples <- list(
   list(
     name = "00-setup",

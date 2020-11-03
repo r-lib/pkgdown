@@ -1,5 +1,3 @@
-context("test-template-content")
-
 n_matches <- function(page, pattern) {
   length(grep(pattern, page, fixed = TRUE, value = TRUE))
 }

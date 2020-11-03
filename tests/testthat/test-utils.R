@@ -1,5 +1,3 @@
-context("test-utils.R")
-
 test_that("pkgdown.internet can be set and read", {
   options(pkgdown.internet = FALSE)
   expect_false(has_internet())

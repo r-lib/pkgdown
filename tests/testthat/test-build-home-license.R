@@ -1,5 +1,3 @@
-context("test-build-home-license")
-
 test_that("link_license matchs exactly", {
   # R 3.1 uses http url
   skip_if_not(getRversion() >= "3.2.0")

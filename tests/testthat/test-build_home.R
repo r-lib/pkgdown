@@ -1,5 +1,3 @@
-context("test-build_home.R")
-
 # index -------------------------------------------------------------------
 
 test_that("intermediate files cleaned up automatically", {

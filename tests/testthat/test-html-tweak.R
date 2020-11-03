@@ -1,5 +1,3 @@
-context("test-html-tweak.R")
-
 # tables -------------------------------------------------------------
 
 test_that("tables get class='table'", {

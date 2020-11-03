@@ -1,5 +1,3 @@
-context("test-init.R")
-
 test_that("extra.css and extra.js copied and linked", {
   pkg <- test_path("assets/init-extra-2")
   expect_output(init_site(pkg))

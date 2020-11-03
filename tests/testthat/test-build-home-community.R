@@ -1,5 +1,3 @@
-context("test-build-home-community.R")
-
 test_that("has_coc works", {
   # .github in this test is build-ignored to prevent a NOTE about an unexpected
   # hidden directory. Skip on CMD CHECK if the .github directory is not present.s

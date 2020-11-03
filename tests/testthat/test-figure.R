@@ -1,5 +1,3 @@
-context("test-figure.R")
-
 test_that("can override defaults in _pkgdown.yml", {
   skip_if_no_pandoc()
   withr::local_temp_libpaths()

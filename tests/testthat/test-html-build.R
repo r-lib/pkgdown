@@ -1,5 +1,3 @@
-context("test-html-build")
-
 # links and references in the package description -------------------------
 
 test_that("references in angle brackets are converted to HTML", {

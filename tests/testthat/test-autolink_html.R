@@ -1,5 +1,3 @@
-context("test-autolink_html.R")
-
 autolink_html(test_path("assets/autolink.html"), test_path("assets/autolink-out.html"))
 on.exit(fs::file_delete(test_path("assets/autolink-out.html")))
 out <- xml2::read_xml(test_path("assets/autolink-out.html"))
