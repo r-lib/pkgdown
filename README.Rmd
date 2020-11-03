@@ -51,7 +51,7 @@ pkgdown::build_site()
 
 This generates a `docs/` directory containing a website. Your `README.md` becomes the homepage, documentation in `man/` generates a function reference, and vignettes will be rendered into `articles/`. Read `vignette("pkgdown")` for more details and to learn how to customise your site.
 
-If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the __GitHub pages__ source is set to "master branch /docs folder". Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.
+If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the __GitHub pages__ source is set to "gh-pages branch /(root) folder". Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.
 
 ## In the wild
 
