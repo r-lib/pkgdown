@@ -199,6 +199,7 @@
 <ul>
 <li><p>Missing topics makes the build fail when the environment variable <code>CI</code> is set to <code>"true"</code> (<a href='https://github.com/ThierryO'>@ThierryO</a>, <a href='https://github.com/r-lib/pkgdown/issues/1378'>#1378</a>).</p></li>
 <li><p>The default navbar no longer includes a home icon - this took up precious horizontal space and wasn’t very useful since there is already a link to the home page immediately to its left (<a href='https://github.com/r-lib/pkgdown/issues/1383'>#1383</a>).</p></li>
+<li><p><code>build_rmarkdown_format</code> internally sets <code>html_document(anchor_sections = FALSE)</code> so to avoid needless dependencies (<a href='https://github.com/atusy'>@atusy</a>, <a href='https://github.com/r-lib/pkgdown/issues/1426'>#1426</a>).</p></li>
 </ul>
 </div>
     <div id="pkgdown-161" class="section level1">
@@ -252,7 +253,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
 </li>
-<li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://rdrr.io/pkg/downlit/man/downlit_html_path.html">downlit::downlit_html_path()</a></code> instead.</p></li>
+<li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html">downlit::downlit_html_path()</a></code> instead.</p></li>
 <li><p>Highlighting of empty expressions works once more (<a href='https://github.com/r-lib/pkgdown/issues/1310'>#1310</a>).</p></li>
 <li><p>New <code>deploy$install_metadata</code> option in <code>_pkgdown.yml</code>. Setting it to <code>true</code> will store site metadata in the package itself, allowing offline access for packages that to autolink to the package’s website (<a href='https://github.com/mstr3336'>@mstr3336</a>, <a href='https://github.com/r-lib/pkgdown/issues/1336'>#1336</a>).</p></li>
 </ul>
@@ -322,7 +323,7 @@
 <li><p>Examples and Rmd now use exactly the same syntax highlighting strategy.</p></li>
 <li><p>In examples and Rmd, calls of the form <code>current_package::foo</code> now get a local link (<a href='https://github.com/r-lib/pkgdown/issues/1262'>#1262</a>).</p></li>
 <li><p><code>\preformatted{}</code> blocks are now highlighted and linked if they parse as R code (<a href='https://github.com/r-lib/pkgdown/issues/1180'>#1180</a>).</p></li>
-<li><p><code><a href="https://pkgdown.r-lib.org">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code>library()</code> (<a href='https://github.com/r-lib/pkgdown/issues/1161'>#1161</a>).</p></li>
+<li><p><code><a href="https://pkgdown.r-lib.org">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/1161'>#1161</a>).</p></li>
 <li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code>help()</code> (<a href='https://github.com/r-lib/pkgdown/issues/1210'>#1210</a>)</p></li>
 </ul>
 </div>
@@ -608,7 +609,7 @@
 <h2 class="hasAnchor">
 <a href="#improvements-to-rd-translation-1" class="anchor"></a>Improvements to Rd translation</h2>
 <ul>
-<li><p><code>vignette()</code> calls that don’t link to existing vignettes silently fail to link instead of generating an uninformative error messages (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>). Automatic linking works for re-exported objects that are not functions (<a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/r-lib/pkgdown/issues/666'>#666</a>).</p></li>
+<li><p><code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> calls that don’t link to existing vignettes silently fail to link instead of generating an uninformative error messages (<a href='https://github.com/r-lib/pkgdown/issues/652'>#652</a>). Automatic linking works for re-exported objects that are not functions (<a href='https://github.com/gaborcsardi'>@gaborcsardi</a>, <a href='https://github.com/r-lib/pkgdown/issues/666'>#666</a>).</p></li>
 <li><p>Empty <code>\section{}</code>s are ignored (<a href='https://github.com/r-lib/pkgdown/issues/656'>#656</a>). Previously, empty sections caused error <code>Error in rep(TRUE, length(x) - 1)</code>.</p></li>
 <li><p><code>\Sexpr{}</code> supports <code>results=text</code>, <code>results=Rd</code> and <code>results=hide</code> (<a href='https://github.com/r-lib/pkgdown/issues/651'>#651</a>).</p></li>
 <li><p><code>\tabular{}</code> no longer requires a terminal <code>\cr</code> (<a href='https://github.com/r-lib/pkgdown/issues/664'>#664</a>, <a href='https://github.com/r-lib/pkgdown/issues/645'>#645</a>).</p></li>

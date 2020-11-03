@@ -228,17 +228,17 @@ package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_articles</span>(
-  pkg = <span class='st'>"."</span>,
-  quiet = <span class='fl'>TRUE</span>,
-  lazy = <span class='fl'>TRUE</span>,
-  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  preview = <span class='fl'>NA</span>
-)
+    <pre class="usage"><span class='fu'>build_articles</span><span class='op'>(</span>
+  pkg <span class='op'>=</span> <span class='st'>"."</span>,
+  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  override <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  preview <span class='op'>=</span> <span class='cn'>NA</span>
+<span class='op'>)</span>
 
-<span class='fu'>build_article</span>(<span class='kw'>name</span>, pkg = <span class='st'>"."</span>, data = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), lazy = <span class='fl'>FALSE</span>, quiet = <span class='fl'>TRUE</span>)
+<span class='fu'>build_article</span><span class='op'>(</span><span class='va'>name</span>, pkg <span class='op'>=</span> <span class='st'>"."</span>, data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>build_articles_index</span>(pkg = <span class='st'>"."</span>)</pre>
+<span class='fu'>build_articles_index</span><span class='op'>(</span>pkg <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -376,17 +376,17 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
-  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='va'>pkgdown</span><span class='op'>:</span>
+  <span class='va'>as_is</span><span class='op'>:</span> <span class='va'>true</span>
 </pre>
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre><span class='kw'>pkgdown</span><span class='op'>:</span>
-  <span class='kw'>as_is</span><span class='op'>:</span> <span class='kw'>true</span>
-  <span class='kw'>extension</span><span class='op'>:</span> <span class='kw'>pdf</span>
+<code>extension</code> field:</p><pre><span class='va'>pkgdown</span><span class='op'>:</span>
+  <span class='va'>as_is</span><span class='op'>:</span> <span class='va'>true</span>
+  <span class='va'>extension</span><span class='op'>:</span> <span class='va'>pdf</span>
 </pre>
 
 <p>If you want to set an output format for all your articles, you can do that
@@ -395,9 +395,9 @@ by adding a <code>vignettes/_site.yml</code>, much like you would for an
 For example, you can backport some bookdown features such as cross-references
 to all your articles by using the
 <a href='https://bookdown.org/yihui/bookdown/a-single-document.html'>bookdown::html_document2</a>
-format.</p><pre><span class='kw'>output</span><span class='op'>:</span>
-  <span class='kw'>bookdown</span>::<span class='kw'>html_document2</span><span class='op'>:</span>
-  <span class='kw'>number_sections</span><span class='op'>:</span> <span class='kw'>false</span>
+format.</p><pre><span class='va'>output</span><span class='op'>:</span>
+  <span class='fu'>bookdown</span><span class='fu'>::</span><span class='va'>html_document2</span><span class='op'>:</span>
+  <span class='va'>number_sections</span><span class='op'>:</span> <span class='va'>false</span>
 </pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
@@ -413,8 +413,8 @@ present: if you do not want this, you will need to customise the navbar. See
 
     
 
-<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='kw'>toc</span><span class='op'>:</span>
-  <span class='kw'>depth</span><span class='op'>:</span> <span class='fl'>2</span>
+<p>You can control the TOC depth via the YAML configuration file:</p><pre><span class='va'>toc</span><span class='op'>:</span>
+  <span class='va'>depth</span><span class='op'>:</span> <span class='fl'>2</span>
 </pre>
 
     <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures"></a>Figures</h2>

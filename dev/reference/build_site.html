@@ -222,19 +222,19 @@ that aspect of the site.</p>
 <code><a href='clean_site.html'>clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_site</span>(
-  pkg = <span class='st'>"."</span>,
-  examples = <span class='fl'>TRUE</span>,
-  run_dont_run = <span class='fl'>FALSE</span>,
-  seed = <span class='fl'>1014</span>,
-  lazy = <span class='fl'>FALSE</span>,
-  override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  preview = <span class='fl'>NA</span>,
-  devel = <span class='fl'>FALSE</span>,
-  new_process = <span class='op'>!</span><span class='kw'>devel</span>,
-  install = <span class='op'>!</span><span class='kw'>devel</span>,
-  document = <span class='st'>"DEPRECATED"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>build_site</span><span class='op'>(</span>
+  pkg <span class='op'>=</span> <span class='st'>"."</span>,
+  examples <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  run_dont_run <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='fl'>1014</span>,
+  lazy <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  override <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  preview <span class='op'>=</span> <span class='cn'>NA</span>,
+  devel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  new_process <span class='op'>=</span> <span class='op'>!</span><span class='va'>devel</span>,
+  install <span class='op'>=</span> <span class='op'>!</span><span class='va'>devel</span>,
+  document <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -356,12 +356,12 @@ label, and the message indicates the package is not yet on CRAN.</p></li>
 </ul>
 
 <p>The default development mode is "release". You can override it by adding a
-new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='kw'>development</span><span class='op'>:</span>
-  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>devel</span>
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='va'>development</span><span class='op'>:</span>
+  <span class='va'>mode</span><span class='op'>:</span> <span class='va'>devel</span>
 </pre>
 
-<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='kw'>development</span><span class='op'>:</span>
-  <span class='kw'>mode</span><span class='op'>:</span> <span class='kw'>auto</span>
+<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='va'>development</span><span class='op'>:</span>
+  <span class='va'>mode</span><span class='op'>:</span> <span class='va'>auto</span>
 </pre>
 
 <p>The mode will be automatically determined based on the version number:</p><ul>
@@ -370,10 +370,10 @@ new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><s
 <li><p>everything else -&gt; release</p></li>
 </ul>
 
-<p>There are three other options that you can control:</p><pre><span class='kw'>development</span><span class='op'>:</span>
-  <span class='kw'>destination</span><span class='op'>:</span> <span class='kw'>dev</span>
-  <span class='kw'>version_label</span><span class='op'>:</span> <span class='kw'>danger</span>
-  <span class='kw'>version_tooltip</span><span class='op'>:</span> <span class='st'>"Custom message here"</span>
+<p>There are three other options that you can control:</p><pre><span class='va'>development</span><span class='op'>:</span>
+  <span class='va'>destination</span><span class='op'>:</span> <span class='va'>dev</span>
+  <span class='va'>version_label</span><span class='op'>:</span> <span class='va'>danger</span>
+  <span class='va'>version_tooltip</span><span class='op'>:</span> <span class='st'>"Custom message here"</span>
 </pre>
 
 <p><code>destination</code> allows you to override the default subdirectory used for the
@@ -449,11 +449,11 @@ left menu.</p>
     
 
 <p>You can use <a href='https://community.algolia.com/docsearch/'>docsearch</a> by algolia
-to add search to your site.</p><pre><span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>docsearch</span><span class='op'>:</span>
-      <span class='kw'>api_key</span><span class='op'>:</span> <span class='kw'>API_KEY</span>
-      <span class='kw'>index_name</span><span class='op'>:</span> <span class='kw'>INDEX_NAME</span>
+to add search to your site.</p><pre><span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>params</span><span class='op'>:</span>
+    <span class='va'>docsearch</span><span class='op'>:</span>
+      <span class='va'>api_key</span><span class='op'>:</span> <span class='va'>API_KEY</span>
+      <span class='va'>index_name</span><span class='op'>:</span> <span class='va'>INDEX_NAME</span>
 </pre>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
@@ -467,9 +467,9 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre><span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>bootswatch</span><span class='op'>:</span> <span class='kw'>cerulean</span>
+template:</p><pre><span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>params</span><span class='op'>:</span>
+    <span class='va'>bootswatch</span><span class='op'>:</span> <span class='va'>cerulean</span>
 </pre>
 
 <p>See a complete list of themes and preview how they look at
@@ -481,29 +481,29 @@ It should correspond to your
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.</p><pre><span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>ganalytics</span><span class='op'>:</span> <span class='kw'>UA</span><span class='op'>-</span><span class='fl'>000000</span><span class='op'>-</span><span class='fl'>01</span>
+site, in keeping with current laws and regulations.</p><pre><span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>params</span><span class='op'>:</span>
+    <span class='va'>ganalytics</span><span class='op'>:</span> <span class='va'>UA</span><span class='op'>-</span><span class='fl'>000000</span><span class='op'>-</span><span class='fl'>01</span>
 </pre>
 
-<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>params</span><span class='op'>:</span>
-    <span class='kw'>noindex</span><span class='op'>:</span> <span class='kw'>true</span>
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>params</span><span class='op'>:</span>
+    <span class='va'>noindex</span><span class='op'>:</span> <span class='va'>true</span>
 </pre>
 
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing in a <code>package</code> with
 directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre><span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>package</span><span class='op'>:</span> <span class='kw'>mycustompackage</span>
+of the default assets, set <code>default_assets</code> to false.</p><pre><span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>package</span><span class='op'>:</span> <span class='va'>mycustompackage</span>
 
 <span class='co'># OR:</span>
 
-<span class='kw'>template</span><span class='op'>:</span>
-  <span class='kw'>path</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>templates</span>
-  <span class='kw'>assets</span><span class='op'>:</span> <span class='kw'>path</span><span class='op'>/</span><span class='kw'>to</span><span class='op'>/</span><span class='kw'>assets</span>
-  <span class='kw'>default_assets</span><span class='op'>:</span> <span class='kw'>false</span>
+<span class='va'>template</span><span class='op'>:</span>
+  <span class='va'>path</span><span class='op'>:</span> <span class='va'>path</span><span class='op'>/</span><span class='va'>to</span><span class='op'>/</span><span class='va'>templates</span>
+  <span class='va'>assets</span><span class='op'>:</span> <span class='va'>path</span><span class='op'>/</span><span class='va'>to</span><span class='op'>/</span><span class='va'>assets</span>
+  <span class='va'>default_assets</span><span class='op'>:</span> <span class='va'>false</span>
 </pre>
 
 <p>These settings are currently recommended for advanced users only. There
@@ -540,8 +540,8 @@ supply your own in the <code>repo</code> component:<div class="yaml"></p><pre>re
 the end of these URLs so they should have trailing <code><a href='https://rdrr.io/r/base/Arithmetic.html'>/</a></code>s.</p>
 <p>pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
-specifying a branch name:<div class="yaml"></p><pre><span class='kw'>repo</span><span class='op'>:</span>
-  <span class='kw'>branch</span><span class='op'>:</span> <span class='kw'>main</span>
+specifying a branch name:<div class="yaml"></p><pre><span class='va'>repo</span><span class='op'>:</span>
+  <span class='va'>branch</span><span class='op'>:</span> <span class='va'>main</span>
 </pre><p></div></p>
     <h2 class="hasAnchor" id="yaml-config-deploy"><a class="anchor" href="#yaml-config-deploy"></a>YAML config - deploy</h2>
 
@@ -552,8 +552,8 @@ specifying a branch name:<div class="yaml"></p><pre><span class='kw'>repo</span>
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
-time (e.g. because it's only behind the firewall or requires auth).<div class="yaml"></p><pre><span class='kw'>deploy</span><span class='op'>:</span>
-  <span class='kw'>install_metadata</span><span class='op'>:</span> <span class='kw'>true</span>
+time (e.g. because it's only behind the firewall or requires auth).<div class="yaml"></p><pre><span class='va'>deploy</span><span class='op'>:</span>
+  <span class='va'>install_metadata</span><span class='op'>:</span> <span class='va'>true</span>
 </pre><p></div></p></li>
 </ul>
 
@@ -571,11 +571,11 @@ or vignettes, this connection is required as this option won't apply on them.</p
 hanging in cron jobs.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>build_site</span>()
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>build_site</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>build_site</span>(override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(destination = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))
-}
+<span class='fu'>build_site</span><span class='op'>(</span>override <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>destination <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

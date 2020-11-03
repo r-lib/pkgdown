@@ -198,7 +198,7 @@
     <p>Your <code>NEWS.md</code> is parsed in to sections based on your use of headings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_news</span>(pkg = <span class='st'>"."</span>, override = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), preview = <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>build_news</span><span class='op'>(</span>pkg <span class='op'>=</span> <span class='st'>"."</span>, override <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, preview <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,12 +257,12 @@ section.</p><pre>news:
 </pre>
 
 <p>Control whether news is present on one page or multiple pages with the
-<code>one_page</code> field. The default is <code>true</code>.</p><pre><span class='kw'>news</span><span class='op'>:</span>
-  <span class='kw'>one_page</span><span class='op'>:</span> <span class='kw'>false</span>
+<code>one_page</code> field. The default is <code>true</code>.</p><pre><span class='va'>news</span><span class='op'>:</span>
+  <span class='va'>one_page</span><span class='op'>:</span> <span class='va'>false</span>
 </pre>
 
-<p>Suppress the default addition of CRAN release dates with:</p><pre><span class='kw'>news</span><span class='op'>:</span>
-  <span class='kw'>cran_dates</span><span class='op'>:</span> <span class='kw'>false</span>
+<p>Suppress the default addition of CRAN release dates with:</p><pre><span class='va'>news</span><span class='op'>:</span>
+  <span class='va'>cran_dates</span><span class='op'>:</span> <span class='va'>false</span>
 </pre>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

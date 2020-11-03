@@ -195,10 +195,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Deprecated: please use <a href='https://rdrr.io/pkg/downlit/man/downlit_html_path.html'>downlit::downlit_html_path</a> instead.</p>
+    <p>Deprecated: please use <a href='https://downlit.r-lib.org/reference/downlit_html_path.html'>downlit::downlit_html_path</a> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autolink_html</span>(<span class='kw'>input</span>, output = <span class='kw'>input</span>, local_packages = <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())</pre>
+    <pre class="usage"><span class='fu'>autolink_html</span><span class='op'>(</span><span class='va'>input</span>, output <span class='op'>=</span> <span class='va'>input</span>, local_packages <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,14 +217,14 @@ from the target HTML document.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>autolink_html</span>(<span class='st'>"path/to/file.html"</span>,
-  local_packages = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    shiny = <span class='st'>"shiny"</span>,
-    shinydashboard = <span class='st'>"shinydashboard"</span>
-  )
-)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>autolink_html</span><span class='op'>(</span><span class='st'>"path/to/file.html"</span>,
+  local_packages <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    shiny <span class='op'>=</span> <span class='st'>"shiny"</span>,
+    shinydashboard <span class='op'>=</span> <span class='st'>"shinydashboard"</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
