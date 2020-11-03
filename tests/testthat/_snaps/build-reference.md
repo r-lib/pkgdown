@@ -4,6 +4,7 @@
       build_reference(test_path("assets/reference-fail"))
     Output
       -- Building function reference -------------------------------------------------
+      Writing 'reference/index.html'
       Reading 'man/f.Rd'
     Error <rlang_error>
       Failed to parse Rd in f.Rd
