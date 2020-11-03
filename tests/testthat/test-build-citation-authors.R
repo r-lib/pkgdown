@@ -7,14 +7,14 @@ skip_if_not(dir_exists(path)[[1]])
 
 test_that("UTF-8 encoding and `citation(auto = meta) can be read` (#416, #493)", {
   cit <- read_citation(path)
-  expect_is(cit, "citation")
+  expect_s3_class(cit, "citation")
 })
 
 test_that("latin1 encoding and `citation(auto = meta) can be read` (#689)", {
   path <- test_path("assets/site-citation/encoding-latin1")
 
   cit <- read_citation(path)
-  expect_is(cit, "citation")
+  expect_s3_class(cit, "citation")
 })
 
 test_that("create_meta can read DESCRIPTION with an Encoding", {
