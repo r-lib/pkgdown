@@ -44,3 +44,10 @@ jobs:
       - name: Test coverage
         run: covr::codecov()
         shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: covr-results
+          path: check
