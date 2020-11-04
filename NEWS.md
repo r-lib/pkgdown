@@ -27,6 +27,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Article subtitles (specified in the YAML frontmatter) are now correctly
   ommitted from the article table of contents in the sidebar (@maxheld83, #1428).
 
+* Article subtitle, author and date (specified in the YAML frontmatter) are now 
+  correctly ommitted from the article table of contents in the sidebar 
+  (@maxheld83, #1428).
+
 * Missing topics makes the build fail when the environment variable `CI` is set
   to `"true"` (@ThierryO, #1378).
 
