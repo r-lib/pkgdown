@@ -119,15 +119,13 @@ if (requireNamespace("htmltools", quietly = TRUE)) {
   htmlwidgets::setWidgetIdSeed(42)
 }
 
-library(leaflet)
 
-leaflet() %>%
-  addTiles() %>%
-  addMarkers(
-    lng=174.768,
-    lat=-36.852,
-    popup="The birthplace of R"
-  )
+path1 <- tempfile()
+writeLines(letters, path1)
+path2 <- tempfile()
+writeLines(letters[-(10:11)], path2)
+
+diffviewer::visual_diff(path1, path2)
 ```
 
 Test spacing below widget.

@@ -42,10 +42,10 @@ Imports:
     yaml
 Suggests: 
     covr,
+    diffviewer,
     htmlwidgets,
     jsonlite,
     knitr,
-    leaflet,
     pkgload (>= 1.0.2),
     testthat (>= 3.0.0),
     rticles,
