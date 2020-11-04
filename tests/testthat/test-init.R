@@ -42,7 +42,7 @@ test_that("site meta doesn't break unexpectedly", {
   yaml$pkgdown <- "{version}"
   yaml$pkgdown_sha <- "{sha}"
   yaml$pandoc <- "{version}"
-  yaml$last_built <- timestamp(as.POSIXct("2020-01-01"))
+  yaml$last_built <- timestamp(as.POSIXct("2020-01-01", tz = "UTC"))
 
   expect_snapshot_output(yaml)
 })
