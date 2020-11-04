@@ -194,29 +194,20 @@ test_that("Sexprs in file share environment", {
 })
 
 test_that("Sexprs run from package root", {
-  skip_on_travis()
-  # Because paths are different during R CMD check
-  skip_if_not(file_exists("../../DESCRIPTION"))
-  local_context_eval(src_path = "../..")
+  local_context_eval(src_path = test_path("assets/reference"))
 
   # \packageTitle is built in macro that uses DESCRIPTION
   expect_equal(
-    rd2html("\\packageTitle{pkgdown}"),
-    "Make Static HTML Documentation for a Package"
+    rd2html("\\packageTitle{testpackage}"),
+    "A test package"
   )
 })
 
 test_that("DOIs are linked", {
-  # Because paths are different during R CMD check
-  skip_if_not(file_exists("../../DESCRIPTION"))
-  local_context_eval(src_path = "../..")
+  skip_if(getRversion() <= "3.6.0") # previous version used http
 
-  expect_true(
-    rd2html("\\doi{test}") %in%
-      c("doi: <a href='http://doi.org/test'>test</a>",
-        "doi: <a href='https://doi.org/test'>test</a>"
-      )
-  )
+  local_context_eval(src_path = test_path("assets/reference"))
+  expect_snapshot(rd2html("\\doi{test}"))
 })
 
 # links -------------------------------------------------------------------
