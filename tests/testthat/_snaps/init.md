@@ -3,18 +3,10 @@
     pandoc: '{version}'
     pkgdown: '{version}'
     pkgdown_sha: '{sha}'
-    articles:
-      linking: linking.html
-      metadata: metadata.html
-      pkgdown: pkgdown.html
-      search: search.html
-      test/jss: jss.pdf
-      test/output: output.html
-      test/pdf: pdf.pdf
-      test/rendering: rendering.html
+    articles: {}
     last_built: 2020-01-01T06:00Z
     urls:
-      reference: https://pkgdown.r-lib.org/reference
-      article: https://pkgdown.r-lib.org/articles
+      reference: http://test.org/reference
+      article: http://test.org/articles
     
 
