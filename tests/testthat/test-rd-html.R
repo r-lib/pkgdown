@@ -204,6 +204,8 @@ test_that("Sexprs run from package root", {
 })
 
 test_that("DOIs are linked", {
+  skip_if(getRversion() <= "3.6.0") # previous version used http
+
   local_context_eval(src_path = test_path("assets/reference"))
   expect_snapshot(rd2html("\\doi{test}"))
 })
