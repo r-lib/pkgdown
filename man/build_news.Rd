@@ -16,30 +16,40 @@ values in \verb{_pkgdown.yml}}
 freshly generated section in browser.}
 }
 \description{
-Your \code{NEWS.md} is parsed in to sections based on your use of headings.
+A \code{NEWS.md} will be broken up into versions using level one (\verb{#}) or
+level two headings (\verb{##}) that (partially) match one of the following forms
+(ignoring case):
+\itemize{
+\item \verb{\{package name\} 1.3.0}
+\item \verb{\{package name\} v1.3.0}
+\item \verb{Version 1.3.0}
+\item \verb{Changes in 1.3.0}
+\item \verb{Changes in v1.3.0}
+}
 }
 \details{
-The \code{NEWS.md} file should be formatted with level one headings (\verb{#})
-containing the package name and version number, level two headings (\verb{##})
-with topic headings and lists of news bullets. Commonly used level two
-headings include 'Major changes', 'Bug fixes', or 'Minor changes'.\preformatted{# pkgdown 0.1.0.9000
+A \href{https://style.tidyverse.org/news.html}{common structure} for news files
+is to use a top level heading for each release, and use a second level
+heading to break up individual bullets into sections.\preformatted{# foofy 1.0.0
 
 ## Major changes
 
-- Fresh approach based on the staticdocs package. Site configuration now based
-  on YAML files.
+* Can now work with all grooveable grobbles!
+
+## Minor improvements and bug fixes
+
+* Printing scrobbles no longer errors (@githubusername, #100)
+
+* Wibbles are now 55\% less jibbly (#200)
 }
 
-If the package is available on CRAN, release dates will be added to versions
-in level-one headings, and "Unreleased" will be added versions that are not on
-CRAN.
+Issues and contributors will be automatically linked to the corresponding
+pages on GitHub if the GitHub repo can be discovered from the \code{DESCRIPTION}
+(typically from a \code{URL} entry containing \code{github.com})
 
-Issues and contributors mentioned in news items are automatically linked to
-github if a \code{URL} entry linking to github.com is provided in the package
-\code{DESCRIPTION}.\preformatted{## Major changes
-
-  - Lots of bug fixes (@hadley, #100)
-}
+If a version is available on CRAN, the release date will automatically
+be added to the heading (see below for how to suppress); if not
+available on CRAN, "Unreleased" will be added.
 }
 \section{YAML config}{
 

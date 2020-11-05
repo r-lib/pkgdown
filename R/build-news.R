@@ -1,34 +1,42 @@
 #' Build news section
 #'
-#' Your `NEWS.md` is parsed in to sections based on your use of headings.
+#' @description
+#' A `NEWS.md` will be broken up into versions using level one (`#`) or
+#' level two headings (`##`) that (partially) match one of the following forms
+#' (ignoring case):
 #'
-#' The `NEWS.md` file should be formatted with level one headings (`#`)
-#' containing the package name and version number, level two headings (`##`)
-#' with topic headings and lists of news bullets. Commonly used level two
-#' headings include 'Major changes', 'Bug fixes', or 'Minor changes'.
+#' * `{package name} 1.3.0`
+#' * `{package name} v1.3.0`
+#' * `Version 1.3.0`
+#' * `Changes in 1.3.0`
+#' * `Changes in v1.3.0`
+#'
+#' @details
+#' A [common structure](https://style.tidyverse.org/news.html) for news files
+#' is to use a top level heading for each release, and use a second level
+#' heading to break up individual bullets into sections.
 #'
 #' ```
-#' # pkgdown 0.1.0.9000
+#' # foofy 1.0.0
 #'
 #' ## Major changes
 #'
-#' - Fresh approach based on the staticdocs package. Site configuration now based
-#'   on YAML files.
+#' * Can now work with all grooveable grobbles!
+#'
+#' ## Minor improvements and bug fixes
+#'
+#' * Printing scrobbles no longer errors (@githubusername, #100)
+#'
+#' * Wibbles are now 55% less jibbly (#200)
 #' ```
 #'
-#' If the package is available on CRAN, release dates will be added to versions
-#' in level-one headings, and "Unreleased" will be added versions that are not on
-#' CRAN.
+#' Issues and contributors will be automatically linked to the corresponding
+#' pages on GitHub if the GitHub repo can be discovered from the `DESCRIPTION`
+#' (typically from a `URL` entry containing `github.com`)
 #'
-#' Issues and contributors mentioned in news items are automatically linked to
-#' github if a `URL` entry linking to github.com is provided in the package
-#' `DESCRIPTION`.
-#'
-#' ```
-#' ## Major changes
-#'
-#'   - Lots of bug fixes (@hadley, #100)
-#' ```
+#' If a version is available on CRAN, the release date will automatically
+#' be added to the heading (see below for how to suppress); if not
+#' available on CRAN, "Unreleased" will be added.
 #'
 #' @section YAML config:
 #'
@@ -148,7 +156,7 @@ data_news <- function(pkg = ".") {
     stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
   }
 
-  versions <- news_version(titles)
+  versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]
   anchors <- anchors[!is.na(versions)]
   versions <- versions[!is.na(versions)]
@@ -175,18 +183,19 @@ data_news <- function(pkg = ".") {
   news
 }
 
-news_version <- function(x) {
-  pattern <- "(?x)
-    ^(?<package>[[:alnum:],\\.]+)\\s+ # alpha-numeric package name
+news_version <- function(x, pkgname) {
+  pattern <- paste0("(?x)
+    (?:", pkgname, "|version|changes\\ in)
+    \\s+   # whitespace
+    v?     # optional v followed by
     (?<version>
-      v?                              # optional v
-      (\\d+[.-]\\d+)(?:[.-]\\d+)*     # followed by digits, dots and dashes
-      |                               # OR
-      (\\(development\\ version\\))   # literal used by usethis
+      (?:\\d+[.-]\\d+)(?:[.-]\\d+)*     # digits, dots, and dashes
+      |                             # OR
+      \\(development\\ version\\)   # literal used by usethis
     )
-  "
-  pieces <- rematch2::re_match(x, pattern)
-  gsub("^[v(]|[)]$", "", pieces$version)
+  ")
+  pieces <- rematch2::re_match(x, pattern, ignore.case = TRUE)
+  gsub("^[(]|[)]$", "", pieces$version)
 }
 
 version_page <- function(x) {

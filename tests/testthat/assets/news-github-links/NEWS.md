@@ -1,4 +1,4 @@
-# pkgdown 0.1.0
+# testpackage 0.1.0
 
 ## Major changes
 

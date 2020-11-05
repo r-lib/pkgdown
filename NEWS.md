@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_news()` recognises more styles of release heading (#1437).
+
 * Missing topics makes the build fail when the environment variable `CI` is set
   to `"true"` (@ThierryO, #1378).
 

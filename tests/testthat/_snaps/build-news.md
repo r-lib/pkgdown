@@ -1,8 +1,8 @@
 # github links are added to news items
 
-    <div id="pkgdown-010" class="section level1">
+    <div id="testpackage-010" class="section level1">
     <h1 class="page-header" data-toc-text="0.1.0">
-    <a href="#pkgdown-010" class="anchor"></a>pkgdown 0.1.0</h1>
+    <a href="#testpackage-010" class="anchor"></a>testpackage 0.1.0</h1>
     <div id="major-changes" class="section level2">
     <h2 class="hasAnchor">
     <a href="#major-changes" class="anchor"></a>Major changes</h2>

@@ -76,12 +76,27 @@ test_that("multi-page news are rendered", {
 # news_title and version_page -----------------------------------------------
 
 test_that("can recognise common forms of title", {
+  # Variants in beginning
   version <- news_version(c(
-    "pkgdown 1.3.0",
-    "pkgdown v1.3.0",
-    "pkgdown (development version)"
-  ))
-  expect_equal(version, c("1.3.0", "1.3.0", "development version"))
+    "foo 1.3.0",
+    "foo v1.3.0",
+    "foo 1.3.0",
+    "VERSION 1.3.0",
+    "changes in 1.3.0",
+    "changes in foo version 1.3.0"
+  ), "foo")
+  expect_equal(version, rep("1.3.0", length(version)))
+
+  # Variants in version spec
+  expect_equal(
+    news_version(c("foo 1-2", "foo 1-2-3", "foo 1-2-3-4"), "foo"),
+    c("1-2", "1-2-3", "1-2-3-4")
+  )
+
+  expect_equal(
+    news_version("foo (development version)", "foo"),
+    "development version"
+  )
 })
 
 test_that("correctly collapses version to page for common cases", {
