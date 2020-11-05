@@ -5,13 +5,7 @@ test_that("github links are added to news items", {
   pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
   news_tbl <- data_news(pkg)
 
-  user_link <- "<a href='https://github.com/hadley'>@hadley</a>"
-  user_link2 <- "<a href='https://github.com/josue-rodriguez'>@josue-rodriguez</a>"
-  issue_link <- "<a href='https://github.com/hadley/pkgdown/issues/100'>#100</a>"
-
-  expect_true(grepl(user_link, news_tbl$html))
-  expect_true(grepl(user_link2, news_tbl$html))
-  expect_true(grepl(issue_link, news_tbl$html))
+  expect_snapshot_output(cat(news_tbl$html))
 })
 
 test_that("build_news() uses content in NEWS.md", {
