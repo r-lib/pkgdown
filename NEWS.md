@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Protect the rules drawn by the CLI (as for example, in `build_site()`) against
+  very narrow terminal windows with small `getOption('width')`s 
+  (@maxheld83, #1435).
+
 * `build_news()` recognises more styles of release heading (#1437).
 
 * Missing topics makes the build fail when the environment variable `CI` is set
