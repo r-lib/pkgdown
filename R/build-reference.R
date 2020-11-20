@@ -174,7 +174,7 @@ build_reference <- function(pkg = ".",
     old_dir <- setwd(path(pkg$dst_path, "reference"))
     on.exit(setwd(old_dir), add = TRUE)
 
-    old_opt <- options(width = 80)
+    old_opt <- options(width = 10000)
     on.exit(options(old_opt), add = TRUE)
 
     set.seed(seed)
