@@ -47,7 +47,14 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
       params:
         ganalytics: UA-000000-01
     ```
-    
+*   A Google site verification code to be added to page headers 
+
+    ```yaml
+    template:
+      params:
+        google_site_verification: _nn6ile-a6x6lctOW
+    ```
+
 *   Customize metadata used for social media cards, as described in 
     `vignette("metadata")`.
 
