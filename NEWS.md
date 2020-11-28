@@ -1,7 +1,8 @@
 # pkgdown (development version)
 
-* Links for GitHub Enterprise and GitLab repositories are detected by assuming
-  such host address begin with `github.` or `gitlab.` (@ijlyttle, #1452).
+* Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
+  by assuming such host address begin with `github.` or `gitlab.` 
+  (@ijlyttle, #1452).
 
 * `build_news()` recognises more styles of release heading (#1437).
 
