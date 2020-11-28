@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Links for GitHub Enterprise and GitLab repositories are detected using
+  a heurstic that assumes such host address begin with `github.` or `gitlab.`
+  (@ijlyttle, #1452).
+
 * `build_news()` recognises more styles of release heading (#1437).
 
 * Missing topics makes the build fail when the environment variable `CI` is set
