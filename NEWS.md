@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) can now be configured for pkgdown sites.
+
 * `build_news()` recognises more styles of release heading (#1437).
 
 * Missing topics makes the build fail when the environment variable `CI` is set
