@@ -21,7 +21,7 @@ Package authors can customize the metadata used by Twitter and the [Open Graph p
 You can preview and validate the appearance of the social media cards with online tools:
 
 * [Twitter Card Validator][twitter-validator]
-* [Google Results Test][ogp-validator]
+* [Google Rich Results Test][ogp-validator]
 
 ## Site-wide customization
 
