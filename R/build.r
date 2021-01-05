@@ -67,7 +67,7 @@
 #' * **release**: site written to `docs/`, the version gets the default
 #'   colouring, and no message.
 #'
-#' * **development**: written to `docs/dev/`, the version gets a danger label,
+#' * **development**: written to `docs/dev/`, the version gets a "danger" label,
 #'   and message stating these are docs for an in-development version of the
 #'   package. The `noindex` meta tag is used to ensure that these packages are
 #'   not indexed by search engines.
