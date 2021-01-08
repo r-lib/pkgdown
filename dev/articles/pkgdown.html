@@ -118,7 +118,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/r-lib/pkgdown/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -182,6 +182,12 @@
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">ganalytics</span><span class="kw">:</span><span class="at"> UA-000000-01</span></span></code></pre></div>
 </li>
+<li>
+<p>A Google site verification code to be added to page headers</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">google_site_verification</span><span class="kw">:</span><span class="at"> _nn6ile-a6x6lctOW</span></span></code></pre></div>
+</li>
 <li><p>Customize metadata used for social media cards, as described in <code><a href="../articles/metadata.html">vignette("metadata")</a></code>.</p></li>
 <li><p>Package search, as described in <code><a href="../articles/search.html">vignette("search")</a></code>.</p></li>
 </ul>
@@ -205,23 +211,23 @@
 <li>A subtitle, defined by <code>subtitle</code> and optional <code>desc</code> (description) fields.</li>
 <li>A list of topics defined by a <code>contents</code> field.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>    Functions for installing Spark components and managing</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    connections to Spark</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_install</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    Functions for installing Spark components and managing</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    connections to Spark</span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_install</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
 <p>Note the use of <code>starts_with()</code> to select all functions with a common prefix. You can also use <code>ends_with()</code> and <code>matches()</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
 <p>While working on the reference index you might want to run <code><a href="../reference/build_reference.html">build_reference_index()</a></code> instead of <code><a href="../reference/build_site.html">build_site()</a></code>; that will considerably reduce your iteration time.</p>
 </div>
@@ -236,15 +242,15 @@
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
 <p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">## Bug Fixes</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>* <span class="st">Lots of them</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="fu"># pkgdown 1.0.0</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a>* <span class="st">This is the first release of pkgdown.</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">## Bug Fixes</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>* <span class="st">Lots of them</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="fu"># pkgdown 1.0.0</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>* <span class="st">This is the first release of pkgdown.</span></span></code></pre></div>
 <p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html">tidyverse style guide</a>.</p>
 <p>See <code><a href="../reference/build_news.html">?build_news</a></code> for more customisation options including how to:</p>
 <ul>
