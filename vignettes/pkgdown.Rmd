@@ -154,6 +154,8 @@ Once your finalized site is built and published on the web, you should publicize
 
 1. Your repository description on GitHub.
 
+1. The configuration file `_pkgdown.yml`.
+
 1. On Twitter (make sure to include `#rstats`).
 
 [docs]: https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch
