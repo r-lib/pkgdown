@@ -70,7 +70,7 @@ jobs:
 
 
       - name: Deploy to Netlify
-        if: contains(env.isExtPR, 'false')
+        #if: contains(env.isExtPR, 'false')
         id: netlify-deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
