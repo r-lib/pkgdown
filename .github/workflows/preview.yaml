@@ -21,8 +21,9 @@ jobs:
         id: install-r
         uses: r-lib/actions/setup-r@master
 
-      - name: Setup pandoc
-        uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - uses: r-lib/actions/setup-tinytex@v1
 
       - name: Install pak and query dependencies
         run: |
