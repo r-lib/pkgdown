@@ -65,7 +65,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Build site
-        run: Rscript -e 'pkgdown::build_site(destination = "_site")'
+        run: Rscript -e 'pkgdown::build_site(override = list(destination = "_site"))'
 
 
       - name: Deploy to Netlify
