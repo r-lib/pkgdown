@@ -16,7 +16,6 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      isExtPR: ${{ github.event.pull_request.head.repo.fork == true }}
       isPush: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v2
@@ -61,13 +60,13 @@ jobs:
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
       - name: Create website and another page
-        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'false')
+        if: contains(env.isPush, 'false')
         run: |
           Rscript -e 'pkgdown::build_site()'
           Rscript -e 'pkgdown::build_home(override=list(destination="cosmo", template = list(params=list( bootswatch = "cosmo"))))'
 
       - name: Move files
-        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'false')
+        if: contains(env.isPush, 'false')
         run: |
           cp -r ./cosmo/dev ./docs/dev/cosmo
 
