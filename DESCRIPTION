@@ -50,7 +50,8 @@ Suggests:
     testthat (>= 3.0.0),
     rticles,
     rsconnect,
-    rstudioapi
+    rstudioapi,
+    sessioninfo
 VignetteBuilder: knitr
 SystemRequirements: pandoc
 RoxygenNote: 7.1.1
