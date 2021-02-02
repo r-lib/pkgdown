@@ -10,6 +10,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
+    if: github.repository == 'r-lib/pkgdown'
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -60,19 +61,19 @@ jobs:
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
       - name: Create website and another page
-        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'true')
+        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'false')
         run: |
           Rscript -e 'pkgdown::build_site()'
           Rscript -e 'pkgdown::build_home(override=list(destination="cosmo", template = list(params=list( bootswatch = "cosmo"))))'
 
       - name: Move files
-        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'true')
+        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'false')
         run: |
           cp -r ./cosmo/dev ./docs/dev/cosmo
 
 
       - name: Deploy to Netlify
-        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'true')
+        if: contains(env.isPush, 'false') && contains(env.isExtPR, 'false')
         id: netlify-deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
