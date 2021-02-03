@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Protect the rules drawn by the CLI (as for example, in `build_site()`) against
+  very narrow terminal windows with small `getOption('width')`s 
+  (@maxheld83, #1435).
+
 * [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) can now be configured for pkgdown sites.
 
 * `build_news()` recognises more styles of release heading (#1437).

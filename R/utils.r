@@ -91,6 +91,8 @@ rule <- function(x = NULL, line = "-") {
   }
 
   line_length <- width - nchar(x) - nchar(prefix) - nchar(suffix)
+  # protect against negative values which can result in narrow terminals
+  line_length <- max(0, line_length)
   cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
 }
 
