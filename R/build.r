@@ -72,22 +72,24 @@
 #'
 #' There are currently four possible modes:
 #'
-#' * **release** (`mode: release`): Default mode. Site written to `docs/`, 
-#'   the version gets the default colouring, and no message.
+#' * **release** (`mode: release`), the default. Site is written to `docs/`.
+#'   Version in navbar gets the default colouring.
 #'
-#' * **development** (`mode: devel`) : written to `docs/dev/`, the version gets a danger label,
-#'   and message stating these are docs for an in-development version of the
-#'   package. The `noindex` meta tag is used to ensure that these packages are
-#'   not indexed by search engines.
+#' * **development** (`mode: devel`). Site is written to `docs/dev/`.
+#'   Version in navbar gets the "danger" class and a message stating these are
+#'   docs for an in-development version of the package. The `noindex` meta tag
+#'   is used to ensure that these packages are not indexed by search engines.
 #'
-#' * **unreleased** (`mode: unreleased`): the package is written to `docs/`, the version gets a "danger"
-#'   label, and the message indicates the package is not yet on CRAN.
+#' * **unreleased** (`mode: unreleased`). Site is written to `docs/`.
+#'   Version in navbar gets the "danger" class, and a message indicating the
+#'   package is not yet on CRAN.
 #'
 #' * **automatic** (`mode: auto`): pkgdown automatically detects the mode
 #'   based on the version number:
-#'   * `0.0.0.9000` (`0.0.0.*`): unreleased
-#'   * four version components: development
-#'   * everything else -> release
+#'
+#'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
+#'   * four version components: development.
+#'   * everything else -> release.
 #'
 #' There are three other options that you can control:
 #'

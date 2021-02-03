@@ -130,20 +130,21 @@ new \code{development} field to \verb{_pkgdown.yml}, e.g.\preformatted{developme
 
 There are currently four possible modes:
 \itemize{
-\item \strong{release} (\code{mode: release}): Default mode. Site written to \verb{docs/},
-the version gets the default colouring, and no message.
-\item \strong{development} (\code{mode: devel}) : written to \verb{docs/dev/}, the version gets a danger label,
-and message stating these are docs for an in-development version of the
-package. The \code{noindex} meta tag is used to ensure that these packages are
-not indexed by search engines.
-\item \strong{unreleased} (\code{mode: unreleased}): the package is written to \verb{docs/}, the version gets a "danger"
-label, and the message indicates the package is not yet on CRAN.
+\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
+Version in navbar gets the default colouring.
+\item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
+Version in navbar gets the "danger" class and a message stating these are
+docs for an in-development version of the package. The \code{noindex} meta tag
+is used to ensure that these packages are not indexed by search engines.
+\item \strong{unreleased} (\code{mode: unreleased}). Site is written to \verb{docs/}.
+Version in navbar gets the "danger" class, and a message indicating the
+package is not yet on CRAN.
 \item \strong{automatic} (\code{mode: auto}): pkgdown automatically detects the mode
 based on the version number:
 \itemize{
-\item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased
-\item four version components: development
-\item everything else -> release
+\item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased.
+\item four version components: development.
+\item everything else -> release.
 }
 }
 
