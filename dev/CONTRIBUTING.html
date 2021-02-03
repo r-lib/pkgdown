@@ -202,48 +202,41 @@
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
 <p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package, and file an issue with a link to the repository.</p>
 <p>The quickest way to set up minimal example package is with <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_package()</a></code>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span>
-
-<span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"test"</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="va">open</span><span class="op">)</span>
-<span class="co"># ... edit files ...</span>
-<span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="va">tmp</span>, new_process <span class="op">=</span> <span class="cn">FALSE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(usethis)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(pkgdown)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>tmp &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">"test"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>usethis<span class="op">::</span><span class="kw">create_package</span>(tmp, open)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># ... edit files ...</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>pkgdown<span class="op">::</span><span class="kw">build_site</span>(tmp, <span class="dt">new_process =</span> <span class="ot">FALSE</span>, <span class="dt">preview =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="rd-translation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rd-translation" class="anchor"></a>Rd translation</h2>
 <p>If you encounter problems with Rd tags, please use <code><a href="reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span>
-
-<span class="fu"><a href="reference/rd2html.html">rd2html</a></span><span class="op">(</span><span class="st">"a\n%b\nc"</span><span class="op">)</span>
-<span class="fu"><a href="reference/rd2html.html">rd2html</a></span><span class="op">(</span><span class="st">"a &amp; b"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(pkgdown)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">rd2html</span>(<span class="st">"a</span><span class="ch">\n</span><span class="st">%b</span><span class="ch">\n</span><span class="st">c"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">rd2html</span>(<span class="st">"a &amp; b"</span>)</span></code></pre></div>
 </div>
 <div id="pull-request-process" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pull-request-process" class="anchor"></a>Pull request process</h2>
 <ul>
-<li>We recommend that you create a Git branch for each pull request (PR).<br>
-</li>
-<li>Look at the Travis and AppVeyor build status before and after making changes. The <code>README</code> should contain badges for any continuous integration services used by the package.<br>
-</li>
-<li>New code should follow the tidyverse <a href="http://style.tidyverse.org">style guide</a>. You can use the <a href="https://CRAN.R-project.org/package=styler">styler</a> package to apply these styles, but please don’t restyle code that has nothing to do with your PR.<br>
-</li>
-<li>We use <a href="https://cran.r-project.org/package=roxygen2">roxygen2</a>, with <a href="https://roxygen2.r-lib.org/articles/rd-formatting.html">Markdown syntax</a>, for documentation.<br>
-</li>
-<li>We use <a href="https://cran.r-project.org/package=testthat">testthat</a>. Contributions with test cases included are easier to accept.<br>
-</li>
+<li>We recommend that you create a Git branch for each pull request (PR).</li>
+<li>Look at the Travis and AppVeyor build status before and after making changes. The <code>README</code> should contain badges for any continuous integration services used by the package.</li>
+<li>New code should follow the tidyverse <a href="http://style.tidyverse.org">style guide</a>. You can use the <a href="https://CRAN.R-project.org/package=styler">styler</a> package to apply these styles, but please don’t restyle code that has nothing to do with your PR.</li>
+<li>We use <a href="https://cran.r-project.org/package=roxygen2">roxygen2</a>, with <a href="https://roxygen2.r-lib.org/articles/rd-formatting.html">Markdown syntax</a>, for documentation.</li>
+<li>We use <a href="https://cran.r-project.org/package=testthat">testthat</a>. Contributions with test cases included are easier to accept.</li>
 <li>For user-facing changes, add a bullet to the top of <code>NEWS.md</code> below the current development version header describing the changes made followed by your GitHub username, and links to relevant issue(s)/PR(s).</li>
 </ul>
 <div id="netlify" class="section level3">
 <h3 class="hasAnchor">
 <a href="#netlify" class="anchor"></a>Netlify</h3>
-<p>We might ask you for a Netlify preview of your changes i.e. how do your local changes affect the pkgdown website?</p>
+<p>We might ask you for a Netlify preview of your changes i.e. how do your local changes affect the pkgdown website?</p>
 <ol>
 <li>Build and install the amended package, then re-build the website (<code><a href="reference/clean_site.html">clean_site()</a></code> and then <code><a href="reference/build_site.html">build_site()</a></code>) which will update the docs/ folder.</li>
-<li>Log into Netlify at <a href="https://app.netlify.com/sites/" class="uri">https://app.netlify.com/sites/</a>, and scroll to the bottom. You’ll see a box with dashed outline that says “Want to deploy a new site without connecting to Git?”.</li>
+<li>Log into Netlify at <a href="https://app.netlify.com/sites/">https://app.netlify.com/sites/</a>, and scroll to the bottom. You’ll see a box with dashed outline that says “Want to deploy a new site without connecting to Git?”.</li>
 <li>Open up a file browser, navigate to <code>docs/</code>, and drag the <code>docs/</code> folder to the dashed box, which will copy all the files into a temporary netlify site.</li>
 <li>After the file transfer completes, netlify will generate a temporary URL on a new page that you can copy/paste in the PR discussion.</li>
 </ol>
