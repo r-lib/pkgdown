@@ -223,7 +223,7 @@
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>pkgdown now uses the new <a href="https://downlit.r-lib.org/">downlit</a> package for all syntax highlighting and autolinking (in both reference topics and vignettes). There should be very little change in behaviour because the code in downlit was extracted from pkgdown, but this makes it easier to use pkgdown’s nice linking/highlighting in more places (<a href='https://github.com/r-lib/pkgdown/issues/1234'>#1234</a>).</p></li>
-<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
+<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="uri">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
 </ul>
 </div>
 <div id="minor-improvements-and-bug-fixes" class="section level2">
@@ -312,7 +312,7 @@
 <span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/master/</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre></div>
-<p>The individual components (e.g. path, issue number, username) are pasted on the end of these urls so they should have trailing <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code>s.</p>
+<p>The individual components (e.g. path, issue number, username) are pasted on the end of these urls so they should have trailing <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code>s.</p>
 <p>You don’t need to set these links for GitLab, as pkgdown now detects GitLab urls automatically (since they use the same structure as GitHub) (<a href='https://github.com/r-lib/pkgdown/issues/1045'>#1045</a>).</p>
 </li>
 <li><p>There’s much richer control over Open Graph and Twitter metadata for the whote site and for individual articles. See new <code><a href="../articles/metadata.html">vignette("metadata")</a></code> for details (<a href='https://github.com/gadenbuie'>@gadenbuie</a>, <a href='https://github.com/r-lib/pkgdown/issues/936'>#936</a>).</p></li>
@@ -340,7 +340,7 @@
 <ul>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> no longer uses (unrendered) <code>README.Rmd</code> or <code>index.Rmd</code> if corresponding <code>.md</code> files are not found.</p></li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> failures now print more information to help you debug the problem (<a href='https://github.com/r-lib/pkgdown/issues/952'>#952</a>).</p></li>
-<li><p>The name of the vignette mapped to the “Get started” entry in the navbar is now more flexible. You can use an article (e.g <code>articles/{pkgname}</code>) and if your package has a <code>.</code> in its name you can replace it with <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> to generate a valid article name (e.g. the get started vignette for <code>pack.down</code> would be <code>pack-down</code>) (<a href='https://github.com/r-lib/pkgdown/issues/1166'>#1166</a>).</p></li>
+<li><p>The name of the vignette mapped to the “Get started” entry in the navbar is now more flexible. You can use an article (e.g <code>articles/{pkgname}</code>) and if your package has a <code>.</code> in its name you can replace it with <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> to generate a valid article name (e.g. the get started vignette for <code>pack.down</code> would be <code>pack-down</code>) (<a href='https://github.com/r-lib/pkgdown/issues/1166'>#1166</a>).</p></li>
 </ul>
 </div>
 <div id="deployment" class="section level3">
@@ -387,7 +387,7 @@
 <h3 class="hasAnchor">
 <a href="#navbar" class="anchor"></a>Navbar</h3>
 <ul>
-<li><p>pkgdown now formats the package version displayed in the navbar the same way as it has been specified in the DESCRIPTION file. In particular, version separators (e.g. <code>.</code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) are preserved. (<a href='https://github.com/r-lib/pkgdown/issues/1170'>#1170</a>, <a href='https://github.com/kevinushey'>@kevinushey</a>)</p></li>
+<li><p>pkgdown now formats the package version displayed in the navbar the same way as it has been specified in the DESCRIPTION file. In particular, version separators (e.g. <code>.</code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>) are preserved. (<a href='https://github.com/r-lib/pkgdown/issues/1170'>#1170</a>, <a href='https://github.com/kevinushey'>@kevinushey</a>)</p></li>
 <li><p>add support for navbar submenus: you can create submenus following the convention established in <a href="https://github.com/rstudio/rmarkdown/issues/721">rstudio/rmarkdown<a href='https://github.com/r-lib/pkgdown/issues/721'>#721</a></a> (<a href='https://github.com/ijlyttle'>@ijlyttle</a>, <a href='https://github.com/wendtke'>@wendtke</a>, <a href='https://github.com/r-lib/pkgdown/issues/1213'>#1213</a>)</p></li>
 </ul>
 </div>
@@ -507,7 +507,7 @@
 <a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> can be used from continuous integration systems (like travis) to automatically deploy your package website to GitHub Pages. See documentation for how to set up details (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
-<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="https://realfavicongenerator.net/">https://realfavicongenerator.net/</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
+<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="https://realfavicongenerator.net/" class="uri">https://realfavicongenerator.net/</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Users with limited internet connectivity can explicitly disable internet usage by pkgdown by setting <code><a href="https://rdrr.io/r/base/options.html">options(pkgdown.internet = FALSE)</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 </ul>
 </div>
@@ -602,7 +602,12 @@
 <ul>
 <li><p>Added a keyboard shortcut for searching. Press <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> (<code><a href="https://rdrr.io/r/utils/Question.html">?</a></code>) to move focus to the search bar (<a href='https://github.com/r-lib/pkgdown/issues/642'>#642</a>).</p></li>
 <li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
-<li><p>Navbar active tab highlighting uses a superior approach (suggested by <a href='https://github.com/jcheng5'>@jcheng5</a>) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p></li>
+<li>
+<p>Navbar active tab highlighting uses a superior approach (suggested by</p>
+<ol class="example" style="list-style-type: decimal">
+<li>which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</li>
+</ol>
+</li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
 </ul>
 </div>
@@ -629,7 +634,7 @@
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href='https://github.com/r-lib/pkgdown/issues/650'>#650</a>).</p></li>
-<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href='https://github.com/r-lib/pkgdown/issues/689'>#689</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: Markdown files (e.g., <code>CODE_OF_CONDUCT.md</code>) stored in <code>.github/</code> are copied and linked correctly (<a href='https://github.com/r-lib/pkgdown/issues/682'>#682</a>).</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code>: Multi-page changelogs (generated from <code>NEWS.md</code> with <code>news: one_page: false</code> in <code>_pkgdown.yml</code>) are rendered correctly.</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: reference index shows infix functions (like <code>%+%</code>) as <code>`%+%`</code>, not <code>`%+%`()</code> on (<a href='https://github.com/r-lib/pkgdown/issues/659'>#659</a>).</p></li>
