@@ -346,30 +346,27 @@ text:</p><pre>authors:
 <li><p>The indexing of the site by search engines.</p></li>
 </ul>
 
-<p>There are currently three possible development modes:</p><ul>
-<li><p><strong>release</strong>: site written to <code>docs/</code>, the version gets the default
-colouring, and no message.</p></li>
-<li><p><strong>development</strong>: written to <code>docs/dev/</code>, the version gets a danger label,
-and message stating these are docs for an in-development version of the
-package. The <code>noindex</code> meta tag is used to ensure that these packages are
-not indexed by search engines.</p></li>
-<li><p><strong>unreleased</strong>: the package is written to <code>docs/</code>, the version gets a "danger"
-label, and the message indicates the package is not yet on CRAN.</p></li>
-</ul>
-
-<p>The default development mode is "release". You can override it by adding a
+<p>You can override the default development mode by adding a
 new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class='va'>development</span><span class='op'>:</span>
   <span class='va'>mode</span><span class='op'>:</span> <span class='va'>devel</span>
 </pre>
 
-<p>You can also have pkgdown automatically detect the mode with:</p><pre><span class='va'>development</span><span class='op'>:</span>
-  <span class='va'>mode</span><span class='op'>:</span> <span class='va'>auto</span>
-</pre>
-
-<p>The mode will be automatically determined based on the version number:</p><ul>
-<li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased</p></li>
-<li><p>four version components: development</p></li>
-<li><p>everything else -&gt; release</p></li>
+<p>There are currently four possible modes:</p><ul>
+<li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
+Version in navbar gets the default colouring.</p></li>
+<li><p><strong>development</strong> (<code>mode: devel</code>). Site is written to <code>docs/dev/</code>.
+Version in navbar gets the "danger" class and a message stating these are
+docs for an in-development version of the package. The <code>noindex</code> meta tag
+is used to ensure that these packages are not indexed by search engines.</p></li>
+<li><p><strong>unreleased</strong> (<code>mode: unreleased</code>). Site is written to <code>docs/</code>.
+Version in navbar gets the "danger" class, and a message indicating the
+package is not yet on CRAN.</p></li>
+<li><p><strong>automatic</strong> (<code>mode: auto</code>): pkgdown automatically detects the mode
+based on the version number:</p><ul>
+<li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased.</p></li>
+<li><p>four version components: development.</p></li>
+<li><p>everything else -&gt; release.</p></li>
+</ul></li>
 </ul>
 
 <p>There are three other options that you can control:</p><pre><span class='va'>development</span><span class='op'>:</span>
