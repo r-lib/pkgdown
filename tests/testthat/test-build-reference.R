@@ -3,7 +3,7 @@ test_that("parse failures include file name", {
     unlink(test_path("assets/reference-fail/docs"), recursive = TRUE)
   )
 
-  expect_snapshot(
+  expect_snapshot(error = TRUE,
     build_reference(test_path("assets/reference-fail"))
   )
 })
