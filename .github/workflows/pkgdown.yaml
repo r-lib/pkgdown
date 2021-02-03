@@ -1,14 +1,22 @@
 on:
   push:
-    branches: master
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 name: pkgdown
 
 jobs:
   pkgdown:
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork == false
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      isPush: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v2
 
@@ -45,7 +53,31 @@ jobs:
         run: R CMD INSTALL .
 
       - name: Deploy package
+        if: contains(env.isPush, 'true')
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
+      - name: Create website
+        if: contains(env.isPush, 'false')
+        run: |
+          pkgdown::build_site()
+        shell: Rscript {0}
+
+      - name: Deploy to Netlify
+        if: contains(env.isPush, 'false')
+        id: netlify-deploy
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './docs/dev'
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message:
+            'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'
+          # these all default to 'true'
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          # enable-commit-status: true
+          #o verwrites-pull-request-comment: true
+        timeout-minutes: 1
