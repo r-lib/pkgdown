@@ -65,12 +65,6 @@ jobs:
           pkgdown::build_site()
         shell: Rscript {0}
 
-      - name: Move files
-        if: contains(env.isPush, 'false')
-        run: |
-          cp -r ./cosmo/dev ./docs/dev/cosmo
-
-
       - name: Deploy to Netlify
         if: contains(env.isPush, 'false')
         id: netlify-deploy
