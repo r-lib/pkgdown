@@ -213,7 +213,7 @@ The following YAML snippet illustrates some of the most important features.\pref
      - text: "Category B"
      - text: Title B1
        menu:
-       - text "Sub-category B11"
+       - text: "Sub-category B11"
          href: articles/b11.html
      twitter:
        icon: "fab fa-twitter fa-lg"
