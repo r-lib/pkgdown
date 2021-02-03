@@ -262,6 +262,8 @@
 <h2 class="hasAnchor">
 <a href="#publishing" class="anchor"></a>Publishing</h2>
 <p>The easiest way to publish your website is to use GitHub <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch"><code>docs/</code> directory</a> support. If you want to build and publish your package automatically with GitHub actions, try <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action("pkgdown")</a></code>.</p>
+<p>Once your site is online you must finish configuring it by adding its URL to its configuration file. This URL will be used by pkgdown to e.g. generate the metadata correcty (see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 </div>
 <div id="promoting" class="section level2">
 <h2 class="hasAnchor">
