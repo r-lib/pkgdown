@@ -55,7 +55,7 @@ data_home_sidebar <- function(pkg = ".") {
     return(read_lines(pkg$meta$home$sidebar$html))
   }
 
-  if(is.null(pkg$meta$home$sidebar$structure)) {
+  if (is.null(pkg$meta$home$sidebar$structure)) {
     return(paste0(
       data_home_sidebar_links(pkg),
       data_home_sidebar_license(pkg),
