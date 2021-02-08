@@ -130,3 +130,7 @@ cran_unquote <- function(string) {
 show_xml <- function(x) {
   cat(as.character(x, options = c("format", "no_declaration")))
 }
+
+isFALSE <- function(x) {
+  is.logical(x) && !x
+}
