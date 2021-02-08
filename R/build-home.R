@@ -17,7 +17,7 @@
 #' for you because it only touches files in the `doc/` directory.
 #'
 #' @section Sidebar:
-#' The sidebar is automatically populated with:
+#' The sidebar is by default automatically populated with:
 #'
 #' *   Development status badges found in `README.md`/`index.md`. pkgdown
 #'     identifies badges in three ways:
@@ -60,7 +60,8 @@
 #'         )
 #'       )
 #'     ```
-#'
+#'  You can tweak the navbar by using the YAML configuration, see the corresponding
+#'  section.
 #' @section Images and figures:
 #' If you want to include images in your `README.md`, they must be stored
 #' somewhere in the package so that they can be displayed on the CRAN website.
@@ -118,6 +119,40 @@
 #'   links:
 #'   - text: Link text
 #'     href: http://website.com
+#' ```
+#'
+#' You can completely remove the sidebar.
+#'
+#' ```
+#' home:
+#'   sidebar: FALSE
+#' ```
+#'
+#' You can provide a ready-made sidebar HTML.
+#'
+#' ```
+#' home:
+#'   sidebar:
+#'     html: path-to-sidebar.html
+#' ```
+#'
+#' You can change the order of sidebar elements (except Dev Status):
+#' links, license (with an "s"), community, citation, authors
+#' and add custom ones.
+#' The example below creates a sidebar whose only elements will be the
+#' authors section, a custom section, and a Dev Status section if there are
+#' badges.
+#' Note that the text should be HTML formatted so if you add a link, you need a
+#' `<a>` tag.``
+#'
+#' ```
+#' home:
+#'   sidebar:
+#'     structure: [authors, custom]
+#'     components:
+#'       custom:
+#'         title: Funding
+#'         text: We are grateful for funding!
 #' ```
 #'
 #' READMEs usually start with an `<h1>` containing the package name. If
