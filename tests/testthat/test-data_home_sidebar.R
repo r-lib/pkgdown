@@ -1,0 +1,46 @@
+test_that("data_home_sidebar works by default", {
+  pkg <- test_path("assets/sidebar-no")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$home$sidebar <- NULL
+  expect_snapshot(data_home_sidebar(pkg))
+})
+
+test_that("data_home_sidebar can be removed", {
+  pkg <- test_path("assets/sidebar-no")
+  # not built by data_home_sidbar()
+  expect_false(data_home_sidebar(pkg))
+
+  # nor later -- so probably not to be tested here?!
+  td <- withr::local_tempdir()
+  pkg <- as_pkgdown(pkg)
+  pkg$dst_path <- td
+  build_home_index(pkg)
+  html <- xml2::read_html(file.path(td, "index.html"))
+  expect_s3_class(
+    xml2::xml_find_first(html, ".//div[@id='pkgdown-sidebar']"),
+    "xml_missing"
+  )
+})
+
+
+test_that("data_home_sidebar can be defined by a HTML file", {
+  pkg <- test_path("assets/sidebar-custom-html")
+  expect_equal(
+    data_home_sidebar(pkg),
+    paste0(read_lines(file.path(pkg, "sidebar.html")), collapse = "\n")
+  )
+})
+
+test_that("data_home_sidebar can get a custom component", {
+  pkg <- test_path("assets/sidebar-custom-component")
+  result <- xml2::read_html(
+    data_home_sidebar(pkg)
+  )
+  expect_s3_class(
+    xml2::xml_find_first(result, ".//div[@class='fancy-section']"),
+    "xml_node"
+  )
+  expect_snapshot(
+    xml2::xml_find_first(result, ".//div[@class='fancy-section']")
+  )
+})

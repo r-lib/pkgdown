@@ -48,11 +48,14 @@ data_home_sidebar <- function(pkg = ".") {
   if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
-  if (!is.null(pkg$meta$home$sidebar$html)) {
-    if (!file.exists(pkg$meta$home$sidebar$html)) {
+  sidebar_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
+
+  if (length(sidebar_path)) {
+
+    if (!file.exists(sidebar_path)) {
       abort(sprintf("Can't find file %s.", pkg$meta$home$sidebar$html))
     }
-    return(read_lines(pkg$meta$home$sidebar$html))
+    return(paste0(read_lines(sidebar_path), collapse = "\n"))
   }
 
   if (is.null(pkg$meta$home$sidebar$structure)) {

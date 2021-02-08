@@ -1,0 +1,7 @@
+home:
+  sidebar:
+    structure: [authors, fancy]
+    components:
+      fancy:
+        title: "Fancy section"
+        text: "How cool is pkgdown?!"

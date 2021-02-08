@@ -138,6 +138,11 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
       purrr::walk(~ xml2::xml_add_child(sidebar, .))
   }
 
+  if (!sidebar) {
+    sidebar <- html %>% xml2::xml_find_first(".//div[@id='pkgdown-sidebar']")
+    xml2::xml_remove(sidebar)
+  }
+
   # Always remove dummy page header
   header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
   if (length(header) > 0)
