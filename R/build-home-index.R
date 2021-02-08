@@ -20,7 +20,13 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
-  update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
+
+  update_html(
+    dst_path,
+    tweak_homepage_html,
+    strip_header = strip_header,
+    sidebar = !isFALSE(pkg$meta$home$sidebar)
+    )
 
   invisible()
 }
@@ -39,17 +45,40 @@ data_home <- function(pkg = ".") {
 
 data_home_sidebar <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  if (!is.null(pkg$meta$home$sidebar))
+  if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
+  if(is.null(pkg$meta$home$sidebar$structure)) {
+    return(paste0(
+      data_home_sidebar_links(pkg),
+      data_home_sidebar_license(pkg),
+      data_home_sidebar_community(pkg),
+      data_home_sidebar_citation(pkg),
+      data_home_sidebar_authors(pkg),
+      collapse = "\n"
+    ))
+  }
+
   paste0(
-    data_home_sidebar_links(pkg),
-    data_home_sidebar_license(pkg),
-    data_home_sidebar_community(pkg),
-    data_home_sidebar_citation(pkg),
-    data_home_sidebar_authors(pkg),
+    purrr::map_chr(pkg$meta$home$sidebar$structure, data_home_element, pkg = pkg),
     collapse = "\n"
   )
+
+
+}
+
+data_home_element <- function(element, pkg) {
+
+  if (element %in% c("links", "license", "community", "citation", "authors")) {
+    return(do.call(paste0("data_home_sidebar_", element), list(pkg = pkg)))
+  }
+  component <- pkg$meta$home$sidebar$components[[element]]
+
+  if (is.null(component)) {
+    abort(sprintf("There is no component named %s in the components field", element))
+  }
+
+  sidebar_section(component$title, bullets = component$text)
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

@@ -124,9 +124,10 @@ tweak_rmarkdown_html <- function(html, input_path) {
   invisible()
 }
 
-tweak_homepage_html <- function(html, strip_header = FALSE) {
+tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   badges <- badges_extract(html)
-  if (length(badges) > 0) {
+
+  if (length(badges) > 0 && sidebar) {
     list <- sidebar_section("Dev status", badges)
     list_div <- paste0("<div>", list, "</div>")
     list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
@@ -214,6 +215,7 @@ badges_extract_text <- function(x) {
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
+
   html <- xml2::read_html(path, encoding = "UTF-8")
   tweak(html, ...)
 
