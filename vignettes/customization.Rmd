@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 library(pkgdown)
 ```
 
-You can alter the design/styling of your pkgdown website to suit your brand and needs. _Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. _Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown, or even to just add the few HTML lines corresponding to your analytics provider.
+You can alter the design/styling of your pkgdown website to suit your brand and needs. 
+_Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. 
+_Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown, or even to just add the few HTML lines corresponding to your analytics provider.
 
 Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
 In the latter case you might want to share your style files in the form of a package.
