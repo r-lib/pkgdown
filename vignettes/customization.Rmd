@@ -47,6 +47,7 @@ cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))),
 ```
 
 You can [override the default templats](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
+For any template for which you have not provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version).
 Three of these templates are meant to be customized:
 
 * "in-header.html" inserted right before closing the head tag, 
@@ -58,12 +59,16 @@ Furthermore, maintaining e.g. your own "head.html" template requires more work a
 
 ### Tweaking the templates meant for customization
 
-* Create a folder `inst/pkgdown/templates` (or use another method to override templates)
+* Create a folder `inst/pkgdown/templates` (or use another method to override templates).
 * Create an HTML file "in-header.html", "before-body.html" and "after-body.html" in that folder depending on your needs.
 * Edit and save that file.
 
 E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`
 
 ### Tweaking other templates (advanced users only)
+
+* To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3).
+* Create a folder `inst/pkgdown/templates` (or use another method to override templates).
+* Copy the template(s) you need to tweak into that folder, edit and save them.
 
 ## Sharing pkgdown styles
