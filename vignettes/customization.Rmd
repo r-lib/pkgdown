@@ -18,10 +18,12 @@ knitr::opts_chunk$set(
 library(pkgdown)
 ```
 
-You can alter the design/styling of your pkgdown website to suit your taste and brand. _Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. _Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown.
+You can alter the design/styling of your pkgdown website to suit your taste and brand. _Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. _Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown, or even to just add the few HTML lines corresponding to your analytics provider.
 
 Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
 In the latter case you might want to share your style files in the form of a package.
+
+In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
 
 ## Theming
 
@@ -33,7 +35,35 @@ If you were using the paper theme, note that it was renamed [materia](https://bl
 
 ## Layout
 
-When not to use layout: if using "in_header.html", "before_body.html" or "after_body.html".
-Maintaining your own "head.html" template requires more work as you might need to keep it up-to-date with upstream changes in pkgdown itself.
+You will want to alter the layout of your website if you are trying to
+
+* add a few HTML lines corresponding to your HTML provider,
+* change the information provided in the footer.
+
+pkgdown uses the following whisker templates: 
+
+```{r, results='asis', echo=FALSE}
+cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))), "\n"))
+```
+
+You can [override the default templats](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
+Three of these templates are meant to be customized:
+
+* "in-header.html" inserted right before closing the head tag, 
+* "before-body.html" inserted right after opening the body tag,
+* "after-body.html" inserted right before closing the body tag.
+
+Overriding other templates is recommended for advanced users only.
+Furthermore, maintaining e.g. your own "head.html" template requires more work as you might need to keep it up-to-date with upstream changes in pkgdown itself whereas "in-header.html", "before-body.html" and "after-body.html" are by default empty.
+
+### Tweaking the templates meant for customization
+
+* Create a folder `inst/pkgdown/templates` (or use another method to override templates)
+* Create an HTML file "in-header.html", "before-body.html" and "after-body.html" in that folder depending on your needs.
+* Edit and save that file.
+
+E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`
+
+### Tweaking other templates (advanced users only)
 
 ## Sharing pkgdown styles
