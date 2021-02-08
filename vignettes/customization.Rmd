@@ -37,7 +37,7 @@ If you were using the paper theme, note that it was renamed [materia](https://bl
 
 ## Layout
 
-You will want to alter the layout of your website if you are trying to
+You will want to alter the layout of your website if you are trying to e.g.
 
 * add a few HTML lines corresponding to your HTML provider,
 * change the information provided in the footer.
@@ -49,8 +49,9 @@ cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))),
 ```
 
 You can [override the default templats](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
-For any template for which you have not provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version).
-Three of these templates are meant to be customized:
+For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
+
+Three of pkgdown templates are meant to be customized:
 
 * "in-header.html" inserted right before closing the head tag, 
 * "before-body.html" inserted right after opening the body tag,
