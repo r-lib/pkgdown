@@ -27,6 +27,11 @@ In the latter case you might want to share your style files in the form of a pac
 
 In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
 
+## Recommend Bootstrap 4 if you are reading this??
+
+More Bootstrap variables for theming.
+Templates where future development efforts will happen.
+
 ## Theming
 
 ### Choosing a bootswatch theme
