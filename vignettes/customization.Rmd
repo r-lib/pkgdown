@@ -70,7 +70,7 @@ E.g. you could save the lines corresponding to your analytics provider, if not G
 
 ### Tweaking other templates (advanced users only)
 
-* To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3).
+* To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3). The skeleton of pages is provided in "layout.html" so start there.
 * Create a folder `inst/pkgdown/templates` (or use another method to override templates).
 * Copy the template(s) you need to tweak into that folder, edit and save them.
 
