@@ -1,0 +1,39 @@
+---
+title: "Customize your pkgdown website aspect"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{customization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pkgdown)
+```
+
+You can alter the design/styling of your pkgdown website to suit your taste and brand. _Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. _Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown.
+
+Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
+In the latter case you might want to share your style files in the form of a package.
+
+## Theming
+
+### Choosing a bootswatch theme
+
+You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible with the Bootstrap version you use.
+Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
+If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400).
+
+## Layout
+
+When not to use layout: if using "in_header.html", "before_body.html" or "after_body.html".
+Maintaining your own "head.html" template requires more work as you might need to keep it up-to-date with upstream changes in pkgdown itself.
+
+## Sharing pkgdown styles
