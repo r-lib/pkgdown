@@ -43,13 +43,21 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # render template components
   pieces <- c("head", "navbar", "header", "content", "docsearch", "footer")
 
-  templates <- purrr::map_chr(pieces, find_template, name, template_path = template_path(pkg))
+  templates <- purrr::map_chr(
+    pieces, find_template, name,
+    template_path = template_path(pkg),
+    bs_version = get_bs_version(pkg)
+  )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
 
   # render complete layout
-  template <- find_template("layout", name, template_path = template_path(pkg))
+  template <- find_template(
+    "layout", name,
+    template_path = template_path(pkg),
+    bs_version = get_bs_version(pkg)
+  )
   rendered <- render_template(template, components)
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
@@ -162,6 +170,32 @@ check_open_graph <- function(og) {
   og[intersect(supported_fields, names(og))]
 }
 
+get_bs_version <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  template <- pkg$meta[["template"]]
+
+  if (is.null(template$bootstrap)) {
+    return(3)
+  }
+
+  if (!template$bootstrap %in% c(3, 4)) {
+    abort(
+      message = c(
+        "Boostrap version must be 3 or 4.",
+        i = sprintf("You used %s.", template$bootstrap),
+        paste0(
+          "Fix the `bootstrap` parameter in the configuration file, ",
+          "under `template` (or fix the `override` parameter)."
+          )
+        )
+      )
+  }
+
+  return(template$bootstrap)
+
+}
+
 template_path <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -171,11 +205,15 @@ template_path <- function(pkg = ".") {
     path <- path_abs(template$path, start = pkg$src_path)
 
     if (!file_exists(path))
-      stop("Can not find template path ", src_path(path), call. = FALSE)
+      abort("Can not find template path ", src_path(path))
 
     path
   } else if (!is.null(template$package)) {
-    path_package_pkgdown(template$package, "templates")
+    path_package_pkgdown(
+      template$package,
+      "templates",
+      paste0("BS", get_bs_version(pkg))
+    )
   } else {
     character()
   }
@@ -189,10 +227,11 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
-find_template <- function(type, name, ext = ".html", template_path = NULL) {
+find_template <- function(type, name, ext = ".html", template_path = NULL,
+                          bs_version) {
   paths <- c(
     template_path,
-    path_pkgdown("templates")
+    path_pkgdown("templates", paste0("BS", bs_version))
   )
   names <- c(
     paste0(type, "-", name, ext),
@@ -202,7 +241,7 @@ find_template <- function(type, name, ext = ".html", template_path = NULL) {
   locations <- path(all$path, all$name)
 
   Find(file_exists, locations, nomatch =
-    stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
+       stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
 }
 
 
