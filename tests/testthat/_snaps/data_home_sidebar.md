@@ -27,3 +27,7 @@
 
     Missing title for the component fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter)
 
+---
+
+    Missing title & html for the component fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter)
+

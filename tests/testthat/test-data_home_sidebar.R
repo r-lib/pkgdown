@@ -72,9 +72,20 @@ test_that("data_home_sidebar() outputs informative error messages", {
     data_home_sidebar(pkg)
   )
 
+  # no title
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
     components = list(fancy = list(html = "bla"))
+  )
+  expect_snapshot_error(
+    data_home_sidebar(pkg)
+  )
+
+  # no title nor html
+
+  pkg$meta$home$sidebar <- list(
+    structure = c("fancy"),
+    components = list(fancy = list(text = "bla"))
   )
   expect_snapshot_error(
     data_home_sidebar(pkg)

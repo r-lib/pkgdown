@@ -127,7 +127,10 @@ data_home_component <- function(component_name, pkg) {
     abort(
       sprintf(
         "Missing %s for the component %s in %s",
-        toString(c("title", "html")[!c("title", "html") %in% names(component)]),
+        paste0(
+          c("title", "html")[!c("title", "html") %in% names(component)],
+          collapse = " & "
+          ),
         component_name,
         pkgdown_field(pkg, "home", "sidebar", "components")
         )
