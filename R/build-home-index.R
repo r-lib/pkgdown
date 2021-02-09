@@ -108,7 +108,7 @@ data_home_element <- function(element, pkg) {
     abort(sprintf("There is no component named %s in the components field", element))
   }
 
-  sidebar_section(component$title, bullets = component$text)
+  sidebar_section(component$title, bullets = component$html)
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

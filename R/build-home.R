@@ -135,7 +135,7 @@
 #' The example below creates a sidebar whose only elements will be the
 #' authors section, a custom section, and a Dev Status section if there are
 #' badges.
-#' Note that the text should be HTML formatted so if you add a link, you need a
+#' Note that the html fiekd should be HTML formatted so if you add a link, you need a
 #' `<a>` tag.``
 #'
 #' ```
@@ -145,7 +145,7 @@
 #'     components:
 #'       custom:
 #'         title: Funding
-#'         text: We are grateful for funding!
+#'         html: We are grateful for funding!
 #' ```
 #'
 #' You can completely remove the sidebar.
