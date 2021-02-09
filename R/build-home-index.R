@@ -123,22 +123,20 @@ data_home_component <- function(component_name, pkg) {
   if (is.null(component)) {
     abort(
       sprintf(
-        "There is no component named %s in %s.",
-        component_name,
-        pkgdown_field(pkg, "home", "sidebar", "components")
+        "Can't find component %s.",
+        pkgdown_field(pkg, "home", "sidebar", "components", component_name)
       )
    )
   }
   if (!all(c("title", "html") %in% names(component))) {
     abort(
       sprintf(
-        "Missing %s for the component %s in %s",
+        "Can't find %s for the component %s",
         paste0(
           c("title", "html")[!c("title", "html") %in% names(component)],
           collapse = " & "
           ),
-        component_name,
-        pkgdown_field(pkg, "home", "sidebar", "components")
+        pkgdown_field(pkg, "home", "sidebar", "components", component_name)
         )
       )
   }

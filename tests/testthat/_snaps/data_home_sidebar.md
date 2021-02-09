@@ -1,13 +1,36 @@
 # data_home_sidebar() works by default
 
     Code
-      data_home_sidebar(pkg)
+      cat(data_home_sidebar(pkg))
     Output
-      [1] "<div class='license'>\n<h2>License</h2>\n<ul class='list-unstyled'>\n<li>NA</li>\n</ul>\n</div>\n\n\n<div class='developers'>\n<h2>Developers</h2>\n<ul class='list-unstyled'>\n<li><a href='http://hadley.nz'>Hadley Wickham</a> <br />\n<small class = 'roles'> Author, maintainer </small>  </li>\n<li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a> <br />\n<small class = 'roles'> Copyright holder, funder </small>  </li>\n</ul>\n</div>\n\n<div class='dev-status'>\n<h2>Dev Status</h2>\n<ul class='list-unstyled'>\n<li>placeholder</li>\n</ul>\n</div>\n"
+      <div class='license'>
+      <h2>License</h2>
+      <ul class='list-unstyled'>
+      <li>NA</li>
+      </ul>
+      </div>
+      
+      
+      <div class='developers'>
+      <h2>Developers</h2>
+      <ul class='list-unstyled'>
+      <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
+      <small class = 'roles'> Author, maintainer </small>  </li>
+      <li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a> <br />
+      <small class = 'roles'> Copyright holder, funder </small>  </li>
+      </ul>
+      </div>
+      
+      <div class='dev-status'>
+      <h2>Dev Status</h2>
+      <ul class='list-unstyled'>
+      <li>placeholder</li>
+      </ul>
+      </div>
 
 # data_home_sidebar() errors well when no HTML file
 
-    Can't find file file.html that was indicated in home.sidebar.html in '_pkgdown.yml' (or in the `override` parameter).
+    Can't find file 'file.html' specified by home.sidebar.html in '_pkgdown.yml'.
 
 # data_home_sidebar() can get a custom component
 
@@ -21,13 +44,13 @@
 
 # data_home_sidebar() outputs informative error messages
 
-    There is no component named fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter).
+    Can't find component home.sidebar.components.fancy in '_pkgdown.yml'.
 
 ---
 
-    Missing title for the component fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter)
+    Can't find title for the component home.sidebar.components.fancy in '_pkgdown.yml'
 
 ---
 
-    Missing title & html for the component fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter)
+    Can't find title & html for the component home.sidebar.components.fancy in '_pkgdown.yml'
 

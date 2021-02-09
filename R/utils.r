@@ -104,14 +104,22 @@ print_yaml <- function(x) {
 
 pkgdown_field <- function(pkg, ...) {
   field <- paste0(list(...), collapse = ".")
+
+  if (is.null(pkgdown_config_path(pkg$src_path))) {
+    return(
+      crayon::bold(field)
+      )
+  }
+
   config <- src_path(
     fs::path_rel(
       pkgdown_config_path(pkg$src_path),
       pkg$src_path
     )
   )
+
   paste0(
-    crayon::bold(field), " in ", config, " (or in the `override` parameter)"
+    crayon::bold(field), " in ", config
   )
 }
 
