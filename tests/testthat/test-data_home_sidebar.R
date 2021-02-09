@@ -16,9 +16,9 @@ test_that("data_home_sidebar can be removed", {
   pkg$dst_path <- td
   build_home_index(pkg)
   html <- xml2::read_html(file.path(td, "index.html"))
-  expect_s3_class(
-    xml2::xml_find_first(html, ".//div[@id='pkgdown-sidebar']"),
-    "xml_missing"
+  expect_equal(
+    length(xml2::xml_children(xml2::xml_find_first(html, ".//div[@id='pkgdown-sidebar']"))),
+    0
   )
 })
 

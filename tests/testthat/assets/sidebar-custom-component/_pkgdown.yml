@@ -4,4 +4,4 @@ home:
     components:
       fancy:
         title: "Fancy section"
-        text: "How cool is pkgdown?!"
+        html: "How cool is pkgdown?!"
