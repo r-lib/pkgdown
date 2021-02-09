@@ -73,6 +73,14 @@ test_that("data_home_sidebar() outputs informative error messages", {
   )
   expect_snapshot_error(data_home_sidebar(pkg))
 
+  # no component definition for two components named in structure
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$home$sidebar <- list(
+    structure = c("fancy", "cool")
+  )
+  expect_snapshot_error(data_home_sidebar(pkg))
+
   # no title
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),

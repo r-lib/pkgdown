@@ -48,6 +48,10 @@
 
 ---
 
+    Can't find component home.sidebar.components.fancy in '_pkgdown.yml' nor home.sidebar.components.cool in '_pkgdown.yml'.
+
+---
+
     Can't find title for the component home.sidebar.components.fancy in '_pkgdown.yml'
 
 ---
