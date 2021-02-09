@@ -59,7 +59,7 @@ data_home_sidebar <- function(pkg = ".") {
         sprintf(
           "Can't find file '%s' specified by %s.",
           pkg$meta$home$sidebar$html,
-          pkgdown_field(pkg, "home", "sidebar", "html")
+          pkgdown_field(pkg = pkg, "home", "sidebar", "html")
           )
         )
     }
@@ -79,36 +79,51 @@ data_home_sidebar <- function(pkg = ".") {
     dev = sidebar_section("Dev Status", "placeholder")
   )
 
+  if (is.null(pkg$meta$home$sidebar$structure)) {
+    sidebar_html <- paste0(
+      discard_empty(sidebar_components),
+      collapse = "\n"
+    )
+    return(sidebar_html)
+  }
+
   # compute any custom component
-  if (any(!sidebar_structure %in% default_sidebar_structure())) {
+  components <- pkg$meta$home$sidebar$components
 
-    custom_components_names <- sidebar_structure[
-      !sidebar_structure %in% default_sidebar_structure()
-      ]
-
-    custom_components <-  purrr::map_chr(
-      custom_components_names,
+  sidebar_components <- utils::modifyList(
+    sidebar_components,
+    purrr::map2(
+      components,
+      names(components),
       data_home_component,
       pkg = pkg
-    )
-    names(custom_components) <- custom_components_names
-    sidebar_components <- c(
-      sidebar_components,
-      custom_components
+      ) %>%
+      set_names(names(components))
+  )
+
+  missing <- setdiff(sidebar_structure, names(sidebar_components))
+
+  if (length(missing) > 0) {
+
+    missing_fields <- purrr::map_chr(
+      missing, pkgdown_field2,
+      pkg = pkg,
+      "home", "sidebar", "components"
+      )
+
+    abort(
+      sprintf(
+        "Can't find component %s.",
+        paste0(
+          missing_fields, collapse = " nor "
+        )
+      )
     )
   }
 
-  sidebar_final_components <- purrr::discard(
-    sidebar_components[sidebar_structure],
-    function(x) length(x) == 0
-  )
+  sidebar_final_components <- discard_empty(sidebar_components[sidebar_structure])
 
-  return(
-    paste0(
-    sidebar_final_components,
-    collapse = "\n"
-    )
-  )
+  paste0(sidebar_final_components, collapse = "\n")
 
 }
 
@@ -116,18 +131,8 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component_name, pkg) {
+data_home_component <- function(component, component_name, pkg) {
 
-  component <- pkg$meta$home$sidebar$components[[component_name]]
-
-  if (is.null(component)) {
-    abort(
-      sprintf(
-        "Can't find component %s.",
-        pkgdown_field(pkg, "home", "sidebar", "components", component_name)
-      )
-   )
-  }
   if (!all(c("title", "html") %in% names(component))) {
     abort(
       sprintf(
@@ -136,7 +141,7 @@ data_home_component <- function(component_name, pkg) {
           c("title", "html")[!c("title", "html") %in% names(component)],
           collapse = " & "
           ),
-        pkgdown_field(pkg, "home", "sidebar", "components", component_name)
+        pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
         )
       )
   }

@@ -49,6 +49,13 @@ is_syntactic <- function(x) x == make.names(x)
 
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
+discard_empty <- function(x) {
+  purrr::discard(
+    x,
+    function(x) length(x) == 0
+  )
+}
+
 # devtools metadata -------------------------------------------------------
 
 devtools_loaded <- function(x) {
@@ -103,9 +110,12 @@ print_yaml <- function(x) {
 }
 
 pkgdown_field <- function(pkg, ...) {
+
   field <- paste0(list(...), collapse = ".")
 
-  if (is.null(pkgdown_config_path(pkg$src_path))) {
+  config_path <- pkgdown_config_path(path = pkg$src_path)
+
+  if (is.null(config_path)) {
     return(
       crayon::bold(field)
       )
@@ -113,7 +123,7 @@ pkgdown_field <- function(pkg, ...) {
 
   config <- src_path(
     fs::path_rel(
-      pkgdown_config_path(pkg$src_path),
+      config_path,
       pkg$src_path
     )
   )
@@ -121,6 +131,10 @@ pkgdown_field <- function(pkg, ...) {
   paste0(
     crayon::bold(field), " in ", config
   )
+}
+
+pkgdown_field2 <- function(key, pkg, ...) {
+  pkgdown_field(pkg = pkg, ..., key)
 }
 
 #' @export
