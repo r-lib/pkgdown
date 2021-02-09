@@ -26,7 +26,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     tweak_homepage_html,
     strip_header = strip_header,
     sidebar = !isFALSE(pkg$meta$home$sidebar)
-    )
+  )
 
   invisible()
 }
