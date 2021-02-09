@@ -101,9 +101,14 @@ data_home_sidebar <- function(pkg = ".") {
     )
   }
 
+  sidebar_final_components <- purrr::discard(
+    sidebar_components[sidebar_structure],
+    function(x) length(x) == 0
+  )
+
   return(
     paste0(
-    sidebar_components[sidebar_structure],
+    sidebar_final_components,
     collapse = "\n"
     )
   )
