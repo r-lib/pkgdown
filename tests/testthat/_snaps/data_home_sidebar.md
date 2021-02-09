@@ -23,3 +23,7 @@
 
     There is no component named fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter).
 
+---
+
+    Missing title for the component fancy in home.sidebar.components in '_pkgdown.yml' (or in the `override` parameter)
+

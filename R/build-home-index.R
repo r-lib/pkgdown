@@ -124,7 +124,14 @@ data_home_component <- function(component_name, pkg) {
    )
   }
   if (!all(c("title", "html") %in% names(component))) {
-    abort(sprintf("There is not both title and html for %s", component_name))
+    abort(
+      sprintf(
+        "Missing %s for the component %s in %s",
+        toString(c("title", "html")[!c("title", "html") %in% names(component)]),
+        component_name,
+        pkgdown_field(pkg, "home", "sidebar", "components")
+        )
+      )
   }
 
   sidebar_section(component$title, bullets = component$html)
