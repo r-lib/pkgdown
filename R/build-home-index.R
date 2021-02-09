@@ -82,22 +82,22 @@ data_home_sidebar <- function(pkg = ".") {
     dev = sidebar_section("Dev Status", "placeholder")
   )
 
-  # compute any custom element
+  # compute any custom component
   if (any(!sidebar_structure %in% default_sidebar_structure())) {
 
-    custom_elements_names <- sidebar_structure[
+    custom_components_names <- sidebar_structure[
       !sidebar_structure %in% default_sidebar_structure()
       ]
 
-    custom_elements <-  purrr::map_chr(
-      custom_elements_names,
-      data_home_element,
+    custom_components <-  purrr::map_chr(
+      custom_components_names,
+      data_home_component,
       pkg = pkg
     )
-    names(custom_elements) <- custom_elements_names
+    names(custom_components) <- custom_components_names
     sidebar_components <- c(
       sidebar_components,
-      custom_elements
+      custom_components
     )
   }
 
@@ -110,21 +110,21 @@ data_home_sidebar <- function(pkg = ".") {
 
 }
 
-data_home_element <- function(element, pkg) {
+data_home_component <- function(component_name, pkg) {
 
-  component <- pkg$meta$home$sidebar$components[[element]]
+  component <- pkg$meta$home$sidebar$components[[component_name]]
 
   if (is.null(component)) {
     abort(
       sprintf(
         "There is no component named %s in %s.",
-        element,
+        component_name,
         pkgdown_field(pkg, "home", "sidebar", "components")
       )
    )
   }
   if (!all(c("title", "html") %in% names(component))) {
-    abort(sprintf("There is not both title and html for %s", element))
+    abort(sprintf("There is not both title and html for %s", component_name))
   }
 
   sidebar_section(component$title, bullets = component$html)
