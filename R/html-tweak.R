@@ -135,13 +135,17 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
     dev_status_html <- html %>% xml2::xml_find_first(".//div[@id='sidebar-dev-status']")
 
     if (inherits(dev_status_html, "xml_node")) {
+
       if (length(badges) > 0) {
 
         list <- sidebar_section("Dev status", badges)
         list_html <- list %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
         xml2::xml_replace(dev_status_html, list_html)
+
       } else {
+
         xml2::xml_remove(dev_status_html)
+
       }
     }
   }
@@ -223,7 +227,6 @@ badges_extract_text <- function(x) {
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
-
   html <- xml2::read_html(path, encoding = "UTF-8")
   tweak(html, ...)
 
