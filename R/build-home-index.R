@@ -43,35 +43,58 @@ data_home <- function(pkg = ".") {
   ))
 }
 
+default_sidebar_structure <- function() {
+  c("links", "license", "community", "citation", "authors", "dev")
+}
+
 data_home_sidebar <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
-  sidebar_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
+  html_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
 
-  if (length(sidebar_path)) {
+  if (length(html_path)) {
 
-    if (!file.exists(sidebar_path)) {
+    if (!file.exists(html_path)) {
       abort(sprintf("Can't find file %s.", pkg$meta$home$sidebar$html))
     }
-    return(paste0(read_lines(sidebar_path), collapse = "\n"))
+    return(paste0(read_lines(html_path), collapse = "\n"))
   }
 
-  if (is.null(pkg$meta$home$sidebar$structure)) {
-    return(paste0(
-      data_home_sidebar_links(pkg),
-      data_home_sidebar_license(pkg),
-      data_home_sidebar_community(pkg),
-      data_home_sidebar_citation(pkg),
-      data_home_sidebar_authors(pkg),
-      collapse = "\n"
-    ))
+  sidebar_structure <- pkg$meta$home$sidebar$structure %||%
+    default_sidebar_structure()
+
+  # compute all default sections
+  sidebar_components <- list(
+    links = data_home_sidebar_links(pkg),
+    license = data_home_sidebar_license(pkg),
+    community = data_home_sidebar_community(pkg),
+    citation = data_home_sidebar_citation(pkg),
+    authors = data_home_sidebar_authors(pkg),
+    dev = sidebar_section("Dev Status", "placeholder")
+  )
+
+  # compute any custom element
+  if (any(!sidebar_structure %in% default_sidebar_structure())) {
+    custom_elements_names <- sidebar_structure[!sidebar_structure %in% default_sidebar_structure()]
+    custom_elements <-  purrr::map_chr(
+      custom_elements_names,
+      data_home_element,
+      pkg = pkg
+    )
+    names(custom_elements) <- custom_elements_names
+    sidebar_components <- c(
+      sidebar_components,
+      custom_elements
+    )
   }
 
-  paste0(
-    purrr::map_chr(pkg$meta$home$sidebar$structure, data_home_element, pkg = pkg),
+  return(
+    paste0(
+    sidebar_components[sidebar_structure],
     collapse = "\n"
+    )
   )
 
 
@@ -79,9 +102,6 @@ data_home_sidebar <- function(pkg = ".") {
 
 data_home_element <- function(element, pkg) {
 
-  if (element %in% c("links", "license", "community", "citation", "authors")) {
-    return(do.call(paste0("data_home_sidebar_", element), list(pkg = pkg)))
-  }
   component <- pkg$meta$home$sidebar$components[[element]]
 
   if (is.null(component)) {
@@ -113,7 +133,7 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
     return(character())
 
   paste0(
-    "<div class='", class, "'>\n",
+    "<div id='sidebar-", class ,"'class='", class, "'>\n",
     "<h2>", heading, "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
