@@ -63,6 +63,7 @@ test_that("data_home_sidebar() can get a custom component", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
+  # no component definition for a component named in structure
   pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
   pkg$meta$home$sidebar <- list(
