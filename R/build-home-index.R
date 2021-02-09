@@ -94,13 +94,13 @@ data_home_sidebar <- function(pkg = ".") {
       custom_elements
     )
   }
+
   return(
     paste0(
     sidebar_components[sidebar_structure],
     collapse = "\n"
     )
   )
-
 
 }
 
