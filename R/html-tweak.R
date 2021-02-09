@@ -132,7 +132,7 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   # if there is a place-holder dev section
   if (sidebar) {
 
-    dev_status_html <- html %>% xml2::xml_find_first(".//div[@id='sidebar-dev-status']")
+    dev_status_html <- html %>% xml2::xml_find_first(".//div[@class='dev-status']")
 
     if (inherits(dev_status_html, "xml_node")) {
 
