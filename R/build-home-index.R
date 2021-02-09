@@ -43,9 +43,6 @@ data_home <- function(pkg = ".") {
   ))
 }
 
-default_sidebar_structure <- function() {
-  c("links", "license", "community", "citation", "authors", "dev")
-}
 
 data_home_sidebar <- function(pkg = ".") {
 
@@ -113,6 +110,10 @@ data_home_sidebar <- function(pkg = ".") {
     )
   )
 
+}
+
+default_sidebar_structure <- function() {
+  c("links", "license", "community", "citation", "authors", "dev")
 }
 
 data_home_component <- function(component_name, pkg) {
