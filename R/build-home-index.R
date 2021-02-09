@@ -78,7 +78,11 @@ data_home_sidebar <- function(pkg = ".") {
 
   # compute any custom element
   if (any(!sidebar_structure %in% default_sidebar_structure())) {
-    custom_elements_names <- sidebar_structure[!sidebar_structure %in% default_sidebar_structure()]
+
+    custom_elements_names <- sidebar_structure[
+      !sidebar_structure %in% default_sidebar_structure()
+      ]
+
     custom_elements <-  purrr::map_chr(
       custom_elements_names,
       data_home_element,
