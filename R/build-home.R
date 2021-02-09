@@ -129,14 +129,12 @@
 #'     html: path-to-sidebar.html
 #' ```
 #'
-#' You can change the order of sidebar elements:
-#' links, license (with an "s"), community, citation, authors, dev (badges)
-#' and add custom ones.
-#' The example below creates a sidebar whose only elements will be the
+#' You can change the order of sidebar components:
+#' `links`, `license` (with an "s"), `community`, `citation`,
+#' `authors`, `dev` (badges); and you can add custom components.
+#' The example below creates a sidebar whose only components will be the
 #' authors section, a custom section, and a Dev Status section if there are
 #' badges.
-#' Note that the html fiekd should be HTML formatted so if you add a link, you need a
-#' `<a>` tag.``
 #'
 #' ```
 #' home:

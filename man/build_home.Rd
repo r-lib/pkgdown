@@ -39,7 +39,7 @@ for you because it only touches files in the \verb{doc/} directory.
 
 \section{Sidebar}{
 
-The sidebar is by default automatically populated with:
+By default, the sidebar automatically populated with:
 \itemize{
 \item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
 identifies badges in three ways:
@@ -135,14 +135,12 @@ You can provide a ready-made sidebar HTML:\preformatted{home:
     html: path-to-sidebar.html
 }
 
-You can change the order of sidebar elements:
-links, license (with an "s"), community, citation, authors, dev (badges)
-and add custom ones.
-The example below creates a sidebar whose only elements will be the
+You can change the order of sidebar components:
+\code{links}, \code{license} (with an "s"), \code{community}, \code{citation},
+\code{authors}, \code{dev} (badges); and you can add custom components.
+The example below creates a sidebar whose only components will be the
 authors section, a custom section, and a Dev Status section if there are
-badges.
-Note that the html fiekd should be HTML formatted so if you add a link, you need a
-\verb{<a>} tag.``\preformatted{home:
+badges.\preformatted{home:
   sidebar:
     structure: [authors, custom, dev]
     components:
