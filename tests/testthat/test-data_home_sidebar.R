@@ -31,6 +31,13 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   )
 })
 
+test_that("data_home_sidebar() errors well when no HTML file", {
+  pkg <- test_path("assets/sidebar-no")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$home$sidebar$html <- "file.html"
+  expect_snapshot_error(data_home_sidebar(pkg))
+})
+
 test_that("data_home_sidebar() can get a custom component", {
   pkg <- test_path("assets/sidebar-custom-component")
   result <- xml2::read_html(

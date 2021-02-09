@@ -111,7 +111,7 @@ pkgdown_field <- function(pkg, ...) {
     )
   )
   paste0(
-    crayon::bold(field), " in ", config, " (nor in the `override` parameter)"
+    crayon::bold(field), " in ", config, " (or in the `override` parameter)"
   )
 }
 
