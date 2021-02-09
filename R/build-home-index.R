@@ -146,7 +146,7 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
     return(character())
 
   paste0(
-    "<div id='sidebar-", class ,"'class='", class, "'>\n",
+    "<div class='", class, "'>\n",
     "<h2>", heading, "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
