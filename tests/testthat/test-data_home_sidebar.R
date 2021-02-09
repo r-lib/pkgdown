@@ -1,12 +1,12 @@
 test_that("data_home_sidebar() works by default", {
-  pkg <- test_path("assets/sidebar-no")
+  pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
   pkg$meta$home$sidebar <- NULL
   expect_snapshot(data_home_sidebar(pkg))
 })
 
 test_that("data_home_sidebar() can be removed", {
-  pkg <- test_path("assets/sidebar-no")
+  pkg <- test_path("assets/sidebar")
   # not built by data_home_sidbar()
   expect_false(data_home_sidebar(pkg))
 
@@ -24,22 +24,32 @@ test_that("data_home_sidebar() can be removed", {
 
 
 test_that("data_home_sidebar() can be defined by a HTML file", {
-  pkg <- test_path("assets/sidebar-custom-html")
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  suppressWarnings(pkg$meta$home$sidebar$html <- "sidebar.html")
   expect_equal(
     data_home_sidebar(pkg),
-    paste0(read_lines(file.path(pkg, "sidebar.html")), collapse = "\n")
+    paste0(read_lines(file.path(pkg$src_path, "sidebar.html")), collapse = "\n")
   )
 })
 
 test_that("data_home_sidebar() errors well when no HTML file", {
-  pkg <- test_path("assets/sidebar-no")
+  pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
   suppressWarnings(pkg$meta$home$sidebar$html <- "file.html")
   expect_snapshot_error(data_home_sidebar(pkg))
 })
 
 test_that("data_home_sidebar() can get a custom component", {
-  pkg <- test_path("assets/sidebar-custom-component")
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$home$sidebar <- list(
+    structure = c("fancy"),
+    components = list(fancy = list(
+      title = "Fancy section", html = "How cool is pkgdown?!"
+      )
+      )
+  )
   result <- xml2::read_html(
     data_home_sidebar(pkg)
   )
@@ -53,7 +63,11 @@ test_that("data_home_sidebar() can get a custom component", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
-  pkg <- test_path("assets/sidebar-custom-wrong")
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$home$sidebar <- list(
+    structure = c("fancy")
+  )
   expect_snapshot_error(
     data_home_sidebar(pkg)
   )
