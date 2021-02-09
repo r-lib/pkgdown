@@ -48,6 +48,7 @@ default_sidebar_structure <- function() {
 }
 
 data_home_sidebar <- function(pkg = ".") {
+
   pkg <- as_pkgdown(pkg)
   if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
@@ -89,7 +90,6 @@ data_home_sidebar <- function(pkg = ".") {
       custom_elements
     )
   }
-
   return(
     paste0(
     sidebar_components[sidebar_structure],
@@ -106,6 +106,9 @@ data_home_element <- function(element, pkg) {
 
   if (is.null(component)) {
     abort(sprintf("There is no component named %s in the components field", element))
+  }
+  if (!all(c("title", "html") %in% names(component))) {
+    abort(sprintf("There is not both title and html for %s", element))
   }
 
   sidebar_section(component$title, bullets = component$html)
