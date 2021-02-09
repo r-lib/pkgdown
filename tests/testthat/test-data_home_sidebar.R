@@ -1,11 +1,11 @@
-test_that("data_home_sidebar works by default", {
+test_that("data_home_sidebar() works by default", {
   pkg <- test_path("assets/sidebar-no")
   pkg <- as_pkgdown(pkg)
   pkg$meta$home$sidebar <- NULL
   expect_snapshot(data_home_sidebar(pkg))
 })
 
-test_that("data_home_sidebar can be removed", {
+test_that("data_home_sidebar() can be removed", {
   pkg <- test_path("assets/sidebar-no")
   # not built by data_home_sidbar()
   expect_false(data_home_sidebar(pkg))
@@ -23,7 +23,7 @@ test_that("data_home_sidebar can be removed", {
 })
 
 
-test_that("data_home_sidebar can be defined by a HTML file", {
+test_that("data_home_sidebar() can be defined by a HTML file", {
   pkg <- test_path("assets/sidebar-custom-html")
   expect_equal(
     data_home_sidebar(pkg),
@@ -31,7 +31,7 @@ test_that("data_home_sidebar can be defined by a HTML file", {
   )
 })
 
-test_that("data_home_sidebar can get a custom component", {
+test_that("data_home_sidebar() can get a custom component", {
   pkg <- test_path("assets/sidebar-custom-component")
   result <- xml2::read_html(
     data_home_sidebar(pkg)
@@ -42,5 +42,12 @@ test_that("data_home_sidebar can get a custom component", {
   )
   expect_snapshot(
     xml2::xml_find_first(result, ".//div[@class='fancy-section']")
+  )
+})
+
+test_that("data_home_sidebar() outputs informative error messages", {
+  pkg <- test_path("assets/sidebar-custom-wrong")
+  expect_snapshot_error(
+    data_home_sidebar(pkg)
   )
 })

@@ -109,7 +109,13 @@ data_home_element <- function(element, pkg) {
   component <- pkg$meta$home$sidebar$components[[element]]
 
   if (is.null(component)) {
-    abort(sprintf("There is no component named %s in the components field", element))
+    abort(
+      sprintf(
+        "There is no component named %s in %s.",
+        element,
+        pkgdown_field(pkg, "home", "sidebar", "components")
+      )
+   )
   }
   if (!all(c("title", "html") %in% names(component))) {
     abort(sprintf("There is not both title and html for %s", element))

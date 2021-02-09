@@ -102,6 +102,19 @@ print_yaml <- function(x) {
   structure(x, class = "print_yaml")
 }
 
+pkgdown_field <- function(pkg, ...) {
+  field <- paste0(list(...), collapse = ".")
+  config <- src_path(
+    fs::path_rel(
+      pkgdown_config_path(pkg$src_path),
+      pkg$src_path
+    )
+  )
+  paste0(
+    crayon::bold(field), " in ", config
+  )
+}
+
 #' @export
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
