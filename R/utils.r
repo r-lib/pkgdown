@@ -132,5 +132,5 @@ show_xml <- function(x) {
 }
 
 isFALSE <- function(x) {
-  is.logical(x) && !x
+  is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }
