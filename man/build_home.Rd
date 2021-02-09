@@ -130,29 +130,29 @@ elements:\preformatted{home:
     href: http://website.com
 }
 
-You can completely remove the sidebar.\preformatted{home:
-  sidebar: FALSE
-}
-
-You can provide a ready-made sidebar HTML.\preformatted{home:
+You can provide a ready-made sidebar HTML:\preformatted{home:
   sidebar:
     html: path-to-sidebar.html
 }
 
-You can change the order of sidebar elements (except Dev Status):
-links, license (with an "s"), community, citation, authors
+You can change the order of sidebar elements:
+links, license (with an "s"), community, citation, authors, dev (badges)
 and add custom ones.
 The example below creates a sidebar whose only elements will be the
 authors section, a custom section, and a Dev Status section if there are
 badges.
-Note that the text should be HTML formatted so if you add a link, you need a
+Note that the html fiekd should be HTML formatted so if you add a link, you need a
 \verb{<a>} tag.``\preformatted{home:
   sidebar:
-    structure: [authors, custom]
+    structure: [authors, custom, dev]
     components:
       custom:
         title: Funding
-        text: We are grateful for funding!
+        html: We are grateful for funding!
+}
+
+You can completely remove the sidebar.\preformatted{home:
+  sidebar: FALSE
 }
 
 READMEs usually start with an \verb{<h1>} containing the package name. If
