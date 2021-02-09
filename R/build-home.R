@@ -17,7 +17,7 @@
 #' for you because it only touches files in the `doc/` directory.
 #'
 #' @section Sidebar:
-#' The sidebar is by default automatically populated with:
+#' By default, the sidebar automatically populated with:
 #'
 #' *   Development status badges found in `README.md`/`index.md`. pkgdown
 #'     identifies badges in three ways:
