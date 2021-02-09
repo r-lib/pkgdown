@@ -60,7 +60,7 @@ data_home_sidebar <- function(pkg = ".") {
     if (!file.exists(html_path)) {
       abort(
         sprintf(
-          "Can't find file %s that was indicated in %s.",
+          "Can't find file '%s' specified by %s.",
           pkg$meta$home$sidebar$html,
           pkgdown_field(pkg, "home", "sidebar", "html")
           )
