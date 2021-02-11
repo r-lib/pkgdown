@@ -49,13 +49,6 @@ is_syntactic <- function(x) x == make.names(x)
 
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
-discard_empty <- function(x) {
-  purrr::discard(
-    x,
-    function(x) length(x) == 0
-  )
-}
-
 # devtools metadata -------------------------------------------------------
 
 devtools_loaded <- function(x) {

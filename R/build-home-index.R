@@ -53,15 +53,14 @@ data_home_sidebar <- function(pkg = ".") {
   html_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
 
   if (length(html_path)) {
-
     if (!file.exists(html_path)) {
       abort(
         sprintf(
           "Can't find file '%s' specified by %s.",
           pkg$meta$home$sidebar$html,
           pkgdown_field(pkg = pkg, "home", "sidebar", "html")
-          )
         )
+      )
     }
     return(paste0(read_lines(html_path), collapse = "\n"))
   }
@@ -81,7 +80,7 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
     sidebar_html <- paste0(
-      discard_empty(sidebar_components),
+      purrr::compact(sidebar_components),
       collapse = "\n"
     )
     return(sidebar_html)
@@ -104,15 +103,12 @@ data_home_sidebar <- function(pkg = ".") {
   missing <- setdiff(sidebar_structure, names(sidebar_components))
 
   if (length(missing) > 0) {
-
-    missing_fields <- pkgdown_fields(
-      pkg = pkg,
-      fields = lapply(
-        missing, append,
-        c("home", "sidebar", "components"),
-        after = 0
-        )
+    missing_components <- lapply(
+      missing, append,
+      c("home", "sidebar", "components"),
+      after = 0
     )
+    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
 
     abort(
       sprintf(
@@ -125,7 +121,9 @@ data_home_sidebar <- function(pkg = ".") {
     )
   }
 
-  sidebar_final_components <- discard_empty(sidebar_components[sidebar_structure])
+  sidebar_final_components <- purrr::compact(
+    sidebar_components[sidebar_structure]
+    )
 
   paste0(sidebar_final_components, collapse = "\n")
 
