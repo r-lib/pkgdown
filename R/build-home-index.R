@@ -15,7 +15,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
   } else {
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown(src_path)
+    data$index <- markdown(src_path, pkg = pkg)
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 

@@ -28,7 +28,7 @@ data_reference_index_rows <- function(section, pkg) {
     rows[[1]] <- list(
       title = section$title,
       slug = paste0("section-", make_slug(section$title)),
-      desc = markdown_text(section$desc)
+      desc = markdown_text(section$desc, pkg = pkg)
     )
   }
 
@@ -36,7 +36,7 @@ data_reference_index_rows <- function(section, pkg) {
     rows[[2]] <- list(
       subtitle = section$subtitle,
       slug = paste0("section-", make_slug(section$subtitle)),
-      desc = markdown_text(section$desc)
+      desc = markdown_text(section$desc, pkg = pkg)
     )
   }
 

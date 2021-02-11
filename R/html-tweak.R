@@ -78,7 +78,12 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   hrefs <- xml2::xml_attr(links, "href")
 
-  needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
+  if (is.null(pkg$meta$url)) {
+    needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
+  } else {
+    url <- sub("/$", "", pkg$meta$url)
+    needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
+  }
 
   if (any(needs_tweak)) {
     tweaked <- purrr::map(
@@ -87,7 +92,7 @@ tweak_all_links <- function(html, pkg = pkg) {
       "external-link"
       )
 
-    xml2::xml_attrs(links[needs_tweak], "class") <- tweaked
+    xml2::xml_attr(links[needs_tweak], "class") <- tweaked
   }
 
   invisible()
@@ -117,11 +122,12 @@ prepend_class <- function(x, class = "table") {
 
 # File level tweaks --------------------------------------------
 
-tweak_rmarkdown_html <- function(html, input_path) {
+tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   # Automatically link function mentions
   downlit::downlit_html_node(html)
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
+  tweak_all_links(html, pkg = pkg)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")

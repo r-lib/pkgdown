@@ -1,4 +1,4 @@
-markdown <- function(path = NULL, ..., strip_header = FALSE) {
+markdown <- function(path = NULL, ..., strip_header = FALSE, pkg) {
   tmp <- tempfile(fileext = ".html")
   on.exit(unlink(tmp), add = TRUE)
 
@@ -39,7 +39,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
 
   downlit::downlit_html_node(xml)
   tweak_md_links(xml)
-  tweak_all_links(xml)
+  tweak_all_links(xml, pkg = pkg)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds
@@ -58,7 +58,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
   )
 }
 
-markdown_text <- function(text, ...) {
+markdown_text <- function(text, pkg = pkg, ...) {
   if (identical(text, NA_character_) || is.null(text)) {
     return(NULL)
   }
