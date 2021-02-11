@@ -23,6 +23,8 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         id: install-r
 
+      - uses: r-lib/actions/setup-pandoc@v1
+
       - name: Install pak and query dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
