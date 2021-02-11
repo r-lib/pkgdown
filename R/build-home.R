@@ -146,7 +146,7 @@
 #'     html: path-to-sidebar.html
 #' ```
 #'
-#' You can completely remove the sidebar.
+#' Finally, you can completely remove the sidebar.
 #'
 #' ```
 #' home:
