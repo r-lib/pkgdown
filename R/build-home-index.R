@@ -105,15 +105,19 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (length(missing) > 0) {
 
-    missing_fields <- purrr::map_chr(
-      missing, pkgdown_field2,
+    missing_fields <- pkgdown_fields(
       pkg = pkg,
-      "home", "sidebar", "components"
-      )
+      fields = lapply(
+        missing, append,
+        c("home", "sidebar", "components"),
+        after = 0
+        )
+    )
 
     abort(
       sprintf(
-        "Can't find component %s.",
+        "Can't find component%s %s.",
+        if (length(missing) > 1) "s" else "",
         paste0(
           missing_fields, collapse = " nor "
         )

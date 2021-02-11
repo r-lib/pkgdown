@@ -133,8 +133,28 @@ pkgdown_field <- function(pkg, ...) {
   )
 }
 
-pkgdown_field2 <- function(key, pkg, ...) {
-  pkgdown_field(pkg = pkg, ..., key)
+pkgdown_fields <- function(pkg, fields) {
+
+  fields <- purrr::map_chr(fields, paste0, collapse = ".")
+  fields <- toString(crayon::bold(fields))
+
+  config_path <- pkgdown_config_path(path = pkg$src_path)
+
+  if (is.null(config_path)) {
+    return(fields)
+  }
+
+  config <- src_path(
+    fs::path_rel(
+      config_path,
+      pkg$src_path
+    )
+  )
+
+  paste0(
+    fields, " in ", config
+  )
+
 }
 
 #' @export
