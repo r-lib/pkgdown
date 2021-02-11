@@ -40,6 +40,10 @@ You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible
 Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
 If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400).
 
+### How to craft and preview style tweaks
+
+Thinking about https://github.com/r-lib/pkgdown/issues/1469#issuecomment-777225834
+
 ## Layout
 
 You will want to alter the layout of your website if you are trying to e.g.
