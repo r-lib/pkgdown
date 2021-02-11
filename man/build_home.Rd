@@ -130,11 +130,6 @@ elements:\preformatted{home:
     href: http://website.com
 }
 
-You can provide a ready-made sidebar HTML:\preformatted{home:
-  sidebar:
-    html: path-to-sidebar.html
-}
-
 You can change the order of sidebar components:
 \code{links}, \code{license} (with an "s"), \code{community}, \code{citation},
 \code{authors}, \code{dev} (badges); and you can add custom components.
@@ -147,6 +142,11 @@ badges.\preformatted{home:
       custom:
         title: Funding
         html: We are grateful for funding!
+}
+
+You can provide a ready-made sidebar HTML:\preformatted{home:
+  sidebar:
+    html: path-to-sidebar.html
 }
 
 You can completely remove the sidebar.\preformatted{home:
