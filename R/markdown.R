@@ -39,6 +39,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
 
   downlit::downlit_html_node(xml)
   tweak_md_links(xml)
+  tweak_all_links(xml)
   tweak_anchors(xml, only_contents = FALSE)
 
   # Extract body of html - as.character renders as xml which adds

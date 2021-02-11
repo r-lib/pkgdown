@@ -71,6 +71,27 @@ tweak_md_links <- function(html) {
   invisible()
 }
 
+tweak_all_links <- function(html, pkg = pkg) {
+  links <- xml2::xml_find_all(html, ".//a")
+  if (length(links) == 0)
+    return()
+
+  hrefs <- xml2::xml_attr(links, "href")
+
+  needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
+
+  if (any(needs_tweak)) {
+    tweaked <- purrr::map(
+      links[needs_tweak],
+      prepend_class,
+      "external-link"
+      )
+
+    xml2::xml_attrs(links[needs_tweak], "class") <- tweaked
+  }
+
+  invisible()
+}
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")

@@ -95,6 +95,7 @@ test_that("only local md links are tweaked", {
     </div>')
 
   tweak_md_links(html)
+  tweak_all_links(html)
 
   href <- html %>%
     xml2::xml_find_all(".//a") %>%
