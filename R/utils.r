@@ -125,11 +125,9 @@ pkgdown_field <- function(pkg, ...) {
 }
 
 pkgdown_fields <- function(pkg, fields) {
-
   fields <- purrr::map_chr(fields, paste0, collapse = ".")
   fields <- toString(crayon::bold(fields))
   pkgdown_field(pkg, fields)
-
 }
 
 #' @export
