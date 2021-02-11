@@ -143,7 +143,7 @@ data_home_component <- function(component, component_name, pkg) {
         "Can't find %s for the component %s",
         paste0(
           c("title", "html")[!c("title", "html") %in% names(component)],
-          collapse = " & "
+          collapse = " nor "
           ),
         pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
         )

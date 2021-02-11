@@ -56,5 +56,5 @@
 
 ---
 
-    Can't find title & html for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find title nor html for the component home.sidebar.components.fancy in '_pkgdown.yml'
 
