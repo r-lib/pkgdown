@@ -1,9 +1,12 @@
-test_that("adds github link when available", {
+test_that("adds github/gitlab link when available", {
   verify_output(test_path("test-navbar/github.txt"), {
     pkg <- pkg_navbar()
     navbar_components(pkg)
 
     pkg <- pkg_navbar(github_url = "https://github.com/r-lib/pkgdown")
+    navbar_components(pkg)
+
+    pkg <- pkg_navbar(github_url = "https://gitlab.com/r-lib/pkgdown")
     navbar_components(pkg)
   })
 })

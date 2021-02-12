@@ -15,3 +15,13 @@ github:
   href: https://github.com/r-lib/pkgdown
 
 
+> pkg <- pkg_navbar(github_url = "https://gitlab.com/r-lib/pkgdown")
+> navbar_components(pkg)
+reference:
+  text: Reference
+  href: reference/index.html
+github:
+  icon: fab fa-gitlab fa-lg
+  href: https://gitlab.com/r-lib/pkgdown
+
+

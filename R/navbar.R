@@ -70,13 +70,12 @@ navbar_components <- function(pkg = ".") {
   }
   menu$news <- navbar_news(pkg)
 
-  if (isTRUE(grepl("github\\.com", repo_home(pkg)))) {
-    menu$github <- menu_icon("github", repo_home(pkg), style = "fab")
-  }
-
-  if (isTRUE(grepl("gitlab\\.com", repo_home(pkg)))) {
-    menu$github <- menu_icon("gitlab", repo_home(pkg), style = "fab")
-  }
+  menu$github <- switch(
+    repo_type(pkg),
+    GitHub = menu_icon("github", repo_home(pkg), style = "fab"),
+    GitLab = menu_icon("gitlab", repo_home(pkg), style = "fab"),
+    NULL
+  )
 
   menu <- c(menu, navbar_articles(pkg))
 
