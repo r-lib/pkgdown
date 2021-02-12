@@ -39,7 +39,7 @@ for you because it only touches files in the \verb{doc/} directory.
 
 \section{Sidebar}{
 
-The sidebar is automatically populated with:
+By default, the sidebar automatically populated with:
 \itemize{
 \item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
 identifies badges in three ways:
@@ -73,6 +73,9 @@ to the \href{https://testthat.r-lib.org/authors.html}{authors page}.
   )
 }
 }
+
+You can tweak the navbar by using the YAML configuration, see the corresponding
+section.
 }
 
 \section{Images and figures}{
@@ -125,6 +128,29 @@ elements:\preformatted{home:
   links:
   - text: Link text
     href: http://website.com
+}
+
+You can change the order of sidebar components:
+\code{links}, \code{license} (with an "s"), \code{community}, \code{citation},
+\code{authors}, \code{dev} (badges); and you can add custom components.
+The example below creates a sidebar whose only components will be the
+authors section, a custom section, and a Dev Status section if there are
+badges.\preformatted{home:
+  sidebar:
+    structure: [authors, custom, dev]
+    components:
+      custom:
+        title: Funding
+        html: We are grateful for funding!
+}
+
+You can provide a ready-made sidebar HTML:\preformatted{home:
+  sidebar:
+    html: path-to-sidebar.html
+}
+
+You can completely remove the sidebar.\preformatted{home:
+  sidebar: FALSE
 }
 
 READMEs usually start with an \verb{<h1>} containing the package name. If

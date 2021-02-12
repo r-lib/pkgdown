@@ -23,6 +23,14 @@ You can preview and validate the appearance of the social media cards with onlin
 * [Twitter Card Validator][twitter-validator]
 * [Google Rich Results Test][ogp-validator]
 
+## Necessary configuration
+
+Metadata can only be produced correctly if your pkgdown website URL is indicated in its configuration file.
+
+```yaml
+url: https://example.com
+```
+
 ## Site-wide customization
 
 Metadata for the entire pkgdown website can be specified in the site's `_pkgdown.yml` configuration file in the `home` and `template: opengraph` sections:

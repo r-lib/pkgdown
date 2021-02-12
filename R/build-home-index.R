@@ -20,7 +20,13 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
-  update_html(dst_path, tweak_homepage_html, strip_header = strip_header)
+
+  update_html(
+    dst_path,
+    tweak_homepage_html,
+    strip_header = strip_header,
+    sidebar = !isFALSE(pkg$meta$home$sidebar)
+  )
 
   invisible()
 }
@@ -37,19 +43,112 @@ data_home <- function(pkg = ".") {
   ))
 }
 
+
 data_home_sidebar <- function(pkg = ".") {
+
   pkg <- as_pkgdown(pkg)
-  if (!is.null(pkg$meta$home$sidebar))
+  if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
-  paste0(
-    data_home_sidebar_links(pkg),
-    data_home_sidebar_license(pkg),
-    data_home_sidebar_community(pkg),
-    data_home_sidebar_citation(pkg),
-    data_home_sidebar_authors(pkg),
-    collapse = "\n"
+  html_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
+
+  if (length(html_path)) {
+    if (!file.exists(html_path)) {
+      abort(
+        sprintf(
+          "Can't find file '%s' specified by %s.",
+          pkg$meta$home$sidebar$html,
+          pkgdown_field(pkg = pkg, "home", "sidebar", "html")
+        )
+      )
+    }
+    return(paste0(read_lines(html_path), collapse = "\n"))
+  }
+
+  sidebar_structure <- pkg$meta$home$sidebar$structure %||%
+    default_sidebar_structure()
+
+  # compute all default sections
+  sidebar_components <- list(
+    links = data_home_sidebar_links(pkg),
+    license = data_home_sidebar_license(pkg),
+    community = data_home_sidebar_community(pkg),
+    citation = data_home_sidebar_citation(pkg),
+    authors = data_home_sidebar_authors(pkg),
+    dev = sidebar_section("Dev Status", "placeholder")
   )
+
+  if (is.null(pkg$meta$home$sidebar$structure)) {
+    sidebar_html <- paste0(
+      purrr::compact(sidebar_components),
+      collapse = "\n"
+    )
+    return(sidebar_html)
+  }
+
+  # compute any custom component
+  components <- pkg$meta$home$sidebar$components
+
+  sidebar_components <- utils::modifyList(
+    sidebar_components,
+    purrr::map2(
+      components,
+      names(components),
+      data_home_component,
+      pkg = pkg
+      ) %>%
+      set_names(names(components))
+  )
+
+  missing <- setdiff(sidebar_structure, names(sidebar_components))
+
+  if (length(missing) > 0) {
+    missing_components <- lapply(
+      missing, append,
+      c("home", "sidebar", "components"),
+      after = 0
+    )
+    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
+
+    abort(
+      sprintf(
+        "Can't find component%s %s.",
+        if (length(missing) > 1) "s" else "",
+        paste0(
+          missing_fields, collapse = " nor "
+        )
+      )
+    )
+  }
+
+  sidebar_final_components <- purrr::compact(
+    sidebar_components[sidebar_structure]
+    )
+
+  paste0(sidebar_final_components, collapse = "\n")
+
+}
+
+default_sidebar_structure <- function() {
+  c("links", "license", "community", "citation", "authors", "dev")
+}
+
+data_home_component <- function(component, component_name, pkg) {
+
+  if (!all(c("title", "html") %in% names(component))) {
+    abort(
+      sprintf(
+        "Can't find %s for the component %s",
+        paste0(
+          c("title", "html")[!c("title", "html") %in% names(component)],
+          collapse = " nor "
+          ),
+        pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
+        )
+      )
+  }
+
+  sidebar_section(component$title, bullets = component$html)
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

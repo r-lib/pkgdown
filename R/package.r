@@ -74,8 +74,8 @@ read_desc <- function(path = ".") {
 
 # Metadata ----------------------------------------------------------------
 
-read_meta <- function(path) {
-  path <- path_first_existing(
+pkgdown_config_path <- function(path) {
+  path_first_existing(
     path,
     c("_pkgdown.yml",
       "_pkgdown.yaml",
@@ -83,6 +83,10 @@ read_meta <- function(path) {
       "inst/_pkgdown.yml"
     )
   )
+}
+
+read_meta <- function(path) {
+  path <- pkgdown_config_path(path)
 
   if (is.null(path)) {
     yaml <- list()
