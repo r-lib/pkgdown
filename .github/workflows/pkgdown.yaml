@@ -28,6 +28,8 @@ jobs:
         id: install-r
 
       - uses: r-lib/actions/setup-pandoc@v1
+      
+      - uses: r-lib/actions/setup-tinytex@v1
 
       - name: Install pak and query dependencies
         run: |
