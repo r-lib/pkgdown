@@ -12,7 +12,13 @@ build_docsearch_json <- function(pkg = ".") {
     url = pkg$meta$url
   )
 
-  template <- find_template("config", "docsearch", ext = ".json")
+  template <- find_template(
+    "config",
+    "docsearch",
+    ext = ".json",
+    bs_version = get_bs_version(pkg)
+  )
+
   json <- render_template(template, data)
 
   json_path <- path(pkg$dst_path, "docsearch.json")
