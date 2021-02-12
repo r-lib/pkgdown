@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* External links now get the class "external-link" on top of their usual classes, if they had any. Therefore they can be targeted more easily by CSS rules. (#881, #1491)
+
 * Protect the rules drawn by the CLI (as for example, in `build_site()`) against
   very narrow terminal windows with small `getOption('width')`s 
   (@maxheld83, #1435).
