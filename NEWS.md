@@ -3,6 +3,18 @@
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
+* Make sidebar specification more flexible: users can now
+    * change the order of sidebar elements
+    * add custom sidebar sections (title, text that has to be HTML)
+    * completely suppress the navbar (even "Dev status")
+    * provide their own HTML for the navbar. (#1443, #1488)
+
+
+* Protect the rules drawn by the CLI (as for example, in `build_site()`) against
+  very narrow terminal windows with small `getOption('width')`s 
+  (@maxheld83, #1435).
+
+* [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) can now be configured for pkgdown sites.
 
 * `build_news()` recognises more styles of release heading (#1437).
 

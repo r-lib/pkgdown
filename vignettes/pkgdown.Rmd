@@ -47,7 +47,14 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
       params:
         ganalytics: UA-000000-01
     ```
-    
+*   A Google site verification code to be added to page headers 
+
+    ```yaml
+    template:
+      params:
+        google_site_verification: _nn6ile-a6x6lctOW
+    ```
+
 *   Customize metadata used for social media cards, as described in 
     `vignette("metadata")`.
 
@@ -133,6 +140,13 @@ See `?build_news` for more customisation options including how to:
 ## Publishing
 
 The easiest way to publish your website is to use GitHub [`docs/` directory][docs] support. If you want to build and publish your package automatically with GitHub actions, try `usethis::use_github_action("pkgdown")`.
+
+Once your site is online you must finish configuring it by adding its URL to its configuration file.
+This URL will be used by pkgdown to e.g. generate the metadata correcty (see `vignette("metadata")`).
+
+```yaml
+url: https://example.com
+```
 
 ## Promoting
 

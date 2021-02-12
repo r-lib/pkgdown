@@ -21,7 +21,15 @@ Package authors can customize the metadata used by Twitter and the [Open Graph p
 You can preview and validate the appearance of the social media cards with online tools:
 
 * [Twitter Card Validator][twitter-validator]
-* [Google Structured Data Testing Tool][ogp-validator]
+* [Google Rich Results Test][ogp-validator]
+
+## Necessary configuration
+
+Metadata can only be produced correctly if your pkgdown website URL is indicated in its configuration file.
+
+```yaml
+url: https://example.com
+```
 
 ## Site-wide customization
 
@@ -115,5 +123,5 @@ In articles, the `opengraph` section works in the same way as the site-wide `tem
 
 [ogp]: https://ogp.me/
 [twitter-validator]: https://cards-dev.twitter.com/validator
-[ogp-validator]: https://search.google.com/structured-data/testing-tool
+[ogp-validator]: https://search.google.com/test/rich-results
 [twitter-card]: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards

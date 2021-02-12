@@ -3,7 +3,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE) {
   on.exit(unlink(tmp), add = TRUE)
 
   if (rmarkdown::pandoc_available("2.0")) {
-    from <- "markdown_github-hard_line_breaks+smart+auto_identifiers+tex_math_dollars+tex_math_single_backslash+markdown_in_html_blocks+header_attributes"
+    from <- "markdown+gfm_auto_identifiers-citations"
   } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes"
   } else {

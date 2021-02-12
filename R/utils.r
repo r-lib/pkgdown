@@ -91,6 +91,8 @@ rule <- function(x = NULL, line = "-") {
   }
 
   line_length <- width - nchar(x) - nchar(prefix) - nchar(suffix)
+  # protect against negative values which can result in narrow terminals
+  line_length <- max(0, line_length)
   cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
 }
 
@@ -98,6 +100,34 @@ yaml_list <- function(...) print_yaml(list(...))
 
 print_yaml <- function(x) {
   structure(x, class = "print_yaml")
+}
+
+pkgdown_field <- function(pkg, ...) {
+
+  field <- paste0(list(...), collapse = ".")
+
+  config_path <- pkgdown_config_path(path = pkg$src_path)
+
+  if (is.null(config_path)) {
+    return(crayon::bold(field))
+  }
+
+  config <- src_path(
+    fs::path_rel(
+      config_path,
+      pkg$src_path
+    )
+  )
+
+  paste0(
+    crayon::bold(field), " in ", config
+  )
+}
+
+pkgdown_fields <- function(pkg, fields) {
+  fields <- purrr::map_chr(fields, paste0, collapse = ".")
+  fields <- toString(crayon::bold(fields))
+  pkgdown_field(pkg, fields)
 }
 
 #' @export
@@ -127,4 +157,8 @@ cran_unquote <- function(string) {
 
 show_xml <- function(x) {
   cat(as.character(x, options = c("format", "no_declaration")))
+}
+
+isFALSE <- function(x) {
+  is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }

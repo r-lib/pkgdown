@@ -124,18 +124,9 @@ tweak_rmarkdown_html <- function(html, input_path) {
   invisible()
 }
 
-tweak_homepage_html <- function(html, strip_header = FALSE) {
-  badges <- badges_extract(html)
-  if (length(badges) > 0) {
-    list <- sidebar_section("Dev status", badges)
-    list_div <- paste0("<div>", list, "</div>")
-    list_html <- list_div %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
+tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
 
-    sidebar <- html %>% xml2::xml_find_first(".//div[@id='pkgdown-sidebar']")
-    list_html %>%
-      xml2::xml_children() %>%
-      purrr::walk(~ xml2::xml_add_child(sidebar, .))
-  }
+  html <- tweak_sidebar_html(html, sidebar = sidebar)
 
   # Always remove dummy page header
   header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
@@ -161,6 +152,28 @@ tweak_homepage_html <- function(html, strip_header = FALSE) {
   tweak_tables(html)
 
   invisible()
+}
+
+tweak_sidebar_html <- function(html, sidebar) {
+  if (!sidebar) {
+    return(html)
+  }
+
+  dev_status_html <- html %>% xml2::xml_find_first(".//div[@class='dev-status']")
+  if (!inherits(dev_status_html, "xml_node")) {
+    return(html)
+  }
+
+  badges <- badges_extract(html)
+  if (length(badges) == 0) {
+    xml2::xml_remove(dev_status_html)
+    return(html)
+  }
+
+  list <- sidebar_section("Dev status", badges)
+  list_html <- list %>% xml2::read_html() %>% xml2::xml_find_first(".//div")
+  xml2::xml_replace(dev_status_html, list_html)
+  html
 }
 
 # Mutates `html`, removing the badge container
