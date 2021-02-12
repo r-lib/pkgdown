@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* pkgdown can now use the templates "in-header.html", "before-body.html" and 
+* pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
 respectively, at the end of the `<head>` tag; 
