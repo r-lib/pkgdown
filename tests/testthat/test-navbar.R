@@ -3,7 +3,7 @@ test_that("adds github link when available", {
     pkg <- pkg_navbar()
     navbar_components(pkg)
 
-    pkg <- pkg_navbar(github_url = "https://github.org/r-lib/pkgdown")
+    pkg <- pkg_navbar(github_url = "https://github.com/r-lib/pkgdown")
     navbar_components(pkg)
   })
 })

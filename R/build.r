@@ -118,8 +118,8 @@
 #' * Reference
 #' * Articles (i.e., vignettes, if present).
 #' * News (if present).
-#' * A "github" icon with a link to your
-#'   github repo (if listed in the `DESCRIPTION` url field).
+#' * A "github"/"gitlab" icon with a link to your
+#'   GitHub/GitLab repo (if listed in the `DESCRIPTION` url field).
 #'
 #' You can override these defaults with the  `navbar` field. It has two primary
 #' components: `structure` and `components`. These components interact in
@@ -131,6 +131,7 @@
 #' of the components, and whether they're right aligned or left aligned.
 #' You can use this component to change the order of the default components,
 #' and to add your own components.
+#' Any unplaced components go to the right of the left navbar.
 #'
 #' ```
 #' navbar:

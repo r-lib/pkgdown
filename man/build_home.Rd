@@ -149,7 +149,7 @@ You can provide a ready-made sidebar HTML:\preformatted{home:
     html: path-to-sidebar.html
 }
 
-You can completely remove the sidebar.\preformatted{home:
+Finally, you can completely remove the sidebar.\preformatted{home:
   sidebar: FALSE
 }
 
