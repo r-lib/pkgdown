@@ -41,7 +41,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   # render template components
-  pieces <- c("head", "navbar", "header", "content", "docsearch", "footer")
+  pieces <- c(
+    "head", "navbar", "header", "content", "docsearch", "footer",
+    "in-header", "after-head", "before-body", "after-body"
+  )
 
   templates <- purrr::map_chr(
     pieces, find_template, name,

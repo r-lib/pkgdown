@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
+"after-body.html" whose content will be placed 
+(similarly to bookdown options `in_header`, `before_body` and `after_body`), 
+respectively, at the end of the `<head>` tag; 
+right below the opening `<body>` tag; and before the closing tag `</body>` (#1487).
+
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
