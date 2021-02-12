@@ -178,7 +178,6 @@ get_bs_version <- function(pkg = ".") {
   if (is.null(template$bootstrap)) {
     return(3)
   }
-
   if (template$bootstrap %in% c(3, 4)) {
     return(template$bootstrap)
   }
@@ -190,7 +189,7 @@ get_bs_version <- function(pkg = ".") {
         "You specified a value of %s in %s.",
         template$bootstrap,
         pkgdown_field(pkg = pkg, "template", "bootstrap")
-        )
+      )
     )
   )
 
@@ -205,7 +204,7 @@ template_path <- function(pkg = ".") {
     path <- path_abs(template$path, start = pkg$src_path)
 
     if (!file_exists(path))
-      abort("Can not find template path ", src_path(path))
+      abort(paste0("Can not find template path ", src_path(path)))
 
     path
   } else if (!is.null(template$package)) {
