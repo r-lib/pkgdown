@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
+  by assuming such host address begin with `github.` or `gitlab.` 
+  (@ijlyttle, #1452).
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
     * add custom sidebar sections (title, text that has to be HTML)
