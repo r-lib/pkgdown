@@ -12,7 +12,12 @@ Authors@R:
              role = "aut",
              comment = c(ORCID = "0000-0002-6299-179X")),
       person(given = "RStudio",
-             role = c("cph", "fnd")))
+             role = c("cph", "fnd")),
+      person(given = "Maëlle",
+             family = "Salmon",
+             role = "aut",
+             email = "maelle.salmon@yahoo.se",
+             comment = c(ORCID = "0000-0002-2815-0399")))
 Description: Generate an attractive and useful website from a
     source package.  'pkgdown' converts your documentation, vignettes,
     'README', and more to 'HTML' making it easy to share information about
