@@ -19,18 +19,28 @@ library(pkgdown)
 ```
 
 You can alter the design/styling of your pkgdown website to suit your brand and needs. 
-_Theming_ refers to being able to tweak colours, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. 
-_Layout_ refers to being able to more dramatically change the content of say the navbar by providing your own HTML templates to pkgdown, or even to just add the few HTML lines corresponding to your analytics provider.
+_Theming_ refers to being able to tweak colors, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. 
+_Layout_ refers to being able to more dramatically change the content of say the navbar, authors page, `<head>` tag by using pkgdown configuration or pkgdown templates.
 
 Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
 In the latter case you might want to share your style files in the form of a package.
 
 In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
 
-## Recommend Bootstrap 4 if you are reading this??
+FIND A PLACE FOR DOCUMENTING ASSETS AND THEIR USE CASES (E.G WHERE DO YOU PUT AN SVG YOUR CSS NEEDS)
 
-More Bootstrap variables for theming.
-Templates where future development efforts will happen.
+## Pre-requisite: update to Bootstrap 4!
+
+Note that most theming features work only with Bootstrap 4, and that current development of pkgdown templates only happen for Bootstrap 4 templates. 
+If you are reading this vignette, take a moment to update your website to Boostrap 4.
+
+```yaml
+template:
+  bootstrap: 4
+```
+
+It should not break your website, it should however change its styling a bit, for the better we hope.
+However, if you were managing your [own pkgdown templates](#layout), you might need to tweak those.
 
 ## Theming
 
@@ -48,8 +58,19 @@ Thinking about https://github.com/r-lib/pkgdown/issues/1469#issuecomment-7772258
 
 You will want to alter the layout of your website if you are trying to e.g.
 
+* customize elements of the navbar, footer, home sidebar,
 * add a few HTML lines corresponding to your HTML provider,
-* change the information provided in the footer.
+* change the information provided in e.g. the authors page.
+
+### Navbar, footer, home sidebar
+
+If you want to alter the elements of the navbar, refer to `?build_site` docs.
+PLACEHOLDER REGARDING FOOTER.
+If you want to alter the elements of the home sidebar, refer to `?build_home` docs.
+
+### Other layouts changes
+
+Other changes of layouts require tinkering with pkgdown _templates_.
 
 pkgdown uses the following whisker templates: 
 
@@ -57,7 +78,7 @@ pkgdown uses the following whisker templates:
 cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))), "\n"))
 ```
 
-You can [override the default templats](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
+You can [override the default templates](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
 For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
 
 Three of pkgdown templates are meant to be customized:
@@ -72,16 +93,16 @@ Furthermore, maintaining e.g. your own "head.html" template requires more work a
 ### Tweaking the templates meant for customization
 
 * Create a folder `inst/pkgdown/templates` (or use another method to override templates).
-* Create an HTML file "in-header.html", "before-body.html" and "after-body.html" in that folder depending on your needs.
+* Create an HTML file "in-header.html", "before-body.html" or "after-body.html" in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`.
 * Edit and save that file.
-
-E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`
+* Re-build your website, inspect it (and its source, if needed).
 
 ### Tweaking other templates (advanced users only)
 
 * To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3). The skeleton of pages is provided in "layout.html" so start there.
 * Create a folder `inst/pkgdown/templates` (or use another method to override templates).
 * Copy the template(s) you need to tweak into that folder, edit and save them.
+* Re-build your website, inspect it (and its source, if needed).
 
 ### General caveat
 
