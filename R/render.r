@@ -179,20 +179,20 @@ get_bs_version <- function(pkg = ".") {
     return(3)
   }
 
-  if (!template$bootstrap %in% c(3, 4)) {
-    abort(
-      message = c(
-        "Boostrap version must be 3 or 4.",
-        i = sprintf("You used %s.", template$bootstrap),
-        paste0(
-          "Fix the `bootstrap` parameter in the configuration file, ",
-          "under `template` (or fix the `override` parameter)."
-          )
-        )
-      )
+  if (template$bootstrap %in% c(3, 4)) {
+    return(template$bootstrap)
   }
 
-  return(template$bootstrap)
+  abort(
+    message = c(
+      "Boostrap version must be 3 or 4.",
+      x = sprintf(
+        "You specified a value of %s in %s.",
+        template$bootstrap,
+        pkgdown_field(pkg = pkg, "template", "bootstrap")
+        )
+    )
+  )
 
 }
 
