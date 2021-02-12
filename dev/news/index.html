@@ -81,9 +81,15 @@
 </script>
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -199,6 +205,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>pkgdown can now use the templates “in-header.html”/“after-head.html”, “before-body.html” and “after-body.html” whose content will be placed (similarly to bookdown options <code>in_header</code>, <code>before_body</code> and <code>after_body</code>), respectively, at the end of the <code>&lt;head&gt;</code> tag; right below the opening <code>&lt;body&gt;</code> tag; and before the closing tag <code>&lt;/body&gt;</code> (<a href='https://github.com/r-lib/pkgdown/issues/1487'>#1487</a>).</p></li>
 <li><p>Links for GitHub Enterprise and GitLab Enterprise repositories are detected by assuming such host address begin with <code>github.</code> or <code>gitlab.</code> (<a href='https://github.com/ijlyttle'>@ijlyttle</a>, <a href='https://github.com/r-lib/pkgdown/issues/1452'>#1452</a>).</p></li>
 <li>
 <p>Make sidebar specification more flexible: users can now</p>
@@ -703,6 +710,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>
