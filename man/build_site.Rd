@@ -178,7 +178,8 @@ By default, the top navigation bar (the "navbar") will contain links to:
 GitHub/GitLab repo (if listed in the \code{DESCRIPTION} url field).
 }
 
-You can override these defaults with the  \code{navbar} field. It has two primary
+You can override (but not remove) these defaults with the  \code{navbar} field.
+It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically

@@ -121,7 +121,8 @@
 #' * A "github"/"gitlab" icon with a link to your
 #'   GitHub/GitLab repo (if listed in the `DESCRIPTION` url field).
 #'
-#' You can override these defaults with the  `navbar` field. It has two primary
+#' You can override (but not remove) these defaults with the  `navbar` field.
+#' It has two primary
 #' components: `structure` and `components`. These components interact in
 #' a somewhat complicated way, but the complexity allows you to make minor
 #' tweaks to part of the navbar while relying on pkgdown to automatically
