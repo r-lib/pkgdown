@@ -78,6 +78,7 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   hrefs <- xml2::xml_attr(links, "href")
 
+  # Use pkgdown URL to detect non-external absolute URLs
   if (is.null(pkg$meta$url)) {
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
   } else {
