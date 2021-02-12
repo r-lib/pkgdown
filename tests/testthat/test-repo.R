@@ -73,6 +73,14 @@ test_that("can find gitlab url", {
   expect_equal(package_repo(desc, list()), ref)
 })
 
+test_that("can find github enterprise url", {
+  ref <- repo_meta_gh_like("https://github.acme.com/roadrunner/speed")
+  desc <- desc::desc(text = c(
+    "BugReports: https://github.acme.com/roadrunner/speed"
+  ))
+  expect_equal(package_repo(desc, list()), ref)
+})
+
 test_that("meta overrides autodetection", {
   ref <- repo_meta("https://github.com/r-lib/pkgdown/blob/master/")
   desc <- desc::desc(text = "URL: https://github.com/r-lib/pkgdown")
