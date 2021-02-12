@@ -157,23 +157,29 @@
 <li><a href="https://cards-dev.twitter.com/validator">Twitter Card Validator</a></li>
 <li><a href="https://search.google.com/test/rich-results">Google Rich Results Test</a></li>
 </ul>
+<div id="necessary-configuration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#necessary-configuration" class="anchor"></a>Necessary configuration</h2>
+<p>Metadata can only be produced correctly if your pkgdown website URL is indicated in its configuration file.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
+</div>
 <div id="site-wide-customization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#site-wide-customization" class="anchor"></a>Site-wide customization</h2>
 <p>Metadata for the entire pkgdown website can be specified in the site’s <code>_pkgdown.yml</code> configuration file in the <code>home</code> and <code>template: opengraph</code> sections:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Discover and add pool-noodles to your growing collection.</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="fu">opengraph</span><span class="kw">:</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="fu">src</span><span class="kw">:</span><span class="at"> man/figures/card.png</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">      </span><span class="fu">alt</span><span class="kw">:</span><span class="at"> </span><span class="st">"Pool noodles configured to form the word poolnoodlr"</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">      </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@hadleywickham"</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="at">      </span><span class="fu">site</span><span class="kw">:</span><span class="at"> </span><span class="st">"@rstudio"</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="at">      </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary_large_image</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Discover and add pool-noodles to your growing collection.</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">  </span><span class="fu">opengraph</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="at">      </span><span class="fu">src</span><span class="kw">:</span><span class="at"> man/figures/card.png</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="at">      </span><span class="fu">alt</span><span class="kw">:</span><span class="at"> </span><span class="st">"Pool noodles configured to form the word poolnoodlr"</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="at">      </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@hadleywickham"</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="fu">site</span><span class="kw">:</span><span class="at"> </span><span class="st">"@rstudio"</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="at">      </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary_large_image</span></span></code></pre></div>
 <p>The <code>home: title</code> and <code>home: description</code> fields override the <code>Title</code> and <code>Description</code> fields in the package <code>DESCRIPTION</code>. It’s good practice to set these fields to make your package documentation easier to find via search, rather than sticking with the title and description needed by CRAN.</p>
 <p>The <code>template: opengraph</code> section allows you to further customize the social media card.</p>
 <ul>
@@ -199,20 +205,20 @@
 <h2 class="hasAnchor">
 <a href="#article-metadata" class="anchor"></a>Article metadata</h2>
 <p>Articles and vignettes rendered as articles by pkgdown can have individually customized metadata and social media cards.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction to poolnoodlr"</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A brief introduction to pool noodles in R."</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Mara Averick"</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">opengraph</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://example.com/pkg/batpig.png"</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">  </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">    </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="at">    </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@dataandme"</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>  %\VignetteIndexEntry{Introduction to poolnoodlr}</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
-<span id="cb2-14"><a href="#cb2-14"></a>  %\VignetteEncoding{UTF-8}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction to poolnoodlr"</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A brief introduction to pool noodles in R."</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Mara Averick"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">opengraph</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://example.com/pkg/batpig.png"</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="at">  </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="at">    </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="at">    </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@dataandme"</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  %\VignetteIndexEntry{Introduction to poolnoodlr}</span>
+<span id="cb3-13"><a href="#cb3-13"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
+<span id="cb3-14"><a href="#cb3-14"></a>  %\VignetteEncoding{UTF-8}</span></code></pre></div>
 <p>Use the <code>title</code>, <code>description</code>, and <code>author</code> fields to specify the title, description, and (optional) author of the vignette or article.</p>
 <ul>
 <li><p>The <code>title</code> field is used as the title of your article in your pkgdown site and should always be included.</p></li>

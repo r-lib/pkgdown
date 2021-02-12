@@ -199,6 +199,15 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>Make sidebar specification more flexible: users can now</p>
+<ul>
+<li>change the order of sidebar elements</li>
+<li>add custom sidebar sections (title, text that has to be HTML)</li>
+<li>completely suppress the navbar (even “Dev status”)</li>
+<li>provide their own HTML for the navbar. (<a href='https://github.com/r-lib/pkgdown/issues/1443'>#1443</a>, <a href='https://github.com/r-lib/pkgdown/issues/1488'>#1488</a>)</li>
+</ul>
+</li>
 <li><p>Protect the rules drawn by the CLI (as for example, in <code><a href="../reference/build_site.html">build_site()</a></code>) against very narrow terminal windows with small <code><a href="https://rdrr.io/r/base/options.html">getOption('width')</a></code>s (<a href='https://github.com/maxheld83'>@maxheld83</a>, <a href='https://github.com/r-lib/pkgdown/issues/1435'>#1435</a>).</p></li>
 <li><p><a href="https://support.google.com/webmasters/answer/9008080?hl=en">Google Site Verification</a> can now be configured for pkgdown sites.</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code> recognises more styles of release heading (<a href='https://github.com/r-lib/pkgdown/issues/1437'>#1437</a>).</p></li>
@@ -425,7 +434,7 @@
 <p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
 <p>Deployment mode is slower, but guarantees correct results, and is the default for <code><a href="../reference/build_site.html">build_site()</a></code>. It installs the package into a temporary library, and runs examples/articles in a new process.</p>
 </li>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/1079'>#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code> or <code>index.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code>devtools::document()</code> (<a href='https://github.com/r-lib/pkgdown/issues/1079'>#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code> or <code>index.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> now strips quotes from <code>Title</code> and <code>Description</code> fields when generating page metadata. Additionally, you can now override the defaults via the <code>title</code> and <code>description</code> fields in the <code>home</code> section of <code>_pkgdown.yml</code> (<a href='https://github.com/r-lib/pkgdown/issues/957'>#957</a>, <a href='https://github.com/maelle'>@maelle</a>).</p></li>
 <li><p><code><a href="../articles/linking.html">vignette("linking")</a></code> describes how pkgdown’s automatic linking works, and how to ensure that cross-package links point to the right place.</p></li>
 </ul>
@@ -592,7 +601,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_site.html">build_site()</a></code> get new <code>document</code> argument. When <code>TRUE</code>, the default, will automatically run <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code> to ensure that your documentation is up to date.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_site.html">build_site()</a></code> get new <code>document</code> argument. When <code>TRUE</code>, the default, will automatically run <code>devtools::document()</code> to ensure that your documentation is up to date.</p></li>
 <li><p><code><a href="../reference/build_site.html">build_site()</a></code> gains a <code>new_process</code> argument, which defaults to <code>TRUE</code>. This will run pkgdown in a separate process, and is recommended practice because it improves reproducibility (<a href='https://github.com/r-lib/pkgdown/issues/647'>#647</a>).</p></li>
 <li><p>Improved display for icons: icons must be 30px and stored in top-level <code>icons/</code> directory. They are embedded in a separate column of reference index table, instead of being inside a comment (!) (<a href='https://github.com/r-lib/pkgdown/issues/607'>#607</a>).</p></li>
 </ul>
