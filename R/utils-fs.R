@@ -95,6 +95,11 @@ path_package_pkgdown <- function(package, ...) {
   }
 
   if (!file.exists(pkg_path)) {
+    # fall back on the bare templates directory
+    if (grepl("templatesBS.", paste0(...))) {
+      return(path_package_pkgdown(package, "templates"))
+    }
+
     stop(
       package, " does not contain ", src_path("inst/pkgdown/", ...),
       call. = FALSE

@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown will fall back on the bare templates directory if there is no subdirectory
+  corresponding to the Bootstrap version (#1496, @apreshill).
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
