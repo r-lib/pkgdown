@@ -75,7 +75,8 @@ data_home_sidebar <- function(pkg = ".") {
     community = data_home_sidebar_community(pkg),
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
-    dev = sidebar_section("Dev Status", "placeholder")
+    dev = sidebar_section("Dev Status", "placeholder"),
+    readme = data_home_readme(pkg)
   )
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
@@ -99,11 +100,6 @@ data_home_sidebar <- function(pkg = ".") {
       ) %>%
       set_names(names(components))
   )
-
-  if ("readme" %in%  pkg$meta$home$sidebar$structure
-    && is.null(sidebar_components[["readme"]])) {
-    sidebar_components[["readme"]] = data_home_readme(pkg)
-  }
 
   missing <- setdiff(sidebar_structure, names(sidebar_components))
 
