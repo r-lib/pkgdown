@@ -174,8 +174,7 @@ By default, the top navigation bar (the "navbar") will contain links to:
 \item Reference
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item A "github"/"gitlab" icon with a link to your
-GitHub/GitLab repo (if listed in the \code{DESCRIPTION} url field).
+\item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
 You can override (but not remove) these defaults with the  \code{navbar} field.
