@@ -213,9 +213,9 @@ template_path <- function(pkg = ".") {
   } else if (!is.null(template$package)) {
     path_package_pkgdown(
       template$package,
-      "templates",
-      paste0("BS", get_bs_version(pkg))
-    )
+      bs_version = get_bs_version(pkg),
+      "templates"
+      )
   } else {
     character()
   }
