@@ -36,24 +36,24 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   if (isTRUE(pkg$meta$footer$left$add)) {
     data$footer$left <- render_markdown_template(
-      paste(default_left_footer(data), pkg$meta$footer$left$text),
+      paste(default_left_footer(), pkg$meta$footer$left$text),
       data
     )
   } else{
     data$footer$left <- render_markdown_template(
-      pkg$meta$footer$left$text %||% default_left_footer(data),
+      pkg$meta$footer$left$text %||% default_left_footer(),
       data
     )
   }
 
   if (isTRUE(pkg$meta$footer$right$add)) {
     data$footer$right <- render_markdown_template(
-      paste(default_right_footer(data), pkg$meta$footer$right$text),
+      paste(default_right_footer(), pkg$meta$footer$right$text),
       data
     )
   } else{
     data$footer$right <- render_markdown_template(
-      pkg$meta$footer$right$text %||% default_right_footer(data),
+      pkg$meta$footer$right$text %||% default_right_footer(),
       data
     )
   }

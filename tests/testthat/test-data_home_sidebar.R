@@ -60,7 +60,10 @@ test_that("data_home_sidebar() can get a custom component", {
   )
 
   expect_snapshot(
-    xml2::xml_find_first(result, ".//div[@class='fancy-section']")
+    xml2::xml_find_first(
+      xml2::xml_find_first(result, ".//div[@class='fancy-section']"),
+      ".//ul"
+    )
   )
 })
 
@@ -84,7 +87,7 @@ test_that("data_home_sidebar() outputs informative error messages", {
   # no title
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
-    components = list(fancy = list(html = "bla"))
+    components = list(fancy = list(text = "bla"))
   )
   expect_snapshot_error(data_home_sidebar(pkg))
 

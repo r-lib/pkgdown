@@ -70,11 +70,12 @@ markdown_text <- function(text, ...) {
 }
 
 markdown_text2 <- function(text, ...) {
-  browser()
   html <- markdown_text(text, ...)
-  as.character(
-    xml2::xml_child(
-      xml2::xml_child(xml2::read_xml(html))
-    )
-    )
+  html %>%
+    xml2::read_html() %>%
+    xml2::xml_child() %>% # body
+    xml2::xml_child() %>% # p
+    xml2::xml_contents() %>%
+    as.character() %>%
+    paste(collapse = " ")
 }

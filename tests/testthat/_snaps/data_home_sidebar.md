@@ -16,7 +16,7 @@
       <ul class='list-unstyled'>
       <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
-      <li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a> <br />
+      <li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24'></img></a> <br />
       <small class = 'roles'> Copyright holder, funder </small>  </li>
       </ul>
       </div>
@@ -35,12 +35,12 @@
 # data_home_sidebar() can get a custom component
 
     Code
-      xml2::xml_find_first(result, ".//div[@class='fancy-section']")
+      xml2::xml_find_first(xml2::xml_find_first(result,
+        ".//div[@class='fancy-section']"), ".//ul")
     Output
       {html_node}
-      <div class="fancy-section">
-      [1] <h2>Fancy section</h2>
-      [2] <ul class="list-unstyled">\n<li>How cool is pkgdown?!</li>\n</ul>
+      <ul class="list-unstyled">
+      [1] <li>How cool is  <a href="https://pkgdown.r-lib.org">pkgdown</a>  1.0.0?! ...
 
 # data_home_sidebar() outputs informative error messages
 
@@ -56,5 +56,5 @@
 
 ---
 
-    Can't find title nor html for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find title nor text for the component home.sidebar.components.fancy in '_pkgdown.yml'
 
