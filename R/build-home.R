@@ -126,7 +126,7 @@
 #' `authors`, `dev` (badges); you can add a README table of contents `readme`,
 #' you can add custom components.
 #' The example below creates a sidebar whose only components will be the
-#' authors section, a custom section, a README table of contents,
+#' authors section, a custom section, a table of contents for the README,
 #' and a Dev Status section if there are badges.
 #'
 #' ```
