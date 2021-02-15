@@ -114,3 +114,9 @@ Make sure you read the documentation of `render_page()` as well as its source co
 Creating a package
 
 How does one share a Bootstrap style?
+
+Example of packages with themes
+* tidyverse
+* https://github.com/apreshill/quillt
+* rOpenSci
+* https://github.com/subugoe/subugoetheme/^
