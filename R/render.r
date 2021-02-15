@@ -215,7 +215,7 @@ template_path <- function(pkg = ".") {
       template$package,
       bs_version = get_bs_version(pkg),
       "templates"
-      )
+    )
   } else {
     character()
   }
