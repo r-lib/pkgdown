@@ -9,8 +9,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
+  
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
+    * add a table of contents for the README
     * add custom sidebar sections (title, text that has to be HTML)
     * completely suppress the navbar (even "Dev status")
     * provide their own HTML for the navbar. (#1443, #1488)

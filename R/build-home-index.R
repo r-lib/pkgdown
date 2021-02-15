@@ -100,6 +100,11 @@ data_home_sidebar <- function(pkg = ".") {
       set_names(names(components))
   )
 
+  if ("readme" %in%  pkg$meta$home$sidebar$structure
+    && is.null(sidebar_components[["readme"]])) {
+    sidebar_components[["readme"]] = data_home_readme(pkg)
+  }
+
   missing <- setdiff(sidebar_structure, names(sidebar_components))
 
   if (length(missing) > 0) {
@@ -168,13 +173,19 @@ data_home_sidebar_links <- function(pkg = ".") {
   sidebar_section("Links", links)
 }
 
+data_home_readme <- function(pkg) {
+  text <- '<nav id="toc" data-toggle="toc" class="sticky-top">
+    </nav>'
+  sidebar_section("In this README", text)
+}
+
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   if (length(bullets) == 0)
     return(character())
 
   paste0(
     "<div class='", class, "'>\n",
-    "<h2>", heading, "</h2>\n",
+    "<h2 data-toc-skip>", heading, "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
     "</ul>\n",
