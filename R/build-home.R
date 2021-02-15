@@ -127,6 +127,7 @@
 #' The example below creates a sidebar whose only components will be the
 #' authors section, a custom section, and a Dev Status section if there are
 #' badges.
+#' The `text` can be either HTML or Markdown.
 #'
 #' ```
 #' home:
@@ -135,7 +136,19 @@
 #'     components:
 #'       custom:
 #'         title: Funding
-#'         html: We are grateful for funding!
+#'         text: We are grateful for funding!
+#' ```
+#'
+#' The `text` can contain a whisker template with references to
+#' package-level variables (advanced use only!)
+#'
+#' home:
+#'   sidebar:
+#'     structure: [authors, custom, dev]
+#'     components:
+#'       custom:
+#'         title: Funding
+#'         text: 'We are grateful for funding! Cheers, {{#package}}{{{authors}}}{{/package}}'
 #' ```
 #'
 #' You can provide a ready-made sidebar HTML:

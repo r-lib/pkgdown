@@ -50,7 +50,7 @@ test_that("data_home_sidebar() can get a custom component", {
     components = list(
       fancy = list(
         title = "Fancy section",
-        html = "How cool is pkgdown?!"
+        text = "How cool is pkgdown?!"
       )
     )
   )
@@ -92,7 +92,7 @@ test_that("data_home_sidebar() outputs informative error messages", {
 
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
-    components = list(fancy = list(text = "bla"))
+    components = list(fancy = list(html = "bla"))
   )
   expect_snapshot_error(data_home_sidebar(pkg))
 })

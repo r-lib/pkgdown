@@ -68,3 +68,13 @@ markdown_text <- function(text, ...) {
   write_lines(text, path = tmp)
   markdown(tmp, ...)
 }
+
+markdown_text2 <- function(text, ...) {
+  browser()
+  html <- markdown_text(text, ...)
+  as.character(
+    xml2::xml_child(
+      xml2::read_html(html)
+      )
+    )
+}

@@ -135,12 +135,12 @@ default_sidebar_structure <- function() {
 
 data_home_component <- function(component, component_name, pkg) {
 
-  if (!all(c("title", "html") %in% names(component))) {
+  if (!all(c("title", "text") %in% names(component))) {
     abort(
       sprintf(
         "Can't find %s for the component %s",
         paste0(
-          c("title", "html")[!c("title", "html") %in% names(component)],
+          c("title", "text")[!c("title", "text") %in% names(component)],
           collapse = " nor "
           ),
         pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
@@ -148,7 +148,10 @@ data_home_component <- function(component, component_name, pkg) {
       )
   }
 
-  sidebar_section(component$title, bullets = component$html)
+  sidebar_section(
+    component$title,
+    bullets = render_markdown_template(component$text, data_template(pkg))
+    )
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

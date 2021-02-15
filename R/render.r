@@ -35,15 +35,27 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
   if (isTRUE(pkg$meta$footer$left$add)) {
-    data$footer$left <- paste(default_left_footer(data), pkg$meta$footer$left$text)
+    data$footer$left <- render_markdown_template(
+      paste(default_left_footer(data), pkg$meta$footer$left$text),
+      data
+    )
   } else{
-    data$footer$left %||% default_left_footer(data)
+    data$footer$left <- render_markdown_template(
+      pkg$meta$footer$left$text %||% default_left_footer(data),
+      data
+    )
   }
 
   if (isTRUE(pkg$meta$footer$right$add)) {
-    data$footer$right <- paste(default_right_footer(data), pkg$meta$footer$right$text)
+    data$footer$right <- render_markdown_template(
+      paste(default_right_footer(data), pkg$meta$footer$right$text),
+      data
+    )
   } else{
-    data$footer$right %||% default_right_footer(data)
+    data$footer$right <- render_markdown_template(
+      pkg$meta$footer$right$text %||% default_right_footer(data),
+      data
+    )
   }
   # The real location of 404.html is dynamic (#1129).
   # Relative root does not work, use the full URL if available.
@@ -240,6 +252,12 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
+render_markdown_template <- function(text, data) {
+  markdown_text2(
+    whisker::whisker.render(text, data)
+  )
+}
+
 find_template <- function(type, name, ext = ".html", template_path = NULL,
                           bs_version) {
   paths <- c(
@@ -314,12 +332,9 @@ check_made_by <- function(first) {
 }
 
 default_left_footer <- function(data) {
-  sprintf("Developed by %s.", data$package$authors)
+  '{{#package}}Developed by {{{authors}}}.{{/package}}'
 }
 
-default_right_footer <- function(data) {
-  sprintf(
-    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> %s.',
-    data$pkgdown$version
-    )
+default_right_footer <- function() {
+  'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {{#pkgdown}}{{version}}{{/pkgdown}}.'
 }
