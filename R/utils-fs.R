@@ -87,11 +87,11 @@ path_package_pkgdown <- function(package, bs_version = NULL, ...) {
     stop(package, " is not installed", call. = FALSE)
   }
 
-  path <- ifelse(
-    is.null(bs_version),
-    file.path(...),
+  path <- if (is.null(bs_version)) {
+    file.path(...)
+  } else {
     file.path(..., paste0("BS", bs_version))
-  )
+  }
 
   if (is.null(devtools_meta(package))) {
     pkg_path <- system.file("pkgdown", path, package = package, mustWork = FALSE)
