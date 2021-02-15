@@ -68,7 +68,7 @@ test_that("data_home_sidebar() can add a README", {
   pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
 
-  pkg$meta$home$sidebar <- list(structure = c("license", "readme"))
+  pkg$meta$home$sidebar <- list(structure = c("license", "toc"))
 
   result <- xml2::read_html(
     data_home_sidebar(pkg)

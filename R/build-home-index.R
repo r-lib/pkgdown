@@ -76,7 +76,7 @@ data_home_sidebar <- function(pkg = ".") {
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
     dev = sidebar_section("Dev Status", "placeholder"),
-    readme = data_home_readme(pkg)
+    toc = data_home_toc(pkg)
   )
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
@@ -169,7 +169,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   sidebar_section("Links", links)
 }
 
-data_home_readme <- function(pkg) {
+data_home_toc <- function(pkg) {
   sidebar_section(
     "Table of contents",
     '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'

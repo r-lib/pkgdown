@@ -123,7 +123,7 @@
 #'
 #' You can change the order of sidebar components:
 #' `links`, `license` (with an "s"), `community`, `citation`,
-#' `authors`, `dev` (badges); you can add a README table of contents `readme`,
+#' `authors`, `dev` (badges); you can add a README table of contents `toc`,
 #' you can add custom components.
 #' The example below creates a sidebar whose only components will be the
 #' authors section, a custom section, a table of contents for the README,
@@ -132,7 +132,7 @@
 #' ```
 #' home:
 #'   sidebar:
-#'     structure: [authors, custom, readme, dev]
+#'     structure: [authors, custom, toc, dev]
 #'     components:
 #'       custom:
 #'         title: Funding
