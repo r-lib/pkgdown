@@ -74,7 +74,7 @@ markdown_text2 <- function(text, ...) {
   html <- markdown_text(text, ...)
   as.character(
     xml2::xml_child(
-      xml2::read_html(html)
-      )
+      xml2::xml_child(xml2::read_xml(html))
+    )
     )
 }

@@ -50,7 +50,7 @@ test_that("data_home_sidebar() can get a custom component", {
     components = list(
       fancy = list(
         title = "Fancy section",
-        text = "How cool is pkgdown?!"
+        text = "How cool is [pkgdown](https://pkgdown.r-lib.org) {{#package}}{{version}}{{/package}}?!"
       )
     )
   )
