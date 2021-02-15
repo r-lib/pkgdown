@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Make footer text specification more flexible, on the left and on the right. Users can now replace/add text.
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
