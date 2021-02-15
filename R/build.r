@@ -118,8 +118,7 @@
 #' * Reference
 #' * Articles (i.e., vignettes, if present).
 #' * News (if present).
-#' * A "github"/"gitlab" icon with a link to your
-#'   GitHub/GitLab repo (if listed in the `DESCRIPTION` url field).
+#' * An icon linking to the source repository (currently only GitHub and GitLab are supported)
 #'
 #' You can override (but not remove) these defaults with the  `navbar` field.
 #' It has two primary
