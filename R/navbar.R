@@ -72,8 +72,8 @@ navbar_components <- function(pkg = ".") {
 
   menu$github <- switch(
     repo_type(pkg),
-    GitHub = menu_icon("github", repo_home(pkg), style = "fab"),
-    GitLab = menu_icon("gitlab", repo_home(pkg), style = "fab"),
+    github = menu_icon("github", repo_home(pkg), style = "fab"),
+    gitlab = menu_icon("gitlab", repo_home(pkg), style = "fab"),
     NULL
   )
 

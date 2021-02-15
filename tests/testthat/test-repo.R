@@ -93,31 +93,13 @@ test_that("returns NULL if no urls found", {
 })
 
 test_that("repo_type detects repo type", {
-  expect_equal(
-    repo_type(
-      list(repo = list(url = list(home = "https://github.com/r-lib/pkgdown")))
-      ),
-    "GitHub"
-    )
+  repo_type2 <- function(url) {
+   repo_type(list(repo = list(url = list(home = url))))
+  }
 
-  expect_equal(
-    repo_type(
-      list(repo = list(url = list(home = "https://github.r-lib.com/pkgdown")))
-      ),
-    "GitHub"
-    )
-
-  expect_equal(
-    repo_type(
-      list(repo = list(url = list(home = "https://gitlab.com/r-lib/pkgdown")))
-      ),
-    "GitLab"
-    )
-
-  expect_equal(
-    repo_type(
-      list(repo = list(url = list(home = "https://gitlab.r-lib.com/pkgdown")))
-      ),
-    "GitLab"
-    )
+  expect_equal(repo_type2("https://github.com/r-lib/pkgdown"), "github")
+  expect_equal(repo_type2("https://github.r-lib.com/pkgdown"), "github")
+  expect_equal(repo_type2("https://gitlab.com/r-lib/pkgdown"), "gitlab")
+  expect_equal(repo_type2("https://gitlab.r-lib.com/pkgdown"), "gitlab")
+  expect_equal(repo_type2(NULL), "other")
 })
