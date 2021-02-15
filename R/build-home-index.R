@@ -81,7 +81,7 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
     sidebar_html <- paste0(
-      purrr::compact(sidebar_components),
+      purrr::compact(sidebar_components[default_sidebar_structure()]),
       collapse = "\n"
     )
     return(sidebar_html)
@@ -170,9 +170,10 @@ data_home_sidebar_links <- function(pkg = ".") {
 }
 
 data_home_readme <- function(pkg) {
-  text <- '<nav id="toc" data-toggle="toc" class="sticky-top">
-    </nav>'
-  sidebar_section("In this README", text)
+  sidebar_section(
+    "In this README",
+    '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'
+    )
 }
 
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
