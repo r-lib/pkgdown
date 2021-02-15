@@ -171,7 +171,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 
 data_home_readme <- function(pkg) {
   sidebar_section(
-    "In this README",
+    "Table of contents",
     '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'
     )
 }

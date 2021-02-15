@@ -45,11 +45,11 @@
 # data_home_sidebar() can add a README
 
     Code
-      xml2::xml_find_first(result, ".//div[@class='in-this-readme']")
+      xml2::xml_find_first(result, ".//div[@class='table-of-contents']")
     Output
       {html_node}
-      <div class="in-this-readme">
-      [1] <h2 data-toc-skip>In this README</h2>
+      <div class="table-of-contents">
+      [1] <h2 data-toc-skip>Table of contents</h2>
       [2] <ul class="list-unstyled">\n<li><nav id="toc" data-toggle="toc" class="st ...
 
 # data_home_sidebar() outputs informative error messages

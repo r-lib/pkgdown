@@ -75,7 +75,7 @@ test_that("data_home_sidebar() can add a README", {
   )
 
   expect_snapshot(
-    xml2::xml_find_first(result, ".//div[@class='in-this-readme']")
+    xml2::xml_find_first(result, ".//div[@class='table-of-contents']")
   )
 })
 
