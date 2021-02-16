@@ -1,5 +1,8 @@
 ---
 title: "Output Rendering"
+subtitle: "Subtitle is skipped from the TOC"
+author: "Author is skipped from the TOC"
+date: "Date is skipped from the TOC"
 ---
 
 ```{r include = FALSE}

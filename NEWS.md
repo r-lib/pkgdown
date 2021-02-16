@@ -3,6 +3,15 @@
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)
 
+* pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
+"after-body.html" whose content will be placed 
+(similarly to bookdown options `in_header`, `before_body` and `after_body`), 
+respectively, at the end of the `<head>` tag; 
+right below the opening `<body>` tag; and before the closing tag `</body>` (#1487).
+
+* Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
+  by assuming such host address begin with `github.` or `gitlab.` 
+  (@ijlyttle, #1452).
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
     * add custom sidebar sections (title, text that has to be HTML)
@@ -17,6 +26,10 @@
 * [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) can now be configured for pkgdown sites.
 
 * `build_news()` recognises more styles of release heading (#1437).
+
+* Article subtitle, author and date (specified in the YAML frontmatter) are now 
+  correctly ommitted from the article table of contents in the sidebar 
+  (@maxheld83, #1428).
 
 * Missing topics makes the build fail when the environment variable `CI` is set
   to `"true"` (@ThierryO, #1378).

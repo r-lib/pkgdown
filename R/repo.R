@@ -51,7 +51,7 @@ package_repo <- function(desc, meta) {
     desc$get_urls()
   )
 
-  gh_links <- grep("^https?://git(hub|lab).com/", urls, value = TRUE)
+  gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
     return(repo_meta_gh_like(gh_links[[1]], meta[["repo"]][["branch"]]))
   }
