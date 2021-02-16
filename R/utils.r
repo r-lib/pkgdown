@@ -130,6 +130,25 @@ pkgdown_fields <- function(pkg, fields) {
   pkgdown_field(pkg, fields)
 }
 
+abort_several_missing <- function(missing, where, pkg) {
+  missing_components <- lapply(
+      missing, append,
+      where,
+      after = 0
+    )
+    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
+
+    abort(
+      sprintf(
+        "Can't find component%s %s.",
+        if (length(missing) > 1) "s" else "",
+        paste0(
+          missing_fields, collapse = " nor "
+        )
+      )
+    )
+}
+
 #' @export
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
