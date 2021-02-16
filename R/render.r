@@ -322,11 +322,7 @@ pkgdown_footer <- function(data, pkg) {
   missing <- setdiff(left_structure, names(left_components))
 
   if (length(missing) > 0) {
-    abort_missing(
-      missing,
-      where = c("home", "footer", "left", "components"),
-      pkg
-    )
+    abort_missing(missing, where = c("footer", "left", "components"), pkg)
   }
 
   left_final_components <- purrr::compact(
@@ -345,11 +341,7 @@ pkgdown_footer <- function(data, pkg) {
   missing <- setdiff(right_structure, names(right_components))
 
   if (length(missing) > 0) {
-    abort_missing(
-      missing,
-      where = c("home", "footer", "right", "components"),
-      pkg
-    )
+    abort_missing(missing, where = c("footer", "right", "components"), pkg)
   }
 
   right_final_components <- purrr::compact(

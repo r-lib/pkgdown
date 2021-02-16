@@ -36,9 +36,9 @@
 
 # pkgdown_footer() throws informative error messages
 
-    Can't find component home.footer.left.components.pof.
+    Can't find component footer.left.components.pof.
 
 ---
 
-    Can't find component home.footer.right.components.bof.
+    Can't find component footer.right.components.bof.
 
