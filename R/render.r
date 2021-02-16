@@ -327,7 +327,7 @@ pkgdown_footer <- function(data, pkg) {
 
   left_final_components <- purrr::compact(
     paste0(left_components[left_structure], collapse = " ")
-    )
+  )
 
   # footer right
   right_structure <- pkg$meta$footer$right$structure %||% c("pkgdown")
@@ -346,7 +346,7 @@ pkgdown_footer <- function(data, pkg) {
 
   right_final_components <- purrr::compact(
     paste0(right_components[right_structure], collapse = " ")
-    )
+  )
 
   list(left = left_final_components, right = right_final_components)
 }
