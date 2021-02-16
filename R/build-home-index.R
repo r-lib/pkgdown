@@ -173,7 +173,7 @@ data_home_toc <- function(pkg) {
   sidebar_section(
     "Table of contents",
     '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'
-    )
+  )
 }
 
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
