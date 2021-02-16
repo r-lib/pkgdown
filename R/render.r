@@ -345,7 +345,7 @@ pkgdown_footer <- function(data, pkg) {
     )
 
   # footer right
-  right_structure <- pkg$meta$footer$right$structure %||% c("authors")
+  right_structure <- pkg$meta$footer$right$structure %||% c("pkgdown")
 
   right_components <- utils::modifyList(
     footer_components,
