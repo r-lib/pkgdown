@@ -311,16 +311,20 @@
 #'    ```
 #' @section YAML config - footer:
 #' By default, the footer is automatically populated with:
-#' * the names of the authors, on the left;
-#' * a reference to pkgdown, on the right.
+#' * the names of the authors `authors`, on the left;
+#' * a reference to pkgdown `pkgdown`, on the right.
+#'
+#' The example below puts the pkgdown information on the left together with
+#' a legal disclaimer, and puts authors on the right.
 #'
 #' ```
 #' footer:
 #'   left:
+#'     structure: [pkgdown]
+#'   right:
 #'     structure: [authors, legal]
 #'     components:
-#'       legal:
-#'         text: Provided without ***any warranty***.
+#'       legal: 'Provided without ***any warranty***.'
 #' ```
 #'
 #' @section Options:
