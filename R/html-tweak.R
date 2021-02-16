@@ -78,7 +78,7 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   hrefs <- xml2::xml_attr(links, "href")
 
-  # Use pkgdown URL to detect non-external absolute URLs
+  # Users might have added absolute URLs to e.g. the Code of Conduct
   if (is.null(pkg$meta$url)) {
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
   } else {
@@ -87,11 +87,7 @@ tweak_all_links <- function(html, pkg = pkg) {
   }
 
   if (any(needs_tweak)) {
-    tweaked <- purrr::map(
-      links[needs_tweak],
-      prepend_class,
-      "external-link"
-      )
+    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
 
     xml2::xml_attr(links[needs_tweak], "class") <- tweaked
   }

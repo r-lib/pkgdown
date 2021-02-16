@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
-Therefore they can be targeted more easily by CSS rules. (#881, #1491)
+  Therefore they can be targeted more easily by CSS rules. (#881, #1491)
 
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
