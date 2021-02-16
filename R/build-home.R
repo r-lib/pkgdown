@@ -136,7 +136,7 @@
 #'     components:
 #'       custom:
 #'         title: Funding
-#'         text: We are *grateful* for funding!
+#'         text: 'We are *grateful* for funding!'
 #' ```
 #'
 #' You can provide a ready-made sidebar HTML:

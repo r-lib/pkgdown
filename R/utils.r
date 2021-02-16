@@ -130,7 +130,7 @@ pkgdown_fields <- function(pkg, fields) {
   pkgdown_field(pkg, fields)
 }
 
-abort_several_missing <- function(missing, where, pkg) {
+abort_missing <- function(missing, where, pkg) {
   missing_components <- lapply(
       missing, append,
       where,

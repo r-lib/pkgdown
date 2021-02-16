@@ -103,7 +103,7 @@ data_home_sidebar <- function(pkg = ".") {
   missing <- setdiff(sidebar_structure, names(sidebar_components))
 
   if (length(missing) > 0) {
-    abort_several_missing(missing, where = c("home", "sidebar", "components"), pkg)
+    abort_missing(missing, where = c("home", "sidebar", "components"), pkg)
   }
 
   sidebar_final_components <- purrr::compact(
