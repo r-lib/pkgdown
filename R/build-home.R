@@ -127,6 +127,7 @@
 #' The example below creates a sidebar whose only components will be the
 #' authors section, a custom section, and a Dev Status section if there are
 #' badges.
+#' The `text` can be Markdown or HTML.
 #'
 #' ```
 #' home:
@@ -135,7 +136,7 @@
 #'     components:
 #'       custom:
 #'         title: Funding
-#'         html: We are grateful for funding!
+#'         text: We are *grateful* for funding!
 #' ```
 #'
 #' You can provide a ready-made sidebar HTML:

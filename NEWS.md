@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Make footer specification more flexible: users can now
+    * change the placement of elements on the left and right
+    * add sentences to the left and right
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
@@ -9,6 +13,7 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
+  
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
     * add custom sidebar sections (title, text that has to be HTML)

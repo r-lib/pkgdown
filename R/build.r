@@ -309,6 +309,19 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
+#' @section YAML config - footer:
+#' By default, the footer is automatically populated with:
+#' * the names of the authors, on the left;
+#' * a reference to pkgdown, on the right.
+#'
+#' ```
+#' footer:
+#'   left:
+#'     structure: [authors, legal]
+#'     components:
+#'       legal:
+#'         text: Provided without ***any warranty***.
+#' ```
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
