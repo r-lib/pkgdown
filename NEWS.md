@@ -3,6 +3,7 @@
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
     * add sentences to the left and right
+  (#1502)
 
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
@@ -16,9 +17,9 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
-    * add custom sidebar sections (title, text that has to be HTML)
+    * add custom sidebar sections (title, text that can be Markdown or HTML)
     * completely suppress the navbar (even "Dev status")
-    * provide their own HTML for the navbar. (#1443, #1488)
+    * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 
 * Protect the rules drawn by the CLI (as for example, in `build_site()`) against
