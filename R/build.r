@@ -314,8 +314,8 @@
 #' * the names of the authors `authors`, on the left;
 #' * a reference to pkgdown `pkgdown`, on the right.
 #'
-#' The example below puts the pkgdown information on the left together with
-#' a legal disclaimer, and puts authors on the right.
+#' The example below puts the authors information on the right together with
+#' a legal disclaimer, and puts pkgdown on the left.
 #'
 #' ```
 #' footer:
