@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
+  to the navbar (#1493). 
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
