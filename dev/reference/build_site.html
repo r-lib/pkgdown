@@ -400,11 +400,11 @@ to danger). Finally, you can choose to override the default tooltip with
 <li><p>Reference</p></li>
 <li><p>Articles (i.e., vignettes, if present).</p></li>
 <li><p>News (if present).</p></li>
-<li><p>A "github" icon with a link to your
-github repo (if listed in the <code>DESCRIPTION</code> url field).</p></li>
+<li><p>An icon linking to the source repository (currently only GitHub and GitLab are supported)</p></li>
 </ul>
 
-<p>You can override these defaults with the  <code>navbar</code> field. It has two primary
+<p>You can override (but not remove) these defaults with the  <code>navbar</code> field.
+It has two primary
 components: <code>structure</code> and <code>components</code>. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically
@@ -412,7 +412,8 @@ generate the rest.</p>
 <p>The <code>structure</code> defines the layout of the navbar, i.e. the order
 of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
-and to add your own components.</p><pre>navbar:
+and to add your own components.
+Any unplaced components go to the right of the left navbar.</p><pre>navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [github]
