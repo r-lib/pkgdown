@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* External links now get the class "external-link" on top of their usual classes, if they had any. 
+  Therefore they can be targeted more easily by CSS rules. (#881, #1491)
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 

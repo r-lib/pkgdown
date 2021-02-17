@@ -71,6 +71,29 @@ tweak_md_links <- function(html) {
   invisible()
 }
 
+tweak_all_links <- function(html, pkg = pkg) {
+  links <- xml2::xml_find_all(html, ".//a")
+  if (length(links) == 0)
+    return()
+
+  hrefs <- xml2::xml_attr(links, "href")
+
+  # Users might have added absolute URLs to e.g. the Code of Conduct
+  if (is.null(pkg$meta$url)) {
+    needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
+  } else {
+    url <- sub("/$", "", pkg$meta$url)
+    needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
+  }
+
+  if (any(needs_tweak)) {
+    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
+
+    xml2::xml_attr(links[needs_tweak], "class") <- tweaked
+  }
+
+  invisible()
+}
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
@@ -96,11 +119,12 @@ prepend_class <- function(x, class = "table") {
 
 # File level tweaks --------------------------------------------
 
-tweak_rmarkdown_html <- function(html, input_path) {
+tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   # Automatically link function mentions
   downlit::downlit_html_node(html)
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
+  tweak_all_links(html, pkg = pkg)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
