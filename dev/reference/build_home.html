@@ -342,13 +342,13 @@ elements:</p><pre>home:
 
 <p>You can change the order of sidebar components:
 <code>links</code>, <code>license</code> (with an "s"), <code>community</code>, <code>citation</code>,
-<code>authors</code>, <code>dev</code> (badges); you can add a README table of contents <code>readme</code>,
+<code>authors</code>, <code>dev</code> (badges); you can add a README table of contents <code>toc</code>,
 you can add custom components.
 The example below creates a sidebar whose only components will be the
 authors section, a custom section, a table of contents for the README,
 and a Dev Status section if there are badges.</p><pre>home:
   sidebar:
-    structure: [authors, custom, readme, dev]
+    structure: [authors, custom, toc, dev]
     components:
       custom:
         title: Funding
