@@ -123,15 +123,16 @@
 #'
 #' You can change the order of sidebar components:
 #' `links`, `license` (with an "s"), `community`, `citation`,
-#' `authors`, `dev` (badges); and you can add custom components.
+#' `authors`, `dev` (badges); you can add a README table of contents `toc`,
+#' you can add custom components.
 #' The example below creates a sidebar whose only components will be the
-#' authors section, a custom section, and a Dev Status section if there are
-#' badges.
+#' authors section, a custom section, a table of contents for the README,
+#' and a Dev Status section if there are badges.
 #'
 #' ```
 #' home:
 #'   sidebar:
-#'     structure: [authors, custom, dev]
+#'     structure: [authors, custom, toc, dev]
 #'     components:
 #'       custom:
 #'         title: Funding

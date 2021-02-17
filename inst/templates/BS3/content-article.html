@@ -7,11 +7,11 @@ $endfor$
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>$title$</h1>
       $if(subtitle)$
-      <h3 class="subtitle">$subtitle$</h3>
+      <h3 data-toc-skip class="subtitle">$subtitle$</h3>
       $endif$
       $for(author)$
       $if(author.name)$
-      <h4 class="author">$author.name$</h4>
+      <h4 data-toc-skip class="author">$author.name$</h4>
       $if(author.affiliation)$
       <address class="author_afil">
       $author.affiliation$<br>$endif$
@@ -20,12 +20,12 @@ $endfor$
       </address>
       $endif$
       $else$
-      <h4 class="author">$author$</h4>
+      <h4 data-toc-skip class="author">$author$</h4>
       $endif$
       $endfor$
 
       $if(date)$
-      <h4 class="date">$date$</h4>
+      <h4 data-toc-skip class="date">$date$</h4>
       $endif$
 
       {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
