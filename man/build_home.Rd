@@ -25,7 +25,7 @@ package root (and in \verb{.github/}), and builds an authors page from
 }
 \section{Home page}{
 
-The home page (\code{index.html}) is generated from \verb{_pkgdown/index.md},
+The home page (\code{index.html}) is generated from \code{pkgdown/index.md},
 \code{index.md}, or \code{README.md}, in that order. Most packages will use \code{README.md}
 because that's also displayed by GitHub and CRAN. Use \code{index.md} if you want
 your package website to look different to your README, and use
