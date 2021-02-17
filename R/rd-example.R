@@ -109,7 +109,8 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   downlit::evaluate_and_highlight(
     code,
     fig_save = fig_save_topic,
-    env = child_env(env)
+    env = child_env(env),
+    output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
 }
 
