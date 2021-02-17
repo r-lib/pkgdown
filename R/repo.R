@@ -1,3 +1,15 @@
+repo_type <- function(pkg) {
+  home <- repo_home(pkg) %||% ""
+
+  if (grepl("^https?://github\\..+/", home)) {
+    "github"
+  } else if (grepl("^https?://gitlab\\..+/", home)) {
+    "gitlab"
+  } else {
+    "other"
+  }
+}
+
 repo_home <- function(pkg, paths) {
   pkg$repo$url$home
 }

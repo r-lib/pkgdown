@@ -91,3 +91,15 @@ test_that("returns NULL if no urls found", {
   desc <- desc::desc(text = "URL: https://pkgdown.r-lib.org")
   expect_equal(package_repo(desc, list()), NULL)
 })
+
+test_that("repo_type detects repo type", {
+  repo_type2 <- function(url) {
+   repo_type(list(repo = list(url = list(home = url))))
+  }
+
+  expect_equal(repo_type2("https://github.com/r-lib/pkgdown"), "github")
+  expect_equal(repo_type2("https://github.r-lib.com/pkgdown"), "github")
+  expect_equal(repo_type2("https://gitlab.com/r-lib/pkgdown"), "gitlab")
+  expect_equal(repo_type2("https://gitlab.r-lib.com/pkgdown"), "gitlab")
+  expect_equal(repo_type2(NULL), "other")
+})

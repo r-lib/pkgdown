@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
+  to the navbar (#1493). 
+  
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)
 

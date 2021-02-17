@@ -70,9 +70,12 @@ navbar_components <- function(pkg = ".") {
   }
   menu$news <- navbar_news(pkg)
 
-  if (!is.null(pkg$github_url)) {
-    menu$github <- menu_icon("github", pkg$github_url, style = "fab")
-  }
+  menu$github <- switch(
+    repo_type(pkg),
+    github = menu_icon("github", repo_home(pkg), style = "fab"),
+    gitlab = menu_icon("gitlab", repo_home(pkg), style = "fab"),
+    NULL
+  )
 
   menu <- c(menu, navbar_articles(pkg))
 
@@ -92,9 +95,6 @@ navbar_articles <- function(pkg = ".") {
     menu$intro <- menu_link("Get started", intro$file_out)
   }
 
-  if (!is.null(pkg$repo$url$home)) {
-    menu$github <- menu_icon("github", repo_home(pkg), style = "fab")
-  }
 
   meta <- pkg$meta
   if (!has_name(meta, "articles")) {
@@ -155,17 +155,15 @@ menu_spacer <- function() {
 # Testing helpers ---------------------------------------------------------
 # Simulate minimal package structure so we can more easily test
 
-pkg_navbar <- function(
-                           meta = NULL,
-                           vignettes = pkg_navbar_vignettes(),
-                           github_url = NULL) {
+pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
+                       github_url = NULL) {
   structure(
     list(
       package = "test",
       src_path = file_temp(),
       meta = meta,
       vignettes = vignettes,
-      github_url = github_url
+      repo = list(url = list(home = github_url))
     ),
     class = "pkgdown"
   )

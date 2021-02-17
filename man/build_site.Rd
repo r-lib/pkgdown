@@ -174,11 +174,11 @@ By default, the top navigation bar (the "navbar") will contain links to:
 \item Reference
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item A "github" icon with a link to your
-github repo (if listed in the \code{DESCRIPTION} url field).
+\item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
-You can override these defaults with the  \code{navbar} field. It has two primary
+You can override (but not remove) these defaults with the  \code{navbar} field.
+It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
 tweaks to part of the navbar while relying on pkgdown to automatically
@@ -187,7 +187,8 @@ generate the rest.
 The \code{structure} defines the layout of the navbar, i.e. the order
 of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
-and to add your own components.\preformatted{navbar:
+and to add your own components.
+Any unplaced components go to the right of the left navbar.\preformatted{navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [github]
