@@ -132,12 +132,13 @@ elements:\preformatted{home:
 
 You can change the order of sidebar components:
 \code{links}, \code{license} (with an "s"), \code{community}, \code{citation},
-\code{authors}, \code{dev} (badges); and you can add custom components.
+\code{authors}, \code{dev} (badges); you can add a README table of contents \code{readme},
+you can add custom components.
 The example below creates a sidebar whose only components will be the
-authors section, a custom section, and a Dev Status section if there are
-badges.\preformatted{home:
+authors section, a custom section, a table of contents for the README,
+and a Dev Status section if there are badges.\preformatted{home:
   sidebar:
-    structure: [authors, custom, dev]
+    structure: [authors, custom, readme, dev]
     components:
       custom:
         title: Funding
@@ -149,7 +150,7 @@ You can provide a ready-made sidebar HTML:\preformatted{home:
     html: path-to-sidebar.html
 }
 
-You can completely remove the sidebar.\preformatted{home:
+Finally, you can completely remove the sidebar.\preformatted{home:
   sidebar: FALSE
 }
 
