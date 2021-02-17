@@ -8,9 +8,10 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Generate an attractive and useful website from a source package.
-    'pkgdown' converts your documentation, vignettes, 'README', and more to 
-    'HTML' making it easy to share information about your package online.
+Generate an attractive and useful website from a
+    source package.  'pkgdown' converts your documentation, vignettes,
+    'README', and more to 'HTML' making it easy to share information about
+    your package online.
 }
 \seealso{
 Useful links:
@@ -27,6 +28,7 @@ Useful links:
 Authors:
 \itemize{
   \item Jay Hesselberth (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
+  \item Maëlle Salmon (\href{https://orcid.org/0000-0002-2815-0399}{ORCID})
 }
 
 Other contributors:
