@@ -93,22 +93,22 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/" class="external-link">Version 1.6.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/" class="external-link">Version 1.5.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+      <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/" class="external-link">Version 1.4.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/" class="external-link">Version 1.3.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/" class="external-link">Version 1.1.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -119,7 +119,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/pkgdown/">
+  <a href="https://github.com/r-lib/pkgdown/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -146,19 +146,19 @@
       <h1 data-toc-skip>Search</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/search.Rmd"><code>vignettes/search.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/search.Rmd" class="external-link"><code>vignettes/search.Rmd</code></a></small>
       <div class="hidden name"><code>search.Rmd</code></div>
 
     </div>
 
     
     
-<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">DocSearch</a> from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.</p>
+<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/" class="external-link">DocSearch</a> from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.</p>
 <div id="indexing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#indexing" class="anchor"></a>Indexing</h2>
-<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
-<p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
+<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/" class="external-link">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
+<p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction" class="external-link">additional options</a> to fine tune the scraping.</p>
 </div>
 <div id="configuration" class="section level2">
 <h2 class="hasAnchor">
@@ -180,8 +180,8 @@
 <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
-<p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11">pkgdown configuration</a> for a functional search configuration.</p>
-<p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> (i.e., “?”) will move the focus to the search bar.</p>
+<p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11" class="external-link">pkgdown configuration</a> for a functional search configuration.</p>
+<p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">/</a></code> (i.e., “?”) will move the focus to the search bar.</p>
 </div>
   </div>
 
@@ -196,7 +196,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://hesselberthlab.org">Jay Hesselberth</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, Maëlle Salmon.</p>
+  <p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, Maëlle Salmon.</p>
 </div>
 
 <div class="pkgdown">
