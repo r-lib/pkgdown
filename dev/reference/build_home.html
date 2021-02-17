@@ -342,12 +342,13 @@ elements:</p><pre>home:
 
 <p>You can change the order of sidebar components:
 <code>links</code>, <code>license</code> (with an "s"), <code>community</code>, <code>citation</code>,
-<code>authors</code>, <code>dev</code> (badges); and you can add custom components.
+<code>authors</code>, <code>dev</code> (badges); you can add a README table of contents <code>readme</code>,
+you can add custom components.
 The example below creates a sidebar whose only components will be the
-authors section, a custom section, and a Dev Status section if there are
-badges.</p><pre>home:
+authors section, a custom section, a table of contents for the README,
+and a Dev Status section if there are badges.</p><pre>home:
   sidebar:
-    structure: [authors, custom, dev]
+    structure: [authors, custom, readme, dev]
     components:
       custom:
         title: Funding
@@ -359,7 +360,7 @@ badges.</p><pre>home:
     <span class='va'>html</span><span class='op'>:</span> <span class='va'>path</span><span class='op'>-</span><span class='va'>to</span><span class='op'>-</span><span class='va'>sidebar.html</span>
 </pre>
 
-<p>You can completely remove the sidebar.</p><pre><span class='va'>home</span><span class='op'>:</span>
+<p>Finally, you can completely remove the sidebar.</p><pre><span class='va'>home</span><span class='op'>:</span>
   <span class='va'>sidebar</span><span class='op'>:</span> <span class='cn'>FALSE</span>
 </pre>
 
