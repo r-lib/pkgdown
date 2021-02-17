@@ -67,5 +67,5 @@ markdown_text <- function(text, pkg = pkg, ...) {
   on.exit(unlink(tmp), add = TRUE)
 
   write_lines(text, path = tmp)
-  markdown(tmp, ...)
+  markdown(tmp, ..., pkg = pkg)
 }
