@@ -563,6 +563,31 @@ time (e.g. because it's only behind the firewall or requires auth).<div class="y
 </pre><p></div></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="yaml-config-footer"><a class="anchor" href="#yaml-config-footer"></a>YAML config - footer</h2>
+
+    
+
+<p>By default, the footer is automatically populated with:</p><ul>
+<li><p>the names of the
+<a href='https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors'>authors <code>authors</code></a>,
+on the left;</p></li>
+<li><p>a reference to pkgdown <code>pkgdown</code>, on the right.</p></li>
+</ul>
+
+<p>The example below puts the authors information on the right together with
+a legal disclaimer, and puts pkgdown on the left.
+Unlike for the navbar or sidebar, components of the footer left/right are
+just pasted together into a string.
+If you want to use paragraphs, you need to use either HTML;
+or a YAML pipe and to start the components with two empty lines.</p><pre>footer:
+  left:
+    structure: [pkgdown]
+  right:
+    structure: [authors, legal]
+    components:
+      legal: Provided without ***any warranty***.
+</pre>
+
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     
@@ -594,11 +619,11 @@ hanging in cron jobs.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>, Maëlle Salmon.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, Maëlle Salmon.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>

@@ -345,14 +345,15 @@ elements:</p><pre>home:
 <code>authors</code>, <code>dev</code> (badges); you can add a README table of contents <code>toc</code>,
 you can add custom components.
 The example below creates a sidebar whose only components will be the
-authors section, a custom section, a table of contents for the README,
-and a Dev Status section if there are badges.</p><pre>home:
+authors section, a custom section, a table of contents for the README
+and a Dev Status section if there are badges.
+The <code>text</code> will be treated as Markdown.</p><pre>home:
   sidebar:
     structure: [authors, custom, toc, dev]
     components:
       custom:
         title: Funding
-        html: We are grateful for funding!
+        text: We are *grateful* for funding!
 </pre>
 
 <p>You can provide a ready-made sidebar HTML:</p><pre><span class='va'>home</span><span class='op'>:</span>
@@ -401,11 +402,11 @@ sponsor.</p></li>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>, Maëlle Salmon.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, Maëlle Salmon.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>

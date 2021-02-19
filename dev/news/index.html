@@ -205,6 +205,13 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>Make footer specification more flexible: users can now</p>
+<ul>
+<li>change the placement of elements on the left and right</li>
+<li>add text to the left and right (or even remove/replace default text) (<a href='https://github.com/r-lib/pkgdown/issues/1502'>#1502</a>)</li>
+</ul>
+</li>
 <li><p>pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon to the navbar (<a href='https://github.com/r-lib/pkgdown/issues/1493'>#1493</a>).</p></li>
 <li><p>External links now get the class “external-link” on top of their usual classes, if they had any. Therefore they can be targeted more easily by CSS rules. (<a href='https://github.com/r-lib/pkgdown/issues/881'>#881</a>, <a href='https://github.com/r-lib/pkgdown/issues/1491'>#1491</a>)</p></li>
 <li><p>pkgdown can now use the templates “in-header.html”/“after-head.html”, “before-body.html” and “after-body.html” whose content will be placed (similarly to bookdown options <code>in_header</code>, <code>before_body</code> and <code>after_body</code>), respectively, at the end of the <code>&lt;head&gt;</code> tag; right below the opening <code>&lt;body&gt;</code> tag; and before the closing tag <code>&lt;/body&gt;</code> (<a href='https://github.com/r-lib/pkgdown/issues/1487'>#1487</a>).</p></li>
@@ -213,10 +220,10 @@
 <p>Make sidebar specification more flexible: users can now</p>
 <ul>
 <li>change the order of sidebar elements</li>
+<li>add custom sidebar sections (title, text that can be Markdown or HTML)</li>
 <li>add a table of contents for the README</li>
-<li>add custom sidebar sections (title, text that has to be HTML)</li>
-<li>completely suppress the navbar (even “Dev status”)</li>
-<li>provide their own HTML for the navbar. (<a href='https://github.com/r-lib/pkgdown/issues/1443'>#1443</a>, <a href='https://github.com/r-lib/pkgdown/issues/1488'>#1488</a>)</li>
+<li>completely suppress the sidebar (even “Dev status”)</li>
+<li>provide their own HTML for the navbar. (<a href='https://github.com/r-lib/pkgdown/issues/1443'>#1443</a>, <a href='https://github.com/r-lib/pkgdown/issues/1488'>#1488</a>, <a href='https://github.com/r-lib/pkgdown/issues/1502'>#1502</a>)</li>
 </ul>
 </li>
 <li><p>Protect the rules drawn by the CLI (as for example, in <code><a href="../reference/build_site.html">build_site()</a></code>) against very narrow terminal windows with small <code><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption('width')</a></code>s (<a href='https://github.com/maxheld83'>@maxheld83</a>, <a href='https://github.com/r-lib/pkgdown/issues/1435'>#1435</a>).</p></li>
@@ -685,11 +692,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>, Maëlle Salmon.</p>
+  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, Maëlle Salmon.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
