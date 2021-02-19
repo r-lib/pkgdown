@@ -135,11 +135,9 @@ You can change the order of sidebar components:
 \code{authors}, \code{dev} (badges); you can add a README table of contents \code{toc},
 you can add custom components.
 The example below creates a sidebar whose only components will be the
-authors section, a custom section, and a Dev Status section if there are
-badges.
+authors section, a custom section, a table of contents for the README
+and a Dev Status section if there are badges.
 The \code{text} will be treated as Markdown.\preformatted{home:
-authors section, a custom section, a table of contents for the README,
-and a Dev Status section if there are badges.\preformatted{home:
   sidebar:
     structure: [authors, custom, toc, dev]
     components:
