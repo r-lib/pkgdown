@@ -27,9 +27,13 @@ test_that("pkgdown_footer() throws informative error messages", {
     authors = "bla",
     pkgdown = list(version = "42")
   )
-  pkg <- list(meta = list(footer = list(left = list(structure = c("pof")))))
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$footer$left$structure <- c("pof")
   expect_snapshot_error(pkgdown_footer(data, pkg))
 
-  pkg <- list(meta = list(footer = list(right = list(structure = c("bof")))))
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$footer$right$structure <- c("bof")
   expect_snapshot_error(pkgdown_footer(data, pkg))
 })
