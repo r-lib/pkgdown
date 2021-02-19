@@ -126,8 +126,9 @@
 #' `authors`, `dev` (badges); you can add a README table of contents `toc`,
 #' you can add custom components.
 #' The example below creates a sidebar whose only components will be the
-#' authors section, a custom section, a table of contents for the README,
+#' authors section, a custom section, a table of contents for the README
 #' and a Dev Status section if there are badges.
+#' The `text` will be treated as Markdown.
 #'
 #' ```
 #' home:
@@ -136,7 +137,7 @@
 #'     components:
 #'       custom:
 #'         title: Funding
-#'         html: We are grateful for funding!
+#'         text: We are *grateful* for funding!
 #' ```
 #'
 #' You can provide a ready-made sidebar HTML:

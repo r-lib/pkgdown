@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Make footer specification more flexible: users can now
+    * change the placement of elements on the left and right
+    * add text to the left and right (or even remove/replace default text)
+  (#1502)
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 
   
@@ -18,10 +22,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
+    * add custom sidebar sections (title, text that can be Markdown or HTML)
     * add a table of contents for the README
-    * add custom sidebar sections (title, text that has to be HTML)
-    * completely suppress the navbar (even "Dev status")
-    * provide their own HTML for the navbar. (#1443, #1488)
+    * completely suppress the sidebar (even "Dev status")
+    * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 
 * Protect the rules drawn by the CLI (as for example, in `build_site()`) against

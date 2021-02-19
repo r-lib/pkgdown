@@ -130,6 +130,29 @@ pkgdown_fields <- function(pkg, fields) {
   pkgdown_field(pkg, fields)
 }
 
+check_components <- function(needed, present, where, pkg) {
+  missing <- setdiff(needed, present)
+
+  if (length(missing) == 0) {
+    return()
+  }
+
+  missing_components <- lapply(
+      missing, append,
+      where,
+      after = 0
+    )
+    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
+
+    abort(
+      paste0(
+        "Can't find component", if (length(missing) > 1) "s", " ",
+        paste0(missing_fields, collapse = " or "),
+        "."
+      )
+    )
+}
+
 #' @export
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
@@ -161,4 +184,11 @@ show_xml <- function(x) {
 
 isFALSE <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x) && !x
+}
+
+modify_list <- function(x, y) {
+  if (is.null(y)) {
+    return(x)
+  }
+  utils::modifyList(x, y)
 }
