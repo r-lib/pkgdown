@@ -38,8 +38,6 @@ test_that("source link is added to citation page", {
 test_that("multiple citations all have HTML and BibTeX formats", {
   path <- test_path("assets/site-citation/multi")
   citations <- data_citations(path)
-  expect_length(citations, 2)
-  expect_true(all(lengths(citations) == 2))
-  expect_true(all(rapply(citations, nchar) > 9))
-  ## html was "<p></p>" in pkgdown 1.6.1
+  expect_equal(lengths(citations), c(2, 2))
+  expect_snapshot_output(citations)
 })
