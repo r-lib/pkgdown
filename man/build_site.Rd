@@ -355,7 +355,9 @@ By default, the footer is automatically populated with:
 }
 
 The example below puts the authors information on the right together with
-a legal disclaimer, and puts pkgdown on the left.\preformatted{footer:
+a legal disclaimer, and puts pkgdown on the left.
+Unlike for the navbar or sidebar, components of the footer left/right are
+just pasted together into a string.\preformatted{footer:
   left:
     structure: [pkgdown]
   right:
