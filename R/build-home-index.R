@@ -100,11 +100,12 @@ data_home_sidebar <- function(pkg = ".") {
       set_names(names(components))
   )
 
-  missing <- setdiff(sidebar_structure, names(sidebar_components))
-
-  if (length(missing) > 0) {
-    abort_missing(missing, where = c("home", "sidebar", "components"), pkg)
-  }
+  check_missing(
+    needed = sidebar_structure,
+    present = names(sidebar_components),
+    where = c("home", "sidebar", "components"),
+    pkg = pkg
+  )
 
   sidebar_final_components <- purrr::compact(
     sidebar_components[sidebar_structure]

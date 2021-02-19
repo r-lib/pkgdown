@@ -319,11 +319,12 @@ pkgdown_footer <- function(data, pkg) {
       set_names(names(pkg$meta$footer$left$components))
   )
 
-  missing <- setdiff(left_structure, names(left_components))
-
-  if (length(missing) > 0) {
-    abort_missing(missing, where = c("footer", "left", "components"), pkg)
-  }
+  check_missing(
+    needed = left_structure,
+    present = names(left_components),
+    where = c("footer", "left", "components"),
+    pkg = pkg
+  )
 
   left_final_components <- purrr::compact(
     paste0(left_components[left_structure], collapse = " ")
@@ -338,11 +339,12 @@ pkgdown_footer <- function(data, pkg) {
       set_names(names(pkg$meta$footer$right$components))
   )
 
-  missing <- setdiff(right_structure, names(right_components))
-
-  if (length(missing) > 0) {
-    abort_missing(missing, where = c("footer", "right", "components"), pkg)
-  }
+  check_missing(
+    needed = right_structure,
+    present = names(right_components),
+    where = c("footer", "right", "components"),
+    pkg = pkg
+  )
 
   right_final_components <- purrr::compact(
     paste0(right_components[right_structure], collapse = " ")
