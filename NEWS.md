@@ -4,6 +4,11 @@
     * change the placement of elements on the left and right
     * add sentences to the left and right
   (#1502)
+* pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
+  to the navbar (#1493). 
+  
+* External links now get the class "external-link" on top of their usual classes, if they had any. 
+  Therefore they can be targeted more easily by CSS rules. (#881, #1491)
 
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
@@ -18,7 +23,8 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
     * add custom sidebar sections (title, text that can be Markdown or HTML)
-    * completely suppress the navbar (even "Dev status")
+    * add a table of contents for the README
+    * completely suppress the sidebar (even "Dev status")
     * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 

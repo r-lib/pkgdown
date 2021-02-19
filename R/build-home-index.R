@@ -15,7 +15,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
   } else {
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown(src_path)
+    data$index <- markdown(src_path, pkg = pkg)
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
@@ -75,12 +75,13 @@ data_home_sidebar <- function(pkg = ".") {
     community = data_home_sidebar_community(pkg),
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
-    dev = sidebar_section("Dev Status", "placeholder")
+    dev = sidebar_section("Dev Status", "placeholder"),
+    toc = data_home_toc(pkg)
   )
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
     sidebar_html <- paste0(
-      purrr::compact(sidebar_components),
+      purrr::compact(sidebar_components[default_sidebar_structure()]),
       collapse = "\n"
     )
     return(sidebar_html)
@@ -154,13 +155,20 @@ data_home_sidebar_links <- function(pkg = ".") {
   sidebar_section("Links", links)
 }
 
+data_home_toc <- function(pkg) {
+  sidebar_section(
+    "Table of contents",
+    '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'
+  )
+}
+
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   if (length(bullets) == 0)
     return(character())
 
   paste0(
     "<div class='", class, "'>\n",
-    "<h2>", heading, "</h2>\n",
+    "<h2 data-toc-skip>", heading, "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
     "</ul>\n",

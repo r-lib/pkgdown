@@ -5,7 +5,7 @@
 #' `DESCRIPTION` and `inst/CITATION` (if present).
 #'
 #' @section Home page:
-#' The home page (`index.html`) is generated from `_pkgdown/index.md`,
+#' The home page (`index.html`) is generated from `pkgdown/index.md`,
 #' `index.md`, or `README.md`, in that order. Most packages will use `README.md`
 #' because that's also displayed by GitHub and CRAN. Use `index.md` if you want
 #' your package website to look different to your README, and use
@@ -123,16 +123,17 @@
 #'
 #' You can change the order of sidebar components:
 #' `links`, `license` (with an "s"), `community`, `citation`,
-#' `authors`, `dev` (badges); and you can add custom components.
+#' `authors`, `dev` (badges); you can add a README table of contents `toc`,
+#' you can add custom components.
 #' The example below creates a sidebar whose only components will be the
-#' authors section, a custom section, and a Dev Status section if there are
-#' badges.
+#' authors section, a custom section, , a table of contents for the README
+#' and a Dev Status section if there are badges.
 #' The `text` will be treated as Markdown.
 #'
 #' ```
 #' home:
 #'   sidebar:
-#'     structure: [authors, custom, dev]
+#'     structure: [authors, custom, toc, dev]
 #'     components:
 #'       custom:
 #'         title: Funding

@@ -4,7 +4,7 @@
       cat(data_home_sidebar(pkg))
     Output
       <div class='license'>
-      <h2>License</h2>
+      <h2 data-toc-skip>License</h2>
       <ul class='list-unstyled'>
       <li>NA</li>
       </ul>
@@ -12,7 +12,7 @@
       
       
       <div class='developers'>
-      <h2>Developers</h2>
+      <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>
       <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
@@ -22,7 +22,7 @@
       </div>
       
       <div class='dev-status'>
-      <h2>Dev Status</h2>
+      <h2 data-toc-skip>Dev Status</h2>
       <ul class='list-unstyled'>
       <li>placeholder</li>
       </ul>
@@ -41,6 +41,16 @@
       <div class="fancy-section">
       [1] <h2>Fancy section</h2>
       [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
+
+# data_home_sidebar() can add a README
+
+    Code
+      xml2::xml_find_first(result, ".//div[@class='table-of-contents']")
+    Output
+      {html_node}
+      <div class="table-of-contents">
+      [1] <h2 data-toc-skip>Table of contents</h2>
+      [2] <ul class="list-unstyled">\n<li><nav id="toc" data-toggle="toc" class="st ...
 
 # data_home_sidebar() outputs informative error messages
 
