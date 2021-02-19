@@ -39,7 +39,7 @@
     Output
       {html_node}
       <div class="fancy-section">
-      [1] <h2>Fancy section</h2>
+      [1] <h2 data-toc-skip>Fancy section</h2>
       [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
 
 # data_home_sidebar() can add a README

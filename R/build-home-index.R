@@ -135,7 +135,10 @@ data_home_component <- function(component, component_name, pkg) {
       )
   }
 
-  sidebar_section(component$title, bullets = markdown_text2(component$text))
+  sidebar_section(
+    component$title,
+    bullets = markdown_text2(component$text, pkg = pkg)
+  )
 }
 
 data_home_sidebar_links <- function(pkg = ".") {
