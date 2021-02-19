@@ -60,10 +60,7 @@ test_that("data_home_sidebar() can get a custom component", {
   )
 
   expect_snapshot(
-    xml2::xml_find_first(
-      xml2::xml_find_first(result, ".//div[@class='fancy-section']"),
-      ".//ul"
-    )
+    xml2::xml_find_first(result, ".//div[@class='fancy-section']")
   )
 })
 

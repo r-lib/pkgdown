@@ -35,12 +35,12 @@
 # data_home_sidebar() can get a custom component
 
     Code
-      xml2::xml_find_first(xml2::xml_find_first(result,
-        ".//div[@class='fancy-section']"), ".//ul")
+      xml2::xml_find_first(result, ".//div[@class='fancy-section']")
     Output
       {html_node}
-      <ul class="list-unstyled">
-      [1] <li>How <em>cool</em> is pkgdown?!</li>
+      <div class="fancy-section">
+      [1] <h2>Fancy section</h2>
+      [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
 
 # data_home_sidebar() outputs informative error messages
 

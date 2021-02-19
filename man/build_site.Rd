@@ -357,7 +357,9 @@ By default, the footer is automatically populated with:
 The example below puts the authors information on the right together with
 a legal disclaimer, and puts pkgdown on the left.
 Unlike for the navbar or sidebar, components of the footer left/right are
-just pasted together into a string.\preformatted{footer:
+just pasted together into a string.
+If you want to use paragraphs, you need to use either HTML;
+or a YAML pipe and to start the components with two empty lines.\preformatted{footer:
   left:
     structure: [pkgdown]
   right:

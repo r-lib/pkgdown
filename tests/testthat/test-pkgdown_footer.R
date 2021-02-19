@@ -34,6 +34,7 @@ test_that("pkgdown_footer() throws informative error messages", {
 
   pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
+  pkg$meta$footer$left$structure <- c("pkgdown")
   pkg$meta$footer$right$structure <- c("bof")
   expect_snapshot_error(pkgdown_footer(data, pkg))
 })

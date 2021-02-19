@@ -75,8 +75,7 @@ markdown_text2 <- function(text, ...) {
   html %>%
     xml2::read_html() %>%
     xml2::xml_child() %>% # body
-    xml2::xml_child() %>% # p
-    xml2::xml_contents() %>%
+    xml2::xml_children() %>% # p
     as.character() %>%
     paste(collapse = "")
 }

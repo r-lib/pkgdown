@@ -305,6 +305,7 @@ check_made_by <- function(first) {
 }
 
 pkgdown_footer <- function(data, pkg) {
+
   footer_components <- list(
     authors = footer_authors(data),
     pkgdown = footer_pkgdown(data)
@@ -313,10 +314,9 @@ pkgdown_footer <- function(data, pkg) {
   # footer left
   left_structure <- pkg$meta$footer$left$structure %||% c("authors")
 
-  left_components <- utils::modifyList(
+  left_components <- modify_list(
     footer_components,
-    purrr::map(pkg$meta$footer$left$components, markdown_text2) %>%
-      set_names(names(pkg$meta$footer$left$components))
+    pkg$meta$footer$left$components
   )
 
   check_missing(
@@ -326,17 +326,16 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  left_final_components <- purrr::compact(
+  left_final_components <- markdown_text2(
     paste0(left_components[left_structure], collapse = " ")
   )
 
   # footer right
   right_structure <- pkg$meta$footer$right$structure %||% c("pkgdown")
 
-  right_components <- utils::modifyList(
+  right_components <- modify_list(
     footer_components,
-    purrr::map(pkg$meta$footer$right$components, markdown_text2) %>%
-      set_names(names(pkg$meta$footer$right$components))
+    pkg$meta$footer$right$components
   )
 
   check_missing(
@@ -346,7 +345,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  right_final_components <- purrr::compact(
+  right_final_components <- markdown_text2(
     paste0(right_components[right_structure], collapse = " ")
   )
 

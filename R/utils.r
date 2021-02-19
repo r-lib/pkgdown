@@ -145,12 +145,10 @@ check_missing <- function(needed, present, where, pkg) {
     missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
 
     abort(
-      sprintf(
-        "Can't find component%s %s.",
-        if (length(missing) > 1) "s" else "",
-        paste0(
-          missing_fields, collapse = " nor "
-        )
+      paste0(
+        "Can't find component", if (length(missing) > 1) "s", " ",
+        paste0(missing_fields, collapse = " or "),
+        "."
       )
     )
 }
@@ -186,4 +184,11 @@ show_xml <- function(x) {
 
 isFALSE <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x) && !x
+}
+
+modify_list <- function(x, y) {
+  if (is.null(y)) {
+    return(x)
+  }
+  utils::modifyList(x, y)
 }
