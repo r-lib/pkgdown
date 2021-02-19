@@ -351,7 +351,9 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 
 By default, the footer is automatically populated with:
 \itemize{
-\item the names of the authors \code{authors}, on the left;
+\item the names of the
+\href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}},
+on the left;
 \item a reference to pkgdown \code{pkgdown}, on the right.
 }
 

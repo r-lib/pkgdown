@@ -101,7 +101,7 @@ data_home_sidebar <- function(pkg = ".") {
       set_names(names(components))
   )
 
-  check_missing(
+  check_components(
     needed = sidebar_structure,
     present = names(sidebar_components),
     where = c("home", "sidebar", "components"),
@@ -122,18 +122,12 @@ default_sidebar_structure <- function() {
 
 data_home_component <- function(component, component_name, pkg) {
 
-  if (!all(c("title", "text") %in% names(component))) {
-    abort(
-      sprintf(
-        "Can't find %s for the component %s",
-        paste0(
-          c("title", "text")[!c("title", "text") %in% names(component)],
-          collapse = " nor "
-          ),
-        pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
-        )
-      )
-  }
+  check_components(
+    needed = c("title", "text"),
+    present = names(component),
+    where = c("home", "sidebar", "components", component_name),
+    pkg = pkg
+  )
 
   sidebar_section(
     component$title,

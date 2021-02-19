@@ -62,9 +62,9 @@
 
 ---
 
-    Can't find title for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find component home.sidebar.components.fancy.title in '_pkgdown.yml'.
 
 ---
 
-    Can't find title nor text for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find components home.sidebar.components.fancy.title, home.sidebar.components.fancy.text in '_pkgdown.yml'.
 

@@ -312,7 +312,9 @@
 #'    ```
 #' @section YAML config - footer:
 #' By default, the footer is automatically populated with:
-#' * the names of the authors `authors`, on the left;
+#' * the names of the
+#' [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors),
+#' on the left;
 #' * a reference to pkgdown `pkgdown`, on the right.
 #'
 #' The example below puts the authors information on the right together with

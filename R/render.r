@@ -319,7 +319,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg$meta$footer$left$components
   )
 
-  check_missing(
+  check_components(
     needed = left_structure,
     present = names(left_components),
     where = c("footer", "left", "components"),
@@ -339,7 +339,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg$meta$footer$right$components
   )
 
-  check_missing(
+  check_components(
     needed = right_structure,
     present = names(right_components),
     where = c("footer", "right", "components"),

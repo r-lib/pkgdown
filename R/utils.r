@@ -130,7 +130,7 @@ pkgdown_fields <- function(pkg, fields) {
   pkgdown_field(pkg, fields)
 }
 
-check_missing <- function(needed, present, where, pkg) {
+check_components <- function(needed, present, where, pkg) {
   missing <- setdiff(needed, present)
 
   if (length(missing) == 0) {
