@@ -329,7 +329,7 @@
 #'   right:
 #'     structure: [authors, legal]
 #'     components:
-#'       legal: 'Provided without ***any warranty***.'
+#'       legal: Provided without ***any warranty***.
 #' ```
 #'
 #' @section Options:

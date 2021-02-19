@@ -2,7 +2,7 @@
 
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
-    * add sentences to the left and right
+    * add text to the left and right (or even remove/replace default text)
   (#1502)
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 

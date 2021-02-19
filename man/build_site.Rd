@@ -366,7 +366,7 @@ or a YAML pipe and to start the components with two empty lines.\preformatted{fo
   right:
     structure: [authors, legal]
     components:
-      legal: 'Provided without ***any warranty***.'
+      legal: Provided without ***any warranty***.
 }
 }
 
