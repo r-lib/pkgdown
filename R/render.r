@@ -355,7 +355,7 @@ pkgdown_footer <- function(data, pkg) {
 }
 
 footer_authors <- function(data) {
-  paste0("Developed by ", data$authors, ".")
+  paste0("Developed by ", data$package$authors, ".")
 }
 
 footer_pkgdown <- function(data) {
