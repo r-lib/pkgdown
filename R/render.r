@@ -355,15 +355,12 @@ pkgdown_footer <- function(data, pkg) {
 }
 
 footer_authors <- function(data) {
-  whisker::whisker.render(
-    "{{#package}}Developed by {{{authors}}}.{{/package}}",
-    data
-  )
+  paste0("Developed by ", data$authors, ".")
 }
 
 footer_pkgdown <- function(data) {
-  whisker::whisker.render(
-    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {{#pkgdown}}{{version}}{{/pkgdown}}.',
-    data
+  paste0(
+    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
+    data$pkgdown$version, "."
   )
 }
