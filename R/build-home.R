@@ -127,7 +127,7 @@
 #' The example below creates a sidebar whose only components will be the
 #' authors section, a custom section, and a Dev Status section if there are
 #' badges.
-#' The `text` can be Markdown or HTML.
+#' The `text` will be treated as Markdown.
 #'
 #' ```
 #' home:

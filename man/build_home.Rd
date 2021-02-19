@@ -136,7 +136,7 @@ You can change the order of sidebar components:
 The example below creates a sidebar whose only components will be the
 authors section, a custom section, and a Dev Status section if there are
 badges.
-The \code{text} can be Markdown or HTML.\preformatted{home:
+The \code{text} will be treated as Markdown.\preformatted{home:
   sidebar:
     structure: [authors, custom, dev]
     components:
