@@ -395,7 +395,12 @@ build_site <- function(pkg = ".",
   if (install) {
     withr::local_temp_libpaths()
     rule("Installing package into temporary library")
-    utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+    # Keep source, so that e.g. pillar can show the source code
+    # of its functions in its articles
+    withr::with_options(
+      list(keep.source.pkgs = TRUE, keep.parse.data.pkgs = TRUE),
+      utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+    )
   }
 
   if (new_process) {
