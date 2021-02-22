@@ -130,8 +130,7 @@
 #' The `structure` defines the layout of the navbar, i.e. the order
 #' of the components, and whether they're right aligned or left aligned.
 #' You can use this component to change the order of the default components,
-#' and to add your own components.
-#' Any unplaced components go to the right of the left navbar.
+#' remove some default components and add your own components.
 #'
 #' ```
 #' navbar:

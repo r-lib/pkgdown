@@ -11,13 +11,15 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   components[names(components_meta)] <- components_meta
   components <- purrr::compact(components)
 
-  # Any unplaced components go to the right of the left navbar
   right_comp <- intersect(structure$right, names(components))
   left_comp <- intersect(structure$left, names(components))
-  extra_comp <- setdiff(names(components), c(left_comp, right_comp))
+
+  # Warn about unplaced components
+  check_missing_nav_links(components, c(left_comp, right_comp), pkg)
+
 
   # Backward compatiblity
-  left <- navbar$left %||% components[c(left_comp, extra_comp)]
+  left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
   list(
@@ -177,4 +179,22 @@ pkg_navbar_vignettes <- function(
   file_out <- file_out %||% paste0(name, ".html")
 
   tibble::tibble(name = name, title = title, file_out)
+}
+
+check_missing_nav_links <- function(needed, present, pkg) {
+  extra_comp <- setdiff(names(needed), present)
+
+  if (length(extra_comp) == 0) {
+    return()
+  }
+
+  warn(
+    sprintf(
+      "Component%s %s %s not included in %s.",
+      if (length(extra_comp)> 1) "s" else "",
+      toString(extra_comp),
+      if (length(extra_comp)> 1) "are" else "is",
+      pkgdown_field(pkg, "navbar", "structure")
+    )
+  )
 }
