@@ -38,7 +38,7 @@ test_that("simple wrappers work as expected", {
 test_that("subsection generates h3", {
   expect_equal(rd2html("\\subsection{A}{B}"),
     c(
-      "<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>A</h3>",
+      "<h3 class='hasAnchor' id='a'><a class='anchor' href='#a'></a>A</h3>",
       "<p>B</p>"
     ))
 })
@@ -47,14 +47,14 @@ test_that("subsection generates h3", {
     p1
 
     p2
-  }"), c("<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>A</h3>", "<p>p1</p>", "<p>p2</p>"))
+  }"), c("<h3 class='hasAnchor' id='a'><a class='anchor' href='#a'></a>A</h3>", "<p>p1</p>", "<p>p2</p>"))
 })
 test_that("nested subsection generates h4", {
   expect_equal(
     rd2html("\\subsection{H3}{\\subsection{H4}{}}"),
     c(
-      "<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>H3</h3>",
-      "<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>H4</h4>")
+      "<h3 class='hasAnchor' id='h-'><a class='anchor' href='#h-'></a>H3</h3>",
+      "<h4 class='hasAnchor' id='h-'><a class='anchor' href='#h-'></a>H4</h4>")
   )
 })
 
