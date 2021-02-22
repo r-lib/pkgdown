@@ -10,6 +10,8 @@ Both the sidebar and footer are customizable so you could move the authors
 information or remove it entirely from them, see the sidebar and footer docs
 in respectively `?build_home` and `?build_footer`
 
+### Authors ORCID and bio
+
 Author ORCID identification numbers in the `DESCRIPTION` are linked using the ORCID logo:
 
 ```
@@ -22,8 +24,6 @@ Authors@R: c(
     )
   )
 ```
-
-### Authors bio
 
 If you want to add more details about authors or their involvement with the package,
 you can use the comment field,
