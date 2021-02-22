@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * Make navbar specification more flexible: it is now possible to not include 
-  all default components in the navbar structure, but pkgdown will throw a warning.
+  all default components in the navbar structure, but pkgdown will throw a warning. (#1517)
 
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
