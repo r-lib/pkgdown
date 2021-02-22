@@ -23,94 +23,63 @@ This function generates the home page, converts \code{.md} files found in the
 package root (and in \verb{.github/}), and builds an authors page from
 \code{DESCRIPTION} and \code{inst/CITATION} (if present).
 }
-\section{Home page}{
+\details{
+\subsection{Home page}{
 
 The home page (\code{index.html}) is generated from \code{pkgdown/index.md},
-\code{index.md}, or \code{README.md}, in that order. Most packages will use \code{README.md}
-because that's also displayed by GitHub and CRAN. Use \code{index.md} if you want
-your package website to look different to your README, and use
-\verb{_pkgdown/index.md} if you don't want that file to live in your package
-root directory.
+\code{index.md}, or \code{README.md}, in that order. Most packages will use
+\code{README.md} because that’s also displayed by GitHub and CRAN. Use
+\code{index.md} if you want your package website to look different to your
+README, and use \verb{_pkgdown/index.md} if you don’t want that file to live
+in your package root directory.
 
-If you use \code{index.Rmd} or \code{README.Rmd} it's your responsibility to knit
+If you use \code{index.Rmd} or \code{README.Rmd} it’s your responsibility to knit
 the document to create the corresponding \code{.md}. pkgdown does not do this
 for you because it only touches files in the \verb{doc/} directory.
 }
 
-\section{Sidebar}{
-
-By default, the sidebar automatically populated with:
-\itemize{
-\item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
-identifies badges in three ways:
-\itemize{
-\item Any image-containing links between \verb{<!-- badges: start -->} and
-\verb{<!-- badges: end -->}, as e.g. created by \code{usethis::use_readme_md()}
-or \code{usethis::use_readme_rmd()}.
-\item Any image-containing links within \verb{<div id="badges"></div>}.
-\item Within the first paragraph, if it only contains image-containing links.
-}
-\item A link for bug reports is added if the \code{BugReports} field in
-\code{DESCRIPTION} contains a link. You can use \code{usethis::use_github_links()}
-to populate this field.
-\item Licensing information if \code{LICENSE}/\code{LICENCE} or \code{LICENSE.md}/\code{LICENCE.md}
-files are present.
-\item Community information is linked in the side bar using the
-\code{.github/CONTRIBUTING.md} and \code{.github/CODE_OF_CONDUCT.md} files,
-if present.
-\item Extra markdown files in the base directory or in \verb{.github/} are copied
-to \verb{docs/} and converted to HTML.
-\item Citation information from a \code{inst/CITATION} file is linked in the side bar
-to the \href{https://testthat.r-lib.org/authors.html}{authors page}.
-\item Author ORCID identification numbers in the \code{DESCRIPTION} are linked under
-"Developers" using the ORCID logo:\preformatted{Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0003-4757-117X")
-    ),
-    person("Jay", "Hesselberth", role = "aut",
-      comment = c(ORCID = "0000-0002-6299-179X")
-    )
-  )
-}
-}
-
-You can tweak the navbar by using the YAML configuration, see the corresponding
-section.
-}
-
-\section{Images and figures}{
+\subsection{Images and figures}{
 
 If you want to include images in your \code{README.md}, they must be stored
-somewhere in the package so that they can be displayed on the CRAN website.
-The best place to put them is \code{man/figures}. If you are generating figures
-with R Markdown, make sure you set up \code{fig.path} as followed:\preformatted{knitr::opts_chunk$set(
+somewhere in the package so that they can be displayed on the CRAN
+website. The best place to put them is \code{man/figures}. If you are
+generating figures with R Markdown, make sure you set up \code{fig.path} as
+followed:\preformatted{knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
 }
 
-This should usually go in a block with \code{include = FALSE}.
+This should usually go in a chunk with \code{include = FALSE}.\preformatted{```\{r chunk-name, include=FALSE\}
+knitr::opts_chunk$set(
+  fig.path = "man/figures/"
+)
+```
+}
 }
 
-\section{Package logo}{
+\subsection{Package logo}{
 
-If you have a package logo, you can include it at the top of your README in a
-level-one heading:\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
+If you have a package logo, you can include it at the top of your README
+in a level-one heading:\preformatted{## pkgdown <img src="man/figures/logo.png" align="right" />
 }
 
-\code{\link[=init_site]{init_site()}} will also automatically create a favicon set from your package
-logo.
+\code{\link[=init_site]{init_site()}} will also automatically create a favicon
+set from your package logo.
 }
 
-\section{YAML config - home}{
+\subsection{YAML config - home}{
 
-To tweak the home page, you need a section called \code{home}.
+To tweak the home page, you need a section of the configuration file
+called \code{home}.
+\subsection{Page title and description}{
 
 By default, the page title and description are extracted automatically
 from the \code{Title} and \code{Description} fields \code{DESCRIPTION} (stripping
-single quotes off quoted words). CRAN ensures that these fields don't contain
-phrases like "R package" because that's obvious on CRAN. To make your
-package more findable with google, it's good practice to override the
-\code{title} and \code{description}, thinking about what people might search for:\preformatted{home:
+single quotes off quoted words). CRAN ensures that these fields don’t
+contain phrases like “R package” because that’s obvious on CRAN. To make
+your package more findable on search engines, it’s good practice to
+override the \code{title} and \code{description}, thinking about what people might
+search for:\preformatted{home:
   title: An R package for pool-noodle discovery
   description: >
     Do you love R? Do you love pool-noodles? If so, you might enjoy
@@ -118,26 +87,87 @@ package more findable with google, it's good practice to override the
     to your growing collection.
 }
 
-(Note the use of YAML's \code{>}; this is a convenient way of writing paragraphs
-of text.)
+(Note the use of YAML’s \code{>} i.e. “YAML pipes”; this is a convenient way
+of writing paragraphs of text.)
+}
 
-The sidebar links are automatically generated by inspecting the \code{URL} and
-\code{BugReports} fields of the \code{DESCRIPTION}. You can add additional links with a
-subsection called \code{links}, which should contain a list of \code{text} + \code{href}
-elements:\preformatted{home:
+\subsection{README header}{
+
+READMEs usually start with an \verb{<h1>} containing the package name. If
+that feels duplicative with the package name in the navbar you can
+remove it with \code{strip_header: true}:\preformatted{home:
+  strip_header: true
+}
+}
+
+\subsection{Other homepage tweaks}{
+
+See the subsections about the sidebar and authors for more tweaks via
+the pkgdown configuration file.
+}
+
+}
+
+\subsection{Sidebar}{
+
+By default, the sidebar automatically populated with the following
+elements, in this order. To understand their creation, read on; to tweak
+the content of the navbar, see the “YAML config - sidebar” section.
+\itemize{
+\item \code{links}: Useful links.
+\item \code{licence}: Licensing information.
+\item \code{community}: Links to ode of Conduct and contributing guide.
+\item \code{citation}: Link to citation information.
+\item \code{authors}: Author information.
+\item \code{dev}: Development status badges.
+}
+\subsection{Sources of sidebar information}{
+\itemize{
+\item Development status badges found in \code{README.md}/\code{index.md}. pkgdown
+identifies badges in three ways:
+\itemize{
+\item Any image-containing links between \verb{<!-- badges: start -->} and
+\verb{<!-- badges: end -->}, as e.g. created by
+\code{usethis::use_readme_md()} or \code{usethis::use_readme_rmd()}.
+\item Any image-containing links within \verb{<div id="badges"></div>}.
+\item Within the first paragraph, if it only contains image-containing
+links.
+}
+\item A link for bug reports is added if the \code{BugReports} field in
+\code{DESCRIPTION} contains a link. You can use
+\code{usethis::use_github_links()} to populate this field.
+\item Licensing information if \code{LICENSE}/\code{LICENCE} or
+\code{LICENSE.md}/\code{LICENCE.md} files are present.
+\item Community information is linked in the side bar using the
+\code{.github/CONTRIBUTING.md} and \code{.github/CODE_OF_CONDUCT.md} files, if
+present.
+\item Extra markdown files in the base directory or in \verb{.github/} are
+copied to \verb{docs/} and converted to HTML.
+\item Citation information from a \code{inst/CITATION} file is linked in the
+side bar to the \href{https://testthat.r-lib.org/authors.html}{authors page}.
+\item Author information from \code{DESCRIPTION}, see the \href{#authors}{dedicated section}.
+}
+
+The sidebar links are automatically generated by inspecting the \code{URL}
+and \code{BugReports} fields of the \code{DESCRIPTION}.
+}
+
+\subsection{YAML config - sidebar}{
+
+You can add additional links with a subsection called \code{links}, which
+should contain a list of \code{text} + \code{href} elements:\if{html}{\out{<div class="yaml">}}\preformatted{home:
   links:
   - text: Link text
     href: http://website.com
-}
+}\if{html}{\out{</div>}}
 
-You can change the order of sidebar components:
-\code{links}, \code{license} (with an "s"), \code{community}, \code{citation},
-\code{authors}, \code{dev} (badges); you can add a README table of contents \code{toc},
-you can add custom components.
-The example below creates a sidebar whose only components will be the
+You can change the order of sidebar components: \code{links}, \code{license} (with
+an “s”), \code{community}, \code{citation}, \code{authors}, \code{dev} (badges); you can add
+a README table of contents \code{toc}, you can add custom components. The
+example below creates a sidebar whose only components will be the
 authors section, a custom section, a table of contents for the README
-and a Dev Status section if there are badges.
-The \code{text} will be treated as Markdown.\preformatted{home:
+and a Dev Status section if there are badges. The \code{text} will be treated
+as Markdown.\preformatted{home:
   sidebar:
     structure: [authors, custom, toc, dev]
     components:
@@ -154,30 +184,44 @@ You can provide a ready-made sidebar HTML:\preformatted{home:
 Finally, you can completely remove the sidebar.\preformatted{home:
   sidebar: FALSE
 }
-
-READMEs usually start with an \verb{<h1>} containing the package name. If
-that feels duplicative with the package name in the navbar you can
-remove it with \code{strip_header: true}:\preformatted{home:
-  strip_header: true
-}
 }
 
-\section{YAML config - authors}{
+}
 
-The "developers" list is populated by the maintainer ("cre"), authors
-("aut"), and funder ("fnd") from the \code{DESCRIPTION}. You can modify their
-display on the home page by adding a subsection for \code{authors}. Each entry
-in \code{authors} should be named with the author's name (matching \code{DESCRIPTION})
-and can contain \code{href} and/or \code{html} fields:
+\subsection{Authors}{
 \itemize{
-\item If \code{href} is provided, the author's name will be linked to this url.
-\item If \code{html} is provided, it will be shown instead of the author's name.
-This is particularly useful if you want to display the logo of a corporate
-sponsor.
-}\preformatted{authors:
+\item Author ORCID identification numbers in the \code{DESCRIPTION} are linked
+under “Developers” using the ORCID logo:\preformatted{Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-4757-117X")
+    ),
+    person("Jay", "Hesselberth", role = "aut",
+      comment = c(ORCID = "0000-0002-6299-179X")
+    )
+  )
+}
+}
+\subsection{YAML config - authors}{
+
+The “developers” list is populated by the maintainer (“cre”), authors
+(“aut”), and funder (“fnd”) from the \code{DESCRIPTION}. You can modify their
+display on the home page by adding a subsection for \code{authors}. Each
+entry in \code{authors} should be named with the author’s name (matching
+\code{DESCRIPTION}) and can contain \code{href} and/or \code{html} fields:
+\itemize{
+\item If \code{href} is provided, the author’s name will be linked to this url.
+\item If \code{html} is provided, it will be shown instead of the author’s
+name. This is particularly useful if you want to display the logo of
+a corporate sponsor.
+}\if{html}{\out{
+<!-- -->
+}}
+\preformatted{authors:
   firstname lastname:
     href: "http://name-website.com"
     html: "<img src='name-picture.png' height=24>"
 }
 }
 
+}
+}

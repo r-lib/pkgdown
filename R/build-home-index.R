@@ -66,7 +66,7 @@ data_home_sidebar <- function(pkg = ".") {
   }
 
   sidebar_structure <- pkg$meta$home$sidebar$structure %||%
-    default_sidebar_structure()
+    default_sidebar_structure()$name
 
   # compute all default sections
   sidebar_components <- list(
@@ -81,7 +81,7 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
     sidebar_html <- paste0(
-      purrr::compact(sidebar_components[default_sidebar_structure()]),
+      purrr::compact(sidebar_components[default_sidebar_structure()$name]),
       collapse = "\n"
     )
     return(sidebar_html)
@@ -116,8 +116,23 @@ data_home_sidebar <- function(pkg = ".") {
 
 }
 
-default_sidebar_structure <- function() {
-  c("links", "license", "community", "citation", "authors", "dev")
+default_sidebar_structure <- function(all = FALSE) {
+  components <- tibble::tribble(
+    ~name, ~definition, ~default,
+    "links", "Useful links", TRUE,
+    "licence", "Licensing information", TRUE,
+    "community", "Links to ode of Conduct and contributing guide", TRUE,
+    "citation", "Link to citation information", TRUE,
+    "authors", "Author information", TRUE,
+    "dev", "Development status badges", TRUE,
+    "toc", "Table of contents for the home page", FALSE,
+  )
+
+  if (!all) {
+    return(components[components$default,])
+  }
+
+  components
 }
 
 data_home_component <- function(component, component_name, pkg) {
