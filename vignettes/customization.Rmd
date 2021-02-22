@@ -65,7 +65,7 @@ You will want to alter the layout of your website if you are trying to e.g.
 ### Navbar, footer, home sidebar
 
 If you want to alter the elements of the navbar, refer to `?build_site` docs.
-PLACEHOLDER REGARDING FOOTER.
+If you want to alter the elements of the navbar, refer to `?build_site` docs.
 If you want to alter the elements of the home sidebar, refer to `?build_home` docs.
 
 ### Other layouts changes
