@@ -4,6 +4,7 @@
 #' package root (and in `.github/`), and builds an authors page from
 #' `DESCRIPTION` and `inst/CITATION` (if present).
 #' @includeRmd man/rmd-fragments/home-configuration.Rmd
+#' @includeRmd man/rmd-fragments/authors-configuration.Rmd
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",

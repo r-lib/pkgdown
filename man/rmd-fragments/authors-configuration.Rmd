@@ -1,0 +1,59 @@
+## Authors
+
+By default, pkgdown will display information related to authors in three places
+
+* the sidebar;
+* the footer left part;
+* the author page.
+
+Both the sidebar and footer are customizable so you could move the authors 
+information or remove it entirely from them, see the sidebar and footer docs
+in respectively `?build_home` and `?build_footer`
+
+Author ORCID identification numbers in the `DESCRIPTION` are linked using the ORCID logo:
+
+```
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-4757-117X")
+    ),
+    person("Jay", "Hesselberth", role = "aut",
+      comment = c(ORCID = "0000-0002-6299-179X")
+    )
+  )
+```
+
+
+### YAML config - authors
+
+You can tweak two things via the `authors` YAML field:
+filtering of authors for the sidebar and footer, and display of authors.
+
+The "developers" list is populated by the maintainer ("cre"), authors
+("aut"), and funder ("fnd") from the `DESCRIPTION`. 
+You could choose other roles for filtering.
+
+```
+authors:
+  filtering:
+    footer: [cre, fnd]
+    sidebar: [cre, aut]
+```
+
+You can modify the authors'
+display on the home page and author page by adding a subsection for `authors`. 
+Each entry
+in `authors` should be named with the author's name (matching `DESCRIPTION`)
+and can contain `href` and/or `html` fields:
+
+* If `href` is provided, the author's name will be linked to this URL.
+* If `html` is provided, it will be shown instead of the author's name.
+  This is particularly useful if you want to display the logo of a corporate
+  sponsor.
+
+```
+authors:
+  firstname lastname:
+    href: "http://name-website.com"
+    html: "<img src='name-picture.png' height=24>"
+```
