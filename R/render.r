@@ -72,7 +72,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  authors <- data_authors(pkg)$main %>%
+  authors <- data_authors(
+    pkg,
+    roles = pkg$meta$authors$footer$roles %||% default_roles()
+  )$main %>%
     purrr::map_chr("name") %>%
     paste(collapse = ", ")
 
@@ -307,7 +310,7 @@ check_made_by <- function(first) {
 pkgdown_footer <- function(data, pkg) {
 
   footer_components <- list(
-    authors = footer_authors(data),
+    authors = footer_authors(data, pkg),
     pkgdown = footer_pkgdown(data)
   )
 
@@ -354,8 +357,9 @@ pkgdown_footer <- function(data, pkg) {
   list(left = left_final_components, right = right_final_components)
 }
 
-footer_authors <- function(data) {
-  paste0("Developed by ", data$package$authors, ".")
+footer_authors <- function(data, pkg) {
+  text <- pkg$meta$authors$footer$text %||% "Developed by"
+  trimws(paste0(text, " ", data$package$authors, "."))
 }
 
 footer_pkgdown <- function(data) {

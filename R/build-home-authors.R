@@ -1,4 +1,4 @@
-data_authors <- function(pkg = ".") {
+data_authors <- function(pkg = ".", roles = default_roles()) {
   pkg <- as_pkgdown(pkg)
   author_info <- data_author_info(pkg)
 
@@ -7,7 +7,7 @@ data_authors <- function(pkg = ".") {
     purrr::map(author_list, author_info)
 
   main <- pkg %>%
-    pkg_authors(c("aut", "cre", "fnd")) %>%
+    pkg_authors(roles) %>%
     purrr::map(author_list, author_info)
 
   needs_page <- length(main) != length(all)
@@ -17,6 +17,10 @@ data_authors <- function(pkg = ".") {
     main = main,
     needs_page = needs_page
   ))
+}
+
+default_roles <- function() {
+  c("aut", "cre", "fnd")
 }
 
 pkg_authors <- function(pkg, role = NULL) {
@@ -59,7 +63,10 @@ data_author_info <- function(pkg = ".") {
 
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  data <- data_authors(pkg)
+  data <- data_authors(
+    pkg,
+    roles = pkg$meta$authors$sidebar$roles %||% default_roles()
+  )
 
   authors <- data$main %>% purrr::map_chr(author_desc)
   if (data$needs_page) {
