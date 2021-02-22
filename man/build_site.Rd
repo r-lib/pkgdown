@@ -177,7 +177,7 @@ By default, the top navigation bar (the "navbar") will contain links to:
 \item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
-You can override (but not remove) these defaults with the  \code{navbar} field.
+You can override (and even remove) these defaults with the  \code{navbar} field.
 It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor

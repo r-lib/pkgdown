@@ -120,7 +120,7 @@
 #' * News (if present).
 #' * An icon linking to the source repository (currently only GitHub and GitLab are supported)
 #'
-#' You can override (but not remove) these defaults with the  `navbar` field.
+#' You can override (and even remove) these defaults with the  `navbar` field.
 #' It has two primary
 #' components: `structure` and `components`. These components interact in
 #' a somewhat complicated way, but the complexity allows you to make minor
