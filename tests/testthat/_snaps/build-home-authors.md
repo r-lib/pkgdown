@@ -52,3 +52,17 @@
       
       
 
+# Text can be added
+
+    Code
+      data_authors_page(pkg)$before
+    Output
+      [1] "<p>Dream team:</p>"
+
+---
+
+    Code
+      data_authors_page(pkg)$after
+    Output
+      [1] "<p>And <strong><em>thanks</em></strong> to <a href=\"news/index.html\">contributors</a>!</p>"
+

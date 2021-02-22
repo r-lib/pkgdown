@@ -91,7 +91,13 @@ data_home_sidebar_authors <- function(pkg = ".") {
 build_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  data <- list(
+  data <- data_authors_page(pkg)
+
+  render_page(pkg, "authors", data, "authors.html")
+}
+
+data_authors_page <- function(pkg) {
+   data <- list(
     pagetitle = "Authors",
     authors = data_authors(pkg)$all,
     before = "",
@@ -104,9 +110,9 @@ build_authors <- function(pkg = ".") {
 
     if (!is.null(pkg$meta$authors$after)) {
     data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
-  }
+    }
 
-  render_page(pkg, "authors", data, "authors.html")
+  return(data)
 }
 
 author_name <- function(x, authors) {
