@@ -44,10 +44,30 @@ Authors@R: c(
 
 You can tweak a few things via the `authors` YAML field:
 
+* display of authors in the footer, sidebar and authors page,
 * filtering of authors for the sidebar and footer,
 * text before authors in the footer, 
-* display of authors in the footer, sidebar and authors page,
 * text before and after authors on the authors page.
+
+
+You can modify the authors' display on the home page and author page 
+by adding a subsection for `authors`. 
+Each entry in `authors` should be named 
+with the author's name (matching `DESCRIPTION`)
+and can contain `href` and/or `html` fields:
+
+* If `href` is provided, the author's name will be linked to this URL.
+* If `html` is provided, it will be shown instead of the author's name.
+  This is particularly useful if you want to display the logo of a corporate
+  sponsor.
+
+```
+authors:
+  firstname lastname:
+    href: "http://name-website.com"
+    html: "<img src='name-picture.png' height=24>"
+```
+
 
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the `DESCRIPTION`. 
@@ -71,20 +91,6 @@ authors:
   after: "Also refer to the [changelog](news/index.html) for more contributors. :pray:"
 ```
 
-You can modify the authors' display on the home page and author page 
-by adding a subsection for `authors`. 
-Each entry in `authors` should be named 
-with the author's name (matching `DESCRIPTION`)
-and can contain `href` and/or `html` fields:
-
-* If `href` is provided, the author's name will be linked to this URL.
-* If `html` is provided, it will be shown instead of the author's name.
-  This is particularly useful if you want to display the logo of a corporate
-  sponsor.
-
-```
-authors:
-  firstname lastname:
-    href: "http://name-website.com"
-    html: "<img src='name-picture.png' height=24>"
-```
+If you want to filter authors based on something else than their roles, 
+consider using a custom sidebar/footer component 
+(see `? build_home`/`? build_site`, respectively).
