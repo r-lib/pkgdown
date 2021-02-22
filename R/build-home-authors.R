@@ -11,7 +11,13 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
     purrr::map(author_list, author_info)
 
   more_authors <- length(main) != length(all)
-  comments <- length(purrr::compact(author_list(pkg_authors(pkg)))) > 1
+
+  comments <- pkg %>%
+    pkg_authors() %>%
+    purrr::map(author_list, author_info) %>%
+    purrr::map("comment") %>%
+    purrr::compact() %>%
+    length() > 0
 
   print_yaml(list(
     all = all,

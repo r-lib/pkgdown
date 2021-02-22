@@ -28,6 +28,37 @@
       </ul>
       </div>
 
+---
+
+    Code
+      cat(data_home_sidebar(pkg))
+    Output
+      <div class='license'>
+      <h2 data-toc-skip>License</h2>
+      <ul class='list-unstyled'>
+      <li>NA</li>
+      </ul>
+      </div>
+      
+      
+      <div class='developers'>
+      <h2 data-toc-skip>Developers</h2>
+      <ul class='list-unstyled'>
+      <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
+      <small class = 'roles'> Author, maintainer </small>  </li>
+      <li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a> <br />
+      <small class = 'roles'> Copyright holder, funder </small>  </li>
+      <li><a href='authors.html'>More on authors...</li></li>
+      </ul>
+      </div>
+      
+      <div class='dev-status'>
+      <h2 data-toc-skip>Dev Status</h2>
+      <ul class='list-unstyled'>
+      <li>placeholder</li>
+      </ul>
+      </div>
+
 # data_home_sidebar() errors well when no HTML file
 
     Can't find file 'file.html' specified by home.sidebar.html in '_pkgdown.yml'.

@@ -99,33 +99,9 @@ configuration file.
 ## Sidebar
 
 By default, the sidebar automatically populated with the following elements,
-in this order.
+in this order: `toString(pkgdown:::default_sidebar_structure())`.
 To understand their creation, read on; to tweak the content of the navbar, 
 see the "YAML config - sidebar" section.
-
-
-```{r echo=FALSE}
-# With includeRmd verbatim code chunks' output lines start with ##
-# Therefore hack-ish way to make this work. :-)
-get_fields <- function(){
-  fields <- pkgdown:::default_sidebar_structure()
-format_one <- function(field) {
-  sprintf("* `%s`: %s.", field$name, field$definition)
-}
-
-paste0(
-  purrr::map_chr(
-    split(fields, seq_len(nrow(fields))),
-    format_one
-  ),
-  collapse = "\n\n"
-)
-
-}
-
-```
-
-`r get_fields()`
 
 ### Sources of sidebar information
 
@@ -173,21 +149,8 @@ home:
     href: /roadmap.html
 ```
 
-```{r, echo=FALSE}
-get_order <- function() {
-paste0(
-  purrr::map_chr(
-    pkgdown:::default_sidebar_structure()$name,
-    function(x) sprintf("`%s`", x)
-  ),
-  collapse = ", "
-)
-}
-
-```
-
 You can change the order of sidebar components:
-`r get_order()`; 
+`r toString(pkgdown:::default_sidebar_structure())`; 
 you can add a README table of contents `toc`,
 you can add custom components.
 The example below creates a sidebar whose only components will be the
