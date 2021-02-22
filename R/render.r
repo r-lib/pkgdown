@@ -358,7 +358,7 @@ pkgdown_footer <- function(data, pkg) {
 
 footer_authors <- function(data, pkg) {
   text <- pkg$meta$authors$footer$text %||% "Developed by"
-  paste0(trimws(text, " ", data$package$authors, "."))
+  paste0(trimws(text), " ", data$package$authors, ".")
 }
 
 footer_pkgdown <- function(data) {
