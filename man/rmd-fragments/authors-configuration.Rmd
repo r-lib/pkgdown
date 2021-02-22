@@ -1,9 +1,9 @@
 ## Authors
 
-By default, pkgdown will display information related to authors in three places
+By default, pkgdown will display author information in three places:
 
-* the sidebar;
-* the footer left part;
+* the sidebar,
+* the left part side of the footer,
 * the author page.
 
 Both the sidebar and footer are customizable so you could move the authors 
@@ -45,7 +45,7 @@ Authors@R: c(
 You can tweak a few things via the `authors` YAML field:
 
 * display of authors in the footer, sidebar and authors page,
-* filtering of authors for the sidebar and footer,
+* which author roles are displayed inthe sidebar and footer,
 * text before authors in the footer, 
 * text before and after authors on the authors page.
 
@@ -72,11 +72,10 @@ authors:
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the `DESCRIPTION`. 
 You could choose other roles for filtering.
-With the configuration below,
+With the configuration below:
 
-* only the maintainer and funder(s) appear in 
-the footer, after the text "Crafted by";
-* all authors and contributors appear in the sidebar;
+* only the maintainer and funder(s) appear in the footer, after the text "Crafted by",
+* all authors and contributors appear in the sidebar,
 * the authors list on the authors page is preceded and followed by some text.
 
 
@@ -88,7 +87,7 @@ authors:
   sidebar:
     roles: [aut, ctb]
   before: "This package is proudly brought to you by:"
-  after: "Also refer to the [changelog](news/index.html) for more contributors. :pray:"
+  after: "See the [changelog](news/index.html) for other contributors. :pray:"
 ```
 
 If you want to filter authors based on something else than their roles, 
