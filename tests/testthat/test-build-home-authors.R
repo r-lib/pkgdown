@@ -33,3 +33,9 @@ test_that("Comments in authors info are linkified", {
     "&lt;<a href='https://x.org/'>https://x.org/</a>&gt;)</small>"
   )
 })
+
+test_that("Data authors can accept different filtering", {
+  pkg <- as_pkgdown(test_path("assets/sidebar"))
+  expect_snapshot(data_authors(pkg)$main)
+  expect_snapshot(data_authors(pkg, roles = "cre")$main)
+})
