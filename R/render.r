@@ -72,10 +72,9 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  authors <- data_authors(
-    pkg,
-    roles = pkg$meta$authors$footer$roles %||% default_roles()
-  )$main %>%
+  roles <- pkg$meta$authors$footer$roles %||% default_roles()
+
+  authors <- data_authors(pkg, roles = roles)$main %>%
     purrr::map_chr("name") %>%
     paste(collapse = ", ")
 
