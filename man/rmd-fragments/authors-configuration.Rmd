@@ -23,20 +23,41 @@ Authors@R: c(
   )
 ```
 
+### Authors bio
+
+If you want to add more details about authors or their involvement with the package,
+you can use the comment field,
+that will be rendered on the authors page.
+
+```
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-4757-117X", "Indenter-in-chief")
+    ),
+    person("Jay", "Hesselberth", role = "aut",
+      comment = c(ORCID = "0000-0002-6299-179X")
+    )
+  )
+```
 
 ### YAML config - authors
 
-You can tweak two things via the `authors` YAML field:
-filtering of authors for the sidebar and footer,
-text before authors in the footer, and display of authors.
+You can tweak a few things via the `authors` YAML field:
+
+* filtering of authors for the sidebar and footer,
+* text before authors in the footer, 
+* display of authors in the footer, sidebar and authors page,
+* text before and after authors on the authors page.
 
 The "developers" list is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the `DESCRIPTION`. 
 You could choose other roles for filtering.
-The configuration below would make
+With the configuration below,
 
 * only the maintainer and funder(s) appear in 
-the footer, after the text "Crafted by".
+the footer, after the text "Crafted by";
+* all authors and contributors appear in the sidebar;
+* the authors list on the authors page is preceded and followed by some text.
 
 
 ```
@@ -46,6 +67,8 @@ authors:
     text: "Crafted by"
   sidebar:
     roles: [aut, ctb]
+  before: "This package is proudly brought to you by:"
+  after: "Also refer to the [changelog](news/index.html) for more contributors. :pray:"
 ```
 
 You can modify the authors' display on the home page and author page 

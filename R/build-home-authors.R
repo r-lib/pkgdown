@@ -10,12 +10,14 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
     pkg_authors(roles) %>%
     purrr::map(author_list, author_info)
 
-  needs_page <- length(main) != length(all)
+  more_authors <- length(main) != length(all)
+  comments <- length(purrr::compact(author_list(pkg_authors(pkg)))) > 1
 
   print_yaml(list(
     all = all,
     main = main,
-    needs_page = needs_page
+    more_authors = more_authors,
+    comments = comments
   ))
 }
 
@@ -68,9 +70,13 @@ data_home_sidebar_authors <- function(pkg = ".") {
     roles = pkg$meta$authors$sidebar$roles %||% default_roles()
   )
 
-  authors <- data$main %>% purrr::map_chr(author_desc)
-  if (data$needs_page) {
+  authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
+  if (data$more_authors) {
     authors <- c(authors, "<a href='authors.html'>All authors...</li>")
+  } else {
+    if (data$comments) {
+      authors <- c(authors, "<a href='authors.html'>More on authors...</li>")
+    }
   }
 
   sidebar_section("Developers", authors)
@@ -81,8 +87,18 @@ build_authors <- function(pkg = ".") {
 
   data <- list(
     pagetitle = "Authors",
-    authors = data_authors(pkg)$all
+    authors = data_authors(pkg)$all,
+    before = "",
+    after = ""
   )
+
+  if (!is.null(pkg$meta$authors$before)) {
+    data$before <- markdown_text2(pkg$meta$authors$before, pkg = pkg)
+  }
+
+    if (!is.null(pkg$meta$authors$after)) {
+    data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
+  }
 
   render_page(pkg, "authors", data, "authors.html")
 }
@@ -116,7 +132,7 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info, comment = FALSE) {
+author_list <- function(x, authors_info = NULL, comment = FALSE) {
   name <- author_name(x, authors_info)
 
   roles <- paste0(role_lookup[x$role], collapse = ", ")
