@@ -9,6 +9,10 @@
 * Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
   contributions: add a link to the authors page from the sidebar if any author
   has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
+* Make links of 404's navbar absolute (#1524).
+
+* Make navbar specification more flexible: it is now possible to not include 
+  all default components in the navbar structure, but pkgdown will throw a warning. (#1517)
 
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
@@ -58,6 +62,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   home page immediately to its left (#1383).
 
 * `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
+
+* Automatically link Jira issues by setting your project name(s) with 
+`repo: jira_projects: [...]` and specifying a custom issue URL with
+`repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
 
 # pkgdown 1.6.1
 

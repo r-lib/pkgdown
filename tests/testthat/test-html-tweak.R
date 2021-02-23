@@ -125,6 +125,15 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[3]])))
 })
 
+test_that("tweak_navbar_links() make URLs absolute", {
+  html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
+  pkg <- list(meta = list(url = "https://example.com"))
+  expect_equal(
+    tweak_navbar_links(html, pkg),
+    "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
+  )
+})
+
 # homepage ----------------------------------------------------------------
 
 test_that("page header modification succeeds", {

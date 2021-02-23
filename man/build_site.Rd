@@ -177,7 +177,7 @@ By default, the top navigation bar (the "navbar") will contain links to:
 \item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
-You can override (but not remove) these defaults with the  \code{navbar} field.
+You can override (and even remove) these defaults with the  \code{navbar} field.
 It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
@@ -187,8 +187,7 @@ generate the rest.
 The \code{structure} defines the layout of the navbar, i.e. the order
 of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
-and to add your own components.
-Any unplaced components go to the right of the left navbar.\preformatted{navbar:
+remove some default components and add your own components.\preformatted{navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [github]
@@ -325,6 +324,16 @@ supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}
 
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
+
+pkgdown can automatically link to Jira issues as well, but you must specify
+both a custom \code{issue} URL as well as your Jira project names to auto-link in
+\code{jira_projects}. You can specify as many projects as you would like in a last
+(in the example below we would link both the \code{PROJ} and \code{OTHER} Jira
+projects):\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+  jira_projects: [PROJ, OTHER]
+  url:
+    issue: https://jira.organisation.com/jira/browse/
+}\if{html}{\out{</div>}}
 
 pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by

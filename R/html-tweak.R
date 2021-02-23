@@ -94,6 +94,35 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   invisible()
 }
+
+
+tweak_navbar_links <- function(html, pkg = pkg) {
+
+  if(!grepl("/$", pkg$meta$url)) {
+    url <- paste0(pkg$meta$url, "/")
+  } else{
+    url <- pkg$meta$url
+  }
+
+  html <- xml2::read_html(html)
+
+  links <- xml2::xml_find_all(html, ".//a")
+  hrefs <- xml2::xml_attr(links, "href")
+
+  needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
+
+  if (any(needs_tweak)) {
+    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
+
+    xml2::xml_attr(links[needs_tweak], "href") <- paste0(
+      url,
+      xml2::xml_attr(links[needs_tweak], "href")
+    )
+  }
+
+  return(as.character(xml2::xml_find_first(html, ".//body")))
+}
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
