@@ -130,7 +130,7 @@ test_that("tweak_navbar_links() make URLs absolute", {
   pkg <- list(meta = list(url = "https://example.com"))
   expect_equal(
     tweak_navbar_links(html, pkg),
-    "<body><div><div><div><a href=\"https://example.com//reference.html\"></a></div></div></div></body>"
+    "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
   )
 })
 
