@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Make links of 404's navbar absolute (#1524).
+
 * Make navbar specification more flexible: it is now possible to not include 
   all default components in the navbar structure, but pkgdown will throw a warning. (#1517)
 
