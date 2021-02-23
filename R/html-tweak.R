@@ -120,7 +120,7 @@ tweak_navbar_links <- function(html, pkg = pkg) {
     )
   }
 
-  return(as.character(html))
+  return(as.character(xml2::xml_find_first(html, ".//body")))
 }
 
 tweak_tables <- function(html) {
