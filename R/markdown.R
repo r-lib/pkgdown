@@ -69,3 +69,14 @@ markdown_text <- function(text, pkg = pkg, ...) {
   write_lines(text, path = tmp)
   markdown(tmp, ..., pkg = pkg)
 }
+
+
+markdown_text2 <- function(text, pkg, ...) {
+  html <- markdown_text(text, pkg = pkg, ...)
+  html %>%
+    xml2::read_html() %>%
+    xml2::xml_child() %>% # body
+    xml2::xml_children() %>% # p
+    as.character() %>%
+    paste(collapse = "")
+}

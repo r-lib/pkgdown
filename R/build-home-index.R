@@ -101,26 +101,12 @@ data_home_sidebar <- function(pkg = ".") {
       set_names(names(components))
   )
 
-  missing <- setdiff(sidebar_structure, names(sidebar_components))
-
-  if (length(missing) > 0) {
-    missing_components <- lapply(
-      missing, append,
-      c("home", "sidebar", "components"),
-      after = 0
-    )
-    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
-
-    abort(
-      sprintf(
-        "Can't find component%s %s.",
-        if (length(missing) > 1) "s" else "",
-        paste0(
-          missing_fields, collapse = " nor "
-        )
-      )
-    )
-  }
+  check_components(
+    needed = sidebar_structure,
+    present = names(sidebar_components),
+    where = c("home", "sidebar", "components"),
+    pkg = pkg
+  )
 
   sidebar_final_components <- purrr::compact(
     sidebar_components[sidebar_structure]
@@ -136,20 +122,17 @@ default_sidebar_structure <- function() {
 
 data_home_component <- function(component, component_name, pkg) {
 
-  if (!all(c("title", "html") %in% names(component))) {
-    abort(
-      sprintf(
-        "Can't find %s for the component %s",
-        paste0(
-          c("title", "html")[!c("title", "html") %in% names(component)],
-          collapse = " nor "
-          ),
-        pkgdown_field(pkg = pkg, "home", "sidebar", "components", component_name)
-        )
-      )
-  }
+  check_components(
+    needed = c("title", "text"),
+    present = names(component),
+    where = c("home", "sidebar", "components", component_name),
+    pkg = pkg
+  )
 
-  sidebar_section(component$title, bullets = component$html)
+  sidebar_section(
+    component$title,
+    bullets = markdown_text2(component$text, pkg = pkg)
+  )
 }
 
 data_home_sidebar_links <- function(pkg = ".") {

@@ -120,7 +120,7 @@
 #' * News (if present).
 #' * An icon linking to the source repository (currently only GitHub and GitLab are supported)
 #'
-#' You can override (but not remove) these defaults with the  `navbar` field.
+#' You can override (and even remove) these defaults with the  `navbar` field.
 #' It has two primary
 #' components: `structure` and `components`. These components interact in
 #' a somewhat complicated way, but the complexity allows you to make minor
@@ -130,8 +130,7 @@
 #' The `structure` defines the layout of the navbar, i.e. the order
 #' of the components, and whether they're right aligned or left aligned.
 #' You can use this component to change the order of the default components,
-#' and to add your own components.
-#' Any unplaced components go to the right of the left navbar.
+#' remove some default components and add your own components.
 #'
 #' ```
 #' navbar:
@@ -288,6 +287,19 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
+#' pkgdown can automatically link to Jira issues as well, but you must specify
+#' both a custom `issue` URL as well as your Jira project names to auto-link in
+#' `jira_projects`. You can specify as many projects as you would like in a last
+#' (in the example below we would link both the `PROJ` and `OTHER` Jira
+#' projects):
+#'
+#' ```yaml
+#' repo:
+#'   jira_projects: [PROJ, OTHER]
+#'   url:
+#'     issue: https://jira.organisation.com/jira/browse/
+#' ```
+#'
 #' pkgdown defaults to using the "master" branch for source file URLs. This can
 #' be configured to use a specific branch when linking to source files by
 #' specifying a branch name:
@@ -310,6 +322,29 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
+#' @section YAML config - footer:
+#' By default, the footer is automatically populated with:
+#' * the names of the
+#' [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors),
+#' on the left;
+#' * a reference to pkgdown `pkgdown`, on the right.
+#'
+#' The example below puts the authors information on the right together with
+#' a legal disclaimer, and puts pkgdown on the left.
+#' Unlike for the navbar or sidebar, components of the footer left/right are
+#' just pasted together into a string.
+#' If you want to use paragraphs, you need to use either HTML;
+#' or a YAML pipe and to start the components with two empty lines.
+#'
+#' ```
+#' footer:
+#'   left:
+#'     structure: [pkgdown]
+#'   right:
+#'     structure: [authors, legal]
+#'     components:
+#'       legal: Provided without ***any warranty***.
+#' ```
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
@@ -372,7 +407,12 @@ build_site <- function(pkg = ".",
   if (install) {
     withr::local_temp_libpaths()
     rule("Installing package into temporary library")
-    utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+    # Keep source, so that e.g. pillar can show the source code
+    # of its functions in its articles
+    withr::with_options(
+      list(keep.source.pkgs = TRUE, keep.parse.data.pkgs = TRUE),
+      utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+    )
   }
 
   if (new_process) {

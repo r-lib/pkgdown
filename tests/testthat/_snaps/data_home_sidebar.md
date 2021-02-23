@@ -40,7 +40,7 @@
       {html_node}
       <div class="fancy-section">
       [1] <h2 data-toc-skip>Fancy section</h2>
-      [2] <ul class="list-unstyled">\n<li>How cool is pkgdown?!</li>\n</ul>
+      [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
 
 # data_home_sidebar() can add a README
 
@@ -62,9 +62,9 @@
 
 ---
 
-    Can't find title for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find component home.sidebar.components.fancy.title in '_pkgdown.yml'.
 
 ---
 
-    Can't find title nor html for the component home.sidebar.components.fancy in '_pkgdown.yml'
+    Can't find components home.sidebar.components.fancy.title, home.sidebar.components.fancy.text in '_pkgdown.yml'.
 
