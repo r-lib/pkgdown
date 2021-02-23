@@ -36,7 +36,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   # The real location of 404.html is dynamic (#1129).
   # Relative root does not work, use the full URL if available.
-  if(path == "404.html" && length(pkg$meta$url)){
+  if (path == "404.html" && length(pkg$meta$url)) {
     data$site$root <- paste0(pkg$meta$url, "/")
   }
 
@@ -57,7 +57,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   components <- purrr::set_names(components, pieces)
   components$template <- name
 
-  if(path == "404.html" && !is.null(pkg$meta$url)){
+  if (path == "404.html" && !is.null(pkg$meta$url)) {
     components$navbar <- tweak_navbar_links(components$navbar, pkg = pkg)
   }
 
