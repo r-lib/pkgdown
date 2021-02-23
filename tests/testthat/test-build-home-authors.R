@@ -50,3 +50,10 @@ test_that("Text can be added", {
   expect_equal(data_authors_page(pkg)$before, "<p>Dream team:</p>")
   expect_equal(data_authors_page(pkg)$after, "<p>You are welcome!</p>")
 })
+
+test_that("data_home_sidebar_authors() works with text", {
+  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
+  pkg$meta$authors$sidebar$before <- "yay"
+  pkg$meta$authors$sidebar$after <- "cool"
+  expect_snapshot(cat(data_home_sidebar_authors(pkg)))
+})
