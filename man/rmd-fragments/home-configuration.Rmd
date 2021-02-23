@@ -109,6 +109,19 @@ see the "YAML config - sidebar" section.
     `BugReports` fields of the `DESCRIPTION`.  
     If your package is developed on GitHub,
     you can use `usethis::use_github_links()` to populate these fields.
+    
+    You can add additional links with a
+    subsection called `links`, which should contain a list of `text` + `href`
+    elements:
+    
+    ```yaml
+    home:
+      links:
+      - text: Link text
+        href: https://website.com
+      - text: Roadmap
+        href: /roadmap.html
+    ```
 
 *   `license`: Licensing information if `LICENSE`/`LICENCE` or `LICENSE.md`/`LICENCE.md`
     files are present.
@@ -135,19 +148,6 @@ see the "YAML config - sidebar" section.
 
 
 ### YAML config - sidebar
-
-You can add additional links with a
-subsection called `links`, which should contain a list of `text` + `href`
-elements:
-
-```yaml
-home:
-  links:
-  - text: Link text
-    href: https://website.com
-  - text: Roadmap
-    href: /roadmap.html
-```
 
 You can change the order of sidebar components:
 `r toString(pkgdown:::default_sidebar_structure())`; 

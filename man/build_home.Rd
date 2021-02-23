@@ -128,6 +128,15 @@ navbar, see the “YAML config - sidebar” section.
 the \code{URL} and \code{BugReports} fields of the \code{DESCRIPTION}.
 If your package is developed on GitHub, you can use
 \code{usethis::use_github_links()} to populate these fields.
+
+You can add additional links with a subsection called \code{links}, which
+should contain a list of \code{text} + \code{href} elements:\if{html}{\out{<div class="yaml">}}\preformatted{home:
+  links:
+  - text: Link text
+    href: https://website.com
+  - text: Roadmap
+    href: /roadmap.html
+}\if{html}{\out{</div>}}
 \item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or
 \code{LICENSE.md}/\code{LICENCE.md} files are present.
 \item \code{community}: Community information is linked in the side bar using
@@ -151,15 +160,6 @@ links.
 }
 
 \subsection{YAML config - sidebar}{
-
-You can add additional links with a subsection called \code{links}, which
-should contain a list of \code{text} + \code{href} elements:\if{html}{\out{<div class="yaml">}}\preformatted{home:
-  links:
-  - text: Link text
-    href: https://website.com
-  - text: Roadmap
-    href: /roadmap.html
-}\if{html}{\out{</div>}}
 
 You can change the order of sidebar components: links, license,
 community, citation, authors, dev; you can add a README table of
