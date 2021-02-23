@@ -46,9 +46,11 @@ data_citations <- function(pkg = ".") {
 
   text_version <- format(cit, style = "textVersion")
   cit <- list(
-    html = ifelse(text_version == "",
-                  format(cit, style = "html"),
-                  paste0("<p>", escape_html(text_version), "</p>")),
+    html = ifelse(
+      text_version == "",
+      format(cit, style = "html"),
+      paste0("<p>", escape_html(text_version), "</p>")
+    ),
     bibtex = format(cit, style = "bibtex")
   )
 
