@@ -5,7 +5,16 @@ test_that("data_home_sidebar() works by default", {
 
   pkg <- test_path("assets/sidebar-comment")
   pkg <- as_pkgdown(pkg)
-  expect_snapshot(cat(data_home_sidebar(pkg)))
+  expect_snapshot(
+    cat(
+      as.character(
+        xml2::xml_find_first(
+          xml2::read_html(data_home_sidebar(pkg)),
+          ".//div[@class='developers']"
+        )
+      )
+    )
+  )
 })
 
 test_that("data_home_sidebar() can be removed", {
