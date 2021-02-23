@@ -1,6 +1,6 @@
 ## Home page
 
-The home page (`index.html`) main content is generated from `pkgdown/index.md`,
+The main content of the home page (`index.html`) is generated from `pkgdown/index.md`,
 `index.md`, or `README.md`, in that order. Most packages will use `README.md`
 because that's also displayed by GitHub and CRAN. Use `index.md` if you want
 your package website to look different to your README, and use
@@ -48,7 +48,7 @@ If you have a package logo, you can include it at the top of your README in a
 level-one heading:
 
 ```
-## pkgdown <img src="man/figures/logo.png" align="right" />
+# pkgdown <img src="man/figures/logo.png" align="right" />
 ```
 
 [init_site()] will also automatically create a favicon set from your package
@@ -117,7 +117,7 @@ see the "YAML config - sidebar" section.
     `.github/CONTRIBUTING.md` and `.github/CODE_OF_CONDUCT.md` files,
     if present.
 
-*   Citation information from a `inst/CITATION` file is linked in the side bar
+*   Citation information from a `inst/CITATION` file is linked in the sidebar
     to the [authors page](https://testthat.r-lib.org/authors.html).
     
 *   Author information from `DESCRIPTION`, see the dedicated section.
@@ -168,7 +168,7 @@ home:
         text: We are *grateful* for funding!
 ```
 
-You can provide a ready-made sidebar HTML:
+Alternatively, you can provide a ready-made sidebar HTML:
 
 ```
 home:

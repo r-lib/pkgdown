@@ -6,10 +6,7 @@ By default, pkgdown will display author information in three places:
 * the left part side of the footer,
 * the author page.
 
-Both the sidebar and footer are customizable so you could move the authors 
-information or remove it entirely from them, see the sidebar and footer docs
-in respectively `?build_home` and `?build_footer`
-
+See `?build_home` and `?build_footer` for details about changing the location of the authors information within the sidebar/footer.
 ### Authors ORCID and bio
 
 Author ORCID identification numbers in the `DESCRIPTION` are linked using the ORCID logo:
@@ -26,8 +23,7 @@ Authors@R: c(
 ```
 
 If you want to add more details about authors or their involvement with the package,
-you can use the comment field,
-that will be rendered on the authors page.
+you can use the comment field, which will be rendered on the authors page.
 
 ```
 Authors@R: c(
@@ -50,7 +46,7 @@ You can tweak a few things via the `authors` YAML field:
 * text before and after authors on the authors page.
 
 
-You can modify the authors' display on the home page and author page 
+You can modify how each author's name is displayed
 by adding a subsection for `authors`. 
 Each entry in `authors` should be named 
 with the author's name (matching `DESCRIPTION`)
@@ -69,7 +65,7 @@ authors:
 ```
 
 
-By default, the "developers" list is populated by the maintainer ("cre"), authors
+By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the `DESCRIPTION`. 
 You could choose other roles for filtering.
 With the configuration below:
@@ -92,4 +88,4 @@ authors:
 
 If you want to filter authors based on something else than their roles, 
 consider using a custom sidebar/footer component 
-(see `? build_home`/`? build_site`, respectively).
+(see `?build_home`/`?build_site`, respectively).
