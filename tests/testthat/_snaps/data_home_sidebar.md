@@ -6,7 +6,7 @@
       <div class='license'>
       <h2 data-toc-skip>License</h2>
       <ul class='list-unstyled'>
-      <li>NA</li>
+      <li><a href='https://www.r-project.org/Licenses/GPL-3'>GPL-3</a></li>
       </ul>
       </div>
       
