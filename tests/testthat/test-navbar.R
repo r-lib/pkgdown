@@ -72,25 +72,6 @@ test_that("can control articles navbar through articles meta", {
 
 })
 
-test_that("check_missing_nav_links()", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-
-  expect_snapshot(
-    check_missing_nav_links(
-      c("reference" = "bla", "news" = "blop"),
-      "news",
-      pkg
-    )
-  )
-  expect_snapshot(
-    check_missing_nav_links(
-      c("reference" = "bla", "news" = "blop", "articles" = "pof"),
-      "news",
-      pkg
-    )
-  )
-})
-
 test_that("data_navbar()", {
   pkg <- as_pkgdown(test_path("assets/news-multi-page"))
   expect_snapshot(data_navbar(pkg))
