@@ -36,8 +36,8 @@ test_that("Comments in authors info are linkified", {
 
 test_that("Data authors can accept different filtering", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
-  expect_snapshot(data_authors(pkg)$main)
-  expect_snapshot(data_authors(pkg, roles = "cre")$main)
+  expect_length(data_authors(pkg)$main, 2)
+  expect_length(data_authors(pkg, roles = "cre")$main, 1)
 })
 
 test_that("Text can be added", {
