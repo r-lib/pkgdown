@@ -120,7 +120,7 @@ author_name <- function(x, authors) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- author$html
+    name <- markdown_text2(author$html)
   }
 
   if (is.null(author$href)) {

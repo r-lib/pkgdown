@@ -78,10 +78,14 @@ markdown_text2 <- function(text, pkg, ...) {
   }
 
   html <- markdown_text(text, pkg = pkg, ...)
-  html %>%
+  children <- html %>%
     xml2::read_html() %>%
     xml2::xml_child() %>% # body
-    xml2::xml_children() %>% # p
-    as.character() %>%
-    paste(collapse = "")
+    xml2::xml_children()
+
+  if (length(children) == 1) {
+    return(paste0(xml2::xml_contents(children), collapse=""))
+  }
+
+  return(paste0(as.character(children), collapse=""))
 }
