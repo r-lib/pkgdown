@@ -1,52 +1,17 @@
 #' Deploy a pkgdown site on Travis-CI to Github Pages
 #'
-#' `deploy_site_github()` sets up your SSH keys for deployment, builds the
-#' site with [build_site()], commits the site to the `gh-pages` branch and then pushes
-#' the results back to GitHub. `deploy_site_github()` is meant only to be used
-#' by the CI system on Travis, it should not be called locally.
-#' [deploy_to_branch()] can be used to deploy a site directly to GitHub Pages
-#' locally. See 'Setup' for details on setting up your repository to use this.
+#' @description
+#' `r lifecycle::badge('superseded')`
 #'
-#' @section Setup:
-#' For a quick setup, you can use [usethis::use_pkgdown_travis()]. It  will help you
-#' with the following detailed steps.
+#' `deploy_site_github()` was designed to deploy your site from Travis CI,
+#' which we no longer recommend, so this function is deprecated. There are
+#' two replacements:
 #'
-#' * Add the following to your `.travis.yml` file.
+#' * [usethis::use_pkgdown_github_pages()] will setup a GitHub action to
+#'   automatically build and deploy your package website to GitHub pages.
 #'
-#'     ```
-#'     before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-#'     deploy:
-#'       provider: script
-#'       script: Rscript -e 'pkgdown::deploy_site_github()'
-#'       skip_cleanup: true
-#'     ```
-#'
-#' * Then you will need to setup your deployment keys. The easiest way is to call
-#' `travis::use_travis_deploy()`. This will generate and push the necessary
-#' keys to your GitHub and Travis accounts. See the [travis package
-#' website](https://docs.ropensci.org/travis/index.html) for more details.
-#'
-#' * Next, make sure that a gh-pages branch exists. The simplest way to do
-#' so is to run the following git commands locally:
-#'
-#'     ```
-#'     git checkout --orphan gh-pages
-#'     git rm -rf .
-#'     git commit --allow-empty -m 'Initial gh-pages commit'
-#'     git push origin gh-pages
-#'     git checkout master
-#'     ```
-#'
-#'     We recommend doing this outside of RStudio (with the project closed) as
-#'     from RStudio's perspective you end up deleting all the files and then
-#'     re-creating them.
-#'
-#' *  If you're using a custom CNAME, make sure you have set the `url` in
-#' `_pkgdown.yaml`:
-#'
-#'    ```yaml
-#'    url: https://pkgdown.r-lib.org
-#'    ```
+#' * [deploy_to_branch()] can be called locally to build and deploy your
+#'   website to any desired branch.
 #'
 #' @inheritParams build_site
 #' @param install Optionally, opt-out of automatic installation. This is
@@ -64,6 +29,7 @@
 #' @param host The GitHub host url.
 #' @param repo_slug The `user/repo` slug for the repository.
 #' @export
+#' @keywords internal
 deploy_site_github <- function(
   pkg = ".",
   install = TRUE,
@@ -119,7 +85,8 @@ deploy_site_github <- function(
 #' Build and deploy a site locally
 #'
 #' Assumes that you're in a git clone of the project, and the package is
-#' already installed.
+#' already installed. Use [usethis::use_pkgdown_github_pages()] to automate
+#' this process using GitHub actions.
 #'
 #' @param branch The git branch to deploy to
 #' @param remote The git remote to deploy to
