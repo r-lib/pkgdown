@@ -77,7 +77,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     paste(collapse = ", ")
 
   # Force inclusion so you can reliably refer to objects inside yaml
-  # in the moustache templates
+  # in the mustache templates
   yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   yaml$.present <- TRUE
 
