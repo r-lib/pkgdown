@@ -229,6 +229,7 @@ You can tweak a few things via the \code{authors} YAML field:
 \item display of each author in the footer, sidebar and authors page,
 \item which authors (by role) are displayed in the sidebar and footer,
 \item text before authors in the footer,
+\item text before and after authors in the sidebar,
 \item text before and after authors on the authors page.
 }
 
@@ -258,6 +259,8 @@ the configuration below:
 \item only the maintainer and funder(s) appear in the footer, after the
 text “Crafted by”,
 \item all authors and contributors appear in the sidebar,
+\item the authors list on the sidebar is preceded and followed by some
+text,
 \item the authors list on the authors page is preceded and followed by
 some text.
 }\if{html}{\out{
@@ -269,6 +272,8 @@ some text.
     text: "Crafted by"
   sidebar:
     roles: [aut, ctb]
+    before: "So *who* does the work?"
+    after: "Thanks all!"
   before: "This package is proudly brought to you by:"
   after: "See the [changelog](news/index.html) for other contributors. :pray:"
 }

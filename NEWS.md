@@ -3,6 +3,7 @@
 * Make authors configuration more flexible: users can now
   * Choose the roles used for filtering authors for the sidebar and footer.
   * Choose the text before authors in the footer.
+  * Add text before and after the authors list in the sidebar.
   * Add text before and after the authors list of the authors page. (#1516)
   
 * Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 

@@ -76,11 +76,18 @@ data_home_sidebar_authors <- function(pkg = ".") {
   )
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
+
+  bullets <- c(
+      markdown_text2(pkg$meta$authors$sidebar$before),
+      authors,
+      markdown_text2(pkg$meta$authors$sidebar$after)
+  )
+
   if (data$needs_page) {
-    authors <- c(authors, "<a href='authors.html'>More on authors...</li>")
+    bullets <- c(bullets, "<a href='authors.html'>More on authors...</li>")
   }
 
-  sidebar_section("Developers", authors)
+  sidebar_section("Developers", bullets)
 }
 
 build_authors <- function(pkg = ".") {
