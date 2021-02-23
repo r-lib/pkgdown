@@ -72,3 +72,20 @@ test_that("can control articles navbar through articles meta", {
 
 })
 
+test_that("data_navbar() works by default", {
+  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  expect_snapshot(data_navbar(pkg))
+})
+
+test_that("data_navbar() can re-order default elements", {
+  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  pkg$meta$navbar$structure$right <- c("news")
+  pkg$meta$navbar$structure$left <- c("github", "reference")
+  expect_snapshot(data_navbar(pkg))
+})
+
+test_that("data_navbar()can remove elements", {
+  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  pkg$meta$navbar$structure$left <- c("github")
+  expect_snapshot(data_navbar(pkg))
+})

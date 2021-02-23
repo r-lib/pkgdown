@@ -177,7 +177,7 @@ By default, the top navigation bar (the "navbar") will contain links to:
 \item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
-You can override (but not remove) these defaults with the  \code{navbar} field.
+You can override (and even remove) these defaults with the  \code{navbar} field.
 It has two primary
 components: \code{structure} and \code{components}. These components interact in
 a somewhat complicated way, but the complexity allows you to make minor
@@ -187,8 +187,7 @@ generate the rest.
 The \code{structure} defines the layout of the navbar, i.e. the order
 of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components,
-and to add your own components.
-Any unplaced components go to the right of the left navbar.\preformatted{navbar:
+remove some default components and add your own components.\preformatted{navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [github]
