@@ -20,6 +20,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
 
+  # Ensure the URL has no trailing slash
+  meta$url <- sub("/$", "", meta$url)
+
   package <- desc$get("Package")[[1]]
   version <- desc$get_field("Version")
 
