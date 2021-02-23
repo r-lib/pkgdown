@@ -87,7 +87,7 @@ tweak_all_links <- function(html, pkg = pkg) {
   }
 
   if (any(needs_tweak)) {
-    purrr::walk(links[needs_tweak], prepend_class, "external-link")
+   tweak_prepend_class(links[needs_tweak], "external-link")
   }
 
   invisible()
@@ -97,21 +97,17 @@ tweak_tables <- function(html) {
   table <- xml2::xml_find_all(html, ".//table")
 
   if (length(table) != 0) {
-    tweaked <- purrr::walk(table, prepend_class, class = "table")
+    tweak_prepend_class(table, class = "table")
   }
 
   invisible()
 }
 
-prepend_class <- function(x, class = "table") {
-
-  if (!is.na(xml2::xml_attr(x, "class"))) {
-    class <- paste(class, xml2::xml_attr(x, "class"))
-  }
-
-  xml2::xml_attr(x, "class") <- class
+tweak_prepend_class <- function(x, class = "table") {
+  cur <- xml2::xml_attr(x, "class")
+  xml2::xml_attr(x, "class") <- ifelse(is.na(cur), class, paste(class, cur))
+  invisible()
 }
-
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
