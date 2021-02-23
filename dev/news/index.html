@@ -234,6 +234,7 @@
 <li><p>Missing topics makes the build fail when the environment variable <code>CI</code> is set to <code>"true"</code> (<a href='https://github.com/ThierryO'>@ThierryO</a>, <a href='https://github.com/r-lib/pkgdown/issues/1378'>#1378</a>).</p></li>
 <li><p>The default navbar no longer includes a home icon - this took up precious horizontal space and wasn’t very useful since there is already a link to the home page immediately to its left (<a href='https://github.com/r-lib/pkgdown/issues/1383'>#1383</a>).</p></li>
 <li><p><code>build_rmarkdown_format</code> internally sets <code>html_document(anchor_sections = FALSE)</code> so to avoid needless dependencies (<a href='https://github.com/atusy'>@atusy</a>, <a href='https://github.com/r-lib/pkgdown/issues/1426'>#1426</a>).</p></li>
+<li><p>Automatically link Jira issues by setting your project name(s) with <code>repo: jira_projects: [...]</code> and specifying a custom issue URL with <code>repo: url: issue: ...</code> in <code>_pkgdown.yml</code> (<a href='https://github.com/jonkeane'>@jonkeane</a>, <a href='https://github.com/r-lib/pkgdown/issues/1466'>#1466</a>).</p></li>
 </ul>
 </div>
     <div id="pkgdown-161" class="section level1">
