@@ -325,6 +325,16 @@ supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
 
+pkgdown can automatically link to Jira issues as well, but you must specify
+both a custom \code{issue} URL as well as your Jira project names to auto-link in
+\code{jira_projects}. You can specify as many projects as you would like in a last
+(in the example below we would link both the \code{PROJ} and \code{OTHER} Jira
+projects):\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+  jira_projects: [PROJ, OTHER]
+  url:
+    issue: https://jira.organisation.com/jira/browse/
+}\if{html}{\out{</div>}}
+
 pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
 specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
