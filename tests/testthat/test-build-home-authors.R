@@ -46,7 +46,7 @@ test_that("Text can be added", {
   expect_null(data_authors_page(pkg)$before)
 
   pkg$meta$authors$before <- "Dream team:"
-  pkg$meta$authors$after <- "And ***thanks*** to [contributors](news/index.html)!"
-  expect_snapshot(data_authors_page(pkg)$before)
-  expect_snapshot(data_authors_page(pkg)$after)
+  pkg$meta$authors$after <- "You are welcome!"
+  expect_equal(data_authors_page(pkg)$before, "<p>Dream team:</p>")
+  expect_equal(data_authors_page(pkg)$after, "<p>You are welcome!</p>")
 })
