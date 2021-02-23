@@ -87,13 +87,7 @@ tweak_all_links <- function(html, pkg = pkg) {
   }
 
   if (any(needs_tweak)) {
-    tweaked <- purrr::map(
-      xml2::xml_attrs(links[needs_tweak]),
-      prepend_class,
-      "external-link"
-    )
-
-    xml2::xml_attr(links[needs_tweak], "class") <- tweaked
+    purrr::walk(links[needs_tweak], prepend_class, "external-link")
   }
 
   invisible()
@@ -103,25 +97,19 @@ tweak_tables <- function(html) {
   table <- xml2::xml_find_all(html, ".//table")
 
   if (length(table) != 0) {
-
-    existing <- xml2::xml_attrs(table, "class")
-    tweaked <- purrr::map(existing, prepend_class)
-
-    xml2::xml_attrs(table, "class") <- tweaked
+    tweaked <- purrr::walk(table, prepend_class, class = "table")
   }
 
   invisible()
 }
 
-#' @noRd
-#' @param x attributes of an HTML node
-#' @param class class to be appended (to pre-existing class, if any)
 prepend_class <- function(x, class = "table") {
-  if (!('class' %in% names(x))) {
-    c(class = class)
-  } else {
-    c(class = paste(class, x[["class"]]))
+
+  if (!is.na(xml2::xml_attr(x, "class"))) {
+    class <- paste(class, xml2::xml_attr(x, "class"))
   }
+
+  xml2::xml_attr(x, "class") <- class
 }
 
 # File level tweaks --------------------------------------------
