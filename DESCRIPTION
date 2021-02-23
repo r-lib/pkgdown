@@ -34,6 +34,7 @@ Imports:
     downlit,
     fs (>= 1.3.0),
     httr (>= 1.4.2),
+    lifecycle,
     magrittr,
     memoise,
     openssl,
