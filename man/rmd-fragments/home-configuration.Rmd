@@ -99,7 +99,7 @@ configuration file.
 ## Sidebar
 
 By default, the sidebar automatically populated with the following elements,
-in this order: `toString(pkgdown:::default_sidebar_structure())`.
+in this order: `r toString(pkgdown:::default_sidebar_structure())`.
 To understand their creation, read on; to tweak the content of the navbar, 
 see the "YAML config - sidebar" section.
 
