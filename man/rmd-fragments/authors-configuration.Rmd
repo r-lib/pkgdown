@@ -40,8 +40,8 @@ Authors@R: c(
 
 You can tweak a few things via the `authors` YAML field:
 
-* display of authors in the footer, sidebar and authors page,
-* which author roles are displayed in the sidebar and footer,
+* display of each author in the footer, sidebar and authors page,
+* which authors (by role) are displayed in the sidebar and footer,
 * text before authors in the footer, 
 * text before and after authors on the authors page.
 
