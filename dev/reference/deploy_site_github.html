@@ -53,12 +53,16 @@
 
 
 <meta property="og:title" content="Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github" />
-<meta property="og:description" content="deploy_site_github() sets up your SSH keys for deployment, builds the
-site with build_site(), commits the site to the gh-pages branch and then pushes
-the results back to GitHub. deploy_site_github() is meant only to be used
-by the CI system on Travis, it should not be called locally.
-deploy_to_branch() can be used to deploy a site directly to GitHub Pages
-locally. See 'Setup' for details on setting up your repository to use this." />
+<meta property="og:description" content="
+deploy_site_github() was designed to deploy your site from Travis CI,
+which we no longer recommend, so this function is deprecated. There are
+two replacements:
+usethis::use_pkgdown_github_pages() will setup a GitHub action to
+automatically build and deploy your package website to GitHub pages.
+deploy_to_branch() can be called locally to build and deploy your
+website to any desired branch.
+
+" />
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png" />
 
 
@@ -208,12 +212,16 @@ locally. See 'Setup' for details on setting up your repository to use this." />
     </div>
 
     <div class="ref-description">
-    <p><code>deploy_site_github()</code> sets up your SSH keys for deployment, builds the
-site with <code><a href='build_site.html'>build_site()</a></code>, commits the site to the <code>gh-pages</code> branch and then pushes
-the results back to GitHub. <code>deploy_site_github()</code> is meant only to be used
-by the CI system on Travis, it should not be called locally.
-<code><a href='deploy_to_branch.html'>deploy_to_branch()</a></code> can be used to deploy a site directly to GitHub Pages
-locally. See 'Setup' for details on setting up your repository to use this.</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#superseded'><img src='figures/lifecycle-superseded.svg' alt='[Superseded]' /></a></p>
+<p><code>deploy_site_github()</code> was designed to deploy your site from Travis CI,
+which we no longer recommend, so this function is deprecated. There are
+two replacements:</p><ul>
+<li><p><code>usethis::use_pkgdown_github_pages()</code> will setup a GitHub action to
+automatically build and deploy your package website to GitHub pages.</p></li>
+<li><p><code><a href='deploy_to_branch.html'>deploy_to_branch()</a></code> can be called locally to build and deploy your
+website to any desired branch.</p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>deploy_site_github</span><span class='op'>(</span>
@@ -278,37 +286,6 @@ new keypair specifically for deploying the site. The easiest way is to use
       <td><p>The <code>user/repo</code> slug for the repository.</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="setup"><a class="anchor" href="#setup"></a>Setup</h2>
-
-    
-
-<p>For a quick setup, you can use <code>usethis::use_pkgdown_travis()</code>. It  will help you
-with the following detailed steps.</p><ul>
-<li><p>Add the following to your <code>.travis.yml</code> file.</p><pre>before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
-</pre></li>
-<li><p>Then you will need to setup your deployment keys. The easiest way is to call
-<code>travis::use_travis_deploy()</code>. This will generate and push the necessary
-keys to your GitHub and Travis accounts. See the <a href='https://docs.ropensci.org/travis/index.html'>travis package website</a> for more details.</p></li>
-<li><p>Next, make sure that a gh-pages branch exists. The simplest way to do
-so is to run the following git commands locally:</p><pre>git checkout --orphan gh-pages
-git rm -rf .
-git commit --allow-empty -m 'Initial gh-pages commit'
-git push origin gh-pages
-git checkout master
-</pre>
-
-<p>We recommend doing this outside of RStudio (with the project closed) as
-from RStudio's perspective you end up deleting all the files and then
-re-creating them.</p></li>
-<li><p>If you're using a custom CNAME, make sure you have set the <code>url</code> in
-<code>_pkgdown.yaml</code>:<div class="yaml"></p><pre>url: https://pkgdown.r-lib.org
-</pre><p></div></p></li>
-</ul>
 
 
   </div>
