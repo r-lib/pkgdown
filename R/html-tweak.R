@@ -77,7 +77,6 @@ tweak_all_links <- function(html, pkg = pkg) {
     return()
 
   hrefs <- xml2::xml_attr(links, "href")
-
   # Users might have added absolute URLs to e.g. the Code of Conduct
   if (is.null(pkg$meta$url)) {
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
@@ -85,25 +84,24 @@ tweak_all_links <- function(html, pkg = pkg) {
     url <- sub("/$", "", pkg$meta$url)
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
   }
-
-  if (any(needs_tweak)) {
-   tweak_prepend_class(links[needs_tweak], "external-link")
-  }
+  tweak_class_prepend(links[needs_tweak], "external-link")
 
   invisible()
 }
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
-
-  if (length(table) != 0) {
-    tweak_prepend_class(table, class = "table")
-  }
+  tweak_class_prepend(table, "table")
 
   invisible()
 }
 
-tweak_prepend_class <- function(x, class = "table") {
+tweak_class_prepend <- function(x, class) {
+  if (length(x) == 0) {
+    return(invisible())
+  }
+
   cur <- xml2::xml_attr(x, "class")
   xml2::xml_attr(x, "class") <- ifelse(is.na(cur), class, paste(class, cur))
   invisible()
