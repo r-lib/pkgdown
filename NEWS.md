@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Better handling for mix of citations with and without text version. Also
+  escapes HTML in the text version (@bastistician, #1507).
+
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 
   
