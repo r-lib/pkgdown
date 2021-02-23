@@ -72,6 +72,11 @@ markdown_text <- function(text, pkg = pkg, ...) {
 
 
 markdown_text2 <- function(text, pkg, ...) {
+
+  if (is.null(text)) {
+    return(NULL)
+  }
+
   html <- markdown_text(text, pkg = pkg, ...)
   html %>%
     xml2::read_html() %>%

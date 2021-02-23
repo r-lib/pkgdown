@@ -42,8 +42,8 @@ test_that("Data authors can accept different filtering", {
 
 test_that("Text can be added", {
   pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
-  expect_equal(data_authors_page(pkg)$after, "")
-  expect_equal(data_authors_page(pkg)$before, "")
+  expect_null(data_authors_page(pkg)$after)
+  expect_null(data_authors_page(pkg)$before)
 
   pkg$meta$authors$before <- "Dream team:"
   pkg$meta$authors$after <- "And ***thanks*** to [contributors](news/index.html)!"

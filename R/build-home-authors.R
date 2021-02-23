@@ -22,8 +22,7 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   print_yaml(list(
     all = all,
     main = main,
-    more_authors = more_authors,
-    comments = comments
+    needs_page = more_authors || comments
   ))
 }
 
@@ -77,12 +76,8 @@ data_home_sidebar_authors <- function(pkg = ".") {
   )
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
-  if (data$more_authors) {
-    authors <- c(authors, "<a href='authors.html'>All authors...</li>")
-  } else {
-    if (data$comments) {
-      authors <- c(authors, "<a href='authors.html'>More on authors...</li>")
-    }
+  if (data$needs_page) {
+    authors <- c(authors, "<a href='authors.html'>More on authors...</li>")
   }
 
   sidebar_section("Developers", authors)
@@ -99,18 +94,12 @@ build_authors <- function(pkg = ".") {
 data_authors_page <- function(pkg) {
    data <- list(
     pagetitle = "Authors",
-    authors = data_authors(pkg)$all,
-    before = "",
-    after = ""
+    authors = data_authors(pkg)$all
   )
 
-  if (!is.null(pkg$meta$authors$before)) {
-    data$before <- markdown_text2(pkg$meta$authors$before, pkg = pkg)
-  }
+  data$before <- markdown_text2(pkg$meta$authors$before, pkg = pkg)
 
-    if (!is.null(pkg$meta$authors$after)) {
-    data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
-    }
+  data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
 
   return(data)
 }
