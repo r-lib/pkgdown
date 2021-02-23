@@ -159,6 +159,20 @@ NULL
 #' }
 NULL
 
+#' Test case: long-lines
+#'
+#' The example results should have the copy button correctly placed when
+#' scrollings
+#'
+#' @name test-long-lines
+#' @keywords internal
+#' @family tests
+#' @examples
+#' cat(rep("x", 100))
+#' cat(rep("x", 100))
+#' cat(rep("x", 100))
+#' cat(rep("x", 100))
+NULL
 
 #' Test case: crayon
 #'
@@ -200,7 +214,6 @@ NULL
 #' @keywords internal
 #' @family tests
 NULL
-
 
 #' Index
 #'
