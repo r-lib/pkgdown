@@ -52,6 +52,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 
 * `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
 
+* Automatically link Jira issues by setting your project name(s) with 
+`repo: jira_projects: [...]` and specifying a custom issue URL with
+`repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
+
 # pkgdown 1.6.1
 
 * The article index (used for autolinking vignettes across packages) 
