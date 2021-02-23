@@ -7,6 +7,7 @@ By default, pkgdown will display author information in three places:
 * the author page.
 
 See `?build_home` and `?build_footer` for details about changing the location of the authors information within the sidebar/footer.
+
 ### Authors ORCID and bio
 
 Author ORCID identification numbers in the `DESCRIPTION` are linked using the ORCID logo:

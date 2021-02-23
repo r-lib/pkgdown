@@ -197,8 +197,8 @@ By default, pkgdown will display author information in three places:
 }
 
 See \code{?build_home} and \code{?build_footer} for details about changing the
-location of the authors information within the sidebar/footer. ###
-Authors ORCID and bio
+location of the authors information within the sidebar/footer.
+\subsection{Authors ORCID and bio}{
 
 Author ORCID identification numbers in the \code{DESCRIPTION} are linked
 using the ORCID logo:\preformatted{Authors@R: c(
@@ -222,6 +222,8 @@ the authors page.\preformatted{Authors@R: c(
     )
   )
 }
+}
+
 \subsection{YAML config - authors}{
 
 You can tweak a few things via the \code{authors} YAML field:
