@@ -57,6 +57,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   components <- purrr::set_names(components, pieces)
   components$template <- name
 
+  if(identical(path, "404.html") && length(pkg$meta$url)){
+    components$navbar <- tweak_navbar_links(components$navbar, pkg = pkg)
+  }
+
   # render complete layout
   template <- find_template(
     "layout", name,
