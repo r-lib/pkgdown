@@ -87,7 +87,11 @@ tweak_all_links <- function(html, pkg = pkg) {
   }
 
   if (any(needs_tweak)) {
-    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
+    tweaked <- purrr::map(
+      xml2::xml_attrs(links[needs_tweak]),
+      prepend_class,
+      "external-link"
+    )
 
     xml2::xml_attr(links[needs_tweak], "class") <- tweaked
   }
@@ -109,6 +113,9 @@ tweak_tables <- function(html) {
   invisible()
 }
 
+#' @noRd
+#' @param x attributes of an HTML node
+#' @param class class to be appended (to pre-existing class, if any)
 prepend_class <- function(x, class = "table") {
   if (!('class' %in% names(x))) {
     c(class = class)
