@@ -70,10 +70,8 @@ data_author_info <- function(pkg = ".") {
 
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  data <- data_authors(
-    pkg,
-    roles = pkg$meta$authors$sidebar$roles %||% default_roles()
-  )
+roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
+data <- data_authors(pkg, roles)
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
