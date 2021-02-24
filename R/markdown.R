@@ -3,7 +3,7 @@ markdown <- function(path = NULL, ..., strip_header = FALSE, pkg) {
   on.exit(unlink(tmp), add = TRUE)
 
   if (rmarkdown::pandoc_available("2.0")) {
-    from <- "markdown+gfm_auto_identifiers-citations"
+    from <- "markdown+gfm_auto_identifiers-citations+emoji"
   } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes"
   } else {
@@ -72,11 +72,20 @@ markdown_text <- function(text, pkg = pkg, ...) {
 
 
 markdown_text2 <- function(text, pkg, ...) {
+
+  if (is.null(text)) {
+    return(NULL)
+  }
+
   html <- markdown_text(text, pkg = pkg, ...)
-  html %>%
+  children <- html %>%
     xml2::read_html() %>%
     xml2::xml_child() %>% # body
-    xml2::xml_children() %>% # p
-    as.character() %>%
-    paste(collapse = "")
+    xml2::xml_children()
+
+  if (length(children) == 1) {
+    return(paste0(xml2::xml_contents(children), collapse=""))
+  }
+
+  return(paste0(as.character(children), collapse=""))
 }

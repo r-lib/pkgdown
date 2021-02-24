@@ -6,7 +6,7 @@
       <div class='license'>
       <h2 data-toc-skip>License</h2>
       <ul class='list-unstyled'>
-      <li>NA</li>
+      <li><a href='https://www.r-project.org/Licenses/GPL-3'>GPL-3</a></li>
       </ul>
       </div>
       
@@ -16,7 +16,7 @@
       <ul class='list-unstyled'>
       <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
-      <li><a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a> <br />
+      <li><a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br />
       <small class = 'roles'> Copyright holder, funder </small>  </li>
       </ul>
       </div>
@@ -25,6 +25,23 @@
       <h2 data-toc-skip>Dev Status</h2>
       <ul class='list-unstyled'>
       <li>placeholder</li>
+      </ul>
+      </div>
+
+---
+
+    Code
+      cat(as.character(xml2::xml_find_first(xml2::read_html(data_home_sidebar(pkg)),
+      ".//div[@class='developers']")))
+    Output
+      <div class="developers">
+      <h2 data-toc-skip>Developers</h2>
+      <ul class="list-unstyled">
+      <li>
+      <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
+      <li>
+      <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+      <li><a href="authors.html">More on authors...</a></li>
       </ul>
       </div>
 
@@ -40,7 +57,7 @@
       {html_node}
       <div class="fancy-section">
       [1] <h2 data-toc-skip>Fancy section</h2>
-      [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
+      [2] <ul class="list-unstyled">\n<li>How <em>cool</em> is pkgdown?!</li>\n</ul>
 
 # data_home_sidebar() can add a README
 

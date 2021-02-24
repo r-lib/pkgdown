@@ -4,10 +4,10 @@
       pkgdown_footer(data, pkg)
     Output
       $left
-      [1] "<p>Developed by bla.</p>"
+      [1] "Developed by bla."
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42."
       
 
 # pkgdown_footer() can use custom components
@@ -16,10 +16,10 @@
       pkgdown_footer(data, pkg)
     Output
       $left
-      [1] "<p>Developed by bla. <strong><em>Wow</em></strong></p>"
+      [1] "Developed by bla. <strong><em>Wow</em></strong>"
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42."
       
 
 ---
@@ -28,10 +28,10 @@
       pkgdown_footer(data, pkg)
     Output
       $left
-      [1] "<p><strong><em>Wow</em></strong></p>"
+      [1] "<strong><em>Wow</em></strong>"
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42."
       
 
 # pkgdown_footer() throws informative error messages

@@ -1,4 +1,4 @@
-data_authors <- function(pkg = ".") {
+data_authors <- function(pkg = ".", roles = default_roles()) {
   pkg <- as_pkgdown(pkg)
   author_info <- data_author_info(pkg)
 
@@ -7,16 +7,27 @@ data_authors <- function(pkg = ".") {
     purrr::map(author_list, author_info)
 
   main <- pkg %>%
-    pkg_authors(c("aut", "cre", "fnd")) %>%
+    pkg_authors(roles) %>%
     purrr::map(author_list, author_info)
 
-  needs_page <- length(main) != length(all)
+  more_authors <- length(main) != length(all)
+
+  comments <- pkg %>%
+    pkg_authors() %>%
+    purrr::map(author_list, author_info) %>%
+    purrr::map("comment") %>%
+    purrr::compact() %>%
+    length() > 0
 
   print_yaml(list(
     all = all,
     main = main,
-    needs_page = needs_page
+    needs_page = more_authors || comments
   ))
+}
+
+default_roles <- function() {
+  c("aut", "cre", "fnd")
 }
 
 pkg_authors <- function(pkg, role = NULL) {
@@ -59,25 +70,43 @@ data_author_info <- function(pkg = ".") {
 
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  data <- data_authors(pkg)
+roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
+data <- data_authors(pkg, roles)
 
-  authors <- data$main %>% purrr::map_chr(author_desc)
+  authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
+
+  bullets <- c(
+      markdown_text2(pkg$meta$authors$sidebar$before),
+      authors,
+      markdown_text2(pkg$meta$authors$sidebar$after)
+  )
+
   if (data$needs_page) {
-    authors <- c(authors, "<a href='authors.html'>All authors...</li>")
+    bullets <- c(bullets, "<a href='authors.html'>More on authors...</li>")
   }
 
-  sidebar_section("Developers", authors)
+  sidebar_section("Developers", bullets)
 }
 
 build_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  data <- list(
+  data <- data_authors_page(pkg)
+
+  render_page(pkg, "authors", data, "authors.html")
+}
+
+data_authors_page <- function(pkg) {
+   data <- list(
     pagetitle = "Authors",
     authors = data_authors(pkg)$all
   )
 
-  render_page(pkg, "authors", data, "authors.html")
+  data$before <- markdown_text2(pkg$meta$authors$before, pkg = pkg)
+
+  data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
+
+  return(data)
 }
 
 author_name <- function(x, authors) {
@@ -89,7 +118,7 @@ author_name <- function(x, authors) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- author$html
+    name <- markdown_text2(author$html)
   }
 
   if (is.null(author$href)) {
@@ -109,7 +138,7 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info, comment = FALSE) {
+author_list <- function(x, authors_info = NULL, comment = FALSE) {
   name <- author_name(x, authors_info)
 
   roles <- paste0(role_lookup[x$role], collapse = ", ")
