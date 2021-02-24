@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Make authors configuration more flexible: users can now
+* Authors configuration is more flexible. Users can now:
   * Choose the roles used for filtering authors for the sidebar and footer.
   * Choose the text before authors in the footer.
   * Add text before and after the authors list in the sidebar.
