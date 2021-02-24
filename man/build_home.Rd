@@ -23,9 +23,7 @@ This function generates the home page, converts \code{.md} files found in the
 package root (and in \verb{.github/}), and builds an authors page from
 \code{DESCRIPTION} and \code{inst/CITATION} (if present).
 }
-\details{
-\subsection{Home page}{
-
+\section{Home page}{
 The main content of the home page (\code{index.html}) is generated from
 \code{pkgdown/index.md}, \code{index.md}, or \code{README.md}, in that order. Most
 packages will use \code{README.md} because that’s also displayed by GitHub
@@ -46,8 +44,7 @@ the package. You can tweak it via the configuration file, to help make
 the home page an as informative as possible landing page.
 }
 
-\subsection{Images and figures}{
-
+\section{Images and figures}{
 If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN
 website. The best place to put them is \code{man/figures}. If you are
@@ -65,18 +62,16 @@ knitr::opts_chunk$set(
 }
 }
 
-\subsection{Package logo}{
-
+\section{Package logo}{
 If you have a package logo, you can include it at the top of your README
-in a level-one heading:\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
+in a level-one heading:\preformatted{ pkgdown <img src="man/figures/logo.png" align="right" />
 }
 
 \code{\link[=init_site]{init_site()}} will also automatically create a favicon
 set from your package logo.
 }
 
-\subsection{YAML config - home}{
-
+\section{YAML config - home}{
 To tweak the home page, you need a section of the configuration file
 called \code{home}.
 \subsection{Page title and description}{
@@ -113,11 +108,9 @@ remove it with \code{strip_header: true}:\preformatted{home:
 See the subsections about the sidebar and authors for more tweaks via
 the pkgdown configuration file.
 }
-
 }
 
-\subsection{Sidebar}{
-
+\section{Sidebar}{
 By default, the sidebar automatically populated with the following
 elements, in this order: links, license, community, citation, authors,
 dev. To understand their creation, read on; to tweak the content of the
@@ -184,11 +177,9 @@ Finally, you can completely remove the sidebar.\preformatted{home:
   sidebar: FALSE
 }
 }
-
 }
 
-\subsection{Authors}{
-
+\section{Authors}{
 By default, pkgdown will display author information in three places:
 \itemize{
 \item the sidebar,
@@ -286,6 +277,5 @@ If you want to filter authors based on something else than their roles,
 consider using a custom sidebar/footer component (see
 \code{?build_home}/\code{?build_site}, respectively).
 }
+}
 
-}
-}
