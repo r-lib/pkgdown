@@ -82,7 +82,7 @@ tweak_all_links <- function(html, pkg = pkg) {
   if (is.null(pkg$meta$url)) {
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
   } else {
-    url <- sub("/$", "", pkg$meta$url)
+    url <- pkg$meta$url
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
   }
 
@@ -98,11 +98,7 @@ tweak_all_links <- function(html, pkg = pkg) {
 
 tweak_navbar_links <- function(html, pkg = pkg) {
 
-  if(!grepl("/$", pkg$meta$url)) {
-    url <- paste0(pkg$meta$url, "/")
-  } else{
-    url <- pkg$meta$url
-  }
+  url <- paste0(pkg$meta$url, "/")
 
   html <- xml2::read_html(html)
 
