@@ -87,5 +87,7 @@ markdown_text2 <- function(text, pkg, ...) {
     return(paste0(xml2::xml_contents(children), collapse=""))
   }
 
-  return(paste0(as.character(children), collapse=""))
+  output <- paste0(as.character(children), collapse="")
+
+  gsub("\\\n", "", output)
 }
