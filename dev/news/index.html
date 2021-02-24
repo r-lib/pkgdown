@@ -256,7 +256,7 @@
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>pkgdown now uses the new <a href="https://downlit.r-lib.org/" class="external-link">downlit</a> package for all syntax highlighting and autolinking (in both reference topics and vignettes). There should be very little change in behaviour because the code in downlit was extracted from pkgdown, but this makes it easier to use pkgdown’s nice linking/highlighting in more places (<a href='https://github.com/r-lib/pkgdown/issues/1234'>#1234</a>).</p></li>
-<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="external-link">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
+<li><p>pkgdown now uses the <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code> device to generate example figures. This should be a little faster and produce higher quality output. Learn more at <a href="https://ragg.r-lib.org" class="external-link uri">https://ragg.r-lib.org</a> (<a href='https://github.com/r-lib/pkgdown/issues/1320'>#1320</a>).</p></li>
 </ul>
 </div>
 <div id="minor-improvements-and-bug-fixes" class="section level2">
@@ -540,7 +540,7 @@
 <a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li><p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> can be used from continuous integration systems (like travis) to automatically deploy your package website to GitHub Pages. See documentation for how to set up details (<a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
-<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="https://realfavicongenerator.net/" class="external-link">https://realfavicongenerator.net/</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
+<li><p><code><a href="../reference/build_favicons.html">build_favicon()</a></code> creates high resolution favicons from the package logo, and saves them in <code>pkgdown/</code>. They are created using the <a href="https://realfavicongenerator.net/" class="external-link uri">https://realfavicongenerator.net/</a> API, and are better suited for modern web usage (e.g. retina display screens, desktop shortcuts, etc.). This also removes the dependency on the magick package, making automated deployment a little easier (<a href='https://github.com/bisaloo'>@bisaloo</a>, <a href='https://github.com/r-lib/pkgdown/issues/883'>#883</a>).</p></li>
 <li><p>Users with limited internet connectivity can explicitly disable internet usage by pkgdown by setting <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options(pkgdown.internet = FALSE)</a></code> (<a href='https://github.com/r-lib/pkgdown/issues/774'>#774</a>, <a href='https://github.com/r-lib/pkgdown/issues/877'>#877</a>).</p></li>
 </ul>
 </div>
