@@ -102,8 +102,6 @@ tweak_navbar_links <- function(html, pkg = pkg) {
   needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
 
   if (any(needs_tweak)) {
-    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
-
     xml2::xml_attr(links[needs_tweak], "href") <- paste0(
       url,
       xml2::xml_attr(links[needs_tweak], "href")
