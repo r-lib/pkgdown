@@ -77,7 +77,6 @@ data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   roles <- pkg$meta$authors$footer$roles %||% default_roles()
-
   authors <- data_authors(pkg, roles = roles)$main %>%
     purrr::map_chr("name") %>%
     paste(collapse = ", ")
