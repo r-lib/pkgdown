@@ -110,6 +110,7 @@ test_that("tweak_all_links() add the external-link class", {
       <div id="x">
         <a href="#anchor"></a>
         <a href="http://remote.com/remote.md"></a>
+        <a class = "thumbnail" href="http://remote.com/remote.md"></a>
         <a href="http://example.com/remote.md"></a>
       </div>
     </div>')
@@ -122,7 +123,8 @@ test_that("tweak_all_links() add the external-link class", {
   links <- xml2::xml_find_all(html, ".//a")
   expect_false("class" %in% names(xml2::xml_attrs(links[[1]])))
   expect_equal(xml2::xml_attr(links[[2]], "class"), "external-link")
-  expect_false("class" %in% names(xml2::xml_attrs(links[[3]])))
+  expect_equal(xml2::xml_attr(links[[3]], "class"), "external-link thumbnail")
+  expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
 test_that("tweak_navbar_links() make URLs absolute", {
