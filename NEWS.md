@@ -9,6 +9,9 @@
 * Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
   contributions: add a link to the authors page from the sidebar if any author
   has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
+* Better handling for mix of citations with and without text version. Also
+  escapes HTML in the text version (@bastistician, #1507).
+
 * Make links of 404's navbar absolute (#1524).
 
 * Make navbar specification more flexible: it is now possible to not include 
@@ -18,6 +21,7 @@
     * change the placement of elements on the left and right
     * add text to the left and right (or even remove/replace default text)
   (#1502)
+
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 
   

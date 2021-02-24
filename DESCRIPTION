@@ -54,6 +54,7 @@ Suggests:
     htmlwidgets,
     jsonlite,
     knitr,
+    lifecycle,
     pkgload (>= 1.0.2),
     rsconnect,
     rstudioapi,

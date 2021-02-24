@@ -45,19 +45,16 @@ data_citations <- function(pkg = ".") {
   cit <- read_citation(pkg$src_path)
 
   text_version <- format(cit, style = "textVersion")
-  if (identical(text_version, "")) {
-    cit <- list(
-      html = format(cit, style = "html"),
-      bibtex = format(cit, style = "bibtex")
-    )
-  } else {
-    cit <- list(
-      html = paste0("<p>",text_version, "</p>"),
-      bibtex = format(cit, style = "bibtex")
-    )
-  }
+  cit <- list(
+    html = ifelse(
+      text_version == "",
+      format(cit, style = "html"),
+      paste0("<p>", escape_html(text_version), "</p>")
+    ),
+    bibtex = format(cit, style = "bibtex")
+  )
 
-   purrr::transpose(cit)
+  purrr::transpose(cit)
 }
 
 build_citation_authors <- function(pkg = ".") {
