@@ -1,9 +1,18 @@
 # pkgdown (development version)
 
+* Better handling for mix of citations with and without text version. Also
+  escapes HTML in the text version (@bastistician, #1507).
+
+* Make links of 404's navbar absolute (#1524).
+
+* Make navbar specification more flexible: it is now possible to not include 
+  all default components in the navbar structure, but pkgdown will throw a warning. (#1517)
+
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
     * add text to the left and right (or even remove/replace default text)
   (#1502)
+
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 
   
@@ -48,6 +57,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   home page immediately to its left (#1383).
 
 * `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
+
+* Automatically link Jira issues by setting your project name(s) with 
+`repo: jira_projects: [...]` and specifying a custom issue URL with
+`repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
 
 # pkgdown 1.6.1
 

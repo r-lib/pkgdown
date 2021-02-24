@@ -104,10 +104,11 @@ check_missing_topics <- function(rows, pkg) {
 
   missing <- !in_index & !pkg$topics$internal
   if (any(missing)) {
+    text <- sprintf("Topics missing from index: %s", unname(pkg$topics$name[missing]))
     if (on_ci()) {
-      stop(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+      abort(text)
     } else {
-      warn(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+      warn(text)
     }
   }
 }

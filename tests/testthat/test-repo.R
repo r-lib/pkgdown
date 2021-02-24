@@ -17,6 +17,15 @@ test_that("issues are automatically linked", {
   expect_equal(repo_auto_link(pkg, "#123"), "<a href='TEST/123'>#123</a>")
 })
 
+test_that("Jira issues are automatically linked", {
+  pkg <- list(repo = repo_meta(issue = "TEST/"))
+  pkg$repo$jira_projects <- c("JIRA", "OTHER")
+  expect_equal(repo_auto_link(pkg, "JIRA-123"), "<a href='TEST/JIRA-123'>JIRA-123</a>")
+  expect_equal(repo_auto_link(pkg, "OTHER-4321"), "<a href='TEST/OTHER-4321'>OTHER-4321</a>")
+  # but only the jira projects specified are caught
+  expect_equal(repo_auto_link(pkg, "NOPE-123"), "NOPE-123")
+})
+
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {

@@ -81,12 +81,36 @@ tweak_all_links <- function(html, pkg = pkg) {
   if (is.null(pkg$meta$url)) {
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
   } else {
-    url <- sub("/$", "", pkg$meta$url)
+    url <- pkg$meta$url
     needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
   }
   tweak_class_prepend(links[needs_tweak], "external-link")
 
   invisible()
+}
+
+
+tweak_navbar_links <- function(html, pkg = pkg) {
+
+  url <- paste0(pkg$meta$url, "/")
+
+  html <- xml2::read_html(html)
+
+  links <- xml2::xml_find_all(html, ".//a")
+  hrefs <- xml2::xml_attr(links, "href")
+
+  needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
+
+  if (any(needs_tweak)) {
+    tweaked <- purrr::map(links[needs_tweak], prepend_class, "external-link")
+
+    xml2::xml_attr(links[needs_tweak], "href") <- paste0(
+      url,
+      xml2::xml_attr(links[needs_tweak], "href")
+    )
+  }
+
+  return(as.character(xml2::xml_find_first(html, ".//body")))
 }
 
 tweak_tables <- function(html) {
