@@ -238,90 +238,64 @@ pandoc. This is useful when debugging.</p></td>
 
     <h2 class="hasAnchor" id="home-page"><a class="anchor" href="#home-page"></a>Home page</h2>
 
-    
-
-<p>The home page (<code>index.html</code>) is generated from <code>pkgdown/index.md</code>,
-<code>index.md</code>, or <code>README.md</code>, in that order. Most packages will use <code>README.md</code>
-because that's also displayed by GitHub and CRAN. Use <code>index.md</code> if you want
-your package website to look different to your README, and use
-<code>_pkgdown/index.md</code> if you don't want that file to live in your package
-root directory.</p>
-<p>If you use <code>index.Rmd</code> or <code>README.Rmd</code> it's your responsibility to knit
+    <p>The main content of the home page (<code>index.html</code>) is generated from
+<code>pkgdown/index.md</code>, <code>index.md</code>, or <code>README.md</code>, in that order. Most
+packages will use <code>README.md</code> because that’s also displayed by GitHub
+and CRAN. Use <code>index.md</code> if you want your package website to look
+different to your README, and use <code>_pkgdown/index.md</code> if you don’t want
+that file to live in your package root directory.</p>
+<p>If you use <code>index.Rmd</code> or <code>README.Rmd</code> it’s your responsibility to knit
 the document to create the corresponding <code>.md</code>. pkgdown does not do this
 for you because it only touches files in the <code>doc/</code> directory.</p>
-    <h2 class="hasAnchor" id="sidebar"><a class="anchor" href="#sidebar"></a>Sidebar</h2>
+<p>Extra markdown files in the base directory (e.g. <code>ROADMAP.md</code>) or in
+<code>.github/</code> (e.g. <code>CODE_OF_CONDUCT.md</code>) are copied by <code>build_home()</code> to
+<code>docs/</code> and converted to HTML.</p>
+<p>The home page also features a sidebar with information extracted from
+the package. You can tweak it via the configuration file, to help make
+the home page an as informative as possible landing page.</p><h3 class='hasAnchor' id='images-and-figures'><a class='anchor' href='#images-and-figures'></a>Images and figures</h3>
 
-    
-
-<p>By default, the sidebar automatically populated with:</p><ul>
-<li><p>Development status badges found in <code>README.md</code>/<code>index.md</code>. pkgdown
-identifies badges in three ways:</p><ul>
-<li><p>Any image-containing links between <code>&lt;!-- badges: start --&gt;</code> and
-<code>&lt;!-- badges: end --&gt;</code>, as e.g. created by <code>usethis::use_readme_md()</code>
-or <code>usethis::use_readme_rmd()</code>.</p></li>
-<li><p>Any image-containing links within <code>&lt;div id="badges"&gt;&lt;/div&gt;</code>.</p></li>
-<li><p>Within the first paragraph, if it only contains image-containing links.</p></li>
-</ul></li>
-<li><p>A link for bug reports is added if the <code>BugReports</code> field in
-<code>DESCRIPTION</code> contains a link. You can use <code>usethis::use_github_links()</code>
-to populate this field.</p></li>
-<li><p>Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or <code>LICENSE.md</code>/<code>LICENCE.md</code>
-files are present.</p></li>
-<li><p>Community information is linked in the side bar using the
-<code>.github/CONTRIBUTING.md</code> and <code>.github/CODE_OF_CONDUCT.md</code> files,
-if present.</p></li>
-<li><p>Extra markdown files in the base directory or in <code>.github/</code> are copied
-to <code>docs/</code> and converted to HTML.</p></li>
-<li><p>Citation information from a <code>inst/CITATION</code> file is linked in the side bar
-to the <a href='https://testthat.r-lib.org/authors.html'>authors page</a>.</p></li>
-<li><p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked under
-"Developers" using the ORCID logo:</p><pre><span class='va'>Authors</span><span class='op'>@</span><span class='va'>R</span><span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Hadley"</span>, <span class='st'>"Wickham"</span>, , <span class='st'>"hadley@rstudio.com"</span>, role <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"aut"</span>, <span class='st'>"cre"</span><span class='op'>)</span>,
-      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0003-4757-117X"</span><span class='op'>)</span>
-    <span class='op'>)</span>,
-    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, role <span class='op'>=</span> <span class='st'>"aut"</span>,
-      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0002-6299-179X"</span><span class='op'>)</span>
-    <span class='op'>)</span>
-  <span class='op'>)</span>
-</pre></li>
-</ul>
-
-<p>You can tweak the navbar by using the YAML configuration, see the corresponding
-section.</p>
-    <h2 class="hasAnchor" id="images-and-figures"><a class="anchor" href="#images-and-figures"></a>Images and figures</h2>
-
-    
 
 <p>If you want to include images in your <code>README.md</code>, they must be stored
-somewhere in the package so that they can be displayed on the CRAN website.
-The best place to put them is <code>man/figures</code>. If you are generating figures
-with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><pre><span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>
+somewhere in the package so that they can be displayed on the CRAN
+website. The best place to put them is <code>man/figures</code>. If you are
+generating figures with R Markdown, make sure you set up <code>fig.path</code> as
+followed:</p><pre><span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>
   fig.path <span class='op'>=</span> <span class='st'>"man/figures/"</span>
 <span class='op'>)</span>
 </pre>
 
-<p>This should usually go in a block with <code>include = FALSE</code>.</p>
-    <h2 class="hasAnchor" id="package-logo"><a class="anchor" href="#package-logo"></a>Package logo</h2>
-
-    
-
-<p>If you have a package logo, you can include it at the top of your README in a
-level-one heading:</p><pre><span class='co'># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span>
+<p>This should usually go in a chunk with <code>include = FALSE</code>.</p><pre>```{r chunk-name, include=FALSE}
+knitr::opts_chunk$set(
+  fig.path = "man/figures/"
+)
+```
 </pre>
 
-<p><code><a href='init_site.html'>init_site()</a></code> will also automatically create a favicon set from your package
-logo.</p>
-    <h2 class="hasAnchor" id="yaml-config-home"><a class="anchor" href="#yaml-config-home"></a>YAML config - home</h2>
 
-    
+<h3 class='hasAnchor' id='package-logo'><a class='anchor' href='#package-logo'></a>Package logo</h3>
 
-<p>To tweak the home page, you need a section called <code>home</code>.</p>
+
+<p>If you have a package logo, you can include it at the top of your README
+in a level-one heading:</p><pre> pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;
+</pre>
+
+<p><code><a href='init_site.html'>init_site()</a></code> will also automatically create a favicon
+set from your package logo.</p>
+
+<h3 class='hasAnchor' id='yaml-config-home'><a class='anchor' href='#yaml-config-home'></a>YAML config - home</h3>
+
+
+<p>To tweak the home page, you need a section of the configuration file
+called <code>home</code>.</p><h4 class='hasAnchor' id='page-title-and-description'><a class='anchor' href='#page-title-and-description'></a>Page title and description</h4>
+
+
 <p>By default, the page title and description are extracted automatically
 from the <code>Title</code> and <code>Description</code> fields <code>DESCRIPTION</code> (stripping
-single quotes off quoted words). CRAN ensures that these fields don't contain
-phrases like "R package" because that's obvious on CRAN. To make your
-package more findable with google, it's good practice to override the
-<code>title</code> and <code>description</code>, thinking about what people might search for:</p><pre>home:
+single quotes off quoted words). CRAN ensures that these fields don’t
+contain phrases like “R package” because that’s obvious on CRAN. To make
+your package more findable on search engines, it’s good practice to
+override the <code>title</code> and <code>description</code>, thinking about what people might
+search for:</p><pre>home:
   title: An R package for pool-noodle discovery
   description: &gt;
     Do you love R? Do you love pool-noodles? If so, you might enjoy
@@ -329,25 +303,77 @@ package more findable with google, it's good practice to override the
     to your growing collection.
 </pre>
 
-<p>(Note the use of YAML's <code>&gt;</code>; this is a convenient way of writing paragraphs
-of text.)</p>
-<p>The sidebar links are automatically generated by inspecting the <code>URL</code> and
-<code>BugReports</code> fields of the <code>DESCRIPTION</code>. You can add additional links with a
-subsection called <code>links</code>, which should contain a list of <code>text</code> + <code>href</code>
-elements:</p><pre>home:
-  links:
-  - text: Link text
-    href: http://website.com
+<p>(Note the use of YAML’s <code>&gt;</code> i.e. “YAML pipes”; this is a convenient way
+of writing paragraphs of text.)</p>
+
+<h4 class='hasAnchor' id='readme-header'><a class='anchor' href='#readme-header'></a>README header</h4>
+
+
+<p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name. If
+that feels duplicative with the package name in the navbar you can
+remove it with <code>strip_header: true</code>:</p><pre><span class='va'>home</span><span class='op'>:</span>
+  <span class='va'>strip_header</span><span class='op'>:</span> <span class='va'>true</span>
 </pre>
 
-<p>You can change the order of sidebar components:
-<code>links</code>, <code>license</code> (with an "s"), <code>community</code>, <code>citation</code>,
-<code>authors</code>, <code>dev</code> (badges); you can add a README table of contents <code>toc</code>,
-you can add custom components.
-The example below creates a sidebar whose only components will be the
-authors section, a custom section, a table of contents for the README
-and a Dev Status section if there are badges.
-The <code>text</code> will be treated as Markdown.</p><pre>home:
+
+<h4 class='hasAnchor' id='other-homepage-tweaks'><a class='anchor' href='#other-homepage-tweaks'></a>Other homepage tweaks</h4>
+
+
+<p>See the subsections about the sidebar and authors for more tweaks via
+the pkgdown configuration file.</p>
+
+
+
+<h3 class='hasAnchor' id='sidebar'><a class='anchor' href='#sidebar'></a>Sidebar</h3>
+
+
+<p>By default, the sidebar automatically populated with the following
+elements, in this order: links, license, community, citation, authors,
+dev. To understand their creation, read on; to tweak the content of the
+navbar, see the “YAML config - sidebar” section.</p>
+<p>Sources of sidebar information</p><ul>
+<li><p><code>links</code>: The sidebar links are automatically generated by inspecting
+the <code>URL</code> and <code>BugReports</code> fields of the <code>DESCRIPTION</code>.
+If your package is developed on GitHub, you can use
+<code>usethis::use_github_links()</code> to populate these fields.</p>
+<p>You can add additional links with a subsection called <code>links</code>, which
+should contain a list of <code>text</code> + <code>href</code> elements:<div class="yaml"></p><pre>home:
+  links:
+  - text: Link text
+    href: https://website.com
+  - text: Roadmap
+    href: /roadmap.html
+</pre><p></div></p></li>
+<li><p><code>license</code>: Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or
+<code>LICENSE.md</code>/<code>LICENCE.md</code> files are present.</p></li>
+<li><p><code>community</code>: Community information is linked in the side bar using
+the <code>.github/CONTRIBUTING.md</code> and <code>.github/CODE_OF_CONDUCT.md</code>
+files, if present.</p></li>
+<li><p><code>citation</code>: Citation information from a <code>inst/CITATION</code> file is
+linked in the sidebar to the <a href='https://testthat.r-lib.org/authors.html'>authors page</a>.</p></li>
+<li><p><code>authors</code>: Author information from <code>DESCRIPTION</code>, see the dedicated
+section.</p></li>
+<li><p><code>dev</code>: Development status badges found in <code>README.md</code>/<code>index.md</code>.
+pkgdown identifies badges in three ways:</p><ul>
+<li><p>Any image-containing links between <code>&lt;!-- badges: start --&gt;</code> and
+<code>&lt;!-- badges: end --&gt;</code>, as e.g. created by
+<code>usethis::use_readme_md()</code> or <code>usethis::use_readme_rmd()</code>.</p></li>
+<li><p>Any image-containing links within <code>&lt;div id="badges"&gt;&lt;/div&gt;</code>.</p></li>
+<li><p>Within the first paragraph, if it only contains image-containing
+links.</p></li>
+</ul></li>
+<li><p><code>toc</code>: Not added by default (see below), a table of contents for the
+README.</p></li>
+</ul>
+<h4 class='hasAnchor' id='yaml-config-sidebar'><a class='anchor' href='#yaml-config-sidebar'></a>YAML config - sidebar</h4>
+
+
+<p>You can change the order of sidebar components: links, license,
+community, citation, authors, dev; you can add a README table of
+contents <code>toc</code>, you can add custom components. The example below creates
+a sidebar whose only components will be the authors section, a custom
+section, a table of contents for the README and a Dev Status section if
+there are badges. The <code>text</code> will be treated as Markdown.</p><pre>home:
   sidebar:
     structure: [authors, custom, toc, dev]
     components:
@@ -356,7 +382,7 @@ The <code>text</code> will be treated as Markdown.</p><pre>home:
         text: We are *grateful* for funding!
 </pre>
 
-<p>You can provide a ready-made sidebar HTML:</p><pre><span class='va'>home</span><span class='op'>:</span>
+<p>Alternatively, you can provide a ready-made sidebar HTML:</p><pre><span class='va'>home</span><span class='op'>:</span>
   <span class='va'>sidebar</span><span class='op'>:</span>
     <span class='va'>html</span><span class='op'>:</span> <span class='va'>path</span><span class='op'>-</span><span class='va'>to</span><span class='op'>-</span><span class='va'>sidebar.html</span>
 </pre>
@@ -365,30 +391,98 @@ The <code>text</code> will be treated as Markdown.</p><pre>home:
   <span class='va'>sidebar</span><span class='op'>:</span> <span class='cn'>FALSE</span>
 </pre>
 
-<p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name. If
-that feels duplicative with the package name in the navbar you can
-remove it with <code>strip_header: true</code>:</p><pre><span class='va'>home</span><span class='op'>:</span>
-  <span class='va'>strip_header</span><span class='op'>:</span> <span class='va'>true</span>
+
+
+
+    <h2 class="hasAnchor" id="authors"><a class="anchor" href="#authors"></a>Authors</h2>
+
+    <p>By default, pkgdown will display author information in three places:</p><ul>
+<li><p>the sidebar,</p></li>
+<li><p>the left part side of the footer,</p></li>
+<li><p>the author page.</p></li>
+</ul>
+
+<p>This documentation describes how to customise the overall author
+display. See <code>?build_home</code> and <code>?build_footer</code> for details about
+changing the location of the authors information within the
+sidebar/footer.</p><h3 class='hasAnchor' id='authors-orcid-and-bio'><a class='anchor' href='#authors-orcid-and-bio'></a>Authors ORCID and bio</h3>
+
+
+<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked
+using the ORCID logo:</p><pre><span class='va'>Authors</span><span class='op'>@</span><span class='va'>R</span><span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Hadley"</span>, <span class='st'>"Wickham"</span>, , <span class='st'>"hadley@rstudio.com"</span>, role <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"aut"</span>, <span class='st'>"cre"</span><span class='op'>)</span>,
+      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0003-4757-117X"</span><span class='op'>)</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, role <span class='op'>=</span> <span class='st'>"aut"</span>,
+      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0002-6299-179X"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
 </pre>
 
-    <h2 class="hasAnchor" id="yaml-config-authors"><a class="anchor" href="#yaml-config-authors"></a>YAML config - authors</h2>
+<p>If you want to add more details about authors or their involvement with
+the package, you can use the comment field, which will be rendered on
+the authors page.</p><pre><span class='va'>Authors</span><span class='op'>@</span><span class='va'>R</span><span class='op'>:</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Hadley"</span>, <span class='st'>"Wickham"</span>, , <span class='st'>"hadley@rstudio.com"</span>, role <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"aut"</span>, <span class='st'>"cre"</span><span class='op'>)</span>,
+      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0003-4757-117X"</span>, <span class='st'>"Indenter-in-chief"</span><span class='op'>)</span>
+    <span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"Jay"</span>, <span class='st'>"Hesselberth"</span>, role <span class='op'>=</span> <span class='st'>"aut"</span>,
+      comment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>ORCID <span class='op'>=</span> <span class='st'>"0000-0002-6299-179X"</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</pre>
 
-    
 
-<p>The "developers" list is populated by the maintainer ("cre"), authors
-("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>. You can modify their
-display on the home page by adding a subsection for <code>authors</code>. Each entry
-in <code>authors</code> should be named with the author's name (matching <code>DESCRIPTION</code>)
-and can contain <code>href</code> and/or <code>html</code> fields:</p><ul>
-<li><p>If <code>href</code> is provided, the author's name will be linked to this url.</p></li>
-<li><p>If <code>html</code> is provided, it will be shown instead of the author's name.
-This is particularly useful if you want to display the logo of a corporate
-sponsor.</p></li>
-</ul><pre>authors:
+<h3 class='hasAnchor' id='yaml-config-authors'><a class='anchor' href='#yaml-config-authors'></a>YAML config - authors</h3>
+
+
+<p>You can tweak a few things via the <code>authors</code> YAML field:</p><ul>
+<li><p>display of each author in the footer, sidebar and authors page,</p></li>
+<li><p>which authors (by role) are displayed in the sidebar and footer,</p></li>
+<li><p>text before authors in the footer,</p></li>
+<li><p>text before and after authors in the sidebar,</p></li>
+<li><p>text before and after authors on the authors page.</p></li>
+</ul>
+
+<p>You can modify how each author’s name is displayed by adding a
+subsection for <code>authors</code>. Each entry in <code>authors</code> should be named with
+the author’s name (matching <code>DESCRIPTION</code>) and can contain <code>href</code> and/or
+<code>html</code> fields:</p><ul>
+<li><p>If <code>href</code> is provided, the author’s name will be linked to this URL.</p></li>
+<li><p>If <code>html</code> is provided, it will be shown instead of the author’s
+name. This is particularly useful if you want to display the logo of
+a corporate sponsor.</p></li>
+</ul><p><!-- --></p><pre>authors:
   firstname lastname:
     href: "http://name-website.com"
     html: "&lt;img src='name-picture.png' height=24&gt;"
 </pre>
+
+<p>By default, the “developers” list shown in the sidebar and footer is
+populated by the maintainer (“cre”), authors (“aut”), and funder (“fnd”)
+from the <code>DESCRIPTION</code>. You could choose other roles for filtering. With
+the configuration below:</p><ul>
+<li><p>only the maintainer and funder(s) appear in the footer, after the
+text “Crafted by”,</p></li>
+<li><p>all authors and contributors appear in the sidebar,</p></li>
+<li><p>the authors list on the sidebar is preceded and followed by some
+text,</p></li>
+<li><p>the authors list on the authors page is preceded and followed by
+some text.</p></li>
+</ul><p><!-- --></p><pre>authors:
+  footer:
+    roles: [cre, fnd]
+    text: "Crafted by"
+  sidebar:
+    roles: [aut, ctb]
+    before: "So *who* does the work?"
+    after: "Thanks all!"
+  before: "This package is proudly brought to you by:"
+  after: "See the [changelog](news/index.html) for other contributors. :pray:"
+</pre>
+
+<p>If you want to filter authors based on something else than their roles,
+consider using a custom sidebar/footer component (see
+<code>?build_home</code>/<code><a href='build_site.html'>?build_site</a></code>, respectively).</p>
 
 
   </div>
@@ -402,11 +496,11 @@ sponsor.</p></li>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>.</p></p>
+  <p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
