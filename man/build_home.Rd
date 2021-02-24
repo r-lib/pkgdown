@@ -42,9 +42,8 @@ Extra markdown files in the base directory (e.g. \code{ROADMAP.md}) or in
 The home page also features a sidebar with information extracted from
 the package. You can tweak it via the configuration file, to help make
 the home page an as informative as possible landing page.
-}
+\subsection{Images and figures}{
 
-\section{Images and figures}{
 If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN
 website. The best place to put them is \code{man/figures}. If you are
@@ -62,7 +61,8 @@ knitr::opts_chunk$set(
 }
 }
 
-\section{Package logo}{
+\subsection{Package logo}{
+
 If you have a package logo, you can include it at the top of your README
 in a level-one heading:\preformatted{ pkgdown <img src="man/figures/logo.png" align="right" />
 }
@@ -71,7 +71,8 @@ in a level-one heading:\preformatted{ pkgdown <img src="man/figures/logo.png" al
 set from your package logo.
 }
 
-\section{YAML config - home}{
+\subsection{YAML config - home}{
+
 To tweak the home page, you need a section of the configuration file
 called \code{home}.
 \subsection{Page title and description}{
@@ -108,9 +109,11 @@ remove it with \code{strip_header: true}:\preformatted{home:
 See the subsections about the sidebar and authors for more tweaks via
 the pkgdown configuration file.
 }
+
 }
 
-\section{Sidebar}{
+\subsection{Sidebar}{
+
 By default, the sidebar automatically populated with the following
 elements, in this order: links, license, community, citation, authors,
 dev. To understand their creation, read on; to tweak the content of the
@@ -177,6 +180,8 @@ Alternatively, you can provide a ready-made sidebar HTML:\preformatted{home:
 Finally, you can completely remove the sidebar.\preformatted{home:
   sidebar: FALSE
 }
+}
+
 }
 }
 

@@ -19,7 +19,7 @@ The home page also features a sidebar with information extracted from the packag
 You can tweak it via the configuration file, to help make the home page an as
 informative as possible landing page.
 
-# Images and figures
+## Images and figures
 
 If you want to include images in your `README.md`, they must be stored
 somewhere in the package so that they can be displayed on the CRAN website.
@@ -42,7 +42,7 @@ knitr::opts_chunk$set(
 ```
 ````
 
-# Package logo
+## Package logo
 
 If you have a package logo, you can include it at the top of your README in a
 level-one heading:
@@ -54,11 +54,11 @@ level-one heading:
 [init_site()] will also automatically create a favicon set from your package
 logo.
 
-# YAML config - home
+## YAML config - home
 
 To tweak the home page, you need a section of the configuration file called `home`.
 
-## Page title and description
+### Page title and description
 
 By default, the page title and description are extracted automatically
 from the `Title` and `Description` fields `DESCRIPTION` (stripping
@@ -80,7 +80,7 @@ home:
 this is a convenient way of writing paragraphs
 of text.)
 
-## README header
+### README header
 
 READMEs usually start with an `<h1>` containing the package name. If
 that feels duplicative with the package name in the navbar you can
@@ -91,12 +91,12 @@ home:
   strip_header: true
 ```
 
-## Other homepage tweaks
+### Other homepage tweaks
 
 See the subsections about the sidebar and authors for more tweaks via the pkgdown
 configuration file.
 
-# Sidebar
+## Sidebar
 
 By default, the sidebar automatically populated with the following elements,
 in this order: `r toString(pkgdown:::default_sidebar_structure())`.
@@ -148,7 +148,7 @@ Sources of sidebar information
 
 * `toc`: Not added by default (see below), a table of contents for the README. 
 
-## YAML config - sidebar
+### YAML config - sidebar
 
 You can change the order of sidebar components:
 `r toString(pkgdown:::default_sidebar_structure())`; 
