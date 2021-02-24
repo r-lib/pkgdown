@@ -55,10 +55,10 @@ test_that("repo_source() uses the branch setting in meta", {
 test_that("can find github from BugReports or URL", {
   ref <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
 
-  # BugReports beats URL
+  # URL beats BugReports
   desc <- desc::desc(text = c(
-    "URL: https://github.com/r-lib/BLAHBLAH",
-    "BugReports: https://github.com/r-lib/pkgdown/issues"
+    "URL: https://github.com/r-lib/pkgdown",
+    "BugReports: https://github.com/separate/pkgdown-issue-tracker/#readme"
   ))
   expect_equal(package_repo(desc, list()), ref)
 
@@ -67,7 +67,7 @@ test_that("can find github from BugReports or URL", {
   ))
   expect_equal(package_repo(desc, list()), ref)
 
-  # Url can be in any position
+  # URL can be in any position
   desc <- desc::desc(text = c(
     "URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown")
   )
@@ -80,6 +80,30 @@ test_that("can find gitlab url", {
     "BugReports: https://gitlab.com/msberends/AMR"
   ))
   expect_equal(package_repo(desc, list()), ref)
+})
+
+test_that("GitLab subgroups are properly parsed", {
+  target <- "https://gitlab.com/salim_b/r/pkgs/pal/issues/"
+  # 1) from URL field, with and without trailing slash
+  expect_identical(package_repo(desc::desc(text = "URL: https://gitlab.com/salim_b/r/pkgs/pal/"),
+                                list())$url$issue,
+                   target)
+  expect_identical(package_repo(desc::desc(text = "URL: https://gitlab.com/salim_b/r/pkgs/pal"),
+                                list())$url$issue,
+                   target)
+  # 2) from BugReports field, with and without trailing slash
+  expect_identical(package_repo(desc::desc(text = "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"),
+                                list())$url$issue,
+                   target)
+  expect_identical(package_repo(desc::desc(text = "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues"),
+                                list())$url$issue,
+                   target)
+  # 3) from URL + BugReports
+  expect_identical(package_repo(desc::desc(text = paste("URL: https://gitlab.com/salim_b/r/pkgs/pal",
+                                                        "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/",
+                                                        sep = "\n")),
+                                list())$url$issue,
+                   target)
 })
 
 test_that("can find github enterprise url", {
