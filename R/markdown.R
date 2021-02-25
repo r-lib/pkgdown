@@ -93,7 +93,7 @@ markdown_inline <- function(text, pkg, where, ...) {
     abort(
       sprintf(
         "Can't use a block element here, need an inline element: \n %s \n%s",
-        what = pkgdown_fields(pkg = pkg, fields = where),
+        what = pkgdown_field(pkg = pkg, where),
         text
       )
     )
