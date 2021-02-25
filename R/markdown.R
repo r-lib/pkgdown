@@ -71,7 +71,7 @@ markdown_text <- function(text, pkg = pkg, ...) {
 }
 
 
-markdown_text2 <- function(text, pkg, ...) {
+markdown_text2 <- function(text, pkg, inline, what = "", ...) {
 
   if (is.null(text)) {
     return(NULL)
@@ -83,11 +83,19 @@ markdown_text2 <- function(text, pkg, ...) {
     xml2::xml_child() %>% # body
     xml2::xml_children()
 
-  if (length(children) == 1) {
+  if (inline) {
+    if (length(children) > 1) {
+      abort(
+        sprintf(
+          "Can't use a block element here, need an inline element: \n %s \n%s",
+          what,
+          text
+        )
+      )
+    }
     return(paste0(xml2::xml_contents(children), collapse=""))
   }
 
   output <- paste0(as.character(children), collapse="")
-
   gsub("\\\n", "", output)
 }

@@ -17,21 +17,32 @@ test_that("header attributes are parsed", {
   expect_match(index_xml, "class=\".*? class\"")
 })
 
-test_that("markdown_text2() doesn't wrap single lines in p", {
-  expect_equal(markdown_text2("**lala**"), "<strong>lala</strong>")
+test_that("markdown_text2() can handle inline/multi-line", {
   expect_equal(
-    markdown_text2('<img src="someimage" alt="" />'),
-    '<img src=\"someimage\" alt=\"\">'
-  )
+    markdown_text2("**lala**", pkg = list(), inline = TRUE),
+    "<strong>lala</strong>")
+  expect_equal(
+    markdown_text2("**lala**", pkg = list(), inline = FALSE),
+    "<p><strong>lala</strong></p>")
+
+  expect_equal(
+    markdown_text2("**lala**\n\npof", pkg = list(), inline = FALSE),
+    "<p><strong>lala</strong></p><p>pof</p>")
 })
 
-test_that("markdown_text2() can handle multi-lines", {
-  expect_equal(markdown_text2("**lala**\n\npof"), "<p><strong>lala</strong></p><p>pof</p>")
+test_that("markdown_text2() errors if block for inline", {
+  expect_snapshot_error(
+    markdown_text2(
+      "**lala**\n\npof",
+      pkg = list(),
+      what = pkgdown_field(pkg = list(), "authors", "sidebar", "after"),
+      inline = TRUE
+    ))
 })
 
 test_that("markdown_text2() doesn't add \n", {
   expect_equal(
-    markdown_text2("<p><strong>lala</strong></p><p>pof</p>"),
+    markdown_text2("<p><strong>lala</strong></p><p>pof</p>", pkg = list(), inline = FALSE),
     "<p><strong>lala</strong></p><p>pof</p>"
   )
 })

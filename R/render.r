@@ -333,7 +333,8 @@ pkgdown_footer <- function(data, pkg) {
 
   left_final_components <- markdown_text2(
     paste0(left_components[left_structure], collapse = " "),
-    pkg = pkg
+    pkg = pkg,
+    inline = FALSE
   )
 
   # footer right
@@ -353,7 +354,8 @@ pkgdown_footer <- function(data, pkg) {
 
   right_final_components <- markdown_text2(
     paste0(right_components[right_structure], collapse = " "),
-    pkg = pkg
+    pkg = pkg,
+    inline = FALSE
   )
 
   list(left = left_final_components, right = right_final_components)
