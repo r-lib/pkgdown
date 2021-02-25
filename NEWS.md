@@ -15,7 +15,7 @@
 * Make links of 404's navbar absolute (#1524).
 
 * Make navbar specification more flexible: it is now possible to not include 
-  all default components in the navbar structure, but pkgdown will throw a warning. (#1517)
+  all default components in the navbar structure. (#1517)
 
 * Make footer specification more flexible: users can now
     * change the placement of elements on the left and right
