@@ -16,7 +16,7 @@
       pkgdown_footer(data, pkg)
     Output
       $left
-      [1] "<p>Developed by bla. <strong><em>Wow</em></strong></p>"
+      [1] "<p>Developed by bla.</p><p><strong><em>Wow</em></strong></p>"
       
       $right
       [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"

@@ -136,7 +136,12 @@ author_name <- function(x, authors) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text2(author$html, inline = TRUE)
+    name <- markdown_text2(
+      author$html,
+      pkg = pkg,
+      what = pkgdown_field(pkg = pkg, "authors", name, "html"),
+      inline = TRUE
+    )
   }
 
   if (is.null(author$href)) {

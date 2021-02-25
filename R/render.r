@@ -363,12 +363,12 @@ pkgdown_footer <- function(data, pkg) {
 
 footer_authors <- function(data, pkg) {
   text <- pkg$meta$authors$footer$text %||% "Developed by"
-  paste0(trimws(text), " ", data$package$authors, ".")
+  paste0("<p>", trimws(text), " ", data$package$authors, ".", "</p>")
 }
 
 footer_pkgdown <- function(data) {
   paste0(
-    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
-    data$pkgdown$version, "."
+    '<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
+    data$pkgdown$version, ".</p>"
   )
 }
