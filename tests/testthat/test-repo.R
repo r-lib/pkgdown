@@ -55,10 +55,10 @@ test_that("repo_source() uses the branch setting in meta", {
 test_that("can find github from BugReports or URL", {
   ref <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
 
-  # URL beats BugReports
+  # BugReports beats URL
   desc <- desc::desc(text = c(
-    "URL: https://github.com/r-lib/pkgdown",
-    "BugReports: https://github.com/separate/pkgdown-issue-tracker/#readme"
+    "URL: https://github.com/r-lib/BLAHBLAH",
+    "BugReports: https://github.com/r-lib/pkgdown/issues"
   ))
   expect_equal(package_repo(desc, list()), ref)
 

@@ -63,10 +63,10 @@ package_repo <- function(desc, meta) {
     return(meta[["repo"]])
   }
 
-  # Otherwise try and guess from URLs + BugReports
+  # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    desc$get_urls(),
-    sub("/issues/?", "/", desc$get_field("BugReports", default = character()))
+    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
+    desc$get_urls()
   )
 
   gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
