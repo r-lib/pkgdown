@@ -120,7 +120,7 @@ data_authors_page <- function(pkg) {
 
   data$after <- markdown_text2(
     pkg$meta$authors$after,
-    pkg = pkG,
+    pkg = pkg,
     inline = FALSE
   )
 
