@@ -1,7 +1,8 @@
 ---
 title: "Custom output"
 output: 
-  bookdown::html_document2
+  html_document:
+    toc: false
 pkgdown:
   as_is: true
 ---
