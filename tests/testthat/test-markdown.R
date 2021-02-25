@@ -20,7 +20,8 @@ test_that("header attributes are parsed", {
 test_that("markdown_text2() can handle inline/multi-line", {
   expect_equal(
     markdown_text2("**lala**", pkg = list(), inline = TRUE),
-    "<strong>lala</strong>")
+    "<strong>lala</strong>"
+  )
   expect_equal(
     markdown_text2("**lala**", pkg = list(), inline = FALSE),
     "<p><strong>lala</strong></p>")
