@@ -71,31 +71,47 @@ markdown_text <- function(text, pkg = pkg, ...) {
 }
 
 
-markdown_text2 <- function(text, pkg, inline, what = "", ...) {
+markdown_text_children <- function(text, pkg, inline, what = "", ...) {
+
+  html <- markdown_text(text, pkg = pkg, ...)
+  html %>%
+    xml2::read_html() %>%
+    xml2::xml_child() %>% # body
+    xml2::xml_children()
+
+
+
+}
+
+markdown_inline <- function(text, pkg, where, ...) {
 
   if (is.null(text)) {
     return(NULL)
   }
 
-  html <- markdown_text(text, pkg = pkg, ...)
-  children <- html %>%
-    xml2::read_html() %>%
-    xml2::xml_child() %>% # body
-    xml2::xml_children()
+  children <- markdown_text_children(text, pkg = pkg, ...)
 
-  if (inline) {
-    if (length(children) > 1) {
-      abort(
-        sprintf(
-          "Can't use a block element here, need an inline element: \n %s \n%s",
-          what,
-          text
-        )
+  if (length(children) > 1) {
+    abort(
+      sprintf(
+        "Can't use a block element here, need an inline element: \n %s \n%s",
+        what = pkgdown_fields(pkg = pkg, fields = where),
+        text
       )
-    }
-    return(paste0(xml2::xml_contents(children), collapse=""))
+    )
   }
 
+  paste0(xml2::xml_contents(children), collapse="")
+
+}
+
+markdown_block <- function(text, pkg, ...) {
+
+  if (is.null(text)) {
+    return(NULL)
+  }
+
+  children <- markdown_text_children(text, pkg = pkg, ...)
   output <- paste0(as.character(children), collapse="")
   gsub("\\\n", "", output)
 }

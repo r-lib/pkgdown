@@ -17,33 +17,37 @@ test_that("header attributes are parsed", {
   expect_match(index_xml, "class=\".*? class\"")
 })
 
-test_that("markdown_text2() can handle inline/multi-line", {
+test_that("markdown_inline() can handle inline", {
   expect_equal(
-    markdown_text2("**lala**", pkg = list(), inline = TRUE),
+    markdown_inline("**lala**", pkg = list()),
     "<strong>lala</strong>"
   )
-  expect_equal(
-    markdown_text2("**lala**", pkg = list(), inline = FALSE),
-    "<p><strong>lala</strong></p>")
-
-  expect_equal(
-    markdown_text2("**lala**\n\npof", pkg = list(), inline = FALSE),
-    "<p><strong>lala</strong></p><p>pof</p>")
 })
 
-test_that("markdown_text2() errors if block for inline", {
+test_that("markdown_inline() errors if block for inline", {
   expect_snapshot_error(
-    markdown_text2(
+    markdown_inline(
       "**lala**\n\npof",
       pkg = list(),
-      what = pkgdown_field(pkg = list(), "authors", "sidebar", "after"),
-      inline = TRUE
+      where = c("authors", "sidebar", "after")
     ))
 })
 
-test_that("markdown_text2() doesn't add \n", {
+test_that("markdown_block() can handle block(s)", {
   expect_equal(
-    markdown_text2("<p><strong>lala</strong></p><p>pof</p>", pkg = list(), inline = FALSE),
+    markdown_block("**lala**", pkg = list()),
+    "<p><strong>lala</strong></p>"
+  )
+  expect_equal(
+    markdown_block("**lala**\n\npof", pkg = list()),
+    "<p><strong>lala</strong></p><p>pof</p>"
+  )
+})
+
+
+test_that("markdown_block() doesn't add \n", {
+  expect_equal(
+    markdown_block("<p><strong>lala</strong></p><p>pof</p>", pkg = list()),
     "<p><strong>lala</strong></p><p>pof</p>"
   )
 })

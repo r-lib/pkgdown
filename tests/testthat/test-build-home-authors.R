@@ -5,7 +5,7 @@ test_that("ORCID can be identified from all comment styles", {
   author_info <- data_author_info(pkg)
   authors <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
   expect_length(authors, 5)
 })
 
