@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown now support Bootstrap 4 (@jayhesselberth)
+
 * Authors configuration is more flexible. Users can now:
   * Choose the roles used for filtering authors for the sidebar and footer.
   * Choose the text before authors in the footer.

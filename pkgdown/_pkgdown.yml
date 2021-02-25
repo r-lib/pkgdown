@@ -13,6 +13,7 @@ authors:
     href: https://masalmon.eu
 
 template:
+  bootstrap: 4
   params:
     docsearch:
       api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b

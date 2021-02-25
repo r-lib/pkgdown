@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>{{{title}}}</h1>
+    <h1<div class="page-header pb-2 mt-4 mb-2 border-bottom">>{{{title}}}</h1>
     {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-    <div class="hidden name"><code>{{filename}}</code></div>
+    <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
     <div class="ref-description">
@@ -19,16 +19,13 @@
     {{/usage}}
 
     {{#has_args}}
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <h2>Arguments</h2>
+    <dl class="row" id="ref-arguments">
     {{#arguments}}
-    <tr>
-      <th>{{{name}}}</th>
-      <td>{{{description}}}</td>
-    </tr>
+    <dt class="col-sm-3" id="ref-arguments name">{{{name}}}</dt>
+      <dd class="col-sm-9 text-truncate" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
-    </table>
+    </dl>
     {{/has_args}}
 
     {{#sections}}

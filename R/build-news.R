@@ -259,7 +259,7 @@ pkg_timeline <- function(package) {
 tweak_news_heading <- function(x, versions, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("class", "page-header")
+    xml2::xml_set_attrs(c("class" = "pb-2 mt-4 mb-2 border-bottom"))
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
@@ -271,13 +271,17 @@ tweak_news_heading <- function(x, versions, timeline) {
   date <- timeline$date[match(versions, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+  cran_release_string <- sprintf(
+    "<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>",
+    date_str
+  )
+  date_nodes <- cran_release_string %>%
     xml2::read_html() %>%
-    xml2::xml_find_all(".//small")
+    xml2::xml_find_all(".//h6")
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_child(date_nodes, .where = 1)
+    xml2::xml_add_sibling(date_nodes, .where = "after")
 
   invisible()
 }
