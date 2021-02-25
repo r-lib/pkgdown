@@ -71,9 +71,7 @@ package_repo <- function(desc, meta) {
 
   gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    return(repo_meta_gh_like(gh_links[[1]],
-                             meta[["repo"]][["branch"]],
-                             grepl("^https?://gitlab\\.", gh_links[[1]])))
+    return(repo_meta_gh_like(gh_links[[1]], meta[["repo"]][["branch"]]))
   }
 
   NULL
@@ -90,8 +88,8 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
   )
 }
 
-repo_meta_gh_like <- function(link, branch = NULL, allow_subgroups = FALSE) {
-  gh <- parse_github_like_url(link, allow_subgroups)
+repo_meta_gh_like <- function(link, branch = NULL) {
+  gh <- parse_github_like_url(link, grepl("^https?://gitlab\\.", link))
   branch <- branch %||% "master"
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
