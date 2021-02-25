@@ -227,7 +227,7 @@ enabling the use of child documents in
 </ul>
 
 <p>Vignettes are rendered using a special document format that reconciles
-<code><a href='https://pkgs.rstudio.com/rmarkdown//reference/html_document.html'>rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
+<code><a href='https://pkgs.rstudio.com/rmarkdown/reference/html_document.html'>rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
 <p>Note that when you run <code>build_articles()</code> directly (outside of
@@ -353,7 +353,7 @@ vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
-<code><a href='https://pkgs.rstudio.com/rmarkdown//reference/find_external_resources.html'>rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
+<code><a href='https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html'>rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
 will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><pre>---
 title: My Document
@@ -379,7 +379,7 @@ some hints on how to customise the appearance with CSS.</p>
 
     
 
-<p>By default, pkgdown builds all articles with <code><a href='https://pkgs.rstudio.com/rmarkdown//reference/html_document.html'>rmarkdown::html_document()</a></code>
+<p>By default, pkgdown builds all articles with <code><a href='https://pkgs.rstudio.com/rmarkdown/reference/html_document.html'>rmarkdown::html_document()</a></code>
 by setting the <code>template</code> parameter. This overrides any custom settings
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
