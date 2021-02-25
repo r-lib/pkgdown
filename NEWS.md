@@ -2,10 +2,6 @@
 
 * pkgdown now support Bootstrap 4 (@jayhesselberth)
 
-* `build_articles()` again sets the `theme` argument of the document format 
-  to `NULL` when `as_is: true` but lets users override this via the `theme`
-  argument of the output format.
-
 * Authors configuration is more flexible. Users can now:
   * Choose the roles used for filtering authors for the sidebar and footer.
   * Choose the text before authors in the footer.
