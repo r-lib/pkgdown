@@ -1,6 +1,6 @@
 #' Render page with template
 #'
-#' Each page is composed of four templates: "head", "header", "content", and
+#' Each page is composed of four templates: "head", "content", and
 #' "footer". Each of these templates is rendered using the `data`, and
 #' then assembled into an overall page using the "layout" template.
 #'
@@ -42,9 +42,12 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   data$footer <- pkgdown_footer(data, pkg)
 
+  # Dependencies for head
+  data$headdeps <- data_deps(pkg = pkg, depth = depth)
+
   # render template components
   pieces <- c(
-    "head", "navbar", "header", "content", "docsearch", "footer",
+    "head", "navbar", "content", "docsearch", "footer",
     "in-header", "after-head", "before-body", "after-body"
   )
 
@@ -368,5 +371,55 @@ footer_pkgdown <- function(data) {
   paste0(
     'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
     data$pkgdown$version, "."
+  )
+}
+
+data_deps <- function(pkg, depth) {
+
+  # theme variables from configuration
+  bs_version <- get_bs_version(pkg)
+  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||% NULL
+  bs_theme <- do.call(
+    bslib::bs_theme,
+    c(
+      list(
+        version = bs_version,
+        bootswatch = bootswatch_theme
+        ),
+      pkg$meta[["template"]]$bslib
+    )
+  )
+  deps <- bslib::bs_theme_dependencies(bs_theme)
+  # Add other dependencies - TODO: more of those?
+  # Even font awesome had a too old version in R Markdown (no ORCID)
+
+  # Dependencies files end up at the website root in a deps folder
+  deps <- lapply(
+    deps,
+    htmltools::copyDependencyToDir,
+    file.path(pkg$dst_path, "deps")
+  )
+
+  # Function needed for indicating where that deps folder is compared to here
+  transform_path <- function(x) {
+
+    x <- gsub(pkg$dst_path, "", x)
+
+    if (depth == 0) {
+      return(sub("/", "", x))
+    }
+
+    paste0(
+      paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+      x
+    )
+
+  }
+
+  # Tags ready to be added in heads
+  htmltools::renderDependencies(
+    deps,
+    srcType = "file",
+    hrefFilter = transform_path
   )
 }

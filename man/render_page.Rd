@@ -33,7 +33,7 @@ If \code{""} (the default), prints to standard out.}
 \item{quiet}{If \code{quiet}, will suppress output messages}
 }
 \description{
-Each page is composed of four templates: "head", "header", "content", and
+Each page is composed of four templates: "head", "content", and
 "footer". Each of these templates is rendered using the \code{data}, and
 then assembled into an overall page using the "layout" template.
 }
