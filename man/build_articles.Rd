@@ -167,6 +167,9 @@ to add a \code{pkgdown} field to your yaml metadata:\preformatted{pkgdown:
 This will tell pkgdown to use the \code{output_format} (and options) that you
 have specified. This format must accept \code{template}, \code{theme}, and
 \code{self_contained} in order to work with pkgdown.
+If the output needs a theme, you'll have to specify it even if it is
+\code{"default"}, and you might experience Bootstrap incompatibilities between
+the output and pkgdown.
 
 If the output format produces a PDF, you'll also need to specify the
 \code{extension} field:\preformatted{pkgdown:

@@ -131,6 +131,9 @@
 #' This will tell pkgdown to use the `output_format` (and options) that you
 #' have specified. This format must accept `template`, `theme`, and
 #' `self_contained` in order to work with pkgdown.
+#' If the output needs a theme, you'll have to specify it even if it is
+#' `"default"`, and you might experience Bootstrap incompatibilities between
+#' the output and pkgdown.
 #'
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
@@ -262,10 +265,18 @@ build_article <- function(name,
 
     if (identical(ext, "html")) {
       template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
-
+      output <- purrr::pluck(front, "output")
+      # no option for the output
+      if (is(output, "character")) {
+        theme <- NULL
+      } else {
+        # either an option or null
+        theme <- output[[1]]$theme
+      }
       options <- list(
         template = template$path,
-        self_contained = FALSE
+        self_contained = FALSE,
+        theme = theme
       )
     } else {
       options <- list()
