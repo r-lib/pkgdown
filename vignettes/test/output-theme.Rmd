@@ -1,5 +1,5 @@
 ---
-title: "Custom output"
+title: "Custom output with theme"
 output: 
   html_document:
     toc: false
