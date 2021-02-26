@@ -18,12 +18,12 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
-  if (get_bs_version(pkg) == 3) {
+  if (pkg$bs_version == 3) {
     return(
       list(
       type = navbar$type %||% "default",
-      left = render_navbar_links(left, depth = depth, get_bs_version(pkg)),
-      right = render_navbar_links(right, depth = depth, get_bs_version(pkg))
+      left = render_navbar_links(left, depth = depth, pkg$bs_version),
+      right = render_navbar_links(right, depth = depth, pkg$bs_version)
       )
     )
   }
@@ -31,8 +31,8 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   list(
     type = navbar$type %||% "light",
     bg = navbar$bg %||% "light",
-    left = render_navbar_links(left, depth = depth, get_bs_version(pkg)),
-    right = render_navbar_links(right, depth = depth, get_bs_version(pkg))
+    left = render_navbar_links(left, depth = depth, pkg$bs_version),
+    right = render_navbar_links(right, depth = depth, pkg$bs_version)
   )
 }
 

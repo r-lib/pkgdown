@@ -49,6 +49,8 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       package = package,
       version = version,
 
+      bs_version = get_bs_version(pkg),
+
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
       install_metadata = install_metadata,

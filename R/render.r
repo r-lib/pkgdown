@@ -54,7 +54,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   templates <- purrr::map_chr(
     pieces, find_template, name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
@@ -68,7 +68,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   template <- find_template(
     "layout", name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   rendered <- render_template(template, components)
   write_if_different(pkg, rendered, path, quiet = quiet)
@@ -223,7 +223,7 @@ template_path <- function(pkg = ".") {
   } else if (!is.null(template$package)) {
     path_package_pkgdown(
       template$package,
-      bs_version = get_bs_version(pkg),
+      bs_version = pkg$bs_version,
       "templates"
     )
   } else {
@@ -377,7 +377,7 @@ footer_pkgdown <- function(data) {
 data_deps <- function(pkg, depth) {
 
   # theme variables from configuration
-  bs_version <- get_bs_version(pkg)
+  bs_version <- pkg$bs_version
   bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||% NULL
   bs_theme <- do.call(
     bslib::bs_theme,

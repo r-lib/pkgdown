@@ -63,7 +63,7 @@ copy_assets <- function(pkg = ".") {
       pkg,
       path_pkgdown(
         "assets",
-        paste0("BS", get_bs_version(pkg))
+        paste0("BS", pkg$bs_version)
       )
     )
   }
@@ -82,7 +82,7 @@ copy_assets <- function(pkg = ".") {
       pkg,
       path_package_pkgdown(
         template$package,
-        bs_version = get_bs_version(pkg),
+        bs_version = pkg$bs_version,
         "assets"
       )
     )
