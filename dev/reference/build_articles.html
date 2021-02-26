@@ -390,7 +390,10 @@ to add a <code>pkgdown</code> field to your yaml metadata:</p><pre><span class='
 
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
-<code>self_contained</code> in order to work with pkgdown.</p>
+<code>self_contained</code> in order to work with pkgdown.
+If the output needs a theme, you'll have to specify it even if it is
+<code>"default"</code>, and you might experience Bootstrap incompatibilities between
+the output and pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
 <code>extension</code> field:</p><pre><span class='va'>pkgdown</span><span class='op'>:</span>
   <span class='va'>as_is</span><span class='op'>:</span> <span class='va'>true</span>

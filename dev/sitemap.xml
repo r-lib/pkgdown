@@ -109,6 +109,12 @@
     <loc>https://pkgdown.r-lib.org/articles/test/jss.pdf</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/articles/test/output-html-vignette.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgdown.r-lib.org/articles/test/output-theme.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/articles/test/output.html</loc>
   </url>
   <url>
