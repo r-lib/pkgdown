@@ -161,7 +161,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
 
 tweak_homepage_html <- function(
   html, strip_header = FALSE, sidebar = TRUE,
-  bs_version
+  bs_version, logo = NULL
   ) {
 
   html <- tweak_sidebar_html(html, sidebar = sidebar)
@@ -182,6 +182,17 @@ tweak_homepage_html <- function(
       }
     page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
+  }
+
+  # Add logo
+  if (!is.null(logo)) {
+    xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
+      xml2::xml_child() %>%
+      xml2::xml_add_sibling(
+        "img", src = "package-logo.png",
+        id = "logo-homepage", alt = "", width = "120",
+        .where = "before"
+      )
   }
 
   # Fix relative image links
