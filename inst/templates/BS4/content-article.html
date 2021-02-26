@@ -55,9 +55,14 @@ $body$
     </div>
 
     $if(toc)$
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+    <div class="sticky-top">
+      {{#package.logo}}<img id="logo" src="{{.}}" align="right" alt="" width="120" /></br>{{/package.logo}}
+    <nav id="toc" data-toggle="toc" >
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
     $endif$
   </div>
 

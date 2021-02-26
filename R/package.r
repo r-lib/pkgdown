@@ -62,8 +62,10 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg)
     )
+
   pkg_list$bs_version <- get_bs_version(pkg_list)
-  pkg_list$logo <- find_logo(pkg_list$src_path)
+
+  pkg_list$has_logo <- has_logo(pkg_list)
 
   structure(
     pkg_list,
