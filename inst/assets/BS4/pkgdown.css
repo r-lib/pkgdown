@@ -159,12 +159,12 @@ a.anchor {
 }
 
 #pkgdown-sidebar h2 {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-top: 1em;
 }
 
 #pkgdown-sidebar h2:first-child {
-  margin-top: 0;
+  margin-top: 2.5rem;
 }
 
 #pkgdown-sidebar .list-unstyled li {
@@ -334,3 +334,16 @@ nav[data-toggle="toc"] .nav .nav > li > a {
 #version-badge {
   border: none;
 }
+
+
+/* logo before TOC */
+#logo-toc {
+  display: grid;
+}
+
+/* h1 */
+
+h1.display-4 {
+  font-size: 2.5rem;
+}
+
