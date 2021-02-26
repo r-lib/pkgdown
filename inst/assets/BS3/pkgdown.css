@@ -1,24 +1,5 @@
-/* Sticky footer */
-
-/**
- * Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
- * Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
- *
- * .Site -> body > .container
- * .Site-content -> body > .container .row
- * .footer -> footer
- *
- * Key idea seems to be to ensure that .container and __all its parents__
- * have height set to 100%
- *
- */
-
 html, body {
   height: 100%;
-}
-
-body {
-  position: relative;
 }
 
 body > .container {
@@ -39,15 +20,19 @@ footer {
   display: flex;
   flex-shrink: 0;
 }
+
 footer p {
   margin-bottom: 0;
 }
+
 footer div {
   flex: 1;
 }
-footer .pkgdown {
+
+footer .pkgdown-footer-right {
   text-align: right;
 }
+
 footer p {
   margin-bottom: 0;
 }
@@ -58,21 +43,6 @@ img.icon {
 
 img {
   max-width: 100%;
-}
-
-/* Fix bug in bootstrap (only seen in firefox) */
-summary {
-  display: list-item;
-}
-
-/* Typographic tweaking ---------------------------------*/
-
-.contents .page-header {
-  margin-top: calc(-60px + 1em);
-}
-
-dd {
-  margin-left: 3em;
 }
 
 /* Section anchors ---------------------------------*/
@@ -100,67 +70,26 @@ a.anchor {
   }
 }
 
-
 /* Fixes for fixed navbar --------------------------*/
 
+.contents {
+  margin-top: 4em;
+}
+
 .contents h1, .contents h2, .contents h3, .contents h4 {
-  padding-top: 60px;
+  padding-top: 40px;
   margin-top: -40px;
-}
-
-/* Navbar submenu --------------------------*/
-
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-
-.dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
-}
-
-.dropdown-submenu.pull-left {
-  float: none;
-}
-
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
 }
 
 /* Sidebar --------------------------*/
 
 #pkgdown-sidebar {
   margin-top: 30px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 70px;
+}
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
 }
 
 #pkgdown-sidebar h2 {
@@ -176,64 +105,8 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
-/* bootstrap-toc tweaks ------------------------------------------------------*/
-
-/* All levels of nav */
-
-nav[data-toggle='toc'] .nav > li > a {
-  padding: 4px 20px 4px 6px;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: inherit;
-}
-
-nav[data-toggle='toc'] .nav > li > a:hover,
-nav[data-toggle='toc'] .nav > li > a:focus {
-  padding-left: 5px;
-  color: inherit;
-  border-left: 1px solid #878787;
-}
-
-nav[data-toggle='toc'] .nav > .active > a,
-nav[data-toggle='toc'] .nav > .active:hover > a,
-nav[data-toggle='toc'] .nav > .active:focus > a {
-  padding-left: 5px;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: inherit;
-  border-left: 2px solid #878787;
-}
-
-/* Nav: second level (shown on .active) */
-
-nav[data-toggle='toc'] .nav .nav {
-  display: none; /* Hide by default, but at >768px, show it */
-  padding-bottom: 10px;
-}
-
-nav[data-toggle='toc'] .nav .nav > li > a {
-  padding-left: 16px;
-  font-size: 1.35rem;
-}
-
-nav[data-toggle='toc'] .nav .nav > li > a:hover,
-nav[data-toggle='toc'] .nav .nav > li > a:focus {
-  padding-left: 15px;
-}
-
-nav[data-toggle='toc'] .nav .nav > .active > a,
-nav[data-toggle='toc'] .nav .nav > .active:hover > a,
-nav[data-toggle='toc'] .nav .nav > .active:focus > a {
-  padding-left: 15px;
-  font-weight: 500;
-  font-size: 1.35rem;
-}
-
-/* orcid ------------------------------------------------------------------- */
-
 .orcid {
-  font-size: 16px;
-  color: #A6CE39;
+  height: 16px;
   /* margins are required by official ORCID trademark and display guidelines */
   margin-left:4px;
   margin-right:4px;
@@ -242,42 +115,22 @@ nav[data-toggle='toc'] .nav .nav > .active:focus > a {
 
 /* Reference index & topics ----------------------------------------------- */
 
-.ref-index th {font-weight: normal;}
-
-.ref-index td {vertical-align: top; min-width: 100px}
-.ref-index .icon {width: 40px;}
-.ref-index .alias {width: 40%;}
-.ref-index-icons .alias {width: calc(40% - 40px);}
-.ref-index .title {width: 60%;}
-
-.ref-arguments th {text-align: right; padding-right: 10px;}
-.ref-arguments th, .ref-arguments td {vertical-align: top; min-width: 100px}
-.ref-arguments .name {width: 20%;}
-.ref-arguments .desc {width: 80%;}
-
-/* Nice scrolling for wide elements --------------------------------------- */
-
-table {
-  display: block;
-  overflow: auto;
-}
+#ref-arguments #name {text-align: right;}
 
 /* Syntax highlighting ---------------------------------------------------- */
 
 pre {
   word-wrap: normal;
   word-break: normal;
+  background-color: #f8f8f8;
+  color: #333;
+  padding: 9.5px;
+  border-radius: 4px;
   border: 1px solid #eee;
 }
 
-pre, code {
-  background-color: #f8f8f8;
-  color: #333;
-}
-
-pre code {
+pre.sourceCode {
   overflow: auto;
-  word-wrap: normal;
   white-space: pre;
 }
 
@@ -352,16 +205,25 @@ mark {
   margin-bottom: 10px;
 }
 
-/* fontawesome ------------------------ */
-
-.fab {
-    font-family: "Font Awesome 5 Brands" !important;
+/* bootstrap-toc tweaks */
+nav[data-toggle="toc"] .nav > li > a {
+  font-size: 17px;
+  color: inherit;
 }
 
-/* don't display links in code chunks when printing */
-/* source: https://stackoverflow.com/a/10781533 */
-@media print {
-  code a:link:after, code a:visited:after {
-    content: "";
-  }
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  color: inherit;
+  border-left: 1px solid #000000;
+}
+
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus {
+  color: inherit;
+  border-left: 2px solid #000000;
+}
+
+nav[data-toggle="toc"] .nav .nav > li > a {
+  font-size: 15px;
 }

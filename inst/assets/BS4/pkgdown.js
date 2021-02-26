@@ -1,6 +1,14 @@
 /* http://gregfranko.com/blog/jquery-best-practices/ */
 (function($) {
-  $('nav.navbar').headroom();
+  $(function() {
+
+    $('nav.navbar').headroom();
+
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 60
+    });
+
     $('[data-toggle="tooltip"]').tooltip();
 
     var cur_path = paths(location.pathname);
@@ -95,6 +103,7 @@
       clipboard.on('error', function() {
         changeTooltipMessage(e.trigger,'Press Ctrl+C or Command+C to copy');
       });
+
     });
   }
 })(window.jQuery || window.$)
