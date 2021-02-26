@@ -169,7 +169,12 @@ data_news <- function(pkg = ".") {
   }
 
   html <- sections %>%
-    purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
+    purrr::walk2(
+      versions,
+      tweak_news_heading,
+      timeline = timeline,
+      bs_version = get_bs_version(pkg)
+      ) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
@@ -256,7 +261,41 @@ pkg_timeline <- function(package) {
   )
 }
 
-tweak_news_heading <- function(x, versions, timeline) {
+tweak_news_heading <- function(x, versions, timeline, bs_version) {
+  switch(
+    as.character(bs_version),
+    '3' = tweak_news_heading_bs3(x, versions, timeline),
+    '4' = tweak_news_heading_bs4(x, versions, timeline)
+  )
+}
+
+tweak_news_heading_bs3 <- function(x, versions, timeline) {
+    x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("class", "page-header")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("data-toc-text", versions)
+
+  if (is.null(timeline))
+    return(x)
+
+  date <- timeline$date[match(versions, timeline$version)]
+  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
+
+  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+    xml2::read_html() %>%
+    xml2::xml_find_all(".//small")
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
+    xml2::xml_add_child(date_nodes, .where = 1)
+
+  invisible()
+}
+
+tweak_news_heading_bs4 <- function(x, versions, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_set_attrs(c("class" = "pb-2 mt-4 mb-2 border-bottom"))
@@ -283,7 +322,7 @@ tweak_news_heading <- function(x, versions, timeline) {
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_add_sibling(date_nodes, .where = "after")
 
-  invisible()
+   invisible()
 }
 
 news_style <- function(meta) {
