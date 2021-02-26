@@ -131,7 +131,7 @@ data_home_component <- function(component, component_name, pkg) {
 
   sidebar_section(
     component$title,
-    bullets = markdown_text2(component$text, pkg = pkg)
+    bullets = markdown_block(component$text, pkg = pkg)
   )
 }
 
