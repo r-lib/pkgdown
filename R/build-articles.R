@@ -268,16 +268,22 @@ build_article <- function(name,
       output <- purrr::pluck(front, "output")
       # no option for the output
       if (is(output, "character")) {
+        output_name <- output
         theme <- NULL
       } else {
-        # either an option or null
+        output_name <- names(output)[[1]]
         theme <- output[[1]]$theme
       }
+
       options <- list(
         template = template$path,
-        self_contained = FALSE,
-        theme = theme
+        self_contained = FALSE
       )
+
+      if (!grepl("html_vignette$", output_name)) {
+        options$theme <- theme
+      }
+
     } else {
       options <- list()
     }
