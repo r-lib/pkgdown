@@ -4,17 +4,17 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
 
   all <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
 
   main <- pkg %>%
     pkg_authors(roles) %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
 
   more_authors <- length(main) != length(all)
 
   comments <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info) %>%
+    purrr::map(author_list, author_info, pkg = pkg) %>%
     purrr::map("comment") %>%
     purrr::compact() %>%
     length() > 0
@@ -76,9 +76,17 @@ data <- data_authors(pkg, roles)
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
   bullets <- c(
-      markdown_text2(pkg$meta$authors$sidebar$before),
+      markdown_inline(
+        pkg$meta$authors$sidebar$before,
+        pkg = pkg,
+        where = c("authors", "sidebar", "before")
+      ),
       authors,
-      markdown_text2(pkg$meta$authors$sidebar$after)
+      markdown_inline(
+        pkg$meta$authors$sidebar$after,
+        pkg = pkg,
+        where = c("authors", "sidebar", "after")
+      )
   )
 
   if (data$needs_page) {
@@ -102,14 +110,13 @@ data_authors_page <- function(pkg) {
     authors = data_authors(pkg)$all
   )
 
-  data$before <- markdown_text2(pkg$meta$authors$before, pkg = pkg)
-
-  data$after <- markdown_text2(pkg$meta$authors$after, pkg = pkg)
+  data$before <- markdown_block(pkg$meta$authors$before, pkg = pkg)
+  data$after <- markdown_block(pkg$meta$authors$after, pkg = pkg)
 
   return(data)
 }
 
-author_name <- function(x, authors) {
+author_name <- function(x, authors, pkg) {
   name <- format_author_name(x$given, x$family)
 
   if (!(name %in% names(authors)))
@@ -118,7 +125,11 @@ author_name <- function(x, authors) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text2(author$html)
+    name <- markdown_inline(
+      author$html,
+      pkg = pkg,
+      where = c("authors", name, "html")
+    )
   }
 
   if (is.null(author$href)) {
@@ -138,8 +149,8 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE) {
-  name <- author_name(x, authors_info)
+author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
+  name <- author_name(x, authors_info, pkg = pkg)
 
   roles <- paste0(role_lookup[x$role], collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))

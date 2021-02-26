@@ -5,7 +5,7 @@ test_that("ORCID can be identified from all comment styles", {
   author_info <- data_author_info(pkg)
   authors <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
   expect_length(authors, 5)
 })
 
@@ -47,8 +47,8 @@ test_that("Text can be added", {
 
   pkg$meta$authors$before <- "Dream team:"
   pkg$meta$authors$after <- "You are welcome!"
-  expect_equal(data_authors_page(pkg)$before, "Dream team:")
-  expect_equal(data_authors_page(pkg)$after, "You are welcome!")
+  expect_equal(data_authors_page(pkg)$before, "<p>Dream team:</p>")
+  expect_equal(data_authors_page(pkg)$after, "<p>You are welcome!</p>")
 })
 
 test_that("data_home_sidebar_authors() works with text", {
