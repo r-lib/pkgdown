@@ -184,7 +184,6 @@ check_open_graph <- function(og) {
 }
 
 get_bs_version <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
 
   template <- pkg$meta[["template"]]
 
