@@ -45,7 +45,7 @@ footer p {
 footer div {
   flex: 1;
 }
-footer .pkgdown {
+footer .pkgdown-footer-right {
   text-align: right;
 }
 footer p {
