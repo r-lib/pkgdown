@@ -16,13 +16,18 @@
 #' Note if names of generated files were changed, you will need to use
 #' [clean_site()] first to clean up orphan files.
 #'
-#' @section YAML config:
+#' # YAML config
+#'
 #' There are five top-level YAML settings that affect the entire site:
 #' `destination`, `url`, `title`, `template`, and `navbar`.
+#'
+#' ## `destination`
 #'
 #' `destination` controls where the site will be generated. It defaults to
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
 #' paths will be taken relative to the package root.
+#'
+#' ## `url`
 #'
 #' `url` optionally specifies the url where the site will be published.
 #' Supplying this will:
@@ -36,6 +41,8 @@
 #' ```yaml
 #' url: https://pkgdown.r-lib.org
 #' ```
+#'
+#' ## `title`
 #'
 #' `title` overrides the default site title, which is the package name.
 #' It's used in the page title and default navbar.
@@ -54,7 +61,8 @@
 #'     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 #' ```
 #'
-#' @section Development mode:
+#' ## `development` mode
+#'
 #' The development mode of a site controls four main things:
 #'
 #' * Where the site is built.
@@ -109,7 +117,7 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section YAML config - navbar:
+#' ## `navbar`
 #'
 #' By default, the top navigation bar (the "navbar") will contain links to:
 #'
@@ -175,25 +183,14 @@
 #' components in the `structure` they'll be added to the far right of the
 #' left menu.
 #'
-#' @section YAML config - search:
-#' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
-#' to add search to your site.
+#' ## `template`
 #'
-#' ```
-#' template:
-#'   params:
-#'     docsearch:
-#'       api_key: API_KEY
-#'       index_name: INDEX_NAME
-#' ```
-#'
-#' You also need to add a `url:` field, see above.
-#'
-#' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the
 #' `template` component. There are two components to the template:
-#' the HTML templates used to layout each page, and the css/js assets
+#' the HTML templates used to layout each page, and the CSS/JS assets
 #' used to render the page in the browser.
+#'
+#' ### Bootswatch theme
 #'
 #' The easiest way to tweak the default style is to use a bootswatch template,
 #' by passing on the `bootswatch` template parameter to the built-in
@@ -206,7 +203,35 @@
 #' ```
 #'
 #' See a complete list of themes and preview how they look at
-#' <https://gallery.shinyapps.io/117-shinythemes/>:
+#' <https://gallery.shinyapps.io/117-shinythemes/>.
+#'
+#' ### Suppress search engine indexing
+#'
+#' Suppress indexing of your pages by web robots by setting `noindex:
+#' true`:
+#'
+#' ```
+#' template:
+#'   params:
+#'     noindex: true
+#' ```
+#'
+#' ### DocSearch by Algolia
+#'
+#' You can use [DocSearch](https://community.algolia.com/docsearch/) by Algolia
+#' to add search to your site.
+#'
+#' ```
+#' template:
+#'   params:
+#'     docsearch:
+#'       api_key: API_KEY
+#'       index_name: INDEX_NAME
+#' ```
+#'
+#' You also need to add a `url:` field, see above.
+#'
+#' ### Google Analytics
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
 #' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
@@ -224,14 +249,23 @@
 #'     ganalytics: UA-000000-01
 #' ```
 #'
-#' Suppress indexing of your pages by web robots by setting `noindex:
-#' true`:
+#' ### Self-host all assets
+#'
+#' By default, most of the required CSS/JS assets and the web fonts are loaded
+#' from external content delivery networks operated by Cloudflare and Google.
+#' If you instead would like to host these assets yourself at the same location
+#' as the rest of your site resides, set the following:
 #'
 #' ```
 #' template:
 #'   params:
-#'     noindex: true
+#'     selfhost_assets: true
 #' ```
+#'
+#' Note that if you enable Google Analytics, the corresponding JS snippet is
+#' always loaded remotely regardless of the above setting.
+#'
+#' ### Custom template and assets
 #'
 #' You can also override the default templates and provide additional
 #' assets. You can do so by either storing in a `package` with
@@ -255,7 +289,8 @@
 #' is little documentation, and you'll need to read the existing source
 #' for pkgdown templates to ensure that you use the correct components.
 #'
-#' @section YAML config - repo:
+#' ## `repo`
+#'
 #' pkgdown automatically generates links to the source repository in a few
 #' places
 #'
@@ -309,7 +344,8 @@
 #'   branch: main
 #' ````
 #'
-#' @section YAML config - deploy:
+#' ## `deploy`
+#'
 #' `deploy` currently offers a single parameter:
 #'
 #' *  `install_metadata` allows you to install package index metadata into
@@ -322,7 +358,8 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#' @section YAML config - footer:
+#' ## `footer`
+#'
 #' By default, the footer is automatically populated with:
 #' * the names of the
 #' [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors),
@@ -346,7 +383,8 @@
 #'       legal: Provided without ***any warranty***.
 #' ```
 #'
-#' @section Options:
+#' # Options
+#'
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used

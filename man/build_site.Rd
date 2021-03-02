@@ -78,13 +78,16 @@ Note if names of generated files were changed, you will need to use
 \code{\link[=clean_site]{clean_site()}} first to clean up orphan files.
 }
 \section{YAML config}{
-
 There are five top-level YAML settings that affect the entire site:
 \code{destination}, \code{url}, \code{title}, \code{template}, and \code{navbar}.
+\subsection{\code{destination}}{
 
 \code{destination} controls where the site will be generated. It defaults to
 \verb{docs/} (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.
+}
+
+\subsection{\code{url}}{
 
 \code{url} optionally specifies the url where the site will be published.
 Supplying this will:
@@ -97,6 +100,9 @@ See \code{vignette("linking")} for more information.
 \link[=deploy_site_github]{deploying to github}.
 }\if{html}{\out{<div class="yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
+}
+
+\subsection{\code{title}}{
 
 \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -113,7 +119,7 @@ text:\preformatted{authors:
 }
 }
 
-\section{Development mode}{
+\subsection{\code{development} mode}{
 
 The development mode of a site controls four main things:
 \itemize{
@@ -164,8 +170,7 @@ to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
 
-\section{YAML config - navbar}{
-
+\subsection{\code{navbar}}{
 
 By default, the top navigation bar (the "navbar") will contain links to:
 \itemize{
@@ -227,9 +232,36 @@ components in the \code{structure} they'll be added to the far right of the
 left menu.
 }
 
-\section{YAML config - search}{
+\subsection{\code{template}}{
 
-You can use \href{https://community.algolia.com/docsearch/}{docsearch} by algolia
+You can get complete control over the appearance of the site using the
+\code{template} component. There are two components to the template:
+the HTML templates used to layout each page, and the CSS/JS assets
+used to render the page in the browser.
+\subsection{Bootswatch theme}{
+
+The easiest way to tweak the default style is to use a bootswatch template,
+by passing on the \code{bootswatch} template parameter to the built-in
+template:\preformatted{template:
+  params:
+    bootswatch: cerulean
+}
+
+See a complete list of themes and preview how they look at
+\url{https://gallery.shinyapps.io/117-shinythemes/}.
+}
+
+\subsection{Suppress search engine indexing}{
+
+Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
+  params:
+    noindex: true
+}
+}
+
+\subsection{DocSearch by Algolia}{
+
+You can use \href{https://community.algolia.com/docsearch/}{DocSearch} by Algolia
 to add search to your site.\preformatted{template:
   params:
     docsearch:
@@ -240,22 +272,7 @@ to add search to your site.\preformatted{template:
 You also need to add a \verb{url:} field, see above.
 }
 
-\section{YAML config - template}{
-
-You can get complete control over the appearance of the site using the
-\code{template} component. There are two components to the template:
-the HTML templates used to layout each page, and the css/js assets
-used to render the page in the browser.
-
-The easiest way to tweak the default style is to use a bootswatch template,
-by passing on the \code{bootswatch} template parameter to the built-in
-template:\preformatted{template:
-  params:
-    bootswatch: cerulean
-}
-
-See a complete list of themes and preview how they look at
-\url{https://gallery.shinyapps.io/117-shinythemes/}:
+\subsection{Google Analytics}{
 
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
@@ -269,11 +286,23 @@ site, in keeping with current laws and regulations.\preformatted{template:
   params:
     ganalytics: UA-000000-01
 }
-
-Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
-  params:
-    noindex: true
 }
+
+\subsection{Self-host all assets}{
+
+By default, most of the required CSS/JS assets and the web fonts are loaded
+from external content delivery networks operated by Cloudflare and Google.
+If you instead would like to host these assets yourself at the same location
+as the rest of your site resides, set the following:\preformatted{template:
+  params:
+    selfhost_assets: true
+}
+
+Note that if you enable Google Analytics, the corresponding JS snippet is
+always loaded remotely regardless of the above setting.
+}
+
+\subsection{Custom template and assets}{
 
 You can also override the default templates and provide additional
 assets. You can do so by either storing in a \code{package} with
@@ -295,7 +324,9 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 }
 
-\section{YAML config - repo}{
+}
+
+\subsection{\code{repo}}{
 
 pkgdown automatically generates links to the source repository in a few
 places
@@ -342,7 +373,7 @@ specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
 }\if{html}{\out{</div>}}
 }
 
-\section{YAML config - deploy}{
+\subsection{\code{deploy}}{
 
 \code{deploy} currently offers a single parameter:
 \itemize{
@@ -356,7 +387,7 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 }
 }
 
-\section{YAML config - footer}{
+\subsection{\code{footer}}{
 
 By default, the footer is automatically populated with:
 \itemize{
@@ -380,9 +411,9 @@ or a YAML pipe and to start the components with two empty lines.\preformatted{fo
       legal: Provided without ***any warranty***.
 }
 }
+}
 
 \section{Options}{
-
 Users with limited internet connectivity can disable CRAN checks by setting
 \code{options(pkgdown.internet = FALSE)}. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used

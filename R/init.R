@@ -59,7 +59,40 @@ copy_assets <- function(pkg = ".") {
 
   # Copy default assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown("assets"))
+    copy_asset_dir(pkg, path_pkgdown("assets"), recurse = FALSE)
+
+    if (isTRUE(template$params$selfhost_assets)) {
+      copy_asset_dir(
+        pkg = pkg,
+        from_dir = path_pkgdown("assets/external/common"),
+        flatten = TRUE
+      )
+
+      bootswatch_theme <- template$params$bootswatch
+      if (is.null(bootswatch_theme)) {
+        bootswatch_theme <- "default"
+      } else {
+        font_folder <-
+          paste0(bootswatch_theme, ".min.css") %>%
+          path_pkgdown("assets/external/bootswatch", .) %>%
+          path_abs(pkg$src_path) %>%
+          read_lines(1L) %>%
+          utils::strcapture(pattern = "(?:font-family:\\s?)(.+?)(?:;)", proto = data.frame(font = character())) %>%
+          .[1L, "font"] %>%
+          tolower() %>%
+          gsub(pattern = " ", replacement = "-")
+
+        if (!is.na(font_folder)) {
+          copy_asset_dir(pkg, path_pkgdown("assets/external/bootswatch/fonts", font_folder))
+        }
+      }
+      copy_asset_dir(
+        pkg = pkg,
+        from_dir = path_pkgdown("assets/external/bootswatch"),
+        file_regexp = paste0(bootswatch_theme, ".min.css$"),
+        recurse = FALSE
+      )
+    }
   }
 
   # Copy extras
@@ -75,26 +108,33 @@ copy_assets <- function(pkg = ".") {
     copy_asset_dir(
       pkg,
       path_package_pkgdown(template$package, bs_version = NULL, "assets")
-      )
+    )
   }
 }
 
-copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
+copy_asset_dir <- function(pkg,
+                           from_dir,
+                           file_regexp = NULL,
+                           recurse = TRUE,
+                           flatten = FALSE) {
   from_path <- path_abs(from_dir, pkg$src_path)
   if (!file_exists(from_path)) {
     return(character())
   }
 
-  files <- dir_ls(from_path, recurse = TRUE)
-
-  # Remove directories from files
-  files <- files[!fs::is_dir(files)]
+  files <- dir_ls(from_path, recurse = recurse, type = "file")
 
   if (!is.null(file_regexp)) {
     files <- files[grepl(file_regexp, path_file(files))]
   }
 
-  file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
+  file_copy_to(
+    pkg = pkg,
+    from_paths = files,
+    to_dir = pkg$dst_path,
+    from_dir = from_path,
+    flatten = flatten
+  )
 }
 
 timestamp <- function(time = Sys.time()) {

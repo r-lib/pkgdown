@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* Introduce YAML config option `template.params.selfhost_assets` (boolean) to self-host
+  external assets like Webfonts, Bootstrap CSS/JS etc. instead of loading them from
+  remote sources (Cloudflare, Google Fonts etc.). Note that the Google Analytics JS
+  snippet is always loaded remotely.
+
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`
   argument of the output format.

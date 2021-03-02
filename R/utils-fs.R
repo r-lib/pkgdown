@@ -26,14 +26,18 @@ file_copy_to <- function(pkg,
                          from_paths,
                          to_dir = pkg$dst_path,
                          from_dir = path_common(from_paths),
-                         overwrite = TRUE) {
+                         overwrite = TRUE,
+                         flatten = FALSE) {
 
   if (length(from_paths) == 0) {
     return()
   }
 
-  from_rel <- path_rel(from_paths, from_dir)
-  to_paths <- path_abs(from_rel, to_dir)
+  if (flatten) {
+    to_paths <- path_abs(path_file(from_paths), to_dir)
+  } else {
+    to_paths <- path_abs(path_rel(from_paths, from_dir), to_dir)
+  }
 
   # Ensure all the "to" directories exist
   dirs_to_paths <- unique(fs::path_dir(to_paths))
