@@ -77,9 +77,11 @@
 <script src="{{root}}jquery.mark.min.js"></script>
 {{/docsearch}}
 
+{{#mathjax}}
 <!-- mathjax -->
-<script src="{{root}}MathJax.js"></script>
-<script src="{{root}}TeX-AMS-MML_HTMLorMML.js"></script>
+<script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']] }};</script>
+<script src="{{root}}mathjax/tex-mml-chtml.js" async></script>
+{{/mathjax}}
 {{/site}}
 {{/selfhost_assets}}
 

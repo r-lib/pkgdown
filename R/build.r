@@ -262,8 +262,17 @@
 #'     selfhost_assets: true
 #' ```
 #'
-#' Note that if you enable Google Analytics, the corresponding JS snippet is
-#' always loaded remotely regardless of the above setting.
+#' Note that
+#' - if you enable Google Analytics, the corresponding JS snippet is
+#'   always loaded remotely regardless of the above setting.
+#' - if you want to have [MathJax](https://en.wikipedia.org/wiki/MathJax) render
+#'   math formulas (TeX or MathML), you also have to set:
+#'
+#'     ```
+#'     template:
+#'       params:
+#'         mathjax: true
+#'     ```
 #'
 #' ### Custom template and assets
 #'

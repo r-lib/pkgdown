@@ -298,8 +298,16 @@ as the rest of your site resides, set the following:\preformatted{template:
     selfhost_assets: true
 }
 
-Note that if you enable Google Analytics, the corresponding JS snippet is
+Note that
+\itemize{
+\item if you enable Google Analytics, the corresponding JS snippet is
 always loaded remotely regardless of the above setting.
+\item if you want to have \href{https://en.wikipedia.org/wiki/MathJax}{MathJax} render
+math formulas (TeX or MathML), you also have to set:\preformatted{template:
+  params:
+    mathjax: true
+}
+}
 }
 
 \subsection{Custom template and assets}{

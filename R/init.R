@@ -92,6 +92,10 @@ copy_assets <- function(pkg = ".") {
         file_regexp = paste0(bootswatch_theme, ".min.css$"),
         recurse = FALSE
       )
+
+      if (isTRUE(template$params$mathjax)) {
+        copy_asset_dir(pkg, path_pkgdown("assets/external/mathjax"))
+      }
     }
   }
 
