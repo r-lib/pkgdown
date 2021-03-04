@@ -36,10 +36,10 @@ data_home <- function(pkg = ".") {
 
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||%
-      cran_unquote(pkg$desc$get("Title")[[1]]),
+      str_squish(cran_unquote(pkg$desc$get("Title")[[1]])),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get("Description")[[1]]))
+                       str_squish(cran_unquote(pkg$desc$get("Description")[[1]])))
   ))
 }
 
