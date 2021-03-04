@@ -49,6 +49,8 @@ is_syntactic <- function(x) x == make.names(x)
 
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
+str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
+
 # devtools metadata -------------------------------------------------------
 
 devtools_loaded <- function(x) {
