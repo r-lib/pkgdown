@@ -4,7 +4,7 @@
 \alias{pkgdown_print}
 \title{Print object in pkgdown output}
 \usage{
-pkgdown_print(x)
+pkgdown_print(x, visible)
 }
 \arguments{
 \item{x}{Object to display}
