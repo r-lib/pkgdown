@@ -44,7 +44,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   # render template components
   pieces <- c(
-    "head", "navbar", "header", "content", "docsearch", "footer",
+    "head", "navbar", "header", "content", "docsearch", "goatcounter", "footer",
     "in-header", "after-head", "before-body", "after-body"
   )
 

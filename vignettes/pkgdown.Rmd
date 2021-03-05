@@ -39,14 +39,27 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
         bootswatch: cerulean
     ```
 
-*   A Google analytics user ID if you want to track the people who are using your
-    site
+*   If you want to track the people who are using your site, either a
+    
+    -   [GoatCounter](https://www.goatcounter.com/) endpoint
 
-    ```yaml
-    template:
-      params:
-        ganalytics: UA-000000-01
-    ```
+        ```yaml
+        template:
+          params:
+            analytics:
+              goatcounter:
+                endpoint: "https://MYCODE.goatcounter.com/count"
+        ```
+
+    -   or a [Google Analytics](https://marketingplatform.google.com/about/analytics/) user ID 
+    
+        ```yaml
+        template:
+          params:
+            analytics:
+              google: UA-000000-01
+        ```
+
 *   A Google site verification code to be added to page headers 
 
     ```yaml

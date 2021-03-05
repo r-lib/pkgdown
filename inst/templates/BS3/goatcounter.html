@@ -1,0 +1,4 @@
+{{#yaml}}{{#analytics}}{{#goatcounter}}
+{{^selfhost_assets}}<script data-goatcounter="{{endpoint}}" {{#settings}}data-goatcounter-settings="{{{.}}}" {{/settings}}async src="https://gc.zgo.at/count.js"></script>{{/selfhost_assets}}
+{{#selfhost_assets}}<script data-goatcounter="{{endpoint}}" {{#settings}}data-goatcounter-settings="{{{.}}}" {{/settings}}async src="{{#site}}{{root}}{{/site}}goatcounter.min.js"></script>{{/selfhost_assets}}
+{{/goatcounter}}{{/analytics}}{{/yaml}}

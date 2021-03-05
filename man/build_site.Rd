@@ -259,6 +259,55 @@ Suppress indexing of your pages by web robots by setting \code{noindex: true}:\p
 }
 }
 
+\subsection{Analytics}{
+
+Currently, pkgdown supports two free web analytics services out of the box:
+The simple, open sourced and privacy-aware
+\href{https://www.goatcounter.com/}{GoatCounter} and the more powerful but
+proprietary and privacy-invading \href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}. In contrast
+to the latter, the former \href{https://www.goatcounter.com/gdpr}{\emph{probably} doesn't require a GDPR consent notice} when used in the EU jurisdiction.
+\subsection{GoatCounter}{
+
+To enable Goatcounter, provide your \href{https://www.goatcounter.com/code}{endpoint}
+as follows:\preformatted{template:
+  params:
+    analytics:
+      goatcounter:
+        endpoint: "https://MYCODE.goatcounter.com/count"
+}
+
+Additionally, you can override GoatCounter's default
+\href{https://www.goatcounter.com/code#settings}{settings} (\code{no_onload},
+\code{no_events}, \code{allow_local} and \code{allow_frame}) by providing them in
+\href{https://www.goatcounter.com/code#using-data-goatcounter-settings}{JSON format}
+as follows:\preformatted{template:
+  params:
+    analytics:
+      goatcounter:
+        endpoint: "https://MYCODE.goatcounter.com/count"
+        settings: "\{'allow_local': true, 'allow_frame': true\}"
+}
+}
+
+\subsection{Google Analytics}{
+
+Provide the \verb{analytics: google:} template parameter to enable
+\href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
+It should correspond to your
+\href{https://support.google.com/analytics/answer/1008080}{tracking id}.
+
+When enabling Google Analytics, be aware of the type and amount of
+user information that you are collecting. You may wish to limit the
+extent of data collection or to add a privacy disclosure to your
+site, in keeping with current laws and regulations.\preformatted{template:
+  params:
+    analytics:
+      google: UA-000000-01
+}
+}
+
+}
+
 \subsection{DocSearch by Algolia}{
 
 You can use \href{https://community.algolia.com/docsearch/}{DocSearch} by Algolia
@@ -270,22 +319,6 @@ to add search to your site.\preformatted{template:
 }
 
 You also need to add a \verb{url:} field, see above.
-}
-
-\subsection{Google Analytics}{
-
-Optionally provide the \code{ganalytics} template parameter to enable
-\href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
-It should correspond to your
-\href{https://support.google.com/analytics/answer/1008080}{tracking id}.
-
-When enabling Google Analytics, be aware of the type and amount of
-user information that you are collecting. You may wish to limit the
-extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.\preformatted{template:
-  params:
-    ganalytics: UA-000000-01
-}
 }
 
 \subsection{Self-host all assets}{

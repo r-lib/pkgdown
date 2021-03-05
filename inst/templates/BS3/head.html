@@ -149,7 +149,7 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-{{#yaml}}{{#ganalytics}}
+{{#yaml}}{{#analytics}}{{#google}}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{.}}"></script>
 <script>
@@ -159,4 +159,4 @@
 
   gtag('config', '{{.}}');
 </script>
-{{/ganalytics}}{{/yaml}}
+{{/google}}{{/analytics}}{{/yaml}}

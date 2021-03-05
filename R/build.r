@@ -216,6 +216,63 @@
 #'     noindex: true
 #' ```
 #'
+#' ### Analytics
+#'
+#' Currently, pkgdown supports two free web analytics services out of the box:
+#' The simple, open sourced and privacy-aware
+#' [GoatCounter](https://www.goatcounter.com/) and the more powerful but
+#' proprietary and privacy-invading [Google
+#' Analytics](https://marketingplatform.google.com/about/analytics/). In contrast
+#' to the latter, the former [_probably_ doesn't require a GDPR consent
+#' notice](https://www.goatcounter.com/gdpr) when used in the EU jurisdiction.
+#'
+#' #### GoatCounter
+#'
+#' To enable Goatcounter, provide your [endpoint](https://www.goatcounter.com/code)
+#' as follows:
+#'
+#' ```
+#' template:
+#'   params:
+#'     analytics:
+#'       goatcounter:
+#'         endpoint: "https://MYCODE.goatcounter.com/count"
+#' ```
+#'
+#' Additionally, you can override GoatCounter's default
+#' [settings](https://www.goatcounter.com/code#settings) (`no_onload`,
+#' `no_events`, `allow_local` and `allow_frame`) by providing them in
+#' [JSON format](https://www.goatcounter.com/code#using-data-goatcounter-settings)
+#' as follows:
+#'
+#' ```
+#' template:
+#'   params:
+#'     analytics:
+#'       goatcounter:
+#'         endpoint: "https://MYCODE.goatcounter.com/count"
+#'         settings: "{'allow_local': true, 'allow_frame': true}"
+#' ```
+#'
+#' #### Google Analytics
+#'
+#' Provide the `analytics: google:` template parameter to enable
+#' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
+#' It should correspond to your
+#' [tracking id](https://support.google.com/analytics/answer/1008080).
+#'
+#' When enabling Google Analytics, be aware of the type and amount of
+#' user information that you are collecting. You may wish to limit the
+#' extent of data collection or to add a privacy disclosure to your
+#' site, in keeping with current laws and regulations.
+#'
+#' ```
+#' template:
+#'   params:
+#'     analytics:
+#'       google: UA-000000-01
+#' ```
+#'
 #' ### DocSearch by Algolia
 #'
 #' You can use [DocSearch](https://community.algolia.com/docsearch/) by Algolia
@@ -230,24 +287,6 @@
 #' ```
 #'
 #' You also need to add a `url:` field, see above.
-#'
-#' ### Google Analytics
-#'
-#' Optionally provide the `ganalytics` template parameter to enable
-#' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
-#' It should correspond to your
-#' [tracking id](https://support.google.com/analytics/answer/1008080).
-#'
-#' When enabling Google Analytics, be aware of the type and amount of
-#' user information that you are collecting. You may wish to limit the
-#' extent of data collection or to add a privacy disclosure to your
-#' site, in keeping with current laws and regulations.
-#'
-#' ```
-#' template:
-#'   params:
-#'     ganalytics: UA-000000-01
-#' ```
 #'
 #' ### Self-host all assets
 #'

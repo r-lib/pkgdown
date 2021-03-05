@@ -17,7 +17,8 @@ template:
     docsearch:
       api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b
       index_name: pkgdown
-    ganalytics: UA-115082821-1
+    analytics:
+      google: UA-115082821-1
 
 development:
   mode: auto

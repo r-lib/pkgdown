@@ -99,6 +99,12 @@ read_meta <- function(path) {
     yaml <- yaml::yaml.load_file(path) %||% list()
   }
 
+  # convert to new schema for backwards compatibility
+  if (!is.null(yaml$template$params$ganalytics)) {
+    yaml$template$params$analytics$google <- yaml$template$params$ganalytics
+    yaml$template$params$ganalytics <- NULL
+  }
+
   yaml
 }
 
