@@ -50,8 +50,8 @@
 
 {{! ---- ...or use local assets ---- }}
 
-{{#selfhost_assets}}
 {{#site}}
+{{#selfhost_assets}}
 <!-- jquery -->
 <script src="{{root}}jquery.min.js"></script>
 
@@ -82,12 +82,18 @@
 <script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']] }};</script>
 <script src="{{root}}mathjax/tex-mml-chtml.js" async></script>
 {{/mathjax}}
-{{/site}}
 {{/selfhost_assets}}
 
-{{/yaml}}
-
 {{! ---- local-only assets ---- }}
+
+{{#docsearch}}
+<!-- docsearch -->
+<script src="{{root}}docsearch.js"></script>
+<link href="{{root}}docsearch.css" rel="stylesheet">
+{{/docsearch}}
+
+{{/site}}
+{{/yaml}}
 
 {{#site}}
 <!-- bootstrap-toc -->
@@ -97,12 +103,6 @@
 <!-- pkgdown -->
 <link href="{{root}}pkgdown.css" rel="stylesheet">
 <script src="{{root}}pkgdown.js"></script>
-
-{{#docsearch}}
-<!-- docsearch -->
-<script src="{{root}}docsearch.js"></script>
-<link href="{{root}}docsearch.css" rel="stylesheet">
-{{/docsearch}}
 
 {{#extra}}
   {{#css}}<link href="{{root}}extra.css" rel="stylesheet">{{/css}}
