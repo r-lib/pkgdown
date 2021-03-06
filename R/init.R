@@ -97,6 +97,10 @@ copy_assets <- function(pkg = ".") {
         copy_asset_dir(pkg, path_pkgdown("assets/external/mathjax"))
       }
 
+      if (!is.null(template$params$docsearch)) {
+        copy_asset_dir(pkg, path_pkgdown("assets/external/docsearch"))
+      }
+
       if (!is.null(template$params$analytics$goatcounter)) {
         copy_asset_dir(pkg, path_pkgdown("assets/external/goatcounter"))
       }
