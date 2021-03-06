@@ -306,6 +306,9 @@ data_reference_topic <- function(topic,
       run_examples = examples,
       run_dont_run = run_dont_run
     )
+    dependencies <- attr(out$examples, "dependencies")
+    if (!is.null(dependencies))
+      out$dependencies <- htmltools::renderDependencies(dependencies, "href")
   }
 
   # Everything else stays in original order, and becomes a list of sections.
