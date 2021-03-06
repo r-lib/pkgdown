@@ -251,6 +251,18 @@ build_reference_topic <- function(topic,
     }
   )
 
+  deps <- data$dependencies
+  if (data$has_deps <- !is.null(deps)) {
+    deps <- htmltools::resolveDependencies(deps)
+    deps <- purrr::map(deps, htmltools::copyDependencyToDir,
+                       outputDir = file.path(pkg$dst_path, "reference", "libs"),
+                       mustWork = FALSE)
+    deps <- purrr::map(deps, htmltools::makeDependencyRelative,
+                       basepath = file.path(pkg$dst_path, "reference"),
+                       mustWork = FALSE)
+    data$dependencies <- htmltools::renderDependencies(deps, "file")
+  }
+
   render_page(
     pkg, "reference-topic",
     data = data,
@@ -306,11 +318,10 @@ data_reference_topic <- function(topic,
       run_examples = examples,
       run_dont_run = run_dont_run
     )
-    dependencies <- attr(out$examples, "dependencies")
-    if (!is.null(dependencies)) {
+    deps <- attr(out$examples, "dependencies")
+    if (!is.null(deps)) {
       attr(out$examples, "dependencies") <- NULL
-      # FIXME:  can't use "file" dependencies on the final version
-      out$extraDependencies <- htmltools::renderDependencies(dependencies, "file")
+      out$dependencies <- deps
     }
   }
 
