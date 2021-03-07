@@ -8,6 +8,8 @@ pkgdown_print(x, visible)
 }
 \arguments{
 \item{x}{Object to display}
+
+\item{visible}{Whether it is visible or not}
 }
 \value{
 character vector showing the value of x

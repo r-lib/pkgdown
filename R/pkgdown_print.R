@@ -1,6 +1,7 @@
 #' Print object in pkgdown output
 #'
 #' @param x Object to display
+#' @param visible Whether it is visible or not
 #'
 #' @return character vector showing the value of x
 #' @export
