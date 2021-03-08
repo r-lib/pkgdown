@@ -381,6 +381,20 @@ test_that("S3 methods gets comment", {
   expect_equal(out[2], "fun(x, y)")
 })
 
+test_that("Methods for class function work", {
+  out <- rd2html("\\S3method{fun}{function}(x, y)")
+  expect_equal(out[1], "# S3 method for function")
+  expect_equal(out[2], "fun(x, y)")
+
+  out <- rd2html("\\method{fun}{function}(x, y)")
+  expect_equal(out[1], "# S3 method for function")
+  expect_equal(out[2], "fun(x, y)")
+
+  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
+  expect_equal(out[1], "# S4 method for function,function")
+  expect_equal(out[2], "fun(x, y)")
+})
+
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")
   expect_equal(out, "\\(\\alpha\\)")
