@@ -316,3 +316,13 @@ h1.display-4 {
   width: 200px;
 }
 }
+
+/* Links color contrast */
+
+a {
+  color: #0054AD;
+}
+
+a:hover {
+  color: #0054AD;
+}
