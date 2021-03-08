@@ -117,7 +117,7 @@ fun_info <- function(fun) {
       list(
         type = "s4",
         name = as.character(x[[2]]),
-        signature = as.character(x[[3]][-1])
+        signature = sub("^`(.*)`$", "\\1", as.character(as.list(x[[3]])[-1]))
       )
     } else if (is_call(x, c("::", ":::"))) {
       # TRUE if fun has a namespace, pkg::fun()
@@ -195,9 +195,10 @@ usage_code.tag_method <- usage_code.tag_S3method
 #' @export
 usage_code.tag_S4method <- function(x) {
   generic <- paste0(usage_code(x[[1]]), collapse = "")
-  class <- paste0(usage_code(x[[2]]), collapse = "")
-
-  paste0("S4method(`", generic, "`, list(`", class, "`))")
+  class <- strsplit(usage_code(x[[2]]), ",")[[1]]
+  class <- paste0("`", class, "`")
+  class <- paste0(class, collapse = ",")
+  paste0("S4method(`", generic, "`, list(", class, "))")
 }
 #' @export
 usage_code.tag_usage <- function(x) {

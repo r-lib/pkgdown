@@ -390,8 +390,8 @@ test_that("Methods for class function work", {
   expect_equal(out[1], "# S3 method for function")
   expect_equal(out[2], "fun(x, y)")
 
-  out <- rd2html("\\S4method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S4 method for function")
+  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
+  expect_equal(out[1], "# S4 method for function,function")
   expect_equal(out[2], "fun(x, y)")
 })
 
