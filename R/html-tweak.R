@@ -185,7 +185,7 @@ tweak_homepage_html <- function(
   }
 
   # Logo tweaks
-  if (!is.null(logo)) {
+  if (!is.null(logo) && bs_version > 3) {
     # Remove logo if added to h1
     xml2::xml_remove(
       xml2::xml_find_first(
