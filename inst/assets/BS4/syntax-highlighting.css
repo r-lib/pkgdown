@@ -1,0 +1,44 @@
+/* Syntax highlighting ---------------------------------------------------- */
+
+pre {
+  word-wrap: normal;
+  word-break: normal;
+  background-color: #f8f8f8;
+  color: #333;
+  padding: 9.5px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+
+pre.sourceCode {
+  overflow: auto;
+  white-space: pre;
+}
+
+pre .img {
+  margin: 5px 0;
+}
+
+pre .img img {
+  background-color: #fff;
+  display: block;
+  height: auto;
+}
+
+code a, pre a {
+  color: #375f84;
+}
+
+a.sourceLine:hover {
+  text-decoration: none;
+}
+
+.fl      {color: #1514b5;}
+.fu      {color: #000000;} /* function */
+.ch,.st  {color: #036a07;} /* string */
+.kw      {color: #264D66;} /* keyword */
+.co      {color: #888888;} /* comment */
+
+.message { color: black;   font-weight: bolder;}
+.error   { color: orange;  font-weight: bolder;}
+.warning { color: #6A0366; font-weight: bolder;}
