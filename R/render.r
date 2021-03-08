@@ -378,7 +378,10 @@ data_deps <- function(pkg, depth) {
 
   # theme variables from configuration
   bs_version <- pkg$bs_version
-  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||% NULL
+  bootswatch_theme <- pkg$meta[["template"]]$params$bootswatch %||% NULL
+
+  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
+
   bs_theme <- do.call(
     bslib::bs_theme,
     c(
@@ -440,4 +443,24 @@ logo_path <- function(pkg, depth) {
       path
     )
 
+}
+
+check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+  if (is.null(bootswatch_theme)) {
+    return(invisible())
+  }
+
+  if (!bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    abort(
+      sprintf(
+        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+        bootswatch_theme,
+        pkgdown_field(pkg = pkg, "template", "params", "bootswatch"),
+        bs_version,
+        pkgdown_field(pkg = pkg, "template", "bootstrap")
+      )
+    )
+  }
+
+  return(invisible())
 }
