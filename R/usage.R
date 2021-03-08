@@ -186,7 +186,7 @@ usage_code.tag_S3method <- function(x) {
   generic <- paste0(usage_code(x[[1]]), collapse = "")
   class <- paste0(usage_code(x[[2]]), collapse = "")
 
-  paste0("S3method(`", generic, "`, ", class, ")")
+  paste0("S3method(`", generic, "`, `", class, "`)")
 }
 
 #' @export
@@ -197,7 +197,7 @@ usage_code.tag_S4method <- function(x) {
   generic <- paste0(usage_code(x[[1]]), collapse = "")
   class <- paste0(usage_code(x[[2]]), collapse = "")
 
-  paste0("S4method(`", generic, "`, list(", class, "))")
+  paste0("S4method(`", generic, "`, list(`", class, "`))")
 }
 #' @export
 usage_code.tag_usage <- function(x) {
