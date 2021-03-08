@@ -131,10 +131,13 @@ has_favicons <- function(pkg = ".") {
 
 find_logo <- function(path) {
   path_first_existing(
-    path(path, "logo.svg"),
-    path(path, "man", "figures", "logo.svg"),
-    path(path, "logo.png"),
-    path(path, "man", "figures", "logo.png")
+    path,
+    c(
+      "logo.svg",
+       path("man", "figures", "logo.svg"),
+       "logo.png",
+       path("man", "figures", "logo.png")
+    )
   )
 }
 
