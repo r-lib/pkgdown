@@ -39,7 +39,7 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
         bootswatch: cerulean
     ```
 
-*   If you want to track the people who are using your site, either a
+*   If you want to enable web analytics for your site, either add a
     
     -   [GoatCounter](https://www.goatcounter.com/) endpoint
 
