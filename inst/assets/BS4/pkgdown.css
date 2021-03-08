@@ -353,3 +353,10 @@ h1.display-4 {
   width: 200px;
   margin-left: 30px;
 }
+
+@media (max-width: 767px) {
+  #logo-homepage {
+  float: none;
+  width: 200px;
+}
+}

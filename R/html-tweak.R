@@ -184,8 +184,17 @@ tweak_homepage_html <- function(
     xml2::xml_replace(header, page_header)
   }
 
-  # Add logo
+  # Logo tweaks
   if (!is.null(logo)) {
+    # Remove logo if added to h1
+    xml2::xml_remove(
+      xml2::xml_find_first(
+        html,
+        ".//h1/img[contains(@src, 'logo')]"
+      )
+    )
+
+    # Add logo
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
       xml2::xml_child() %>%
       xml2::xml_add_sibling(
