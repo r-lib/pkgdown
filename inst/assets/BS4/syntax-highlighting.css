@@ -34,10 +34,6 @@ a.sourceLine:hover {
   text-decoration: none;
 }
 
-code{white-space: pre;}
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 .al { color: #ad0000; } /* Alert */
 .an { color: #5e5e5e; } /* Annotation */
 .at { color: #20794d; } /* Attribute */
