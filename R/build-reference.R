@@ -253,14 +253,21 @@ build_reference_topic <- function(topic,
 
   deps <- data$dependencies
   if (data$has_deps <- !is.null(deps)) {
-    deps <- htmltools::resolveDependencies(deps)
-    deps <- purrr::map(deps, htmltools::copyDependencyToDir,
-                       outputDir = file.path(pkg$dst_path, "reference", "libs"),
-                       mustWork = FALSE)
-    deps <- purrr::map(deps, htmltools::makeDependencyRelative,
-                       basepath = file.path(pkg$dst_path, "reference"),
-                       mustWork = FALSE)
-    data$dependencies <- htmltools::renderDependencies(deps, "file")
+    if (requireNamespace("htmltools", quietly = TRUE)) {
+      deps <- htmltools::resolveDependencies(deps)
+      deps <- purrr::map(deps, htmltools::copyDependencyToDir,
+                         outputDir = file.path(pkg$dst_path, "reference", "libs"),
+                         mustWork = FALSE)
+      deps <- purrr::map(deps, htmltools::makeDependencyRelative,
+                         basepath = file.path(pkg$dst_path, "reference"),
+                         mustWork = FALSE)
+      data$dependencies <- htmltools::renderDependencies(deps, "file")
+    } else {
+      data$dependencies <- NULL
+      data$has_deps <- FALSE
+      warning("Examples in ", data$filename, " require the htmltools package.",
+              call. = FALSE)
+    }
   }
 
   render_page(
