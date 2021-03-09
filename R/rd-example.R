@@ -106,12 +106,19 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     do.call(fig_save, c(list(plot, name), context_get("figures")))
   }
 
-  downlit::evaluate_and_highlight(
-    code,
-    fig_save = fig_save_topic,
-    env = child_env(env),
-    output_handler = evaluate::new_output_handler(value = pkgdown_print)
-  )
+  if (requireNamespace("evaluate")) {
+    downlit::evaluate_and_highlight(
+      code,
+      fig_save = fig_save_topic,
+      env = child_env(env),
+      output_handler = evaluate::new_output_handler(value = pkgdown_print)
+    )
+  } else # This branch should never happen, but just in case...
+    downlit::evaluate_and_highlight(
+      code,
+      fig_save = fig_save_topic,
+      env = child_env(env)
+    )
 }
 
 # as_example --------------------------------------------------------------
