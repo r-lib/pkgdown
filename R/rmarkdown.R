@@ -45,7 +45,12 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   )
 
   if (identical(path_ext(path)[[1]], "html")) {
-    update_html(path, tweak_rmarkdown_html, input_path = path_dir(input_path))
+    update_html(
+      path,
+      tweak_rmarkdown_html,
+      input_path = path_dir(input_path),
+      pkg = pkg
+    )
   }
   if (digest != file_digest(output_path)) {
     cat_line("Writing ", dst_path(output))

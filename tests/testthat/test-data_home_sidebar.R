@@ -2,6 +2,19 @@ test_that("data_home_sidebar() works by default", {
   pkg <- test_path("assets/sidebar")
   pkg <- as_pkgdown(pkg)
   expect_snapshot(cat(data_home_sidebar(pkg)))
+
+  pkg <- test_path("assets/sidebar-comment")
+  pkg <- as_pkgdown(pkg)
+  expect_snapshot(
+    cat(
+      as.character(
+        xml2::xml_find_first(
+          xml2::read_html(data_home_sidebar(pkg)),
+          ".//div[@class='developers']"
+        )
+      )
+    )
+  )
 })
 
 test_that("data_home_sidebar() can be removed", {
@@ -50,7 +63,7 @@ test_that("data_home_sidebar() can get a custom component", {
     components = list(
       fancy = list(
         title = "Fancy section",
-        html = "How cool is pkgdown?!"
+        text = "How *cool* is pkgdown?!"
       )
     )
   )
@@ -61,6 +74,21 @@ test_that("data_home_sidebar() can get a custom component", {
 
   expect_snapshot(
     xml2::xml_find_first(result, ".//div[@class='fancy-section']")
+  )
+})
+
+test_that("data_home_sidebar() can add a README", {
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+
+  pkg$meta$home$sidebar <- list(structure = c("license", "toc"))
+
+  result <- xml2::read_html(
+    data_home_sidebar(pkg)
+  )
+
+  expect_snapshot(
+    xml2::xml_find_first(result, ".//div[@class='table-of-contents']")
   )
 })
 
@@ -84,15 +112,15 @@ test_that("data_home_sidebar() outputs informative error messages", {
   # no title
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
-    components = list(fancy = list(html = "bla"))
+    components = list(fancy = list(text = "bla"))
   )
   expect_snapshot_error(data_home_sidebar(pkg))
 
-  # no title nor html
+  # no title nor text
 
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
-    components = list(fancy = list(text = "bla"))
+    components = list(fancy = list(html = "bla"))
   )
   expect_snapshot_error(data_home_sidebar(pkg))
 })

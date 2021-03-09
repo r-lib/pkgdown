@@ -34,3 +34,10 @@ test_that("source link is added to citation page", {
   lines <- read_lines(path(path, "docs", "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
 })
+
+test_that("multiple citations all have HTML and BibTeX formats", {
+  path <- test_path("assets/site-citation/multi")
+  citations <- data_citations(path)
+  expect_equal(lengths(citations), c(2, 2))
+  expect_snapshot_output(citations)
+})

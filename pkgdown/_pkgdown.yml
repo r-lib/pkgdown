@@ -9,6 +9,8 @@ home:
 authors:
   Jay Hesselberth:
     href: https://hesselberthlab.org
+  Maëlle Salmon:
+    href: https://masalmon.eu
 
 template:
   params:
@@ -38,24 +40,30 @@ articles:
 reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
-- contents:
+  contents:
   - build_site
   - init_site
   - starts_with("build_")
-  - starts_with("deploy_")
   - preview_site
+
+- title: Deployment
+  contents:
+  - starts_with("deploy_")
+
 - title: Templates
-- contents:
+  contents:
   - template_navbar
   - render_page
+
 - title: Helpers
-- contents:
+  contents:
   - clean_site
   - rd2html
   - as_pkgdown
   - in_pkgdown
+
 - title: Regression tests
-- contents:
+  contents:
   - starts_with("test", internal = TRUE)
 
 news:

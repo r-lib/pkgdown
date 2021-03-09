@@ -104,6 +104,38 @@ test_that("only local md links are tweaked", {
   expect_equal(href[[2]], "http://remote.com/remote.md")
 })
 
+test_that("tweak_all_links() add the external-link class", {
+  html <- xml2::read_html('
+    <div class="contents">
+      <div id="x">
+        <a href="#anchor"></a>
+        <a href="http://remote.com/remote.md"></a>
+        <a class = "thumbnail" href="http://remote.com/remote.md"></a>
+        <a href="http://example.com/remote.md"></a>
+      </div>
+    </div>')
+
+  tweak_all_links(
+    html,
+    pkg = list(meta = list(url = "http://example.com"))
+    )
+
+  links <- xml2::xml_find_all(html, ".//a")
+  expect_false("class" %in% names(xml2::xml_attrs(links[[1]])))
+  expect_equal(xml2::xml_attr(links[[2]], "class"), "external-link")
+  expect_equal(xml2::xml_attr(links[[3]], "class"), "external-link thumbnail")
+  expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
+})
+
+test_that("tweak_navbar_links() make URLs absolute", {
+  html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
+  pkg <- list(meta = list(url = "https://example.com"))
+  expect_equal(
+    tweak_navbar_links(html, pkg),
+    "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
+  )
+})
+
 # homepage ----------------------------------------------------------------
 
 test_that("page header modification succeeds", {

@@ -1,6 +1,7 @@
 Package: testpackage
 Version: 1.0.0
 Title: A test package
+URL: https://github.com/r-lib/pkgdown
 Description: A test package
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),

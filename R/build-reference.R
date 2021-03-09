@@ -129,7 +129,7 @@
 #'   environment, and loads source package with [pkgload::load_all()].
 #'   If `FALSE`, uses the installed version of the package.
 #' @param document **Deprecated** Use `devel` instead.
-#' @param topics Build only specified topics. If supplied, sets `lazy``
+#' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
 #' @export
 build_reference <- function(pkg = ".",

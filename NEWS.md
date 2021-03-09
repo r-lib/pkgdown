@@ -1,5 +1,37 @@
 # pkgdown (development version)
 
+* `build_articles()` again sets the `theme` argument of the document format 
+  to `NULL` when `as_is: true` but lets users override this via the `theme`
+  argument of the output format.
+
+* Authors configuration is more flexible. Users can now:
+  * Choose the roles used for filtering authors for the sidebar and footer.
+  * Choose the text before authors in the footer.
+  * Add text before and after the authors list in the sidebar.
+  * Add text before and after the authors list of the authors page. (#1516)
+  
+* Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
+  contributions: add a link to the authors page from the sidebar if any author
+  has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
+* Better handling for mix of citations with and without text version. Also
+  escapes HTML in the text version (@bastistician, #1507).
+
+* Make links of 404's navbar absolute (#1524).
+
+* Make navbar specification more flexible: it is now possible to not include 
+  all default components in the navbar structure. (#1517)
+
+* Make footer specification more flexible: users can now
+    * change the placement of elements on the left and right
+    * add text to the left and right (or even remove/replace default text)
+  (#1502)
+
+* pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
+  to the navbar (#1493). 
+  
+* External links now get the class "external-link" on top of their usual classes, if they had any. 
+  Therefore they can be targeted more easily by CSS rules. (#881, #1491)
+
 * pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
 "after-body.html" whose content will be placed 
 (similarly to bookdown options `in_header`, `before_body` and `after_body`), 
@@ -9,11 +41,13 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
+  
 * Make sidebar specification more flexible: users can now
     * change the order of sidebar elements
-    * add custom sidebar sections (title, text that has to be HTML)
-    * completely suppress the navbar (even "Dev status")
-    * provide their own HTML for the navbar. (#1443, #1488)
+    * add custom sidebar sections (title, text that can be Markdown or HTML)
+    * add a table of contents for the README
+    * completely suppress the sidebar (even "Dev status")
+    * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 
 * Protect the rules drawn by the CLI (as for example, in `build_site()`) against
@@ -36,6 +70,10 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   home page immediately to its left (#1383).
 
 * `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
+
+* Automatically link Jira issues by setting your project name(s) with 
+`repo: jira_projects: [...]` and specifying a custom issue URL with
+`repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
 
 # pkgdown 1.6.1
 

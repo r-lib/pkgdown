@@ -20,8 +20,7 @@ test_that("community section is added if COC present", {
   skip_if_not(dir_exists(path(pkg, ".github"))[[1]])
 
   comm <- data_home_sidebar_community(pkg)
-  expect_equal(comm,
-               "<div class='community'>\n<h2>Community</h2>\n<ul class='list-unstyled'>\n<li><a href=\"CODE_OF_CONDUCT.html\">Code of conduct</a></li>\n</ul>\n</div>\n")
+  expect_snapshot(cat(comm))
 })
 
 test_that("community section is not added if no community files", {

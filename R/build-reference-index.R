@@ -28,7 +28,7 @@ data_reference_index_rows <- function(section, pkg) {
     rows[[1]] <- list(
       title = section$title,
       slug = paste0("section-", make_slug(section$title)),
-      desc = markdown_text(section$desc)
+      desc = markdown_text(section$desc, pkg = pkg)
     )
   }
 
@@ -36,7 +36,7 @@ data_reference_index_rows <- function(section, pkg) {
     rows[[2]] <- list(
       subtitle = section$subtitle,
       slug = paste0("section-", make_slug(section$subtitle)),
-      desc = markdown_text(section$desc)
+      desc = markdown_text(section$desc, pkg = pkg)
     )
   }
 
@@ -104,10 +104,11 @@ check_missing_topics <- function(rows, pkg) {
 
   missing <- !in_index & !pkg$topics$internal
   if (any(missing)) {
+    text <- sprintf("Topics missing from index: %s", unname(pkg$topics$name[missing]))
     if (on_ci()) {
-      stop(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+      abort(text)
     } else {
-      warn(c("Topics missing from index: ", unname(pkg$topics$name[missing])))
+      warn(text)
     }
   }
 }

@@ -56,6 +56,7 @@ Suggests:
     htmlwidgets,
     jsonlite,
     knitr,
+    lifecycle,
     methods,
     pkgload (>= 1.0.2),
     rsconnect,
@@ -67,5 +68,5 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001
 SystemRequirements: pandoc
