@@ -287,8 +287,7 @@ data_reference_topic <- function(topic,
                                  run_dont_run = FALSE
                                  ) {
   local_context_eval(pkg$figures, pkg$src_path)
-  withr::local_options(list(downlit.rdname = topic$name,
-                            pkgdown.figures = pkg$figures))
+  withr::local_options(list(downlit.rdname = topic$name))
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
