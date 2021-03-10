@@ -252,7 +252,8 @@ build_reference_topic <- function(topic,
   )
 
   deps <- data$dependencies
-  if (data$has_deps <- !is.null(deps)) {
+  data$has_deps <- !is.null(deps)
+  if (data$has_deps) {
     if (requireNamespace("htmltools", quietly = TRUE)) {
       deps <- htmltools::resolveDependencies(deps)
       deps <- purrr::map(deps, htmltools::copyDependencyToDir,

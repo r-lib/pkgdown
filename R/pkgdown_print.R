@@ -11,6 +11,8 @@ pkgdown_print <- function(x, visible) {
 
 #' @export
 pkgdown_print.default <- function(x, visible) {
+  # methods is only suggested, but you won't have S4 objects
+  # without it
   if (visible)
-    if (isS4(x) && requireNamespace("methods")) methods::show(x) else print(x)
+    if (isS4(x)) methods::show(x) else print(x)
 }
