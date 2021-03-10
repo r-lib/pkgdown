@@ -1,3 +1,25 @@
+build_docsearch_config_js <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+  data <- pkg$meta$template$params$docsearch
+
+  if (is.null(data$index_name) || is.null(data$api_key)) {
+    return()
+  }
+
+  template <- find_template(
+    "asset",
+    "docsearch",
+    ext = ".js",
+    bs_version = get_bs_version(pkg)
+  )
+
+  js <- render_template(template, data)
+
+  js_path <- path(pkg$dst_path, "docsearch_config.js")
+
+  write_if_different(pkg, js, js_path)
+}
+
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 

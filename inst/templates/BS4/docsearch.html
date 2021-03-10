@@ -5,19 +5,5 @@
 {{#selfhost_assets}}
 <script src="{{#site}}{{root}}{{/site}}docsearch.min.js"></script>
 {{/selfhost_assets}}
-<script>
-  docsearch({
-    {{#app_id}}appId: '{{.}}',{{/app_id}}
-    {{#debug}}debug: {{{.}}},{{/debug}}
-    apiKey: '{{api_key}}',
-    indexName: '{{index_name}}',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
+<script src="docsearch_config.js"></script>
 {{/docsearch}}{{/yaml}}

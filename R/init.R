@@ -99,6 +99,7 @@ copy_assets <- function(pkg = ".") {
 
       if (!is.null(template$params$docsearch)) {
         copy_asset_dir(pkg, path_pkgdown("assets/external/docsearch"))
+        build_docsearch_config_js(pkg)
       }
     }
   }
