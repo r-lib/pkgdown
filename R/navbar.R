@@ -201,14 +201,15 @@ bs4_navbar_links_html <- function(links) {
 #' @importFrom htmltools tags tagList
 bs4_navbar_links_tags <- function(links, depth = 0L) {
 
-  # sub-menu
-  is_submenu <- (depth > 0L)
-
   if (is.null(links)) {
     return(tagList())
   }
 
-  tags <- lapply(links, function(x) {
+  # sub-menu
+  is_submenu <- (depth > 0L)
+
+  # function for links
+  tackle_link <- function(x, is_submenu, depth) {
 
     if (!is.null(x$menu)) {
 
@@ -222,52 +223,50 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
       submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
 
-      tags$li(
-        class = menu_class,
-        tags$a(
-          href = "#", class = "nav-link dropdown-toggle",
-          `data-toggle` = "dropdown", role = "button",
-          `aria-expanded` = "false", `aria-haspopup` = "true",
-          link_text
-        ),
-        tags$div(
-          class = "dropdown-menu",
-          `aria-labelledby` ="navbarDropdown",
-          submenuLinks
+      return(
+        tags$li(
+          class = menu_class,
+          tags$a(
+            href = "#", class = "nav-link dropdown-toggle",
+            `data-toggle` = "dropdown", role = "button",
+            `aria-expanded` = "false", `aria-haspopup` = "true",
+            link_text
+          ),
+          tags$div(
+            class = "dropdown-menu",
+            `aria-labelledby` ="navbarDropdown",
+            submenuLinks
+          )
         )
       )
 
-    } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
-
-      # divider
-      tags$div(class = "dropdown-divider")
-
-    } else if (!is.null(x$text) && is.null(x$href)) {
-      # header
-      tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text)
-
-    } else {
-      # standard menu item
-      textTags <- bs4_navbar_link_text(x)
-
-      if (is_submenu) {
-        tags$a(
-          class = "dropdown-item",
-          href = x$href,
-          textTags
-        )
-      } else {
-        tags$li(
-          class = "nav-item",
-          tags$a(
-            class = "nav-link",
-            href = x$href,
-            textTags
-          )
-        )
-      }
     }
-  })
+
+    if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
+      # divider
+      return(tags$div(class = "dropdown-divider"))
+    }
+
+    if (!is.null(x$text) && is.null(x$href)) {
+      # header
+      return(tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text))
+    }
+
+    # standard menu item
+    textTags <- bs4_navbar_link_text(x)
+
+    if (is_submenu) {
+      return(tags$a(class = "dropdown-item", href = x$href, textTags))
+    }
+
+    tags$li(
+      class = "nav-item",
+      tags$a(class = "nav-link", href = x$href, textTags)
+    )
+
+  }
+
+  tags <- lapply(links, tackle_link, is_submenu = is_submenu, depth = depth)
   tagList(tags)
 
 }
