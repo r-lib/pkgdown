@@ -96,7 +96,12 @@ a.anchor {
   margin-top: 4em;
 }
 
-.contents h1, .contents h2, .contents h3, .contents h4 {
+.contents h1 {
+  padding-top: 40px;
+  margin-top: -40px;
+}
+
+.contents h2, .contents h3, .contents h4 {
   padding-top: 40px;
 }
 
