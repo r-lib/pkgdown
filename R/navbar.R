@@ -21,9 +21,9 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   if (pkg$bs_version == 3) {
     return(
       list(
-      type = navbar$type %||% "default",
-      left = render_navbar_links(left, depth = depth, pkg$bs_version),
-      right = render_navbar_links(right, depth = depth, pkg$bs_version)
+        type = navbar$type %||% "default",
+        left = render_navbar_links(left, depth = depth, pkg$bs_version),
+        right = render_navbar_links(right, depth = depth, pkg$bs_version)
       )
     )
   }
@@ -163,7 +163,7 @@ menu_text <- function(text) {
   list(text = text)
 }
 menu_spacer <- function() {
-   menu_text("---------")
+  menu_text("---------")
 }
 
 
@@ -171,7 +171,7 @@ menu_spacer <- function() {
 # Simulate minimal package structure so we can more easily test
 
 pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
-                       github_url = NULL) {
+  github_url = NULL) {
   structure(
     list(
       package = "test",
@@ -185,9 +185,9 @@ pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
 }
 
 pkg_navbar_vignettes <- function(
-                                 name = character(),
-                                 title = NULL,
-                                 file_out = NULL) {
+  name = character(),
+  title = NULL,
+  file_out = NULL) {
   title <- title %||% paste0("Title ", name)
   file_out <- file_out %||% paste0(name, ".html")
 
@@ -209,7 +209,6 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     tags <- lapply(links, function(x) {
 
       if (!is.null(x$menu)) {
-
 
         if (is_submenu) {
           menu_class <- "dropdown-item"
