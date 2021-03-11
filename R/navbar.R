@@ -22,8 +22,8 @@ data_navbar <- function(pkg = ".", depth = 0L) {
     return(
       list(
         type = navbar$type %||% "default",
-        left = render_navbar_links(left, depth = depth, pkg$bs_version),
-        right = render_navbar_links(right, depth = depth, pkg$bs_version)
+        left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
+        right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
       )
     )
   }
@@ -202,7 +202,7 @@ bs4_navbar_links_html <- function(links) {
 bs4_navbar_links_tags <- function(links, depth = 0L) {
 
   # sub-menu
-  is_submenu <- depth > 0L
+  is_submenu <- (depth > 0L)
 
   if (!is.null(links)) {
 
