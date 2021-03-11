@@ -262,55 +262,39 @@ pkg_timeline <- function(package) {
 }
 
 tweak_news_heading <- function(x, versions, timeline, bs_version) {
-  switch(
-    as.character(bs_version),
-    '3' = tweak_news_heading_bs3(x, versions, timeline),
-    '4' = tweak_news_heading_bs4(x, versions, timeline)
-  )
-}
 
-tweak_news_heading_bs3 <- function(x, versions, timeline) {
     x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("class", "page-header")
+    xml2::xml_set_attr(
+      "class",
+       switch(
+         as.character(bs_version),
+         '3' = "page-header",
+         '4' = "pb-2 mt-4 mb-2 border-bottom"
+         )
+      )
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_set_attr("data-toc-text", versions)
 
-  if (is.null(timeline))
+  if (is.null(timeline)) {
     return(x)
+  }
 
   date <- timeline$date[match(versions, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
-    xml2::read_html() %>%
-    xml2::xml_find_all(".//small")
+  if (bs_version == 3) {
+    date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+      xml2::read_html() %>%
+      xml2::xml_find_all(".//small")
 
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_child(date_nodes, .where = 1)
-
-  invisible()
-}
-
-tweak_news_heading_bs4 <- function(x, versions, timeline) {
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attrs(c("class" = "pb-2 mt-4 mb-2 border-bottom"))
-
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("data-toc-text", versions)
-
-  if (is.null(timeline))
-    return(x)
-
-  date <- timeline$date[match(versions, timeline$version)]
-  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
-
-  cran_release_string <- sprintf(
+    x %>%
+      xml2::xml_find_all(".//h1") %>%
+      xml2::xml_add_child(date_nodes, .where = 1)
+  } else {
+    cran_release_string <- sprintf(
     "<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>",
     date_str
   )
@@ -321,8 +305,9 @@ tweak_news_heading_bs4 <- function(x, versions, timeline) {
   x %>%
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_add_sibling(date_nodes, .where = "after")
+  }
 
-   invisible()
+  invisible()
 }
 
 news_style <- function(meta) {
