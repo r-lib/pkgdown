@@ -434,17 +434,17 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
     return(invisible())
   }
 
-  if (!bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    abort(
-      sprintf(
-        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
-        bootswatch_theme,
-        pkgdown_field(pkg = pkg, "template", "params", "bootswatch"),
-        bs_version,
-        pkgdown_field(pkg = pkg, "template", "bootstrap")
-      )
-    )
+  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    return(invisible())
   }
 
-  return(invisible())
+  abort(
+    sprintf(
+      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+      bootswatch_theme,
+      pkgdown_field(pkg = pkg, "template", "params", "bootswatch"),
+      bs_version,
+      pkgdown_field(pkg = pkg, "template", "bootstrap")
+    )
+  )
 }
