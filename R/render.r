@@ -391,7 +391,10 @@ data_deps <- function(pkg, depth) {
         version = bs_version,
         bootswatch = bootswatch_theme
       ),
-      pkg$meta[["template"]]$bslib
+      modifyList(
+        list(`navbar-nav-link-padding-x` = "1rem"),
+        pkg$meta[["template"]]$bslib %||% list()
+      )
     )
   )
   deps <- bslib::bs_theme_dependencies(bs_theme)
