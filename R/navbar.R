@@ -204,72 +204,72 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
   # sub-menu
   is_submenu <- (depth > 0L)
 
-  if (!is.null(links)) {
+  if (is.null(links)) {
+    return(tagList())
+  }
 
-    tags <- lapply(links, function(x) {
+  tags <- lapply(links, function(x) {
 
-      if (!is.null(x$menu)) {
+    if (!is.null(x$menu)) {
 
-        if (is_submenu) {
-          menu_class <- "dropdown-item"
-          link_text <- bs4_navbar_link_text(x)
-        } else {
-          menu_class <- "nav-item dropdown"
-          link_text <- bs4_navbar_link_text(x)
-        }
-
-        submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
-
-        tags$li(
-          class = menu_class,
-          tags$a(
-            href = "#", class = "nav-link dropdown-toggle",
-            `data-toggle` = "dropdown", role = "button",
-            `aria-expanded` = "false", `aria-haspopup` = "true",
-            link_text
-          ),
-          tags$div(
-            class = "dropdown-menu",
-            `aria-labelledby` ="navbarDropdown",
-            submenuLinks
-          )
-        )
-
-      } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
-
-        # divider
-        tags$div(class = "dropdown-divider")
-
-      } else if (!is.null(x$text) && is.null(x$href)) {
-        # header
-        tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text)
-
+      if (is_submenu) {
+        menu_class <- "dropdown-item"
+        link_text <- bs4_navbar_link_text(x)
       } else {
-        # standard menu item
-        textTags <- bs4_navbar_link_text(x)
+        menu_class <- "nav-item dropdown"
+        link_text <- bs4_navbar_link_text(x)
+      }
 
-        if (is_submenu) {
+      submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+
+      tags$li(
+        class = menu_class,
+        tags$a(
+          href = "#", class = "nav-link dropdown-toggle",
+          `data-toggle` = "dropdown", role = "button",
+          `aria-expanded` = "false", `aria-haspopup` = "true",
+          link_text
+        ),
+        tags$div(
+          class = "dropdown-menu",
+          `aria-labelledby` ="navbarDropdown",
+          submenuLinks
+        )
+      )
+
+    } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
+
+      # divider
+      tags$div(class = "dropdown-divider")
+
+    } else if (!is.null(x$text) && is.null(x$href)) {
+      # header
+      tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text)
+
+    } else {
+      # standard menu item
+      textTags <- bs4_navbar_link_text(x)
+
+      if (is_submenu) {
+        tags$a(
+          class = "dropdown-item",
+          href = x$href,
+          textTags
+        )
+      } else {
+        tags$li(
+          class = "nav-item",
           tags$a(
-            class = "dropdown-item",
+            class = "nav-link",
             href = x$href,
             textTags
           )
-        } else {
-          tags$li(
-            class = "nav-item",
-            tags$a(
-              class = "nav-link",
-              href = x$href,
-              textTags
-            )
-          )
-        }
+        )
       }
-    })
-    tagList(tags)
-  } else {
-    tagList()
-  }
+    }
+  })
+  tagList(tags)
+
 }
 
 bs4_navbar_link_text <- function(x, ...) {
