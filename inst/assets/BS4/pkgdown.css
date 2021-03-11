@@ -306,3 +306,9 @@ a {
 a:hover {
   color: #0054AD;
 }
+
+
+/* Dropdown menu */
+.dropdown-menu {
+  padding: 0 0 .5rem 0;
+}
