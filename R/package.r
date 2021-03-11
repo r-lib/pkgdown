@@ -65,8 +65,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   pkg_list$bs_version <- get_bs_version(pkg_list)
 
-  pkg_list$has_logo <- has_logo(pkg_list)
-
   structure(
     pkg_list,
     class = "pkgdown"

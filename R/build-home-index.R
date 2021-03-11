@@ -26,8 +26,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     tweak_homepage_html,
     strip_header = strip_header,
     sidebar = !isFALSE(pkg$meta$home$sidebar),
-    bs_version = pkg$bs_version,
-    logo = logo_path(pkg, depth = 0)
+    bs_version = pkg$bs_version
   )
 
   invisible()
