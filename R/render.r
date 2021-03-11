@@ -43,7 +43,9 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$footer <- pkgdown_footer(data, pkg)
 
   # Dependencies for head
-  data$headdeps <- data_deps(pkg = pkg, depth = depth)
+  if (pkg$bs_version > 3) {
+    data$headdeps <- data_deps(pkg = pkg, depth = depth)
+  }
 
   # Potential opt-out of syntax highlighting CSS
   data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)

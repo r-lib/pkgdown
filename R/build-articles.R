@@ -267,7 +267,7 @@ build_article <- function(name,
       template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
       output <- purrr::pluck(front, "output")
       # no option for the output
-      if (is(output, "character")) {
+      if (methods::is(output, "character")) {
         output_name <- output
         theme <- NULL
       } else {
