@@ -390,7 +390,7 @@ data_deps <- function(pkg, depth) {
       list(
         version = bs_version,
         bootswatch = bootswatch_theme
-        ),
+      ),
       pkg$meta[["template"]]$bslib
     )
   )
