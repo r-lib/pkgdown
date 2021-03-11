@@ -34,32 +34,32 @@ a.sourceLine:hover {
   text-decoration: none;
 }
 
-code span.ot {color:#007BA5}
-code span.at {color:#20794D}
-code span.ss {color:#20794D}
-code span.an {color:#5E5E5E}
-code span.fu {color:#4758AB}
-code span.st {color:#20794D}
-code span.cf {color:#007BA5}
-code span.op {color:#5E5E5E}
-code span.er {color:#AD0000}
-code span.bn {color:#AD0000}
-code span.al {color:#AD0000}
-code span.va {color:#111111}
-code span.bu {}
-code span.ex {}
-code span.pp {color:#AD0000}
-code span.in {color:#5E5E5E}
-code span.vs {color:#20794D}
-code span.wa {color:#5E5E5E; font-style: italic}
-code span.do {color:#5E5E5E; font-style: italic}
-code span.im {}
-code span.ch {color:#20794D}
-code span.dt {color:#AD0000}
-code span.fl {color:#AD0000}
-code span.co {color:#5E5E5E}
-code span.cv {color:#5E5E5E; font-style: italic}
-code span.cn {color:#8f5902}
-code span.sc {color:#20794D}
-code span.dv {color:#AD0000}
-code span.kw {color:#007BA5}
+span.ot {color:#007BA5}
+span.at {color:#20794D}
+span.ss {color:#20794D}
+span.an {color:#5E5E5E}
+span.fu {color:#4758AB}
+span.st {color:#20794D}
+span.cf {color:#007BA5}
+span.op {color:#5E5E5E}
+span.er {color:#AD0000}
+span.bn {color:#AD0000}
+span.al {color:#AD0000}
+span.va {color:#111111}
+span.bu {}
+span.ex {}
+span.pp {color:#AD0000}
+span.in {color:#5E5E5E}
+span.vs {color:#20794D}
+span.wa {color:#5E5E5E; font-style: italic}
+span.do {color:#5E5E5E; font-style: italic}
+span.im {}
+span.ch {color:#20794D}
+span.dt {color:#AD0000}
+span.fl {color:#AD0000}
+span.co {color:#5E5E5E}
+span.cv {color:#5E5E5E; font-style: italic}
+span.cn {color:#8f5902}
+span.sc {color:#20794D}
+span.dv {color:#AD0000}
+span.kw {color:#007BA5}

@@ -15,7 +15,7 @@
     </div>
 
     {{#usage}}
-    <pre class="usage">{{{.}}}</pre>
+    <pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre>
     {{/usage}}
 
     {{#has_args}}
@@ -23,7 +23,7 @@
     <dl class="row" id="ref-arguments">
     {{#arguments}}
     <dt class="col-sm-3" id="ref-arguments name">{{{name}}}</dt>
-      <dd class="col-sm-9 text-truncate" id="ref-arguments desc">{{{description}}}</dd>
+      <dd class="col-sm-9" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
     </dl>
     {{/has_args}}
@@ -38,7 +38,7 @@
 
     {{#examples}}
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples">{{{ . }}}</pre>
+    <pre class="examples"><code class="sourceCode R"><{{{ . }}}</code></pre>
     {{/examples}}
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
