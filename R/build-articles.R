@@ -65,7 +65,7 @@
 #'
 #' Note the use of the `navbar` fields. `navbar: ~` means that the "Main verbs"
 #' will appear in the navbar without a heading; the absence of the `navbar`
-#' field in the for the developer vignettes means that they will only be
+#' field in the developer vignettes means that they will only be
 #' accessible via the articles index.
 #'
 #' The navbar will include a link to the articles index if one or more
