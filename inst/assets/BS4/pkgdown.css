@@ -241,7 +241,7 @@ flex-direction: column;
 }
 
 .page-header {
-	padding-bottom: 0px;
+	padding-bottom: 10px;
 }
 
 .headroom--pinned {
