@@ -96,7 +96,8 @@ data_template <- function(pkg = ".", depth = 0L) {
     package = list(
       name = pkg$package,
       version = as.character(pkg$version),
-      authors = authors
+      authors = authors,
+      logo = logo_path(pkg, depth)
     ),
     development = pkg$development,
     site = list(
@@ -368,5 +369,22 @@ footer_pkgdown <- function(data) {
   paste0(
     'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
     data$pkgdown$version, "."
+  )
+}
+
+logo_path <- function(pkg, depth) {
+  if (!has_logo(pkg)) {
+    return(NULL)
+  }
+ path <- "package-logo.png"
+
+  if (depth == 0) {
+    return(path)
+  }
+
+  paste0(
+    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+    "/",
+    path
   )
 }
