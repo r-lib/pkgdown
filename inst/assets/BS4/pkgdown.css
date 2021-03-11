@@ -317,3 +317,18 @@ a:hover {
 h2[data-toc-skip] {
   font-size: 1.5rem;
 }
+
+/* navbar active link */
+.navbar-light .navbar-nav .active > .nav-link {
+   background: #e9ecef;
+   border-radius: 1rem;
+ }
+.navbar-nav .nav-link {
+ padding-left: 0.5rem;
+ }
+
+@include media-breakpoint-up(md) {
+  .navbar-nav .nav-link {
+ padding-left: 0rem;
+ }
+}
