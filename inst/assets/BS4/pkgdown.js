@@ -9,6 +9,14 @@
       offset: 60
     });
 
+      // Activate popovers
+    $('[data-toggle="popover"]').popover({
+      container: 'body',
+      html: true,
+      trigger: 'focus',
+      placement: "top",
+      sanitize: false,
+    });
     $('[data-toggle="tooltip"]').tooltip();
 
     var cur_path = paths(location.pathname);
