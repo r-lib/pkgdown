@@ -21,9 +21,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- utils::modifyList(meta, override)
 
   template_config <- find_template_config(meta[["template"]]$package)
-  if (!is.null(template_config)) {
-    meta <- utils::modifyList(template_config, meta)
-  }
+  meta <- modify_list(template_config, meta)
 
   # Ensure the URL has no trailing slash
   if (!is.null(meta$url)) {
