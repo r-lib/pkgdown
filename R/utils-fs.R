@@ -106,10 +106,7 @@ path_package_pkgdown <- function(package, bs_version = NULL, ...) {
       return(path_package_pkgdown(package, bs_version = NULL, ...))
     }
 
-    stop(
-      package, " does not contain ", src_path("inst/pkgdown/", ...),
-      call. = FALSE
-    )
+    return(character())
   }
 
   pkg_path

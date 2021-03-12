@@ -20,6 +20,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
 
+  template_config <- find_template_config(meta[["template"]]$package)
+  if (!is.null(template_config)) {
+    meta <- utils::modifyList(template_config, meta)
+  }
+
   # Ensure the URL has no trailing slash
   if (!is.null(meta$url)) {
     meta$url <- sub("/$", "", meta$url)
@@ -208,4 +213,17 @@ package_vignettes <- function(path = ".") {
     title = title,
     description = desc
   )
+}
+
+find_template_config <- function(package) {
+  if (is.null(package)) {
+    return(NULL)
+  }
+
+  config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
+  if (length(config) == 0) {
+    return(NULL)
+  }
+
+  yaml::yaml.load_file(config) %||% NULL
 }
