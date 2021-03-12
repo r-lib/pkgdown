@@ -50,9 +50,41 @@ You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible
 Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
 If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400).
 
+To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
+
+```yaml
+template:
+  bootstrap: 3
+  params:
+    bootswatch: materia
+```
+
+Then, when using Bootstrap 4,
+you can use any variables [documented in bslib](https://rstudio.github.io/bslib/articles/bs4-variables.html) for customizing your theme!
+
+```yaml
+template:
+  bootstrap: 3
+  params:
+    bootswatch: materia
+    bslib:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      success: "#4F9B29"
+      info: "#28B3ED"
+      warning: "#FD7424"
+      danger: "#F7367E"
+```
+
 ### How to craft and preview style tweaks
 
-Thinking about https://github.com/r-lib/pkgdown/issues/1469#issuecomment-777225834
+When crafting a new style you will need to re-build your website quite often.
+How to have a faster workflow?
+
+* Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
+* Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
+* If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
 ## Layout
 
@@ -65,7 +97,7 @@ You will want to alter the layout of your website if you are trying to e.g.
 ### Navbar, footer, home sidebar
 
 If you want to alter the elements of the navbar, refer to `?build_site` docs.
-If you want to alter the elements of the navbar, refer to `?build_site` docs.
+If you want to alter the elements of the footer, refer to `?build_site` docs.
 If you want to alter the elements of the home sidebar, refer to `?build_home` docs.
 
 ### Other layouts changes
@@ -110,6 +142,13 @@ A limitation to tweaking templates is that, for anything not hard-coded, your te
 Make sure you read the documentation of `render_page()` as well as its source code.
 
 ## Sharing pkgdown styles
+
+To share a pkgdown style across several packages, the best workflow is to create... a package!
+
+It might contain any of the following, under `inst/pkgdown`
+* a configuration file in `inst/pkgdown/_pkgdown.yml`
+* templates in `inst/pkgdown`
+* assets
 
 Creating a package
 
