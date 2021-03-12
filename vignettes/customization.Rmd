@@ -1,6 +1,8 @@
 ---
 title: "Customize your pkgdown website aspect"
 output: rmarkdown::html_vignette
+description: >
+  Learn how to change the look and feel of pkgdown websites.
 vignette: >
   %\VignetteIndexEntry{customization}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,8 +28,6 @@ Another key concept related to styling your pkgdown website is whether you are t
 In the latter case you might want to share your style files in the form of a package.
 
 In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
-
-FIND A PLACE FOR DOCUMENTING ASSETS AND THEIR USE CASES (E.G WHERE DO YOU PUT AN SVG YOUR CSS NEEDS)
 
 ## Pre-requisite: update to Bootstrap 4!
 
@@ -86,6 +86,18 @@ How to have a faster workflow?
 * Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
 * If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
+## More assets
+
+If you need to store more CSS rules, some JS code, an SVG used by your CSS, etc.
+
+* Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4) e.g. `inst/pkgdown/assets/BS4/cool-styling.css`.
+* They will be copied to the root of your website folder by pkgdown (by `init_site()`).
+* For JS and CSS files, reference them in a `inst/pkgdown/after-head.html` template (see the section "Other layout changes"), e.g.
+
+```html
+<link href="{{#site}}{{root}}{{/site}}cool-styling.css" rel="stylesheet">
+```
+
 ## Layout
 
 You will want to alter the layout of your website if you are trying to e.g.
@@ -110,7 +122,7 @@ pkgdown uses the following whisker templates:
 cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))), "\n"))
 ```
 
-You can [override the default templates](https://pkgdown.r-lib.org/reference/build_site.html#arguments).
+You can override the default templates (cf ?build_site).
 For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
 
 Three of pkgdown templates are meant to be customized:
@@ -158,4 +170,11 @@ Example of packages with themes
 * tidyverse
 * https://github.com/apreshill/quillt
 * rOpenSci
-* https://github.com/subugoe/subugoetheme/^
+* https://github.com/subugoe/subugoetheme/
+
+## Conclusion
+
+In this vignette we explained how to change the theming and layout of pkgdown websites.
+Further work to improve user experience is
+* working on the articles index (cf `?build_articles`) and on the reference index (cf `?build_reference`);
+* improving the contents of your documentation themselves! :wink:
