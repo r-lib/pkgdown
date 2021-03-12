@@ -176,6 +176,10 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
+/* TOC heading */
+h2[data-toc-skip] {
+  font-size: x-large;
+}
 /* bootstrap-toc tweaks */
 nav[data-toggle="toc"] .nav > li > a {
   font-size: 17px;
@@ -271,21 +275,26 @@ mark {
 
 /* bootstrap-toc tweaks */
 nav[data-toggle="toc"] .nav > li > a {
-  font-size: 17px;
+  font-size: inherit;
   color: inherit;
+  padding-left: 3px;
 }
 
 nav[data-toggle="toc"] .nav > li > a:hover,
 nav[data-toggle="toc"] .nav > li > a:focus {
   color: inherit;
-  border-left: 1px solid #000000;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
 }
 
 nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus {
   color: inherit;
-  border-left: 2px solid #000000;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
 }
 
 nav[data-toggle="toc"] .nav .nav > li > a {
@@ -322,10 +331,6 @@ h6.dropdown-header {
   margin-top: 0;
 }
 
-/* TOC heading */
-h2[data-toc-skip] {
-  font-size: 1.5rem;
-}
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
