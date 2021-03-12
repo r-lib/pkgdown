@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
-   * East customisation of colours and fonts with bslib
+   * Easy customisation of colours and fonts with bslib
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with a accessible colour scheme designed by Alison Hill.
 
