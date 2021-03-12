@@ -1,5 +1,13 @@
 # pkgdown (development version)
 
+* Support the use of a default configuration file in template packages.
+  The configuration file has to be in `inst/pkgdown/_pkgdown.yml` of the template
+  package source, and can be used to e.g. set definitions for authors, the 
+  Bootstrap version and variables, the sidebar, footer, navbar, etc.
+  All these configuration parameters are combined, by increasing priority:
+  configuration from a template package, configuration from the package,
+  `override` parameter of `build_site()`. (#1499)
+
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`
   argument of the output format.
