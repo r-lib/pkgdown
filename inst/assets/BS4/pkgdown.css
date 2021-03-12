@@ -315,7 +315,11 @@ a:hover {
 
 /* Dropdown menu */
 .dropdown-menu {
-  padding: 0 0 .5rem 0;
+  padding: .5rem 0 .5rem 0;
+}
+
+h6.dropdown-header {
+  margin-top: 0;
 }
 
 /* TOC heading */
