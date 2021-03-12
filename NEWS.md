@@ -1,6 +1,10 @@
 # pkgdown (development version)
 
-* pkgdown now support Bootstrap 4 (@jayhesselberth)
+* pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
+   * East customisation of colours and fonts with bslib
+   * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
+   * R syntax highlighting and autolinking by downlit is now paired with a accessible colour scheme designed by Alison Hill.
+
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`
   argument of the output format.
