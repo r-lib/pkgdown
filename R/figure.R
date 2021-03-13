@@ -12,10 +12,16 @@ fig_save <- function(plot,
                      ) {
 
   path <- paste0(name, ".", fig.ext)
+  dev <- match_fun(dev)
 
+  if (is.null(fig.height)) {
+    fig.height <- fig.width * fig.asp
+  } else if (is.null(fig.width)) {
+    fig.width <- fig.height / fig.asp
+  }
   width <- round(dpi * fig.width)
   height <- round(dpi * fig.height)
-  dev <- match_fun(dev)
+
   has_res <- "res" %in% names(formals(dev))
   if (has_res) {
     # raster device; units in pixels, need to rescale for retina

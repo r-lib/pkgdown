@@ -252,7 +252,8 @@ build_reference_topic <- function(topic,
   )
 
   deps <- data$dependencies
-  if (data$has_deps <- !is.null(deps)) {
+  data$has_deps <- !is.null(deps)
+  if (data$has_deps) {
     if (requireNamespace("htmltools", quietly = TRUE)) {
       deps <- htmltools::resolveDependencies(deps)
       deps <- purrr::map(deps, htmltools::copyDependencyToDir,
@@ -287,8 +288,7 @@ data_reference_topic <- function(topic,
                                  run_dont_run = FALSE
                                  ) {
   local_context_eval(pkg$figures, pkg$src_path)
-  withr::local_options(list(downlit.rdname = topic$name,
-                            pkgdown.figures = pkg$figures))
+  withr::local_options(list(downlit.rdname = topic$name))
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
