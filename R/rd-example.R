@@ -103,7 +103,7 @@ highlight_examples <- function(code, topic, env = globalenv()) {
 
   fig_save_topic <- function(plot, id) {
     name <- paste0(topic, "-", id)
-    do.call(fig_save, c(list(plot, name), context_get("figures")))
+    do.call(fig_save, c(list(plot, name), fig_settings()))
   }
 
   if (requireNamespace("evaluate")) {

@@ -11,18 +11,11 @@ fig_save <- function(plot,
                      bg = NULL
                      ) {
 
-
   path <- paste0(name, ".", fig.ext)
-  dev <- match_fun(dev)
 
-  if (is.null(fig.height)) {
-    fig.height <- fig.width * fig.asp
-  } else if (is.null(fig.width)) {
-    fig.width <- fig.height / fig.asp
-  }
   width <- round(dpi * fig.width)
   height <- round(dpi * fig.height)
-
+  dev <- match_fun(dev)
   has_res <- "res" %in% names(formals(dev))
   if (has_res) {
     # raster device; units in pixels, need to rescale for retina
@@ -60,6 +53,33 @@ meta_figures <- function(meta = list()) {
   figures <- purrr::pluck(meta, "figures", .default = list())
 
   print_yaml(utils::modifyList(default, figures))
+}
+
+#! Get current settings for figures
+#!
+#' You will generally not need to use this unless you are handling
+#' custom plot output.
+#'
+#' @return A list containing the entries from the `figures` field
+#' in `_pkgdown.yaml` (see [build_reference]), with default values added.
+#' Computed `width` and `height` values (in pixels) are also included.
+#' @export
+fig_settings <- function() {
+  # Avoid having another copy of the default settings
+  result <- formals(fig_save)
+  result$plot <- NULL
+  result$name <- NULL
+  result <- lapply(result, eval, baseenv())
+
+  settings <- context_get("figures")
+  result[names(settings)] <- settings
+
+  if (is.null(result$fig.height)) {
+    result$fig.height <- with(result, fig.width * fig.asp)
+  } else if (is.null(result$fig.width)) {
+    result$fig.width <- with(result, fig.height / fig.asp)
+  }
+  result
 }
 
 with_device <- function(dev, dev.args, plot) {
