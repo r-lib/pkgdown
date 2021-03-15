@@ -5,6 +5,7 @@
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
    (#1536)
+   * In-line footnotes mean you can read asides next to the next they refer to. 
 
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`

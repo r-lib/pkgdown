@@ -9,7 +9,10 @@ date: "Date is skipped from the TOC"
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-This vignette tests pkgdown output rendering for several use cases.
+This vignette tests pkgdown output rendering for several use cases.[^footnote]
+ 
+ 
+[^footnote]: Including **footnotes**! 😁
 
 # Highlighting
 

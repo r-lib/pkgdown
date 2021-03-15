@@ -128,6 +128,33 @@ tweak_class_prepend <- function(x, class) {
   xml2::xml_attr(x, "class") <- ifelse(is.na(cur), class, paste(class, cur))
   invisible()
 }
+
+# from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
+tweak_footnotes <- function(html) {
+  container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
+  if (length(container) != 1) {
+    return()
+  }
+  # Find id and contents
+  footnotes <- xml2::xml_find_all(container, ".//li")
+  id <- xml2::xml_attr(footnotes, "id")
+  xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
+  contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
+    as.character(xml2::xml_children(x))
+  })
+  # Add popover attributes to links
+  for (i in seq_along(id)) {
+    links <- xml2::xml_find_all(html, paste0(".//a[@href='#", id[[i]], "']"))
+    xml2::xml_attr(links, "href") <- NULL
+    xml2::xml_attr(links, "id") <- NULL
+    xml2::xml_attr(links, "tabindex") <- "0"
+    xml2::xml_attr(links, "data-toggle") <- "popover"
+    xml2::xml_attr(links, "data-content") <- contents[[i]]
+  }
+  # Delete container
+  xml2::xml_remove(container)
+}
+
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
@@ -136,6 +163,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
   tweak_all_links(html, pkg = pkg)
+  if (pkg$bs_version > 3) tweak_footnotes(html)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
