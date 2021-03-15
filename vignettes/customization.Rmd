@@ -89,14 +89,6 @@ template:
     highlightcss: false
 ```
 
-### How to craft and preview style tweaks
-
-When crafting a new style you will need to re-build your website quite often.
-How to have a faster workflow?
-
-* Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
-* Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
-* If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
 ## More CSS / JS / other assets
 
@@ -210,6 +202,16 @@ Example of packages with themes
 * https://github.com/apreshill/quillt
 * rOpenSci
 * https://github.com/subugoe/subugoetheme/
+
+
+## How to craft and preview style tweaks
+
+When crafting a new style you will need to re-build your website quite often.
+How to have a faster workflow?
+
+* Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
+* Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
+* If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
 ## Conclusion
 
