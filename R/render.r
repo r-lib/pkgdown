@@ -394,7 +394,7 @@ data_deps <- function(pkg, depth) {
         bootswatch = bootswatch_theme
       ),
       utils::modifyList(
-        list(`navbar-nav-link-padding-x` = "1rem"),
+        pkgdown_bslib_defaults(),
         pkg$meta[["template"]]$bslib %||% list()
       )
     )
@@ -452,4 +452,8 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
       pkgdown_field(pkg = pkg, "template", "bootstrap")
     )
   )
+}
+
+pkgdown_bslib_defaults <- function() {
+  list(`navbar-nav-link-padding-x` = "1rem")
 }

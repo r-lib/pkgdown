@@ -48,9 +48,6 @@ footer div {
 footer .pkgdown-footer-right {
   text-align: right;
 }
-footer p {
-  margin-bottom: 0;
-}
 
 img.icon {
   float: right;
@@ -107,6 +104,13 @@ a.anchor {
 }
 
 /* Navbar submenu --------------------------*/
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+
+h6.dropdown-header {
+  margin-top: 0;
+}
 
 .dropdown-submenu {
   position: relative;
@@ -176,37 +180,6 @@ a.anchor {
   margin-bottom: 0.5em;
 }
 
-/* TOC heading */
-h2[data-toc-skip] {
-  font-size: x-large;
-}
-/* bootstrap-toc tweaks */
-nav[data-toggle="toc"] .nav > li > a {
-  font-size: 17px;
-  color: inherit;
-}
-
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus {
-  color: inherit;
-  border-left: 1px solid #000000;
-}
-
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus {
-  color: inherit;
-  border-left: 2px solid #000000;
-}
-
-nav[data-toggle="toc"] .nav .nav > li > a {
-  font-size: 15px;
-}
-
-.nav {
-flex-direction: column;
-}
-
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
 @media print {
@@ -273,7 +246,18 @@ mark {
   margin-bottom: 10px;
 }
 
+
+
+/* TOC heading */
+h2[data-toc-skip] {
+  font-size: large;
+}
+
 /* bootstrap-toc tweaks */
+
+.nav {
+flex-direction: column;
+}
 nav[data-toggle="toc"] .nav > li > a {
   font-size: inherit;
   color: inherit;
@@ -319,16 +303,6 @@ a {
 
 a:hover {
   color: #0054AD;
-}
-
-
-/* Dropdown menu */
-.dropdown-menu {
-  padding: .5rem 0 .5rem 0;
-}
-
-h6.dropdown-header {
-  margin-top: 0;
 }
 
 
