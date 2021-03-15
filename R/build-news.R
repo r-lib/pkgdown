@@ -271,6 +271,7 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
+    xml2::xml_set_attr("data-toc-text", versions)
 
   if (is.null(timeline)) {
     return(x)
