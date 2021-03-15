@@ -130,10 +130,10 @@ If you want to alter the elements of the home sidebar, refer to `?build_home` do
 
 Other changes of layouts require tinkering with pkgdown _templates_.
 
-pkgdown uses the following whisker templates: 
+pkgdown uses the following whisker templates for Bootstrap 4: 
 
 ```{r, results='asis', echo=FALSE}
-cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))), "\n"))
+cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates", "BS4"))), "\n"))
 ```
 
 You can override the default templates (cf `?build_site`).
