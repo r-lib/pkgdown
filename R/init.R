@@ -78,13 +78,14 @@ copy_assets <- function(pkg = ".") {
       "assets"
     )
 
-    if (length(assets) > 0) {
-      copy_asset_dir(pkg, assets)
-    }
+    copy_asset_dir(pkg, assets)
   }
 }
 
 copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
+  if (length(from_dir) == 0) {
+    return(character())
+  }
   from_path <- path_abs(from_dir, pkg$src_path)
   if (!file_exists(from_path)) {
     return(character())

@@ -190,8 +190,6 @@ modify_list <- function(x, y) {
   if (is.null(y)) {
     return(x)
   }
-  if (is.null(x)) {
-    return(y)
-  }
+
   utils::modifyList(x, y)
 }

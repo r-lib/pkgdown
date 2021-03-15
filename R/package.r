@@ -215,7 +215,7 @@ package_vignettes <- function(path = ".") {
 
 find_template_config <- function(package) {
   if (is.null(package)) {
-    return(NULL)
+    return(list())
   }
 
   config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
