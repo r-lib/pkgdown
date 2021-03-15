@@ -223,5 +223,5 @@ find_template_config <- function(package) {
     return(list())
   }
 
-  yaml::yaml.load_file(config) %||% NULL
+  yaml::yaml.load_file(config) %||% list()
 }
