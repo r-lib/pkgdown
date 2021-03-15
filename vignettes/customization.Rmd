@@ -100,16 +100,13 @@ How to have a faster workflow?
 
 ## More assets
 
-If you need to store more CSS rules, some JS code, an SVG used by your CSS, etc.
+If you need to store more CSS rules or some JS code, the easiest
+way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
+These will be automatically copied to `docs/` and inserted into the
+`<head>` after the default pkgdown CSS and JS.
 
-* Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4) e.g. `inst/pkgdown/assets/BS4/cool-styling.css`.
-* They will be copied to the root of your website folder by pkgdown (by `init_site()`).
-* For JS and CSS files, reference them in a `inst/pkgdown/after-head.html` template (see the section "Other layout changes"), e.g.
 
-```html
-<link href="{{#site}}{{root}}{{/site}}cool-styling.css" rel="stylesheet">
-```
-
+If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
 ## Layout
 
 You will want to alter the layout of your website if you are trying to e.g.
