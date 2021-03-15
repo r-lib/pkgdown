@@ -90,7 +90,7 @@ template:
 ```
 
 
-## More CSS / JS / other assets
+### More CSS / JS / other assets
 
 If you need to store more CSS rules or some JS code, the easiest
 way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
