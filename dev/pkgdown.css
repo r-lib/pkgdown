@@ -45,11 +45,8 @@ footer p {
 footer div {
   flex: 1;
 }
-footer .pkgdown {
+footer .pkgdown-footer-right {
   text-align: right;
-}
-footer p {
-  margin-bottom: 0;
 }
 
 img.icon {
@@ -58,17 +55,6 @@ img.icon {
 
 img {
   max-width: 100%;
-}
-
-/* Fix bug in bootstrap (only seen in firefox) */
-summary {
-  display: list-item;
-}
-
-/* Typographic tweaking ---------------------------------*/
-
-.contents .page-header {
-  margin-top: calc(-60px + 1em);
 }
 
 dd {
@@ -103,12 +89,28 @@ a.anchor {
 
 /* Fixes for fixed navbar --------------------------*/
 
-.contents h1, .contents h2, .contents h3, .contents h4 {
-  padding-top: 60px;
+.contents {
+  margin-top: 4em;
+}
+
+.contents h1 {
+  padding-top: 40px;
   margin-top: -40px;
 }
 
+.contents h2, .contents h3, .contents h4 {
+  padding-top: 40px;
+  padding-top: 0px;
+}
+
 /* Navbar submenu --------------------------*/
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+
+h6.dropdown-header {
+  margin-top: 0;
+}
 
 .dropdown-submenu {
   position: relative;
@@ -158,156 +160,41 @@ a.anchor {
 
 #pkgdown-sidebar {
   margin-top: 30px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 70px;
+}
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
 }
 
 #pkgdown-sidebar h2 {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-top: 1em;
 }
 
 #pkgdown-sidebar h2:first-child {
-  margin-top: 0;
+  margin-top: 2.5rem;
 }
 
 #pkgdown-sidebar .list-unstyled li {
   margin-bottom: 0.5em;
 }
 
-/* bootstrap-toc tweaks ------------------------------------------------------*/
-
-/* All levels of nav */
-
-nav[data-toggle='toc'] .nav > li > a {
-  padding: 4px 20px 4px 6px;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: inherit;
+/* don't display links in code chunks when printing */
+/* source: https://stackoverflow.com/a/10781533 */
+@media print {
+  code a:link:after, code a:visited:after {
+    content: "";
+  }
 }
-
-nav[data-toggle='toc'] .nav > li > a:hover,
-nav[data-toggle='toc'] .nav > li > a:focus {
-  padding-left: 5px;
-  color: inherit;
-  border-left: 1px solid #878787;
-}
-
-nav[data-toggle='toc'] .nav > .active > a,
-nav[data-toggle='toc'] .nav > .active:hover > a,
-nav[data-toggle='toc'] .nav > .active:focus > a {
-  padding-left: 5px;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: inherit;
-  border-left: 2px solid #878787;
-}
-
-/* Nav: second level (shown on .active) */
-
-nav[data-toggle='toc'] .nav .nav {
-  display: none; /* Hide by default, but at >768px, show it */
-  padding-bottom: 10px;
-}
-
-nav[data-toggle='toc'] .nav .nav > li > a {
-  padding-left: 16px;
-  font-size: 1.35rem;
-}
-
-nav[data-toggle='toc'] .nav .nav > li > a:hover,
-nav[data-toggle='toc'] .nav .nav > li > a:focus {
-  padding-left: 15px;
-}
-
-nav[data-toggle='toc'] .nav .nav > .active > a,
-nav[data-toggle='toc'] .nav .nav > .active:hover > a,
-nav[data-toggle='toc'] .nav .nav > .active:focus > a {
-  padding-left: 15px;
-  font-weight: 500;
-  font-size: 1.35rem;
-}
-
-/* orcid ------------------------------------------------------------------- */
 
 .orcid {
-  font-size: 16px;
-  color: #A6CE39;
-  /* margins are required by official ORCID trademark and display guidelines */
-  margin-left:4px;
-  margin-right:4px;
-  vertical-align: middle;
+    font-size: 16px;
+    color: #A6CE39;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
 }
-
-/* Reference index & topics ----------------------------------------------- */
-
-.ref-index th {font-weight: normal;}
-
-.ref-index td {vertical-align: top; min-width: 100px}
-.ref-index .icon {width: 40px;}
-.ref-index .alias {width: 40%;}
-.ref-index-icons .alias {width: calc(40% - 40px);}
-.ref-index .title {width: 60%;}
-
-.ref-arguments th {text-align: right; padding-right: 10px;}
-.ref-arguments th, .ref-arguments td {vertical-align: top; min-width: 100px}
-.ref-arguments .name {width: 20%;}
-.ref-arguments .desc {width: 80%;}
-
-/* Nice scrolling for wide elements --------------------------------------- */
-
-table {
-  display: block;
-  overflow: auto;
-}
-
-/* Syntax highlighting ---------------------------------------------------- */
-
-pre {
-  word-wrap: normal;
-  word-break: normal;
-  border: 1px solid #eee;
-}
-
-pre, code {
-  background-color: #f8f8f8;
-  color: #333;
-}
-
-pre code {
-  overflow: auto;
-  word-wrap: normal;
-  white-space: pre;
-}
-
-pre .img {
-  margin: 5px 0;
-}
-
-pre .img img {
-  background-color: #fff;
-  display: block;
-  height: auto;
-}
-
-code a, pre a {
-  color: #375f84;
-}
-
-a.sourceLine:hover {
-  text-decoration: none;
-}
-
-.fl      {color: #1514b5;}
-.fu      {color: #000000;} /* function */
-.ch,.st  {color: #036a07;} /* string */
-.kw      {color: #264D66;} /* keyword */
-.co      {color: #888888;} /* comment */
-
-.message { color: black;   font-weight: bolder;}
-.error   { color: orange;  font-weight: bolder;}
-.warning { color: #6A0366; font-weight: bolder;}
 
 /* Clipboard --------------------------*/
 
@@ -328,10 +215,17 @@ a.sourceLine:hover {
 
 /* headroom.js ------------------------ */
 
+/* from quillt https://github.com/rstudio/quillt/blob/c2c826dfa21070e3a2a0308f569255d6be950134/inst/pkgdown/assets/rmd.css#L423
+/* tweak headroom.js to not disappear as aggressively at the top of the page */
 .headroom {
   will-change: transform;
-  transition: transform 200ms linear;
+  transition: transform 400ms ease;
 }
+
+.page-header {
+	padding-bottom: 10px;
+}
+
 .headroom--pinned {
   transform: translateY(0%);
 }
@@ -352,16 +246,77 @@ mark {
   margin-bottom: 10px;
 }
 
-/* fontawesome ------------------------ */
 
-.fab {
-    font-family: "Font Awesome 5 Brands" !important;
+
+/* TOC heading */
+h2[data-toc-skip] {
+  font-size: large;
 }
 
-/* don't display links in code chunks when printing */
-/* source: https://stackoverflow.com/a/10781533 */
-@media print {
-  code a:link:after, code a:visited:after {
-    content: "";
-  }
+/* bootstrap-toc tweaks */
+
+.nav {
+flex-direction: column;
+}
+nav[data-toggle="toc"] .nav > li > a {
+  font-size: inherit;
+  color: inherit;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  color: inherit;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus {
+  color: inherit;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav .nav > li > a {
+  font-size: 15px;
+}
+/* version badge  */
+#version-badge {
+  border: none;
+}
+
+/* h1 */
+
+h1.display-4 {
+  font-size: 2.5rem;
+}
+
+/* Links color contrast */
+
+a {
+  color: #0054AD;
+}
+
+a:hover {
+  color: #0054AD;
+}
+
+
+/* navbar active link */
+.navbar-light .navbar-nav .active > .nav-link {
+   background: #e9ecef;
+   border-radius: 1rem;
+ }
+.navbar-nav .nav-link {
+ padding-left: 0.5rem;
+ }
+
+@include media-breakpoint-up(md) {
+  .navbar-nav .nav-link {
+ padding-left: 0rem;
+ }
 }

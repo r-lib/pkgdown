@@ -4,7 +4,7 @@
   <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>Changelog • pkgdown</title>
 
@@ -16,31 +16,30 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
-
+<script src="../deps/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="../deps/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet" />
+<script src="../deps/bootstrap-4.5.3/bootstrap.bundle.min.js"></script>
+<script src="../deps/bs3compat-0.2.4/tabs.js"></script>
+<script src="../deps/bs3compat-0.2.4/bs3compat.js"></script>
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
 
 <!-- headroom.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<link href="../syntax-highlighting.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
 
@@ -87,124 +86,92 @@
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body data-spy="scroll" data-target="#toc" data-headroom data-tolerance="5" data-offset="100">
     
 
-    <div class="container template-news">
-      <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.6.1.9000</span>
-      </span>
-    </div>
+    <a class="navbar-brand mb-0 h1" href="../index.html">pkgdown</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="../articles/pkgdown.html">Get started</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <button type="button" id ="version-badge" class="badge badge-danger d-none d-lg-block" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="In-development version">1.6.1.9000</button>
+
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto ml-3">
+      <li class="nav-item">
+  <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/linking.html">Auto-linking</a>
-    </li>
-    <li>
-      <a href="../articles/search.html">Search</a>
-    </li>
-    <li>
-      <a href="../articles/metadata.html">Metadata</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../articles/index.html">More...</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="../articles/search.html">Search</a>
+    <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/index.html">More...</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../news/index.html">Changelog</a>
+  </div>
 </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/r-lib/pkgdown/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+
       
-      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-        </div>
+      <form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
       </form>
       
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
 
-      
+      <ul class="navbar-nav ml-1">
+      <li class="nav-item">
+  <a class="nav-link" href="https://github.com/r-lib/pkgdown/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-      </header>
-
+    <div class="container template-news">
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
+    <div class='pb-2 mt-4 mb-2 border-bottom'>
+      <h1 class="display-4" data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/r-lib/pkgdown/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="pkgdown-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="development version">
+<a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
 <ul>
+<li>
+<p>pkgdown now contains templates using Bootstrap 4 (with help from <a href='https://github.com/jayhesselberth'>@jayhesselberth</a>).</p>
+<ul>
+<li>Easy customisation of colours and fonts with bslib</li>
+<li>Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.</li>
+<li>R syntax highlighting and autolinking by downlit is now paired with an <a href="https://apreshill.github.io/rmda11y/arrow.html" class="external-link">accessible colour scheme designed by Alison Hill</a>. (<a href='https://github.com/r-lib/pkgdown/issues/1536'>#1536</a>)</li>
+</ul>
+</li>
 <li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> again sets the <code>theme</code> argument of the document format to <code>NULL</code> when <code>as_is: true</code> but lets users override this via the <code>theme</code> argument of the output format.</p></li>
 <li>
 <p>Authors configuration is more flexible. Users can now:</p>
@@ -251,17 +218,17 @@
 </ul>
 </div>
     <div id="pkgdown-161" class="section level1">
-<h1 class="page-header" data-toc-text="1.6.1">
-<a href="#pkgdown-161" class="anchor"></a>pkgdown 1.6.1<small> 2020-09-12 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.6.1">
+<a href="#pkgdown-161" class="anchor"></a>pkgdown 1.6.1</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2020-09-12</h6>
 <ul>
 <li>The article index (used for autolinking vignettes across packages) once again works (<a href='https://github.com/r-lib/pkgdown/issues/1401'>#1401</a>).</li>
 </ul>
 </div>
     <div id="pkgdown-160" class="section level1">
-<h1 class="page-header" data-toc-text="1.6.0">
-<a href="#pkgdown-160" class="anchor"></a>pkgdown 1.6.0<small> 2020-09-07 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.6.0">
+<a href="#pkgdown-160" class="anchor"></a>pkgdown 1.6.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2020-09-07</h6>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
@@ -320,9 +287,9 @@
 </div>
 </div>
     <div id="pkgdown-151" class="section level1">
-<h1 class="page-header" data-toc-text="1.5.1">
-<a href="#pkgdown-151" class="anchor"></a>pkgdown 1.5.1<small> 2020-04-09 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.5.1">
+<a href="#pkgdown-151" class="anchor"></a>pkgdown 1.5.1</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2020-04-09</h6>
 <ul>
 <li><p>Syntax highlighting works on Windows once more (<a href='https://github.com/r-lib/pkgdown/issues/1282'>#1282</a>).</p></li>
 <li><p>pkgdown no longer fails if your <code>.Rd</code> files have duplicated <code>\aliases</code> as were produced by an older version of roxygen2 (<a href='https://github.com/r-lib/pkgdown/issues/1290'>#1290</a>).</p></li>
@@ -332,9 +299,9 @@
 </ul>
 </div>
     <div id="pkgdown-150" class="section level1">
-<h1 class="page-header" data-toc-text="1.5.0">
-<a href="#pkgdown-150" class="anchor"></a>pkgdown 1.5.0<small> 2020-03-25 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.5.0">
+<a href="#pkgdown-150" class="anchor"></a>pkgdown 1.5.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2020-03-25</h6>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -447,17 +414,17 @@
 </div>
 </div>
     <div id="pkgdown-141" class="section level1">
-<h1 class="page-header" data-toc-text="1.4.1">
-<a href="#pkgdown-141" class="anchor"></a>pkgdown 1.4.1<small> 2019-09-14 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.4.1">
+<a href="#pkgdown-141" class="anchor"></a>pkgdown 1.4.1</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2019-09-14</h6>
 <ul>
 <li>Don’t install test package in user library (fixes CRAN failure).</li>
 </ul>
 </div>
     <div id="pkgdown-140" class="section level1">
-<h1 class="page-header" data-toc-text="1.4.0">
-<a href="#pkgdown-140" class="anchor"></a>pkgdown 1.4.0<small> 2019-09-03 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.4.0">
+<a href="#pkgdown-140" class="anchor"></a>pkgdown 1.4.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2019-09-03</h6>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor"></a>New features</h2>
@@ -529,9 +496,9 @@
 </div>
 </div>
     <div id="pkgdown-130" class="section level1">
-<h1 class="page-header" data-toc-text="1.3.0">
-<a href="#pkgdown-130" class="anchor"></a>pkgdown 1.3.0<small> 2018-12-06 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.3.0">
+<a href="#pkgdown-130" class="anchor"></a>pkgdown 1.3.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2018-12-06</h6>
 <ul>
 <li><p>Restore accidentally deleted <code>build_logo()</code> function so that logos are once more copied to the website.</p></li>
 <li><p>Fix to <code>pkgdown.css</code> so page header has correct amount of top margin.</p></li>
@@ -543,9 +510,9 @@
 </ul>
 </div>
     <div id="pkgdown-120" class="section level1">
-<h1 class="page-header" data-toc-text="1.2.0">
-<a href="#pkgdown-120" class="anchor"></a>pkgdown 1.2.0<small> 2018-11-20 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.2.0">
+<a href="#pkgdown-120" class="anchor"></a>pkgdown 1.2.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2018-11-20</h6>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-2" class="anchor"></a>New features</h2>
@@ -628,9 +595,9 @@
 </div>
 </div>
     <div id="pkgdown-110" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#pkgdown-110" class="anchor"></a>pkgdown 1.1.0<small> 2018-06-02 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.1.0">
+<a href="#pkgdown-110" class="anchor"></a>pkgdown 1.1.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2018-06-02</h6>
 <div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>New features</h2>
@@ -686,9 +653,9 @@
 </div>
 </div>
     <div id="pkgdown-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#pkgdown-100" class="anchor"></a>pkgdown 1.0.0<small> 2018-05-03 </small>
-</h1>
+<h1 class="pb-2 mt-4 mb-2 border-bottom" data-toc-text="1.0.0">
+<a href="#pkgdown-100" class="anchor"></a>pkgdown 1.0.0</h1>
+<h6 class="text-muted" data-toc-skip> CRAN release: 2018-05-03</h6>
 <ul>
 <li><p>Major refactoring of path handling. <code>build_</code> functions no longer take <code>path</code> or <code>depth</code> arguments. Instead, set the <code>destination</code> directory at the top level of <code>pkgdown.yml</code>.</p></li>
 <li><p>Similarly, <code><a href="../reference/build_news.html">build_news()</a></code> no longer takes a <code>one_page</code> argument; this should now be specified in the <code>_pkgdown.yml</code> instead. See the documentation for an example.</p></li>
@@ -697,20 +664,24 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+    <div class="sticky-top">
+    <nav id="toc" data-toggle="toc" >
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
   </div>
 
 </div>
 
 
       <footer>
-      <div class="copyright">
+      <div class="pkgdown-footer-left">
   <p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>.</p></p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
