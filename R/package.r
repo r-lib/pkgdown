@@ -220,7 +220,7 @@ find_template_config <- function(package) {
 
   config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
   if (length(config) == 0) {
-    return(NULL)
+    return(list())
   }
 
   yaml::yaml.load_file(config) %||% NULL
