@@ -72,18 +72,20 @@ copy_assets <- function(pkg = ".") {
 
   # Copy assets from package
   if (!is.null(template$package)) {
-    copy_asset_dir(
-      pkg,
-      path_package_pkgdown(
-        template$package,
-        bs_version = pkg$bs_version,
-        "assets"
-      )
+    assets <- path_package_pkgdown(
+      template$package,
+      bs_version = get_bs_version(pkg),
+      "assets"
     )
+
+    copy_asset_dir(pkg, assets)
   }
 }
 
 copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
+  if (length(from_dir) == 0) {
+    return(character())
+  }
   from_path <- path_abs(from_dir, pkg$src_path)
   if (!file_exists(from_path)) {
     return(character())

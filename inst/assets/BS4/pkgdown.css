@@ -338,4 +338,25 @@ a:hover {
 
 a.footnote-ref {
   cursor: pointer;
+/* Reference index & topics ----------------------------------------------- */
+
+.ref-index th {font-weight: normal;}
+
+.ref-index td {vertical-align: top; min-width: 100px}
+.ref-index .icon {width: 40px;}
+.ref-index .alias {width: 40%;}
+.ref-index-icons .alias {width: calc(40% - 40px);}
+.ref-index .title {width: 60%;}
+
+/* Nice scrolling for wide elements --------------------------------------- */
+
+table {
+  display: block;
+  overflow: auto;
+}
+
+/* fontawesome ------------------------ */
+
+.fab {
+    font-family: "Font Awesome 5 Brands" !important;
 }
