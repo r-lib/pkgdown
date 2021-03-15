@@ -331,6 +331,15 @@ a:hover {
 .ref-index-icons .alias {width: calc(40% - 40px);}
 .ref-index .title {width: 60%;}
 
+.ref-index.table th, .ref-index.table td {
+  border-top: none;
+}
+
+.ref-index.table tbody {
+  border-top: none;
+}
+
+
 /* Nice scrolling for wide elements --------------------------------------- */
 
 table {
