@@ -159,7 +159,10 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   invisible()
 }
 
-tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
+tweak_homepage_html <- function(html,
+                                strip_header = FALSE,
+                                sidebar = TRUE,
+                                bs_version = 3) {
 
   html <- tweak_sidebar_html(html, sidebar = sidebar)
 
@@ -172,7 +175,7 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   if (strip_header) {
     xml2::xml_remove(header, free = TRUE)
   } else {
-    page_header_text <- paste0("<div class='page-header'>", header, "</div>")
+    page_header_text <- class_page_header(bs_version = bs_version, header = header)
     page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
   }
@@ -187,6 +190,14 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   tweak_tables(html)
 
   invisible()
+}
+
+class_page_header <- function(bs_version, header) {
+  if (bs_version == 3) {
+    return(paste0("<div class='page-header'>", header, "</div>"))
+  }
+  sprintf("<div class='pb-2 mt-4 mb-2 border-bottom'>%s</div>", header)
+
 }
 
 tweak_sidebar_html <- function(html, sidebar) {

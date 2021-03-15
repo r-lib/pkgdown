@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header">
-    <h1>{{{title}}}</h1>
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+    <h1 class="display-4">{{{title}}}</h1>
     {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-    <div class="hidden name"><code>{{filename}}</code></div>
+    <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
     <div class="ref-description">
@@ -15,20 +15,17 @@
     </div>
 
     {{#usage}}
-    <pre class="usage">{{{.}}}</pre>
+    <pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre>
     {{/usage}}
 
     {{#has_args}}
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <h2>Arguments</h2>
+    <dl class="row" id="ref-arguments">
     {{#arguments}}
-    <tr>
-      <th>{{{name}}}</th>
-      <td>{{{description}}}</td>
-    </tr>
+    <dt class="col-sm-3" id="ref-arguments name">{{{name}}}</dt>
+      <dd class="col-sm-9" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
-    </table>
+    </dl>
     {{/has_args}}
 
     {{#sections}}
@@ -41,12 +38,16 @@
 
     {{#examples}}
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples">{{{ . }}}</pre>
+    <pre class="examples"><code class="sourceCode R">{{{ . }}}</code></pre>
     {{/examples}}
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+    <div class="sticky-top">
+    <nav id="toc" data-toggle="toc" >
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
   </div>
 </div>

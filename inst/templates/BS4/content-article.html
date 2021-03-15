@@ -4,8 +4,8 @@ $endfor$
 
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>$title$</h1>
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4" data-toc-skip>$title$</h1>
       $if(subtitle)$
       <h3 data-toc-skip class="subtitle">$subtitle$</h3>
       $endif$
@@ -29,7 +29,7 @@ $endfor$
       $endif$
 
       {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-      <div class="hidden name"><code>{{filename}}</code></div>
+      <div class="d-none name"><code>{{filename}}</code></div>
 
     </div>
 
@@ -47,15 +47,21 @@ $endfor$
 $body$
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    {{#sidebar}}
-    {{{.}}}
-    {{/sidebar}}
+   <div class="col-md-3 d-none d-md-block" id="sidebar">
+    <div class="sticky-top">
+      {{#sidebar}}
+      {{{.}}}
+      {{/sidebar}}
+    </div>
 
     $if(toc)$
-    <nav id="toc" data-toggle="toc">
+    <div class="sticky-top">
+    <nav id="toc" data-toggle="toc" >
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
     $endif$
   </div>
 
