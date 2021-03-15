@@ -1,6 +1,6 @@
 #' Render page with template
 #'
-#' Each page is composed of four templates: "head", "content", and
+#' Each page is composed of four templates: "head", "header", "content", and
 #' "footer". Each of these templates is rendered using the `data`, and
 #' then assembled into an overall page using the "layout" template.
 #'
