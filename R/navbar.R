@@ -171,7 +171,7 @@ menu_spacer <- function() {
 # Simulate minimal package structure so we can more easily test
 
 pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
-  github_url = NULL) {
+                       github_url = NULL) {
   structure(
     list(
       package = "test",
