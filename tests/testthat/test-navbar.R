@@ -87,5 +87,6 @@ test_that("data_navbar() can re-order default elements", {
 test_that("data_navbar()can remove elements", {
   pkg <- as_pkgdown(test_path("assets/news-multi-page"))
   pkg$meta$navbar$structure$left <- c("github")
+  pkg$meta$navbar$structure$right <- c("reference")
   expect_snapshot(data_navbar(pkg))
 })
