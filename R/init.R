@@ -59,7 +59,7 @@ copy_assets <- function(pkg = ".") {
 
   # Copy default assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown("assets"))
+    copy_asset_dir(pkg, path_pkgdown("assets", paste0("BS", pkg$bs_version)))
   }
 
   # Copy extras

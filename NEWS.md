@@ -7,6 +7,12 @@
   Configuration parameters supplied by a template package have the lowest priority
   They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
   `override` parameter of `build_site()`. (#1499)
+  
+* pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
+   * Easy customisation of colours and fonts with bslib
+   * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
+   * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
+   (#1536)
 
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`

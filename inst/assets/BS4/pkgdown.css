@@ -1,0 +1,322 @@
+/* Sticky footer */
+
+/**
+ * Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+ * Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
+ *
+ * .Site -> body > .container
+ * .Site-content -> body > .container .row
+ * .footer -> footer
+ *
+ * Key idea seems to be to ensure that .container and __all its parents__
+ * have height set to 100%
+ *
+ */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  position: relative;
+}
+
+body > .container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+body > .container .row {
+  flex: 1 0 auto;
+}
+
+footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+  color: #666;
+  display: flex;
+  flex-shrink: 0;
+}
+footer p {
+  margin-bottom: 0;
+}
+footer div {
+  flex: 1;
+}
+footer .pkgdown-footer-right {
+  text-align: right;
+}
+
+img.icon {
+  float: right;
+}
+
+img {
+  max-width: 100%;
+}
+
+dd {
+  margin-left: 3em;
+}
+
+/* Section anchors ---------------------------------*/
+
+a.anchor {
+  margin-left: -30px;
+  display:inline-block;
+  width: 30px;
+  height: 30px;
+  visibility: hidden;
+
+  background-image: url(./link.svg);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: center center;
+}
+
+.hasAnchor:hover a.anchor {
+  visibility: visible;
+}
+
+@media (max-width: 767px) {
+  .hasAnchor:hover a.anchor {
+    visibility: hidden;
+  }
+}
+
+
+/* Fixes for fixed navbar --------------------------*/
+
+.contents {
+  margin-top: 4em;
+}
+
+.contents h1 {
+  padding-top: 40px;
+  margin-top: -40px;
+}
+
+.contents h2, .contents h3, .contents h4 {
+  padding-top: 40px;
+  padding-top: 0px;
+}
+
+/* Navbar submenu --------------------------*/
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+
+h6.dropdown-header {
+  margin-top: 0;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+
+/* Sidebar --------------------------*/
+
+#pkgdown-sidebar {
+  margin-top: 30px;
+}
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
+}
+
+#pkgdown-sidebar h2 {
+  font-size: 2em;
+  margin-top: 1em;
+}
+
+#pkgdown-sidebar h2:first-child {
+  margin-top: 2.5rem;
+}
+
+#pkgdown-sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+}
+
+/* don't display links in code chunks when printing */
+/* source: https://stackoverflow.com/a/10781533 */
+@media print {
+  code a:link:after, code a:visited:after {
+    content: "";
+  }
+}
+
+.orcid {
+    font-size: 16px;
+    color: #A6CE39;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* Clipboard --------------------------*/
+
+.hasCopyButton {
+  position: relative;
+}
+
+.btn-copy-ex {
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+.hasCopyButton:hover button.btn-copy-ex {
+  visibility: visible;
+}
+
+/* headroom.js ------------------------ */
+
+/* from quillt https://github.com/rstudio/quillt/blob/c2c826dfa21070e3a2a0308f569255d6be950134/inst/pkgdown/assets/rmd.css#L423
+/* tweak headroom.js to not disappear as aggressively at the top of the page */
+.headroom {
+  will-change: transform;
+  transition: transform 400ms ease;
+}
+
+.page-header {
+	padding-bottom: 10px;
+}
+
+.headroom--pinned {
+  transform: translateY(0%);
+}
+.headroom--unpinned {
+  transform: translateY(-100%);
+}
+
+/* mark.js ----------------------------*/
+
+mark {
+  background-color: rgba(255, 255, 51, 0.5);
+  border-bottom: 2px solid rgba(255, 153, 51, 0.3);
+  padding: 1px;
+}
+
+/* vertical spacing after htmlwidgets */
+.html-widget {
+  margin-bottom: 10px;
+}
+
+
+
+/* TOC heading */
+h2[data-toc-skip] {
+  font-size: large;
+}
+
+/* bootstrap-toc tweaks */
+
+.nav {
+flex-direction: column;
+}
+nav[data-toggle="toc"] .nav > li > a {
+  font-size: inherit;
+  color: inherit;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  color: inherit;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus {
+  color: inherit;
+  border-left: none;
+  background-color: #eee;
+  padding-left: 3px;
+}
+
+nav[data-toggle="toc"] .nav .nav > li > a {
+  font-size: 15px;
+}
+/* version badge  */
+#version-badge {
+  border: none;
+}
+
+/* h1 */
+
+h1.display-4 {
+  font-size: 2.5rem;
+}
+
+/* Links color contrast */
+
+a {
+  color: #0054AD;
+}
+
+a:hover {
+  color: #0054AD;
+}
+
+
+/* navbar active link */
+.navbar-light .navbar-nav .active > .nav-link {
+   background: #e9ecef;
+   border-radius: 1rem;
+ }
+.navbar-nav .nav-link {
+ padding-left: 0.5rem;
+ }
+
+@include media-breakpoint-up(md) {
+  .navbar-nav .nav-link {
+ padding-left: 0rem;
+ }
+}

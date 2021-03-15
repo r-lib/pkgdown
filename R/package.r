@@ -47,8 +47,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   install_metadata <- meta$deploy$install_metadata %||% FALSE
 
-  structure(
-    list(
+  pkg_list <- list(
       package = package,
       version = version,
 
@@ -65,7 +64,12 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg)
-    ),
+    )
+
+  pkg_list$bs_version <- get_bs_version(pkg_list)
+
+  structure(
+    pkg_list,
     class = "pkgdown"
   )
 }
