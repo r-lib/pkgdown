@@ -174,7 +174,7 @@ data_news <- function(pkg = ".") {
       tweak_news_heading,
       timeline = timeline,
       bs_version = pkg$bs_version
-      ) %>%
+    ) %>%
     purrr::map_chr(as.character) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
@@ -263,20 +263,14 @@ pkg_timeline <- function(package) {
 
 tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
-    x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr(
-      "class",
-       switch(
-         as.character(bs_version),
-         '3' = "page-header",
-         '4' = "pb-2 mt-4 mb-2 border-bottom"
-         )
-      )
+  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom"
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("data-toc-text", versions)
+    xml2::xml_set_attr("class", class)
+
+  x %>%
+    xml2::xml_find_all(".//h1") %>%
 
   if (is.null(timeline)) {
     return(x)
@@ -294,17 +288,14 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
       xml2::xml_find_all(".//h1") %>%
       xml2::xml_add_child(date_nodes, .where = 1)
   } else {
-    cran_release_string <- sprintf(
-    "<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>",
-    date_str
-  )
-  date_nodes <- cran_release_string %>%
-    xml2::read_html() %>%
-    xml2::xml_find_all(".//h6")
+    cran_release_string <-  sprintf("<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>", date_str)
+    date_nodes <- cran_release_string %>%
+      xml2::read_html() %>%
+      xml2::xml_find_all(".//h6")
 
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_sibling(date_nodes, .where = "after")
+    x %>%
+      xml2::xml_find_all(".//h1") %>%
+      xml2::xml_add_sibling(date_nodes, .where = "after")
   }
 
   invisible()

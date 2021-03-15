@@ -184,10 +184,9 @@ pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
   )
 }
 
-pkg_navbar_vignettes <- function(
-  name = character(),
-  title = NULL,
-  file_out = NULL) {
+pkg_navbar_vignettes <- function(name = character(),
+                                 title = NULL,
+                                 file_out = NULL) {
   title <- title %||% paste0("Title ", name)
   file_out <- file_out %||% paste0(name, ".html")
 
