@@ -14,7 +14,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   right_comp <- intersect(structure$right, names(components))
   left_comp <- intersect(structure$left, names(components))
 
-  # Backward compatiblity
+  # Backward compatibility
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
