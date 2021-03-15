@@ -205,8 +205,7 @@
 #'     bootswatch: cerulean
 #' ```
 #'
-#' See a complete list of themes and preview how they look at
-#' <https://gallery.shinyapps.io/117-shinythemes/>:
+#'  Refer to `vignette("customization", package = "pkgdown")`.
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
 #' [Google Analytics](https://marketingplatform.google.com/about/analytics/).

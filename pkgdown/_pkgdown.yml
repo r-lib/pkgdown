@@ -31,6 +31,7 @@ articles:
   - linking
   - search
   - metadata
+  - customization
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not

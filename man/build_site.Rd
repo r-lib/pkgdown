@@ -254,8 +254,7 @@ template:\preformatted{template:
     bootswatch: cerulean
 }
 
-See a complete list of themes and preview how they look at
-\url{https://gallery.shinyapps.io/117-shinythemes/}:
+Refer to \code{vignette("customization", package = "pkgdown")}.
 
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
