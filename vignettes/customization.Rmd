@@ -1,5 +1,5 @@
 ---
-title: "Customize your pkgdown website aspect"
+title: "Customize your pkgdown website"
 output: rmarkdown::html_vignette
 description: >
   Learn how to change the look and feel of pkgdown websites.
@@ -21,8 +21,8 @@ library(pkgdown)
 ```
 
 You can alter the design/styling of your pkgdown website to suit your brand and needs. 
-_Theming_ refers to being able to tweak colors, fonts, spacing etc. by providing only Bootstrap variables, Bootstrap rules, or any custom CSS. 
-_Layout_ refers to being able to more dramatically change the content of say the navbar, authors page, `<head>` tag by using pkgdown configuration or pkgdown templates.
+_Theming_ refers to being able to tweak colors, fonts, spacing etc. by using a Bootswatch template, Bootstrap variables, Bootstrap rules, or any custom CSS. 
+_Layout_ refers to being able to change the content of say the navbar, authors page, `<head>` tag by using pkgdown configuration or pkgdown templates.
 
 Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
 In the latter case you might want to share your style files in the form of a package.
@@ -32,7 +32,7 @@ In this vignette we shall explain you the scope and tools for _theming_ and twea
 ## Pre-requisite: update to Bootstrap 4!
 
 Note that most theming features work only with Bootstrap 4, and that current development of pkgdown templates only happen for Bootstrap 4 templates. 
-If you are reading this vignette, take a moment to update your website to Boostrap 4.
+If you are reading this vignette, please take a moment to update your website to Boostrap 4.
 
 ```yaml
 template:
@@ -40,7 +40,7 @@ template:
 ```
 
 It should not break your website, it should however change its styling a bit, for the better we hope.
-However, if you were managing your [own pkgdown templates](#layout), you might need to tweak those.
+However, if you were managing your [own pkgdown templates](#layout) or custom CSS, you might need to tweak those.
 
 ## Theming
 
@@ -54,7 +54,7 @@ To choose a Bootswatch theme here's what to write in your `pkgdown` configuratio
 
 ```yaml
 template:
-  bootstrap: 3
+  bootstrap: 4
   params:
     bootswatch: materia
 ```
@@ -64,7 +64,7 @@ you can use any variables [documented in bslib](https://rstudio.github.io/bslib/
 
 ```yaml
 template:
-  bootstrap: 3
+  bootstrap: 4
   params:
     bootswatch: materia
     bslib:
@@ -108,6 +108,8 @@ You will want to alter the layout of your website if you are trying to e.g.
 
 ### Navbar, footer, home sidebar
 
+The navbar, footer and home sidebar can be tweaked via the pkgdown configuration file of your website.
+
 If you want to alter the elements of the navbar, refer to `?build_site` docs.
 If you want to alter the elements of the footer, refer to `?build_site` docs.
 If you want to alter the elements of the home sidebar, refer to `?build_home` docs.
@@ -122,7 +124,7 @@ pkgdown uses the following whisker templates:
 cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates"))), "\n"))
 ```
 
-You can override the default templates (cf ?build_site).
+You can override the default templates (cf `?build_site`).
 For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
 
 Three of pkgdown templates are meant to be customized:
@@ -143,6 +145,8 @@ Furthermore, maintaining e.g. your own "head.html" template requires more work a
 
 ### Tweaking other templates (advanced users only)
 
+The main difference compared to using empty templates meant for customization is that you will need to learn a bit about whisker, the R implementation of [Mustache](https://mustache.github.io/mustache.5.html); and that you might need to update your templates with upstream changes in the future.
+
 * To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3). The skeleton of pages is provided in "layout.html" so start there.
 * Create a folder `inst/pkgdown/templates` (or use another method to override templates).
 * Copy the template(s) you need to tweak into that folder, edit and save them.
@@ -153,21 +157,47 @@ Furthermore, maintaining e.g. your own "head.html" template requires more work a
 A limitation to tweaking templates is that, for anything not hard-coded, your templates can only use data that pkgdown passes to templates.
 Make sure you read the documentation of `render_page()` as well as its source code.
 
-## Sharing pkgdown styles
+## Sharing pkgdown styles: template packages
 
 To share a pkgdown style across several packages, the best workflow is to create... a package!
 
 It might contain any of the following, under `inst/pkgdown`
-* a configuration file in `inst/pkgdown/_pkgdown.yml`
-* templates in `inst/pkgdown`
-* assets
+* a configuration file in `inst/pkgdown/_pkgdown.yml`;
+* templates in `inst/pkgdown/templates/BS4`;
+* assets in `inst/pkgdown/assets/BS4`.
 
-Creating a package
+Once you have created your template package `theverybest`, to build a pkgdown website with it, what's needed is
 
-How does one share a Bootstrap style?
+* for `theverybest` to be installed. In `DESCRIPTION` the packages using it could have these lines (in particular if your continuous integration workflow uses pak or remotes).
+
+```
+Config/Needs/website:
+    theverybest
+```
+
+* for the pkgdown configuration file to feature these lines:
+
+```yaml
+template:
+  package: theverybest
+```
+
+### Configuration file in a template package
+
+Allow template packages to provide a default configuration `_pkgdown.yml`, 
+stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
+definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
+
+Configuration parameters supplied by a template package have the lowest priority
+They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
+`override` parameter of `build_site()`. 
+
+### Examples
+
+TODO: update tidytemplate?
 
 Example of packages with themes
-* tidyverse
+* tidytemplate
 * https://github.com/apreshill/quillt
 * rOpenSci
 * https://github.com/subugoe/subugoetheme/
