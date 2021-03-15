@@ -98,15 +98,15 @@ How to have a faster workflow?
 * Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
 * If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
-## More assets
+## More CSS / JS / other assets
 
 If you need to store more CSS rules or some JS code, the easiest
 way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
 These will be automatically copied to `docs/` and inserted into the
 `<head>` after the default pkgdown CSS and JS.
 
-
 If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
+
 ## Layout
 
 You will want to alter the layout of your website if you are trying to e.g.
