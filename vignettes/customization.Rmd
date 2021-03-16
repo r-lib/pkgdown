@@ -102,7 +102,7 @@ If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/as
 
 ## Layout
 
-You will want to alter the layout of your website if you are trying to e.g.
+You will want to alter the layout of your website if you are trying to:
 
 * customize elements of the navbar, footer, home sidebar,
 * add a few HTML lines corresponding to your HTML provider,
