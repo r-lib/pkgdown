@@ -87,7 +87,9 @@ fig_settings <- function() {
   result$name <- NULL
   result <- lapply(result, eval, baseenv())
 
-  settings <- context_get("figures")
+  # The context might not be initialized.
+  settings <- tryCatch(context_get("figures"),
+                       error = function(e) NULL)
   result[names(settings)] <- settings
 
   if (is.null(result$fig.height)) {
