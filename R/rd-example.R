@@ -128,7 +128,17 @@ as_example.RCODE <- function(x, run_dont_run = FALSE) as.character(x)
 as_example.VERB <- as_example.RCODE
 #' @export
 as_example.TEXT <- as_example.RCODE
-
+#' @export
+as_example.COMMENT <- function(x, run_dont_run = FALSE) {
+  if (grepl("^%[^ ]*%", x)) {
+    warning(
+      "In the examples,  ", unclass(x), "\n",
+      "is an Rd comment: did you mean  ", gsub("%", "\\\\%", x), " ?",
+      call. = FALSE
+    )
+  }
+  ""
+}
 #' @export
 as_example.tag_dontrun <- function(x, run_dont_run = FALSE) {
   if (run_dont_run) {

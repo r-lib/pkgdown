@@ -42,6 +42,14 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   data$footer <- pkgdown_footer(data, pkg)
 
+  # Dependencies for head
+  if (pkg$bs_version > 3) {
+    data$headdeps <- data_deps(pkg = pkg, depth = depth)
+  }
+
+  # Potential opt-out of syntax highlighting CSS
+  data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)
+
   # render template components
   pieces <- c(
     "head", "navbar", "header", "content", "docsearch", "footer",
@@ -51,7 +59,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   templates <- purrr::map_chr(
     pieces, find_template, name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
@@ -65,9 +73,17 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   template <- find_template(
     "layout", name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   rendered <- render_template(template, components)
+
+  # footnotes
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    tweak_footnotes(html)
+    rendered <- as.character(html)
+  }
+
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -181,7 +197,6 @@ check_open_graph <- function(og) {
 }
 
 get_bs_version <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
 
   template <- pkg$meta[["template"]]
 
@@ -220,7 +235,7 @@ template_path <- function(pkg = ".") {
   } else if (!is.null(template$package)) {
     path_package_pkgdown(
       template$package,
-      bs_version = get_bs_version(pkg),
+      bs_version = pkg$bs_version,
       "templates"
     )
   } else {
@@ -369,4 +384,84 @@ footer_pkgdown <- function(data) {
     'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
     data$pkgdown$version, "."
   )
+}
+
+data_deps <- function(pkg, depth) {
+
+  # theme variables from configuration
+  bs_version <- pkg$bs_version
+  bootswatch_theme <- pkg$meta[["template"]]$params$bootswatch %||% NULL
+
+  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
+
+  bs_theme <- do.call(
+    bslib::bs_theme,
+    c(
+      list(
+        version = bs_version,
+        bootswatch = bootswatch_theme
+      ),
+      utils::modifyList(
+        pkgdown_bslib_defaults(),
+        pkg$meta[["template"]]$bslib %||% list()
+      )
+    )
+  )
+  deps <- bslib::bs_theme_dependencies(bs_theme)
+  # Add other dependencies - TODO: more of those?
+  # Even font awesome had a too old version in R Markdown (no ORCID)
+
+  # Dependencies files end up at the website root in a deps folder
+  deps <- lapply(
+    deps,
+    htmltools::copyDependencyToDir,
+    file.path(pkg$dst_path, "deps")
+  )
+
+  # Function needed for indicating where that deps folder is compared to here
+  transform_path <- function(x) {
+
+    x <- gsub(pkg$dst_path, "", x)
+
+    if (depth == 0) {
+      return(sub("/", "", x))
+    }
+
+    paste0(
+      paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+      x
+    )
+
+  }
+
+  # Tags ready to be added in heads
+  htmltools::renderDependencies(
+    deps,
+    srcType = "file",
+    hrefFilter = transform_path
+  )
+}
+
+check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+  if (is.null(bootswatch_theme)) {
+    return(invisible())
+  }
+
+  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    return(invisible())
+  }
+
+  abort(
+    sprintf(
+      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+      bootswatch_theme,
+      pkgdown_field(pkg = pkg, "template", "params", "bootswatch"),
+      bs_version,
+      pkgdown_field(pkg = pkg, "template", "bootstrap")
+    )
+  )
+}
+
+pkgdown_bslib_defaults <- function() {
+  list(`navbar-nav-link-padding-x` = "1rem")
 }

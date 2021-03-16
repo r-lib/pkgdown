@@ -20,6 +20,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
 
+  template_config <- find_template_config(meta[["template"]]$package)
+  meta <- modify_list(template_config, meta)
+
   # Ensure the URL has no trailing slash
   if (!is.null(meta$url)) {
     meta$url <- sub("/$", "", meta$url)
@@ -44,8 +47,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   install_metadata <- meta$deploy$install_metadata %||% FALSE
 
-  structure(
-    list(
+  pkg_list <- list(
       package = package,
       version = version,
 
@@ -62,7 +64,12 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg)
-    ),
+    )
+
+  pkg_list$bs_version <- get_bs_version(pkg_list)
+
+  structure(
+    pkg_list,
     class = "pkgdown"
   )
 }
@@ -208,4 +215,17 @@ package_vignettes <- function(path = ".") {
     title = title,
     description = desc
   )
+}
+
+find_template_config <- function(package) {
+  if (is.null(package)) {
+    return(list())
+  }
+
+  config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
+  if (length(config) == 0) {
+    return(list())
+  }
+
+  yaml::yaml.load_file(config) %||% list()
 }
