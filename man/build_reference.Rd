@@ -161,6 +161,12 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.retina: 2
   fig.asp: 1.618
   bg: NA
+  other.parameters: []
 }
+
+Most of these parameters are interpreted similarly to knitr chunk
+options. \code{other.parameters} is a list of parameters
+that will be available to custom graphics output devices such
+as HTML widgets.
 }
 

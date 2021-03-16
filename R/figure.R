@@ -8,7 +8,8 @@ fig_save <- function(plot,
                      fig.height = NULL,
                      fig.retina = 2L,
                      fig.asp = 1 / 1.618, # golden ratio
-                     bg = NULL
+                     bg = NULL,
+                     other.parameters = list()
                      ) {
 
   path <- paste0(name, ".", fig.ext)
@@ -61,10 +62,19 @@ meta_figures <- function(meta = list()) {
   print_yaml(utils::modifyList(default, figures))
 }
 
-#! Get current settings for figures
-#!
-#' You will generally not need to use this unless you are handling
+#' Get current settings for figures
+#'
+#' You will generally not need to use this function unless you are handling
 #' custom plot output.
+#'
+#' Packages needing custom parameters should ask users to place them within
+#' the `other.parameters` entry under the package name, e.g.
+#' ```
+#' figures:
+#'   other.parameters:
+#'     rgl:
+#'       fig.asp: 1
+#' ```
 #'
 #' @return A list containing the entries from the `figures` field
 #' in `_pkgdown.yaml` (see [build_reference]), with default values added.

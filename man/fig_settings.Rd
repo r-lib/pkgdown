@@ -2,8 +2,7 @@
 % Please edit documentation in R/figure.R
 \name{fig_settings}
 \alias{fig_settings}
-\title{You will generally not need to use this unless you are handling
-custom plot output.}
+\title{Get current settings for figures}
 \usage{
 fig_settings()
 }
@@ -13,6 +12,14 @@ in \verb{_pkgdown.yaml} (see \link{build_reference}), with default values added.
 Computed \code{width} and \code{height} values (in pixels) are also included.
 }
 \description{
-You will generally not need to use this unless you are handling
+You will generally not need to use this function unless you are handling
 custom plot output.
+}
+\details{
+Packages needing custom parameters should ask users to place them within
+the \code{other.parameters} entry under the package name, e.g.\preformatted{figures:
+  other.parameters:
+    rgl:
+      fig.asp: 1
+}
 }
