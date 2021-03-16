@@ -39,7 +39,8 @@ template:
   bootstrap: 4
 ```
 
-It should not break your website, it should however change its styling a bit, for the better we hope.
+This has low risk of breaking your site, but you should preview and double-check just to be sure.
+Overall, the site should look pretty similar, but there will be a few minor improvements.
 However, if you were managing your [own pkgdown templates](#layout) or custom CSS, you might need to tweak those.
 
 ## Theming
