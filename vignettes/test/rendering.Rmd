@@ -11,6 +11,13 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 This vignette tests pkgdown output rendering for several use cases.
 
+# Footnotes
+
+Yay[^footnote]
+ 
+ 
+[^footnote]: Including **footnotes**! 😁
+
 # Highlighting
 
 This document uses a variety of linking styles for testing purposes

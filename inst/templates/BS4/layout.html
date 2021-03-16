@@ -7,14 +7,10 @@
   {{{ after-head }}}
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body data-spy="scroll" data-target="#toc" data-headroom data-tolerance="5" data-offset="100">
     {{{ before-body }}}
-    <div class="container template-{{template}}">
-      <header>
       {{{ navbar }}}
-      {{{ header }}}
-      </header>
-
+    <div class="container template-{{template}}">
 {{{ content }}}
 
       <footer>

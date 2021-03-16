@@ -99,7 +99,7 @@ For example, this yaml might be used for some version of dplyr:\preformatted{art
 
 Note the use of the \code{navbar} fields. \verb{navbar: ~} means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the \code{navbar}
-field in the for the developer vignettes means that they will only be
+field in the developer vignettes means that they will only be
 accessible via the articles index.
 
 The navbar will include a link to the articles index if one or more
