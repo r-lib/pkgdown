@@ -263,4 +263,4 @@ In this vignette we explained how to change the theming and layout of pkgdown we
 Further work to improve user experience is:
 
 * working on the articles index (cf `?build_articles`) and on the reference index (cf `?build_reference`);
-* improving the contents of your documentation themselves! :wink:
+* improving the contents of your documentation themselves! 😉
