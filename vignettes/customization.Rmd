@@ -60,8 +60,8 @@ template:
     bootswatch: materia
 ```
 
-_Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar._
-_Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page)._
+**NB** : Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
+Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
 
 Then, when using Bootstrap 4,
 you can use any variables [documented in bslib](https://rstudio.github.io/bslib/articles/bs4-variables.html) for customizing your theme!
