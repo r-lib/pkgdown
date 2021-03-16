@@ -47,6 +47,7 @@ However, if you were managing your [own pkgdown templates](#layout) or custom CS
 
 ### Choosing a bootswatch theme
 
+The easiest way to change the appearance of your website, or to start changing it, is to pick a complete bootswatch theme.
 You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible with the Bootstrap version you use.
 Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
 If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400).
@@ -63,8 +64,24 @@ template:
 **NB** : Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
 Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
 
-Then, when using Bootstrap 4,
-you can use any variables [documented in bslib](https://rstudio.github.io/bslib/articles/bs4-variables.html) for customizing your theme!
+ Alternatively, you can customise the individual colours using [bslib variables](https://rstudio.github.io/bslib/articles/bs4-variables.html):
+
+```yaml
+template:
+  bootstrap: 4
+  params:
+    bslib:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      success: "#4F9B29"
+      info: "#28B3ED"
+      warning: "#FD7424"
+      danger: "#F7367E"
+```
+
+You can also combine both approach and use both a Bootswatch theme and bslib variables.
+
 
 ```yaml
 template:
@@ -91,14 +108,7 @@ template:
 ```
 
 
-### More CSS / JS / other assets
 
-If you need to store more CSS rules or some JS code, the easiest
-way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
-These will be automatically copied to `docs/` and inserted into the
-`<head>` after the default pkgdown CSS and JS.
-
-If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
 
 ## Layout
 
@@ -112,9 +122,37 @@ You will want to alter the layout of your website if you are trying to:
 
 The navbar, footer and home sidebar can be tweaked via the pkgdown configuration file of your website.
 
-If you want to alter the elements of the navbar, refer to `?build_site` docs.
-If you want to alter the elements of the footer, refer to `?build_site` docs.
-If you want to alter the elements of the home sidebar, refer to `?build_home` docs.
+#### Navbar
+
+```{r navbar-fragment, results='asis', echo=FALSE}
+content <- readLines("../man/rmd-fragments/navbar-configuration.Rmd")
+cat(
+  paste0(
+    content[-1],
+    collapse = "\n"
+  )
+)
+```
+
+#### Footer
+
+```{r footer-fragment, results='asis', echo=FALSE}
+content <- readLines("../man/rmd-fragments/footer-configuration.Rmd")
+cat(
+  paste0(
+    content[-1],
+    collapse = "\n"
+  )
+)
+```
+
+#### Sidebar
+
+```{r child = "../man/rmd-fragments/sidebar-sources.Rmd"}
+```
+
+```{r child = "../man/rmd-fragments/sidebar-configuration.Rmd"}
+```
 
 ### Other layouts changes
 
@@ -137,6 +175,7 @@ Three of pkgdown templates are meant to be customized:
 
 Overriding other templates is recommended for advanced users only.
 Furthermore, maintaining e.g. your own "head.html" template requires more work as you might need to keep it up-to-date with upstream changes in pkgdown itself whereas "in-header.html", "before-body.html" and "after-body.html" are by default empty.
+If you've used head.html in the past, we now recommend switching to using "in-header.html" instead.
 
 ### Tweaking the templates meant for customization
 
@@ -158,6 +197,15 @@ The main difference compared to using empty templates meant for customization is
 
 A limitation to tweaking templates is that, for anything not hard-coded, your templates can only use data that pkgdown passes to templates.
 Make sure you read the documentation of `render_page()` as well as its source code.
+
+## More CSS / JS / other assets
+
+If you need to store more CSS rules or some JS code, the easiest
+way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
+These will be automatically copied to `docs/` and inserted into the
+`<head>` after the default pkgdown CSS and JS.
+
+If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
 
 ## Sharing pkgdown styles: template packages
 
@@ -196,14 +244,13 @@ They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
 
 ### Examples
 
-TODO: update tidytemplate?
+Note that the pkgdown website of pkgdown itself is customized as little as possible.
 
-Example of packages with themes
-* tidytemplate
-* https://github.com/apreshill/quillt
-* rOpenSci
-* https://github.com/subugoe/subugoetheme/
+Here is a list of examples of template packages that you can use as inspiration but that you cannot use directly as they are aimed at a specific subset of packages.
 
+* [tidytemplate](https://tidytemplate.tidyverse.org/) used for tidyverse and tidymodels packages;
+* [quillt](https://pkgs.rstudio.com/quillt) used for R Markdown packages;
+* [rotemplate](https://github.com/ropensci-org/rotemplate) used for rOpenSci packages.
 
 ## How to craft and preview style tweaks
 

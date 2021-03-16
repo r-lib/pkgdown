@@ -109,72 +109,7 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section YAML config - navbar:
-#'
-#' By default, the top navigation bar (the "navbar") will contain links to:
-#'
-#' * "Get Started", if you have an article with the same name as the package
-#'   (e.g., `vignettes/pkgdown.Rmd`).
-#' * Reference
-#' * Articles (i.e., vignettes, if present).
-#' * News (if present).
-#' * An icon linking to the source repository (currently only GitHub and GitLab are supported)
-#'
-#' You can override (and even remove) these defaults with the  `navbar` field.
-#' It has two primary
-#' components: `structure` and `components`. These components interact in
-#' a somewhat complicated way, but the complexity allows you to make minor
-#' tweaks to part of the navbar while relying on pkgdown to automatically
-#' generate the rest.
-#'
-#' The `structure` defines the layout of the navbar, i.e. the order
-#' of the components, and whether they're right aligned or left aligned.
-#' You can use this component to change the order of the default components,
-#' remove some default components and add your own components.
-#'
-#' ```
-#' navbar:
-#'   structure:
-#'     left:  [intro, reference, articles, tutorials, news]
-#'     right: [github]
-#' ````
-#'
-#' The `components` describes the appearance of each element in the navbar.
-#' It uses the same
-#' syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
-#' The following YAML snippet illustrates some of the most important features.
-#'
-#' ```
-#' navbar:
-#'   components:
-#'     articles:
-#'      text: Articles
-#'      menu:
-#'      - text: Category A
-#'      - text: Title A1
-#'        href: articles/a1.html
-#'      - text: Title A2
-#'        href: articles/a2.html
-#'      - text: -------
-#'      - text: "Category B"
-#'      - text: Title B1
-#'        menu:
-#'        - text: "Sub-category B11"
-#'          href: articles/b11.html
-#'      twitter:
-#'        icon: "fab fa-twitter fa-lg"
-#'        href: https://twitter.com/hadleywickham
-#' ```
-#'
-#' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators (indicated by a bunch of `-`). You can also use
-#' `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
-#'
-#' This yaml would override the default "articles" component,
-#' and add a new "twitter" component. Unless you explicitly mention new
-#' components in the `structure` they'll be added to the far right of the
-#' left menu.
-#'
+#' @includeRmd man/rmd-fragments/navbar-configuration.Rmd
 #' @section YAML config - search:
 #' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
 #' to add search to your site.
@@ -321,30 +256,7 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#' @section YAML config - footer:
-#' By default, the footer is automatically populated with:
-#' * the names of the
-#' [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors),
-#' on the left;
-#' * a reference to pkgdown `pkgdown`, on the right.
-#'
-#' The example below puts the authors information on the right together with
-#' a legal disclaimer, and puts pkgdown on the left.
-#' Unlike for the navbar or sidebar, components of the footer left/right are
-#' just pasted together into a string.
-#' If you want to use paragraphs, you need to use either HTML;
-#' or a YAML pipe and to start the components with two empty lines.
-#'
-#' ```
-#' footer:
-#'   left:
-#'     structure: [pkgdown]
-#'   right:
-#'     structure: [authors, legal]
-#'     components:
-#'       legal: Provided without ***any warranty***.
-#' ```
-#'
+#' @includeRmd man/rmd-fragments/footer-configuration.Rmd
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features

@@ -1,0 +1,33 @@
+You can change the order of sidebar components:
+`r toString(pkgdown:::default_sidebar_structure())`; 
+you can add a README table of contents `toc`,
+you can add custom components.
+The example below creates a sidebar whose only components will be the
+authors section, a custom section, a table of contents for the README
+and a Dev Status section if there are badges.
+The `text` will be treated as Markdown.
+
+```
+home:
+  sidebar:
+    structure: [authors, custom, toc, dev]
+    components:
+      custom:
+        title: Funding
+        text: We are *grateful* for funding!
+```
+
+Alternatively, you can provide a ready-made sidebar HTML:
+
+```
+home:
+  sidebar:
+    html: path-to-sidebar.html
+```
+
+Finally, you can completely remove the sidebar.
+
+```
+home:
+  sidebar: FALSE
+```
