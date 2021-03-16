@@ -212,6 +212,7 @@ If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/as
 To share a pkgdown style across several packages, the best workflow is to create... a package!
 
 It might contain any of the following, under `inst/pkgdown`
+
 * a configuration file in `inst/pkgdown/_pkgdown.yml`;
 * templates in `inst/pkgdown/templates/BS4`;
 * assets in `inst/pkgdown/assets/BS4`.
