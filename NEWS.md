@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* New "Customize your pkgdown website" vignette (#1573.
+
 * Allow template packages to provide a default configuration `_pkgdown.yml`, 
   stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
   definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.

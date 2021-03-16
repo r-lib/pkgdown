@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: >
   Learn how to change the look and feel of pkgdown websites.
 vignette: >
-  %\VignetteIndexEntry{customization}
+  %\VignetteIndexEntry{Customize your pkgdown website}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -28,6 +28,7 @@ Another key concept related to styling your pkgdown website is whether you are t
 In the latter case you might want to share your style files in the form of a package.
 
 In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
+Depending on your use case, you might only need to read the sections "pre-requisite", "theming" and "navbar, footer, sidebar" to achieve your goals.
 
 ## Pre-requisite: update to Bootstrap 4!
 
@@ -62,7 +63,9 @@ template:
 ```
 
 **NB** : Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
-Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
+Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page), for instance in a file called `pkgdown/exta.css`.
+
+### bslib variables
 
  Alternatively, you can customise the individual colours using [bslib variables](https://rstudio.github.io/bslib/articles/bs4-variables.html):
 
@@ -79,6 +82,8 @@ template:
       warning: "#FD7424"
       danger: "#F7367E"
 ```
+
+### Why not both
 
 You can also combine both approach and use both a Bootswatch theme and bslib variables.
 
@@ -98,6 +103,8 @@ template:
       danger: "#F7367E"
 ```
 
+### Code highlighting in dark websites
+
 By default pkgdown uses an accessible colour scheme for code highlighting... on a light background.
 If you wish to opt out of this colour scheme to e.g. suit a dark Bootswatch theme better, here's what lines to add in your pkgdown configuration file:
 
@@ -107,18 +114,21 @@ template:
     highlightcss: false
 ```
 
+You will then have to provide your own CSS rules for highlighting code if you so wish, e.g. in `pkgdown/extra.css`.
+
+## More CSS / JS / other assets
+
+If you need to store more CSS rules or some JS code, the easiest
+way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
+These will be automatically copied to `docs/` and inserted into the
+`<head>` after the default pkgdown CSS and JS.
+
+If you e.g. need an SVG used by your CSS, Store the files under `pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
+
+If you use the folder `pkgdown/`, do not forget to [.Rbuildignore](https://r-pkgs.org/package-structure-state.html?q=rbuild#rbuildignore) it.
 
 
-
-## Layout
-
-You will want to alter the layout of your website if you are trying to:
-
-* customize elements of the navbar, footer, home sidebar,
-* add a few HTML lines corresponding to your HTML provider,
-* change the information provided in e.g. the authors page.
-
-### Navbar, footer, home sidebar
+## Navbar, footer, home sidebar
 
 The navbar, footer and home sidebar can be tweaked via the pkgdown configuration file of your website.
 
@@ -154,15 +164,9 @@ cat(
 ```{r child = "../man/rmd-fragments/sidebar-configuration.Rmd"}
 ```
 
-### Other layouts changes
+## Other layouts changes
 
-Other changes of layouts require tinkering with pkgdown _templates_.
-
-pkgdown uses the following whisker templates for Bootstrap 4: 
-
-```{r, results='asis', echo=FALSE}
-cat(paste0("* ", fs::path_file(fs::dir_ls(pkgdown:::path_pkgdown("templates", "BS4"))), "\n"))
-```
+Other changes of layouts require tinkering with pkgdown _templates_ (in `inst/templates` in [pkgdown source](https://github.com/r-lib/pkgdown)).
 
 You can override the default templates (cf `?build_site`).
 For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
@@ -197,15 +201,6 @@ The main difference compared to using empty templates meant for customization is
 
 A limitation to tweaking templates is that, for anything not hard-coded, your templates can only use data that pkgdown passes to templates.
 Make sure you read the documentation of `render_page()` as well as its source code.
-
-## More CSS / JS / other assets
-
-If you need to store more CSS rules or some JS code, the easiest
-way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
-These will be automatically copied to `docs/` and inserted into the
-`<head>` after the default pkgdown CSS and JS.
-
-If you e.g. need an SVG used by your CSS, Store the files under `inst/pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
 
 ## Sharing pkgdown styles: template packages
 
