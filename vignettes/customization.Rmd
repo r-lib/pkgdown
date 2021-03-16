@@ -265,6 +265,7 @@ How to have a faster workflow?
 ## Conclusion
 
 In this vignette we explained how to change the theming and layout of pkgdown websites.
-Further work to improve user experience is
+Further work to improve user experience is:
+
 * working on the articles index (cf `?build_articles`) and on the reference index (cf `?build_reference`);
 * improving the contents of your documentation themselves! :wink:
