@@ -132,7 +132,7 @@ If you use the folder `pkgdown/`, do not forget to [.Rbuildignore](https://r-pkg
 
 The navbar, footer and home sidebar can be tweaked via the pkgdown configuration file of your website.
 
-#### Navbar
+### Navbar
 
 ```{r navbar-fragment, results='asis', echo=FALSE}
 content <- readLines("../man/rmd-fragments/navbar-configuration.Rmd")
@@ -144,7 +144,7 @@ cat(
 )
 ```
 
-#### Footer
+### Footer
 
 ```{r footer-fragment, results='asis', echo=FALSE}
 content <- readLines("../man/rmd-fragments/footer-configuration.Rmd")
@@ -156,7 +156,7 @@ cat(
 )
 ```
 
-#### Sidebar
+### Sidebar
 
 ```{r child = "../man/rmd-fragments/sidebar-sources.Rmd"}
 ```
