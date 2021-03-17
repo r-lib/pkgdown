@@ -53,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(upgrade = TRUE, dependencies = c("all", "Config/needs/website"))
+          pak::local_install_dev_deps(dependencies = c(direct = c("all", "Config/needs/website")))
           pak::pkg_install("pkgdown")
         shell: Rscript {0}
 
