@@ -33,7 +33,7 @@ Depending on your use case, you might only need to read the sections "pre-requis
 ## Pre-requisite: update to Bootstrap 4!
 
 Note that most theming features work only with Bootstrap 4, and that current development of pkgdown templates only happen for Bootstrap 4 templates. 
-If you are reading this vignette, please take a moment to update your website to Boostrap 4.
+If you are reading this vignette, please take a moment to update your website to Bootstrap 4.
 
 ```yaml
 template:
