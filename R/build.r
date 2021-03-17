@@ -109,7 +109,9 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @includeRmd man/rmd-fragments/navbar-configuration.Rmd
+#' @section YAML config - navbar:
+#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
+#' ```
 #' @section YAML config - search:
 #' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
 #' to add search to your site.

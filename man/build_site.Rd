@@ -164,65 +164,66 @@ to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
 
-\section{YAML config - navbar:}{
-By default, the top navigation bar (the “navbar”) will contain links to:
+\section{YAML config - navbar}{
+
+By default, the top navigation bar (the "navbar") will contain links to:
 \itemize{
-\item “Get Started”, if you have an article with the same name as the
-package (e.g., \code{vignettes/pkgdown.Rmd}).
+\item "Get Started", if you have an article with the same name as the package
+(e.g., \code{vignettes/pkgdown.Rmd}).
 \item Reference
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item An icon linking to the source repository (currently only GitHub and
-GitLab are supported)
+\item An icon linking to the source repository (currently only GitHub and GitLab are supported)
 }
 
-You can override (and even remove) these defaults with the \code{navbar}
-field. It has two primary components: \code{structure} and \code{components}.
-These components interact in a somewhat complicated way, but the
-complexity allows you to make minor tweaks to part of the navbar while
-relying on pkgdown to automatically generate the rest.
+You can override (and even remove) these defaults with the  \code{navbar} field.
+It has two primary
+components: \code{structure} and \code{components}. These components interact in
+a somewhat complicated way, but the complexity allows you to make minor
+tweaks to part of the navbar while relying on pkgdown to automatically
+generate the rest.
 
-The \code{structure} defines the layout of the navbar, i.e. the order of the
-components, and whether they’re right aligned or left aligned. You can
-use this component to change the order of the default components, remove
-some default components and add your own components.\preformatted{navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [github]
+The \code{structure} defines the layout of the navbar, i.e. the order
+of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components,
+remove some default components and add your own components.\preformatted{navbar:
+ structure:
+   left:  [intro, reference, articles, tutorials, news]
+   right: [github]
 }
 
 The \code{components} describes the appearance of each element in the navbar.
-It uses the same syntax as
-\href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important
-features.\preformatted{navbar:
-  components:
-    articles:
-     text: Articles
-     menu:
-     - text: Category A
-     - text: Title A1
-       href: articles/a1.html
-     - text: Title A2
-       href: articles/a2.html
-     - text: -------
-     - text: "Category B"
-     - text: Title B1
-       menu:
-       - text: "Sub-category B11"
-         href: articles/b11.html
-     twitter:
-       icon: "fab fa-twitter fa-lg"
-       href: https://twitter.com/hadleywickham
+It uses the same
+syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
+The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      menu:
+      - text: "Sub-category B11"
+        href: articles/b11.html
+    twitter:
+      icon: "fab fa-twitter fa-lg"
+      href: https://twitter.com/hadleywickham
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing
 \code{href}) and separators (indicated by a bunch of \code{-}). You can also use
 \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
 
-This yaml would override the default “articles” component, and add a new
-“twitter” component. Unless you explicitly mention new components in the
-\code{structure} they’ll be added to the far right of the left menu.
+This yaml would override the default "articles" component,
+and add a new "twitter" component. Unless you explicitly mention new
+components in the \code{structure} they'll be added to the far right of the
+left menu.
 }
 
 \section{YAML config - search}{

@@ -134,14 +134,7 @@ The navbar, footer and home sidebar can be tweaked via the pkgdown configuration
 
 ### Navbar
 
-```{r navbar-fragment, results='asis', echo=FALSE}
-content <- readLines("../man/rmd-fragments/navbar-configuration.Rmd")
-cat(
-  paste0(
-    content[-1],
-    collapse = "\n"
-  )
-)
+```{r child="../man/rmd-fragments/navbar-configuration.Rmd"}
 ```
 
 ### Footer
