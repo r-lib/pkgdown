@@ -258,7 +258,9 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#' @includeRmd man/rmd-fragments/footer-configuration.Rmd
+#' @section YAML config - footer:
+#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
+#' ```
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features

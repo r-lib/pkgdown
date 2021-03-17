@@ -1,5 +1,3 @@
-# YAML config - footer
-
 By default, the footer is automatically populated with:
 
 * the names of the

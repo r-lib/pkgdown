@@ -355,19 +355,21 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 }
 
 \section{YAML config - footer}{
+
 By default, the footer is automatically populated with:
 \itemize{
-\item the names of the \href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}},
+\item the names of the
+\href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}},
 on the left;
 \item a reference to pkgdown \code{pkgdown}, on the right.
 }
 
-The example below puts the authors information on the right together
-with a legal disclaimer, and puts pkgdown on the left. Unlike for the
-navbar or sidebar, components of the footer left/right are just pasted
-together into a string. If you want to use paragraphs, you need to use
-either HTML; or a YAML pipe and to start the components with two empty
-lines.\preformatted{footer:
+The example below puts the authors information on the right together with
+a legal disclaimer, and puts pkgdown on the left.
+Unlike for the navbar or sidebar, components of the footer left/right are
+just pasted together into a string.
+If you want to use paragraphs, you need to use either HTML;
+or a YAML pipe and to start the components with two empty lines.\preformatted{footer:
  left:
    structure: [pkgdown]
  right:
