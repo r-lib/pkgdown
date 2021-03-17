@@ -54,7 +54,6 @@ Suggests:
     covr,
     diffviewer,
     evaluate,
-    htmltools,
     htmlwidgets,
     jsonlite,
     knitr,
