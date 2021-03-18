@@ -33,9 +33,8 @@ jobs:
 
       - name: Install pak and query dependencies
         run: |
-          install.packages("pak", lib = .Library, repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = c("all", "Config/Needs/website")), ".github/r-depends.rds")
-        shell: Rscript {0}
+          sudo R -q -e 'install.packages("pak", lib = .Library, repos = "https://r-lib.github.io/p/pak/dev/")'
+          sudo R -q -e 'saveRDS(pak::pkg_deps("local::.", dependencies = c("all", "Config/Needs/website")), ".github/r-depends.rds")'
 
       - name: Cache R packages
         uses: actions/cache@v2
