@@ -71,6 +71,11 @@ jobs:
           pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
         shell: Rscript {0}
 
+      - name: Install macOS system dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install harfbuzz fribidi
+
       - name: Install dependencies
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
