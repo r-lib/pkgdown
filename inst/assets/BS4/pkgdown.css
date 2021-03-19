@@ -338,6 +338,7 @@ a:hover {
 
 a.footnote-ref {
   cursor: pointer;
+}
 /* Reference index & topics ----------------------------------------------- */
 
 .ref-index th {font-weight: normal;}
