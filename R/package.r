@@ -133,7 +133,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   funs <- purrr::map(rd, topic_funs)
 
   tibble::tibble(
-    name = fs::path_ext_remove(file_out),
+    name = names,
     file_in = file_in,
     file_out = file_out,
     alias = aliases,
