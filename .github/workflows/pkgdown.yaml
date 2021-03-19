@@ -33,15 +33,16 @@ jobs:
 
       - name: Install pak and query dependencies
         run: |
-          sudo R -q -e 'install.packages("pak", lib = .Library, repos = "https://r-lib.github.io/p/pak/dev/")'
-          sudo R -q -e 'saveRDS(pak::pkg_deps("local::.", dependencies = c("all", "Config/Needs/website")), ".github/r-depends.rds")'
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
+        shell: Rscript {0}
 
       - name: Cache R packages
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-2-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-2-
+          key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
@@ -52,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(dependencies = c("all", "Config/Needs/website"))
+          pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
         shell: Rscript {0}
 
@@ -88,4 +89,3 @@ jobs:
           # enable-commit-status: true
           #o verwrites-pull-request-comment: true
         timeout-minutes: 1
-
