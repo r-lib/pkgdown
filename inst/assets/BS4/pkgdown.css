@@ -278,6 +278,7 @@ nav[data-toggle="toc"] .nav-link.active:focus {
   color: inherit;
   border-left: none;
   background-color: #eee;
+  font-weight: inherit;
   padding-left: 3px;
 }
 
