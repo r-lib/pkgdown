@@ -379,7 +379,7 @@ table {
   float: right;
   width: 100px;
   margin-left: 30px;
-  margin-top: 0px;
+  margin-top: 2px;
 }
 
 @media (max-width: 767px) {
