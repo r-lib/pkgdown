@@ -236,12 +236,22 @@ Here is a list of examples of template packages that you can use as inspiration 
 
 ## How to craft and preview style tweaks
 
+### General tips
+
 When crafting a new style you will need to re-build your website quite often.
 How to have a faster workflow?
 
 * Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
 * Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
 * If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
+
+### Previews on pull requests
+
+Furthermore, it might be useful for you to get a preview of the website in internal pull requests.
+For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):
+
+* create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from your account developer settings get a token to be saved as `NETLIFY_TOKEN` in your repo secrets.
+* starting from the standard pkgdown workflow `usethis::use_github_action("pkgdown")`, add some logic to build the site and deploy it to Netlify for pull requests from inside the repository, not pull requests from forks. [Example workflow](https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml).
 
 ## Conclusion
 
