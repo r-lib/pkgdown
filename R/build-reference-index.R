@@ -18,8 +18,7 @@ data_reference_index <- function(pkg = ".") {
   print_yaml(list(
     pagetitle = "Function reference",
     rows = rows,
-    has_icons = has_icons,
-    logo = logo_path(pkg, depth = 1)
+    has_icons = has_icons
   ))
 }
 

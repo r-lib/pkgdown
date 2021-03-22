@@ -251,8 +251,6 @@ build_reference_topic <- function(topic,
     }
   )
 
-  data$logo <- logo_path(pkg, depth = 1)
-
   render_page(
     pkg, "reference-topic",
     data = data,

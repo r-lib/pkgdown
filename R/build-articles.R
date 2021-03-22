@@ -355,10 +355,13 @@ build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   dir_create(path(pkg$dst_path, "articles"))
+
+  data <- data_articles_index(pkg)
+
   render_page(
     pkg,
     "article-index",
-    data = data_articles_index(pkg),
+    data = data,
     path = path("articles", "index.html")
   )
 }
