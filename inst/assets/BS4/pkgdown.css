@@ -344,6 +344,7 @@ a:hover {
 a.footnote-ref {
   cursor: pointer;
 /* Reference index & topics ----------------------------------------------- */
+}
 
 .ref-index th {font-weight: normal;}
 
@@ -364,4 +365,18 @@ table {
 
 .fab {
     font-family: "Font Awesome 5 Brands" !important;
+}
+
+/* logo homepage */
+#logo-homepage {
+  float: right;
+  width: 180px;
+  margin-left: 30px;
+}
+
+@media (max-width: 767px) {
+  #logo-homepage {
+  float: none;
+  width: 200px;
+}
 }

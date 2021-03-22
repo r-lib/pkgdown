@@ -465,3 +465,20 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 pkgdown_bslib_defaults <- function() {
   list(`navbar-nav-link-padding-x` = "1rem")
 }
+
+logo_path <- function(pkg, depth) {
+  if (!has_logo(pkg)) {
+    return(NULL)
+  }
+ path <- "package-logo.png"
+
+  if (depth == 0) {
+    return(path)
+  }
+
+  paste0(
+    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+    "/",
+    path
+  )
+}
