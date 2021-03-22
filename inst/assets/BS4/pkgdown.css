@@ -249,7 +249,7 @@ mark {
 
 
 /* TOC heading */
-h2[data-toc-skip] {
+h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
   font-size: x-large;
 }
 
