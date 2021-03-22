@@ -3,6 +3,7 @@
     {{#logo}}<img src="{{.}}" id="logo-pkg" alt="" width="120">{{/logo}}
     <div class='pb-2 mt-4 mb-2 border-bottom'>
       <h1 class="display-4">{{pagetitle}}</h1>
+      {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
     </div>
 
 {{{body}}}
