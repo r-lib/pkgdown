@@ -20,31 +20,38 @@ knitr::opts_chunk$set(
 library(pkgdown)
 ```
 
-You can alter the design/styling of your pkgdown website to suit your brand and needs. 
-_Theming_ refers to being able to tweak colors, fonts, spacing etc. by using a Bootswatch template, Bootstrap variables, Bootstrap rules, or any custom CSS. 
-_Layout_ refers to being able to change the content of say the navbar, authors page, `<head>` tag by using pkgdown configuration or pkgdown templates.
+You can alter the design/styling of your pkgdown website to suit your brand and needs.
+There are two main techniques:
 
-Another key concept related to styling your pkgdown website is whether you are tweaking _one_ package website, or several ones. 
-In the latter case you might want to share your style files in the form of a package.
+-   **Theming** changes colours, fonts, spacing etc. using a Bootswatch template, Bootstrap variables, Bootstrap rules, or custom CSS.
 
-In this vignette we shall explain you the scope and tools for _theming_ and tweaking the _layout_ of pkgdown websites, and then explain how to best distribute your style when applied to more than one pkgdown website.
-Depending on your use case, you might only need to read the sections "pre-requisite", "theming" and "navbar, footer, sidebar" to achieve your goals.
+-   **Layout** changes the content (or ordering) of the navbar, authors page, or `<head>` tag, by using pkgdown options or templates.
 
-## Pre-requisite: update to Bootstrap 4!
+This vignette begins with a discussion of the most common theming and layout options made available through `_pkgdown.yml`.
+We'll then discuss how to customise the underlying HTML template files, this is less commonly needed but gives you full control over the appearance of the website.
+Next, we'll discuss how to give multiple sites the same style by using a package, and we'll finish up with some workflow advice.
 
-Note that most theming features work only with Bootstrap 4, and that current development of pkgdown templates only happen for Bootstrap 4 templates. 
-If you are reading this vignette, please take a moment to update your website to Bootstrap 4.
+## Getting started
 
-```yaml
+Most theming features work only with Bootstrap 4, so begin by update your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
+
+``` {.yaml}
 template:
   bootstrap: 4
 ```
 
-This has low risk of breaking your site, but you should preview and double-check just to be sure.
-Overall, the site should look pretty similar, but there will be a few minor improvements.
-However, if you were managing your [own pkgdown templates](#layout) or custom CSS, you might need to tweak those.
+Overall, the site should look pretty similar, but you should notice a number of small improvements; most importantly the default font is much bigger, making it considerably easier to read.
+Upgrading to Bootstrap 4 has a low of breaking your site, but if you were managing your [own pkgdown templates](#layout) or using custom CSS, you might need to tweak a few files.
 
 ## Theming
+
+There are three main ways to change the visual style of your site:
+
+-   With a pre-packaged bootswatch theme.
+
+-   By customising theme variables via bslib.
+
+-   With your own CSS and JS.
 
 ### Choosing a bootswatch theme
 
@@ -55,82 +62,70 @@ If you were using the paper theme, note that it was renamed [materia](https://bl
 
 To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
 
-```yaml
+``` {.yaml}
 template:
   bootstrap: 4
   params:
     bootswatch: materia
 ```
 
-**NB** : Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
-Add [CSS rules to prevent overlap with other elements](https://getbootstrap.com/docs/4.6/components/navbar/#placement) like [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page), for instance in a file called `pkgdown/exta.css`.
+**NB**: Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
+You'll need to use custom CSS to add [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
 
-### bslib variables
+By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background.
+If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set `highlightcss` to false:
 
- Alternatively, you can customise the individual colours using [bslib variables](https://rstudio.github.io/bslib/articles/bs4-variables.html):
-
-```yaml
-template:
-  bootstrap: 4
-  params:
-    bslib:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      success: "#4F9B29"
-      info: "#28B3ED"
-      warning: "#FD7424"
-      danger: "#F7367E"
-```
-
-### Why not both
-
-You can also combine both approach and use both a Bootswatch theme and bslib variables.
-
-
-```yaml
-template:
-  bootstrap: 4
-  params:
-    bootswatch: materia
-    bslib:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      success: "#4F9B29"
-      info: "#28B3ED"
-      warning: "#FD7424"
-      danger: "#F7367E"
-```
-
-### Code highlighting in dark websites
-
-By default pkgdown uses an accessible colour scheme for code highlighting... on a light background.
-If you wish to opt out of this colour scheme to e.g. suit a dark Bootswatch theme better, here's what lines to add in your pkgdown configuration file:
-
-```yaml
+``` {.yaml}
 template:
   params:
     highlightcss: false
 ```
 
-You will then have to provide your own CSS rules for highlighting code if you so wish, e.g. in `pkgdown/extra.css`.
+You will then have to provide your own CSS rules for syntax highlighting.
 
-## More CSS / JS / other assets
+### bslib variables
 
-If you need to store more CSS rules or some JS code, the easiest
-way is to add them in respectively`pkgdown/extra.css` and `pkgdown/extra.js`. 
-These will be automatically copied to `docs/` and inserted into the
-`<head>` after the default pkgdown CSS and JS.
+Rather than picking an entire theme, you can customise individual theme components using bslib variables:
 
-If you e.g. need an SVG used by your CSS, Store the files under `pkgdown/assets/BS4` (if you're using Bootstrap 4), it will be copied to the root of your website folder by pkgdown (by `init_site()`).
+``` {.yaml}
+template:
+  bootstrap: 4
+  params:
+    bslib:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      success: "#4F9B29"
+      info: "#28B3ED"
+      warning: "#FD7424"
+      danger: "#F7367E"
+```
 
-If you use the folder `pkgdown/`, do not forget to [.Rbuildignore](https://r-pkgs.org/package-structure-state.html?q=rbuild#rbuildignore) it.
+You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
 
+You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don't like:
 
-## Navbar, footer, home sidebar
+``` {.yaml}
+template:
+  bootstrap: 4
+  params:
+    bootswatch: materia
+    bslib:
+      bg: "#202123"
+      fg: "#B8BCC2"
+```
 
-The navbar, footer and home sidebar can be tweaked via the pkgdown configuration file of your website.
+### More CSS / JS / other assets
+
+If you know CSS or JS, you can customise your site by including `pkgdown/extra.css` or `pkgdown/extra.js`.
+These will be automatically copied the home directory of your website and inserted into the `<head>` (after the pkgdown defaults).
+
+You can add arbitrary additional files by putting them in `pkgdown/assets/BS4`.
+The contents will be automatically copied to the root of your website folder by pkgdown by `init_site()`.
+
+## Layout {#layout}
+
+You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site.
 
 ### Navbar
 
@@ -150,113 +145,80 @@ The navbar, footer and home sidebar can be tweaked via the pkgdown configuration
 ```{r child = "../man/rmd-fragments/sidebar-configuration.Rmd"}
 ```
 
-## Other layouts changes
+## Templates
 
-Other changes of layouts require tinkering with pkgdown _templates_ (in `inst/templates` in [pkgdown source](https://github.com/r-lib/pkgdown)).
+Other layout changes require tinkering with pkgdown **templates** (in `inst/templates` in [pkgdown source](https://github.com/r-lib/pkgdown)).
+Three pkgdown templates are empty by default, so you can fill them with your own content:
 
-You can override the default templates (cf `?build_site`).
-For any template for which you have **not** provided a replacement, pkgdown will use the default template (corresponding to the right Bootstrap version) so you only need to provide pkgdown with the templates you _have_ tweaked.
+-   `in-header.html` is inserted right before closing the head tag.
+-   `before-body.html` is inserted right after opening the body tag.
+-   `after-body.html` is inserted right before closing the body tag.
 
-Three of pkgdown templates are meant to be customized:
+To add content to these templates:
 
-* "in-header.html" inserted right before closing the head tag, 
-* "before-body.html" inserted right after opening the body tag,
-* "after-body.html" inserted right before closing the body tag.
+-   Create a folder `inst/pkgdown/templates`.
+-   Create `in-header.html`, `before-body.html` or `after-body.html` in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`.
+-   Edit and save that file.
+-   Re-build your website, inspect it (and its source, if needed).
 
-Overriding other templates is recommended for advanced users only.
-Furthermore, maintaining e.g. your own "head.html" template requires more work as you might need to keep it up-to-date with upstream changes in pkgdown itself whereas "in-header.html", "before-body.html" and "after-body.html" are by default empty.
-If you've used head.html in the past, we now recommend switching to using "in-header.html" instead.
-
-### Tweaking the templates meant for customization
-
-* Create a folder `inst/pkgdown/templates` (or use another method to override templates).
-* Create an HTML file "in-header.html", "before-body.html" or "after-body.html" in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`.
-* Edit and save that file.
-* Re-build your website, inspect it (and its source, if needed).
-
-### Tweaking other templates (advanced users only)
-
-The main difference compared to using empty templates meant for customization is that you will need to learn a bit about whisker, the R implementation of [Mustache](https://mustache.github.io/mustache.5.html); and that you might need to update your templates with upstream changes in the future.
-
-* To find what template to edit, study the contents of pkgdown's templates folder (`inst/templates/BS4` for Bootstrap 4, `inst/templates/BS3` for Bootstrap 3). The skeleton of pages is provided in "layout.html" so start there.
-* Create a folder `inst/pkgdown/templates` (or use another method to override templates).
-* Copy the template(s) you need to tweak into that folder, edit and save them.
-* Re-build your website, inspect it (and its source, if needed).
-
-### General caveat
-
-A limitation to tweaking templates is that, for anything not hard-coded, your templates can only use data that pkgdown passes to templates.
-Make sure you read the documentation of `render_page()` as well as its source code.
+It is possible to customise other templates but this is recommended for advanced users only because you'll need to keep it up to date as pkgdown itself changes.
+If you've used `head.html` in the past, we now recommend switching to using `in-header.html` instead.
+A limitation to tweaking templates is that your templates can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of `render_page()`.
 
 ## Sharing pkgdown styles: template packages
 
 To share a pkgdown style across several packages, the best workflow is to create... a package!
+It can contain any of the following:
 
-It might contain any of the following, under `inst/pkgdown`
+-   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority: they will be overridden by a local `_pkgdown.yml` which is in turn overridden by `override` parameter of `build_site()`.
+-   Templates in `inst/pkgdown/templates/BS4` will override the default templates.
+-   Assets in `inst/pkgdown/assets/BS4` will be copied in to the destination directory.
 
-* a configuration file in `inst/pkgdown/_pkgdown.yml`;
-* templates in `inst/pkgdown/templates/BS4`;
-* assets in `inst/pkgdown/assets/BS4`.
+Once you have created your template package `theverybest`, you can use it by:
 
-Once you have created your template package `theverybest`, to build a pkgdown website with it, what's needed is
+-   Setting it as your sites theme:
 
-* for `theverybest` to be installed. In `DESCRIPTION` the packages using it could have these lines (in particular if your continuous integration workflow uses pak or remotes).
+    ``` {.yaml}
+    template:
+      package: theverybest
+    ```
 
-```
-Config/Needs/website:
-    theverybest
-```
+-   If you're building your site using GitHub actions or other similar tool, you'll also need to installed `theverybest`.
+    If you're using remotes or pak to install packages, you can add the following line to your `DESCRIPTION`:
 
-* for the pkgdown configuration file to feature these lines:
+        Config/Needs/website: theverybest
 
-```yaml
-template:
-  package: theverybest
-```
+The pkgdown website of pkgdown is itself customized as little as possible.
+To get some sense of how a theming package works you can look at:
 
-### Configuration file in a template package
+-   [tidytemplate](https://tidytemplate.tidyverse.org/) used for tidyverse and tidymodels packages;
+-   [quillt](https://pkgs.rstudio.com/quillt) used for R Markdown packages;
+-   [rotemplate](https://github.com/ropensci-org/rotemplate) used for rOpenSci packages.
 
-Allow template packages to provide a default configuration `_pkgdown.yml`, 
-stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
-definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
+But please note that these templates aren't suitable for use with your own package as they're all designed to give a common visual identity to a specific family of packages.
 
-Configuration parameters supplied by a template package have the lowest priority
-They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
-`override` parameter of `build_site()`. 
-
-### Examples
-
-Note that the pkgdown website of pkgdown itself is customized as little as possible.
-
-Here is a list of examples of template packages that you can use as inspiration but that you cannot use directly as they are aimed at a specific subset of packages.
-
-* [tidytemplate](https://tidytemplate.tidyverse.org/) used for tidyverse and tidymodels packages;
-* [quillt](https://pkgs.rstudio.com/quillt) used for R Markdown packages;
-* [rotemplate](https://github.com/ropensci-org/rotemplate) used for rOpenSci packages.
-
-## How to craft and preview style tweaks
-
-### General tips
+### Workflow tips
 
 When crafting a new style you will need to re-build your website quite often.
 How to have a faster workflow?
 
-* Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
-* Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
-* If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
+-   Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
+-   Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
+-   If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
 ### Previews on pull requests
 
 Furthermore, it might be useful for you to get a preview of the website in internal pull requests.
 For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):
 
-* create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from your account developer settings get a token to be saved as `NETLIFY_TOKEN` in your repo secrets.
-* starting from the standard pkgdown workflow `usethis::use_github_action("pkgdown")`, add some logic to build the site and deploy it to Netlify for pull requests from inside the repository, not pull requests from forks. [Example workflow](https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml).
+-   create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from your account developer settings get a token to be saved as `NETLIFY_TOKEN` in your repo secrets.
+-   starting from the standard pkgdown workflow `usethis::use_github_action("pkgdown")`, add some logic to build the site and deploy it to Netlify for pull requests from inside the repository, not pull requests from forks. [Example workflow](https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml).
 
 ## Conclusion
 
 In this vignette we explained how to change the theming and layout of pkgdown websites.
 Further work to improve user experience is:
 
-* working on the articles index (cf `?build_articles`) and on the reference index (cf `?build_reference`);
-* improving the contents of your documentation themselves! 😉
+-   Working on the article (`?build_articles`) and reference indexes (`?build_reference`).
+-   Writing a compelling README that explains why your package is so cool/useful/fun.
+-   Improving the contents of the individual articles and reference topics 😉.

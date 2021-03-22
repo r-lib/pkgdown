@@ -193,3 +193,7 @@ modify_list <- function(x, y) {
 
   utils::modifyList(x, y)
 }
+
+code_commas <- function(x) {
+  paste0("`", x, "`", collapse = ", ")
+}

@@ -166,35 +166,28 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-By default, the top navigation bar (the "navbar") will contain links to:
+By default, the top navbar will contain links to:
 \itemize{
-\item "Get Started", if you have an article with the same name as the package
-(e.g., \code{vignettes/pkgdown.Rmd}).
-\item Reference
+\item "Get Started", if you have an article with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd}).
+\item The reference index.
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item An icon linking to the source repository (currently only GitHub and GitLab are supported)
+\item An icon linking to the source repository.
 }
 
-You can override (and even remove) these defaults with the  \code{navbar} field.
-It has two primary
-components: \code{structure} and \code{components}. These components interact in
-a somewhat complicated way, but the complexity allows you to make minor
-tweaks to part of the navbar while relying on pkgdown to automatically
-generate the rest.
+You can override (and even remove) these defaults with the \code{navbar} field.
+It has two primary components: \code{structure} and \code{components}.
+These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.
 
-The \code{structure} defines the layout of the navbar, i.e. the order
-of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components,
-remove some default components and add your own components.\preformatted{navbar:
+The \code{structure} defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components, remove some default components and add your own components.\preformatted{navbar:
  structure:
    left:  [intro, reference, articles, tutorials, news]
    right: [github]
 }
 
 The \code{components} describes the appearance of each element in the navbar.
-It uses the same
-syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
+It uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
  components:
    articles:
@@ -216,14 +209,11 @@ The following YAML snippet illustrates some of the most important features.\pref
       href: https://twitter.com/hadleywickham
 }
 
-Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators (indicated by a bunch of \code{-}). You can also use
-\code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+Components can contain sub-\code{menu}s with headings (indicated by missing \code{href}) and separators (indicated by a bunch of \code{-}).
+You can also use \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
 
-This yaml would override the default "articles" component,
-and add a new "twitter" component. Unless you explicitly mention new
-components in the \code{structure} they'll be added to the far right of the
-left menu.
+This yaml would override the default "articles" component, and add a new "twitter" component.
+Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
 }
 
 \section{YAML config - search}{
@@ -358,18 +348,11 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 
 By default, the footer is automatically populated with:
 \itemize{
-\item the names of the
-\href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}},
-on the left;
-\item a reference to pkgdown \code{pkgdown}, on the right.
+\item The names of the \href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}}, on the left.
+\item A reference to pkgdown \code{pkgdown}, on the right.
 }
 
-The example below puts the authors information on the right together with
-a legal disclaimer, and puts pkgdown on the left.
-Unlike for the navbar or sidebar, components of the footer left/right are
-just pasted together into a string.
-If you want to use paragraphs, you need to use either HTML;
-or a YAML pipe and to start the components with two empty lines.\preformatted{footer:
+The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.\preformatted{footer:
  left:
    structure: [pkgdown]
  right:
@@ -377,6 +360,9 @@ or a YAML pipe and to start the components with two empty lines.\preformatted{fo
    components:
      legal: Provided without ***any warranty***.
 }
+
+Like the navbar and side, you can control both the structure and the components.
+Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.
 }
 
 \section{Options}{

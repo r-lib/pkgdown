@@ -1,63 +1,49 @@
-By default, the top navigation bar (the "navbar") will contain links to:
+By default, the top navbar will contain links to:
 
-* "Get Started", if you have an article with the same name as the package
- (e.g., `vignettes/pkgdown.Rmd`).
-* Reference
-* Articles (i.e., vignettes, if present).
-* News (if present).
-* An icon linking to the source repository (currently only GitHub and GitLab are supported)
+-   "Get Started", if you have an article with the same name as the package (e.g., `vignettes/pkgdown.Rmd`).
+-   The reference index.
+-   Articles (i.e., vignettes, if present).
+-   News (if present).
+-   An icon linking to the source repository.
 
-You can override (and even remove) these defaults with the  `navbar` field.
-It has two primary
-components: `structure` and `components`. These components interact in
-a somewhat complicated way, but the complexity allows you to make minor
-tweaks to part of the navbar while relying on pkgdown to automatically
-generate the rest.
+You can override (and even remove) these defaults with the `navbar` field.
+It has two primary components: `structure` and `components`.
+These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.
 
-The `structure` defines the layout of the navbar, i.e. the order
-of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components,
-remove some default components and add your own components.
+The `structure` defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components, remove some default components and add your own components.
 
-```
-navbar:
- structure:
-   left:  [intro, reference, articles, tutorials, news]
-   right: [github]
-````
+    navbar:
+     structure:
+       left:  [intro, reference, articles, tutorials, news]
+       right: [github]
 
 The `components` describes the appearance of each element in the navbar.
-It uses the same
-syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+It uses the same syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 The following YAML snippet illustrates some of the most important features.
 
-```
-navbar:
- components:
-   articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Title B1
-      menu:
-      - text: "Sub-category B11"
-        href: articles/b11.html
-    twitter:
-      icon: "fab fa-twitter fa-lg"
-      href: https://twitter.com/hadleywickham
-```
+    navbar:
+     components:
+       articles:
+        text: Articles
+        menu:
+        - text: Category A
+        - text: Title A1
+          href: articles/a1.html
+        - text: Title A2
+          href: articles/a2.html
+        - text: -------
+        - text: "Category B"
+        - text: Title B1
+          menu:
+          - text: "Sub-category B11"
+            href: articles/b11.html
+        twitter:
+          icon: "fab fa-twitter fa-lg"
+          href: https://twitter.com/hadleywickham
 
-Components can contain sub-`menu`s with headings (indicated by missing
-`href`) and separators (indicated by a bunch of `-`). You can also use
-`icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
+Components can contain sub-`menu`s with headings (indicated by missing `href`) and separators (indicated by a bunch of `-`).
+You can also use `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
 
-This yaml would override the default "articles" component,
-and add a new "twitter" component. Unless you explicitly mention new
-components in the `structure` they'll be added to the far right of the
-left menu.
+This yaml would override the default "articles" component, and add a new "twitter" component.
+Unless you explicitly mention new components in the `structure` they'll be added to the far right of the left menu.
