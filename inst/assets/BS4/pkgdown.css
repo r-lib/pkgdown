@@ -250,7 +250,7 @@ mark {
 
 /* TOC heading */
 h2[data-toc-skip] {
-  font-size: large;
+  font-size: x-large;
 }
 
 /* bootstrap-toc tweaks */
@@ -262,6 +262,7 @@ nav[data-toggle="toc"] .nav > li > a {
   font-size: inherit;
   color: inherit;
   padding-left: 3px;
+  font-weight: inherit;
 }
 
 nav[data-toggle="toc"] .nav > li > a:hover,
