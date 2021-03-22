@@ -368,11 +368,18 @@ table {
 }
 
 /* logo homepage */
-#logo-homepage {
+#logo-pkg {
   float: right;
   width: 100px;
   margin-left: 30px;
   margin-top: 25px;
+}
+
+#logo-homepage {
+  float: right;
+  width: 100px;
+  margin-left: 30px;
+  margin-top: 0px;
 }
 
 @media (max-width: 767px) {
