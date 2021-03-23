@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Added extension points to make HTML widgets (and RGL in particular) work
+  in rendered examples (@dmurdoch).
+
 * Allow template packages to provide a default configuration `_pkgdown.yml`, 
   stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
   definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
