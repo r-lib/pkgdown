@@ -114,7 +114,13 @@
 #'   fig.retina: 2
 #'   fig.asp: 1.618
 #'   bg: NA
+#'   other.parameters: []
 #' ```
+#'
+#' Most of these parameters are interpreted similarly to knitr chunk
+#' options. `other.parameters` is a list of parameters
+#' that will be available to custom graphics output devices such
+#' as HTML widgets.
 #'
 #' @inheritParams build_articles
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
@@ -251,6 +257,23 @@ build_reference_topic <- function(topic,
     }
   )
 
+  deps <- data$dependencies
+  data$has_deps <- !is.null(deps)
+  if (data$has_deps) {
+    deps <- htmltools::resolveDependencies(deps)
+    deps <- purrr::map(deps,
+      htmltools::copyDependencyToDir,
+      outputDir = file.path(pkg$dst_path, "reference", "libs"),
+      mustWork = FALSE
+    )
+    deps <- purrr::map(deps,
+      htmltools::makeDependencyRelative,
+      basepath = file.path(pkg$dst_path, "reference"),
+      mustWork = FALSE
+    )
+    data$dependencies <- htmltools::renderDependencies(deps, "file")
+  }
+
   render_page(
     pkg, "reference-topic",
     data = data,
@@ -306,6 +329,11 @@ data_reference_topic <- function(topic,
       run_examples = examples,
       run_dont_run = run_dont_run
     )
+    deps <- attr(out$examples, "dependencies")
+    if (!is.null(deps)) {
+      attr(out$examples, "dependencies") <- NULL
+      out$dependencies <- deps
+    }
   }
 
   # Everything else stays in original order, and becomes a list of sections.

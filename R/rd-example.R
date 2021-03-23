@@ -103,13 +103,16 @@ highlight_examples <- function(code, topic, env = globalenv()) {
 
   fig_save_topic <- function(plot, id) {
     name <- paste0(topic, "-", id)
-    do.call(fig_save, c(list(plot, name), context_get("figures")))
+    do.call(fig_save, c(list(plot, name), fig_settings()))
   }
 
+  # evaluate is only suggested, but we won't get here
+  # unless it is installed.
   downlit::evaluate_and_highlight(
     code,
     fig_save = fig_save_topic,
-    env = child_env(env)
+    env = child_env(env),
+    output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
 }
 

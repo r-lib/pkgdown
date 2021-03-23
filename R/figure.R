@@ -8,9 +8,9 @@ fig_save <- function(plot,
                      fig.height = NULL,
                      fig.retina = 2L,
                      fig.asp = 1 / 1.618, # golden ratio
-                     bg = NULL
+                     bg = NULL,
+                     other.parameters = list()
                      ) {
-
 
   path <- paste0(name, ".", fig.ext)
   dev <- match_fun(dev)
@@ -50,16 +50,56 @@ fig_save <- function(plot,
   list(path = path, width = width, height = height)
 }
 
-meta_figures <- function(meta = list()) {
-  # Avoid having two copies of the default settings
+fig_save_args <- function() {
+  # Avoid having multiple copies of the default settings
   default <- formals(fig_save)
   default$plot <- NULL
   default$name <- NULL
   default <- lapply(default, eval, baseenv())
+  default
+}
 
+meta_figures <- function(meta = list()) {
+  default <- fig_save_args()
   figures <- purrr::pluck(meta, "figures", .default = list())
 
   print_yaml(utils::modifyList(default, figures))
+}
+
+#' Get current settings for figures
+#'
+#' @description
+#' You will generally not need to use this function unless you are handling
+#' custom plot output.
+#'
+#' Packages needing custom parameters should ask users to place them within
+#' the `other.parameters` entry under the package name, e.g.
+#' ```
+#' figures:
+#'   other.parameters:
+#'     rgl:
+#'       fig.asp: 1
+#' ```
+#'
+#' @return
+#' A list containing the entries from the `figures` field in `_pkgdown.yaml`
+#' (see [build_reference()]), with default values added. Computed `width` and
+#' `height` values (in pixels) are also included.
+#' @export
+#' @keywords internal
+fig_settings <- function() {
+  result <- fig_save_args()
+
+  # The context might not be initialized.
+  settings <- tryCatch(context_get("figures"), error = function(e) NULL)
+  result[names(settings)] <- settings
+
+  if (is.null(result$fig.height)) {
+    result$fig.height <- result$fig.width * result$fig.asp
+  } else if (is.null(result$fig.width)) {
+    result$fig.width <- result$fig.height / result$fig.asp
+  }
+  result
 }
 
 with_device <- function(dev, dev.args, plot) {
