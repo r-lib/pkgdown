@@ -7,15 +7,14 @@
 fig_settings()
 }
 \value{
-A list containing the entries from the \code{figures} field
-in \verb{_pkgdown.yaml} (see \link{build_reference}), with default values added.
-Computed \code{width} and \code{height} values (in pixels) are also included.
+A list containing the entries from the \code{figures} field in \verb{_pkgdown.yaml}
+(see \code{\link[=build_reference]{build_reference()}}), with default values added. Computed \code{width} and
+\code{height} values (in pixels) are also included.
 }
 \description{
 You will generally not need to use this function unless you are handling
 custom plot output.
-}
-\details{
+
 Packages needing custom parameters should ask users to place them within
 the \code{other.parameters} entry under the package name, e.g.\preformatted{figures:
   other.parameters:
@@ -23,3 +22,4 @@ the \code{other.parameters} entry under the package name, e.g.\preformatted{figu
       fig.asp: 1
 }
 }
+\keyword{internal}

@@ -50,13 +50,17 @@ fig_save <- function(plot,
   list(path = path, width = width, height = height)
 }
 
-meta_figures <- function(meta = list()) {
-  # Avoid having two copies of the default settings
+fig_save_args <- function() {
+  # Avoid having multiple copies of the default settings
   default <- formals(fig_save)
   default$plot <- NULL
   default$name <- NULL
   default <- lapply(default, eval, baseenv())
+  default
+}
 
+meta_figures <- function(meta = list()) {
+  default <- fig_save_args()
   figures <- purrr::pluck(meta, "figures", .default = list())
 
   print_yaml(utils::modifyList(default, figures))
@@ -64,6 +68,7 @@ meta_figures <- function(meta = list()) {
 
 #' Get current settings for figures
 #'
+#' @description
 #' You will generally not need to use this function unless you are handling
 #' custom plot output.
 #'
@@ -76,26 +81,23 @@ meta_figures <- function(meta = list()) {
 #'       fig.asp: 1
 #' ```
 #'
-#' @return A list containing the entries from the `figures` field
-#' in `_pkgdown.yaml` (see [build_reference]), with default values added.
-#' Computed `width` and `height` values (in pixels) are also included.
+#' @return
+#' A list containing the entries from the `figures` field in `_pkgdown.yaml`
+#' (see [build_reference()]), with default values added. Computed `width` and
+#' `height` values (in pixels) are also included.
 #' @export
+#' @keywords internal
 fig_settings <- function() {
-  # Avoid having another copy of the default settings
-  result <- formals(fig_save)
-  result$plot <- NULL
-  result$name <- NULL
-  result <- lapply(result, eval, baseenv())
+  result <- fig_save_args()
 
   # The context might not be initialized.
-  settings <- tryCatch(context_get("figures"),
-                       error = function(e) NULL)
+  settings <- tryCatch(context_get("figures"), error = function(e) NULL)
   result[names(settings)] <- settings
 
   if (is.null(result$fig.height)) {
-    result$fig.height <- with(result, fig.width * fig.asp)
+    result$fig.height <- result$fig.width * result$fig.asp
   } else if (is.null(result$fig.width)) {
-    result$fig.width <- with(result, fig.height / fig.asp)
+    result$fig.width <- result$fig.height / result$fig.asp
   }
   result
 }

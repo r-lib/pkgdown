@@ -11,9 +11,8 @@ pkgdown_print(x, visible)
 
 \item{visible}{Whether it is visible or not}
 }
-\value{
-character vector showing the value of x
-}
 \description{
-Print object in pkgdown output
+This makes it possible to control how objects are printed specifically in
+the pkgdown output.
 }
+\keyword{internal}
