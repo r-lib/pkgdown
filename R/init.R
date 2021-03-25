@@ -57,6 +57,14 @@ copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   template <- purrr::pluck(pkg$meta, "template", .default = list())
 
+  # Copy logo
+  if (pkg$has_logo) {
+    file.copy(
+      find_logo(pkg$src_path),
+      file.path(pkg$dst_path, "package-logo.png")
+    )
+  }
+
   # Copy default assets
   if (!identical(template$default_assets, FALSE)) {
     copy_asset_dir(pkg, path_pkgdown("assets", paste0("BS", pkg$bs_version)))

@@ -22,7 +22,12 @@ render_md <- function(pkg, filename) {
   cat_line("Reading ", src_path(path_rel(filename, pkg$src_path)))
 
   render_page(pkg, "title-body",
-    data = list(pagetitle = attr(body, "title"), body = body),
+    data = list(
+      pagetitle = attr(body, "title"),
+      body = body,
+      filename = filename,
+      source = repo_source(pkg, fs::path_rel(filename, pkg$src_path))
+    ),
     path = path_ext_set(basename(filename), "html")
   )
 }

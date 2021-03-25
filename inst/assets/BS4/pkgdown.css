@@ -249,7 +249,7 @@ mark {
 
 
 /* TOC heading */
-h2[data-toc-skip] {
+h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
   font-size: x-large;
 }
 
@@ -343,6 +343,7 @@ a:hover {
 
 a.footnote-ref {
   cursor: pointer;
+}
 /* Reference index & topics ----------------------------------------------- */
 
 .ref-index th {font-weight: normal;}
@@ -364,4 +365,33 @@ table {
 
 .fab {
     font-family: "Font Awesome 5 Brands" !important;
+}
+
+/* logo homepage */
+#logo-high {
+  float: right;
+  width: 100px;
+  margin-left: 30px;
+  margin-top: 25px;
+}
+
+@media (max-width: 767px) {
+  #logo-high {
+  float: none;
+  width: 100px;
+}
+}
+
+#logo-low {
+  float: right;
+  width: 100px;
+  margin-left: 30px;
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  #logo-low {
+  float: none;
+  width: 100px;
+}
 }
