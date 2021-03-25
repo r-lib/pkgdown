@@ -1,6 +1,6 @@
 Package: pkgdown
 Title: Make Static HTML Documentation for a Package
-Version: 1.6.1.9000
+Version: 1.6.1.9001
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -53,10 +53,12 @@ Imports:
 Suggests: 
     covr,
     diffviewer,
+    evaluate,
     htmlwidgets,
     jsonlite,
     knitr,
     lifecycle,
+    methods,
     pkgload (>= 1.0.2),
     rsconnect,
     rstudioapi,
@@ -65,7 +67,10 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
+Config/Needs/website:
+    usethis
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: pandoc
+Remotes: r-lib/downlit

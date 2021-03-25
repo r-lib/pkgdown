@@ -250,18 +250,20 @@ mark {
 
 /* TOC heading */
 h2[data-toc-skip] {
-  font-size: large;
+  font-size: x-large;
 }
 
 /* bootstrap-toc tweaks */
-
 .nav {
 flex-direction: column;
 }
+
 nav[data-toggle="toc"] .nav > li > a {
   font-size: inherit;
   color: inherit;
   padding-left: 3px;
+  font-weight: inherit;
+  margin-left: -3px;
 }
 
 nav[data-toggle="toc"] .nav > li > a:hover,
@@ -270,15 +272,18 @@ nav[data-toggle="toc"] .nav > li > a:focus {
   border-left: none;
   background-color: #eee;
   padding-left: 3px;
+  margin-left: -3px;
 }
 
 nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus {
   color: inherit;
-  border-left: none;
   background-color: #eee;
+  font-weight: inherit;
   padding-left: 3px;
+  border-left: none;
+  margin-left: -3px;
 }
 
 nav[data-toggle="toc"] .nav .nav > li > a {
@@ -321,6 +326,23 @@ a:hover {
  }
 }
 
+
+/* Footnotes --------------------------------------------- */
+
+.popover {
+  max-width: min(100vw, 32rem);
+  font-size: 0.9rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+.popover-body {
+  padding: 0.75rem;
+}
+.popover-body p:last-child {
+  margin-bottom: 0;
+}
+
+a.footnote-ref {
+  cursor: pointer;
 /* Reference index & topics ----------------------------------------------- */
 
 .ref-index th {font-weight: normal;}

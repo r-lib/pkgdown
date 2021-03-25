@@ -1,6 +1,9 @@
 # pkgdown (development version)
 
-* New "Customize your pkgdown website" vignette (#1573.
+* New "Customize your pkgdown website" vignette (#1573).
+
+* Added extension points to make HTML widgets (and RGL in particular) work
+  in rendered examples (@dmurdoch).
 
 * Allow template packages to provide a default configuration `_pkgdown.yml`, 
   stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
@@ -16,6 +19,7 @@
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
    (#1536)
+   * In-line footnotes mean you can read asides next to the next they refer to. 
 
 * `build_articles()` again sets the `theme` argument of the document format 
   to `NULL` when `as_is: true` but lets users override this via the `theme`
