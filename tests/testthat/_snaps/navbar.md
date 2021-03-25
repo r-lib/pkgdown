@@ -40,6 +40,6 @@
       [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
       
       $right
-      [1] ""
+      [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
       
 

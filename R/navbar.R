@@ -3,7 +3,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   # Take structure as is from meta
   navbar <- purrr::pluck(pkg, "meta", "navbar")
-  structure <- navbar$structure %||% navbar_structure()
+  structure <- modify_list(navbar_structure_defaults(), navbar$structure)
 
   # Merge components from meta
   components <- navbar_components(pkg)
@@ -66,10 +66,14 @@ render_navbar_links <- function(x, depth = 0L, bs_version) {
 # Default navbar ----------------------------------------------------------
 
 navbar_structure <- function() {
-  print_yaml(list(
+  print_yaml(navbar_structure_defaults())
+}
+
+navbar_structure_defaults <- function() {
+  list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
     right = "github"
-  ))
+  )
 }
 
 navbar_components <- function(pkg = ".") {
