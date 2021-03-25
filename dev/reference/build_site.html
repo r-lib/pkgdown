@@ -74,6 +74,7 @@ clean_site() first to clean up orphan files.">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
+    <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More...</a>
   </div>
@@ -289,64 +290,53 @@ to danger). Finally, you can choose to override the default tooltip with
 
     
 
-
-<p>By default, the top navigation bar (the "navbar") will contain links to:</p>
+<p>By default, the top navbar will contain links to:</p>
 <ul>
-<li><p>"Get Started", if you have an article with the same name as the package
-(e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
-<li><p>Reference</p></li>
+<li><p>"Get Started", if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
+<li><p>The reference index.</p></li>
 <li><p>Articles (i.e., vignettes, if present).</p></li>
 <li><p>News (if present).</p></li>
-<li><p>An icon linking to the source repository (currently only GitHub and GitLab are supported)</p></li>
+<li><p>An icon linking to the source repository.</p></li>
 </ul>
-<p>You can override (and even remove) these defaults with the  <code>navbar</code> field.
-It has two primary
-components: <code>structure</code> and <code>components</code>. These components interact in
-a somewhat complicated way, but the complexity allows you to make minor
-tweaks to part of the navbar while relying on pkgdown to automatically
-generate the rest.</p>
-<p>The <code>structure</code> defines the layout of the navbar, i.e. the order
-of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components,
-remove some default components and add your own components.</p>
+<p>You can override (and even remove) these defaults with the <code>navbar</code> field.
+It has two primary components: <code>structure</code> and <code>components</code>.
+These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.</p>
+<p>The <code>structure</code> defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components, remove some default components and add your own components.</p>
 <pre>navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [github]
+ structure:
+   left:  [intro, reference, articles, tutorials, news]
+   right: [github]
 </pre>
 
 <p>The <code>components</code> describes the appearance of each element in the navbar.
-It uses the same
-syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown</a>.
+It uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown</a>.
 The following YAML snippet illustrates some of the most important features.</p>
 <pre>navbar:
-  components:
-    articles:
-     text: Articles
-     menu:
-     - text: Category A
-     - text: Title A1
-       href: articles/a1.html
-     - text: Title A2
-       href: articles/a2.html
-     - text: -------
-     - text: "Category B"
-     - text: Title B1
-       menu:
-       - text: "Sub-category B11"
-         href: articles/b11.html
-     twitter:
-       icon: "fab fa-twitter fa-lg"
-       href: https://twitter.com/hadleywickham
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      menu:
+      - text: "Sub-category B11"
+        href: articles/b11.html
+    twitter:
+      icon: "fab fa-twitter fa-lg"
+      href: https://twitter.com/hadleywickham
 </pre>
 
-<p>Components can contain sub-<code>menu</code>s with headings (indicated by missing
-<code>href</code>) and separators (indicated by a bunch of <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>). You can also use
-<code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.</p>
-<p>This yaml would override the default "articles" component,
-and add a new "twitter" component. Unless you explicitly mention new
-components in the <code>structure</code> they'll be added to the far right of the
-left menu.</p>
+<p>Components can contain sub-<code>menu</code>s with headings (indicated by missing <code>href</code>) and separators (indicated by a bunch of <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>).
+You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.</p>
+<p>This yaml would override the default "articles" component, and add a new "twitter" component.
+Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
     <h2 class="hasAnchor" id="yaml-config-search">
 <a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
 
@@ -379,8 +369,7 @@ template:</p>
     <span class="va">bootswatch</span><span class="op">:</span> <span class="va">cerulean</span>
 </pre>
 
-<p>See a complete list of themes and preview how they look at
-<a href="https://gallery.shinyapps.io/117-shinythemes/">https://gallery.shinyapps.io/117-shinythemes/</a>:</p>
+<p>Refer to <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics</a>.
 It should correspond to your
@@ -503,26 +492,21 @@ time (e.g. because it's only behind the firewall or requires auth).</p>
 
 <p>By default, the footer is automatically populated with:</p>
 <ul>
-<li><p>the names of the
-<a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>,
-on the left;</p></li>
-<li><p>a reference to pkgdown <code>pkgdown</code>, on the right.</p></li>
+<li><p>The names of the <a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>, on the left.</p></li>
+<li><p>A reference to pkgdown <code>pkgdown</code>, on the right.</p></li>
 </ul>
-<p>The example below puts the authors information on the right together with
-a legal disclaimer, and puts pkgdown on the left.
-Unlike for the navbar or sidebar, components of the footer left/right are
-just pasted together into a string.
-If you want to use paragraphs, you need to use either HTML;
-or a YAML pipe and to start the components with two empty lines.</p>
+<p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p>
 <pre>footer:
-  left:
-    structure: [pkgdown]
-  right:
-    structure: [authors, legal]
-    components:
-      legal: Provided without ***any warranty***.
+ left:
+   structure: [pkgdown]
+ right:
+   structure: [authors, legal]
+   components:
+     legal: Provided without ***any warranty***.
 </pre>
 
+<p>Like the navbar and side, you can control both the structure and the components.
+Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
     <h2 class="hasAnchor" id="options">
 <a class="anchor" href="#options"></a>Options</h2>
 

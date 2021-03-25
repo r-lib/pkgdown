@@ -61,6 +61,7 @@
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
+    <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More...</a>
   </div>
@@ -109,6 +110,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)</h1>
 <h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
 <ul>
+<li><p>New “Customize your pkgdown website” vignette (<a href="https://github.com/r-lib/pkgdown/issues/1573">#1573</a>).</p></li>
 <li><p>Added extension points to make HTML widgets (and RGL in particular) work in rendered examples (<a href="https://github.com/dmurdoch">@dmurdoch</a>).</p></li>
 <li>
 <p>Allow template packages to provide a default configuration <code>_pkgdown.yml</code>, stored in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.</p>
@@ -117,6 +119,7 @@
 <li>
 <p>pkgdown now contains templates using Bootstrap 4 (with help from <a href="https://github.com/jayhesselberth">@jayhesselberth</a>).</p>
 <ul>
+<li>Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name.</li>
 <li>Easy customisation of colours and fonts with bslib</li>
 <li>Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.</li>
 <li>R syntax highlighting and autolinking by downlit is now paired with an <a href="https://apreshill.github.io/rmda11y/arrow.html" class="external-link">accessible colour scheme designed by Alison Hill</a>. (<a href="https://github.com/r-lib/pkgdown/issues/1536">#1536</a>)</li>
