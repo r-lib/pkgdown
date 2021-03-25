@@ -25,7 +25,7 @@ There are two main techniques:
 
 -   **Theming** changes colours, fonts, spacing etc. using a Bootswatch template, Bootstrap variables, Bootstrap rules, or custom CSS.
 
--   **Layout** changes the content (or ordering) of the navbar, authors page, or `<head>` tag, by using pkgdown options or templates.
+-   **Layout** changes the content (or ordering) of e.g. the navbar, authors page, or `<head>` tag, by using pkgdown options or templates.
 
 This vignette begins with a discussion of the most common theming and layout options made available through `_pkgdown.yml`.
 We'll then discuss how to customise the underlying HTML template files, this is less commonly needed but gives you full control over the appearance of the website.
@@ -33,7 +33,7 @@ Next, we'll discuss how to give multiple sites the same style by using a package
 
 ## Getting started
 
-Most theming features work only with Bootstrap 4, so begin by update your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
+Most theming features work only with Bootstrap 4, so begin by updating your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
 
 ``` {.yaml}
 template:
@@ -41,7 +41,7 @@ template:
 ```
 
 Overall, the site should look pretty similar, but you should notice a number of small improvements; most importantly the default font is much bigger, making it considerably easier to read.
-Upgrading to Bootstrap 4 has a low of breaking your site, but if you were managing your [own pkgdown templates](#layout) or using custom CSS, you might need to tweak a few files.
+Upgrading to Bootstrap 4 has a low chance of breaking your site, but if you were managing your [own pkgdown templates](#layout) or using custom CSS, you might need to tweak a few files.
 
 ## Theming
 
@@ -53,12 +53,14 @@ There are three main ways to change the visual style of your site:
 
 -   With your own CSS and JS.
 
-### Choosing a bootswatch theme
+They can be combined depending on your needs.
 
-The easiest way to change the appearance of your website, or to start changing it, is to pick a complete bootswatch theme.
+### Choosing a Bootswatch theme
+
+The easiest way to change the appearance of your website, or to start changing it, is to pick a complete Bootswatch theme.
 You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible with the Bootstrap version you use.
 Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
-If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400).
+If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400) in Bootstrap version 4.
 
 To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
 
@@ -188,6 +190,8 @@ Once you have created your template package `theverybest`, you can use it by:
 
         Config/Needs/website: theverybest
 
+You then need to ensure the remotes/pak steps you use install packages from this `DESCRIPTION` field.
+
 The pkgdown website of pkgdown is itself customized as little as possible.
 To get some sense of how a theming package works you can look at:
 
@@ -202,7 +206,7 @@ But please note that these templates aren't suitable for use with your own packa
 When crafting a new style you will need to re-build your website quite often.
 How to have a faster workflow?
 
--   Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing!
+-   Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing.
 -   Do not rebuild your package every time: e.g. only re-build the home page via `build_home()` to get a preview of the home sidebar, or of the footer and navbar.
 -   If you edit CSS, you can run `init_site()` to have them copied to your website folder, and then refresh the website in your browser.
 
