@@ -223,7 +223,7 @@ tweak_homepage_html <- function(html,
       xml2::xml_child() %>%
       xml2::xml_add_sibling(
         "img", src = "package-logo.png",
-        id = "logo-homepage", alt = "", width = "120",
+        id = "logo-low", alt = "", width = "120",
         .where = "before"
       )
   }
