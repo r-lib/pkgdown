@@ -395,7 +395,9 @@ data_deps <- function(pkg, depth) {
 
   # theme variables from configuration
   bs_version <- pkg$bs_version
-  bootswatch_theme <- pkg$meta[["template"]]$params$bootswatch %||% NULL
+  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
+    pkg$meta[["template"]]$params$bootswatch %||%
+    NULL
 
   check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
 
@@ -460,7 +462,7 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
     sprintf(
       "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
       bootswatch_theme,
-      pkgdown_field(pkg = pkg, "template", "params", "bootswatch"),
+      pkgdown_field(pkg = pkg, "template", "bootswatch"),
       bs_version,
       pkgdown_field(pkg = pkg, "template", "bootstrap")
     )

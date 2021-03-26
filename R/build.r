@@ -138,6 +138,13 @@
 #'
 #' ```
 #' template:
+#'   bootswatch: cerulean
+#' ```
+#'
+#' Note that if you use Bootstrap version 3 the syntax is
+#'
+#' ```
+#' template:
 #'   params:
 #'     bootswatch: cerulean
 #' ```
