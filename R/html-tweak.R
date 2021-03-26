@@ -218,12 +218,18 @@ tweak_homepage_html <- function(html,
       )
     )
 
+    # Add class to header
+    xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
+      xml2::xml_child() %>%
+      xml2::xml_child() %>%
+      pkgdown:::tweak_class_prepend("header-no-source")
+
     # Add logo
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
       xml2::xml_child() %>%
       xml2::xml_add_sibling(
         "img", src = "package-logo.png",
-        id = "logo-low", alt = "", width = "120",
+        class = "pkg-logo", alt = "", width = "120",
         .where = "before"
       )
   }

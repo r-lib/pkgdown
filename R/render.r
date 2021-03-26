@@ -29,7 +29,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   data$logo <- list(
     src = logo_path(pkg, depth = depth),
-    id = if (is.null(data$source)) "logo-low" else "logo-high"
+    headerclass = if (is.null(data$source)) "header-no-source" else ""
   )
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))

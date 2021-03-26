@@ -368,7 +368,7 @@ table {
 }
 
 /* logo homepage */
-#logo-high {
+.pkg-logo {
   float: right;
   width: 100px;
   margin-left: 30px;
@@ -376,22 +376,12 @@ table {
 }
 
 @media (max-width: 767px) {
-  #logo-high {
+  .pkg-logo {
   float: none;
   width: 100px;
 }
 }
 
-#logo-low {
-  float: right;
-  width: 100px;
-  margin-left: 30px;
-  margin-top: 2px;
-}
-
-@media (max-width: 767px) {
-  #logo-low {
-  float: none;
-  width: 100px;
-}
+.header-no-source {
+  padding-bottom: 32px !important;
 }
