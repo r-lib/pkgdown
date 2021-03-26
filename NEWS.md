@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Automatic links to reference pages were generated incorrectly if the
+  `\name{}` entry in the `*.Rd` file didn't match the filename
+  (@dmurdoch, #1586).
+
 * New "Customize your pkgdown website" vignette (#1573).
 
 * Added extension points to make HTML widgets (and RGL in particular) work
