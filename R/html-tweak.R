@@ -222,7 +222,7 @@ tweak_homepage_html <- function(html,
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
       xml2::xml_child() %>%
       xml2::xml_child() %>%
-      pkgdown:::tweak_class_prepend("header-no-source")
+      tweak_class_prepend("with-logo")
 
     # Add logo
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%

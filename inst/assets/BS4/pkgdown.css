@@ -382,6 +382,6 @@ table {
 }
 }
 
-.header-no-source {
-  padding-bottom: 32px !important;
+.pb-2.mt-4.mb-2.border-bottom.with-logo {
+  min-height: 129px;
 }

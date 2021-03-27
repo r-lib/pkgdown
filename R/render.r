@@ -27,10 +27,8 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(
-    src = logo_path(pkg, depth = depth),
-    headerclass = if (is.null(data$source)) "header-no-source" else ""
-  )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
+  data$logo$headerclass <- if (is.null(data$logo$src)) "" else "with-logo"
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
