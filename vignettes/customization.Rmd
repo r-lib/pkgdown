@@ -128,6 +128,7 @@ The contents will be automatically copied to the root of your website folder by 
 ## Layout {#layout}
 
 You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site.
+Furthermore, if you want to tweak _which_ authors of the package appear in the sidebar and footer, also refer to `?build_home`.
 
 ### Navbar
 
