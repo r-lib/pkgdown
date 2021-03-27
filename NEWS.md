@@ -18,7 +18,7 @@
   `override` parameter of `build_site()`. (#1499)
   
 * pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
-   * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name.
+   * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
    * Easy customisation of colours and fonts with bslib
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
