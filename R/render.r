@@ -27,10 +27,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(
-    src = logo_path(pkg, depth = depth),
-    id = if (is.null(data$source)) "logo-low" else "logo-high"
-  )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
