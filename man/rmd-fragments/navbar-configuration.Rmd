@@ -47,3 +47,13 @@ You can also use `icon`s from [fontawesome](https://fontawesome.com/icons?d=gall
 
 This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the `structure` they'll be added to the far right of the left menu.
+
+You can also customize the color scheme of the navbar by using the [`type` and `bg` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes):
+
+```yaml
+navbar:
+  type: dark
+  bg: primary
+```
+
+will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf `vignette("customization", package ="pkgdown")`)

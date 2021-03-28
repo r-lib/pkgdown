@@ -214,6 +214,13 @@ You can also use \code{icon}s from \href{https://fontawesome.com/icons?d=gallery
 
 This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
+
+You can also customize the color scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}:\if{html}{\out{<div class="yaml">}}\preformatted{navbar:
+  type: dark
+  bg: primary
+}\if{html}{\out{</div>}}
+
+will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf \code{vignette("customization", package ="pkgdown")})
 }
 
 \section{YAML config - search}{
