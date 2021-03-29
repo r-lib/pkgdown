@@ -115,6 +115,26 @@ template:
     fg: "#B8BCC2"
 ```
 
+### Navbar colors
+
+You can also customize the color scheme of the navbar by using the [`type` and `bg` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
+For example, if your theme is dark, you probably want to use a dark navbar:
+
+```yaml
+navbar:
+  type: dark
+```
+
+Alternatively, you could use the bg parameter to make the navbar more visually prominent:
+
+```yaml
+navbar:
+  type: dark
+  bg: primary
+```
+
+will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
+
 ### More CSS / JS / other assets
 
 If you know CSS or JS, you can customise your site by including `pkgdown/extra.css` or `pkgdown/extra.js`.
