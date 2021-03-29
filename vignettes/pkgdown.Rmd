@@ -35,9 +35,17 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
     
     ```yaml
     template:
+      bootswatch: cerulean
+    ```
+    
+  For Boostrap version 3 the syntax is
+    
+    ```yaml
+    template:
       params:
         bootswatch: cerulean
     ```
+  
 
 *   A Google analytics user ID if you want to track the people who are using your
     site

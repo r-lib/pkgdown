@@ -67,8 +67,7 @@ To choose a Bootswatch theme here's what to write in your `pkgdown` configuratio
 ``` {.yaml}
 template:
   bootstrap: 4
-  params:
-    bootswatch: materia
+  bootswatch: materia
 ```
 
 **NB**: Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
@@ -110,11 +109,10 @@ You can also combine both approaches, starting with a Bootswatch theme then chan
 ``` {.yaml}
 template:
   bootstrap: 4
-  params:
-    bootswatch: materia
-    bslib:
-      bg: "#202123"
-      fg: "#B8BCC2"
+  bootswatch: materia
+  bslib:
+    bg: "#202123"
+    fg: "#B8BCC2"
 ```
 
 ### More CSS / JS / other assets
