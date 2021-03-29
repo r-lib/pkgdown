@@ -124,7 +124,6 @@ You can also customize the color scheme of the navbar by using the [`type` and `
 ```yaml
 navbar:
   type: dark
-  bg: primary
 ```
 
 will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
