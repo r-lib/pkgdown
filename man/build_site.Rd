@@ -271,14 +271,11 @@ Suppress indexing of your pages by web robots by setting \code{noindex: true}:\p
 }
 
 You can also override the default templates and provide additional
-assets. You can do so by either storing in a \code{package} with
-directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
-or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-of the default assets, set \code{default_assets} to false.\preformatted{template:
-  package: mycustompackage
-
-# OR:
-
+assets. You can do so by either storing them in the
+directories \code{pkgdown/assets} and \code{pkgdown/templates},
+or by supplying \code{path} and \code{asset_path} pointing to alternative folders.
+To suppress inclusion
+of the default assets, set \code{default_assets} to false.\preformatted{
 template:
   path: path/to/templates
   assets: path/to/assets
@@ -288,6 +285,9 @@ template:
 These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
+
+For further information including how to provide templates and assets in
+a separate package, see \code{vignette("customization", package = "pkgdown")}.
 }
 
 \section{YAML config - repo}{

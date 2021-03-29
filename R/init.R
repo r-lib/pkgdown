@@ -76,6 +76,9 @@ copy_assets <- function(pkg = ".") {
   # Copy assets from directory
   if (!is.null(template$assets)) {
     copy_asset_dir(pkg, template$assets)
+  } else {
+    # default directory
+    copy_asset_dir(pkg, file.path("pkgdown", "assets"))
   }
 
   # Copy assets from package

@@ -234,14 +234,19 @@ template_path <- function(pkg = ".") {
       abort(paste0("Can not find template path ", src_path(path)))
 
     path
-  } else if (!is.null(template$package)) {
+  } else if (is.null(template$package)) {
+    default_template_path <- file.path(pkg$src_path, "pkgdown", "templates")
+    if (dir.exists(default_template_path)) {
+      default_template_path
+    } else {
+      character()
+    }
+  } else {
     path_package_pkgdown(
       template$package,
       bs_version = pkg$bs_version,
       "templates"
     )
-  } else {
-    character()
   }
 }
 
