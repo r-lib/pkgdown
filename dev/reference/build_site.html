@@ -337,6 +337,15 @@ The following YAML snippet illustrates some of the most important features.</p>
 You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.</p>
 <p>This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
+<p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>:</p>
+<div class="yaml">
+<pre><span class="va">navbar</span><span class="op">:</span>
+  <span class="va">type</span><span class="op">:</span> <span class="va">dark</span>
+  <span class="va">bg</span><span class="op">:</span> <span class="va">primary</span>
+</pre>
+<p></p>
+</div>
+<p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
     <h2 class="hasAnchor" id="yaml-config-search">
 <a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
 
