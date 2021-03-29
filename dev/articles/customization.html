@@ -145,8 +145,7 @@
 <p>To choose a Bootswatch theme here’s what to write in your <code>pkgdown</code> configuration.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="at">    </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span></code></pre></div>
 <p><strong>NB</strong>: Some Bootswatch templates like lux or pulse won’t work out of the box because of their tall navbar. You’ll need to use custom CSS to add <a href="https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page" class="external-link">padding to the body</a>.</p>
 <p>By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background. If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set <code>highlightcss</code> to false:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
@@ -173,11 +172,10 @@
 <p>You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don’t like:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="at">    </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="at">    </span><span class="fu">bslib</span><span class="kw">:</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="at">      </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#202123"</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="at">      </span><span class="fu">fg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#B8BCC2"</span></span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="at">  </span><span class="fu">bslib</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="at">    </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#202123"</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="at">    </span><span class="fu">fg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#B8BCC2"</span></span></code></pre></div>
 </div>
 <div id="more-css-js-other-assets" class="section level3">
 <h3 class="hasAnchor">
