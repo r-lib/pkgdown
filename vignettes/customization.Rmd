@@ -158,8 +158,8 @@ Three pkgdown templates are empty by default, so you can fill them with your own
 
 To add content to these templates:
 
--   Create a folder `inst/pkgdown/templates`.
--   Create `in-header.html`, `before-body.html` or `after-body.html` in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `inst/pkgdown/templates/in-header.html`.
+-   Create a folder `pkgdown/templates`.
+-   Create `in-header.html`, `before-body.html` or `after-body.html` in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in `pkgdown/templates/in-header.html`.
 -   Edit and save that file.
 -   Re-build your website, inspect it (and its source, if needed).
 
@@ -173,8 +173,8 @@ To share a pkgdown style across several packages, the best workflow is to create
 It can contain any of the following:
 
 -   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority: they will be overridden by a local `_pkgdown.yml` which is in turn overridden by `override` parameter of `build_site()`.
--   Templates in `inst/pkgdown/templates/BS4` will override the default templates.
--   Assets in `inst/pkgdown/assets/BS4` will be copied in to the destination directory.
+-   Templates in `inst/pkgdown/templates/` will override the default templates.
+-   Assets in `inst/pkgdown/assets/` will be copied in to the destination directory.
 
 Once you have created your template package `theverybest`, you can use it by:
 

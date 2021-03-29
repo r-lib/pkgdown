@@ -171,7 +171,7 @@
 #'
 #' You can also override the default templates and provide additional
 #' assets. You can do so by either storing in a `package` with
-#' directories `inst/pkgdown/assets` and `inst/pkgdown/templates`,
+#' directories `pkgdown/assets` and `pkgdown/templates`,
 #' or by supplying `path` and `asset_path`. To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
