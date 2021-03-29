@@ -170,16 +170,13 @@
 #' ```
 #'
 #' You can also override the default templates and provide additional
-#' assets. You can do so by either storing in a `package` with
+#' assets. You can do so by either storing them in the
 #' directories `pkgdown/assets` and `pkgdown/templates`,
-#' or by supplying `path` and `asset_path`. To suppress inclusion
+#' or by supplying `path` and `asset_path` pointing to alternative folders.
+#' To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
 #' ```
-#' template:
-#'   package: mycustompackage
-#'
-#' # OR:
 #'
 #' template:
 #'   path: path/to/templates
@@ -190,6 +187,9 @@
 #' These settings are currently recommended for advanced users only. There
 #' is little documentation, and you'll need to read the existing source
 #' for pkgdown templates to ensure that you use the correct components.
+#'
+#' For further information including how to provide templates and assets in
+#' a separate package, see `vignette("customization", package = "pkgdown")`.
 #'
 #' @section YAML config - repo:
 #' pkgdown automatically generates links to the source repository in a few
