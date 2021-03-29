@@ -238,7 +238,7 @@ template_path <- function(pkg = ".") {
 
     path
   } else if (is.null(template$package)) {
-    default_template_path <- file.path(pkg$src_path, "inst", "pkgdown", "templates")
+    default_template_path <- file.path(pkg$src_path, "pkgdown", "templates")
     if (dir.exists(default_template_path)) {
       default_template_path
     } else {
