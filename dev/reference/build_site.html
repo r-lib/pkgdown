@@ -399,15 +399,12 @@ site, in keeping with current laws and regulations.</p>
 </pre>
 
 <p>You can also override the default templates and provide additional
-assets. You can do so by either storing in a <code>package</code> with
-directories <code>inst/pkgdown/assets</code> and <code>inst/pkgdown/templates</code>,
-or by supplying <code>path</code> and <code>asset_path</code>. To suppress inclusion
+assets. You can do so by either storing them in the
+directories <code>pkgdown/assets</code> and <code>pkgdown/templates</code>,
+or by supplying <code>path</code> and <code>asset_path</code> pointing to alternative folders.
+To suppress inclusion
 of the default assets, set <code>default_assets</code> to false.</p>
-<pre><span class="va">template</span><span class="op">:</span>
-  <span class="va">package</span><span class="op">:</span> <span class="va">mycustompackage</span>
-
-<span class="co"># OR:</span>
-
+<pre>
 <span class="va">template</span><span class="op">:</span>
   <span class="va">path</span><span class="op">:</span> <span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">templates</span>
   <span class="va">assets</span><span class="op">:</span> <span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">assets</span>
@@ -417,6 +414,8 @@ of the default assets, set <code>default_assets</code> to false.</p>
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
+<p>For further information including how to provide templates and assets in
+a separate package, see <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
     <h2 class="hasAnchor" id="yaml-config-repo">
 <a class="anchor" href="#yaml-config-repo"></a>YAML config - repo</h2>
 

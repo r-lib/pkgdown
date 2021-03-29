@@ -323,8 +323,8 @@
 </ul>
 <p>To add content to these templates:</p>
 <ul>
-<li>Create a folder <code>inst/pkgdown/templates</code>.</li>
-<li>Create <code>in-header.html</code>, <code>before-body.html</code> or <code>after-body.html</code> in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in <code>inst/pkgdown/templates/in-header.html</code>.</li>
+<li>Create a folder <code>pkgdown/templates</code>.</li>
+<li>Create <code>in-header.html</code>, <code>before-body.html</code> or <code>after-body.html</code> in that folder, depending on your needs. E.g. you could save the lines corresponding to your analytics provider, if not Google Analytics, in <code>pkgdown/templates/in-header.html</code>.</li>
 <li>Edit and save that file.</li>
 <li>Re-build your website, inspect it (and its source, if needed).</li>
 </ul>
@@ -336,8 +336,8 @@
 <p>To share a pkgdown style across several packages, the best workflow is to create… a package! It can contain any of the following:</p>
 <ul>
 <li>A configuration file in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority: they will be overridden by a local <code>_pkgdown.yml</code> which is in turn overridden by <code>override</code> parameter of <code><a href="../reference/build_site.html">build_site()</a></code>.</li>
-<li>Templates in <code>inst/pkgdown/templates/BS4</code> will override the default templates.</li>
-<li>Assets in <code>inst/pkgdown/assets/BS4</code> will be copied in to the destination directory.</li>
+<li>Templates in <code>inst/pkgdown/templates/</code> will override the default templates.</li>
+<li>Assets in <code>inst/pkgdown/assets/</code> will be copied in to the destination directory.</li>
 </ul>
 <p>Once you have created your template package <code>theverybest</code>, you can use it by:</p>
 <ul>
