@@ -198,7 +198,28 @@ test_that("badges in special element can be accompanied by text", {
   )
 })
 
-test_that("badges-paragraph a la usethis can be found", {
+test_that("badges-paragraph à la usethis can be found", {
+  string <- '
+  <blockquote>
+  <p>Connect to thisisatest, from R</p>
+  </blockquote>
+  <!-- badges: start -->
+  <p>
+  <a href=\"https://www.repostatus.org/#wip\" class=\"external-link\">
+    <img src=\"https://www.repostatus.org/badges/latest/wip.svg\" alt=\"Project Status: WIP.\">
+  </a>
+  <a href=\"https://travis-ci.org/ropensci/rotemplate\" class=\"external-link\">
+  <img src=\"https://travis-ci.org/ropensci/rotemplate.svg?branch=master\" alt=\"Build Status\">
+  </a>
+  <!-- badges: end -->
+  </p>'
+
+  badges_page <- xml2::read_html(string)
+  expect_equal(length(badges_extract(badges_page)), 2)
+})
+
+
+test_that("complex badges structure can be found", {
   string <- '
   <blockquote>
   <p>Connect to thisisatest, from R</p>

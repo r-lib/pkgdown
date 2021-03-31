@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
+  are detected again (#1603). 
+
 * Automatic links to reference pages were generated incorrectly if the
   `\name{}` entry in the `*.Rd` file didn't match the filename
   (@dmurdoch, #1586).
