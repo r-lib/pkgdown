@@ -198,13 +198,6 @@ present: if you do not want this, you will need to customise the navbar. See
 \code{\link[=build_site]{build_site()}} details.
 }
 
-\section{Tables of contents}{
-
-You can control the TOC depth via the YAML configuration file:\preformatted{toc:
-  depth: 2
-}
-}
-
 \section{Figures}{
 
 
