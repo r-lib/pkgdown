@@ -212,7 +212,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
   is_submenu <- (depth > 0L)
 
   # function for links
-  tackle_link <- function(x, is_submenu, depth) {
+  tackle_link <- function(x, index, is_submenu, depth) {
 
     if (!is.null(x$menu)) {
 
@@ -246,7 +246,13 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     }
 
     if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
+
+      if (index == 1) {
+        return(tagList())
+      }
+
       # divider
+
       return(tags$div(class = "dropdown-divider"))
     }
 
@@ -269,7 +275,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
   }
 
-  tags <- lapply(links, tackle_link, is_submenu = is_submenu, depth = depth)
+  tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
   tagList(tags)
 
 }
