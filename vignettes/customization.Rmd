@@ -126,7 +126,6 @@ navbar:
   type: dark
 ```
 
-
 Alternatively, you could use the bg parameter to make the navbar more visually prominent:
 
 ```yaml
