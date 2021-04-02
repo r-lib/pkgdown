@@ -91,15 +91,14 @@ Rather than picking an entire theme, you can customise individual theme componen
 ``` {.yaml}
 template:
   bootstrap: 4
-  params:
-    bslib:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      success: "#4F9B29"
-      info: "#28B3ED"
-      warning: "#FD7424"
-      danger: "#F7367E"
+  bslib:
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#EA80FC"
+    success: "#4F9B29"
+    info: "#28B3ED"
+    warning: "#FD7424"
+    danger: "#F7367E"
 ```
 
 You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
