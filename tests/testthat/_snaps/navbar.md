@@ -152,3 +152,86 @@
       [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
       
 
+# render_navbar_links BS3 & BS4 default
+
+    Code
+      cat(render_navbar_links(x, bs_version = 3))
+    Output
+      <li>
+        <a href="articles/pkgdown.html">Get started</a>
+      </li>
+      <li>
+        <a href="reference/index.html">Reference</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          Articles
+           
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a href="articles/linking.html">Auto-linking</a>
+          </li>
+          <li>
+            <a href="articles/search.html">Search</a>
+          </li>
+          <li>
+            <a href="articles/metadata.html">Metadata</a>
+          </li>
+          <li>
+            <a href="articles/customization.html">Customize your pkgdown website</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="articles/index.html">More...</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="news/index.html">News</a>
+      </li>
+
+---
+
+    Code
+      cat(render_navbar_links(x, bs_version = 4))
+    Output
+      <li class="nav-item">
+        <a class="nav-link" href="articles/pkgdown.html">Get started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="reference/index.html">Reference</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
+          <a class="dropdown-item" href="articles/search.html">Search</a>
+          <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
+          <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="articles/index.html">More...</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="news/index.html">News</a>
+      </li>
+
+# render_navbar_links BS4 no divider before first element
+
+    Code
+      cat(render_navbar_links(x, bs_version = 4))
+    Output
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <h6 class="dropdown-header" data-toc-skip>First section</h6>
+          <a class="dropdown-item" href="articles/search.html">Search</a>
+          <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
+          <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="articles/index.html">More...</a>
+        </div>
+      </li>
+
