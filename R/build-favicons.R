@@ -16,6 +16,7 @@
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
 build_favicons <- function(pkg = ".", overwrite = FALSE) {
+  rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")

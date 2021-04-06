@@ -403,6 +403,8 @@ footer_pkgdown <- function(data) {
 
 data_deps <- function(pkg, depth) {
 
+  rlang::check_installed("htmltools")
+
   # theme variables from configuration
   bs_version <- pkg$bs_version
   bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
