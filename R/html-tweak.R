@@ -360,11 +360,11 @@ activate_navbar <- function(html, path, pkg) {
        links <- hrefs[hrefs != "#"]
     }
 
-   tibble::tibble(
+   df <- data.frame(
      nav_item = list(nav_item),
-     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg))
+     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg)),
+     stringsAsFactors = FALSE
    )
-
   }
 
   hrefs <- map_df(nav_items, get_hrefs, pkg = pkg)
