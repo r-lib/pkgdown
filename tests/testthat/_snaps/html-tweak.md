@@ -18,3 +18,28 @@
       <img src="reference/figures/x.png"/>
     </body>
 
+# activate_navbar()
+
+    {html_node}
+    <li class="active nav-item">
+    [1] <a class="nav-link" href="reference/index.html">Reference</a>
+
+---
+
+    {html_node}
+    <li class="active nav-item">
+    [1] <a class="nav-link" href="reference/index.html">Reference</a>
+
+---
+
+    {html_node}
+    <li class="active nav-item">
+    [1] <a class="nav-link" href="articles/pkgdown.html">Get started</a>
+
+---
+
+    {html_node}
+    <li class="active nav-item dropdown">
+    [1] <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role= ...
+    [2] <div class="dropdown-menu" aria-labelledby="navbarDropdown">\n    <a clas ...
+
