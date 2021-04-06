@@ -170,33 +170,6 @@ menu_spacer <- function() {
   menu_text("---------")
 }
 
-
-# Testing helpers ---------------------------------------------------------
-# Simulate minimal package structure so we can more easily test
-
-pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
-                       github_url = NULL) {
-  structure(
-    list(
-      package = "test",
-      src_path = file_temp(),
-      meta = meta,
-      vignettes = vignettes,
-      repo = list(url = list(home = github_url))
-    ),
-    class = "pkgdown"
-  )
-}
-
-pkg_navbar_vignettes <- function(name = character(),
-                                 title = NULL,
-                                 file_out = NULL) {
-  title <- title %||% paste0("Title ", name)
-  file_out <- file_out %||% paste0(name, ".html")
-
-  tibble::tibble(name = name, title = title, file_out)
-}
-
 bs4_navbar_links_html <- function(links) {
   as.character(bs4_navbar_links_tags(links))
 }
@@ -212,7 +185,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
   is_submenu <- (depth > 0L)
 
   # function for links
-  tackle_link <- function(x, is_submenu, depth) {
+  tackle_link <- function(x, index, is_submenu, depth) {
 
     if (!is.null(x$menu)) {
 
@@ -246,8 +219,12 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     }
 
     if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
-      # divider
-      return(htmltools::tags$div(class = "dropdown-divider"))
+
+      if (index == 1) {
+        return(htmltools::tagList())
+      } else {
+        return(htmltools::tags$div(class = "dropdown-divider"))
+      }
     }
 
     if (!is.null(x$text) && is.null(x$href)) {
@@ -269,7 +246,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
   }
 
-  tags <- lapply(links, tackle_link, is_submenu = is_submenu, depth = depth)
+  tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
   htmltools::tagList(tags)
 
 }
@@ -289,4 +266,30 @@ bs4_navbar_link_text <- function(x, ...) {
   }
   else
     htmltools::tagList(x$text, ...)
+}
+
+# Testing helpers ---------------------------------------------------------
+# Simulate minimal package structure so we can more easily test
+
+pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
+                       github_url = NULL) {
+  structure(
+    list(
+      package = "test",
+      src_path = file_temp(),
+      meta = meta,
+      vignettes = vignettes,
+      repo = list(url = list(home = github_url))
+    ),
+    class = "pkgdown"
+  )
+}
+
+pkg_navbar_vignettes <- function(name = character(),
+                                 title = NULL,
+                                 file_out = NULL) {
+  title <- title %||% paste0("Title ", name)
+  file_out <- file_out %||% paste0(name, ".html")
+
+  tibble::tibble(name = name, title = title, file_out)
 }
