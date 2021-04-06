@@ -362,10 +362,9 @@ activate_navbar <- function(html, path, pkg) {
        links <- hrefs[hrefs != "#"]
     }
 
-   df <- data.frame(
+   df <- tibble::tibble(
      nav_item = list(nav_item),
-     links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg),
-     stringAsFactors = FALSE
+     links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg)
    )
    row.names(df) <- NULL
    df
