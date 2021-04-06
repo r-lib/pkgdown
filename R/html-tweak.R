@@ -330,6 +330,7 @@ activate_navbar <- function(html, path, pkg) {
   html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
   nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
 
+  # external links can't be an active item
   keep_internal <- function(links, pkg) {
     links[!grepl("https?\\:\\/\\/", links) | grepl(pkg$meta$url %||% "", links)]
   }
@@ -356,6 +357,7 @@ activate_navbar <- function(html, path, pkg) {
     if (href != "#") {
       links <- href
     } else {
+      # links in a drop-down
        hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
        links <- hrefs[hrefs != "#"]
     }
@@ -399,6 +401,7 @@ activate_navbar <- function(html, path, pkg) {
   hrefs$diff <- purrr::map_dbl(hrefs$links, get_similarity, path = path)
 
   hrefs <- hrefs[hrefs$diff > 0,]
+  # nothing similar
   if (nrow(hrefs) == 0) {
     return()
   }
