@@ -1,3 +1,94 @@
+# adds github/gitlab link when available
+
+    reference:
+      text: Reference
+      href: reference/index.html
+    
+
+---
+
+    reference:
+      text: Reference
+      href: reference/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/r-lib/pkgdown
+    
+
+---
+
+    reference:
+      text: Reference
+      href: reference/index.html
+    github:
+      icon: fab fa-gitlab fa-lg
+      href: https://gitlab.com/r-lib/pkgdown
+    
+
+# vignette with package name turns into getting started
+
+    reference:
+      text: Reference
+      href: reference/index.html
+    intro:
+      text: Get started
+      href: test.html
+    
+
+# can control articles navbar through articles meta
+
+    articles:
+      text: Articles
+      menu:
+      - text: Title a
+        href: a.html
+      - text: Title b
+        href: b.html
+    
+
+---
+
+    articles:
+      text: Articles
+      href: articles/index.html
+    
+
+---
+
+    articles:
+      text: Articles
+      menu:
+      - text: Title a
+        href: a.html
+      - text: Title b
+        href: b.html
+    
+
+---
+
+    articles:
+      text: Articles
+      menu:
+      - text: '---------'
+      - text: Label
+      - text: Title a
+        href: a.html
+      - text: Title b
+        href: b.html
+    
+
+---
+
+    articles:
+      text: Articles
+      menu:
+      - text: Title a
+        href: a.html
+      - text: '---------'
+      - text: More...
+        href: articles/index.html
+    
+
 # data_navbar() works by default
 
     Code

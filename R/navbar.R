@@ -170,33 +170,6 @@ menu_spacer <- function() {
   menu_text("---------")
 }
 
-
-# Testing helpers ---------------------------------------------------------
-# Simulate minimal package structure so we can more easily test
-
-pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
-                       github_url = NULL) {
-  structure(
-    list(
-      package = "test",
-      src_path = file_temp(),
-      meta = meta,
-      vignettes = vignettes,
-      repo = list(url = list(home = github_url))
-    ),
-    class = "pkgdown"
-  )
-}
-
-pkg_navbar_vignettes <- function(name = character(),
-                                 title = NULL,
-                                 file_out = NULL) {
-  title <- title %||% paste0("Title ", name)
-  file_out <- file_out %||% paste0(name, ".html")
-
-  tibble::tibble(name = name, title = title, file_out)
-}
-
 bs4_navbar_links_html <- function(links) {
   as.character(bs4_navbar_links_tags(links))
 }
@@ -295,4 +268,30 @@ bs4_navbar_link_text <- function(x, ...) {
   }
   else
     tagList(x$text, ...)
+}
+
+# Testing helpers ---------------------------------------------------------
+# Simulate minimal package structure so we can more easily test
+
+pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
+                       github_url = NULL) {
+  structure(
+    list(
+      package = "test",
+      src_path = file_temp(),
+      meta = meta,
+      vignettes = vignettes,
+      repo = list(url = list(home = github_url))
+    ),
+    class = "pkgdown"
+  )
+}
+
+pkg_navbar_vignettes <- function(name = character(),
+                                 title = NULL,
+                                 file_out = NULL) {
+  title <- title %||% paste0("Title ", name)
+  file_out <- file_out %||% paste0(name, ".html")
+
+  tibble::tibble(name = name, title = title, file_out)
 }
