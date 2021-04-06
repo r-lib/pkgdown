@@ -200,5 +200,5 @@ code_commas <- function(x) {
 
 map_df <- function(x, ...) {
   lists <- purrr::map(x, ...)
-  do.call(rbind, lists)
+  do.call(rbind, setNames(lists, NULL))
 }
