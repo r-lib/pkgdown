@@ -331,12 +331,12 @@ activate_navbar <- function(html, path, pkg) {
   nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
 
   keep_internal <- function(links, pkg) {
-    links[!grepl("https?\\:\\/\\/", links) | grepl(pkg$meta$url, links)]
+    links[!grepl("https?\\:\\/\\/", links) | grepl(pkg$meta$url %||% "", links)]
   }
 
   remove_useless_parts <- function(links, pkg) {
     sub(
-      pkg$meta$url, "",
+      pkg$meta$url %||% "", "",
       sub(
         "^/", "",
         gsub(
@@ -385,9 +385,15 @@ activate_navbar <- function(html, path, pkg) {
 
     length(candidate) <- length(current)
     similarity <- (current == candidate)
+
+    if (any(purrr::map_lgl(similarity, isFALSE))) {
+      return(0)
+    }
+
     sum(purrr::map_lgl(similarity, isTRUE))
   }
   hrefs$diff <- purrr::map_dbl(hrefs$links$links, get_similarity, path = path)
+
   hrefs <- hrefs[hrefs$diff > 0,]
   if (nrow(hrefs) == 0) {
     return(list(html = html_navbar, similarity = 0))
