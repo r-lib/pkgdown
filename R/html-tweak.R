@@ -324,6 +324,79 @@ badges_extract_text <- function(x) {
   xml <- xml2::read_html(x)
   badges_extract(xml)
 }
+
+activate_navbar <- function(html, path, pkg) {
+
+  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
+
+  keep_internal <- function(links, pkg) {
+    links[!grepl("https?\\:\\/\\/", links) | grepl(pkg$meta$url, links)]
+  }
+
+  remove_useless_parts <- function(links, pkg) {
+    sub(
+      pkg$meta$url, "",
+      sub(
+        "^/", "",
+        gsub(
+          "\\.\\.\\/", "",
+          sub(
+            "\\/index.html\\/?", "",
+            links
+          )
+        )
+      )
+    )
+  }
+
+  get_hrefs <- function(nav_item, pkg = pkg) {
+    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
+
+    if (href != "#") {
+      links <- href
+    } else {
+       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
+       links <- hrefs[hrefs != "#"]
+    }
+
+   tibble::tibble(
+     nav_item = list(nav_item),
+     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg))
+   )
+
+  }
+
+  hrefs <- purrr::map_df(nav_items, get_hrefs, pkg = pkg)
+  path <- remove_useless_parts(path, pkg = pkg)
+
+  # remove nav items deeper into the site
+  separate_path <- function(link) {
+    strsplit(link, "/")[[1]]
+  }
+
+  get_similarity <- function(link, path) {
+    current <- separate_path(path)
+    candidate <- separate_path(link)
+
+    if (length(candidate) > length(current)) {
+      return(0)
+    }
+
+    length(candidate) <- length(current)
+    similarity <- (current == candidate)
+    sum(purrr::map_lgl(similarity, isTRUE))
+  }
+  hrefs$diff <- purrr::map_dbl(hrefs$links$links, get_similarity, path = path)
+  hrefs <- hrefs[hrefs$diff > 0,]
+  if (nrow(hrefs) == 0) {
+    return(list(html = html_navbar, similarity = 0))
+  }
+
+  tweak_class_prepend(hrefs$nav_item[hrefs$diff == max(hrefs$diff)][[1]], "active")
+  return(list(html = html_navbar, similarity = max(hrefs$diff)))
+}
+
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {

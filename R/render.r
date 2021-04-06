@@ -86,6 +86,14 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     rendered <- as.character(html)
   }
 
+  # navbar activation
+
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    activate_navbar(html, data$output_file %||% path, pkg)
+    rendered <- as.character(html)
+  }
+
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -123,7 +131,7 @@ data_template <- function(pkg = ".", depth = 0L, path = path) {
     ),
     dev = pkg$use_dev,
     extra = extra,
-    navbar = data_navbar(pkg, depth = depth, path = path),
+    navbar = data_navbar(pkg, depth = depth),
     yaml = yaml
   ))
 }

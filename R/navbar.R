@@ -1,4 +1,4 @@
-data_navbar <- function(pkg = ".", depth = 0L, path = "") {
+data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   # Take structure as is from meta
@@ -28,26 +28,12 @@ data_navbar <- function(pkg = ".", depth = 0L, path = "") {
     )
   }
 
-  navbar <- list(
+  list(
     type = navbar$type %||% "light",
     bg = navbar$bg %||% "light",
     left = render_navbar_links(left, depth = depth, pkg$bs_version),
     right = render_navbar_links(right, depth = depth, pkg$bs_version)
   )
-
-  if (path == "") {
-    return(navbar)
-  }
-  left <- activate_navbar(navbar$left, path = path, pkg = pkg)
-  right <- activate_navbar(navbar$right, path = path, pkg = pkg)
-
-  if (left$similarity > right$similarity) {
-    navbar$left <- as.character(xml2::xml_children(xml2::xml_child(left$html)))
-  } else {
-    navbar$right <- as.character(xml2::xml_children(xml2::xml_child(right$html)))
-  }
-
-  navbar
 }
 
 render_navbar_links <- function(x, depth = 0L, bs_version) {
@@ -75,78 +61,6 @@ render_navbar_links <- function(x, depth = 0L, bs_version) {
 
   bs4_navbar_links_html(x)
 
-}
-
-activate_navbar <- function(navbar_part, path, pkg) {
-
-  html_navbar <- xml2::read_html(navbar_part)
-  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
-
-  keep_internal <- function(links, pkg) {
-    links[!grepl("https?\\:\\/\\/", links) || grepl(pkg$meta$url, links)]
-  }
-
-  remove_useless_parts <- function(links, pkg) {
-    sub(
-      pkg$meta$url, "",
-      sub(
-        "^/", "",
-        gsub(
-          "\\.\\.\\/", "",
-          sub(
-            "\\/index.html\\/?", "",
-            links
-          )
-        )
-      )
-    )
-  }
-
-  get_hrefs <- function(nav_item, pkg = pkg) {
-    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
-
-    if (href != "#") {
-      links <- href
-    } else {
-       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
-    links <- hrefs[hrefs != "#"]
-    }
-
-   tibble::tibble(
-     nav_item = list(nav_item),
-     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg))
-   )
-
-  }
-
-  hrefs <- purrr::map_df(nav_items, get_hrefs, pkg = pkg)
-  path <- remove_useless_parts(path, pkg = pkg)
-
-  # remove nav items deeper into the site
-  separate_path <- function(link) {
-    strsplit(link, "/")[[1]]
-  }
-
-  get_similarity <- function(link, path) {
-    current <- separate_path(path)
-    candidate <- separate_path(link)
-
-    if (length(candidate) > length(current)) {
-      return(0)
-    }
-
-    length(candidate) <- length(current)
-    similarity <- (current == candidate)
-    sum(isTRUE(similarity))
-  }
-  hrefs$diff <- purrr::map_dbl(hrefs$links$links, get_similarity, path = path)
-  hrefs <- hrefs[hrefs$diff > 0,]
-  if (nrow(hrefs) == 0) {
-    return(list(html = html_navbar, similarity = 0))
-  }
-
-  tweak_class_prepend(hrefs$nav_item[hrefs$diff == max(hrefs$diff)][[1]], "active")
-  return(list(html = html_navbar, similarity = max(hrefs$diff)))
 }
 
 # Default navbar ----------------------------------------------------------
