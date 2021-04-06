@@ -92,6 +92,13 @@ Rather than picking an entire theme, you can customise individual theme componen
 template:
   bootstrap: 4
   bslib:
+    font_scale: 1.2
+    base_font:
+      google: "Prompt"
+    heading_font:
+      google: "Muli"
+    code_font:
+      google: "JetBrains Mono"
     bg: "#202123"
     fg: "#B8BCC2"
     primary: "#EA80FC"
@@ -133,6 +140,8 @@ navbar:
 ```
 
 will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
+
+To change the color of the navbar background depending on its type, you can also use the bslib variables `navbar-light-bg` and `navbar-dark-bg`.
 
 ### More CSS / JS / other assets
 

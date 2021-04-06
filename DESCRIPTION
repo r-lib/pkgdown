@@ -72,4 +72,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: pandoc
-Remotes: r-lib/downlit
+Remotes:  
+    r-lib/downlit
