@@ -107,5 +107,5 @@ parse_github_like_url <- function(link) {
     "(?<owner>[^/]+)/",
     "(?<repo>[^/#]+)"
   )
-  rematch2::re_match(link, rx)
+  re_match(link, rx)
 }
