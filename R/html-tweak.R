@@ -360,9 +360,10 @@ activate_navbar <- function(html, path, pkg) {
        links <- hrefs[hrefs != "#"]
     }
 
-   df <- tibble::tibble(
+   df <- data.frame(
      nav_item = list(nav_item),
-     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg))
+     links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg),
+     stringAsFactors = FALSE
    )
    row.names(df) <- NULL
    df
@@ -395,7 +396,7 @@ activate_navbar <- function(html, path, pkg) {
 
     sum(purrr::map_lgl(similarity, isTRUE))
   }
-  hrefs$diff <- purrr::map_dbl(hrefs$links$links, get_similarity, path = path)
+  hrefs$diff <- purrr::map_dbl(hrefs$links, get_similarity, path = path)
 
   hrefs <- hrefs[hrefs$diff > 0,]
   if (nrow(hrefs) == 0) {
