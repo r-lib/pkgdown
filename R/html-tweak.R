@@ -369,7 +369,7 @@ activate_navbar <- function(html, path, pkg) {
   }
 
   hrefs <- lapply(nav_items, get_hrefs, pkg = pkg)
-  hrefs <- do.call(rbind, hrefs)
+  hrefs <- do.call(rbind, hrefs, args = list(make.row.names = FALSE))
   path <- remove_useless_parts(path, pkg = pkg)
 
   separate_path <- function(link) {
