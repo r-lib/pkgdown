@@ -160,13 +160,20 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">bslib</span><span class="kw">:</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="at">    </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#202123"</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="at">    </span><span class="fu">fg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#B8BCC2"</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="at">    </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> </span><span class="st">"#EA80FC"</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="at">    </span><span class="fu">success</span><span class="kw">:</span><span class="at"> </span><span class="st">"#4F9B29"</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="at">    </span><span class="fu">info</span><span class="kw">:</span><span class="at"> </span><span class="st">"#28B3ED"</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="at">    </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FD7424"</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="at">    </span><span class="fu">danger</span><span class="kw">:</span><span class="at"> </span><span class="st">"#F7367E"</span></span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="at">    </span><span class="fu">font_scale</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.2</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="at">    </span><span class="fu">base_font</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">      </span><span class="fu">google</span><span class="kw">:</span><span class="at"> </span><span class="st">"Prompt"</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">    </span><span class="fu">heading_font</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">      </span><span class="fu">google</span><span class="kw">:</span><span class="at"> </span><span class="st">"Muli"</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">    </span><span class="fu">code_font</span><span class="kw">:</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">      </span><span class="fu">google</span><span class="kw">:</span><span class="at"> </span><span class="st">"JetBrains Mono"</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">    </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#202123"</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="at">    </span><span class="fu">fg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#B8BCC2"</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="at">    </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> </span><span class="st">"#EA80FC"</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="at">    </span><span class="fu">success</span><span class="kw">:</span><span class="at"> </span><span class="st">"#4F9B29"</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="at">    </span><span class="fu">info</span><span class="kw">:</span><span class="at"> </span><span class="st">"#28B3ED"</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="at">    </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FD7424"</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="at">    </span><span class="fu">danger</span><span class="kw">:</span><span class="at"> </span><span class="st">"#F7367E"</span></span></code></pre></div>
 <p>You can find a full list of variables in <code><a href="https://rstudio.github.io/bslib//articles/bs4-variables.html" class="external-link">vignette("bs4-variables", package = "bslib")</a></code>.</p>
 <p>You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don’t like:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">template</span><span class="kw">:</span></span>
@@ -187,6 +194,7 @@
 <span id="cb8-2"><a href="#cb8-2"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> dark</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span></code></pre></div>
 <p>will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).</p>
+<p>To change the color of the navbar background depending on its type, you can also use the bslib variables <code>navbar-light-bg</code> and <code>navbar-dark-bg</code>.</p>
 </div>
 <div id="more-css-js-other-assets" class="section level3">
 <h3 class="hasAnchor">
