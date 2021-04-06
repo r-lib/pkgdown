@@ -368,7 +368,8 @@ activate_navbar <- function(html, path, pkg) {
    df
   }
 
-  hrefs <- map_df(nav_items, get_hrefs, pkg = pkg)
+  hrefs <- lapply(nav_items, get_hrefs, pkg = pkg)
+  hrefs <- do.call(rbind, hrefs)
   path <- remove_useless_parts(path, pkg = pkg)
 
   separate_path <- function(link) {

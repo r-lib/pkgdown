@@ -198,10 +198,6 @@ code_commas <- function(x) {
   paste0("`", x, "`", collapse = ", ")
 }
 
-map_df <- function(x, ...) {
-  lists <- purrr::map(x, ...)
-  do.call(rbind, lists)
-}
 # from https://github.com/r-lib/rematch2/blob/8098bd06f251bfe0f20c0598d90fc20b741d13f8/R/package.R#L47
 re_match <- function(text, pattern, perl = TRUE, ...) {
 
