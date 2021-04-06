@@ -222,11 +222,9 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
       if (index == 1) {
         return(tagList())
+      } else {
+        return(tags$div(class = "dropdown-divider"))
       }
-
-      # divider
-
-      return(tags$div(class = "dropdown-divider"))
     }
 
     if (!is.null(x$text) && is.null(x$href)) {
