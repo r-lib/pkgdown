@@ -370,7 +370,6 @@ activate_navbar <- function(html, path, pkg) {
   hrefs <- purrr::map_df(nav_items, get_hrefs, pkg = pkg)
   path <- remove_useless_parts(path, pkg = pkg)
 
-  # remove nav items deeper into the site
   separate_path <- function(link) {
     strsplit(link, "/")[[1]]
   }
@@ -379,6 +378,7 @@ activate_navbar <- function(html, path, pkg) {
     current <- separate_path(path)
     candidate <- separate_path(link)
 
+    # Active item can't be more precise than current path
     if (length(candidate) > length(current)) {
       return(0)
     }
@@ -386,6 +386,7 @@ activate_navbar <- function(html, path, pkg) {
     length(candidate) <- length(current)
     similarity <- (current == candidate)
 
+    # Any difference indicates it's not the active item
     if (any(purrr::map_lgl(similarity, isFALSE))) {
       return(0)
     }
@@ -396,11 +397,10 @@ activate_navbar <- function(html, path, pkg) {
 
   hrefs <- hrefs[hrefs$diff > 0,]
   if (nrow(hrefs) == 0) {
-    return(list(html = html_navbar, similarity = 0))
+    return()
   }
 
   tweak_class_prepend(hrefs$nav_item[hrefs$diff == max(hrefs$diff)][[1]], "active")
-  return(list(html = html_navbar, similarity = max(hrefs$diff)))
 }
 
 # Update file on disk -----------------------------------------------------

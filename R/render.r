@@ -29,7 +29,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   data$logo <- list(src = logo_path(pkg, depth = depth))
 
-  data <- utils::modifyList(data, data_template(pkg, depth = depth, path = path))
+  data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
     version = utils::packageDescription("pkgdown", fields = "Version")
   )
@@ -99,7 +99,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
 #' @export
 #' @rdname render_page
-data_template <- function(pkg = ".", depth = 0L, path = path) {
+data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   roles <- pkg$meta$authors$footer$roles %||% default_roles()
