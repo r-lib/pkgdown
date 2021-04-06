@@ -199,7 +199,7 @@ news_version <- function(x, pkgname) {
       \\(development\\ version\\)   # literal used by usethis
     )
   ")
-  pieces <- rematch2::re_match(x, pattern, ignore.case = TRUE)
+  pieces <- re_match(x, pattern, ignore.case = TRUE)
   gsub("^[(]|[)]$", "", pieces$version)
 }
 

@@ -91,15 +91,21 @@ Rather than picking an entire theme, you can customise individual theme componen
 ``` {.yaml}
 template:
   bootstrap: 4
-  params:
-    bslib:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      success: "#4F9B29"
-      info: "#28B3ED"
-      warning: "#FD7424"
-      danger: "#F7367E"
+  bslib:
+    font_scale: 1.2
+    base_font:
+      google: "Prompt"
+    heading_font:
+      google: "Muli"
+    code_font:
+      google: "JetBrains Mono"
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#EA80FC"
+    success: "#4F9B29"
+    info: "#28B3ED"
+    warning: "#FD7424"
+    danger: "#F7367E"
 ```
 
 You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
@@ -134,6 +140,8 @@ navbar:
 ```
 
 will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
+
+To change the color of the navbar background depending on its type, you can also use the bslib variables `navbar-light-bg` and `navbar-dark-bg`.
 
 ### More CSS / JS / other assets
 

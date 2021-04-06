@@ -174,11 +174,11 @@ bs4_navbar_links_html <- function(links) {
   as.character(bs4_navbar_links_tags(links))
 }
 
-#' @importFrom htmltools tags tagList
 bs4_navbar_links_tags <- function(links, depth = 0L) {
+  rlang::check_installed("htmltools")
 
   if (is.null(links)) {
-    return(tagList())
+    return(htmltools::tagList())
   }
 
   # sub-menu
@@ -200,15 +200,15 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
       submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
 
       return(
-        tags$li(
+        htmltools::tags$li(
           class = menu_class,
-          tags$a(
+          htmltools::tags$a(
             href = "#", class = "nav-link dropdown-toggle",
             `data-toggle` = "dropdown", role = "button",
             `aria-expanded` = "false", `aria-haspopup` = "true",
             link_text
           ),
-          tags$div(
+          htmltools::tags$div(
             class = "dropdown-menu",
             `aria-labelledby` ="navbarDropdown",
             submenuLinks
@@ -221,33 +221,33 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
 
       if (index == 1) {
-        return(tagList())
+        return(htmltools::tagList())
       } else {
-        return(tags$div(class = "dropdown-divider"))
+        return(htmltools::tags$div(class = "dropdown-divider"))
       }
     }
 
     if (!is.null(x$text) && is.null(x$href)) {
       # header
-      return(tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text))
+      return(htmltools::tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text))
     }
 
     # standard menu item
     textTags <- bs4_navbar_link_text(x)
 
     if (is_submenu) {
-      return(tags$a(class = "dropdown-item", href = x$href, textTags))
+      return(htmltools::tags$a(class = "dropdown-item", href = x$href, textTags))
     }
 
-    tags$li(
+    htmltools::tags$li(
       class = "nav-item",
-      tags$a(class = "nav-link", href = x$href, textTags)
+      htmltools::tags$a(class = "nav-link", href = x$href, textTags)
     )
 
   }
 
   tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
-  tagList(tags)
+  htmltools::tagList(tags)
 
 }
 
@@ -262,10 +262,10 @@ bs4_navbar_link_text <- function(x, ...) {
     else {
       iconset <- ""
     }
-    tagList(tags$span(class = paste(iconset, x$icon)), " ", x$text, ...)
+    htmltools::tagList(htmltools::tags$span(class = paste(iconset, x$icon)), " ", x$text, ...)
   }
   else
-    tagList(x$text, ...)
+    htmltools::tagList(x$text, ...)
 }
 
 # Testing helpers ---------------------------------------------------------

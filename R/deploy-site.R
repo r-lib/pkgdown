@@ -41,7 +41,7 @@ deploy_site_github <- function(
   host = "github.com",
   ...,
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")) {
-
+  rlang::check_installed("openssl")
   if (!nzchar(tarball)) {
     stop("No built tarball detected, please provide the location of one with `tarball`", call. = FALSE)
   }
