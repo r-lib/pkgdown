@@ -367,7 +367,7 @@ activate_navbar <- function(html, path, pkg) {
 
   }
 
-  hrefs <- purrr::map_df(nav_items, get_hrefs, pkg = pkg)
+  hrefs <- map_df(nav_items, get_hrefs, pkg = pkg)
   path <- remove_useless_parts(path, pkg = pkg)
 
   separate_path <- function(link) {

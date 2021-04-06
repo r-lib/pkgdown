@@ -197,3 +197,8 @@ modify_list <- function(x, y) {
 code_commas <- function(x) {
   paste0("`", x, "`", collapse = ", ")
 }
+
+map_df <- function(x, ...) {
+  lists <- purrr::map(x, ...)
+  do.call(rbind, lists)
+}
