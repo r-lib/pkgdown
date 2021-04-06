@@ -1,7 +1,5 @@
 # pkgdown (development version)
 
-* build_articles() docs no longer states the depth of the table of contents, as it is not customizable (#1608).
-
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
   are detected again (#1603). 
 
