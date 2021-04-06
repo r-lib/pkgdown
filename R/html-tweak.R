@@ -362,8 +362,7 @@ activate_navbar <- function(html, path, pkg) {
 
    tibble::tibble(
      nav_item = list(nav_item),
-     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg)),
-     stringsAsFactors = FALSE
+     links = tibble::tibble(links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg))
    )
   }
 
