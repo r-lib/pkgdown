@@ -27,7 +27,7 @@ BugReports: https://github.com/r-lib/pkgdown/issues
 Depends: 
     R (>= 3.1.0)
 Imports: 
-    bslib (>= 0.2.4.9002),
+    bslib,
     callr (>= 2.0.2),
     crayon,
     desc,
@@ -74,5 +74,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: pandoc
 Remotes:  
-    r-lib/downlit,
-    rstudio/bslib
+    r-lib/downlit
