@@ -37,57 +37,75 @@
 
 # can control articles navbar through articles meta
 
-    articles:
-      text: Articles
-      menu:
-      - text: Title a
-        href: a.html
-      - text: Title b
-        href: b.html
-    
+    Code
+      navbar_articles(pkg())
+    Output
+      articles:
+        text: Articles
+        menu:
+        - text: Title a
+          href: a.html
+        - text: Title b
+          href: b.html
+      
 
 ---
 
-    articles:
-      text: Articles
-      href: articles/index.html
-    
-
----
-
-    articles:
-      text: Articles
-      menu:
-      - text: Title a
-        href: a.html
-      - text: Title b
-        href: b.html
-    
-
----
-
-    articles:
-      text: Articles
-      menu:
-      - text: '---------'
-      - text: Label
-      - text: Title a
-        href: a.html
-      - text: Title b
-        href: b.html
-    
-
----
-
-    articles:
-      text: Articles
-      menu:
-      - text: Title a
-        href: a.html
-      - text: '---------'
-      - text: More...
+    Code
+      navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b")))))
+    Output
+      articles:
+        text: Articles
         href: articles/index.html
-    
+      
+
+---
+
+    Code
+      navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b"),
+      navbar = NULL))))
+    Output
+      articles:
+        text: Articles
+        menu:
+        - text: Title a
+          href: a.html
+        - text: Title b
+          href: b.html
+      
+
+---
+
+    Code
+      navbar_articles(pkg(articles = list(list(name = "all", contents = c("a", "b"),
+      navbar = "Label"))))
+    Output
+      articles:
+        text: Articles
+        menu:
+        - text: '---------'
+        - text: Label
+        - text: Title a
+          href: a.html
+        - text: Title b
+          href: b.html
+      
+
+---
+
+    Code
+      navbar_articles(pkg(articles = list(list(name = "a", contents = "a", navbar = NULL),
+      list(name = "b", contents = "b"))))
+    Output
+      articles:
+        text: Articles
+        menu:
+        - text: Title a
+          href: a.html
+        - text: '---------'
+        - text: More...
+          href: articles/index.html
+      
 
 # data_navbar() works by default
 

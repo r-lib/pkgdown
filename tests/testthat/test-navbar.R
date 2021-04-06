@@ -22,10 +22,10 @@ test_that("can control articles navbar through articles meta", {
   }
 
   "Default: show all alpabetically"
-  expect_snapshot_output(navbar_articles(pkg()))
+  expect_snapshot(navbar_articles(pkg()))
 
   "No navbar sections: link to index"
-  expect_snapshot_output(
+  expect_snapshot(
     navbar_articles(
       pkg(
         articles = list(list(name = "all", contents = c("a", "b"))
@@ -35,7 +35,7 @@ test_that("can control articles navbar through articles meta", {
   )
 
   "navbar without text"
-  expect_snapshot_output(
+  expect_snapshot(
     navbar_articles(
       pkg(
         articles = list(list(name = "all", contents = c("a", "b"), navbar = NULL))
@@ -44,7 +44,7 @@ test_that("can control articles navbar through articles meta", {
   )
 
   "navbar with label"
-  expect_snapshot_output(
+  expect_snapshot(
     navbar_articles(
       pkg(
         articles = list(list(name = "all", contents = c("a", "b"), navbar = "Label"))
@@ -53,7 +53,7 @@ test_that("can control articles navbar through articles meta", {
   )
 
   "navbar with only some articles"
-  expect_snapshot_output(
+  expect_snapshot(
     navbar_articles(
       pkg(
         articles = list(
