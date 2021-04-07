@@ -435,16 +435,16 @@ data_deps <- function(pkg, depth) {
     x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", htmltools::urlEncodePath(x))
 
     if (depth == 0) {
-      return(x)
+      return(sub("/", "", x))
     }
 
     paste0(
       paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-      "/",
       x
     )
 
   }
+
 
   # Tags ready to be added in heads
   htmltools::renderDependencies(
