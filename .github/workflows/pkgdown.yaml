@@ -55,10 +55,8 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
+          pak::local_install()
         shell: Rscript {0}
-
-      - name: Install package
-        run: R CMD INSTALL .
 
       - name: Build and deploy pkgdown site
         if: contains(env.isPush, 'true')
