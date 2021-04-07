@@ -299,6 +299,25 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
       xml2::xml_add_sibling(date_nodes, .where = "after")
   }
 
+  ## one level down for BS4
+  if (bs_version > 3) {
+     x %>%
+      xml2::xml_find_all(".//h5") %>%
+      xml2::xml_set_name("h6")
+     x %>%
+      xml2::xml_find_all(".//h4") %>%
+      xml2::xml_set_name("h5")
+     x %>%
+      xml2::xml_find_all(".//h3") %>%
+      xml2::xml_set_name("h4")
+     x %>%
+      xml2::xml_find_all(".//h2") %>%
+      xml2::xml_set_name("h3")
+     x %>%
+      xml2::xml_find_all(".//h1") %>%
+      xml2::xml_set_name("h2")
+  }
+
   invisible()
 }
 
