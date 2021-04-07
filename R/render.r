@@ -432,7 +432,7 @@ data_deps <- function(pkg, depth) {
   # Function needed for indicating where that deps folder is compared to here
   transform_path <- function(x) {
 
-    x <- fs::path_rel(x, start = pkg$dst_path)
+    x <- fs::path_rel(fs::as_fs_path(x), start = fs::as_fs_path(pkg$dst_path))
 
     if (depth == 0) {
       return(x)
