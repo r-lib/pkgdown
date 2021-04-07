@@ -432,10 +432,10 @@ data_deps <- function(pkg, depth) {
   # Function needed for indicating where that deps folder is compared to here
   transform_path <- function(x) {
 
-    x <- gsub(pkg$dst_path, "", x)
+    x <- fs::path_rel(x, start = pkg$dst_path)
 
     if (depth == 0) {
-      return(sub("/", "", x))
+      return(x)
     }
 
     paste0(
