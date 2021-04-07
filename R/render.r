@@ -440,6 +440,7 @@ data_deps <- function(pkg, depth) {
 
     paste0(
       paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+      "/",
       x
     )
 
