@@ -327,19 +327,16 @@ activate_navbar <- function(html, path, pkg) {
 
 
   remove_useless_parts <- function(links, pkg) {
-    sub(
-      pkg$meta$url %||% "", "",
-      sub(
-        "^/", "",
-        gsub(
-          "\\.\\.\\/", "",
-          sub(
-            "\\/index.html\\/?", "",
-            links
-          )
-        )
-      )
-    )
+    # remove website URL
+    if (!is.null(pkg$meta$url)) {
+      links <- sub(pkg$meta$url, "", links)
+    }
+    # remove first slash from path
+    links <- sub("^/", "", links)
+    # remove /index.html from the end
+    links <- sub("\\/index.html\\/?", "", links)
+
+    links
   }
 
   get_hrefs <- function(nav_item, pkg = pkg) {
@@ -396,7 +393,7 @@ activate_navbar <- function(html, path, pkg) {
     return()
   }
 
-  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$diff)], "active")
+  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$diff)][[1]], "active")
 }
 
 # Update file on disk -----------------------------------------------------
