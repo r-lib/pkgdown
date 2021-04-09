@@ -278,11 +278,8 @@ test_that("navbar_links_haystack()", {
       </ul>
 </div>')
   }
-  html <- html()
-  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
-  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
   expect_snapshot_output(
-    navbar_links_haystack(nav_items, pkg = list())$links
+    navbar_links_haystack(html(), pkg = list())$links
   )
 })
 

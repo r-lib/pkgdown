@@ -321,10 +321,7 @@ badges_extract_text <- function(x) {
 
 activate_navbar <- function(html, path, pkg) {
 
-  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
-  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
-
-  navbar_haystack <- navbar_links_haystack(nav_items, pkg)
+  navbar_haystack <- navbar_links_haystack(html, pkg)
   path <- remove_useless_parts(path, pkg = pkg)
 
   separate_path <- function(link) {
@@ -369,7 +366,9 @@ activate_navbar <- function(html, path, pkg) {
   )
 }
 
-navbar_links_haystack <- function(nav_items, pkg) {
+navbar_links_haystack <- function(html, pkg) {
+  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
   get_hrefs <- function(nav_item, pkg = pkg) {
     href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
 
