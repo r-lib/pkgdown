@@ -324,10 +324,6 @@ activate_navbar <- function(html, path, pkg) {
   html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
   nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
 
-
-
-
-
   get_hrefs <- function(nav_item, pkg = pkg) {
     href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
 
@@ -355,34 +351,35 @@ activate_navbar <- function(html, path, pkg) {
     strsplit(link, "/")[[1]]
   }
 
-  get_similarity <- function(link, path) {
-    current <- separate_path(path)
-    candidate <- separate_path(link)
+  get_similarity <- function(stalk, needle) {
+    needle <- separate_path(needle)
+    stalk <- separate_path(stalk)
 
-    # Active item can't be more precise than current path
-    if (length(candidate) > length(current)) {
+    # Active item can't be more precise than current path/needle
+    if (length(stalk) > length(needle)) {
       return(0)
     }
 
-    length(candidate) <- length(current)
-    similarity <- (current == candidate)
+    # Active item can however be less precise than current path/needle
+    length(stalk) <- length(needle)
+    similar <- (needle == stalk)
 
     # Any difference indicates it's not the active item
-    if (any(purrr::map_lgl(similarity, isFALSE))) {
-      return(0)
+    if (any(!similar, na.rm = TRUE)) {
+      0
+    } else {
+      sum(similar, na.rm = TRUE)
     }
-
-    sum(purrr::map_lgl(similarity, isTRUE))
   }
-  hrefs$diff <- purrr::map_dbl(hrefs$links, get_similarity, path = path)
+  hrefs$similar <- purrr::map_dbl(hrefs$links, get_similarity, needle = path)
 
-  hrefs <- hrefs[hrefs$diff > 0,]
+  hrefs <- hrefs[hrefs$similar > 0,]
   # nothing similar
   if (nrow(hrefs) == 0) {
     return()
   }
 
-  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$diff)][[1]], "active")
+  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$similar)][[1]], "active")
 }
 
 # Update file on disk -----------------------------------------------------
