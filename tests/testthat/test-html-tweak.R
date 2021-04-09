@@ -129,10 +129,24 @@ test_that("tweak_all_links() add the external-link class", {
 
 test_that("tweak_navbar_links() make URLs absolute", {
   html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
-  pkg <- list(meta = list(url = "https://example.com"))
+
+  pkg <- list(
+    meta = list(url = "https://example.com"),
+    development = list(in_dev = FALSE)
+  )
   expect_equal(
     tweak_navbar_links(html, pkg),
     "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
+  )
+
+  pkg <- list(
+    meta = list(url = "https://example.com", development = "devel"),
+    version = "3.0.0.999",
+    development = list(in_dev = TRUE)
+  )
+  expect_equal(
+    tweak_navbar_links(html, pkg),
+    "<body><div><div><div><a href=\"https://example.com/dev/reference.html\"></a></div></div></div></body>"
   )
 })
 
