@@ -78,13 +78,7 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   hrefs <- xml2::xml_attr(links, "href")
   # Users might have added absolute URLs to e.g. the Code of Conduct
-  if (is.null(pkg$meta$url)) {
-    needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
-  } else {
-    url <- pkg$meta$url
-    needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
-  }
-  tweak_class_prepend(links[needs_tweak], "external-link")
+  tweak_class_prepend(links[!is_internal_link(hrefs, pkg = pkg)], "external-link")
 
   invisible()
 }
@@ -330,10 +324,7 @@ activate_navbar <- function(html, path, pkg) {
   html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
   nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
 
-  # external links can't be an active item
-  keep_internal <- function(links, pkg) {
-    links[!grepl("https?\\:\\/\\/", links) | grepl(pkg$meta$url %||% "", links)]
-  }
+
 
   remove_useless_parts <- function(links, pkg) {
     sub(
@@ -364,7 +355,7 @@ activate_navbar <- function(html, path, pkg) {
 
    df <- tibble::tibble(
      nav_item = list(nav_item),
-     links = remove_useless_parts(keep_internal(links, pkg = pkg), pkg = pkg)
+     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
    )
    row.names(df) <- NULL
    df
