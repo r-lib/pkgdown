@@ -20,13 +20,8 @@
 
 # navbar_links_haystack()
 
-    # A tibble: 4 x 2
-      nav_item   links                
-      <list>     <chr>                
-    1 <xml_node> articles/pkgdown.html
-    2 <xml_node> reference            
-    3 <xml_node> articles/linking.html
-    4 <xml_node> articles             
+    [1] "articles/pkgdown.html" "reference"             "articles/linking.html"
+    [4] "articles"             
 
 # activate_navbar()
 
