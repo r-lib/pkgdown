@@ -13,7 +13,7 @@ name: pkgdown
 jobs:
   pkgdown:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork == false
-    runs-on: windows-latest
+    runs-on: ubuntu-18.04
     env:
       RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -55,8 +55,10 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
-          pak::local_install()
         shell: Rscript {0}
+
+      - name: Install package
+        run: R CMD INSTALL .
 
       - name: Build and deploy pkgdown site
         if: contains(env.isPush, 'true')
