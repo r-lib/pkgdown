@@ -89,6 +89,10 @@ tweak_navbar_links <- function(html, pkg = pkg) {
 
   url <- paste0(pkg$meta$url, "/")
 
+  if (pkg$development$in_dev) {
+    url <- paste0(url, meta_development(pkg$meta, pkg$version)$destination, "/")
+  }
+
   html <- xml2::read_html(html)
 
   links <- xml2::xml_find_all(html, ".//a")

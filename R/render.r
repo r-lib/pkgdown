@@ -36,12 +36,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
-  # The real location of 404.html is dynamic (#1129).
-  # Relative root does not work, use the full URL if available.
-  if (path == "404.html" && length(pkg$meta$url)) {
-    data$site$root <- paste0(pkg$meta$url, "/")
-  }
-
   data$footer <- pkgdown_footer(data, pkg)
 
   # Dependencies for head
