@@ -324,27 +324,7 @@ activate_navbar <- function(html, path, pkg) {
   html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
   nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
 
-  get_hrefs <- function(nav_item, pkg = pkg) {
-    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
-
-    if (href != "#") {
-      links <- href
-    } else {
-      # links in a drop-down
-       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
-       links <- hrefs[hrefs != "#"]
-    }
-
-   df <- tibble::tibble(
-     nav_item = list(nav_item),
-     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
-   )
-   row.names(df) <- NULL
-   df
-  }
-
-  hrefs <- lapply(nav_items, get_hrefs, pkg = pkg)
-  hrefs <- do.call(rbind, hrefs)
+  navbar_haystack <- navbar_links_haystack(nav_items, pkg)
   path <- remove_useless_parts(path, pkg = pkg)
 
   separate_path <- function(link) {
@@ -371,15 +351,46 @@ activate_navbar <- function(html, path, pkg) {
       sum(similar, na.rm = TRUE)
     }
   }
-  hrefs$similar <- purrr::map_dbl(hrefs$links, get_similarity, needle = path)
+  navbar_haystack$similar <- purrr::map_dbl(
+    navbar_haystack$links,
+    get_similarity,
+    needle = path
+  )
 
-  hrefs <- hrefs[hrefs$similar > 0,]
+  navbar_haystack <- navbar_haystack[navbar_haystack$similar > 0,]
   # nothing similar
-  if (nrow(hrefs) == 0) {
+  if (nrow(navbar_haystack) == 0) {
     return()
   }
 
-  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$similar)][[1]], "active")
+  tweak_class_prepend(
+    navbar_haystack$nav_item[which.max(navbar_haystack$similar)][[1]],
+    "active"
+  )
+}
+
+navbar_links_haystack <- function(nav_items, pkg) {
+  get_hrefs <- function(nav_item, pkg = pkg) {
+    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
+
+    if (href != "#") {
+      links <- href
+    } else {
+      # links in a drop-down
+       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
+       links <- hrefs[hrefs != "#"]
+    }
+
+   df <- tibble::tibble(
+     nav_item = list(nav_item),
+     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
+   )
+   row.names(df) <- NULL
+   df
+  }
+
+  hrefs <- lapply(nav_items, get_hrefs, pkg = pkg)
+  do.call(rbind, hrefs)
 }
 
 # Update file on disk -----------------------------------------------------

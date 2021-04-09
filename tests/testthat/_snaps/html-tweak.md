@@ -18,6 +18,16 @@
       <img src="reference/figures/x.png"/>
     </body>
 
+# navbar_links_haystack()
+
+    # A tibble: 4 x 2
+      nav_item   links                
+      <list>     <chr>                
+    1 <xml_node> articles/pkgdown.html
+    2 <xml_node> reference            
+    3 <xml_node> articles/linking.html
+    4 <xml_node> articles             
+
 # activate_navbar()
 
     {html_node}

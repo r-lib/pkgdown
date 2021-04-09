@@ -257,6 +257,33 @@ test_that("multiple badges-paragraphs can be found between comments", {
 })
 
 # navbar -------------------------------------------------------------
+
+test_that("navbar_links_haystack()", {
+  html <- function(){
+  xml2::read_html('<div id="navbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto ml-3">
+<li class="nav-item">
+  <a class="nav-link" href="articles/pkgdown.html">Get started</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="articles/index.html">More</a>
+      </div>
+</li>
+      </ul>
+</div>')
+  }
+  html <- html()
+  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
+  expect_snapshot_output(navbar_links_haystack(nav_items, pkg = list()))
+})
+
 test_that("activate_navbar()", {
   html <- function(){
   xml2::read_html('<div id="navbar" class="collapse navbar-collapse">
