@@ -256,7 +256,7 @@ remove_useless_parts <- function(links, pkg) {
   # remove first slash from path
   links <- sub("^/", "", links)
   # remove /index.html from the end
-  links <- sub("\\/index.html\\/?", "", links)
+  links <- sub("/index.html/?", "", links)
   # remove ../ from the beginning
   links <- gsub("\\.\\./", "", links)
 
