@@ -432,7 +432,10 @@ data_deps <- function(pkg, depth) {
   # Function needed for indicating where that deps folder is compared to here
   transform_path <- function(x) {
 
-    x <- gsub(pkg$dst_path, "", x)
+    # At the time this function is called
+    # html::renderDependencies() has already encoded x
+    # with the default htmltools::urlEncodePath()
+    x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", x)
 
     if (depth == 0) {
       return(sub("/", "", x))
@@ -444,6 +447,7 @@ data_deps <- function(pkg, depth) {
     )
 
   }
+
 
   # Tags ready to be added in heads
   htmltools::renderDependencies(
