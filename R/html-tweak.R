@@ -405,7 +405,7 @@ activate_navbar <- function(html, path, pkg) {
     return()
   }
 
-  tweak_class_prepend(hrefs$nav_item[hrefs$diff == max(hrefs$diff)][[1]], "active")
+  tweak_class_prepend(hrefs$nav_item[which.max(hrefs$diff)], "active")
 }
 
 # Update file on disk -----------------------------------------------------
