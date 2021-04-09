@@ -326,18 +326,7 @@ activate_navbar <- function(html, path, pkg) {
 
 
 
-  remove_useless_parts <- function(links, pkg) {
-    # remove website URL
-    if (!is.null(pkg$meta$url)) {
-      links <- sub(pkg$meta$url, "", links)
-    }
-    # remove first slash from path
-    links <- sub("^/", "", links)
-    # remove /index.html from the end
-    links <- sub("\\/index.html\\/?", "", links)
 
-    links
-  }
 
   get_hrefs <- function(nav_item, pkg = pkg) {
     href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
