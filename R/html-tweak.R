@@ -85,7 +85,7 @@ tweak_all_links <- function(html, pkg = pkg) {
 }
 
 
-tweak_navbar_links <- function(html, pkg = pkg) {
+tweak_404_links <- function(html, pkg = pkg) {
 
   url <- paste0(pkg$meta$url, "/")
 
@@ -95,7 +95,7 @@ tweak_navbar_links <- function(html, pkg = pkg) {
 
   html <- xml2::read_html(html)
 
-  links <- xml2::xml_find_all(html, ".//a")
+  links <- xml2::xml_find_all(html, ".//a | .//link")
   hrefs <- xml2::xml_attr(links, "href")
 
   needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
@@ -104,6 +104,18 @@ tweak_navbar_links <- function(html, pkg = pkg) {
     xml2::xml_attr(links[needs_tweak], "href") <- paste0(
       url,
       xml2::xml_attr(links[needs_tweak], "href")
+    )
+  }
+
+  scripts <- xml2::xml_find_all(html, ".//script")
+  srcs <- xml2::xml_attr(scripts, "src")
+
+  needs_tweak <- !grepl("https?\\:\\/\\/", srcs)
+
+  if (any(needs_tweak)) {
+    xml2::xml_attr(scripts[needs_tweak], "src") <- paste0(
+      url,
+      xml2::xml_attr(scripts[needs_tweak], "src")
     )
   }
 

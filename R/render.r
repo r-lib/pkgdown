@@ -69,7 +69,8 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   components$template <- name
 
   if (path == "404.html" && !is.null(pkg$meta$url)) {
-    components$navbar <- tweak_navbar_links(components$navbar, pkg = pkg)
+    components$head <- tweak_404_links(components$head, pkg = pkg)
+    components$navbar <- tweak_404_links(components$navbar, pkg = pkg)
   }
 
   # render complete layout
