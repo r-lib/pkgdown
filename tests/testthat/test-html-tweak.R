@@ -127,7 +127,7 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
-test_that("tweak_navbar_links() make URLs absolute", {
+test_that("tweak_404_links() make URLs absolute", {
   html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
 
   pkg <- list(
@@ -135,7 +135,7 @@ test_that("tweak_navbar_links() make URLs absolute", {
     development = list(in_dev = FALSE)
   )
   expect_equal(
-    tweak_navbar_links(html, pkg),
+    tweak_404_links(html, pkg, "body"),
     "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
   )
 
@@ -145,7 +145,7 @@ test_that("tweak_navbar_links() make URLs absolute", {
     development = list(in_dev = TRUE)
   )
   expect_equal(
-    tweak_navbar_links(html, pkg),
+    tweak_404_links(html, pkg, "body"),
     "<body><div><div><div><a href=\"https://example.com/dev/reference.html\"></a></div></div></div></body>"
   )
 })
