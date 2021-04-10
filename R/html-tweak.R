@@ -108,6 +108,7 @@ tweak_404_links <- function(html, pkg = pkg, what) {
   }
 
   scripts <- xml2::xml_find_all(html, ".//script")
+  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
   srcs <- xml2::xml_attr(scripts, "src")
 
   needs_tweak <- !grepl("https?\\:\\/\\/", srcs)

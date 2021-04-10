@@ -27,7 +27,25 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(src = logo_path(pkg, depth = depth))
+  logo_path <- logo_path(pkg, depth = depth)
+
+  # Absolute URL for 404
+  if (!is.null(logo_path)) {
+    if (path == "404.html" && !is.null(pkg$meta$url)) {
+      if (pkg$development$in_dev) {
+        logo_path <- paste0(
+          pkg$meta$url, "/",
+          meta_development(pkg$meta, pkg$version)$destination,
+          "/",
+          logo_path
+        )
+      } else {
+        logo_path <- paste0(pkg$meta$url, "/", logo_path)
+      }
+    }
+  }
+
+  data$logo <- list(src = logo_path)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
