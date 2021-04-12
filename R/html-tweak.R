@@ -404,16 +404,7 @@ tweak_404 <- function(html, pkg = pkg) {
   # Logo
   logo_path <- logo_path(pkg, depth = 0)
   if (!is.null(logo_path)) {
-    if (pkg$development$in_dev) {
-      logo_path <- paste0(
-        pkg$meta$url, "/",
-        meta_development(pkg$meta, pkg$version)$destination,
-        "/",
-        logo_path
-      )
-    } else {
-      logo_path <- paste0(pkg$meta$url, "/", logo_path)
-    }
+    logo_path <- paste0(url, logo_path)
   }
 
   TRUE
