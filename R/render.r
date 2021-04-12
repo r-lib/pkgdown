@@ -29,22 +29,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   logo_path <- logo_path(pkg, depth = depth)
 
-  # Absolute URL for 404
-  if (!is.null(logo_path)) {
-    if (path == "404.html" && !is.null(pkg$meta$url)) {
-      if (pkg$development$in_dev) {
-        logo_path <- paste0(
-          pkg$meta$url, "/",
-          meta_development(pkg$meta, pkg$version)$destination,
-          "/",
-          logo_path
-        )
-      } else {
-        logo_path <- paste0(pkg$meta$url, "/", logo_path)
-      }
-    }
-  }
-
   data$logo <- list(src = logo_path)
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
@@ -85,11 +69,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
-
-  if (path == "404.html" && !is.null(pkg$meta$url)) {
-    components$head <- tweak_404_links(components$head, pkg = pkg, what = "head")
-    components$navbar <- tweak_404_links(components$navbar, pkg = pkg, what = "body")
-  }
 
   # render complete layout
   template <- find_template(

@@ -85,44 +85,6 @@ tweak_all_links <- function(html, pkg = pkg) {
 }
 
 
-tweak_404_links <- function(html, pkg = pkg, what) {
-
-  url <- paste0(pkg$meta$url, "/")
-
-  if (pkg$development$in_dev) {
-    url <- paste0(url, meta_development(pkg$meta, pkg$version)$destination, "/")
-  }
-
-  html <- xml2::read_html(html)
-
-  links <- xml2::xml_find_all(html, ".//a | .//link")
-  hrefs <- xml2::xml_attr(links, "href")
-
-  needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
-
-  if (any(needs_tweak)) {
-    xml2::xml_attr(links[needs_tweak], "href") <- paste0(
-      url,
-      xml2::xml_attr(links[needs_tweak], "href")
-    )
-  }
-
-  scripts <- xml2::xml_find_all(html, ".//script")
-  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
-  srcs <- xml2::xml_attr(scripts, "src")
-
-  needs_tweak <- !grepl("https?\\:\\/\\/", srcs)
-
-  if (any(needs_tweak)) {
-    xml2::xml_attr(scripts[needs_tweak], "src") <- paste0(
-      url,
-      xml2::xml_attr(scripts[needs_tweak], "src")
-    )
-  }
-
-  return(as.character(xml2::xml_find_first(html, paste0(".//", what))))
-}
-
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
@@ -411,6 +373,50 @@ navbar_links_haystack <- function(html, pkg, path) {
 
   # Only return rows of links with some similarity to the current path
   haystack[haystack$similar > 0, ]
+}
+
+tweak_404 <- function(html, pkg = pkg) {
+
+  # If there's no URL links can't be made absolute
+  if (is.null(pkg$meta$url)) {
+    return()
+  }
+
+  url <- paste0(pkg$meta$url, "/")
+
+  # Links
+  links <- xml2::xml_find_all(html, ".//a | .//link")
+  rel_links <- links[!grepl("https?\\:\\/\\/", xml2::xml_attr(links, "href"))]
+  if (length(rel_links) > 0) {
+    new_urls <- paste0(url, xml2::xml_attr(rel_links, "href"))
+    xml2::xml_attr(rel_links, "href") <- new_urls
+  }
+
+  # Scripts
+  scripts <- xml2::xml_find_all(html, ".//script")
+  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
+  rel_scripts <- scripts[!grepl("https?\\:\\/\\/", xml2::xml_attr(scripts, "src"))]
+  if (length(rel_scripts) > 0) {
+    new_srcs <- paste0(url, xml2::xml_attr(rel_scripts, "src"))
+    xml2::xml_attr(rel_scripts, "src") <- new_srcs
+  }
+
+  # Logo
+  logo_path <- logo_path(pkg, depth = 0)
+  if (!is.null(logo_path)) {
+    if (pkg$development$in_dev) {
+      logo_path <- paste0(
+        pkg$meta$url, "/",
+        meta_development(pkg$meta, pkg$version)$destination,
+        "/",
+        logo_path
+      )
+    } else {
+      logo_path <- paste0(pkg$meta$url, "/", logo_path)
+    }
+  }
+
+  TRUE
 }
 
 # Update file on disk -----------------------------------------------------
