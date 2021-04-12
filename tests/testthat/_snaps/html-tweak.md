@@ -6,6 +6,28 @@
       </div>
     </div>
 
+# tweak_404() make URLs absolute
+
+    Code
+      cat(as.character(xml2::xml_child(prod_html)))
+    Output
+      <body><div><div><div>
+          <a href="https://example.com/reference.html"></a>
+          <link href="https://example.com/reference.css">
+      <script src="https://example.com/reference.js"></script><img src="https://example.com/" class="pkg-logo">
+      </div></div></div></body>
+
+---
+
+    Code
+      cat(as.character(xml2::xml_child(dev_html)))
+    Output
+      <body><div><div><div>
+          <a href="https://example.com/dev/reference.html"></a>
+          <link href="https://example.com/dev/reference.css">
+      <script src="https://example.com/dev/reference.js"></script><img src="https://example.com/dev/" class="pkg-logo">
+      </div></div></div></body>
+
 # page header modification succeeds
 
     <h1 class="hasAnchor"><a href="#plot" class="anchor"> </a><img src="someimage" alt=""/> some text
