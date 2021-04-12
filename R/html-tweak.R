@@ -402,9 +402,9 @@ tweak_404 <- function(html, pkg = pkg) {
   }
 
   # Logo
-  logo_path <- logo_path(pkg, depth = 0)
-  if (!is.null(logo_path)) {
-    logo_path <- paste0(url, logo_path)
+  logo <- xml2::xml_find_first(html, ".//img[@class='pkg-logo']")
+  if (inherits(logo, "xml_node")) {
+    xml2::xml_attr(logo, "src") <- paste0(url, logo_path(pkg, depth = 0))
   }
 
   TRUE
