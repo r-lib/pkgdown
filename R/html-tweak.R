@@ -386,7 +386,7 @@ tweak_404 <- function(html, pkg = pkg) {
 
   # Links
   links <- xml2::xml_find_all(html, ".//a | .//link")
-  rel_links <- links[!grepl("https?\\:\\/\\/", xml2::xml_attr(links, "href"))]
+  rel_links <- links[!grepl("https?\\://", xml2::xml_attr(links, "href"))]
   if (length(rel_links) > 0) {
     new_urls <- paste0(url, xml2::xml_attr(rel_links, "href"))
     xml2::xml_attr(rel_links, "href") <- new_urls
@@ -395,7 +395,7 @@ tweak_404 <- function(html, pkg = pkg) {
   # Scripts
   scripts <- xml2::xml_find_all(html, ".//script")
   scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
-  rel_scripts <- scripts[!grepl("https?\\:\\/\\/", xml2::xml_attr(scripts, "src"))]
+  rel_scripts <- scripts[!grepl("https?\\://", xml2::xml_attr(scripts, "src"))]
   if (length(rel_scripts) > 0) {
     new_srcs <- paste0(url, xml2::xml_attr(rel_scripts, "src"))
     xml2::xml_attr(rel_scripts, "src") <- new_srcs
