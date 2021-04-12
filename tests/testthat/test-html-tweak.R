@@ -127,27 +127,34 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
-test_that("tweak_404_links() make URLs absolute", {
-  html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
+test_that("tweak_404() make URLs absolute", {
+  html <- function() {
+  xml2::read_html(
+    '<div><div><div>
+    <a href = "reference.html"></a>
+    <link href = "reference.css"></link>
+    <script src = "reference.js"></script>
+    <img src = "reference.png" class="pkg-logo"></img>
+    </div></div></div>'
+  )
+  }
 
   pkg <- list(
     meta = list(url = "https://example.com"),
     development = list(in_dev = FALSE)
   )
-  expect_equal(
-    tweak_404_links(html, pkg, "body"),
-    "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
-  )
+  prod_html <- html()
+  tweak_404(prod_html, pkg)
+  expect_snapshot(cat(as.character(xml2::xml_child(prod_html))))
 
   pkg <- list(
     meta = list(url = "https://example.com", development = "devel"),
     version = "3.0.0.999",
     development = list(in_dev = TRUE)
   )
-  expect_equal(
-    tweak_404_links(html, pkg, "body"),
-    "<body><div><div><div><a href=\"https://example.com/dev/reference.html\"></a></div></div></div></body>"
-  )
+  dev_html <- html()
+  tweak_404(dev_html, pkg)
+  expect_snapshot(cat(as.character(xml2::xml_child(dev_html))))
 })
 
 # homepage ----------------------------------------------------------------
