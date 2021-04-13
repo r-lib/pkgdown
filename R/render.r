@@ -27,9 +27,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  logo_path <- logo_path(pkg, depth = depth)
-
-  data$logo <- list(src = logo_path)
+  data$logo <- list(src = logo_path(pkg, depth = depth))
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
