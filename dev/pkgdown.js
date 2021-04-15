@@ -25,62 +25,6 @@
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    var cur_path = paths(location.pathname);
-    var links = $("#navbar ul li a");
-    var max_length = -1;
-    var pos = -1;
-    for (var i = 0; i < links.length; i++) {
-      if (links[i].getAttribute("href") === "#")
-        continue;
-      // Ignore external links
-      if (links[i].host !== location.host)
-        continue;
-
-      var nav_path = paths(links[i].pathname);
-
-      var length = prefix_length(nav_path, cur_path);
-      if (length > max_length) {
-        max_length = length;
-        pos = i;
-      }
-    }
-
-    // Add class to parent <li>, and enclosing <li> if in dropdown
-    if (pos >= 0) {
-      var menu_anchor = $(links[pos]);
-      menu_anchor.parent().addClass("active");
-      menu_anchor.closest("li.dropdown").addClass("active");
-    }
-  });
-
-  function paths(pathname) {
-    var pieces = pathname.split("/");
-    pieces.shift(); // always starts with /
-
-    var end = pieces[pieces.length - 1];
-    if (end === "index.html" || end === "")
-      pieces.pop();
-    return(pieces);
-  }
-
-  // Returns -1 if not found
-  function prefix_length(needle, haystack) {
-    if (needle.length > haystack.length)
-      return(-1);
-
-    // Special case for length-0 haystack, since for loop won't run
-    if (haystack.length === 0) {
-      return(needle.length === 0 ? 0 : -1);
-    }
-
-    for (var i = 0; i < haystack.length; i++) {
-      if (needle[i] != haystack[i])
-        return(i);
-    }
-
-    return(haystack.length);
-  }
-
   /* Clipboard --------------------------*/
 
   function changeTooltipMessage(element, msg) {
