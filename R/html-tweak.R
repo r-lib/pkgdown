@@ -349,14 +349,14 @@ navbar_links_haystack <- function(html, pkg, path) {
       links <- href
     } else {
       # links in a drop-down
-       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
-       links <- hrefs[hrefs != "#"]
+      hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
+      links <- hrefs[hrefs != "#"]
     }
 
-   tibble::tibble(
-     nav_item = list(nav_item),
-     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
-   )
+    tibble::tibble(
+      nav_item = list(nav_item),
+      links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
+    )
   }
 
   haystack <- do.call(rbind, lapply(nav_items, get_hrefs, pkg = pkg))
