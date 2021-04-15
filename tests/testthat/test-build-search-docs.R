@@ -4,7 +4,7 @@ test_that("docsearch.json and sitemap.xml are valid", {
   search <- test_path("assets/search-site")
   on.exit(clean_site(search))
 
-  expect_output(init_site(search))
+  expect_output(build_site(search))
   json <- path(search, "docs", "docsearch.json")
   expect_true(jsonlite::validate(read_lines(json)))
 

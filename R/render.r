@@ -58,6 +58,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     "in-header", "after-head", "before-body", "after-body"
   )
 
+  if (pkg$bs_version > 3) {
+    pieces <- pieces[pieces != "docsearch"]
+  }
+
   templates <- purrr::map_chr(
     pieces, find_template, name,
     template_path = template_path(pkg),
