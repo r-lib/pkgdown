@@ -236,3 +236,29 @@ re_match <- function(text, pattern, perl = TRUE, ...) {
   class(res) <- c("tbl_df", "tbl", class(res))
   res
 }
+
+# external links can't be an active item
+# external links start with http(s)
+# but are NOT an absolute URL to the pkgdown site at hand
+is_internal_link <- function(links, pkg) {
+  if (is.null(pkg$meta$url)) {
+    !grepl("https?://", links)
+  } else {
+    !grepl("https?://", links) | grepl(pkg$meta$url, links)
+  }
+}
+
+remove_useless_parts <- function(links, pkg) {
+  # remove website URL
+  if (!is.null(pkg$meta$url)) {
+    links <- sub(pkg$meta$url, "", links)
+  }
+  # remove first slash from path
+  links <- sub("^/", "", links)
+  # remove /index.html from the end
+  links <- sub("/index.html/?", "", links)
+  # remove ../ from the beginning
+  links <- gsub("\\.\\./", "", links)
+
+  links
+}

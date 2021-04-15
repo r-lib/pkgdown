@@ -244,7 +244,8 @@ build_article <- function(name,
     pagetitle = front$title,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, path_rel(input, pkg$src_path)),
-    filename = path_file(input)
+    filename = path_file(input),
+    output_file = output_file
   )
   data <- utils::modifyList(default_data, data)
 
