@@ -87,7 +87,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   # navbar activation
-
   if (pkg$bs_version > 3) {
     html <- xml2::read_html(rendered)
     activate_navbar(html, data$output_file %||% path, pkg)
