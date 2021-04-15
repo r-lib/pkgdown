@@ -25,6 +25,19 @@
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    /* Search marking --------------------------*/
+    var url = new URL(window.location.href);
+    var toMark = url.searchParams.get("q");
+    var mark = new Mark("div.col-md-9");
+    if (toMark) {
+      mark.mark(toMark, {
+        accuracy: {
+          value: "complementary",
+          limiters: [",", ".", ":", "/"],
+        }
+      });
+    }
+
   /* Clipboard --------------------------*/
 
   function changeTooltipMessage(element, msg) {
