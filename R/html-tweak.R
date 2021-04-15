@@ -354,7 +354,7 @@ activate_navbar <- function(html, path, pkg) {
     needle = path
   )
 
-  navbar_haystack <- navbar_haystack[navbar_haystack$similar > 0,]
+  navbar_haystack <- navbar_haystack[navbar_haystack$similar > 0, ]
   # nothing similar
   if (nrow(navbar_haystack) == 0) {
     return()

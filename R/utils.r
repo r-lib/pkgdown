@@ -241,7 +241,7 @@ re_match <- function(text, pattern, perl = TRUE, ...) {
 # external links start with http(s)
 # but are NOT an absolute URL to the pkgdown site at hand
 is_internal_link <- function(links, pkg) {
-    if (is.null(pkg$meta$url)) {
+  if (is.null(pkg$meta$url)) {
     !grepl("https?://", links)
   } else {
     !grepl("https?://", links) | grepl(pkg$meta$url, links)
