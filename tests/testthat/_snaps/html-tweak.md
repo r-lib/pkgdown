@@ -20,8 +20,38 @@
 
 # navbar_links_haystack()
 
-    [1] "articles/pkgdown.html" "reference"             "articles/linking.html"
-    [4] "articles"             
+    Code
+      navbar_links_haystack(html(), pkg = list(), path = "articles/bla.html")[, c(
+        "links", "similar")]
+    Output
+      # A tibble: 1 x 2
+        links    similar
+        <chr>      <dbl>
+      1 articles       1
+
+---
+
+    Code
+      navbar_links_haystack(html(), pkg = list(), path = "articles/linking.html")[, c(
+        "links", "similar")]
+    Output
+      # A tibble: 2 x 2
+        links                 similar
+        <chr>                   <dbl>
+      1 articles/linking.html       2
+      2 articles                    1
+
+---
+
+    Code
+      navbar_links_haystack(html(), pkg = list(), path = "articles/pkgdown.html")[, c(
+        "links", "similar")]
+    Output
+      # A tibble: 2 x 2
+        links                 similar
+        <chr>                   <dbl>
+      1 articles/pkgdown.html       2
+      2 articles                    1
 
 # activate_navbar()
 

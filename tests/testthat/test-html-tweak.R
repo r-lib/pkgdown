@@ -278,8 +278,14 @@ test_that("navbar_links_haystack()", {
       </ul>
 </div>')
   }
-  expect_snapshot_output(
-    navbar_links_haystack(html(), pkg = list())$links
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/bla.html")[, c("links", "similar")]
+  )
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/linking.html")[, c("links", "similar")]
+  )
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/pkgdown.html")[, c("links", "similar")]
   )
 })
 

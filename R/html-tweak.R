@@ -320,14 +320,51 @@ badges_extract_text <- function(x) {
 }
 
 activate_navbar <- function(html, path, pkg) {
-
-  navbar_haystack <- navbar_links_haystack(html, pkg)
   path <- remove_useless_parts(path, pkg = pkg)
 
+  # Get nav items, their links, their similarity to the current path
+  navbar_haystack <- navbar_links_haystack(html, pkg, path)
+
+  # Nothing similar
+  if (nrow(navbar_haystack) == 0) {
+    return()
+  }
+
+  # Pick the most similar link, activate the corresponding nav item
+  tweak_class_prepend(
+    navbar_haystack$nav_item[which.max(navbar_haystack$similar)][[1]],
+    "active"
+  )
+}
+
+navbar_links_haystack <- function(html, pkg, path) {
+  # Extract links from the menu items
+  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
+
+  get_hrefs <- function(nav_item, pkg = pkg) {
+    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
+
+    if (href != "#") {
+      links <- href
+    } else {
+      # links in a drop-down
+       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
+       links <- hrefs[hrefs != "#"]
+    }
+
+   tibble::tibble(
+     nav_item = list(nav_item),
+     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
+   )
+  }
+
+  haystack <- do.call(rbind, lapply(nav_items, get_hrefs, pkg = pkg))
+
+  # For each link, calculate similarity to the current path
   separate_path <- function(link) {
     strsplit(link, "/")[[1]]
   }
-
   get_similarity <- function(stalk, needle) {
     needle <- separate_path(needle)
     stalk <- separate_path(stalk)
@@ -348,48 +385,10 @@ activate_navbar <- function(html, path, pkg) {
       sum(similar, na.rm = TRUE)
     }
   }
-  navbar_haystack$similar <- purrr::map_dbl(
-    navbar_haystack$links,
-    get_similarity,
-    needle = path
-  )
+  haystack$similar <- purrr::map_dbl(haystack$links, get_similarity, needle = path)
 
-  navbar_haystack <- navbar_haystack[navbar_haystack$similar > 0, ]
-  # nothing similar
-  if (nrow(navbar_haystack) == 0) {
-    return()
-  }
-
-  tweak_class_prepend(
-    navbar_haystack$nav_item[which.max(navbar_haystack$similar)][[1]],
-    "active"
-  )
-}
-
-navbar_links_haystack <- function(html, pkg) {
-  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
-  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
-  get_hrefs <- function(nav_item, pkg = pkg) {
-    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
-
-    if (href != "#") {
-      links <- href
-    } else {
-      # links in a drop-down
-       hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
-       links <- hrefs[hrefs != "#"]
-    }
-
-   df <- tibble::tibble(
-     nav_item = list(nav_item),
-     links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
-   )
-   row.names(df) <- NULL
-   df
-  }
-
-  hrefs <- lapply(nav_items, get_hrefs, pkg = pkg)
-  do.call(rbind, hrefs)
+  # Only return rows of links with some similarity to the current path
+  haystack[haystack$similar > 0, ]
 }
 
 # Update file on disk -----------------------------------------------------
