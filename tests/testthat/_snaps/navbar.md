@@ -122,6 +122,11 @@
       [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
       
 
+# data_navbar() errors if elements are placed twice
+
+    Navbar elements can't be duplicated.
+    x The element reference is placed both left and right in navbar.structure in '_pkgdown.yml'.
+
 # data_navbar() can re-order default elements
 
     Code

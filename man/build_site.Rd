@@ -186,6 +186,13 @@ You can use this component to change the order of the default components, remove
    right: [github]
 }
 
+If you specify e.g. only \code{right} and place "reference" there, pkgdown will error because this would mean the "reference" element is placed both left (by default) and right (in your configuration).
+To get rid of everything left use\preformatted{navbar:
+ structure:
+   left:  []
+   right: [intro, reference, articles, tutorials, news, github]
+}
+
 The \code{components} describes the appearance of each element in the navbar.
 It uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
@@ -246,6 +253,10 @@ used to render the page in the browser.
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
 template:\preformatted{template:
+  bootswatch: cerulean
+}
+
+Note that if you use Bootstrap version 3 the syntax is\preformatted{template:
   params:
     bootswatch: cerulean
 }

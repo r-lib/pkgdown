@@ -14,6 +14,22 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   right_comp <- intersect(structure$right, names(components))
   left_comp <- intersect(structure$left, names(components))
 
+  duplicate_elements <- intersect(left_comp, right_comp)
+  if (length(duplicate_elements) > 0) {
+    abort(
+      message = c(
+        "Navbar elements can't be duplicated.",
+        x = sprintf(
+          "The element%s %s %s placed both left and right in %s.",
+          if (length(duplicate_elements) > 1) "s" else "",
+          toString(duplicate_elements),
+          if (length(duplicate_elements) > 1) "are" else "is",
+          pkgdown_field(pkg = pkg, "navbar", "structure")
+        )
+      )
+    )
+  }
+
   # Backward compatiblity
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]

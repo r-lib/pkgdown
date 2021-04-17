@@ -71,6 +71,12 @@ test_that("data_navbar() works by default", {
   expect_snapshot(data_navbar(pkg))
 })
 
+test_that("data_navbar() errors if elements are placed twice", {
+  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  pkg$meta$navbar$structure <- list(right = c("reference", "articles"))
+  expect_snapshot_error(data_navbar(pkg))
+})
+
 test_that("data_navbar() can re-order default elements", {
   pkg <- as_pkgdown(test_path("assets/news-multi-page"))
   pkg$meta$navbar$structure$right <- c("news")
