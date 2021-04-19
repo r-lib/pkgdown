@@ -77,7 +77,7 @@ build_search <- function(pkg = ".",
   paths <- fs::path_rel(
       fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
       pkg$dst_path
-    )
+  )
   paths <- paths[paths != "404.html"]
 
   index <- lapply(paths, file_search_index, pkg = pkg)
