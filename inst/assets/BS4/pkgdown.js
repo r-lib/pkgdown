@@ -87,7 +87,7 @@
     }
 
     $(e.target).addClass("loading");
-    var response = await fetch('/search.json');
+    var response = await fetch($("#search-input").data("search-index"));
     var data = await response.json();
 
     var options = {
