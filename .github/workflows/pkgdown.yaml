@@ -76,7 +76,7 @@ jobs:
       - name: Create index file
         if: contains(env.isPush, 'false')
         run: |
-          cp fake-index.html ./docs/index.html`
+          cp fake-index.html ./docs/index.html
 
       - name: Deploy to Netlify
         if: contains(env.isPush, 'false')
