@@ -87,7 +87,6 @@ build_search <- function(pkg = ".",
     file.path(pkg$dst_path, "search.json"),
     auto_unbox = TRUE
   )
-  file.edit( file.path(pkg$dst_path, "search.json"))
 }
 
 file_search_index <- function(path, pkg) {
