@@ -102,7 +102,7 @@ file_search_index <- function(path, pkg) {
     xml2::xml_find_all(node, ".//*[contains(@class, 'section')]"),
     bs4_index_data,
     title = title,
-    path = paste0("/", path)
+    path = paste0("/", pkg$prefix, path)
     )
 
 }
