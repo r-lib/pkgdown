@@ -81,6 +81,7 @@ build_search <- function(pkg = ".",
   paths <- paths[paths != "404.html"]
 
   index <- lapply(paths, file_search_index, pkg = pkg)
+  index <- purrr::compact(index)
   jsonlite::write_json(
     index,
     file.path(pkg$dst_path, "search.json"),
