@@ -158,7 +158,7 @@ data_open_graph <- function(pkg = ".") {
 
 check_open_graph <- function(og) {
   if (!is.list(og)) {
-    abort(paste("`opengraph` must be a list, not", friendly_type(typeof(og))))
+    abort(paste("`opengraph` must be a list, not", friendly_type_of(og)))
   }
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
