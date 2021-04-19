@@ -53,15 +53,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)
 
   # Search index location
-  if (pkg$development$in_dev) {
-    data$`search-index` <- paste0(
-      "/",
-      meta_development(pkg$meta, pkg$version)$destination,
-      "/search.json"
-    )
-  } else {
-    data$index <- "/search.json"
-  }
+  data$`search-index` <- paste0("/", pkg$prefix, "search.json")
 
   # render template components
   pieces <- c(

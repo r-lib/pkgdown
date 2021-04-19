@@ -132,10 +132,10 @@ async function searchFuse(query, callback) {
       source: searchFuse,
       templates: {
         suggestion: (s) => {
-          if (s.chapter == s.heading) {
-            return `${s.chapter}`;
+          if (s.title == s.heading) {
+            return `${s.title}`;
           } else {
-            return `${s.chapter} /<br> ${s.heading}`;
+            return `${s.title} /<br> ${s.heading}`;
           }
         },
       },
