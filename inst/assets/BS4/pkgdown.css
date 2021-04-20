@@ -407,7 +407,7 @@ mark {
   color: #999;
 }
 .algolia-autocomplete .aa-dropdown-menu {
-  width: min(100%, 20rem);
+  width: max(100%, 20rem);
   background-color: #fff;
   border: 1px solid var(--gray);
   border-radius: 0.2rem;
@@ -421,6 +421,13 @@ mark {
   padding: 5px 4px;
   border-bottom: 1px #ddd solid;
   font-size: 0.9rem;
+  color: #5E5E5E;
+
+}
+
+.search-details {
+  font-size: 1rem;
+  color: #0054AD;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
   background-color: #B2D7FF;

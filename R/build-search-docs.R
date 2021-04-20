@@ -110,29 +110,31 @@ file_search_index <- function(path, pkg) {
 # index -------------------------------------------------------------------
 
 bs4_index_data <- function(node, title, path) {
+  node_copy <- node
+  xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
   all <- function(...) paste0(".//", c(...), collapse = "|")
   text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote")
   code_path <- all("pre")
 
-  if (xml2::xml_name(node) == "dt") {
-    code <- xml2::xml_find_all(node, code_path)
+  if (xml2::xml_name(node_copy) == "dt") {
+    code <- xml2::xml_find_all(node_copy, code_path)
     text <- paste0(
-      xml_text1(node),
-      xml_text1(xml2::xml_find_all(xml2::xml_siblings(node)[1], text_path)),
+      xml_text1(node_copy),
+      xml_text1(xml2::xml_find_all(xml2::xml_siblings(node_copy)[1], text_path)),
       collapse = " "
     )
-    heading <- paste(xml_text1(node), "(argument)")
+    heading <- paste(xml_text1(node_copy), "(argument)")
   } else {
-    code <- xml2::xml_find_all(node, code_path)
-    text <- xml_text1(xml2::xml_find_all(node, text_path))
-    children <- xml2::xml_children(node)
+    code <- xml2::xml_find_all(node_copy, code_path)
+    text <- xml_text1(xml2::xml_find_all(node_copy, text_path))
+    children <- xml2::xml_children(node_copy)
     heading <- xml_text1(children[purrr::map_lgl(children, is_heading)][1])
     if (nchar(heading) == 0) heading <- title
   }
 
   list(
     path = path,
-    id = xml2::xml_attr(node, "id"),
+    id = xml2::xml_attr(node_copy, "id"),
     title = title,
     heading = heading,
     text = strip_stop_words(text),

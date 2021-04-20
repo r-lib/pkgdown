@@ -123,7 +123,7 @@ async function searchFuse(query, callback) {
       .filter((x) => x.score <= 0.75)
       .map((x) => x.item);
   }
-
+  console.log(results);
   callback(items);
 }
   $("#search-input").autocomplete(options, [
@@ -133,9 +133,9 @@ async function searchFuse(query, callback) {
       templates: {
         suggestion: (s) => {
           if (s.title == s.heading) {
-            return `${s.title}`;
+            return `<div class="search-details">${s.title}</div>`;
           } else {
-            return `${s.title} /<br> ${s.heading}`;
+            return `${s.title}	<br><div class="search-details"> ${s.heading}</div>`;
           }
         },
       },
