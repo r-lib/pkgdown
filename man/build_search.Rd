@@ -9,14 +9,16 @@ build_search(pkg = ".", override = list())
 \arguments{
 \item{pkg}{Path to package.}
 
-\item{override}{}
+\item{override}{An optional named list used to temporarily override
+values in \verb{_pkgdown.yml}}
 }
 \description{
 Build a JSON file encompassing all HTML pages, for use by the search script.
 }
 \section{YAML config}{
 
-You can exclude some paths from the search index.\if{html}{\out{<div class="yaml">}}\preformatted{search:
+You can exclude some paths from the search index.
+Below we exclude the changelog from the search index.\if{html}{\out{<div class="yaml">}}\preformatted{search:
   exclude: ['news/index.html']
 }\if{html}{\out{</div>}}
 }

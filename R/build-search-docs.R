@@ -85,8 +85,6 @@ url_node <- function(url) {
 #' Search won't work if you simply use pkgdown preview of the static files.
 #' You can use `servr::httw("docs")` instead.
 #'
-#' @param pkg
-#' @param override
 #'
 #' @inheritParams build_articles
 #' @export
