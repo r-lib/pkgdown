@@ -35,7 +35,7 @@ build_sitemap <- function(pkg = ".") {
   }
 
   if (pkg$development$in_dev && pkg$bs_version > 3) {
-    url <- paste0(url, meta_development(pkg$meta, pkg$version)$destination, "/")
+    url <- paste0(url, pkg$prefix)
   }
 
   urls <- paste0(
