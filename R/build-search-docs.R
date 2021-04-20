@@ -35,7 +35,7 @@ build_sitemap <- function(pkg = ".") {
   }
 
   if (pkg$development$in_dev && pkg$bs_version > 3) {
-    url <- paste0(url, pkg$prefix)
+    url <- paste0(url, meta_development(pkg$meta, pkg$version)$destination, "/")
   }
 
   urls <- paste0(
@@ -116,13 +116,17 @@ build_search <- function(pkg = ".",
 }
 
 file_search_index <- function(path, pkg) {
-  # later add more sectioning
   html <- xml2::read_html(file.path(pkg$dst_path, path))
+  # Get page title
   title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
     xml2::xml_attr("content")
+
+  # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
+
+  # Function for extracting, if it exists, the nearest h2 (needed for the changelog)
   get_h2 <- function(section) {
     parents <- xml2::xml_parents(section)
     if (length(parents) == 0) {
@@ -141,22 +145,24 @@ file_search_index <- function(path, pkg) {
   )
 
 }
-# from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
+# edited from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
 # index -------------------------------------------------------------------
 
 bs4_index_data <- function(node, nearest_h2, title, path) {
   node_copy <- node
   # remove sections nested inside the current section to prevent duplicating content
   xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
+
   all <- function(...) paste0(".//", c(...), collapse = "|")
   text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote")
   code_path <- all("pre")
 
   if (xml2::xml_name(node_copy) == "dt") {
     code <- xml2::xml_find_all(node_copy, code_path)
-    text <- paste0(
+    # both argument name and definition
+    text <- paste(
       xml_text1(node_copy),
-      xml_text1(xml2::xml_find_all(xml2::xml_siblings(node_copy)[1], text_path)),
+      xml_text1(xml2::xml_find_first(node_copy, "following-sibling::*")),
       collapse = " "
     )
     heading <- paste(xml_text1(node_copy), "(argument)")
