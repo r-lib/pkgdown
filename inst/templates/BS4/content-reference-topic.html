@@ -30,11 +30,13 @@
     {{/has_args}}
 
     {{#sections}}
+    <div class="ref-section kinda-section" id="section-{{slug}}">
     <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{{title}}}</h2>
 
     {{#contents}}
     {{{.}}}
     {{/contents}}
+    </div>
     {{/sections}}
 
     {{#examples}}
