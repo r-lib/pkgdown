@@ -122,6 +122,9 @@ async function searchFuse(query, callback) {
     items = results
       .filter((x) => x.score <= 0.75)
       .map((x) => x.item);
+    if (items.length === 0) {
+      items = [{title:"Sorry :-(",heading:"No results found.",path:window.location.href}];
+    }
   }
   callback(items);
 }
