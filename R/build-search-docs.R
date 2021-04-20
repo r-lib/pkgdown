@@ -69,9 +69,31 @@ url_node <- function(url) {
   )
 }
 
+#' Build search index
+#'
+#' Build a JSON file encompassing all HTML pages, for use by the search script.
+#'
+#' @section YAML config:
+#' You can exclude some paths from the search index.
+#' Below we exclude the changelog from the search index.
+#'
+#' ```yaml
+#' search:
+#'   exclude: ['news/index.html']
+#' ```
+#' @section Local testing:
+#' Search won't work if you simply use pkgdown preview of the static files.
+#' You can use `servr::httw("docs")` instead.
+#'
+#' @param pkg
+#' @param override
+#'
+#' @inheritParams build_articles
+#' @export
+#'
 build_search <- function(pkg = ".",
                          override = list()) {
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg, depth = 1L, override = override)
   rule("Building search index")
 
   paths <- fs::path_rel(
@@ -79,6 +101,9 @@ build_search <- function(pkg = ".",
       pkg$dst_path
   )
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
+
+  # user-defined exclusions
+  paths <- paths[!paths %in% pkg$meta$search$exclude]
 
   index <- lapply(paths, file_search_index, pkg = pkg)
   index <- unlist(index, recursive = FALSE)
