@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now supports local searching so no set-up is needed for users to
+  search pkgdown websites. (#1629)
+
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
   are detected again (#1603). 
 
