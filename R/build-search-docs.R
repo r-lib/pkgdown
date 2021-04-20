@@ -141,9 +141,12 @@ bs4_index_data <- function(node, nearest_h2, title, path) {
     children <- xml2::xml_children(node_copy)
     heading_node <- children[purrr::map_lgl(children, is_heading)][1]
     heading <- xml_text1(heading_node)
-    if (grepl("news", path) && !xml2::xml_name(heading_node) %in% c("h1", "h2")) {
+    if (grepl("news/index.html", path) && !xml2::xml_name(heading_node) %in% c("h1", "h2")) {
       # add version which is the nearest h2
       heading <- paste0(heading, " (", nearest_h2, ")")
+    }
+    if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
+      heading <- "Usage"
     }
     if (nchar(heading) == 0) heading <- title
   }
