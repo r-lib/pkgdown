@@ -97,20 +97,31 @@ file_search_index <- function(path, pkg) {
     xml2::xml_attr("content")
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
-
-  lapply(
-    xml2::xml_find_all(node, ".//*[contains(@class, 'section')]"),
+  sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
+  get_h2 <- function(section) {
+    parents <- xml2::xml_parents(section)
+    if (length(parents) == 0) {
+      return("")
+    }
+    parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
+    h2 <- parents[xml2::xml_attr(parents, "class") == "section level1"]
+    sub("^\\n", "", xml_text1(xml2::xml_children(h2)[1]))
+  }
+  purrr::map2(
+    sections,
+    lapply(sections, get_h2),
     bs4_index_data,
     title = title,
     path = paste0("/", pkg$prefix, path)
-    )
+  )
 
 }
 # from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
 # index -------------------------------------------------------------------
 
-bs4_index_data <- function(node, title, path) {
+bs4_index_data <- function(node, nearest_h2, title, path) {
   node_copy <- node
+  # remove sections nested inside the current section to prevent duplicating content
   xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
   all <- function(...) paste0(".//", c(...), collapse = "|")
   text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote")
@@ -128,7 +139,12 @@ bs4_index_data <- function(node, title, path) {
     code <- xml2::xml_find_all(node_copy, code_path)
     text <- xml_text1(xml2::xml_find_all(node_copy, text_path))
     children <- xml2::xml_children(node_copy)
-    heading <- xml_text1(children[purrr::map_lgl(children, is_heading)][1])
+    heading_node <- children[purrr::map_lgl(children, is_heading)][1]
+    heading <- xml_text1(heading_node)
+    if (grepl("news", path) && !xml2::xml_name(heading_node) %in% c("h1", "h2")) {
+      # add version which is the nearest h2
+      heading <- paste0(heading, " (", nearest_h2, ")")
+    }
     if (nchar(heading) == 0) heading <- title
   }
 

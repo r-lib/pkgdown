@@ -123,7 +123,6 @@ async function searchFuse(query, callback) {
       .filter((x) => x.score <= 0.75)
       .map((x) => x.item);
   }
-  console.log(results);
   callback(items);
 }
   $("#search-input").autocomplete(options, [
