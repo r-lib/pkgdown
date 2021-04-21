@@ -83,6 +83,17 @@ tweak_all_links <- function(html, pkg = pkg) {
   invisible()
 }
 
+tweak_all_links_char <- function(txt, pkg = pkg) {
+  html <- xml2::read_html(txt)
+  tweak_all_links(html, pkg = pkg)
+  paste0(
+    paste0(
+      as.character(xml2::xml_contents(xml2::xml_child(html))),
+      collapse = "\n"
+    ),
+    "\n"
+  )
+}
 
 tweak_navbar_links <- function(html, pkg = pkg) {
 

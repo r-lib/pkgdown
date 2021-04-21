@@ -82,9 +82,12 @@ data_home_sidebar <- function(pkg = ".") {
   )
 
   if (is.null(pkg$meta$home$sidebar$structure)) {
-    sidebar_html <- paste0(
-      purrr::compact(sidebar_components[default_sidebar_structure()]),
-      collapse = "\n"
+    sidebar_html <- tweak_all_links_char(
+      paste0(
+        purrr::compact(sidebar_components[default_sidebar_structure()]),
+        collapse = "\n"
+      ),
+      pkg = pkg
     )
     return(sidebar_html)
   }

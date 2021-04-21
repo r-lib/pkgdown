@@ -65,6 +65,8 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
+  components$navbar <- tweak_all_links_char(components$navbar, pkg = pkg)
+  components$footer <- tweak_all_links_char(components$footer, pkg = pkg)
   components$template <- name
 
   if (path == "404.html" && !is.null(pkg$meta$url)) {
@@ -262,7 +264,7 @@ render_template <- function(path, data) {
   if (length(template) == 0)
     return("")
 
-  whisker::whisker.render(template, data)
+  html <- whisker::whisker.render(template, data)
 }
 
 find_template <- function(type, name, ext = ".html", template_path = NULL,
