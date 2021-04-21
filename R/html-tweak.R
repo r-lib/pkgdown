@@ -34,10 +34,9 @@ tweak_anchors <- function(html, only_contents = TRUE) {
       next
     }
 
-    xml2::xml_attr(heading, "class") <- "hasAnchor"
     xml2::xml_add_parent(
       heading,
-      "div", class = "heading-wrapper row"
+      "div", class = "heading-wrapper row hasAnchor"
     )
     xml2::xml_add_sibling(
       heading,
