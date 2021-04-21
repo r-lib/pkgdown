@@ -210,7 +210,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           ),
           htmltools::tags$div(
             class = "dropdown-menu",
-            `aria-labelledby` ="navbarDropdown",
+            `aria-labelledby` ="navbar dropdown",
             submenuLinks
           )
         )
