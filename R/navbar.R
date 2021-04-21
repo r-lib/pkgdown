@@ -206,7 +206,8 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
             href = "#", class = "nav-link dropdown-toggle",
             `data-toggle` = "dropdown", role = "button",
             `aria-expanded` = "false", `aria-haspopup` = "true",
-            link_text
+            link_text,
+            id = digest::digest(link_text, algo = "crc32")
           ),
           htmltools::tags$div(
             class = "dropdown-menu",
@@ -236,12 +237,12 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     textTags <- bs4_navbar_link_text(x)
 
     if (is_submenu) {
-      return(htmltools::tags$a(class = "dropdown-item", href = x$href, textTags))
+      return(htmltools::tags$a(class = "dropdown-item", href = x$href, textTags, id = digest::digest(textTags, algo = "crc32")))
     }
 
     htmltools::tags$li(
       class = "nav-item",
-      htmltools::tags$a(class = "nav-link", href = x$href, textTags)
+      htmltools::tags$a(class = "nav-link", href = x$href, textTags, id = digest::digest(textTags, algo = "crc32"))
     )
 
   }
