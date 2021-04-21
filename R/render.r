@@ -264,7 +264,7 @@ render_template <- function(path, data) {
   if (length(template) == 0)
     return("")
 
-  html <- whisker::whisker.render(template, data)
+  whisker::whisker.render(template, data)
 }
 
 find_template <- function(type, name, ext = ".html", template_path = NULL,
