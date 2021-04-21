@@ -35,11 +35,19 @@ tweak_anchors <- function(html, only_contents = TRUE) {
     }
 
     xml2::xml_attr(heading, "class") <- "hasAnchor"
+    xml2::xml_add_parent(
+      heading,
+      "div", class = "heading-wrapper row"
+    )
     xml2::xml_add_sibling(
-      xml2::xml_contents(heading)[[1]],
+      heading,
       "a", href = paste0("#", anchor[[i]]),
       class = "anchor",
       .where = "before"
+    )
+    xml2::xml_add_child(
+      xml2::xml_siblings(heading)[1],
+      "span", class = "d-none", paste("Section called", xml2::xml_text(heading))
     )
   }
   invisible()
