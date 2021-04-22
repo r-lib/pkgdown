@@ -41,9 +41,11 @@ The following YAML snippet illustrates some of the most important features.
         twitter:
           icon: "fab fa-twitter fa-lg"
           href: https://twitter.com/hadleywickham
+          aria-label: "twitter account"
 
 Components can contain sub-`menu`s with headings (indicated by missing `href`) and separators (indicated by a bunch of `-`).
 You can also use `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
+When using icons with no text, for accessibility it's best practice to include an `aria-label` for screenreader users.
 
 This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the `structure` they'll be added to the far right of the left menu.

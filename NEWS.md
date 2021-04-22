@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* pkgdown websites using BS4 will be more accessible, besides a better color contrast:
+    * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
+    * the aria-labelledby property for navbar dropdowns was fixed.
+    * the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (#1635)
+
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
   are detected again (#1603). 
 

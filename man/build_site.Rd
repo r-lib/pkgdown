@@ -207,10 +207,12 @@ The following YAML snippet illustrates some of the most important features.\pref
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/hadleywickham
+      aria-label: "twitter account"
 }
 
 Components can contain sub-\code{menu}s with headings (indicated by missing \code{href}) and separators (indicated by a bunch of \code{-}).
 You can also use \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+When using icons with no text, for accessibility it's best practice to include an \code{aria-label} for screenreader users.
 
 This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
@@ -246,6 +248,10 @@ used to render the page in the browser.
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
 template:\preformatted{template:
+  bootswatch: cerulean
+}
+
+Note that if you use Bootstrap version 3 the syntax is\preformatted{template:
   params:
     bootswatch: cerulean
 }

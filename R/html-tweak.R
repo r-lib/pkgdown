@@ -39,6 +39,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
       xml2::xml_contents(heading)[[1]],
       "a", href = paste0("#", anchor[[i]]),
       class = "anchor",
+      `aria-hidden` = "true",
       .where = "before"
     )
   }
