@@ -23,7 +23,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
     gsub(".", "-", ., fixed = TRUE)
   purrr::walk2(toc_nav, hrefs, ~ (xml2::xml_attr(.x, "href") <- .y))
 
-  headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
+  headings <- xml2::xml_find_first(sections, ".//h2|h3|h4|h5")
   has_heading <- !is.na(xml2::xml_name(headings))
 
   for (i in seq_along(headings)[has_heading]) {

@@ -63,6 +63,14 @@ dd {
 
 /* Section anchors ---------------------------------*/
 
+.heading-wrapper.row.hasAnchor {
+  margin-left: 0px;
+}
+
+.heading-wrapper.row.hasAnchor h1, h2, h3, h4, h5, h6 {
+  margin-top: 0px;
+}
+
 a.anchor {
   margin-left: -30px;
   display:inline-block;
@@ -392,3 +400,4 @@ div.pb-2.mt-4.mb-2.border-bottom {
   will-change: transform;
   transition: transform 400ms ease;
 }
+
