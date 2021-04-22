@@ -20,7 +20,10 @@
     {{/usage}}
 
     {{#has_args}}
-    <h2>Arguments</h2>
+    <div class="heading-wrapper row hasAnchor">
+      <a href="#arguments" class="anchor"><span class="d-none">Section called Arguments</span></a>
+    <h2 id ="arguments">Arguments</h2>
+    </div>
     <dl class="row" id="ref-arguments">
     {{#arguments}}
     <dt class="col-sm-3" id="ref-arguments name">{{{name}}}</dt>
@@ -30,7 +33,10 @@
     {{/has_args}}
 
     {{#sections}}
-    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{{title}}}</h2>
+    <div class="heading-wrapper row hasAnchor">
+      <a href="#arguments" class="anchor"><span class="d-none">Section called {{{title}}}</span></a>
+    <h2 id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{{title}}}</h2>
+    </div>
 
     {{#contents}}
     {{{.}}}
