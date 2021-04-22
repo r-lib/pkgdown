@@ -17,7 +17,7 @@
       {{#title}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
           <div class="heading-wrapper row hasAnchor">
-          <a href="#{{slug}}" class="anchor"></a>
+          <a href="#{{slug}}" class="anchor"><span class="d-none">Section called {{{title}}}</span></a>
           <h2 id="{{slug}}">{{title}}</h2>
           </div>
           <p class="section-desc">{{{desc}}}</p>
@@ -26,7 +26,7 @@
       {{#subtitle}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
           <div class="heading-wrapper row hasAnchor">
-          <a href="#{{slug}}" class="anchor"></a>
+          <a href="#{{slug}}" class="anchor"><span class="d-none">Subsection called {{{title}}}</span></a>
           <h3 id="{{slug}}">{{subtitle}}</h3>
           </div>
           <p class="section-desc">{{{desc}}}</p>
