@@ -207,12 +207,12 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
             `data-toggle` = "dropdown", role = "button",
             `aria-expanded` = "false", `aria-haspopup` = "true",
             link_text,
-            id = make_slug(link_text),
+            id = paste0("dropdown-", make_slug(link_text)),
           "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
             class = "dropdown-menu",
-            `aria-labelledby` = make_slug(link_text),
+            `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
             submenuLinks
           )
         )

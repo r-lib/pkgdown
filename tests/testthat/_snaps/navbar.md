@@ -13,6 +13,7 @@
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/r-lib/pkgdown
+      aria-label: github
     
 
 ---
@@ -23,6 +24,7 @@
     github:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
+      aria-label: gitlab
     
 
 # vignette with package name turns into getting started
@@ -103,7 +105,7 @@
         - text: Title a
           href: a.html
         - text: '---------'
-        - text: More...
+        - text: More articles...
           href: articles/index.html
       
 
@@ -204,8 +206,8 @@
         <a class="nav-link" href="reference/index.html">Reference</a>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
           <a class="dropdown-item" href="articles/search.html">Search</a>
           <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
@@ -224,8 +226,8 @@
       cat(render_navbar_links(x, bs_version = 4))
     Output
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <h6 class="dropdown-header" data-toc-skip>First section</h6>
           <a class="dropdown-item" href="articles/search.html">Search</a>
           <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
