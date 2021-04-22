@@ -72,19 +72,19 @@ you are primarily working on the text of an article.">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -104,7 +104,7 @@ you are primarily working on the text of an article.">
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -175,7 +175,7 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
       <dd class="col-sm-9" id="ref-arguments desc"><p>Additional data to pass on to template.</p></dd>
     </dl>
 <h2 class="hasAnchor" id="index-and-navbar">
-<a class="anchor" href="#index-and-navbar"></a>Index and navbar</h2>
+<a class="anchor" href="#index-and-navbar" aria-hidden="true"></a>Index and navbar</h2>
 
     
 
@@ -226,7 +226,7 @@ include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.</p>
     <h2 class="hasAnchor" id="get-started">
-<a class="anchor" href="#get-started"></a>Get started</h2>
+<a class="anchor" href="#get-started" aria-hidden="true"></a>Get started</h2>
 
     
 
@@ -237,7 +237,7 @@ drop-down.</p>
 <p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> in the
 vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
     <h2 class="hasAnchor" id="external-files">
-<a class="anchor" href="#external-files"></a>External files</h2>
+<a class="anchor" href="#external-files" aria-hidden="true"></a>External files</h2>
 
     
 
@@ -259,7 +259,7 @@ resource_files:
 <p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
     <h2 class="hasAnchor" id="embedding-shiny-apps">
-<a class="anchor" href="#embedding-shiny-apps"></a>Embedding Shiny apps</h2>
+<a class="anchor" href="#embedding-shiny-apps" aria-hidden="true"></a>Embedding Shiny apps</h2>
 
     
 
@@ -270,7 +270,7 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
     <h2 class="hasAnchor" id="yaml-header">
-<a class="anchor" href="#yaml-header"></a>YAML header</h2>
+<a class="anchor" href="#yaml-header" aria-hidden="true"></a>YAML header</h2>
 
     
 
@@ -310,7 +310,7 @@ format.</p>
 </pre>
 
     <h2 class="hasAnchor" id="suppressing-vignettes">
-<a class="anchor" href="#suppressing-vignettes"></a>Suppressing vignettes</h2>
+<a class="anchor" href="#suppressing-vignettes" aria-hidden="true"></a>Suppressing vignettes</h2>
 
     
 
@@ -320,7 +320,7 @@ automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 <code><a href="build_site.html">build_site()</a></code> details.</p>
     <h2 class="hasAnchor" id="figures">
-<a class="anchor" href="#figures"></a>Figures</h2>
+<a class="anchor" href="#figures" aria-hidden="true"></a>Figures</h2>
 
     
 

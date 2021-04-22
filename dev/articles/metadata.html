@@ -58,19 +58,19 @@
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -90,7 +90,7 @@
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -120,13 +120,13 @@
 </ul>
 <div id="necessary-configuration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#necessary-configuration" class="anchor"></a>Necessary configuration</h2>
+<a href="#necessary-configuration" class="anchor" aria-hidden="true"></a>Necessary configuration</h2>
 <p>Metadata can only be produced correctly if your pkgdown website URL is indicated in its configuration file.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 </div>
 <div id="site-wide-customization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#site-wide-customization" class="anchor"></a>Site-wide customization</h2>
+<a href="#site-wide-customization" class="anchor" aria-hidden="true"></a>Site-wide customization</h2>
 <p>Metadata for the entire pkgdown website can be specified in the site’s <code>_pkgdown.yml</code> configuration file in the <code>home</code> and <code>template: opengraph</code> sections:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
@@ -164,7 +164,7 @@
 </div>
 <div id="article-metadata" class="section level2">
 <h2 class="hasAnchor">
-<a href="#article-metadata" class="anchor"></a>Article metadata</h2>
+<a href="#article-metadata" class="anchor" aria-hidden="true"></a>Article metadata</h2>
 <p>Articles and vignettes rendered as articles by pkgdown can have individually customized metadata and social media cards.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction to poolnoodlr"</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A brief introduction to pool noodles in R."</span></span>

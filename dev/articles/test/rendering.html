@@ -57,19 +57,19 @@
   <a class="nav-link" href="../../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../../articles/search.html">Search</a>
     <a class="dropdown-item" href="../../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -89,7 +89,7 @@
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -120,16 +120,16 @@
 <p>This vignette tests pkgdown output rendering for several use cases.</p>
 <div id="footnotes" class="section level1">
 <h1 class="hasAnchor">
-<a href="#footnotes" class="anchor"></a>Footnotes</h1>
+<a href="#footnotes" class="anchor" aria-hidden="true"></a>Footnotes</h1>
 <p>Yay<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Including &lt;strong&gt;footnotes&lt;/strong&gt;! 😁&lt;/p&gt;"><sup>1</sup></a></p>
 </div>
 <div id="highlighting" class="section level1">
 <h1 class="hasAnchor">
-<a href="#highlighting" class="anchor"></a>Highlighting</h1>
+<a href="#highlighting" class="anchor" aria-hidden="true"></a>Highlighting</h1>
 <p>This document uses a variety of linking styles for testing purposes</p>
 <div id="inline-code" class="section level2">
 <h2 class="hasAnchor">
-<a href="#inline-code" class="anchor"></a>Inline code</h2>
+<a href="#inline-code" class="anchor" aria-hidden="true"></a>Inline code</h2>
 <p>Local:</p>
 <ul>
 <li><code><a href="../../articles/pkgdown.html">vignette("pkgdown")</a></code></li>
@@ -147,7 +147,7 @@
 </div>
 <div id="spurious-links" class="section level2">
 <h2 class="hasAnchor">
-<a href="#spurious-links" class="anchor"></a>Spurious links</h2>
+<a href="#spurious-links" class="anchor" aria-hidden="true"></a>Spurious links</h2>
 <p>These shouldn’t be linked.</p>
 <ul>
 <li><code>Authors@R</code></li>
@@ -158,7 +158,7 @@
 </div>
 <div id="code-blocks" class="section level2">
 <h2 class="hasAnchor">
-<a href="#code-blocks" class="anchor"></a>Code blocks</h2>
+<a href="#code-blocks" class="anchor" aria-hidden="true"></a>Code blocks</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Shouldn't get linked</span>
 <span class="fu">enlist</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
@@ -179,7 +179,7 @@
 </div>
 <div id="figures" class="section level1">
 <h1 class="hasAnchor">
-<a href="#figures" class="anchor"></a>Figures</h1>
+<a href="#figures" class="anchor" aria-hidden="true"></a>Figures</h1>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
@@ -187,7 +187,7 @@
 </div>
 <div id="external-files" class="section level1">
 <h1 class="hasAnchor">
-<a href="#external-files" class="anchor"></a>External files</h1>
+<a href="#external-files" class="anchor" aria-hidden="true"></a>External files</h1>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
 <span class="va">x</span>
@@ -197,7 +197,7 @@
 </div>
 <div id="details-tag" class="section level1">
 <h1 class="hasAnchor">
-<a href="#details-tag" class="anchor"></a>Details tag</h1>
+<a href="#details-tag" class="anchor" aria-hidden="true"></a>Details tag</h1>
 <details>
 This should only be shown when required
 </details><details><p><summary>Some R code</summary></p>
@@ -208,7 +208,7 @@ This should only be shown when required
 </div>
 <div id="tables" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tables" class="anchor"></a>Tables</h1>
+<a href="#tables" class="anchor" aria-hidden="true"></a>Tables</h1>
 <table style="width:100%;" class="table">
 <colgroup>
 <col width="33%">
@@ -233,22 +233,22 @@ This should only be shown when required
 </div>
 <div id="mathjax" class="section level1">
 <h1 class="hasAnchor">
-<a href="#mathjax" class="anchor"></a>Mathjax</h1>
+<a href="#mathjax" class="anchor" aria-hidden="true"></a>Mathjax</h1>
 <p><span class="math display">\[f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}\]</span></p>
 <p>Inline equations: <span class="math inline">\(y=x^2\)</span></p>
 <hr>
 </div>
 <div id="widgets" class="section level1">
 <h1 class="hasAnchor">
-<a href="#widgets" class="anchor"></a>Widgets</h1>
+<a href="#widgets" class="anchor" aria-hidden="true"></a>Widgets</h1>
 <p>Test spacing above widget.</p>
 <div id="htmlwidget-30e4409849e39179307f" style="width:700px;height:432.632880098888px;" class="visual_diff html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30e4409849e39179307f">{"x":{"old":"a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","new":"a\nb\nc\nd\ne\nf\ng\nh\ni\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","filename":"file3a805642c58c","typediff":"text"},"evals":[],"jsHooks":[]}</script><p>Test spacing below widget.</p>
+<script type="application/json" data-for="htmlwidget-30e4409849e39179307f">{"x":{"old":"a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","new":"a\nb\nc\nd\ne\nf\ng\nh\ni\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","filename":"file38745b848788","typediff":"text"},"evals":[],"jsHooks":[]}</script><p>Test spacing below widget.</p>
 <hr>
 </div>
 <div id="crayon" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crayon" class="anchor"></a>Crayon</h1>
+<a href="#crayon" class="anchor" aria-hidden="true"></a>Crayon</h1>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
 <span class="co">#&gt; This is red</span>

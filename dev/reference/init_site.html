@@ -58,19 +58,19 @@ of the site, and copies CSS/JS assets and extra files.">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -90,7 +90,7 @@ of the site, and copies CSS/JS assets and extra files.">
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -120,7 +120,7 @@ of the site, and copies CSS/JS assets and extra files.</p>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
     </dl>
 <h2 class="hasAnchor" id="build-ignored-files">
-<a class="anchor" href="#build-ignored-files"></a>Build-ignored files</h2>
+<a class="anchor" href="#build-ignored-files" aria-hidden="true"></a>Build-ignored files</h2>
 
     
 
@@ -130,7 +130,7 @@ you'll need to add them to <code>.Rbuildignore</code> yourself. A <code>NOTE</co
 an unexpected file during <code>R CMD CHECK</code> is an indication you have not
 correctly ignored these files.</p>
     <h2 class="hasAnchor" id="custom-css-js">
-<a class="anchor" href="#custom-css-js"></a>Custom CSS/JS</h2>
+<a class="anchor" href="#custom-css-js" aria-hidden="true"></a>Custom CSS/JS</h2>
 
     
 
@@ -139,14 +139,14 @@ way is to add <code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>. 
 will be automatically copied to <code>docs/</code> and inserted into the
 <code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JS.</p>
     <h2 class="hasAnchor" id="favicon">
-<a class="anchor" href="#favicon"></a>Favicon</h2>
+<a class="anchor" href="#favicon" aria-hidden="true"></a>Favicon</h2>
 
     
 
 <p>Favicons are built automatically from a logo PNG or SVG by <code>init_site()</code> and
 copied to <code>pkgdown/favicon</code>.</p>
     <h2 class="hasAnchor" id="-">
-<a class="anchor" href="#-"></a>404</h2>
+<a class="anchor" href="#-" aria-hidden="true"></a>404</h2>
 
     
 

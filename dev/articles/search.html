@@ -58,19 +58,19 @@
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -90,7 +90,7 @@
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -115,13 +115,13 @@
 <p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/" class="external-link">DocSearch</a> from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.</p>
 <div id="indexing" class="section level2">
 <h2 class="hasAnchor">
-<a href="#indexing" class="anchor"></a>Indexing</h2>
+<a href="#indexing" class="anchor" aria-hidden="true"></a>Indexing</h2>
 <p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/" class="external-link">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
 <p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction" class="external-link">additional options</a> to fine tune the scraping.</p>
 </div>
 <div id="configuration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#configuration" class="anchor"></a>Configuration</h2>
+<a href="#configuration" class="anchor" aria-hidden="true"></a>Configuration</h2>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="at">docsearch</span>(<span class="op">{</span> </span>

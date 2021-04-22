@@ -69,19 +69,19 @@ clean_site() first to clean up orphan files.">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -101,7 +101,7 @@ clean_site() first to clean up orphan files.">
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -192,7 +192,7 @@ so it is available for vignettes.</p></dd>
       <dd class="col-sm-9" id="ref-arguments desc"><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
     </dl>
 <h2 class="hasAnchor" id="yaml-config">
-<a class="anchor" href="#yaml-config"></a>YAML config</h2>
+<a class="anchor" href="#yaml-config" aria-hidden="true"></a>YAML config</h2>
 
     
 
@@ -232,7 +232,7 @@ text:</p>
 </pre>
 
     <h2 class="hasAnchor" id="development-mode">
-<a class="anchor" href="#development-mode"></a>Development mode</h2>
+<a class="anchor" href="#development-mode" aria-hidden="true"></a>Development mode</h2>
 
     
 
@@ -286,7 +286,7 @@ theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
     <h2 class="hasAnchor" id="yaml-config-navbar">
-<a class="anchor" href="#yaml-config-navbar"></a>YAML config - navbar</h2>
+<a class="anchor" href="#yaml-config-navbar" aria-hidden="true"></a>YAML config - navbar</h2>
 
     
 
@@ -331,10 +331,12 @@ The following YAML snippet illustrates some of the most important features.</p>
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/hadleywickham
+      aria-label: "twitter account"
 </pre>
 
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing <code>href</code>) and separators (indicated by a bunch of <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>).
-You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.</p>
+You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.
+When using icons with no text, for accessibility it's best practice to include an <code>aria-label</code> for screenreader users.</p>
 <p>This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
 <p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>:</p>
@@ -347,7 +349,7 @@ Unless you explicitly mention new components in the <code>structure</code> they'
 </div>
 <p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
     <h2 class="hasAnchor" id="yaml-config-search">
-<a class="anchor" href="#yaml-config-search"></a>YAML config - search</h2>
+<a class="anchor" href="#yaml-config-search" aria-hidden="true"></a>YAML config - search</h2>
 
     
 
@@ -362,7 +364,7 @@ to add search to your site.</p>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
     <h2 class="hasAnchor" id="yaml-config-template">
-<a class="anchor" href="#yaml-config-template"></a>YAML config - template</h2>
+<a class="anchor" href="#yaml-config-template" aria-hidden="true"></a>YAML config - template</h2>
 
     
 
@@ -373,6 +375,11 @@ used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
 template:</p>
+<pre><span class="va">template</span><span class="op">:</span>
+  <span class="va">bootswatch</span><span class="op">:</span> <span class="va">cerulean</span>
+</pre>
+
+<p>Note that if you use Bootstrap version 3 the syntax is</p>
 <pre><span class="va">template</span><span class="op">:</span>
   <span class="va">params</span><span class="op">:</span>
     <span class="va">bootswatch</span><span class="op">:</span> <span class="va">cerulean</span>
@@ -417,7 +424,7 @@ for pkgdown templates to ensure that you use the correct components.</p>
 <p>For further information including how to provide templates and assets in
 a separate package, see <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
     <h2 class="hasAnchor" id="yaml-config-repo">
-<a class="anchor" href="#yaml-config-repo"></a>YAML config - repo</h2>
+<a class="anchor" href="#yaml-config-repo" aria-hidden="true"></a>YAML config - repo</h2>
 
     
 
@@ -473,7 +480,7 @@ specifying a branch name:</p>
 <p></p>
 </div>
     <h2 class="hasAnchor" id="yaml-config-deploy">
-<a class="anchor" href="#yaml-config-deploy"></a>YAML config - deploy</h2>
+<a class="anchor" href="#yaml-config-deploy" aria-hidden="true"></a>YAML config - deploy</h2>
 
     
 
@@ -494,7 +501,7 @@ time (e.g. because it's only behind the firewall or requires auth).</p>
 </li>
 </ul>
 <h2 class="hasAnchor" id="yaml-config-footer">
-<a class="anchor" href="#yaml-config-footer"></a>YAML config - footer</h2>
+<a class="anchor" href="#yaml-config-footer" aria-hidden="true"></a>YAML config - footer</h2>
 
     
 
@@ -516,7 +523,7 @@ time (e.g. because it's only behind the firewall or requires auth).</p>
 <p>Like the navbar and side, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
     <h2 class="hasAnchor" id="options">
-<a class="anchor" href="#options"></a>Options</h2>
+<a class="anchor" href="#options" aria-hidden="true"></a>Options</h2>
 
     
 
@@ -530,7 +537,7 @@ or vignettes, this connection is required as this option won't apply on them.</p
 hanging in cron jobs.</p>
 
     <h2 class="hasAnchor" id="examples">
-<a class="anchor" href="#examples"></a>Examples</h2>
+<a class="anchor" href="#examples" aria-hidden="true"></a>Examples</h2>
     <pre class="examples"><code class="sourceCode R"><div class="input">
 <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
 <span class="fu">build_site</span><span class="op">(</span><span class="op">)</span>

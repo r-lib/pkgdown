@@ -56,19 +56,19 @@
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="articles/search.html">Search</a>
     <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="articles/index.html">More...</a>
+    <a class="dropdown-item" href="articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -88,7 +88,7 @@
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +109,7 @@
 <p>This document outlines how to propose a change to pkgdown. For more detailed info about contributing to this and other tidyverse packages, please see the <a href="https://rstd.io/tidy-contrib" class="external-link"><strong>tidyverse contribution guide</strong></a>.</p>
 <div id="package-reprexes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-reprexes" class="anchor"></a>Package reprexes</h2>
+<a href="#package-reprexes" class="anchor" aria-hidden="true"></a>Package reprexes</h2>
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145" class="external-link">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
 <p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package, and file an issue with a link to the repository.</p>
 <p>The quickest way to set up minimal example package is with <code>usethis::create_package()</code>:</p>
@@ -124,7 +124,7 @@
 </div>
 <div id="rd-translation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rd-translation" class="anchor"></a>Rd translation</h2>
+<a href="#rd-translation" class="anchor" aria-hidden="true"></a>Rd translation</h2>
 <p>If you encounter problems with Rd tags, please use <code><a href="reference/rd2html.html">rd2html()</a></code> to create a reprexes:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span>
@@ -134,7 +134,7 @@
 </div>
 <div id="pull-request-process" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pull-request-process" class="anchor"></a>Pull request process</h2>
+<a href="#pull-request-process" class="anchor" aria-hidden="true"></a>Pull request process</h2>
 <ul>
 <li>We recommend that you create a Git branch for each pull request (PR).<br>
 </li>
@@ -150,7 +150,7 @@
 </ul>
 <div id="netlify" class="section level3">
 <h3 class="hasAnchor">
-<a href="#netlify" class="anchor"></a>Netlify</h3>
+<a href="#netlify" class="anchor" aria-hidden="true"></a>Netlify</h3>
 <p>We might ask you for a Netlify preview of your changes i.e. how do your local changes affect the pkgdown website?</p>
 <ol style="list-style-type: decimal">
 <li>Build and install the amended package, then re-build the website (<code><a href="reference/clean_site.html">clean_site()</a></code> and then <code><a href="reference/build_site.html">build_site()</a></code>) which will update the docs/ folder.</li>
@@ -162,7 +162,7 @@
 </div>
 <div id="fixing-typos" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixing-typos" class="anchor"></a>Fixing typos</h2>
+<a href="#fixing-typos" class="anchor" aria-hidden="true"></a>Fixing typos</h2>
 <p>Small typos or grammatical errors in documentation may be edited directly using the GitHub web interface, so long as the changes are made in the <em>source</em> file.</p>
 <ul>
 <li>YES: you edit a roxygen comment in a <code>.R</code> file below <code>R/</code>.</li>
@@ -171,12 +171,12 @@
 </div>
 <div id="prerequisites" class="section level2">
 <h2 class="hasAnchor">
-<a href="#prerequisites" class="anchor"></a>Prerequisites</h2>
+<a href="#prerequisites" class="anchor" aria-hidden="true"></a>Prerequisites</h2>
 <p>Before you make a substantial pull request, you should always file an issue and make sure someone from the team agrees that it’s a problem. If you’ve found a bug, create an associated issue and illustrate the bug with a minimal <a href="https://www.tidyverse.org/help/#reprex" class="external-link">reprex</a>.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<a href="#code-of-conduct" class="anchor" aria-hidden="true"></a>Code of Conduct</h2>
 <p>Please note that the pkgdown project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project you agree to abide by its terms.</p>
 </div>
 </div>

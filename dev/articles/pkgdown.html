@@ -58,19 +58,19 @@
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
     <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../articles/index.html">More...</a>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">News</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
@@ -90,7 +90,7 @@
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +128,7 @@
 </ol>
 <div id="metadata" class="section level2">
 <h2 class="hasAnchor">
-<a href="#metadata" class="anchor"></a>Metadata</h2>
+<a href="#metadata" class="anchor" aria-hidden="true"></a>Metadata</h2>
 <p>You can override pkgdown’s defaults with a YAML file called <code>_pkgdown.yml</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can also put it in &lt;code&gt;pkgdown/_pkgdown.yml&lt;/code&gt; if you want to keep the package root clutter free, or in &lt;code&gt;inst/_pkgdown.yml&lt;/code&gt; if you want to make it available when your package is installed.&lt;/p&gt;"><sup>1</sup></a>. Options that affect the entire site are documented in <code><a href="../reference/build_site.html">build_site()</a></code> and include:</p>
 <ul>
 <li>
@@ -162,12 +162,12 @@ template:
 </div>
 <div id="home-page" class="section level2">
 <h2 class="hasAnchor">
-<a href="#home-page" class="anchor"></a>Home page</h2>
+<a href="#home-page" class="anchor" aria-hidden="true"></a>Home page</h2>
 <p>The contents of home page is automatically generated from <code>index.md</code> or <code>README.md</code>. pkgdown tries them in order, so if you want a different display for GitHub and pkgdown, you can provide both files. The homepage also includes a sidebar full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are generated and how you can customise them.</p>
 </div>
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
+<a href="#reference" class="anchor" aria-hidden="true"></a>Reference</h2>
 <p>pkgdown creates a function reference in <code>reference/</code> that includes one page for each <code>.Rd</code> help topic in <code>man/</code>. The translation of individual help topics from Rd to HTML is generally straightforward, but there are a couple of things you should bear in mind:</p>
 <ul>
 <li><p>pkgdown does its best to autolink all references to help topics and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
@@ -201,14 +201,14 @@ template:
 </div>
 <div id="articles" class="section level2">
 <h2 class="hasAnchor">
-<a href="#articles" class="anchor"></a>Articles</h2>
+<a href="#articles" class="anchor" aria-hidden="true"></a>Articles</h2>
 <p>pkgdown will automatically build all vignettes found in <code>vignettes</code>, translating them to HTML files in <code>articles/</code>. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.</p>
 <p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add it to <code>.Rbuildignore</code> (and make sure that there’s no <code>vignettes:</code> section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
 <p>More details can be found in <code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
-<a href="#news" class="anchor"></a>News</h2>
+<a href="#news" class="anchor" aria-hidden="true"></a>News</h2>
 <p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
@@ -228,14 +228,14 @@ template:
 </div>
 <div id="publishing" class="section level2">
 <h2 class="hasAnchor">
-<a href="#publishing" class="anchor"></a>Publishing</h2>
+<a href="#publishing" class="anchor" aria-hidden="true"></a>Publishing</h2>
 <p>The easiest way to publish your website is to use GitHub <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch" class="external-link"><code>docs/</code> directory</a> support. If you want to build and publish your package automatically with GitHub actions, try <code>usethis::use_github_action("pkgdown")</code>.</p>
 <p>Once your site is online you must finish configuring it by adding its URL to its configuration file. This URL will be used by pkgdown to e.g. generate the metadata correcty (see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 </div>
 <div id="promoting" class="section level2">
 <h2 class="hasAnchor">
-<a href="#promoting" class="anchor"></a>Promoting</h2>
+<a href="#promoting" class="anchor" aria-hidden="true"></a>Promoting</h2>
 <p>Once your finalized site is built and published on the web, you should publicize its URL in a few places:</p>
 <ol style="list-style-type: decimal">
 <li>
