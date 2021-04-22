@@ -161,7 +161,7 @@ menu_links <- function(text, href) {
   purrr::map2(text, href, ~ list(text = .x, href = .y))
 }
 menu_icon <- function(icon, href, style = "fas") {
-  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href)
+  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href, "aria-label" = icon)
 }
 menu_text <- function(text) {
   list(text = text)
@@ -206,11 +206,13 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
             href = "#", class = "nav-link dropdown-toggle",
             `data-toggle` = "dropdown", role = "button",
             `aria-expanded` = "false", `aria-haspopup` = "true",
-            link_text
+            link_text,
+            id = make_slug(link_text),
+          "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
             class = "dropdown-menu",
-            `aria-label` ="navbar dropdown",
+            `aria-labelledby` = make_slug(link_text),
             submenuLinks
           )
         )
@@ -236,12 +238,24 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
     textTags <- bs4_navbar_link_text(x)
 
     if (is_submenu) {
-      return(htmltools::tags$a(class = "dropdown-item", href = x$href, textTags))
+      return(
+        htmltools::tags$a(
+          class = "dropdown-item",
+          href = x$href,
+          textTags,
+          "aria-label" = x$`aria-label` %||% NULL
+        )
+      )
     }
 
     htmltools::tags$li(
       class = "nav-item",
-      htmltools::tags$a(class = "nav-link", href = x$href, textTags)
+      htmltools::tags$a(
+        class = "nav-link",
+        href = x$href,
+        textTags,
+        "aria-label" = x$`aria-label` %||% NULL
+      )
     )
 
   }
