@@ -23,7 +23,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
     gsub(".", "-", ., fixed = TRUE)
   purrr::walk2(toc_nav, hrefs, ~ (xml2::xml_attr(.x, "href") <- .y))
 
-  headings <- xml2::xml_find_first(sections, ".//h2|h3|h4|h5")
+  headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
   has_heading <- !is.na(xml2::xml_name(headings))
 
   for (i in seq_along(headings)[has_heading]) {
@@ -34,19 +34,13 @@ tweak_anchors <- function(html, only_contents = TRUE) {
       next
     }
 
-    xml2::xml_add_parent(
-      heading,
-      "div", class = "heading-wrapper row hasAnchor"
-    )
+    xml2::xml_attr(heading, "class") <- "hasAnchor"
     xml2::xml_add_sibling(
-      heading,
+      xml2::xml_contents(heading)[[1]],
       "a", href = paste0("#", anchor[[i]]),
       class = "anchor",
+      `aria-hidden` = "true",
       .where = "before"
-    )
-    xml2::xml_add_child(
-      xml2::xml_siblings(heading)[1],
-      "span", class = "d-none", paste("Section called", xml2::xml_text(heading))
     )
   }
   invisible()

@@ -100,11 +100,8 @@ as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
   h <- paste0("h", subsection_level)
 
   paste0(
-    '<div class="heading-wrapper row hasAnchor">',
-    "<a class='anchor' href='#", make_slug(x[[1]]),
-    "'><span class='d-none'>Subsection called ", make_slug(x[[1]]),"</span></a>",
-    "<", h, " id='", make_slug(x[[1]]),"'>",
-    "</div>",
+    "<", h, " class='hasAnchor' id='", make_slug(x[[1]]),"'>",
+    "<a class='anchor' aria-hidden='true' href='#", make_slug(x[[1]]), "'></a>",
     flatten_text(x[[1]], ...),
     "</", h, ">\n",
     flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
