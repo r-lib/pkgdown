@@ -138,7 +138,7 @@ navbar_articles <- function(pkg = ".") {
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
       if (length(navbar) != length(articles)) {
-        children <- c(children, list(menu_spacer(), menu_link("More...", "articles/index.html")))
+        children <- c(children, list(menu_spacer(), menu_link("More articles...", "articles/index.html")))
       }
       menu$articles <- menu("Articles", children)
     }
@@ -210,7 +210,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           ),
           htmltools::tags$div(
             class = "dropdown-menu",
-            `aria-labelledby` ="navbar dropdown",
+            `aria-label` ="navbar dropdown",
             submenuLinks
           )
         )
