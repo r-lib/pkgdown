@@ -5,6 +5,22 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="build_articles() renders each R Markdown file underneath vignettes/ and
+saves it to articles/. There are two exceptions:
+Files that start with _ (e.g., _index.Rmd) are ignored,
+enabling the use of child documents in
+bookdown
+Files in vignettes/tutorials are handled by build_tutorials()
+
+
+Vignettes are rendered using a special document format that reconciles
+rmarkdown::html_document() with the pkgdown template. This means articles
+behave slightly differently to vignettes, particularly with respect to
+external files, and custom output formats. See below for more details.
+Note that when you run build_articles() directly (outside of
+build_site()) vignettes will use the currently installed version of the
+package, not the current source version. This makes iteration quicker when
+you are primarily working on the text of an article.">
 <title>Build articles section — build_articles • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">

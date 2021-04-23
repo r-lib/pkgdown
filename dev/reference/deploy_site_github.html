@@ -5,6 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="
+deploy_site_github() was designed to deploy your site from Travis CI,
+which we no longer recommend, so this function is deprecated. There are
+two replacements:
+usethis::use_pkgdown_github_pages() will setup a GitHub action to
+automatically build and deploy your package website to GitHub pages.
+deploy_to_branch() can be called locally to build and deploy your
+website to any desired branch.
+
+">
 <title>Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
