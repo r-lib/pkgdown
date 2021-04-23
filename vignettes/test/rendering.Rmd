@@ -159,3 +159,16 @@ stop(crayon::italic("This is italic"))
 ```
 
 Some more text
+
+## Details
+
+Blablablablablabla.
+
+Blablablablablabla.
+
+<details>
+  <summary>Short summary</summary>
+  <p>Blablablablablabla.</p>
+</details> 
+
+Blablablablablabla.
