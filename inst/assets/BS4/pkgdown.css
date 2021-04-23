@@ -392,3 +392,16 @@ div.pb-2.mt-4.mb-2.border-bottom {
   will-change: transform;
   transition: transform 400ms ease;
 }
+
+/* Compromise to avoid flash of invisible text + flash of unstyled text */
+body {
+  font-display: fallback;
+}
+
+/* Navbar constrast */
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,0.7);
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  color: rgba(0,0,0,0.9);
+}
