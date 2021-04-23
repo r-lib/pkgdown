@@ -393,6 +393,14 @@ div.pb-2.mt-4.mb-2.border-bottom {
   transition: transform 400ms ease;
 }
 
+/* blockquote ---------------------------------------------- */
+
+blockquote, .line-block {
+    border-left: .5rem solid #eee;
+    padding-left: .5rem;
+    margin-left: -.5rem;
+}
+
 /* Search ---------------------------------------------- */
 
 mark {

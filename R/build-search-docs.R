@@ -152,7 +152,7 @@ bs4_index_data <- function(node, nearest_h2, title, path) {
   xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
 
   all <- function(...) paste0(".//", c(...), collapse = "|")
-  text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote")
+  text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
   code_path <- all("pre")
 
   if (xml2::xml_name(node_copy) == "dt") {

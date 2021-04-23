@@ -159,3 +159,13 @@ stop(crayon::italic("This is italic"))
 ```
 
 Some more text
+
+# Quoted text
+
+> Single-line quote about something miscellaneous.
+
+| When dollars appear it's a sign
+|   that your code does not quite align  
+| Ensure that your math  
+|   in xaringan hath  
+|   been placed on a single long line
