@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown now supports defining redirects. (#1259, @lorenzwalthert)
+
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
 
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
@@ -9,7 +11,7 @@
 
 * pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
   This might change Algolia results if you use Algolia for search. (#1629)
-  
+
 * Styling for errors, warnings, and messages has been tweaked. Messages 
   are now displayed the same way as output, and warnings and errors are
   bolded, but not coloured. This is part of a suite of changes that allow
@@ -20,9 +22,9 @@
 * pkgdown websites using BS4 will be more accessible, besides a better color contrast:
 
     * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
-    
+
     * the aria-labelledby property for navbar dropdowns was fixed.
-    
+
     * the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (#1635)
 
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
@@ -40,21 +42,21 @@
 * Allow template packages to provide a default configuration `_pkgdown.yml`, 
   stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
   definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
-  
+
   Configuration parameters supplied by a template package have the lowest priority
   They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
   `override` parameter of `build_site()`. (#1499)
-  
+
 * pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
 
    * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
-   
+
    * Easy customisation of colours and fonts with bslib
-   
+
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
    (#1536)
-   
+
    * In-line footnotes mean you can read asides next to the next they refer to. 
 
 * `build_articles()` again sets the `theme` argument of the document format 
@@ -64,17 +66,17 @@
 * Authors configuration is more flexible. Users can now:
 
   * Choose the roles used for filtering authors for the sidebar and footer.
-  
+
   * Choose the text before authors in the footer.
-  
+
   * Add text before and after the authors list in the sidebar.
-  
+
   * Add text before and after the authors list of the authors page. (#1516)
-  
+
 * Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
   contributions: add a link to the authors page from the sidebar if any author
   has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
-  
+
 * Better handling for mix of citations with and without text version. Also
   escapes HTML in the text version (@bastistician, #1507).
 
@@ -90,7 +92,7 @@
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). 
-  
+
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)
 
@@ -103,17 +105,17 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
-  
+
 * Make sidebar specification more flexible: users can now
 
     * change the order of sidebar elements
-    
+
     * add custom sidebar sections (title, text that can be Markdown or HTML)
-    
+
     * add a table of contents for the README
-    
+
     * completely suppress the sidebar (even "Dev status")
-    
+
     * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 
@@ -244,12 +246,12 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 
 * The articles index page and navbar have been overhauled. There are two
   major new features in this release:
-  
+
     * The articles index page now displays article `description`s,
       taken from YAML metadata belonging to each article. This lets you provide 
       more context about each article and describe why one might want to read 
       it (#1227).
-      
+
     * The articles navbar is now also controlled by the `articles` section
       in `_pkgdown.yml`. The ordering of the sections, and articles within
       them, control the order of the articles in the navbar, and you can
@@ -267,7 +269,7 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   articles) and issues and users (in the NEWS) with new `repo$url` config
   option (#1238). This makes it easier to use pkgdown with GitHub enterprise,
   packages in subdirectories, and other source hosts (like bitbucket).
-  
+
     ```yaml
     repo:
       url:
@@ -276,7 +278,7 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
         issue: https://github.com/r-lib/pkgdown/issues/
         user: https://github.com/
     ```
-    
+
     The individual components (e.g. path, issue number, username) are pasted on 
     the end of these urls so they should have trailing `/`s.
 
@@ -347,7 +349,7 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
 
 ### News 
 See additional details in `?build_news`:
-    
+
 * You can optionally suppress the CRAN release dates added to the news 
   page (#1118).
 
@@ -370,7 +372,7 @@ See additional details in `?build_news`:
   a number of specified concepts. (@mikldk, #1232)
 
 ### Home, authors, and citation
- 
+
 * pkgdown now escapes html and linkifies links in comments in author info 
   from DESCRIPTION (@maelle, #1204)
 
@@ -419,11 +421,11 @@ See additional details in `?build_news`:
   `devel` which controls whether you're in deployment or development mode.
   It generalises and replaces (with deprecation) the existing `document` 
   argument.
-  
+
     Development mode is optimised for rapid iteration and is the default
     for `build_reference()`. It uses `pkgload::load_all()` to load code
     directly from disk in order.
-    
+
     Deployment mode is slower, but guarantees correct results, and is the
     default for `build_site()`. It installs the package into a temporary
     library, and runs examples/articles in a new process.
@@ -589,7 +591,7 @@ See additional details in `?build_news`:
 
 * All third party resources are now fetched from a single CDN and are
   give a SRI hash (@bisaloo, #893).
-  
+
 * The navbar version now has class "version" so you can more easily control 
   its display (#680).
 
@@ -619,7 +621,7 @@ See additional details in `?build_news`:
 ### Reference
 
 * Unexported functions and test helpers are no longer loaded (#789).
-  
+
 * Selectors that do not match topics now generate a warning. If none of the 
   specified selectors have a match, no topics are selected (#728).
 
@@ -658,14 +660,14 @@ See additional details in `?build_news`:
 * Improved display for icons: icons must be 30px and stored in top-level 
   `icons/` directory. They are embedded in a separate column of reference 
   index table, instead of being inside a comment (!) (#607).
-  
+
 ## Front end
 
 * Added a keyboard shortcut for searching. Press `shift` + `/` (`?`) to move 
   focus to the search bar (#642). 
-  
+
 * The Algolia logo is correctly shown in the search results (#673).
- 
+
 * Navbar active tab highlighting uses a superior approach (suggested by 
   @jcheng5) which should mean that the active page is correctly highlighted
   in all scenarios (#660).
@@ -697,7 +699,7 @@ See additional details in `?build_news`:
 
 * You can suppress indexing by search engines by setting `noindex: true` 
   `pkgdown.yml` (#686)
-  
+
     ```yaml
     template:
       params:
