@@ -393,9 +393,9 @@ div.pb-2.mt-4.mb-2.border-bottom {
   transition: transform 400ms ease;
 }
 
-/* Avoid flash of invisible text */
+/* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
-  font-display: swap;
+  font-display: fallback;
 }
 
 /* Navbar constrast */
