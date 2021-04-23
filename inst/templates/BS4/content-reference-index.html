@@ -16,13 +16,13 @@
     {{#rows}}<tbody>
       {{#title}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
+          <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor" aria-hidden="true"></a>{{title}}</h2>
           <p class="section-desc">{{{desc}}}</p>
         </th>
       </tr>{{/title}}
       {{#subtitle}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h3 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{subtitle}}</h3>
+          <h3 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor" aria-hidden="true"></a>{{subtitle}}</h3>
           <p class="section-desc">{{{desc}}}</p>
         </th>
       </tr>{{/subtitle}}

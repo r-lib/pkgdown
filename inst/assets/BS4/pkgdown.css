@@ -439,4 +439,15 @@ mark {
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
   background-color: #B2D7FF;
+/* Compromise to avoid flash of invisible text + flash of unstyled text */
+body {
+  font-display: fallback;
+}
+
+/* Navbar constrast */
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,0.7);
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  color: rgba(0,0,0,0.9);
 }

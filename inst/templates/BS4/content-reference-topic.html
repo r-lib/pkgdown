@@ -31,7 +31,7 @@
 
     {{#sections}}
     <div class="ref-section kinda-section" id="section-{{slug}}">
-    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}"></a>{{{title}}}</h2>
+    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}" aria-hidden="true"></a>{{{title}}}</h2>
 
     {{#contents}}
     {{{.}}}
@@ -40,7 +40,7 @@
     {{/sections}}
 
     {{#examples}}
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples" aria-hidden="true"></a>Examples</h2>
     <pre class="examples"><code class="sourceCode R">{{{ . }}}</code></pre>
     {{/examples}}
   </div>
