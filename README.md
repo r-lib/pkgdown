@@ -63,7 +63,7 @@ others can easily navigate to your new site.
 ## In the wild
 
 At last count, pkgdown is used [by over 5,000
-packages](https://github.com/search?q=pkgdown.css+in%3Apath&type=Code).
+packages](https://github.com/search?q=extension%3Acss+filename%3Apkgdown).
 
 Here are a few examples created by contributors to pkgdown:
 

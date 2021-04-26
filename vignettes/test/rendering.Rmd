@@ -169,3 +169,15 @@ Some more text
 | Ensure that your math  
 |   in xaringan hath  
 |   been placed on a single long line
+## Details
+
+Blablablablablabla.
+
+Blablablablablabla.
+
+<details>
+  <summary>Short summary</summary>
+  <p>Blablablablablabla.</p>
+</details> 
+
+Blablablablablabla.
