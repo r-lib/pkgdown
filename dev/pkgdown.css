@@ -405,3 +405,12 @@ body {
 .navbar-light .navbar-nav .nav-link:hover {
   color: rgba(0,0,0,0.9);
 }
+
+/* Details margin */
+summary {
+  margin-bottom: 1rem;
+}
+
+details p {
+  margin-top: -.5rem;
+}
