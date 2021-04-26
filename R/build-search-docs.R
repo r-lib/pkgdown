@@ -147,16 +147,21 @@ file_search_index <- function(path, pkg) {
 # index -------------------------------------------------------------------
 
 bs4_index_data <- function(node, nearest_h2, title, path) {
+  # Make a copy of the node because we will remove contents from it for getting the data
   node_copy <- node
   # remove sections nested inside the current section to prevent duplicating content
   xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
+  # remove dont-index sections
+  xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'dont-index')]"))
 
+  # Helpers for XPath queries
   all <- function(...) paste0(".//", c(...), collapse = "|")
-  text_path <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
-  code_path <- all("pre")
+  text_xpath <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
+  code_xpath <- all("pre")
 
+  # Special case for definitions (mostly encountered in Rd files)
   if (xml2::xml_name(node_copy) == "dt") {
-    code <- xml2::xml_find_all(node_copy, code_path)
+    code <- xml2::xml_find_all(node_copy, code_xpath)
     # both argument name and definition
     text <- paste(
       xml_text1(node_copy),
@@ -165,22 +170,26 @@ bs4_index_data <- function(node, nearest_h2, title, path) {
     )
     heading <- paste(xml_text1(node_copy), "(argument)")
   } else {
-    code <- xml2::xml_find_all(node_copy, code_path)
-    text <- xml_text1(xml2::xml_find_all(node_copy, text_path))
+    # Other cases
+    code <- xml2::xml_find_all(node_copy, code_xpath)
+    text <- xml_text1(xml2::xml_find_all(node_copy, text_xpath))
     children <- xml2::xml_children(node_copy)
     heading_node <- children[purrr::map_lgl(children, is_heading)][1]
     heading <- xml_text1(heading_node)
+    # Add version to headings in changelog
     if (grepl("news/index.html", path) && !xml2::xml_name(heading_node) %in% c("h1", "h2")) {
       # add version which is the nearest h2
       heading <- paste0(heading, " (", nearest_h2, ")")
     }
+    # Add heading for Usage section of Rd
     if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
       heading <- "Usage"
     }
+    # If no specific heading, use the title
     if (nchar(heading) == 0) heading <- title
   }
 
-  list(
+  index_data <- list(
     path = path,
     id = xml2::xml_attr(node_copy, "id"),
     title = title,
@@ -188,6 +197,12 @@ bs4_index_data <- function(node, nearest_h2, title, path) {
     text = strip_stop_words(text),
     code = xml_text1(code)
   )
+
+  if (index_data$text=="" && index_data$code == "") {
+    return(NULL)
+  }
+
+  index_data
 }
 
 xml_text1 <- function(x) {
