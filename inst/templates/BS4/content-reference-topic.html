@@ -7,7 +7,7 @@
     <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
-    <div class="ref-description kinda-section">
+    <div class="ref-description section">
     {{#description}}
     {{#contents}}
     {{{.}}}
@@ -16,7 +16,7 @@
     </div>
 
     {{#usage}}
-    <div id="ref-usage" class="ref-usage kinda-section"><pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre></div>
+    <div id="ref-usage" class="ref-usage section"><pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre></div>
     {{/usage}}
 
     {{#has_args}}
@@ -30,7 +30,7 @@
     {{/has_args}}
 
     {{#sections}}
-    <div class="ref-section kinda-section" id="section-{{slug}}">
+    <div class="ref-section section" id="section-{{slug}}">
     <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}" aria-hidden="true"></a>{{{title}}}</h2>
 
     {{#contents}}
