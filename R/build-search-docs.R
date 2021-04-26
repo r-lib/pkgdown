@@ -95,8 +95,8 @@ build_search <- function(pkg = ".",
   rule("Building search index")
 
   paths <- fs::path_rel(
-      fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-      pkg$dst_path
+    fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
+    pkg$dst_path
   )
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
