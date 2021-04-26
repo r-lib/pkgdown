@@ -124,19 +124,58 @@ file_search_index <- function(path, pkg) {
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
-  # Function for extracting, if it exists, the nearest h2 (needed for the changelog)
-  get_h2 <- function(section) {
+  # Function for extracting all headers
+  get_h <- function(level, section) {
     parents <- xml2::xml_parents(section)
     if (length(parents) == 0) {
       return("")
     }
     parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
-    h2 <- parents[xml2::xml_attr(parents, "class") == "section level1"]
-    sub("^\\n", "", xml_text1(xml2::xml_children(h2)[1]))
+    h_section <- parents[grepl(paste0("section level", level), xml2::xml_attr(parents, "class"))]
+    h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
+    sub("^\\n", "", xml_text1(h))
   }
+
+  get_headings <- function(section, title, path) {
+    min_level <- ifelse(grepl("news/index.html", path), 2, 3)
+    if (get_section_level(section) < min_level) {
+      headings <- ""
+    } else {
+
+      headings <- purrr::map_chr((min_level - 1):get_section_level(section), get_h, section = section) %>%
+        purrr::discard(function(x) x == "")
+
+      if (length(headings) > 1) headings <- paste(headings, collapse = " > ", sep = "")
+
+    }
+
+    dir <- fs::path_dir(path)
+    if (dir == ".") {
+      return(headings)
+    } else {
+      if (headings == "") {
+        headings <- paste(unlist(fs::path_split(dir)), collapse = " > ")
+      } else {
+        headings <- paste(c(unlist(fs::path_split(dir)), headings), collapse = " > ")
+      }
+
+    }
+
+    return(headings)
+  }
+
+  get_section_level <- function(section) {
+    as.numeric(
+      sub(
+        ".*section level", "",
+        xml2::xml_attr(section, "class")
+      )
+    )
+  }
+
   purrr::map2(
     sections,
-    lapply(sections, get_h2),
+    purrr::map_chr(sections, get_headings, path = path),
     bs4_index_data,
     title = title,
     path = paste0("/", pkg$prefix, path)
@@ -146,7 +185,7 @@ file_search_index <- function(path, pkg) {
 # edited from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
 # index -------------------------------------------------------------------
 
-bs4_index_data <- function(node, nearest_h2, title, path) {
+bs4_index_data <- function(node, previous_headings, title, path) {
   # Make a copy of the node because we will remove contents from it for getting the data
   node_copy <- node
   # remove sections nested inside the current section to prevent duplicating content
@@ -176,17 +215,19 @@ bs4_index_data <- function(node, nearest_h2, title, path) {
     children <- xml2::xml_children(node_copy)
     heading_node <- children[purrr::map_lgl(children, is_heading)][1]
     heading <- xml_text1(heading_node)
-    # Add version to headings in changelog
-    if (grepl("news/index.html", path) && !xml2::xml_name(heading_node) %in% c("h1", "h2")) {
-      # add version which is the nearest h2
-      heading <- paste0(heading, " (", nearest_h2, ")")
-    }
+
     # Add heading for Usage section of Rd
     if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
       heading <- "Usage"
     }
-    # If no specific heading, use the title
-    if (nchar(heading) == 0) heading <- title
+  }
+
+  # If no specific heading, use the title
+  if (nchar(heading) == 0) {
+    heading <- title
+    title <- previous_headings
+  } else {
+    title <- paste(previous_headings, title, sep = " > ")
   }
 
   index_data <- list(
