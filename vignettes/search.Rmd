@@ -1,8 +1,7 @@
 ---
 title: "Search"
 description: >
-  Learn how to set up search for your pkgdown site using 
-  [DocSearch](https://community.algolia.com/docsearch/) from Algolia.
+  Learn how to set up search for your pkgdown site.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Search}
@@ -17,15 +16,35 @@ knitr::opts_chunk$set(
 )
 ```
 
+Depending on the Bootstrap version used for your pkgdown website, search will be either built-in (Bootstrap 4 and next versions) or will need some more configuration of an external service (Bootstrap 3).
+We'd recomment switching to Bootstrap 4, see `vignette("customization")`.
+
+## Bootstrap 4 and above: built-in search
+
+Building your pkgdown website will build a search index, that will be used in the search form of the navbar using fuse.js.
+
+You can exclude some paths from the search index.
+Below we exclude the changelog from the search index.
+
+```yaml
+search:
+  exclude: ['news/index.html']
+```
+
+Note that locally, search won't work if you simply use pkgdown preview of the static files.
+You can use `servr::httw("docs")` instead.
+
+## Bootstrap 3: Algolia
+
 pkgdown websites can integrate search capability using [DocSearch](https://community.algolia.com/docsearch/) from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.
 
-## Indexing
+### Indexing
 
 Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://community.algolia.com/docsearch/). Docsearch will contact you via e-mail to confirm you are the website owner.
 
 Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in `docsearch.json` and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate [additional options](https://github.com/algolia/docsearch-configs#introduction) to fine tune the scraping.
 
-## Configuration
+### Configuration
 
 The Docsearch team will e-mail you some JavaScript to integrate into your website.
 
