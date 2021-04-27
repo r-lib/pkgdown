@@ -138,7 +138,7 @@ async function searchFuse(query, callback) {
           if (s.title == s.heading) {
             return `<div class="search-details">${s.title}</div>`;
           } else {
-            return `${s.title}	<br><div class="search-details"> ${s.heading}</div>`;
+            return `${s.title} >	<div class="search-details"> ${s.heading}</div>`;
           }
         },
       },
