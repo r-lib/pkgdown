@@ -147,7 +147,9 @@ data_news <- function(pkg = ".") {
 
   sections <- xml2::xml_find_all(xml, "./body/div")
 
-  if (pkg$bs_version > 3) tweak_section_levels(xml)
+  if (pkg$bs_version > 3) {
+    tweak_section_levels(xml)
+  }
 
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
