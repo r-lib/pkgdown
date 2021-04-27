@@ -213,7 +213,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     }
   }
 
-  # If no spe)cific heading, use the title
+  # If no specific heading, use the title
   if (nchar(heading) == 0) {
     heading <- title
     where <- dir
