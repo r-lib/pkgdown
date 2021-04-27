@@ -92,7 +92,7 @@
     var data = await response.json();
 
     var options = {
-      keys: ["heading", "text", "code"],
+      keys: ["what", "text", "code"],
       ignoreLocation: true,
       threshold: 0.1,
       includeMatches: true,
