@@ -124,7 +124,7 @@ async function searchFuse(query, callback) {
       .filter((x) => x.score <= 0.75)
       .map((x) => x.item);
     if (items.length === 0) {
-      items = [{title:"Sorry :-(",heading:"No results found.",path:window.location.href}];
+      items = [{where:"Sorry )-:",what:"No results found.",path:window.location.href}];
     }
   }
   callback(items);
@@ -135,11 +135,7 @@ async function searchFuse(query, callback) {
       source: searchFuse,
       templates: {
         suggestion: (s) => {
-          if (s.title == s.heading) {
-            return `<div class="search-details">${s.title}</div>`;
-          } else {
-            return `${s.title} >	<div class="search-details"> ${s.heading}</div>`;
-          }
+          return `${s.where} >	<div class="search-details"> ${s.what}</div>`;
         },
       },
     },

@@ -136,48 +136,34 @@ file_search_index <- function(path, pkg) {
     sub("^\\n", "", xml_text1(h))
   }
 
-  get_headings <- function(section, title, path) {
-    min_level <- ifelse(grepl("news/index.html", path), 2, 3)
-    if (get_section_level(section) < min_level) {
-      headings <- ""
-    } else {
+  # Headings (where in the page)
+  get_headings <- function(section) {
+    if (get_section_level(section) < 3) {
+      return("")
+    }
 
-      headings <- purrr::map_chr((min_level - 1):get_section_level(section), get_h, section = section) %>%
+    headings <- purrr::map_chr(seq(2, get_section_level(section) - 1), get_h, section = section) %>%
         purrr::discard(function(x) x == "")
 
-      if (length(headings) > 1) headings <- paste(headings, collapse = " > ", sep = "")
-
-    }
-
-    dir <- fs::path_dir(path)
-    if (dir == ".") {
-      return(headings)
-    } else {
-      if (headings == "") {
-        headings <- paste(unlist(fs::path_split(dir)), collapse = " > ")
-      } else {
-        headings <- paste(c(unlist(fs::path_split(dir)), headings), collapse = " > ")
-      }
-
-    }
-
-    return(headings)
+    if (length(headings) > 1) headings <- paste(headings, collapse = " > ", sep = "")
+    headings
   }
 
-  get_section_level <- function(section) {
-    as.numeric(
-      sub(
-        ".*section level", "",
-        xml2::xml_attr(section, "class")
-      )
-    )
+  # Directory parts (where in the site)
+  get_dir <- function(path) {
+    dir <- fs::path_dir(path)
+    if (dir == ".") {
+      return("")
+    }
+    paste(unlist(fs::path_split(dir)), collapse = " > ")
   }
 
   purrr::map2(
     sections,
-    purrr::map_chr(sections, get_headings, path = path),
+    purrr::map_chr(sections, get_headings),
     bs4_index_data,
     title = title,
+    dir = get_dir(path),
     path = paste0("/", pkg$prefix, path)
   )
 
@@ -185,7 +171,7 @@ file_search_index <- function(path, pkg) {
 # edited from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
 # index -------------------------------------------------------------------
 
-bs4_index_data <- function(node, previous_headings, title, path) {
+bs4_index_data <- function(node, previous_headings, title, dir, path) {
   # Make a copy of the node because we will remove contents from it for getting the data
   node_copy <- node
   # remove sections nested inside the current section to prevent duplicating content
@@ -222,19 +208,19 @@ bs4_index_data <- function(node, previous_headings, title, path) {
     }
   }
 
-  # If no specific heading, use the title
+  # If no spe)cific heading, use the title
   if (nchar(heading) == 0) {
     heading <- title
-    title <- previous_headings
-  } else if (previous_headings != "") {
-    title <- paste(previous_headings, title, sep = " > ")
+    where <- dir
+  } else {
+    where <- paste0(purrr::discard(c(dir, title, previous_headings), function(x) x == ""), collapse = " > ")
   }
 
   index_data <- list(
     path = path,
     id = xml2::xml_attr(node_copy, "id"),
-    title = title,
-    heading = heading,
+    where = where,
+    what = heading,
     text = strip_stop_words(text),
     code = xml_text1(code)
   )
