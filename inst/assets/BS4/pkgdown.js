@@ -4,14 +4,14 @@
 
     $('nav.navbar').headroom();
 
-    $('body').scrollspy({
-      target: '#sidebar',
-      offset: 60
-    });
-
     Toc.init({
       $nav: $("#toc"),
       $scope: $("h2, h3, h4, h5, h6")
+    });
+
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 60
     });
 
     // Activate popovers
@@ -24,7 +24,7 @@
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-   $('body').scrollspy('refresh');
+
   /* Clipboard --------------------------*/
 
   function changeTooltipMessage(element, msg) {
