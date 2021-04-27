@@ -133,7 +133,13 @@ file_search_index <- function(path, pkg) {
     parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
     h_section <- parents[grepl(paste0("section level", level), xml2::xml_attr(parents, "class"))]
     h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
-    sub("^\\n", "", xml_text1(h))
+    heading_text <- sub("^\\n", "", xml_text1(h))
+    if (grepl("pkg-version", xml2::xml_attr(h, "class"))) {
+      sprintf("<b>%s</b>", heading_text)
+    } else {
+      heading_text
+    }
+
   }
 
   # Headings (where in the page)
@@ -145,8 +151,7 @@ file_search_index <- function(path, pkg) {
     headings <- purrr::map_chr(seq(2, get_section_level(section) - 1), get_h, section = section) %>%
         purrr::discard(function(x) x == "")
 
-    if (length(headings) > 1) headings <- paste(headings, collapse = " > ", sep = "")
-    headings
+    paste0(headings, collapse = " > ")
   }
 
   # Directory parts (where in the site)

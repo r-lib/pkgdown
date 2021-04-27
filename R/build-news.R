@@ -265,7 +265,7 @@ pkg_timeline <- function(package) {
 
 tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
-  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom"
+  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom pkg-version"
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
