@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* pkgdown now supports local searching so no set-up is needed for users to
+* pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
   search pkgdown websites. (#1629)
   
 * pkgdown websites using BS4 will be more accessible, besides a better color contrast:
