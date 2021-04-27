@@ -307,19 +307,19 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
   if (bs_version > 3) {
     x %>%
       xml2::xml_find_all(".//div[contains(@class, 'section level')]")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h5") %>%
       xml2::xml_set_name("h6")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h4") %>%
       xml2::xml_set_name("h5")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h3") %>%
       xml2::xml_set_name("h4")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h2") %>%
       xml2::xml_set_name("h3")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h1") %>%
       xml2::xml_set_name("h2")
   }
@@ -333,8 +333,8 @@ tweak_section_levels <- function(xml) {
   }
 
   xml %>%
-     xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
-     purrr::walk(down_level)
+    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
+    purrr::walk(down_level)
 }
 
 news_style <- function(meta) {
