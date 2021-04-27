@@ -226,7 +226,7 @@ bs4_index_data <- function(node, previous_headings, title, path) {
   if (nchar(heading) == 0) {
     heading <- title
     title <- previous_headings
-  } else {
+  } else if (previous_headings != "") {
     title <- paste(previous_headings, title, sep = " > ")
   }
 
