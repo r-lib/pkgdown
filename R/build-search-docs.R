@@ -103,13 +103,52 @@ build_search <- function(pkg = ".",
   # user-defined exclusions
   paths <- paths[!paths %in% pkg$meta$search$exclude]
 
-  index <- lapply(paths, file_search_index, pkg = pkg)
-  index <- unlist(index, recursive = FALSE)
+  if ("news/index.html" %in% paths) {
+    index <- lapply(paths[paths != "news/index.html"], file_search_index, pkg = pkg)
+    index <- unlist(index, recursive = FALSE)
+    index <- c(index, news_search_index("news/index.html", pkg = pkg))
+  } else {
+    index <- lapply(paths, file_search_index, pkg = pkg)
+    index <- unlist(index, recursive = FALSE)
+  }
+
   index <- purrr::compact(index)
   jsonlite::write_json(
     index,
     file.path(pkg$dst_path, "search.json"),
     auto_unbox = TRUE
+  )
+}
+
+news_search_index <- function(path, pkg) {
+  html <- xml2::read_html(file.path(pkg$dst_path, path))
+
+  # Get contents minus logo
+  node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
+  xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
+  sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
+
+  # Headings (where in the page)
+  get_headings <- function(section) {
+    if (get_section_level(section) < 4) {
+      return("")
+    }
+
+    headings <- purrr::map_chr(seq(3, get_section_level(section) - 1), get_h, section = section) %>%
+      purrr::discard(function(x) x == "")
+
+    paste0(headings, collapse = " > ")
+  }
+
+  purrr::pmap(
+    list(
+      sections,
+      purrr::map_chr(sections, get_headings),
+      title = purrr::map_chr(sections, get_version)
+    ),
+    bs4_index_data,
+    dir = "Changelog",
+    path = paste0("/", pkg$prefix, path)
   )
 }
 
@@ -124,24 +163,6 @@ file_search_index <- function(path, pkg) {
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
-  # Function for extracting all headers
-  get_h <- function(level, section) {
-    parents <- xml2::xml_parents(section)
-    if (length(parents) == 0) {
-      return("")
-    }
-    parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
-    h_section <- parents[grepl(paste0("section level", level), xml2::xml_attr(parents, "class"))]
-    h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
-    heading_text <- sub("^\\n", "", xml_text1(h))
-    if (grepl("pkg-version", xml2::xml_attr(h, "class"))) {
-      sprintf("<b>%s</b>", heading_text)
-    } else {
-      heading_text
-    }
-
-  }
-
   # Headings (where in the page)
   get_headings <- function(section) {
     if (get_section_level(section) < 3) {
@@ -149,29 +170,54 @@ file_search_index <- function(path, pkg) {
     }
 
     headings <- purrr::map_chr(seq(2, get_section_level(section) - 1), get_h, section = section) %>%
-        purrr::discard(function(x) x == "")
+      purrr::discard(function(x) x == "")
 
     paste0(headings, collapse = " > ")
   }
 
-  # Directory parts (where in the site)
-  get_dir <- function(path) {
-    dir <- fs::path_dir(path)
-    if (dir == ".") {
-      return("")
-    }
-    paste(unlist(fs::path_split(dir)), collapse = " > ")
-  }
-
-  purrr::map2(
-    sections,
-    purrr::map_chr(sections, get_headings),
+  purrr::pmap(
+    list(
+      sections,
+      purrr::map_chr(sections, get_headings),
+      title = title
+    ),
     bs4_index_data,
-    title = title,
     dir = get_dir(path),
     path = paste0("/", pkg$prefix, path)
   )
 
+}
+# Directory parts (where in the site)
+get_dir <- function(path) {
+  dir <- fs::path_dir(path)
+  if (dir == ".") {
+    return("")
+  }
+  paste(unlist(fs::path_split(dir)), collapse = " > ")
+}
+# Function for extracting all headers
+get_h <- function(level, section) {
+  parents <- xml2::xml_parents(section)
+  if (length(parents) == 0) {
+    return("")
+  }
+  parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
+  h_section <- parents[grepl(paste0("section level", level), xml2::xml_attr(parents, "class"))]
+  h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
+  sub("^\\n", "", xml_text1(h))
+
+}
+get_version <- function(section) {
+  parents <- xml2::xml_parents(section)
+  parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
+  h_section <- parents[grepl("section level2", xml2::xml_attr(parents, "class"))]
+  if (length(h_section) == 0) {
+    h <- xml2::xml_contents(section)[is_heading(xml2::xml_contents(section))]
+  } else {
+    h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
+  }
+
+  sub("^\\n", "", xml_text1(h))
 }
 # edited from https://github.com/rstudio/bookdown/blob/abd461593033294d82427139040a0a03cfa0390a/R/bs4_book.R#L518
 # index -------------------------------------------------------------------
@@ -216,16 +262,16 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
   # If no specific heading, use the title
   if (nchar(heading) == 0) {
     heading <- title
-    where <- dir
-  } else {
-    where <- paste0(purrr::discard(c(dir, title, previous_headings), function(x) x == ""), collapse = " > ")
+    previous_headings <- ""
   }
 
   index_data <- list(
     path = path,
     id = xml2::xml_attr(node_copy, "id"),
-    where = where,
+    dir = dir,
+    previous_headings = previous_headings,
     what = heading,
+    title = title,
     text = strip_stop_words(text),
     code = xml_text1(code)
   )

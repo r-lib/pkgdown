@@ -135,7 +135,13 @@ async function searchFuse(query, callback) {
       source: searchFuse,
       templates: {
         suggestion: (s) => {
-          return `${s.where} >	<div class="search-details"> ${s.what}</div>`;
+          if (s.title == s.what) {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div>`;
+          } else if (s.previous_headings == "") {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div> > ${s.what}`;
+          } else {
+            return `${s.dir} >	<div class="search-details"> ${s.title}</div> > ${s.previous_headings} > ${s.what}`;
+          }
         },
       },
     },
