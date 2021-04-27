@@ -24,7 +24,7 @@
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-
+   $('body').scrollspy('refresh');
   /* Clipboard --------------------------*/
 
   function changeTooltipMessage(element, msg) {
