@@ -21,7 +21,7 @@ We'd recomment switching to Bootstrap 4, see `vignette("customization")`.
 
 ## Bootstrap 4 and above: built-in search
 
-Building your pkgdown website will build a search index, that will be used in the search form of the navbar using fuse.js.
+Building your pkgdown website will build a search index, that will be used in the search form of the navbar using [fuse.js](https://fusejs.io/).
 
 You can exclude some paths from the search index.
 Below we exclude the changelog from the search index.
