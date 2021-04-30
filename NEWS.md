@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
+
 * Styling for errors, warnings, and messages has been tweaked. Messages 
   are now displayed the same way as output, and warnings and errors are
   bolded, but not coloured. This is part of a suite of changes that allow
