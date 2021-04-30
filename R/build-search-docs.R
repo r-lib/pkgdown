@@ -197,7 +197,7 @@ get_dir <- function(path) {
   if (dir == ".") {
     return("")
   }
-  paste(unlist(fs::path_split(dir)), collapse = " > ")
+  paste(capitalise(unlist(fs::path_split(dir))), collapse = " > ")
 }
 # Function for extracting all headers
 get_h <- function(level, section) {
@@ -299,4 +299,8 @@ strip_stop_words <- function(x) {
 
 is_heading <- function(node) {
   xml2::xml_name(node) %in% c("h1", "h2", "h3", "h4", "h5")
+}
+
+capitalise <- function(string) {
+  paste0(toupper(substring(string, 1, 1)), substring(string, 2))
 }
