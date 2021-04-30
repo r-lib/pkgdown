@@ -5,6 +5,8 @@
   bolded, but not coloured. This is part of a suite of changes that allow
   package authors greater control over message/warning/error appearance. 
 
+* Autolinking no longer failures if a package contains duplicated Rd aliases.
+
 * pkgdown websites using BS4 will be more accessible, besides a better color contrast:
     * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
     * the aria-labelledby property for navbar dropdowns was fixed.
