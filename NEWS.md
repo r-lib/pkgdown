@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
+* pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
   search pkgdown websites. (#1629)
@@ -16,8 +17,11 @@
 * Autolinking no longer failures if a package contains duplicated Rd aliases.
 
 * pkgdown websites using BS4 will be more accessible, besides a better color contrast:
+
     * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
+    
     * the aria-labelledby property for navbar dropdowns was fixed.
+    
     * the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (#1635)
 
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
@@ -41,11 +45,15 @@
   `override` parameter of `build_site()`. (#1499)
   
 * pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth).
+
    * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
+   
    * Easy customisation of colours and fonts with bslib
+   
    * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
    * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
    (#1536)
+   
    * In-line footnotes mean you can read asides next to the next they refer to. 
 
 * `build_articles()` again sets the `theme` argument of the document format 
@@ -53,14 +61,19 @@
   argument of the output format.
 
 * Authors configuration is more flexible. Users can now:
+
   * Choose the roles used for filtering authors for the sidebar and footer.
+  
   * Choose the text before authors in the footer.
+  
   * Add text before and after the authors list in the sidebar.
+  
   * Add text before and after the authors list of the authors page. (#1516)
   
 * Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
   contributions: add a link to the authors page from the sidebar if any author
   has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
+  
 * Better handling for mix of citations with and without text version. Also
   escapes HTML in the text version (@bastistician, #1507).
 
@@ -91,10 +104,15 @@ right below the opening `<body>` tag; and before the closing tag `</body>` (#148
   (@ijlyttle, #1452).
   
 * Make sidebar specification more flexible: users can now
+
     * change the order of sidebar elements
+    
     * add custom sidebar sections (title, text that can be Markdown or HTML)
+    
     * add a table of contents for the README
+    
     * completely suppress the sidebar (even "Dev status")
+    
     * provide their own HTML for the navbar. (#1443, #1488, #1502)
 
 
