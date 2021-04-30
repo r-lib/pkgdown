@@ -332,7 +332,7 @@ add_version <- function(header, version) {
   # add the package version instead
   xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
   # make header ID the same as its anchor href
-  xml2::xml_attr(header, "id") <- xml2::xml_attr(anchor, "href")
+  xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
 }
 
 news_style <- function(meta) {
