@@ -328,7 +328,7 @@ add_version <- function(header, version) {
   version <- gsub("\\s+", "-", version)
   anchor <- xml2::xml_find_first(header, ".//a")
   # remove the numbers added by Pandoc
-  xml2::xml_attr(anchor, "href") <- sub("-[1-9]+$", "", xml2::xml_attr(anchor, "href"))
+  xml2::xml_attr(anchor, "href") <- sub("-[0-9]+$", "", xml2::xml_attr(anchor, "href"))
   # add the package version instead
   xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
   # make header ID the same as its anchor href
