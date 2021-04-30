@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
+  search pkgdown websites. (#1629)
+
+* pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
+  This might change Algolia results if you use Algolia for search. (#1629)
+  
 * Styling for errors, warnings, and messages has been tweaked. Messages 
   are now displayed the same way as output, and warnings and errors are
   bolded, but not coloured. This is part of a suite of changes that allow

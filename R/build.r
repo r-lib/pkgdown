@@ -434,6 +434,12 @@ build_site_local <- function(pkg = ".",
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
+  build_sitemap(pkg)
+  if (pkg$bs_version == 3) {
+    build_docsearch_json(pkg)
+  } else {
+    build_search(pkg, override = override)
+  }
 
   rule("DONE", line = "=")
   preview_site(pkg, preview = preview)

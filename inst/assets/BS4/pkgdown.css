@@ -393,6 +393,54 @@ div.pb-2.mt-4.mb-2.border-bottom {
   transition: transform 400ms ease;
 }
 
+/* blockquote ---------------------------------------------- */
+
+blockquote, .line-block {
+    border-left: .5rem solid #eee;
+    padding-left: .5rem;
+    margin-left: -.5rem;
+}
+
+/* Search ---------------------------------------------- */
+
+mark {
+  background: linear-gradient(-100deg,
+    hsla(48,92%,75%,.3),
+    hsla(48,92%,75%,.7) 95%,
+    hsla(48,92%,75%,.1)
+  )
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: max(100%, 20rem);
+  background-color: #fff;
+  border: 1px solid var(--gray);
+  border-radius: 0.2rem;
+  margin-top: 2px;
+
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px #ddd solid;
+  font-size: 0.9rem;
+  color: #5E5E5E;
+
+}
+
+.search-details {
+  font-size: 0.9rem;
+  color: #0054AD;
+  display: inline;
+  font-weight: bolder;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #B2D7FF;
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
   font-display: fallback;
