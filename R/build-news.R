@@ -311,19 +311,19 @@ tweak_news_heading <- function(x, version, timeline, bs_version) {
       xml2::xml_find_all(".//h5") %>%
       xml2::xml_set_name("h6") %>%
       purrr::walk(add_version, version)
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h4") %>%
       xml2::xml_set_name("h5") %>%
       purrr::walk(add_version, version)
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h3") %>%
       xml2::xml_set_name("h4") %>%
       purrr::walk(add_version, version)
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h2") %>%
       xml2::xml_set_name("h3") %>%
       purrr::walk(add_version, version)
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h1") %>%
       xml2::xml_set_name("h2")
   }
@@ -340,20 +340,20 @@ add_version <- function(header, version) {
   xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
   # make header ID the same as its anchor href
   xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
-tweak_section_levels <- function(xml) {
-  down_level <- function(x) {
-    xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
+  tweak_section_levels <- function(xml) {
+    down_level <- function(x) {
+      xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
+    }
+
+    xml %>%
+      xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
+      purrr::walk(down_level)
   }
 
-  xml %>%
-    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
-    purrr::walk(down_level)
-}
+  news_style <- function(meta) {
+    one_page <- purrr::pluck(meta, "news", "one_page") %||%
+      purrr::pluck(meta, "news", 1, "one_page") %||%
+      TRUE
 
-news_style <- function(meta) {
-  one_page <- purrr::pluck(meta, "news", "one_page") %||%
-    purrr::pluck(meta, "news", 1, "one_page") %||%
-    TRUE
-
-  if (one_page) "single" else "multi"
-}
+    if (one_page) "single" else "multi"
+  }
