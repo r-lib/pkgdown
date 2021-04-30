@@ -34,24 +34,6 @@
     <loc>https://pkgdown.r-lib.org/dev/articles/search.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/crayon.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/details.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/external.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/figures.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/highlight.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/mathjax.html</loc>
-  </url>
-  <url>
     <loc>https://pkgdown.r-lib.org/dev/articles/test/output-html-vignette.html</loc>
   </url>
   <url>
@@ -62,12 +44,6 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/articles/test/rendering.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/table.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/articles/test/widget.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/authors.html</loc>
@@ -86,9 +62,6 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/build_articles.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/reference/build_favicon.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/build_favicons.html</loc>
@@ -146,9 +119,6 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/rd2html.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/reference/reexports.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/render_page.html</loc>
