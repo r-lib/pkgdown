@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
+
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
