@@ -414,3 +414,8 @@ summary {
 details p {
   margin-top: -.5rem;
 }
+
+/* Nested lists */
+ol ol, ul ul, ol ul, ul ol {
+  margin-bottom: 1rem;
+}
