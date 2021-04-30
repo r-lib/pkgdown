@@ -93,8 +93,16 @@ build_search <- function(pkg = ".",
                          override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   rule("Building search index")
+  search_index <- build_search_index(pkg)
+  jsonlite::write_json(
+    search_index,
+    file.path(pkg$dst_path, "search.json"),
+    auto_unbox = TRUE
+  )
+}
 
-  paths <- fs::path_rel(
+build_search_index <- function(pkg) {
+    paths <- fs::path_rel(
     fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
     pkg$dst_path
   )
@@ -112,12 +120,8 @@ build_search <- function(pkg = ".",
     index <- unlist(index, recursive = FALSE)
   }
 
-  index <- purrr::compact(index)
-  jsonlite::write_json(
-    index,
-    file.path(pkg$dst_path, "search.json"),
-    auto_unbox = TRUE
-  )
+  purrr::compact(index)
+
 }
 
 news_search_index <- function(path, pkg) {

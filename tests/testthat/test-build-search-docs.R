@@ -21,6 +21,5 @@ test_that("build_search() builds the expected search.json", {
   build_news(pkg)
   build_home(pkg)
   build_sitemap(pkg)
-  build_search(pkg)
-  expect_snapshot_file(path(tmp, "search.json"))
+  expect_snapshot(build_search_index(pkg))
 })
