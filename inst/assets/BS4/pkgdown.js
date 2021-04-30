@@ -4,14 +4,14 @@
 
     $('nav.navbar').headroom();
 
-    $('body').scrollspy({
-      target: '#sidebar',
-      offset: 60
-    });
-
     Toc.init({
       $nav: $("#toc"),
       $scope: $("h2, h3, h4, h5, h6")
+    });
+
+    $('body').scrollspy({
+      target: '#pkgdown-sidebar',
+      offset: 60
     });
 
     // Activate popovers

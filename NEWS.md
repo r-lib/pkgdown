@@ -3,6 +3,8 @@
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
   search pkgdown websites. (#1629)
   
+* Autolinking no longer failures if a package contains duplicated Rd aliases.
+
 * pkgdown websites using BS4 will be more accessible, besides a better color contrast:
     * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
     * the aria-labelledby property for navbar dropdowns was fixed.
