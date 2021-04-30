@@ -340,7 +340,10 @@ add_version <- function(header, version) {
   xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
   # make header ID the same as its anchor href
   xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
-  tweak_section_levels <- function(xml) {
+
+}
+
+    tweak_section_levels <- function(xml) {
     down_level <- function(x) {
       xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
     }
