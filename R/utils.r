@@ -265,8 +265,8 @@ remove_useless_parts <- function(links, pkg) {
 
 get_section_level <- function(section) {
     as.numeric(
-      sub(
-        ".*section level", "",
+      gsub(
+        ".*section level(\\d+).*", '\\1',
         xml2::xml_attr(section, "class")
       )
     )
