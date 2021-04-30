@@ -206,18 +206,16 @@ tweak_homepage_html <- function(html,
   # logo
   if (!is.null(logo) && bs_version > 3) {
     # Remove logo if added to h1
-    # Simple img
-    logo_node <- xml2::xml_find_first(html, ".//h1/img[contains(@src, 'logo')]")
-    if(length(logo_node) > 0) {
-      xml2::xml_remove(logo_node)
-    } else {
-      # Img in a link
-      xml2::xml_remove(
-        xml2::xml_parent(
-          xml2::xml_find_first(html, ".//h1/a/img[contains(@src, 'logo')]")
-        )
+    # Bare image
+    xml2::xml_remove(xml2::xml_find_all(html, ".//h1/img[contains(@src, 'logo')]"))
+
+    # Image in link
+    xml2::xml_remove(
+      xml2::xml_parent(
+        xml2::xml_find_all(html, ".//h1/a/img[contains(@src, 'logo')]")
       )
-    }
+    )
+
 
     # Add logo
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
