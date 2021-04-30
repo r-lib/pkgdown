@@ -1,0 +1,52 @@
+[
+  {
+    "path": ["/authors.html"],
+    "id": [null],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["Authors"],
+    "title": ["Authors"],
+    "text": ["Hadley Wickham. Author, maintainer.                  Hadley Wickham. Author, maintainer.                    . Copyright holder, funder.                  . Copyright holder, funder."],
+    "code": [""]
+  },
+  {
+    "path": ["/index.html"],
+    "id": ["testpackage"],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["A test package"],
+    "title": ["A test package"],
+    "text": ["nice package"],
+    "code": [""]
+  },
+  {
+    "path": ["/index.html"],
+    "id": ["thing"],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["Thing"],
+    "title": ["A test package"],
+    "text": ["cool!"],
+    "code": ["plot(1:10)"]
+  },
+  {
+    "path": ["/news/index.html"],
+    "id": ["testpackage-1009000"],
+    "dir": ["Changelog"],
+    "previous_headings": [""],
+    "what": ["testpackage 1.0.0.9000"],
+    "title": ["testpackage 1.0.0.9000"],
+    "text": ["bullet (#222 @someone)"],
+    "code": [""]
+  },
+  {
+    "path": ["/news/index.html"],
+    "id": ["sub-heading"],
+    "dir": ["Changelog"],
+    "previous_headings": [""],
+    "what": ["sub-heading"],
+    "title": ["testpackage 1.0.0"],
+    "text": ["first thing (#111 @githubuser) first thing (#111 @githubuser) second thing second thing"],
+    "code": [""]
+  }
+]

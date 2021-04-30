@@ -288,7 +288,11 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
 }
 
 xml_text1 <- function(x) {
-  paste0(xml2::xml_text(x), collapse = "")
+  trimws(
+    gsub("(\r\n|\r|\n)", " ",
+      paste0(trimws(xml2::xml_text(x)), collapse = " ")
+    )
+  )
 }
 
 strip_stop_words <- function(x) {
