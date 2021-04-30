@@ -63,3 +63,5 @@ span.cn {color:#8f5902}
 span.sc {color:#20794D}
 span.dv {color:#AD0000}
 span.kw {color:#007BA5}
+span.error   {font-weight: bolder;}
+span.warning {font-weight: bolder;}
