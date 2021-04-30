@@ -33,11 +33,9 @@ you are primarily working on the text of an article.">
 <script src="../deps/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.4/tabs.js"></script><script src="../deps/bs3compat-0.2.4/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../syntax-highlighting.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Build articles section — build_articles">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Build articles section — build_articles">
 <meta property="og:description" content="build_articles() renders each R Markdown file underneath vignettes/ and
 saves it to articles/. There are two exceptions:
 Files that start with _ (e.g., _index.Rmd) are ignored,
@@ -114,9 +112,8 @@ you are primarily working on the text of an article.">
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" data-search-index="/dev/search.json" id="search-input" placeholder="Search..." autocomplete="off">
 </form>
-      
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
@@ -137,7 +134,7 @@ you are primarily working on the text of an article.">
     <div class="d-none name"><code>build_articles.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p>
 <ul>
@@ -156,7 +153,7 @@ package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
-    <pre class="usage"><code class="sourceCode R"><span class="fu">build_articles</span><span class="op">(</span>
+    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">build_articles</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   quiet <span class="op">=</span> <span class="cn">TRUE</span>,
   lazy <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -166,31 +163,32 @@ you are primarily working on the text of an article.</p>
 
 <span class="fu">build_article</span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
+<span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
 
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments">
-<dt class="col-sm-3" id="ref-arguments name">pkg</dt>
+<dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">quiet</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-quiet">quiet</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Set to <code>FALSE</code> to display output of knitr and
 pandoc. This is useful when debugging.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">lazy</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-lazy">lazy</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, will only re-build article if input file has been
 modified more recently than the output file.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">override</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">preview</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">name</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-name">name</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Name of article to render. This should be either a path
 relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">data</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-data">data</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Additional data to pass on to template.</p></dd>
     </dl>
-<h2 class="hasAnchor" id="index-and-navbar">
+<div class="ref-section section level2" id="section-index-and-navbar">
+    <h2 class="hasAnchor" id="index-and-navbar">
 <a class="anchor" href="#index-and-navbar" aria-hidden="true"></a>Index and navbar</h2>
 
     
@@ -241,6 +239,8 @@ in the navbar drop-down list and others do not, the list will automatically
 include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.</p>
+    </div>
+    <div class="ref-section section level2" id="section-get-started">
     <h2 class="hasAnchor" id="get-started">
 <a class="anchor" href="#get-started" aria-hidden="true"></a>Get started</h2>
 
@@ -252,6 +252,8 @@ becomes a top-level "Get started" link, and will not appear in the articles
 drop-down.</p>
 <p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code>-</code> in the
 vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
+    </div>
+    <div class="ref-section section level2" id="section-external-files">
     <h2 class="hasAnchor" id="external-files">
 <a class="anchor" href="#external-files" aria-hidden="true"></a>External files</h2>
 
@@ -274,6 +276,8 @@ resource_files:
 
 <p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
+    </div>
+    <div class="ref-section section level2" id="section-embedding-shiny-apps">
     <h2 class="hasAnchor" id="embedding-shiny-apps">
 <a class="anchor" href="#embedding-shiny-apps" aria-hidden="true"></a>Embedding Shiny apps</h2>
 
@@ -285,6 +289,8 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <code>&lt;iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app"&gt;</code>.</p>
 <p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
+    </div>
+    <div class="ref-section section level2" id="section-yaml-header">
     <h2 class="hasAnchor" id="yaml-header">
 <a class="anchor" href="#yaml-header" aria-hidden="true"></a>YAML header</h2>
 
@@ -325,6 +331,8 @@ format.</p>
   <span class="va">number_sections</span><span class="op">:</span> <span class="va">false</span>
 </pre>
 
+    </div>
+    <div class="ref-section section level2" id="section-suppressing-vignettes">
     <h2 class="hasAnchor" id="suppressing-vignettes">
 <a class="anchor" href="#suppressing-vignettes" aria-hidden="true"></a>Suppressing vignettes</h2>
 
@@ -335,6 +343,8 @@ subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 <code><a href="build_site.html">build_site()</a></code> details.</p>
+    </div>
+    <div class="ref-section section level2" id="section-figures">
     <h2 class="hasAnchor" id="figures">
 <a class="anchor" href="#figures" aria-hidden="true"></a>Figures</h2>
 
@@ -360,6 +370,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p>
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such
 as HTML widgets.</p>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -386,21 +397,9 @@ as HTML widgets.</p>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
-    indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
 

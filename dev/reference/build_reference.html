@@ -20,11 +20,9 @@ _pkgdown.yml as described below.">
 <script src="../deps/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.4/tabs.js"></script><script src="../deps/bs3compat-0.2.4/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../syntax-highlighting.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Build reference section — build_reference">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Build reference section — build_reference">
 <meta property="og:description" content="By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a reference section in your
 _pkgdown.yml as described below.">
@@ -88,9 +86,8 @@ _pkgdown.yml as described below.">
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" data-search-index="/dev/search.json" id="search-input" placeholder="Search..." autocomplete="off">
 </form>
-      
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
@@ -111,13 +108,13 @@ _pkgdown.yml as described below.">
     <div class="d-none name"><code>build_reference.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p>By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a <code>reference</code> section in your
 <code>_pkgdown.yml</code> as described below.</p>
     </div>
 
-    <pre class="usage"><code class="sourceCode R"><span class="fu">build_reference</span><span class="op">(</span>
+    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">build_reference</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   lazy <span class="op">=</span> <span class="cn">TRUE</span>,
   examples <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -130,41 +127,42 @@ alphabetical order. To override this, provide a <code>reference</code> section i
   topics <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
-<span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
+<span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
 
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments">
-<dt class="col-sm-3" id="ref-arguments name">pkg</dt>
+<dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">lazy</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-lazy">lazy</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
 rapidly prototype. It is set to <code>FALSE</code> by <code><a href="build_site.html">build_site()</a></code>.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">examples</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-examples">examples</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples?</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">run_dont_run</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-run_dont_run">run_dont_run</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples that are surrounded in \dontrun?</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">seed</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-seed">seed</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Seed used to initialize so that random examples are
 reproducible.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">override</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">preview</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">devel</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-devel">devel</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Determines how code is loaded in order to run examples.
 If <code>TRUE</code> (the default), assumes you are in a live development
 environment, and loads source package with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code>.
 If <code>FALSE</code>, uses the installed version of the package.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">document</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-document">document</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">topics</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-topics">topics</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Build only specified topics. If supplied, sets <code>lazy</code>
 and <code>preview</code> to <code>FALSE</code>.</p></dd>
     </dl>
-<h2 class="hasAnchor" id="reference-index">
+<div class="ref-section section level2" id="section-reference-index">
+    <h2 class="hasAnchor" id="reference-index">
 <a class="anchor" href="#reference-index" aria-hidden="true"></a>Reference index</h2>
 
     
@@ -258,6 +256,8 @@ a top-level <code>icons</code> directory. This should contain .png files that ar
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.</p>
 
+    </div>
+    <div class="ref-section section level2" id="section-figures">
     <h2 class="hasAnchor" id="figures">
 <a class="anchor" href="#figures" aria-hidden="true"></a>Figures</h2>
 
@@ -283,6 +283,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p>
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such
 as HTML widgets.</p>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -309,21 +310,9 @@ as HTML widgets.</p>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
-    indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
 

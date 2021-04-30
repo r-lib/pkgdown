@@ -5,10 +5,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Assumes that you're in a git clone of the project, and the package is
-already installed. Use usethis::use_pkgdown_github_pages() to automate
-this process using GitHub actions.">
-<title>Build and deploy a site locally — deploy_to_branch • pkgdown</title>
+<meta name="description" content="Build a JSON file encompassing all HTML pages, for use by the search script.">
+<title>Build search index — build_search • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -22,10 +20,8 @@ this process using GitHub actions.">
 <!-- bootstrap-toc --><link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
 <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../syntax-highlighting.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Build and deploy a site locally — deploy_to_branch">
-<meta property="og:description" content="Assumes that you're in a git clone of the project, and the package is
-already installed. Use usethis::use_pkgdown_github_pages() to automate
-this process using GitHub actions.">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Build search index — build_search">
+<meta property="og:description" content="Build a JSON file encompassing all HTML pages, for use by the search script.">
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -103,47 +99,51 @@ this process using GitHub actions.">
 <div class="row">
   <div class="col-md-9 contents">
     <img src="../package-logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
-    <h1 class="display-4">Build and deploy a site locally</h1>
-    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/deploy-site.R"><code>R/deploy-site.R</code></a></small>
-    <div class="d-none name"><code>deploy_to_branch.Rd</code></div>
+    <h1 class="display-4">Build search index</h1>
+    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build-search-docs.R"><code>R/build-search-docs.R</code></a></small>
+    <div class="d-none name"><code>build_search.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p>Assumes that you're in a git clone of the project, and the package is
-already installed. Use <code>usethis::use_pkgdown_github_pages()</code> to automate
-this process using GitHub actions.</p>
+    <p>Build a JSON file encompassing all HTML pages, for use by the search script.</p>
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">deploy_to_branch</span><span class="op">(</span>
-  pkg <span class="op">=</span> <span class="st">"."</span>,
-  commit_message <span class="op">=</span> <span class="fu">construct_commit_message</span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span>,
-  clean <span class="op">=</span> <span class="cn">FALSE</span>,
-  branch <span class="op">=</span> <span class="st">"gh-pages"</span>,
-  remote <span class="op">=</span> <span class="st">"origin"</span>,
-  github_pages <span class="op">=</span> <span class="op">(</span><span class="va">branch</span> <span class="op">==</span> <span class="st">"gh-pages"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">build_search</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments">
 <dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-commit_message">commit_message</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The commit message to be used for the commit.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-clean">clean</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Clean all files from old site.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-branch">branch</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The git branch to deploy to</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-remote">remote</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The git remote to deploy to</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-github_pages">github_pages</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Is this a GitHub pages deploy. If <code>TRUE</code>, adds a <code>CNAME</code>
-file for custom domain name support, and a <code>.nojekyll</code> file to suppress
-jekyll rendering.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-...">...</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
+      <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
+values in <code>_pkgdown.yml</code></p></dd>
     </dl>
+<div class="ref-section section level2" id="section-yaml-config">
+    <h2 class="hasAnchor" id="yaml-config">
+<a class="anchor" href="#yaml-config" aria-hidden="true"></a>YAML config</h2>
+
+    
+
+<p>You can exclude some paths from the search index.
+Below we exclude the changelog from the search index.</p>
+<div class="yaml">
+<pre>search:
+  exclude: ['news/index.html']
+</pre>
+<p></p>
 </div>
+    </div>
+    <div class="ref-section section level2" id="section-local-testing">
+    <h2 class="hasAnchor" id="local-testing">
+<a class="anchor" href="#local-testing" aria-hidden="true"></a>Local testing</h2>
+
+    
+
+<p>Search won't work if you simply use pkgdown preview of the static files.
+You can use <code>servr::httw("docs")</code> instead.</p>
+    </div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>

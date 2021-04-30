@@ -27,11 +27,9 @@ website to any desired branch.
 <script src="../deps/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.4/tabs.js"></script><script src="../deps/bs3compat-0.2.4/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../syntax-highlighting.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Deploy a pkgdown site on Travis-CI to Github Pages — deploy_site_github">
 <meta property="og:description" content="
 deploy_site_github() was designed to deploy your site from Travis CI,
 which we no longer recommend, so this function is deprecated. There are
@@ -102,9 +100,8 @@ website to any desired branch.
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+        <input type="search" class="form-control mr-sm-2" aria-label="Search" name="search-input" data-search-index="/dev/search.json" id="search-input" placeholder="Search..." autocomplete="off">
 </form>
-      
 
       <ul class="navbar-nav ml-1">
 <li class="nav-item">
@@ -125,7 +122,7 @@ website to any desired branch.
     <div class="d-none name"><code>deploy_site_github.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a></p>
 <p><code>deploy_site_github()</code> was designed to deploy your site from Travis CI,
 which we no longer recommend, so this function is deprecated. There are
@@ -138,7 +135,7 @@ website to any desired branch.</p></li>
 </ul>
 </div>
 
-    <pre class="usage"><code class="sourceCode R"><span class="fu">deploy_site_github</span><span class="op">(</span>
+    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">deploy_site_github</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   install <span class="op">=</span> <span class="cn">TRUE</span>,
   tarball <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"PKG_TARBALL"</span>, <span class="st">""</span><span class="op">)</span>,
@@ -149,34 +146,34 @@ website to any desired branch.</p></li>
   host <span class="op">=</span> <span class="st">"github.com"</span>,
   <span class="va">...</span>,
   repo_slug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"TRAVIS_REPO_SLUG"</span>, <span class="st">""</span><span class="op">)</span>
-<span class="op">)</span></code></pre>
+<span class="op">)</span></code></pre></div>
 
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments">
-<dt class="col-sm-3" id="ref-arguments name">pkg</dt>
+<dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">install</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-install">install</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Optionally, opt-out of automatic installation. This is
 necessary if the package you're documenting is a dependency of pkgdown</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">tarball</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-tarball">tarball</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>The location of the built package tarball. The default Travis
 configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">ssh_id</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-ssh_id">ssh_id</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">commit_message</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-commit_message">commit_message</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>The commit message to be used for the commit.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">clean</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-clean">clean</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Clean all files from old site.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">verbose</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-verbose">verbose</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Print verbose output</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">host</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-host">host</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>The GitHub host url.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">...</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-...">...</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
-    <dt class="col-sm-3" id="ref-arguments name">repo_slug</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-repo_slug">repo_slug</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>The <code>user/repo</code> slug for the repository.</p></dd>
     </dl>
 </div>
@@ -204,21 +201,9 @@ new keypair specifically for deploying the site. The easiest way is to use
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
-    indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
 
