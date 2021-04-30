@@ -68,6 +68,13 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   pkg_list$bs_version <- get_bs_version(pkg_list)
   pkg_list$has_logo <- has_logo(pkg_list)
+  pkg_list$prefix <- ""
+  if (pkg_list$development$in_dev) {
+    pkg_list$prefix <- paste0(
+      meta_development(pkg_list$meta, pkg_list$version)$destination,
+      "/"
+    )
+  }
 
   structure(
     pkg_list,

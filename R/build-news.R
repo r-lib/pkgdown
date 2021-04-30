@@ -147,6 +147,10 @@ data_news <- function(pkg = ".") {
 
   sections <- xml2::xml_find_all(xml, "./body/div")
 
+  if (pkg$bs_version > 3) {
+    tweak_section_levels(xml)
+  }
+
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
@@ -263,7 +267,7 @@ pkg_timeline <- function(package) {
 
 tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
-  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom"
+  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom pkg-version"
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
@@ -301,24 +305,36 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
   ## one level down for BS4
   if (bs_version > 3) {
-     x %>%
+    x %>%
+      xml2::xml_find_all(".//div[contains(@class, 'section level')]")
+    x %>%
       xml2::xml_find_all(".//h5") %>%
       xml2::xml_set_name("h6")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h4") %>%
       xml2::xml_set_name("h5")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h3") %>%
       xml2::xml_set_name("h4")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h2") %>%
       xml2::xml_set_name("h3")
-     x %>%
+    x %>%
       xml2::xml_find_all(".//h1") %>%
       xml2::xml_set_name("h2")
   }
 
   invisible()
+}
+
+tweak_section_levels <- function(xml) {
+  down_level <- function(x) {
+    xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
+  }
+
+  xml %>%
+    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
+    purrr::walk(down_level)
 }
 
 news_style <- function(meta) {

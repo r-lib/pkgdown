@@ -7,7 +7,7 @@
     <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     {{#description}}
     {{#contents}}
     {{{.}}}
@@ -16,25 +16,27 @@
     </div>
 
     {{#usage}}
-    <pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre>
+    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R">{{{.}}}</code></pre></div>
     {{/usage}}
 
     {{#has_args}}
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments">
     {{#arguments}}
-    <dt class="col-sm-3" id="ref-arguments name">{{{name}}}</dt>
+    <dt class="col-sm-3 section level2" id="pkg-arg-{{{name}}}">{{{name}}}</dt>
       <dd class="col-sm-9" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
     </dl>
     {{/has_args}}
 
     {{#sections}}
+    <div class="ref-section section level2" id="section-{{slug}}">
     <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}" aria-hidden="true"></a>{{{title}}}</h2>
 
     {{#contents}}
     {{{.}}}
     {{/contents}}
+    </div>
     {{/sections}}
 
     {{#examples}}
