@@ -343,20 +343,21 @@ add_version <- function(header, version) {
 
 }
 
-    tweak_section_levels <- function(xml) {
-    down_level <- function(x) {
-      xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
-    }
 
-    xml %>%
-      xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
-      purrr::walk(down_level)
+tweak_section_levels <- function(xml) {
+  down_level <- function(x) {
+    xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
   }
 
-  news_style <- function(meta) {
-    one_page <- purrr::pluck(meta, "news", "one_page") %||%
-      purrr::pluck(meta, "news", 1, "one_page") %||%
-      TRUE
+  xml %>%
+    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
+    purrr::walk(down_level)
+}
 
-    if (one_page) "single" else "multi"
-  }
+news_style <- function(meta) {
+  one_page <- purrr::pluck(meta, "news", "one_page") %||%
+    purrr::pluck(meta, "news", 1, "one_page") %||%
+    TRUE
+
+  if (one_page) "single" else "multi"
+}
