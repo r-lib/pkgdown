@@ -99,7 +99,7 @@ deploy_site_github <- function(
 #' @export
 deploy_to_branch <- function(pkg = ".",
                          commit_message = construct_commit_message(pkg),
-                         clean = FALSE,
+                         clean = TRUE,
                          branch = "gh-pages",
                          remote = "origin",
                          github_pages = (branch == "gh-pages"),

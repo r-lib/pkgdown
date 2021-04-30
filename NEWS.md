@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
+
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
   search pkgdown websites. (#1629)
 
