@@ -114,9 +114,9 @@
 <li>
 <p>pkgdown websites using BS4 will be more accessible, besides a better color contrast:</p>
 <ul>
-<li>the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.</li>
-<li>the aria-labelledby property for navbar dropdowns was fixed.</li>
-<li>the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (<a href="https://github.com/r-lib/pkgdown/issues/1635">#1635</a>)</li>
+<li><p>the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.</p></li>
+<li><p>the aria-labelledby property for navbar dropdowns was fixed.</p></li>
+<li><p>the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (<a href="https://github.com/r-lib/pkgdown/issues/1635">#1635</a>)</p></li>
 </ul>
 </li>
 <li><p>README badges in a single paragraph, placed between the <code>badges: end</code> and <code>badges: end</code> comments, are detected again (<a href="https://github.com/r-lib/pkgdown/issues/1603">#1603</a>).</p></li>
@@ -130,21 +130,21 @@
 <li>
 <p>pkgdown now contains templates using Bootstrap 4 (with help from <a href="https://github.com/jayhesselberth">@jayhesselberth</a>).</p>
 <ul>
-<li>Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf <code>usethis::use_logo()</code> for using a logo file in your package).</li>
-<li>Easy customisation of colours and fonts with bslib</li>
-<li>Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.</li>
-<li>R syntax highlighting and autolinking by downlit is now paired with an <a href="https://apreshill.github.io/rmda11y/arrow.html" class="external-link">accessible colour scheme designed by Alison Hill</a>. (<a href="https://github.com/r-lib/pkgdown/issues/1536">#1536</a>)</li>
-<li>In-line footnotes mean you can read asides next to the next they refer to.</li>
+<li><p>Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf <code>usethis::use_logo()</code> for using a logo file in your package).</p></li>
+<li><p>Easy customisation of colours and fonts with bslib</p></li>
+<li><p>Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.</p></li>
+<li><p>R syntax highlighting and autolinking by downlit is now paired with an <a href="https://apreshill.github.io/rmda11y/arrow.html" class="external-link">accessible colour scheme designed by Alison Hill</a>. (<a href="https://github.com/r-lib/pkgdown/issues/1536">#1536</a>)</p></li>
+<li><p>In-line footnotes mean you can read asides next to the next they refer to.</p></li>
 </ul>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> again sets the <code>theme</code> argument of the document format to <code>NULL</code> when <code>as_is: true</code> but lets users override this via the <code>theme</code> argument of the output format.</p></li>
 <li>
 <p>Authors configuration is more flexible. Users can now:</p>
 <ul>
-<li>Choose the roles used for filtering authors for the sidebar and footer.</li>
-<li>Choose the text before authors in the footer.</li>
-<li>Add text before and after the authors list in the sidebar.</li>
-<li>Add text before and after the authors list of the authors page. (<a href="https://github.com/r-lib/pkgdown/issues/1516">#1516</a>)</li>
+<li><p>Choose the roles used for filtering authors for the sidebar and footer.</p></li>
+<li><p>Choose the text before authors in the footer.</p></li>
+<li><p>Add text before and after the authors list in the sidebar.</p></li>
+<li><p>Add text before and after the authors list of the authors page. (<a href="https://github.com/r-lib/pkgdown/issues/1516">#1516</a>)</p></li>
 </ul>
 </li>
 <li><p>Make authors’ non-ORCID comments from DESCRIPTION more usable as bio/description of contributions: add a link to the authors page from the sidebar if any author has a non-ORCID comment, and only render non-ORCID comments on the authors page. (<a href="https://github.com/r-lib/pkgdown/issues/1516">#1516</a>)</p></li>
@@ -165,11 +165,11 @@
 <li>
 <p>Make sidebar specification more flexible: users can now</p>
 <ul>
-<li>change the order of sidebar elements</li>
-<li>add custom sidebar sections (title, text that can be Markdown or HTML)</li>
-<li>add a table of contents for the README</li>
-<li>completely suppress the sidebar (even “Dev status”)</li>
-<li>provide their own HTML for the navbar. (<a href="https://github.com/r-lib/pkgdown/issues/1443">#1443</a>, <a href="https://github.com/r-lib/pkgdown/issues/1488">#1488</a>, <a href="https://github.com/r-lib/pkgdown/issues/1502">#1502</a>)</li>
+<li><p>change the order of sidebar elements</p></li>
+<li><p>add custom sidebar sections (title, text that can be Markdown or HTML)</p></li>
+<li><p>add a table of contents for the README</p></li>
+<li><p>completely suppress the sidebar (even “Dev status”)</p></li>
+<li><p>provide their own HTML for the navbar. (<a href="https://github.com/r-lib/pkgdown/issues/1443">#1443</a>, <a href="https://github.com/r-lib/pkgdown/issues/1488">#1488</a>, <a href="https://github.com/r-lib/pkgdown/issues/1502">#1502</a>)</p></li>
 </ul>
 </li>
 <li><p>Protect the rules drawn by the CLI (as for example, in <code><a href="../reference/build_site.html">build_site()</a></code>) against very narrow terminal windows with small <code>getOption('width')</code>s (<a href="https://github.com/maxheld83">@maxheld83</a>, <a href="https://github.com/r-lib/pkgdown/issues/1435">#1435</a>).</p></li>
