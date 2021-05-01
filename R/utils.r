@@ -263,7 +263,6 @@ remove_useless_parts <- function(links, pkg) {
   links
 }
 
-
 get_section_level <- function(section) {
   as.numeric(
     sub(
