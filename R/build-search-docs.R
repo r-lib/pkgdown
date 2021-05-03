@@ -235,7 +235,13 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
   xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'dont-index')]"))
 
   # Helpers for XPath queries
-  all <- function(...) paste0(".//", c(...), collapse = "|")
+  # We want to find all nodes corresponding to ... but whose descendants
+  # do not correspond to any ... otherwise we would treat some text/code twice,
+  # e.g. the text of p nested within li.
+  all <- function(...) {
+    not <- sprintf("[not(%s)]", paste0(paste0("descendant::", c(...)), collapse = "|"))
+    paste0(".//", c(...), not, collapse = "|")
+  }
   text_xpath <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
   code_xpath <- all("pre")
 
