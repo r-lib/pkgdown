@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_news()` no longer breaks URLs with fragments (@krassowski, #1456).
+
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
 
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)

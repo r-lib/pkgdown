@@ -43,7 +43,8 @@ repo_auto_link <- function(pkg, text) {
 
   if (!is.null(url$issue)) {
     issue_link <- paste0("<a href='", url$issue, "\\1'>#\\1</a>")
-    text <- gsub("#(\\d+)", issue_link, text, perl = TRUE)
+    text <- gsub("\\(#(\\d+)", paste0("(", issue_link), text, perl = TRUE)
+    text <- gsub(" #(\\d+)", paste0(" ", issue_link), text, perl = TRUE)
 
     if (!is.null(pkg$repo$jira_projects)) {
       issue_link <- paste0("<a href='", url$issue, "\\1\\2'>\\1\\2</a>")
