@@ -107,6 +107,7 @@
 <a href="#pkgdown-development-version" class="anchor" aria-hidden="true"></a>pkgdown (development version)</h2>
 <h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
 <ul>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> no longer breaks URLs with numeric fragments (<a href="https://github.com/krassowski">@krassowski</a>, <a href="https://github.com/r-lib/pkgdown/issues/1456">#1456</a>).</p></li>
 <li><p>The 404 page (default or from <code>.github/404.md</code>) is no longer built in the development mode (see <code><a href="../reference/build_site.html">?build_site</a></code>) as e.g. GitHub pages only uses the 404.html page that is at the root, that is to say, the 404 page built for the unreleased or release modes. (<a href="https://github.com/r-lib/pkgdown/issues/1622">#1622</a>)</p></li>
 <li><p>All links on the 404 pages (navbar, scripts, CSS) are now absolute if there is an URL in the configuration file. (<a href="https://github.com/r-lib/pkgdown/issues/1622">#1622</a>)</p></li>
 <li><p>Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (<a href="https://github.com/Bisaloo">@Bisaloo</a>, <a href="https://github.com/r-lib/pkgdown/issues/1015">#1015</a>)</p></li>
@@ -368,7 +369,7 @@
 <a href="#navbar-1.5.0" class="anchor" aria-hidden="true"></a>Navbar</h4>
 <ul>
 <li><p>pkgdown now formats the package version displayed in the navbar the same way as it has been specified in the DESCRIPTION file. In particular, version separators (e.g. <code>.</code> and <code>-</code>) are preserved. (<a href="https://github.com/r-lib/pkgdown/issues/1170">#1170</a>, <a href="https://github.com/kevinushey">@kevinushey</a>)</p></li>
-<li><p>add support for navbar submenus: you can create submenus following the convention established in <a href="https://github.com/rstudio/rmarkdown/issues/721" class="external-link">rstudio/rmarkdown</a><a href="https://github.com/r-lib/pkgdown/issues/721">#721</a> (<a href="https://github.com/ijlyttle">@ijlyttle</a>, <a href="https://github.com/wendtke">@wendtke</a>, <a href="https://github.com/r-lib/pkgdown/issues/1213">#1213</a>)</p></li>
+<li><p>add support for navbar submenus: you can create submenus following the convention established in <a href="https://github.com/rstudio/rmarkdown/issues/721" class="external-link">rstudio/rmarkdown#721</a> (<a href="https://github.com/ijlyttle">@ijlyttle</a>, <a href="https://github.com/wendtke">@wendtke</a>, <a href="https://github.com/r-lib/pkgdown/issues/1213">#1213</a>)</p></li>
 </ul>
 </div>
 <div id="other-1" class="section level4">
