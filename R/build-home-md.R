@@ -12,6 +12,11 @@ build_home_md <- function(pkg) {
   handled <- c("README.md", "LICENSE.md", "LICENCE.md", "NEWS.md", "cran-comments.md")
   mds <- mds[!path_file(mds) %in% handled]
 
+  # Do not build 404 page if in-dev
+  if (pkg$development$in_dev) {
+    mds <- mds[fs::path_file(mds) != "404.md"]
+  }
+
   lapply(mds, render_md, pkg = pkg)
   invisible()
 }
