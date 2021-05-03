@@ -11,7 +11,6 @@ build_redirects <- function(pkg = ".",
     abort(sprintf("Can't find %s.", pkgdown_field(pkg, "url")))
   }
 
-  # after the local search PR is merged the sitemap will be actually complete
   sitemap <- xml2::read_xml(file.path(pkg$dst_path, "sitemap.xml"))
   paths <- xml2::xml_contents(sitemap) %>%
     purrr::map_chr(xml2::xml_text) %>%
@@ -36,14 +35,6 @@ build_redirect <- function(entry, pkg, paths) {
   )
   template <- read_file(path)
 
-  # after the local search PR is merged hopefully the prefix will be in pkg
-  pkg$prefix <- ""
-  if (pkg$development$in_dev) {
-    pkg$prefix <- paste0(
-      meta_development(pkg$meta, pkg$version)$destination,
-      "/"
-    )
-  }
   url <- sprintf("%s/%s%s", pkg$meta$url, pkg$prefix, new)
   lines <- whisker::whisker.render(template, list(url = url))
   write_lines(lines, file.path(pkg$dst_path, old))
