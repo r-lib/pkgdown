@@ -23,9 +23,9 @@
       cat(as.character(xml2::xml_child(dev_html)))
     Output
       <body><div><div><div>
-          <a href="https://example.com/dev/reference.html"></a>
-          <link href="https://example.com/dev/reference.css">
-      <script src="https://example.com/dev/reference.js"></script><img src="https://example.com/dev/" class="pkg-logo">
+          <a href="https://example.com/reference.html"></a>
+          <link href="https://example.com/reference.css">
+      <script src="https://example.com/reference.js"></script><img src="https://example.com/" class="pkg-logo">
       </div></div></div></body>
 
 # page header modification succeeds
