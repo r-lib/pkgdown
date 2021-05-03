@@ -3,7 +3,7 @@ test_that("build_redirect() works", {
     src_path = withr::local_tempdir(),
     dst_path = withr::local_tempdir(),
     meta = list(url = "https://example.com"),
-    development = list(in_dev = FALSE),
+    prefix = "",
     bs_version = 4
   )
   pkg <- structure(pkg, class = "pkgdown")
