@@ -14,7 +14,16 @@ test_that("authors are automatically linked", {
 
 test_that("issues are automatically linked", {
   pkg <- list(repo = repo_meta(issue = "TEST/"))
-  expect_equal(repo_auto_link(pkg, "#123"), "<a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "(#123"), "(<a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "in #123"), "in <a href='TEST/123'>#123</a>")
+})
+
+test_that("URLs with hash (#) are preserved", {
+  pkg <- list(repo = repo_meta(issue = "TEST/"))
+  expect_equal(
+    repo_auto_link(pkg, "[example 5.4](https:/my.site#5-4-ad)"),
+    "[example 5.4](https:/my.site#5-4-ad)"
+  )
 })
 
 test_that("Jira issues are automatically linked", {

@@ -6,7 +6,7 @@
     "previous_headings": [""],
     "what": ["Authors"],
     "title": ["Authors"],
-    "text": ["Hadley Wickham. Author, maintainer. Hadley Wickham. Author, maintainer. . Copyright holder, funder. . Copyright holder, funder."],
+    "text": ["Hadley Wickham. Author, maintainer. . Copyright holder, funder."],
     "code": [""]
   },
   {
@@ -46,7 +46,7 @@
     "previous_headings": [""],
     "what": ["sub-heading"],
     "title": ["testpackage 1.0.0"],
-    "text": ["first thing (#111 @githubuser) first thing (#111 @githubuser) second thing second thing"],
+    "text": ["first thing (#111 @githubuser) second thing"],
     "code": [""]
   }
 ]
