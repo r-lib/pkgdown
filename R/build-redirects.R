@@ -23,10 +23,9 @@ build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry)) || length(entry) != 2) {
     abort(
       sprintf(
-        "All redirect entries must have length 2 (entry %s in %s has length %s).",
+        "Entry %s in %s must be a character vector of length 2.",
         index,
-        pkgdown_field(pkg, "redirects"),
-        length(entry)
+        pkgdown_field(pkg, "redirects")
       )
     )
   }

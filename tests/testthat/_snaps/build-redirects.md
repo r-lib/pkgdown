@@ -7,5 +7,5 @@
 
 # build_redirect() errors if one entry is not right.
 
-    All redirect entries must have length 2 (entry 5 in redirects has length 1).
+    Entry 5 in redirects must be a character vector of length 2.
 
