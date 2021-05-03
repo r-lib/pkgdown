@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `build_news()` no longer breaks URLs with fragments (@krassowski, #1456).
+* `build_news()` no longer breaks URLs with numeric fragments (@krassowski, #1456).
 
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
 
