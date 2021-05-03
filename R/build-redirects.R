@@ -20,7 +20,7 @@ build_redirects <- function(pkg = ".",
 }
 
 build_redirect <- function(entry, index, pkg) {
-  if (!is.character(entry)) || length(entry) != 2) {
+  if (!is.character(entry) || length(entry) != 2) {
     abort(
       sprintf(
         "Entry %s in %s must be a character vector of length 2.",
