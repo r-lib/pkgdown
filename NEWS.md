@@ -2,6 +2,10 @@
 
 * `build_news()` no longer breaks URLs with numeric fragments (@krassowski, #1456).
 
+* The 404 page (default or from `.github/404.md`) is no longer built in the development mode (see `?build_site`) as e.g. GitHub pages only uses the 404.html page that is at the root, that is to say, the 404 page built for the unreleased or release modes. (#1622)
+
+* All links on the 404 pages (navbar, scripts, CSS) are now absolute if there is an URL in the configuration file. (#1622)
+
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
 
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
