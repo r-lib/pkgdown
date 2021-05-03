@@ -1,6 +1,13 @@
 # pkgdown (development version)
 
-* pkgdown now supports defining redirects. (#1259, @lorenzwalthert)
+* pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
+
+  ```yaml
+  redirects:
+    - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
+    - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
+    - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
+  ```
 
 * Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
 
