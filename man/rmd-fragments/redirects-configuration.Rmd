@@ -2,7 +2,7 @@ If you change the structure of your documentation (by renaming vignettes or help
 One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
 This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.
 
-The syntax is the following, with disappeared pages on the right, new relative or absolute URLs on the right.
+The syntax is the following, with old paths on the left, and new paths or URLs on the right.
 
 ```yaml
 redirects:
