@@ -265,7 +265,7 @@ pkg_timeline <- function(package) {
   )
 }
 
-tweak_news_heading <- function(x, versions, timeline, bs_version) {
+tweak_news_heading <- function(x, version, timeline, bs_version) {
 
   class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom pkg-version"
 
@@ -275,13 +275,13 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("data-toc-text", versions)
+    xml2::xml_set_attr("data-toc-text", version)
 
   if (is.null(timeline)) {
     return(x)
   }
 
-  date <- timeline$date[match(versions, timeline$version)]
+  date <- timeline$date[match(version, timeline$version)]
   date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
   if (bs_version == 3) {
@@ -309,16 +309,20 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
       xml2::xml_find_all(".//div[contains(@class, 'section level')]")
     x %>%
       xml2::xml_find_all(".//h5") %>%
-      xml2::xml_set_name("h6")
+      xml2::xml_set_name("h6") %>%
+      purrr::walk(add_version, version)
     x %>%
       xml2::xml_find_all(".//h4") %>%
-      xml2::xml_set_name("h5")
+      xml2::xml_set_name("h5") %>%
+      purrr::walk(add_version, version)
     x %>%
       xml2::xml_find_all(".//h3") %>%
-      xml2::xml_set_name("h4")
+      xml2::xml_set_name("h4") %>%
+      purrr::walk(add_version, version)
     x %>%
       xml2::xml_find_all(".//h2") %>%
-      xml2::xml_set_name("h3")
+      xml2::xml_set_name("h3") %>%
+      purrr::walk(add_version, version)
     x %>%
       xml2::xml_find_all(".//h1") %>%
       xml2::xml_set_name("h2")
@@ -326,6 +330,19 @@ tweak_news_heading <- function(x, versions, timeline, bs_version) {
 
   invisible()
 }
+
+add_version <- function(header, version) {
+  version <- gsub("\\s+", "-", version)
+  anchor <- xml2::xml_find_first(header, ".//a")
+  # remove the numbers added by Pandoc
+  xml2::xml_attr(anchor, "href") <- sub("-[0-9]+$", "", xml2::xml_attr(anchor, "href"))
+  # add the package version instead
+  xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
+  # make header ID the same as its anchor href
+  xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
+
+}
+
 
 tweak_section_levels <- function(xml) {
   down_level <- function(x) {
