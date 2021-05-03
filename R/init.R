@@ -46,7 +46,9 @@ init_site <- function(pkg = ".") {
 
   build_site_meta(pkg)
   build_logo(pkg)
-  build_404(pkg)
+  if (!pkg$development$in_dev) {
+    build_404(pkg)
+  }
 
   invisible()
 }
