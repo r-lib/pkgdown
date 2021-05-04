@@ -218,11 +218,17 @@ build_reference_index <- function(pkg = ".") {
     dir_copy_to(pkg, src_icons, dst_icons)
   }
 
-  invisible(render_page(
+  render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg),
     path = "reference/index.html"
-  ))
+  )
+
+  html <- xml2::read_html(file.path(pkg$dst, "reference/index.html"))
+  tweak_all_links(html, pkg = pkg)
+  xml2::write_html(html, file.path(pkg$dst, "reference/index.html"))
+
+  invisible()
 }
 
 

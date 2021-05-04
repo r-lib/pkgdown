@@ -167,3 +167,31 @@ topic_must <- function(message, topic) {
     x = paste0("Not ", encodeString(topic, quote = "'"))
   ))
 }
+
+content_info <- function(content_entry, pkg) {
+  if (inherits(content_entry, "list")) {
+    tibble::tibble(
+      path = content_entry$href,
+      aliases = list(text = content_entry$alias),
+      title = content_entry$title,
+      icon = list(text = NULL)
+    )
+  } else {
+    if (grepl(".*::.*", content_entry)) {
+      NULL
+    } else {
+      topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
+      tibble::tibble(
+        path = topics$file_out,
+        aliases = purrr::map2(
+          topics$funs,
+          topics$name,
+          ~ if (length(.x) > 0) .x else .y
+        ),
+        name = list(topics$name),
+        title = topics$title,
+        icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
+      )
+    }
+  }
+}

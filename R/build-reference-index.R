@@ -42,23 +42,13 @@ data_reference_index_rows <- function(section, pkg) {
 
 
   if (has_name(section, "contents")) {
-    in_section <- select_topics(section$contents, pkg$topics)
-    topics <- pkg$topics[in_section, ]
-
-    contents <- tibble::tibble(
-      path = topics$file_out,
-      aliases = purrr::map2(
-        topics$funs,
-        topics$name,
-        ~ if (length(.x) > 0) .x else .y
-      ),
-      title = topics$title,
-      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
-    )
-
+    contents <- purrr::map(section$contents, content_info, pkg = pkg)
+    names <- unique(unlist(purrr::map(contents, "name")))
+    contents <- purrr::map(contents, function(x) x[names(x) != "name"])
+    contents <- do.call(rbind, contents)
     rows[[3]] <- list(
       topics = purrr::transpose(contents),
-      names = topics$name,
+      names =names,
       row_has_icons = !purrr::every(contents$icon, is.null)
     )
   }
