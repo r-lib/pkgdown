@@ -548,6 +548,26 @@ time (e.g. because it's only behind the firewall or requires auth).</p>
 <p>Like the navbar and side, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
     </div>
+    <div class="ref-section section level2" id="section-yaml-config-redirects">
+    <h2 class="hasAnchor" id="yaml-config-redirects">
+<a class="anchor" href="#yaml-config-redirects" aria-hidden="true"></a>YAML config - redirects</h2>
+
+    
+
+<p>If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
+One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
+This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.</p>
+<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p>
+<div class="yaml">
+<pre>redirects:
+  - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
+  - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
+  - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
+</pre>
+<p></p>
+</div>
+<p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
+    </div>
     <div class="ref-section section level2" id="section-options">
     <h2 class="hasAnchor" id="options">
 <a class="anchor" href="#options" aria-hidden="true"></a>Options</h2>
