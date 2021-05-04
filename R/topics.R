@@ -196,7 +196,11 @@ content_info <- function(content_entry, index, pkg, section) {
     )
   } else {
     if (grepl(".*::.*", content_entry)) {
+      names <- strsplit(content_entry, "::")[[1]]
+      rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
+      rd <- tools::Rd_db(names[1])[[rd_name]]
       browser()
+
     } else {
       topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
       tibble::tibble(
