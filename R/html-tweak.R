@@ -114,7 +114,7 @@ tweak_footnotes <- function(html) {
   id <- xml2::xml_attr(footnotes, "id")
   xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
   contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
-    as.character(xml2::xml_children(x))
+    as.character(xml2::xml_children(x), options = character())
   })
   # Add popover attributes to links
   for (i in seq_along(id)) {
