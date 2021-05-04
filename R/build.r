@@ -268,6 +268,10 @@
 #' @section YAML config - footer:
 #' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
 #' ```
+#' @section YAML config - redirects:
+#' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
+#' ```
+#'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
@@ -435,6 +439,7 @@ build_site_local <- function(pkg = ".",
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)
+  build_redirects(pkg, override = override)
   if (pkg$bs_version == 3) {
     build_docsearch_json(pkg)
   } else {
