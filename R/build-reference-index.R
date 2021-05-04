@@ -42,7 +42,7 @@ data_reference_index_rows <- function(section, pkg) {
 
 
   if (has_name(section, "contents")) {
-    if (any(!is.character(section$contents) || !nzchar(section$contents))) {
+    if (any(!is.character(section$contents) || any(!nzchar(section$contents)))) {
       abort(
         paste(
           sprintf(
@@ -51,10 +51,7 @@ data_reference_index_rows <- function(section, pkg) {
             section$title,
             pkgdown_field(pkg, "reference")
           ),
-          sprintf(
-            "%s You might need to add '' around e.g. - 'N' or - 'off'.",
-            cli::symbol$info
-          ),
+          "i You might need to add '' around e.g. - 'N' or - 'off'.",
           sep = "\n"
         )
       )
