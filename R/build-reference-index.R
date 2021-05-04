@@ -42,6 +42,23 @@ data_reference_index_rows <- function(section, pkg) {
 
 
   if (has_name(section, "contents")) {
+    if (any(!is.character(section$contents) || !nzchar(section$contents))) {
+      abort(
+        paste(
+          sprintf(
+            "Content %s in section %s in %s must be a character.",
+            toString(which(!is.character(section$contents) || !nzchar(section$contents))),
+            section$title,
+            pkgdown_field(pkg, "reference")
+          ),
+          sprintf(
+            "%s You might need to add '' around e.g. - 'N' or - 'off'.",
+            cli::symbol$info
+          ),
+          sep = "\n"
+        )
+      )
+    }
     in_section <- select_topics(section$contents, pkg$topics)
     topics <- pkg$topics[in_section, ]
 

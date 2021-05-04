@@ -27,10 +27,10 @@
 #' reference:
 #' - title: Build
 #'   desc:  Build a complete site or its individual section components.
-#' - contents:
+#'   contents:
 #'   - starts_with("build_")
 #' - title: Templates
-#' - contents:
+#'   contents:
 #'   - template_navbar
 #'   - render_page
 #' ```
