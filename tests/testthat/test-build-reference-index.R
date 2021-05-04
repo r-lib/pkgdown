@@ -28,3 +28,10 @@ test_that("default reference includes all functions", {
   ref <- default_reference_index(test_path("assets/reference"))
   expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "?"), "`"))
 })
+
+test_that("errors well when a content entry is not a character", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - N")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})

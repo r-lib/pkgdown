@@ -168,8 +168,26 @@ topic_must <- function(message, topic) {
   ))
 }
 
-content_info <- function(content_entry, pkg) {
-  if (inherits(content_entry, "list")) {
+content_info <- function(content_entry, index, pkg, section) {
+  if (!typeof(content_entry) %in% c("list", "character")) {
+    abort(
+      paste(
+        sprintf(
+          "Content %s in section %s in %s must be a character.",
+          index,
+          section,
+          pkgdown_field(pkg, "reference")
+        ),
+        sprintf(
+          "%s You might need to add '' around e.g. - 'N' or - 'off'.",
+          crayon::bold("i")
+        ),
+        sep = "\n"
+      )
+    )
+  }
+
+  if (typeof(content_entry) == "list") {
     tibble::tibble(
       path = content_entry$href,
       aliases = list(text = content_entry$alias),
@@ -178,7 +196,7 @@ content_info <- function(content_entry, pkg) {
     )
   } else {
     if (grepl(".*::.*", content_entry)) {
-      NULL
+      browser()
     } else {
       topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
       tibble::tibble(
