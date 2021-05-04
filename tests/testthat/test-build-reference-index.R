@@ -7,9 +7,7 @@ test_that("can generate three types of row", {
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  verify_output(test_path("test-build-reference-index.txt"), {
-    data_reference_index(pkg)
-  })
+  expect_snapshot(data_reference_index(pkg))
 })
 
 test_that("warns if missing topics", {
