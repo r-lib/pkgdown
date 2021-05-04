@@ -51,7 +51,10 @@ data_reference_index_rows <- function(section, pkg) {
             section$title,
             pkgdown_field(pkg, "reference")
           ),
-          "i You might need to add '' around e.g. - 'N' or - 'off'.",
+          sprintf(
+            "%s You might need to add '' around e.g. - 'N' or - 'off'.",
+            crayon::bold("i")
+          ),
           sep = "\n"
         )
       )
