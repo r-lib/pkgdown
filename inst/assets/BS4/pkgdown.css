@@ -441,6 +441,8 @@ mark {
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
   background-color: #B2D7FF;
+}
+
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
   font-display: fallback;
