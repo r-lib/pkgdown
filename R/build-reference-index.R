@@ -47,7 +47,7 @@ data_reference_index_rows <- function(section, pkg) {
         paste(
           sprintf(
             "Content %s in section %s in %s must be a character.",
-            toString(which(!is.character(section$contents) || !nzchar(section$contents))),
+            toString(which(!is.character(section$contents) || any(!nzchar(section$contents)))),
             section$title,
             pkgdown_field(pkg, "reference")
           ),
