@@ -265,6 +265,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   border-radius: 1rem;
+  border: white solid;
 }
 
 /* Under hover */
