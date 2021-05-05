@@ -179,7 +179,7 @@ data_news <- function(pkg = ".") {
       timeline = timeline,
       bs_version = pkg$bs_version
     ) %>%
-    purrr::map_chr(as.character) %>%
+    purrr::map_chr(as.character, options = character()) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
   news <- tibble::tibble(

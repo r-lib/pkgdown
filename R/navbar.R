@@ -171,7 +171,7 @@ menu_spacer <- function() {
 }
 
 bs4_navbar_links_html <- function(links) {
-  as.character(bs4_navbar_links_tags(links))
+  as.character(bs4_navbar_links_tags(links), options = character())
 }
 
 bs4_navbar_links_tags <- function(links, depth = 0L) {
