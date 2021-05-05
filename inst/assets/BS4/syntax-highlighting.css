@@ -30,6 +30,10 @@ code a, pre a {
   color: #375f84;
 }
 
+pre code {
+  padding: 0;
+}
+
 a.sourceLine:hover {
   text-decoration: none;
 }
