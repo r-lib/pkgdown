@@ -110,24 +110,13 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   # evaluate is only suggested, but we won't get here
   # unless it is installed.
 
-  # TODO: instead check bootstrap4 and bump downlit requirement
-  if (packageVersion("downlit") >= "0.2.1.9001") {
-    downlit::evaluate_and_highlight(
-      code,
-      fig_save = fig_save_topic,
-      env = child_env(env),
-      output_handler = evaluate::new_output_handler(value = pkgdown_print),
-      use_pre = TRUE
-    )
-  } else {
-    out <- downlit::evaluate_and_highlight(
-      code,
-      fig_save = fig_save_topic,
-      env = child_env(env),
-      output_handler = evaluate::new_output_handler(value = pkgdown_print)
-    )
-    paste0('<pre><code class="sourceCode R">', out, '</code></pre>')
-  }
+  out <- downlit::evaluate_and_highlight(
+    code,
+    fig_save = fig_save_topic,
+    env = child_env(env),
+    output_handler = evaluate::new_output_handler(value = pkgdown_print)
+  )
+  paste0('<pre><code class="sourceCode R">', out, '</code></pre>')
 
 }
 
