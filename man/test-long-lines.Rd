@@ -8,10 +8,10 @@ The example results should have the copy button correctly placed when
 scrollings
 }
 \examples{
-cat(rep("x", 100))
-cat(rep("x", 100))
-cat(rep("x", 100))
-cat(rep("x", 100))
+cat(rep("x ", 100), sep = "")
+cat(rep("xy", 100), sep = "")
+cat(rep("x ", 100), sep = "")
+cat(rep("xy", 100), sep = "")
 }
 \seealso{
 Other tests: 

@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Long lines in code output are now wrapped, rather than requiring scrolling.
+  This better matches `rmarkdown::html_document()` and what you see in the 
+  console.
+
 * pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
 
   ```yaml
