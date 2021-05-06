@@ -1,10 +1,10 @@
 highlight_text <- function(text) {
   out <- downlit::highlight(text, classes = downlit::classes_pandoc())
-  if (is.na(out)) {
-    out <- escape_html(text)
+  if (!is.na(out)) {
+    paste0('<pre><code class="sourceCode R">', out, '</code></pre>')
+  } else {
+    paste0('<pre>', escape_html(text), '</pre>')
   }
-
-  paste0('<pre class="usage"><code class="sourceCode R">', out, '</code></pre>')
 }
 
 set_contains <- function(haystack, needles) {
