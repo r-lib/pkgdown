@@ -42,3 +42,7 @@
     Content 1 in section 1 in reference in '_pkgdown.yml' must be a character.
     i You might need to add '' around e.g. - 'N' or - 'off'.
 
+# errors well when a content entry refers to a not installed package
+
+    notapackage must be installed if it is mentioned in the reference index.
+

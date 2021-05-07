@@ -176,7 +176,7 @@ content_info <- function(content_entry, index, pkg, section) {
     if (!rlang::is_installed(names[1])) {
       abort(
         sprintf(
-          "%s must be installed if it is mentioned in the reference index",
+          "%s must be installed if it is mentioned in the reference index.",
           names[1]
         )
       )
