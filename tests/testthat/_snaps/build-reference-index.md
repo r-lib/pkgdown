@@ -54,11 +54,6 @@
 
     Code
       data_reference_index(pkg)
-    Warning <warning>
-      Topics missing from index: a
-      * Topics missing from index: b
-      * Topics missing from index: c
-      * Topics missing from index: ?
     Output
       pagetitle: Function reference
       rows:
@@ -66,11 +61,31 @@
         slug: section-bla
         desc: ~
       - topics:
+        - path: a.html
+          aliases: a()
+          title: A
+          icon: ~
+        - path: b.html
+          aliases: b()
+          title: B
+          icon: ~
+        - path: c.html
+          aliases: c()
+          title: C
+          icon: ~
+        - path: help.html
+          aliases: '`?`()'
+          title: D
+          icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
           aliases: rlang::is_installed
           title: Are packages installed in any of the libraries?
           icon: ~
-        names: ~
+        names:
+        - a
+        - b
+        - c
+        - '?'
         row_has_icons: no
       has_icons: no
       
