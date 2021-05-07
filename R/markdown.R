@@ -110,6 +110,6 @@ markdown_block <- function(text, pkg, ...) {
   }
 
   children <- markdown_text_children(text, pkg = pkg, ...)
-  output <- paste0(as.character(children), collapse="")
+  output <- paste0(as.character(children, options = character()), collapse="")
   gsub("\\\n", "", output)
 }
