@@ -48,7 +48,7 @@
 
 # errors well when a content entry refers to a non existing function
 
-    Could not find an href for topic lala of package usethis
+    Could not find an href for topic lala of package rlang
 
 # can use a topic from another package
 
