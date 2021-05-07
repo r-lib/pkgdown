@@ -41,9 +41,6 @@ reference:
   desc:  Build a complete site or its individual section components.
   contents:
   - usethis::use_github
-  - title: Filter rows
-    alias: filter
-    href: https://dplyr.tidyverse.org/reference/filter.html
   - build_site
   - init_site
   - starts_with("build_")

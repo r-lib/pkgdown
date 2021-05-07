@@ -42,6 +42,25 @@ data_reference_index_rows <- function(section, index, pkg) {
 
 
   if (has_name(section, "contents")) {
+    any_not_string <- any(purrr::map_chr(section$contents, typeof) != "character")
+    any_no_length <- any(!nzchar(section$contents))
+    if (any_not_string || any_no_length) {
+      abort(
+        paste(
+          sprintf(
+            "Content %s in section %s in %s must be a character.",
+            toString(which(!is.character(section$contents) || any(!nzchar(section$contents)))),
+            index,
+            pkgdown_field(pkg, "reference")
+          ),
+          sprintf(
+            "%s You might need to add '' around e.g. - 'N' or - 'off'.",
+            crayon::bold("i")
+          ),
+          sep = "\n"
+        )
+      )
+    }
     contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
     names <- unique(unlist(purrr::map(contents, "name")))
     contents <- purrr::map(contents, function(x) x[names(x) != "name"])

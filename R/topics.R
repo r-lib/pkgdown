@@ -169,51 +169,34 @@ topic_must <- function(message, topic) {
 }
 
 content_info <- function(content_entry, index, pkg, section) {
-  if (!typeof(content_entry) %in% c("list", "character")) {
-    abort(
-      paste(
-        sprintf(
-          "Content %s in section %s in %s must be a character.",
-          index,
-          section,
-          pkgdown_field(pkg, "reference")
-        ),
-        sprintf(
-          "%s You might need to add '' around e.g. - 'N' or - 'off'.",
-          crayon::bold("i")
-        ),
-        sep = "\n"
-      )
-    )
-  }
 
-  if (typeof(content_entry) == "list") {
+  if (grepl(".*::.*", content_entry)) {
+    names <- strsplit(content_entry, "::")[[1]]
+    file <- withr::local_tempfile(fileext = ".html")
+    rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
+    write_lines(capture.output(tools::Rd2HTML(tools::Rd_db(names[1])[[rd_name]])), file)
+    rd <- xml2::read_html(file)
+
     tibble::tibble(
-      path = content_entry$href,
-      aliases = list(text = content_entry$alias),
-      title = content_entry$title,
-      icon = list(text = NULL)
+      path = downlit::href_topic(names[2], names[1]),
+      aliases = content_entry,
+      name = list(content_entry = NULL),
+      title = xml_text1(xml2::xml_find_first(rd, ".//h2")),
+      icon = list(content_entry = NULL)
     )
-  } else {
-    if (grepl(".*::.*", content_entry)) {
-      names <- strsplit(content_entry, "::")[[1]]
-      rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
-      rd <- tools::Rd_db(names[1])[[rd_name]]
-      browser()
 
-    } else {
-      topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
-      tibble::tibble(
-        path = topics$file_out,
-        aliases = purrr::map2(
-          topics$funs,
-          topics$name,
-          ~ if (length(.x) > 0) .x else .y
-        ),
-        name = list(topics$name),
-        title = topics$title,
-        icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
-      )
-    }
+  } else {
+    topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
+    tibble::tibble(
+      path = topics$file_out,
+      aliases = purrr::map2(
+        topics$funs,
+        topics$name,
+        ~ if (length(.x) > 0) .x else .y
+      ),
+      name = list(topics$name),
+      title = topics$title,
+      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
+    )
   }
 }
