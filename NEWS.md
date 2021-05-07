@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Use `autolink_bare_uris` for Pandoc above version 2.0 (@marcosmolla, #1618).
+
 * pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
 
   ```yaml
