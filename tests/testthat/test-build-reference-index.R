@@ -42,3 +42,10 @@ test_that("errors well when a content entry refers to a not installed package", 
 
   expect_snapshot_error(build_reference_index(pkg))
 })
+
+test_that("errors well when a content entry refers to a non existing function", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - usethis::lala")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})

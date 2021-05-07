@@ -172,7 +172,6 @@ content_info <- function(content_entry, index, pkg, section) {
 
   if (grepl(".*::.*", content_entry)) {
     names <- strsplit(content_entry, "::")[[1]]
-    rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
     if (!rlang::is_installed(names[1])) {
       abort(
         sprintf(
@@ -181,12 +180,25 @@ content_info <- function(content_entry, index, pkg, section) {
         )
       )
     }
+
+    path <- downlit::href_topic(names[2], names[1])
+    if (is.na(path)) {
+      abort(
+        sprintf(
+          "Could not find an href for topic %s of package %s",
+          names[2], names[1]
+        )
+      )
+    }
+
+    rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
     file <- withr::local_tempfile(fileext = ".html")
     write_lines(capture.output(tools::Rd2HTML(tools::Rd_db(names[1])[[rd_name]])), file)
     rd <- xml2::read_html(file)
 
+
     tibble::tibble(
-      path = downlit::href_topic(names[2], names[1]),
+      path = path,
       aliases = content_entry,
       name = list(content_entry = NULL),
       title = xml_text1(xml2::xml_find_first(rd, ".//h2")),

@@ -46,3 +46,7 @@
 
     notapackage must be installed if it is mentioned in the reference index.
 
+# errors well when a content entry refers to a non existing function
+
+    Could not find an href for topic lala of package usethis
+
