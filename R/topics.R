@@ -172,8 +172,16 @@ content_info <- function(content_entry, index, pkg, section) {
 
   if (grepl(".*::.*", content_entry)) {
     names <- strsplit(content_entry, "::")[[1]]
-    file <- withr::local_tempfile(fileext = ".html")
     rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
+    if (!rlang::is_installed(names[1])) {
+      abort(
+        sprintf(
+          "%s must be installed if it is mentioned in the reference index",
+          names[1]
+        )
+      )
+    }
+    file <- withr::local_tempfile(fileext = ".html")
     write_lines(capture.output(tools::Rd2HTML(tools::Rd_db(names[1])[[rd_name]])), file)
     rd <- xml2::read_html(file)
 
