@@ -26,7 +26,9 @@ We shall first explain their creation, then how to tweak them.
 -   `dev`: Development status badges found in `README.md`/`index.md`.
     pkgdown identifies badges in three ways:
 
-    -   Any image-containing links between `<!-- badges: start -->` and `<!-- badges: end -->`, as e.g. created by `usethis::use_readme_md()` or `usethis::use_readme_rmd()`.
+    -   Any image-containing links between `<!-- badges: start -->` and `<!-- badges: end -->`, as e.g. created by `usethis::use_readme_md()` or `usethis::use_readme_rmd()`. 
+    There should always be an empty line after the `<!-- badges: end -->` line.
+    If you divide badges into paragraphs, make sure to add an empty line before the `<!-- badges: end -->` line.
 
     -   Any image-containing links within `<div id="badges"></div>`.
 
