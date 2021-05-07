@@ -45,9 +45,10 @@
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
   are detected again (#1603). 
 
-* Automatic links to reference pages were generated incorrectly if the
+* Automatic links to reference pages were generated incorrectly, and 
+  self-links were generated, if the
   `\name{}` entry in the `*.Rd` file didn't match the filename
-  (@dmurdoch, #1586).
+  (@dmurdoch, #1586; #1676).
 
 * New "Customize your pkgdown website" vignette (#1573).
 
