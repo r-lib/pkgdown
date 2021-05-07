@@ -40,7 +40,7 @@ reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
   contents:
-  - usethis::use_github
+  - rlang::is_installed
   - build_site
   - init_site
   - starts_with("build_")
