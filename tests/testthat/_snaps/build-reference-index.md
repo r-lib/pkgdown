@@ -50,3 +50,28 @@
 
     Could not find an href for topic lala of package usethis
 
+# can use a topic from another package
+
+    Code
+      data_reference_index(pkg)
+    Warning <warning>
+      Topics missing from index: a
+      * Topics missing from index: b
+      * Topics missing from index: c
+      * Topics missing from index: ?
+    Output
+      pagetitle: Function reference
+      rows:
+      - title: bla
+        slug: section-bla
+        desc: ~
+      - topics:
+        - path: https://rlang.r-lib.org/reference/is_installed.html
+          aliases: rlang::is_installed
+          title: Are packages installed in any of the libraries?
+          icon: ~
+        names: ~
+        row_has_icons: no
+      has_icons: no
+      
+
