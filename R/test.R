@@ -168,10 +168,10 @@ NULL
 #' @keywords internal
 #' @family tests
 #' @examples
-#' cat(rep("x", 100))
-#' cat(rep("x", 100))
-#' cat(rep("x", 100))
-#' cat(rep("x", 100))
+#' cat(rep("x ", 100), sep = "")
+#' cat(rep("xy", 100), sep = "")
+#' cat(rep("x ", 100), sep = "")
+#' cat(rep("xy", 100), sep = "")
 NULL
 
 #' Test case: crayon
