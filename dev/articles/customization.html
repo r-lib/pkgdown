@@ -291,7 +291,7 @@
 <li>
 <p><code>dev</code>: Development status badges found in <code>README.md</code>/<code>index.md</code>. pkgdown identifies badges in three ways:</p>
 <ul>
-<li><p>Any image-containing links between <code>&lt;!-- badges: start --&gt;</code> and <code>&lt;!-- badges: end --&gt;</code>, as e.g. created by <code>usethis::use_readme_md()</code> or <code>usethis::use_readme_rmd()</code>.</p></li>
+<li><p>Any image-containing links between <code>&lt;!-- badges: start --&gt;</code> and <code>&lt;!-- badges: end --&gt;</code>, as e.g. created by <code>usethis::use_readme_md()</code> or <code>usethis::use_readme_rmd()</code>. There should always be an empty line after the <code>&lt;!-- badges: end --&gt;</code> line. If you divide badges into paragraphs, make sure to add an empty line before the <code>&lt;!-- badges: end --&gt;</code> line.</p></li>
 <li><p>Any image-containing links within <code>&lt;div id="badges"&gt;&lt;/div&gt;</code>.</p></li>
 <li><p>Within the first paragraph, if it only contains image-containing links.</p></li>
 </ul>
