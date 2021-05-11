@@ -482,7 +482,13 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 }
 
 pkgdown_bslib_defaults <- function() {
-  list(`navbar-nav-link-padding-x` = "1rem")
+  list(
+    `navbar-nav-link-padding-x` = "1rem",
+    `link-color` = "#0054AD",
+    `link-hover-color` = "#0054AD",
+    `navbar-light-color` = "rgba(0,0,0,0.7)",
+    `navbar-light-hover-color` = "rgba(0,0,0,0.9)"
+  )
 }
 
 logo_path <- function(pkg, depth) {
