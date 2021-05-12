@@ -40,10 +40,7 @@ build_sitemap <- function(pkg = ".") {
 
   urls <- paste0(
     url,
-    fs::path_rel(
-      fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-      pkg$dst_path
-    )
+    get_site_paths(pkg)
   )
 
   doc <- xml2::read_xml(
@@ -102,15 +99,8 @@ build_search <- function(pkg = ".",
 }
 
 build_search_index <- function(pkg) {
-  paths <- fs::path_rel(
-    fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-    pkg$dst_path
-  )
+  paths <- get_paths(pkg)
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
-
-  # do not include dev package website in search index
-  dev_destination <- meta_development(pkg$meta)$destination
-  paths <- paths[!grepl(paste0("^", dev_destination, "/"), paths)]
 
   # user-defined exclusions
   paths <- paths[!paths %in% pkg$meta$search$exclude]
@@ -317,4 +307,14 @@ is_heading <- function(node) {
 
 capitalise <- function(string) {
   paste0(toupper(substring(string, 1, 1)), substring(string, 2))
+}
+
+get_site_paths <- function(pkg) {
+  paths <- fs::path_rel(
+    fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
+    pkg$dst_path
+  )
+  # do not include dev package website in search index / sitemap
+  dev_destination <- meta_development(pkg$meta)$destination
+  paths[!grepl(paste0("^", dev_destination, "/"), paths)]
 }
