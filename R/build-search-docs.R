@@ -316,5 +316,5 @@ get_site_paths <- function(pkg) {
   )
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta)$destination
-  paths[!fs::path_has_parent(paths, "dev")]
+  paths[!fs::path_has_parent(paths, dev_destination)]
 }
