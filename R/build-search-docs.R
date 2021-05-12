@@ -38,10 +38,7 @@ build_sitemap <- function(pkg = ".") {
     url <- paste0(url, pkg$prefix)
   }
 
-  urls <- paste0(
-    url,
-    get_site_paths(pkg)
-  )
+  urls <- paste0(url, get_site_paths(pkg))
 
   doc <- xml2::read_xml(
     paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
@@ -310,11 +307,10 @@ capitalise <- function(string) {
 }
 
 get_site_paths <- function(pkg) {
-  paths <- fs::path_rel(
-    fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-    pkg$dst_path
-  )
+  paths <- fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
+  paths_rel <- fs::path_rel(paths, pkg$dst_path)
+
   # do not include dev package website in search index / sitemap
-  dev_destination <- meta_development(pkg$meta)$destination
-  paths[!fs::path_has_parent(paths, dev_destination)]
+  dev_destination <- meta_development(pkg$meta, pkg$version)$destination
+  paths_rel[!fs::path_has_parent(paths_rel, "dev")]
 }
