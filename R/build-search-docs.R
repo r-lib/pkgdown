@@ -99,7 +99,7 @@ build_search <- function(pkg = ".",
 }
 
 build_search_index <- function(pkg) {
-  paths <- get_paths(pkg)
+  paths <- get_site_paths(pkg)
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
   # user-defined exclusions
@@ -316,5 +316,5 @@ get_site_paths <- function(pkg) {
   )
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta)$destination
-  paths[!grepl(paste0("^", dev_destination, "/"), paths)]
+  paths[!fs::path_has_parent(paths, "dev")]
 }
