@@ -108,11 +108,9 @@ build_search_index <- function(pkg) {
   )
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
-  if (!pkg$development$in_dev) {
-    # do not include dev package website in search index
-    dev_destination <- meta_development(pkg$meta)$destination
-    paths <- paths[!grepl(paste0("^", dev_destination, "/"), paths)]
-  }
+  # do not include dev package website in search index
+  dev_destination <- meta_development(pkg$meta)$destination
+  paths <- paths[!grepl(paste0("^", dev_destination, "/"), paths)]
 
   # user-defined exclusions
   paths <- paths[!paths %in% pkg$meta$search$exclude]
