@@ -1,6 +1,7 @@
 on:
   push:
     branches:
+      - bslib-vars
       - main
       - master
   pull_request:
@@ -79,7 +80,8 @@ jobs:
           echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>title</title></head><body><a href="/dev/index.html">Dev website</a></body></html>' > ./docs/index.html
 
       - name: Deploy to Netlify
-        if: contains(env.isPush, 'false')
+        # only deploy on the fork for now
+        if: github.repository_owner == 'apreshill'
         id: netlify-deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
