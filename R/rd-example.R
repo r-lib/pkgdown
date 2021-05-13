@@ -35,11 +35,10 @@ run_examples <- function(x,
   }
 
   if (run_examples) {
-    out <- highlight_examples(code, topic, env = env)
+    highlight_examples(code, topic, env = env)
   } else {
-    out <- highlight_text(code)
+    highlight_text(code)
   }
-  out
 }
 
 process_conditional_examples <- function(rd) {
