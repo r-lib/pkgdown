@@ -1,13 +1,13 @@
-highlight_text <- function(text, pre_class = NULL) {
+highlight_text <- function(text) {
   out <- downlit::highlight(text, classes = downlit::classes_pandoc())
   if (!is.na(out)) {
-    pre(out, r_code = TRUE, class = pre_class)
+    pre(out, r_code = TRUE)
   } else {
-    pre(escape_html(text), class = pre_class)
+    pre(escape_html(text))
   }
 }
 
-highlight_examples <- function(code, topic, env = globalenv(), pre_class = NULL) {
+highlight_examples <- function(code, topic, env = globalenv()) {
   bg <- context_get("figures")$bg %||% NA
   withr::local_options(list(
     crayon.enabled = TRUE,
@@ -26,15 +26,13 @@ highlight_examples <- function(code, topic, env = globalenv(), pre_class = NULL)
     env = child_env(env),
     output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
-  pre(out, r_code = TRUE, class = pre_class)
+  pre(out, r_code = TRUE)
 }
 
-pre <- function(x, r_code = FALSE, class = NULL) {
+pre <- function(x, r_code = FALSE) {
   paste0(
-    "<pre", if (!is.null(class)) paste0(" class='", class, "'"), ">",
-    if (r_code) "<code class='sourceCode R'>",
+    "<pre", if (r_code) " class='sourceCode r'", ">", "<code>",
     x,
-    if (r_code) "</code>",
-    "</pre>"
+    "</code>","</pre>"
   )
 }

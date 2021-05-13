@@ -35,9 +35,9 @@ run_examples <- function(x,
   }
 
   if (run_examples) {
-    out <- highlight_examples(code, topic, env = env, pre_class = "examples")
+    out <- highlight_examples(code, topic, env = env)
   } else {
-    out <- highlight_text(code, pre_class = "examples")
+    out <- highlight_text(code)
   }
   out
 }
