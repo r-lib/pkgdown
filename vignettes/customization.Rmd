@@ -16,8 +16,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, warning=FALSE, message=FALSE}
 library(pkgdown)
+library(reactable)
+library(dplyr)
+library(glue)
 ```
 
 You can alter the design/styling of your pkgdown website to suit your brand and needs.
@@ -108,6 +111,81 @@ template:
     danger: "#F7367E"
 ```
 
+The main bslib variables you can use to create a theme are `bg`, `fg`, and `navbar-bg`. Optionally, you can also include `primary` and `secondary`. Below is a list of which pkgdown website elements each variable will change:
+
+```{r include=FALSE}
+theme_vars <- 
+  tibble::tribble(
+    ~Variable, ~Element, ~Description, ~Sass,
+    # global theme variables, group by variable?
+    "bg", "Body", "Background color", "$body-bg",
+    "fg", "Body", "Text color", "$body-color",
+    "navbar-bg", "Navbar", "Background color", "$navbar-bg", 
+    "primary",  "Navbar", "Package name hover color", "$navbar-light-active-color ---> $navbar-light-brand-hover-color",
+    "primary",  "Navbar", "Hover link color", "$navbar-light-hover-color",
+    "primary",  "Navbar", "Active link color", "$navbar-light-active-color",
+    "primary",  "Body (+ Sidebar)", "Link color", "$link-color",
+    "primary",  "Body (+ Sidebar)", "Link hover color", "darken($link-color, 15%)", 
+    "primary", "Sidebar", "Active contents text color", "$component-active-color",
+    "primary", "Body", "Active copy button icon color", "$component-active-color",
+    "secondary", "Sidebar", "Contents hover/active background color", "$component-active-bg",
+    "secondary", "Navbar", "Pills link active background color", "$component-active-bg ---> $nav-pills-link-active-bg", 
+    "secondary", "Navbar", "Dropdown link hover background color", "$component-active-bg ---> $dropdown-link-active-bg", 
+    "secondary", "Body", "Copy button hover/active background color", "$component-active-bg"
+  ) %>% 
+  mutate(Variable = paste0("<code>", Variable, "</code>"),
+         Sass = paste0("<code>", Sass, "</code>"))
+```
+
+```{r echo=FALSE}
+reactable(theme_vars, 
+          groupBy = "Variable", 
+          defaultExpanded = TRUE,
+          columns = list(
+            Variable = colDef(html = TRUE),
+            Sass = colDef(html = TRUE)
+            )
+)
+```
+
+
+\
+\
+You may also add more specific variables if you wish to override any of these global theme variables:
+
+```{r include=FALSE}
+extra_vars <- 
+  tibble::tribble(
+    ~Variable, ~Element, ~Description, ~Overrides,
+    # body text colors, no group?
+    "body-color", "Body", "Text color", "$fg",
+    "headings-color", "Body", "Headings color (h1-h6)", NA,
+    "link-color", "Body", "Link color", "$primary",
+    "link-hover-color", "Body", "Link hover color", "darken($link-color, 15%)",
+    # sidebar / clipboard buttons
+    "component-active-color", "Sidebar", "Active contents text color", "$primary",
+    "component-active-color", "Body", "Active copy button icon color", "$primary",
+    "component-active-bg", "Sidebar", "Active contents background color", "$secondary",
+    "component-active-bg", "Body", "Active copy button background color", "$secondary",
+    "component-active-bg", "Navbar", "Active dropdown link background color", "$secondary",
+    "component-active-bg", "Navbar", "Active pills link background color", "$secondary",
+  ) %>% 
+  mutate(Variable = paste0("<code>", Variable, "</code>"),
+         Overrides = paste0("<code>", Overrides, "</code>"))
+```
+
+
+```{r echo=FALSE}
+reactable(extra_vars, 
+          groupBy = "Variable", 
+          defaultExpanded = FALSE,
+          columns = list(
+            Variable = colDef(html = TRUE),
+            Overrides = colDef(html = TRUE)
+            ))
+```
+
+
 You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
 
 You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don't like:
@@ -137,6 +215,44 @@ Alternatively, you could use the bg parameter to make the navbar more visually p
 navbar:
   type: dark
   bg: primary
+```
+
+Based on your `navbar-bg` color and the navbar `type`, Bootstrap automatically calculates a color for the navbar text elements, including the navigation links, the package name (the "brand"), and active/hover states for each. You can instead use the following bslib variables to control these values, depending on whether you choose a `light` or `dark` navbar:
+
+```{r include=FALSE}
+navbar_vars <- 
+  tibble::tribble(
+    ~Variable, ~Type, ~Description, ~Overrides,
+    # group by type?
+    # type = light
+    "navbar-light-active-color", "light", "Active color for link text", "$primary",
+    "navbar-light-contrast", "light", "Calculated to contrast with navbar-bg color", NA,
+    "navbar-light-brand-color", "light", "Package name text color", "$navbar-light-active-color",
+    "navbar-light-brand-hover-color", "light", "Package name hover color", "$navbar-light-active-color",
+    "navbar-light-color", "light", "Link color", "rgba($navbar-light-contrast, .5)",
+    "navbar-light-hover-color", "light", "Hover color for link text", "rgba($navbar-light-contrast, .75)",
+
+    # type = dark
+    "navbar-dark-active-color", "dark", "Active color for link text", "$primary",
+    "navbar-dark-contrast", "dark", "Calculated to contrast with navbar-bg color", NA,
+    "navbar-dark-brand-color", "dark", "Package name text color", "$navbar-dark-active-color",
+    "navbar-dark-brand-hover-color", "dark", "Package name hover color", "$navbar-dark-active-color",
+    "navbar-dark-color", "dark", "Link color", "rgba($navbar-dark-contrast, .5)",
+    "navbar-dark-hover-color", "dark", "Hover color for link text", "rgba($navbar-dark-contrast, .75)",
+  ) %>% 
+  mutate(Variable = paste0("<code>", Variable, "</code>"),
+         Overrides = paste0("<code>", Overrides, "</code>"))
+```
+
+```{r echo=FALSE}
+reactable(navbar_vars, 
+          groupBy = "Type", 
+          defaultExpanded = FALSE,
+          columns = list(
+            Variable = colDef(html = TRUE),
+            Overrides = colDef(html = TRUE)
+            )
+)
 ```
 
 will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
