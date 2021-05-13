@@ -30,6 +30,16 @@
     "code": ["plot(1:10)"]
   },
   {
+    "path": ["/index.html"],
+    "id": ["this-section-is-unnumbered"],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["This section is unnumbered"],
+    "title": ["A test package"],
+    "text": ["expect bug now."],
+    "code": [""]
+  },
+  {
     "path": ["/news/index.html"],
     "id": ["testpackage-1009000"],
     "dir": ["Changelog"],

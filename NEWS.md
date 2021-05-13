@@ -10,6 +10,12 @@
     </div>
     ```
 
+* Long lines in code output are now wrapped, rather than requiring scrolling.
+  This better matches `rmarkdown::html_document()` and what you see in the 
+  console.
+  
+* Use `autolink_bare_uris` for Pandoc above version 2.0 (@marcosmolla, #1618).
+
 * pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
 
   ```yaml
@@ -30,7 +36,7 @@
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
-  search pkgdown websites. (#1629)
+  search pkgdown websites. (#1629, with help from @gustavdelius in #1655)
 
 * pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
   This might change Algolia results if you use Algolia for search. (#1629)
@@ -53,9 +59,10 @@
 * README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
   are detected again (#1603). 
 
-* Automatic links to reference pages were generated incorrectly if the
+* Automatic links to reference pages were generated incorrectly, and 
+  self-links were generated, if the
   `\name{}` entry in the `*.Rd` file didn't match the filename
-  (@dmurdoch, #1586).
+  (@dmurdoch, #1586; #1676).
 
 * New "Customize your pkgdown website" vignette (#1573).
 
