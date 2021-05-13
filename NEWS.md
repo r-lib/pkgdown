@@ -1,5 +1,15 @@
 # pkgdown (development version)
 
+* pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
+
+    ```html
+    <div class='sourceCode'>
+      <pre class='sourceCode r'><code>
+      1 + 1
+      </code></pre>
+    </div>
+    ```
+
 * pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
 
   ```yaml
