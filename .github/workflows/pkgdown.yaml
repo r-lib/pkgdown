@@ -78,7 +78,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Create index file
-        if: contains(env.isPush, 'false')
+        #if: contains(env.isPush, 'false')
         run: |
           echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>title</title></head><body><a href="/dev/index.html">Dev website</a></body></html>' > ./docs/index.html
 
