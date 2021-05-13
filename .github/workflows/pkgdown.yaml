@@ -56,6 +56,9 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("pkgdown")
+          pak::pkg_install("reactable")
+          pak::pkg_install("dplyr")
+          pak::pkg_install("glue")
         shell: Rscript {0}
 
       - name: Install package
