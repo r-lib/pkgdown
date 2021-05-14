@@ -254,7 +254,7 @@ flex-direction: column;
 /* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
   color: inherit;
-  padding-left: 0.5rem !important;
+  padding-left: 0.5rem;
   margin-left: -0.5rem;
   border-radius: 1rem;
   border: white solid;
@@ -310,12 +310,6 @@ h1.display-4 {
 .navbar-nav .nav-link {
  padding-left: 0.5rem;
  }
-
-@include media-breakpoint-up(md) {
-  .navbar-nav .nav-link {
- padding-left: 0rem;
- }
-}
 
 
 /* Footnotes --------------------------------------------- */
