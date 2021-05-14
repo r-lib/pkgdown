@@ -11,7 +11,7 @@ build_news()
 See the documentation for the each function to learn how to control
 that aspect of the site.
 Note if names of generated files were changed, you will need to use
-clean_site() first to clean up orphan files."><title>Build a complete pkgdown website — build_site • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.4/tabs.js"></script><script src="../deps/bs3compat-0.2.4/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><link href="../syntax-highlighting.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Build a complete pkgdown website — build_site"><meta property="og:description" content="build_site() is a convenient wrapper around six functions:
+clean_site() first to clean up orphan files."><title>Build a complete pkgdown website — build_site • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.5/tabs.js"></script><script src="../deps/bs3compat-0.2.5/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><link href="../syntax-highlighting.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Build a complete pkgdown website — build_site"><meta property="og:description" content="build_site() is a convenient wrapper around six functions:
 init_site()
 build_home()
 build_reference()
@@ -32,7 +32,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc" data-headroom>
+</script></head><body data-spy="scroll" data-target="#toc" data-headroom>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -109,7 +109,8 @@ that aspect of the site.</p>
 <code><a href="clean_site.html">clean_site()</a></code> first to clean up orphan files.</p>
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2"><pre class="usage"><code class="sourceCode R"><span class="fu">build_site</span><span class="op">(</span>
+    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <pre class="sourceCode r"><code><span class="fu">build_site</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   examples <span class="op">=</span> <span class="cn">TRUE</span>,
   run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -121,7 +122,8 @@ that aspect of the site.</p>
   new_process <span class="op">=</span> <span class="op">!</span><span class="va">devel</span>,
   install <span class="op">=</span> <span class="op">!</span><span class="va">devel</span>,
   document <span class="op">=</span> <span class="st">"DEPRECATED"</span>
-<span class="op">)</span></code></pre></div>
+<span class="op">)</span></code></pre>
+    </div>
 
     <h2>Arguments</h2>
     <dl class="row" id="ref-arguments"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
@@ -179,20 +181,20 @@ See <code><a href="../articles/linking.html">vignette("linking")</a></code> for 
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
 <a href="deploy_site_github.html">deploying to github</a>.</p></li>
-</ul><p></p><div class="yaml"><pre>url: https://pkgdown.r-lib.org
-</pre><p></p></div>
+</ul><p></p><div class="yaml"><pre><code>url: https://pkgdown.r-lib.org
+</code></pre><p></p></div>
 <p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p><pre>authors:
+text:</p><pre><code>authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
     html: &lt;img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" /&gt;
-</pre>
+</code></pre>
 
     </div>
     <div class="ref-section section level2" id="section-development-mode">
@@ -205,9 +207,9 @@ text:</p><pre>authors:
 <li><p>The optional tooltip associated with the version.</p></li>
 <li><p>The indexing of the site by search engines.</p></li>
 </ul><p>You can override the default development mode by adding a
-new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre><span class="va">development</span><span class="op">:</span>
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><pre class="sourceCode r"><code><span class="va">development</span><span class="op">:</span>
   <span class="va">mode</span><span class="op">:</span> <span class="va">devel</span>
-</pre>
+</code></pre>
 
 <p>There are currently four possible modes:</p><ul><li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
 Version in navbar gets the default colouring.</p></li>
@@ -223,11 +225,11 @@ based on the version number:</p><ul><li><p><code>0.0.0.9000</code> (<code>0.0.0.
 <li><p>four version components: development.</p></li>
 <li><p>everything else -&gt; release.</p></li>
 </ul></li>
-</ul><p>There are three other options that you can control:</p><pre><span class="va">development</span><span class="op">:</span>
+</ul><p>There are three other options that you can control:</p><pre class="sourceCode r"><code><span class="va">development</span><span class="op">:</span>
   <span class="va">destination</span><span class="op">:</span> <span class="va">dev</span>
   <span class="va">version_label</span><span class="op">:</span> <span class="va">danger</span>
   <span class="va">version_tooltip</span><span class="op">:</span> <span class="st">"Custom message here"</span>
-</pre>
+</code></pre>
 
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
@@ -252,15 +254,15 @@ to danger). Finally, you can choose to override the default tooltip with
 It has two primary components: <code>structure</code> and <code>components</code>.
 These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.</p>
 <p>The <code>structure</code> defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components, remove some default components and add your own components.</p><pre>navbar:
+You can use this component to change the order of the default components, remove some default components and add your own components.</p><pre><code>navbar:
  structure:
    left:  [intro, reference, articles, tutorials, news]
    right: [github]
-</pre>
+</code></pre>
 
 <p>The <code>components</code> describes the appearance of each element in the navbar.
 It uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p><pre>navbar:
+The following YAML snippet illustrates some of the most important features.</p><pre><code>navbar:
  components:
    articles:
     text: Articles
@@ -280,17 +282,17 @@ The following YAML snippet illustrates some of the most important features.</p><
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/hadleywickham
       aria-label: "twitter account"
-</pre>
+</code></pre>
 
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing <code>href</code>) and separators (indicated by a bunch of <code>-</code>).
 You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.
 When using icons with no text, for accessibility it's best practice to include an <code>aria-label</code> for screenreader users.</p>
 <p>This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
-<p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>:</p><div class="yaml"><pre><span class="va">navbar</span><span class="op">:</span>
+<p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>:</p><div class="yaml"><pre class="sourceCode r"><code><span class="va">navbar</span><span class="op">:</span>
   <span class="va">type</span><span class="op">:</span> <span class="va">dark</span>
   <span class="va">bg</span><span class="op">:</span> <span class="va">primary</span>
-</pre><p></p></div>
+</code></pre><p></p></div>
 <p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-search">
@@ -299,12 +301,12 @@ Unless you explicitly mention new components in the <code>structure</code> they'
     
 
 <p>You can use <a href="https://community.algolia.com/docsearch/">docsearch</a> by algolia
-to add search to your site.</p><pre><span class="va">template</span><span class="op">:</span>
+to add search to your site.</p><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
   <span class="va">params</span><span class="op">:</span>
     <span class="va">docsearch</span><span class="op">:</span>
       <span class="va">api_key</span><span class="op">:</span> <span class="va">API_KEY</span>
       <span class="va">index_name</span><span class="op">:</span> <span class="va">INDEX_NAME</span>
-</pre>
+</code></pre>
 
 <p>You also need to add a <code>url:</code> field, see above.</p>
     </div>
@@ -319,14 +321,14 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><pre><span class="va">template</span><span class="op">:</span>
+template:</p><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
   <span class="va">bootswatch</span><span class="op">:</span> <span class="va">cerulean</span>
-</pre>
+</code></pre>
 
-<p>Note that if you use Bootstrap version 3 the syntax is</p><pre><span class="va">template</span><span class="op">:</span>
+<p>Note that if you use Bootstrap version 3 the syntax is</p><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
   <span class="va">params</span><span class="op">:</span>
     <span class="va">bootswatch</span><span class="op">:</span> <span class="va">cerulean</span>
-</pre>
+</code></pre>
 
 <p>Refer to <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
@@ -336,27 +338,27 @@ It should correspond to your
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.</p><pre><span class="va">template</span><span class="op">:</span>
+site, in keeping with current laws and regulations.</p><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
   <span class="va">params</span><span class="op">:</span>
     <span class="va">ganalytics</span><span class="op">:</span> <span class="va">UA</span><span class="op">-</span><span class="fl">000000</span><span class="op">-</span><span class="fl">01</span>
-</pre>
+</code></pre>
 
-<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre><span class="va">template</span><span class="op">:</span>
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
   <span class="va">params</span><span class="op">:</span>
     <span class="va">noindex</span><span class="op">:</span> <span class="va">true</span>
-</pre>
+</code></pre>
 
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing them in the
 directories <code>pkgdown/assets</code> and <code>pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code> pointing to alternative folders.
 To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><pre>
+of the default assets, set <code>default_assets</code> to false.</p><pre class="sourceCode r"><code>
 <span class="va">template</span><span class="op">:</span>
   <span class="va">path</span><span class="op">:</span> <span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">templates</span>
   <span class="va">assets</span><span class="op">:</span> <span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">assets</span>
   <span class="va">default_assets</span><span class="op">:</span> <span class="va">false</span>
-</pre>
+</code></pre>
 
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
@@ -376,13 +378,13 @@ underlying source file.</p></li>
 <li><p>The homepage provides a link to  "Browse source code"</p></li>
 </ul><p>pkgdown automatically figures out the necessary URLs if you link to a GitHub
 or GitLab repo in your <code>BugReports</code> or <code>URL</code> field. Otherwise, you can
-supply your own in the <code>repo</code> component:</p><div class="yaml"><pre>repo:
+supply your own in the <code>repo</code> component:</p><div class="yaml"><pre><code>repo:
   url:
     home: https://github.com/r-lib/pkgdown/
     source: https://github.com/r-lib/pkgdown/blob/master/
     issue: https://github.com/r-lib/pkgdown/issues/
     user: https://github.com/
-</pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
+</code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
 <li><p><code>source:</code>: path to source of individual file in master branch.</p></li>
 <li><p><code>issue</code>: path to individual issue.</p></li>
 <li><p><code>user</code>: path to user.</p></li>
@@ -392,16 +394,16 @@ the end of these URLs so they should have trailing <code>/</code>s.</p>
 both a custom <code>issue</code> URL as well as your Jira project names to auto-link in
 <code>jira_projects</code>. You can specify as many projects as you would like in a last
 (in the example below we would link both the <code>PROJ</code> and <code>OTHER</code> Jira
-projects):</p><div class="yaml"><pre>repo:
+projects):</p><div class="yaml"><pre><code>repo:
   jira_projects: [PROJ, OTHER]
   url:
     issue: https://jira.organisation.com/jira/browse/
-</pre><p></p></div>
+</code></pre><p></p></div>
 <p>pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
-specifying a branch name:</p><div class="yaml"><pre><span class="va">repo</span><span class="op">:</span>
+specifying a branch name:</p><div class="yaml"><pre class="sourceCode r"><code><span class="va">repo</span><span class="op">:</span>
   <span class="va">branch</span><span class="op">:</span> <span class="va">main</span>
-</pre><p></p></div>
+</code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-deploy">
     <h2 class="hasAnchor" id="yaml-config-deploy"><a class="anchor" href="#yaml-config-deploy" aria-hidden="true"></a>YAML config - deploy</h2>
@@ -412,9 +414,9 @@ specifying a branch name:</p><div class="yaml"><pre><span class="va">repo</span>
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
-time (e.g. because it's only behind the firewall or requires auth).</p><div class="yaml"><pre><span class="va">deploy</span><span class="op">:</span>
+time (e.g. because it's only behind the firewall or requires auth).</p><div class="yaml"><pre class="sourceCode r"><code><span class="va">deploy</span><span class="op">:</span>
   <span class="va">install_metadata</span><span class="op">:</span> <span class="va">true</span>
-</pre><p></p></div></li>
+</code></pre><p></p></div></li>
 </ul></div>
     <div class="ref-section section level2" id="section-yaml-config-footer">
     <h2 class="hasAnchor" id="yaml-config-footer"><a class="anchor" href="#yaml-config-footer" aria-hidden="true"></a>YAML config - footer</h2>
@@ -423,14 +425,14 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
 
 <p>By default, the footer is automatically populated with:</p><ul><li><p>The names of the <a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>, on the left.</p></li>
 <li><p>A reference to pkgdown <code>pkgdown</code>, on the right.</p></li>
-</ul><p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p><pre>footer:
+</ul><p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p><pre><code>footer:
  left:
    structure: [pkgdown]
  right:
    structure: [authors, legal]
    components:
      legal: Provided without ***any warranty***.
-</pre>
+</code></pre>
 
 <p>Like the navbar and side, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
@@ -443,11 +445,11 @@ Unlike the navbar or sidebar, the components of the footer are just pasted toget
 <p>If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
 One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
 This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.</p>
-<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p><div class="yaml"><pre>redirects:
+<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p><div class="yaml"><pre><code>redirects:
   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
   - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-</pre><p></p></div>
+</code></pre><p></p></div>
 <p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
     </div>
     <div class="ref-section section level2" id="section-options">
@@ -466,12 +468,12 @@ hanging in cron jobs.</p>
     </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples" aria-hidden="true"></a>Examples</h2>
-    <pre class="examples"><code class="sourceCode R"><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">build_site</span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-</code></pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
