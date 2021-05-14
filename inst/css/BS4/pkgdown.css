@@ -268,7 +268,7 @@ nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus
 {
-  background-color: $navbar-light-active-color;
+  background-color: $secondary;
 }
 
 /* Nav: second level (shown on .active) */
@@ -281,6 +281,15 @@ nav[data-toggle="toc"] .nav-link.active + ul {
 nav[data-toggle="toc"] .nav .nav > li > a {
   margin-left: 0.5rem;
 }
+
+/*----Copy Buttons ----*/
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active:hover {
+  background-color: $secondary;
+  color: color-contrast($secondary);
+}
+
 
 /* version badge  */
 #version-badge {

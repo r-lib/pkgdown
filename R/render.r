@@ -490,7 +490,7 @@ pkgdown_bslib_defaults <- function() {
   list(
     `navbar-nav-link-padding-x` = "1rem",
     `primary` = "#0054AD",
-    `navbar-light-active-color` = "#e9ecef", # how to use gray-200 here
+    `secondary` = "#e9ecef",
     `navbar-light-color` = "rgba(0,0,0,0.7)",
     `navbar-light-hover-color` = "rgba(0,0,0,0.9)"
   )
