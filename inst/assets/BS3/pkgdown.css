@@ -273,6 +273,11 @@ pre, code, pre code {
   word-wrap: break-word;
 }
 
+.ref-index-aliases pre, code, pre code {
+  word-wrap: normal;
+  word-break: normal;
+}
+
 pre {
   border: 1px solid #eee;
 }
