@@ -19,6 +19,7 @@ html, body {
 
 body {
   position: relative;
+  color: $primary;
 }
 
 body > .container {
@@ -320,7 +321,7 @@ h1.display-4 {
 /* Footnotes --------------------------------------------- */
 
 .popover {
-  max-width: min(100vw, 32rem);
+  /*max-width: min(100vw, 32rem);*/
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -405,7 +406,7 @@ mark {
   color: #999;
 }
 .algolia-autocomplete .aa-dropdown-menu {
-  width: max(100%, 20rem);
+  /*width: max(100%, 20rem);*/
   background-color: #fff;
   border: 1px solid var(--gray);
   border-radius: 0.2rem;
