@@ -425,7 +425,7 @@ data_deps <- function(pkg, depth) {
 
   pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.css")
   pkgdown_css <- sass::sass_partial(paste(read_lines(pkgdown_sass), collapse = ""), bs_theme)
-  bs_theme <- bslib::bs_add_rules(bs_theme, "$secondary: $grey-200 !default;")
+  bs_theme <- bslib::bs_add_rules(bs_theme, "$secondary: $grey-800 !default;")
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
 
   deps <- bslib::bs_theme_dependencies(bs_theme)
