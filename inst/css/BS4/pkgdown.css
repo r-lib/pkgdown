@@ -34,7 +34,7 @@ body > .container .row {
 footer {
   margin-top: 45px;
   padding: 35px 0 36px;
-  border-top: 1px solid $mix($black, $white, 5%);
+  border-top: 1px solid mix($black, $white, 5%);
   color: #666;
   display: flex;
   flex-shrink: 0;
