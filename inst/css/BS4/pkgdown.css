@@ -254,7 +254,7 @@ flex-direction: column;
 /* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
   color: inherit;
-  padding-left: 0.5rem;
+  padding-left: 0.5rem !important;
   margin-left: -0.5rem;
   border-radius: 1rem;
   border: white solid;
