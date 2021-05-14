@@ -4,9 +4,8 @@
 
     ```html
     <div class='sourceCode'>
-      <pre class='sourceCode r'><code>
-      1 + 1
-      </code></pre>
+      <pre class='sourceCode r'><code>1 + 1</code></pre>
+      <pre class='sourceCode r-out'><code>[1] 2</code></pre>
     </div>
     ```
 
