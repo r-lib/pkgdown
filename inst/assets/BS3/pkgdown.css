@@ -267,15 +267,9 @@ table {
 pre, code, pre code {
   background-color: #f8f8f8;
   color: #333;
-
   white-space: pre-wrap;
   word-break: break-all;
-  word-wrap: break-word;
-}
-
-.ref-index-aliases pre, code, pre code {
-  word-wrap: normal;
-  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 pre {
