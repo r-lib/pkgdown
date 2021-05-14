@@ -1,14 +1,9 @@
 /* Syntax highlighting ---------------------------------------------------- */
 
-pre, code, pre code {
+pre, pre code {
   white-space: pre-wrap;
   word-break: break-all;
-  word-wrap: break-word;
-}
-
-.ref-index-aliases pre, code, pre code {
-  word-wrap: normal;
-  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 pre {
