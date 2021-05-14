@@ -137,13 +137,13 @@ h6.dropdown-header {
   border-color: transparent;
   border-style: solid;
   border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
+  border-left-color: $gray-400;
   margin-top: 5px;
   margin-right: -10px;
 }
 
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: $white;
 }
 
 .dropdown-submenu.pull-left {
@@ -394,11 +394,11 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: #999;
+  color: $gray-500;
 }
 .algolia-autocomplete .aa-dropdown-menu {
   /*width: max(100%, 20rem);*/
-  background-color: #fff;
+  background-color: $white;
   border: 1px solid var(--gray);
   border-radius: 0.2rem;
   margin-top: 2px;
@@ -409,15 +409,15 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px #ddd solid;
+  border-bottom: 1px $gray-200 solid;
   font-size: 0.9rem;
-  color: #5E5E5E;
+  color: $gray-700;
 
 }
 
 .search-details {
   font-size: 0.9rem;
-  color: #0054AD;
+  color: $blue;
   display: inline;
   font-weight: bolder;
 }
