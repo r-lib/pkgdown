@@ -268,7 +268,7 @@ nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus
 {
-  background-color: #eee;
+  background-color: $navbar-light-active-color;
 }
 
 /* Nav: second level (shown on .active) */
