@@ -1,5 +1,14 @@
 # pkgdown (development version)
 
+* pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
+
+    ```html
+    <div class='sourceCode'>
+      <pre class='sourceCode r'><code>1 + 1</code></pre>
+      <pre class='sourceCode r-out'><code>[1] 2</code></pre>
+    </div>
+    ```
+
 * Long lines in code output are now wrapped, rather than requiring scrolling.
   This better matches `rmarkdown::html_document()` and what you see in the 
   console.
