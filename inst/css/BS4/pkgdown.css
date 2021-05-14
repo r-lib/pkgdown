@@ -34,7 +34,7 @@ body > .container .row {
 footer {
   margin-top: 45px;
   padding: 35px 0 36px;
-  border-top: 1px solid $gray-200;
+  border-top: 1px solid $mix($black, $white, 5%);
   color: #666;
   display: flex;
   flex-shrink: 0;
@@ -137,7 +137,7 @@ h6.dropdown-header {
   border-color: transparent;
   border-style: solid;
   border-width: 5px 0 5px 5px;
-  border-left-color: $gray-400;
+  border-left-color: mix($black, $white, 10%);
   margin-top: 5px;
   margin-right: -10px;
 }
@@ -381,7 +381,7 @@ div.pb-2.mt-4.mb-2.border-bottom {
 /* blockquote ---------------------------------------------- */
 
 blockquote, .line-block {
-    border-left: .5rem solid $gray-400;
+    border-left: .5rem solid mix($black, $white, 10%);
     padding-left: .5rem;
     margin-left: -.5rem;
 }
@@ -397,7 +397,7 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: $gray-500;
+  color: mix($black, $white, 10%);
 }
 .algolia-autocomplete .aa-dropdown-menu {
   width: Max(100%, 20rem);
@@ -412,9 +412,9 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px $gray-200 solid;
+  border-bottom: 1px mix($black, $white, 10%) solid;
   font-size: 0.9rem;
-  color: $gray-700;
+  color: mix($black, $white, 30%);
 
 }
 
