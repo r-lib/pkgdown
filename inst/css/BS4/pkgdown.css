@@ -417,7 +417,7 @@ mark {
 
 .search-details {
   font-size: 0.9rem;
-  color: $blue;
+  color: $primary;
   display: inline;
   font-weight: bolder;
 }
