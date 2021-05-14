@@ -191,7 +191,7 @@ content_info <- function(content_entry, index, pkg, section) {
       )
     }
 
-    rd_name <- paste0(downlit:::find_rdname(names[1], names[2]), ".Rd")
+    rd_name <- fs::path_ext_set(fs::path_file(path), "Rd")
     file <- withr::local_tempfile(fileext = ".html")
     write_lines(capture.output(tools::Rd2HTML(tools::Rd_db(names[1])[[rd_name]])), file)
     rd <- xml2::read_html(file)
