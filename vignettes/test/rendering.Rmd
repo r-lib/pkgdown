@@ -211,6 +211,6 @@ something nice
 plot(1:42)
 ```
 
-### Tab 2
+### Tab 2 {.active}
 
 hello

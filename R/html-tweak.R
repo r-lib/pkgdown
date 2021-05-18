@@ -144,10 +144,16 @@ tablist_item <- function(tab, html, parent_id) {
     role = "tab"
   )
 
+  if (grepl("active", xml2::xml_attr(tab, "class"))) {
+    class <- "active"
+  } else {
+    class = ""
+  }
   # a's need to be wrapped in li's
   xml2::xml_add_parent(
     xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
-    "li"
+    "li",
+    class = class
   )
 }
 
@@ -156,7 +162,12 @@ tablist_content <- function(tab, html, parent_id) {
   # remove 1st child that is the header
   xml2::xml_remove(xml2::xml_child(tab))
 
-  xml2::xml_attr(tab, "class") <- "tab-pane"
+  if (grepl("active", xml2::xml_attr(tab, "class"))) {
+    xml2::xml_attr(tab, "class") <- sprintf("tab-pane active")
+  } else {
+    xml2::xml_attr(tab, "class") <- sprintf("tab-pane")
+  }
+
   xml2::xml_attr(tab, "role") <- "tabpanel"
   #xml2::xml_attr(tab, "data-value") <- xml2::xml_attr(tab, "id")
   content_div <- xml2::xml_find_first(
@@ -195,20 +206,15 @@ tweak_tabset <- function(html) {
   purrr::walk(tabs, tablist_content, html = html, parent_id = id)
 
   # active first
-#  TODO add control
-  tweak_class_prepend(
-    xml2::xml_child(xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))),
-    "active"
-  )
-  tweak_class_prepend(
-    xml2::xml_child(
-      xml2::xml_find_first(
-        html,
-        sprintf("//div[@id='%s']/div", id)
-      )
-    ),
-    "active"
-  )
+  nav_url <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))
+  if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(nav_url), "class")))) {
+    tweak_class_prepend(xml2::xml_child(nav_url), "active")
+  }
+
+  content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
+  if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(content_div), "class")))) {
+    tweak_class_prepend(xml2::xml_child(content_div), "active")
+  }
 }
 
 tweak_tabsets <- function(html) {
