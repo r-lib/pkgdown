@@ -13,10 +13,12 @@ These components interact in a somewhat complicated way, but the complexity allo
 The `structure` defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
 You can use this component to change the order of the default components, remove some default components and add your own components.
 
-    navbar:
-     structure:
-       left:  [intro, reference, articles, tutorials, news]
-       right: [github]
+```yaml
+navbar:
+ structure:
+   left:  [intro, reference, articles, tutorials, news]
+   right: [github]
+```
 
 The `components` describes the appearance of each element in the navbar.
 It uses the same syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).

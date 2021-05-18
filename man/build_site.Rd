@@ -180,11 +180,11 @@ It has two primary components: \code{structure} and \code{components}.
 These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.
 
 The \code{structure} defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components, remove some default components and add your own components.\preformatted{navbar:
+You can use this component to change the order of the default components, remove some default components and add your own components.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
  structure:
    left:  [intro, reference, articles, tutorials, news]
    right: [github]
-}
+}\if{html}{\out{</div>}}
 
 The \code{components} describes the appearance of each element in the navbar.
 It uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
@@ -227,15 +227,7 @@ will produce a navbar with a dark background of the primary color (defined by Bo
 
 \section{YAML config - search}{
 
-You can use \href{https://community.algolia.com/docsearch/}{docsearch} by algolia
-to add search to your site.\preformatted{template:
-  params:
-    docsearch:
-      api_key: API_KEY
-      index_name: INDEX_NAME
-}
-
-You also need to add a \verb{url:} field, see above.
+See \code{vignette("search")}
 }
 
 \section{YAML config - template}{
@@ -247,14 +239,14 @@ used to render the page in the browser.
 
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
-template:\preformatted{template:
+template:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   bootswatch: cerulean
-}
+}\if{html}{\out{</div>}}
 
-Note that if you use Bootstrap version 3 the syntax is\preformatted{template:
+Note that if you use Bootstrap version 3 the syntax is\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     bootswatch: cerulean
-}
+}\if{html}{\out{</div>}}
 
 Refer to \code{vignette("customization", package = "pkgdown")}.
 
@@ -266,27 +258,26 @@ It should correspond to your
 When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.\preformatted{template:
+site, in keeping with current laws and regulations.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     ganalytics: UA-000000-01
-}
+}\if{html}{\out{</div>}}
 
-Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
+Suppress indexing of your pages by web robots by setting \code{noindex: true}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     noindex: true
-}
+}\if{html}{\out{</div>}}
 
 You can also override the default templates and provide additional
 assets. You can do so by either storing them in the
 directories \code{pkgdown/assets} and \code{pkgdown/templates},
 or by supplying \code{path} and \code{asset_path} pointing to alternative folders.
 To suppress inclusion
-of the default assets, set \code{default_assets} to false.\preformatted{
-template:
+of the default assets, set \code{default_assets} to false.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
-}
+}\if{html}{\out{</div>}}
 
 These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
