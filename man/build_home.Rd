@@ -48,10 +48,10 @@ If you want to include images in your \code{README.md}, they must be stored
 somewhere in the package so that they can be displayed on the CRAN
 website. The best place to put them is \code{man/figures}. If you are
 generating figures with R Markdown, make sure you set up \code{fig.path} as
-followed:\preformatted{knitr::opts_chunk$set(
+followed:\if{html}{\out{<div class="sourceCode r">}}\preformatted{knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
-}
+}\if{html}{\out{</div>}}
 
 This should usually go in a chunk with \code{include = FALSE}.\preformatted{```\{r chunk-name, include=FALSE\}
 knitr::opts_chunk$set(
@@ -64,8 +64,8 @@ knitr::opts_chunk$set(
 \subsection{Package logo}{
 
 If you have a package logo, you can include it at the top of your README
-in a level-one heading:\preformatted{ pkgdown <img src="man/figures/logo.png" align="right" />
-}
+in a level-one heading:\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
+}\if{html}{\out{</div>}}
 
 \code{\link[=init_site]{init_site()}} will also automatically create a favicon
 set from your package logo.
@@ -83,13 +83,13 @@ single quotes off quoted words). CRAN ensures that these fields don’t
 contain phrases like “R package” because that’s obvious on CRAN. To make
 your package more findable on search engines, it’s good practice to
 override the \code{title} and \code{description}, thinking about what people might
-search for:\preformatted{home:
+search for:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   title: An R package for pool-noodle discovery
   description: >
     Do you love R? Do you love pool-noodles? If so, you might enjoy
     using this package to automatically discover and add pool-noodles
     to your growing collection.
-}
+}\if{html}{\out{</div>}}
 
 (Note the use of YAML’s \code{>} i.e. “YAML pipes”; this is a convenient way
 of writing paragraphs of text.)
@@ -99,9 +99,9 @@ of writing paragraphs of text.)
 
 READMEs usually start with an \verb{<h1>} containing the package name. If
 that feels duplicative with the package name in the navbar you can
-remove it with \code{strip_header: true}:\preformatted{home:
+remove it with \code{strip_header: true}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   strip_header: true
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Other homepage tweaks}{
@@ -125,13 +125,15 @@ package is developed on GitHub, you can use
 \code{usethis::use_github_links()} to populate these fields.
 
 You can add additional links with a subsection called \code{links}, which
-should contain a list of \code{text} + \code{href} elements:\if{html}{\out{<div class="yaml">}}\preformatted{home:
+should contain a list of \code{text} + \code{href} elements:
+}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   links:
   - text: Link text
     href: https://website.com
   - text: Roadmap
     href: /roadmap.html
 }\if{html}{\out{</div>}}
+\itemize{
 \item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or
 \code{LICENSE.md}/\code{LICENCE.md} files are present.
 \item \code{community}: Community information is linked in the side bar using
@@ -164,23 +166,23 @@ You can change the order of sidebar components: \code{links}, \code{license},
 contents \code{toc}, you can add custom components. The example below creates
 a sidebar whose only components will be the authors section, a custom
 section, a table of contents for the README and a Dev Status section if
-there are badges. The \code{text} will be treated as Markdown.\preformatted{home:
+there are badges. The \code{text} will be treated as Markdown.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   sidebar:
     structure: [authors, custom, toc, dev]
     components:
       custom:
         title: Funding
         text: We are *grateful* for funding!
-}
+}\if{html}{\out{</div>}}
 
-Alternatively, you can provide a ready-made sidebar HTML:\preformatted{home:
+Alternatively, you can provide a ready-made sidebar HTML:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   sidebar:
     html: path-to-sidebar.html
-}
+}\if{html}{\out{</div>}}
 
-Finally, you can completely remove the sidebar.\preformatted{home:
+Finally, you can completely remove the sidebar.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   sidebar: FALSE
-}
+}\if{html}{\out{</div>}}
 }
 
 }
@@ -201,7 +203,7 @@ sidebar/footer.
 \subsection{Authors ORCID and bio}{
 
 Author ORCID identification numbers in the \code{DESCRIPTION} are linked
-using the ORCID logo:\preformatted{Authors@R: c(
+using the ORCID logo:\if{html}{\out{<div class="sourceCode r">}}\preformatted{Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0003-4757-117X")
     ),
@@ -209,11 +211,11 @@ using the ORCID logo:\preformatted{Authors@R: c(
       comment = c(ORCID = "0000-0002-6299-179X")
     )
   )
-}
+}\if{html}{\out{</div>}}
 
 If you want to add more details about authors or their involvement with
 the package, you can use the comment field, which will be rendered on
-the authors page.\preformatted{Authors@R: c(
+the authors page.\if{html}{\out{<div class="sourceCode r">}}\preformatted{Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0003-4757-117X", "Indenter-in-chief")
     ),
@@ -221,7 +223,7 @@ the authors page.\preformatted{Authors@R: c(
       comment = c(ORCID = "0000-0002-6299-179X")
     )
   )
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{YAML config - authors}{
@@ -244,14 +246,11 @@ the author’s name (matching \code{DESCRIPTION}) and can contain \code{href} an
 \item If \code{html} is provided, it will be shown instead of the author’s
 name. This is particularly useful if you want to display the logo of
 a corporate sponsor.
-}\if{html}{\out{
-<!-- -->
-}}
-\preformatted{authors:
+}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   firstname lastname:
     href: "http://name-website.com"
     html: "<img src='name-picture.png' height=24>"
-}
+}\if{html}{\out{</div>}}
 
 By default, the “developers” list shown in the sidebar and footer is
 populated by the maintainer (“cre”), authors (“aut”), and funder (“fnd”)
@@ -265,10 +264,7 @@ text “Crafted by”,
 text,
 \item the authors list on the authors page is preceded and followed by
 some text.
-}\if{html}{\out{
-<!-- -->
-}}
-\preformatted{authors:
+}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   footer:
     roles: [cre, fnd]
     text: "Crafted by"
@@ -278,7 +274,7 @@ some text.
     after: "Thanks all!"
   before: "This package is proudly brought to you by:"
   after: "See the [changelog](news/index.html) for other contributors. :pray:"
-}
+}\if{html}{\out{</div>}}
 
 If you want to filter authors based on something else than their roles,
 consider using a custom sidebar/footer component (see

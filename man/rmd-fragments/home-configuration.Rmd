@@ -26,7 +26,7 @@ somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is `man/figures`. If you are generating figures
 with R Markdown, make sure you set up `fig.path` as followed:
 
-```
+```r
 knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
@@ -47,8 +47,8 @@ knitr::opts_chunk$set(
 If you have a package logo, you can include it at the top of your README in a
 level-one heading:
 
-```
- pkgdown <img src="man/figures/logo.png" align="right" />
+```markdown
+# pkgdown <img src="man/figures/logo.png" align="right" />
 ```
 
 [init_site()] will also automatically create a favicon set from your package
@@ -67,7 +67,7 @@ phrases like "R package" because that's obvious on CRAN. To make your
 package more findable on search engines, it's good practice to override the
 `title` and `description`, thinking about what people might search for:
 
-```
+```yaml
 home:
   title: An R package for pool-noodle discovery
   description: >
@@ -86,7 +86,7 @@ READMEs usually start with an `<h1>` containing the package name. If
 that feels duplicative with the package name in the navbar you can
 remove it with `strip_header: true`:
 
-```
+```yaml
 home:
   strip_header: true
 ```
