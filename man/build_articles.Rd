@@ -81,7 +81,7 @@ found at \code{vignettes/pizza/slice.Rmd} is \code{pizza/slice}.
 The title and description of individual vignettes displayed on the index
 comes from \code{title} and \code{description} fields of the YAML header in the Rmds.
 
-For example, this yaml might be used for some version of dplyr:\preformatted{articles:
+For example, this yaml might be used for some version of dplyr:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
 - title: Main verbs
   navbar: ~
   contents:
@@ -95,7 +95,7 @@ For example, this yaml might be used for some version of dplyr:\preformatted{art
   contents:
   - programming
   - packages
-}
+}\if{html}{\out{</div>}}
 
 Note the use of the \code{navbar} fields. \verb{navbar: ~} means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the \code{navbar}
@@ -129,13 +129,13 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in \code{.install_extras}. pkgdown takes a different approach based on
 \code{\link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources()}}, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a \code{resource_files} field to the yaml metadata, e.g.:\preformatted{---
+will need to add a \code{resource_files} field to the yaml metadata, e.g.:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
 title: My Document
 resource_files:
   - data/mydata.csv
   - images/figure.png
 ---
-}
+}\if{html}{\out{</div>}}
 
 Note that you can not use the \code{fig.path} to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.
@@ -160,9 +160,9 @@ you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).
 
 If you need to override the output format, or set any options, you'll need
-to add a \code{pkgdown} field to your yaml metadata:\preformatted{pkgdown:
+to add a \code{pkgdown} field to your yaml metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
-}
+}\if{html}{\out{</div>}}
 
 This will tell pkgdown to use the \code{output_format} (and options) that you
 have specified. This format must accept \code{template}, \code{theme}, and
@@ -172,10 +172,10 @@ If the output needs a theme, you'll have to specify it even if it is
 the output and pkgdown.
 
 If the output format produces a PDF, you'll also need to specify the
-\code{extension} field:\preformatted{pkgdown:
+\code{extension} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
   extension: pdf
-}
+}\if{html}{\out{</div>}}
 
 If you want to set an output format for all your articles, you can do that
 by adding a \verb{vignettes/_site.yml}, much like you would for an
@@ -183,10 +183,10 @@ by adding a \verb{vignettes/_site.yml}, much like you would for an
 For example, you can backport some bookdown features such as cross-references
 to all your articles by using the
 \href{https://bookdown.org/yihui/bookdown/a-single-document.html}{bookdown::html_document2}
-format.\preformatted{output:
+format.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{output:
   bookdown::html_document2:
   number_sections: false
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Suppressing vignettes}{

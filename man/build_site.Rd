@@ -104,13 +104,13 @@ It's used in the page title and default navbar.
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including \code{href} to add a link, or \code{html} to override the
-text:\preformatted{authors:
+text:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Development mode}{
@@ -124,9 +124,9 @@ The development mode of a site controls four main things:
 }
 
 You can override the default development mode by adding a
-new \code{development} field to \verb{_pkgdown.yml}, e.g.\preformatted{development:
+new \code{development} field to \verb{_pkgdown.yml}, e.g.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   mode: devel
-}
+}\if{html}{\out{</div>}}
 
 There are currently four possible modes:
 \itemize{
@@ -148,11 +148,11 @@ based on the version number:
 }
 }
 
-There are three other options that you can control:\preformatted{development:
+There are three other options that you can control:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
-}
+}\if{html}{\out{</div>}}
 
 \code{destination} allows you to override the default subdirectory used for the
 development site; it defaults to \verb{dev/}. \code{version_label} allows you to

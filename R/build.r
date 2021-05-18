@@ -45,7 +45,7 @@
 #' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' ```
+#' ```yaml
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
@@ -65,7 +65,7 @@
 #' You can override the default development mode by adding a
 #' new `development` field to `_pkgdown.yml`, e.g.
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   mode: devel
 #' ```
@@ -93,7 +93,7 @@
 #'
 #' There are three other options that you can control:
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   destination: dev
 #'   version_label: danger
