@@ -199,3 +199,18 @@ blablablabla
 ### Tab 2
 
 blop
+
+
+## Results in tabset, no pills {.tabset}
+
+### Tab 1
+
+something nice
+
+```r
+1 + 1
+```
+
+### Tab 2
+
+hello

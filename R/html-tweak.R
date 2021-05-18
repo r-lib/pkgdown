@@ -129,54 +129,70 @@ tweak_footnotes <- function(html) {
   xml2::xml_remove(container)
 }
 
-tablist_item <- function(tab, html, id) {
+tablist_item <- function(tab, html, parent_id) {
   id <- xml2::xml_attr(tab, "id")
   text <- xml_text1(xml2::xml_child(tab))
+  ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
+
   xml2::xml_add_child(
-    xml2::xml_find_first(html, "//ul[contains(@class, 'nav nav-')]"),
+    ul_nav,
     "a",
     text,
     `data-toggle` = "tab",
-    `data-value` = text,
+    #`data-value` = id,
     href = paste0("#", id),
     role = "tab"
   )
 
+  # a's need to be wrapped in li's
   xml2::xml_add_parent(
     xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
     "li"
   )
 }
 
-tablist_content <- function(tab, html) {
-  id <- xml2::xml_attr(tab, "id")
-
+# For filling the content div of a tabset
+tablist_content <- function(tab, html, parent_id) {
   # remove 1st child that is the header
   xml2::xml_remove(xml2::xml_child(tab))
 
   xml2::xml_attr(tab, "class") <- "tab-pane"
   xml2::xml_attr(tab, "role") <- "tabpanel"
-  xml2::xml_attr(tab, "data-value") <- xml_text1(xml2::xml_child(tab))
-
-  xml2::xml_add_child(
-    xml2::xml_find_first(html, "//div[contains(@class, 'tab-content')]"),
-    tab
+  #xml2::xml_attr(tab, "data-value") <- xml2::xml_attr(tab, "id")
+  content_div <- xml2::xml_find_first(
+    html,
+    sprintf("//div[@id='%s']/div", parent_id)
   )
+
+  xml2::xml_add_child(content_div, tab)
 }
 
 tweak_tabset <- function(html) {
   id <- xml2::xml_attr(html, "id")
+
+  # Users can choose pills or tabs
   nav_class <- if (grepl("tabset-pills", xml2::xml_attr(html, "class"))) {
     "nav-pills"
   } else {
     "nav-tabs"
   }
+
+  # Add empty ul for nav
   xml2::xml_add_child(html, "ul", class=sprintf("nav %s nav-row", nav_class), id=id)
+  # Add empty div for content
   xml2::xml_add_child(html, "div", class="tab-content")
+
+  # Identify tabs and get them in an object
   tabs <- xml2::xml_find_all(html, "div[contains(@id, 'tab')]")
+
+  # Remove tabs from original HTML
   xml2::xml_remove(tabs)
-  purrr::walk(tabs, tablist_item, html = html, id = id)
-  purrr::walk(tabs, tablist_content, html = html)
+
+  # Fill the ul for nav
+  purrr::walk(tabs, tablist_item, html = html, parent_id = id)
+
+  # Fill the div for content
+  purrr::walk(tabs, tablist_content, html = html, parent_id = id)
 
 
   # active first
