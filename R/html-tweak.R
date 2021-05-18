@@ -129,6 +129,64 @@ tweak_footnotes <- function(html) {
   xml2::xml_remove(container)
 }
 
+tablist_item <- function(tab, html, id) {
+  id <- xml2::xml_attr(tab, "id")
+  text <- xml_text1(xml2::xml_child(tab))
+  xml2::xml_add_child(
+    xml2::xml_find_first(html, "//div[contains(@class, 'list-group')]"),
+    "a",
+    text,
+    class = "list-group-item list-group-item-action",
+    `data-toggle` = "list",
+    href = paste0("#", id),
+    role = "tab"
+  )
+}
+
+tablist_content <- function(tab, html) {
+  id <- xml2::xml_attr(tab, "id")
+
+  # remove 1st child that is the header
+  xml2::xml_remove(xml2::xml_child(tab))
+
+  xml2::xml_attr(tab, "class") <- "tab-pane"
+  xml2::xml_attr(tab, "role") <- "tabpanel"
+
+  xml2::xml_add_child(
+    xml2::xml_find_first(html, "//div[contains(@class, 'tab-content')]"),
+    tab
+  )
+}
+
+tweak_tabset <- function(html) {
+  id <- xml2::xml_attr(html, "id")
+  xml2::xml_add_child(html, "div", class="list-group", id=id, role="tablist")
+  xml2::xml_add_child(html, "div", class="tab-content")
+  tabs <- xml2::xml_find_all(html, "div[contains(@id, 'tab')]")
+  purrr::walk(tabs, tablist_item, html = html, id = id)
+  purrr::walk(tabs, tablist_content, html = html)
+
+  xml2::xml_remove(tabs)
+
+  # active first
+  tweak_class_prepend(
+    xml2::xml_find_first(html, "//a[contains(@class, 'list-group-item list-group-item-action')]"),
+    "active"
+  )
+  tweak_class_prepend(
+    xml2::xml_find_first(html, "//div[contains(@class, 'tab-pane')]"),
+    "active"
+  )
+}
+
+tweak_tabsets <- function(html) {
+  tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
+  if (length(tabsets) == 0) {
+    return()
+  }
+  purrr::walk(tabsets, tweak_tabset)
+}
+
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
@@ -137,7 +195,12 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
   tweak_all_links(html, pkg = pkg)
+
+  # Tweak footnotes
   if (pkg$bs_version > 3) tweak_footnotes(html)
+
+  # Tweak tabsets
+  if (pkg$bs_version > 3) tweak_tabsets(html)
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")

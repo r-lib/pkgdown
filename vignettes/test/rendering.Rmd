@@ -185,3 +185,17 @@ Blablablablablabla.
 # This section is unnumbered {-}
 
 There should however be no bug here!
+
+## Results {.tabset}
+
+### Tab 1
+
+blablablabla
+
+```r
+1 + 1
+```
+
+### Tab 2
+
+blop
