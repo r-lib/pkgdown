@@ -186,7 +186,7 @@ Blablablablablabla.
 
 There should however be no bug here!
 
-## Results {.tabset}
+## Results in tabset {.tabset .tabset-pills}
 
 ### Tab 1
 

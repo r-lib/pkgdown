@@ -133,13 +133,18 @@ tablist_item <- function(tab, html, id) {
   id <- xml2::xml_attr(tab, "id")
   text <- xml_text1(xml2::xml_child(tab))
   xml2::xml_add_child(
-    xml2::xml_find_first(html, "//div[contains(@class, 'list-group')]"),
+    xml2::xml_find_first(html, "//ul[contains(@class, 'nav nav-')]"),
     "a",
     text,
-    class = "list-group-item list-group-item-action",
-    `data-toggle` = "list",
+    `data-toggle` = "tab",
+    `data-value` = text,
     href = paste0("#", id),
     role = "tab"
+  )
+
+  xml2::xml_add_parent(
+    xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
+    "li"
   )
 }
 
@@ -151,6 +156,7 @@ tablist_content <- function(tab, html) {
 
   xml2::xml_attr(tab, "class") <- "tab-pane"
   xml2::xml_attr(tab, "role") <- "tabpanel"
+  xml2::xml_attr(tab, "data-value") <- xml_text1(xml2::xml_child(tab))
 
   xml2::xml_add_child(
     xml2::xml_find_first(html, "//div[contains(@class, 'tab-content')]"),
@@ -160,17 +166,22 @@ tablist_content <- function(tab, html) {
 
 tweak_tabset <- function(html) {
   id <- xml2::xml_attr(html, "id")
-  xml2::xml_add_child(html, "div", class="list-group", id=id, role="tablist")
+  nav_class <- if (grepl("tabset-pills", xml2::xml_attr(html, "class"))) {
+    "nav-pills"
+  } else {
+    "nav-tabs"
+  }
+  xml2::xml_add_child(html, "ul", class=sprintf("nav %s nav-row", nav_class), id=id)
   xml2::xml_add_child(html, "div", class="tab-content")
   tabs <- xml2::xml_find_all(html, "div[contains(@id, 'tab')]")
+  xml2::xml_remove(tabs)
   purrr::walk(tabs, tablist_item, html = html, id = id)
   purrr::walk(tabs, tablist_content, html = html)
 
-  xml2::xml_remove(tabs)
 
   # active first
   tweak_class_prepend(
-    xml2::xml_find_first(html, "//a[contains(@class, 'list-group-item list-group-item-action')]"),
+    xml2::xml_parent(xml2::xml_find_first(html, "//a[@role='tab']")),
     "active"
   )
   tweak_class_prepend(

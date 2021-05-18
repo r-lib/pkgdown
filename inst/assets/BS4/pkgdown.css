@@ -465,3 +465,8 @@ summary {
 details p {
   margin-top: -.5rem;
 }
+
+/* tabsets */
+.nav-row {
+  flex-direction: row;
+}
