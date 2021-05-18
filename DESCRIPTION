@@ -46,7 +46,8 @@ Imports:
     whisker,
     withr,
     xml2 (>= 1.3.1),
-    yaml
+    yaml,
+    sass
 Suggests: 
     covr,
     diffviewer,
