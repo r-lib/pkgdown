@@ -202,7 +202,7 @@ present: if you do not want this, you will need to customise the navbar. See
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []
@@ -213,7 +213,7 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.asp: 1.618
   bg: NA
   other.parameters: []
-}
+}\if{html}{\out{</div>}}
 
 Most of these parameters are interpreted similarly to knitr chunk
 options. \code{other.parameters} is a list of parameters
