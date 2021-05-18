@@ -427,7 +427,7 @@ data_deps <- function(pkg, depth) {
   pkgdown_css <- sass::sass_partial(paste(read_lines(pkgdown_sass), collapse = ""), bs_theme)
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
 
-  deps <- bslib::bs_theme_dependencies(bs_theme)
+  deps <- bslib::bs_theme_dependencies(bs_theme, sass::sass_options_get(output_style = "expanded"))
   # Add other dependencies - TODO: more of those?
   # Even font awesome had a too old version in R Markdown (no ORCID)
 
