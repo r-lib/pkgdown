@@ -207,8 +207,8 @@ blop
 
 something nice
 
-```r
-1 + 1
+```{r}
+plot(1:42)
 ```
 
 ### Tab 2

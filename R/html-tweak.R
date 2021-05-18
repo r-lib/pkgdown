@@ -194,14 +194,19 @@ tweak_tabset <- function(html) {
   # Fill the div for content
   purrr::walk(tabs, tablist_content, html = html, parent_id = id)
 
-
   # active first
+#  TODO add control
   tweak_class_prepend(
-    xml2::xml_parent(xml2::xml_find_first(html, "//a[@role='tab']")),
+    xml2::xml_child(xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))),
     "active"
   )
   tweak_class_prepend(
-    xml2::xml_find_first(html, "//div[contains(@class, 'tab-pane')]"),
+    xml2::xml_child(
+      xml2::xml_find_first(
+        html,
+        sprintf("//div[@id='%s']/div", id)
+      )
+    ),
     "active"
   )
 }
