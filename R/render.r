@@ -423,7 +423,7 @@ data_deps <- function(pkg, depth) {
     )
   )
 
-  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.css")
+  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
   pkgdown_css <- sass::sass_partial(paste(read_lines(pkgdown_sass), collapse = ""), bs_theme)
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
 
