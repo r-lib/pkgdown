@@ -53,12 +53,12 @@ followed:\if{html}{\out{<div class="sourceCode r">}}\preformatted{knitr::opts_ch
 )
 }\if{html}{\out{</div>}}
 
-This should usually go in a chunk with \code{include = FALSE}.\preformatted{```\{r chunk-name, include=FALSE\}
+This should usually go in a chunk with \code{include = FALSE}.\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{```\{r chunk-name, include=FALSE\}
 knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
 ```
-}
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Package logo}{

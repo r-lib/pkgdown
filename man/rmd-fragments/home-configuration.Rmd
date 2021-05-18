@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 
 This should usually go in a chunk with `include = FALSE`.
 
-````
+````markdown
 ```{r chunk-name, include=FALSE}`r ''`
 knitr::opts_chunk$set(
   fig.path = "man/figures/"
