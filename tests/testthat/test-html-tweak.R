@@ -375,9 +375,7 @@ test_that("tweak_tabsets() default", {
 </div>
 </div>'
   new_html <- tweak_tabsets(xml2::read_html(html))
-  dir <- withr::local_tempdir()
-  xml2::write_html(new_html, file.path(dir, "tabsets.html"))
-  expect_snapshot_file(file.path(dir, "tabsets.html"))
+  expect_snapshot_output(cat(as.character(new_html)))
 })
 
 test_that("tweak_tabsets() with tab pills and second tab active", {
@@ -398,7 +396,5 @@ test_that("tweak_tabsets() with tab pills and second tab active", {
 </div>
 </div>'
   new_html <- tweak_tabsets(xml2::read_html(html))
-  dir <- withr::local_tempdir()
-  xml2::write_html(new_html, file.path(dir, "tabsets-pills-second-active.html"))
-  expect_snapshot_file(file.path(dir, "tabsets-pills-second-activ.html"))
+  expect_snapshot_output(cat(as.character(new_html)))
 })
