@@ -139,7 +139,6 @@ tablist_item <- function(tab, html, parent_id) {
     "a",
     text,
     `data-toggle` = "tab",
-    #`data-value` = id,
     href = paste0("#", id),
     role = "tab"
   )
@@ -169,7 +168,7 @@ tablist_content <- function(tab, html, parent_id) {
   }
 
   xml2::xml_attr(tab, "role") <- "tabpanel"
-  #xml2::xml_attr(tab, "data-value") <- xml2::xml_attr(tab, "id")
+
   content_div <- xml2::xml_find_first(
     html,
     sprintf("//div[@id='%s']/div", parent_id)
@@ -205,7 +204,8 @@ tweak_tabset <- function(html) {
   # Fill the div for content
   purrr::walk(tabs, tablist_content, html = html, parent_id = id)
 
-  # active first
+  # activate first tab unless another one is already activated
+  # (by {.active} in the source Rmd)
   nav_url <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))
   if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(nav_url), "class")))) {
     tweak_class_prepend(xml2::xml_child(nav_url), "active")
