@@ -20,6 +20,7 @@ template:
     headings-color: "#187BA2"           # inherits from body if not set / not sidebars though
     navbar-bg: "#f4e4e7"                # navbar bg color / inherits primary if not set
     secondary: "#595959"                # version badge bg only?
+    component-active-bg: "salmon"
     navbar-light-brand-color: "#595959" # pkgname color / inherits navbar-light-active-color if not set
     # these don't work
     link-color: "#767676"               # should inherit primary, but doesn't? now pkgdown overrides
