@@ -197,6 +197,13 @@ h6.dropdown-header {
 
 /* Clipboard --------------------------*/
 
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active:hover {
+  background-color: $component-active-bg;
+  color: color-contrast($component-active-bg);
+}
+
 .hasCopyButton {
   position: relative;
 }
@@ -256,7 +263,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   border-radius: 1rem;
-  border: white solid;
+  border: $white solid;
 }
 
 /* Under hover */
@@ -281,13 +288,6 @@ nav[data-toggle="toc"] .nav .nav > li > a {
   margin-left: 0.5rem;
 }
 
-/*----Copy Buttons ----*/
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active:hover {
-  background-color: $component-active-bg;
-  color: color-contrast($component-active-bg);
-}
 
 
 /* version badge  */
