@@ -31,8 +31,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   package <- desc$get("Package")[[1]]
   version <- desc$get_field("Version")
 
-  development <- meta_development(meta, version)
-
   if (is.null(meta$destination)) {
     dst_path <- path(pkg, "docs")
   } else {
@@ -67,11 +65,14 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     )
 
   pkg_list$bs_version <- get_bs_version(pkg_list)
+
+  development <- meta_development(meta, version, pkg_list$bs_version)
+
   pkg_list$has_logo <- has_logo(pkg_list)
   pkg_list$prefix <- ""
   if (pkg_list$development$in_dev) {
     pkg_list$prefix <- paste0(
-      meta_development(pkg_list$meta, pkg_list$version)$destination,
+      meta_development(pkg_list$meta, pkg_list$version, pkg_list$bs_version)$destination,
       "/"
     )
   }
