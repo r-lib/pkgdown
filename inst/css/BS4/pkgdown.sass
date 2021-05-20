@@ -315,7 +315,7 @@ h1.display-4 {
 /* Footnotes --------------------------------------------- */
 
 .popover {
-  max-width: Min(100vw, 32rem);
+  max-width: Min(100vw, 32rem); // needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -400,7 +400,7 @@ mark {
   color: mix($black, $white, 10%);
 }
 .algolia-autocomplete .aa-dropdown-menu {
-  width: Max(100%, 20rem);
+  width: Max(100%, 20rem);  // needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max
   background-color: $white;
   border: 1px solid var(--gray);
   border-radius: 0.2rem;
