@@ -15,7 +15,20 @@ authors:
 template:
   bootstrap: 4
   bslib:
-    secondary: red
+    bg: "white"                         # background of site
+    primary: "#187BA2"                  # sidebar heading colors / but not content
+    headings-color: "#187BA2"           # inherits from body if not set / not sidebars though
+    navbar-bg: "#f4e4e7"                # navbar bg color / inherits primary if not set
+    secondary: "#595959"                # version badge bg only?
+    navbar-light-brand-color: "#595959" # pkgname color / inherits navbar-light-active-color if not set
+    # these don't work
+    link-color: "#767676"               # should inherit primary, but doesn't? now pkgdown overrides
+    link-hover-color: "#187BA2"         # should inherit and darken link-color, but pkgdown overrides
+    fg: "#595959"                       # all body text, cannot leave blank? but also bootstrap overrides?
+    navbar-light-active-color: "#187BA2"
+    navbar-light-hover-color: "#126180" # pkgdown overrides
+    navbar-light-color: "#595959"       # pkgdown overrides
+
   params:
     ganalytics: UA-115082821-1
 
