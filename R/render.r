@@ -506,7 +506,10 @@ pkgdown_bslib_defaults <- function() {
     `border-color` = "#e5e5e5",
     `navbar-light-color` = "rgba(0,0,0,0.7)",
     `navbar-light-hover-color` = "rgba(0,0,0,0.9)",
-    `border-width` = "1px"
+    `border-width` = "1px",
+    `code-bg` = "#f8f8f8",
+    `code-color` = "#333",
+    `fu-color` = "#4758AB"
   )
 }
 
