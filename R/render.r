@@ -424,10 +424,12 @@ data_deps <- function(pkg, depth) {
   )
 
   # map secondary to component-active-bg
-  secondary <- bslib::bs_get_variables(bs_theme, "secondary")
+  # unless a value was set by the user
+  component_active_bg <- pkg$meta[["template"]]$bslib$`component-active-bg` %||%
+    bslib::bs_get_variables(bs_theme, "secondary")
   bs_theme <- bslib::bs_add_variables(
     bs_theme,
-    "component-active-bg" = as.character(secondary)
+    "component-active-bg" = as.character(component_active_bg)
   )
 
   # pkgdown sass
