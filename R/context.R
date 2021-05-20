@@ -10,7 +10,7 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {
   article_index <- set_names(path_file(pkg$vignettes$file_out), pkg$vignettes$name)
-  Rdname <- fs::path_ext_remove(pkg$topics$file_in)
+  Rdname <- get_rdname(pkg$topics)
   topic_index <- unlist(invert_index(set_names(pkg$topics$alias, Rdname)))
 
   withr::local_options(

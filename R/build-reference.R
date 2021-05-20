@@ -291,7 +291,7 @@ data_reference_topic <- function(topic,
                                  run_dont_run = FALSE
                                  ) {
   local_context_eval(pkg$figures, pkg$src_path)
-  withr::local_options(list(downlit.rdname = topic$name))
+  withr::local_options(list(downlit.rdname = get_rdname(topic)))
 
   tag_names <- purrr::map_chr(topic$rd, ~ class(.)[[1]])
   tags <- split(topic$rd, tag_names)
@@ -359,4 +359,8 @@ make_slug <- function(x) {
   x <- tolower(x)
   x <- gsub("[^a-z]+", "-", x)
   x
+}
+
+get_rdname <- function(topics) {
+  fs::path_ext_remove(topics$file_in)
 }

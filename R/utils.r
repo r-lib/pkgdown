@@ -1,12 +1,3 @@
-highlight_text <- function(text) {
-  out <- downlit::highlight(text, classes = downlit::classes_pandoc())
-  if (is.na(out)) {
-    escape_html(text)
-  } else {
-    out
-  }
-}
-
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
