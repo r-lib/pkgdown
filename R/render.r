@@ -429,6 +429,13 @@ data_deps <- function(pkg, depth) {
   pkgdown_css <- sass::sass_partial(all_sass, bs_theme)
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
 
+  # map secondary to component-active-bg
+  secondary <- bslib::bs_get_variables(bs_theme, "secondary")
+  bs_theme <- bslib::bs_add_variables(
+    bs_theme,
+    "component-active-bg" = as.character(secondary)
+  )
+
   deps <- bslib::bs_theme_dependencies(bs_theme, sass::sass_options_get(output_style = "expanded"))
   # Add other dependencies - TODO: more of those?
   # Even font awesome had a too old version in R Markdown (no ORCID)

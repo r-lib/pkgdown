@@ -260,17 +260,6 @@ nav[data-toggle="toc"] .nav > li > a {
   border: white solid;
 }
 
-/* Under hover */
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus,
-/* Current */
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus
-{
-  background-color: $secondary;
-}
-
 /* Nav: second level (shown on .active) */
 nav[data-toggle="toc"] .nav-link + ul {
   display: none;
@@ -304,7 +293,6 @@ h1.display-4 {
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
-   background: $secondary;
    border-radius: 1rem;
  }
 .navbar-nav .nav-link {
@@ -314,8 +302,9 @@ h1.display-4 {
 
 /* Footnotes --------------------------------------------- */
 
+/* "Mix" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .popover {
-  max-width: Min(100vw, 32rem); // needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max
+  max-width: Min(100vw, 32rem);
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -399,8 +388,11 @@ mark {
 .algolia-autocomplete .aa-hint {
   color: mix($black, $white, 10%);
 }
+
+
+/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
-  width: Max(100%, 20rem);  // needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max
+  width: Max(100%, 20rem);
   background-color: $white;
   border: 1px solid var(--gray);
   border-radius: 0.2rem;
