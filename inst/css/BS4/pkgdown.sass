@@ -260,6 +260,17 @@ nav[data-toggle="toc"] .nav > li > a {
   border: white solid;
 }
 
+/* Under hover */
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus,
+/* Current */
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus
+{
+  background-color: $component-active-bg;
+}
+
 /* Nav: second level (shown on .active) */
 nav[data-toggle="toc"] .nav-link + ul {
   display: none;
@@ -275,8 +286,8 @@ nav[data-toggle="toc"] .nav .nav > li > a {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active:hover {
-  background-color: $secondary;
-  color: color-contrast($secondary);
+  background-color: $component-active-bg;
+  color: color-contrast($component-active-bg);
 }
 
 
@@ -293,6 +304,7 @@ h1.display-4 {
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
+   background: $component-active-bg;
    border-radius: 1rem;
  }
 .navbar-nav .nav-link {
