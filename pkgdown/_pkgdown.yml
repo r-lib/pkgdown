@@ -15,7 +15,9 @@ authors:
 template:
   bootstrap: 4
   bslib:
-    secondary: pink
+    fg: darkblue
+    bg: white
+    secondary: yellow
     primary: purple
   params:
     ganalytics: UA-115082821-1

@@ -466,6 +466,14 @@ data_deps <- function(pkg, depth) {
     )
   }
 
+  if (is.null(pkg$meta[["template"]]$bslib$`border-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "border-color" = "mix($body-color, $body-bg, 20%)",
+      .where = "declarations"
+    )
+  }
+
   # pkgdown sass
   pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
   code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
@@ -537,7 +545,6 @@ pkgdown_bslib_defaults <- function() {
     `navbar-nav-link-padding-x` = "1rem",
     `primary` = "#0054AD",
     `secondary` = "#e9ecef",
-    `border-color` = "#e5e5e5",
     `navbar-light-color` = "rgba(0,0,0,0.7)",
     `navbar-light-hover-color` = "rgba(0,0,0,0.9)",
     `navbar-bg` = "#f8f9fa",
