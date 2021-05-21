@@ -137,10 +137,10 @@ tweak_css_links <- function(html) {
 tweak_css_link <- function(link) {
   if (grepl("dark", xml2::xml_attr(link, "href"))) {
     xml2::xml_attr(link, "media") <- "(prefers-color-scheme: dark)"
-    xml2::xml_attr(link, "id") <- "css-code-light"
+    xml2::xml_attr(link, "id") <- "css-dark"
   } else {
     xml2::xml_attr(link, "media") <- "(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-    xml2::xml_attr(link, "id") <- "css-code-dark"
+    xml2::xml_attr(link, "id") <- "css-light"
   }
 }
 
