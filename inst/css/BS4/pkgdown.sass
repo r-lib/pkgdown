@@ -222,7 +222,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   border-radius: 1rem;
-  border: $white solid;
+  border: $body-bg solid;
 }
 
 /* Under hover */
@@ -352,14 +352,14 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: mix($black, $white, 90%);
+  color: mix($body-color, $body-bg, 90%);
 }
 
 
 /* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
   width: Max(100%, 20rem);
-  background-color: $white;
+  background-color: $body-bg;
   border: 1px solid $table-border-color;
   border-radius: 0.2rem;
   margin-top: 2px;
@@ -370,9 +370,9 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px mix($black, $white, 10%) solid;
+  border-bottom: 1px mix($body-color, $body-bg, 20%) solid;
   font-size: 0.9rem;
-  color: mix($black, $white, 90%);
+  color: mix($body-color, $body-bg, 90%);
 
 }
 
