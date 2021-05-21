@@ -1,3 +1,5 @@
+// from https://github.com/amirmasoudabdol/preferably/blob/c9b6c7e8b81a586ad902ab2c0c51e0293c63b7d8/inst/pkgdown/assets/darkswitch.js#L1
+
 $(document).ready(function(){
 
   prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
