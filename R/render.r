@@ -433,6 +433,23 @@ data_deps <- function(pkg, depth) {
     )
   }
 
+  # map primary to navbar-light-active-color + component-active-color
+  # unless a value was set by the user
+  if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-active-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "navbar-light-active-color " = "$primary",
+      .where = "declarations"
+    )
+  }
+  if (is.null(pkg$meta[["template"]]$bslib$`component-active-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "component-active-color" = "$primary",
+      .where = "declarations"
+    )
+  }
+
   # pkgdown sass
   pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
   code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
