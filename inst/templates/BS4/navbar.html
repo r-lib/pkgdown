@@ -23,11 +23,13 @@
       {{#right}}
       <ul class="navbar-nav ml-1">
       {{{.}}}
+      {{#toggle}}
       <li>
-          <a href="#" id="css-toggle-btn">
-            <span class="fas fa-adjust fa-lg"></span>
-          </a>
+      <a href="#" id="css-toggle-btn">
+        <span class="fas fa-adjust fa-lg"></span>
+      </a>
         </li>
+        {{/toggle}}
       </ul>
       {{/right}}
     </div>

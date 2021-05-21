@@ -135,6 +135,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     dev = pkg$use_dev,
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
+    toggle = pkg$meta$template$toggle %||% TRUE,
     yaml = yaml
   ))
 }
@@ -547,9 +548,13 @@ pkgdown_bslib_dark_defaults <- function() {
     `bg` = "black",
     `border-color` = "#1A1A1A",
     `navbar-light-color` = "#eee",
-    `navbar-light-hover-color` = "cfcbc8",
+    `navbar-light-hover-color` = "#FFAB52",
     `navbar-bg` = "darkgrey",
+    `navbar-light-brand-color` = "white",
+    `navbar-light-brand-hover-color` = "#FFAB52",
     `border-width` = "1px",
+    `component-active-bg` = "white",
+    `component-active-color` = "black",
     `code-bg` = "#f8f8f8",
     `code-color` = "#333",
     `fu-color` = "#4758AB"
