@@ -30,7 +30,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   list(
     type = navbar$type %||% "light",
-    bg = navbar$bg %||% "light",
+    bg = navbar$bg %||% pkg$meta$template$bslib$`navbar-bg` %||% "light",
     left = render_navbar_links(left, depth = depth, pkg$bs_version),
     right = render_navbar_links(right, depth = depth, pkg$bs_version)
   )
