@@ -129,6 +129,21 @@ tweak_footnotes <- function(html) {
   xml2::xml_remove(container)
 }
 
+tweak_css_links <- function(html) {
+  links <- xml2::xml_find_all(html, ".//link[contains(@href, 'bootstrap.css')]")
+  purrr::walk(links, tweak_css_link)
+}
+
+tweak_css_link <- function(link) {
+  if (grepl("dark", xml2::xml_attr(link, "href"))) {
+    xml2::xml_attr(link, "media") <- "(prefers-color-scheme: dark)"
+    xml2::xml_attr(link, "id") <- "css-code-light"
+  } else {
+    xml2::xml_attr(link, "media") <- "(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    xml2::xml_attr(link, "id") <- "css-code-dark"
+  }
+}
+
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {

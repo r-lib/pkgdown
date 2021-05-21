@@ -90,6 +90,13 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     rendered <- as.character(html, options = character())
   }
 
+  # CSS dark & light
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    tweak_css_links(html)
+    rendered <- as.character(html, options = character())
+  }
+
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -409,45 +416,24 @@ data_deps <- function(pkg, depth) {
 
   check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
 
-  bs_theme <- do.call(
-    bslib::bs_theme,
-    c(
-      list(
-        version = bs_version,
-        bootswatch = bootswatch_theme
-      ),
-      utils::modifyList(
-        pkgdown_bslib_defaults(),
-        pkg$meta[["template"]]$bslib %||% list()
-      )
-    )
-  )
-
-  # map secondary to component-active-bg
-  # unless a value was set by the user
-  component_active_bg <- pkg$meta[["template"]]$bslib$`component-active-bg` %||%
-    bslib::bs_get_variables(bs_theme, "secondary")
-  bs_theme <- bslib::bs_add_variables(
-    bs_theme,
-    "component-active-bg" = as.character(component_active_bg)
-  )
-
-  # pkgdown sass
-  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
-  code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
-  all_sass <- paste(c(read_lines(pkgdown_sass), read_lines(code_sass)), collapse = "")
-  pkgdown_css <- sass::sass_partial(all_sass, bs_theme)
-  bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
-
-  deps <- bslib::bs_theme_dependencies(bs_theme, sass::sass_options_get(output_style = "expanded"))
-  # Add other dependencies - TODO: more of those?
-  # Even font awesome had a too old version in R Markdown (no ORCID)
+  light_deps <- create_theme(pkg, bootswatch_theme, bs_version, mode = "light")
+  dark_deps <- create_theme(pkg, bootswatch_theme, bs_version, mode = "dark")
+  # only keep what's different
+  dark_deps <- dark_deps[purrr::map_chr(dark_deps, "name") == "bootstrap"]
+  dark_deps[[1]]$script <- NULL
 
   # Dependencies files end up at the website root in a deps folder
-  deps <- lapply(
-    deps,
-    htmltools::copyDependencyToDir,
-    file.path(pkg$dst_path, "deps")
+  deps <- c(
+    lapply(
+      light_deps,
+      htmltools::copyDependencyToDir,
+      file.path(pkg$dst_path, "deps")
+    ),
+    lapply(
+      dark_deps,
+      htmltools::copyDependencyToDir,
+      file.path(pkg$dst_path, "deps-dark")
+    )
   )
 
   # Function needed for indicating where that deps folder is compared to here
@@ -468,14 +454,49 @@ data_deps <- function(pkg, depth) {
     )
 
   }
-
-
   # Tags ready to be added in heads
   htmltools::renderDependencies(
     deps,
     srcType = "file",
     hrefFilter = transform_path
   )
+}
+
+create_theme <- function(pkg, bootswatch_theme, bs_version, mode) {
+bs_theme <- do.call(
+    bslib::bs_theme,
+    c(
+      list(
+        version = bs_version,
+        bootswatch = bootswatch_theme
+      ),
+      utils::modifyList(
+        switch(mode, light = pkgdown_bslib_defaults(), dark = pkgdown_bslib_dark_defaults()),
+        pkg$meta[["template"]]$bslib %||% list()
+      )
+    )
+  )
+
+  # map secondary to component-active-bg
+  # unless a value was set by the user
+  component_active_bg <- pkg$meta[["template"]]$bslib$dark$`component-active-bg` %||%
+    bslib::bs_get_variables(bs_theme, "secondary")
+  bs_theme <- bslib::bs_add_variables(
+    bs_theme,
+    "component-active-bg" = as.character(component_active_bg)
+  )
+
+  # pkgdown sass
+  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
+  code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
+  all_sass <- paste(c(read_lines(pkgdown_sass), read_lines(code_sass)), collapse = "")
+  pkgdown_css <- sass::sass_partial(all_sass, bs_theme)
+  bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
+
+  deps <- bslib::bs_theme_dependencies(bs_theme, sass::sass_options_get(output_style = "expanded"))
+
+  return(deps)
+
 }
 
 check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
@@ -511,6 +532,28 @@ pkgdown_bslib_defaults <- function() {
     `code-bg` = "#f8f8f8",
     `code-color` = "#333",
     `fu-color` = "#4758AB"
+  )
+}
+
+pkgdown_bslib_dark_defaults <- function() {
+  modify_list(
+    pkgdown_bslib_defaults(),
+    list(
+    `navbar-nav-link-padding-x` = "1rem",
+    `primary` = "#FFAB52",
+    `secondary` = "#161310",
+    `body-color` = "white",
+    `fg` = "white",
+    `bg` = "black",
+    `border-color` = "#1A1A1A",
+    `navbar-light-color` = "#eee",
+    `navbar-light-hover-color` = "cfcbc8",
+    `navbar-bg` = "darkgrey",
+    `border-width` = "1px",
+    `code-bg` = "#f8f8f8",
+    `code-color` = "#333",
+    `fu-color` = "#4758AB"
+  )
   )
 }
 
