@@ -450,6 +450,22 @@ data_deps <- function(pkg, depth) {
     )
   }
 
+  # map primary&secondary to dropdown hover/focus
+  if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "dropdown-link-hover-color" = "$primary",
+      .where = "declarations"
+    )
+  }
+  if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-bg`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "dropdown-link-hover-bg" = "$secondary",
+      .where = "declarations"
+    )
+  }
+
   # pkgdown sass
   pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
   code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
