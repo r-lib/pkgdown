@@ -74,4 +74,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001
 SystemRequirements: pandoc
 Remotes: 
-    r-lib/downlit
+    r-lib/downlit,
+    r-lib/roxygen2
