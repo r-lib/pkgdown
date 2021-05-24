@@ -203,13 +203,17 @@ blop
 
 ## Results in tabset, no pills {.tabset}
 
-### Tab 1
+### A thing
 
 something nice
 
 ```{r}
 plot(1:42)
 ```
+
+#### cool
+
+yay
 
 ### Tab 2 {.active}
 

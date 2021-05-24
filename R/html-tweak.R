@@ -153,16 +153,16 @@ tweak_tabset <- function(html) {
     "nav-tabs"
   }
 
+  # Identify tabs and get them in an object
+  tabs <- xml2::xml_find_all(html, "div")
+
+  # Remove tabs from original HTML
+  xml2::xml_remove(tabs)
+
   # Add empty ul for nav
   xml2::xml_add_child(html, "ul", class=sprintf("nav %s nav-row", nav_class), id=id)
   # Add empty div for content
   xml2::xml_add_child(html, "div", class="tab-content")
-
-  # Identify tabs and get them in an object
-  tabs <- xml2::xml_find_all(html, "div[contains(@id, 'tab')]")
-
-  # Remove tabs from original HTML
-  xml2::xml_remove(tabs)
 
   # Fill the ul for nav
   purrr::walk(tabs, tablist_item, html = html, parent_id = id)
