@@ -40,6 +40,51 @@ as_data.tag_item <- function(x, ...) {
 parse_section <- function(x, title, ...) {
   text <- flatten_para(x, ...)
 
+  html <- xml2::read_html(text)
+  r_blocks <- xml2::xml_find_all(html, "//div[contains(@class, 'sourceCode r')]/pre/code")
+
+  highlight_r_block <- function(block) {
+    xml2::xml_text(block) <- downlit::highlight(
+      xml_text1(block),
+      classes = downlit::classes_pandoc()
+    )
+  }
+
+  purrr::walk(r_blocks, highlight_r_block)
+
+  non_r_blocks <- xml2::xml_find_all(
+    html,
+    "//div[contains(@class, 'sourceCode') and not(contains(@class, 'sourceCode r'))]"
+  )
+
+  highlight_other_block <- function(block) {
+    lang <- sub("sourceCode ", "", xml2::xml_attr(block, "class"))
+    code <- xml2::xml_text(xml2::xml_find_first(block, "pre/code"))
+    highlighted <- markdown_text(
+      paste(c(sprintf("```%s", lang), code, "```"), collapse = "\n"),
+      pkg = NULL
+    )
+    code_node <- xml2::xml_find_first(block, "pre/code")
+    xml2::xml_text(code_node) <- paste(
+      as.character(
+        xml2::xml_contents(
+          xml2::xml_find_first(
+            xml2::read_html(highlighted),
+            "//div/pre/code"
+        )
+      ),
+      collapse = ""
+    )
+  }
+
+  purrr::walk(non_r_blocks, highlight_other_block)
+
+  text <- xml2::xml_find_first(html, "body") %>%
+    xml2::xml_contents() %>%
+    as.character() %>%
+    paste(collapse = "") %>%
+    unescape_html() # highlighted text was escaped
+
   list(
     title = title,
     contents = text

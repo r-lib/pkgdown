@@ -229,3 +229,28 @@ NULL
 #' @keywords internal
 #' @family tests
 NULL
+
+#' Test case: section highlighting
+#'
+#' @name test-sections
+#' @keywords internal
+#' @family tests
+#' @details
+#' ```r
+#' rlang::is_installed()
+#' ```
+#'
+#' bla
+#'
+#' ```yaml
+#' url: https://pkgdown.r-lib.org
+#' footer:
+#'  left:
+#'    structure: [pkgdown]
+#'  right:
+#'    structure: [authors, legal]
+#'    components:
+#' template:
+#'   bootstrap: 4
+#' ```
+NULL

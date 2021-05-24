@@ -55,6 +55,7 @@ Other tests:
 \code{\link{test-long-lines}},
 \code{\link{test-output-styles}},
 \code{\link{test-params}},
+\code{\link{test-sections}},
 \code{\link{test-sexpr-title}},
 \code{\link{test-verbatim}}
 }
