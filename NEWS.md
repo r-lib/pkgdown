@@ -1,5 +1,28 @@
 # pkgdown (development version)
 
+* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information. For better results it is important to add language information i.e. the YAML code block below, in [roxygen2 with Markdown support](https://roxygen2.r-lib.org/articles/rd-formatting.html#turning-on-markdown-support-1), would otherwise be parsed as R code.
+
+````
+```
+field1: true
+field2:
+  nested-field: "ok"
+```
+````
+
+Make it:
+
+
+````
+```yaml
+field1: true
+field2:
+  nested-field: "ok"
+```
+````
+
+(#1700)
+
 * pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
 
     ```html
