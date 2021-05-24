@@ -433,6 +433,22 @@ data_deps <- function(pkg, depth) {
     )
   }
 
+  # map body color to navbar colors
+  if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "navbar-light-color" = "rgba($body-color, 0.8)",
+      .where = "declarations"
+    )
+  }
+  if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-hover-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "navbar-light-hover-color" = "rgba($body-color, 0.9)",
+      .where = "declarations"
+    )
+  }
+
   # map primary to navbar-light-active-color + component-active-color
   # unless a value was set by the user
   if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-active-color`)) {
@@ -545,8 +561,6 @@ pkgdown_bslib_defaults <- function() {
     `navbar-nav-link-padding-x` = "1rem",
     `primary` = "#0054AD",
     `secondary` = "#e9ecef",
-    `navbar-light-color` = "rgba(0,0,0,0.7)",
-    `navbar-light-hover-color` = "rgba(0,0,0,0.9)",
     `navbar-bg` = "#f8f9fa",
     `border-width` = "1px",
     `code-bg` = "#f8f8f8",
