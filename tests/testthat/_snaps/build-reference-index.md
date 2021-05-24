@@ -78,7 +78,7 @@
           title: D
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
-          aliases: rlang::is_installed
+          aliases: is_installed (from rlang)
           title: Are packages installed in any of the libraries?
           icon: ~
         names:
