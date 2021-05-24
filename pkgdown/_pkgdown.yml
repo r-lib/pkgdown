@@ -19,7 +19,30 @@ template:
 
 development:
   mode: auto
-
+navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      menu:
+      - text: "Sub-category B11"
+        href: articles/b11.html
+      - text: Title B1
+        menu:
+        - text: "Sub-category B11"
+          href: articles/b11.html
+    twitter:
+      icon: "fab fa-twitter fa-lg"
+      href: https://twitter.com/hadleywickham
+      aria-label: "twitter account"
 articles:
 - title: Customise your site
   navbar: ~

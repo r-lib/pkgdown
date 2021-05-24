@@ -199,6 +199,27 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
       submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
 
+      if (!is.null(x$menu) && depth > 0) {
+        return(
+        htmltools::tags$div(
+          class = "dropdown-submenu",
+          htmltools::tags$a(
+            href = "#", class = "nav-link dropdown-toggle",
+            `data-toggle` = "dropdown", role = "button",
+            `aria-expanded` = "false", `aria-haspopup` = "true",
+            link_text,
+            id = paste0("dropdown-", make_slug(link_text)),
+          "aria-label" = x$`aria-label` %||% NULL
+          ),
+          htmltools::tags$div(
+            class = "dropdown-menu",
+            `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
+            submenuLinks
+          )
+        )
+      )
+      }
+
       return(
         htmltools::tags$li(
           class = menu_class,
