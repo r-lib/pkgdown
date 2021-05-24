@@ -45,7 +45,7 @@
 #' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' ```
+#' ```yaml
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
@@ -65,7 +65,7 @@
 #' You can override the default development mode by adding a
 #' new `development` field to `_pkgdown.yml`, e.g.
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   mode: devel
 #' ```
@@ -93,7 +93,7 @@
 #'
 #' There are three other options that you can control:
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   destination: dev
 #'   version_label: danger
@@ -113,18 +113,7 @@
 #' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
 #' ```
 #' @section YAML config - search:
-#' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
-#' to add search to your site.
-#'
-#' ```
-#' template:
-#'   params:
-#'     docsearch:
-#'       api_key: API_KEY
-#'       index_name: INDEX_NAME
-#' ```
-#'
-#' You also need to add a `url:` field, see above.
+#' See `vignette("search")`
 #'
 #' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the
@@ -136,14 +125,14 @@
 #' by passing on the `bootswatch` template parameter to the built-in
 #' template:
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   bootswatch: cerulean
 #' ```
 #'
 #' Note that if you use Bootstrap version 3 the syntax is
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   params:
 #'     bootswatch: cerulean
@@ -161,7 +150,7 @@
 #' extent of data collection or to add a privacy disclosure to your
 #' site, in keeping with current laws and regulations.
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   params:
 #'     ganalytics: UA-000000-01
@@ -170,7 +159,7 @@
 #' Suppress indexing of your pages by web robots by setting `noindex:
 #' true`:
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   params:
 #'     noindex: true
@@ -183,8 +172,7 @@
 #' To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
-#' ```
-#'
+#' ```yaml
 #' template:
 #'   path: path/to/templates
 #'   assets: path/to/assets

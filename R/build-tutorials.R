@@ -16,7 +16,7 @@
 #' * `url`: which will be embedded in an iframe
 #' * `source`: optional, but if present will be linked to
 #'
-#' ```
+#' ```yaml
 #' tutorials:
 #' - name: 00-setup
 #'   title: Setting up R
