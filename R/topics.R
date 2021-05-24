@@ -199,7 +199,7 @@ content_info <- function(content_entry, index, pkg, section) {
 
     tibble::tibble(
       path = path,
-      aliases = content_entry,
+      aliases = sprintf("%s (from %s)", names[2], names[1]),
       name = list(content_entry = NULL),
       title = xml_text1(xml2::xml_find_first(rd, ".//h2")),
       icon = list(content_entry = NULL)
