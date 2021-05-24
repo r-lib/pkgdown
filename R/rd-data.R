@@ -71,6 +71,7 @@ parse_section <- function(x, title, ...) {
           xml2::xml_find_first(
             xml2::read_html(highlighted),
             "//div/pre/code"
+          )
         )
       ),
       collapse = ""
@@ -83,7 +84,7 @@ parse_section <- function(x, title, ...) {
     xml2::xml_contents() %>%
     as.character() %>%
     paste(collapse = "") %>%
-    unescape_html() # highlighted text was escaped
+    unescape_html() # highlighted was escaped
 
   list(
     title = title,
