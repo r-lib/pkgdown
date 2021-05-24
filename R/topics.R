@@ -205,16 +205,19 @@ content_info <- function(content_entry, index, pkg, section) {
     }
 
     rd_name <- fs::path_ext_set(fs::path_file(path), "Rd")
-    file <- withr::local_tempfile(fileext = ".html")
-    write_lines(capture.output(tools::Rd2HTML(tools::Rd_db(names[1])[[rd_name]])), file)
-    rd <- xml2::read_html(file)
-
+    # adapted from printr
+    db <- tools::Rd_db(names[1])
+    Rd <- db[[rd_name]]
+    # adapted from printr
+    # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L69
+    sections <- sub('^\\\\', '', unlist(lapply(Rd, attr, 'Rd_tag')))
+    title <- as.character(Rd[sections == "title"][[1]])
 
     tibble::tibble(
       path = path,
       aliases = sprintf("%s (from %s)", names[2], names[1]),
       name = list(content_entry = NULL),
-      title = xml_text1(xml2::xml_find_first(rd, ".//h2")),
+      title = title,
       icon = list(content_entry = NULL)
     )
 
