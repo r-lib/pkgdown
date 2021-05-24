@@ -76,7 +76,7 @@
   They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
   `override` parameter of `build_site()`. (#1499)
 
-* pkgdown now contains templates using Bootstrap 4 (with help from @jayhesselberth & @apreshill).
+* pkgdown now contains templates and assets that use Bootstrap 4 and sass (with help from @jayhesselberth & @apreshill).
 
    * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
 
