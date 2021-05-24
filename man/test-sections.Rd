@@ -7,10 +7,10 @@
 Test case: section highlighting
 }
 \details{
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{rlang::is_installed()
+R block with R language information.\if{html}{\out{<div class="sourceCode r">}}\preformatted{rlang::is_installed()
 }\if{html}{\out{</div>}}
 
-bla\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
+YAML block with YAML language information.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 footer:
  left:
    structure: [pkgdown]
@@ -20,6 +20,25 @@ footer:
 template:
   bootstrap: 4
 }\if{html}{\out{</div>}}
+
+R block with no language information.\preformatted{rlang::is_installed()
+}
+
+YAML block with no language information.\preformatted{url: https://pkgdown.r-lib.org
+footer:
+ left:
+   structure: [pkgdown]
+ right:
+   structure: [authors, legal]
+   components:
+template:
+  bootstrap: 4
+}
+
+YAML block with no language information.\preformatted{template:
+ params:
+   ganalytics: UA-000000-01
+}
 }
 \seealso{
 Other tests: 

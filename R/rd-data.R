@@ -39,18 +39,26 @@ as_data.tag_item <- function(x, ...) {
 
 parse_section <- function(x, title, ...) {
   text <- flatten_para(x, ...)
-
   html <- xml2::read_html(text)
   r_blocks <- xml2::xml_find_all(html, "//div[contains(@class, 'sourceCode r')]/pre/code")
+  # now add blocks with no language information
+  nolang_r_blocks <- xml2::xml_find_all(
+    xml2::xml_find_all(html, "//pre/code/parent::*[not(ancestor::div)]"), # not in a div
+    "code"
+  )
 
   highlight_r_block <- function(block) {
-    xml2::xml_text(block) <- downlit::highlight(
-      xml_text1(block),
+    out <- downlit::highlight(
+      xml2::xml_text(block),
       classes = downlit::classes_pandoc()
     )
+    if (!is.na(out)) {
+      xml2::xml_text(block) <- out
+    }
   }
 
   purrr::walk(r_blocks, highlight_r_block)
+  purrr::walk(nolang_r_blocks, highlight_r_block)
 
   non_r_blocks <- xml2::xml_find_all(
     html,
