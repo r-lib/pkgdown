@@ -433,6 +433,15 @@ data_deps <- function(pkg, depth) {
     )
   }
 
+  # dropdown-link-active-bg
+  if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "dropdown-link-active-bg" = "$component-active-bg",
+      .where = "declarations"
+    )
+  }
+
   # map body color to navbar colors
   if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-color`)) {
     bs_theme <- bslib::bs_add_variables(
@@ -462,6 +471,15 @@ data_deps <- function(pkg, depth) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
       "component-active-color" = "$primary",
+      .where = "declarations"
+    )
+  }
+
+  # map component-active-color to dropdown-link-active-color
+  if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "dropdown-link-active-color" = "$component-active-color",
       .where = "declarations"
     )
   }
