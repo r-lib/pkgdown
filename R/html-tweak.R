@@ -129,52 +129,18 @@ tweak_footnotes <- function(html) {
   xml2::xml_remove(container)
 }
 
-tablist_item <- function(tab, html, parent_id) {
-  id <- xml2::xml_attr(tab, "id")
-  text <- xml_text1(xml2::xml_child(tab))
-  ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
+# Tabsets tweaking: find Markdown recommended in https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html
+# i.e. "## Heading {.tabset}" or "## Heading {.tabset .tabset-pills}"
+#  no matter the heading level -- the headings one level down are the tabs
+# and transform to tabsets HTML a la Bootstrap
 
-  xml2::xml_add_child(
-    ul_nav,
-    "a",
-    text,
-    `data-toggle` = "tab",
-    href = paste0("#", id),
-    role = "tab"
-  )
-
-  if (grepl("active", xml2::xml_attr(tab, "class"))) {
-    class <- "active"
-  } else {
-    class = ""
+tweak_tabsets <- function(html) {
+  tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
+  if (length(tabsets) == 0) {
+    return()
   }
-  # a's need to be wrapped in li's
-  xml2::xml_add_parent(
-    xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
-    "li",
-    class = class
-  )
-}
-
-# For filling the content div of a tabset
-tablist_content <- function(tab, html, parent_id) {
-  # remove 1st child that is the header
-  xml2::xml_remove(xml2::xml_child(tab))
-
-  if (grepl("active", xml2::xml_attr(tab, "class"))) {
-    xml2::xml_attr(tab, "class") <- sprintf("tab-pane active")
-  } else {
-    xml2::xml_attr(tab, "class") <- sprintf("tab-pane")
-  }
-
-  xml2::xml_attr(tab, "role") <- "tabpanel"
-
-  content_div <- xml2::xml_find_first(
-    html,
-    sprintf("//div[@id='%s']/div", parent_id)
-  )
-
-  xml2::xml_add_child(content_div, tab)
+  purrr::walk(tabsets, tweak_tabset)
+  invisible(html)
 }
 
 tweak_tabset <- function(html) {
@@ -205,26 +171,70 @@ tweak_tabset <- function(html) {
   purrr::walk(tabs, tablist_content, html = html, parent_id = id)
 
   # activate first tab unless another one is already activated
-  # (by {.active} in the source Rmd)
+  # (by the attribute {.active} in the source Rmd)
   nav_url <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))
   if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(nav_url), "class")))) {
     tweak_class_prepend(xml2::xml_child(nav_url), "active")
   }
-
   content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
   if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(content_div), "class")))) {
     tweak_class_prepend(xml2::xml_child(content_div), "active")
   }
 }
 
-tweak_tabsets <- function(html) {
-  tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
-  if (length(tabsets) == 0) {
-    return()
+# Add an item (tab) to the tablist
+tablist_item <- function(tab, html, parent_id) {
+  id <- xml2::xml_attr(tab, "id")
+  text <- xml_text1(xml2::xml_child(tab))
+  ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
+
+  xml2::xml_add_child(
+    ul_nav,
+    "a",
+    text,
+    `data-toggle` = "tab",
+    href = paste0("#", id),
+    role = "tab"
+  )
+
+  # Activate (if there was "{.active}" in the source Rmd)
+  if (grepl("active", xml2::xml_attr(tab, "class"))) {
+    class <- "active"
+  } else {
+    class = ""
   }
-  purrr::walk(tabsets, tweak_tabset)
-  invisible(html)
+
+  # tab a's need to be wrapped in li's
+  xml2::xml_add_parent(
+    xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
+    "li",
+    class = class
+  )
 }
+
+# Add content of a tab to a tabset
+tablist_content <- function(tab, html, parent_id) {
+  # remove first child, that is the header
+  xml2::xml_remove(xml2::xml_child(tab))
+
+  # Activate (if there was "{.active}" in the source Rmd)
+  if (grepl("active", xml2::xml_attr(tab, "class"))) {
+    xml2::xml_attr(tab, "class") <- "tab-pane active"
+  } else {
+    xml2::xml_attr(tab, "class") <- "tab-pane"
+  }
+
+  xml2::xml_attr(tab, "role") <- "tabpanel"
+
+  content_div <- xml2::xml_find_first(
+    html,
+    sprintf("//div[@id='%s']/div", parent_id)
+  )
+
+  xml2::xml_add_child(content_div, tab)
+}
+
+
 
 # File level tweaks --------------------------------------------
 
@@ -235,17 +245,19 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_md_links(html)
   tweak_all_links(html, pkg = pkg)
 
-  # Tweak footnotes
-  if (pkg$bs_version > 3) tweak_footnotes(html)
+  if (pkg$bs_version > 3) {
+    # Tweak footnotes
+    tweak_footnotes(html)
 
-  # Tweak tabsets
-  if (pkg$bs_version > 3) tweak_tabsets(html)
+    # Tweak tabsets
+    tweak_tabsets(html)
+  }
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
-  # Mame sure all images use relative paths
+  # Make sure all images use relative paths
   img <- xml2::xml_find_all(html, "//img")
   src <- xml2::xml_attr(img, "src")
   abs_src <- is_absolute_path(src)
