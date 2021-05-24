@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information. For better results it is important to add language information i.e. the YAML code block below, in [roxygen2 with Markdown support](https://roxygen2.r-lib.org/articles/rd-formatting.html#turning-on-markdown-support-1), would otherwise be parsed as R code.
+* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information, if the package documentation was built with roxygen2 >= 7.1.1.9001. For better results it is important to add language information i.e. the YAML code block below, in [roxygen2 with Markdown support](https://roxygen2.r-lib.org/articles/rd-formatting.html#turning-on-markdown-support-1), would otherwise be parsed as R code.
 
 ````
 ```
