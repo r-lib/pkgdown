@@ -223,7 +223,7 @@ tweak_tabsets <- function(html) {
     return()
   }
   purrr::walk(tabsets, tweak_tabset)
-  return(invisible(html))
+  invisible(html)
 }
 
 # File level tweaks --------------------------------------------
