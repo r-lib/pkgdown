@@ -14,7 +14,7 @@ external files, and custom output formats. See below for more details.
 Note that when you run build_articles() directly (outside of
 build_site()) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
-you are primarily working on the text of an article."><title>Build articles section — build_articles • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.5/tabs.js"></script><script src="../deps/bs3compat-0.2.5/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><link href="../syntax-highlighting.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Build articles section — build_articles"><meta property="og:description" content="build_articles() renders each R Markdown file underneath vignettes/ and
+you are primarily working on the text of an article."><title>Build articles section — build_articles • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.5.1/tabs.js"></script><script src="../deps/bs3compat-0.2.5.1/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><link href="../syntax-highlighting.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Build articles section — build_articles"><meta property="og:description" content="build_articles() renders each R Markdown file underneath vignettes/ and
 saves it to articles/. There are two exceptions:
 Files that start with _ (e.g., _index.Rmd) are ignored,
 enabling the use of child documents in
@@ -173,7 +173,7 @@ path under <code>vignettes</code> without extension so that the name of the vign
 found at <code>vignettes/pizza/slice.Rmd</code> is <code>pizza/slice</code>.</p></li>
 </ul><p>The title and description of individual vignettes displayed on the index
 comes from <code>title</code> and <code>description</code> fields of the YAML header in the Rmds.</p>
-<p>For example, this yaml might be used for some version of dplyr:</p><pre><code>articles:
+<p>For example, this yaml might be used for some version of dplyr:</p><div class="sourceCode yaml"><pre><code>articles:
 - title: Main verbs
   navbar: ~
   contents:
@@ -187,8 +187,7 @@ comes from <code>title</code> and <code>description</code> fields of the YAML he
   contents:
   - programming
   - packages
-</code></pre>
-
+</code></pre><p></p></div>
 <p>Note the use of the <code>navbar</code> fields. <code>navbar: ~</code> means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the <code>navbar</code>
 field in the developer vignettes means that they will only be
@@ -223,14 +222,13 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
 <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><pre><code>---
+will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><div class="sourceCode yaml"><pre><code>---
 title: My Document
 resource_files:
   - data/mydata.csv
   - images/figure.png
 ---
-</code></pre>
-
+</code></pre><p></p></div>
 <p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
     </div>
@@ -256,10 +254,9 @@ by setting the <code>template</code> parameter. This overrides any custom settin
 you have in your YAML metadata, ensuring that all articles are rendered
 in the same way (and receive the default site template).</p>
 <p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
+to add a <code>pkgdown</code> field to your yaml metadata:</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
   <span class="va">as_is</span><span class="op">:</span> <span class="va">true</span>
-</code></pre>
-
+</code></pre><p></p></div>
 <p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
 have specified. This format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> in order to work with pkgdown.
@@ -267,22 +264,20 @@ If the output needs a theme, you'll have to specify it even if it is
 <code>"default"</code>, and you might experience Bootstrap incompatibilities between
 the output and pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
+<code>extension</code> field:</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
   <span class="va">as_is</span><span class="op">:</span> <span class="va">true</span>
   <span class="va">extension</span><span class="op">:</span> <span class="va">pdf</span>
-</code></pre>
-
+</code></pre><p></p></div>
 <p>If you want to set an output format for all your articles, you can do that
 by adding a <code>vignettes/_site.yml</code>, much like you would for an
 <a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html">rmarkdown website</a>.
 For example, you can backport some bookdown features such as cross-references
 to all your articles by using the
 <a href="https://bookdown.org/yihui/bookdown/a-single-document.html">bookdown::html_document2</a>
-format.</p><pre class="sourceCode r"><code><span class="va">output</span><span class="op">:</span>
+format.</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">output</span><span class="op">:</span>
   <span class="fu">bookdown</span><span class="fu">::</span><span class="va">html_document2</span><span class="op">:</span>
   <span class="va">number_sections</span><span class="op">:</span> <span class="va">false</span>
-</code></pre>
-
+</code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-suppressing-vignettes">
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes" aria-hidden="true"></a>Suppressing vignettes</h2>
@@ -302,7 +297,7 @@ present: if you do not want this, you will need to customise the navbar. See
 
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><pre><code>figures:
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code>figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []
@@ -313,8 +308,7 @@ field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><
   fig.asp: 1.618
   bg: NA
   other.parameters: []
-</code></pre>
-
+</code></pre><p></p></div>
 <p>Most of these parameters are interpreted similarly to knitr chunk
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such

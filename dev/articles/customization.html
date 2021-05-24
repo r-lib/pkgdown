@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.5/tabs.js"></script><script src="../deps/bs3compat-0.2.5/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="../deps/bs3compat-0.2.5.1/tabs.js"></script><script src="../deps/bs3compat-0.2.5.1/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../syntax-highlighting.css" rel="stylesheet">
@@ -218,31 +218,31 @@
 </ul>
 <p>You can override (and even remove) these defaults with the <code>navbar</code> field. It has two primary components: <code>structure</code> and <code>components</code>. These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.</p>
 <p>The <code>structure</code> defines the layout of the navbar, i.e. the order of the components, and whether they’re right aligned or left aligned. You can use this component to change the order of the default components, remove some default components and add your own components.</p>
-<pre><code>navbar:
- structure:
-   left:  [intro, reference, articles, tutorials, news]
-   right: [github]</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="at"> </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="at">   </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="at">   </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">github</span><span class="kw">]</span></span></code></pre></div>
 <p>The <code>components</code> describes the appearance of each element in the navbar. It uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown</a>. The following YAML snippet illustrates some of the most important features.</p>
-<pre><code>navbar:
- components:
-   articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Title B1
-      menu:
-      - text: "Sub-category B11"
-        href: articles/b11.html
-    twitter:
-      icon: "fab fa-twitter fa-lg"
-      href: https://twitter.com/hadleywickham
-      aria-label: "twitter account"</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Category A</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A1</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a1.html</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A2</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a2.html</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> -------</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Category B"</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title B1</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="at">      </span><span class="fu">menu</span><span class="kw">:</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Sub-category B11"</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/b11.html</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> </span><span class="st">"fab fa-twitter fa-lg"</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://twitter.com/hadleywickham</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> </span><span class="st">"twitter account"</span></span></code></pre></div>
 <p>Components can contain sub-<code>menu</code>s with headings (indicated by missing <code>href</code>) and separators (indicated by a bunch of <code>-</code>). You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery" class="external-link">fontawesome</a>. When using icons with no text, for accessibility it’s best practice to include an <code>aria-label</code> for screenreader users.</p>
 <p>This yaml would override the default “articles” component, and add a new “twitter” component. Unless you explicitly mention new components in the <code>structure</code> they’ll be added to the far right of the left menu.</p>
 <p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes" class="external-link"><code>type</code> and <code>bg</code> parameters</a>:</p>
@@ -260,13 +260,13 @@
 <li>A reference to pkgdown <code>pkgdown</code>, on the right.</li>
 </ul>
 <p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p>
-<pre><code>footer:
- left:
-   structure: [pkgdown]
- right:
-   structure: [authors, legal]
-   components:
-     legal: Provided without ***any warranty***.</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="at"> </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="at">   </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">pkgdown</span><span class="kw">]</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="at"> </span><span class="fu">right</span><span class="kw">:</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="at">   </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="at">   </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="at">     </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without ***any warranty***.</span></span></code></pre></div>
 <p>Like the navbar and side, you can control both the structure and the components. Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
 </div>
 <div id="sidebar" class="section level3">
@@ -277,13 +277,15 @@
 <li>
 <p><code>links</code>: The sidebar links are automatically generated by inspecting the <code>URL</code> and <code>BugReports</code> fields of the <code>DESCRIPTION</code>. If your package is developed on GitHub, you can use <code>usethis::use_github_links()</code> to populate these fields.</p>
 <p>You can add additional links with a subsection called <code>links</code>, which should contain a list of <code>text</code> + <code>href</code> elements:</p>
+</li>
+</ul>
 <div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
 <span id="cb13-5"><a href="#cb13-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
 <span id="cb13-6"><a href="#cb13-6"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre></div>
-</li>
+<ul>
 <li><p><code>license</code>: Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or <code>LICENSE.md</code>/<code>LICENCE.md</code> files are present.</p></li>
 <li><p><code>community</code>: Community information is linked in the side bar using the <code>.github/CONTRIBUTING.md</code> and <code>.github/CODE_OF_CONDUCT.md</code> files, if present.</p></li>
 <li><p><code>citation</code>: Citation information from a <code>inst/CITATION</code> file is linked in the sidebar to the <a href="https://testthat.r-lib.org/authors.html" class="external-link">authors page</a>.</p></li>
@@ -299,20 +301,20 @@
 <li><p><code>toc</code>: Not added by default (see below), a table of contents for the README.</p></li>
 </ul>
 <p>You can change the order of sidebar components: <code>links</code>, <code>license</code>, <code>community</code>, <code>citation</code>, <code>authors</code>, <code>dev</code>; you can add a README table of contents <code>toc</code>, you can add custom components. The example below creates a sidebar whose only components will be the authors section, a custom section, a table of contents for the README and a Dev Status section if there are badges. The <code>text</code> will be treated as Markdown.</p>
-<pre><code>home:
-  sidebar:
-    structure: [authors, custom, toc, dev]
-    components:
-      custom:
-        title: Funding
-        text: We are *grateful* for funding!</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre></div>
 <p>Alternatively, you can provide a ready-made sidebar HTML:</p>
-<pre><code>home:
-  sidebar:
-    html: path-to-sidebar.html</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre></div>
 <p>Finally, you can completely remove the sidebar.</p>
-<pre><code>home:
-  sidebar: FALSE</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
 </div>
 <div id="templates" class="section level2">
