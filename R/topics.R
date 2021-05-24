@@ -170,7 +170,20 @@ topic_must <- function(message, topic) {
 
 content_info <- function(content_entry, index, pkg, section) {
 
-  if (grepl(".*::.*", content_entry)) {
+  if (!grepl(".*::.*", content_entry)) {
+    topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
+    tibble::tibble(
+      path = topics$file_out,
+      aliases = purrr::map2(
+        topics$funs,
+        topics$name,
+        ~ if (length(.x) > 0) .x else .y
+      ),
+      name = list(topics$name),
+      title = topics$title,
+      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
+    )
+  } else { # topic from another package
     names <- strsplit(content_entry, "::")[[1]]
     if (!rlang::is_installed(names[1])) {
       abort(
@@ -205,18 +218,5 @@ content_info <- function(content_entry, index, pkg, section) {
       icon = list(content_entry = NULL)
     )
 
-  } else {
-    topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
-    tibble::tibble(
-      path = topics$file_out,
-      aliases = purrr::map2(
-        topics$funs,
-        topics$name,
-        ~ if (length(.x) > 0) .x else .y
-      ),
-      name = list(topics$name),
-      title = topics$title,
-      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
-    )
   }
 }
