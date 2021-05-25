@@ -287,7 +287,8 @@ For further information including how to provide templates and assets in
 a separate package, see \code{vignette("customization", package = "pkgdown")}.
 
 You can use the \code{trailingslash_redirect} parameter for adding a JS script
-that will redirect \code{your-package-url.com} to \verb{your-package-url.com/}.\if{html}{\out{<div class="yaml">}}\preformatted{template:
+to the head of the home page, that will redirect
+\code{your-package-url.com} to \verb{your-package-url.com/}.\if{html}{\out{<div class="yaml">}}\preformatted{template:
   trailingslash_redirect: true
 }\if{html}{\out{</div>}}
 }

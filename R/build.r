@@ -187,7 +187,8 @@
 #' a separate package, see `vignette("customization", package = "pkgdown")`.
 #'
 #' You can use the `trailingslash_redirect` parameter for adding a JS script
-#' that will redirect `your-package-url.com` to `your-package-url.com/`.
+#' to the head of the home page, that will redirect
+#' `your-package-url.com` to `your-package-url.com/`.
 #'
 #' ```yaml
 #' template:
