@@ -12,7 +12,8 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   withr::local_options(list(
     crayon.enabled = TRUE,
     crayon.colors = 256,
-    device = function(...) ragg::agg_png(..., bg = bg)
+    device = function(...) ragg::agg_png(..., bg = bg),
+    rlang_interactive = FALSE
   ))
 
   fig_save_topic <- function(plot, id) {
