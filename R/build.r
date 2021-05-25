@@ -186,6 +186,14 @@
 #' For further information including how to provide templates and assets in
 #' a separate package, see `vignette("customization", package = "pkgdown")`.
 #'
+#' You can use the `trailingslash_redirect` parameter for adding a JS script
+#' that will redirect `your-package-url.com` to `your-package-url.com/`.
+#'
+#' ```yaml
+#' template:
+#'   trailingslash_redirect: true
+#' ```
+#'
 #' @section YAML config - repo:
 #' pkgdown automatically generates links to the source repository in a few
 #' places

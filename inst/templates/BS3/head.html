@@ -110,7 +110,13 @@
   gtag('config', '{{.}}');
 </script>
 {{/ganalytics}}{{/yaml}}
-
+{{#has_trailingslash}}
+<script>
+  if (!/(\/|html?)$/.test(window.location.href)){
+    window.location.replace(window.location.href + '/');
+  }
+</script>
+{{/has_trailingslash}}
 {{#has_deps}}
 <!-- dependencies from examples -->
 {{{dependencies}}}
