@@ -129,6 +129,58 @@ tweak_footnotes <- function(html) {
   xml2::xml_remove(container)
 }
 
+tweak_sourcecode_divs <- function(html) {
+  divs <- xml2::xml_find_all(html, ".//div[contains(@class, 'sourceCode')]")
+  if (length(divs) == 0) {
+    return()
+  }
+  purrr::walk(divs, tweak_sourcecode_div)
+}
+
+tweak_sourcecode_div <- function(html) {
+  pre_class <- xml2::xml_attr(xml2::xml_find_first(html, "pre"), "class")
+  is_r <- grepl("downlit", pre_class) || grepl("sourceCode [rR]", pre_class)
+  if (!is_r) {
+    text <- xml2::xml_text(html)
+  } else {
+    copy <- copy_html(html)
+    # remove comments
+    xml2::xml_remove(xml2::xml_find_all(copy, "//span[@class='co']"))
+    # remove output
+    xml2::xml_remove(xml2::xml_find_all(copy, "//span[@class='r-out co']"))
+    text <- xml2::xml_text(copy)
+    text <- gsub("\\\n\\\n", "\n", text)
+    text <- gsub("^\\\n", "", text)
+  }
+
+  tweak_class_prepend(html, "hasCopyButton")
+
+
+  xml2::xml_add_child(
+    html,
+    "button",
+    type = 'button',
+    class = 'btn btn-primary btn-copy-ex',
+    title = 'Copy to clipboard',
+    `aria-label` = 'Copy to clipboard',
+    `data-toggle` = 'tooltip',
+    `data-placement` = 'left',
+    `data-trigger` = 'hover',
+    `data-clipboard-text` = text,
+    .where = 0
+  )
+  xml2::xml_add_child(
+    xml2::xml_find_first(html, "button"),
+    "i",
+    class = 'fa fa-copy'
+  )
+}
+
+# adapted from https://github.com/ropensci/tinkr/blob/b5f721ea6573b0f4076a476148cd71194469fc1f/R/to_md.R#L68
+copy_html <- function(html) {
+  xml2::read_html(as.character(html))
+}
+
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {

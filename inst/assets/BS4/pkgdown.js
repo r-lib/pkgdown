@@ -36,22 +36,11 @@
 
   if(ClipboardJS.isSupported()) {
     $(document).ready(function() {
-      var copyButton = "<button type='button' class='btn btn-primary btn-copy-ex' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='tooltip' data-placement='left' data-trigger='hover' data-clipboard-copy><i class='fa fa-copy'></i></button>";
-
-      $("div.sourceCode").addClass("hasCopyButton");
-
-      // Insert copy buttons:
-      $(copyButton).prependTo(".hasCopyButton");
-
       // Initialize tooltips:
       $('.btn-copy-ex').tooltip({container: 'body'});
 
       // Initialize clipboard:
-      var clipboard = new ClipboardJS('[data-clipboard-copy]', {
-        text: function(trigger) {
-          return trigger.parentNode.textContent;
-        }
-      });
+      var clipboard = new ClipboardJS('.btn-copy-ex');
 
       clipboard.on('success', function(e) {
         changeTooltipMessage(e.trigger, 'Copied!');
