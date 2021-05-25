@@ -17,6 +17,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     local_options_link(pkg, depth = 0L)
     data$index <- markdown(src_path, pkg = pkg)
   }
+  data$has_trailingslash <- pkg$meta$template$trailingslash_redirect %||% FALSE
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)

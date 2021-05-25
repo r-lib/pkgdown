@@ -28,7 +28,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   data$logo <- list(src = logo_path(pkg, depth = depth))
-  data$has_trailingslash <- pkg$meta$template$trailingslash_redirect %||% FALSE
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
