@@ -189,7 +189,10 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_anchors(html, only_contents = FALSE)
   tweak_md_links(html)
   tweak_all_links(html, pkg = pkg)
-  if (pkg$bs_version > 3) tweak_footnotes(html)
+  if (pkg$bs_version > 3) {
+    tweak_footnotes(html)
+    tweak_sourcecode_divs(html)
+  }
 
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
