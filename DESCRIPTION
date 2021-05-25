@@ -16,7 +16,11 @@ Authors@R:
       person(given = "Maëlle",
              family = "Salmon",
              role = "aut",
-             comment = c(ORCID = "0000-0002-2815-0399")))
+             comment = c(ORCID = "0000-0002-2815-0399")),
+      person(given = "Amir Masoud",
+             family = "Abdol",
+             role = "ctb",
+             email = "amirmasoudabdol@icloud.com"))
 Description: Generate an attractive and useful website from a
     source package.  'pkgdown' converts your documentation, vignettes,
     'README', and more to 'HTML' making it easy to share information about
