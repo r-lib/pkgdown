@@ -292,6 +292,12 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (same_contents(full_path, contents)) {
+    if (fs::path_has_parent(full_path, file.path(pkg$dst_path, "reference")) ||
+        fs::path_has_parent(full_path, file.path(pkg$dst_path, "articles"))) {
+      # touching the file to update its modification time
+      # which is important for proper lazy behavior
+      fs::file_touch(full_path)
+    }
     return(FALSE)
   }
 
