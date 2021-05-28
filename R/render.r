@@ -463,8 +463,9 @@ data_deps <- function(pkg, depth) {
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "component-active-color" = "$primary",
-      .where = "declarations"
+      "component-active-color" = as.character(
+        bslib::bs_get_variables(bs_theme, "primary")
+      )
     )
   }
 
