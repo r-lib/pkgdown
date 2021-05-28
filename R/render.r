@@ -423,22 +423,14 @@ data_deps <- function(pkg, depth) {
     )
   )
 
-  # map secondary to component-active-bg
+  # map secondary to component-active-bg (thus also dropdown-link-active-bg)
   # unless a value was set by the user
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "component-active-bg" = "$secondary",
-      .where = "declarations"
-    )
-  }
-
-  # dropdown-link-active-bg
-  if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
-    bs_theme <- bslib::bs_add_variables(
-      bs_theme,
-      "dropdown-link-active-bg" = "$component-active-bg",
-      .where = "declarations"
+      "component-active-bg" = as.character(
+        bslib::bs_get_variables(bs_theme, "secondary")
+      )
     )
   }
 
@@ -463,8 +455,9 @@ data_deps <- function(pkg, depth) {
   if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-active-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "navbar-light-active-color " = "$primary",
-      .where = "declarations"
+      "navbar-light-active-color " = as.character(
+        bslib::bs_get_variables(bs_theme, "primary")
+      )
     )
   }
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-color`)) {
