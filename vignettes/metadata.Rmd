@@ -60,8 +60,8 @@ The `template: opengraph` section allows you to further customize the social med
     media cards of pages in your pkgdown site.
 
     * `src`: A fully qualified URL to a media card image, or a relative path to 
-      an image stored in the package. The `src` field is required if
-      `image` is specified.
+      an image stored in `man/figures` in the package e.g. `src: man/figures/cards.png`. 
+      The `src` field is required if image` is specified.
     
     * `alt`: Alternative text describing the image for screen readers and 
       other situations where your social media card image cannot be displayed.
