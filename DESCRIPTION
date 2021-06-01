@@ -53,6 +53,7 @@ Suggests:
     evaluate,
     htmltools,
     htmlwidgets,
+    kableExtra,
     knitr,
     lifecycle,
     methods,

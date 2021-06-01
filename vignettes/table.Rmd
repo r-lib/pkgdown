@@ -47,3 +47,9 @@ df %>%
                 position = "left",
                 font_size = 13)
 ```
+
+```{r table4}
+df <- dt <- mtcars[1:5, 1:6]
+df %>% 
+  knitr::kable()
+```
