@@ -1,0 +1,49 @@
+---
+title: "table"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{table}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a 
+
+```{r setup}
+library(kableExtra)
+library(magrittr)
+```
+
+```{r table1}
+df <- dt <- mtcars[1:5, 1:6]
+df %>% 
+  kbl(caption = "A table ...", align = "lcccccc") %>%
+  kable_styling(full_width = F,
+                font_size = 13)
+```
+
+
+```{r table2}
+df <- dt <- mtcars[1:5, 1:6]
+df %>% 
+  kbl(caption = "A table ...", align = "lcccccc") %>%
+  kable_styling(full_width = F,
+                position = "right",
+                font_size = 13)
+```
+
+```{r table3}
+df <- dt <- mtcars[1:5, 1:6]
+df %>% 
+  kbl(caption = "A table ...", align = "lcccccc") %>%
+  kable_styling(full_width = F,
+                position = "left",
+                font_size = 13)
+```

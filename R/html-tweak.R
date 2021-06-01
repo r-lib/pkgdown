@@ -89,6 +89,7 @@ tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
   tweak_class_prepend(table, "table")
+  xml2::xml_add_parent(table, "div", style = "display: flex;")
 
   invisible()
 }
