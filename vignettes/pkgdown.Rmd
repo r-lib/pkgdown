@@ -150,7 +150,7 @@ See `?build_news` for more customisation options including how to:
 The easiest way to publish your website is to use GitHub [`docs/` directory][docs] support. If you want to build and publish your package automatically with GitHub actions, try `usethis::use_github_action("pkgdown")`.
 
 Once your site is online you must finish configuring it by adding its URL to its configuration file.
-This URL will be used by pkgdown to e.g. generate the metadata correcty (see `vignette("metadata")`).
+This URL will be used by pkgdown to e.g. generate the metadata correcty (see `vignette("metadata")`) -- refer to `?build_site` for reading about more functionalities that needs the URL to be stored in the configuration file.
 
 ```yaml
 url: https://example.com
