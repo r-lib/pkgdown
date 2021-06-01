@@ -11,8 +11,6 @@ pkgdown_sitrep(pkg = ".")
 }
 \description{
 \code{pkgdown_sitrep()} reports
-}
-\details{
 \itemize{
 \item If there is an \code{url} field in the pkgdown configuration;
 \item If that pkgdown website URL is stored in the DESCRIPTION file.

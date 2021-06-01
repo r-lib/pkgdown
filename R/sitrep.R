@@ -1,5 +1,7 @@
 #' Report package pkgdown situation
 #'
+#' @description
+#'
 #' `pkgdown_sitrep()` reports
 #'
 #' * If there is an `url` field in the pkgdown configuration;
