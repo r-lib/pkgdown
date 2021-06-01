@@ -44,6 +44,7 @@ reference:
   - init_site
   - starts_with("build_")
   - preview_site
+  - pkgdown_sitrep
 
 - title: Deployment
   contents:
