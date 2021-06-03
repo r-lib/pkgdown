@@ -40,7 +40,6 @@ reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
   contents:
-  - rlang::is_installed
   - build_site
   - init_site
   - starts_with("build_")
@@ -65,6 +64,7 @@ reference:
 - title: Regression tests
   contents:
   - starts_with("test", internal = TRUE)
+  - rlang::is_installed
 
 news:
   releases:
