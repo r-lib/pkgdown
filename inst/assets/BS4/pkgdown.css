@@ -470,3 +470,9 @@ details p {
 .nav-row {
   flex-direction: row;
 }
+
+.tabset-pills .tab-content {
+  padding: 1rem;
+  border-left: solid 1px #e5e5e5;
+  border-bottom: solid 1px #e5e5e5;
+}
