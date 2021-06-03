@@ -350,6 +350,11 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
 <p>For further information including how to provide templates and assets in
 a separate package, see <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
+<p>You can use the <code>trailing_slash_redirect</code> to automatically redirect
+<code>your-package-url.com</code> to <code>your-package-url.com/</code>, using a JS script
+added to the <code>&lt;head&gt;</code> of the home page.</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">template</span><span class="op">:</span>
+  <span class="va">trailing_slash_redirect</span><span class="op">:</span> <span class="va">true</span>
+</code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-repo">
     <h2 class="hasAnchor" id="yaml-config-repo"><a class="anchor" href="#yaml-config-repo" aria-hidden="true"></a>YAML config - repo</h2>
