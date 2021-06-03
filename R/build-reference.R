@@ -78,6 +78,8 @@
 #' * `lacks_concepts(c("concept1", "concept2"))` to select all topics
 #'    without those concepts. This is useful to capture topics not otherwise
 #'    captured by `has_concepts()`.
+#' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
+#'  or `sass::font_face` (topic name).
 #'
 #' All functions (except for `has_keywords()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include

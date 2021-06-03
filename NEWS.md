@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed()` or topic names e.g. `sass::font_face`). (#1664)
+
 * `build_news()` no longer breaks URLs with numeric fragments (@krassowski, #1456).
 
 * The 404 page (default or from `.github/404.md`) is no longer built in the development mode (see `?build_site`) as e.g. GitHub pages only uses the 404.html page that is at the root, that is to say, the 404 page built for the unreleased or release modes. (#1622)
