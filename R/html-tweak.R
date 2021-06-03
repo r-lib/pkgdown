@@ -156,9 +156,8 @@ tweak_tabset <- function(html) {
   # Remove tabs from original HTML
   xml2::xml_remove(tabs)
 
-  # Add empty ul for nav
+  # Add empty ul for nav and div for content
   xml2::xml_add_child(html, "ul", class=sprintf("nav %s nav-row", nav_class), id=id)
-  # Add empty div for content
   xml2::xml_add_child(html, "div", class="tab-content")
 
   # Fill the ul for nav
