@@ -77,19 +77,18 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   rendered <- render_template(template, components)
 
   if (pkg$bs_version > 3) {
-    # footnotes
     html <- xml2::read_html(rendered)
+
+    # footnotes
     tweak_footnotes(html)
-    rendered <- as.character(html, options = character())
 
     # navbar activation
-    html <- xml2::read_html(rendered)
     activate_navbar(html, data$output_file %||% path, pkg)
-    rendered <- as.character(html, options = character())
 
     # copy-paste button
-    html <- xml2::read_html(rendered)
     tweak_sourcecode_divs(html)
+
+    # coerce back to text
     rendered <- as.character(html, options = character())
 
   }
