@@ -195,7 +195,6 @@ content_info <- function(content_entry, index, pkg, section) {
       title = rd_title,
       icon = list(content_entry = NULL)
     )
-
   }
 }
 
