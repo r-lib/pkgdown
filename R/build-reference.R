@@ -23,7 +23,7 @@
 #' For example, here's a snippet from the YAML that pkgdown uses to generate
 #' its own reference index:
 #'
-#' ```
+#' ```yaml
 #' reference:
 #' - title: Build
 #'   desc:  Build a complete site or its individual section components.
@@ -38,7 +38,7 @@
 #' Bigger packages, e.g. ggplot2, may need an additional layer of
 #' structure in order to clearly organise large number of functions:
 #'
-#' ```
+#' ```yaml
 #' reference:
 #' - title: Layers
 #' - subtitle: Geoms
@@ -54,7 +54,7 @@
 #' `desc` can use markdown, and if you have a long description it's a good
 #' idea to take advantage of the YAML `>` notation:
 #'
-#' ```
+#' ```yaml
 #' desc: >
 #'   This is a very _long_ and **overly** flowery description of a
 #'   single simple function. By using `>`, it's easy to write a description
@@ -103,7 +103,7 @@
 #' You can control the default rendering of figures by specifying the `figures`
 #' field in `_pkgdown.yml`. The default settings are equivalent to:
 #'
-#' ```
+#' ```yaml
 #' figures:
 #'   dev: ragg::agg_png
 #'   dpi: 96
