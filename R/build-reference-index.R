@@ -42,7 +42,23 @@ data_reference_index_rows <- function(section, index, pkg) {
 
 
   if (has_name(section, "contents")) {
-    any_not_char <- any(purrr::map_lgl(section$contents, is_not_character))
+    check_all_characters(section$contents, index, pkg)
+    contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
+    names <- unique(unlist(purrr::map(contents, "name")))
+    contents <- purrr::map(contents, function(x) x[names(x) != "name"])
+    contents <- do.call(rbind, contents)
+    rows[[3]] <- list(
+      topics = purrr::transpose(contents),
+      names = names,
+      row_has_icons = !purrr::every(contents$icon, is.null)
+    )
+  }
+
+  purrr::compact(rows)
+}
+
+check_all_characters <- function(contents, index, pkg) {
+  any_not_char <- any(purrr::map_lgl(contents, is_not_character))
     if (any_not_char) {
       abort(
         paste(
@@ -60,18 +76,6 @@ data_reference_index_rows <- function(section, index, pkg) {
         )
       )
     }
-    contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
-    names <- unique(unlist(purrr::map(contents, "name")))
-    contents <- purrr::map(contents, function(x) x[names(x) != "name"])
-    contents <- do.call(rbind, contents)
-    rows[[3]] <- list(
-      topics = purrr::transpose(contents),
-      names = names,
-      row_has_icons = !purrr::every(contents$icon, is.null)
-    )
-  }
-
-  purrr::compact(rows)
 }
 
 is_not_character <- function(x) {
