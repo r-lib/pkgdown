@@ -14,7 +14,6 @@ authors:
 
 template:
   bootstrap: 4
-  trailingslash_redirect: true
   params:
     ganalytics: UA-115082821-1
 
