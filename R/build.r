@@ -24,9 +24,8 @@
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
 #' paths will be taken relative to the package root.
 #'
-#' `url` optionally (but strongly recommended!)
-#' specifies the url where the site will be published.
-#' Supplying this will:
+#' `url` is optional, but strongly recommended.
+#' It specifies where the site will be published and is used to:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
 #'   See `vignette("linking")` for more information.
@@ -35,7 +34,7 @@
 #'   [deploying to github][deploy_site_github].
 #' * Generate metadata used by Twitter and the Open Graph protocol
 #'   for rich social media cards, see `vignette("metadata")`.
-#' * Help add the "external-link" class to external links
+#' * Adds the "external-link" class to external links
 #'   for sites using BS4, see `vignette("customization")`.
 #'
 #' ```yaml
