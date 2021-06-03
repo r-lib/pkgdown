@@ -188,7 +188,12 @@ content_info <- function(content_entry, index, pkg, section) {
     rd_href <- find_rd_href(sub("\\(\\)$", "", topic), pkg_name)
     rd <- get_rd(rd_href, pkg_name)
     rd_title <- extract_title(rd)
-    rd_aliases <- find_rd_aliases(rd)
+    rd_aliases <- if (grepl("\\(\\)$", topic)) {
+      topic
+    }
+    else {
+      find_rd_aliases(rd)
+    }
 
     tibble::tibble(
       path = rd_href,
