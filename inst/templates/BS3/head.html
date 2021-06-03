@@ -110,7 +110,14 @@
   gtag('config', '{{.}}');
 </script>
 {{/ganalytics}}{{/yaml}}
-
+{{#has_trailingslash}}
+<!-- See https://stackoverflow.com/questions/1865837/whats-the-difference-between-window-location-and-window-location-replace — we use .replace() because we don't want the old url to appear in the browser history. -->
+<script>
+  if (!/(\/|html?)$/.test(window.location.href)){
+    window.location.replace(window.location.href + '/');
+  }
+</script>
+{{/has_trailingslash}}
 {{#has_deps}}
 <!-- dependencies from examples -->
 {{{dependencies}}}
