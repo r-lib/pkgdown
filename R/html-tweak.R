@@ -190,10 +190,10 @@ tablist_item <- function(tab, html, parent_id) {
   )
 
   # Activate (if there was "{.active}" in the source Rmd)
-  if (grepl("active", xml2::xml_attr(tab, "class"))) {
-    class <- "active"
+  class <- if (grepl("active", xml2::xml_attr(tab, "class"))) {
+    "active"
   } else {
-    class = ""
+    ""
   }
 
   # tab a's need to be wrapped in li's
