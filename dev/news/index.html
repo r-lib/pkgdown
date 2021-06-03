@@ -74,7 +74,8 @@
     <div id="pkgdown-development-version" class="section level2">
 <h2 class="pb-2 mt-4 mb-2 border-bottom pkg-version" data-toc-text="development version">
 <a href="#pkgdown-development-version" class="anchor" aria-hidden="true"></a>pkgdown (development version)</h2><h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
-<ul><li>
+<ul><li><p>New <code><a href="../reference/pkgdown_sitrep.html">pkgdown_sitrep()</a></code> function reporting whether the pkgdown website URL is stored in the pkgdown configuration and in DESCRIPTION. (<a href="https://github.com/r-lib/pkgdown/issues/1478">#1478</a>)</p></li>
+<li>
 <p>pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a <code>&lt;div&gt;</code> with class <code>sourceCode</code> (and other classes as needed), which contains one or more <code>&lt;pre&gt;</code>s that has class <code>sourceCode</code> and the language, and each <code>&lt;pre&gt;</code> contains <code>&lt;code&gt;</code>. Something like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">'sourceCode'</span><span class="kw">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">'sourceCode r'</span><span class="kw">&gt;&lt;code&gt;</span>1 + 1<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span></span>
