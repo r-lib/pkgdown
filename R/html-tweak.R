@@ -149,6 +149,8 @@ tweak_tabset <- function(html) {
   } else {
     "nav-tabs"
   }
+  # Users can choose to make content fade
+  fade <- grepl("tabset-fade", xml2::xml_attr(html, "class"))
 
   # Get tabs and remove them from original HTML
   tabs <- xml2::xml_find_all(html, "div")
@@ -160,7 +162,7 @@ tweak_tabset <- function(html) {
 
   # Fill the ul for nav and div for content
   purrr::walk(tabs, tablist_item, html = html, parent_id = id)
-  purrr::walk(tabs, tablist_content, html = html, parent_id = id)
+  purrr::walk(tabs, tablist_content, html = html, parent_id = id, fade = fade)
 
   # activate first tab unless another one is already activated
   # (by the attribute {.active} in the source Rmd)
@@ -171,6 +173,9 @@ tweak_tabset <- function(html) {
   content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
   if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(content_div), "class")))) {
     tweak_class_prepend(xml2::xml_child(content_div), "active")
+    if (fade) {
+      tweak_class_prepend(xml2::xml_child(content_div), "show")
+    }
   }
 }
 
@@ -205,15 +210,23 @@ tablist_item <- function(tab, html, parent_id) {
 }
 
 # Add content of a tab to a tabset
-tablist_content <- function(tab, html, parent_id) {
+tablist_content <- function(tab, html, parent_id, fade) {
+  active <- grepl("active", xml2::xml_attr(tab, "class"))
+
   # remove first child, that is the header
   xml2::xml_remove(xml2::xml_child(tab))
 
+  xml2::xml_attr(tab, "class") <- "tab-pane"
+  if (fade) {
+    tweak_class_prepend(tab, "fade")
+  }
+
   # Activate (if there was "{.active}" in the source Rmd)
-  if (grepl("active", xml2::xml_attr(tab, "class"))) {
-    xml2::xml_attr(tab, "class") <- "tab-pane active"
-  } else {
-    xml2::xml_attr(tab, "class") <- "tab-pane"
+  if (active) {
+    tweak_class_prepend(tab, "active")
+    if (fade) {
+      tweak_class_prepend(tab, "show")
+    }
   }
 
   xml2::xml_attr(tab, "role") <- "tabpanel"

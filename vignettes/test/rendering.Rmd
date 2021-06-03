@@ -218,3 +218,21 @@ yay
 ### Tab 2 {.active}
 
 hello
+
+## Results in tabset, fading {.tabset .tabset-fade}
+
+### Something
+
+ok
+
+```{r}
+plot(1)
+```
+
+#### cool
+
+yay
+
+### Nice {.active}
+
+bonjour

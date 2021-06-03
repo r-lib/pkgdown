@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) (@JamesHWade, #1667).
+* pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
 * New `pkgdown_sitrep()` function reporting whether the pkgdown website URL is stored in the pkgdown configuration and in DESCRIPTION. (#1478)
 
