@@ -136,9 +136,6 @@ tweak_footnotes <- function(html) {
 
 tweak_tabsets <- function(html) {
   tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
-  if (length(tabsets) == 0) {
-    return()
-  }
   purrr::walk(tabsets, tweak_tabset)
   invisible(html)
 }
