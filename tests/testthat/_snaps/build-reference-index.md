@@ -78,7 +78,7 @@
           title: D
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
-          aliases: is_installed() check_installed()
+          aliases: is_installed()
           title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
         - path: https://rdrr.io/pkg/sass/man/font_face.html
