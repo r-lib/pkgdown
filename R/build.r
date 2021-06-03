@@ -186,9 +186,9 @@
 #' For further information including how to provide templates and assets in
 #' a separate package, see `vignette("customization", package = "pkgdown")`.
 #'
-#' You can use the `trailingslash_redirect` parameter for adding a JS script
-#' to the head of the home page, that will redirect
-#' `your-package-url.com` to `your-package-url.com/`.
+#' You can use the `trailingslash_redirect` to automatically redirect
+#' `your-package-url.com` to `your-package-url.com/`, using a JS script
+#'  added to the `<head>` of the home page.
 #'
 #' ```yaml
 #' template:
