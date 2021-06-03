@@ -174,13 +174,17 @@ so it is available for vignettes.</p></dd>
 <p><code>destination</code> controls where the site will be generated. It defaults to
 <code>docs/</code> (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.</p>
-<p><code>url</code> optionally specifies the url where the site will be published.
-Supplying this will:</p><ul><li><p>Allow other pkgdown sites to link to your site when needed,
+<p><code>url</code> is optional, but strongly recommended.
+It specifies where the site will be published and is used to:</p><ul><li><p>Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to <a href="https://rdrr.io">https://rdrr.io</a>.
 See <code><a href="../articles/linking.html">vignette("linking")</a></code> for more information.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
 <a href="deploy_site_github.html">deploying to github</a>.</p></li>
+<li><p>Generate metadata used by Twitter and the Open Graph protocol
+for rich social media cards, see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>.</p></li>
+<li><p>Adds the "external-link" class to external links
+for sites using BS4, see <code><a href="../articles/customization.html">vignette("customization")</a></code>.</p></li>
 </ul><p></p><div class="sourceCode yaml"><pre><code>url: https://pkgdown.r-lib.org
 </code></pre><p></p></div>
 <p><code>title</code> overrides the default site title, which is the package name.
