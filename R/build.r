@@ -186,13 +186,13 @@
 #' For further information including how to provide templates and assets in
 #' a separate package, see `vignette("customization", package = "pkgdown")`.
 #'
-#' You can use the `trailingslash_redirect` to automatically redirect
+#' You can use the `trailing_slash_redirect` to automatically redirect
 #' `your-package-url.com` to `your-package-url.com/`, using a JS script
 #'  added to the `<head>` of the home page.
 #'
 #' ```yaml
 #' template:
-#'   trailingslash_redirect: true
+#'   trailing_slash_redirect: true
 #' ```
 #'
 #' @section YAML config - repo:

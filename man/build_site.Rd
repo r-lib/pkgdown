@@ -286,10 +286,10 @@ for pkgdown templates to ensure that you use the correct components.
 For further information including how to provide templates and assets in
 a separate package, see \code{vignette("customization", package = "pkgdown")}.
 
-You can use the \code{trailingslash_redirect} to automatically redirect
+You can use the \code{trailing_slash_redirect} to automatically redirect
 \code{your-package-url.com} to \verb{your-package-url.com/}, using a JS script
 added to the \verb{<head>} of the home page.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  trailingslash_redirect: true
+  trailing_slash_redirect: true
 }\if{html}{\out{</div>}}
 }
 

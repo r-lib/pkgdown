@@ -42,7 +42,7 @@ data_home <- function(pkg = ".") {
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
                        cran_unquote(pkg$desc$get("Description")[[1]])),
-    has_trailingslash = pkg$meta$template$trailingslash_redirect %||% FALSE
+    has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
 }
 
