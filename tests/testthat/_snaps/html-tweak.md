@@ -145,7 +145,7 @@
     <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
     <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
     </div>
-    <div id="tab-2" class="tab-pane active" role="tabpanel">
+    <div id="tab-2" class="active tab-pane" role="tabpanel">
     
     <p>blop</p>
     </div>
