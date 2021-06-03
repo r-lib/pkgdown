@@ -181,3 +181,7 @@ Blablablablablabla.
 </details> 
 
 Blablablablablabla.
+
+# This section is unnumbered {-}
+
+There should however be no bug here!

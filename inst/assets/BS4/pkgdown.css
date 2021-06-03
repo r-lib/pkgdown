@@ -258,37 +258,38 @@ h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
 flex-direction: column;
 }
 
+
+/* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
-  font-size: inherit;
   color: inherit;
-  padding-left: 3px;
-  font-weight: inherit;
-  margin-left: -3px;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+  border-radius: 1rem;
+  border: white solid;
 }
 
+/* Under hover */
 nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus {
-  color: inherit;
-  border-left: none;
-  background-color: #eee;
-  padding-left: 3px;
-  margin-left: -3px;
-}
-
+nav[data-toggle="toc"] .nav > li > a:focus,
+/* Current */
 nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus {
-  color: inherit;
+nav[data-toggle="toc"] .nav-link.active:focus
+{
   background-color: #eee;
-  font-weight: inherit;
-  padding-left: 3px;
-  border-left: none;
-  margin-left: -3px;
 }
 
-nav[data-toggle="toc"] .nav .nav > li > a {
-  font-size: 15px;
+/* Nav: second level (shown on .active) */
+nav[data-toggle="toc"] .nav-link + ul {
+  display: none;
 }
+nav[data-toggle="toc"] .nav-link.active + ul {
+  display: block;
+}
+nav[data-toggle="toc"] .nav .nav > li > a {
+  margin-left: 0.5rem;
+}
+
 /* version badge  */
 #version-badge {
   border: none;
@@ -441,6 +442,8 @@ mark {
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
   background-color: #B2D7FF;
+}
+
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
   font-display: fallback;

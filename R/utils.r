@@ -1,12 +1,3 @@
-highlight_text <- function(text) {
-  out <- downlit::highlight(text, classes = downlit::classes_pandoc())
-  if (is.na(out)) {
-    escape_html(text)
-  } else {
-    out
-  }
-}
-
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
@@ -264,10 +255,10 @@ remove_useless_parts <- function(links, pkg) {
 }
 
 get_section_level <- function(section) {
-    as.numeric(
-      sub(
-        ".*section level", "",
+  as.numeric(
+     gsub(
+        ".*section level(\\d+).*", '\\1',
         xml2::xml_attr(section, "class")
       )
-    )
-  }
+  )
+}

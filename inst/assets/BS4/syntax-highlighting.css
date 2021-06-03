@@ -1,19 +1,17 @@
 /* Syntax highlighting ---------------------------------------------------- */
 
+pre, pre code {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
 pre {
-  word-wrap: normal;
-  word-break: normal;
   background-color: #f8f8f8;
   color: #333;
   padding: 9.5px;
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.1);
-}
-}
-
-pre.sourceCode {
-  overflow: auto;
-  white-space: pre;
 }
 
 pre .img {
@@ -28,6 +26,10 @@ pre .img img {
 
 code a, pre a {
   color: #375f84;
+}
+
+pre code {
+  padding: 0;
 }
 
 a.sourceLine:hover {

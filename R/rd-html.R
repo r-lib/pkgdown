@@ -439,7 +439,7 @@ as_html.tag_preformatted <- function(x, ...) {
   # Need to unescape so that highlight_text() can tell if it's R code
   # or not. It'll re-escape if needed
   text <- unescape_html(text)
-  paste0("<pre>", highlight_text(text), "</pre>")
+  highlight_text(text)
 }
 
 

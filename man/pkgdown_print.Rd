@@ -12,7 +12,7 @@ pkgdown_print(x, visible)
 \item{visible}{Whether it is visible or not}
 }
 \description{
-This makes it possible to control how objects are printed specifically in
-the pkgdown output.
+This lets package authors control how their objects appear specifically
+in pkgdown examples. The default method calls \code{\link[=print]{print()}}.
 }
 \keyword{internal}

@@ -46,7 +46,7 @@
 #'
 #' For example, this yaml might be used for some version of dplyr:
 #'
-#' ```
+#' ```yaml
 #' articles:
 #' - title: Main verbs
 #'   navbar: ~
@@ -93,7 +93,7 @@
 #' you link to. If for some reason the automatic detection doesn't work, you
 #' will need to add a `resource_files` field to the yaml metadata, e.g.:
 #'
-#' ```
+#' ```yaml
 #' ---
 #' title: My Document
 #' resource_files:
@@ -123,7 +123,7 @@
 #' If you need to override the output format, or set any options, you'll need
 #' to add a `pkgdown` field to your yaml metadata:
 #'
-#' ```
+#' ```yaml
 #' pkgdown:
 #'   as_is: true
 #' ```
@@ -138,7 +138,7 @@
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
 #'
-#' ```
+#' ```yaml
 #' pkgdown:
 #'   as_is: true
 #'   extension: pdf
@@ -152,7 +152,7 @@
 #' [bookdown::html_document2](https://bookdown.org/yihui/bookdown/a-single-document.html)
 #' format.
 #'
-#' ```
+#' ```yaml
 #' output:
 #'   bookdown::html_document2:
 #'   number_sections: false

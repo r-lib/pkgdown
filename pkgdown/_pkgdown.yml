@@ -44,6 +44,7 @@ reference:
   - init_site
   - starts_with("build_")
   - preview_site
+  - pkgdown_sitrep
 
 - title: Deployment
   contents:
@@ -82,3 +83,8 @@ news:
     href: https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/
   - text: "Version 1.0.0"
     href: https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/
+
+redirects:
+  - [articles/redirect-examle.html, articles/pkgdown.html]
+  - [reference/pkgdown-package.html, /]
+  - [articles/redirect-examle2.html, articles/pkgdown.html#reference-1]

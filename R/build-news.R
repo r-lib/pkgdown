@@ -16,7 +16,7 @@
 #' is to use a top level heading for each release, and use a second level
 #' heading to break up individual bullets into sections.
 #'
-#' ```
+#' ```yaml
 #' # foofy 1.0.0
 #'
 #' ## Major changes
@@ -43,7 +43,7 @@
 #' To automatically link to release announcements, include a `releases`
 #' section.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'  releases:
 #'  - text: "usethis 1.3.0"
@@ -55,14 +55,14 @@
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   one_page: false
 #' ```
 #'
 #' Suppress the default addition of CRAN release dates with:
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   cran_dates: false
 #' ```
@@ -179,7 +179,7 @@ data_news <- function(pkg = ".") {
       timeline = timeline,
       bs_version = pkg$bs_version
     ) %>%
-    purrr::map_chr(as.character) %>%
+    purrr::map_chr(as.character, options = character()) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
   news <- tibble::tibble(
@@ -277,30 +277,29 @@ tweak_news_heading <- function(x, version, timeline, bs_version) {
     xml2::xml_find_all(".//h1") %>%
     xml2::xml_set_attr("data-toc-text", version)
 
-  if (is.null(timeline)) {
-    return(x)
-  }
+  if (!is.null(timeline)) {
+    date <- timeline$date[match(version, timeline$version)]
+    date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
 
-  date <- timeline$date[match(version, timeline$version)]
-  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
+    if (bs_version == 3) {
+      date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+        xml2::read_html() %>%
+        xml2::xml_find_all(".//small")
 
-  if (bs_version == 3) {
-    date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
-      xml2::read_html() %>%
-      xml2::xml_find_all(".//small")
+      x %>%
+        xml2::xml_find_all(".//h1") %>%
+        xml2::xml_add_child(date_nodes, .where = 1)
+    } else {
+      cran_release_string <-  sprintf("<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>", date_str)
+      date_nodes <- cran_release_string %>%
+        xml2::read_html() %>%
+        xml2::xml_find_all(".//h6")
 
-    x %>%
-      xml2::xml_find_all(".//h1") %>%
-      xml2::xml_add_child(date_nodes, .where = 1)
-  } else {
-    cran_release_string <-  sprintf("<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>", date_str)
-    date_nodes <- cran_release_string %>%
-      xml2::read_html() %>%
-      xml2::xml_find_all(".//h6")
+      x %>%
+        xml2::xml_find_all(".//h1") %>%
+        xml2::xml_add_sibling(date_nodes, .where = "after")
+    }
 
-    x %>%
-      xml2::xml_find_all(".//h1") %>%
-      xml2::xml_add_sibling(date_nodes, .where = "after")
   }
 
   ## one level down for BS4

@@ -6,14 +6,14 @@ We shall first explain their creation, then how to tweak them.
 
     You can add additional links with a subsection called `links`, which should contain a list of `text` + `href` elements:
 
-    ``` {.yaml}
-    home:
-      links:
-      - text: Link text
-        href: https://website.com
-      - text: Roadmap
-        href: /roadmap.html
-    ```
+```yaml
+home:
+  links:
+  - text: Link text
+    href: https://website.com
+  - text: Roadmap
+    href: /roadmap.html
+```
 
 -   `license`: Licensing information if `LICENSE`/`LICENCE` or `LICENSE.md`/`LICENCE.md` files are present.
 
@@ -26,7 +26,9 @@ We shall first explain their creation, then how to tweak them.
 -   `dev`: Development status badges found in `README.md`/`index.md`.
     pkgdown identifies badges in three ways:
 
-    -   Any image-containing links between `<!-- badges: start -->` and `<!-- badges: end -->`, as e.g. created by `usethis::use_readme_md()` or `usethis::use_readme_rmd()`.
+    -   Any image-containing links between `<!-- badges: start -->` and `<!-- badges: end -->`, as e.g. created by `usethis::use_readme_md()` or `usethis::use_readme_rmd()`. 
+    There should always be an empty line after the `<!-- badges: end -->` line.
+    If you divide badges into paragraphs, make sure to add an empty line before the `<!-- badges: end -->` line.
 
     -   Any image-containing links within `<div id="badges"></div>`.
 
