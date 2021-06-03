@@ -65,6 +65,8 @@ reference:
   contents:
   - starts_with("test", internal = TRUE)
   - rlang::is_installed
+  - sass::font_face
+  - sass::font_google
 
 news:
   releases:
