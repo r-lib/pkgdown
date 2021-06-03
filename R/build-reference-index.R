@@ -42,14 +42,13 @@ data_reference_index_rows <- function(section, index, pkg) {
 
 
   if (has_name(section, "contents")) {
-    any_not_string <- any(purrr::map_chr(section$contents, typeof) != "character")
-    any_no_length <- any(!nzchar(section$contents))
-    if (any_not_string || any_no_length) {
+    any_not_char <- any(purrr::map_lgl(section$contents, is_not_character))
+    if (any_not_char) {
       abort(
         paste(
           sprintf(
             "Content %s in section %s in %s must be a character.",
-            toString(which(any_not_string || any_no_length)),
+            toString(which(any_not_char)),
             index,
             pkgdown_field(pkg, "reference")
           ),
@@ -75,6 +74,9 @@ data_reference_index_rows <- function(section, index, pkg) {
   purrr::compact(rows)
 }
 
+is_not_character <- function(x) {
+  !(typeof(x) == "character" && nzchar(x))
+}
 
 find_icons <- function(x, path) {
   purrr::map(x, find_icon, path = path)
