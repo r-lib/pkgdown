@@ -186,13 +186,15 @@ content_info <- function(content_entry, index, pkg, section) {
     check_package_presence(pkg_name)
 
     rd_href <- find_rd_href(sub("\\(\\)$", "", topic), pkg_name)
-    rd_title <- find_rd_title(rd_href, pkg_name)
+    rd <- get_rd(rd_href, pkg_name)
+    rd_title <- extract_title(rd)
+    rd_aliases <- find_rd_aliases(rd)
 
     tibble::tibble(
       path = rd_href,
-      aliases = sprintf("%s (from %s)", topic, pkg_name),
+      aliases = rd_aliases,
       name = list(content_entry = NULL),
-      title = rd_title,
+      title = sprintf("%s (from %s)", rd_title, pkg_name),
       icon = list(content_entry = NULL)
     )
   }
@@ -209,16 +211,22 @@ check_package_presence <- function(pkg_name) {
     }
 }
 
-find_rd_title <- function(rd_href, pkg_name) {
+get_rd <- function(rd_href, pkg_name) {
   rd_name <- fs::path_ext_set(fs::path_file(rd_href), "Rd")
   # adapted from printr
   # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L32
   db <- tools::Rd_db(pkg_name)
   Rd <- db[[rd_name]]
-  # adapted from printr
-  # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L69
-  sections <- sub('^\\\\', '', unlist(lapply(Rd, attr, 'Rd_tag')))
-  as.character(Rd[sections == "title"][[1]])
+  set_classes(Rd)
+}
+
+find_rd_aliases <- function(rd) {
+  funs <- topic_funs(rd)
+  if (length(funs) > 0) {
+    paste(funs, collapse = " ")
+  } else {
+    extract_tag(rd, "tag_name")
+  }
 }
 
 find_rd_href <- function(topic, pkg_name) {
