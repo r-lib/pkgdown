@@ -78,8 +78,12 @@
           title: D
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
-          aliases: is_installed (from rlang)
+          aliases: is_installed() (from rlang)
           title: Are packages installed in any of the libraries?
+          icon: ~
+        - path: https://rdrr.io/pkg/sass/man/font_face.html
+          aliases: font_face (from sass)
+          title: Helpers for importing web fonts
           icon: ~
         names:
         - a
