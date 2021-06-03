@@ -17,7 +17,6 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     local_options_link(pkg, depth = 0L)
     data$index <- markdown(src_path, pkg = pkg)
   }
-  data$has_trailingslash <- pkg$meta$template$trailingslash_redirect %||% FALSE
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
@@ -42,7 +41,8 @@ data_home <- function(pkg = ".") {
       cran_unquote(pkg$desc$get("Title")[[1]]),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get("Description")[[1]]))
+                       cran_unquote(pkg$desc$get("Description")[[1]])),
+    has_trailingslash = pkg$meta$template$trailingslash_redirect %||% FALSE
   ))
 }
 
