@@ -185,7 +185,7 @@ content_info <- function(content_entry, index, pkg, section) {
     topic <- names[2]
     check_package_presence(pkg_name)
 
-    rd_href <- find_rd_href(topic, pkg_name)
+    rd_href <- find_rd_href(sub("\\(\\)$", "", topic), pkg_name)
     rd_title <- find_rd_title(rd_href, pkg_name)
 
     tibble::tibble(
