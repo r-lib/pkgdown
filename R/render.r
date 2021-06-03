@@ -292,6 +292,9 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (same_contents(full_path, contents)) {
+    # touching the file to update its modification time
+    # which is important for proper lazy behavior
+    fs::file_touch(full_path)
     return(FALSE)
   }
 
