@@ -1,15 +1,6 @@
 # pkgdown (development version)
 
-* clipboard buttons now no longer contains the output of code.
-  I.e. if the code is
-  
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
-<span class="va">x</span>
-<span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
-  the text on the clipboard does not contain "2".
-
-  (#1706)
+* clipboard buttons now no longer contains the output of code.(#1706)
 
 * pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
 
