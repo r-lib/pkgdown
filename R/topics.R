@@ -174,52 +174,63 @@ content_info <- function(content_entry, index, pkg, section) {
     topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
     tibble::tibble(
       path = topics$file_out,
-      aliases = purrr::map2(
-        topics$funs,
-        topics$name,
-        ~ if (length(.x) > 0) .x else .y
-      ),
+      aliases = purrr::map2(topics$funs, topics$name, ~ if (length(.x) > 0) .x else .y),
       name = list(topics$name),
       title = topics$title,
       icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
     )
   } else { # topic from another package
     names <- strsplit(content_entry, "::")[[1]]
-    if (!rlang::is_installed(names[1])) {
-      abort(
-        sprintf(
-          "%s must be installed if it is mentioned in the reference index.",
-          names[1]
-        )
-      )
-    }
+    pkg_name <- names[1]
+    topic <- names[2]
+    check_package_presence(pkg_name)
 
-    path <- downlit::href_topic(names[2], names[1])
-    if (is.na(path)) {
-      abort(
-        sprintf(
-          "Could not find an href for topic %s of package %s",
-          names[2], names[1]
-        )
-      )
-    }
-
-    rd_name <- fs::path_ext_set(fs::path_file(path), "Rd")
-    # adapted from printr
-    db <- tools::Rd_db(names[1])
-    Rd <- db[[rd_name]]
-    # adapted from printr
-    # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L69
-    sections <- sub('^\\\\', '', unlist(lapply(Rd, attr, 'Rd_tag')))
-    title <- as.character(Rd[sections == "title"][[1]])
+    rd_href <- find_rd_href(topic, pkg_name)
+    rd_title <- find_rd_title(rd_href, pkg_name)
 
     tibble::tibble(
-      path = path,
-      aliases = sprintf("%s (from %s)", names[2], names[1]),
+      path = rd_href,
+      aliases = sprintf("%s (from %s)", topic, pkg_name),
       name = list(content_entry = NULL),
-      title = title,
+      title = rd_title,
       icon = list(content_entry = NULL)
     )
 
   }
+}
+
+check_package_presence <- function(pkg_name) {
+  if (!rlang::is_installed(pkg_name)) {
+      abort(
+        sprintf(
+          "%s must be installed if it is mentioned in the reference index.",
+          pkg_name
+        )
+      )
+    }
+}
+
+find_rd_title <- function(rd_href, pkg_name) {
+  rd_name <- fs::path_ext_set(fs::path_file(rd_href), "Rd")
+  # adapted from printr
+  # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L32
+  db <- tools::Rd_db(pkg_name)
+  Rd <- db[[rd_name]]
+  # adapted from printr
+  # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L69
+  sections <- sub('^\\\\', '', unlist(lapply(Rd, attr, 'Rd_tag')))
+  as.character(Rd[sections == "title"][[1]])
+}
+
+find_rd_href <- function(topic, pkg_name) {
+  href <- downlit::href_topic(topic, pkg_name)
+  if (is.na(href)) {
+    abort(
+      sprintf(
+        "Could not find an href for topic %s of package %s",
+        topic, pkg_name
+      )
+    )
+  }
+  href
 }
