@@ -8,3 +8,4 @@ Authors@R: c(
     )
 RoxygenNote: 6.1.1
 Encoding: UTF-8
+URL: http://example.com/pkg/

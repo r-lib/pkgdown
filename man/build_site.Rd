@@ -86,8 +86,8 @@ There are five top-level YAML settings that affect the entire site:
 \verb{docs/} (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.
 
-\code{url} optionally specifies the url where the site will be published.
-Supplying this will:
+\code{url} is optional, but strongly recommended.
+It specifies where the site will be published and is used to:
 \itemize{
 \item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
@@ -95,6 +95,10 @@ See \code{vignette("linking")} for more information.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
+\item Generate metadata used by Twitter and the Open Graph protocol
+for rich social media cards, see \code{vignette("metadata")}.
+\item Adds the "external-link" class to external links
+for sites using BS4, see \code{vignette("customization")}.
 }\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
