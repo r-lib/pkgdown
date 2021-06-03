@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `build_reference()` now runs examples with `options(rlang_interactive = FALSE)` therefore ensuring non-interactive behavior even in interactive sessions (#1693) (see `rlang::is_interactive()`).
+* `build_reference()` now runs examples with two more local options `rlang_interactive = FALSE` (therefore ensuring non-interactive behavior even in interactive sessions ) and `cli.dynamic = FALSE`, `withr::local_envvar(RSTUDIO = NA)` and `withr::local_collate("C")`(#1693) (see `rlang::is_interactive()`).
 
 * pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
 
