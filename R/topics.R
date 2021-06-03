@@ -228,7 +228,7 @@ get_rd <- function(rd_href, pkg_name) {
 find_rd_aliases <- function(rd) {
   funs <- topic_funs(rd)
   if (length(funs) > 0) {
-    paste(funs, collapse = " ")
+    list(funs)
   } else {
     extract_tag(rd, "tag_name")
   }

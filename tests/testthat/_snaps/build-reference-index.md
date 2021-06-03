@@ -82,7 +82,12 @@
           title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
         - path: https://rdrr.io/pkg/sass/man/font_face.html
-          aliases: font_google() font_link() font_face() font_collection() is_font_collection()
+          aliases:
+          - font_google()
+          - font_link()
+          - font_face()
+          - font_collection()
+          - is_font_collection()
           title: Helpers for importing web fonts (from sass)
           icon: ~
         names:
