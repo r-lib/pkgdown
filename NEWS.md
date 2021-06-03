@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed()`, `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed()` or topic names e.g. `sass::font_face`). (#1664)
 
 * New `pkgdown_sitrep()` function reporting whether the pkgdown website URL is stored in the pkgdown configuration and in DESCRIPTION. (#1478)
 
