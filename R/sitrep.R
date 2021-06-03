@@ -15,13 +15,13 @@
 pkgdown_sitrep <- function(pkg = ".") {
   pkg_dir <- pkg
   pkg <- as_pkgdown(pkg_dir)
-  if (is.null(pkg$meta$url)) {
-    cat(sprintf("o %s not configured.", pkgdown_field(pkg, "url")))
+  if (is.null(pkg$meta[["url"]])) {
+    cat(sprintf("* %s not configured.", pkgdown_field(pkg, "url")))
   } else {
     urls <- desc::desc(pkg_dir)$get_urls()
     urls <- sub("/$", "", urls)
-    if (!pkg$meta$url %in% urls) {
-      cat("o URL missing from the DESCRIPTION URL field.")
+    if (!pkg$meta[["url"]] %in% urls) {
+      cat("* URL missing from the DESCRIPTION URL field.")
     } else {
       cat("All good :-)")
     }
