@@ -24,8 +24,8 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- modify_list(template_config, meta)
 
   # Ensure the URL has no trailing slash
-  if (!is.null(meta$url)) {
-    meta$url <- sub("/$", "", meta$url)
+  if (!is.null(meta[["url"]])) {
+    meta[["url"]] <- sub("/$", "", meta[["url"]])
   }
 
   package <- desc$get("Package")[[1]]
