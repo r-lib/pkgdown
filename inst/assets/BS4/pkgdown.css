@@ -479,3 +479,21 @@ details p {
   border-left: solid 1px #e5e5e5;
   border-bottom: solid 1px #e5e5e5;
 }
+
+/* https://observablehq.com/@rkaravia/css-trick-tabs-with-consistent-height */
+/* Make tab height consistent  */
+
+.tab-content {
+  display: flex;
+}
+
+.tab-content > .tab-pane {
+  display: block; /* undo "display: none;" */
+  visibility: hidden;
+  margin-right: -100%;
+  width: 100%;
+}
+
+.tab-content > .active {
+  visibility: visible;
+}
