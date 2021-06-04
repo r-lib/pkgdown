@@ -2,6 +2,10 @@
 
 * `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed()` or topic names e.g. `sass::font_face`). (#1664)
 
+* New template option `trailing_slash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
+
+* `build_reference()` now runs examples with two more local options `rlang_interactive = FALSE` (therefore ensuring non-interactive behavior even in interactive sessions -- see `rlang::is_interactive()`) and `cli.dynamic = FALSE`, `withr::local_envvar(RSTUDIO = NA)` and `withr::local_collate("C")`(#1693).
+
 * New `pkgdown_sitrep()` function reporting whether the pkgdown website URL is stored in the pkgdown configuration and in DESCRIPTION. (#1478)
 
 * pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
