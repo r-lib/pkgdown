@@ -76,7 +76,7 @@ jobs:
       - name: Create index file
         if: contains(env.isPush, 'false')
         run: |
-          echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>title</title></head><body><a href="/dev/index.html">Dev website</a></body></html>' > ./docs/index.html
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;URL=/dev/index.html" />  <script language="javascript"> window.location.replace('/dev/index.html')</script></head></html>' > ./docs/index.html
 
       - name: Deploy to Netlify
         if: contains(env.isPush, 'false')
