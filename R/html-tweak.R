@@ -108,7 +108,6 @@ has_class <- function(html, class) {
   purrr::map_lgl(classes, ~ class %in% .x)
 }
 
-
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
   container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
