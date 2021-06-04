@@ -130,6 +130,7 @@ tweak_footnotes <- function(html) {
 }
 
 # Tabsets tweaking: find Markdown recommended in https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html
+# and https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections
 # i.e. "## Heading {.tabset}" or "## Heading {.tabset .tabset-pills}"
 #  no matter the heading level -- the headings one level down are the tabs
 # and transform to tabsets HTML a la Bootstrap
