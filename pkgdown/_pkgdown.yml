@@ -19,7 +19,7 @@ template:
     base_font:
       google: "Prompt"
   dark-bslib:
-      primary: pink
+      primary: null
   toggle: true
 
   params:

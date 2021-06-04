@@ -499,7 +499,6 @@ create_theme <- function(pkg, bootswatch_theme, bs_version, mode) {
   all_sass <- paste(c(read_lines(pkgdown_sass), read_lines(code_sass)), collapse = "")
   pkgdown_css <- sass::sass_partial(all_sass, bs_theme)
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
-
   deps <- bslib::bs_theme_dependencies(bs_theme, sass::sass_options_get(output_style = "expanded"))
 
   return(deps)
@@ -538,7 +537,14 @@ pkgdown_bslib_defaults <- function() {
     `border-width` = "1px",
     `code-bg` = "#f8f8f8",
     `code-color` = "#333",
-    `fu-color` = "#4758AB"
+    `code-blue` = "#007BA5",
+    `code-darkblue` = "#4758AB",
+    `code-greyblue` = "#375f84",
+    `code-green` = "#20794D",
+    `code-grey` = "#5E5E5E",
+    `code-red` = "#AD0000",
+    `code-orange` = "#8f5902",
+    `code-black` = "#111111"
   )
 }
 
@@ -561,9 +567,16 @@ pkgdown_bslib_dark_defaults <- function() {
     `border-width` = "1px",
     `component-active-bg` = "white",
     `component-active-color` = "black",
-    `code-bg` = "#f8f8f8",
-    `code-color` = "#333",
-    `fu-color` = "#4758AB"
+    `code-bg` = "#373737",
+    `code-color` = "#f1f1f1",
+    `code-blue` = "#16a3b6",
+    `code-darkblue` = "#49d6e9",
+    `code-greyblue` = "#49ace9",
+    `code-green` = "#49e9a6",
+    `code-grey` = "#d8d8d8",
+    `code-red` = "#df769b",
+    `code-orange` = "#e66533",
+    `code-black` = "#111111"
   )
   )
 }
