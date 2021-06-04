@@ -157,7 +157,13 @@ tweak_tabset <- function(html) {
   xml2::xml_remove(tabs)
 
   # Add empty ul for nav and div for content
-  xml2::xml_add_child(html, "ul", class=sprintf("nav %s nav-row", nav_class), id=id)
+  xml2::xml_add_child(
+    html,
+    "ul",
+    class = sprintf("nav %s nav-row", nav_class),
+    id = id,
+    role = "tablist"
+  )
   xml2::xml_add_child(html, "div", class="tab-content")
 
   # Fill the ul for nav and div for content
@@ -166,10 +172,11 @@ tweak_tabset <- function(html) {
 
   # activate first tab unless another one is already activated
   # (by the attribute {.active} in the source Rmd)
-  nav_url <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", id))
-  if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(nav_url), "class")))) {
-    tweak_class_prepend(xml2::xml_child(nav_url), "active")
+  nav_links <- xml2::xml_find_all(html, sprintf("//ul[@id='%s']/li/a", id))
+  if (!any(grepl("active", xml2::xml_attr(nav_links, "class")))) {
+    tweak_class_prepend(nav_links[1], "active")
   }
+
   content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
   if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(content_div), "class")))) {
     tweak_class_prepend(xml2::xml_child(content_div), "active")
@@ -185,27 +192,32 @@ tablist_item <- function(tab, html, parent_id) {
   text <- xml_text1(xml2::xml_child(tab))
   ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
 
+  # Activate (if there was "{.active}" in the source Rmd)
+  active <- grepl("active", xml2::xml_attr(tab, "class"))
+  class <- if (active) {
+    "nav-link active"
+  } else {
+    "nav-link"
+  }
+
   xml2::xml_add_child(
     ul_nav,
     "a",
     text,
     `data-toggle` = "tab",
     href = paste0("#", id),
-    role = "tab"
+    role = "tab",
+    `aria-controls` = id,
+    `aria-selected` = tolower(as.character(active)),
+    class = class
   )
-
-  # Activate (if there was "{.active}" in the source Rmd)
-  class <- if (grepl("active", xml2::xml_attr(tab, "class"))) {
-    "active"
-  } else {
-    ""
-  }
 
   # tab a's need to be wrapped in li's
   xml2::xml_add_parent(
     xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
     "li",
-    class = class
+    role = "presentation",
+    class = "nav-item"
   )
 }
 
@@ -230,6 +242,7 @@ tablist_content <- function(tab, html, parent_id, fade) {
   }
 
   xml2::xml_attr(tab, "role") <- "tabpanel"
+  xml2::xml_attr(tab, " aria-labelledby") <- xml2::xml_attr(tab, "id")
 
   content_div <- xml2::xml_find_first(
     html,

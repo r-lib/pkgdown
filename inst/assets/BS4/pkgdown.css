@@ -475,9 +475,6 @@ details p {
   padding: 1rem;
 }
 
-.fade {
-    transition: opacity 1s linear;
-}
 .tabset-pills .tab-content {
   border-left: solid 1px #e5e5e5;
   border-bottom: solid 1px #e5e5e5;
