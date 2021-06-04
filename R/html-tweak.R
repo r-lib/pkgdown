@@ -103,6 +103,12 @@ tweak_class_prepend <- function(x, class) {
   invisible()
 }
 
+has_class <- function(html, class) {
+  classes <- strsplit(xml2::xml_attr(html, "class"), " ")
+  purrr::map_lgl(classes, ~ class %in% .x)
+}
+
+
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
   container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
@@ -145,13 +151,13 @@ tweak_tabset <- function(html) {
   id <- xml2::xml_attr(html, "id")
 
   # Users can choose pills or tabs
-  nav_class <- if (grepl("tabset-pills", xml2::xml_attr(html, "class"))) {
+  nav_class <- if (has_class(html, "tabset-pills")) {
     "nav-pills"
   } else {
     "nav-tabs"
   }
   # Users can choose to make content fade
-  fade <- grepl("tabset-fade", xml2::xml_attr(html, "class"))
+  fade <- has_class(html, "tabset-fade")
 
   # Get tabs and remove them from original HTML
   tabs <- xml2::xml_find_all(html, "div")
@@ -174,12 +180,13 @@ tweak_tabset <- function(html) {
   # activate first tab unless another one is already activated
   # (by the attribute {.active} in the source Rmd)
   nav_links <- xml2::xml_find_all(html, sprintf("//ul[@id='%s']/li/a", id))
-  if (!any(grepl("active", xml2::xml_attr(nav_links, "class")))) {
+
+  if (!any(has_class(nav_links, "active"))) {
     tweak_class_prepend(nav_links[1], "active")
   }
 
   content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
-  if (!any(grepl("active", xml2::xml_attr(xml2::xml_children(content_div), "class")))) {
+  if (!any(has_class(xml2::xml_children(content_div), "active"))) {
     tweak_class_prepend(xml2::xml_child(content_div), "active")
     if (fade) {
       tweak_class_prepend(xml2::xml_child(content_div), "show")
@@ -194,7 +201,7 @@ tablist_item <- function(tab, html, parent_id) {
   ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
 
   # Activate (if there was "{.active}" in the source Rmd)
-  active <- grepl("active", xml2::xml_attr(tab, "class"))
+  active <- has_class(tab, "active")
   class <- if (active) {
     "nav-link active"
   } else {
@@ -224,7 +231,7 @@ tablist_item <- function(tab, html, parent_id) {
 
 # Add content of a tab to a tabset
 tablist_content <- function(tab, html, parent_id, fade) {
-  active <- grepl("active", xml2::xml_attr(tab, "class"))
+  active <- has_class(tab, "active")
 
   # remove first child, that is the header
   xml2::xml_remove(xml2::xml_child(tab))
