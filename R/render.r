@@ -464,7 +464,13 @@ data_deps <- function(pkg, depth) {
 }
 
 create_theme <- function(pkg, bootswatch_theme, bs_version, mode) {
-bs_theme <- do.call(
+  meta <- if (mode == "light") {
+    pkg$meta[["template"]]$bslib %||% list()
+  } else {
+    modify_list(pkg$meta[["template"]]$bslib, pkg$meta[["template"]]$`dark-bslib`) %||% list()
+  }
+
+  bs_theme <- do.call(
     bslib::bs_theme,
     c(
       list(
@@ -473,14 +479,14 @@ bs_theme <- do.call(
       ),
       utils::modifyList(
         switch(mode, light = pkgdown_bslib_defaults(), dark = pkgdown_bslib_dark_defaults()),
-        pkg$meta[["template"]]$bslib %||% list()
+        meta
       )
     )
   )
 
   # map secondary to component-active-bg
   # unless a value was set by the user
-  component_active_bg <- pkg$meta[["template"]]$bslib$dark$`component-active-bg` %||%
+  component_active_bg <- meta$`component-active-bg` %||%
     bslib::bs_get_variables(bs_theme, "secondary")
   bs_theme <- bslib::bs_add_variables(
     bs_theme,

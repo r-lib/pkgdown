@@ -14,6 +14,12 @@ authors:
 
 template:
   bootstrap: 4
+  bslib:
+    primary: green
+    base_font:
+      google: "Prompt"
+  dark-bslib:
+      primary: pink
   toggle: true
 
   params:
