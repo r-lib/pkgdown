@@ -450,7 +450,7 @@ data_deps <- function(pkg, depth) {
     )
   }
 
-  # map primary to navbar-light-active-color + component-active-color
+  # map primary to navbar-light-active-color + component-active-color + headings-color
   # unless a value was set by the user
   if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-active-color`)) {
     bs_theme <- bslib::bs_add_variables(
@@ -464,6 +464,14 @@ data_deps <- function(pkg, depth) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
       "component-active-color" = as.character(
+        bslib::bs_get_variables(bs_theme, "primary")
+      )
+    )
+  }
+  if (is.null(pkg$meta[["template"]]$bslib$`headings-color`)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "headings-color" = as.character(
         bslib::bs_get_variables(bs_theme, "primary")
       )
     )
