@@ -375,7 +375,7 @@ navbar_links_haystack <- function(html, pkg, path) {
   haystack[haystack$similar > 0, ]
 }
 
-assess_toc <- function(html) {
+trim_toc <- function(html) {
   if (count_heading(html) <= 0) {
     xml2::xml_remove(xml2::xml_find_first(html, '//nav[@id="toc"]'))
   }

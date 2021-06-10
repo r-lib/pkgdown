@@ -93,7 +93,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # remove TOC if useless
   if (pkg$bs_version > 3) {
     html <- xml2::read_html(rendered)
-    assess_toc(html)
+    trim_toc(html)
     rendered <- as.character(html, options = character())
   }
 
