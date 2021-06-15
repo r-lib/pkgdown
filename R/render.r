@@ -422,6 +422,7 @@ data_deps <- function(pkg, depth) {
   # only keep what's different
   dark_deps <- dark_deps[purrr::map_chr(dark_deps, "name") == "bootstrap"]
   dark_deps[[1]]$script <- NULL
+  dark_deps[[1]]$all_files <- FALSE
 
   # Dependencies files end up at the website root in a deps folder
   deps <- c(
