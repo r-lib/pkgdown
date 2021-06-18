@@ -1,5 +1,28 @@
 # pkgdown (development version)
 
+* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information, if the package documentation was built with roxygen2 >= 7.1.1.9001. For better results it is important to add language information i.e. the YAML code block below, in [roxygen2 with Markdown support](https://roxygen2.r-lib.org/articles/rd-formatting.html#turning-on-markdown-support-1), would otherwise be parsed as R code.
+
+````
+```
+field1: true
+field2:
+  nested-field: "ok"
+```
+````
+
+Make it:
+
+
+````
+```yaml
+field1: true
+field2:
+  nested-field: "ok"
+```
+````
+
+(#1724)
+
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
 
 * `build_reference()` now runs examples with two more local options `rlang_interactive = FALSE` (therefore ensuring non-interactive behavior even in interactive sessions -- see `rlang::is_interactive()`) and `cli.dynamic = FALSE`, `withr::local_envvar(RSTUDIO = NA)` and `withr::local_collate("C")`(#1693).
