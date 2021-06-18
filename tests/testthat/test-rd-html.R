@@ -363,9 +363,9 @@ test_that("spaces are preserved in preformatted blocks", {
   expect_equal(out, "<pre><code>^\n\n  b\n\n  c</code></pre>\n")
 })
 
-test_that("parseable blocks get R syntax highlighting", {
+test_that("parseable blocks get wrapped in pre/code", {
   out <- flatten_para(rd_text("\\preformatted{foo}"))
-  expect_equal(out, "<pre class='sourceCode r'><code><span class='va'>foo</span></code></pre>\n")
+  expect_equal(out, "<pre><code>foo</code></pre>")
 })
 
 # Usage -------------------------------------------------------------------
