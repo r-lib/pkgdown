@@ -31,8 +31,8 @@ test_that("opengraph tags are populated on home, reference, and articles", {
   )
   ref_html <- read_lines(ref_page_path)
 
-  desc <- '<meta property="og:description" content="Title" />'
-  img <- '<meta property="og:image" content="http://example.com/pkg/logo.png" />'
+  desc <- '<meta property="og:description" content="Title">'
+  img <- '<meta property="og:image" content="http://example.com/pkg/logo.png">'
   expect_equal(n_matches(ref_html, desc), 1)
   expect_equal(n_matches(ref_html, img), 1)
 
