@@ -20,6 +20,7 @@ Other tests:
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
 \code{\link{test-figures}},
+\code{\link{test-highlight}},
 \code{\link{test-lists}},
 \code{\link{test-long-lines}},
 \code{\link{test-output-styles}},
