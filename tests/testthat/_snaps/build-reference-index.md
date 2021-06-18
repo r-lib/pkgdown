@@ -39,12 +39,13 @@
 
 # errors well when a content entry is not a character
 
-    Content 1 in section 1 in reference in '_pkgdown.yml' must be a character.
+    Item 1 in section 1 in reference in '_pkgdown.yml' must be a character.
     i You might need to add '' around e.g. - 'N' or - 'off'.
 
 # errors well when a content entry refers to a not installed package
 
-    notapackage must be installed if it is mentioned in the reference index.
+    The package `notapackage` is required as it is mentioned in the
+    reference index.
 
 # errors well when a content entry refers to a non existing function
 
@@ -78,10 +79,12 @@
           title: D
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
-          aliases: is_installed()
+          aliases:
+          - is_installed()
+          - check_installed()
           title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
-        - path: https://rdrr.io/pkg/sass/man/font_face.html
+        - path: https://rstudio.github.io/sass//reference/font_face.html
           aliases:
           - font_google()
           - font_link()

@@ -58,28 +58,24 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_all_characters <- function(contents, index, pkg) {
-  any_not_char <- any(purrr::map_lgl(contents, is_not_character))
-    if (any_not_char) {
-      abort(
-        paste(
-          sprintf(
-            "Content %s in section %s in %s must be a character.",
-            toString(which(any_not_char)),
-            index,
-            pkgdown_field(pkg, "reference")
-          ),
-          sprintf(
-            "%s You might need to add '' around e.g. - 'N' or - 'off'.",
-            crayon::bold("i")
-          ),
-          sep = "\n"
-        )
-      )
-    }
-}
+  any_not_char <- any(purrr::map_lgl(contents, function(x) {typeof(x) != "character"}))
 
-is_not_character <- function(x) {
-  !(typeof(x) == "character" && nzchar(x))
+  if (!any_not_char) {
+    return(invisible())
+  }
+
+  abort(
+    c(
+      sprintf(
+        "Item %s in section %s in %s must be a character.",
+        toString(which(any_not_char)),
+        index,
+        pkgdown_field(pkg, "reference")
+      ),
+      i = "You might need to add '' around e.g. - 'N' or - 'off'."
+    )
+  )
+
 }
 
 find_icons <- function(x, path) {

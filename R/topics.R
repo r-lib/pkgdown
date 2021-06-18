@@ -188,12 +188,7 @@ content_info <- function(content_entry, index, pkg, section) {
     rd_href <- find_rd_href(sub("\\(\\)$", "", topic), pkg_name)
     rd <- get_rd(rd_href, pkg_name)
     rd_title <- extract_title(rd)
-    rd_aliases <- if (grepl("\\(\\)$", topic)) {
-      topic
-    }
-    else {
-      find_rd_aliases(rd)
-    }
+    rd_aliases <- find_rd_aliases(rd)
 
     tibble::tibble(
       path = rd_href,
@@ -206,14 +201,13 @@ content_info <- function(content_entry, index, pkg, section) {
 }
 
 check_package_presence <- function(pkg_name) {
-  if (!rlang::is_installed(pkg_name)) {
-      abort(
-        sprintf(
-          "%s must be installed if it is mentioned in the reference index.",
+  rlang::check_installed(
+    pkg = pkg_name,
+    reason = sprintf(
+          "as it is mentioned in the reference index.",
           pkg_name
-        )
-      )
-    }
+    )
+  )
 }
 
 get_rd <- function(rd_href, pkg_name) {

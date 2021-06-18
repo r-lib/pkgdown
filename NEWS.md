@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed()` or topic names e.g. `sass::font_face`). (#1664)
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
 
 * New template option `trailing_slash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
 
