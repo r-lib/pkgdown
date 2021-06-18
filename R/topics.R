@@ -170,7 +170,7 @@ topic_must <- function(message, topic) {
 
 content_info <- function(content_entry, index, pkg, section) {
 
-  if (!grepl(".*::.*", content_entry)) {
+  if (!grepl("::", content_entry, fixed = TRUE)) {
     topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
     tibble::tibble(
       path = topics$file_out,
