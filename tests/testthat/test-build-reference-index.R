@@ -54,7 +54,7 @@ test_that("errors well when a content entry refers to a non existing function", 
 test_that("can use a topic from another package", {
   meta <- list(reference = list(list(
     title = "bla",
-    contents = c("a", "b", "c", "?", "rlang::is_installed()", "sass::font_face")
+    contents = c("a", "b", "c", "?", "rlang::is_installed()", "bslib::bs_add_rules")
   )))
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 

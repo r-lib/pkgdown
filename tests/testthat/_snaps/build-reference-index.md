@@ -83,14 +83,14 @@
           - check_installed()
           title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
-        - path: https://rstudio.github.io/sass//reference/font_face.html
+        - path: https://rstudio.github.io/bslib//reference/bs_bundle.html
           aliases:
-          - font_google()
-          - font_link()
-          - font_face()
-          - font_collection()
-          - is_font_collection()
-          title: Helpers for importing web fonts (from sass)
+          - bs_add_variables()
+          - bs_add_rules()
+          - bs_add_functions()
+          - bs_add_mixins()
+          - bs_bundle()
+          title: Add low-level theming customizations (from bslib)
           icon: ~
         names:
         - a
