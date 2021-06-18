@@ -185,3 +185,54 @@ Blablablablablabla.
 # This section is unnumbered {-}
 
 There should however be no bug here!
+
+## Results in tabset {.tabset .tabset-pills}
+
+### Tab 1
+
+blablablabla
+
+```r
+1 + 1
+```
+
+### Tab 2
+
+blop
+
+
+## Results in tabset, no pills {.tabset}
+
+### A thing
+
+something nice
+
+```{r}
+plot(1:42)
+```
+
+#### cool
+
+yay
+
+### Tab 2 {.active}
+
+hello
+
+## Results in tabset, fading {.tabset .tabset-fade}
+
+### Something
+
+ok
+
+```{r}
+plot(1)
+```
+
+#### cool
+
+yay
+
+### Nice {.active}
+
+bonjour
