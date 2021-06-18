@@ -396,7 +396,6 @@ count_heading_level <- function(level, html) {
   )
 }
 
-
 tweak_404 <- function(html, pkg = pkg) {
 
   # If there's no URL links can't be made absolute
@@ -432,6 +431,58 @@ tweak_404 <- function(html, pkg = pkg) {
   TRUE
 }
 
+# Add syntax highlighting to reference sections
+tweak_reference_topic_html <- function(html, pkg = pkg) {
+  # blocks with language information = r
+  r_blocks <- xml2::xml_find_all(html, "//div[contains(@class, 'sourceCode r')]/pre/code")
+  # now add blocks with no language information
+  nolang_r_blocks <- xml2::xml_find_all(html, "//div[contains(@class, 'ref-section')]/pre/code")
+
+  highlight_r_block <- function(block) {
+    out <- downlit::highlight(
+      xml2::xml_text(block),
+      classes = downlit::classes_pandoc()
+    )
+    if (!is.na(out)) {
+      # Replace the original node contents with downlit output
+      highlighted_html <- xml2::xml_contents(
+        xml2::xml_find_first(xml2::read_html(out), "body")
+      )
+      xml2::xml_text(block) <- ""
+      purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(block, x) })
+    }
+  }
+
+  purrr::walk(r_blocks, highlight_r_block)
+  purrr::walk(nolang_r_blocks, highlight_r_block)
+
+  # Blocks with language information set to something else than R
+  # Select div's to keep the language information
+  non_r_blocks <- xml2::xml_find_all(
+    html,
+    "//div[contains(@class, 'ref-section')]/div[contains(@class, 'sourceCode') and not(contains(@class, 'sourceCode r'))]"
+  )
+
+  highlight_other_block <- function(block) {
+    lang <- sub("sourceCode ", "", xml2::xml_attr(block, "class"))
+    code <- xml2::xml_text(xml2::xml_find_first(block, "pre/code"))
+    out <- markdown_text(
+      paste(c(sprintf("```%s", lang), code, "```"), collapse = "\n"),
+      pkg = NULL
+    )
+    # Replace the original code contents with Pandoc's output
+    highlighted_html <-  xml2::xml_contents(
+      xml2::xml_find_first(xml2::read_html(out), "body/div/pre/code")
+    )
+    code_block <- xml2::xml_find_first(block, "pre/code")
+    xml2::xml_text(code_block) <- ""
+    purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(code_block, x) })
+  }
+
+  purrr::walk(non_r_blocks, highlight_other_block)
+
+  invisible()
+}
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
