@@ -476,8 +476,7 @@ details p {
 }
 
 .tabset-pills .tab-content {
-  border-left: solid 1px #e5e5e5;
-  border-bottom: solid 1px #e5e5e5;
+  border: solid 1px #e5e5e5;
 }
 
 /* https://observablehq.com/@rkaravia/css-trick-tabs-with-consistent-height */
