@@ -23,6 +23,8 @@ field2:
 
 (#1724)
 
+* pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
+
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
 
 * `build_reference()` now runs examples with two more local options `rlang_interactive = FALSE` (therefore ensuring non-interactive behavior even in interactive sessions -- see `rlang::is_interactive()`) and `cli.dynamic = FALSE`, `withr::local_envvar(RSTUDIO = NA)` and `withr::local_collate("C")`(#1693).
