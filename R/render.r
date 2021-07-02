@@ -451,7 +451,7 @@ data_deps <- function(pkg, depth) {
   }
 
   # map primary if set, or fg otherwise
-  # to navbar-light-active-color + component-active-color + headings-color
+  # to navbar-light-active-color + component-active-color
   # unless a value was set by the user
   default_prim_color <- if (!is.null(pkg$meta[["template"]][["bslib"]][["primary"]])) {
     pkg$meta[["template"]][["bslib"]][["primary"]]
@@ -470,10 +470,12 @@ data_deps <- function(pkg, depth) {
       "component-active-color" = default_prim_color
     )
   }
+
+  # Map body-color to headings color
   if (is.null(pkg$meta[["template"]]$bslib$`headings-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "headings-color" = default_prim_color
+      "headings-color" = as.character(bslib::bs_get_variables(bs_theme, "fg"))
     )
   }
 
