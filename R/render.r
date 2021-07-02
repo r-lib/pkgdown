@@ -586,7 +586,8 @@ pkgdown_bslib_defaults <- function() {
     `border-width` = "1px",
     `code-bg` = "#f8f8f8",
     `code-color` = "#333",
-    `fu-color` = "#4758AB"
+    `fu-color` = "#4758AB",
+    `border-radius` = "1rem"
   )
 }
 
