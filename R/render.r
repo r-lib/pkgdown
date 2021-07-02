@@ -442,13 +442,13 @@ data_deps <- function(pkg, depth) {
         "component-active-bg" = "mix($body-color, $body-bg, 5%)",
         .where = "declarations"
       )
-      if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
-        bs_theme <- bslib::bs_add_variables(
-          bs_theme,
-          "dropdown-link-active-bg" = "mix($body-color, $body-bg, 5%)",
-          .where = "declarations"
-        )
-      }
+    }
+    if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
+      bs_theme <- bslib::bs_add_variables(
+        bs_theme,
+        "dropdown-link-active-bg" = "mix($body-color, $body-bg, 5%)",
+        .where = "declarations"
+      )
     }
   }
 
