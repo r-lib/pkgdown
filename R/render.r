@@ -428,9 +428,8 @@ data_deps <- function(pkg, depth) {
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "component-active-bg" = as.character(
-        bslib::bs_get_variables(bs_theme, "secondary")
-      )
+      "component-active-bg" = "mix($body-color, $body-bg, 5%)",
+      .where = "declarations"
     )
   }
 
