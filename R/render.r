@@ -423,20 +423,32 @@ data_deps <- function(pkg, depth) {
     )
   )
 
-  # map secondary to component-active-bg and also dropdown-link-active-bg
+  # map either secondary OR fg, bg to component-active-bg
+  # and also dropdown-link-active-bg
   # unless a value was set by the user
-  if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
-    bs_theme <- bslib::bs_add_variables(
-      bs_theme,
-      "component-active-bg" = "mix($body-color, $body-bg, 5%)",
-      .where = "declarations"
-    )
-    if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
+  if (!is.null(pkg$meta[["template"]]$bslib$secondary)) {
+    if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
       bs_theme <- bslib::bs_add_variables(
         bs_theme,
-        "dropdown-link-active-bg" = "mix($body-color, $body-bg, 5%)",
+        "component-active-bg" = as.character(
+          bslib::bs_get_variables(bs_theme, "secondary")
+        )
+      )
+    }
+  } else {
+    if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
+      bs_theme <- bslib::bs_add_variables(
+        bs_theme,
+        "component-active-bg" = "mix($body-color, $body-bg, 5%)",
         .where = "declarations"
       )
+      if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
+        bs_theme <- bslib::bs_add_variables(
+          bs_theme,
+          "dropdown-link-active-bg" = "mix($body-color, $body-bg, 5%)",
+          .where = "declarations"
+        )
+      }
     }
   }
 
@@ -494,7 +506,7 @@ data_deps <- function(pkg, depth) {
     )
   }
 
-  # map primary&secondary to dropdown hover/focus
+  # map primary, fg, bg to dropdown hover/focus
   if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
