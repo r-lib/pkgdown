@@ -450,30 +450,30 @@ data_deps <- function(pkg, depth) {
     )
   }
 
-  # map primary to navbar-light-active-color + component-active-color + headings-color
+  # map primary if set, or fg otherwise
+  # to navbar-light-active-color + component-active-color + headings-color
   # unless a value was set by the user
+  default_prim_color <- if (!is.null(pkg$meta[["template"]][["bslib"]][["primary"]])) {
+    pkg$meta[["template"]][["bslib"]][["primary"]]
+  } else {
+    as.character(bslib::bs_get_variables(bs_theme, "fg"))
+  }
   if (is.null(pkg$meta[["template"]]$bslib$`navbar-light-active-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "navbar-light-active-color " = as.character(
-        bslib::bs_get_variables(bs_theme, "primary")
-      )
+      "navbar-light-active-color" = default_prim_color
     )
   }
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "component-active-color" = as.character(
-        bslib::bs_get_variables(bs_theme, "primary")
-      )
+      "component-active-color" = default_prim_color
     )
   }
   if (is.null(pkg$meta[["template"]]$bslib$`headings-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "headings-color" = as.character(
-        bslib::bs_get_variables(bs_theme, "primary")
-      )
+      "headings-color" = default_prim_color
     )
   }
 
@@ -490,8 +490,7 @@ data_deps <- function(pkg, depth) {
   if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-color`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "dropdown-link-hover-color" = "$primary",
-      .where = "declarations"
+      "dropdown-link-hover-color" = default_prim_color
     )
   }
   if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-bg`)) {
