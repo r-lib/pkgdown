@@ -423,7 +423,7 @@ data_deps <- function(pkg, depth) {
     )
   )
 
-  # map secondary to component-active-bg (thus also dropdown-link-active-bg)
+  # map secondary to component-active-bg and also dropdown-link-active-bg
   # unless a value was set by the user
   if (is.null(pkg$meta[["template"]]$bslib$`component-active-bg`)) {
     bs_theme <- bslib::bs_add_variables(
@@ -431,6 +431,13 @@ data_deps <- function(pkg, depth) {
       "component-active-bg" = "mix($body-color, $body-bg, 5%)",
       .where = "declarations"
     )
+    if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-active-bg`)) {
+      bs_theme <- bslib::bs_add_variables(
+        bs_theme,
+        "dropdown-link-active-bg" = "mix($body-color, $body-bg, 5%)",
+        .where = "declarations"
+      )
+    }
   }
 
   # map body color to navbar colors
@@ -497,7 +504,7 @@ data_deps <- function(pkg, depth) {
   if (is.null(pkg$meta[["template"]]$bslib$`dropdown-link-hover-bg`)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
-      "dropdown-link-hover-bg" = "$secondary",
+      "dropdown-link-hover-bg" = "mix($body-color, $body-bg, 5%)",
       .where = "declarations"
     )
   }
