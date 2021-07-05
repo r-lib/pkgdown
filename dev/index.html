@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="deps/bs3compat-0.2.5.9002/transition.js"></script><script src="deps/bs3compat-0.2.5.9002/tabs.js"></script><script src="deps/bs3compat-0.2.5.9002/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="deps/bs3compat-0.2.5.1/tabs.js"></script><script src="deps/bs3compat-0.2.5.1/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <link href="syntax-highlighting.css" rel="stylesheet">
@@ -108,7 +108,7 @@
 <a href="#pkgdown-" class="anchor" aria-hidden="true"></a>pkgdown </h1></div>
 <!-- badges: start -->
 
-<p>pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <a href="https://pkgdown.r-lib.org" class="uri">https://pkgdown.r-lib.org</a>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> or <code><a href="reference/build_site.html">?build_site</a></code>.</p>
+<p>pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <a href="https://pkgdown.r-lib.org" class="uri">https://pkgdown.r-lib.org</a>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in <code><a href="articles/articles/pkgdown.html">vignette("pkgdown")</a></code> or <code><a href="reference/build_site.html">?build_site</a></code>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
@@ -117,7 +117,7 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pkgdown"</span><span class="op">)</span>
 
 <span class="co"># Install development version from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"r-lib/pkgdown"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/pkgdown"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -125,12 +125,12 @@
 <p>Get started with <a href="https://usethis.r-lib.org/" class="external-link">usethis</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Run once to configure your package to use pkgdown</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_pkgdown</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Use pkgdown to update your website:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Run to build the website</span>
 <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details and to learn how to customise your site.</p>
+<p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/articles/pkgdown.html">vignette("pkgdown")</a></code> for more details and to learn how to customise your site.</p>
 <p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “gh-pages branch /(root) folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
 </div>
 <div id="in-the-wild" class="section level2">

@@ -1,19 +1,19 @@
-pandoc: 2.11.4
+pandoc: 2.7.3
 pkgdown: 1.6.1.9001
 pkgdown_sha: ~
 articles:
-  customization: customization.html
-  linking: linking.html
-  metadata: metadata.html
-  pkgdown: pkgdown.html
-  search: search.html
-  test/jss: jss.pdf
-  test/output-html-vignette: output-html-vignette.html
-  test/output-theme: output-theme.html
-  test/output: output.html
-  test/pdf: pdf.pdf
-  test/rendering: rendering.html
-last_built: 2021-06-25T12:41Z
+  customization: articles/customization.html
+  linking: articles/linking.html
+  metadata: articles/metadata.html
+  pkgdown: articles/pkgdown.html
+  search: articles/search.html
+  jss: articles/test/jss.pdf
+  output-html-vignette: articles/test/output-html-vignette.html
+  output-theme: articles/test/output-theme.html
+  output: articles/test/output.html
+  pdf: articles/test/pdf.pdf
+  rendering: articles/test/rendering.html
+last_built: 2021-07-05T09:12Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
