@@ -9,7 +9,7 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
 }
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {
-  article_index <- set_names(pkg$vignettes$file_out, path_file(pkg$vignettes$name))
+  article_index <- article_index(pkg)
   Rdname <- get_rdname(pkg$topics)
   topic_index <- unlist(invert_index(set_names(pkg$topics$alias, Rdname)))
 
@@ -64,4 +64,11 @@ context_get <- function(name) {
 context_set_scoped <- function(name, value, scope = parent.frame()) {
   old <- context_set(name, value)
   withr::defer(context_set(name, old), envir = scope)
+}
+
+article_index <- function(pkg) {
+  set_names(
+    fs::path_rel(pkg$vignettes$file_out, "articles"),
+    path_file(pkg$vignettes$name)
+  )
 }
