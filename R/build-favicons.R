@@ -14,14 +14,18 @@
 #'
 #' @inheritParams as_pkgdown
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
+#' @param path If `NULL` the packages source path is used. Otherwise the it uses the given file
 #' @export
-build_favicons <- function(pkg = ".", overwrite = FALSE) {
+build_favicons <- function(pkg = ".", overwrite = FALSE, path = NULL) {
   rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")
-
-  logo_path <- find_logo(pkg$src_path)
+  if(is.null(path)){
+    logo_path <- find_logo(pkg$src_path)
+  } else {
+    logo_path <- path_first_existing(path)
+  }
 
   if (is.null(logo_path)) {
     stop("Can't find package logo PNG or SVG to build favicons.", call. = FALSE)
@@ -135,8 +139,10 @@ find_logo <- function(path) {
     c(
       path(path, "logo.svg"),
       path(path, "man", "figures", "logo.svg"),
+      path(path, "img", "logo.svg"),
       path(path, "logo.png"),
-      path(path, "man", "figures", "logo.png")
+      path(path, "man", "figures", "logo.png"),
+      path(path, "img", "logo.png")
     )
   )
 }
