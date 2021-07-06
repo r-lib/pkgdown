@@ -138,7 +138,7 @@ build_site_meta <- function(pkg = ".") {
 }
 
 site_meta <- function(pkg) {
-  article_index <- set_names(pkg$vignettes$file_out, path_file(pkg$vignettes$name))
+  article_index <- article_index(pkg)
 
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
