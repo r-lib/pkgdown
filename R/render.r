@@ -530,10 +530,15 @@ data_deps <- function(pkg, depth) {
   }
 
   # pkgdown sass
-  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.sass")
-  code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.sass")
-  all_sass <- paste(c(read_lines(pkgdown_sass), read_lines(code_sass)), collapse = "")
-  pkgdown_css <- sass::sass_partial(all_sass, bs_theme)
+  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.scss")
+  code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.scss")
+  pkgdown_css <- sass::sass_partial(
+    list(
+      sass::sass_file(pkgdown_sass),
+      sass::sass_file(code_sass)
+    ),
+    bs_theme
+  )
   bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
 
   deps <- bslib::bs_theme_dependencies(bs_theme)
