@@ -131,7 +131,7 @@ h6.dropdown-header {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
+  @include border-radius(0 6px 6px 6px);
 }
 
 .dropdown-submenu:hover>.dropdown-menu {
@@ -163,7 +163,7 @@ h6.dropdown-header {
 .dropdown-submenu.pull-left>.dropdown-menu {
   left: -100%;
   margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
+  @include border-radius(6px 0 6px 6px);
 }
 
 
@@ -276,7 +276,7 @@ nav[data-toggle="toc"] .nav > li > a {
   color: inherit;
   padding-left: 0.5rem;
   margin-left: -0.5rem;
-  border-radius: $border-radius;
+  @include border-radius($border-radius);
   border: $border-width solid $body-bg;
 }
 
@@ -320,7 +320,7 @@ h1.display-4 {
 .navbar-light .navbar-nav .active > .nav-link {
    background: $component-active-bg;
    color: $component-active-color;
-   border-radius: $border-radius;
+   @include border-radius($border-radius);
  }
 .navbar-nav .nav-link {
  padding-left: 0.5rem;
