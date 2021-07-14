@@ -19,7 +19,6 @@ template:
     bg: white
     secondary: yellow
     primary: purple
-    navbar-light-active-color: green
   params:
     ganalytics: UA-115082821-1
 
