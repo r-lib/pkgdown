@@ -409,19 +409,15 @@ data_deps <- function(pkg, depth) {
 
   check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
 
-  bs_theme <- do.call(
-    bslib::bs_theme,
-    c(
-      list(
-        version = bs_version,
-        bootswatch = bootswatch_theme
-      ),
-      utils::modifyList(
-        pkgdown_bslib_defaults(),
-        pkg$meta[["template"]]$bslib %||% list()
-      )
-    )
+  bs_theme <- bslib::bs_theme(
+    version = bs_version,
+    bootswatch = bootswatch_theme
   )
+  bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkgdown_bslib_defaults())
+
+  if (!is.null(pkg$meta$template$bslib)) {
+    bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkg$meta$template$bslib)
+  }
 
   # map either secondary OR fg, bg to component-active-bg
   # and also dropdown-link-active-bg
@@ -602,15 +598,16 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 pkgdown_bslib_defaults <- function() {
   list(
-    `navbar-nav-link-padding-x` = "1rem",
-    `primary` = "#0054AD",
-    `secondary` = "#e9ecef",
-    `navbar-bg` = "#f8f9fa",
-    `border-width` = "1px",
-    `code-bg` = "#f8f8f8",
-    `code-color` = "#333",
-    `fu-color` = "#4758AB",
-    `border-radius` = "1rem"
+    `navbar-nav-link-padding-x` = "1rem !default",
+    `primary` = "#0054AD !default",
+    `secondary` = "#e9ecef !default",
+    `navbar-bg` = "#f8f9fa !default",
+    `border-width` = "1px !default",
+    `code-bg` = "#f8f8f8 !default",
+    `code-color` = "#333 !default",
+    `fu-color` = "#4758AB !default",
+    `border-radius` = "1rem !default",
+    `component-active-bg` = "$secondary !default"
   )
 }
 
