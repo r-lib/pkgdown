@@ -18,6 +18,7 @@ test_that("build_search() builds the expected search.json", {
   pkg$bs_version <- 4
   tmp <- withr::local_tempdir()
   pkg$dst_path <- tmp
+  init_site(pkg)
   build_news(pkg)
   build_home(pkg)
   build_sitemap(pkg)
