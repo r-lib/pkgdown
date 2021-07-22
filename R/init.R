@@ -36,6 +36,7 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
   copy_assets(pkg)
+  create_bs_assets(pkg)
 
   if (has_favicons(pkg)) {
     copy_favicons(pkg)
@@ -167,4 +168,77 @@ is_non_pkgdown_site <- function(dst_path) {
   top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
 
   length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
+}
+
+create_bs_assets <- function(pkg) {
+  rlang::check_installed("htmltools")
+
+  # theme variables from configuration
+  bs_version <- pkg$bs_version
+  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
+    pkg$meta[["template"]]$params$bootswatch %||%
+    NULL
+
+  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
+
+  # first, defaults from bslib
+  bs_theme <- bslib::bs_theme(version = bs_version, bootswatch = bootswatch_theme)
+  # then, defaults from pkgdown
+  bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkgdown_bslib_defaults())
+  # last, user customizations
+  if (!is.null(pkg$meta$template$bslib)) {
+    bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkg$meta$template$bslib)
+  }
+
+  deps <- bslib::bs_theme_dependencies(bs_theme)
+  # Add other dependencies - TODO: more of those?
+  # Even font awesome had a too old version in R Markdown (no ORCID)
+
+  # Dependencies files end up at the website root in a deps folder
+  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
+
+  # Function needed for indicating where that deps folder is compared to here
+  transform_path <- function(x) {
+    # At the time this function is called
+    # html::renderDependencies() has already encoded x
+    # with the default htmltools::urlEncodePath()
+    x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", x)
+
+   sub("/", "", x)
+
+  }
+
+  # Tags ready to be added in heads
+  tags <- htmltools::renderDependencies(
+    deps,
+    srcType = "file",
+    hrefFilter = transform_path
+  )
+  write_lines(tags, file.path(pkg$dst_path, "data-deps.txt"))
+
+}
+
+
+check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+  if (is.null(bootswatch_theme)) {
+    return(invisible())
+  }
+
+  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    return(invisible())
+  }
+
+  abort(
+    sprintf(
+      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+      bootswatch_theme,
+      pkgdown_field(pkg = pkg, "template", "bootswatch"),
+      bs_version,
+      pkgdown_field(pkg = pkg, "template", "bootstrap")
+    )
+  )
+}
+
+pkgdown_bslib_defaults <- function() {
+  list(`navbar-nav-link-padding-x` = "1rem")
 }

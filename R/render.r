@@ -408,92 +408,22 @@ footer_pkgdown <- function(data) {
 }
 
 data_deps <- function(pkg, depth) {
-
-  rlang::check_installed("htmltools")
-
-  # theme variables from configuration
-  bs_version <- pkg$bs_version
-  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    NULL
-
-  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
-
-  bs_theme <- do.call(
-    bslib::bs_theme,
-    c(
-      list(
-        version = bs_version,
-        bootswatch = bootswatch_theme
-      ),
-      utils::modifyList(
-        pkgdown_bslib_defaults(),
-        pkg$meta[["template"]]$bslib %||% list()
-      )
-    )
-  )
-  deps <- bslib::bs_theme_dependencies(bs_theme)
-  # Add other dependencies - TODO: more of those?
-  # Even font awesome had a too old version in R Markdown (no ORCID)
-
-  # Dependencies files end up at the website root in a deps folder
-  deps <- lapply(
-    deps,
-    htmltools::copyDependencyToDir,
-    file.path(pkg$dst_path, "deps")
-  )
-
-  # Function needed for indicating where that deps folder is compared to here
-  transform_path <- function(x) {
-
-    # At the time this function is called
-    # html::renderDependencies() has already encoded x
-    # with the default htmltools::urlEncodePath()
-    x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", x)
-
-    if (depth == 0) {
-      return(sub("/", "", x))
-    }
-
-    paste0(
-      paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-      x
-    )
-
+  if (!file.exists(file.path(pkg$dst_path, "data-deps.txt"))) {
+    abort("Run pkgdown::init_site() first.")
+  }
+  data_deps <- read_lines(file.path(pkg$dst_path, "data-deps.txt"))
+  if (depth == 0) {
+    return(data_deps)
   }
 
-
-  # Tags ready to be added in heads
-  htmltools::renderDependencies(
-    deps,
-    srcType = "file",
-    hrefFilter = transform_path
+  deps_path <-  paste0(
+    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+    "/deps"
   )
+  gsub('src="deps', sprintf('src="%s', deps_path), data_deps)
+  gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
 }
 
-check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (is.null(bootswatch_theme)) {
-    return(invisible())
-  }
-
-  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    return(invisible())
-  }
-
-  abort(
-    sprintf(
-      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
-      bootswatch_theme,
-      pkgdown_field(pkg = pkg, "template", "bootswatch"),
-      bs_version,
-      pkgdown_field(pkg = pkg, "template", "bootstrap")
-    )
-  )
-}
-
-pkgdown_bslib_defaults <- function() {
-  list(`navbar-nav-link-padding-x` = "1rem")
-}
 
 logo_path <- function(pkg, depth) {
   if (!has_logo(pkg)) {
