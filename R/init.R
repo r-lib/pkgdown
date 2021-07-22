@@ -214,6 +214,7 @@ create_bs_assets <- function(pkg) {
     srcType = "file",
     hrefFilter = transform_path
   )
+  # save tags that will be re-used and tweaked depending on page depth
   write_lines(tags, file.path(pkg$dst_path, "data-deps.txt"))
 
 }
