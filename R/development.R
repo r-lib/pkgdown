@@ -1,4 +1,4 @@
-meta_development <- function(meta, version) {
+meta_development <- function(meta, version, bs_version = 3) {
   development <- purrr::pluck(meta, "development", .default = list())
 
   destination <- purrr::pluck(development, "destination", .default = "dev")
@@ -17,9 +17,16 @@ meta_development <- function(meta, version) {
 
   version_label <- purrr::pluck(development, "version_label")
   if (is.null(version_label)) {
-    version_label <- if (mode == "release") "default" else "danger"
+    version_label <- if (mode == "release") {
+      if (bs_version == 3) {
+        "default"
+      } else {
+        "info"
+      }
+    } else {
+      "danger"
+    }
   }
-
   version_tooltip <- purrr::pluck(development, "version_tooltip")
   if (is.null(version_tooltip)) {
     version_tooltip <- switch(mode,

@@ -190,6 +190,18 @@ create_bs_assets <- function(pkg) {
     bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkg$meta$template$bslib)
   }
 
+  # add rules specific to pkgdown
+  pkgdown_sass <- path_pkgdown("css", paste0("BS", bs_version), "pkgdown.scss")
+  code_sass <- path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.scss")
+  pkgdown_css <- sass::sass_partial(
+    list(
+      sass::sass_file(pkgdown_sass),
+      sass::sass_file(code_sass)
+    ),
+    bs_theme
+  )
+  bs_theme <- bslib::bs_add_rules(bs_theme, pkgdown_css)
+
   deps <- bslib::bs_theme_dependencies(bs_theme)
   # Add other dependencies - TODO: more of those?
   # Even font awesome had a too old version in R Markdown (no ORCID)
@@ -240,10 +252,22 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   )
 }
 
-pkgdown_bslib_defaults <- function() {
-  list(`navbar-nav-link-padding-x` = "1rem")
-}
-
 data_deps_path <- function(pkg) {
   file.path(pkg$dst_path, "deps", "data-deps.txt")
+}
+
+pkgdown_bslib_defaults <- function() {
+  list(
+    `navbar-nav-link-padding-x` = "1rem !default",
+    `primary` = "#0054AD !default",
+    `secondary` = "#e9ecef !default",
+    `navbar-bg` = "#f8f9fa !default",
+    `border-width` = "1px !default",
+    `code-bg` = "#f8f8f8 !default",
+    `code-color` = "#333 !default",
+    `fu-color` = "#4758AB !default",
+    `border-radius` = "1rem !default",
+    `navbar-light-color` = "rgba(color-contrast($navbar-bg), 0.8) !default",
+    `navbar-light-hover-color` = "rgba(color-contrast($navbar-bg), 0.9) !default"
+  )
 }

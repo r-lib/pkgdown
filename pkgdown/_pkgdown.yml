@@ -14,6 +14,9 @@ authors:
 
 template:
   bootstrap: 4
+  bslib:
+    primary: purple
+    secondary: yellow
   params:
     ganalytics: UA-115082821-1
 

@@ -42,6 +42,7 @@ Imports:
     ragg,
     rlang (>= 0.3.0),
     rmarkdown (>= 1.1.9007),
+    sass,
     tibble,
     whisker,
     withr,

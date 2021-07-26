@@ -7,11 +7,11 @@ pre, pre code {
 }
 
 pre {
-  background-color: #f8f8f8;
-  color: #333;
+  background-color: $code-bg;
+  color: $code-color;
   padding: 9.5px;
   border-radius: 4px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid $table-border-color;
 }
 
 pre .img {
@@ -40,7 +40,7 @@ span.ot {color:#007BA5}
 span.at {color:#20794D}
 span.ss {color:#20794D}
 span.an {color:#5E5E5E}
-span.fu {color:#4758AB}
+span.fu {color:$fu-color}
 span.st {color:#20794D}
 span.cf {color:#007BA5}
 span.op {color:#5E5E5E}
@@ -67,3 +67,10 @@ span.dv {color:#AD0000}
 span.kw {color:#007BA5}
 span.error   {font-weight: bolder;}
 span.warning {font-weight: bolder;}
+
+
+/* Links  */
+code a:any-link {
+  text-decoration: underline;
+  text-decoration-color: $table-border-color;
+}

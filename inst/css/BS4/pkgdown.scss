@@ -12,7 +12,7 @@
  * have height set to 100%
  *
  */
-
+$table-border-color: red !default;
 html, body {
   height: 100%;
 }
@@ -34,8 +34,8 @@ body > .container .row {
 footer {
   margin-top: 45px;
   padding: 35px 0 36px;
-  border-top: 1px solid #e5e5e5;
-  color: #666;
+  border-top: $modal-footer-border-width solid $modal-header-border-color;
+  color: mix($body-color, $body-bg, 90%);
   display: flex;
   flex-shrink: 0;
 }
@@ -112,6 +112,16 @@ h6.dropdown-header {
   margin-top: 0;
 }
 
+/* Navbar submenu --------------------------*/
+/* cf https://github.com/r-lib/pkgdown/pull/1214 */
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+
+h6.dropdown-header {
+  margin-top: 0;
+}
+
 .dropdown-submenu {
   position: relative;
 }
@@ -121,7 +131,7 @@ h6.dropdown-header {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
+  @include border-radius(0 6px 6px 6px);
 }
 
 .dropdown-submenu:hover>.dropdown-menu {
@@ -137,13 +147,13 @@ h6.dropdown-header {
   border-color: transparent;
   border-style: solid;
   border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
+  border-left-color: $border-color;
   margin-top: 5px;
   margin-right: -10px;
 }
 
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: $body-bg;
 }
 
 .dropdown-submenu.pull-left {
@@ -153,8 +163,9 @@ h6.dropdown-header {
 .dropdown-submenu.pull-left>.dropdown-menu {
   left: -100%;
   margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
+  @include border-radius(6px 0 6px 6px);
 }
+
 
 /* Sidebar --------------------------*/
 
@@ -168,7 +179,6 @@ h6.dropdown-header {
 }
 
 #pkgdown-sidebar h2 {
-  font-size: 2em;
   margin-top: 1em;
 }
 
@@ -188,6 +198,8 @@ h6.dropdown-header {
   }
 }
 
+/* orcid --------------------------*/
+
 .orcid {
     font-size: 16px;
     color: #A6CE39;
@@ -197,6 +209,14 @@ h6.dropdown-header {
 }
 
 /* Clipboard --------------------------*/
+
+.btn-copy-ex:hover,
+.btn-copy-ex:focus,
+.btn-copy-ex:active:hover {
+  background-color: $component-active-bg;
+  color: $component-active-color;
+  border-color: $component-active-bg;
+}
 
 .hasCopyButton {
   position: relative;
@@ -233,13 +253,6 @@ h6.dropdown-header {
   transform: translateY(-100%);
 }
 
-/* mark.js ----------------------------*/
-
-mark {
-  background-color: rgba(255, 255, 51, 0.5);
-  border-bottom: 2px solid rgba(255, 153, 51, 0.3);
-  padding: 1px;
-}
 
 /* vertical spacing after htmlwidgets */
 .html-widget {
@@ -258,14 +271,13 @@ h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
 flex-direction: column;
 }
 
-
 /* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
   color: inherit;
   padding-left: 0.5rem;
   margin-left: -0.5rem;
-  border-radius: 1rem;
-  border: white solid;
+  @include border-radius($border-radius);
+  border: $border-width solid $body-bg;
 }
 
 /* Under hover */
@@ -276,7 +288,8 @@ nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus
 {
-  background-color: #eee;
+  background-color: $component-active-bg;
+  color: $component-active-color;
 }
 
 /* Nav: second level (shown on .active) */
@@ -290,6 +303,8 @@ nav[data-toggle="toc"] .nav .nav > li > a {
   margin-left: 0.5rem;
 }
 
+
+
 /* version badge  */
 #version-badge {
   border: none;
@@ -298,40 +313,25 @@ nav[data-toggle="toc"] .nav .nav > li > a {
 /* h1 */
 
 h1.display-4 {
-  font-size: 2.5rem;
+  font-size: $h1-font-size;
 }
-
-/* Links color contrast */
-
-a {
-  color: #0054AD;
-}
-
-a:hover {
-  color: #0054AD;
-}
-
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
-   background: #e9ecef;
-   border-radius: 1rem;
+   background: $component-active-bg;
+   color: $component-active-color;
+   @include border-radius($border-radius);
  }
 .navbar-nav .nav-link {
  padding-left: 0.5rem;
  }
 
-@include media-breakpoint-up(md) {
-  .navbar-nav .nav-link {
- padding-left: 0rem;
- }
-}
-
 
 /* Footnotes --------------------------------------------- */
 
+/* "Mix" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .popover {
-  max-width: min(100vw, 32rem);
+  max-width: Min(100vw, 32rem);
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -387,17 +387,11 @@ div.pb-2.mt-4.mb-2.border-bottom {
   min-height: 129px;
 }
 
-/* tweak headroom.js to not disappear as aggressively at the top of the page */
-/* https://github.com/rstudio/quillt/blob/57ba0ce7aa850e42165a8993d4b493c44917b7a8/inst/pkgdown/assets/rmd.css#L452 */
-.headroom {
-  will-change: transform;
-  transition: transform 400ms ease;
-}
 
 /* blockquote ---------------------------------------------- */
 
 blockquote, .line-block {
-    border-left: .5rem solid #eee;
+    border-left: .5rem solid $table-border-color;
     padding-left: .5rem;
     margin-left: -.5rem;
 }
@@ -413,13 +407,15 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: #999;
+  color: mix($body-color, $body-bg, 90%);
 }
+
+
+/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
-  width: max(100%, 20rem);
-  background-color: #fff;
-  border: 1px solid var(--gray);
-  border-radius: 0.2rem;
+  width: Max(100%, 20rem);
+  background-color: $body-bg;
+  border: $border-width solid $table-border-color;
   margin-top: 2px;
 
   max-height: 50vh;
@@ -428,33 +424,25 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px #ddd solid;
+  border-bottom: 1px mix($body-color, $body-bg, 20%) solid;
   font-size: 0.9rem;
-  color: #5E5E5E;
+  color: mix($body-color, $body-bg, 90%);
 
 }
 
 .search-details {
   font-size: 0.9rem;
-  color: #0054AD;
+  color: $primary;
   display: inline;
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: #B2D7FF;
+  background-color: mix($primary, $body-bg, 10%);
 }
 
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
   font-display: fallback;
-}
-
-/* Navbar constrast */
-.navbar-light .navbar-nav .nav-link {
-  color: rgba(0,0,0,0.7);
-}
-.navbar-light .navbar-nav .nav-link:hover {
-  color: rgba(0,0,0,0.9);
 }
 
 /* Details margin */
@@ -464,35 +452,4 @@ summary {
 
 details p {
   margin-top: -.5rem;
-}
-
-/* tabsets */
-.nav-row {
-  flex-direction: row;
-}
-
-.tab-content {
-  padding: 1rem;
-}
-
-.tabset-pills .tab-content {
-  border: solid 1px #e5e5e5;
-}
-
-/* https://observablehq.com/@rkaravia/css-trick-tabs-with-consistent-height */
-/* Make tab height consistent  */
-
-.tab-content {
-  display: flex;
-}
-
-.tab-content > .tab-pane {
-  display: block; /* undo "display: none;" */
-  visibility: hidden;
-  margin-right: -100%;
-  width: 100%;
-}
-
-.tab-content > .active {
-  visibility: visible;
 }
