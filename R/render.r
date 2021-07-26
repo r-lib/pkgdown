@@ -408,10 +408,10 @@ footer_pkgdown <- function(data) {
 }
 
 data_deps <- function(pkg, depth) {
-  if (!file.exists(file.path(pkg$dst_path, "data-deps.txt"))) {
+  if (!file.exists(data_deps_path(pkg))) {
     abort("Run pkgdown::init_site() first.")
   }
-  data_deps <- read_lines(file.path(pkg$dst_path, "data-deps.txt"))
+  data_deps <- read_lines(data_deps_path(pkg))
   if (depth == 0) {
     return(data_deps)
   }

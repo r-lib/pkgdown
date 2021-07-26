@@ -215,7 +215,7 @@ create_bs_assets <- function(pkg) {
     hrefFilter = transform_path
   )
   # save tags that will be re-used and tweaked depending on page depth
-  write_lines(tags, file.path(pkg$dst_path, "data-deps.txt"))
+  write_lines(tags, data_deps_path(pkg))
 
 }
 
@@ -242,4 +242,8 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 pkgdown_bslib_defaults <- function() {
   list(`navbar-nav-link-padding-x` = "1rem")
+}
+
+data_deps_path <- function(pkg) {
+  file.path(pkg$dst_path, "deps", "data-deps.txt")
 }
