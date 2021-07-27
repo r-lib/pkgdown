@@ -54,4 +54,4 @@ $rs-pagebar-active-bg:            $rs-pagebar-hover-bg;
 $rs-pagebar-active-color:         $rs-pagebar-hover-color;
 
 // Footer
-$rs-footer-color: $rs-fg !default;
+$rs-footer-color: mix($rs-fg, $rs-bg, 90%) !default;

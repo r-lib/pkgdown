@@ -17,6 +17,7 @@ template:
   bslib:
     rs-copy-btn-active-bg: purple
     rs-secondary: yellow
+    rs-footer-color: red
   params:
     ganalytics: UA-115082821-1
 
