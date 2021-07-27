@@ -15,8 +15,8 @@ authors:
 template:
   bootstrap: 4
   bslib:
-    primary: purple
-    secondary: yellow
+    rs-copy-btn-active-bg: purple
+    rs-secondary: yellow
   params:
     ganalytics: UA-115082821-1
 

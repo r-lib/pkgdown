@@ -1,0 +1,57 @@
+// This Sass file wants to be compiled with Bootstrap Sass headers
+// All custom properties are prefixed with `rs-` (abbr: Rmd style) to avoid conflicts
+
+// pkgdown style variables, mapped to BS4 variables as defaults
+// (is this section necessary?)
+// see bs4 defaults here:
+// https://getbootstrap.com/docs/4.0/getting-started/theming/#available-variables
+// rationale:
+// primary is a color suitable for text, like links
+// secondary is a color suitable for background elements
+$rs-bg:        $white !default;
+$rs-fg:        $gray-900 !default; //* in bs5 this is $bs-dark *//
+$navbar-light-bg: $green !default;
+$rs-pagebar-active-bg: $secondary !default;
+$rs-primary:   #0054AD !default;   //* text colors like links *//
+$rs-secondary: $gray-200 !default; //* background colors *//
+$rs-success:   $success !default;
+$rs-info:      $info !default;
+$rs-warning:   $warning !default;
+$rs-danger:    $danger !default;
+
+// Body
+//* is it right to use rs- variables here? or should these default to bs4 variables? *//
+$rs-body-bg:                      $rs-bg !default;
+$rs-body-color:                   $rs-fg !default;
+$rs-link-color:                   $rs-primary !default;
+$rs-link-hover-color:             darken($rs-link-color, 15%) !default;
+$rs-headings-color:               $rs-fg !default;
+$rs-code-bg:                      #f8f8f8 !default;
+$rs-code-color:                   #333 !default;
+$rs-copy-btn-hover-bg:            $rs-secondary !default;
+$rs-copy-btn-active-bg:           $rs-secondary !default;
+$rs-copy-btn-active-color:        color-contrast($rs-primary, $rs-copy-btn-active-bg) !default;
+
+// Navigation bar
+$rs-border-radius:                1rem !default;
+$rs-navbar-nav-link-padding-x:    1rem !default;
+$rs-navbar-bg:                    $navbar-light-bg !default; //* see: https://github.com/r-lib/pkgdown/pull/1682#issuecomment-872978930 *//
+$rs-navbar-color:                 color-contrast($navbar-light-bg)  !default;
+$rs-navbar-active-bg:             $rs-secondary !default;
+$rs-navbar-active-color:          color-contrast($rs-navbar-active-bg) !default;
+$rs-navbar-hover-color:           color-contrast($rs-navbar-bg) !default;
+$rs-navbar-brand-color:           $navbar-light-active-color !default; //* this is the bs4 default? *//
+$rs-navbar-brand-hover-color:     $navbar-light-brand-hover-color !default; //* this is the bs4 default? *//
+$rs-navbar-dropdown-hover-bg:     $rs-navbar-active-bg !default;
+$rs-navbar-dropdown-active-bg:    $rs-navbar-active-bg !default;
+$rs-navbar-dropdown-active-color: $rs-navbar-active-color !default;
+
+// Page TOC bar (on right)
+// to discuss: make new var here for right TOC, or use bs4 $list-group-active-bg/-color?
+$rs-pagebar-hover-bg:             $rs-secondary !default;
+$rs-pagebar-hover-color:          color-contrast($rs-pagebar-active-bg) !default;
+$rs-pagebar-active-bg:            $rs-pagebar-hover-bg;
+$rs-pagebar-active-color:         $rs-pagebar-hover-color;
+
+// Footer
+$rs-footer-color: $rs-fg !default;

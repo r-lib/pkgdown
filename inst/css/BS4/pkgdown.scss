@@ -35,7 +35,7 @@ footer {
   margin-top: 45px;
   padding: 35px 0 36px;
   border-top: $modal-footer-border-width solid $modal-header-border-color;
-  color: mix($body-color, $body-bg, 90%);
+  color: mix($rs-fg, $rs-bg, 90%);
   display: flex;
   flex-shrink: 0;
 }
@@ -153,7 +153,7 @@ h6.dropdown-header {
 }
 
 .dropdown-submenu:hover>a:after {
-  border-left-color: $body-bg;
+  border-left-color: $rs-bg;
 }
 
 .dropdown-submenu.pull-left {
@@ -210,12 +210,18 @@ h6.dropdown-header {
 
 /* Clipboard --------------------------*/
 
+.btn-copy-ex:active {
+  background-color: $rs-copy-btn-active-bg;
+  color: $rs-copy-btn-active-color;
+  border-color: $rs-copy-btn-active-bg;
+}
+
 .btn-copy-ex:hover,
 .btn-copy-ex:focus,
 .btn-copy-ex:active:hover {
-  background-color: $component-active-bg;
-  color: $component-active-color;
-  border-color: $component-active-bg;
+  background-color: $rs-copy-btn-active-bg;
+  color: $rs-copy-btn-active-color;
+  border-color: $rs-copy-btn-active-bg;
 }
 
 .hasCopyButton {
@@ -277,7 +283,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   @include border-radius($border-radius);
-  border: $border-width solid $body-bg;
+  border: $border-width solid $rs-bg;
 }
 
 /* Under hover */
@@ -407,14 +413,14 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: mix($body-color, $body-bg, 90%);
+  color: mix($rs-fg, $rs-bg, 90%);
 }
 
 
 /* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
   width: Max(100%, 20rem);
-  background-color: $body-bg;
+  background-color: $rs-bg;
   border: $border-width solid $table-border-color;
   margin-top: 2px;
 
@@ -424,9 +430,9 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px mix($body-color, $body-bg, 20%) solid;
+  border-bottom: 1px mix($rs-fg, $rs-bg, 20%) solid;
   font-size: 0.9rem;
-  color: mix($body-color, $body-bg, 90%);
+  color: mix($rs-fg, $rs-bg, 90%);
 
 }
 
@@ -437,7 +443,7 @@ mark {
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $body-bg, 10%);
+  background-color: mix($primary, $rs-bg, 10%);
 }
 
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
