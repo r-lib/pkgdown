@@ -420,8 +420,11 @@ data_deps <- function(pkg, depth) {
     paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
     "/deps"
   )
-  gsub('src="deps', sprintf('src="%s', deps_path), data_deps)
-  gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
+  c(
+    gsub('src="deps', sprintf('src="%s', deps_path), data_deps),
+    gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
+  )
+
 }
 
 
