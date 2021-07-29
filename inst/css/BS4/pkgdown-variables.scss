@@ -9,7 +9,7 @@
 // primary is a color suitable for text, like links
 // secondary is a color suitable for background elements
 $rs-bg:        $white !default;
-$rs-fg:        $gray-900 !default; //* in bs5 this is $bs-dark *//
+$rs-fg:        $body-color !default; //* in bs5 this is $bs-dark *//
 $navbar-light-bg: $green !default;
 $rs-pagebar-active-bg: $secondary !default;
 $rs-primary:   #0054AD !default;   //* text colors like links *//
