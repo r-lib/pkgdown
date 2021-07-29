@@ -184,14 +184,13 @@ create_bs_assets <- function(pkg) {
   # first, defaults from bslib
   bs_theme <- bslib::bs_theme(version = bs_version, bootswatch = bootswatch_theme)
 
-
   bs_theme <- bslib::bs_add_rules(
-  bs_theme,
-  list(
-    sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown-variables.scss")),
-    sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown.scss")),
-    sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.scss"))
-  )
+    bs_theme,
+    list(
+      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown-variables.scss")),
+      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown.scss")),
+      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.scss"))
+    )
 )
 
     # last, user customizations
