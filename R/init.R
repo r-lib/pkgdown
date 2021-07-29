@@ -181,8 +181,13 @@ create_bs_assets <- function(pkg) {
 
   check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
 
-  # first, defaults from bslib
-  bs_theme <- bslib::bs_theme(version = bs_version, bootswatch = bootswatch_theme)
+  # first, defaults from bslib + pkgdown
+  bs_theme <- bslib::bs_theme(
+    version = bs_version,
+    bootswatch = bootswatch_theme,
+    fg = "black",
+    bg = "white"
+  )
 
   bs_theme <- bslib::bs_add_rules(
     bs_theme,
@@ -249,4 +254,12 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 data_deps_path <- function(pkg) {
   file.path(pkg$dst_path, "deps", "data-deps.txt")
+}
+
+pkgdown_bs_defaults <- function(bs_version) {
+  list(
+    primary = "#0054AD",
+    bg = "green",
+    secondary = "gray-200"
+  )
 }
