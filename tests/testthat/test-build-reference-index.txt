@@ -24,11 +24,16 @@ rows:
     aliases: '`?`()'
     title: D
     icon: ~
+  - path: e.html
+    aliases: e()
+    title: E
+    icon: ~
   names:
   - a
   - b
   - c
   - '?'
+  - e
   row_has_icons: no
 has_icons: no
 
