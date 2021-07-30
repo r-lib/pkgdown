@@ -197,6 +197,16 @@ create_bs_assets <- function(pkg) {
     )
   )
 
+  # Add navbar colors
+  bs_theme <- bslib::bs_add_variables(
+    bs_theme,
+    "navbar-light-bg" = "$gray-200 !default",
+    "navbar-light-color" = "$black !default",
+    "navbar-dark-bg" = "$black !default",
+    "navbar-dark-color" = "$white !default",
+    .where = "declarations"
+  )
+
   bs_theme <- bslib::bs_add_rules(
     bs_theme,
     list(
