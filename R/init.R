@@ -35,8 +35,13 @@ init_site <- function(pkg = ".") {
 
   rule("Initialising site")
   dir_create(pkg$dst_path)
+
+  if (pkg$bs_version > 3) {
+    create_bs_assets(pkg)
+  }
+
   copy_assets(pkg)
-  create_bs_assets(pkg)
+
 
   if (has_favicons(pkg)) {
     copy_favicons(pkg)
@@ -165,7 +170,7 @@ is_non_pkgdown_site <- function(dst_path) {
   }
 
   top_level <- dir_ls(dst_path)
-  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
+  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
 
   length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
 }
