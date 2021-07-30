@@ -146,7 +146,7 @@ h6.dropdown-header {
   border-color: transparent;
   border-style: solid;
   border-width: 5px 0 5px 5px;
-  border-left-color: $border-color;
+  border-left-color: $dropdown-border-color;
   margin-top: 5px;
   margin-right: -10px;
 }
@@ -265,8 +265,6 @@ h6.dropdown-header {
   margin-bottom: 10px;
 }
 
-
-
 /* TOC heading */
 h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
   font-size: x-large;
@@ -282,8 +280,8 @@ nav[data-toggle="toc"] .nav > li > a {
   color: inherit;
   padding-left: 0.5rem;
   margin-left: -0.5rem;
-  @include border-radius($border-radius);
-  border: $rs-nav-border-width solid $rs-nav-border-color;
+  @include border-radius($rs-toc-border-radius);
+  border: $rs-toc-border-width solid $rs-toc-border-color;
 }
 
 /* Under hover */
@@ -294,8 +292,8 @@ nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus
 {
-  background-color: $component-active-bg;
-  color: $component-active-color;
+  background-color: $rs-toc-active-bg;
+  color: $rs-toc-active-color;
 }
 
 /* Nav: second level (shown on .active) */
@@ -309,24 +307,21 @@ nav[data-toggle="toc"] .nav .nav > li > a {
   margin-left: 0.5rem;
 }
 
-
-
 /* version badge  */
 #version-badge {
   border: none;
 }
 
 /* h1 */
-
 h1.display-4 {
   font-size: $h1-font-size;
 }
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
-   background: $component-active-bg;
-   color: $component-active-color;
-   @include border-radius($border-radius);
+   background: $rs-nav-link-active-bg;
+   color: $rs-nav-link-active-color;
+   @include border-radius($rs-nav-link-active-border-radius);
  }
 .navbar-nav .nav-link {
  padding-left: 0.5rem;

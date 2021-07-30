@@ -264,6 +264,7 @@ pkgdown_bslib_defaults <- function(bs_version) {
   list(
     primary = "#0054AD",
     bg = "white",
-    fg = "black"
+    fg = "black",
+    `border-radius` = "1rem"
   )
 }

@@ -14,12 +14,14 @@ authors:
 
 template:
   bootstrap: 4
-  bslib:
-    fg: red
-    rs-footer-border-width: 3px
-    rs-footer-border-color: green
-    rs-footer-color: purple
-    link-color: maroon
+  # bslib:
+  #   fg: red
+  #   rs-footer-border-width: 3px
+  #   rs-footer-border-color: green
+  #   rs-footer-color: purple
+  #   link-color: maroon
+  #   rs-toc-active-bg: yellow
+  #   rs-toc-active-color: black
   params:
     ganalytics: UA-115082821-1
 
