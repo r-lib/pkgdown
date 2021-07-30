@@ -12,9 +12,6 @@ authors:
   Maëlle Salmon:
     href: https://masalmon.eu
 
-navbar:
-  type: dark
-
 template:
   bootstrap: 4
   bslib:

@@ -271,7 +271,10 @@ data_deps_path <- function(pkg) {
 }
 
 pkgdown_bslib_defaults <- function(bs_version, bootswatch_theme) {
-  minimal_defaults <- list(`border-radius` = "1rem")
+  minimal_defaults <- list(
+    `border-radius` = "1rem",
+    `btn-border-radius` = ".25rem"
+  )
 
   if (!is.null(bootswatch_theme)) {
     return(minimal_defaults)

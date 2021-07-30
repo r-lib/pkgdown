@@ -207,22 +207,6 @@ h6.dropdown-header {
     vertical-align: middle;
 }
 
-/* Clipboard --------------------------*/
-
-.btn-copy-ex:active {
-  background-color: $rs-copy-btn-active-bg;
-  color: $rs-copy-btn-active-color;
-  border-color: $rs-copy-btn-active-bg;
-}
-
-.btn-copy-ex:hover,
-.btn-copy-ex:focus,
-.btn-copy-ex:active:hover,
-.btn-copy-ex:active:focus {
-  background-color: $rs-copy-btn-active-bg;
-  color: $rs-copy-btn-active-color;
-  border-color: $rs-copy-btn-active-bg;
-}
 
 .hasCopyButton {
   position: relative;
