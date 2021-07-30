@@ -206,10 +206,6 @@ create_bs_assets <- function(pkg) {
     )
 )
 
-    # last, user customizations
-  if (!is.null(pkg$meta$template$bslib)) {
-    bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkg$meta$template$bslib)
-  }
   deps <- bslib::bs_theme_dependencies(bs_theme)
   # Add other dependencies - TODO: more of those?
   # Even font awesome had a too old version in R Markdown (no ORCID)
