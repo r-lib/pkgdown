@@ -272,7 +272,7 @@ pkgdown_bslib_defaults <- function(bs_version, bootswatch_theme) {
     list(
       primary = "#0054AD",
       bg = "white",
-      fg = "black",
+      fg = "black"
     )
   )
 }

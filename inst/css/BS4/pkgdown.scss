@@ -319,8 +319,13 @@ h1.display-4 {
 
 /* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
-   background: $rs-nav-link-active-bg;
-   color: $rs-nav-link-active-color;
+   background: $rs-nav-light-link-active-bg;
+   color: $rs-nav-light-link-active-color;
+   @include border-radius($rs-nav-link-active-border-radius);
+ }
+.navbar-dark .navbar-nav .active > .nav-link {
+   background: $rs-nav-dark-link-active-bg;
+   color: $rs-nav-dark-link-active-color;
    @include border-radius($rs-nav-link-active-border-radius);
  }
 .navbar-nav .nav-link {
