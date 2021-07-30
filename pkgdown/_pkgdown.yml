@@ -16,6 +16,10 @@ template:
   bootstrap: 4
   bslib:
     fg: red
+    rs-footer-border-width: 3px
+    rs-footer-border-color: green
+    rs-footer-color: purple
+    link-color: maroon
   params:
     ganalytics: UA-115082821-1
 
