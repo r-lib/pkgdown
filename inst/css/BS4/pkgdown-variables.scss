@@ -16,13 +16,13 @@ $rs-toc-active-color: $list-group-active-color !default;
 // copy-paste button for code blocks
 $rs-copy-btn-bg: $secondary !default;
 $rs-copy-btn-color: color-contrast($rs-copy-btn-bg) !default;
-$rs-copy-btn-active-bg: darken($rs-copy-btn-bg, 15%) !default;
+$rs-copy-btn-active-bg: mix($rs-copy-btn-bg, $body-color, 90%) !default;
 $rs-copy-btn-active-color: color-contrast($rs-copy-btn-active-bg) !default;
 
 // search
 $rs-cursor-algolia: mix($primary, $body-bg, 10%) !default;
 
 // footer
-$rs-footer-color: $gray-800 !default;
+$rs-footer-color: mix($body-color, $body-color, 90%) !default;
 $rs-footer-border-color: $border-color !default;
 $rs-footer-border-width: $border-width !default;
