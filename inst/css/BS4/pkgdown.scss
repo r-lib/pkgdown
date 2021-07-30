@@ -283,7 +283,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   @include border-radius($border-radius);
-  border: $border-width solid $nav-tabs-border-color;
+  border: $rs-nav-border-width solid $rs-nav-border-color;
 }
 
 /* Under hover */

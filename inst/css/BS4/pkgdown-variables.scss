@@ -1,6 +1,10 @@
 // This Sass file wants to be compiled with Bootstrap Sass headers
 // All custom properties are prefixed with `rs-` (abbr: Rmd style) to avoid conflicts
 
+// toc
+$rs-nav-border-width: 0 !default;
+$rs-nav-border-color: $border-color !default;
+
 // copy-paste button for code blocks
 $rs-copy-btn-bg: $secondary !default;
 $rs-copy-btn-color: color-contrast($rs-copy-btn-bg) !default;
