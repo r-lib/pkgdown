@@ -152,7 +152,7 @@ h6.dropdown-header {
 }
 
 .dropdown-submenu:hover>a:after {
-  border-left-color: $rs-bg;
+  border-left-color: $dropdown-border-color;
 }
 
 .dropdown-submenu.pull-left {
@@ -282,7 +282,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   @include border-radius($border-radius);
-  border: $border-width solid $rs-bg;
+  border: $border-width solid $nav-tabs-border-color;
 }
 
 /* Under hover */
@@ -412,14 +412,14 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: mix($rs-fg, $rs-bg, 90%);
+  color: $gray-900;
 }
 
 
 /* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
   width: Max(100%, 20rem);
-  background-color: $rs-bg;
+  background-color: $body-bg;
   border: $border-width solid $table-border-color;
   margin-top: 2px;
 
@@ -429,9 +429,9 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px mix($rs-fg, $rs-bg, 20%) solid;
+  border-bottom: 1px $gray-200 solid;
   font-size: 0.9rem;
-  color: mix($rs-fg, $rs-bg, 90%);
+  color: $gray-900;
 
 }
 
@@ -442,7 +442,7 @@ mark {
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $rs-bg, 10%);
+  background-color: $rs-cursor-algolia;
 }
 
 /* Compromise to avoid flash of invisible text + flash of unstyled text */

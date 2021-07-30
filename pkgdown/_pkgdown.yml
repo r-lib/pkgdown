@@ -15,9 +15,7 @@ authors:
 template:
   bootstrap: 4
   bslib:
-    rs-copy-btn-active-bg: purple
-    rs-secondary: yellow
-    rs-footer-color: red
+    fg: red
   params:
     ganalytics: UA-115082821-1
 
