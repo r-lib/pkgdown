@@ -184,7 +184,7 @@ create_bs_assets <- function(pkg) {
   # variables from pkgdown defaults & user configuration
   # user configuration takes precedence
   sass_vars <- modify_list(
-    pkgdown_bslib_defaults(),
+    pkgdown_bslib_defaults(bs_version, bootswatch_theme),
     pkg$meta$template$bslib
   )
 
@@ -260,11 +260,19 @@ data_deps_path <- function(pkg) {
   file.path(pkg$dst_path, "deps", "data-deps.txt")
 }
 
-pkgdown_bslib_defaults <- function(bs_version) {
-  list(
-    primary = "#0054AD",
-    bg = "white",
-    fg = "black",
-    `border-radius` = "1rem"
+pkgdown_bslib_defaults <- function(bs_version, bootswatch_theme) {
+  minimal_defaults <- list(`border-radius` = "1rem")
+
+  if (!is.null(bootswatch_theme)) {
+    return(minimal_defaults)
+  }
+
+  c(
+    minimal_defaults,
+    list(
+      primary = "#0054AD",
+      bg = "white",
+      fg = "black",
+    )
   )
 }
