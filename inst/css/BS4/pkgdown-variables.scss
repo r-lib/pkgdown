@@ -1,10 +1,12 @@
 // This Sass file wants to be compiled with Bootstrap Sass headers
 // All custom properties are prefixed with `rs-` (abbr: Rmd style) to avoid conflicts
 
-// navbar
+// navbar links
 $rs-nav-link-active-color: $component-active-color !default;
 $rs-nav-link-active-bg: $component-active-bg !default;
 $rs-nav-link-active-border-radius: $border-radius !default;
+$rs-dropdown-link-active-color: $dropdown-link-hover-color !default;
+$rs-dropdown-link-active-bg: $dropdown-link-hover-bg !default;
 
 // toc
 $rs-toc-border-radius: $border-radius !default;

@@ -14,7 +14,7 @@ authors:
 
 template:
   bootstrap: 4
-  bootswatch: cyborg
+  bootswatch: journal
   # bslib:
   #   fg: red
   #   rs-footer-border-width: 3px

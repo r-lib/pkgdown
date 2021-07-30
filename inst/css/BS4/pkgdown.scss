@@ -85,7 +85,10 @@ a.anchor {
   }
 }
 
-
+/* Never uppercase the package name */
+.navbar-brand {
+  text-transform: none !important;
+}
 /* Fixes for fixed navbar --------------------------*/
 
 .contents {
@@ -111,16 +114,13 @@ h6.dropdown-header {
   margin-top: 0;
 }
 
-/* Navbar submenu --------------------------*/
+.dropdown-item.active, .dropdown-menu > li > a.active, .dropdown-item:active, .dropdown-menu > li > a:active {
+  color: $rs-dropdown-link-active-color;
+  background-color: $rs-dropdown-link-active-bg;
+}
+
+
 /* cf https://github.com/r-lib/pkgdown/pull/1214 */
-.dropdown-menu {
-  padding: .5rem 0 .5rem 0;
-}
-
-h6.dropdown-header {
-  margin-top: 0;
-}
-
 .dropdown-submenu {
   position: relative;
 }
