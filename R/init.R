@@ -275,7 +275,7 @@ pkgdown_bslib_defaults <- function(bs_version, bootswatch_theme) {
     `border-radius` = "1rem",
     `btn-border-radius` = ".25rem"
   )
-
+  # Do not assign any color if there is a bootswatch theme.
   if (!is.null(bootswatch_theme)) {
     return(minimal_defaults)
   }
