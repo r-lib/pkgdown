@@ -414,6 +414,11 @@ test_that("deqn", {
   expect_equal(out, "$$x$$")
 })
 
+test_that("special", {
+  out <- rd2html("\\special{( \\dots )}")
+  expect_equal(out, "( ... )")
+})
+
 
 # Value blocks ------------------------------------------------------------
 
