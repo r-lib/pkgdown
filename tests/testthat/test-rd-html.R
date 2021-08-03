@@ -415,6 +415,9 @@ test_that("deqn", {
 })
 
 test_that("special", {
+  # Fails due to a bug prior to R 4.0.0:
+  # https://bugs.r-project.org/show_bug.cgi?id=17727
+  skip_if_not(getRversion() >= "4.0.0")
   out <- rd2html("\\special{( \\dots )}")
   expect_equal(out, "( ... )")
 })
