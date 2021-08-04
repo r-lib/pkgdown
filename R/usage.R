@@ -8,7 +8,8 @@ topic_funs <- function(rd) {
   gens <- name[type == "fun"]
   self_meth <- (name %in% gens) & (type %in% c("s3", "s4"))
 
-  purrr::map_chr(funs[!self_meth], ~ short_name(.$name, .$type, .$signature))
+  funs <- purrr::map_chr(funs[!self_meth], ~ short_name(.$name, .$type, .$signature))
+  unique(funs)
 }
 
 parse_usage <- function(x) {
