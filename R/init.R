@@ -59,9 +59,11 @@ copy_assets <- function(pkg = ".") {
 
   # Copy logo
   if (pkg$has_logo) {
+    logo_path <- find_logo(pkg$src_path)
+    logo_out_path <- paste0("package-logo.", fs::path_ext(logo_path))
     file.copy(
-      find_logo(pkg$src_path),
-      file.path(pkg$dst_path, "package-logo.png")
+      logo_path,
+      file.path(pkg$dst_path, logo_out_path)
     )
   }
 
