@@ -430,7 +430,6 @@ data_deps <- function(pkg, depth) {
 
 }
 
-
 logo_path <- function(pkg, depth) {
   if (!has_logo(pkg)) {
     return(NULL)
