@@ -25,7 +25,7 @@ pre .img img {
   height: auto;
 }
 
-code a, pre a {
+pre a {
   color: #375f84;
 }
 
@@ -71,7 +71,7 @@ span.warning {font-weight: bolder;}
 
 
 /* Links  */
-code a:any-link {
+pre code a:any-link {
   text-decoration: underline;
   text-decoration-color: $table-border-color;
 }
