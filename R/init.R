@@ -42,7 +42,6 @@ init_site <- function(pkg = ".") {
 
   copy_assets(pkg)
 
-
   if (has_favicons(pkg)) {
     copy_favicons(pkg)
   } else if (has_logo(pkg)) {
