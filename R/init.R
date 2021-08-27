@@ -201,15 +201,22 @@ create_bs_assets <- function(pkg) {
     )
   )
 
-  # Add navbar colors
-  bs_theme <- bslib::bs_add_variables(
-    bs_theme,
-    "navbar-light-bg" = "$gray-200 !default",
-    "navbar-light-color" = "$black !default",
-    "navbar-dark-bg" = "$black !default",
-    "navbar-dark-color" = "$white !default",
-    .where = "declarations"
-  )
+  # Add navbar colors only in the absence of Bootswatch usage
+  if (is.null(bootswatch_theme)) {
+    bs_theme <- bslib::bs_add_variables(
+      bs_theme,
+      "navbar-light-bg" = "$gray-200",
+      "navbar-light-color" = "$gray-800",
+      "navbar-light-active-color" = "$black",
+      "navbar-light-hover-color" = "$black",
+      "navbar-dark-bg" = "$black",
+      "navbar-dark-color" = "$gray-100",
+      "navbar-dark-active-color" = "$white",
+      "navbar-dark-hover-color" = "$white",
+      .where = "declarations"
+    )
+  }
+
 
   bs_theme <- bslib::bs_add_rules(
     bs_theme,
