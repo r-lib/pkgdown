@@ -179,9 +179,7 @@ create_bs_assets <- function(pkg) {
 
   # theme variables from configuration
   bs_version <- pkg$bs_version
-  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    NULL
+  bootswatch_theme <- get_bootswatch_theme(pkg)
 
   check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
 
@@ -206,13 +204,13 @@ create_bs_assets <- function(pkg) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
       "body-color" = "$black",
+      "component-active-bg" = "$secondary",
+      "list-group-active-bg" = "$secondary",
       "navbar-light-bg" = "$gray-200",
       "navbar-light-color" = "$gray-800",
-      "navbar-light-active-color" = "$black",
       "navbar-light-hover-color" = "$black",
       "navbar-dark-bg" = "$black",
       "navbar-dark-color" = "$gray-100",
-      "navbar-dark-active-color" = "$white",
       "navbar-dark-hover-color" = "$white",
       .where = "declarations"
     )
@@ -255,6 +253,12 @@ create_bs_assets <- function(pkg) {
   # save tags that will be re-used and tweaked depending on page depth
   write_lines(tags, data_deps_path(pkg))
 
+}
+
+get_bootswatch_theme <- function(pkg) {
+  pkg$meta[["template"]]$bootswatch %||%
+    pkg$meta[["template"]]$params$bootswatch %||%
+    NULL
 }
 
 

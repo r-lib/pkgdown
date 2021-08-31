@@ -12,10 +12,16 @@ authors:
   Maëlle Salmon:
     href: https://masalmon.eu
 
+navbar:
+  type: dark
+
 template:
   bootstrap: 4
   bslib:
-    link-color: red
+    bg: white
+    fg: '#2F1847'
+    secondary: green
+
   #   rs-footer-border-width: 3px
   #   rs-footer-border-color: green
   #   rs-footer-color: purple

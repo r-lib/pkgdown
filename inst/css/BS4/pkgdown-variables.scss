@@ -2,8 +2,8 @@
 // All custom properties are prefixed with `rs-` (abbr: Rmd style) to avoid conflicts
 
 // navbar links
-$rs-nav-dark-link-active-color: color-contrast($component-active-color) !default;
-$rs-nav-dark-link-active-bg: color-contrast($component-active-bg) !default;
+$rs-nav-dark-link-active-color: color-contrast($component-active-bg) !default;
+$rs-nav-dark-link-active-bg: $component-active-bg !default;
 $rs-nav-light-link-active-color: $component-active-color !default;
 $rs-nav-light-link-active-bg: $component-active-bg !default;
 $rs-nav-link-active-border-radius: $border-radius !default;

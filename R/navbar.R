@@ -28,9 +28,15 @@ data_navbar <- function(pkg = ".", depth = 0L) {
     )
   }
 
+  navbar_bg <- if (is.null(get_bootswatch_theme)) {
+    ""
+  } else {
+    pkg$meta$template$bslib$`navbar-bg` %||% navbar$type %||% "light"
+  }
+
   list(
     type = navbar$type %||% "light",
-    bg = pkg$meta$template$bslib$`navbar-bg` %||% navbar$type %||% "light",
+    bg = navbar_bg,
     left = render_navbar_links(left, depth = depth, pkg$bs_version),
     right = render_navbar_links(right, depth = depth, pkg$bs_version)
   )
