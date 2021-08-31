@@ -21,6 +21,6 @@ $rs-toc-active-color: $list-group-active-color !default;
 $rs-cursor-algolia: mix($primary, $body-bg, 10%) !default;
 
 // footer
-$rs-footer-color: mix($body-color, $body-color, 90%) !default;
+$rs-footer-color: mix($body-color, $body-bg, 90%) !default;
 $rs-footer-border-color: $border-color !default;
 $rs-footer-border-width: $border-width !default;
