@@ -201,10 +201,11 @@ create_bs_assets <- function(pkg) {
     )
   )
 
-  # Add navbar colors only in the absence of Bootswatch usage
+  # Add body-color & navbar colors only in the absence of Bootswatch usage
   if (is.null(bootswatch_theme)) {
     bs_theme <- bslib::bs_add_variables(
       bs_theme,
+      "body-color" = "$black",
       "navbar-light-bg" = "$gray-200",
       "navbar-light-color" = "$gray-800",
       "navbar-light-active-color" = "$black",
