@@ -15,7 +15,7 @@ $rs-toc-border-radius: $border-radius !default;
 $rs-toc-border-width: 0 !default;
 $rs-toc-border-color: $border-color !default;
 $rs-toc-active-bg: $list-group-active-bg !default;
-$rs-toc-active-color: $list-group-active-color !default;
+$rs-toc-active-color: color-contrast($list-group-active-color) !default;
 
 // search
 $rs-cursor-algolia: mix($primary, $body-bg, 10%) !default;
