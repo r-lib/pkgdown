@@ -1,27 +1,6 @@
 # pkgdown (development version)
 
-* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information, if the package documentation was built with roxygen2 >= 7.1.1.9001. For better results it is important to add language information i.e. the YAML code block below, in [roxygen2 with Markdown support](https://roxygen2.r-lib.org/articles/rd-formatting.html#turning-on-markdown-support-1), would otherwise be parsed as R code.
-
-````
-```
-field1: true
-field2:
-  nested-field: "ok"
-```
-````
-
-Make it:
-
-
-````
-```yaml
-field1: true
-field2:
-  nested-field: "ok"
-```
-````
-
-(#1724)
+* Code blocks in sections (including details) of reference topics are now highlighted depending on the language information (e.g. `yaml`), if the package documentation was built with roxygen2 latest version. (#1724)
 
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
