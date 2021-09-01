@@ -572,6 +572,11 @@ tweak_404 <- function(html, pkg = pkg) {
 
 # Add syntax highlighting to reference sections
 tweak_reference_topic_html <- function(html, pkg = pkg) {
+  switch_block_content <- function(block, highlighted_html) {
+    xml2::xml_text(block) <- ""
+      purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(block, x) })
+  }
+
   # blocks with language information = r
   r_blocks <- xml2::xml_find_all(html, "//div[contains(@class, 'sourceCode r')]/pre/code")
   # now add blocks with no language information
@@ -587,8 +592,7 @@ tweak_reference_topic_html <- function(html, pkg = pkg) {
       highlighted_html <- xml2::xml_contents(
         xml2::xml_find_first(xml2::read_html(out), "body")
       )
-      xml2::xml_text(block) <- ""
-      purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(block, x) })
+      switch_block_content(block, highlighted_html)
     }
   }
 
@@ -613,9 +617,8 @@ tweak_reference_topic_html <- function(html, pkg = pkg) {
     highlighted_html <-  xml2::xml_contents(
       xml2::xml_find_first(xml2::read_html(out), "body/div/pre/code")
     )
-    code_block <- xml2::xml_find_first(block, "pre/code")
-    xml2::xml_text(code_block) <- ""
-    purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(code_block, x) })
+    block <- xml2::xml_find_first(block, "pre/code")
+    switch_block_content(block, highlighted_html)
   }
 
   purrr::walk(non_r_blocks, highlight_other_block)
