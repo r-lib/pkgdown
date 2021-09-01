@@ -571,7 +571,7 @@ tweak_404 <- function(html, pkg = pkg) {
 }
 
 # Add syntax highlighting to reference sections
-tweak_reference_topic_html <- function(html, pkg = pkg) {
+tweak_reference_topic_html <- function(html) {
   switch_block_content <- function(block, highlighted_html) {
     xml2::xml_text(block) <- ""
       purrr::walk(highlighted_html, function(x) {xml2::xml_add_child(block, x) })
