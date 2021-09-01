@@ -282,8 +282,7 @@ build_reference_topic <- function(topic,
 
   update_html(
     file.path(pkg$dst_path, "reference", topic$file_out),
-    tweak_reference_topic_html,
-    pkg = pkg
+    tweak_reference_topic_html
   )
 
   invisible()
