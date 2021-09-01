@@ -206,10 +206,10 @@
       <div class="ref-section">
       <div class="sourceCode yaml">
       <pre>
-      <code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-    <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org/</span></span>
-    <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-    <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span></code>
+      <code><span id="cb1-1"><a href="#cb1-1"></a></span>
+    <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org/</span></span>
+    <span id="cb1-3"><a href="#cb1-3"></a></span>
+    <span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span></span></code>
       </pre>
       </div>
       </div>
