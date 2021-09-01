@@ -2,6 +2,8 @@
 
 * Code blocks in sections (including details) of reference topics are now highlighted depending on the language information (e.g. `yaml`), if the package documentation was built with roxygen2 latest version. (#1724)
 
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
+
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
