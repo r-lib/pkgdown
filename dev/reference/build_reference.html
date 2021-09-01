@@ -190,6 +190,8 @@ roxygen2 converts them to concept tags.</p></li>
 <li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by <code>has_concepts()</code>.</p></li>
+<li><p>Topics from other installed packages, e.g. <code><a href="https://rlang.r-lib.org/reference/is_installed.html">rlang::is_installed()</a></code> (function name)
+or <code><a href="https://rdrr.io/pkg/sass/man/font_face.html">sass::font_face</a></code> (topic name).</p></li>
 </ul><p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
 topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
 with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
