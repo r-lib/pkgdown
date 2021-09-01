@@ -623,7 +623,7 @@ tweak_reference_topic_html <- function(html) {
 
   purrr::walk(non_r_blocks, highlight_other_block)
 
-  invisible()
+  invisible(html)
 }
 # Update file on disk -----------------------------------------------------
 
