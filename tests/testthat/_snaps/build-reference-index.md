@@ -44,7 +44,7 @@
 
 # errors well when a content entry refers to a not installed package
 
-    The `notapackage` package is required as it is mentioned in the reference index.
+    The package `notapackage` is required as it is mentioned in the reference index.
 
 # errors well when a content entry refers to a non existing function
 
@@ -83,7 +83,7 @@
           - check_installed()
           title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
-        - path: https://rstudio.github.io/bslib//reference/bs_bundle.html
+        - path: https://rstudio.github.io/bslib/reference/bs_bundle.html
           aliases:
           - bs_add_variables()
           - bs_add_rules()

@@ -203,10 +203,7 @@ content_info <- function(content_entry, index, pkg, section) {
 check_package_presence <- function(pkg_name) {
   rlang::check_installed(
     pkg = pkg_name,
-    reason = sprintf(
-          "as it is mentioned in the reference index.",
-          pkg_name
-    )
+    reason = "as it is mentioned in the reference index."
   )
 }
 
