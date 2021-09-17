@@ -26,11 +26,12 @@ Below we exclude the changelog from the search index.\if{html}{\out{<div class="
 \section{Debugging and local testing}{
 
 
+Locally (as opposed to on GitHub Pages or Netlify for instance),
+search won't work if you simply use pkgdown preview of the static files.
+You can use \code{servr::httw("docs")} instead.
+
 If search is not working, run \code{pkgdown::pkgdown_sitrep()} to eliminate
 common issues such as the absence of URL in the pkgdown configuration file
 of your package.
-
-Search won't work if you simply use pkgdown preview of the static files.
-You can use \code{servr::httw("docs")} instead.
 }
 
