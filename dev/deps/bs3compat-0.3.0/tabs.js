@@ -6,8 +6,10 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
-
-+function ($) {
+// Register tab plugin after DOM content loaded in order to
+// override BS5's plugin
+// https://github.com/twbs/bootstrap/blob/08139c22/js/dist/tab.js#L87
+$(function() {
   'use strict';
 
   // TAB CLASS DEFINITION
@@ -152,4 +154,4 @@
     .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
     .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
 
-}(jQuery);
+});
