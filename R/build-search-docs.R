@@ -75,7 +75,12 @@ url_node <- function(url) {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Local testing:
+#' @section Debugging and local testing:
+#'
+#' If search is not working, run `pkgdown::pkgdown_sitrep()` to eliminate
+#' common issues such as the absence of URL in the pkgdown configuration file
+#' of your package.
+#'
 #' Search won't work if you simply use pkgdown preview of the static files.
 #' You can use `servr::httw("docs")` instead.
 #'

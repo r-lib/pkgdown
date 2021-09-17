@@ -23,7 +23,12 @@ Below we exclude the changelog from the search index.\if{html}{\out{<div class="
 }\if{html}{\out{</div>}}
 }
 
-\section{Local testing}{
+\section{Debugging and local testing}{
+
+
+If search is not working, run \code{pkgdown::pkgdown_sitrep()} to eliminate
+common issues such as the absence of URL in the pkgdown configuration file
+of your package.
 
 Search won't work if you simply use pkgdown preview of the static files.
 You can use \code{servr::httw("docs")} instead.
