@@ -14,7 +14,14 @@ test_that("docsearch.json and sitemap.xml are valid", {
 
 test_that("build_search() builds the expected search.json", {
   path <- test_path("assets/news")
-  pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
+  pkg <- as_pkgdown(
+    path,
+    list(
+      news = list(cran_dates = FALSE),
+      url = "https://example.com",
+      development = list(mode = "devel")
+      )
+    )
   pkg$bs_version <- 4
   tmp <- withr::local_tempdir()
   pkg$dst_path <- tmp

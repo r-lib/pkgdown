@@ -113,6 +113,14 @@ build_search_index <- function(pkg) {
 
   purrr::compact(index)
 
+  # Make URLs absolute if possible
+  url <- pkg$meta$url %||% ""
+  fix_path <- function(x) {
+    x$path <- sprintf("%s%s", url, x$path)
+    x
+  }
+  index <- purrr::map(index, fix_path)
+
 }
 
 news_search_index <- function(path, pkg) {
