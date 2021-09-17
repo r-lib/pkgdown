@@ -39,7 +39,12 @@ test_that("pkg_timeline returns NULL if CRAN dates suppressed", {
 test_that("correct timeline for first ggplot2 releases", {
   skip_on_cran()
 
-  expect_snapshot(pkg_timeline("ggplot2")[1:3, ])
+  timeline <- pkg_timeline("ggplot2")[1:3, ]
+  expected_version <- c("0.5", "0.5.1", "0.5.2")
+  expected_date <- as.Date(c("2007-06-01", "2007-06-09", "2007-06-18"))
+
+  expect_equal(timeline$version, expected_version)
+  expect_equal(timeline$date, expected_date)
 })
 
 test_that("determines page style from meta", {
