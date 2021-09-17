@@ -11,3 +11,13 @@
     </ul></div>
     </div>
 
+# correct timeline for first ggplot2 releases
+
+    Code
+      pkg_timeline("ggplot2")[1:3, ]
+    Output
+        version       date
+      1     0.5 2007-06-01
+      2   0.5.1 2007-06-09
+      3   0.5.2 2007-06-18
+
