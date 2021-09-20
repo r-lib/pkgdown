@@ -96,13 +96,18 @@ Below we exclude the changelog from the search index.</p><div class="sourceCode 
   exclude: ['news/index.html']
 </code></pre><p></p></div>
     </div>
-    <div class="ref-section section level2" id="section-local-testing">
-    <h2 class="hasAnchor" id="local-testing"><a class="anchor" href="#local-testing" aria-hidden="true"></a>Local testing</h2>
+    <div class="ref-section section level2" id="section-debugging-and-local-testing">
+    <h2 class="hasAnchor" id="debugging-and-local-testing"><a class="anchor" href="#debugging-and-local-testing" aria-hidden="true"></a>Debugging and local testing</h2>
 
     
 
-<p>Search won't work if you simply use pkgdown preview of the static files.
+
+<p>Locally (as opposed to on GitHub Pages or Netlify for instance),
+search won't work if you simply use pkgdown preview of the static files.
 You can use <code>servr::httw("docs")</code> instead.</p>
+<p>If search is not working, run <code><a href="pkgdown_sitrep.html">pkgdown::pkgdown_sitrep()</a></code> to eliminate
+common issues such as the absence of URL in the pkgdown configuration file
+of your package.</p>
     </div>
 
   </div>
