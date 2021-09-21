@@ -197,9 +197,9 @@ By default, pkgdown will display author information in three places:
 }
 
 This documentation describes how to customise the overall author
-display. See \code{?build_home} and \code{?build_footer} for details about
-changing the location of the authors information within the
-sidebar/footer.
+display. See \code{?build_home} and \code{?build_site} for details about changing
+the location of the authors information within the home sidebar and the
+site footer.
 \subsection{Authors ORCID and bio}{
 
 Author ORCID identification numbers in the \code{DESCRIPTION} are linked
