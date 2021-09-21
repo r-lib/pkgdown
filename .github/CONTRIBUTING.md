@@ -13,20 +13,16 @@ example of a minimal package was [this issue](https://github.com/r-lib/pkgdown/i
 where a minimal package containing a single `.R` file with two lines could reproduce
 the error.
 
-Once you have built a minimal package that recreates the error, create a GitHub
-repository from the package, and file an issue with a link to the repository.
-
 The quickest way to set up minimal example package is with `usethis::create_package()`:
 
 ```R
-library(usethis)
-library(pkgdown)
-
-tmp <- file.path(tempdir(), "test")
-usethis::create_package(tmp, open)
+usethis::create_package("~/desktop/testpackage")
 # ... edit files ...
 pkgdown::build_site(tmp, new_process = FALSE, preview = FALSE)
 ```
+
+Once you have built a minimal package that recreates the error, create a GitHub
+repository from the package (e.g. with `usethis::use_git()` + `usethis::use_github()`), and file an issue with a link to the repository.
 
 ## Rd translation
 
