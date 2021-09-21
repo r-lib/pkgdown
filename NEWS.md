@@ -2,6 +2,8 @@
 
 * Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
 
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
+
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
@@ -45,7 +47,7 @@
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
-  search pkgdown websites. (#1629, with help from @gustavdelius in #1655)
+  search pkgdown websites. (#1629, with help from @gustavdelius in #1655 and @dieghernan @GregorDeCillia in #1770)
 
 * pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
   This might change Algolia results if you use Algolia for search. (#1629)

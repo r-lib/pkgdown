@@ -28,7 +28,7 @@ The main content of the home page (\code{index.html}) is generated from
 \code{pkgdown/index.md}, \code{index.md}, or \code{README.md}, in that order. Most
 packages will use \code{README.md} because that’s also displayed by GitHub
 and CRAN. Use \code{index.md} if you want your package website to look
-different to your README, and use \verb{_pkgdown/index.md} if you don’t want
+different to your README, and use \code{pkgdown/index.md} if you don’t want
 that file to live in your package root directory.
 
 If you use \code{index.Rmd} or \code{README.Rmd} it’s your responsibility to knit
@@ -197,9 +197,9 @@ By default, pkgdown will display author information in three places:
 }
 
 This documentation describes how to customise the overall author
-display. See \code{?build_home} and \code{?build_footer} for details about
-changing the location of the authors information within the
-sidebar/footer.
+display. See \code{?build_home} and \code{?build_site} for details about changing
+the location of the authors information within the home sidebar and the
+site footer.
 \subsection{Authors ORCID and bio}{
 
 Author ORCID identification numbers in the \code{DESCRIPTION} are linked
