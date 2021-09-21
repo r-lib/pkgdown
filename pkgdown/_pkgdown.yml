@@ -42,9 +42,15 @@ reference:
   contents:
   - build_site
   - init_site
-  - starts_with("build_")
-  - preview_site
   - pkgdown_sitrep
+  - build_favicons
+  - build_home
+  - build_reference
+  - build_articles
+  - build_news
+  - build_search
+  - build_tutorials
+  - preview_site
 
 - title: Deployment
   contents:
@@ -65,6 +71,9 @@ reference:
 - title: Regression tests
   contents:
   - starts_with("test", internal = TRUE)
+  - rlang::is_installed()
+  - sass::font_face
+  - sass::font_google()
 
 news:
   releases:

@@ -261,7 +261,8 @@ pkg_timeline <- function(package) {
   data.frame(
     version = names(timeline),
     date = as.Date(unlist(timeline)),
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
+    row.names = NULL
   )
 }
 

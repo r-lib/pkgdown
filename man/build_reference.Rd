@@ -122,6 +122,8 @@ roxygen2 converts them to concept tags.
 \item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
+\item Topics from other installed packages, e.g. \code{rlang::is_installed()} (function name)
+or \code{sass::font_face} (topic name).
 }
 
 All functions (except for \code{has_keywords()}) automatically exclude internal
