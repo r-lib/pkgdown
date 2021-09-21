@@ -226,9 +226,9 @@ build_reference_index <- function(pkg = ".") {
     path = "reference/index.html"
   )
 
-  html <- xml2::read_html(file.path(pkg$dst, "reference/index.html"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference/index.html"))
   tweak_all_links(html, pkg = pkg)
-  xml2::write_html(html, file.path(pkg$dst, "reference/index.html"))
+  xml2::write_html(html, file.path(pkg$dst_path, "reference/index.html"))
 
   invisible()
 }
