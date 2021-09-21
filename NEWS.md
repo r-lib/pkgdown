@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
+
 * `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
 
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).

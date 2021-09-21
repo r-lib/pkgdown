@@ -257,7 +257,7 @@ as_html.tag_ifelse <- function(x, ...) {
 #
 #' @export
 as_html.tag_special <- function(x, ...) {
-  as_html(x[[1]], ...)
+  flatten_text(x, ...)
 }
 
 #' @export
