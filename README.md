@@ -62,8 +62,8 @@ others can easily navigate to your new site.
 
 ## In the wild
 
-At last count, pkgdown is used [by over 5,000
-packages](https://github.com/search?q=extension%3Acss+filename%3Apkgdown).
+At last count, pkgdown is used [by over 6,000
+packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
 
 Here are a few examples created by contributors to pkgdown:
 
