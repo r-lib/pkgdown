@@ -422,30 +422,6 @@ test_that("special", {
   expect_equal(out, "( ... )")
 })
 
-
-# Value blocks ------------------------------------------------------------
-
-test_that("leading text parsed as paragraph", {
-  expected <- "<p>text</p>\n<dt>x</dt><dd><p>y</p></dd>"
-
-  value1 <- rd_text("\\value{\ntext\n\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value1[[1]])$contents, expected)
-
-  value2 <- rd_text("\\value{text\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value2[[1]])$contents, expected)
-})
-
-test_that("leading text is optional", {
-  value <- rd_text("\\value{\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value[[1]])$contents, "<dt>x</dt><dd><p>y</p></dd>")
-})
-
-test_that("items are optional", {
-  value <- rd_text("\\value{text}", fragment = FALSE)
-  expect_equal(as_data(value[[1]])$contents, "<p>text</p>")
-})
-
-
 # figures -----------------------------------------------------------------
 
 test_that("figures are converted to img", {
