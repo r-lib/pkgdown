@@ -8,7 +8,10 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Generate an attractive and useful website from a source package. 'pkgdown' converts your documentation, vignettes, 'README', and more to 'HTML' making it easy to share information about your package online.
+Generate an attractive and useful website from a
+    source package.  'pkgdown' converts your documentation, vignettes,
+    'README', and more to 'HTML' making it easy to share information about
+    your package online.
 }
 \seealso{
 Useful links:
