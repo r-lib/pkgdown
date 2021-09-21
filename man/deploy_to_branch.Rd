@@ -33,6 +33,6 @@ jekyll rendering.}
 }
 \description{
 Assumes that you're in a git clone of the project, and the package is
-already installed. Use \code{\link[usethis:use_pkgdown_github_pages]{usethis::use_pkgdown_github_pages()}} to automate
+already installed. Use \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown_github_pages()}} to automate
 this process using GitHub actions.
 }
