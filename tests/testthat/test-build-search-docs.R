@@ -25,13 +25,12 @@ test_that("build_search() builds the expected search.json with an URL", {
   pkg$bs_version <- 4
   tmp <- withr::local_tempdir()
   pkg$dst_path <- tmp
-  build_news(pkg)
-  build_home(pkg)
-  build_sitemap(pkg)
+  expect_output(build_news(pkg))
+  expect_output(build_home(pkg))
+  expect_output(build_sitemap(pkg))
   jsonlite::write_json(build_search_index(pkg), file.path(tmp, "search.json"), pretty = TRUE)
   expect_snapshot_file(file.path(tmp, "search.json"))
 })
-
 
 test_that("build_search() builds the expected search.json with no URL", {
   path <- test_path("assets/news")
@@ -46,9 +45,9 @@ test_that("build_search() builds the expected search.json with no URL", {
   pkg$bs_version <- 4
   tmp <- withr::local_tempdir()
   pkg$dst_path <- tmp
-  build_news(pkg)
-  build_home(pkg)
-  build_sitemap(pkg)
+  expect_output(build_news(pkg))
+  expect_output(build_home(pkg))
+  expect_output(build_sitemap(pkg))
   jsonlite::write_json(build_search_index(pkg), file.path(tmp, "search-no-url.json"), pretty = TRUE)
   expect_snapshot_file(file.path(tmp, "search-no-url.json"))
 })
