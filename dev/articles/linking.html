@@ -161,6 +161,10 @@
 </li>
 </ul>
 <p>Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., <code>dplyr::mutate()</code>), pkgdown looks first in dplyr’s <code>DESCRIPTION</code> to find its website, then it looks for <code>pkgdown.yml</code>, and uses the metadata to generate the correct links.</p>
+<p>To allow your package to be linked by other locally installed packages, even if your website is not reachable at build time, the following option needs to be set in <code>_pkgdown.yml</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<p>This allows locally installed packages to access package index metadata from the locally installed copy, which may be useful if your website require auth, or you build behind a firewall.</p>
 </div>
   </div>
  <div class="col-md-3 d-none d-md-block" id="pkgdown-sidebar">
