@@ -1,9 +1,0 @@
-Package: testpackage
-Type: Package
-Title: A test package
-Version: 1.0.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: A longer statement about the package.
-Imports: R6
-RoxygenNote: 7.1.1

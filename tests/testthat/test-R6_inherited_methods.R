@@ -1,20 +1,29 @@
 test_that("urls to inherited methods of R6 classes are correctly modified ", {
-  skip_if_no_pandoc()
-  withr::local_temp_libpaths()
 
-  R6 <- test_path("assets/R6-inherited-methods")
-  on.exit(clean_site(R6))
+  html <- c(
+    "<span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
+    "<a href='../../R6test/html/Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>",
+    "</span>"
+  )
 
-  callr::rcmd("INSTALL", R6, show = TRUE, fail_on_status = TRUE)
+  result <- fix_R6_inherited_hrefs(html)
 
-  expect_output(build_reference(R6, devel = FALSE))
-  html <- path(R6, "docs", "reference", "Dog.html")
+  expected_html <- c(
+    "<span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
+    "<a href='Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>",
+    "</span>"
+  )
 
-  lines <- read_lines(html)
-  lines <- lines[grep("class=\"pkg-link\"", lines, fixed = TRUE)]
+  expect_equal(result, expected_html)
 
-  hrefs <- vapply(regmatches(lines, regexec("<a href='(.*?)'", lines)), `[[`, character(1L), 2L)
+  # html without class=\"pkg-link\" is unaffected
+  html <- c(
+    "<span class=\"something else\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
+    "<a href=\"../../R6test/html/Animal.html#method-initialize\"><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code>",
+    "</span>"
+  )
 
-  # or perhaps test if the url does not start with "../../pkgname/html/"
-  expect_identical(hrefs, "Animal.html#method-initialize")
+  result <- fix_R6_inherited_hrefs(html)
+  expect_equal(result, html)
+
 })
