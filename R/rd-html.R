@@ -381,8 +381,6 @@ parse_descriptions <- function(rd, ...) {
     return(character())
   }
 
-  is_item <- purrr::map_lgl(rd, inherits, "tag_item")
-
   parse_item <- function(x) {
     if (inherits(x, "tag_item")) {
       paste0(
