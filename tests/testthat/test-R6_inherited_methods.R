@@ -1,29 +1,31 @@
 test_that("urls to inherited methods of R6 classes are correctly modified ", {
 
-  html <- c(
-    "<span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
-    "<a href='../../R6test/html/Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>",
-    "</span>"
+  html <- xml2::read_html("
+    <!DOCTYPE html>
+    <html><body>
+    <span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">
+    <a href='../../R6test/html/Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>,
+    </span>,
+    </body></html>"
   )
 
-  result <- fix_R6_inherited_hrefs(html)
+  pkgdown:::fix_R6_inherited_hrefs(html)
+  result <- html %>% xml2::xml_find_all("//*[@href]") %>% xml2::xml_attr("href")
 
-  expected_html <- c(
-    "<span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
-    "<a href='Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>",
-    "</span>"
-  )
-
-  expect_equal(result, expected_html)
+  expect_equal(result, "Animal.html#method-initialize")
 
   # html without class=\"pkg-link\" is unaffected
-  html <- c(
-    "<span class=\"something else\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">",
-    "<a href=\"../../R6test/html/Animal.html#method-initialize\"><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code>",
-    "</span>"
+  html <- xml2::read_html("
+    <!DOCTYPE html>
+    <html><body>
+    <span class=\"something else\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">
+    <a href='../../R6test/html/Animal.html#method-initialize'><code>R6test::Animal$initialize()</code></a><code>R6test::Animal$initialize()</code></a>,
+    </span>,
+    </body></html>"
   )
 
-  result <- fix_R6_inherited_hrefs(html)
-  expect_equal(result, html)
+  pkgdown:::fix_R6_inherited_hrefs(html)
+  result <- html %>% xml2::xml_find_all("//*[@href]") %>% xml2::xml_attr("href")
+  expect_equal(result, "../../R6test/html/Animal.html#method-initialize")
 
 })

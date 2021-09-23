@@ -37,7 +37,6 @@ flatten_para <- function(x, ...) {
   blocks <- html %>%
     split(groups) %>%
     purrr::map(unlist) %>%
-    purrr::map(fix_R6_inherited_hrefs) %>%
     purrr::map_chr(paste, collapse = "")
 
   # There are three types of blocks:
@@ -581,18 +580,4 @@ is_newline <- function(x, trim = FALSE) {
     text <- gsub("^[ \t]+|[ \t]+$", "", text)
   }
   identical(text, "\n")
-}
-
-fix_R6_inherited_hrefs <- function(x) {
-  idx <- grep("class=\"pkg-link\"", x, fixed = TRUE)
-  if (length(idx) > 0L) {
-    idx <- idx + 1L
-    x[idx] <- gsub(
-      # [^/]+ matches the package name
-      pattern     = "<a href='../../[^/]+/html/",
-      replacement = "<a href='",
-      x[idx]
-    )
-  }
-  x
 }

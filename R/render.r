@@ -94,6 +94,13 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     rendered <- as.character(html, options = character())
   }
 
+  # fix any R6 links
+  if (pkg$desc$has_dep("R6")) {
+    html <- xml2::read_html(rendered)
+    fix_R6_inherited_hrefs(html)
+    rendered <- as.character(html, options = character())
+  }
+
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 

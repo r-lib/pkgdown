@@ -571,6 +571,23 @@ tweak_404 <- function(html, pkg = pkg) {
   TRUE
 }
 
+fix_R6_inherited_hrefs <- function(html) {
+
+  html %>%
+    xml2::xml_find_all("//*[@class=\"pkg-link\"]//*[@href]") %>%
+    purrr::map(fix_R6_inherited_hrefs_single_node)
+
+}
+
+fix_R6_inherited_hrefs_single_node <- function(xml_node) {
+  parsed <- xml_node %>%
+    xml2::xml_attr("href") %>%
+    xml2::url_parse()
+  # e.g., transform "../../R6test/html/Animal.html#method-initialize" into "Animal.html#method-initialize"
+  url <- paste(basename(parsed[, "path"]), parsed[, "fragment"], sep = "#")
+  xml2::xml_attr(xml_node, "href") <- url
+}
+
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
