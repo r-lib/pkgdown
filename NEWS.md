@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
 * Headings on the reference index page, and the arguments heading on the 
   reference pages, now get anchors (#1747).
 
