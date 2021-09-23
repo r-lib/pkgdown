@@ -9,7 +9,7 @@ test_that("urls to inherited methods of R6 classes are correctly modified ", {
     </body></html>"
   )
 
-  pkgdown:::fix_R6_inherited_hrefs(html)
+  fix_R6_inherited_hrefs(html)
   result <- html %>% xml2::xml_find_all("//*[@href]") %>% xml2::xml_attr("href")
 
   expect_equal(result, "Animal.html#method-initialize")
@@ -24,7 +24,7 @@ test_that("urls to inherited methods of R6 classes are correctly modified ", {
     </body></html>"
   )
 
-  pkgdown:::fix_R6_inherited_hrefs(html)
+  fix_R6_inherited_hrefs(html)
   result <- html %>% xml2::xml_find_all("//*[@href]") %>% xml2::xml_attr("href")
   expect_equal(result, "../../R6test/html/Animal.html#method-initialize")
 
