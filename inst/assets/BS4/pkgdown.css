@@ -76,6 +76,12 @@ a.anchor {
   background-position: center center;
 }
 
+
+/* Minimal hack to make anchors work inside tables */
+table a.anchor {
+  position: absolute;
+}
+
 .hasAnchor:hover a.anchor {
   visibility: visible;
 }
