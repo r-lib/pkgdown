@@ -144,8 +144,11 @@ tweak_sourcecode_div <- function(html) {
     # remove output
     xml2::xml_remove(xml2::xml_find_all(copy, "//span[@class='r-out co']"))
     text <- xml2::xml_text(copy)
+    # assuming output is on lines starting with #>
+    text <- gsub("#>.*", "", text)
     text <- gsub("\\\n\\\n", "\n", text)
     text <- gsub("^\\\n", "", text)
+    text <- gsub("\\\n$", "", text)
   }
 
   tweak_class_prepend(html, "hasCopyButton")

@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* clipboard buttons now no longer contains the output of code.(#1706)
+* clipboard buttons now no longer contains the output of R code.(#1706)
 
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
 
