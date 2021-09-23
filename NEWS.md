@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Headings on the reference index page, and the arguments heading on the 
+  reference pages, now get anchors (#1747).
+
 * Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
 
 * `\value{}` now does a better job of handling multiple mingled items and text 
