@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).

@@ -23,6 +23,10 @@ data_reference_index <- function(pkg = ".") {
 }
 
 data_reference_index_rows <- function(section, index, pkg) {
+  if (identical(section$title, "internal")) {
+    return(list())
+  }
+
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
