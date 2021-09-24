@@ -1,8 +1,20 @@
 test_that("empty yaml gets correct defaults", {
   dev <- meta_development(list())
-  expect_equal(dev$mode, "release")
+  expect_equal(dev$mode, "default")
   expect_equal(dev$in_dev, FALSE)
   expect_equal(dev$version_label, "default")
+})
+
+test_that("explicit devel status gets tooltip", {
+  tooltip <- function(mode) {
+    meta <- list(development = list(mode = mode))
+    version <- package_version("1.0.0.9000")
+    meta_development(meta, version)$version_tooltip
+  }
+
+  expect_equal(tooltip("auto"), "In-development version")
+  expect_equal(tooltip("release"), "Released version")
+  expect_equal(tooltip(NULL), "")
 })
 
 test_that("mode = auto uses version", {
