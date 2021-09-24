@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
+
 * `build_articler()` no longer fails if you have a directory underneath 
   vignettes with a `.Rmd` extension (#1425).
 
