@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_articler()` no longer fails if you have a directory underneath 
+  vignettes with a `.Rmd` extension (#1425).
+
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
