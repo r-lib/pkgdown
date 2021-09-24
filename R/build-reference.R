@@ -98,8 +98,8 @@
 #'
 #' pkgdown will warn if there are (non-internal) topics that not listed
 #' in the reference index. You can suppress these warnings by listing the
-#' topics in section with "title: internal" which will not be displayed on
-#' the reference index.
+#' topics in section with "title: internal" (case sensitive) which will not be
+#' displayed on the reference index.
 #'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
