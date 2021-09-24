@@ -203,6 +203,14 @@ When the code is run in a continuous integration environment (i.e. when the
 CI envar is "true"), this is an error so that the build will fail if you
 forget to include topics in the index.</p>
 
+<h3 class="hasAnchor" id="missing-topics"><a class="anchor" aria-hidden="true" href="#missing-topics"></a>Missing topics</h3>
+
+
+<p>pkgdown will warn if there are (non-internal) topics that not listed
+in the reference index. You can suppress these warnings by listing the
+topics in section with "title: internal" (case sensitive) which will not be
+displayed on the reference index.</p>
+
 <h3 class="hasAnchor" id="icons"><a class="anchor" aria-hidden="true" href="#icons"></a>Icons</h3>
 
 
