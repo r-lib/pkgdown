@@ -321,7 +321,7 @@ tweak_homepage_html <- function(html,
     page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
   }
-  # logo
+
   if (!is.null(logo) && bs_version > 3) {
     # Remove logo if added to h1
     # Bare image
@@ -334,13 +334,14 @@ tweak_homepage_html <- function(html,
       )
     )
 
-
     # Add logo
     xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
       xml2::xml_child() %>%
-      xml2::xml_add_sibling(
-        "img", src = "package-logo.png",
-        class = "pkg-logo", alt = "", width = "120",
+      xml2::xml_add_sibling("img",
+        src = logo,
+        class = "pkg-logo",
+        alt = "",
+        width = "120",
         .where = "before"
       )
   }
