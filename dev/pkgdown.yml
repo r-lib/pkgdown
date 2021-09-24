@@ -13,7 +13,7 @@ articles:
   output: test/output.html
   pdf: test/pdf.pdf
   rendering: test/rendering.html
-last_built: 2021-09-23T21:30Z
+last_built: 2021-09-24T11:47Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
