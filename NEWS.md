@@ -4,6 +4,10 @@
   allowing you to suppress warnings about topics that are not listed in the
   index (#1716).
 
+* `build_reference()` will run `pkgdown/pre-reference.R` before and 
+  `pkgdown/post-reference.R` after running examples. These allow you to
+  do any setup or teardown operations you might need (#1602).
+
 * Headings on the reference index page, and the arguments heading on the 
   reference pages, now get anchors (#1747).
 
