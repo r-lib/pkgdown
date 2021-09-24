@@ -27,12 +27,11 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(src = logo_path(pkg, depth = depth))
-
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
     version = utils::packageDescription("pkgdown", fields = "Version")
   )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
@@ -490,21 +489,4 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 pkgdown_bslib_defaults <- function() {
   list(`navbar-nav-link-padding-x` = "1rem")
-}
-
-logo_path <- function(pkg, depth) {
-  if (!has_logo(pkg)) {
-    return(NULL)
-  }
- path <- "package-logo.png"
-
-  if (depth == 0) {
-    return(path)
-  }
-
-  paste0(
-    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-    "/",
-    path
-  )
 }
