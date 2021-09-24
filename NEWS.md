@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * The version tooltip showed in the top navbar is now only set if you've 
-  explcitly set the `development$mode` in `_pkgdown.yml` (#1768).
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
 
 * Reference index section with `title: internal` is now silently dropped,
   allowing you to suppress warnings about topics that are not listed in the
