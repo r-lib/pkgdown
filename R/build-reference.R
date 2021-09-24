@@ -165,12 +165,7 @@ build_reference <- function(pkg = ".",
   rule("Building function reference")
   build_reference_index(pkg)
 
-  # copy everything from man/figures to docs/reference/figures
-  src_figures <- path(pkg$src_path, "man", "figures")
-  dst_figures <- path(pkg$dst_path, "reference", "figures")
-  if (file_exists(src_figures)) {
-    dir_copy_to(pkg, src_figures, dst_figures)
-  }
+  copy_figures(pkg)
 
   if (examples) {
     examples_env <- examples_env(pkg, seed = seed, devel = devel)
@@ -195,6 +190,15 @@ build_reference <- function(pkg = ".",
   )
 
   preview_site(pkg, "reference", preview = preview)
+}
+
+copy_figures <- function(pkg) {
+  # copy everything from man/figures to docs/reference/figures
+  src_figures <- path(pkg$src_path, "man", "figures")
+  dst_figures <- path(pkg$dst_path, "reference", "figures")
+  if (file_exists(src_figures)) {
+    dir_copy_to(pkg, src_figures, dst_figures)
+  }
 }
 
 examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame()) {

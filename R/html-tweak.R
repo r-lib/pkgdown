@@ -84,6 +84,17 @@ tweak_all_links <- function(html, pkg = pkg) {
   invisible()
 }
 
+# Fix relative image links
+tweak_img_src <- function(html) {
+  imgs <- xml2::xml_find_all(html, ".//img")
+  urls <- xml2::xml_attr(imgs, "src")
+  new_urls <- gsub("(^|/)vignettes/", "\\1articles/", urls, perl = TRUE)
+  new_urls <- gsub("(^|/)man/figures/", "\\1reference/figures/", new_urls, perl = TRUE)
+  purrr::map2(imgs, new_urls, ~ xml2::xml_set_attr(.x, "src", .y))
+
+  invisible()
+}
+
 
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
@@ -295,6 +306,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
     )
   }
 
+  tweak_img_src(html)
   tweak_tables(html)
 
   invisible()
@@ -345,13 +357,8 @@ tweak_homepage_html <- function(html,
         .where = "before"
       )
   }
-  # Fix relative image links
-  imgs <- xml2::xml_find_all(html, ".//img")
-  urls <- xml2::xml_attr(imgs, "src")
-  new_urls <- gsub("^vignettes/", "articles/", urls)
-  new_urls <- gsub("^man/figures/", "reference/figures/", new_urls)
-  purrr::map2(imgs, new_urls, ~ (xml2::xml_attr(.x, "src") <- .y))
 
+  tweak_img_src(html)
   tweak_tables(html)
 
   invisible()

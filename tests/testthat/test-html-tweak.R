@@ -170,14 +170,25 @@ test_that("page header modification succeeds", {
   expect_snapshot_output(show_xml(html))
 })
 
+
+# homepage ----------------------------------------------------------------
+
 test_that("links to vignettes & figures tweaked", {
   html <- xml2::read_xml('<body>
     <img src="vignettes/x.png" />
+    <img src="../vignettes/x.png" />
     <img src="man/figures/x.png" />
+    <img src="../man/figures/x.png" />
   </body>')
 
-  tweak_homepage_html(html, bs_version = 3)
-  expect_snapshot_output(show_xml(html))
+  tweak_img_src(html)
+  src <- html %>% xml2::xml_find_all(".//img") %>% xml2::xml_attr("src")
+  expect_equal(src, c(
+    "articles/x.png",
+    "../articles/x.png",
+    "reference/figures/x.png",
+    "../reference/figures/x.png"
+  ))
 })
 
 
