@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* The version tooltip showed in the top navbar is now only set if you've 
+  explcitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
