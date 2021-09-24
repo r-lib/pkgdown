@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `pkgdown.css` now incldues updated css styles from pandoc to support better
+  reference list styling (#1469).
+
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
