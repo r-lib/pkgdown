@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_articles()` now correctly handles links to images in `man/figures`
+  (which have the form `../man/figures`) (#1472).
+
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
