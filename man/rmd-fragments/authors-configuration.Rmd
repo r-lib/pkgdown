@@ -6,7 +6,7 @@ By default, pkgdown will display author information in three places:
 * the left part side of the footer,
 * the author page.
 
-This documentation describes how to customise the overall author display. See `?build_home` and `?build_footer` for details about changing the location of the authors information within the sidebar/footer.
+This documentation describes how to customise the overall author display. See `?build_home` and `?build_site` for details about changing the location of the authors information within the home sidebar and the site footer.
 
 ## Authors ORCID and bio
 

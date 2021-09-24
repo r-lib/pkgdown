@@ -161,16 +161,15 @@ test_that("check_open_graph() returns only supported items", {
 
   og_extra <- og_exp
   og_extra$description <- "nope"
-  expect_identical(
-    expect_warning(check_open_graph(og_extra), "`opengraph` field:"),
-    og_exp
+  expect_warning(
+    expect_identical(check_open_graph(og_extra), og_exp),
+    "`opengraph` field:"
   )
 
   og_extra$facebook <- "nope again"
-  expect_identical(
-    expect_warning(check_open_graph(og_extra), "`opengraph` fields:"),
-    og_exp
-  )
+  expect_warning(
+    expect_identical(check_open_graph(og_extra), og_exp,
+  ), "`opengraph` fields:")
 })
 
 test_that("check_open_graph() aborts when `twitter` has unexpected structure", {

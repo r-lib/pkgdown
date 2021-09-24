@@ -7,9 +7,7 @@ test_that("can generate three types of row", {
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  verify_output(test_path("test-build-reference-index.txt"), {
-    data_reference_index(pkg)
-  })
+  expect_snapshot(data_reference_index(pkg))
 })
 
 test_that("warns if missing topics", {
@@ -29,4 +27,36 @@ test_that("warns if missing topics", {
 test_that("default reference includes all functions", {
   ref <- default_reference_index(test_path("assets/reference"))
   expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "?"), "`"))
+})
+
+test_that("errors well when a content entry is not a character", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - N")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})
+
+test_that("errors well when a content entry refers to a not installed package", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})
+
+test_that("errors well when a content entry refers to a non existing function", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - rlang::lala")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})
+
+
+test_that("can use a topic from another package", {
+  meta <- list(reference = list(list(
+    title = "bla",
+    contents = c("a", "b", "c", "?", "rlang::is_installed()", "bslib::bs_add_rules")
+  )))
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot(data_reference_index(pkg))
 })

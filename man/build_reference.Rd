@@ -122,6 +122,8 @@ roxygen2 converts them to concept tags.
 \item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
+\item Topics from other installed packages, e.g. \code{rlang::is_installed()} (function name)
+or \code{sass::font_face} (topic name).
 }
 
 All functions (except for \code{has_keywords()}) automatically exclude internal
@@ -144,6 +146,12 @@ You can optionally supply an icon for each help topic. To do so, you'll need
 a top-level \code{icons} directory. This should contain {.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
+}
+
+\subsection{Examples}{
+
+If you need to run extra code before or after all examples are run, you
+can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
 }
 }
 

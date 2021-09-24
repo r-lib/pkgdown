@@ -414,29 +414,13 @@ test_that("deqn", {
   expect_equal(out, "$$x$$")
 })
 
-
-# Value blocks ------------------------------------------------------------
-
-test_that("leading text parsed as paragraph", {
-  expected <- "<p>text</p>\n<dt>x</dt><dd><p>y</p></dd>"
-
-  value1 <- rd_text("\\value{\ntext\n\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value1[[1]])$contents, expected)
-
-  value2 <- rd_text("\\value{text\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value2[[1]])$contents, expected)
+test_that("special", {
+  # Fails due to a bug prior to R 4.0.0:
+  # https://bugs.r-project.org/show_bug.cgi?id=17727
+  skip_if_not(getRversion() >= "4.0.0")
+  out <- rd2html("\\special{( \\dots )}")
+  expect_equal(out, "( ... )")
 })
-
-test_that("leading text is optional", {
-  value <- rd_text("\\value{\\item{x}{y}}", fragment = FALSE)
-  expect_equal(as_data(value[[1]])$contents, "<dt>x</dt><dd><p>y</p></dd>")
-})
-
-test_that("items are optional", {
-  value <- rd_text("\\value{text}", fragment = FALSE)
-  expect_equal(as_data(value[[1]])$contents, "<p>text</p>")
-})
-
 
 # figures -----------------------------------------------------------------
 
