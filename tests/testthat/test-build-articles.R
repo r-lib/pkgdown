@@ -27,3 +27,17 @@ test_that("can override html_document() options", {
   ))
 })
 
+test_that("can override options with _output.yml", {
+  pkg <- as_pkgdown(test_path("assets/article-output"))
+  withr::defer(clean_site(pkg))
+
+  expect_output(path <- build_article("html-document", pkg))
+
+  # Check that number_sections is respected
+  html <- xml2::read_html(path)
+  expect_equal(
+    html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
+    c("1", "2"
+  ))
+})
+

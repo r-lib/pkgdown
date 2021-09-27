@@ -114,26 +114,21 @@
 #' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
 #' some hints on how to customise the appearance with CSS.
 #'
-#' @section YAML header:
-#' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' by setting the `template` parameter. This overrides any custom settings
-#' you have in your YAML metadata, ensuring that all articles are rendered
-#' in the same way (and receive the default site template).
+#' @section Output formats:
+#' By default, pkgdown builds all articles using the
+#' [rmarkdown::html_document()] `output` format, ignoring whatever is set in
+#' your YAML metadata. This is necessary because pkgdown has to integrate the
+#' HTML of your vignette with the rest of the site.
 #'
-#' If you need to override the output format, or set any options, you'll need
-#' to add a `pkgdown` field to your yaml metadata:
+#' Because of the challenges of aligning arbitary CSS and JS from a vignette
+#' with the rest of your site, there is limited support for other output
+#' formats. To override pkgdown's default and use the output format specified
+#' by your `.Rmd` include the following yaml in your `.Rmd` metadata:
 #'
 #' ```yaml
 #' pkgdown:
 #'   as_is: true
 #' ```
-#'
-#' This will tell pkgdown to use the `output_format` (and options) that you
-#' have specified. This format must accept `template`, `theme`, and
-#' `self_contained` in order to work with pkgdown.
-#' If the output needs a theme, you'll have to specify it even if it is
-#' `"default"`, and you might experience Bootstrap incompatibilities between
-#' the output and pkgdown.
 #'
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
@@ -144,19 +139,12 @@
 #'   extension: pdf
 #' ```
 #'
-#' If you want to set an output format for all your articles, you can do that
-#' by adding a `vignettes/_site.yml`, much like you would for an
-#' [rmarkdown website](https://rmarkdown.rstudio.com/docs/reference/render_site.html).
-#' For example, you can backport some bookdown features such as cross-references
-#'  to all your articles by using the
-#' [bookdown::html_document2](https://bookdown.org/yihui/bookdown/a-single-document.html)
-#' format.
-#'
-#' ```yaml
-#' output:
-#'   bookdown::html_document2:
-#'   number_sections: false
-#' ```
+#' To work with pkgdown, the output format must accept `template`, `theme`, and
+#' `self_contained` arguments, and must work with out any additional CSS or
+#' JSS files. Note that if you use
+#' [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
+#' or [`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
+#' you'll still need to add `as_is: true` to each individual vignette.
 #'
 #' @inheritSection build_reference Figures
 #'
@@ -258,25 +246,17 @@ build_article <- function(name,
 
     if (identical(ext, "html")) {
       template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
-      output <- purrr::pluck(front, "output")
-      # no option for the output
-      if (is.character(output)) {
-        output_name <- output
-        theme <- NULL
-      } else {
-        output_name <- names(output)[[1]]
-        theme <- output[[1]]$theme
-      }
+      output <- rmarkdown::default_output_format(input_path)
 
+      # Override defaults & values supplied in metadata
       options <- list(
         template = template$path,
         self_contained = FALSE
       )
-
-      if (!grepl("html_vignette$", output_name)) {
-        options$theme <- theme
+      if (output$name != "rmarkdown::html_vignette") {
+        # Force to NULL unless overridden by user
+        options$theme <- output$options$theme
       }
-
     } else {
       options <- list()
     }

@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* Support for `as_is: true` and non-default output formats for vignettes/
+  articles has been somewhat improved. Support is fundamentally limited due to
+  the challenges of integrating HTML from output formats that pkgdown doesn't
+  know about it, but it should be a little more reliable and a little better
+  documented (#1757, #1764).
 
 * `pkgdown.css` now incldues updated css styles from pandoc to support better
   reference list styling (#1469).
