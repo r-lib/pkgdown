@@ -67,7 +67,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     )
 
   pkg_list$bs_version <- get_bs_version(pkg_list)
-  pkg_list$has_logo <- has_logo(pkg_list)
   pkg_list$prefix <- ""
   if (pkg_list$development$in_dev) {
     pkg_list$prefix <- paste0(
@@ -204,8 +203,9 @@ package_vignettes <- function(path = ".") {
   if (!dir_exists(base)) {
     vig_path <- character()
   } else {
-    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", recurse = TRUE)
+    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", type = "file", recurse = TRUE)
   }
+
   vig_path <- path_rel(vig_path, base)
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
   vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]

@@ -1,7 +1,18 @@
 # pkgdown (development version)
 
+
 * `pkgdown.css` now incldues updated css styles from pandoc to support better
   reference list styling (#1469).
+
+* `build_articler()` no longer fails if you have a directory underneath 
+  vignettes with a `.Rmd` extension (#1425).
+
+* The version tooltip showed in the top navbar is now only set if you've 
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
 
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to

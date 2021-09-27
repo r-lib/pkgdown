@@ -94,6 +94,13 @@
 #' CI envar is "true"), this is an error so that the build will fail if you
 #' forget to include topics in the index.
 #'
+#' ## Missing topics
+#'
+#' pkgdown will warn if there are (non-internal) topics that not listed
+#' in the reference index. You can suppress these warnings by listing the
+#' topics in section with "title: internal" (case sensitive) which will not be
+#' displayed on the reference index.
+#'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
 #' a top-level `icons` directory. This should contain {.png} files that are
