@@ -13,7 +13,6 @@ rd2ex <- function(x, ...) {
 run_examples <- function(x,
                          topic = "unknown",
                          env = globalenv(),
-                         run_examples = TRUE,
                          run_dont_run = FALSE
                          ) {
 
@@ -34,7 +33,7 @@ run_examples <- function(x,
     return("")
   }
 
-  if (run_examples) {
+  if (!is.null(env)) {
     highlight_examples(code, topic, env = env)
   } else {
     highlight_text(code)

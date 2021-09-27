@@ -129,23 +129,12 @@ deploy_to_branch <- function(pkg = ".",
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
-  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
-
-  if (clean) {
-    rule("Cleaning files from old site", line = 1)
-    clean_site(pkg)
-  }
-
-  build_site(pkg, devel = FALSE, preview = FALSE, install = FALSE, ...)
-  if (github_pages) {
-    build_github_pages(pkg)
-  }
+  build_site_github_pages(pkg, dest_dir = dest_dir, clean = clean)
 
   github_push(dest_dir, commit_message, remote, branch)
 
   invisible()
 }
-
 
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0

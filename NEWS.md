@@ -1,5 +1,40 @@
 # pkgdown (development version)
 
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
+
+* `pkgdown.css` now incldues updated css styles from pandoc to support better
+  reference list styling (#1469).
+
+* `build_articler()` no longer fails if you have a directory underneath 
+  vignettes with a `.Rmd` extension (#1425).
+
+* The version tooltip showed in the top navbar is now only set if you've 
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
+* `build_reference()` will run `pkgdown/pre-reference.R` before and 
+  `pkgdown/post-reference.R` after running examples. These allow you to
+  do any setup or teardown operations you might need (#1602).
+
+* Headings on the reference index page, and the arguments heading on the 
+  reference pages, now get anchors (#1747).
+
+* New `pkgdown_print()` allows you to control how your objects are rendered in
+  examples. It includes built-in handling for htmlwidgets and "browseable" HTML
+  so pkgdown output now more closely resembles what you see in RStudio.
+
+* Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
+
+* `\value{}` now does a better job of handling multiple mingled items and text 
+  (#1479).
+
+* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
+
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
@@ -43,7 +78,7 @@
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
-  search pkgdown websites. (#1629, with help from @gustavdelius in #1655)
+  search pkgdown websites. (#1629, with help from @gustavdelius in #1655 and @dieghernan @GregorDeCillia in #1770)
 
 * pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
   This might change Algolia results if you use Algolia for search. (#1629)

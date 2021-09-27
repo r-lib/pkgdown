@@ -15,11 +15,11 @@ pre {
   border: 1px solid $table-border-color;
 }
 
-pre .img {
+pre .img, pre .r-plt {
   margin: 5px 0;
 }
 
-pre .img img {
+pre .img img, pre .r-plt img {
   background-color: #fff;
   display: block;
   height: auto;

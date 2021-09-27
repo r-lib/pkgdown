@@ -42,15 +42,14 @@ init_site <- function(pkg = ".") {
 
   copy_assets(pkg)
 
-  if (has_favicons(pkg)) {
-    copy_favicons(pkg)
-  } else if (has_logo(pkg)) {
+  if (has_logo(pkg) && !has_favicons(pkg)) {
+    # Building favicons is expensive, so we hopefully only do it once.
     build_favicons(pkg)
-    copy_favicons(pkg)
   }
+  copy_favicons(pkg)
+  copy_logo(pkg)
 
   build_site_meta(pkg)
-  build_logo(pkg)
   if (!pkg$development$in_dev) {
     build_404(pkg)
   }
@@ -61,14 +60,6 @@ init_site <- function(pkg = ".") {
 copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   template <- purrr::pluck(pkg$meta, "template", .default = list())
-
-  # Copy logo
-  if (pkg$has_logo) {
-    file.copy(
-      find_logo(pkg$src_path),
-      file.path(pkg$dst_path, "package-logo.png")
-    )
-  }
 
   # Copy default assets
   if (!identical(template$default_assets, FALSE)) {

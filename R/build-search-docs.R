@@ -75,10 +75,15 @@ url_node <- function(url) {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Local testing:
-#' Search won't work if you simply use pkgdown preview of the static files.
+#' @section Debugging and local testing:
+#'
+#' Locally (as opposed to on GitHub Pages or Netlify for instance),
+#' search won't work if you simply use pkgdown preview of the static files.
 #' You can use `servr::httw("docs")` instead.
 #'
+#' If search is not working, run `pkgdown::pkgdown_sitrep()` to eliminate
+#' common issues such as the absence of URL in the pkgdown configuration file
+#' of your package.
 #'
 #' @inheritParams build_articles
 #' @export
@@ -112,6 +117,14 @@ build_search_index <- function(pkg) {
   }
 
   purrr::compact(index)
+
+  # Make URLs absolute if possible
+  url <- pkg$meta$url %||% ""
+  fix_path <- function(x) {
+    x$path <- sprintf("%s%s", url, x$path)
+    x
+  }
+  index <- purrr::map(index, fix_path)
 
 }
 

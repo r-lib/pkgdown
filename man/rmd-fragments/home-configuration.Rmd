@@ -4,7 +4,7 @@ The main content of the home page (`index.html`) is generated from `pkgdown/inde
 `index.md`, or `README.md`, in that order. Most packages will use `README.md`
 because that's also displayed by GitHub and CRAN. Use `index.md` if you want
 your package website to look different to your README, and use
-`_pkgdown/index.md` if you don't want that file to live in your package
+`pkgdown/index.md` if you don't want that file to live in your package
 root directory.
 
 If you use `index.Rmd` or `README.Rmd` it's your responsibility to knit

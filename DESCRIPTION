@@ -32,7 +32,7 @@ Imports:
     crayon,
     desc,
     digest,
-    downlit,
+    downlit (>= 0.2.9000.9001),
     fs (>= 1.3.0),
     jsonlite,
     httr (>= 1.4.2),
@@ -72,7 +72,7 @@ Config/Needs/website:
     servr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.2
 SystemRequirements: pandoc
 Remotes: 
     r-lib/downlit
