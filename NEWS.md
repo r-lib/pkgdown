@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
 
 * `pkgdown.css` now incldues updated css styles from pandoc to support better
   reference list styling (#1469).
