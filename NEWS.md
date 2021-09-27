@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Articles now render output styles created by cli/crayon. This is currently a 
+  little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
+  versions will attempt to relax these restrictions, likely through a new 
+  document format.
 
 * `pkgdown.css` now incldues updated css styles from pandoc to support better
   reference list styling (#1469).

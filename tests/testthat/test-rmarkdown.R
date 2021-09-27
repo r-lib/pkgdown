@@ -21,3 +21,20 @@ test_that("render_rmarkdown yields useful error", {
     render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html")
   })
 })
+
+test_that("render_rmarkdown styles ANSI escapes", {
+  skip_if_no_pandoc()
+  tmp <- dir_create(file_temp())
+  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 4)
+
+  expect_output({
+    path <- render_rmarkdown(pkg,
+      input = "assets/vignette-with-crayon.Rmd",
+      output = "test.html"
+    )
+  })
+  html <- xml2::read_html(path)
+  expect_snapshot_output({
+    html %>% xml2::xml_find_all(".//code//span[@class='co']") %>% as.character()
+  })
+})

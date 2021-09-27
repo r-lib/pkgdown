@@ -575,7 +575,13 @@ tweak_404 <- function(html, pkg = pkg) {
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
+
+  raw <- read_file(path)
+  # Following the xml 1.0 spec, libxml2 drops low-bit ASCII characters
+  # so we convert to \u2029, relying on downlit to convert back in
+  # token_escape().
+  raw <- gsub("\033", "\u2029", raw, fixed = TRUE)
+  html <- xml2::read_html(raw, encoding = "UTF-8")
   tweak(html, ...)
 
   xml2::write_html(html, path, format = FALSE)
