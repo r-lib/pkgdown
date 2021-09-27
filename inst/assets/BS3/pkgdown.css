@@ -278,11 +278,11 @@ pre {
   border: 1px solid #eee;
 }
 
-pre .img {
+pre .img, pre .r-plt {
   margin: 5px 0;
 }
 
-pre .img img {
+pre .img img, pre .r-plt img {
   background-color: #fff;
 }
 
