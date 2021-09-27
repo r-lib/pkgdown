@@ -8,9 +8,12 @@ articles:
   pkgdown: pkgdown.html
   search: search.html
   jss: test/jss.pdf
+  output-html-vignette: test/output-html-vignette.html
+  output-theme: test/output-theme.html
+  output: test/output.html
   pdf: test/pdf.pdf
   rendering: test/rendering.html
-last_built: 2021-09-27T17:01Z
+last_built: 2021-09-27T17:06Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
