@@ -56,7 +56,8 @@ img.icon {
   float: right;
 }
 
-img {
+/* Ensure in-page images don't run outside their container */
+.contents img {
   max-width: 100%;
   height: auto;
 }
