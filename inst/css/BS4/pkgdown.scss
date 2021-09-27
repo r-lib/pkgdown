@@ -52,7 +52,8 @@ img.icon {
   float: right;
 }
 
-.content img {
+/* Ensure in-page images don't run outside their container */
+.contents img {
   max-width: 100%;
   height: auto;
 }
@@ -84,6 +85,11 @@ a.anchor {
   .hasAnchor:hover a.anchor {
     visibility: hidden;
   }
+}
+
+/* Minimal hack to make anchors work inside tables */
+table a.anchor {
+  position: absolute;
 }
 
 /* Never uppercase the package name */
