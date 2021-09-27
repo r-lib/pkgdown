@@ -152,24 +152,19 @@ See \url{https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856} for
 some hints on how to customise the appearance with CSS.
 }
 
-\section{YAML header}{
+\section{Output formats}{
 
-By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
-by setting the \code{template} parameter. This overrides any custom settings
-you have in your YAML metadata, ensuring that all articles are rendered
-in the same way (and receive the default site template).
+By default, pkgdown builds all articles using the
+\code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} \code{output} format, ignoring whatever is set in
+your YAML metadata. This is necessary because pkgdown has to integrate the
+HTML of your vignette with the rest of the site.
 
-If you need to override the output format, or set any options, you'll need
-to add a \code{pkgdown} field to your yaml metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+Because of the challenges of aligning arbitary CSS and JS from a vignette
+with the rest of your site, there is limited support for other output
+formats. To override pkgdown's default and use the output format specified
+by your \code{.Rmd} include the following yaml in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
 }\if{html}{\out{</div>}}
-
-This will tell pkgdown to use the \code{output_format} (and options) that you
-have specified. This format must accept \code{template}, \code{theme}, and
-\code{self_contained} in order to work with pkgdown.
-If the output needs a theme, you'll have to specify it even if it is
-\code{"default"}, and you might experience Bootstrap incompatibilities between
-the output and pkgdown.
 
 If the output format produces a PDF, you'll also need to specify the
 \code{extension} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
@@ -177,16 +172,12 @@ If the output format produces a PDF, you'll also need to specify the
   extension: pdf
 }\if{html}{\out{</div>}}
 
-If you want to set an output format for all your articles, you can do that
-by adding a \verb{vignettes/_site.yml}, much like you would for an
-\href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{rmarkdown website}.
-For example, you can backport some bookdown features such as cross-references
-to all your articles by using the
-\href{https://bookdown.org/yihui/bookdown/a-single-document.html}{bookdown::html_document2}
-format.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{output:
-  bookdown::html_document2:
-  number_sections: false
-}\if{html}{\out{</div>}}
+To work with pkgdown, the output format must accept \code{template}, \code{theme}, and
+\code{self_contained} arguments, and must work with out any additional CSS or
+JSS files. Note that if you use
+\href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{\verb{_site.yml}}
+or \href{https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options}{\verb{_output.yml}}
+you'll still need to add \code{as_is: true} to each individual vignette.
 }
 
 \section{Suppressing vignettes}{
