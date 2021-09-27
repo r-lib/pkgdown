@@ -6,9 +6,24 @@ test_that("can recognise intro variants", {
 })
 
 test_that("can build article that uses html_vignette", {
-  pkg <- as_pkgdown(test_path("assets/article-html-vignette"))
+  pkg <- as_pkgdown(test_path("assets/article-as-is"))
   withr::defer(clean_site(pkg))
 
+  # theme is not set since html_vignette doesn't support it
   expect_output(expect_error(build_article("html-vignette", pkg), NA))
+})
+
+test_that("can override html_document() options", {
+  pkg <- as_pkgdown(test_path("assets/article-as-is"))
+  withr::defer(clean_site(pkg))
+
+  expect_output(path <- build_article("html-document", pkg))
+
+  # Check that number_sections is respected
+  html <- xml2::read_html(path)
+  expect_equal(
+    html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
+    c("1", "2"
+  ))
 })
 
