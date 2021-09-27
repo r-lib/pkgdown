@@ -58,6 +58,7 @@ img.icon {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 /* Fix bug in bootstrap (only seen in firefox) */
@@ -282,8 +283,6 @@ pre .img {
 
 pre .img img {
   background-color: #fff;
-  display: block;
-  height: auto;
 }
 
 code a, pre a {
