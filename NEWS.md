@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+
+* `pkgdown.css` now incldues updated css styles from pandoc to support better
+  reference list styling (#1469).
+
 * `build_articler()` no longer fails if you have a directory underneath 
   vignettes with a `.Rmd` extension (#1425).
 
