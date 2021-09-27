@@ -3,6 +3,10 @@ title: "html::vignette"
 output: rmarkdown::html_vignette
 pkgdown:
   as_is: true
+vignette: >
+  %\VignetteIndexEntry{html::vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r include = FALSE}
