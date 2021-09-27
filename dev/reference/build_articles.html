@@ -244,40 +244,32 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
     </div>
-    <div class="ref-section section level2" id="section-yaml-header">
-    <h2 class="hasAnchor" id="yaml-header"><a class="anchor" href="#yaml-header" aria-hidden="true"></a>YAML header</h2>
+    <div class="ref-section section level2" id="section-output-formats">
+    <h2 class="hasAnchor" id="output-formats"><a class="anchor" href="#output-formats" aria-hidden="true"></a>Output formats</h2>
 
     
 
-<p>By default, pkgdown builds all articles with <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">rmarkdown::html_document()</a></code>
-by setting the <code>template</code> parameter. This overrides any custom settings
-you have in your YAML metadata, ensuring that all articles are rendered
-in the same way (and receive the default site template).</p>
-<p>If you need to override the output format, or set any options, you'll need
-to add a <code>pkgdown</code> field to your yaml metadata:</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
+<p>By default, pkgdown builds all articles using the
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
+your YAML metadata. This is necessary because pkgdown has to integrate the
+HTML of your vignette with the rest of the site.</p>
+<p>Because of the challenges of aligning arbitary CSS and JS from a vignette
+with the rest of your site, there is limited support for other output
+formats. To override pkgdown's default and use the output format specified
+by your <code>.Rmd</code> include the following yaml in your <code>.Rmd</code> metadata:</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
   <span class="va">as_is</span><span class="op">:</span> <span class="va">true</span>
 </code></pre><p></p></div>
-<p>This will tell pkgdown to use the <code>output_format</code> (and options) that you
-have specified. This format must accept <code>template</code>, <code>theme</code>, and
-<code>self_contained</code> in order to work with pkgdown.
-If the output needs a theme, you'll have to specify it even if it is
-<code>"default"</code>, and you might experience Bootstrap incompatibilities between
-the output and pkgdown.</p>
 <p>If the output format produces a PDF, you'll also need to specify the
 <code>extension</code> field:</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">pkgdown</span><span class="op">:</span>
   <span class="va">as_is</span><span class="op">:</span> <span class="va">true</span>
   <span class="va">extension</span><span class="op">:</span> <span class="va">pdf</span>
 </code></pre><p></p></div>
-<p>If you want to set an output format for all your articles, you can do that
-by adding a <code>vignettes/_site.yml</code>, much like you would for an
-<a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html">rmarkdown website</a>.
-For example, you can backport some bookdown features such as cross-references
-to all your articles by using the
-<a href="https://bookdown.org/yihui/bookdown/a-single-document.html">bookdown::html_document2</a>
-format.</p><div class="sourceCode yaml"><pre class="sourceCode r"><code><span class="va">output</span><span class="op">:</span>
-  <span class="fu">bookdown</span><span class="fu">::</span><span class="va">html_document2</span><span class="op">:</span>
-  <span class="va">number_sections</span><span class="op">:</span> <span class="va">false</span>
-</code></pre><p></p></div>
+<p>To work with pkgdown, the output format must accept <code>template</code>, <code>theme</code>, and
+<code>self_contained</code> arguments, and must work with out any additional CSS or
+JSS files. Note that if you use
+<a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html"><code>_site.yml</code></a>
+or <a href="https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options"><code>_output.yml</code></a>
+you'll still need to add <code>as_is: true</code> to each individual vignette.</p>
     </div>
     <div class="ref-section section level2" id="section-suppressing-vignettes">
     <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes" aria-hidden="true"></a>Suppressing vignettes</h2>

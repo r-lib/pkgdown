@@ -74,7 +74,8 @@
     <div id="pkgdown-development-version" class="section level2">
 <h2 class="pb-2 mt-4 mb-2 border-bottom pkg-version" data-toc-text="development version">
 <a href="#pkgdown-development-version" class="anchor" aria-hidden="true"></a>pkgdown (development version)</h2><h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
-<ul><li><p><code>pkgdown.css</code> now incldues updated css styles from pandoc to support better reference list styling (<a href="https://github.com/r-lib/pkgdown/issues/1469">#1469</a>).</p></li>
+<ul><li><p>Support for <code>as_is: true</code> and non-default output formats for vignettes/ articles has been somewhat improved. Support is fundamentally limited due to the challenges of integrating HTML from output formats that pkgdown doesn’t know about it, but it should be a little more reliable and a little better documented (<a href="https://github.com/r-lib/pkgdown/issues/1757">#1757</a>, <a href="https://github.com/r-lib/pkgdown/issues/1764">#1764</a>).</p></li>
+<li><p><code>pkgdown.css</code> now incldues updated css styles from pandoc to support better reference list styling (<a href="https://github.com/r-lib/pkgdown/issues/1469">#1469</a>).</p></li>
 <li><p><code>build_articler()</code> no longer fails if you have a directory underneath vignettes with a <code>.Rmd</code> extension (<a href="https://github.com/r-lib/pkgdown/issues/1425">#1425</a>).</p></li>
 <li><p>The version tooltip showed in the top navbar is now only set if you’ve explicitly set the <code>development$mode</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/r-lib/pkgdown/issues/1768">#1768</a>).</p></li>
 <li><p>Reference index section with <code>title: internal</code> is now silently dropped, allowing you to suppress warnings about topics that are not listed in the index (<a href="https://github.com/r-lib/pkgdown/issues/1716">#1716</a>).</p></li>
