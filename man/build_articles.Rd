@@ -157,12 +157,10 @@ some hints on how to customise the appearance with CSS.
 By default, pkgdown builds all articles using the
 \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} \code{output} format, ignoring whatever is set in
 your YAML metadata. This is necessary because pkgdown has to integrate the
-HTML of your vignette with the rest of the site.
-
-Because of the challenges of aligning arbitary CSS and JS from a vignette
-with the rest of your site, there is limited support for other output
-formats. To override pkgdown's default and use the output format specified
-by your \code{.Rmd} include the following yaml in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
+Because of the challenges of combining two sources of HTML/CSS/JS, there is
+limited support for other output formats and you have to opt-in by setting
+the \code{as_is} field in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
 }\if{html}{\out{</div>}}
 
@@ -173,10 +171,10 @@ If the output format produces a PDF, you'll also need to specify the
 }\if{html}{\out{</div>}}
 
 To work with pkgdown, the output format must accept \code{template}, \code{theme}, and
-\code{self_contained} arguments, and must work with out any additional CSS or
+\code{self_contained} arguments, and must work without any additional CSS or
 JSS files. Note that if you use
-\href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{\verb{_site.yml}}
-or \href{https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options}{\verb{_output.yml}}
+\href{https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options}{\verb{_output.yml}}
+or \href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{\verb{_site.yml}}
 you'll still need to add \code{as_is: true} to each individual vignette.
 }
 

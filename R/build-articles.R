@@ -118,12 +118,10 @@
 #' By default, pkgdown builds all articles using the
 #' [rmarkdown::html_document()] `output` format, ignoring whatever is set in
 #' your YAML metadata. This is necessary because pkgdown has to integrate the
-#' HTML of your vignette with the rest of the site.
-#'
-#' Because of the challenges of aligning arbitary CSS and JS from a vignette
-#' with the rest of your site, there is limited support for other output
-#' formats. To override pkgdown's default and use the output format specified
-#' by your `.Rmd` include the following yaml in your `.Rmd` metadata:
+#' HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
+#' Because of the challenges of combining two sources of HTML/CSS/JS, there is
+#' limited support for other output formats and you have to opt-in by setting
+#' the `as_is` field in your `.Rmd` metadata:
 #'
 #' ```yaml
 #' pkgdown:
@@ -142,8 +140,8 @@
 #' To work with pkgdown, the output format must accept `template`, `theme`, and
 #' `self_contained` arguments, and must work without any additional CSS or
 #' JSS files. Note that if you use
-#' [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
-#' or [`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
+#' [`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
+#' or [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
 #' you'll still need to add `as_is: true` to each individual vignette.
 #'
 #' @inheritSection build_reference Figures
