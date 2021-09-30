@@ -1,21 +1,19 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
+    tags: ['*']
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [master, main]
 
 name: pkgdown
 
 jobs:
   pkgdown:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork == false
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
-      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -25,37 +23,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
-        id: install-r
+        with:
+          use-public-rspm: true
 
       - uses: r-lib/actions/setup-pandoc@v1
 
       - uses: r-lib/actions/setup-tinytex@v1
 
-      - name: Install pak and query dependencies
-        run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ubuntu-18.04-${{ steps.install-r.outputs.installed-r-version }}-1-
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("pkgdown", execute = TRUE)
-        shell: Rscript {0}
-
-      - name: Install dependencies
-        run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("pkgdown")
-        shell: Rscript {0}
+      - uses: r-lib/actions/setup-r-dependencies@v1
 
       - name: Install package
         run: R CMD INSTALL .
