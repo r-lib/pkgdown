@@ -144,6 +144,8 @@
 #' or [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
 #' you'll still need to add `as_is: true` to each individual vignette.
 #'
+#' Additionally, htmlwidgets do not work when `as_is: true`.
+#'
 #' @inheritSection build_reference Figures
 #'
 #' @section Suppressing vignettes:
@@ -226,23 +228,25 @@ build_article <- function(name,
     data$opengraph %||% list(), front_opengraph
   )
 
+  # Allow users to opt-in to their own template
+  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
+  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
+
   default_data <- list(
     pagetitle = front$title,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, path_rel(input, pkg$src_path)),
     filename = path_file(input),
-    output_file = output_file
+    output_file = output_file,
+    as_is = as_is
   )
   data <- utils::modifyList(default_data, data)
-
-  # Allow users to opt-in to their own template
-  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
-  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   if (as_is) {
     format <- NULL
 
     if (identical(ext, "html")) {
+      data$as_is <- TRUE
       template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
       output <- rmarkdown::default_output_format(input_path)
 

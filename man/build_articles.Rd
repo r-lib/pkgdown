@@ -176,6 +176,8 @@ JSS files. Note that if you use
 \href{https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options}{\verb{_output.yml}}
 or \href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{\verb{_site.yml}}
 you'll still need to add \code{as_is: true} to each individual vignette.
+
+Additionally, htmlwidgets do not work when \code{as_is: true}.
 }
 
 \section{Suppressing vignettes}{
