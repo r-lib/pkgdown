@@ -95,10 +95,7 @@
 </div>
   </div>
 </nav><div class="container template-article">
-<script src="rendering_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="rendering_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="rendering_files/jquery-1.12.4/jquery.min.js"></script><link href="rendering_files/diff2html-2.3.0/diff2html.min.css" rel="stylesheet">
-<script src="rendering_files/diff2html-2.3.0/diff2html.min.js"></script><script src="rendering_files/diff2html-2.3.0/diff2html-ui.min.js"></script><script src="rendering_files/jsdiff-3.2.0/diff.js"></script><script src="rendering_files/resemble-2.2.4/resemble.js"></script><script src="rendering_files/PapaParse-5.3.0/papaparse.min.js"></script><link href="rendering_files/daff-1.3.39/daff_handsontable.css" rel="stylesheet">
-<script src="rendering_files/daff-1.3.39/daff.js"></script><link href="rendering_files/diffviewer-0.1/diffviewer.css" rel="stylesheet">
-<script src="rendering_files/diffviewer-0.1/diffviewer.js"></script><script src="rendering_files/visual_diff-binding-0.1.1/visual_diff.js"></script><div class="row">
+<script src="rendering_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <img src="../../logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
       <h1 class="display-4" data-toc-skip>Output Rendering</h1>
@@ -115,97 +112,41 @@
     
     
 <p>This vignette tests pkgdown output rendering for several use cases.</p>
-<div id="footnotes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#footnotes" class="anchor" aria-hidden="true"></a>Footnotes</h1>
+<div id="footnotes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#footnotes" class="anchor" aria-hidden="true"></a>Footnotes</h2>
 <p>Yay<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Including &lt;strong&gt;footnotes&lt;/strong&gt;! 😁&lt;/p&gt;"><sup>1</sup></a></p>
 </div>
-<div id="highlighting" class="section level1">
-<h1 class="hasAnchor">
-<a href="#highlighting" class="anchor" aria-hidden="true"></a>Highlighting</h1>
-<p>This document uses a variety of linking styles for testing purposes</p>
-<div id="inline-code" class="section level2">
+<div id="figures" class="section level2">
 <h2 class="hasAnchor">
-<a href="#inline-code" class="anchor" aria-hidden="true"></a>Inline code</h2>
-<p>Local:</p>
-<ul>
-<li><code><a href="../../articles/pkgdown.html">vignette("pkgdown")</a></code></li>
-<li><code><a href="../../reference/build_site.html">build_site()</a></code></li>
-<li><code><a href="../../reference/templates.html">?template_navbar</a></code></li>
-</ul>
-<p>Remote:</p>
-<ul>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">MASS::enlist</a></code></li>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">MASS::enlist()</a></code></li>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">?MASS::enlist</a></code></li>
-<li><code>%in%</code></li>
-<li><code><a href="https://rdrr.io/r/base/match.html" class="external-link">?`%in%`</a></code></li>
-</ul>
-</div>
-<div id="spurious-links" class="section level2">
-<h2 class="hasAnchor">
-<a href="#spurious-links" class="anchor" aria-hidden="true"></a>Spurious links</h2>
-<p>These shouldn’t be linked.</p>
-<ul>
-<li><code>Authors@R</code></li>
-<li><code>content-home.html</code></li>
-<li><code>toc: depth</code></li>
-<li><code>x = y</code></li>
-</ul>
-</div>
-<div id="code-blocks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-blocks" class="anchor" aria-hidden="true"></a>Code blocks</h2>
+<a href="#figures" class="anchor" aria-hidden="true"></a>Figures</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Shouldn't get linked</span>
-<span class="fu">enlist</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
-<span class="co"># Should get linked</span>
-<span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">enlist</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">enlist</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Should get linked because MASS was loaded previously</span>
-<span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html" class="external-link">enlist</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></code></pre></div>
-<hr>
-</div>
-</div>
-<div id="figures" class="section level1">
-<h1 class="hasAnchor">
-<a href="#figures" class="anchor" aria-hidden="true"></a>Figures</h1>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
-<p><img src="rendering_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<hr>
+<p><img src="rendering_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
-<div id="external-files" class="section level1">
-<h1 class="hasAnchor">
-<a href="#external-files" class="anchor" aria-hidden="true"></a>External files</h1>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div id="external-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#external-files" class="anchor" aria-hidden="true"></a>External files</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
 <p><img src="bacon.jpg"></p>
-<hr>
 </div>
-<div id="details-tag" class="section level1">
-<h1 class="hasAnchor">
-<a href="#details-tag" class="anchor" aria-hidden="true"></a>Details tag</h1>
+<div id="details-tag" class="section level2">
+<h2 class="hasAnchor">
+<a href="#details-tag" class="anchor" aria-hidden="true"></a>Details tag</h2>
 <details>
 This should only be shown when required
 </details><details><p><summary>Some R code</summary></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
-</details><hr>
+</details>
 </div>
-<div id="tables" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tables" class="anchor" aria-hidden="true"></a>Tables</h1>
+<div id="tables" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tables" class="anchor" aria-hidden="true"></a>Tables</h2>
 <table style="width:100%;" class="table">
 <colgroup>
 <col width="33%">
@@ -226,27 +167,17 @@ This should only be shown when required
 <td align="center">test</td>
 </tr></tbody>
 </table>
-<hr>
 </div>
-<div id="mathjax" class="section level1">
-<h1 class="hasAnchor">
-<a href="#mathjax" class="anchor" aria-hidden="true"></a>Mathjax</h1>
+<div id="mathjax" class="section level2">
+<h2 class="hasAnchor">
+<a href="#mathjax" class="anchor" aria-hidden="true"></a>Mathjax</h2>
 <p><span class="math display">\[f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}\]</span></p>
 <p>Inline equations: <span class="math inline">\(y=x^2\)</span></p>
-<hr>
 </div>
-<div id="widgets" class="section level1">
-<h1 class="hasAnchor">
-<a href="#widgets" class="anchor" aria-hidden="true"></a>Widgets</h1>
-<p>Test spacing above widget.</p>
-<div id="htmlwidget-30e4409849e39179307f" style="width:700px;height:432.632880098888px;" class="visual_diff html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30e4409849e39179307f">{"x":{"old":"a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","new":"a\nb\nc\nd\ne\nf\ng\nh\ni\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n","filename":"file3cb070ff567d","typediff":"text"},"evals":[],"jsHooks":[]}</script><p>Test spacing below widget.</p>
-<hr>
-</div>
-<div id="crayon" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crayon" class="anchor" aria-hidden="true"></a>Crayon</h1>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div id="crayon" class="section level2">
+<h2 class="hasAnchor">
+<a href="#crayon" class="anchor" aria-hidden="true"></a>Crayon</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
@@ -259,14 +190,14 @@ This should only be shown when required
 <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></code></pre></div>
 <p>Some text</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></code></pre></div>
 <p>Some more text</p>
 </div>
-<div id="quoted-text" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quoted-text" class="anchor" aria-hidden="true"></a>Quoted text</h1>
+<div id="quoted-text" class="section level2">
+<h2 class="hasAnchor">
+<a href="#quoted-text" class="anchor" aria-hidden="true"></a>Quoted text</h2>
 <blockquote>
 <p>Single-line quote about something miscellaneous.</p>
 </blockquote>
@@ -275,21 +206,12 @@ This should only be shown when required
 Ensure that your math<br>
   in xaringan hath<br>
   been placed on a single long line</div>
-<div id="details" class="section level2">
+</div>
+<div id="this-section-is-unnumbered" class="section level2 unnumbered">
 <h2 class="hasAnchor">
-<a href="#details" class="anchor" aria-hidden="true"></a>Details</h2>
-<p>Blablablablablabla.</p>
-<p>Blablablablablabla.</p>
-<details><summary>Short summary</summary><p>
-Blablablablablabla.
-</p>
-</details><p>Blablablablablabla.</p>
-</div>
-</div>
-<div id="this-section-is-unnumbered" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#this-section-is-unnumbered" class="anchor" aria-hidden="true"></a>This section is unnumbered</h1>
+<a href="#this-section-is-unnumbered" class="anchor" aria-hidden="true"></a>This section is unnumbered</h2>
 <p>There should however be no bug here!</p>
+</div>
 <div id="results-in-tabset" class="section level2 tabset tabset-pills">
 <h2 class="hasAnchor">
 <a href="#results-in-tabset" class="anchor" aria-hidden="true"></a>Results in tabset</h2>
@@ -303,7 +225,7 @@ Blablablablablabla.
 <div id="tab-1" class="active tab-pane" role="tabpanel"  aria-labelledby="tab-1">
 
 <p>blablablabla</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 </div>
 <div id="tab-2" class="tab-pane" role="tabpanel"  aria-labelledby="tab-2">
@@ -325,9 +247,9 @@ Blablablablablabla.
 <div id="a-thing" class="tab-pane" role="tabpanel"  aria-labelledby="a-thing">
 
 <p>something nice</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
-<p><img src="rendering_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="rendering_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div id="cool" class="section level4">
 <h4 class="hasAnchor">
 <a href="#cool" class="anchor" aria-hidden="true"></a>cool</h4>
@@ -353,9 +275,9 @@ Blablablablablabla.
 <div id="something" class="fade tab-pane" role="tabpanel"  aria-labelledby="something">
 
 <p>ok</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="rendering_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="rendering_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div id="cool-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#cool-1" class="anchor" aria-hidden="true"></a>cool</h4>
@@ -365,7 +287,6 @@ Blablablablablabla.
 <div id="nice" class="show active fade tab-pane" role="tabpanel"  aria-labelledby="nice">
 
 <p>bonjour</p>
-</div>
 </div>
 </div>
 </div>
