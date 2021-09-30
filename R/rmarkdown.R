@@ -33,7 +33,8 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
         callr::rcmd_safe_env(),
         BSTINPUTS = bst_paths(input_path),
         TEXINPUTS = tex_paths(input_path),
-        BIBINPUTS = bib_paths(input_path)
+        BIBINPUTS = bib_paths(input_path),
+        R_CLI_NUM_COLORS = 256
       )
     ),
     error = function(cnd) {
