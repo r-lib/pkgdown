@@ -1,0 +1,13 @@
+---
+title: "Custom output"
+pkgdown:
+  as_is: true
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+# Heading 1
+
+# Heading 2

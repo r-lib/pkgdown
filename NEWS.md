@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* Support for `as_is: true` and non-default output formats for vignettes/
+  articles has been somewhat improved. Support is fundamentally limited due to
+  the challenges of integrating HTML from output formats that pkgdown doesn't
+  know about, but it should be a little more reliable and a little better
+  documented (#1757, #1764).
+
 * Articles now render output styles created by cli/crayon. This is currently a 
   little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
   versions will attempt to relax these restrictions, likely through a new 
