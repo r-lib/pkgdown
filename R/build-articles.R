@@ -140,7 +140,7 @@
 #' ```
 #'
 #' To work with pkgdown, the output format must accept `template`, `theme`, and
-#' `self_contained` arguments, and must work with out any additional CSS or
+#' `self_contained` arguments, and must work without any additional CSS or
 #' JSS files. Note that if you use
 #' [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
 #' or [`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
