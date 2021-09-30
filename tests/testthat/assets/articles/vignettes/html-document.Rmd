@@ -1,5 +1,5 @@
 ---
-title: "Custom output"
+title: "html_document + as_is"
 output: 
   html_document:
     number_sections: true
@@ -10,6 +10,8 @@ pkgdown:
 ```{r include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
+
+This should have section numbers on the headings.
 
 # Heading 1
 

@@ -1,12 +1,6 @@
 ---
 title: "Widgets"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Widgets}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
-
 
 ```{r}
 path1 <- tempfile()
