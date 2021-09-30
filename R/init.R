@@ -182,12 +182,10 @@ create_bs_assets <- function(pkg) {
   )
 
   # first, defaults from bslib + pkgdown
-  bs_theme <- do.call(
-    bslib::bs_theme,
-    c(
-      list(version = bs_version, bootswatch = bootswatch_theme),
-      sass_vars
-    )
+  bs_theme <- bslib::bs_theme(
+    version = bs_version,
+    bootswatch = bootswatch_theme,
+    !!!sass_vars
   )
 
   # Add body-color & navbar colors only in the absence of Bootswatch usage
