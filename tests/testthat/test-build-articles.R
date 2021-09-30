@@ -23,8 +23,8 @@ test_that("can override html_document() options", {
   html <- xml2::read_html(path)
   expect_equal(
     html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
-    c("1", "2"
-  ))
+    c("1", "2")
+  )
 })
 
 test_that("can override options with _output.yml", {
@@ -37,7 +37,7 @@ test_that("can override options with _output.yml", {
   html <- xml2::read_html(path)
   expect_equal(
     html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
-    c("1", "2"
-  ))
+    c("1", "2")
+  )
 })
 
