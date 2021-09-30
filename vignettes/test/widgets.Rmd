@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Widgets
+## Widgets
 
 Test spacing above widget.
 

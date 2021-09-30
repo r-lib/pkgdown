@@ -11,72 +11,19 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 This vignette tests pkgdown output rendering for several use cases.
 
-# Footnotes
+## Footnotes
 
 Yay[^footnote]
- 
- 
+
 [^footnote]: Including **footnotes**! 😁
 
-# Highlighting
-
-This document uses a variety of linking styles for testing purposes
-
-## Inline code
-
-Local:
-
-* `vignette("pkgdown")`
-* `build_site()`
-* `?template_navbar`
-
-Remote:
-
-* `MASS::enlist`
-* `MASS::enlist()`
-* `?MASS::enlist`
-* `%in%`
-* `` ?`%in%` ``
-
-## Spurious links
-
-These shouldn't be linked.
-
-* `Authors@R`
-* `content-home.html`
-* `toc: depth`
-* `x = y`
-
-## Code blocks
-
-```{r, eval = FALSE}
-# Shouldn't get linked
-enlist(5)
-# Should get linked
-MASS::enlist(5)
-```
-
-```{r}
-library(MASS)
-enlist(5)
-```
-
-```{r}
-# Should get linked because MASS was loaded previously
-enlist(5)
-```
-
----
-
-# Figures
+## Figures
 
 ```{r}
 plot(1:10)
 ```
 
----
-
-# External files
+## External files
 
 ```{r}
 x <- readLines("test.txt")
@@ -85,9 +32,7 @@ x
 
 ![](bacon.jpg)
 
----
-
-# Details tag
+## Details tag
 
 <details>
   This should only be shown when required
@@ -101,25 +46,19 @@ x
 ```
 </details>
 
----
-
-# Tables
+## Tables
 
 | col 1 | col 2 | col 3 | col 4 |
 |:---------------|:-----------|:-------:|:---------:|
 | Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
 
----
-
-# Mathjax
+## Mathjax
 
 $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
 Inline equations: $y=x^2$
 
----
-
-# Crayon
+## Crayon
 
 ```{r}
 cat(crayon::red("This is red"), "\n")
@@ -137,7 +76,7 @@ stop(crayon::italic("This is italic"))
 
 Some more text
 
-# Quoted text
+## Quoted text
 
 > Single-line quote about something miscellaneous.
 
@@ -146,20 +85,8 @@ Some more text
 | Ensure that your math  
 |   in xaringan hath  
 |   been placed on a single long line
-## Details
 
-Blablablablablabla.
-
-Blablablablablabla.
-
-<details>
-  <summary>Short summary</summary>
-  <p>Blablablablablabla.</p>
-</details> 
-
-Blablablablablabla.
-
-# This section is unnumbered {-}
+## This section is unnumbered {-}
 
 There should however be no bug here!
 
