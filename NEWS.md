@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* Articles now render output styles created by cli/crayon. This is currently a 
+  little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
+  versions will attempt to relax these restrictions, likely through a new 
+  document format.
+
 * `build_site_github_pages()` has been extracted out of `deploy_from_github()`
   to make it easier to decouple building and deployment, and so we can take
   advantage of standard deployment actions (#1756).
