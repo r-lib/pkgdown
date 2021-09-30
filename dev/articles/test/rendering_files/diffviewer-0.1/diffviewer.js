@@ -538,7 +538,11 @@ diffviewer = (function() {
         transparency: 0.2
       });
 
+      // By default, resemble.js ignores some very small differences between
+      // images. (https://github.com/r-lib/diffviewer/issues/9). Calling
+      // ignoreNothing() tells it to show every difference.
       resemble(old_img).compareTo(new_img)
+        .ignoreNothing()
         .onComplete(function(data) {
           if (!dims()) {
             // Store the dimensions if needed.
