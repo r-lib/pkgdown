@@ -6,6 +6,10 @@
   know about, but it should be a little more reliable and a little better
   documented (#1757, #1764).
 
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
+
 * `pkgdown.css` now incldues updated css styles from pandoc to support better
   reference list styling (#1469).
 

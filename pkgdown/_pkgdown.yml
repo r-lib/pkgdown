@@ -55,6 +55,7 @@ reference:
 - title: Deployment
   contents:
   - starts_with("deploy_")
+  - build_site_github_pages
 
 - title: Templates
   contents:
