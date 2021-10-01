@@ -97,20 +97,30 @@ test_that("GitLab subgroups are properly parsed", {
   }
   target <- "https://gitlab.com/salim_b/r/pkgs/pal/issues/"
   # 1) from URL field, with and without trailing slash
-  expect_equal(issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal/"),
-               target)
-  expect_equal(issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal"),
-               target)
+  expect_equal(
+    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal/"),
+    target
+  )
+  expect_equal(
+    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal"),
+    target
+  )
   # 2) from BugReports field, with and without trailing slash
-  expect_equal(issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"),
-               target)
-  expect_equal(issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues"),
-               target)
+  expect_equal(
+    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"),
+    target
+  )
+  expect_equal(
+    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues"),
+    target
+  )
   # 3) from URL + BugReports
-  expect_equal(issue_url(paste("URL: https://gitlab.com/salim_b/r/pkgs/pal",
-                               "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/",
-                               sep = "\n")),
-               target)
+  expect_equal(
+    issue_url(paste("URL: https://gitlab.com/salim_b/r/pkgs/pal",
+                    "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/",
+                    sep = "\n")),
+    target
+  )
 })
 
 test_that("can find github enterprise url", {
