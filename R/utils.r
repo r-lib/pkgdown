@@ -248,5 +248,6 @@ get_section_level <- function(section) {
   )
 }
 
-get_html_attr <- function(x, xpath, attr) {
-  xml2::xml_ xml2::xml_find_all(x, tag)
+xpath_attr <- function(x, xpath, attr) {
+  xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
+}
