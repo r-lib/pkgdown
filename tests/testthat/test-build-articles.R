@@ -5,6 +5,17 @@ test_that("can recognise intro variants", {
   expect_true(article_is_intro("articles/pack-age", "pack.age"))
 })
 
+test_that("articles don't include header-attrs.js script", {
+  pkg <- as_pkgdown(test_path("assets/articles"))
+  withr::defer(clean_site(pkg))
+
+  expect_output(path <- build_article("standard", pkg))
+
+  html <- xml2::read_html(path)
+  js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
+  expect_equal(js, character())
+})
+
 test_that("can build article that uses html_vignette", {
   pkg <- as_pkgdown(test_path("assets/articles"))
   withr::defer(clean_site(pkg))
