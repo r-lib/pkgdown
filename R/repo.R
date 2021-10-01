@@ -89,10 +89,7 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 }
 
 repo_meta_gh_like <- function(link, branch = NULL) {
-  gh <- parse_github_like_url(
-    link = link,
-    allow_subgroups = grepl("^https?://gitlab\\.", link)
-  )
+  gh <- parse_github_like_url(link)
   branch <- branch %||% "master"
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
@@ -102,12 +99,13 @@ repo_meta_gh_like <- function(link, branch = NULL) {
   )
 }
 
-parse_github_like_url <- function(link, allow_subgroups = FALSE) {
+parse_github_like_url <- function(link) {
+  supports_subgroups <- grepl("^https?://gitlab\\.", link)
   rx <- paste0(
     "^",
     "(?<host>https?://[^/]+)/",
     "(?<owner>[^/]+)/",
-    "(?<repo>[^#", "/"[!allow_subgroups], "]+)/"
+    "(?<repo>[^#", "/"[!supports_subgroups], "]+)/"
   )
   re_match(sub("([^/]$)", "\\1/", link), rx)
 }
