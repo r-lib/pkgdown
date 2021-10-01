@@ -239,21 +239,6 @@ is_internal_link <- function(links, pkg) {
   }
 }
 
-remove_useless_parts <- function(links, pkg) {
-  # remove website URL
-  if (!is.null(pkg$meta$url)) {
-    links <- sub(pkg$meta$url, "", links)
-  }
-  # remove first slash from path
-  links <- sub("^/", "", links)
-  # remove /index.html from the end
-  links <- sub("/index.html/?", "", links)
-  # remove ../ from the beginning
-  links <- gsub("\\.\\./", "", links)
-
-  links
-}
-
 get_section_level <- function(section) {
   as.numeric(
      gsub(
@@ -262,3 +247,6 @@ get_section_level <- function(section) {
       )
   )
 }
+
+get_html_attr <- function(x, xpath, attr) {
+  xml2::xml_ xml2::xml_find_all(x, tag)

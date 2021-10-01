@@ -69,3 +69,18 @@ navbar_links_haystack <- function(html, pkg, path) {
   # Only return rows of links with some similarity to the current path
   haystack[haystack$similar > 0, ]
 }
+
+remove_useless_parts <- function(links, pkg) {
+  # remove website URL
+  if (!is.null(pkg$meta$url)) {
+    links <- sub(pkg$meta$url, "", links)
+  }
+  # remove first slash from path
+  links <- sub("^/", "", links)
+  # remove /index.html from the end
+  links <- sub("/index.html/?", "", links)
+  # remove ../ from the beginning
+  links <- gsub("\\.\\./", "", links)
+
+  links
+}
