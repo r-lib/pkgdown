@@ -22,7 +22,8 @@ build_home_md <- function(pkg) {
 }
 
 render_md <- function(pkg, filename) {
-  body <- markdown(path = filename, strip_header = TRUE, pkg = pkg)
+  body <- markdown_body(filename, strip_header = TRUE, pkg = pkg)
+  browser()
 
   cat_line("Reading ", src_path(path_rel(filename, pkg$src_path)))
 
