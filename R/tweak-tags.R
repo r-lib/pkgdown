@@ -82,6 +82,41 @@ tweak_all_links <- function(html, pkg = pkg) {
   invisible()
 }
 
+tweak_404 <- function(html, pkg = pkg) {
+
+  # If there's no URL links can't be made absolute
+  if (is.null(pkg$meta$url)) {
+    return()
+  }
+
+  url <- paste0(pkg$meta$url, "/")
+
+  # Links
+  links <- xml2::xml_find_all(html, ".//a | .//link")
+  rel_links <- links[!grepl("https?\\://", xml2::xml_attr(links, "href"))]
+  if (length(rel_links) > 0) {
+    new_urls <- paste0(url, xml2::xml_attr(rel_links, "href"))
+    xml2::xml_attr(rel_links, "href") <- new_urls
+  }
+
+  # Scripts
+  scripts <- xml2::xml_find_all(html, ".//script")
+  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
+  rel_scripts <- scripts[!grepl("https?\\://", xml2::xml_attr(scripts, "src"))]
+  if (length(rel_scripts) > 0) {
+    new_srcs <- paste0(url, xml2::xml_attr(rel_scripts, "src"))
+    xml2::xml_attr(rel_scripts, "src") <- new_srcs
+  }
+
+  # Logo
+  logo <- xml2::xml_find_first(html, ".//img[@class='pkg-logo']")
+  if (inherits(logo, "xml_node")) {
+    xml2::xml_attr(logo, "src") <- paste0(url, logo_path(pkg, depth = 0))
+  }
+
+  TRUE
+}
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
