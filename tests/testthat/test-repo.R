@@ -116,9 +116,10 @@ test_that("GitLab subgroups are properly parsed", {
   )
   # 3) from URL + BugReports
   expect_equal(
-    issue_url(paste("URL: https://gitlab.com/salim_b/r/pkgs/pal",
-                    "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/",
-                    sep = "\n")),
+    issue_url(paste0(
+      "URL: https://gitlab.com/salim_b/r/pkgs/pal\n",
+      "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"
+    )),
     target
   )
 })
