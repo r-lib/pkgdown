@@ -70,7 +70,7 @@ tweak_md_links <- function(html) {
   invisible()
 }
 
-tweak_all_links <- function(html, pkg = pkg) {
+tweak_all_links <- function(html, pkg = list()) {
   links <- xml2::xml_find_all(html, ".//a")
   if (length(links) == 0)
     return()

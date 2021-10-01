@@ -8,7 +8,7 @@
 tweak_tabsets <- function(html) {
   tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
   purrr::walk(tabsets, tweak_tabset)
-  invisible(html)
+  invisible()
 }
 
 tweak_tabset <- function(html) {

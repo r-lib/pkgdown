@@ -169,7 +169,10 @@ cran_unquote <- function(string) {
   gsub("\\'(.*?)\\'", "\\1", string)
 }
 
-show_xml <- function(x) {
+show_xml <- function(x, xpath = NULL) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_first(x, xpath)
+  }
   cat(as.character(x, options = c("format", "no_declaration")))
 }
 
