@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+
 * Support for `as_is: true` and non-default output formats for vignettes/
   articles has been somewhat improved. Support is fundamentally limited due to
   the challenges of integrating HTML from output formats that pkgdown doesn't
