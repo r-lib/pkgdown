@@ -1,78 +1,43 @@
 # tables -------------------------------------------------------------
 
-test_that("tables get class='table'", {
-  html <- xml2::read_html("<body><table>\n</table></body>")
+test_that("tables get additional table class", {
+  html <- xml2::read_html("
+    <body>
+      <table></table>
+      <table class='a'></table>
+      <table class='b'></table>
+      </body>
+  ")
   tweak_tables(html)
 
-  html %>%
-    xml2::xml_find_all(".//table") %>%
-    xml2::xml_attr("class") %>%
-    expect_equal("table")
-})
-
-test_that("multiple tables with existing classes are prepended", {
-  html <- xml2::read_html(
-    "<body>
-    <table class='a'></table>
-    <table class='b'></table>
-    <table></table>
-    </body>"
+  expect_equal(
+    xpath_attr(html, ".//table", "class"),
+    c("table", "table a", "table b")
   )
-  expect_silent(tweak_tables(html))
-
-  html %>%
-    xml2::xml_find_all(".//table") %>%
-    xml2::xml_attr("class") %>%
-    expect_equal(c("table a", "table b", "table"))
-})
-
-test_that("multiple tables with existing classes are prepended and attributes", {
-  html <- xml2::read_html(
-    '<body>
-    <table style="width:100%;" class="a"></table>
-    <table class="b"></table>
-    <table></table>
-    </body>'
-  )
-  expect_silent(tweak_tables(html))
-  html %>%
-    xml2::xml_find_all(".//table") %>%
-    xml2::xml_attr("class") %>%
-    expect_equal(c("table a", "table b", "table"))
-})
-
-test_that("tables get class='table' prepended to existing classes", {
-  html <- xml2::read_html("<body><table class = 'foo bar'>\n</table></body>")
-  tweak_tables(html)
-
-  html %>%
-    xml2::xml_find_all(".//table") %>%
-    xml2::xml_attr("class") %>%
-    expect_equal("table foo bar")
-})
-
-test_that("tweaking tables does not touch other html", {
-  html <- xml2::read_html("<body><em>foo</em></body>")
-  html_orig <- html
-
-  tweak_tables(html)
-
-  expect_equal(as.character(html), as.character(html_orig))
 })
 
 # anchors -------------------------------------------------------------
 
 test_that("anchors don't get additional newline", {
-  html <- xml2::read_xml('<div class="contents">
-                          <div id="x">
-                          <h1>abc</h1>
-                          </div>
-                          </div>')
+  html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
+  tweak_anchors(html, only_contents = FALSE)
 
-  tweak_anchors(html)
-  expect_snapshot_output(show_xml(html))
+  expect_equal(xpath_attr(html, "//h1", "class"), "hasAnchor")
+  expect_equal(xpath_text(html, "//h1"), "abc")
 })
 
+test_that("empty headings are skipped", {
+  html <- xml2::read_xml('<div id="x"><h1></h1></div>')
+  tweak_anchors(html, only_contents = FALSE)
+
+  expect_equal(xpath_attr(html, "//h1", "class"), NA_character_)
+})
+
+test_that("docs with no headings are left unchanged", {
+  html <- xml2::read_xml('<div>Nothing</div>')
+  tweak_anchors(html, only_contents = FALSE)
+  expect_equal(xpath_xml(html, "//div"), '<div>Nothing</div>')
+})
 
 # links -----------------------------------------------------------------
 
@@ -118,34 +83,21 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
-
-test_that("tweak_404() make URLs absolute", {
-  html <- function() {
-  xml2::read_html(
-    '<div><div><div>
-    <a href = "reference.html"></a>
-    <link href = "reference.css"></link>
-    <script src = "reference.js"></script>
-    <img src = "reference.png" class="pkg-logo"></img>
-    </div></div></div>'
-  )
-  }
-
+test_that("tweak_404() makes URLs absolute", {
+  html <- xml2::read_html('
+    <a href="a"></a>
+    <link href="link"></link>
+    <script src="script"></script>
+    <img src="img">
+  ')
   pkg <- list(
     meta = list(url = "https://example.com"),
     development = list(in_dev = FALSE)
   )
-  prod_html <- html()
-  tweak_404(prod_html, pkg)
-  expect_snapshot(cat(as.character(xml2::xml_child(prod_html))))
+  tweak_404(html, pkg)
 
-  pkg <- list(
-    meta = list(url = "https://example.com", development = "devel"),
-    version = "3.0.0.999",
-    development = list(in_dev = TRUE)
-  )
-  dev_html <- html()
-  tweak_404(dev_html, pkg)
-  expect_snapshot(cat(as.character(xml2::xml_child(dev_html))))
+  expect_equal(xpath_attr(html, "//a", "href"), "https://example.com/a")
+  expect_equal(xpath_attr(html, "//link", "href"), "https://example.com/link")
+  expect_equal(xpath_attr(html, "//img", "src"), "https://example.com/img")
 })
 

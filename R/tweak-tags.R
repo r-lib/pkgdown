@@ -6,7 +6,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   }
 
   if (length(sections) == 0)
-    return()
+    return(invisible())
 
   # Update anchors: dot in the anchor breaks scrollspy
   anchor <- sections %>%
@@ -82,8 +82,7 @@ tweak_all_links <- function(html, pkg = list()) {
   invisible()
 }
 
-tweak_404 <- function(html, pkg = pkg) {
-
+tweak_404 <- function(html, pkg = list()) {
   # If there's no URL links can't be made absolute
   if (is.null(pkg$meta$url)) {
     return()
@@ -91,30 +90,15 @@ tweak_404 <- function(html, pkg = pkg) {
 
   url <- paste0(pkg$meta$url, "/")
 
-  # Links
-  links <- xml2::xml_find_all(html, ".//a | .//link")
-  rel_links <- links[!grepl("https?\\://", xml2::xml_attr(links, "href"))]
-  if (length(rel_links) > 0) {
-    new_urls <- paste0(url, xml2::xml_attr(rel_links, "href"))
-    xml2::xml_attr(rel_links, "href") <- new_urls
-  }
+  # <a> + <link> use href
+  href <- xml2::xml_find_all(html, ".//a | .//link")
+  xml2::xml_attr(href, "href") <- xml2::url_absolute(xml2::xml_attr(href, "href"), url)
 
-  # Scripts
-  scripts <- xml2::xml_find_all(html, ".//script")
-  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
-  rel_scripts <- scripts[!grepl("https?\\://", xml2::xml_attr(scripts, "src"))]
-  if (length(rel_scripts) > 0) {
-    new_srcs <- paste0(url, xml2::xml_attr(rel_scripts, "src"))
-    xml2::xml_attr(rel_scripts, "src") <- new_srcs
-  }
+  # <img> + <script> uses src
+  src <- xml2::xml_find_all(html, ".//script | .//img")
+  xml2::xml_attr(src, "src") <- xml2::url_absolute(xml2::xml_attr(src, "src"), url)
 
-  # Logo
-  logo <- xml2::xml_find_first(html, ".//img[@class='pkg-logo']")
-  if (inherits(logo, "xml_node")) {
-    xml2::xml_attr(logo, "src") <- paste0(url, logo_path(pkg, depth = 0))
-  }
-
-  TRUE
+  invisible()
 }
 
 tweak_tables <- function(html) {

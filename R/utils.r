@@ -169,13 +169,6 @@ cran_unquote <- function(string) {
   gsub("\\'(.*?)\\'", "\\1", string)
 }
 
-show_xml <- function(x, xpath = NULL) {
-  if (!is.null(xpath)) {
-    x <- xml2::xml_find_first(x, xpath)
-  }
-  cat(as.character(x, options = c("format", "no_declaration")))
-}
-
 isFALSE <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }
@@ -251,6 +244,20 @@ get_section_level <- function(section) {
   )
 }
 
+show_xml <- function(x, xpath = NULL) {
+  cat(xpath_xml(x, xpath))
+}
+
+xpath_xml <- function(x, xpath) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_first(x, xpath)
+  }
+  as.character(x, options = c("format", "no_declaration"))
+}
+
 xpath_attr <- function(x, xpath, attr) {
   xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
+}
+xpath_text <- function(x, xpath) {
+  xml2::xml_text(xml2::xml_find_all(x, xpath))
 }
