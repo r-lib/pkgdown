@@ -83,21 +83,25 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
-test_that("tweak_404() makes URLs absolute", {
+test_that("tweak_link_absolute() fixes relative paths in common locations", {
   html <- xml2::read_html('
     <a href="a"></a>
     <link href="link"></link>
     <script src="script"></script>
     <img src="img">
   ')
-  pkg <- list(
-    meta = list(url = "https://example.com"),
-    development = list(in_dev = FALSE)
-  )
-  tweak_404(html, pkg)
+  pkg <- list(meta = list(url = "https://example.com"))
+  tweak_link_absolute(html, pkg)
 
   expect_equal(xpath_attr(html, "//a", "href"), "https://example.com/a")
   expect_equal(xpath_attr(html, "//link", "href"), "https://example.com/link")
   expect_equal(xpath_attr(html, "//img", "src"), "https://example.com/img")
 })
 
+test_that("tweak_link_absolute() leaves absolute paths alone", {
+  html <- xml2::read_html('<a href="https://a.com"></a>')
+  pkg <- list(list(url = "https://example.com"))
+  tweak_link_absolute(html, pkg)
+
+  expect_equal(xpath_attr(html, "//a", "href"), "https://a.com")
+})

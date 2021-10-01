@@ -82,7 +82,7 @@ tweak_all_links <- function(html, pkg = list()) {
   invisible()
 }
 
-tweak_404 <- function(html, pkg = list()) {
+tweak_link_absolute <- function(html, pkg = list()) {
   # If there's no URL links can't be made absolute
   if (is.null(pkg$meta$url)) {
     return()

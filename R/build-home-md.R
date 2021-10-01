@@ -38,7 +38,7 @@ render_md <- function(pkg, filename) {
   )
 
   if (basename(filename) == "404.md") {
-    update_html(path_abs("404.html", start = pkg$dst_path), tweak_404, pkg = pkg)
+    update_html(path_abs("404.html", start = pkg$dst_path), tweak_link_absolute, pkg = pkg)
   }
 
 }
