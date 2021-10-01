@@ -18,6 +18,13 @@ test_that("tables get additional table class", {
 
 # anchors -------------------------------------------------------------
 
+test_that("anchor html added to headings", {
+  html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
+  tweak_anchors(html, only_contents = FALSE)
+
+  expect_snapshot(show_xml(html, "//h1"))
+})
+
 test_that("anchors don't get additional newline", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
   tweak_anchors(html, only_contents = FALSE)
