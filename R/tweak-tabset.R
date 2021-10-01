@@ -124,8 +124,3 @@ tablist_content <- function(tab, html, parent_id, fade) {
   xml2::xml_add_child(content_div, tab)
 }
 
-
-has_class <- function(html, class) {
-  classes <- strsplit(xml2::xml_attr(html, "class"), " ")
-  purrr::map_lgl(classes, ~ class %in% .x)
-}
