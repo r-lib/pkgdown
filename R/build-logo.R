@@ -1,4 +1,4 @@
-build_logo <- function(pkg = ".") {
+copy_logo <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   logo_path <- find_logo(pkg$src_path)
@@ -8,21 +8,26 @@ build_logo <- function(pkg = ".") {
 }
 
 find_logo <- function(path) {
-  logo_path <- path(path, "logo.svg")
-  if (file_exists(logo_path))
-    return(logo_path)
+  path_first_existing(
+    c(
+      path(path, "logo.svg"),
+      path(path, "man", "figures", "logo.svg"),
+      path(path, "logo.png"),
+      path(path, "man", "figures", "logo.png")
+    )
+  )
+}
 
-  logo_path <- path(path, "man", "figures", "logo.svg")
-  if (file_exists(logo_path))
-    return(logo_path)
+has_logo <- function(pkg) {
+  logo_path <- find_logo(pkg$src_path)
+  !is.null(logo_path)
+}
 
-  logo_path <- path(path, "logo.png")
-  if (file_exists(logo_path))
-    return(logo_path)
+logo_path <- function(pkg, depth) {
+  path <- find_logo(pkg$src_path)
+  if (is.null(path)) {
+    return()
+  }
 
-  logo_path <- path(path, "man", "figures", "logo.png")
-  if (file_exists(logo_path))
-    return(logo_path)
-
-  NULL
+  paste0(up_path(depth), fs::path_file(path))
 }

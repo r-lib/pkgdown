@@ -24,14 +24,18 @@
 #' `docs/` (for GitHub pages), but you can override if desired. Relative
 #' paths will be taken relative to the package root.
 #'
-#' `url` optionally specifies the url where the site will be published.
-#' Supplying this will:
+#' `url` is optional, but strongly recommended.
+#' It specifies where the site will be published and is used to:
 #' * Allow other pkgdown sites to link to your site when needed,
 #'   rather than using generic links to <https://rdrr.io>.
 #'   See `vignette("linking")` for more information.
 #' * Generate a `sitemap.xml`, increasing the searchability of your site.
 #' * Automatically generate a `CNAME` when
 #'   [deploying to github][deploy_site_github].
+#' * Generate metadata used by Twitter and the Open Graph protocol
+#'   for rich social media cards, see `vignette("metadata")`.
+#' * Adds the "external-link" class to external links
+#'   for sites using BS4, see `vignette("customization")`.
 #'
 #' ```yaml
 #' url: https://pkgdown.r-lib.org
@@ -45,7 +49,7 @@
 #' including `href` to add a link, or `html` to override the
 #' text:
 #'
-#' ```
+#' ```yaml
 #' authors:
 #'   Hadley Wickham:
 #'     href: http://hadley.nz
@@ -65,7 +69,7 @@
 #' You can override the default development mode by adding a
 #' new `development` field to `_pkgdown.yml`, e.g.
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   mode: devel
 #' ```
@@ -93,7 +97,7 @@
 #'
 #' There are three other options that you can control:
 #'
-#' ```
+#' ```yaml
 #' development:
 #'   destination: dev
 #'   version_label: danger
@@ -110,84 +114,10 @@
 #' `version_tooltip`.
 #'
 #' @section YAML config - navbar:
-#'
-#' By default, the top navigation bar (the "navbar") will contain links to:
-#'
-#' * "Get Started", if you have an article with the same name as the package
-#'   (e.g., `vignettes/pkgdown.Rmd`).
-#' * Reference
-#' * Articles (i.e., vignettes, if present).
-#' * News (if present).
-#' * An icon linking to the source repository (currently only GitHub and GitLab are supported)
-#'
-#' You can override (and even remove) these defaults with the  `navbar` field.
-#' It has two primary
-#' components: `structure` and `components`. These components interact in
-#' a somewhat complicated way, but the complexity allows you to make minor
-#' tweaks to part of the navbar while relying on pkgdown to automatically
-#' generate the rest.
-#'
-#' The `structure` defines the layout of the navbar, i.e. the order
-#' of the components, and whether they're right aligned or left aligned.
-#' You can use this component to change the order of the default components,
-#' remove some default components and add your own components.
-#'
+#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
 #' ```
-#' navbar:
-#'   structure:
-#'     left:  [intro, reference, articles, tutorials, news]
-#'     right: [github]
-#' ````
-#'
-#' The `components` describes the appearance of each element in the navbar.
-#' It uses the same
-#' syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
-#' The following YAML snippet illustrates some of the most important features.
-#'
-#' ```
-#' navbar:
-#'   components:
-#'     articles:
-#'      text: Articles
-#'      menu:
-#'      - text: Category A
-#'      - text: Title A1
-#'        href: articles/a1.html
-#'      - text: Title A2
-#'        href: articles/a2.html
-#'      - text: -------
-#'      - text: "Category B"
-#'      - text: Title B1
-#'        menu:
-#'        - text: "Sub-category B11"
-#'          href: articles/b11.html
-#'      twitter:
-#'        icon: "fab fa-twitter fa-lg"
-#'        href: https://twitter.com/hadleywickham
-#' ```
-#'
-#' Components can contain sub-`menu`s with headings (indicated by missing
-#' `href`) and separators (indicated by a bunch of `-`). You can also use
-#' `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
-#'
-#' This yaml would override the default "articles" component,
-#' and add a new "twitter" component. Unless you explicitly mention new
-#' components in the `structure` they'll be added to the far right of the
-#' left menu.
-#'
 #' @section YAML config - search:
-#' You can use [docsearch](https://community.algolia.com/docsearch/) by algolia
-#' to add search to your site.
-#'
-#' ```
-#' template:
-#'   params:
-#'     docsearch:
-#'       api_key: API_KEY
-#'       index_name: INDEX_NAME
-#' ```
-#'
-#' You also need to add a `url:` field, see above.
+#' See `vignette("search")`
 #'
 #' @section YAML config - template:
 #' You can get complete control over the appearance of the site using the
@@ -199,14 +129,20 @@
 #' by passing on the `bootswatch` template parameter to the built-in
 #' template:
 #'
+#' ```yaml
+#' template:
+#'   bootswatch: cerulean
 #' ```
+#'
+#' Note that if you use Bootstrap version 3 the syntax is
+#'
+#' ```yaml
 #' template:
 #'   params:
 #'     bootswatch: cerulean
 #' ```
 #'
-#' See a complete list of themes and preview how they look at
-#' <https://gallery.shinyapps.io/117-shinythemes/>:
+#'  Refer to `vignette("customization", package = "pkgdown")`.
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
 #' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
@@ -218,7 +154,7 @@
 #' extent of data collection or to add a privacy disclosure to your
 #' site, in keeping with current laws and regulations.
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   params:
 #'     ganalytics: UA-000000-01
@@ -227,24 +163,20 @@
 #' Suppress indexing of your pages by web robots by setting `noindex:
 #' true`:
 #'
-#' ```
+#' ```yaml
 #' template:
 #'   params:
 #'     noindex: true
 #' ```
 #'
 #' You can also override the default templates and provide additional
-#' assets. You can do so by either storing in a `package` with
-#' directories `inst/pkgdown/assets` and `inst/pkgdown/templates`,
-#' or by supplying `path` and `asset_path`. To suppress inclusion
+#' assets. You can do so by either storing them in the
+#' directories `pkgdown/assets` and `pkgdown/templates`,
+#' or by supplying `path` and `asset_path` pointing to alternative folders.
+#' To suppress inclusion
 #' of the default assets, set `default_assets` to false.
 #'
-#' ```
-#' template:
-#'   package: mycustompackage
-#'
-#' # OR:
-#'
+#' ```yaml
 #' template:
 #'   path: path/to/templates
 #'   assets: path/to/assets
@@ -254,6 +186,18 @@
 #' These settings are currently recommended for advanced users only. There
 #' is little documentation, and you'll need to read the existing source
 #' for pkgdown templates to ensure that you use the correct components.
+#'
+#' For further information including how to provide templates and assets in
+#' a separate package, see `vignette("customization", package = "pkgdown")`.
+#'
+#' You can use the `trailing_slash_redirect` to automatically redirect
+#' `your-package-url.com` to `your-package-url.com/`, using a JS script
+#'  added to the `<head>` of the home page.
+#'
+#' ```yaml
+#' template:
+#'   trailing_slash_redirect: true
+#' ```
 #'
 #' @section YAML config - repo:
 #' pkgdown automatically generates links to the source repository in a few
@@ -323,27 +267,10 @@
 #'      install_metadata: true
 #'    ```
 #' @section YAML config - footer:
-#' By default, the footer is automatically populated with:
-#' * the names of the
-#' [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors),
-#' on the left;
-#' * a reference to pkgdown `pkgdown`, on the right.
-#'
-#' The example below puts the authors information on the right together with
-#' a legal disclaimer, and puts pkgdown on the left.
-#' Unlike for the navbar or sidebar, components of the footer left/right are
-#' just pasted together into a string.
-#' If you want to use paragraphs, you need to use either HTML;
-#' or a YAML pipe and to start the components with two empty lines.
-#'
+#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
 #' ```
-#' footer:
-#'   left:
-#'     structure: [pkgdown]
-#'   right:
-#'     structure: [authors, legal]
-#'     components:
-#'       legal: Provided without ***any warranty***.
+#' @section YAML config - redirects:
+#' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
 #' ```
 #'
 #' @section Options:
@@ -512,6 +439,13 @@ build_site_local <- function(pkg = ".",
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
+  build_sitemap(pkg)
+  build_redirects(pkg, override = override)
+  if (pkg$bs_version == 3) {
+    build_docsearch_json(pkg)
+  } else {
+    build_search(pkg, override = override)
+  }
 
   rule("DONE", line = "=")
   preview_site(pkg, preview = preview)

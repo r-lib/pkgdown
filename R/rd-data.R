@@ -86,26 +86,30 @@ as_data.tag_section <- function(x, ...) {
 }
 #' @export
 as_data.tag_value <- function(x, ...) {
-  # \value is implicitly a \describe environment, with
-  # optional text block before first \item
+  # \value is a mixture of \items (which should be put inside of \describe)
+  # and other blocks
 
-  idx <- Position(function(x) inherits(x, "tag_item"), x, nomatch = 0)
-  if (idx == 0) {
-    text <- x
-    values <- list()
-  } else if (idx == 1) {
-    text <- list()
-    values <- x
-  } else {
-    text <- x[seq_len(idx - 1)]
-    values <- x[-seq_len(idx - 1)]
+  is_item <- purrr::map_lgl(x, inherits, "tag_item")
+  changed <- is_item[-1] != is_item[-length(is_item)]
+  group <- cumsum(c(TRUE, changed))
+
+  parse_piece <- function(x) {
+    if (inherits(x[[1]], "tag_item")) {
+      paste0("<dl>\n", parse_descriptions(x, ...), "\n</dl>")
+    } else {
+      flatten_para(x, ...)
+    }
   }
-
-  text <- flatten_para(text, ...)
-  values <- parse_descriptions(values)
-
+  pieces <- split(x, group)
+  out <- purrr::map(pieces, parse_piece)
   list(
     title = "Value",
-    contents = paste(c(text, values), collapse = "\n")
+    contents = paste(unlist(out), collapse = "\n")
   )
+}
+
+value2html <- function(x) {
+  rd <- rd_text(paste0("\\value{", x, "}"), fragment = FALSE)[[1]]
+  html <- as_data(rd)$contents
+  str_trim(strsplit(str_trim(html), "\n")[[1]])
 }

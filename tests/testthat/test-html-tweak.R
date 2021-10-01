@@ -127,13 +127,34 @@ test_that("tweak_all_links() add the external-link class", {
   expect_false("class" %in% names(xml2::xml_attrs(links[[4]])))
 })
 
-test_that("tweak_navbar_links() make URLs absolute", {
-  html <- '<div><div><div><a href = "reference.html"></a></div></div></div>'
-  pkg <- list(meta = list(url = "https://example.com"))
-  expect_equal(
-    tweak_navbar_links(html, pkg),
-    "<body><div><div><div><a href=\"https://example.com/reference.html\"></a></div></div></div></body>"
+test_that("tweak_404() make URLs absolute", {
+  html <- function() {
+  xml2::read_html(
+    '<div><div><div>
+    <a href = "reference.html"></a>
+    <link href = "reference.css"></link>
+    <script src = "reference.js"></script>
+    <img src = "reference.png" class="pkg-logo"></img>
+    </div></div></div>'
   )
+  }
+
+  pkg <- list(
+    meta = list(url = "https://example.com"),
+    development = list(in_dev = FALSE)
+  )
+  prod_html <- html()
+  tweak_404(prod_html, pkg)
+  expect_snapshot(cat(as.character(xml2::xml_child(prod_html))))
+
+  pkg <- list(
+    meta = list(url = "https://example.com", development = "devel"),
+    version = "3.0.0.999",
+    development = list(in_dev = TRUE)
+  )
+  dev_html <- html()
+  tweak_404(dev_html, pkg)
+  expect_snapshot(cat(as.character(xml2::xml_child(dev_html))))
 })
 
 # homepage ----------------------------------------------------------------
@@ -145,7 +166,7 @@ test_that("page header modification succeeds", {
       <img src="someimage" alt="" /> some text
     </h1>')
 
-  tweak_homepage_html(html)
+  tweak_homepage_html(html, bs_version = 3)
   expect_snapshot_output(show_xml(html))
 })
 
@@ -155,7 +176,7 @@ test_that("links to vignettes & figures tweaked", {
     <img src="man/figures/x.png" />
   </body>')
 
-  tweak_homepage_html(html)
+  tweak_homepage_html(html, bs_version = 3)
   expect_snapshot_output(show_xml(html))
 })
 
@@ -205,6 +226,27 @@ test_that("badges-paragraph a la usethis can be found", {
   </blockquote>
   <!-- badges: start -->
   <p>
+  <a href=\"https://www.repostatus.org/#wip\" class=\"external-link\">
+    <img src=\"https://www.repostatus.org/badges/latest/wip.svg\" alt=\"Project Status: WIP.\">
+  </a>
+  <a href=\"https://travis-ci.org/ropensci/rotemplate\" class=\"external-link\">
+  <img src=\"https://travis-ci.org/ropensci/rotemplate.svg?branch=master\" alt=\"Build Status\">
+  </a>
+  <!-- badges: end -->
+  </p>'
+
+  badges_page <- xml2::read_html(string)
+  expect_equal(length(badges_extract(badges_page)), 2)
+})
+
+
+test_that("complex badges structure can be found", {
+  string <- '
+  <blockquote>
+  <p>Connect to thisisatest, from R</p>
+  </blockquote>
+  <!-- badges: start -->
+  <p>
   <a href="https://travis-ci.org/thisisatest/thisisatest">
     <img src="https://travis-ci.org/thisisatest/thisisatest.svg?branch=master" alt="Linux Build Status">
   </a>
@@ -233,4 +275,148 @@ test_that("multiple badges-paragraphs can be found between comments", {
 
   badges_page <- xml2::read_html(string)
   expect_equal(length(badges_extract(badges_page)), 2)
+})
+
+# navbar -------------------------------------------------------------
+
+test_that("navbar_links_haystack()", {
+  html <- function(){
+  xml2::read_html('<div id="navbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto ml-3">
+<li class="nav-item">
+  <a class="nav-link" href="articles/pkgdown.html">Get started</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="articles/index.html">More</a>
+      </div>
+</li>
+      </ul>
+</div>')
+  }
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/bla.html")[, c("links", "similar")]
+  )
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/linking.html")[, c("links", "similar")]
+  )
+  expect_snapshot(
+    navbar_links_haystack(html(), pkg = list(), path = "articles/pkgdown.html")[, c("links", "similar")]
+  )
+})
+
+test_that("activate_navbar()", {
+  html <- function(){
+  xml2::read_html('<div id="navbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto ml-3">
+<li class="nav-item">
+  <a class="nav-link" href="articles/pkgdown.html">Get started</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="articles/index.html">More</a>
+      </div>
+</li>
+      </ul>
+</div>')
+  }
+  navbar <- html()
+  activate_navbar(navbar, "reference/index.html", pkg = list())
+  expect_snapshot_output(
+    xml2::xml_find_first(navbar, ".//li[contains(@class, 'active')]")
+  )
+
+
+  navbar <- html()
+  activate_navbar(navbar, "reference/thing.html", pkg = list())
+ expect_snapshot_output(
+    xml2::xml_find_first(navbar, ".//li[contains(@class, 'active')]")
+  )
+  navbar <- html()
+  activate_navbar(navbar, "articles/pkgdown.html", pkg = list())
+  expect_snapshot_output(
+    xml2::xml_find_first(navbar, ".//li[contains(@class, 'active')]")
+  )
+
+  navbar <- html()
+  activate_navbar(navbar, "articles/thing.html", pkg = list())
+  expect_snapshot_output(
+      xml2::xml_find_first(navbar, ".//li[contains(@class, 'active')]")
+  )
+})
+
+# tabsets -------------------------------------------------------------
+
+test_that("tweak_tabsets() default", {
+  html <- '<div id="results-in-tabset" class="section level2 tabset">
+<h2 class="hasAnchor">
+<a href="#results-in-tabset" class="anchor" aria-hidden="true"></a>Results in tabset</h2>
+<div id="tab-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tab-1" class="anchor" aria-hidden="true"></a>Tab 1</h3>
+<p>blablablabla</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+</div>
+<div id="tab-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tab-2" class="anchor" aria-hidden="true"></a>Tab 2</h3>
+<p>blop</p>
+</div>
+</div>'
+  new_html <- tweak_tabsets(xml2::read_html(html))
+  expect_snapshot_output(cat(as.character(new_html)))
+})
+
+test_that("tweak_tabsets() with tab pills and second tab active", {
+  html <- '<div id="results-in-tabset" class="section level2 tabset tabset-pills">
+<h2 class="hasAnchor">
+<a href="#results-in-tabset" class="anchor" aria-hidden="true"></a>Results in tabset</h2>
+<div id="tab-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tab-1" class="anchor" aria-hidden="true"></a>Tab 1</h3>
+<p>blablablabla</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+</div>
+<div id="tab-2" class="section level3 active">
+<h3 class="hasAnchor">
+<a href="#tab-2" class="anchor" aria-hidden="true"></a>Tab 2</h3>
+<p>blop</p>
+</div>
+</div>'
+  new_html <- tweak_tabsets(xml2::read_html(html))
+  expect_snapshot_output(cat(as.character(new_html)))
+})
+
+
+test_that("tweak_tabsets() with tab pills, fade and second tab active", {
+  html <- '<div id="results-in-tabset" class="section level2 tabset tabset-pills tabset-fade">
+<h2 class="hasAnchor">
+<a href="#results-in-tabset" class="anchor" aria-hidden="true"></a>Results in tabset</h2>
+<div id="tab-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tab-1" class="anchor" aria-hidden="true"></a>Tab 1</h3>
+<p>blablablabla</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+</div>
+<div id="tab-2" class="section level3 active">
+<h3 class="hasAnchor">
+<a href="#tab-2" class="anchor" aria-hidden="true"></a>Tab 2</h3>
+<p>blop</p>
+</div>
+</div>'
+  new_html <- tweak_tabsets(xml2::read_html(html))
+  expect_snapshot_output(cat(as.character(new_html)))
 })

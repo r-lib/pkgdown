@@ -1,0 +1,17 @@
+---
+title: "html_vignette + as_is"
+output: rmarkdown::html_vignette
+pkgdown:
+  as_is: true
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This should not break page css/js (i.e. does the navbar look ok?)
+
+# Heading 1
+
+# Heading 2
+

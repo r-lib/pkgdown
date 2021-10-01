@@ -37,18 +37,17 @@ init_site <- function(pkg = ".") {
   dir_create(pkg$dst_path)
   copy_assets(pkg)
 
-  if (has_favicons(pkg)) {
-    copy_favicons(pkg)
-  } else if (has_logo(pkg)) {
+  if (has_logo(pkg) && !has_favicons(pkg)) {
+    # Building favicons is expensive, so we hopefully only do it once.
     build_favicons(pkg)
-    copy_favicons(pkg)
   }
+  copy_favicons(pkg)
+  copy_logo(pkg)
 
   build_site_meta(pkg)
-  build_sitemap(pkg)
-  build_docsearch_json(pkg)
-  build_logo(pkg)
-  build_404(pkg)
+  if (!pkg$development$in_dev) {
+    build_404(pkg)
+  }
 
   invisible()
 }
@@ -59,7 +58,7 @@ copy_assets <- function(pkg = ".") {
 
   # Copy default assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown("assets"))
+    copy_asset_dir(pkg, path_pkgdown("assets", paste0("BS", pkg$bs_version)))
   }
 
   # Copy extras
@@ -68,18 +67,27 @@ copy_assets <- function(pkg = ".") {
   # Copy assets from directory
   if (!is.null(template$assets)) {
     copy_asset_dir(pkg, template$assets)
+  } else {
+    # default directory
+    copy_asset_dir(pkg, file.path("pkgdown", "assets"))
   }
 
   # Copy assets from package
   if (!is.null(template$package)) {
-    copy_asset_dir(
-      pkg,
-      path_package_pkgdown(template$package, bs_version = NULL, "assets")
-      )
+    assets <- path_package_pkgdown(
+      template$package,
+      bs_version = get_bs_version(pkg),
+      "assets"
+    )
+
+    copy_asset_dir(pkg, assets)
   }
 }
 
 copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
+  if (length(from_dir) == 0) {
+    return(character())
+  }
   from_path <- path_abs(from_dir, pkg$src_path)
   if (!file_exists(from_path)) {
     return(character())
@@ -121,7 +129,7 @@ build_site_meta <- function(pkg = ".") {
 }
 
 site_meta <- function(pkg) {
-  article_index <- set_names(path_file(pkg$vignettes$file_out), pkg$vignettes$name)
+  article_index <- article_index(pkg)
 
   meta <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),

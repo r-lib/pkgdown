@@ -57,7 +57,7 @@
       {html_node}
       <div class="fancy-section">
       [1] <h2 data-toc-skip>Fancy section</h2>
-      [2] <ul class="list-unstyled">\n<li>How <em>cool</em> is pkgdown?!</li>\n</ul>
+      [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
 
 # data_home_sidebar() can add a README
 
@@ -67,7 +67,7 @@
       {html_node}
       <div class="table-of-contents">
       [1] <h2 data-toc-skip>Table of contents</h2>
-      [2] <ul class="list-unstyled">\n<li><nav id="toc" data-toggle="toc" class="st ...
+      [2] <ul class="list-unstyled">\n<li><nav id="toc" class="sticky-top"></nav></ ...
 
 # data_home_sidebar() outputs informative error messages
 

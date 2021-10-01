@@ -81,7 +81,7 @@ found at \code{vignettes/pizza/slice.Rmd} is \code{pizza/slice}.
 The title and description of individual vignettes displayed on the index
 comes from \code{title} and \code{description} fields of the YAML header in the Rmds.
 
-For example, this yaml might be used for some version of dplyr:\preformatted{articles:
+For example, this yaml might be used for some version of dplyr:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
 - title: Main verbs
   navbar: ~
   contents:
@@ -95,11 +95,11 @@ For example, this yaml might be used for some version of dplyr:\preformatted{art
   contents:
   - programming
   - packages
-}
+}\if{html}{\out{</div>}}
 
 Note the use of the \code{navbar} fields. \verb{navbar: ~} means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the \code{navbar}
-field in the for the developer vignettes means that they will only be
+field in the developer vignettes means that they will only be
 accessible via the articles index.
 
 The navbar will include a link to the articles index if one or more
@@ -129,13 +129,13 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in \code{.install_extras}. pkgdown takes a different approach based on
 \code{\link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources()}}, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a \code{resource_files} field to the yaml metadata, e.g.:\preformatted{---
+will need to add a \code{resource_files} field to the yaml metadata, e.g.:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
 title: My Document
 resource_files:
   - data/mydata.csv
   - images/figure.png
 ---
-}
+}\if{html}{\out{</div>}}
 
 Note that you can not use the \code{fig.path} to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.
@@ -152,38 +152,32 @@ See \url{https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856} for
 some hints on how to customise the appearance with CSS.
 }
 
-\section{YAML header}{
+\section{Output formats}{
 
-By default, pkgdown builds all articles with \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}}
-by setting the \code{template} parameter. This overrides any custom settings
-you have in your YAML metadata, ensuring that all articles are rendered
-in the same way (and receive the default site template).
-
-If you need to override the output format, or set any options, you'll need
-to add a \code{pkgdown} field to your yaml metadata:\preformatted{pkgdown:
+By default, pkgdown builds all articles using the
+\code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} \code{output} format, ignoring whatever is set in
+your YAML metadata. This is necessary because pkgdown has to integrate the
+HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
+Because of the challenges of combining two sources of HTML/CSS/JS, there is
+limited support for other output formats and you have to opt-in by setting
+the \code{as_is} field in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
-}
-
-This will tell pkgdown to use the \code{output_format} (and options) that you
-have specified. This format must accept \code{template}, \code{theme}, and
-\code{self_contained} in order to work with pkgdown.
+}\if{html}{\out{</div>}}
 
 If the output format produces a PDF, you'll also need to specify the
-\code{extension} field:\preformatted{pkgdown:
+\code{extension} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
   extension: pdf
-}
+}\if{html}{\out{</div>}}
 
-If you want to set an output format for all your articles, you can do that
-by adding a \verb{vignettes/_site.yml}, much like you would for an
-\href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{rmarkdown website}.
-For example, you can backport some bookdown features such as cross-references
-to all your articles by using the
-\href{https://bookdown.org/yihui/bookdown/a-single-document.html}{bookdown::html_document2}
-format.\preformatted{output:
-  bookdown::html_document2:
-  number_sections: false
-}
+To work with pkgdown, the output format must accept \code{template}, \code{theme}, and
+\code{self_contained} arguments, and must work without any additional CSS or
+JSS files. Note that if you use
+\href{https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options}{\verb{_output.yml}}
+or \href{https://rmarkdown.rstudio.com/docs/reference/render_site.html}{\verb{_site.yml}}
+you'll still need to add \code{as_is: true} to each individual vignette.
+
+Additionally, htmlwidgets do not work when \code{as_is: true}.
 }
 
 \section{Suppressing vignettes}{
@@ -195,18 +189,11 @@ present: if you do not want this, you will need to customise the navbar. See
 \code{\link[=build_site]{build_site()}} details.
 }
 
-\section{Tables of contents}{
-
-You can control the TOC depth via the YAML configuration file:\preformatted{toc:
-  depth: 2
-}
-}
-
 \section{Figures}{
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []
@@ -216,6 +203,12 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.retina: 2
   fig.asp: 1.618
   bg: NA
-}
+  other.parameters: []
+}\if{html}{\out{</div>}}
+
+Most of these parameters are interpreted similarly to knitr chunk
+options. \code{other.parameters} is a list of parameters
+that will be available to custom graphics output devices such
+as HTML widgets.
 }
 

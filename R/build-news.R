@@ -16,7 +16,7 @@
 #' is to use a top level heading for each release, and use a second level
 #' heading to break up individual bullets into sections.
 #'
-#' ```
+#' ```yaml
 #' # foofy 1.0.0
 #'
 #' ## Major changes
@@ -43,7 +43,7 @@
 #' To automatically link to release announcements, include a `releases`
 #' section.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'  releases:
 #'  - text: "usethis 1.3.0"
@@ -55,14 +55,14 @@
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   one_page: false
 #' ```
 #'
 #' Suppress the default addition of CRAN release dates with:
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   cran_dates: false
 #' ```
@@ -147,6 +147,10 @@ data_news <- function(pkg = ".") {
 
   sections <- xml2::xml_find_all(xml, "./body/div")
 
+  if (pkg$bs_version > 3) {
+    tweak_section_levels(xml)
+  }
+
   titles <- sections %>%
     xml2::xml_find_first(".//h1|h2") %>%
     xml2::xml_text(trim = TRUE)
@@ -169,8 +173,13 @@ data_news <- function(pkg = ".") {
   }
 
   html <- sections %>%
-    purrr::walk2(versions, tweak_news_heading, timeline = timeline) %>%
-    purrr::map_chr(as.character) %>%
+    purrr::walk2(
+      versions,
+      tweak_news_heading,
+      timeline = timeline,
+      bs_version = pkg$bs_version
+    ) %>%
+    purrr::map_chr(as.character, options = character()) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
   news <- tibble::tibble(
@@ -194,7 +203,7 @@ news_version <- function(x, pkgname) {
       \\(development\\ version\\)   # literal used by usethis
     )
   ")
-  pieces <- rematch2::re_match(x, pattern, ignore.case = TRUE)
+  pieces <- re_match(x, pattern, ignore.case = TRUE)
   gsub("^[(]|[)]$", "", pieces$version)
 }
 
@@ -252,34 +261,97 @@ pkg_timeline <- function(package) {
   data.frame(
     version = names(timeline),
     date = as.Date(unlist(timeline)),
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
+    row.names = NULL
   )
 }
 
-tweak_news_heading <- function(x, versions, timeline) {
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("class", "page-header")
+tweak_news_heading <- function(x, version, timeline, bs_version) {
+
+  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom pkg-version"
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("data-toc-text", versions)
-
-  if (is.null(timeline))
-    return(x)
-
-  date <- timeline$date[match(versions, timeline$version)]
-  date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
-
-  date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
-    xml2::read_html() %>%
-    xml2::xml_find_all(".//small")
+    xml2::xml_set_attr("class", class)
 
   x %>%
     xml2::xml_find_all(".//h1") %>%
-    xml2::xml_add_child(date_nodes, .where = 1)
+    xml2::xml_set_attr("data-toc-text", version)
+
+  if (!is.null(timeline)) {
+    date <- timeline$date[match(version, timeline$version)]
+    date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
+
+    if (bs_version == 3) {
+      date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
+        xml2::read_html() %>%
+        xml2::xml_find_all(".//small")
+
+      x %>%
+        xml2::xml_find_all(".//h1") %>%
+        xml2::xml_add_child(date_nodes, .where = 1)
+    } else {
+      cran_release_string <-  sprintf("<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>", date_str)
+      date_nodes <- cran_release_string %>%
+        xml2::read_html() %>%
+        xml2::xml_find_all(".//h6")
+
+      x %>%
+        xml2::xml_find_all(".//h1") %>%
+        xml2::xml_add_sibling(date_nodes, .where = "after")
+    }
+
+  }
+
+  ## one level down for BS4
+  if (bs_version > 3) {
+    x %>%
+      xml2::xml_find_all(".//div[contains(@class, 'section level')]")
+    x %>%
+      xml2::xml_find_all(".//h5") %>%
+      xml2::xml_set_name("h6") %>%
+      purrr::walk(add_version, version)
+    x %>%
+      xml2::xml_find_all(".//h4") %>%
+      xml2::xml_set_name("h5") %>%
+      purrr::walk(add_version, version)
+    x %>%
+      xml2::xml_find_all(".//h3") %>%
+      xml2::xml_set_name("h4") %>%
+      purrr::walk(add_version, version)
+    x %>%
+      xml2::xml_find_all(".//h2") %>%
+      xml2::xml_set_name("h3") %>%
+      purrr::walk(add_version, version)
+    x %>%
+      xml2::xml_find_all(".//h1") %>%
+      xml2::xml_set_name("h2")
+  }
 
   invisible()
+}
+
+add_version <- function(header, version) {
+  version <- gsub("\\s+", "-", version)
+  anchor <- xml2::xml_find_first(header, ".//a")
+  # remove the numbers added by Pandoc
+  xml2::xml_attr(anchor, "href") <- sub("-[0-9]+$", "", xml2::xml_attr(anchor, "href"))
+  # add the package version instead
+  xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
+  # make header ID the same as its anchor href
+  xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
+
+}
+
+
+tweak_section_levels <- function(xml) {
+  down_level <- function(x) {
+    xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
+  }
+
+  xml %>%
+    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
+    purrr::walk(down_level)
 }
 
 news_style <- function(meta) {

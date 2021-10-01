@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="contents col-md-9">
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4">Citation</h1>
+      {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
+    </div>
+
+    {{#citations}}
+    {{{html}}}
+    <pre>{{{bibtex}}}</pre>
+    {{/citations}}
+
+    <div class="page-header">
+      <h1 class="display-4">Authors</h1>
+    </div>
+   {{{before}}}
+    <ul class="list-unstyled">
+      {{#authors}}
+      <li>
+        <p><strong>{{{name}}}</strong>. {{{roles}}}. {{{orcid}}}
+        {{#comment}}<br /><small>{{{.}}}</small>{{/comment}}</p>
+      </li>
+      {{/authors}}
+    </ul>
+   {{{after}}}
+  </div>
+
+</div>
+

@@ -39,6 +39,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
       xml2::xml_contents(heading)[[1]],
       "a", href = paste0("#", anchor[[i]]),
       class = "anchor",
+      `aria-hidden` = "true",
       .where = "before"
     )
   }
@@ -78,38 +79,11 @@ tweak_all_links <- function(html, pkg = pkg) {
 
   hrefs <- xml2::xml_attr(links, "href")
   # Users might have added absolute URLs to e.g. the Code of Conduct
-  if (is.null(pkg$meta$url)) {
-    needs_tweak <- grepl("https?\\:\\/\\/", hrefs)
-  } else {
-    url <- pkg$meta$url
-    needs_tweak <- grepl("https?\\:\\/\\/", hrefs) & !grepl(url, hrefs)
-  }
-  tweak_class_prepend(links[needs_tweak], "external-link")
+  tweak_class_prepend(links[!is_internal_link(hrefs, pkg = pkg)], "external-link")
 
   invisible()
 }
 
-
-tweak_navbar_links <- function(html, pkg = pkg) {
-
-  url <- paste0(pkg$meta$url, "/")
-
-  html <- xml2::read_html(html)
-
-  links <- xml2::xml_find_all(html, ".//a")
-  hrefs <- xml2::xml_attr(links, "href")
-
-  needs_tweak <- !grepl("https?\\:\\/\\/", hrefs)
-
-  if (any(needs_tweak)) {
-    xml2::xml_attr(links[needs_tweak], "href") <- paste0(
-      url,
-      xml2::xml_attr(links[needs_tweak], "href")
-    )
-  }
-
-  return(as.character(xml2::xml_find_first(html, ".//body")))
-}
 
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
@@ -128,6 +102,165 @@ tweak_class_prepend <- function(x, class) {
   xml2::xml_attr(x, "class") <- ifelse(is.na(cur), class, paste(class, cur))
   invisible()
 }
+
+has_class <- function(html, class) {
+  classes <- strsplit(xml2::xml_attr(html, "class"), " ")
+  purrr::map_lgl(classes, ~ class %in% .x)
+}
+
+# from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
+tweak_footnotes <- function(html) {
+  container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
+  if (length(container) != 1) {
+    return()
+  }
+  # Find id and contents
+  footnotes <- xml2::xml_find_all(container, ".//li")
+  id <- xml2::xml_attr(footnotes, "id")
+  xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
+  contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
+    as.character(xml2::xml_children(x), options = character())
+  })
+  # Add popover attributes to links
+  for (i in seq_along(id)) {
+    links <- xml2::xml_find_all(html, paste0(".//a[@href='#", id[[i]], "']"))
+    xml2::xml_attr(links, "href") <- NULL
+    xml2::xml_attr(links, "id") <- NULL
+    xml2::xml_attr(links, "tabindex") <- "0"
+    xml2::xml_attr(links, "data-toggle") <- "popover"
+    xml2::xml_attr(links, "data-content") <- contents[[i]]
+  }
+  # Delete container
+  xml2::xml_remove(container)
+}
+
+# Tabsets tweaking: find Markdown recommended in https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html
+# and https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections
+# i.e. "## Heading {.tabset}" or "## Heading {.tabset .tabset-pills}"
+#  no matter the heading level -- the headings one level down are the tabs
+# and transform to tabsets HTML a la Bootstrap
+
+tweak_tabsets <- function(html) {
+  tabsets <- xml2::xml_find_all(html, ".//div[contains(@class, 'tabset')]")
+  purrr::walk(tabsets, tweak_tabset)
+  invisible(html)
+}
+
+tweak_tabset <- function(html) {
+  id <- xml2::xml_attr(html, "id")
+
+  # Users can choose pills or tabs
+  nav_class <- if (has_class(html, "tabset-pills")) {
+    "nav-pills"
+  } else {
+    "nav-tabs"
+  }
+  # Users can choose to make content fade
+  fade <- has_class(html, "tabset-fade")
+
+  # Get tabs and remove them from original HTML
+  tabs <- xml2::xml_find_all(html, "div")
+  xml2::xml_remove(tabs)
+
+  # Add empty ul for nav and div for content
+  xml2::xml_add_child(
+    html,
+    "ul",
+    class = sprintf("nav %s nav-row", nav_class),
+    id = id,
+    role = "tablist"
+  )
+  xml2::xml_add_child(html, "div", class="tab-content")
+
+  # Fill the ul for nav and div for content
+  purrr::walk(tabs, tablist_item, html = html, parent_id = id)
+  purrr::walk(tabs, tablist_content, html = html, parent_id = id, fade = fade)
+
+  # activate first tab unless another one is already activated
+  # (by the attribute {.active} in the source Rmd)
+  nav_links <- xml2::xml_find_all(html, sprintf("//ul[@id='%s']/li/a", id))
+
+  if (!any(has_class(nav_links, "active"))) {
+    tweak_class_prepend(nav_links[1], "active")
+  }
+
+  content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
+  if (!any(has_class(xml2::xml_children(content_div), "active"))) {
+    tweak_class_prepend(xml2::xml_child(content_div), "active")
+    if (fade) {
+      tweak_class_prepend(xml2::xml_child(content_div), "show")
+    }
+  }
+}
+
+# Add an item (tab) to the tablist
+tablist_item <- function(tab, html, parent_id) {
+  id <- xml2::xml_attr(tab, "id")
+  text <- xml_text1(xml2::xml_child(tab))
+  ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
+
+  # Activate (if there was "{.active}" in the source Rmd)
+  active <- has_class(tab, "active")
+  class <- if (active) {
+    "nav-link active"
+  } else {
+    "nav-link"
+  }
+
+  xml2::xml_add_child(
+    ul_nav,
+    "a",
+    text,
+    `data-toggle` = "tab",
+    href = paste0("#", id),
+    role = "tab",
+    `aria-controls` = id,
+    `aria-selected` = tolower(as.character(active)),
+    class = class
+  )
+
+  # tab a's need to be wrapped in li's
+  xml2::xml_add_parent(
+    xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
+    "li",
+    role = "presentation",
+    class = "nav-item"
+  )
+}
+
+# Add content of a tab to a tabset
+tablist_content <- function(tab, html, parent_id, fade) {
+  active <- has_class(tab, "active")
+
+  # remove first child, that is the header
+  xml2::xml_remove(xml2::xml_child(tab))
+
+  xml2::xml_attr(tab, "class") <- "tab-pane"
+  if (fade) {
+    tweak_class_prepend(tab, "fade")
+  }
+
+  # Activate (if there was "{.active}" in the source Rmd)
+  if (active) {
+    tweak_class_prepend(tab, "active")
+    if (fade) {
+      tweak_class_prepend(tab, "show")
+    }
+  }
+
+  xml2::xml_attr(tab, "role") <- "tabpanel"
+  xml2::xml_attr(tab, " aria-labelledby") <- xml2::xml_attr(tab, "id")
+
+  content_div <- xml2::xml_find_first(
+    html,
+    sprintf("//div[@id='%s']/div", parent_id)
+  )
+
+  xml2::xml_add_child(content_div, tab)
+}
+
+
+
 # File level tweaks --------------------------------------------
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
@@ -137,11 +270,19 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_md_links(html)
   tweak_all_links(html, pkg = pkg)
 
+  if (pkg$bs_version > 3) {
+    # Tweak footnotes
+    tweak_footnotes(html)
+
+    # Tweak tabsets
+    tweak_tabsets(html)
+  }
+
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
-  # Mame sure all images use relative paths
+  # Make sure all images use relative paths
   img <- xml2::xml_find_all(html, "//img")
   src <- xml2::xml_attr(img, "src")
   abs_src <- is_absolute_path(src)
@@ -159,7 +300,11 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   invisible()
 }
 
-tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
+tweak_homepage_html <- function(html,
+                                strip_header = FALSE,
+                                sidebar = TRUE,
+                                bs_version = 3,
+                                logo = NULL) {
 
   html <- tweak_sidebar_html(html, sidebar = sidebar)
 
@@ -172,11 +317,34 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   if (strip_header) {
     xml2::xml_remove(header, free = TRUE)
   } else {
-    page_header_text <- paste0("<div class='page-header'>", header, "</div>")
+    page_header_text <- class_page_header(bs_version = bs_version, header = header)
     page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
   }
 
+  if (!is.null(logo) && bs_version > 3) {
+    # Remove logo if added to h1
+    # Bare image
+    xml2::xml_remove(xml2::xml_find_all(html, ".//h1/img[contains(@src, 'logo')]"))
+
+    # Image in link
+    xml2::xml_remove(
+      xml2::xml_parent(
+        xml2::xml_find_all(html, ".//h1/a/img[contains(@src, 'logo')]")
+      )
+    )
+
+    # Add logo
+    xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
+      xml2::xml_child() %>%
+      xml2::xml_add_sibling("img",
+        src = logo,
+        class = "pkg-logo",
+        alt = "",
+        width = "120",
+        .where = "before"
+      )
+  }
   # Fix relative image links
   imgs <- xml2::xml_find_all(html, ".//img")
   urls <- xml2::xml_attr(imgs, "src")
@@ -187,6 +355,14 @@ tweak_homepage_html <- function(html, strip_header = FALSE, sidebar = TRUE) {
   tweak_tables(html)
 
   invisible()
+}
+
+class_page_header <- function(bs_version, header) {
+  if (bs_version == 3) {
+    paste0("<div class='page-header'>", header, "</div>")
+  } else {
+    paste0("<div class='pb-2 mt-4 mb-2 border-bottom'>", header, "</div>")
+  }
 }
 
 tweak_sidebar_html <- function(html, sidebar) {
@@ -217,7 +393,7 @@ badges_extract <- function(html) {
   x <- xml2::xml_find_first(html, "//div[@id='badges']")
   strict <- FALSE
 
-  # then try usethis-readme-like paragraph;
+  # then try usethis-readme-like more complex structure;
   if (length(x) == 0) {
     # Find start comment, then all elements after
     # which are followed by the end comment.
@@ -225,6 +401,13 @@ badges_extract <- function(html) {
       //comment()[contains(., 'badges: start')][1]
       /following-sibling::*[following-sibling::comment()[contains(., 'badges: end')]]
     ")
+
+  }
+
+  # then try usethis-readme-like paragraph;
+  # where the badges: end comment is inside the paragraph after badges: start
+  if (length(x) == 0) {
+    x <- xml2::xml_find_all(html, ".//*/comment()[contains(., 'badges: start')]/following-sibling::p[1]")
   }
 
   # finally try first paragraph
@@ -259,10 +442,146 @@ badges_extract_text <- function(x) {
   xml <- xml2::read_html(x)
   badges_extract(xml)
 }
+
+activate_navbar <- function(html, path, pkg) {
+  path <- remove_useless_parts(path, pkg = pkg)
+
+  # Get nav items, their links, their similarity to the current path
+  navbar_haystack <- navbar_links_haystack(html, pkg, path)
+
+  # Nothing similar
+  if (nrow(navbar_haystack) == 0) {
+    return()
+  }
+
+  # Pick the most similar link, activate the corresponding nav item
+  tweak_class_prepend(
+    navbar_haystack$nav_item[which.max(navbar_haystack$similar)][[1]],
+    "active"
+  )
+}
+
+navbar_links_haystack <- function(html, pkg, path) {
+  # Extract links from the menu items
+  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
+
+  get_hrefs <- function(nav_item, pkg = pkg) {
+    href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
+
+    if (href != "#") {
+      links <- href
+    } else {
+      # links in a drop-down
+      hrefs <- xml2::xml_attr(xml2::xml_find_all(nav_item, ".//a"), "href")
+      links <- hrefs[hrefs != "#"]
+    }
+
+    tibble::tibble(
+      nav_item = list(nav_item),
+      links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
+    )
+  }
+
+  haystack <- do.call(rbind, lapply(nav_items, get_hrefs, pkg = pkg))
+
+  # For each link, calculate similarity to the current path
+  separate_path <- function(link) {
+    strsplit(link, "/")[[1]]
+  }
+  get_similarity <- function(stalk, needle) {
+    needle <- separate_path(needle)
+    stalk <- separate_path(stalk)
+
+    # Active item can't be more precise than current path/needle
+    if (length(stalk) > length(needle)) {
+      return(0)
+    }
+
+    # Active item can however be less precise than current path/needle
+    length(stalk) <- length(needle)
+    similar <- (needle == stalk)
+
+    # Any difference indicates it's not the active item
+    if (any(!similar, na.rm = TRUE)) {
+      0
+    } else {
+      sum(similar, na.rm = TRUE)
+    }
+  }
+  haystack$similar <- purrr::map_dbl(haystack$links, get_similarity, needle = path)
+
+  # Only return rows of links with some similarity to the current path
+  haystack[haystack$similar > 0, ]
+}
+
+trim_toc <- function(html) {
+  if (count_heading(html) <= 0) {
+    xml2::xml_remove(xml2::xml_find_first(html, '//nav[@id="toc"]'))
+  }
+}
+
+count_heading <- function(html) {
+  # - 1 to remove one for the contents header :-)
+  sum(purrr::map_dbl(2:6, count_heading_level, html)) - 1
+}
+
+count_heading_level <- function(level, html) {
+  length(
+    xml2::xml_find_all(
+      xml2::xml_find_first(html, "//body"),
+      # exclude dropdown headers
+      sprintf("//h%s[not(contains(@class, 'dropdown'))]", level)
+    )
+  )
+}
+
+
+tweak_404 <- function(html, pkg = pkg) {
+
+  # If there's no URL links can't be made absolute
+  if (is.null(pkg$meta$url)) {
+    return()
+  }
+
+  url <- paste0(pkg$meta$url, "/")
+
+  # Links
+  links <- xml2::xml_find_all(html, ".//a | .//link")
+  rel_links <- links[!grepl("https?\\://", xml2::xml_attr(links, "href"))]
+  if (length(rel_links) > 0) {
+    new_urls <- paste0(url, xml2::xml_attr(rel_links, "href"))
+    xml2::xml_attr(rel_links, "href") <- new_urls
+  }
+
+  # Scripts
+  scripts <- xml2::xml_find_all(html, ".//script")
+  scripts <- scripts[!is.na(xml2::xml_attr(scripts, "src"))]
+  rel_scripts <- scripts[!grepl("https?\\://", xml2::xml_attr(scripts, "src"))]
+  if (length(rel_scripts) > 0) {
+    new_srcs <- paste0(url, xml2::xml_attr(rel_scripts, "src"))
+    xml2::xml_attr(rel_scripts, "src") <- new_srcs
+  }
+
+  # Logo
+  logo <- xml2::xml_find_first(html, ".//img[@class='pkg-logo']")
+  if (inherits(logo, "xml_node")) {
+    xml2::xml_attr(logo, "src") <- paste0(url, logo_path(pkg, depth = 0))
+  }
+
+  TRUE
+}
+
 # Update file on disk -----------------------------------------------------
 
 update_html <- function(path, tweak, ...) {
-  html <- xml2::read_html(path, encoding = "UTF-8")
+
+  raw <- read_file(path)
+  # Following the xml 1.0 spec, libxml2 drops low-bit ASCII characters
+  # so we convert to \u2029, relying on downlit to convert back in
+  # token_escape().
+  raw <- gsub("\033", "\u2029", raw, fixed = TRUE)
+  html <- xml2::read_html(raw, encoding = "UTF-8")
   tweak(html, ...)
 
   xml2::write_html(html, path, format = FALSE)

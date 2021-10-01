@@ -69,5 +69,8 @@ build_citation_authors <- function(pkg = ".") {
     source = source
   )
 
+  data$before <- markdown_block(pkg$meta$authors$before, pkg = pkg)
+  data$after <- markdown_block(pkg$meta$authors$after, pkg = pkg)
+
   render_page(pkg, "citation-authors", data, "authors.html")
 }

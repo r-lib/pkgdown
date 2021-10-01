@@ -25,7 +25,9 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     dst_path,
     tweak_homepage_html,
     strip_header = strip_header,
-    sidebar = !isFALSE(pkg$meta$home$sidebar)
+    sidebar = !isFALSE(pkg$meta$home$sidebar),
+    bs_version = pkg$bs_version,
+    logo = logo_path(pkg, depth = 0)
   )
 
   invisible()
@@ -39,7 +41,8 @@ data_home <- function(pkg = ".") {
       cran_unquote(pkg$desc$get("Title")[[1]]),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get("Description")[[1]]))
+                       cran_unquote(pkg$desc$get("Description")[[1]])),
+    has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
 }
 
@@ -131,7 +134,7 @@ data_home_component <- function(component, component_name, pkg) {
 
   sidebar_section(
     component$title,
-    bullets = markdown_text2(component$text, pkg = pkg)
+    bullets = markdown_block(component$text, pkg = pkg)
   )
 }
 
@@ -155,7 +158,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 data_home_toc <- function(pkg) {
   sidebar_section(
     "Table of contents",
-    '<nav id="toc" data-toggle="toc" class="sticky-top"></nav>'
+    '<nav id="toc" class="sticky-top"></nav>'
   )
 }
 

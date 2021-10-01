@@ -1,12 +1,3 @@
-highlight_text <- function(text) {
-  out <- downlit::highlight(text, classes = downlit::classes_pandoc())
-  if (is.na(out)) {
-    escape_html(text)
-  } else {
-    out
-  }
-}
-
 set_contains <- function(haystack, needles) {
   all(needles %in% haystack)
 }
@@ -190,5 +181,84 @@ modify_list <- function(x, y) {
   if (is.null(y)) {
     return(x)
   }
+
   utils::modifyList(x, y)
+}
+
+code_commas <- function(x) {
+  paste0("`", x, "`", collapse = ", ")
+}
+
+# from https://github.com/r-lib/rematch2/blob/8098bd06f251bfe0f20c0598d90fc20b741d13f8/R/package.R#L47
+re_match <- function(text, pattern, perl = TRUE, ...) {
+
+  stopifnot(is.character(pattern), length(pattern) == 1, !is.na(pattern))
+  text <- as.character(text)
+
+  match <- regexpr(pattern, text, perl = perl, ...)
+
+  start  <- as.vector(match)
+  length <- attr(match, "match.length")
+  end    <- start + length - 1L
+
+  matchstr <- substring(text, start, end)
+  matchstr[ start == -1 ] <- NA_character_
+
+  res <- data.frame(
+    stringsAsFactors = FALSE,
+    .text = text,
+    .match = matchstr
+  )
+
+  if (!is.null(attr(match, "capture.start"))) {
+
+    gstart  <- attr(match, "capture.start")
+    glength <- attr(match, "capture.length")
+    gend    <- gstart + glength - 1L
+
+    groupstr <- substring(text, gstart, gend)
+    groupstr[ gstart == -1 ] <- NA_character_
+    dim(groupstr) <- dim(gstart)
+
+    res <- cbind(groupstr, res, stringsAsFactors = FALSE)
+  }
+
+  names(res) <- c(attr(match, "capture.names"), ".text", ".match")
+  class(res) <- c("tbl_df", "tbl", class(res))
+  res
+}
+
+# external links can't be an active item
+# external links start with http(s)
+# but are NOT an absolute URL to the pkgdown site at hand
+is_internal_link <- function(links, pkg) {
+  if (is.null(pkg$meta$url)) {
+    !grepl("https?://", links)
+  } else {
+    !grepl("https?://", links) | grepl(pkg$meta$url, links)
+  }
+}
+
+remove_useless_parts <- function(links, pkg) {
+  # remove website URL
+  if (!is.null(pkg$meta$url)) {
+    links <- sub(pkg$meta$url, "", links)
+  }
+  # remove first slash from path
+  links <- sub("^/", "", links)
+  # remove /index.html from the end
+  links <- sub("/index.html/?", "", links)
+  # remove ../ from the beginning
+  links <- gsub("\\.\\./", "", links)
+
+  links
+}
+
+get_section_level <- function(section) {
+  as.numeric(
+     gsub(
+        ".*section level(\\d+).*", '\\1',
+        xml2::xml_attr(section, "class")
+      )
+  )
 }

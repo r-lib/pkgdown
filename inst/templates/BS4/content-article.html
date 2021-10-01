@@ -1,0 +1,66 @@
+{{^as_is}}$for(header-includes)$
+$header-includes$
+$endfor${{/as_is}}
+
+<div class="row">
+  <div class="col-md-9 contents">
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4" data-toc-skip>$title$</h1>
+      $if(subtitle)$
+      <h3 data-toc-skip class="subtitle">$subtitle$</h3>
+      $endif$
+      $for(author)$
+      $if(author.name)$
+      <h4 data-toc-skip class="author">$author.name$</h4>
+      $if(author.affiliation)$
+      <address class="author_afil">
+      $author.affiliation$<br>$endif$
+      $if(author.email)$
+      <a class="author_email" href="mailto:#">$author.email$</a>
+      </address>
+      $endif$
+      $else$
+      <h4 data-toc-skip class="author">$author$</h4>
+      $endif$
+      $endfor$
+
+      $if(date)$
+      <h4 data-toc-skip class="date">$date$</h4>
+      $endif$
+
+      {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
+      <div class="d-none name"><code>{{filename}}</code></div>
+
+    </div>
+
+    $for(include-before)$
+    $include-before$
+    $endfor$
+
+    $if(abstract)$
+    <div class="abstract">
+      <p class="abstract">Abstract</p>
+      $abstract$
+    </div>
+    $endif$
+
+$body$
+  </div>
+ <div class="col-md-3 d-none d-md-block" id="pkgdown-sidebar">
+    $if(toc)$
+    <div class="sticky-top">
+    <nav id="toc">
+
+      <h2 data-toc-skip>Contents</h2>
+
+    </nav>
+</div>
+    $endif$
+  </div>
+
+</div>
+
+$for(include-after)$
+$include-after$
+$endfor$

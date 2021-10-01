@@ -31,16 +31,19 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   data$pkgdown <- list(
     version = utils::packageDescription("pkgdown", fields = "Version")
   )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
-  # The real location of 404.html is dynamic (#1129).
-  # Relative root does not work, use the full URL if available.
-  if (path == "404.html" && length(pkg$meta$url)) {
-    data$site$root <- paste0(pkg$meta$url, "/")
+  data$footer <- pkgdown_footer(data, pkg)
+
+  # Dependencies for head
+  if (pkg$bs_version > 3) {
+    data$headdeps <- data_deps(pkg = pkg, depth = depth)
   }
 
-  data$footer <- pkgdown_footer(data, pkg)
+  # Potential opt-out of syntax highlighting CSS
+  data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)
 
   # render template components
   pieces <- c(
@@ -48,26 +51,48 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     "in-header", "after-head", "before-body", "after-body"
   )
 
+  if (pkg$bs_version > 3) {
+    pieces <- pieces[pieces != "docsearch"]
+  }
+
   templates <- purrr::map_chr(
     pieces, find_template, name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
 
-  if (path == "404.html" && !is.null(pkg$meta$url)) {
-    components$navbar <- tweak_navbar_links(components$navbar, pkg = pkg)
-  }
-
   # render complete layout
   template <- find_template(
     "layout", name,
     template_path = template_path(pkg),
-    bs_version = get_bs_version(pkg)
+    bs_version = pkg$bs_version
   )
   rendered <- render_template(template, components)
+
+  # footnotes
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    tweak_footnotes(html)
+    rendered <- as.character(html, options = character())
+  }
+
+  # navbar activation
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    activate_navbar(html, data$output_file %||% path, pkg)
+    rendered <- as.character(html, options = character())
+  }
+
+  # remove TOC if useless
+  if (pkg$bs_version > 3) {
+    html <- xml2::read_html(rendered)
+    trim_toc(html)
+    rendered <- as.character(html, options = character())
+  }
+
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -133,7 +158,7 @@ data_open_graph <- function(pkg = ".") {
 
 check_open_graph <- function(og) {
   if (!is.list(og)) {
-    abort(paste("`opengraph` must be a list, not", friendly_type(typeof(og))))
+    abort(paste("`opengraph` must be a list, not", friendly_type_of(og)))
   }
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
@@ -181,7 +206,6 @@ check_open_graph <- function(og) {
 }
 
 get_bs_version <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
 
   template <- pkg$meta[["template"]]
 
@@ -217,14 +241,19 @@ template_path <- function(pkg = ".") {
       abort(paste0("Can not find template path ", src_path(path)))
 
     path
-  } else if (!is.null(template$package)) {
+  } else if (is.null(template$package)) {
+    default_template_path <- file.path(pkg$src_path, "pkgdown", "templates")
+    if (dir.exists(default_template_path)) {
+      default_template_path
+    } else {
+      character()
+    }
+  } else {
     path_package_pkgdown(
       template$package,
-      bs_version = get_bs_version(pkg),
+      bs_version = pkg$bs_version,
       "templates"
     )
-  } else {
-    character()
   }
 }
 
@@ -266,6 +295,9 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (same_contents(full_path, contents)) {
+    # touching the file to update its modification time
+    # which is important for proper lazy behavior
+    fs::file_touch(full_path)
     return(FALSE)
   }
 
@@ -331,7 +363,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  left_final_components <- markdown_text2(
+  left_final_components <- markdown_block(
     paste0(left_components[left_structure], collapse = " "),
     pkg = pkg
   )
@@ -351,7 +383,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  right_final_components <- markdown_text2(
+  right_final_components <- markdown_block(
     paste0(right_components[right_structure], collapse = " "),
     pkg = pkg
   )
@@ -369,4 +401,92 @@ footer_pkgdown <- function(data) {
     'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
     data$pkgdown$version, "."
   )
+}
+
+data_deps <- function(pkg, depth) {
+
+  rlang::check_installed("htmltools")
+
+  # theme variables from configuration
+  bs_version <- pkg$bs_version
+  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||%
+    pkg$meta[["template"]]$params$bootswatch %||%
+    NULL
+
+  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
+
+  bs_theme <- do.call(
+    bslib::bs_theme,
+    c(
+      list(
+        version = bs_version,
+        bootswatch = bootswatch_theme
+      ),
+      utils::modifyList(
+        pkgdown_bslib_defaults(),
+        pkg$meta[["template"]]$bslib %||% list()
+      )
+    )
+  )
+  deps <- bslib::bs_theme_dependencies(bs_theme)
+  # Add other dependencies - TODO: more of those?
+  # Even font awesome had a too old version in R Markdown (no ORCID)
+
+  # Dependencies files end up at the website root in a deps folder
+  deps <- lapply(
+    deps,
+    htmltools::copyDependencyToDir,
+    file.path(pkg$dst_path, "deps")
+  )
+
+  # Function needed for indicating where that deps folder is compared to here
+  transform_path <- function(x) {
+
+    # At the time this function is called
+    # html::renderDependencies() has already encoded x
+    # with the default htmltools::urlEncodePath()
+    x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", x)
+
+    if (depth == 0) {
+      return(sub("/", "", x))
+    }
+
+    paste0(
+      paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
+      x
+    )
+
+  }
+
+
+  # Tags ready to be added in heads
+  htmltools::renderDependencies(
+    deps,
+    srcType = "file",
+    hrefFilter = transform_path
+  )
+}
+
+check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+  if (is.null(bootswatch_theme)) {
+    return(invisible())
+  }
+
+  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    return(invisible())
+  }
+
+  abort(
+    sprintf(
+      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+      bootswatch_theme,
+      pkgdown_field(pkg = pkg, "template", "bootswatch"),
+      bs_version,
+      pkgdown_field(pkg = pkg, "template", "bootstrap")
+    )
+  )
+}
+
+pkgdown_bslib_defaults <- function() {
+  list(`navbar-nav-link-padding-x` = "1rem")
 }

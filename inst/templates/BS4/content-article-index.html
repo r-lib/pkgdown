@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-9 contents">
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4">Articles</h1>
+    </div>
+
+    {{#sections}}
+    <div class="section {{class}}">
+      <h3>{{title}}</h3>
+      <p class="section-desc">{{{desc}}}</p>
+
+      <dl>
+        {{#contents}}
+        <dt><a href="{{path}}">{{title}}</a></dt>
+        <dd>{{{description}}}</dt>
+        {{/contents}}
+      </dl>
+    </div>
+    {{/sections}}
+  </div>
+</div>

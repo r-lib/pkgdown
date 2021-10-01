@@ -5,6 +5,12 @@
 #' @keywords internal
 "_PACKAGE"
 
+release_bullets <- function() {
+  c(
+    "Check that 'test/widget.html' responds to mouse clicks"
+  )
+}
+
 #' Determine if code is executed by pkgdown
 #'
 #' This is occasionally useful when you need different behaviour by
