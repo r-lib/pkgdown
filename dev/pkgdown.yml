@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1.9001
+pkgdown: 1.9000.9000.9000
 pkgdown_sha: ~
 articles:
   customization: customization.html
@@ -11,7 +11,7 @@ articles:
   pdf: test/pdf.pdf
   rendering: test/rendering.html
   widgets: test/widgets.html
-last_built: 2021-09-30T22:58Z
+last_built: 2021-10-01T16:45Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
