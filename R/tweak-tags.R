@@ -44,7 +44,7 @@ tweak_anchors <- function(html, only_contents = TRUE) {
   invisible()
 }
 
-tweak_md_links <- function(html) {
+tweak_link_md <- function(html) {
   links <- xml2::xml_find_all(html, ".//a")
   if (length(links) == 0)
     return()
@@ -70,7 +70,7 @@ tweak_md_links <- function(html) {
   invisible()
 }
 
-tweak_all_links <- function(html, pkg = list()) {
+tweak_link_external <- function(html, pkg = list()) {
   links <- xml2::xml_find_all(html, ".//a")
   if (length(links) == 0)
     return()

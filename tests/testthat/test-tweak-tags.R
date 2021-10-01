@@ -46,7 +46,7 @@ test_that("local md links are replaced with html", {
     <a href="local.md"></a>
     <a href="http://remote.com/remote.md"></a>
   ')
-  tweak_md_links(html)
+  tweak_link_md(html)
 
   expect_equal(
     xpath_attr(html, "//a", "href"),
@@ -54,7 +54,7 @@ test_that("local md links are replaced with html", {
   )
 })
 
-test_that("tweak_all_links() add the external-link class", {
+test_that("tweak_link_external() add the external-link class", {
   html <- xml2::read_html('
     <a href="#anchor"></a>
     <a href="http://remote.com/remote.md"></a>
@@ -63,7 +63,7 @@ test_that("tweak_all_links() add the external-link class", {
   ')
 
   pkg <- list(meta = list(url = "http://example.com"))
-  tweak_all_links(html, pkg = pkg)
+  tweak_link_external(html, pkg = pkg)
 
   expect_equal(
     xpath_attr(html, "//a", "class"),
