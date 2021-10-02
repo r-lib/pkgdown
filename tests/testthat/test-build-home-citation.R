@@ -26,12 +26,10 @@ test_that("create_meta can read DESCRIPTION with an Encoding", {
 })
 
 test_that("source link is added to citation page", {
-  path <- test_path("assets/site-citation/encoding-UTF-8")
+  pkg <- local_pkgdown_site(test_path("assets/site-citation/encoding-UTF-8"))
+  expect_output(build_home(pkg))
 
-  expect_output(build_home(path))
-  on.exit(clean_site(path))
-
-  lines <- read_lines(path(path, "docs", "authors.html"))
+  lines <- read_lines(path(pkg$dst_path, "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
 })
 

@@ -3,8 +3,6 @@ test_that("both versions of build_site have same arguments", {
 })
 
 test_that("can build package without any index/readme", {
-  pkg <- test_path("assets/site-empty")
-  on.exit(clean_site(pkg))
-
+  pkg <- local_pkgdown_site(test_path("assets/site-empty"))
   expect_output(build_site(pkg))
 })
