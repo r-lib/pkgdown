@@ -22,7 +22,8 @@ build_home_md <- function(pkg) {
 }
 
 render_md <- function(pkg, filename) {
-  body <- markdown(path = filename, strip_header = TRUE, pkg = pkg)
+  body <- markdown_body(filename, strip_header = TRUE, pkg = pkg)
+  browser()
 
   cat_line("Reading ", src_path(path_rel(filename, pkg$src_path)))
 
@@ -37,7 +38,7 @@ render_md <- function(pkg, filename) {
   )
 
   if (basename(filename) == "404.md") {
-    update_html(path_abs("404.html", start = pkg$dst_path), tweak_404, pkg = pkg)
+    update_html(path_abs("404.html", start = pkg$dst_path), tweak_link_absolute, pkg = pkg)
   }
 
 }

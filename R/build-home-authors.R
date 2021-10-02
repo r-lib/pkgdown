@@ -76,13 +76,13 @@ data <- data_authors(pkg, roles)
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
   bullets <- c(
-      markdown_inline(
+      markdown_text_inline(
         pkg$meta$authors$sidebar$before,
         pkg = pkg,
         where = c("authors", "sidebar", "before")
       ),
       authors,
-      markdown_inline(
+      markdown_text_inline(
         pkg$meta$authors$sidebar$after,
         pkg = pkg,
         where = c("authors", "sidebar", "after")
@@ -110,8 +110,8 @@ data_authors_page <- function(pkg) {
     authors = data_authors(pkg)$all
   )
 
-  data$before <- markdown_block(pkg$meta$authors$before, pkg = pkg)
-  data$after <- markdown_block(pkg$meta$authors$after, pkg = pkg)
+  data$before <- markdown_text_block(pkg$meta$authors$before, pkg = pkg)
+  data$after <- markdown_text_block(pkg$meta$authors$after, pkg = pkg)
 
   return(data)
 }
@@ -125,7 +125,7 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_inline(
+    name <- markdown_text_inline(
       author$html,
       pkg = pkg,
       where = c("authors", name, "html")
