@@ -8,10 +8,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   tweak_link_external(html, pkg = pkg)
 
   if (pkg$bs_version > 3) {
-    # Tweak footnotes
     tweak_footnotes(html)
-
-    # Tweak tabsets
     tweak_tabsets(html)
   }
 
