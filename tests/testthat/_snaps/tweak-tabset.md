@@ -1,7 +1,7 @@
 # sections with class .tabset are converted to tabsets
 
     <div id="tabset" class="section level1 tabset tabset-pills">
-    <h1 class="tabset tabset-pills">Tabset</h1>
+    <h1>Tabset</h1>
     
     
     <ul class="nav nav-pills nav-row" id="tabset" role="tablist">
@@ -23,7 +23,7 @@
 # can adjust active tab
 
     <div id="tabset" class="section level2 tabset tabset-pills">
-    <h2 class="tabset tabset-pills">Tabset</h2>
+    <h2>Tabset</h2>
     
     
     <ul class="nav nav-pills nav-row" id="tabset" role="tablist">
@@ -45,7 +45,7 @@
 # can fades
 
     <div id="tabset" class="section level2 tabset tabset-fade">
-    <h2 class="tabset tabset-fade">Tabset</h2>
+    <h2>Tabset</h2>
     
     
     <ul class="nav nav-tabs nav-row" id="tabset" role="tablist">

@@ -124,3 +124,8 @@ tablist_content <- function(tab, html, parent_id, fade) {
   xml2::xml_add_child(content_div, tab)
 }
 
+tweak_strip_header_class <- function(x) {
+  headings <- xml2::xml_find_all(x, ".//h1|.//h2|.//h3|.//h4|.//h5")
+  xml2::xml_set_attr(headings, "class", NULL)
+  invisible()
+}
