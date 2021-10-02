@@ -29,6 +29,18 @@ local_envvar_pkgdown <- function(scope = parent.frame()) {
 
 local_pkgdown_site <- function(path, override = list(), env = parent.frame()) {
   pkg <- as_pkgdown(path, override)
-  withr::defer(if (fs::dir_exists(pkg$dst_path)) fs::dir_delete(pkg$dst_path), envir = env)
+
+  clean_up <- function(path) {
+    if (!fs::dir_exists(path)) {
+      return()
+    }
+    fs::dir_delete(path)
+  }
+  if (pkg$development$in_dev) {
+    withr::defer(clean_up(path_dir(pkg$dst_path)), envir = env)
+  } else {
+    withr::defer(clean_up(pkg$dst_path), envir = env)
+  }
+
   pkg
 }

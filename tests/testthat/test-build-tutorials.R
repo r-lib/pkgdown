@@ -21,8 +21,7 @@ test_that("can autodetect published tutorials", {
   dcf_dst <- path(pkg, "inst/tutorials/test-1/rsconnect/documents/test-1.Rmd/shinyapps.io/hadley/tutorial-test-1.dcf")
   dir_create(path_dir(dcf_dst))
   file_copy(dcf_src, dcf_dst, overwrite = TRUE)
-  on.exit(file_delete(dcf_dst), add = TRUE)
-  on.exit(dir_delete(path_dir(dcf_dst)), add = TRUE)
+  withr::defer(dir_delete(path(pkg, "inst/tutorials/test-1/rsconnect")))
 
   out <- package_tutorials(pkg)
   expect_equal(nrow(out), 1)
