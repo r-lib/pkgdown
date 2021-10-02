@@ -12,7 +12,11 @@ test_that("sections with class .tabset are converted to tabsets", {
   ")
 
   tweak_tabsets(html)
-  tweak_strip_header_class(html) # older pandoc compatibility
+
+  # strip class for older pandoc compat on GHA
+  headings <- xml2::xml_find_all(html, ".//h1")
+  xml2::xml_set_attr(headings, "class", NULL)
+
   expect_snapshot_output(show_xml(html, ".//div"))
 })
 
@@ -28,13 +32,15 @@ test_that("can adjust active tab", {
 
     Contents 2
   ")
-
   tweak_tabsets(html)
-  tweak_strip_header_class(html) # older pandoc compatibility
-  expect_snapshot_output(show_xml(html, ".//div"))
+
+  expect_equal(
+    xpath_attr(html, "//div/div/div", "class"),
+    c("tab-pane", "active tab-pane")
+  )
 })
 
-test_that("can fades", {
+test_that("can fade", {
   html <- markdown_to_html("
     ## Tabset {.tabset .tabset-fade}
 
@@ -48,6 +54,8 @@ test_that("can fades", {
   ")
 
   tweak_tabsets(html)
-  tweak_strip_header_class(html) # older pandoc compatibility
-  expect_snapshot_output(show_xml(html, ".//div"))
+  expect_equal(
+    xpath_attr(html, "//div/div/div", "class"),
+    c("fade tab-pane", "show active fade tab-pane")
+  )
 })
