@@ -1,4 +1,4 @@
-activate_navbar <- function(html, path, pkg) {
+activate_navbar <- function(html, path, pkg = list()) {
   path <- remove_useless_parts(path, pkg = pkg)
 
   # Get nav items, their links, their similarity to the current path
