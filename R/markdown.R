@@ -36,7 +36,7 @@ markdown_text_block <- function(text, pkg = list(), ...) {
 
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   output <- paste0(as.character(children, options = character()), collapse="")
-  gsub("\\\n", "", output)
+  gsub("\\r?\\n", "", output)
 }
 
 markdown_body <- function(path, strip_header = FALSE, pkg = list()) {
