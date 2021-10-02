@@ -23,11 +23,6 @@ test_that("markdown_text_block() works with inline and block markdown", {
   )
 })
 
-test_that("markdown_text_block() doesn't add \n", {
-  html <- "<p><strong>x</strong></p><p>x</p>"
-  expect_equal(markdown_text_block(html), html)
-})
-
 test_that("markdown_body() captures title", {
   temp <- withr::local_tempfile()
   write_lines("# Title\n\nSome text", temp)
