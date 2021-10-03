@@ -24,7 +24,7 @@ test_that("data_home_sidebar() works by default", {
 
   pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
   html <- xml2::read_html(data_home_sidebar(pkg))
-  expect_snapshot_output(show_xml(html, ".//div[@class='developers']"))
+  expect_snapshot_output(xpath_xml(html, ".//div[@class='developers']"))
 })
 
 test_that("data_home_sidebar() can be removed", {
@@ -68,7 +68,7 @@ test_that("data_home_sidebar() can get a custom markdown formatted component", {
   )
 
   html <- xml2::read_html(data_home_sidebar(pkg))
-  expect_snapshot_output(show_xml(html, ".//div[@class='fancy-section']"))
+  expect_snapshot_output(xpath_xml(html, ".//div[@class='fancy-section']"))
 })
 
 test_that("data_home_sidebar() can add a README", {
@@ -76,7 +76,7 @@ test_that("data_home_sidebar() can add a README", {
   pkg$meta$home$sidebar <- list(structure = c("license", "toc"))
 
   html <- xml2::read_html(data_home_sidebar(pkg))
-  expect_snapshot_output(show_xml(html, ".//div[@class='table-of-contents']"))
+  expect_snapshot_output(xpath_xml(html, ".//div[@class='table-of-contents']"))
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {

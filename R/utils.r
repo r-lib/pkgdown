@@ -244,24 +244,23 @@ get_section_level <- function(section) {
   )
 }
 
-show_xml <- function(x, xpath = NULL) {
-  cat(xpath_xml(x, xpath))
-}
+# Helpers for testing -----------------------------------------------------
 
 xpath_xml <- function(x, xpath) {
-  if (!is.null(xpath)) {
-    x <- xml2::xml_find_first(x, xpath)
-  }
-  as.character(x, options = c("format", "no_declaration"))
+  x <- xml2::xml_find_all(x, xpath)
+  structure(x, class = c("pkgdown_xml", class(x)))
 }
-
 xpath_attr <- function(x, xpath, attr) {
   xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
 }
 xpath_text <- function(x, xpath) {
   xml2::xml_text(xml2::xml_find_all(x, xpath))
 }
-
 xpath_length <- function(x, xpath) {
   length(xml2::xml_find_all(x, xpath))
+}
+#' @export
+print.pkgdown_xml <- function(x, ...) {
+  cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
+  invisible(x)
 }

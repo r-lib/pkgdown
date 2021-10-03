@@ -22,7 +22,7 @@ test_that("anchor html added to headings", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
   tweak_anchors(html, only_contents = FALSE)
 
-  expect_snapshot(show_xml(html, "//h1"))
+  expect_snapshot_output(xpath_xml(html, "//h1"))
 })
 
 test_that("anchors don't get additional newline", {
@@ -43,7 +43,7 @@ test_that("empty headings are skipped", {
 test_that("docs with no headings are left unchanged", {
   html <- xml2::read_xml('<div>Nothing</div>')
   tweak_anchors(html, only_contents = FALSE)
-  expect_equal(xpath_xml(html, "//div"), '<div>Nothing</div>')
+  expect_equal(as.character(xpath_xml(html, "//div")), '<div>Nothing</div>')
 })
 
 # links -----------------------------------------------------------------

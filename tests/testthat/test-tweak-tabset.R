@@ -17,7 +17,7 @@ test_that("sections with class .tabset are converted to tabsets", {
   headings <- xml2::xml_find_all(html, ".//h1")
   xml2::xml_set_attr(headings, "class", NULL)
 
-  expect_snapshot_output(show_xml(html, ".//div"))
+  expect_snapshot_output(xpath_xml(html, ".//body/div"))
 })
 
 test_that("can adjust active tab", {
