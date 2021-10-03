@@ -4,26 +4,15 @@ test_that("special characters are escaped", {
 })
 
 test_that("simple tags translated to known good values", {
-  verify_output(test_path("test-rd-html.txt"), {
-    "# Simple insertions"
-    rd2html("\\ldots")
-    rd2html("\\dots")
-    rd2html("\\R")
-    rd2html("\\cr")
+  # Simple insertions
+  expect_equal(rd2html("\\ldots"), "...")
+  expect_equal(rd2html("\\dots"), "...")
+  expect_equal(rd2html("\\R"), "<span style=\"R\">R</span>")
+  expect_equal(rd2html("\\cr"), "<br />")
 
-    "# Lists"
-    rd2html("\\itemize{\\item a}")
-    rd2html("\\enumerate{\\item a}")
-
-    "# Links"
-    rd2html("\\href{http://bar.com}{BAR}")
-    rd2html("\\email{foo@bar.com}")
-    rd2html("\\url{http://bar.com}")
-
-    "Macros"
-    rd2html("\\newcommand{\\froofy}{'froofy'} \\froofy{}")
-    rd2html("\\renewcommand{\\froofy}{'froofy'} \\froofy{}")
-  })
+  "Macros"
+  expect_equal(rd2html("\\newcommand{\\f}{'f'} \\f{}"), "'f'")
+  expect_equal(rd2html("\\renewcommand{\\f}{'f'} \\f{}"), "'f'")
 })
 
 test_that("comments converted to html", {
@@ -212,6 +201,21 @@ test_that("DOIs are linked", {
 
 # links -------------------------------------------------------------------
 
+test_that("simple links generate <a>", {
+  expect_equal(
+    rd2html("\\href{http://bar.com}{BAR}"),
+    "<a href='http://bar.com'>BAR</a>"
+  )
+  expect_equal(
+    rd2html("\\email{foo@bar.com}"),
+    "<a href='mailto:foo@bar.com'>foo@bar.com</a>"
+  )
+  expect_equal(
+    rd2html("\\url{http://bar.com}"),
+    "<a href='http://bar.com'>http://bar.com</a>"
+  )
+})
+
 test_that("can convert cross links to online documentation url", {
   expect_equal(
     rd2html("\\link[base]{library}"),
@@ -279,6 +283,15 @@ test_that("link to non-existing functions return label", {
   expect_equal(rd2html("\\linkS4class{TEST}"), "<a href='test.html'>TEST</a>")
 })
 
+test_that("bad specs throw errors", {
+  expect_snapshot(error = TRUE, {
+    rd2html("\\url{}")
+    rd2html("\\url{a\nb}")
+    rd2html("\\email{}")
+    rd2html("\\linkS4class{}")
+  })
+})
+
 # Paragraphs --------------------------------------------------------------
 
 test_that("empty input gives empty output", {
@@ -322,6 +335,20 @@ test_that("nl after tag doesn't trigger paragraphs", {
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
   expect_equal(out, "<p>a <br /> b</p>")
+})
+
+
+# lists -------------------------------------------------------------------
+
+test_that("simple lists work", {
+  expect_equal(
+    rd2html("\\itemize{\\item a}"),
+    c("<ul>", "<li><p>a</p></li>", "</ul>")
+  )
+  expect_equal(
+    rd2html("\\enumerate{\\item a}"),
+    c("<ol>", "<li><p>a</p></li>", "</ol>")
+  )
 })
 
 test_that("nested item with whitespace parsed correctly", {
@@ -431,16 +458,4 @@ test_that("figures are converted to img", {
     rd2html("\\figure{a}{options: height=1}"),
     "<img src='figures/a' height=1 />"
   )
-})
-
-# Rd tag errors ------------------------------------------------------------------
-
-test_that("bad Rd tags throw errors", {
-  verify_output(test_path("test-rd-html-error.txt"), {
-    rd2html("\\url{}")
-    rd2html("\\url{a\nb}")
-    rd2html("\\email{}")
-    rd2html("\\linkS4class{}")
-    rd2html("\\enc{}")
-  })
 })

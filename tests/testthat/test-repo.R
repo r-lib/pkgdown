@@ -40,7 +40,7 @@ test_that("Jira issues are automatically linked", {
 test_that("repo_source() truncates automatically", {
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
-  verify_output(test_path("test-repo-source.txt"), {
+  expect_snapshot({
     cat(repo_source(pkg, character()))
     cat(repo_source(pkg, "a"))
     cat(repo_source(pkg, letters[1:10]))

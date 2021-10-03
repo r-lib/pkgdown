@@ -17,7 +17,7 @@ test_that("render_rmarkdown yields useful error", {
   tmp <- dir_create(file_temp())
   pkg <- list(src_path = test_path("."), dst_path = tmp)
 
-  verify_output(test_path("test-rmarkown-error.txt"), {
+  expect_snapshot(error = TRUE, {
     render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html")
   })
 })
