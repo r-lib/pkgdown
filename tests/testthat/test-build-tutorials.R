@@ -1,16 +1,3 @@
-jj_examples <- list(
-  list(
-    name = "00-setup",
-    title = "Setting up R",
-    url = "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
-  ),
-  list(
-    name = "01-data-basics",
-    title = "Data basics",
-    url = "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
-  )
-)
-
 test_that("can autodetect published tutorials", {
   skip_if_not_installed("rsconnect")
   skip_if(is.null(rsconnect::accounts()))
@@ -29,6 +16,19 @@ test_that("can autodetect published tutorials", {
 })
 
 test_that("meta overrides published", {
+  jj_examples <- list(
+    list(
+      name = "00-setup",
+      title = "Setting up R",
+      url = "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
+    ),
+    list(
+      name = "01-data-basics",
+      title = "Data basics",
+      url = "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
+    )
+  )
+
   out <- package_tutorials(
     test_path("assets/tutorials-inst"),
     meta = list(tutorials = jj_examples)

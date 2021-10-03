@@ -32,11 +32,11 @@ test_that("can build site even if no Authors@R present", {
 
 test_that(".github files are copied and linked", {
   skip_if_no_pandoc()
-  # .github in this test is build-ignored to prevent a NOTE about an unexpected
-  # hidden directory. Skip on CMD CHECK if the .github directory is not present.
-  pkg <- local_pkgdown_site(test_path("assets/site-dot-github"))
-  skip_if_not(dir_exists(path(pkg$src_path, ".github"))[[1]])
+  # .github is build-ignored to prevent a NOTE about unexpected hidden directory
+  # so need to skip when run from R CMD check
+  skip_if_not(dir_exists(test_path("assets/site-dot-github/.github")))
 
+  pkg <- local_pkgdown_site(test_path("assets/site-dot-github"))
   expect_output(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "index.html"))

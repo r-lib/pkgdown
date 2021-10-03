@@ -1,35 +1,18 @@
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
 
-  path <- test_path("assets/news-github-links")
-  pkg <- as_pkgdown(path, list(news = list(cran_dates = FALSE)))
+  pkg <- as_pkgdown(
+    test_path("assets/news-github-links"),
+    list(news = list(cran_dates = FALSE))
+  )
   news_tbl <- data_news(pkg)
 
   expect_snapshot_output(cat(news_tbl$html))
 })
 
-test_that("build_news() uses content in NEWS.md", {
-  skip_if_no_pandoc()
-
-  pkg <- local_pkgdown_site(
-    test_path("assets/news"),
-    list(news = list(cran_dates = FALSE))
-  )
-  expect_output(build_news(pkg))
-
-  lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
-  test_strings <- c(
-    "testpackage", "1.0.0.9000", "1.0.0[^\\.]",
-    "sub-heading", "@githubuser", "bullet", "#111"
-  )
-  expect_true(all(
-    vapply(test_strings, function(x) any(grepl(x, lines)), logical(1))
-  ))
-})
-
 test_that("pkg_timeline fails cleanly for unknown package", {
   skip_on_cran()
-  expect_null(pkg_timeline("__XYZ___"))
+  expect_null(pkg_timeline("__XYZ__"))
 })
 
 test_that("pkg_timeline returns NULL if CRAN dates suppressed", {
@@ -72,7 +55,6 @@ test_that("multi-page news are rendered", {
   lines <- read_lines(path(pkg$dst_path, "news", "news-1.0.html"))
   expect_true(any(grepl("<h1 data-toc-skip>Changelog <small>1.0</small></h1>", lines)))
 })
-
 
 # news_title and version_page -----------------------------------------------
 

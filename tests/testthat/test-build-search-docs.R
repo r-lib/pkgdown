@@ -1,5 +1,4 @@
 test_that("docsearch.json and sitemap.xml are valid", {
-
   pkg <- local_pkgdown_site(test_path("assets/search-site"))
 
   expect_output(build_site(pkg, new_process = FALSE))
@@ -11,7 +10,7 @@ test_that("docsearch.json and sitemap.xml are valid", {
   expect_true(xml2::xml_validate(xml2::read_xml(xml), schema))
 })
 
-test_that("build_search() builds the expected search.json with an URL", {
+test_that("build_search() builds the expected search`.json with an URL", {
   pkg <- local_pkgdown_site(
     test_path("assets/news"),
     list(
@@ -25,8 +24,10 @@ test_that("build_search() builds the expected search.json with an URL", {
   expect_output(build_news(pkg))
   expect_output(build_home(pkg))
   expect_output(build_sitemap(pkg))
-  jsonlite::write_json(build_search_index(pkg), file.path(pkg$dst_path, "search.json"), pretty = TRUE)
-  expect_snapshot_file(file.path(pkg$dst_path, "search.json"))
+
+  json_path <- withr::local_tempfile()
+  jsonlite::write_json(build_search_index(pkg), json_path, pretty = TRUE)
+  expect_snapshot_file(json_path, "search.json")
 })
 
 test_that("build_search() builds the expected search.json with no URL", {
@@ -41,6 +42,8 @@ test_that("build_search() builds the expected search.json with no URL", {
   expect_output(build_news(pkg))
   expect_output(build_home(pkg))
   expect_output(build_sitemap(pkg))
-  jsonlite::write_json(build_search_index(pkg), file.path(pkg$dst_path, "search-no-url.json"), pretty = TRUE)
-  expect_snapshot_file(file.path(pkg$dst_path, "search-no-url.json"))
+
+  json_path <- withr::local_tempfile()
+  jsonlite::write_json(build_search_index(pkg), json_path, pretty = TRUE)
+  expect_snapshot_file(json_path, "search-no-url.json")
 })
