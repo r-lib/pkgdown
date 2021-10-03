@@ -177,17 +177,6 @@ author_desc <- function(x, comment = TRUE) {
   )
 }
 
-remove_name <- function(x, name) {
-  stopifnot(is.character(name), length(name) == 1)
-
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(x)
-  }
-
-  x[!(nms %in% name)]
-}
-
 orcid_link <- function(orcid) {
   if (is.null(orcid)) return(NULL)
 
@@ -467,3 +456,21 @@ role_lookup <- c(
   "wpr" = "writer of preface",
   "wst" = "writer of supplementary textual content"
 )
+
+# helpers -----------------------------------------------------------------
+
+remove_name <- function(x, name) {
+  stopifnot(is.character(name), length(name) == 1)
+
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(x)
+  }
+
+  out <- x[!(nms %in% name)]
+  if (all(names(out) == "")) {
+    names(out) <- NULL
+  }
+  out
+}
+
