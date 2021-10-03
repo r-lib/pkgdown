@@ -30,44 +30,38 @@
 
 ---
 
-    Code
-      cat(as.character(xml2::xml_find_first(xml2::read_html(data_home_sidebar(pkg)),
-      ".//div[@class='developers']")))
-    Output
-      <div class="developers">
-      <h2 data-toc-skip>Developers</h2>
-      <ul class="list-unstyled">
-      <li>
-      <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
-      <li>
-      <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
-      <li><a href="authors.html">More on authors...</a></li>
-      </ul>
-      </div>
+    <div class="developers">
+    <h2 data-toc-skip>Developers</h2>
+    <ul class="list-unstyled">
+    <li>
+    <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
+    <li>
+    <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+    <li><a href="authors.html">More on authors...</a></li>
+    </ul>
+    </div>
 
 # data_home_sidebar() errors well when no HTML file
 
     Can't find file 'file.html' specified by home.sidebar.html in '_pkgdown.yml'.
 
-# data_home_sidebar() can get a custom component
+# data_home_sidebar() can get a custom markdown formatted component
 
-    Code
-      xml2::xml_find_first(result, ".//div[@class='fancy-section']")
-    Output
-      {html_node}
-      <div class="fancy-section">
-      [1] <h2 data-toc-skip>Fancy section</h2>
-      [2] <ul class="list-unstyled">\n<li><p>How <em>cool</em> is pkgdown?!</p></li ...
+    <div class="fancy-section">
+    <h2 data-toc-skip>Fancy section</h2>
+    <ul class="list-unstyled">
+    <li><p>How <em>cool</em> is pkgdown?!</p></li>
+    </ul>
+    </div>
 
 # data_home_sidebar() can add a README
 
-    Code
-      xml2::xml_find_first(result, ".//div[@class='table-of-contents']")
-    Output
-      {html_node}
-      <div class="table-of-contents">
-      [1] <h2 data-toc-skip>Table of contents</h2>
-      [2] <ul class="list-unstyled">\n<li><nav id="toc" class="sticky-top"></nav></ ...
+    <div class="table-of-contents">
+    <h2 data-toc-skip>Table of contents</h2>
+    <ul class="list-unstyled">
+    <li><nav id="toc" class="sticky-top"></nav></li>
+    </ul>
+    </div>
 
 # data_home_sidebar() outputs informative error messages
 

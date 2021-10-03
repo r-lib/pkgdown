@@ -65,7 +65,7 @@ data_home_sidebar <- function(pkg = ".") {
         )
       )
     }
-    return(paste0(read_lines(html_path), collapse = "\n"))
+    return(read_file(html_path))
   }
 
   sidebar_structure <- pkg$meta$home$sidebar$structure %||%
