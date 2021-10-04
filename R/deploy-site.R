@@ -129,7 +129,7 @@ deploy_to_branch <- function(pkg = ".",
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
-  build_site_github_pages(pkg, dest_dir = dest_dir, clean = clean)
+  build_site_github_pages(pkg, dest_dir = dest_dir, ..., clean = clean)
 
   github_push(dest_dir, commit_message, remote, branch)
 
