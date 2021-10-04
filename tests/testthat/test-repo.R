@@ -14,7 +14,16 @@ test_that("authors are automatically linked", {
 
 test_that("issues are automatically linked", {
   pkg <- list(repo = repo_meta(issue = "TEST/"))
-  expect_equal(repo_auto_link(pkg, "#123"), "<a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "(#123"), "(<a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "in #123"), "in <a href='TEST/123'>#123</a>")
+})
+
+test_that("URLs with hash (#) are preserved", {
+  pkg <- list(repo = repo_meta(issue = "TEST/"))
+  expect_equal(
+    repo_auto_link(pkg, "[example 5.4](https:/my.site#5-4-ad)"),
+    "[example 5.4](https:/my.site#5-4-ad)"
+  )
 })
 
 test_that("Jira issues are automatically linked", {
@@ -31,7 +40,7 @@ test_that("Jira issues are automatically linked", {
 test_that("repo_source() truncates automatically", {
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
-  verify_output(test_path("test-repo-source.txt"), {
+  expect_snapshot({
     cat(repo_source(pkg, character()))
     cat(repo_source(pkg, "a"))
     cat(repo_source(pkg, letters[1:10]))
@@ -67,7 +76,7 @@ test_that("can find github from BugReports or URL", {
   ))
   expect_equal(package_repo(desc, list()), ref)
 
-  # Url can be in any position
+  # URL can be in any position
   desc <- desc::desc(text = c(
     "URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown")
   )
@@ -80,6 +89,39 @@ test_that("can find gitlab url", {
     "BugReports: https://gitlab.com/msberends/AMR"
   ))
   expect_equal(package_repo(desc, list()), ref)
+})
+
+test_that("GitLab subgroups are properly parsed", {
+  issue_url <- function(text) {
+    package_repo(desc::desc(text = text), list())$url$issue
+  }
+  target <- "https://gitlab.com/salim_b/r/pkgs/pal/issues/"
+  # 1) from URL field, with and without trailing slash
+  expect_equal(
+    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal/"),
+    target
+  )
+  expect_equal(
+    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal"),
+    target
+  )
+  # 2) from BugReports field, with and without trailing slash
+  expect_equal(
+    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"),
+    target
+  )
+  expect_equal(
+    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues"),
+    target
+  )
+  # 3) from URL + BugReports
+  expect_equal(
+    issue_url(paste0(
+      "URL: https://gitlab.com/salim_b/r/pkgs/pal\n",
+      "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"
+    )),
+    target
+  )
 })
 
 test_that("can find github enterprise url", {

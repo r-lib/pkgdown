@@ -1,7 +1,8 @@
 <div class="row">
   <div class="contents col-md-9">
-    <div class="page-header">
-      <h1>Reference</h1>
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4">Reference</h1>
     </div>
 
     <table class="ref-index{{#has_icons}} ref-index-icons{{/has_icons}}">
@@ -15,13 +16,13 @@
     {{#rows}}<tbody>
       {{#title}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{title}}</h2>
+          <h2 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor" aria-hidden="true"></a>{{title}}</h2>
           <p class="section-desc">{{{desc}}}</p>
         </th>
       </tr>{{/title}}
       {{#subtitle}}<tr>
         <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h3 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor"></a>{{subtitle}}</h3>
+          <h3 id="{{slug}}" class="hasAnchor"><a href="#{{slug}}" class="anchor" aria-hidden="true"></a>{{subtitle}}</h3>
           <p class="section-desc">{{{desc}}}</p>
         </th>
       </tr>{{/subtitle}}
@@ -37,8 +38,12 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+    <div class="sticky-top">
+    <nav id="toc">
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
   </div>
 </div>

@@ -17,3 +17,4 @@
 ^revdep$
 ^appveyor\.yml$
 ^\.github$
+^fake-index.html$

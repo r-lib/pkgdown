@@ -7,7 +7,7 @@
 deploy_to_branch(
   pkg = ".",
   commit_message = construct_commit_message(pkg),
-  clean = FALSE,
+  clean = TRUE,
   branch = "gh-pages",
   remote = "origin",
   github_pages = (branch == "gh-pages"),

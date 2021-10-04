@@ -20,9 +20,12 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
 
+  template_config <- find_template_config(meta[["template"]]$package)
+  meta <- modify_list(template_config, meta)
+
   # Ensure the URL has no trailing slash
-  if (!is.null(meta$url)) {
-    meta$url <- sub("/$", "", meta$url)
+  if (!is.null(meta[["url"]])) {
+    meta[["url"]] <- sub("/$", "", meta[["url"]])
   }
 
   package <- desc$get("Package")[[1]]
@@ -44,8 +47,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   install_metadata <- meta$deploy$install_metadata %||% FALSE
 
-  structure(
-    list(
+  pkg_list <- list(
       package = package,
       version = version,
 
@@ -62,7 +64,19 @@ as_pkgdown <- function(pkg = ".", override = list()) {
       topics = package_topics(pkg, package),
       tutorials = package_tutorials(pkg, meta),
       vignettes = package_vignettes(pkg)
-    ),
+    )
+
+  pkg_list$bs_version <- get_bs_version(pkg_list)
+  pkg_list$prefix <- ""
+  if (pkg_list$development$in_dev) {
+    pkg_list$prefix <- paste0(
+      meta_development(pkg_list$meta, pkg_list$version)$destination,
+      "/"
+    )
+  }
+
+  structure(
+    pkg_list,
     class = "pkgdown"
   )
 }
@@ -189,8 +203,9 @@ package_vignettes <- function(path = ".") {
   if (!dir_exists(base)) {
     vig_path <- character()
   } else {
-    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", recurse = TRUE)
+    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", type = "file", recurse = TRUE)
   }
+
   vig_path <- path_rel(vig_path, base)
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
   vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]
@@ -208,4 +223,17 @@ package_vignettes <- function(path = ".") {
     title = title,
     description = desc
   )
+}
+
+find_template_config <- function(package) {
+  if (is.null(package)) {
+    return(list())
+  }
+
+  config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
+  if (length(config) == 0) {
+    return(list())
+  }
+
+  yaml::yaml.load_file(config) %||% list()
 }

@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header">
-      <h1 data-toc-skip>Changelog <small>{{version}}</small></h1>
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4" data-toc-skip>Changelog <small>{{version}}</small></h1>
       {{#source}}<small>{{{.}}}</small>{{/source}}
     </div>
 
@@ -11,9 +12,13 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+    <div class="sticky-top">
+    <nav id="toc">
+
       <h2 data-toc-skip>Contents</h2>
+
     </nav>
+</div>
   </div>
 
 </div>

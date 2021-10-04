@@ -86,8 +86,8 @@ There are five top-level YAML settings that affect the entire site:
 \verb{docs/} (for GitHub pages), but you can override if desired. Relative
 paths will be taken relative to the package root.
 
-\code{url} optionally specifies the url where the site will be published.
-Supplying this will:
+\code{url} is optional, but strongly recommended.
+It specifies where the site will be published and is used to:
 \itemize{
 \item Allow other pkgdown sites to link to your site when needed,
 rather than using generic links to \url{https://rdrr.io}.
@@ -95,7 +95,11 @@ See \code{vignette("linking")} for more information.
 \item Generate a \code{sitemap.xml}, increasing the searchability of your site.
 \item Automatically generate a \code{CNAME} when
 \link[=deploy_site_github]{deploying to github}.
-}\if{html}{\out{<div class="yaml">}}\preformatted{url: https://pkgdown.r-lib.org
+\item Generate metadata used by Twitter and the Open Graph protocol
+for rich social media cards, see \code{vignette("metadata")}.
+\item Adds the "external-link" class to external links
+for sites using BS4, see \code{vignette("customization")}.
+}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
 \code{title} overrides the default site title, which is the package name.
@@ -104,13 +108,13 @@ It's used in the page title and default navbar.
 You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including \code{href} to add a link, or \code{html} to override the
-text:\preformatted{authors:
+text:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   Hadley Wickham:
     href: http://hadley.nz
   RStudio:
     href: https://www.rstudio.com
     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Development mode}{
@@ -124,9 +128,9 @@ The development mode of a site controls four main things:
 }
 
 You can override the default development mode by adding a
-new \code{development} field to \verb{_pkgdown.yml}, e.g.\preformatted{development:
+new \code{development} field to \verb{_pkgdown.yml}, e.g.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   mode: devel
-}
+}\if{html}{\out{</div>}}
 
 There are currently four possible modes:
 \itemize{
@@ -148,11 +152,11 @@ based on the version number:
 }
 }
 
-There are three other options that you can control:\preformatted{development:
+There are three other options that you can control:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
-}
+}\if{html}{\out{</div>}}
 
 \code{destination} allows you to override the default subdirectory used for the
 development site; it defaults to \verb{dev/}. \code{version_label} allows you to
@@ -166,78 +170,68 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{YAML config - navbar}{
 
-
-By default, the top navigation bar (the "navbar") will contain links to:
+By default, the top navbar will contain links to:
 \itemize{
-\item "Get Started", if you have an article with the same name as the package
-(e.g., \code{vignettes/pkgdown.Rmd}).
-\item Reference
+\item "Get Started", if you have an article with the same name as the package (e.g., \code{vignettes/pkgdown.Rmd}).
+\item The reference index.
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item An icon linking to the source repository (currently only GitHub and GitLab are supported)
+\item An icon linking to the source repository.
 }
 
-You can override (and even remove) these defaults with the  \code{navbar} field.
-It has two primary
-components: \code{structure} and \code{components}. These components interact in
-a somewhat complicated way, but the complexity allows you to make minor
-tweaks to part of the navbar while relying on pkgdown to automatically
-generate the rest.
+You can override (and even remove) these defaults with the \code{navbar} field.
+It has two primary components: \code{structure} and \code{components}.
+These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.
 
-The \code{structure} defines the layout of the navbar, i.e. the order
-of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components,
-remove some default components and add your own components.\preformatted{navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [github]
-}
+The \code{structure} defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
+You can use this component to change the order of the default components, remove some default components and add your own components.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+ structure:
+   left:  [intro, reference, articles, tutorials, news]
+   right: [github]
+}\if{html}{\out{</div>}}
 
 The \code{components} describes the appearance of each element in the navbar.
-It uses the same
-syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
-The following YAML snippet illustrates some of the most important features.\preformatted{navbar:
-  components:
-    articles:
-     text: Articles
-     menu:
-     - text: Category A
-     - text: Title A1
-       href: articles/a1.html
-     - text: Title A2
-       href: articles/a2.html
-     - text: -------
-     - text: "Category B"
-     - text: Title B1
-       menu:
-       - text: "Sub-category B11"
-         href: articles/b11.html
-     twitter:
-       icon: "fab fa-twitter fa-lg"
-       href: https://twitter.com/hadleywickham
-}
+It uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
+The following YAML snippet illustrates some of the most important features.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Title B1
+      menu:
+      - text: "Sub-category B11"
+        href: articles/b11.html
+    twitter:
+      icon: "fab fa-twitter fa-lg"
+      href: https://twitter.com/hadleywickham
+      aria-label: "twitter account"
+}\if{html}{\out{</div>}}
 
-Components can contain sub-\code{menu}s with headings (indicated by missing
-\code{href}) and separators (indicated by a bunch of \code{-}). You can also use
-\code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+Components can contain sub-\code{menu}s with headings (indicated by missing \code{href}) and separators (indicated by a bunch of \code{-}).
+You can also use \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+When using icons with no text, for accessibility it's best practice to include an \code{aria-label} for screenreader users.
 
-This yaml would override the default "articles" component,
-and add a new "twitter" component. Unless you explicitly mention new
-components in the \code{structure} they'll be added to the far right of the
-left menu.
+This yaml would override the default "articles" component, and add a new "twitter" component.
+Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
+
+You can also customize the color scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  type: dark
+  bg: primary
+}\if{html}{\out{</div>}}
+
+will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf \code{vignette("customization", package ="pkgdown")})
 }
 
 \section{YAML config - search}{
 
-You can use \href{https://community.algolia.com/docsearch/}{docsearch} by algolia
-to add search to your site.\preformatted{template:
-  params:
-    docsearch:
-      api_key: API_KEY
-      index_name: INDEX_NAME
-}
-
-You also need to add a \verb{url:} field, see above.
+See \code{vignette("search")}
 }
 
 \section{YAML config - template}{
@@ -249,13 +243,16 @@ used to render the page in the browser.
 
 The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the \code{bootswatch} template parameter to the built-in
-template:\preformatted{template:
+template:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  bootswatch: cerulean
+}\if{html}{\out{</div>}}
+
+Note that if you use Bootstrap version 3 the syntax is\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     bootswatch: cerulean
-}
+}\if{html}{\out{</div>}}
 
-See a complete list of themes and preview how they look at
-\url{https://gallery.shinyapps.io/117-shinythemes/}:
+Refer to \code{vignette("customization", package = "pkgdown")}.
 
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
@@ -265,34 +262,39 @@ It should correspond to your
 When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.\preformatted{template:
+site, in keeping with current laws and regulations.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     ganalytics: UA-000000-01
-}
+}\if{html}{\out{</div>}}
 
-Suppress indexing of your pages by web robots by setting \code{noindex: true}:\preformatted{template:
+Suppress indexing of your pages by web robots by setting \code{noindex: true}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     noindex: true
-}
+}\if{html}{\out{</div>}}
 
 You can also override the default templates and provide additional
-assets. You can do so by either storing in a \code{package} with
-directories \code{inst/pkgdown/assets} and \code{inst/pkgdown/templates},
-or by supplying \code{path} and \code{asset_path}. To suppress inclusion
-of the default assets, set \code{default_assets} to false.\preformatted{template:
-  package: mycustompackage
-
-# OR:
-
-template:
+assets. You can do so by either storing them in the
+directories \code{pkgdown/assets} and \code{pkgdown/templates},
+or by supplying \code{path} and \code{asset_path} pointing to alternative folders.
+To suppress inclusion
+of the default assets, set \code{default_assets} to false.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   path: path/to/templates
   assets: path/to/assets
   default_assets: false
-}
+}\if{html}{\out{</div>}}
 
 These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
+
+For further information including how to provide templates and assets in
+a separate package, see \code{vignette("customization", package = "pkgdown")}.
+
+You can use the \code{trailing_slash_redirect} to automatically redirect
+\code{your-package-url.com} to \verb{your-package-url.com/}, using a JS script
+added to the \verb{<head>} of the home page.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  trailing_slash_redirect: true
+}\if{html}{\out{</div>}}
 }
 
 \section{YAML config - repo}{
@@ -308,7 +310,7 @@ underlying source file.
 
 pkgdown automatically figures out the necessary URLs if you link to a GitHub
 or GitLab repo in your \code{BugReports} or \code{URL} field. Otherwise, you can
-supply your own in the \code{repo} component:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+supply your own in the \code{repo} component:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   url:
     home: https://github.com/r-lib/pkgdown/
     source: https://github.com/r-lib/pkgdown/blob/master/
@@ -329,7 +331,7 @@ pkgdown can automatically link to Jira issues as well, but you must specify
 both a custom \code{issue} URL as well as your Jira project names to auto-link in
 \code{jira_projects}. You can specify as many projects as you would like in a last
 (in the example below we would link both the \code{PROJ} and \code{OTHER} Jira
-projects):\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+projects):\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   jira_projects: [PROJ, OTHER]
   url:
     issue: https://jira.organisation.com/jira/browse/
@@ -337,7 +339,7 @@ projects):\if{html}{\out{<div class="yaml">}}\preformatted{repo:
 
 pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
-specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
+specifying a branch name:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   branch: main
 }\if{html}{\out{</div>}}
 }
@@ -350,7 +352,7 @@ specifying a branch name:\if{html}{\out{<div class="yaml">}}\preformatted{repo:
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
-time (e.g. because it's only behind the firewall or requires auth).\if{html}{\out{<div class="yaml">}}\preformatted{deploy:
+time (e.g. because it's only behind the firewall or requires auth).\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{deploy:
   install_metadata: true
 }\if{html}{\out{</div>}}
 }
@@ -360,25 +362,36 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 
 By default, the footer is automatically populated with:
 \itemize{
-\item the names of the
-\href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}},
-on the left;
-\item a reference to pkgdown \code{pkgdown}, on the right.
+\item The names of the \href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}}, on the left.
+\item A reference to pkgdown \code{pkgdown}, on the right.
 }
 
-The example below puts the authors information on the right together with
-a legal disclaimer, and puts pkgdown on the left.
-Unlike for the navbar or sidebar, components of the footer left/right are
-just pasted together into a string.
-If you want to use paragraphs, you need to use either HTML;
-or a YAML pipe and to start the components with two empty lines.\preformatted{footer:
-  left:
-    structure: [pkgdown]
-  right:
-    structure: [authors, legal]
-    components:
-      legal: Provided without ***any warranty***.
+The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
+ left:
+   structure: [pkgdown]
+ right:
+   structure: [authors, legal]
+   components:
+     legal: Provided without ***any warranty***.
+}\if{html}{\out{</div>}}
+
+Like the navbar and side, you can control both the structure and the components.
+Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.
 }
+
+\section{YAML config - redirects}{
+
+If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
+One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
+This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.
+
+The syntax is the following, with old paths on the left, and new paths or URLs on the right.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{redirects:
+  - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
+  - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
+  - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
+}\if{html}{\out{</div>}}
+
+If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see \code{?build_search}.
 }
 
 \section{Options}{

@@ -74,7 +74,7 @@ subtitle, but this is no longer recommended).
 
 Most packages will only need to use \code{title} and \code{contents} components.
 For example, here's a snippet from the YAML that pkgdown uses to generate
-its own reference index:\preformatted{reference:
+its own reference index:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
 - contents:
@@ -83,10 +83,10 @@ its own reference index:\preformatted{reference:
 - contents:
   - template_navbar
   - render_page
-}
+}\if{html}{\out{</div>}}
 
 Bigger packages, e.g. ggplot2, may need an additional layer of
-structure in order to clearly organise large number of functions:\preformatted{reference:
+structure in order to clearly organise large number of functions:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Layers
 - subtitle: Geoms
   desc: Geom is short for geometric element
@@ -96,14 +96,14 @@ structure in order to clearly organise large number of functions:\preformatted{r
   desc: Statistical transformations transform data before display.
   contents:
   - starts_with("stat")
-}
+}\if{html}{\out{</div>}}
 
 \code{desc} can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML \code{>} notation:\preformatted{desc: >
+idea to take advantage of the YAML \code{>} notation:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{desc: >
   This is a very _long_ and **overly** flowery description of a
   single simple function. By using `>`, it's easy to write a description
   that runs over multiple lines.
-}
+}\if{html}{\out{</div>}}
 \subsection{Topic matching}{
 
 \code{contents} can contain:
@@ -122,6 +122,8 @@ roxygen2 converts them to concept tags.
 \item \code{lacks_concepts(c("concept1", "concept2"))} to select all topics
 without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
+\item Topics from other installed packages, e.g. \code{rlang::is_installed()} (function name)
+or \code{sass::font_face} (topic name).
 }
 
 All functions (except for \code{has_keywords()}) automatically exclude internal
@@ -138,6 +140,14 @@ CI envar is "true"), this is an error so that the build will fail if you
 forget to include topics in the index.
 }
 
+\subsection{Missing topics}{
+
+pkgdown will warn if there are (non-internal) topics that not listed
+in the reference index. You can suppress these warnings by listing the
+topics in section with "title: internal" (case sensitive) which will not be
+displayed on the reference index.
+}
+
 \subsection{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll need
@@ -145,13 +155,19 @@ a top-level \code{icons} directory. This should contain {.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }
+
+\subsection{Examples}{
+
+If you need to run extra code before or after all examples are run, you
+can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
+}
 }
 
 \section{Figures}{
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []
@@ -161,6 +177,12 @@ field in \verb{_pkgdown.yml}. The default settings are equivalent to:\preformatt
   fig.retina: 2
   fig.asp: 1.618
   bg: NA
-}
+  other.parameters: []
+}\if{html}{\out{</div>}}
+
+Most of these parameters are interpreted similarly to knitr chunk
+options. \code{other.parameters} is a list of parameters
+that will be available to custom graphics output devices such
+as HTML widgets.
 }
 

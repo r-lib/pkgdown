@@ -11,65 +11,19 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 This vignette tests pkgdown output rendering for several use cases.
 
-# Highlighting
+## Footnotes
 
-This document uses a variety of linking styles for testing purposes
+Yay[^footnote]
 
-## Inline code
+[^footnote]: Including **footnotes**! 😁
 
-Local:
-
-* `vignette("pkgdown")`
-* `build_site()`
-* `?template_navbar`
-
-Remote:
-
-* `MASS::enlist`
-* `MASS::enlist()`
-* `?MASS::enlist`
-* `%in%`
-* `` ?`%in%` ``
-
-## Spurious links
-
-These shouldn't be linked.
-
-* `Authors@R`
-* `content-home.html`
-* `toc: depth`
-* `x = y`
-
-## Code blocks
-
-```{r, eval = FALSE}
-# Shouldn't get linked
-enlist(5)
-# Should get linked
-MASS::enlist(5)
-```
-
-```{r}
-library(MASS)
-enlist(5)
-```
-
-```{r}
-# Should get linked because MASS was loaded previously
-enlist(5)
-```
-
----
-
-# Figures
+## Figures
 
 ```{r}
 plot(1:10)
 ```
 
----
-
-# External files
+## External files
 
 ```{r}
 x <- readLines("test.txt")
@@ -78,9 +32,7 @@ x
 
 ![](bacon.jpg)
 
----
-
-# Details tag
+## Details tag
 
 <details>
   This should only be shown when required
@@ -94,48 +46,19 @@ x
 ```
 </details>
 
----
-
-# Tables
+## Tables
 
 | col 1 | col 2 | col 3 | col 4 |
 |:---------------|:-----------|:-------:|:---------:|
 | Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
 
----
-
-# Mathjax
+## Mathjax
 
 $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
 Inline equations: $y=x^2$
 
----
-
-# Widgets
-
-Test spacing above widget.
-
-```{r, echo=FALSE}
-# set seed for reproducible widget id
-if (requireNamespace("htmltools", quietly = TRUE)) {
-  htmlwidgets::setWidgetIdSeed(42)
-}
-
-
-path1 <- tempfile()
-writeLines(letters, path1)
-path2 <- tempfile()
-writeLines(letters[-(10:11)], path2)
-
-diffviewer::visual_diff(path1, path2)
-```
-
-Test spacing below widget.
-
----
-
-# Crayon
+## Crayon
 
 ```{r}
 cat(crayon::red("This is red"), "\n")
@@ -152,3 +75,68 @@ stop(crayon::italic("This is italic"))
 ```
 
 Some more text
+
+## Quoted text
+
+> Single-line quote about something miscellaneous.
+
+| When dollars appear it's a sign
+|   that your code does not quite align  
+| Ensure that your math  
+|   in xaringan hath  
+|   been placed on a single long line
+
+## This section is unnumbered {-}
+
+There should however be no bug here!
+
+## Results in tabset {.tabset .tabset-pills}
+
+### Tab 1
+
+blablablabla
+
+```r
+1 + 1
+```
+
+### Tab 2
+
+blop
+
+
+## Results in tabset, no pills {.tabset}
+
+### A thing
+
+something nice
+
+```{r}
+plot(1:42)
+```
+
+#### cool
+
+yay
+
+### Tab 2 {.active}
+
+hello
+
+## Results in tabset, fading {.tabset .tabset-fade}
+
+### Something
+
+ok
+
+```{r}
+plot(1)
+```
+
+#### cool
+
+yay
+
+### Nice {.active}
+
+bonjour

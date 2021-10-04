@@ -42,8 +42,8 @@ repo_auto_link <- function(pkg, text) {
   }
 
   if (!is.null(url$issue)) {
-    issue_link <- paste0("<a href='", url$issue, "\\1'>#\\1</a>")
-    text <- gsub("#(\\d+)", issue_link, text, perl = TRUE)
+    issue_link <- paste0("<a href='", url$issue, "\\2'>#\\2</a>")
+    text <- gsub("(\\(|\\s)#(\\d+)", paste0("\\1", issue_link), text, perl = TRUE)
 
     if (!is.null(pkg$repo$jira_projects)) {
       issue_link <- paste0("<a href='", url$issue, "\\1\\2'>\\1\\2</a>")
@@ -63,9 +63,9 @@ package_repo <- function(desc, meta) {
     return(meta[["repo"]])
   }
 
-  # Otherwise try and guess from BugReports + URLs
+  # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    desc$get_field("BugReports", default = character()),
+    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
     desc$get_urls()
   )
 
@@ -99,13 +99,13 @@ repo_meta_gh_like <- function(link, branch = NULL) {
   )
 }
 
-# adapted from usethis:::github_link()
 parse_github_like_url <- function(link) {
+  supports_subgroups <- grepl("^https?://gitlab\\.", link)
   rx <- paste0(
     "^",
     "(?<host>https?://[^/]+)/",
     "(?<owner>[^/]+)/",
-    "(?<repo>[^/#]+)"
+    "(?<repo>[^#", "/"[!supports_subgroups], "]+)/"
   )
-  rematch2::re_match(link, rx)
+  re_match(sub("([^/]$)", "\\1/", link), rx)
 }

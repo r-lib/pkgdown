@@ -1,0 +1,13 @@
+---
+title: "Widgets"
+---
+
+```{r}
+path1 <- tempfile()
+writeLines(letters, path1)
+path2 <- tempfile()
+writeLines(letters[-(10:11)], path2)
+
+diffviewer::visual_diff(path1, path2)
+```
+

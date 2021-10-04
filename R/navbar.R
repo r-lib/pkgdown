@@ -3,7 +3,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   # Take structure as is from meta
   navbar <- purrr::pluck(pkg, "meta", "navbar")
-  structure <- navbar$structure %||% navbar_structure()
+  structure <- modify_list(navbar_structure_defaults(), navbar$structure)
 
   # Merge components from meta
   components <- navbar_components(pkg)
@@ -18,14 +18,23 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
-  list(
-    type = navbar$type %||% "default",
-    left = render_navbar_links(left, depth = depth),
-    right = render_navbar_links(right, depth = depth)
-  )
+  if (pkg$bs_version == 3) {
+    list(
+      type = navbar$type %||% "default",
+      left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
+      right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
+    )
+  } else {
+    list(
+      type = navbar$type %||% "light",
+      bg = navbar$bg %||% "light",
+      left = render_navbar_links(left, depth = depth, pkg$bs_version),
+      right = render_navbar_links(right, depth = depth, pkg$bs_version)
+    )
+  }
 }
 
-render_navbar_links <- function(x, depth = 0L) {
+render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
   stopifnot(is.integer(depth), depth >= 0L)
 
   tweak <- function(x) {
@@ -39,20 +48,29 @@ render_navbar_links <- function(x, depth = 0L) {
       x
     }
   }
-
   if (depth != 0L) {
     x <- lapply(x, tweak)
   }
-  rmarkdown::navbar_links_html(x)
+
+  if (bs_version == 3) {
+    rmarkdown::navbar_links_html(x)
+  } else {
+    bs4_navbar_links_html(x)
+  }
+
 }
 
 # Default navbar ----------------------------------------------------------
 
 navbar_structure <- function() {
-  print_yaml(list(
+  print_yaml(navbar_structure_defaults())
+}
+
+navbar_structure_defaults <- function() {
+  list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
     right = "github"
-  ))
+  )
 }
 
 navbar_components <- function(pkg = ".") {
@@ -117,7 +135,7 @@ navbar_articles <- function(pkg = ".") {
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
       if (length(navbar) != length(articles)) {
-        children <- c(children, list(menu_spacer(), menu_link("More...", "articles/index.html")))
+        children <- c(children, list(menu_spacer(), menu_link("More articles...", "articles/index.html")))
       }
       menu$articles <- menu("Articles", children)
     }
@@ -140,15 +158,126 @@ menu_links <- function(text, href) {
   purrr::map2(text, href, ~ list(text = .x, href = .y))
 }
 menu_icon <- function(icon, href, style = "fas") {
-  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href)
+  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href, "aria-label" = icon)
 }
 menu_text <- function(text) {
   list(text = text)
 }
 menu_spacer <- function() {
-   menu_text("---------")
+  menu_text("---------")
 }
 
+bs4_navbar_links_html <- function(links) {
+  as.character(bs4_navbar_links_tags(links), options = character())
+}
+
+bs4_navbar_links_tags <- function(links, depth = 0L) {
+  rlang::check_installed("htmltools")
+
+  if (is.null(links)) {
+    return(htmltools::tagList())
+  }
+
+  # sub-menu
+  is_submenu <- (depth > 0L)
+
+  # function for links
+  tackle_link <- function(x, index, is_submenu, depth) {
+
+    if (!is.null(x$menu)) {
+
+      if (is_submenu) {
+        menu_class <- "dropdown-item"
+        link_text <- bs4_navbar_link_text(x)
+      } else {
+        menu_class <- "nav-item dropdown"
+        link_text <- bs4_navbar_link_text(x)
+      }
+
+      submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+
+      return(
+        htmltools::tags$li(
+          class = menu_class,
+          htmltools::tags$a(
+            href = "#", class = "nav-link dropdown-toggle",
+            `data-toggle` = "dropdown", role = "button",
+            `aria-expanded` = "false", `aria-haspopup` = "true",
+            link_text,
+            id = paste0("dropdown-", make_slug(link_text)),
+          "aria-label" = x$`aria-label` %||% NULL
+          ),
+          htmltools::tags$div(
+            class = "dropdown-menu",
+            `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
+            submenuLinks
+          )
+        )
+      )
+
+    }
+
+    if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
+
+      if (index == 1) {
+        return(htmltools::tagList())
+      } else {
+        return(htmltools::tags$div(class = "dropdown-divider"))
+      }
+    }
+
+    if (!is.null(x$text) && is.null(x$href)) {
+      # header
+      return(htmltools::tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text))
+    }
+
+    # standard menu item
+    textTags <- bs4_navbar_link_text(x)
+
+    if (is_submenu) {
+      return(
+        htmltools::tags$a(
+          class = "dropdown-item",
+          href = x$href,
+          textTags,
+          "aria-label" = x$`aria-label` %||% NULL
+        )
+      )
+    }
+
+    htmltools::tags$li(
+      class = "nav-item",
+      htmltools::tags$a(
+        class = "nav-link",
+        href = x$href,
+        textTags,
+        "aria-label" = x$`aria-label` %||% NULL
+      )
+    )
+
+  }
+
+  tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
+  htmltools::tagList(tags)
+
+}
+
+bs4_navbar_link_text <- function(x, ...) {
+
+  if (!is.null(x$icon)) {
+    # find the iconset
+    split <- strsplit(x$icon, "-")
+    if (length(split[[1]]) > 1) {
+      iconset <- split[[1]][[1]]
+    }
+    else {
+      iconset <- ""
+    }
+    htmltools::tagList(htmltools::tags$span(class = paste(iconset, x$icon)), " ", x$text, ...)
+  }
+  else
+    htmltools::tagList(x$text, ...)
+}
 
 # Testing helpers ---------------------------------------------------------
 # Simulate minimal package structure so we can more easily test
@@ -167,8 +296,7 @@ pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
   )
 }
 
-pkg_navbar_vignettes <- function(
-                                 name = character(),
+pkg_navbar_vignettes <- function(name = character(),
                                  title = NULL,
                                  file_out = NULL) {
   title <- title %||% paste0("Title ", name)

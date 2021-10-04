@@ -1,7 +1,8 @@
 <div class="row">
   <div class="contents col-md-9">
-    <div class="page-header">
-      <h1>Citation</h1>
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
+      <h1 class="display-4">Citation</h1>
       {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
     </div>
 
@@ -11,10 +12,9 @@
     {{/citations}}
 
     <div class="page-header">
-      <h1>Authors</h1>
+      <h1 class="display-4">Authors</h1>
     </div>
-
-    {{{before}}}
+   {{{before}}}
     <ul class="list-unstyled">
       {{#authors}}
       <li>
@@ -23,7 +23,7 @@
       </li>
       {{/authors}}
     </ul>
-    {{{after}}}
+   {{{after}}}
   </div>
 
 </div>

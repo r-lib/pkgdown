@@ -16,6 +16,7 @@
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
 build_favicons <- function(pkg = ".", overwrite = FALSE) {
+  rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
   rule("Building favicons")
@@ -127,18 +128,4 @@ has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   file.exists(path(pkg$src_path, "pkgdown", "favicon"))
-}
-
-find_logo <- function(path) {
-  path_first_existing(
-    path(path, "logo.svg"),
-    path(path, "man", "figures", "logo.svg"),
-    path(path, "logo.png"),
-    path(path, "man", "figures", "logo.png")
-  )
-}
-
-has_logo <- function(pkg) {
-  logo_path <- find_logo(pkg$src_path)
-  !is.null(logo_path)
 }

@@ -1,0 +1,67 @@
+/* Syntax highlighting ---------------------------------------------------- */
+
+pre, pre code {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+pre {
+  background-color: #f8f8f8;
+  color: #333;
+  padding: 9.5px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+pre .img. pre .r-plt {
+  margin: 5px 0;
+}
+
+pre .img img, pre .r-plt img {
+  background-color: #fff;
+}
+
+code a, pre a {
+  color: #375f84;
+}
+
+pre code {
+  padding: 0;
+}
+
+a.sourceLine:hover {
+  text-decoration: none;
+}
+
+span.ot {color:#007BA5}
+span.at {color:#20794D}
+span.ss {color:#20794D}
+span.an {color:#5E5E5E}
+span.fu {color:#4758AB}
+span.st {color:#20794D}
+span.cf {color:#007BA5}
+span.op {color:#5E5E5E}
+span.er {color:#AD0000}
+span.bn {color:#AD0000}
+span.al {color:#AD0000}
+span.va {color:#111111}
+span.bu {}
+span.ex {}
+span.pp {color:#AD0000}
+span.in {color:#5E5E5E}
+span.vs {color:#20794D}
+span.wa {color:#5E5E5E; font-style: italic}
+span.do {color:#5E5E5E; font-style: italic}
+span.im {}
+span.ch {color:#20794D}
+span.dt {color:#AD0000}
+span.fl {color:#AD0000}
+span.co {color:#5E5E5E}
+span.cv {color:#5E5E5E; font-style: italic}
+span.cn {color:#8f5902}
+span.sc {color:#20794D}
+span.dv {color:#AD0000}
+span.kw {color:#007BA5}
+span.error   {font-weight: bolder;}
+span.warning {font-weight: bolder;}
