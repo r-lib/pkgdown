@@ -301,6 +301,11 @@ build_rmarkdown_format <- function(pkg,
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
+  # Surgically eliminate html_dependency_header_attrs() whichs otherwise
+  # injects javascript that breaks our HTML anchor system
+  pre_process_env <- environment(environment(out$pre_processor)$base)
+  pre_process_env$html_dependency_header_attrs <- function() NULL
+
   attr(out, "__cleanup") <- template$cleanup
 
   out

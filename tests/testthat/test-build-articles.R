@@ -5,6 +5,19 @@ test_that("can recognise intro variants", {
   expect_true(article_is_intro("articles/pack-age", "pack.age"))
 })
 
+test_that("articles don't include header-attrs.js script", {
+  pkg <- as_pkgdown(test_path("assets/articles"))
+  withr::defer(clean_site(pkg))
+
+  expect_output(path <- build_article("standard", pkg))
+
+  html <- xml2::read_html(path)
+  js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
+  # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
+  js <- js[basename(js) != "empty-anchor.js"]
+  expect_equal(js, character())
+})
+
 test_that("can build article that uses html_vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
 
@@ -52,4 +65,3 @@ test_that("can override options with _output.yml", {
     c("1", "2")
   )
 })
-
