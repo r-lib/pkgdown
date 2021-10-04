@@ -36,3 +36,10 @@ test_that("markdown_body() captures title", {
   expect_false(grepl("Title", html))
 })
 
+test_that("markdown can parse UTF-8", {
+  temp <- withr::local_tempfile(pattern= "markdown", fileext = ".md")
+  write_lines("Maëlle\n\nGómez\n\nEspaña\n\n© R-Studio", temp)
+
+  expect_snapshot_output(cat(markdown_body(temp)))
+  expect_snapshot_output(markdown_path_html(temp))
+})
