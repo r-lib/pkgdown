@@ -17,17 +17,14 @@ test_that("articles don't include header-attrs.js script", {
 })
 
 test_that("can build article that uses html_vignette", {
-  pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg))
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
 
   # theme is not set since html_vignette doesn't support it
   expect_output(expect_error(build_article("html-vignette", pkg), NA))
 })
 
 test_that("can override html_document() options", {
-  pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg))
-
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
@@ -44,9 +41,7 @@ test_that("can override html_document() options", {
 })
 
 test_that("html widgets get needed css/js", {
-  pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg))
-
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("widget", pkg))
 
   html <- xml2::read_html(path)
@@ -58,9 +53,7 @@ test_that("html widgets get needed css/js", {
 })
 
 test_that("can override options with _output.yml", {
-  pkg <- as_pkgdown(test_path("assets/article-output"))
-  withr::defer(clean_site(pkg))
-
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected

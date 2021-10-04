@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+
 * Support for `as_is: true` and non-default output formats for vignettes/
   articles has been somewhat improved. Support is fundamentally limited due to
   the challenges of integrating HTML from output formats that pkgdown doesn't
@@ -174,7 +177,8 @@
   (#1502)
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
-  to the navbar (#1493). 
+  to the navbar (#1493). It also properly supports [GitLab subgroups](https://docs.gitlab.com/ee/user/group/subgroups/)
+  now (@salim-b, #1532).
 
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)

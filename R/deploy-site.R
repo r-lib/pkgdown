@@ -122,14 +122,14 @@ deploy_to_branch <- function(pkg = ".",
 
   # Explicitly set the branches tracked by the origin remote.
   # Needed if we are using a shallow clone, such as on travis-CI
-  git("remote", "set-branches", remote, branch)
+  git("remote", "set-branches", "--add", remote, branch)
 
   git("fetch", remote, branch)
 
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
-  build_site_github_pages(pkg, dest_dir = dest_dir, clean = clean)
+  build_site_github_pages(pkg, dest_dir = dest_dir, ..., clean = clean)
 
   github_push(dest_dir, commit_message, remote, branch)
 

@@ -6,38 +6,30 @@ path <- test_path("assets/site-citation/encoding-UTF-8")
 skip_if_not(dir_exists(path)[[1]])
 
 test_that("UTF-8 encoding and `citation(auto = meta) can be read` (#416, #493)", {
-  cit <- read_citation(path)
+  cit <- read_citation(test_path("assets/site-citation/encoding-UTF-8"))
   expect_s3_class(cit, "citation")
 })
 
 test_that("latin1 encoding and `citation(auto = meta) can be read` (#689)", {
-  path <- test_path("assets/site-citation/encoding-latin1")
-
-  cit <- read_citation(path)
+  cit <- read_citation(test_path("assets/site-citation/encoding-latin1"))
   expect_s3_class(cit, "citation")
 })
 
 test_that("create_meta can read DESCRIPTION with an Encoding", {
-  path <- test_path("assets/site-citation/encoding-UTF-8")
-
-  meta <- create_citation_meta(path)
+  meta <- create_citation_meta(test_path("assets/site-citation/encoding-UTF-8"))
   expect_type(meta, "list")
   expect_equal(meta$`Authors@R`, 'person(\"Florian\", \"Privé\")')
 })
 
 test_that("source link is added to citation page", {
-  path <- test_path("assets/site-citation/encoding-UTF-8")
+  pkg <- local_pkgdown_site(test_path("assets/site-citation/encoding-UTF-8"))
+  expect_output(build_home(pkg))
 
-  expect_output(build_home(path))
-  on.exit(clean_site(path))
-
-  lines <- read_lines(path(path, "docs", "authors.html"))
+  lines <- read_lines(path(pkg$dst_path, "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
 })
 
 test_that("multiple citations all have HTML and BibTeX formats", {
-  path <- test_path("assets/site-citation/multi")
-  citations <- data_citations(path)
-  expect_equal(lengths(citations), c(2, 2))
+  citations <- data_citations(test_path("assets/site-citation/multi"))
   expect_snapshot_output(citations)
 })

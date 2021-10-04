@@ -1,3 +1,16 @@
+test_that("check_bootswatch_theme() works", {
+  expect_snapshot_error(check_bootswatch_theme("paper", 4, list()))
+  expect_null(check_bootswatch_theme(NULL, 4, list()))
+  expect_null(check_bootswatch_theme("lux", 4, list()))
+})
+
+test_that("get_bs_version gives an informative error message", {
+  pkg <- test_path("assets/sidebar")
+  pkg <- as_pkgdown(pkg)
+  pkg$meta$template$bootstrap <- 5
+  expect_snapshot_error(get_bs_version(pkg))
+})
+
 test_that("pkgdown_footer() works by default", {
   data <- list(
     package = list(authors = "bla"),

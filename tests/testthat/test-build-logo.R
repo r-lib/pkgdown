@@ -1,10 +1,9 @@
 test_that("can handle logo in subdir", {
   src <- withr::local_tempdir()
-  dir_create(path(src, "man", "figures"))
-  file_create(path(src, "man", "figures", "logo.svg"))
-
   dst <- withr::local_tempdir()
 
+  dir_create(path(src, "man", "figures"))
+  file_create(path(src, "man", "figures", "logo.svg"))
   pkg <- structure(list(src_path = src, dst_path = dst), class = "pkgdown")
   expect_true(has_logo(pkg))
 
