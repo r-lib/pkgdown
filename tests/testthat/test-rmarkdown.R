@@ -34,7 +34,5 @@ test_that("render_rmarkdown styles ANSI escapes", {
     )
   })
   html <- xml2::read_html(path)
-  expect_snapshot_output({
-    html %>% xml2::xml_find_all(".//code//span[@class='co']") %>% as.character()
-  })
+  expect_snapshot_output(xpath_xml(html, ".//code//span[@class='co']"))
 })

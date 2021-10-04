@@ -12,7 +12,7 @@ test_that("articles don't include header-attrs.js script", {
   expect_output(path <- build_article("standard", pkg))
 
   html <- xml2::read_html(path)
-  js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
+  js <- xpath_attr(html, ".//body//script", "src")
   # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
   js <- js[basename(js) != "empty-anchor.js"]
   expect_equal(js, character())
@@ -31,15 +31,11 @@ test_that("can override html_document() options", {
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
-  expect_equal(
-    html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
-    c("1", "2")
-  )
+  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
 
-  css <- html %>% xml2::xml_find_all(".//body//link") %>% xml2::xml_attr("href")
-  js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
-  expect_equal(length(css), 0)
-  expect_equal(length(js), 0)
+  # And no links or scripts are inlined
+  expect_equal(xpath_length(html, ".//body//link"), 0)
+  expect_equal(xpath_length(html, ".//body//script"), 0)
 })
 
 test_that("html widgets get needed css/js", {
@@ -47,8 +43,8 @@ test_that("html widgets get needed css/js", {
   expect_output(path <- build_article("widget", pkg))
 
   html <- xml2::read_html(path)
-  css <- html %>% xml2::xml_find_all(".//body//link") %>% xml2::xml_attr("href")
-  js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
+  css <- xpath_attr(html, ".//body//link", "href")
+  js <- xpath_attr(html, ".//body//script", "src")
 
   expect_true("diffviewer.css" %in% basename(css))
   expect_true("diffviewer.js" %in% basename(js))
@@ -60,8 +56,5 @@ test_that("can override options with _output.yml", {
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
-  expect_equal(
-    html %>% xml2::xml_find_all(".//h1//span") %>% xml2::xml_text(),
-    c("1", "2")
-  )
+  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
 })

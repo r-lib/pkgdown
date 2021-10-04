@@ -10,8 +10,7 @@ test_that("extra.css and extra.js copied and linked", {
   expect_output(build_home(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
-  links <- xml2::xml_find_all(html, ".//link")
-  paths <- xml2::xml_attr(links, "href")
+  paths <- xpath_attr(html, ".//link", "href")
 
   expect_true("extra.css" %in% paths)
 })
