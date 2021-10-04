@@ -13,6 +13,8 @@ test_that("articles don't include header-attrs.js script", {
 
   html <- xml2::read_html(path)
   js <- html %>% xml2::xml_find_all(".//body//script") %>% xml2::xml_attr("src")
+  # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
+  js <- setdiff(js, "accessible-code-block-0.0.1/empty-anchor.js")
   expect_equal(js, character())
 })
 
