@@ -61,7 +61,7 @@ markdown_body <- function(path, strip_header = FALSE, pkg = list()) {
 markdown_path_html <- function(path, strip_header = FALSE, pkg = list()) {
   html_path <- withr::local_tempfile()
   convert_markdown_to_html(path, html_path)
-  xml <- xml2::read_html(html_path)
+  xml <- xml2::read_html(html_path, encoding = "UTF-8")
   if (!inherits(xml, "xml_node")) {
     return(NULL)
   }

@@ -52,7 +52,7 @@ tweak_homepage_html <- function(html,
     xml2::xml_remove(header, free = TRUE)
   } else {
     page_header_text <- class_page_header(bs_version = bs_version, header = header)
-    page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
+    page_header <- xml2::read_html(page_header_text, encoding = "UTF-8") %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
   }
 
