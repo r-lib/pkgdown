@@ -65,7 +65,10 @@ package_repo <- function(desc, meta) {
 
   # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
+    sub("/issues/?", "/", desc$get_field(
+      key = "BugReports",
+      default = character()
+    )),
     desc$get_urls()
   )
 

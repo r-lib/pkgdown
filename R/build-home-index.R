@@ -12,7 +12,10 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
-    data$index <- linkify(pkg$desc$get("Description")[[1]])
+    data$index <- linkify(pkg$desc$get_field(
+      key = "Description",
+      default = NA_character_
+    ))
   } else {
     local_options_link(pkg, depth = 0L)
     data$index <- markdown_body(src_path, pkg = pkg)
@@ -38,10 +41,13 @@ data_home <- function(pkg = ".") {
 
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||%
-      str_squish(cran_unquote(pkg$desc$get("Title")[[1]])),
+      cran_unquote(pkg$desc$get_field(key = "Title", default = NA_character_)),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       str_squish(cran_unquote(pkg$desc$get("Description")[[1]]))),
+                       cran_unquote(pkg$desc$get_field(
+                         key = "Description",
+                         default = NA_character_
+                       ))),
     has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
 }
@@ -148,7 +154,10 @@ data_home_sidebar_links <- function(pkg = ".") {
     link_url(paste0("Download from ", repo$repo), repo$url),
     link_url("Browse source code", repo_home(pkg)),
     if (pkg$desc$has_fields("BugReports"))
-      link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
+      link_url(
+        "Report a bug",
+        pkg$desc$get_field(key = "BugReports", default = NA_character_)
+      ),
     purrr::map_chr(meta, ~ link_url(.$text, .$href))
   )
 
