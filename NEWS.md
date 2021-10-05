@@ -3,6 +3,38 @@
 * `build_articles()` now correctly handles links to images in `man/figures`
   (which have the form `../man/figures`) (#1472).
 
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+
+* Support for `as_is: true` and non-default output formats for vignettes/
+  articles has been somewhat improved. Support is fundamentally limited due to
+  the challenges of integrating HTML from output formats that pkgdown doesn't
+  know about, but it should be a little more reliable and a little better
+  documented (#1757, #1764).
+
+* Articles now render output styles created by cli/crayon. This is currently a 
+  little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
+  versions will attempt to relax these restrictions, likely through a new 
+  document format.
+
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
+
+* `pkgdown.css` now incldues updated css styles from pandoc to support better
+  reference list styling (#1469).
+
+* `build_articler()` no longer fails if you have a directory underneath 
+  vignettes with a `.Rmd` extension (#1425).
+
+* The version tooltip showed in the top navbar is now only set if you've 
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
+>>>>>>> 2720abc02fbddbb761104d44d30ce7a3d0c26812
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
@@ -149,7 +181,8 @@
   (#1502)
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
-  to the navbar (#1493). 
+  to the navbar (#1493). It also properly supports [GitLab subgroups](https://docs.gitlab.com/ee/user/group/subgroups/)
+  now (@salim-b, #1532).
 
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)

@@ -1,15 +1,9 @@
 test_that("a CNAME record is built if a url exists in metadata", {
-  cname <- test_path("assets/cname")
-  dir_create(path(cname, "docs"))
+  pkg <- local_pkgdown_site(test_path("assets/cname"))
 
-  on.exit({
-    clean_site(cname)
-    file_delete(path(cname, "docs", "CNAME"))
-    file_delete(path(cname, "docs", ".nojekyll"))
-  })
-
-  expect_output(build_github_pages(cname))
-  expect_equal(read_lines(path(cname, "docs", "CNAME")), "testpackage.r-lib.org")
+  dir_create(path(pkg$dst_path, "docs"))
+  expect_output(build_github_pages(pkg))
+  expect_equal(read_lines(path(pkg$dst_path, "CNAME")), "testpackage.r-lib.org")
 })
 
 test_that("CNAME URLs are valid", {

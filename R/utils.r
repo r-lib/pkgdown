@@ -169,10 +169,6 @@ cran_unquote <- function(string) {
   gsub("\\'(.*?)\\'", "\\1", string)
 }
 
-show_xml <- function(x) {
-  cat(as.character(x, options = c("format", "no_declaration")))
-}
-
 isFALSE <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }
@@ -239,21 +235,6 @@ is_internal_link <- function(links, pkg) {
   }
 }
 
-remove_useless_parts <- function(links, pkg) {
-  # remove website URL
-  if (!is.null(pkg$meta$url)) {
-    links <- sub(pkg$meta$url, "", links)
-  }
-  # remove first slash from path
-  links <- sub("^/", "", links)
-  # remove /index.html from the end
-  links <- sub("/index.html/?", "", links)
-  # remove ../ from the beginning
-  links <- gsub("\\.\\./", "", links)
-
-  links
-}
-
 get_section_level <- function(section) {
   as.numeric(
      gsub(
@@ -261,4 +242,25 @@ get_section_level <- function(section) {
         xml2::xml_attr(section, "class")
       )
   )
+}
+
+# Helpers for testing -----------------------------------------------------
+
+xpath_xml <- function(x, xpath) {
+  x <- xml2::xml_find_all(x, xpath)
+  structure(x, class = c("pkgdown_xml", class(x)))
+}
+xpath_attr <- function(x, xpath, attr) {
+  xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
+}
+xpath_text <- function(x, xpath) {
+  xml2::xml_text(xml2::xml_find_all(x, xpath))
+}
+xpath_length <- function(x, xpath) {
+  length(xml2::xml_find_all(x, xpath))
+}
+#' @export
+print.pkgdown_xml <- function(x, ...) {
+  cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
+  invisible(x)
 }

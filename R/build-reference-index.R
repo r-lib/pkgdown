@@ -23,12 +23,16 @@ data_reference_index <- function(pkg = ".") {
 }
 
 data_reference_index_rows <- function(section, index, pkg) {
+  if (identical(section$title, "internal")) {
+    return(list())
+  }
+
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
       title = section$title,
       slug = paste0("section-", make_slug(section$title)),
-      desc = markdown_text(section$desc, pkg = pkg)
+      desc = markdown_text_block(section$desc, pkg = pkg)
     )
   }
 
@@ -36,7 +40,7 @@ data_reference_index_rows <- function(section, index, pkg) {
     rows[[2]] <- list(
       subtitle = section$subtitle,
       slug = paste0("section-", make_slug(section$subtitle)),
-      desc = markdown_text(section$desc, pkg = pkg)
+      desc = markdown_text_block(section$desc, pkg = pkg)
     )
   }
 
