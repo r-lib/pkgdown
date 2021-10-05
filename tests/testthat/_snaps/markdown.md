@@ -5,14 +5,3 @@
     x
     
     y
-
-# markdown_body() can parse UTF-8
-
-    
-    <p>Maëlle</p>
-    <p>Gómez</p>
-    <p>España</p>
-    <p>© R-Studio</p>
-    <p>Fußball</p>
-    <p>bønne</p>
-

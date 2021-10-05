@@ -36,10 +36,7 @@ test_that("markdown_body() captures title", {
   expect_false(grepl("Title", html))
 })
 
-test_that("markdown_body() can parse UTF-8", {
-  temp <- withr::local_tempfile(pattern= "markdown", fileext = ".md")
-  write_lines("Maëlle\n\nGómez\n\nEspaña\n\n© R-Studio\n\nFußball\n\nbønne",
-              temp)
-
-  expect_snapshot_output(cat(markdown_body(temp)))
+test_that("markdown_text_*() handles UTF-8 correctly", {
+  expect_equal(markdown_text_block("\u00f8"), "<p>\u00f8</p>")
+  expect_equal(markdown_text_inline("\u00f8"), "\u00f8")
 })
