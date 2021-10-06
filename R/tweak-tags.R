@@ -82,6 +82,17 @@ tweak_link_external <- function(html, pkg = list()) {
   invisible()
 }
 
+# Fix relative image links
+tweak_img_src <- function(html) {
+  imgs <- xml2::xml_find_all(html, ".//img")
+  urls <- xml2::xml_attr(imgs, "src")
+  new_urls <- gsub("(^|/)vignettes/", "\\1articles/", urls, perl = TRUE)
+  new_urls <- gsub("(^|/)man/figures/", "\\1reference/figures/", new_urls, perl = TRUE)
+  purrr::map2(imgs, new_urls, ~ xml2::xml_set_attr(.x, "src", .y))
+
+  invisible()
+}
+
 tweak_link_absolute <- function(html, pkg = list()) {
   # If there's no URL links can't be made absolute
   if (is.null(pkg$meta$url)) {

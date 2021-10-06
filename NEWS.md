@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_articles()` now correctly handles links to images in `man/figures`
+  (which have the form `../man/figures`) (#1472).
+
 * `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
   overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
 
@@ -31,6 +34,7 @@
   allowing you to suppress warnings about topics that are not listed in the
   index (#1716).
 
+>>>>>>> 2720abc02fbddbb761104d44d30ce7a3d0c26812
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
