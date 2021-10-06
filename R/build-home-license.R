@@ -22,8 +22,8 @@ data_home_sidebar_license <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   link <- autolink_license(pkg$desc$get_field(
-    key = "License",
-    default = NA_character_)
+    "License",
+    NA_character_)
   )
 
   license_md <- path_first_existing(pkg$src_path, c("LICENSE.md", "LICENCE.md"))

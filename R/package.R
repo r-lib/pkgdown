@@ -28,8 +28,8 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     meta[["url"]] <- sub("/$", "", meta[["url"]])
   }
 
-  package <- desc$get_field(key = "Package", default = NA_character_)
-  version <- desc$get_field(key = "Version", default = NA_character_)
+  package <- desc$get_field("Package", NA_character_)
+  version <- desc$get_field("Version", NA_character_)
 
   development <- meta_development(meta, version)
 

@@ -41,12 +41,12 @@ data_home <- function(pkg = ".") {
 
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||%
-      cran_unquote(pkg$desc$get_field(key = "Title", default = NA_character_)),
+      cran_unquote(pkg$desc$get_field("Title", NA_character_)),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
                        cran_unquote(pkg$desc$get_field(
-                         key = "Description",
-                         default = NA_character_
+                         "Description",
+                         NA_character_
                        ))),
     has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
@@ -156,7 +156,7 @@ data_home_sidebar_links <- function(pkg = ".") {
     if (pkg$desc$has_fields("BugReports"))
       link_url(
         "Report a bug",
-        pkg$desc$get_field(key = "BugReports", default = NA_character_)
+        pkg$desc$get_field("BugReports", NA_character_)
       ),
     purrr::map_chr(meta, ~ link_url(.$text, .$href))
   )
