@@ -112,6 +112,23 @@ tweak_link_absolute <- function(html, pkg = list()) {
   invisible()
 }
 
+tweak_link_R6 <- function(html) {
+  r6_span <- xml2::xml_find_all(html, ".//span[@class=\"pkg-link\"]")
+  if (length(r6_span) == 0) {
+    return()
+  }
+
+  pkg <- xml2::xml_attr(r6_span, "data-pkg")
+  topic <- xml2::xml_attr(r6_span, "data-topic")
+  id <- xml2::xml_attr(r6_span, "data-id")
+  url <- paste0(topic, ".html", ifelse(is.na(id), "", "#method-"), id)
+
+  r6_a <- xml2::xml_find_first(r6_span, "./a")
+  xml2::xml_attr(r6_a, "href") <- url
+
+  invisible()
+}
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")

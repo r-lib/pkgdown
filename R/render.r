@@ -72,27 +72,17 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   rendered <- render_template(template, components)
 
-  # footnotes
+  html <- xml2::read_html(rendered, encoding = "UTF-8")
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered, encoding = "UTF-8")
     tweak_footnotes(html)
-    rendered <- as.character(html, options = character())
-  }
-
-  # navbar activation
-  if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered, encoding = "UTF-8")
     activate_navbar(html, data$output_file %||% path, pkg)
-    rendered <- as.character(html, options = character())
-  }
-
-  # remove TOC if useless
-  if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered, encoding = "UTF-8")
     trim_toc(html)
-    rendered <- as.character(html, options = character())
+  }
+  if (pkg$desc$has_dep("R6")) {
+    tweak_link_R6(html)
   }
 
+  rendered <- as.character(html, options = character())
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
