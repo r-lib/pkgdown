@@ -104,20 +104,34 @@ test_that("tweak_link_absolute() leaves absolute paths alone", {
 
 test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
   html <- xml2::read_html("
-    <span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">
-      <a href='../../R6test/html/Animal.html#method-initialize'>text</a>
+    <span class=\"pkg-link\" data-pkg=\"pkgdown\" data-topic=\"Animal\" data-id=\"initialize\">
+      <a href='replace-me.html'>text</a>
     </span>
     <span>
-      <a href='../../R6test/html/Animal.html#method-initialize'>text</a>
+      <a href='leave-me.html'>text</a>
     </span>
   ")
 
-  tweak_link_R6(html)
+  tweak_link_R6(html, "pkgdown")
   expect_equal(
     xpath_attr(html, "//a", "href"),
-    c(
-      "Animal.html#method-initialize",
-      '../../R6test/html/Animal.html#method-initialize'
-    )
+    c("Animal.html#method-initialize", "leave-me.html")
   )
+})
+
+test_that("tweak_link_r6() correct modifies link to method in another package", {
+  skip_on_cran() # in case downlit url changes
+
+  html <- xml2::read_html("
+    <span class=\"pkg-link\" data-pkg=\"downlit\" data-topic=\"autolink_url\" data-id=\"init\">
+      <a href='replace_me.html'>text</a>
+    </span>
+  ")
+
+  tweak_link_R6(html, "pkgdown")
+  expect_equal(
+    xpath_attr(html, "//a", "href"),
+    "https://downlit.r-lib.org/reference/autolink.html#method-init"
+  )
+
 })
