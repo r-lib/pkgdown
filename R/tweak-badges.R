@@ -51,6 +51,6 @@ badges_extract <- function(html) {
 }
 
 badges_extract_text <- function(x) {
-  xml <- xml2::read_html(x)
+  xml <- xml2::read_html(x, encoding = "UTF-8")
   badges_extract(xml)
 }
