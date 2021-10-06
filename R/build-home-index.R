@@ -13,8 +13,8 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
 
   if (is.null(src_path)) {
     data$index <- linkify(pkg$desc$get_field(
-      key = "Description",
-      default = NA_character_
+      "Description",
+      ""
     ))
   } else {
     local_options_link(pkg, depth = 0L)
