@@ -78,12 +78,12 @@
 <h2 class="hasAnchor">
 <a href="#package-reprexes" class="anchor" aria-hidden="true"></a>Package reprexes</h2>
 <p>If you encounter unexpected errors after running <code><a href="reference/build_site.html">pkgdown::build_site()</a></code>, try to build a minimal package that recreates the error. An ideal minimal package has <em>no dependencies</em>, making it easy to install and quickly reproduce the error. An example of a minimal package was <a href="https://github.com/r-lib/pkgdown/issues/720#issuecomment-397606145" class="external-link">this issue</a>, where a minimal package containing a single <code>.R</code> file with two lines could reproduce the error.</p>
-<p>The quickest way to set up minimal example package is with <code>usethis::create_package()</code>:</p>
+<p>The quickest way to set up minimal example package is with <code><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">usethis::create_package()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu">create_package</span><span class="op">(</span><span class="st">"~/desktop/testpackage"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">create_package</a></span><span class="op">(</span><span class="st">"~/desktop/testpackage"</span><span class="op">)</span>
 <span class="co"># ... edit files ...</span>
 <span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="va">tmp</span>, new_process <span class="op">=</span> <span class="cn">FALSE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package (e.g. with <code>usethis::use_git()</code> + <code>usethis::use_github()</code>), and file an issue with a link to the repository.</p>
+<p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package (e.g. with <code><a href="https://usethis.r-lib.org/reference/use_git.html" class="external-link">usethis::use_git()</a></code> + <code><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">usethis::use_github()</a></code>), and file an issue with a link to the repository.</p>
 </div>
 <div id="rd-translation" class="section level2">
 <h2 class="hasAnchor">
