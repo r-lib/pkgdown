@@ -43,11 +43,10 @@ data_home <- function(pkg = ".") {
     pagetitle = pkg$meta$home[["title"]] %||%
       cran_unquote(pkg$desc$get_field("Title", NA_character_)),
     sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get_field(
-                         "Description",
-                         NA_character_
-                       ))),
+    opengraph = list(
+      description = pkg$meta$home[["description"]] %||%
+        cran_unquote(pkg$desc$get_field("Description", NA_character_))
+    ),
     has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
 }
