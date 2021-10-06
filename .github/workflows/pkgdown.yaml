@@ -32,6 +32,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
+          extra-packages: >
+            usethis
+            servr
           needs: website
 
       - name: Install package
