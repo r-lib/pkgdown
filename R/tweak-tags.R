@@ -113,16 +113,18 @@ tweak_link_absolute <- function(html, pkg = list()) {
 }
 
 tweak_link_R6 <- function(html) {
-  r6_links <- xml2::xml_find_all(html, "//*[@class=\"pkg-link\"]/a")
-  if (length(r6_links) == 0) {
+  r6_span <- xml2::xml_find_all(html, ".//span[@class=\"pkg-link\"]")
+  if (length(r6_span) == 0) {
     return()
   }
 
-  url <- xml2::url_parse(xml2::xml_attr(r6_links, "href"))
-  # from "../../R6test/html/Animal.html#method-initialize"
-  # to "Animal.html#method-initialize"
-  new_url <- paste0(basename(url$path), "#", url$fragment)
-  xml2::xml_attr(r6_links, "href") <- new_url
+  pkg <- xml2::xml_attr(r6_span, "data-pkg")
+  topic <- xml2::xml_attr(r6_span, "data-topic")
+  id <- xml2::xml_attr(r6_span, "data-id")
+  url <- paste0(topic, ".html", ifelse(is.na(id), "", "#method-"), id)
+
+  r6_a <- xml2::xml_find_first(r6_span, "./a")
+  xml2::xml_attr(r6_a, "href") <- url
 
   invisible()
 }
