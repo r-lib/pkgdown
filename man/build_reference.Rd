@@ -140,12 +140,26 @@ CI envar is "true"), this is an error so that the build will fail if you
 forget to include topics in the index.
 }
 
+\subsection{Missing topics}{
+
+pkgdown will warn if there are (non-internal) topics that not listed
+in the reference index. You can suppress these warnings by listing the
+topics in section with "title: internal" (case sensitive) which will not be
+displayed on the reference index.
+}
+
 \subsection{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll need
 a top-level \code{icons} directory. This should contain {.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
+}
+
+\subsection{Examples}{
+
+If you need to run extra code before or after all examples are run, you
+can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
 }
 }
 

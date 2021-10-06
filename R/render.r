@@ -27,12 +27,11 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(src = logo_path(pkg, depth = depth))
-
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
     version = utils::packageDescription("pkgdown", fields = "Version")
   )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
@@ -75,21 +74,21 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   # footnotes
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
+    html <- xml2::read_html(rendered, encoding = "UTF-8")
     tweak_footnotes(html)
     rendered <- as.character(html, options = character())
   }
 
   # navbar activation
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
+    html <- xml2::read_html(rendered, encoding = "UTF-8")
     activate_navbar(html, data$output_file %||% path, pkg)
     rendered <- as.character(html, options = character())
   }
 
   # remove TOC if useless
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
+    html <- xml2::read_html(rendered, encoding = "UTF-8")
     trim_toc(html)
     rendered <- as.character(html, options = character())
   }
@@ -371,7 +370,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  left_final_components <- markdown_block(
+  left_final_components <- markdown_text_block(
     paste0(left_components[left_structure], collapse = " "),
     pkg = pkg
   )
@@ -391,7 +390,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  right_final_components <- markdown_block(
+  right_final_components <- markdown_text_block(
     paste0(right_components[right_structure], collapse = " "),
     pkg = pkg
   )
@@ -497,21 +496,4 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 pkgdown_bslib_defaults <- function() {
   list(`navbar-nav-link-padding-x` = "1rem")
-}
-
-logo_path <- function(pkg, depth) {
-  if (!has_logo(pkg)) {
-    return(NULL)
-  }
- path <- "package-logo.png"
-
-  if (depth == 0) {
-    return(path)
-  }
-
-  paste0(
-    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-    "/",
-    path
-  )
 }

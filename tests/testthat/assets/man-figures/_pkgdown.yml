@@ -1,0 +1,5 @@
+figures:
+  dev: "jpeg"
+  fig.ext: "jpg"
+  fig.width: 3
+  fig.asp: 1

@@ -61,7 +61,6 @@ data_author_info <- function(pkg = ".") {
     "R Consortium" = list(
       href = "https://www.r-consortium.org"
     )
-
   )
 
   utils::modifyList(defaults, pkg$meta$authors %||% list())
@@ -70,23 +69,23 @@ data_author_info <- function(pkg = ".") {
 
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
-data <- data_authors(pkg, roles)
+  roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
+  data <- data_authors(pkg, roles)
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
   bullets <- c(
-      markdown_inline(
-        pkg$meta$authors$sidebar$before,
-        pkg = pkg,
-        where = c("authors", "sidebar", "before")
-      ),
-      authors,
-      markdown_inline(
-        pkg$meta$authors$sidebar$after,
-        pkg = pkg,
-        where = c("authors", "sidebar", "after")
-      )
+    markdown_text_inline(
+      pkg$meta$authors$sidebar$before,
+      pkg = pkg,
+      where = c("authors", "sidebar", "before")
+    ),
+    authors,
+    markdown_text_inline(
+      pkg$meta$authors$sidebar$after,
+      pkg = pkg,
+      where = c("authors", "sidebar", "after")
+    )
   )
 
   if (data$needs_page) {
@@ -105,13 +104,13 @@ build_authors <- function(pkg = ".") {
 }
 
 data_authors_page <- function(pkg) {
-   data <- list(
+  data <- list(
     pagetitle = "Authors",
     authors = data_authors(pkg)$all
   )
 
-  data$before <- markdown_block(pkg$meta$authors$before, pkg = pkg)
-  data$after <- markdown_block(pkg$meta$authors$after, pkg = pkg)
+  data$before <- markdown_text_block(pkg$meta$authors$before, pkg = pkg)
+  data$after <- markdown_text_block(pkg$meta$authors$after, pkg = pkg)
 
   return(data)
 }
@@ -119,13 +118,14 @@ data_authors_page <- function(pkg) {
 author_name <- function(x, authors, pkg) {
   name <- format_author_name(x$given, x$family)
 
-  if (!(name %in% names(authors)))
+  if (!(name %in% names(authors))) {
     return(name)
+  }
 
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_inline(
+    name <- markdown_text_inline(
       author$html,
       pkg = pkg,
       where = c("authors", name, "html")
@@ -170,26 +170,19 @@ author_desc <- function(x, comment = TRUE) {
   paste(
     x$name,
     "<br />\n<small class = 'roles'>", x$roles, "</small>",
-    if (!is.null(x$orcid))
-      x$orcid,
-    if (comment && !is.null(x$comment) && length(x$comment) != 0)
+    if (!is.null(x$orcid)) {
+      x$orcid
+    },
+    if (comment && !is.null(x$comment) && length(x$comment) != 0) {
       paste0("<br/>\n<small>(", linkify(x$comment), ")</small>")
+    }
   )
 }
 
-remove_name <- function(x, name) {
-  stopifnot(is.character(name), length(name) == 1)
-
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(x)
-  }
-
-  x[!(nms %in% name)]
-}
-
 orcid_link <- function(orcid) {
-  if (is.null(orcid)) return(NULL)
+  if (is.null(orcid)) {
+    return(NULL)
+  }
 
   paste0(
     "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
@@ -467,3 +460,20 @@ role_lookup <- c(
   "wpr" = "writer of preface",
   "wst" = "writer of supplementary textual content"
 )
+
+# helpers -----------------------------------------------------------------
+
+remove_name <- function(x, name) {
+  stopifnot(is.character(name), length(name) == 1)
+
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(x)
+  }
+
+  out <- x[!(nms %in% name)]
+  if (all(names(out) == "")) {
+    names(out) <- NULL
+  }
+  out
+}

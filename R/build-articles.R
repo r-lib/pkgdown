@@ -114,26 +114,19 @@
 #' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
 #' some hints on how to customise the appearance with CSS.
 #'
-#' @section YAML header:
-#' By default, pkgdown builds all articles with [rmarkdown::html_document()]
-#' by setting the `template` parameter. This overrides any custom settings
-#' you have in your YAML metadata, ensuring that all articles are rendered
-#' in the same way (and receive the default site template).
-#'
-#' If you need to override the output format, or set any options, you'll need
-#' to add a `pkgdown` field to your yaml metadata:
+#' @section Output formats:
+#' By default, pkgdown builds all articles using the
+#' [rmarkdown::html_document()] `output` format, ignoring whatever is set in
+#' your YAML metadata. This is necessary because pkgdown has to integrate the
+#' HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
+#' Because of the challenges of combining two sources of HTML/CSS/JS, there is
+#' limited support for other output formats and you have to opt-in by setting
+#' the `as_is` field in your `.Rmd` metadata:
 #'
 #' ```yaml
 #' pkgdown:
 #'   as_is: true
 #' ```
-#'
-#' This will tell pkgdown to use the `output_format` (and options) that you
-#' have specified. This format must accept `template`, `theme`, and
-#' `self_contained` in order to work with pkgdown.
-#' If the output needs a theme, you'll have to specify it even if it is
-#' `"default"`, and you might experience Bootstrap incompatibilities between
-#' the output and pkgdown.
 #'
 #' If the output format produces a PDF, you'll also need to specify the
 #' `extension` field:
@@ -144,19 +137,14 @@
 #'   extension: pdf
 #' ```
 #'
-#' If you want to set an output format for all your articles, you can do that
-#' by adding a `vignettes/_site.yml`, much like you would for an
-#' [rmarkdown website](https://rmarkdown.rstudio.com/docs/reference/render_site.html).
-#' For example, you can backport some bookdown features such as cross-references
-#'  to all your articles by using the
-#' [bookdown::html_document2](https://bookdown.org/yihui/bookdown/a-single-document.html)
-#' format.
+#' To work with pkgdown, the output format must accept `template`, `theme`, and
+#' `self_contained` arguments, and must work without any additional CSS or
+#' JSS files. Note that if you use
+#' [`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
+#' or [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
+#' you'll still need to add `as_is: true` to each individual vignette.
 #'
-#' ```yaml
-#' output:
-#'   bookdown::html_document2:
-#'   number_sections: false
-#' ```
+#' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
 #' @inheritSection build_reference Figures
 #'
@@ -240,43 +228,37 @@ build_article <- function(name,
     data$opengraph %||% list(), front_opengraph
   )
 
+  # Allow users to opt-in to their own template
+  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
+  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
+
   default_data <- list(
     pagetitle = front$title,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, path_rel(input, pkg$src_path)),
     filename = path_file(input),
-    output_file = output_file
+    output_file = output_file,
+    as_is = as_is
   )
   data <- utils::modifyList(default_data, data)
-
-  # Allow users to opt-in to their own template
-  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
-  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   if (as_is) {
     format <- NULL
 
     if (identical(ext, "html")) {
+      data$as_is <- TRUE
       template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
-      output <- purrr::pluck(front, "output")
-      # no option for the output
-      if (is.character(output)) {
-        output_name <- output
-        theme <- NULL
-      } else {
-        output_name <- names(output)[[1]]
-        theme <- output[[1]]$theme
-      }
+      output <- rmarkdown::default_output_format(input_path)
 
+      # Override defaults & values supplied in metadata
       options <- list(
         template = template$path,
         self_contained = FALSE
       )
-
-      if (!grepl("html_vignette$", output_name)) {
-        options$theme <- theme
+      if (output$name != "rmarkdown::html_vignette") {
+        # Force to NULL unless overridden by user
+        options$theme <- output$options$theme
       }
-
     } else {
       options <- list()
     }
@@ -318,6 +300,11 @@ build_rmarkdown_format <- function(pkg,
     anchor_sections = FALSE
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
+
+  # Surgically eliminate html_dependency_header_attrs() whichs otherwise
+  # injects javascript that breaks our HTML anchor system
+  pre_process_env <- environment(environment(out$pre_processor)$base)
+  pre_process_env$html_dependency_header_attrs <- function() NULL
 
   attr(out, "__cleanup") <- template$cleanup
 
@@ -403,12 +390,12 @@ data_articles_index_section <- function(section, pkg) {
     name = section_vignettes$name,
     path = path_rel(section_vignettes$file_out, "articles"),
     title = section_vignettes$title,
-    description = lapply(section_vignettes$description, markdown_text, pkg = pkg),
+    description = lapply(section_vignettes$description, markdown_text_block, pkg = pkg),
   )
 
   list(
     title = section$title,
-    desc = markdown_text(section$desc, pkg = pkg),
+    desc = markdown_text_block(section$desc, pkg = pkg),
     class = section$class,
     contents = purrr::transpose(contents)
   )

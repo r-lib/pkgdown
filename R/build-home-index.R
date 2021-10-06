@@ -15,7 +15,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     data$index <- linkify(pkg$desc$get("Description")[[1]])
   } else {
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown(src_path, pkg = pkg)
+    data$index <- markdown_body(src_path, pkg = pkg)
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
@@ -65,7 +65,7 @@ data_home_sidebar <- function(pkg = ".") {
         )
       )
     }
-    return(paste0(read_lines(html_path), collapse = "\n"))
+    return(read_file(html_path))
   }
 
   sidebar_structure <- pkg$meta$home$sidebar$structure %||%
@@ -134,7 +134,7 @@ data_home_component <- function(component, component_name, pkg) {
 
   sidebar_section(
     component$title,
-    bullets = markdown_block(component$text, pkg = pkg)
+    bullets = markdown_text_block(component$text, pkg = pkg)
   )
 }
 
