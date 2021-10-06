@@ -74,7 +74,8 @@
     <div id="pkgdown-development-version" class="section level2">
 <h2 class="pb-2 mt-4 mb-2 border-bottom pkg-version" data-toc-text="development version">
 <a href="#pkgdown-development-version" class="anchor" aria-hidden="true"></a>pkgdown (development version)</h2><h6 class="text-muted" data-toc-skip> CRAN release: Unreleased</h6>
-<ul><li><p><code><a href="../reference/deploy_to_branch.html">deploy_to_branch()</a></code> now calls <code>git remote set-branches</code> with <code>--add</code> to avoid overwriting the existing <code>remote.{remote}.fetch</code> value (<a href="https://github.com/kyleam">@kyleam</a>, <a href="https://github.com/r-lib/pkgdown/issues/1382">#1382</a>).</p></li>
+<ul><li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> now correctly handles links to images in <code>man/figures</code> (which have the form <code>../man/figures</code>) (<a href="https://github.com/r-lib/pkgdown/issues/1472">#1472</a>).</p></li>
+<li><p><code><a href="../reference/deploy_to_branch.html">deploy_to_branch()</a></code> now calls <code>git remote set-branches</code> with <code>--add</code> to avoid overwriting the existing <code>remote.{remote}.fetch</code> value (<a href="https://github.com/kyleam">@kyleam</a>, <a href="https://github.com/r-lib/pkgdown/issues/1382">#1382</a>).</p></li>
 <li><p>Support for <code>as_is: true</code> and non-default output formats for vignettes/ articles has been somewhat improved. Support is fundamentally limited due to the challenges of integrating HTML from output formats that pkgdown doesnât know about, but it should be a little more reliable and a little better documented (<a href="https://github.com/r-lib/pkgdown/issues/1757">#1757</a>, <a href="https://github.com/r-lib/pkgdown/issues/1764">#1764</a>).</p></li>
 <li><p>Articles now render output styles created by cli/crayon. This is currently a little fragile: you must use <code>collapse = TRUE</code> and <code>echo = TRUE</code>. Future versions will attempt to relax these restrictions, likely through a new document format.</p></li>
 <li><p><code><a href="../reference/build_site_github_pages.html">build_site_github_pages()</a></code> has been extracted out of <code>deploy_from_github()</code> to make it easier to decouple building and deployment, and so we can take advantage of standard deployment actions (<a href="https://github.com/r-lib/pkgdown/issues/1756">#1756</a>).</p></li>
@@ -82,8 +83,22 @@
 <li><p><code>build_articler()</code> no longer fails if you have a directory underneath vignettes with a <code>.Rmd</code> extension (<a href="https://github.com/r-lib/pkgdown/issues/1425">#1425</a>).</p></li>
 <li><p>The version tooltip showed in the top navbar is now only set if youâve explicitly set the <code>development$mode</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/r-lib/pkgdown/issues/1768">#1768</a>).</p></li>
 <li><p>Reference index section with <code>title: internal</code> is now silently dropped, allowing you to suppress warnings about topics that are not listed in the index (<a href="https://github.com/r-lib/pkgdown/issues/1716">#1716</a>).</p></li>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> will run <code>pkgdown/pre-reference.R</code> before and <code>pkgdown/post-reference.R</code> after running examples. These allow you to do any setup or teardown operations you might need (<a href="https://github.com/r-lib/pkgdown/issues/1602">#1602</a>).</p></li>
-<li><p>Headings on the reference index page, and the arguments heading on the reference pages, now get anchors (<a href="https://github.com/r-lib/pkgdown/issues/1747">#1747</a>).</p></li>
+</ul><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>2720abc02fbddbb761104d44d30ce7a3d0c26812 * <code><a href="../reference/build_reference.html">build_reference()</a></code> will run <code>pkgdown/pre-reference.R</code> before and <code>pkgdown/post-reference.R</code> after running examples. These allow you to do any setup or teardown operations you might need (<a href="https://github.com/r-lib/pkgdown/issues/1602">#1602</a>).</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul><li><p>Headings on the reference index page, and the arguments heading on the reference pages, now get anchors (<a href="https://github.com/r-lib/pkgdown/issues/1747">#1747</a>).</p></li>
 <li><p>New <code><a href="../reference/pkgdown_print.html">pkgdown_print()</a></code> allows you to control how your objects are rendered in examples. It includes built-in handling for htmlwidgets and âbrowseableâ HTML so pkgdown output now more closely resembles what you see in RStudio.</p></li>
 <li><p>Fix rendering of <code>\special{}</code> tags with complex contents (<a href="https://github.com/klmr">@klmr</a>, <a href="https://github.com/r-lib/pkgdown/issues/1744">#1744</a>).</p></li>
 <li><p><code>\value{}</code> now does a better job of handling multiple mingled items and text (<a href="https://github.com/r-lib/pkgdown/issues/1479">#1479</a>).</p></li>
