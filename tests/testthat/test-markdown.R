@@ -36,3 +36,7 @@ test_that("markdown_body() captures title", {
   expect_false(grepl("Title", html))
 })
 
+test_that("markdown_text_*() handles UTF-8 correctly", {
+  expect_equal(markdown_text_block("\u00f8"), "<p>\u00f8</p>")
+  expect_equal(markdown_text_inline("\u00f8"), "\u00f8")
+})

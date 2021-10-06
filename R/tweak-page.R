@@ -29,6 +29,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
     )
   }
 
+  tweak_img_src(html)
   tweak_tables(html)
 
   invisible()
@@ -52,7 +53,7 @@ tweak_homepage_html <- function(html,
     xml2::xml_remove(header, free = TRUE)
   } else {
     page_header_text <- class_page_header(bs_version = bs_version, header = header)
-    page_header <- xml2::read_html(page_header_text) %>% xml2::xml_find_first("//div")
+    page_header <- xml2::read_html(page_header_text, encoding = "UTF-8") %>% xml2::xml_find_first("//div")
     xml2::xml_replace(header, page_header)
   }
 
@@ -79,13 +80,8 @@ tweak_homepage_html <- function(html,
         .where = "before"
       )
   }
-  # Fix relative image links
-  imgs <- xml2::xml_find_all(html, ".//img")
-  urls <- xml2::xml_attr(imgs, "src")
-  new_urls <- gsub("^vignettes/", "articles/", urls)
-  new_urls <- gsub("^man/figures/", "reference/figures/", new_urls)
-  purrr::map2(imgs, new_urls, ~ (xml2::xml_attr(.x, "src") <- .y))
 
+  tweak_img_src(html)
   tweak_tables(html)
 
   invisible()

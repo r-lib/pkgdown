@@ -11,13 +11,15 @@ test_that("first header is wrapped in page-header div", {
 test_that("links to vignettes & figures tweaked", {
   html <- xml2::read_html('<body>
     <img src="vignettes/x.png" />
+    <img src="../vignettes/x.png" />
     <img src="man/figures/x.png" />
+    <img src="../man/figures/x.png" />
   </body>')
 
   tweak_homepage_html(html, bs_version = 3)
   expect_equal(
     xpath_attr(html, ".//img", "src"),
-    c("articles/x.png", "reference/figures/x.png")
+    c("articles/x.png", "../articles/x.png", "reference/figures/x.png", "../reference/figures/x.png")
   )
 })
 
