@@ -100,3 +100,24 @@ test_that("tweak_link_absolute() leaves absolute paths alone", {
 
   expect_equal(xpath_attr(html, "//a", "href"), "https://a.com")
 })
+
+
+test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
+  html <- xml2::read_html("
+    <span class=\"pkg-link\" data-pkg=\"R6test\" data-topic=\"Animal\" data-id=\"initialize\">
+      <a href='../../R6test/html/Animal.html#method-initialize'>text</a>
+    </span>
+    <span>
+      <a href='../../R6test/html/Animal.html#method-initialize'>text</a>
+    </span>
+  ")
+
+  tweak_link_R6(html)
+  expect_equal(
+    xpath_attr(html, "//a", "href"),
+    c(
+      "Animal.html#method-initialize",
+      '../../R6test/html/Animal.html#method-initialize'
+    )
+  )
+})

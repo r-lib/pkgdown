@@ -112,21 +112,19 @@ tweak_link_absolute <- function(html, pkg = list()) {
   invisible()
 }
 
-fix_R6_inherited_hrefs <- function(html) {
+tweak_link_R6 <- function(html) {
+  r6_links <- xml2::xml_find_all(html, "//*[@class=\"pkg-link\"]/a")
+  if (length(r6_links) == 0) {
+    return()
+  }
 
-  html %>%
-    xml2::xml_find_all("//*[@class=\"pkg-link\"]//*[@href]") %>%
-    purrr::map(fix_R6_inherited_hrefs_single_node)
+  url <- xml2::url_parse(xml2::xml_attr(r6_links, "href"))
+  # from "../../R6test/html/Animal.html#method-initialize"
+  # to "Animal.html#method-initialize"
+  new_url <- paste0(basename(url$path), "#", url$fragment)
+  xml2::xml_attr(r6_links, "href") <- new_url
 
-}
-
-fix_R6_inherited_hrefs_single_node <- function(xml_node) {
-  parsed <- xml_node %>%
-    xml2::xml_attr("href") %>%
-    xml2::url_parse()
-  # e.g., transform "../../R6test/html/Animal.html#method-initialize" into "Animal.html#method-initialize"
-  url <- paste(basename(parsed[, "path"]), parsed[, "fragment"], sep = "#")
-  xml2::xml_attr(xml_node, "href") <- url
+  invisible()
 }
 
 tweak_tables <- function(html) {
