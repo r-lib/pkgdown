@@ -1,4 +1,4 @@
-test_that("can autodetect published tutorials", {
+test_that("can autodetect tutorials", {
   # Can't embed in package because path is too long and gives R CMD check NOTE
   pkg <- test_path("assets/tutorials")
   dcf_src <- path(pkg, "vignettes/tutorials/test-1/")
@@ -17,24 +17,16 @@ test_that("can autodetect published tutorials", {
   expect_equal(nrow(out), 0)
 })
 
-test_that("meta overrides published", {
-  jj_examples <- list(
-    list(
-      name = "00-setup",
-      title = "Setting up R",
-      url = "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
-    ),
-    list(
-      name = "01-data-basics",
-      title = "Data basics",
-      url = "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
+test_that("can manually supply tutorials", {
+  meta <- list(
+    tutorials = list(
+      list(name = "1-name", title = "1-title", url = "1-url"),
+      list(name = "2-name", title = "2-title", url = "2-url")
     )
   )
 
-  out <- package_tutorials(
-    test_path("assets/tutorials"),
-    meta = list(tutorials = jj_examples)
-  )
-  expect_equal(nrow(out), 2)
-  expect_equal(out$name, purrr::map_chr(jj_examples, "name"))
+  out <- package_tutorials(test_path("assets/tutorials"), meta)
+  expect_equal(out$name, c("1-name", "2-name"))
+  expect_equal(out$file_out, c("tutorials/1-name.html", "tutorials/2-name.html"))
+  expect_equal(out$url, c("1-url", "2-url"))
 })
