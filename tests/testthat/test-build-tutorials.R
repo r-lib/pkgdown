@@ -1,43 +1,32 @@
-test_that("can autodetect published tutorials", {
-  skip_if_not_installed("rsconnect")
-  skip_if(is.null(rsconnect::accounts()))
-
+test_that("can autodetect tutorials", {
   # Can't embed in package because path is too long and gives R CMD check NOTE
-  pkg <- test_path("assets/tutorials-inst")
-  dcf_src <- path(pkg, "inst/tutorials/test-1/tutorial-test-1.dcf")
-  dcf_dst <- path(pkg, "inst/tutorials/test-1/rsconnect/documents/test-1.Rmd/shinyapps.io/hadley/tutorial-test-1.dcf")
-  dir_create(path_dir(dcf_dst))
-  file_copy(dcf_src, dcf_dst, overwrite = TRUE)
-  withr::defer(dir_delete(path(pkg, "inst/tutorials/test-1/rsconnect")))
+  pkg <- test_path("assets/tutorials")
+  dcf_src <- path(pkg, "vignettes/tutorials/test-1/")
+  dcf_dst <- path(dcf_src, "rsconnect/documents/test-1.Rmd/shinyapps.io/hadley")
+  dir_create(dcf_dst)
+  file_copy(path(dcf_src, "tutorial-test-1.dcf"), dcf_dst, overwrite = TRUE)
+  withr::defer(dir_delete(path(pkg, "vignettes/tutorials/test-1/rsconnect")))
 
   out <- package_tutorials(pkg)
-  expect_equal(nrow(out), 1)
   expect_equal(out$name, "test-1")
+  expect_equal(out$file_out, "tutorials/test-1.html")
+  expect_equal(out$url, "https://hadley.shinyapps.io/tutorial-test-1/")
+
+  # and aren't included in vignettes
+  out <- package_vignettes(test_path("assets/tutorials"))
+  expect_equal(nrow(out), 0)
 })
 
-test_that("meta overrides published", {
-  jj_examples <- list(
-    list(
-      name = "00-setup",
-      title = "Setting up R",
-      url = "https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/"
-    ),
-    list(
-      name = "01-data-basics",
-      title = "Data basics",
-      url = "https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/"
+test_that("can manually supply tutorials", {
+  meta <- list(
+    tutorials = list(
+      list(name = "1-name", title = "1-title", url = "1-url"),
+      list(name = "2-name", title = "2-title", url = "2-url")
     )
   )
 
-  out <- package_tutorials(
-    test_path("assets/tutorials-inst"),
-    meta = list(tutorials = jj_examples)
-  )
-  expect_equal(nrow(out), 2)
-  expect_equal(out$name, purrr::map_chr(jj_examples, "name"))
-})
-
-test_that("tutorials not included in articles", {
-  out <- package_vignettes(test_path("assets/tutorials-vignettes"))
-  expect_equal(nrow(out), 0)
+  out <- package_tutorials(test_path("assets/tutorials"), meta)
+  expect_equal(out$name, c("1-name", "2-name"))
+  expect_equal(out$file_out, c("tutorials/1-name.html", "tutorials/2-name.html"))
+  expect_equal(out$url, c("1-url", "2-url"))
 })
