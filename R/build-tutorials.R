@@ -112,8 +112,10 @@ tutorial_info <- function(path, base_path) {
     return()
   }
 
-  # Must have deployment url
-  deploys <- rsconnect::deployments(path)
+  # Find deployment url. Use excludeOrphaned = FALSE since we don't need
+  # to worry about redeploying and this makes test infrastructure a little
+  # simpler
+  deploys <- rsconnect::deployments(path, excludeOrphaned = FALSE)
   if (!is.null(deploys) && nrow(deploys) >= 1) {
     latest <- which.max(deploys$when)
     url <- deploys$url[[latest]]
