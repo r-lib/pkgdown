@@ -123,7 +123,7 @@ tweak_link_R6 <- function(html, cur_package) {
   id <- xml2::xml_attr(r6_span, "data-id")
 
   url <- paste0(topic, ".html")
-  external <- any(pkg != cur_package)
+  external <- pkg != cur_package
   if (any(external)) {
     url[external] <- purrr::map2_chr(topic[external], pkg[external], downlit::href_topic)
   }
