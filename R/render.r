@@ -79,7 +79,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     trim_toc(html)
   }
   if (pkg$desc$has_dep("R6")) {
-    tweak_link_R6(html)
+    tweak_link_R6(html, pkg$package)
   }
 
   rendered <- as.character(html, options = character())

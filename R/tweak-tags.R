@@ -112,7 +112,7 @@ tweak_link_absolute <- function(html, pkg = list()) {
   invisible()
 }
 
-tweak_link_R6 <- function(html) {
+tweak_link_R6 <- function(html, cur_package) {
   r6_span <- xml2::xml_find_all(html, ".//span[@class=\"pkg-link\"]")
   if (length(r6_span) == 0) {
     return()
@@ -121,7 +121,13 @@ tweak_link_R6 <- function(html) {
   pkg <- xml2::xml_attr(r6_span, "data-pkg")
   topic <- xml2::xml_attr(r6_span, "data-topic")
   id <- xml2::xml_attr(r6_span, "data-id")
-  url <- paste0(topic, ".html", ifelse(is.na(id), "", "#method-"), id)
+
+  url <- paste0(topic, ".html")
+  external <- pkg != cur_package
+  if (any(external)) {
+    url[external] <- purrr::map2_chr(topic[external], pkg[external], downlit::href_topic)
+  }
+  url <- paste0(url, ifelse(is.na(id), "", "#method-"), id)
 
   r6_a <- xml2::xml_find_first(r6_span, "./a")
   xml2::xml_attr(r6_a, "href") <- url

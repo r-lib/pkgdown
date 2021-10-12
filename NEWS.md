@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Auto-generated links to inherited R6 methods now work correctly 
+  whether internal (#1173, @vandenman) or external (#1476).
+
 * `build_articles()` now correctly handles links to images in `man/figures`
   (which have the form `../man/figures`) (#1472).
 
