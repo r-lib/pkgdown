@@ -79,7 +79,7 @@ package_tutorials <- function(path = ".", meta = list()) {
 
   tibble::tibble(
     name = name,
-    file_out = path("tutorials", name, ext = "html"),
+    file_out = as.character(path("tutorials", name, ext = "html")),
     title = title,
     pagetitle = title,
     url = purrr::map_chr(tutorials, "url")
@@ -91,9 +91,7 @@ find_tutorials <- function(path = ".") {
     return(character())
   }
 
-  if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("rsconnect package must be installed to scan for tutorials", call. = FALSE)
-  }
+  check_installed("rsconnect", "to find published tutorials")
 
   rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$", type = "file"))
   info <- purrr::map(rmds, tutorial_info, base_path = path)
