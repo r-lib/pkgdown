@@ -1,0 +1,30 @@
+---
+title: "HTML widgets"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Widgets
+
+Test spacing above widget.
+
+```{r, echo=FALSE}
+# set seed for reproducible widget id
+if (requireNamespace("htmltools", quietly = TRUE)) {
+  htmlwidgets::setWidgetIdSeed(42)
+}
+
+path1 <- tempfile()
+writeLines(letters, path1)
+path2 <- tempfile()
+writeLines(letters[-(10:11)], path2)
+
+diffviewer::visual_diff(path1, path2)
+```
+
+Test spacing below widget.

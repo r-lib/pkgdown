@@ -72,3 +72,13 @@ If pkgdown can find a pkgdown site for the remote package, it will link to it; o
     ```
 
 Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., `dplyr::mutate()`), pkgdown looks first in dplyr's `DESCRIPTION` to find its website, then it looks for `pkgdown.yml`, and uses the metadata to generate the correct links.
+
+To allow your package to be linked by other locally installed packages, even if your website is not reachable at build time, the following option needs to be set in `_pkgdown.yml`:
+
+```yaml
+deploy:
+  install_metadata: true
+```
+
+This allows locally installed packages to access package index metadata from the locally installed copy, which may be useful
+if your website require auth, or you build behind a firewall.

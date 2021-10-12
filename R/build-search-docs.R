@@ -75,10 +75,15 @@ url_node <- function(url) {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Local testing:
-#' Search won't work if you simply use pkgdown preview of the static files.
+#' @section Debugging and local testing:
+#'
+#' Locally (as opposed to on GitHub Pages or Netlify for instance),
+#' search won't work if you simply use pkgdown preview of the static files.
 #' You can use `servr::httw("docs")` instead.
 #'
+#' If search is not working, run `pkgdown::pkgdown_sitrep()` to eliminate
+#' common issues such as the absence of URL in the pkgdown configuration file
+#' of your package.
 #'
 #' @inheritParams build_articles
 #' @export
@@ -113,10 +118,18 @@ build_search_index <- function(pkg) {
 
   purrr::compact(index)
 
+  # Make URLs absolute if possible
+  url <- pkg$meta$url %||% ""
+  fix_path <- function(x) {
+    x$path <- sprintf("%s%s", url, x$path)
+    x
+  }
+  index <- purrr::map(index, fix_path)
+
 }
 
 news_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path))
+  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
@@ -148,7 +161,7 @@ news_search_index <- function(path, pkg) {
 }
 
 file_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path))
+  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
   title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
     xml2::xml_attr("content")

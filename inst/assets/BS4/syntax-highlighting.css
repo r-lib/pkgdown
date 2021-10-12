@@ -14,14 +14,12 @@ pre {
   border: 1px solid rgba(0,0,0,0.1);
 }
 
-pre .img {
+pre .img. pre .r-plt {
   margin: 5px 0;
 }
 
-pre .img img {
+pre .img img, pre .r-plt img {
   background-color: #fff;
-  display: block;
-  height: auto;
 }
 
 code a, pre a {

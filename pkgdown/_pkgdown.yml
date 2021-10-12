@@ -42,13 +42,20 @@ reference:
   contents:
   - build_site
   - init_site
-  - starts_with("build_")
-  - preview_site
   - pkgdown_sitrep
+  - build_favicons
+  - build_home
+  - build_reference
+  - build_articles
+  - build_news
+  - build_search
+  - build_tutorials
+  - preview_site
 
 - title: Deployment
   contents:
   - starts_with("deploy_")
+  - build_site_github_pages
 
 - title: Templates
   contents:

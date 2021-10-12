@@ -141,7 +141,7 @@ globalVariables(".")
 data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  html <- markdown(path(pkg$src_path, "NEWS.md"), pkg = pkg)
+  html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
@@ -261,7 +261,8 @@ pkg_timeline <- function(package) {
   data.frame(
     version = names(timeline),
     date = as.Date(unlist(timeline)),
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
+    row.names = NULL
   )
 }
 

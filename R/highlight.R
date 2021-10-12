@@ -8,7 +8,7 @@ highlight_text <- function(text) {
 }
 
 highlight_examples <- function(code, topic, env = globalenv()) {
-  bg <- context_get("figures")$bg %||% NA
+  bg <- fig_settings()$bg %||% NA
 
   # some options from testthat::local_reproducible_output()
   # https://github.com/r-lib/testthat/blob/47935141d430e002070a95dd8af6dbf70def0994/R/local.R#L86
@@ -33,7 +33,10 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     env = child_env(env),
     output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
-  pre(out, r_code = TRUE)
+  structure(
+    pre(out, r_code = TRUE),
+    dependencies = attr(out, "dependencies")
+  )
 }
 
 pre <- function(x, r_code = FALSE) {

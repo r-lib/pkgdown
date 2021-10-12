@@ -2,6 +2,66 @@
 
 * Code blocks in sections (including details) of reference topics are now highlighted depending on the language information (e.g. `yaml`), if the package documentation was built with roxygen2 latest version. (#1724)
 
+* `build_articles()` and `build_home()` now warn if you have images that 
+  won't rendered on the website because they're in unsupported directories 
+  (#1810). Generally, it's only safe to refer to figures in `man/figures`
+  and `vignettes`.
+
+* Auto-generated links to inherited R6 methods now work correctly 
+  whether internal (#1173, @vandenman) or external (#1476).
+
+* `build_articles()` now correctly handles links to images in `man/figures`
+  (which have the form `../man/figures`) (#1472).
+
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+
+* Support for `as_is: true` and non-default output formats for vignettes/
+  articles has been somewhat improved. Support is fundamentally limited due to
+  the challenges of integrating HTML from output formats that pkgdown doesn't
+  know about, but it should be a little more reliable and a little better
+  documented (#1757, #1764).
+
+* Articles now render output styles created by cli/crayon. This is currently a 
+  little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
+  versions will attempt to relax these restrictions, likely through a new 
+  document format.
+
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
+
+* `pkgdown.css` now incldues updated css styles from pandoc to support better
+  reference list styling (#1469).
+
+* `build_articler()` no longer fails if you have a directory underneath 
+  vignettes with a `.Rmd` extension (#1425).
+
+* The version tooltip showed in the top navbar is now only set if you've 
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
+>>>>>>> 2720abc02fbddbb761104d44d30ce7a3d0c26812
+* `build_reference()` will run `pkgdown/pre-reference.R` before and 
+  `pkgdown/post-reference.R` after running examples. These allow you to
+  do any setup or teardown operations you might need (#1602).
+
+* Headings on the reference index page, and the arguments heading on the 
+  reference pages, now get anchors (#1747).
+
+* New `pkgdown_print()` allows you to control how your objects are rendered in
+  examples. It includes built-in handling for htmlwidgets and "browseable" HTML
+  so pkgdown output now more closely resembles what you see in RStudio.
+
+* Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
+
+* `\value{}` now does a better job of handling multiple mingled items and text 
+  (#1479).
+
+>>>>>>> bb461bae2a1ac47e20f1a64afe0334524907d446
 * `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
 
 * pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
@@ -47,7 +107,7 @@
 * pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
 
 * pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
-  search pkgdown websites. (#1629, with help from @gustavdelius in #1655)
+  search pkgdown websites. (#1629, with help from @gustavdelius in #1655 and @dieghernan @GregorDeCillia in #1770)
 
 * pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
   This might change Algolia results if you use Algolia for search. (#1629)
@@ -132,7 +192,8 @@
   (#1502)
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
-  to the navbar (#1493). 
+  to the navbar (#1493). It also properly supports [GitLab subgroups](https://docs.gitlab.com/ee/user/group/subgroups/)
+  now (@salim-b, #1532).
 
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)

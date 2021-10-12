@@ -4,15 +4,21 @@
 \alias{pkgdown_print}
 \title{Print object in pkgdown output}
 \usage{
-pkgdown_print(x, visible)
+pkgdown_print(x, visible = TRUE)
 }
 \arguments{
 \item{x}{Object to display}
 
 \item{visible}{Whether it is visible or not}
 }
+\value{
+Either a character vector representing printed output (which
+will be escaped for HTML as necessary) or literal HTML produced
+by the htmltools or htmlwidgets packages.
+}
 \description{
-This lets package authors control how their objects appear specifically
-in pkgdown examples. The default method calls \code{\link[=print]{print()}}.
+This lets package authors control how objects are printed just for
+pkgdown examples. The default is to call \code{\link[=print]{print()}} apart from htmlwidgets
+where the object is returned as is (with sizes tweaked).
 }
 \keyword{internal}

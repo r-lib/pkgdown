@@ -257,7 +257,7 @@ as_html.tag_ifelse <- function(x, ...) {
 #
 #' @export
 as_html.tag_special <- function(x, ...) {
-  as_html(x[[1]], ...)
+  flatten_text(x, ...)
 }
 
 #' @export
@@ -380,8 +380,6 @@ parse_descriptions <- function(rd, ...) {
   if (length(rd) == 0) {
     return(character())
   }
-
-  is_item <- purrr::map_lgl(rd, inherits, "tag_item")
 
   parse_item <- function(x) {
     if (inherits(x, "tag_item")) {

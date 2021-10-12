@@ -10,6 +10,19 @@ test_that("can generate three types of row", {
   expect_snapshot(data_reference_index(pkg))
 })
 
+test_that("rows with title internal are dropped", {
+  ref <- list(
+    list(title = "internal"),
+    list(contents = c("a", "b", "c", "?")),
+    list(title = "internal")
+  )
+  meta <- list(reference = ref)
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  index <- data_reference_index(pkg)
+  expect_equal(length(index$rows), 1)
+})
+
 test_that("warns if missing topics", {
   ref <- list(
     list(contents = c("a", "b"))
