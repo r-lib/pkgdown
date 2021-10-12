@@ -189,7 +189,7 @@ NULL
 #' warning(crayon::bold("This is bold"))
 NULL
 
-#' Test case: verbatim blocks
+#' Test case: preformatted blocks & syntax highlighting
 #'
 #' This description block is required so that verbatim blocks are recognized
 #' and rendered correctly.
@@ -210,6 +210,17 @@ NULL
 #'   that
 #' ```
 #'
+#' And this block should get syntax highlighting:
+#'
+#' ```yaml
+#' yaml:
+#'   this
+#'
+#' OR:
+#'
+#' yaml:
+#'   that
+#' ```
 #' @name test-verbatim
 #' @keywords internal
 #' @family tests
@@ -228,60 +239,4 @@ NULL
 #' @name test-sexpr-title
 #' @keywords internal
 #' @family tests
-NULL
-
-#' Test case: section highlighting
-#'
-#' @name test-highlight
-#' @keywords internal
-#' @family tests
-#' @details
-#'
-#' R block with R language information.
-#'
-#' ```r
-#' rlang::is_installed()
-#' ```
-#'
-#' YAML block with YAML language information.
-#'
-#' ```yaml
-#' url: https://pkgdown.r-lib.org
-#' footer:
-#'  left:
-#'    structure: [pkgdown]
-#'  right:
-#'    structure: [authors, legal]
-#'    components:
-#' template:
-#'   bootstrap: 4
-#' ```
-#'
-#' R block with no language information.
-#'
-#' ```
-#' rlang::is_installed()
-#' ```
-#'
-#' YAML block with no language information.
-#'
-#' ```
-#' url: https://pkgdown.r-lib.org
-#' footer:
-#'  left:
-#'    structure: [pkgdown]
-#'  right:
-#'    structure: [authors, legal]
-#'    components:
-#' template:
-#'   bootstrap: 4
-#' ```
-#'
-#' YAML block with no language information.
-#'
-#' ```
-#' template:
-#'  params:
-#'    ganalytics: UA-000000-01
-#' ```
 NULL

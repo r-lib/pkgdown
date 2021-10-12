@@ -50,7 +50,6 @@ Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-figures}},
-\code{\link{test-highlight}},
 \code{\link{test-links}},
 \code{\link{test-lists}},
 \code{\link{test-long-lines}},
