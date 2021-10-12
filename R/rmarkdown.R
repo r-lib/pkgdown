@@ -71,6 +71,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     dir_create(unique(path_dir(dst)))
     file_copy(src, dst, overwrite = TRUE)
   }
+  check_missing_images(pkg, output)
 
   invisible(path)
 }
