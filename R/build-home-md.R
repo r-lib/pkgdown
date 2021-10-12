@@ -40,7 +40,7 @@ render_md <- function(pkg, filename) {
   if (path == "404.html") {
     update_html(path(pkg$dst_path, path), tweak_link_absolute, pkg = pkg)
   }
-  check_missing_images(pkg, path)
+  check_missing_images(pkg, filename, path)
 
   invisible()
 }

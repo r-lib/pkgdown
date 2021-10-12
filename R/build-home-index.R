@@ -30,7 +30,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     logo = logo_path(pkg, depth = 0)
   )
 
-  check_missing_images(pkg, "index.html")
+  check_missing_images(pkg, path_rel(src_path, pkg$src_path), "index.html")
 
   invisible()
 }
@@ -203,18 +203,18 @@ cran_link <- memoise(function(pkg) {
 })
 
 
-check_missing_images <- function(pkg, path) {
-  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
+check_missing_images <- function(pkg, src_path, dst_path) {
+  html <- xml2::read_html(path(pkg$dst_path, dst_path), encoding = "UTF-8")
   src <- xml2::xml_attr(xml2::xml_find_all(html, ".//img"), "src")
 
   rel_src <- src[xml2::url_parse(src)$scheme == ""]
-  rel_path <- fs::path_norm(path(fs::path_dir(path), rel_src))
+  rel_path <- fs::path_norm(path(fs::path_dir(dst_path), rel_src))
   exists <- fs::file_exists(path(pkg$dst_path, rel_path))
 
   if (any(!exists)) {
     paths <- encodeString(rel_src[!exists], quote = "'")
     warn(c(
-      paste0("Missing images in '", path, "': ", paste0(paths, collapse = ", ")),
+      paste0("Missing images in '", src_path, "': ", paste0(paths, collapse = ", ")),
       i = "pkgdown can only use images in 'man/figures' and 'vignettes'"
     ))
   }

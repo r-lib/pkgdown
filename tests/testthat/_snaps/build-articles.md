@@ -8,6 +8,6 @@
       Reading 'vignettes/html-vignette.Rmd'
       Writing 'articles/html-vignette.html'
     Warning <rlang_warning>
-      Missing images in 'articles/html-vignette.html': 'foo.png'
+      Missing images in 'vignettes/html-vignette.Rmd': 'foo.png'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
 
