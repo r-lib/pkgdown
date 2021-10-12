@@ -6,12 +6,12 @@ test_that("can recognise intro variants", {
 })
 
 test_that("links to man/figures are automatically relocated", {
-  pkg <- test_path("assets/man-figures")
-  dst <- withr::local_tempdir()
+  pkg <- local_pkgdown_site(test_path("assets/man-figures"))
 
-  expect_output(build_articles(pkg, override = list(destination = dst)))
+  expect_output(copy_figures(pkg))
+  expect_output(build_articles(pkg, lazy = FALSE))
 
-  html <- xml2::read_html(path(dst, "articles", "kitten.html"))
+  html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
   src <- xpath_attr(html, "//img", "src")
 
   expect_equal(src, c(
@@ -22,7 +22,12 @@ test_that("links to man/figures are automatically relocated", {
   ))
 
   # And files aren't copied
-  expect_false(dir_exists(path(dst, "man")))
+  expect_false(dir_exists(path(pkg$dst_path, "man")))
+})
+
+test_that("warns about missing images", {
+  pkg <- local_pkgdown_site(test_path("assets/bad-images"))
+  expect_snapshot(build_articles(pkg))
 })
 
 test_that("articles don't include header-attrs.js script", {

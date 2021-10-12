@@ -23,6 +23,7 @@ build_home_md <- function(pkg) {
 
 render_md <- function(pkg, filename) {
   body <- markdown_body(filename, strip_header = TRUE, pkg = pkg)
+  path <- path_ext_set(basename(filename), "html")
 
   cat_line("Reading ", src_path(path_rel(filename, pkg$src_path)))
 
@@ -33,11 +34,13 @@ render_md <- function(pkg, filename) {
       filename = filename,
       source = repo_source(pkg, fs::path_rel(filename, pkg$src_path))
     ),
-    path = path_ext_set(basename(filename), "html")
+    path = path
   )
 
-  if (basename(filename) == "404.md") {
-    update_html(path_abs("404.html", start = pkg$dst_path), tweak_link_absolute, pkg = pkg)
+  if (path == "404.html") {
+    update_html(path(pkg$dst_path, path), tweak_link_absolute, pkg = pkg)
   }
+  check_missing_images(pkg, filename, path)
 
+  invisible()
 }

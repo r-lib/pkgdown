@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* `build_articles()` and `build_home()` now warn if you have images that 
+  won't rendered on the website because they're in unsupported directories 
+  (#1810). Generally, it's only safe to refer to figures in `man/figures`
+  and `vignettes`.
+
 * Auto-generated links to inherited R6 methods now work correctly 
   whether internal (#1173, @vandenman) or external (#1476).
 
