@@ -1,54 +1,41 @@
 test_that("tweak_reference_topic_html() works", {
-  html_skeleton <- "<body>
-  <div class='ref-section'>
-  %s
-  </div>
-  </body>"
-  build_html <- function(html_skeleton, block) {
-    html <- xml2::read_html(sprintf(html_skeleton, block))
-    xml2::xml_child(html)
-  }
+  html <- xml2::read_html('
+    <div class="ref-section">
+      <div class="sourceCode r">
+      <pre><code>1 + 1</code></pre>
+      </div>
+    </div>
+  ')
+  tweak_reference_topic_html(html)
+  expect_snapshot_output(xpath_xml(html, "//pre"))
 
-  r_block <- '<div class="sourceCode r">
-  <pre>
-  <code>
-  rlang::is_installed()\n
-  </code>
-  </pre>
-  </div>'
-  expect_snapshot_output(
-    cat(
-      as.character(
-        tweak_reference_topic_html(build_html(html_skeleton, r_block))
-      )
-    )
-  )
+  html <- xml2::read_html('
+    <div class="ref-section">
+      <div class="sourceCode yaml">
+        <pre><code>field: value</code></pre>
+      </div>
+    </div>
+  ')
+  tweak_reference_topic_html(html)
+  expect_snapshot_output(xpath_xml(html, "//pre"))
+})
 
-  no_info_r_block <- '<pre>
-  <code>
-  rlang::is_installed()\n
-  </code>
-  </pre>'
-  expect_snapshot_output(
-    cat(
-      as.character(
-        tweak_reference_topic_html(build_html(html_skeleton, no_info_r_block))
-      )
-    )
-  )
+test_that("works with unlabelled pre", {
+  # If parseable, assume R
+  html <- xml2::read_html('
+    <div class="ref-section">
+      <pre><code>foo()</code></pre>
+    <div>
+  ')
+  tweak_reference_topic_html(html)
+  expect_snapshot_output(xpath_xml(html, "//code"))
 
-  yaml_block <- '<div class="sourceCode yaml">
-  <pre>
-  <code>
-  url: https://pkgdown.r-lib.org/\n
-  </code>
-  </pre>
-  </div>'
-  expect_snapshot_output(
-    cat(
-      as.character(
-        tweak_reference_topic_html(build_html(html_skeleton, yaml_block))
-      )
-    )
-  )
+  # If not parseable, leave as is
+  html <- xml2::read_html('
+    <div class="ref-section">
+      <pre><code>foo(</code></pre>
+    <div>
+  ')
+  tweak_reference_topic_html(html)
+  expect_snapshot_output(xpath_xml(html, "//code"))
 })
