@@ -25,9 +25,12 @@ pre .img img, pre .r-plt img {
 /* Links ---------------------------------------------------- */
 
 code a:any-link {
-  color: inherit;
   text-decoration: underline;
   text-decoration-color: $table-border-color;
+}
+
+pre code a:any-link {
+  color: inherit;
 }
 
 /* don't display links in code chunks when printing */
