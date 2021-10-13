@@ -18,9 +18,7 @@ navbar:
 template:
   bootstrap: 4
   bslib:
-    rs-toc-border-color: transparent
-    rs-toc-active-bg: transparent
-    rs-toc-active-color: blue
+    primary: "#0054AD"
 
   params:
     ganalytics: UA-115082821-1

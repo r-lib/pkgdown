@@ -28,18 +28,12 @@ bs_theme <- function(pkg = ".") {
   if (is.null(bootswatch_theme)) {
     # Add default colors if no Bootswatch
     bs_theme <- bslib::bs_add_variables(bs_theme,
-      primary = "#0054AD",
-      bg = "white",
-      fg = "black",
-      `body-color` = "$black",
       `component-active-bg` = "$secondary",
       `list-group-active-bg` = "$secondary",
-      `navbar-light-bg` = "$gray-200",
-      `navbar-light-color` = "$gray-800",
-      `navbar-light-hover-color` = "$black",
-      `navbar-dark-bg` = "$black",
+      `navbar-light-bg` = "$gray-100",
+      `navbar-light-color` = "$gray-900",
+      `navbar-dark-bg` = "$gray-900",
       `navbar-dark-color` = "$gray-100",
-      `navbar-dark-hover-color` = "$white",
       .where = "declarations"
     )
   }

@@ -92,10 +92,6 @@ table a.anchor {
   position: absolute;
 }
 
-/* Never uppercase the package name */
-.navbar-brand {
-  text-transform: none !important;
-}
 /* Fixes for fixed navbar --------------------------*/
 
 .contents {
@@ -111,67 +107,6 @@ table a.anchor {
   padding-top: 40px;
   padding-top: 0px;
 }
-
-/* Navbar submenu --------------------------*/
-.dropdown-menu {
-  padding: .5rem 0 .5rem 0;
-}
-
-h6.dropdown-header {
-  margin-top: 0;
-}
-
-.dropdown-item.active, .dropdown-menu > li > a.active, .dropdown-item:active, .dropdown-menu > li > a:active {
-  color: $rs-dropdown-link-active-color;
-  background-color: $rs-dropdown-link-active-bg;
-}
-
-
-/* cf https://github.com/r-lib/pkgdown/pull/1214 */
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  @include border-radius(0 6px 6px 6px);
-}
-
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: $dropdown-border-color;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-
-.dropdown-submenu:hover>a:after {
-  border-left-color: $dropdown-border-color;
-}
-
-.dropdown-submenu.pull-left {
-  float: none;
-}
-
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  @include border-radius(6px 0 6px 6px);
-}
-
 
 /* Sidebar --------------------------*/
 
@@ -214,8 +149,8 @@ h6.dropdown-header {
 
 .btn-copy-ex {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   visibility: hidden;
 }
 
@@ -301,21 +236,79 @@ h1.display-4 {
   font-size: $h1-font-size;
 }
 
-/* navbar active link */
-.navbar-light .navbar-nav .active > .nav-link {
-   background: $rs-nav-light-link-active-bg;
-   color: $rs-nav-light-link-active-color;
-   @include border-radius($rs-nav-link-active-border-radius);
- }
-.navbar-dark .navbar-nav .active > .nav-link {
-   background: $rs-nav-dark-link-active-bg;
-   color: $rs-nav-dark-link-active-color;
-   @include border-radius($rs-nav-link-active-border-radius);
- }
-.navbar-nav .nav-link {
- padding-left: 0.5rem;
- }
+/* Navbar ------------------------------------------------------------------  */
+$rs-nav-link-active-bg: mix($body-color, $body-bg, 15%) !default;
+$rs-nav-link-active-color: color-contrast($rs-nav-link-active-bg) !default;
+$rs-nav-link-active-border-radius: $border-radius !default;
 
+.navbar-nav .nav-item > .nav-link {
+   @include border-radius($rs-nav-link-active-border-radius);
+}
+
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .active > .nav-link {
+  background: $rs-nav-link-active-bg;
+  color:      $rs-nav-link-active-color;
+}
+
+.navbar-light .navbar-nav .nav-item > .nav-link:hover,
+.navbar-dark .navbar-nav .nav-item > .nav-link:hover {
+  background: mix($body-color, $body-bg, 20%);
+}
+
+.navbar-nav .nav-link {
+  padding-left: 0.5rem;
+}
+
+/* Never uppercase the package name */
+.navbar-brand {
+  text-transform: none !important;
+}
+
+/* Navbar submenu: https://github.com/r-lib/pkgdown/pull/1214 */
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+h6.dropdown-header {
+  margin-top: 0;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  @include border-radius(0 6px 6px 6px);
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: $dropdown-border-color;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: $dropdown-border-color;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  @include border-radius(6px 0 6px 6px);
+}
 
 /* Footnotes --------------------------------------------- */
 
