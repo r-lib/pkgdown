@@ -76,7 +76,7 @@ markdown_path_html <- function(path, strip_header = FALSE, pkg = list()) {
   downlit::downlit_html_node(xml)
   tweak_link_md(xml)
   tweak_link_external(xml, pkg = pkg)
-  tweak_anchors(xml, only_contents = FALSE)
+  tweak_anchors(xml)
 
   structure(xml, title = title)
 }

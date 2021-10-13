@@ -7,7 +7,7 @@
     <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
-    <div class="ref-description section level2">
+    <div id="ref-description" class="ref-description section level2">
     {{#description}}
     {{#contents}}
     {{{.}}}
@@ -22,19 +22,20 @@
     {{/usage}}
 
     {{#has_args}}
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
-    <dl class="row" id="ref-arguments">
+    <div id="ref-arguments">
+    <h2>Arguments</h2>
+    <dl class="row">
     {{#arguments}}
     <dt class="col-sm-3 section level2" id="pkg-arg-{{{name}}}">{{{name}}}</dt>
       <dd class="col-sm-9" id="ref-arguments desc">{{{description}}}</dd>
     {{/arguments}}
     </dl>
+    </div>
     {{/has_args}}
 
     {{#sections}}
     <div class="ref-section section level2" id="section-{{slug}}">
-    <h2 class="hasAnchor" id="{{slug}}"><a class="anchor" href="#{{slug}}" aria-hidden="true"></a>{{{title}}}</h2>
-
+    <h2>{{{title}}}</h2>
     {{#contents}}
     {{{.}}}
     {{/contents}}
@@ -42,16 +43,16 @@
     {{/sections}}
 
     {{#examples}}
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples" aria-hidden="true"></a>Examples</h2>
+    <div id="ref-examples">
+    <h2>Examples</h2>
     <div class="ref-examples sourceCode">{{{.}}}</div>
+    </div>
     {{/examples}}
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc">
-
       <h2 data-toc-skip>Contents</h2>
-
     </nav>
 </div>
   </div>

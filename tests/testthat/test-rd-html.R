@@ -25,26 +25,17 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("subsection generates h3", {
-  expect_equal(rd2html("\\subsection{A}{B}"),
-    c(
-      "<h3 class='hasAnchor' id='a'><a class='anchor' aria-hidden='true' href='#a'></a>A</h3>",
-      "<p>B</p>"
-    ))
+  expect_snapshot(cat_line(rd2html("\\subsection{A}{B}")))
 })
 test_that("subsection generates h3", {
-  expect_equal(rd2html("\\subsection{A}{
+  expect_snapshot(cat_line(rd2html("\\subsection{A}{
     p1
 
     p2
-  }"), c("<h3 class='hasAnchor' id='a'><a class='anchor' aria-hidden='true' href='#a'></a>A</h3>", "<p>p1</p>", "<p>p2</p>"))
+  }")))
 })
 test_that("nested subsection generates h4", {
-  expect_equal(
-    rd2html("\\subsection{H3}{\\subsection{H4}{}}"),
-    c(
-      "<h3 class='hasAnchor' id='h-'><a class='anchor' aria-hidden='true' href='#h-'></a>H3</h3>",
-      "<h4 class='hasAnchor' id='h-'><a class='anchor' aria-hidden='true' href='#h-'></a>H4</h4>")
-  )
+  expect_snapshot(cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
 })
 
 test_that("if generates html", {

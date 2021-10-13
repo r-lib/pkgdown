@@ -66,11 +66,9 @@ dd {
 /* Section anchors ---------------------------------*/
 
 a.anchor {
-  margin-left: -30px;
-  display:inline-block;
+  display: none;
   width: 30px;
   height: 30px;
-  visibility: hidden;
 
   background-image: url(./link.svg);
   background-repeat: no-repeat;
@@ -78,22 +76,14 @@ a.anchor {
   background-position: center center;
 }
 
-
-/* Minimal hack to make anchors work inside tables */
-table a.anchor {
-  position: absolute;
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+  display: inline-block;
 }
-
-.hasAnchor:hover a.anchor {
-  visibility: visible;
-}
-
-@media (max-width: 767px) {
-  .hasAnchor:hover a.anchor {
-    visibility: hidden;
-  }
-}
-
 
 /* Fixes for fixed navbar --------------------------*/
 
