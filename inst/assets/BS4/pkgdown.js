@@ -49,7 +49,7 @@
       // Initialize clipboard:
       var clipboard = new ClipboardJS('[data-clipboard-copy]', {
         text: function(trigger) {
-          return trigger.parentNode.textContent;
+          return trigger.parentNode.textContent.replace(/\n#>[^\n]*/g, "");
         }
       });
 
