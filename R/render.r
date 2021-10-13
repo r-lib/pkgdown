@@ -19,8 +19,9 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
+#' @param tweaks List of "tweak" functions applied to output HTML.
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE, tweaks = NULL) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -80,6 +81,9 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
   if (pkg$desc$has_dep("R6")) {
     tweak_link_R6(html, pkg$package)
+  }
+  for (tweak in tweaks) {
+    tweak(html)
   }
 
   rendered <- as.character(html, options = character())

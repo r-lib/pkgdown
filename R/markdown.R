@@ -1,4 +1,4 @@
-markdown_text <- function(text, pkg = pkg, ...) {
+markdown_text <- function(text, pkg = list(), ...) {
   if (identical(text, NA_character_) || is.null(text)) {
     return(NULL)
   }

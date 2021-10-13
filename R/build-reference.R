@@ -316,12 +316,8 @@ build_reference_topic <- function(topic,
   render_page(
     pkg, "reference-topic",
     data = data,
-    path = path("reference", topic$file_out)
-  )
-
-  update_html(
-    file.path(pkg$dst_path, "reference", topic$file_out),
-    tweak_reference_topic_html
+    path = path("reference", topic$file_out),
+    tweaks = list(tweak_reference_highlighting)
   )
 
   invisible()

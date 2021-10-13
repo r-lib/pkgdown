@@ -432,8 +432,9 @@ as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
 
 #' @export
 as_html.tag_preformatted <- function(x, ...) {
-  # highlighting happens later in tweak_reference_topic_html()
-  sprintf("<pre><code>%s</code></pre>", flatten_text(x, ...))
+  # the language is stored in a prior \if{}{\out{}} block, so we delay
+  # highlighting until we have the complete html page
+  pre(flatten_text(x, ...))
 }
 
 #' @export
