@@ -438,7 +438,7 @@ mark {
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: $rs-cursor-algolia;
+  background-color: mix($primary, $body-bg, 10%);
 }
 
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
