@@ -1,14 +1,27 @@
 #' Build site for GitHub pages
 #'
+#' @description
 #' Designed to be run as part of automated workflows for deploying
 #' to GitHub pages. It cleans out the old site, builds the site into `dest_dir`
-#' (assuming the package has already been installed), adds a `.nojekyll`
-#' file to suppress rendering by Jekyll, and adds a `CNAME` file if needed.
+#' adds a `.nojekyll` file to suppress rendering by Jekyll, and adds a `CNAME`
+#' file if needed.
 #'
+#' It is designed to be run in CI, so by default it:
+#'
+#' * Clean out the old site.
+#' * Does not install the package.
+#' * Runs [build_site()] in process.
+#'
+#' @inheritParams build_site
 #' @inheritParams deploy_to_branch
 #' @param dest_dir Directory to build site in.
 #' @export
-build_site_github_pages <- function(pkg = ".", ..., dest_dir = "docs", clean = TRUE) {
+build_site_github_pages <- function(pkg = ".",
+                                    ...,
+                                    dest_dir = "docs",
+                                    clean = TRUE,
+                                    install = FALSE,
+                                    new_process = FALSE) {
  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
 
   if (clean) {
@@ -16,7 +29,7 @@ build_site_github_pages <- function(pkg = ".", ..., dest_dir = "docs", clean = T
     clean_site(pkg)
   }
 
-  build_site(pkg, preview = FALSE, install = FALSE, new_process = FALSE, ...)
+  build_site(pkg, preview = FALSE, install = install, new_process = new_process, ...)
   build_github_pages(pkg)
 
   invisible()

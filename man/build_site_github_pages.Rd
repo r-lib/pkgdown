@@ -4,7 +4,14 @@
 \alias{build_site_github_pages}
 \title{Build site for GitHub pages}
 \usage{
-build_site_github_pages(pkg = ".", ..., dest_dir = "docs", clean = TRUE)
+build_site_github_pages(
+  pkg = ".",
+  ...,
+  dest_dir = "docs",
+  clean = TRUE,
+  install = FALSE,
+  new_process = FALSE
+)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -14,10 +21,24 @@ build_site_github_pages(pkg = ".", ..., dest_dir = "docs", clean = TRUE)
 \item{dest_dir}{Directory to build site in.}
 
 \item{clean}{Clean all files from old site.}
+
+\item{install}{If \code{TRUE}, will install the package in a temporary library
+so it is available for vignettes.}
+
+\item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
+This enhances reproducibility by ensuring nothing that you have loaded
+in the current process affects the build process.}
 }
 \description{
 Designed to be run as part of automated workflows for deploying
 to GitHub pages. It cleans out the old site, builds the site into \code{dest_dir}
-(assuming the package has already been installed), adds a \code{.nojekyll}
-file to suppress rendering by Jekyll, and adds a \code{CNAME} file if needed.
+adds a \code{.nojekyll} file to suppress rendering by Jekyll, and adds a \code{CNAME}
+file if needed.
+
+It is designed to be run in CI, so by default it:
+\itemize{
+\item Clean out the old site.
+\item Does not install the package.
+\item Runs \code{\link[=build_site]{build_site()}} in process.
+}
 }

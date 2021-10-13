@@ -1,7 +1,7 @@
 # parse failures include file name
 
     Code
-      build_reference(test_path("assets/reference-fail"))
+      build_reference(pkg)
     Output
       -- Building function reference -------------------------------------------------
       Writing 'reference/index.html'

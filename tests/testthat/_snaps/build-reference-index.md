@@ -44,7 +44,8 @@
 
 # errors well when a content entry refers to a not installed package
 
-    The `notapackage` package is required as it is mentioned in the reference index.
+    The package `notapackage` is required as it is mentioned in the reference
+    index.
 
 # errors well when a content entry refers to a non existing function
 

@@ -432,14 +432,10 @@ as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
 
 #' @export
 as_html.tag_preformatted <- function(x, ...) {
-  text <- flatten_text(x, ...)
-
-  # Need to unescape so that highlight_text() can tell if it's R code
-  # or not. It'll re-escape if needed
-  text <- unescape_html(text)
-  highlight_text(text)
+  # the language is stored in a prior \if{}{\out{}} block, so we delay
+  # highlighting until we have the complete html page
+  pre(flatten_text(x, ...))
 }
-
 
 #' @export
 as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")

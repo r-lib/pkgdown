@@ -19,30 +19,28 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   right <- navbar$right %||% components[right_comp]
 
   if (pkg$bs_version == 3) {
-    return(
-      list(
-        type = navbar$type %||% "default",
-        left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
-        right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
-      )
+    list(
+      type = navbar$type %||% "default",
+      left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
+      right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
+    )
+  } else {
+    if (is.null(get_bootswatch_theme(pkg))) {
+      navbar_bg <- ""
+    } else {
+      navbar_bg <- pkg$meta$template$bslib$`navbar-bg` %||% navbar$type %||% "light"
+    }
+
+    list(
+      type = navbar$type %||% "light",
+      bg = navbar_bg,
+      left = render_navbar_links(left, depth = depth, pkg$bs_version),
+      right = render_navbar_links(right, depth = depth, pkg$bs_version)
     )
   }
-
-  navbar_bg <- if (is.null(get_bootswatch_theme)) {
-    ""
-  } else {
-    pkg$meta$template$bslib$`navbar-bg` %||% navbar$type %||% "light"
-  }
-
-  list(
-    type = navbar$type %||% "light",
-    bg = navbar_bg,
-    left = render_navbar_links(left, depth = depth, pkg$bs_version),
-    right = render_navbar_links(right, depth = depth, pkg$bs_version)
-  )
 }
 
-render_navbar_links <- function(x, depth = 0L, bs_version) {
+render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
   stopifnot(is.integer(depth), depth >= 0L)
 
   tweak <- function(x) {
@@ -56,16 +54,15 @@ render_navbar_links <- function(x, depth = 0L, bs_version) {
       x
     }
   }
-
   if (depth != 0L) {
     x <- lapply(x, tweak)
   }
 
   if (bs_version == 3) {
-    return(rmarkdown::navbar_links_html(x))
+    rmarkdown::navbar_links_html(x)
+  } else {
+    bs4_navbar_links_html(x)
   }
-
-  bs4_navbar_links_html(x)
 
 }
 

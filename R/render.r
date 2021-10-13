@@ -19,8 +19,9 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
+#' @param tweaks List of "tweak" functions applied to output HTML.
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE, tweaks = NULL) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -72,27 +73,20 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   rendered <- render_template(template, components)
 
-  # footnotes
+  html <- xml2::read_html(rendered, encoding = "UTF-8")
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
     tweak_footnotes(html)
-    rendered <- as.character(html, options = character())
-  }
-
-  # navbar activation
-  if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
     activate_navbar(html, data$output_file %||% path, pkg)
-    rendered <- as.character(html, options = character())
-  }
-
-  # remove TOC if useless
-  if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
     trim_toc(html)
-    rendered <- as.character(html, options = character())
+  }
+  if (pkg$desc$has_dep("R6")) {
+    tweak_link_R6(html, pkg$package)
+  }
+  for (tweak in tweaks) {
+    tweak(html)
   }
 
+  rendered <- as.character(html, options = character())
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -363,7 +357,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  left_final_components <- markdown_block(
+  left_final_components <- markdown_text_block(
     paste0(left_components[left_structure], collapse = " "),
     pkg = pkg
   )
@@ -383,7 +377,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  right_final_components <- markdown_block(
+  right_final_components <- markdown_text_block(
     paste0(right_components[right_structure], collapse = " "),
     pkg = pkg
   )

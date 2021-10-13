@@ -1,5 +1,34 @@
 # pkgdown (development version)
 
+* Code blocks in reference topics now get syntax highlighting according
+  to their declared language information (e.g. `yaml`), if the documentation 
+  was built with roxygen2 7.1.2 or later (#1690, #1692).
+
+* `build_articles()` and `build_home()` now warn if you have images that 
+  won't rendered on the website because they're in unsupported directories 
+  (#1810). Generally, it's only safe to refer to figures in `man/figures`
+  and `vignettes`.
+
+* Auto-generated links to inherited R6 methods now work correctly 
+  whether internal (#1173, @vandenman) or external (#1476).
+
+* `build_articles()` now correctly handles links to images in `man/figures`
+  (which have the form `../man/figures`) (#1472).
+
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+
+* Support for `as_is: true` and non-default output formats for vignettes/
+  articles has been somewhat improved. Support is fundamentally limited due to
+  the challenges of integrating HTML from output formats that pkgdown doesn't
+  know about, but it should be a little more reliable and a little better
+  documented (#1757, #1764).
+
+* Articles now render output styles created by cli/crayon. This is currently a 
+  little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
+  versions will attempt to relax these restrictions, likely through a new 
+  document format.
+
 * `build_site_github_pages()` has been extracted out of `deploy_from_github()`
   to make it easier to decouple building and deployment, and so we can take
   advantage of standard deployment actions (#1756).
@@ -163,7 +192,8 @@
   (#1502)
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
-  to the navbar (#1493). 
+  to the navbar (#1493). It also properly supports [GitLab subgroups](https://docs.gitlab.com/ee/user/group/subgroups/)
+  now (@salim-b, #1532).
 
 * External links now get the class "external-link" on top of their usual classes, if they had any. 
   Therefore they can be targeted more easily by CSS rules. (#881, #1491)

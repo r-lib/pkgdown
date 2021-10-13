@@ -1,37 +1,34 @@
-# orcid ------------------------------------------------------------------
-
 test_that("ORCID can be identified from all comment styles", {
-  pkg <- as_pkgdown(test_path("assets/site-orcid"))
-  author_info <- data_author_info(pkg)
-  authors <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg)
-  expect_length(authors, 5)
+  desc <- desc::desc(text = c(
+    'Authors@R: c(',
+    '    person("test no comment"),',
+    '    person("test comments no orcid", comment = c("test comment no orcid")),',
+    '    person("test bare comment", comment = "test bare comment"),',
+    '    person("test orcid only", comment = c(ORCID = "1")),',
+    '    person("test comment and orcid", comment = c("test comment and orcid", ORCID = "2"))',
+    '  )'
+  ))
+  authors <- unclass(desc$get_authors())
+  authors <- purrr::map(authors, author_list, list(), pkg = list())
+  orcid <- purrr::map(authors, "orcid")
+  expect_equal(orcid, list(NULL, NULL, NULL, orcid_link("1"), orcid_link("2")))
 })
 
 test_that("names can be removed from persons", {
-  p0 <- person("H", "W")
-  p1 <- person("H", "W", role = "ctb", comment = "one")
-  p2 <- person("H", "W", comment = c("one", "two"))
-  p3 <- person("H", "W", comment = c("one", ORCID = "orcid"))
-  p4 <- person("H", "W", comment = c(ORCID = "orcid"))
-  p5 <- person("H", "W", comment = c(ORCID = "orcid1", ORCID = "orcid2"))
-
-  expect_null(remove_name(p0$comment, "ORCID"))
-  expect_equal(remove_name(p1$comment, "ORCID"), "one")
-  expect_equal(remove_name(p2$comment, "ORCID"), c("one", "two"))
-  expect_length(remove_name(p3$comment, "ORCID"), 1)
-  expect_length(remove_name(p4$comment, "ORCID"), 0)
-  expect_length(remove_name(p5$comment, "ORCID"), 0)
+  remove_orcid <- function(comment) {
+    remove_name(comment, "ORCID")
+  }
+  expect_equal(remove_orcid(NULL), NULL)
+  expect_equal(remove_orcid("one"), "one")
+  expect_equal(remove_orcid(c("one", "two")), c("one", "two"))
+  expect_equal(remove_orcid(c("one", ORCID = "orcid")), "one")
+  expect_equal(remove_orcid(c(ORCID = "orcid")), character())
+  expect_equal(remove_orcid(c(ORCID = "orcid1", ORCID = "orcid2")), character())
 })
 
-test_that("Comments in authors info are linkified", {
+test_that("author comments linkified", {
   p <- list(name = "Jane Doe", roles = "rev", comment = "<https://x.org/>")
-
-  expect_match(
-    author_desc(p),
-    "&lt;<a href='https://x.org/'>https://x.org/</a>&gt;)</small>"
-  )
+  expect_match(author_desc(p), linkify("<https://x.org/>"), fixed = TRUE)
 })
 
 test_that("Data authors can accept different filtering", {

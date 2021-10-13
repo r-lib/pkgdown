@@ -33,7 +33,8 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
         callr::rcmd_safe_env(),
         BSTINPUTS = bst_paths(input_path),
         TEXINPUTS = tex_paths(input_path),
-        BIBINPUTS = bib_paths(input_path)
+        BIBINPUTS = bib_paths(input_path),
+        R_CLI_NUM_COLORS = 256
       )
     ),
     error = function(cnd) {
@@ -59,13 +60,18 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   # Copy over images needed by the document
   if (copy_images) {
     ext <- rmarkdown::find_external_resources(input_path)
-    ext_path <- ext$path[ext$web | ext$explicit]
+
+    # copy web + explicit files beneath vignettes/
+    is_child <- path_has_parent(ext$path, ".")
+    ext_path <- ext$path[(ext$web | ext$explicit) & is_child]
+
     src <- path(path_dir(input_path), ext_path)
     dst <- path(path_dir(output_path), ext_path)
     # Make sure destination paths exist before copying files there
     dir_create(unique(path_dir(dst)))
     file_copy(src, dst, overwrite = TRUE)
   }
+  check_missing_images(pkg, input, output)
 
   invisible(path)
 }
