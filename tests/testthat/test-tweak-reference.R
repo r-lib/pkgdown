@@ -18,9 +18,9 @@ test_that("highlights <pre> wrapped in <div> with language info", {
     </div>
   ')
   tweak_reference_highlighting(html)
-  # pandoc adds an outer span for each line
-  expect_equal(xpath_attr(html, "//code/span/span", "class"), c("fu", "kw", "at"))
-  expect_equal(xpath_text(html, "//code/span/span"), c("field", ":", " value"))
+  # Select all leaf <span> to work around variations in pandoc styling
+  expect_equal(xpath_attr(html, "//code//span[not(span)]", "class"), c("fu", "kw", "at"))
+  expect_equal(xpath_text(html, "//code//span[not(span)]"), c("field", ":", " value"))
 })
 
 test_that("highlight unwrapped <pre>", {
@@ -70,8 +70,9 @@ test_that("can highlight other languages", {
   html <- xml2::read_xml('<div class="yaml"><pre><code>field: value</code></pre></div>')
   tweak_highlight_other(html)
 
-  expect_equal(xpath_attr(html, "//code/span/span", "class"), c("fu", "kw", "at"))
-  expect_equal(xpath_text(html, "//code/span/span"), c("field", ":", " value"))
+  # Select all leaf <span> to work around variations in pandoc styling
+  expect_equal(xpath_attr(html, "//code//span[not(span)]", "class"), c("fu", "kw", "at"))
+  expect_equal(xpath_text(html, "//code//span[not(span)]"), c("field", ":", " value"))
 })
 
 test_that("fails cleanly", {
