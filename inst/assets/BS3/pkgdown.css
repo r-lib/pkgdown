@@ -81,8 +81,9 @@ dd {
 
 a.anchor {
   display: none;
-  width: 30px;
-  height: 30px;
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
 
   background-image: url(./link.svg);
   background-repeat: no-repeat;
