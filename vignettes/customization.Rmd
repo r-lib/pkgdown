@@ -16,11 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, warning=FALSE, message=FALSE}
+```{r setup}
 library(pkgdown)
 library(reactable)
-library(dplyr)
-library(glue)
 ```
 
 You can alter the design/styling of your pkgdown website to suit your brand and needs.
@@ -38,7 +36,7 @@ Next, we'll discuss how to give multiple sites the same style by using a package
 
 Most theming features work only with Bootstrap 4, so begin by updating your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
 ```
@@ -67,7 +65,7 @@ If you were using the paper theme, note that it was renamed [materia](https://bl
 
 To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
   bootswatch: materia
@@ -79,7 +77,7 @@ You'll need to use custom CSS to add [padding to the body](https://stackoverflow
 By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background.
 If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set `highlightcss` to false:
 
-``` {.yaml}
+``` yaml
 template:
   params:
     highlightcss: false
@@ -91,7 +89,7 @@ You will then have to provide your own CSS rules for syntax highlighting.
 
 Rather than picking an entire theme, you can customise individual theme components using bslib variables:
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
   bslib:
@@ -111,86 +109,79 @@ template:
     danger: "#F7367E"
 ```
 
-The main bslib variables you can use to create a theme are `bg`, `fg`, and `navbar-bg`. Optionally, you can also include `primary` and `secondary`. Below is a list of which pkgdown website elements each variable will change:
+The main bslib variables you can use to create a theme are `bg`, `fg`, and `navbar-bg`.
+Optionally, you can also include `primary` and `secondary`.
+Below is a list of which pkgdown website elements each variable will change:
 
-```{r include=FALSE}
-theme_vars <- 
-  tibble::tribble(
-    ~Variable, ~Element, ~Description, ~Sass,
-    # global theme variables, group by variable?
-    "bg", "Body", "Background color", "$body-bg",
-    "fg", "Body", "Text color", "$body-color",
-    "navbar-bg", "Navbar", "Background color", "$navbar-bg", 
-    "primary",  "Navbar", "Package name hover color", "$navbar-light-active-color ---> $navbar-light-brand-hover-color",
-    "primary",  "Navbar", "Hover link color", "$navbar-light-hover-color",
-    "primary",  "Navbar", "Active link color", "$navbar-light-active-color",
-    "primary",  "Body (+ Sidebar)", "Link color", "$link-color",
-    "primary",  "Body (+ Sidebar)", "Link hover color", "darken($link-color, 15%)", 
-    "primary", "Sidebar", "Active contents text color", "$component-active-color",
-    "primary", "Body", "Active copy button icon color", "$component-active-color",
-    "secondary", "Sidebar", "Contents hover/active background color", "$component-active-bg",
-    "secondary", "Navbar", "Pills link active background color", "$component-active-bg ---> $nav-pills-link-active-bg", 
-    "secondary", "Navbar", "Dropdown link hover background color", "$component-active-bg ---> $dropdown-link-active-bg", 
-    "secondary", "Body", "Copy button hover/active background color", "$component-active-bg"
-  ) %>% 
-  mutate(Variable = paste0("<code>", Variable, "</code>"),
-         Sass = paste0("<code>", Sass, "</code>"))
-```
+```{r echo = FALSE}
+theme_vars <- tibble::tribble(
+  ~Variable, ~Element, ~Description, ~Sass,
+  # global theme variables, group by variable?
+  "bg", "Body", "Background color", "$body-bg",
+  "fg", "Body", "Text color", "$body-color",
+  "navbar-bg", "Navbar", "Background color", "$navbar-bg", 
+  "primary",  "Navbar", "Package name hover color", "$navbar-light-active-color ---> $navbar-light-brand-hover-color",
+  "primary",  "Navbar", "Hover link color", "$navbar-light-hover-color",
+  "primary",  "Navbar", "Active link color", "$navbar-light-active-color",
+  "primary",  "Body (+ Sidebar)", "Link color", "$link-color",
+  "primary",  "Body (+ Sidebar)", "Link hover color", "darken($link-color, 15%)", 
+  "primary", "Sidebar", "Active contents text color", "$component-active-color",
+  "primary", "Body", "Active copy button icon color", "$component-active-color",
+  "secondary", "Sidebar", "Contents hover/active background color", "$component-active-bg",
+  "secondary", "Navbar", "Pills link active background color", "$component-active-bg ---> $nav-pills-link-active-bg", 
+  "secondary", "Navbar", "Dropdown link hover background color", "$component-active-bg ---> $dropdown-link-active-bg", 
+  "secondary", "Body", "Copy button hover/active background color", "$component-active-bg"
+)
+theme_vars$Variable <- paste0("<code>", theme_vars$Variable, "</code>")
+theme_vars$Sass <- paste0("<code>", theme_vars$Sass, "</code>")
 
-```{r echo=FALSE}
-reactable(theme_vars, 
-          groupBy = "Variable", 
-          defaultExpanded = TRUE,
-          columns = list(
-            Variable = colDef(html = TRUE),
-            Sass = colDef(html = TRUE)
-            )
+reactable(
+  theme_vars, 
+  groupBy = "Variable", 
+  defaultExpanded = TRUE,
+  columns = list(
+    Variable = colDef(html = TRUE),
+    Sass = colDef(html = TRUE)
+  )
 )
 ```
 
-
-\
-\
 You may also add more specific variables if you wish to override any of these global theme variables:
 
-```{r include=FALSE}
-extra_vars <- 
-  tibble::tribble(
-    ~Variable, ~Element, ~Description, ~Overrides,
-    # body text colors, no group?
-    "body-color", "Body", "Text color", "$fg",
-    "headings-color", "Body", "Headings color (h1-h6)", NA,
-    "link-color", "Body", "Link color", "$primary",
-    "link-hover-color", "Body", "Link hover color", "darken($link-color, 15%)",
-    # sidebar / clipboard buttons
-    "component-active-color", "Sidebar", "Active contents text color", "$primary",
-    "component-active-color", "Body", "Active copy button icon color", "$primary",
-    "component-active-bg", "Sidebar", "Active contents background color", "$secondary",
-    "component-active-bg", "Body", "Active copy button background color", "$secondary",
-    "component-active-bg", "Navbar", "Active dropdown link background color", "$secondary",
-    "component-active-bg", "Navbar", "Active pills link background color", "$secondary",
-  ) %>% 
-  mutate(Variable = paste0("<code>", Variable, "</code>"),
-         Overrides = paste0("<code>", Overrides, "</code>"))
+```{r echo = FALSE}
+extra_vars <- tibble::tribble(
+  ~Variable, ~Element, ~Description, ~Overrides,
+  # body text colors, no group?
+  "body-color", "Body", "Text color", "$fg",
+  "headings-color", "Body", "Headings color (h1-h6)", NA,
+  "link-color", "Body", "Link color", "$primary",
+  "link-hover-color", "Body", "Link hover color", "darken($link-color, 15%)",
+  # sidebar / clipboard buttons
+  "component-active-color", "Sidebar", "Active contents text color", "$primary",
+  "component-active-color", "Body", "Active copy button icon color", "$primary",
+  "component-active-bg", "Sidebar", "Active contents background color", "$secondary",
+  "component-active-bg", "Body", "Active copy button background color", "$secondary",
+  "component-active-bg", "Navbar", "Active dropdown link background color", "$secondary",
+  "component-active-bg", "Navbar", "Active pills link background color", "$secondary",
+)
+extra_vars$Variable <- paste0("<code>", extra_vars$Variable, "</code>")
+extra_vars$Overrides <- paste0("<code>", extra_vars$Overrides, "</code>")
+
+reactable(extra_vars,
+  groupBy = "Variable",
+  defaultExpanded = FALSE,
+  columns = list(
+    Variable = colDef(html = TRUE),
+    Overrides = colDef(html = TRUE)
+  )
+)
 ```
-
-
-```{r echo=FALSE}
-reactable(extra_vars, 
-          groupBy = "Variable", 
-          defaultExpanded = FALSE,
-          columns = list(
-            Variable = colDef(html = TRUE),
-            Overrides = colDef(html = TRUE)
-            ))
-```
-
 
 You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
 
 You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don't like:
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
   bootswatch: materia
@@ -204,54 +195,53 @@ template:
 You can also customize the color scheme of the navbar by using the [`type` and `bg` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
 For example, if your theme is dark, you probably want to use a dark navbar:
 
-```yaml
+``` yaml
 navbar:
   type: dark
 ```
 
 Alternatively, you could use the bg parameter to make the navbar more visually prominent:
 
-```yaml
+``` yaml
 navbar:
   type: dark
   bg: primary
 ```
 
-Based on your `navbar-bg` color and the navbar `type`, Bootstrap automatically calculates a color for the navbar text elements, including the navigation links, the package name (the "brand"), and active/hover states for each. You can instead use the following bslib variables to control these values, depending on whether you choose a `light` or `dark` navbar:
+Based on your `navbar-bg` color and the navbar `type`, Bootstrap automatically calculates a color for the navbar text elements, including the navigation links, the package name (the "brand"), and active/hover states for each.
+You can instead use the following bslib variables to control these values, depending on whether you choose a `light` or `dark` navbar:
 
-```{r include=FALSE}
-navbar_vars <- 
-  tibble::tribble(
-    ~Variable, ~Type, ~Description, ~Overrides,
-    # group by type?
-    # type = light
-    "navbar-light-active-color", "light", "Active color for link text", "$primary",
-    "navbar-light-contrast", "light", "Calculated to contrast with navbar-bg color", NA,
-    "navbar-light-brand-color", "light", "Package name text color", "$navbar-light-active-color",
-    "navbar-light-brand-hover-color", "light", "Package name hover color", "$navbar-light-active-color",
-    "navbar-light-color", "light", "Link color", "rgba($navbar-light-contrast, .5)",
-    "navbar-light-hover-color", "light", "Hover color for link text", "rgba($navbar-light-contrast, .75)",
+```{r echo = FALSE}
+navbar_vars <- tibble::tribble(
+  ~Variable, ~Type, ~Description, ~Overrides,
+  # group by type?
+  # type = light
+  "navbar-light-active-color", "light", "Active color for link text", "$primary",
+  "navbar-light-contrast", "light", "Calculated to contrast with navbar-bg color", NA,
+  "navbar-light-brand-color", "light", "Package name text color", "$navbar-light-active-color",
+  "navbar-light-brand-hover-color", "light", "Package name hover color", "$navbar-light-active-color",
+  "navbar-light-color", "light", "Link color", "rgba($navbar-light-contrast, .5)",
+  "navbar-light-hover-color", "light", "Hover color for link text", "rgba($navbar-light-contrast, .75)",
 
-    # type = dark
-    "navbar-dark-active-color", "dark", "Active color for link text", "$primary",
-    "navbar-dark-contrast", "dark", "Calculated to contrast with navbar-bg color", NA,
-    "navbar-dark-brand-color", "dark", "Package name text color", "$navbar-dark-active-color",
-    "navbar-dark-brand-hover-color", "dark", "Package name hover color", "$navbar-dark-active-color",
-    "navbar-dark-color", "dark", "Link color", "rgba($navbar-dark-contrast, .5)",
-    "navbar-dark-hover-color", "dark", "Hover color for link text", "rgba($navbar-dark-contrast, .75)",
-  ) %>% 
-  mutate(Variable = paste0("<code>", Variable, "</code>"),
-         Overrides = paste0("<code>", Overrides, "</code>"))
-```
+  # type = dark
+  "navbar-dark-active-color", "dark", "Active color for link text", "$primary",
+  "navbar-dark-contrast", "dark", "Calculated to contrast with navbar-bg color", NA,
+  "navbar-dark-brand-color", "dark", "Package name text color", "$navbar-dark-active-color",
+  "navbar-dark-brand-hover-color", "dark", "Package name hover color", "$navbar-dark-active-color",
+  "navbar-dark-color", "dark", "Link color", "rgba($navbar-dark-contrast, .5)",
+  "navbar-dark-hover-color", "dark", "Hover color for link text", "rgba($navbar-dark-contrast, .75)",
+)
 
-```{r echo=FALSE}
-reactable(navbar_vars, 
-          groupBy = "Type", 
-          defaultExpanded = FALSE,
-          columns = list(
-            Variable = colDef(html = TRUE),
-            Overrides = colDef(html = TRUE)
-            )
+navbar_vars$Variable <- paste0("<code>", navbar_vars$Variable, "</code>")
+navbar_vars$Overrides <- paste0("<code>", navbar_vars$Overrides, "</code>")
+
+reactable(navbar_vars,
+  groupBy = "Type",
+  defaultExpanded = FALSE,
+  columns = list(
+    Variable = colDef(html = TRUE),
+    Overrides = colDef(html = TRUE)
+  )
 )
 ```
 
@@ -270,7 +260,7 @@ The contents will be automatically copied to the root of your website folder by 
 ## Layout {#layout}
 
 You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site.
-Furthermore, if you want to tweak _which_ authors of the package appear in the sidebar and footer, also refer to `?build_home`.
+Furthermore, if you want to tweak *which* authors of the package appear in the sidebar and footer, also refer to `?build_home`.
 
 ### Navbar
 
@@ -323,7 +313,7 @@ Once you have created your template package `theverybest`, you can use it by:
 
 -   Setting it as your sites theme:
 
-    ``` {.yaml}
+    ``` yaml
     template:
       package: theverybest
     ```

@@ -58,6 +58,7 @@ Suggests:
     methods,
     openssl,
     pkgload (>= 1.0.2),
+    reactable,
     rsconnect,
     rstudioapi,
     rticles,
