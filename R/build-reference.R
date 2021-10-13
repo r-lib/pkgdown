@@ -23,7 +23,7 @@
 #' For example, here's a snippet from the YAML that pkgdown uses to generate
 #' its own reference index:
 #'
-#' ```
+#' ```yaml
 #' reference:
 #' - title: Build
 #'   desc:  Build a complete site or its individual section components.
@@ -38,7 +38,7 @@
 #' Bigger packages, e.g. ggplot2, may need an additional layer of
 #' structure in order to clearly organise large number of functions:
 #'
-#' ```
+#' ```yaml
 #' reference:
 #' - title: Layers
 #' - subtitle: Geoms
@@ -54,7 +54,7 @@
 #' `desc` can use markdown, and if you have a long description it's a good
 #' idea to take advantage of the YAML `>` notation:
 #'
-#' ```
+#' ```yaml
 #' desc: >
 #'   This is a very _long_ and **overly** flowery description of a
 #'   single simple function. By using `>`, it's easy to write a description
@@ -78,6 +78,8 @@
 #' * `lacks_concepts(c("concept1", "concept2"))` to select all topics
 #'    without those concepts. This is useful to capture topics not otherwise
 #'    captured by `has_concepts()`.
+#' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
+#'  or `sass::font_face` (topic name).
 #'
 #' All functions (except for `has_keywords()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include
@@ -92,18 +94,30 @@
 #' CI envar is "true"), this is an error so that the build will fail if you
 #' forget to include topics in the index.
 #'
+#' ## Missing topics
+#'
+#' pkgdown will warn if there are (non-internal) topics that not listed
+#' in the reference index. You can suppress these warnings by listing the
+#' topics in section with "title: internal" (case sensitive) which will not be
+#' displayed on the reference index.
+#'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
 #' a top-level `icons` directory. This should contain {.png} files that are
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
+#' ## Examples
+#'
+#' If you need to run extra code before or after all examples are run, you
+#' can create `pkgdown/pre-reference.R` and `pkgdown/post-reference.R`.
+#'
 #' @section Figures:
 #'
 #' You can control the default rendering of figures by specifying the `figures`
 #' field in `_pkgdown.yml`. The default settings are equivalent to:
 #'
-#' ```
+#' ```yaml
 #' figures:
 #'   dev: ragg::agg_png
 #'   dpi: 96
@@ -158,32 +172,12 @@ build_reference <- function(pkg = ".",
   rule("Building function reference")
   build_reference_index(pkg)
 
-  # copy everything from man/figures to docs/reference/figures
-  src_figures <- path(pkg$src_path, "man", "figures")
-  dst_figures <- path(pkg$dst_path, "reference", "figures")
-  if (file_exists(src_figures)) {
-    dir_copy_to(pkg, src_figures, dst_figures)
-  }
+  copy_figures(pkg)
 
   if (examples) {
-    # Re-loading pkgdown while it's running causes weird behaviour with
-    # the context cache
-    if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
-      if (!is_installed("pkgload")) {
-        abort("Please install pkgload to use `build_reference(devel = TRUE)`")
-      }
-      pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE, quiet = TRUE)
-    } else {
-      library(pkg$package, character.only = TRUE)
-    }
-
-    old_dir <- setwd(path(pkg$dst_path, "reference"))
-    on.exit(setwd(old_dir), add = TRUE)
-
-    old_opt <- options(width = 80)
-    on.exit(options(old_opt), add = TRUE)
-
-    set.seed(seed)
+    examples_env <- examples_env(pkg, seed = seed, devel = devel)
+  } else {
+    examples_env <- NULL
   }
 
   if (!is.null(topics)) {
@@ -198,11 +192,49 @@ build_reference <- function(pkg = ".",
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
-    examples = examples,
+    examples_env = examples_env,
     run_dont_run = run_dont_run
   )
 
   preview_site(pkg, "reference", preview = preview)
+}
+
+copy_figures <- function(pkg) {
+  # copy everything from man/figures to docs/reference/figures
+  src_figures <- path(pkg$src_path, "man", "figures")
+  dst_figures <- path(pkg$dst_path, "reference", "figures")
+  if (file_exists(src_figures)) {
+    dir_copy_to(pkg, src_figures, dst_figures)
+  }
+}
+
+examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame()) {
+  # Re-loading pkgdown while it's running causes weird behaviour with
+  # the context cache
+  if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
+    check_installed("pkgload", "to use `build_reference(devel = TRUE)`")
+    pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE, quiet = TRUE)
+  } else {
+    library(pkg$package, character.only = TRUE)
+  }
+
+  # Need to compute before changing working directory
+  pre_path <- path_abs(path(pkg$src_path, "pkgdown", "pre-reference.R"))
+  post_path <- path_abs(path(pkg$src_path, "pkgdown", "post-reference.R"))
+
+  withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
+  withr::local_options(width = 80, .local_envir = envir)
+  withr::local_seed(seed)
+
+  examples_env <- child_env(globalenv())
+  if (file_exists(pre_path)) {
+    sys.source(pre_path, envir = examples_env)
+  }
+  if (file_exists(post_path)) {
+    withr::defer(sys.source(post_path, envir = examples_env), envir = envir)
+  }
+
+  examples_env
 }
 
 #' @export
@@ -218,18 +250,25 @@ build_reference_index <- function(pkg = ".") {
     dir_copy_to(pkg, src_icons, dst_icons)
   }
 
-  invisible(render_page(
+  render_page(
     pkg, "reference-index",
     data = data_reference_index(pkg),
     path = "reference/index.html"
-  ))
+  )
+
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference/index.html"), encoding = "UTF-8")
+  tweak_link_external(html, pkg = pkg)
+  tweak_anchors(html)
+  xml2::write_html(html, file.path(pkg$dst_path, "reference/index.html"))
+
+  invisible()
 }
 
 
 build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
-                                  examples = TRUE,
+                                  examples_env = globalenv(),
                                   run_dont_run = FALSE
                                   ) {
 
@@ -245,7 +284,7 @@ build_reference_topic <- function(topic,
     data_reference_topic(
       topic,
       pkg,
-      examples = examples,
+      examples_env = examples_env,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
@@ -277,8 +316,10 @@ build_reference_topic <- function(topic,
   render_page(
     pkg, "reference-topic",
     data = data,
-    path = path("reference", topic$file_out)
+    path = path("reference", topic$file_out),
+    tweaks = list(tweak_reference_highlighting)
   )
+
   invisible()
 }
 
@@ -287,9 +328,8 @@ build_reference_topic <- function(topic,
 
 data_reference_topic <- function(topic,
                                  pkg,
-                                 examples = TRUE,
-                                 run_dont_run = FALSE
-                                 ) {
+                                 examples_env = globalenv(),
+                                 run_dont_run = FALSE) {
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 
@@ -324,9 +364,8 @@ data_reference_topic <- function(topic,
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(
       tags$tag_examples[[1]],
-      env = new.env(parent = globalenv()),
+      env = if (is.null(examples_env)) NULL else new.env(parent = examples_env),
       topic = tools::file_path_sans_ext(topic$file_in),
-      run_examples = examples,
       run_dont_run = run_dont_run
     )
     deps <- attr(out$examples, "dependencies")

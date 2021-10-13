@@ -7,11 +7,13 @@ test_that("build_redirect() works", {
     bs_version = 4
   )
   pkg <- structure(pkg, class = "pkgdown")
-  build_redirect(c("old.html", "new.html#section"), pkg = pkg)
-  expect_snapshot(
-    cat(read_lines(file.path(pkg$dst_path, "old.html")))
-  )
+  build_redirect(c("old.html", "new.html#section"), 1, pkg = pkg)
 
+  html <- xml2::read_html(path(pkg$dst_path, "old.html"))
+  expect_equal(
+    xpath_attr(html, "//link", "href"),
+    "https://example.com/new.html#section"
+  )
 })
 
 test_that("build_redirect() errors if one entry is not right.", {

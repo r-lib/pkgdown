@@ -30,7 +30,7 @@ level two headings (\verb{##}) that (partially) match one of the following forms
 \details{
 A \href{https://style.tidyverse.org/news.html}{common structure} for news files
 is to use a top level heading for each release, and use a second level
-heading to break up individual bullets into sections.\preformatted{# foofy 1.0.0
+heading to break up individual bullets into sections.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{# foofy 1.0.0
 
 ## Major changes
 
@@ -41,7 +41,7 @@ heading to break up individual bullets into sections.\preformatted{# foofy 1.0.0
 * Printing scrobbles no longer errors (@githubusername, #100)
 
 * Wibbles are now 55\% less jibbly (#200)
-}
+}\if{html}{\out{</div>}}
 
 Issues and contributors will be automatically linked to the corresponding
 pages on GitHub if the GitHub repo can be discovered from the \code{DESCRIPTION}
@@ -55,22 +55,22 @@ available on CRAN, "Unreleased" will be added.
 
 
 To automatically link to release announcements, include a \code{releases}
-section.\preformatted{news:
+section.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
  releases:
  - text: "usethis 1.3.0"
    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
  - text: "usethis 1.0.0 (and 1.1.0)"
    href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
-}
+}\if{html}{\out{</div>}}
 
 Control whether news is present on one page or multiple pages with the
-\code{one_page} field. The default is \code{true}.\preformatted{news:
+\code{one_page} field. The default is \code{true}.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
   one_page: false
-}
+}\if{html}{\out{</div>}}
 
-Suppress the default addition of CRAN release dates with:\preformatted{news:
+Suppress the default addition of CRAN release dates with:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
   cran_dates: false
-}
+}\if{html}{\out{</div>}}
 }
 
 \seealso{

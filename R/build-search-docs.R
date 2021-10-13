@@ -38,13 +38,7 @@ build_sitemap <- function(pkg = ".") {
     url <- paste0(url, pkg$prefix)
   }
 
-  urls <- paste0(
-    url,
-    fs::path_rel(
-      fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-      pkg$dst_path
-    )
-  )
+  urls <- paste0(url, get_site_paths(pkg))
 
   doc <- xml2::read_xml(
     paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
@@ -81,10 +75,15 @@ url_node <- function(url) {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Local testing:
-#' Search won't work if you simply use pkgdown preview of the static files.
+#' @section Debugging and local testing:
+#'
+#' Locally (as opposed to on GitHub Pages or Netlify for instance),
+#' search won't work if you simply use pkgdown preview of the static files.
 #' You can use `servr::httw("docs")` instead.
 #'
+#' If search is not working, run `pkgdown::pkgdown_sitrep()` to eliminate
+#' common issues such as the absence of URL in the pkgdown configuration file
+#' of your package.
 #'
 #' @inheritParams build_articles
 #' @export
@@ -102,10 +101,7 @@ build_search <- function(pkg = ".",
 }
 
 build_search_index <- function(pkg) {
-    paths <- fs::path_rel(
-    fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE),
-    pkg$dst_path
-  )
+  paths <- get_site_paths(pkg)
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
   # user-defined exclusions
@@ -122,10 +118,18 @@ build_search_index <- function(pkg) {
 
   purrr::compact(index)
 
+  # Make URLs absolute if possible
+  url <- pkg$meta$url %||% ""
+  fix_path <- function(x) {
+    x$path <- sprintf("%s%s", url, x$path)
+    x
+  }
+  index <- purrr::map(index, fix_path)
+
 }
 
 news_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path))
+  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
@@ -157,7 +161,7 @@ news_search_index <- function(path, pkg) {
 }
 
 file_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path))
+  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
   title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
     xml2::xml_attr("content")
@@ -313,4 +317,13 @@ is_heading <- function(node) {
 
 capitalise <- function(string) {
   paste0(toupper(substring(string, 1, 1)), substring(string, 2))
+}
+
+get_site_paths <- function(pkg) {
+  paths <- fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
+  paths_rel <- fs::path_rel(paths, pkg$dst_path)
+
+  # do not include dev package website in search index / sitemap
+  dev_destination <- meta_development(pkg$meta, pkg$version)$destination
+  paths_rel[!fs::path_has_parent(paths_rel, "dev")]
 }

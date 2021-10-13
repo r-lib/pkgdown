@@ -32,13 +32,13 @@ section. This should be a list where each element specifies:
 \item \code{title}: used in page heading and in navbar
 \item \code{url}: which will be embedded in an iframe
 \item \code{source}: optional, but if present will be linked to
-}\preformatted{tutorials:
+}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{tutorials:
 - name: 00-setup
   title: Setting up R
   url: https://jjallaire.shinyapps.io/learnr-tutorial-00-setup/
 - name: 01-data-basics
   title: Data basics
   url: https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/
-}
+}\if{html}{\out{</div>}}
 }
 

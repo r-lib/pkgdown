@@ -5,13 +5,15 @@ By default, the footer is automatically populated with:
 
 The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.
 
-    footer:
-     left:
-       structure: [pkgdown]
-     right:
-       structure: [authors, legal]
-       components:
-         legal: Provided without ***any warranty***.
+```yaml
+footer:
+ left:
+   structure: [pkgdown]
+ right:
+   structure: [authors, legal]
+   components:
+     legal: Provided without ***any warranty***.
+```
 
 Like the navbar and side, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.

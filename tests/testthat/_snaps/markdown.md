@@ -1,8 +1,8 @@
-# markdown_inline() errors if block for inline
+# markdown_text_inline() works with inline markdown
 
     Can't use a block element here, need an inline element: 
-     c("authors", "sidebar", "after") 
-    **lala**
+     <inline> 
+    x
     
-    pof
+    y
 

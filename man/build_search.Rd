@@ -18,14 +18,20 @@ Build a JSON file encompassing all HTML pages, for use by the search script.
 \section{YAML config}{
 
 You can exclude some paths from the search index.
-Below we exclude the changelog from the search index.\if{html}{\out{<div class="yaml">}}\preformatted{search:
+Below we exclude the changelog from the search index.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{search:
   exclude: ['news/index.html']
 }\if{html}{\out{</div>}}
 }
 
-\section{Local testing}{
+\section{Debugging and local testing}{
 
-Search won't work if you simply use pkgdown preview of the static files.
+
+Locally (as opposed to on GitHub Pages or Netlify for instance),
+search won't work if you simply use pkgdown preview of the static files.
 You can use \code{servr::httw("docs")} instead.
+
+If search is not working, run \code{pkgdown::pkgdown_sitrep()} to eliminate
+common issues such as the absence of URL in the pkgdown configuration file
+of your package.
 }
 

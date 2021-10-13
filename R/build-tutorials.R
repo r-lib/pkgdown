@@ -16,7 +16,7 @@
 #' * `url`: which will be embedded in an iframe
 #' * `source`: optional, but if present will be linked to
 #'
-#' ```
+#' ```yaml
 #' tutorials:
 #' - name: 00-setup
 #'   title: Setting up R
@@ -79,7 +79,7 @@ package_tutorials <- function(path = ".", meta = list()) {
 
   tibble::tibble(
     name = name,
-    file_out = path("tutorials", name, ext = "html"),
+    file_out = as.character(path("tutorials", name, ext = "html")),
     title = title,
     pagetitle = title,
     url = purrr::map_chr(tutorials, "url")
@@ -91,9 +91,7 @@ find_tutorials <- function(path = ".") {
     return(character())
   }
 
-  if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("rsconnect package must be installed to scan for tutorials", call. = FALSE)
-  }
+  check_installed("rsconnect", "to find published tutorials")
 
   rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$", type = "file"))
   info <- purrr::map(rmds, tutorial_info, base_path = path)
@@ -114,8 +112,10 @@ tutorial_info <- function(path, base_path) {
     return()
   }
 
-  # Must have deployment url
-  deploys <- rsconnect::deployments(path)
+  # Find deployment url. Use excludeOrphaned = FALSE since we don't need
+  # to worry about redeploying and this makes test infrastructure a little
+  # simpler
+  deploys <- rsconnect::deployments(path, excludeOrphaned = FALSE)
   if (!is.null(deploys) && nrow(deploys) >= 1) {
     latest <- which.max(deploys$when)
     url <- deploys$url[[latest]]

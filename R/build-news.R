@@ -16,7 +16,7 @@
 #' is to use a top level heading for each release, and use a second level
 #' heading to break up individual bullets into sections.
 #'
-#' ```
+#' ```yaml
 #' # foofy 1.0.0
 #'
 #' ## Major changes
@@ -43,7 +43,7 @@
 #' To automatically link to release announcements, include a `releases`
 #' section.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'  releases:
 #'  - text: "usethis 1.3.0"
@@ -55,14 +55,14 @@
 #' Control whether news is present on one page or multiple pages with the
 #' `one_page` field. The default is `true`.
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   one_page: false
 #' ```
 #'
 #' Suppress the default addition of CRAN release dates with:
 #'
-#' ```
+#' ```yaml
 #' news:
 #'   cran_dates: false
 #' ```
@@ -141,7 +141,7 @@ globalVariables(".")
 data_news <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  html <- markdown(path(pkg$src_path, "NEWS.md"), pkg = pkg)
+  html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
@@ -261,7 +261,8 @@ pkg_timeline <- function(package) {
   data.frame(
     version = names(timeline),
     date = as.Date(unlist(timeline)),
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
+    row.names = NULL
   )
 }
 

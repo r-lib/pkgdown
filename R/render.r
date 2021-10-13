@@ -19,20 +19,20 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
+#' @param tweaks List of "tweak" functions applied to output HTML.
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE, tweaks = NULL) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
-  data$logo <- list(src = logo_path(pkg, depth = depth))
-
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$pkgdown <- list(
     version = utils::packageDescription("pkgdown", fields = "Version")
   )
+  data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
 
@@ -45,9 +45,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   # Potential opt-out of syntax highlighting CSS
   data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)
-
-  # Search index location
-  data$`search-index` <- paste0("/", pkg$prefix, "search.json")
 
   # render template components
   pieces <- c(
@@ -76,20 +73,20 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   rendered <- render_template(template, components)
 
-  # footnotes
+  html <- xml2::read_html(rendered, encoding = "UTF-8")
   if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
     tweak_footnotes(html)
-    rendered <- as.character(html, options = character())
-  }
-
-  # navbar activation
-  if (pkg$bs_version > 3) {
-    html <- xml2::read_html(rendered)
     activate_navbar(html, data$output_file %||% path, pkg)
-    rendered <- as.character(html, options = character())
+    trim_toc(html)
+  }
+  if (pkg$desc$has_dep("R6")) {
+    tweak_link_R6(html, pkg$package)
+  }
+  for (tweak in tweaks) {
+    tweak(html)
   }
 
+  rendered <- as.character(html, options = character())
   write_if_different(pkg, rendered, path, quiet = quiet)
 }
 
@@ -292,6 +289,9 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (same_contents(full_path, contents)) {
+    # touching the file to update its modification time
+    # which is important for proper lazy behavior
+    fs::file_touch(full_path)
     return(FALSE)
   }
 
@@ -357,7 +357,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  left_final_components <- markdown_block(
+  left_final_components <- markdown_text_block(
     paste0(left_components[left_structure], collapse = " "),
     pkg = pkg
   )
@@ -377,7 +377,7 @@ pkgdown_footer <- function(data, pkg) {
     pkg = pkg
   )
 
-  right_final_components <- markdown_block(
+  right_final_components <- markdown_text_block(
     paste0(right_components[right_structure], collapse = " "),
     pkg = pkg
   )
@@ -483,21 +483,4 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
 
 pkgdown_bslib_defaults <- function() {
   list(`navbar-nav-link-padding-x` = "1rem")
-}
-
-logo_path <- function(pkg, depth) {
-  if (!has_logo(pkg)) {
-    return(NULL)
-  }
- path <- "package-logo.png"
-
-  if (depth == 0) {
-    return(path)
-  }
-
-  paste0(
-    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-    "/",
-    path
-  )
 }
