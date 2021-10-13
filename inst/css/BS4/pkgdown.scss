@@ -237,23 +237,24 @@ h1.display-4 {
 }
 
 /* Navbar ------------------------------------------------------------------  */
-$rs-nav-link-active-bg: mix($body-color, $body-bg, 15%) !default;
-$rs-nav-link-active-color: color-contrast($rs-nav-link-active-bg) !default;
-$rs-nav-link-active-border-radius: $border-radius !default;
-
 .navbar-nav .nav-item > .nav-link {
-   @include border-radius($rs-nav-link-active-border-radius);
+   @include border-radius($border-radius);
 }
 
-.navbar-light .navbar-nav .active > .nav-link,
-.navbar-dark .navbar-nav .active > .nav-link {
-  background: $rs-nav-link-active-bg;
-  color:      $rs-nav-link-active-color;
+.navbar-light .navbar-nav .active > .nav-link {
+  background: mix($body-bg, $body-color, 85%);
+  color:      $body-color;
 }
-
-.navbar-light .navbar-nav .nav-item > .nav-link:hover,
-.navbar-dark .navbar-nav .nav-item > .nav-link:hover {
+.navbar-light .navbar-nav .nav-item > .nav-link:hover {
   background: mix($body-color, $body-bg, 20%);
+}
+
+.navbar-dark .navbar-nav .active > .nav-link {
+  background: mix($body-color, $body-bg, 85%);
+  color:      $body-bg;
+}
+.navbar-dark .navbar-nav .nav-item > .nav-link:hover {
+  background: mix($body-bg, $body-color, 20%);
 }
 
 .navbar-nav .nav-link {
