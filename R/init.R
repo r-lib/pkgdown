@@ -36,11 +36,10 @@ init_site <- function(pkg = ".") {
   rule("Initialising site")
   dir_create(pkg$dst_path)
 
-  if (pkg$bs_version > 3) {
-    create_bs_assets(pkg)
-  }
-
   copy_assets(pkg)
+  if (pkg$bs_version > 3) {
+    build_bslib(pkg)
+  }
 
   if (has_logo(pkg) && !has_favicons(pkg)) {
     # Building favicons is expensive, so we hopefully only do it once.
@@ -163,134 +162,4 @@ is_non_pkgdown_site <- function(dst_path) {
   top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
 
   length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
-}
-
-create_bs_assets <- function(pkg) {
-  rlang::check_installed("htmltools")
-
-  # theme variables from configuration
-  bs_version <- pkg$bs_version
-  bootswatch_theme <- get_bootswatch_theme(pkg)
-
-  check_bootswatch_theme(bootswatch_theme, bs_version, pkg)
-
-  # variables from pkgdown defaults & user configuration
-  # user configuration takes precedence
-  sass_vars <- modify_list(
-    pkgdown_bslib_defaults(bs_version, bootswatch_theme),
-    pkg$meta$template$bslib
-  )
-
-  # first, defaults from bslib + pkgdown
-  bs_theme <- bslib::bs_theme(
-    version = bs_version,
-    bootswatch = bootswatch_theme,
-    !!!sass_vars
-  )
-
-  # Add body-color & navbar colors only in the absence of Bootswatch usage
-  if (is.null(bootswatch_theme)) {
-    bs_theme <- bslib::bs_add_variables(
-      bs_theme,
-      "body-color" = "$black",
-      "component-active-bg" = "$secondary",
-      "list-group-active-bg" = "$secondary",
-      "navbar-light-bg" = "$gray-200",
-      "navbar-light-color" = "$gray-800",
-      "navbar-light-hover-color" = "$black",
-      "navbar-dark-bg" = "$black",
-      "navbar-dark-color" = "$gray-100",
-      "navbar-dark-hover-color" = "$white",
-      .where = "declarations"
-    )
-  }
-
-
-  bs_theme <- bslib::bs_add_rules(
-    bs_theme,
-    list(
-      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown-variables.scss")),
-      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "pkgdown.scss")),
-      sass::sass_file(path_pkgdown("css", paste0("BS", bs_version), "syntax-highlighting.scss"))
-    )
-)
-
-  deps <- bslib::bs_theme_dependencies(bs_theme)
-  # Add other dependencies - TODO: more of those?
-  # Even font awesome had a too old version in R Markdown (no ORCID)
-
-  # Dependencies files end up at the website root in a deps folder
-  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
-
-  # Function needed for indicating where that deps folder is compared to here
-  transform_path <- function(x) {
-    # At the time this function is called
-    # html::renderDependencies() has already encoded x
-    # with the default htmltools::urlEncodePath()
-    x <- sub(htmltools::urlEncodePath(pkg$dst_path), "", x)
-
-   sub("/", "", x)
-
-  }
-
-  # Tags ready to be added in heads
-  tags <- htmltools::renderDependencies(
-    deps,
-    srcType = "file",
-    hrefFilter = transform_path
-  )
-  # save tags that will be re-used and tweaked depending on page depth
-  write_lines(tags, data_deps_path(pkg))
-
-}
-
-get_bootswatch_theme <- function(pkg) {
-  pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    NULL
-}
-
-
-check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (is.null(bootswatch_theme)) {
-    return(invisible())
-  }
-
-  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    return(invisible())
-  }
-
-  abort(
-    sprintf(
-      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
-      bootswatch_theme,
-      pkgdown_field(pkg = pkg, "template", "bootswatch"),
-      bs_version,
-      pkgdown_field(pkg = pkg, "template", "bootstrap")
-    )
-  )
-}
-
-data_deps_path <- function(pkg) {
-  file.path(pkg$dst_path, "deps", "data-deps.txt")
-}
-
-pkgdown_bslib_defaults <- function(bs_version, bootswatch_theme) {
-  minimal_defaults <- list(
-    `border-radius` = "1rem",
-    `btn-border-radius` = ".25rem"
-  )
-  # Do not assign any color if there is a bootswatch theme.
-  if (!is.null(bootswatch_theme)) {
-    return(minimal_defaults)
-  }
-
-  c(
-    minimal_defaults,
-    list(
-      primary = "#0054AD",
-      bg = "white",
-      fg = "black"
-    )
-  )
 }
