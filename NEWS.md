@@ -2,7 +2,7 @@
 
 * Code blocks in reference topics now get syntax highlighting according
   to their declared language information (e.g. `yaml`), if the documentation 
-  was built with roxygen2 7.1.2 or later (#1724).
+  was built with roxygen2 7.1.2 or later (#1690, #1692).
 
 * `build_articles()` and `build_home()` now warn if you have images that 
   won't rendered on the website because they're in unsupported directories 
