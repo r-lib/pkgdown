@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* Anchors now appear on the right (making them usable on mobile phones) (#1782).
+
+* Duplicated section are now de-duplicated; this makes pkgdown work better with
+  documentation for R6 classes.
+
 * When copy and pasting code blocks, lines containing output (e.g. `#>`)
   are automatically omitted (#1675).
 
