@@ -30,10 +30,18 @@ body > .container .row {
   flex: 1 0 auto;
 }
 
+/* Footer ------------------------------------------------------------------- */
+
+$rs-footer-color: $body-color !default;
+$rs-footer-bg: $body-bg !default;
+$rs-footer-border-color: $border-color !default;
+$rs-footer-border-width: $border-width !default;
+
 footer {
-  margin-top: 45px;
-  padding: 35px 0 36px;
+  margin-top: 2rem;
+  padding: 2rem 0 2rem 0;
   border-top: $rs-footer-border-width solid $rs-footer-border-color;
+  background: $rs-footer-bg;
   color: $rs-footer-color;
   display: flex;
   flex-shrink: 0;
@@ -47,6 +55,8 @@ footer div {
 footer .pkgdown-footer-right {
   text-align: right;
 }
+
+/* General typography ------------------------------------------------------- */
 
 img.icon {
   float: right;

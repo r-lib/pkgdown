@@ -11,7 +11,3 @@ $rs-toc-active-color: color-contrast($rs-toc-active-bg) !default;
 // search
 $rs-cursor-algolia: mix($primary, $body-bg, 10%) !default;
 
-// footer
-$rs-footer-color: mix($body-color, $body-bg, 90%) !default;
-$rs-footer-border-color: $border-color !default;
-$rs-footer-border-width: $border-width !default;
