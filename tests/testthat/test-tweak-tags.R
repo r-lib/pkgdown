@@ -24,6 +24,17 @@ test_that("anchor html added to headings", {
   expect_snapshot_output(xpath_xml(html, "//h1"))
 })
 
+test_that("deduplicates ids", {
+  html <- xml2::read_xml('<body>
+      <div id="x"><h1>abc</h1></div>
+      <div id="x"><h1>abc</h1></div>
+      <div id="x"><h1>abc</h1></div>
+    </body>
+  ')
+  tweak_anchors(html)
+  expect_equal(xpath_attr(html, "//div", "id"), c("x", "x-1", "x-2"))
+})
+
 test_that("can process multiple header levels", {
   html <- xml2::read_xml('<div>
       <div id="1"><h1>abc</h1></div>

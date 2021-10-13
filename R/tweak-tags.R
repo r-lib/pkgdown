@@ -4,9 +4,10 @@ tweak_anchors <- function(html) {
     return(invisible())
   }
 
-  # Update ids: dot in the anchor breaks scrollspy
+  # Update ids: dot in the anchor breaks scrollspy and rd translation
+  # doesn't have enough information to generate unique ids
   id <- xml2::xml_attr(divs, "id")
-  new_id <- gsub(".", "-", id, fixed = TRUE)
+  new_id <- make.unique(gsub(".", "-", id, fixed = TRUE), "-")
   purrr::walk2(divs, new_id, xml2::xml_set_attr, attr = "id")
 
   headings <- xml2::xml_find_first(divs, ".//h1|h2|h3|h4|h5")
