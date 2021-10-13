@@ -56,6 +56,67 @@ footer .pkgdown-footer-right {
   text-align: right;
 }
 
+
+/* Sidebar ------------------------------------------------------------------ */
+
+#pkgdown-sidebar {
+  margin-top: 30px;
+}
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
+}
+
+#pkgdown-sidebar h2 {
+  margin-top: 1em;
+}
+
+#pkgdown-sidebar h2:first-child {
+  margin-top: 2.5rem;
+}
+
+#pkgdown-sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+}
+
+/* Table of contents */
+$rs-toc-border-width: 0 !default;
+$rs-toc-border-color: $border-color !default;
+$rs-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
+$rs-toc-active-color: color-contrast($rs-toc-active-bg) !default;
+
+/* Base TOC item */
+nav[data-toggle="toc"] .nav > li > a {
+  color: inherit;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+  @include border-radius($border-radius);
+  border: $rs-toc-border-width solid $rs-toc-border-color;
+}
+
+/* Under hover */
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus,
+/* Current */
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus {
+  background-color: $rs-toc-active-bg;
+  color: $rs-toc-active-color;
+}
+
+/* Nav: second level (shown on .active) */
+nav[data-toggle="toc"] .nav-link + ul {
+  display: none;
+}
+nav[data-toggle="toc"] .nav-link.active + ul {
+  display: block;
+}
+nav[data-toggle="toc"] .nav .nav > li > a {
+  margin-left: 0.5rem;
+}
+
 /* General typography ------------------------------------------------------- */
 
 img.icon {
@@ -116,29 +177,6 @@ table a.anchor {
 .contents h2, .contents h3, .contents h4 {
   padding-top: 40px;
   padding-top: 0px;
-}
-
-/* Sidebar --------------------------*/
-
-#pkgdown-sidebar {
-  margin-top: 30px;
-}
-
-/* navbar is 56px + 30px of margin-top */
-.sticky-top {
-  top: 86px;
-}
-
-#pkgdown-sidebar h2 {
-  margin-top: 1em;
-}
-
-#pkgdown-sidebar h2:first-child {
-  margin-top: 2.5rem;
-}
-
-#pkgdown-sidebar .list-unstyled li {
-  margin-bottom: 0.5em;
 }
 
 /* orcid --------------------------*/
@@ -204,38 +242,6 @@ h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
 flex-direction: column;
 }
 
-/* Base TOC item */
-nav[data-toggle="toc"] .nav > li > a {
-  color: inherit;
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
-  @include border-radius($rs-toc-border-radius);
-  border: $rs-toc-border-width solid $rs-toc-border-color;
-}
-
-/* Under hover */
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus,
-/* Current */
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus
-{
-  background-color: $rs-toc-active-bg;
-  color: $rs-toc-active-color;
-}
-
-/* Nav: second level (shown on .active) */
-nav[data-toggle="toc"] .nav-link + ul {
-  display: none;
-}
-nav[data-toggle="toc"] .nav-link.active + ul {
-  display: block;
-}
-nav[data-toggle="toc"] .nav .nav > li > a {
-  margin-left: 0.5rem;
-}
-
 /* version badge  */
 #version-badge {
   border: none;
@@ -248,7 +254,7 @@ h1.display-4 {
 
 /* Navbar ------------------------------------------------------------------  */
 .navbar-nav .nav-item > .nav-link {
-   @include border-radius($border-radius);
+  @include border-radius($border-radius);
 }
 
 .navbar-light .navbar-nav .active > .nav-link {

@@ -2,11 +2,6 @@
 // All custom properties are prefixed with `rs-` (abbr: Rmd style) to avoid conflicts
 
 // toc
-$rs-toc-border-radius: $border-radius !default;
-$rs-toc-border-width: 0 !default;
-$rs-toc-border-color: $border-color !default;
-$rs-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
-$rs-toc-active-color: color-contrast($rs-toc-active-bg) !default;
 
 // search
 $rs-cursor-algolia: mix($primary, $body-bg, 10%) !default;
