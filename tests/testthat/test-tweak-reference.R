@@ -61,6 +61,9 @@ test_that("fails cleanly", {
 
   html <- xml2::read_xml('<div><pre><code></code></pre></div>')
   expect_equal(tweak_highlight_r(html), FALSE)
+
+  html <- xml2::read_xml('<div><pre></pre></div>')
+  expect_equal(tweak_highlight_r(html), FALSE)
 })
 
 test_that("can highlight other languages", {
@@ -69,4 +72,13 @@ test_that("can highlight other languages", {
 
   expect_equal(xpath_attr(html, "//code/span/span", "class"), c("fu", "kw", "at"))
   expect_equal(xpath_text(html, "//code/span/span"), c("field", ":", " value"))
+})
+
+test_that("fails cleanly", {
+  html <- xml2::read_xml('<div><pre><code></code></pre></div>')
+  tweak_highlight_other(html)
+  expect_equal(xpath_text(html, "//code"), "")
+
+  html <- xml2::read_xml('<div><pre></pre></div>')
+  expect_equal(tweak_highlight_other(html), FALSE)
 })

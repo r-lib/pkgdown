@@ -43,7 +43,7 @@ tweak_highlight_r <- function(block) {
 tweak_highlight_other <- function(div) {
   code <- xml2::xml_find_first(div, ".//code")
   if (is.na(code)) {
-    return()
+    return(FALSE)
   }
 
   lang <- sub("sourceCode ", "", xml2::xml_attr(div, "class"))
@@ -51,7 +51,7 @@ tweak_highlight_other <- function(div) {
   html <- markdown_text(md)
 
   xml_replace_contents(code, xml2::xml_find_first(html, "body/div/pre/code"))
-  invisible()
+  TRUE
 }
 
 xml_replace_contents <- function(node, new) {
