@@ -2,14 +2,14 @@
 tweak_reference_highlighting <- function(html) {
   # We only process code inside ref-section since examples and usage are
   # handled elsewhere
-  base <- xml2::xml_find_all(html, "//div[contains(@class, 'ref-section')]")
+  base <- xml2::xml_find_all(html, ".//div[contains(@class, 'ref-section')]")
 
   # There are three cases:
   # 1) <pre> with no wrapper <div>, as created by ```
-  pre_unwrapped <- xml2::xml_find_all(base, "//pre")
+  pre_unwrapped <- xml2::xml_find_all(base, ".//pre")
   purrr::walk(pre_unwrapped, tweak_highlight_r)
 
-  div <- xml2::xml_find_all(base, "//div")
+  div <- xml2::xml_find_all(base, ".//div")
   div_sourceCode <- div[has_class(div, "sourceCode")]
   # 2) <div> with class sourceCode + R, as created by ```R
   div_sourceCode_r <- div_sourceCode[has_class(div_sourceCode, "r")]
