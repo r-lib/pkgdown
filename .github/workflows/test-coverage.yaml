@@ -21,6 +21,9 @@ jobs:
         with:
           use-public-rspm: true
 
+      # Needs updated pandoc for syntax highlighting tests
+      - uses: r-lib/actions/setup-pandoc@v1
+
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: covr
