@@ -83,20 +83,7 @@ alphabetical order. To override this, provide a <code>reference</code> section i
     </div>
 
     <div id="ref-usage" class="ref-usage section level2 sourceCode">
-    <pre class="sourceCode r"><code><span class="fu">build_reference</span><span class="op">(</span>
-  pkg <span class="op">=</span> <span class="st">"."</span>,
-  lazy <span class="op">=</span> <span class="cn">TRUE</span>,
-  examples <span class="op">=</span> <span class="cn">TRUE</span>,
-  run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,
-  seed <span class="op">=</span> <span class="fl">1014</span>,
-  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>,
-  preview <span class="op">=</span> <span class="cn">NA</span>,
-  devel <span class="op">=</span> <span class="cn">TRUE</span>,
-  document <span class="op">=</span> <span class="st">"DEPRECATED"</span>,
-  topics <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
+    <pre class="sourceCode r"><code></code></pre>
     </div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
@@ -146,34 +133,31 @@ on the right.</p></li>
 subtitle, but this is no longer recommended).</p>
 <p>Most packages will only need to use <code>title</code> and <code>contents</code> components.
 For example, here's a snippet from the YAML that pkgdown uses to generate
-its own reference index:</p><div class="sourceCode yaml"><pre><code>reference:
-- title: Build
-  desc:  Build a complete site or its individual section components.
-- contents:
-  - starts_with("build_")
-- title: Templates
-- contents:
-  - template_navbar
-  - render_page
-</code></pre><p></p></div>
+its own reference index:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Build</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at">  Build a complete site or its individual section components.</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("build_")</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Templates</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> template_navbar</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> render_page</span></span></code></pre><p></p></div>
 <p>Bigger packages, e.g. ggplot2, may need an additional layer of
-structure in order to clearly organise large number of functions:</p><div class="sourceCode yaml"><pre><code>reference:
-- title: Layers
-- subtitle: Geoms
-  desc: Geom is short for geometric element
-- contents:
-  - starts_with("geom")
-- subtitle: Stats
-  desc: Statistical transformations transform data before display.
-  contents:
-  - starts_with("stat")
-</code></pre><p></p></div>
+structure in order to clearly organise large number of functions:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Layers</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">-</span><span class="at"> </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> Geoms</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Geom is short for geometric element</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("geom")</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">-</span><span class="at"> </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> Stats</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Statistical transformations transform data before display.</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("stat")</span></span></code></pre><p></p></div>
 <p><code>desc</code> can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML <code>&gt;</code> notation:</p><div class="sourceCode yaml"><pre><code>desc: &gt;
-  This is a very _long_ and **overly** flowery description of a
-  single simple function. By using `&gt;`, it's easy to write a description
-  that runs over multiple lines.
-</code></pre><p></p></div><h3 class="hasAnchor" id="topic-matching"><a class="anchor" aria-hidden="true" href="#topic-matching"></a>Topic matching</h3>
+idea to take advantage of the YAML <code>&gt;</code> notation:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  This is a very _long_ and **overly** flowery description of a</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  single simple function. By using `&gt;`, it's easy to write a description</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  that runs over multiple lines.</span></code></pre><p></p></div><h3 class="hasAnchor" id="topic-matching"><a class="anchor" aria-hidden="true" href="#topic-matching"></a>Topic matching</h3>
 
 
 <p><code>contents</code> can contain:</p><ul><li><p>Individual function/topic names.</p></li>
@@ -233,18 +217,17 @@ can create <code>pkgdown/pre-reference.R</code> and <code>pkgdown/post-reference
 
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code>figures:
-  dev: ragg::agg_png
-  dpi: 96
-  dev.args: []
-  fig.ext: png
-  fig.width: 7.2916667
-  fig.height: ~
-  fig.retina: 2
-  fig.asp: 1.618
-  bg: NA
-  other.parameters: []
-</code></pre><p></p></div>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">96</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">dev.args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">fig.ext</span><span class="kw">:</span><span class="at"> png</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="fu">fig.width</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2916667</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">  </span><span class="fu">fig.height</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="fu">fig.retina</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">fig.asp</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.618</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> NA</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="at">  </span><span class="fu">other.parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre><p></p></div>
 <p>Most of these parameters are interpreted similarly to knitr chunk
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such

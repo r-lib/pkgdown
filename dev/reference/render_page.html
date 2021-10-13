@@ -72,7 +72,7 @@ then assembled into an overall page using the "layout" template.'><meta property
   <div class="col-md-9 contents">
     <img src="../logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
     <h1 class="display-4">Render page with template</h1>
-    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/render.R"><code>R/render.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/render.r"><code>R/render.r</code></a></small>
     <div class="d-none name"><code>render_page.Rd</code></div>
     </div>
 
@@ -83,7 +83,15 @@ then assembled into an overall page using the "layout" template.</p>
     </div>
 
     <div id="ref-usage" class="ref-usage section level2 sourceCode">
-    <pre class="sourceCode r"><code><span class="fu">render_page</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, <span class="va">name</span>, <span class="va">data</span>, path <span class="op">=</span> <span class="st">""</span>, depth <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+    <pre class="sourceCode r"><code><span class="fu">render_page</span><span class="op">(</span>
+  pkg <span class="op">=</span> <span class="st">"."</span>,
+  <span class="va">name</span>,
+  <span class="va">data</span>,
+  path <span class="op">=</span> <span class="st">""</span>,
+  depth <span class="op">=</span> <span class="cn">NULL</span>,
+  quiet <span class="op">=</span> <span class="cn">FALSE</span>,
+  tweaks <span class="op">=</span> <span class="cn">NULL</span>
+<span class="op">)</span>
 
 <span class="fu">data_template</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, depth <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></code></pre>
     </div>
@@ -106,6 +114,8 @@ If <code>""</code> (the default), prints to standard out.</p></dd>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Depth of path relative to base directory.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-quiet">quiet</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>quiet</code>, will suppress output messages</p></dd>
+    <dt class="col-sm-3 section level2" id="pkg-arg-tweaks">tweaks</dt>
+      <dd class="col-sm-9" id="ref-arguments desc"><p>List of "tweak" functions applied to output HTML.</p></dd>
     </dl></div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
