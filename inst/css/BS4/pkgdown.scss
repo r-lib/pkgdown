@@ -32,17 +32,17 @@ body > .container .row {
 
 /* Footer ------------------------------------------------------------------- */
 
-$rs-footer-color: $body-color !default;
-$rs-footer-bg: $body-bg !default;
-$rs-footer-border-color: $border-color !default;
-$rs-footer-border-width: $border-width !default;
+$pkgdown-footer-color: $body-color !default;
+$pkgdown-footer-bg: $body-bg !default;
+$pkgdown-footer-border-color: $border-color !default;
+$pkgdown-footer-border-width: $border-width !default;
 
 footer {
   margin-top: 2rem;
   padding: 2rem 0 2rem 0;
-  border-top: $rs-footer-border-width solid $rs-footer-border-color;
-  background: $rs-footer-bg;
-  color: $rs-footer-color;
+  border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
+  background: $pkgdown-footer-bg;
+  color: $pkgdown-footer-color;
   display: flex;
   flex-shrink: 0;
 }
@@ -81,10 +81,10 @@ footer .pkgdown-footer-right {
 }
 
 /* Table of contents */
-$rs-toc-border-width: 0 !default;
-$rs-toc-border-color: $border-color !default;
-$rs-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
-$rs-toc-active-color: color-contrast($rs-toc-active-bg) !default;
+$pkgdown-toc-border-width: 0 !default;
+$pkgdown-toc-border-color: $border-color !default;
+$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
+$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
 
 /* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
@@ -92,7 +92,7 @@ nav[data-toggle="toc"] .nav > li > a {
   padding-left: 0.5rem;
   margin-left: -0.5rem;
   @include border-radius($border-radius);
-  border: $rs-toc-border-width solid $rs-toc-border-color;
+  border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 }
 
 /* Under hover */
@@ -102,8 +102,8 @@ nav[data-toggle="toc"] .nav > li > a:focus,
 nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
 nav[data-toggle="toc"] .nav-link.active:focus {
-  background-color: $rs-toc-active-bg;
-  color: $rs-toc-active-color;
+  background-color: $pkgdown-toc-active-bg;
+  color: $pkgdown-toc-active-color;
 }
 
 /* Nav: second level (shown on .active) */
