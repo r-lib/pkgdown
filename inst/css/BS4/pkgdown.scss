@@ -319,7 +319,8 @@ h1.display-4 {
 
 /* Footnotes --------------------------------------------- */
 
-/* "Mix" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
+/* "Min" needed until libsass supports
+   https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .popover {
   max-width: Min(100vw, 32rem);
   font-size: 0.9rem;
