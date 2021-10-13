@@ -196,14 +196,6 @@ h6.dropdown-header {
   margin-bottom: 0.5em;
 }
 
-/* don't display links in code chunks when printing */
-/* source: https://stackoverflow.com/a/10781533 */
-@media print {
-  code a:link:after, code a:visited:after {
-    content: "";
-  }
-}
-
 /* orcid --------------------------*/
 
 .orcid {
@@ -214,6 +206,7 @@ h6.dropdown-header {
     vertical-align: middle;
 }
 
+/* copy button --------------------------*/
 
 .hasCopyButton {
   position: relative;
