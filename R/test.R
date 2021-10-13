@@ -189,7 +189,7 @@ NULL
 #' warning(crayon::bold("This is bold"))
 NULL
 
-#' Test case: verbatim blocks
+#' Test case: preformatted blocks & syntax highlighting
 #'
 #' This description block is required so that verbatim blocks are recognized
 #' and rendered correctly.
@@ -210,6 +210,17 @@ NULL
 #'   that
 #' ```
 #'
+#' And this block should get syntax highlighting:
+#'
+#' ```yaml
+#' yaml:
+#'   this
+#'
+#' OR:
+#'
+#' yaml:
+#'   that
+#' ```
 #' @name test-verbatim
 #' @keywords internal
 #' @family tests

@@ -2,7 +2,7 @@
 % Please edit documentation in R/test.R
 \name{test-verbatim}
 \alias{test-verbatim}
-\title{Test case: verbatim blocks}
+\title{Test case: preformatted blocks & syntax highlighting}
 \description{
 This description block is required so that verbatim blocks are recognized
 and rendered correctly.
@@ -19,6 +19,15 @@ OR:
 yaml:
   that
 }
+
+And this block should get syntax highlighting:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml:
+  this
+
+OR:
+
+yaml:
+  that
+}\if{html}{\out{</div>}}
 }
 \seealso{
 Other tests: 

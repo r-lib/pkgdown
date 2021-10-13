@@ -367,15 +367,7 @@ test_that("nested item with whitespace parsed correctly", {
 
 # Verbatim ----------------------------------------------------------------
 
-# test_that("parseable preformatted blocks are highlighted", {
-#   out <- flatten_para(rd_text("\\preformatted{1}"))
-#   expect_equal(out, "<pre><span class='fl'>1</span></pre>\n")
-#
-#   out <- flatten_para(rd_text("\\preformatted{1 > 2}"))
-#   expect_equal(out, "<pre><span class='fl'>1</span> <span class='op'>&gt;</span> <span class='fl'>2</span></pre>\n")
-# })
-
-test_that("unparseable blocks aren't double escaped", {
+test_that("preformatted blocks aren't double escaped", {
   out <- flatten_para(rd_text("\\preformatted{\\%>\\%}"))
   expect_equal(out, "<pre><code>%&gt;%</code></pre>\n")
 })
@@ -388,11 +380,6 @@ test_that("newlines are preserved in preformatted blocks", {
 test_that("spaces are preserved in preformatted blocks", {
   out <- flatten_para(rd_text("\\preformatted{^\n\n  b\n\n  c}"))
   expect_equal(out, "<pre><code>^\n\n  b\n\n  c</code></pre>\n")
-})
-
-test_that("parseable blocks get R syntax highlighting", {
-  out <- flatten_para(rd_text("\\preformatted{foo}"))
-  expect_equal(out, "<pre class='sourceCode r'><code><span class='va'>foo</span></code></pre>\n")
 })
 
 # Usage -------------------------------------------------------------------

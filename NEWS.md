@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Code blocks in reference topics now get syntax highlighting according
+  to their declared language information (e.g. `yaml`), if the documentation 
+  was built with roxygen2 7.1.2 or later (#1690, #1692).
+
 * `build_articles()` and `build_home()` now warn if you have images that 
   won't rendered on the website because they're in unsupported directories 
   (#1810). Generally, it's only safe to refer to figures in `man/figures`
@@ -42,7 +46,6 @@
   allowing you to suppress warnings about topics that are not listed in the
   index (#1716).
 
->>>>>>> 2720abc02fbddbb761104d44d30ce7a3d0c26812
 * `build_reference()` will run `pkgdown/pre-reference.R` before and 
   `pkgdown/post-reference.R` after running examples. These allow you to
   do any setup or teardown operations you might need (#1602).
