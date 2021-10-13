@@ -21,15 +21,11 @@ bs_theme <- function(pkg = ".") {
   check_bootswatch_theme(bootswatch_theme, pkg$bs_version, pkg)
 
   bs_theme <- bslib::bs_theme(pkg$bs_version, bootswatch = bootswatch_theme)
-  bs_theme <- bslib::bs_add_variables(bs_theme,
-    `border-radius` = "1rem",
-    `btn-border-radius` = ".25rem"
-  )
   if (is.null(bootswatch_theme)) {
     # Add default colors if no Bootswatch
     bs_theme <- bslib::bs_add_variables(bs_theme,
-      `component-active-bg` = "$secondary",
-      `list-group-active-bg` = "$secondary",
+      `border-radius` = "1rem",
+      `btn-border-radius` = ".25rem",
       `navbar-light-bg` = "$gray-100",
       `navbar-light-color` = "$gray-900",
       `navbar-dark-bg` = "$gray-900",
