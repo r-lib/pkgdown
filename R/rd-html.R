@@ -99,12 +99,15 @@ as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
 
   h <- paste0("h", subsection_level)
 
+  title <- flatten_text(x[[1]], ...)
+  id <- make_slug(title)
+  text <- flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
+
   paste0(
-    "<", h, " class='hasAnchor' id='", make_slug(x[[1]]),"'>",
-    "<a class='anchor' aria-hidden='true' href='#", make_slug(x[[1]]), "'></a>",
-    flatten_text(x[[1]], ...),
-    "</", h, ">\n",
-    flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
+    "<div id='", id, "'>\n",
+    "<", h, ">", text, "</", h, ">\n",
+    text, "\n",
+    "</div>"
   )
 }
 

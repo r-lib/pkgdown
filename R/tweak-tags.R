@@ -1,45 +1,36 @@
-tweak_anchors <- function(html, only_contents = TRUE) {
-  if (only_contents) {
-    sections <- xml2::xml_find_all(html, ".//div[@class='contents']//div[@id]")
-  } else {
-    sections <- xml2::xml_find_all(html, "//div[@id]")
+tweak_anchors <- function(html) {
+  # Anchors are manually added in content-reference-index.html because the
+  # sections are organised within a table
+
+  divs <- xml2::xml_find_all(html, "//div[@id]")
+  if (length(divs) == 0) {
+    return(invisible())
   }
 
-  if (length(sections) == 0)
-    return(invisible())
+  # Update ids: dot in the anchor breaks scrollspy and rd translation
+  # doesn't have enough information to generate unique ids
+  id <- xml2::xml_attr(divs, "id")
+  new_id <- make.unique(gsub(".", "-", id, fixed = TRUE), "-")
+  purrr::walk2(divs, new_id, xml2::xml_set_attr, attr = "id")
 
-  # Update anchors: dot in the anchor breaks scrollspy
-  anchor <- sections %>%
-    xml2::xml_attr("id") %>%
-    gsub(".", "-", ., fixed = TRUE)
-  purrr::walk2(sections, anchor, ~ (xml2::xml_attr(.x, "id") <- .y))
-
-  # Update href of toc anchors , use "-" instead "."
-  toc_nav <- xml2::xml_find_all(html, ".//div[@id='tocnav']//a")
-  hrefs <- toc_nav %>%
-    xml2::xml_attr("href") %>%
-    gsub(".", "-", ., fixed = TRUE)
-  purrr::walk2(toc_nav, hrefs, ~ (xml2::xml_attr(.x, "href") <- .y))
-
-  headings <- xml2::xml_find_first(sections, ".//h1|h2|h3|h4|h5")
+  headings <- xml2::xml_find_first(divs, ".//h1|h2|h3|h4|h5")
   has_heading <- !is.na(xml2::xml_name(headings))
 
-  for (i in seq_along(headings)[has_heading]) {
-    # Insert anchor in first element of header
+  headings <- headings[has_heading]
+  new_id <- new_id[has_heading]
+
+  anchor <- paste0(
+    "<a class='anchor' aria-label='anchor' href='#", new_id, "'></a>"
+  )
+
+  for (i in seq_along(headings)) {
     heading <- headings[[i]]
     if (length(xml2::xml_contents(heading)) == 0) {
       # skip empty headings
       next
     }
-
-    xml2::xml_attr(heading, "class") <- "hasAnchor"
-    xml2::xml_add_sibling(
-      xml2::xml_contents(heading)[[1]],
-      "a", href = paste0("#", anchor[[i]]),
-      class = "anchor",
-      `aria-hidden` = "true",
-      .where = "before"
-    )
+    # Insert anchor in first element of header
+    xml2::xml_add_child(heading, xml2::read_xml(anchor[[i]]))
   }
   invisible()
 }

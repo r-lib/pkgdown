@@ -3,7 +3,7 @@
 tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   # Automatically link function mentions
   downlit::downlit_html_node(html)
-  tweak_anchors(html, only_contents = FALSE)
+  tweak_anchors(html)
   tweak_link_md(html)
   tweak_link_external(html, pkg = pkg)
 

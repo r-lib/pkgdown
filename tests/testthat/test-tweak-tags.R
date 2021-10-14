@@ -20,29 +20,54 @@ test_that("tables get additional table class", {
 
 test_that("anchor html added to headings", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
-  tweak_anchors(html, only_contents = FALSE)
-
+  tweak_anchors(html)
   expect_snapshot_output(xpath_xml(html, "//h1"))
+})
+
+test_that("deduplicates ids", {
+  html <- xml2::read_xml('<body>
+      <div id="x"><h1>abc</h1></div>
+      <div id="x"><h1>abc</h1></div>
+      <div id="x"><h1>abc</h1></div>
+    </body>
+  ')
+  tweak_anchors(html)
+  expect_equal(xpath_attr(html, "//div", "id"), c("x", "x-1", "x-2"))
+})
+
+test_that("can process multiple header levels", {
+  html <- xml2::read_xml('<div>
+      <div id="1"><h1>abc</h1></div>
+      <div id="2"><h2>abc</h2></div>
+      <div id="3"><h3>abc</h3></div>
+      <div id="4"><h4>abc</h4></div>
+    </div>
+  ')
+  tweak_anchors(html)
+  expect_equal(xpath_attr(html, "//a", "href"), c("#1", "#2", "#3", "#4"))
+})
+
+test_that("only modifies first header", {
+  html <- xml2::read_xml('<div id="x"><h1>one</h1><h1>two</h1></div>')
+  tweak_anchors(html)
+  expect_equal(xpath_length(html, "//h1/a"), 1)
 })
 
 test_that("anchors don't get additional newline", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
-  tweak_anchors(html, only_contents = FALSE)
-
-  expect_equal(xpath_attr(html, "//h1", "class"), "hasAnchor")
+  tweak_anchors(html)
   expect_equal(xpath_text(html, "//h1"), "abc")
 })
 
 test_that("empty headings are skipped", {
   html <- xml2::read_xml('<div id="x"><h1></h1></div>')
-  tweak_anchors(html, only_contents = FALSE)
-
-  expect_equal(xpath_attr(html, "//h1", "class"), NA_character_)
+  tweak_anchors(html)
+  expect_equal(xpath_length(html, "//h1/a"), 0)
 })
 
 test_that("docs with no headings are left unchanged", {
   html <- xml2::read_xml('<div>Nothing</div>')
-  tweak_anchors(html, only_contents = FALSE)
+  tweak_anchors(html)
   expect_equal(as.character(xpath_xml(html, "//div")), '<div>Nothing</div>')
 })
 

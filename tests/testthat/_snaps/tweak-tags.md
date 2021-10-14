@@ -1,4 +1,4 @@
 # anchor html added to headings
 
-    <h1 class="hasAnchor"><a href="#x" class="anchor" aria-hidden="true"/>abc</h1>
+    <h1>abc<a class="anchor" aria-label="anchor" href="#x"/></h1>
 
