@@ -81,37 +81,40 @@ $pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
 $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 
 /* Base TOC item */
-nav[data-toggle="toc"] .nav > li > a {
+#toc .nav > li > a {
   color: inherit;
-  padding-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 2px;
   margin-left: -0.5rem;
   @include border-radius($border-radius);
   border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 }
 
 /* Under hover */
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus {
+#toc .nav > li > a:hover,
+#toc .nav > li > a:focus {
   background-color: $pkgdown-toc-hover-bg;
   color: $pkgdown-toc-hover-color;
 }
 
 /* Current */
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus {
+#toc .nav-link.active,
+#toc .nav-link.active:hover,
+#toc .nav-link.active:focus {
   background-color: $pkgdown-toc-active-bg;
   color: $pkgdown-toc-active-color;
 }
 
-/* Nav: second level (shown on .active) */
-nav[data-toggle="toc"] .nav-link + ul {
-  display: none;
+/* Only show second level if active.
+  Requires !important because that's how BS4 sets display: flex
+*/
+#toc .nav > li > a + ul {
+  display: none !important;
 }
-nav[data-toggle="toc"] .nav-link.active + ul {
-  display: block;
+#toc .nav-link.active + ul {
+  display: flex !important;
 }
-nav[data-toggle="toc"] .nav .nav > li > a {
+#toc .nav .nav > li > a {
   margin-left: 0.5rem;
 }
 
