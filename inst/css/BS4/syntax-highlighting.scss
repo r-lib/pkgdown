@@ -4,12 +4,6 @@ pre, pre code {
   overflow-wrap: break-word;
 }
 
-pre {
-  padding: 9.5px;
-  border-radius: 4px;
-  border: 1px solid $table-border-color;
-}
-
 pre code {
   padding: 0;
 }
@@ -26,7 +20,7 @@ pre .img img, pre .r-plt img {
 
 code a:any-link {
   text-decoration: underline;
-  text-decoration-color: $table-border-color;
+  text-decoration-color: $gray-400;
 }
 
 pre code a:any-link {

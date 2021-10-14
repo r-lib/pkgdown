@@ -12,13 +12,12 @@ authors:
   Maëlle Salmon:
     href: https://masalmon.eu
 
-navbar:
-  type: light
-
 template:
   bootstrap: 4
   bslib:
     primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
 
   params:
     ganalytics: UA-115082821-1

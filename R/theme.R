@@ -34,21 +34,11 @@ bs_theme <- function(pkg = ".") {
   bootswatch_theme <- get_bootswatch_theme(pkg)
   check_bootswatch_theme(bootswatch_theme, pkg$bs_version, pkg)
 
-  bs_theme <- bslib::bs_theme(pkg$bs_version, bootswatch = bootswatch_theme)
-  if (is.null(bootswatch_theme)) {
-    # Add default colors if no Bootswatch
-    bs_theme <- bslib::bs_add_variables(bs_theme,
-      `border-radius` = "1rem",
-      `btn-border-radius` = ".25rem",
-      `navbar-light-bg` = "$gray-100",
-      `navbar-light-color` = "$gray-900",
-      `navbar-dark-bg` = "$gray-900",
-      `navbar-dark-color` = "$gray-100",
-      .where = "declarations"
-    )
-  }
-  bs_theme <- bslib::bs_add_variables(bs_theme, !!!pkg$meta$template$bslib)
-
+  bs_theme <- bslib::bs_theme(
+    version = pkg$bs_version,
+    bootswatch = bootswatch_theme,
+    !!!pkg$meta$template$bslib
+  )
   bs_theme <- bslib::bs_add_rules(bs_theme,
     list(
       sass::sass_file(path_pkgdown("css/BS4/pkgdown.scss")),

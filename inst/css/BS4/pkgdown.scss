@@ -85,6 +85,8 @@ $pkgdown-toc-border-width: 0 !default;
 $pkgdown-toc-border-color: $border-color !default;
 $pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
 $pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
+$pkgdown-toc-hover-bg: mix($primary, $body-bg, 10%) !default;
+$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 
 /* Base TOC item */
 nav[data-toggle="toc"] .nav > li > a {
@@ -97,7 +99,11 @@ nav[data-toggle="toc"] .nav > li > a {
 
 /* Under hover */
 nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  background-color: $pkgdown-toc-hover-bg;
+  color: $pkgdown-toc-hover-color;
+}
+
 /* Current */
 nav[data-toggle="toc"] .nav-link.active,
 nav[data-toggle="toc"] .nav-link.active:hover,
@@ -253,19 +259,19 @@ flex-direction: column;
 }
 
 .navbar-light .navbar-nav .active > .nav-link {
-  background: mix($body-bg, $body-color, 85%);
+  background: $gray-200;
   color:      $body-color;
 }
 .navbar-light .navbar-nav .nav-item > .nav-link:hover {
-  background: mix($body-color, $body-bg, 20%);
+  background: mix($primary, $gray-200, 10%)
 }
 
 .navbar-dark .navbar-nav .active > .nav-link {
-  background: mix($body-color, $body-bg, 85%);
+  background: $gray-800;
   color:      $body-bg;
 }
 .navbar-dark .navbar-nav .nav-item > .nav-link:hover {
-  background: mix($body-bg, $body-color, 20%);
+  background: mix($gray-800, $primary, 10%);
 }
 
 .navbar-nav .nav-link {

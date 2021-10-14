@@ -25,15 +25,11 @@ data_navbar <- function(pkg = ".", depth = 0L) {
       right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
     )
   } else {
-    if (is.null(get_bootswatch_theme(pkg))) {
-      navbar_bg <- ""
-    } else {
-      navbar_bg <- pkg$meta$template$bslib$`navbar-bg` %||% navbar$type %||% "light"
-    }
-
     list(
+      # background colour can be anything
+      bg = navbar$bg %||% "light",
+      # text colour must be light or dark to contrast with background colour
       type = navbar$type %||% "light",
-      bg = navbar_bg,
       left = render_navbar_links(left, depth = depth, pkg$bs_version),
       right = render_navbar_links(right, depth = depth, pkg$bs_version)
     )
