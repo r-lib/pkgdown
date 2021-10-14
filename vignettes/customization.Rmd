@@ -71,7 +71,7 @@ template:
 ```
 
 **NB**: Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
-You'll need to use custom CSS to add [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
+You'll need to set the `pkgdown-nav-height` bslib variable to the height of the navbar (by default it's `56px`).
 
 By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background.
 If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set `highlightcss` to false:

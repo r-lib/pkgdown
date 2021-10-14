@@ -59,21 +59,13 @@ footer .pkgdown-footer-right {
 
 /* Sidebar ------------------------------------------------------------------ */
 
-#pkgdown-sidebar {
-  margin-top: 30px;
-}
-
-/* navbar is 56px + 30px of margin-top */
-.sticky-top {
-  top: 86px;
-}
-
 #pkgdown-sidebar h2 {
   margin-top: 1em;
+  font-size: $font-size-lg;
 }
 
 #pkgdown-sidebar h2:first-child {
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 
 #pkgdown-sidebar .list-unstyled li {
@@ -169,20 +161,30 @@ table a.anchor {
   position: absolute;
 }
 
-/* Fixes for fixed navbar --------------------------*/
+/* headroom.js -------------------------------------------------------------- */
 
+/* tweak headroom.js to not disappear as aggressively at the top of the page */
+/* from quillt https://github.com/rstudio/quillt/blob/c2c826dfa21070e3a2a0308f569255d6be950134/inst/pkgdown/assets/rmd.css#L423 */
+.headroom {
+  will-change: transform;
+  transition: transform 400ms ease;
+}
+.headroom--pinned   { transform: translateY(0%); }
+.headroom--unpinned { transform: translateY(-100%); }
+
+$pkgdown-nav-height: 56px;
+
+html, body {
+  scroll-padding: $pkgdown-nav-height
+}
 .contents {
-  margin-top: 4em;
+  margin-top: $pkgdown-nav-height;
 }
-
-.contents h1 {
-  padding-top: 40px;
-  margin-top: -40px;
+#pkgdown-sidebar {
+  top: $pkgdown-nav-height;
 }
-
-.contents h2, .contents h3, .contents h4 {
-  padding-top: 40px;
-  padding-top: 0px;
+.sticky-top {
+  top: calc(#{$pkgdown-nav-height} + 1rem);
 }
 
 /* orcid --------------------------*/
@@ -212,35 +214,10 @@ table a.anchor {
   visibility: visible;
 }
 
-/* headroom.js ------------------------ */
-
-/* from quillt https://github.com/rstudio/quillt/blob/c2c826dfa21070e3a2a0308f569255d6be950134/inst/pkgdown/assets/rmd.css#L423
-/* tweak headroom.js to not disappear as aggressively at the top of the page */
-.headroom {
-  will-change: transform;
-  transition: transform 400ms ease;
-}
-
-.page-header {
-	padding-bottom: 10px;
-}
-
-.headroom--pinned {
-  transform: translateY(0%);
-}
-.headroom--unpinned {
-  transform: translateY(-100%);
-}
-
 
 /* vertical spacing after htmlwidgets */
 .html-widget {
   margin-bottom: 10px;
-}
-
-/* TOC heading */
-h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
-  font-size: x-large;
 }
 
 /* bootstrap-toc tweaks */
