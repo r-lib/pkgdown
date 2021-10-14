@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* pkgdown now uses scss for its internal css tweaks. This means that you
+  can now customise more parts of the site using only `_pkgdown.yml`, 
+  without having to supply custom css.
+
 * Code blocks in reference topics now get syntax highlighting according
   to their declared language information (e.g. `yaml`), if the documentation 
   was built with roxygen2 7.1.2 or later (#1690, #1692).
