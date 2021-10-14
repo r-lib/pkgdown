@@ -142,7 +142,7 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span></code></pre></div>
-<p><strong>NB</strong>: Some Bootswatch templates like lux or pulse won’t work out of the box because of their tall navbar. You’ll need to use custom CSS to add <a href="https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page" class="external-link">padding to the body</a>.</p>
+<p><strong>NB</strong>: Some Bootswatch templates like lux or pulse won’t work out of the box because of their tall navbar. You’ll need to set the <code>pkgdown-nav-height</code> bslib variable to the height of the navbar (by default it’s <code>56px</code>).</p>
 <p>By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background. If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set <code>highlightcss</code> to false:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
