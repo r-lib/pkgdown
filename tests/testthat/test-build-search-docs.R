@@ -21,6 +21,7 @@ test_that("build_search() builds the expected search`.json with an URL", {
   )
   pkg$bs_version <- 4
 
+  expect_output(init_site(pkg))
   expect_output(build_news(pkg))
   expect_output(build_home(pkg))
   expect_output(build_sitemap(pkg))
@@ -39,6 +40,8 @@ test_that("build_search() builds the expected search.json with no URL", {
     )
   )
   pkg$bs_version <- 4
+
+  expect_output(init_site(pkg))
   expect_output(build_news(pkg))
   expect_output(build_home(pkg))
   expect_output(build_sitemap(pkg))

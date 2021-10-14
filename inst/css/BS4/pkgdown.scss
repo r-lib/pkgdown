@@ -12,7 +12,6 @@
  * have height set to 100%
  *
  */
-
 html, body {
   height: 100%;
 }
@@ -31,11 +30,19 @@ body > .container .row {
   flex: 1 0 auto;
 }
 
+/* Footer ------------------------------------------------------------------- */
+
+$pkgdown-footer-color: $body-color !default;
+$pkgdown-footer-bg: $body-bg !default;
+$pkgdown-footer-border-color: $border-color !default;
+$pkgdown-footer-border-width: $border-width !default;
+
 footer {
-  margin-top: 45px;
-  padding: 35px 0 36px;
-  border-top: 1px solid #e5e5e5;
-  color: #666;
+  margin-top: 2rem;
+  padding: 2rem 0 2rem 0;
+  border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
+  background: $pkgdown-footer-bg;
+  color: $pkgdown-footer-color;
   display: flex;
   flex-shrink: 0;
 }
@@ -48,6 +55,75 @@ footer div {
 footer .pkgdown-footer-right {
   text-align: right;
 }
+
+
+/* Sidebar ------------------------------------------------------------------ */
+
+#pkgdown-sidebar {
+  margin-top: 30px;
+}
+
+/* navbar is 56px + 30px of margin-top */
+.sticky-top {
+  top: 86px;
+}
+
+#pkgdown-sidebar h2 {
+  margin-top: 1em;
+}
+
+#pkgdown-sidebar h2:first-child {
+  margin-top: 2.5rem;
+}
+
+#pkgdown-sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+}
+
+/* Table of contents */
+$pkgdown-toc-border-width: 0 !default;
+$pkgdown-toc-border-color: $border-color !default;
+$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
+$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
+$pkgdown-toc-hover-bg: mix($primary, $body-bg, 10%) !default;
+$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
+
+/* Base TOC item */
+nav[data-toggle="toc"] .nav > li > a {
+  color: inherit;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+  @include border-radius($border-radius);
+  border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
+}
+
+/* Under hover */
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  background-color: $pkgdown-toc-hover-bg;
+  color: $pkgdown-toc-hover-color;
+}
+
+/* Current */
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus {
+  background-color: $pkgdown-toc-active-bg;
+  color: $pkgdown-toc-active-color;
+}
+
+/* Nav: second level (shown on .active) */
+nav[data-toggle="toc"] .nav-link + ul {
+  display: none;
+}
+nav[data-toggle="toc"] .nav-link.active + ul {
+  display: block;
+}
+nav[data-toggle="toc"] .nav .nav > li > a {
+  margin-left: 0.5rem;
+}
+
+/* General typography ------------------------------------------------------- */
 
 img.icon {
   float: right;
@@ -78,12 +154,6 @@ a.anchor {
   background-position: center center;
 }
 
-
-/* Minimal hack to make anchors work inside tables */
-table a.anchor {
-  position: absolute;
-}
-
 .hasAnchor:hover a.anchor {
   visibility: visible;
 }
@@ -94,6 +164,10 @@ table a.anchor {
   }
 }
 
+/* Minimal hack to make anchors work inside tables */
+table a.anchor {
+  position: absolute;
+}
 
 /* Fixes for fixed navbar --------------------------*/
 
@@ -111,90 +185,7 @@ table a.anchor {
   padding-top: 0px;
 }
 
-/* Navbar submenu --------------------------*/
-.dropdown-menu {
-  padding: .5rem 0 .5rem 0;
-}
-
-h6.dropdown-header {
-  margin-top: 0;
-}
-
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-
-.dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
-}
-
-.dropdown-submenu.pull-left {
-  float: none;
-}
-
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-
-/* Sidebar --------------------------*/
-
-#pkgdown-sidebar {
-  margin-top: 30px;
-}
-
-/* navbar is 56px + 30px of margin-top */
-.sticky-top {
-  top: 86px;
-}
-
-#pkgdown-sidebar h2 {
-  font-size: 2em;
-  margin-top: 1em;
-}
-
-#pkgdown-sidebar h2:first-child {
-  margin-top: 2.5rem;
-}
-
-#pkgdown-sidebar .list-unstyled li {
-  margin-bottom: 0.5em;
-}
-
-/* don't display links in code chunks when printing */
-/* source: https://stackoverflow.com/a/10781533 */
-@media print {
-  code a:link:after, code a:visited:after {
-    content: "";
-  }
-}
+/* orcid --------------------------*/
 
 .orcid {
     font-size: 16px;
@@ -204,7 +195,7 @@ h6.dropdown-header {
     vertical-align: middle;
 }
 
-/* Clipboard --------------------------*/
+/* copy button --------------------------*/
 
 .hasCopyButton {
   position: relative;
@@ -212,8 +203,8 @@ h6.dropdown-header {
 
 .btn-copy-ex {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   visibility: hidden;
 }
 
@@ -241,20 +232,11 @@ h6.dropdown-header {
   transform: translateY(-100%);
 }
 
-/* mark.js ----------------------------*/
-
-mark {
-  background-color: rgba(255, 255, 51, 0.5);
-  border-bottom: 2px solid rgba(255, 153, 51, 0.3);
-  padding: 1px;
-}
 
 /* vertical spacing after htmlwidgets */
 .html-widget {
   margin-bottom: 10px;
 }
-
-
 
 /* TOC heading */
 h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
@@ -266,80 +248,92 @@ h2[data-toc-skip], #pkgdown-sidebar h2[data-toc-skip] {
 flex-direction: column;
 }
 
-
-/* Base TOC item */
-nav[data-toggle="toc"] .nav > li > a {
-  color: inherit;
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
-  border-radius: 1rem;
-  border: white solid;
-}
-
-/* Under hover */
-nav[data-toggle="toc"] .nav > li > a:hover,
-nav[data-toggle="toc"] .nav > li > a:focus,
-/* Current */
-nav[data-toggle="toc"] .nav-link.active,
-nav[data-toggle="toc"] .nav-link.active:hover,
-nav[data-toggle="toc"] .nav-link.active:focus
-{
-  background-color: #eee;
-}
-
-/* Nav: second level (shown on .active) */
-nav[data-toggle="toc"] .nav-link + ul {
-  display: none;
-}
-nav[data-toggle="toc"] .nav-link.active + ul {
-  display: block;
-}
-nav[data-toggle="toc"] .nav .nav > li > a {
-  margin-left: 0.5rem;
-}
-
 /* version badge  */
 #version-badge {
   border: none;
 }
 
-/* h1 */
-
-h1.display-4 {
-  font-size: 2.5rem;
+/* Navbar ------------------------------------------------------------------  */
+.navbar-nav .nav-item > .nav-link {
+  @include border-radius($border-radius);
 }
 
-/* Links color contrast */
-
-a {
-  color: #0054AD;
-}
-
-a:hover {
-  color: #0054AD;
-}
-
-
-/* navbar active link */
 .navbar-light .navbar-nav .active > .nav-link {
-   background: #e9ecef;
-   border-radius: 1rem;
- }
-.navbar-nav .nav-link {
- padding-left: 0.5rem;
- }
-
-@include media-breakpoint-up(md) {
-  .navbar-nav .nav-link {
- padding-left: 0rem;
- }
+  background: $gray-200;
+  color:      $body-color;
+}
+.navbar-light .navbar-nav .nav-item > .nav-link:hover {
+  background: mix($primary, $gray-200, 10%)
 }
 
+.navbar-dark .navbar-nav .active > .nav-link {
+  background: $gray-800;
+  color:      $body-bg;
+}
+.navbar-dark .navbar-nav .nav-item > .nav-link:hover {
+  background: mix($gray-800, $primary, 10%);
+}
+
+.navbar-nav .nav-link {
+  padding-left: 0.5rem;
+}
+
+/* Never uppercase the package name */
+.navbar-brand {
+  text-transform: none !important;
+}
+
+/* Navbar submenu: https://github.com/r-lib/pkgdown/pull/1214 */
+.dropdown-menu {
+  padding: .5rem 0 .5rem 0;
+}
+h6.dropdown-header {
+  margin-top: 0;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  @include border-radius(0 6px 6px 6px);
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: $dropdown-border-color;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: $dropdown-border-color;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  @include border-radius(6px 0 6px 6px);
+}
 
 /* Footnotes --------------------------------------------- */
 
+/* "Min" needed until libsass supports
+   https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .popover {
-  max-width: min(100vw, 32rem);
+  max-width: Min(100vw, 32rem);
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -395,17 +389,11 @@ div.pb-2.mt-4.mb-2.border-bottom {
   min-height: 129px;
 }
 
-/* tweak headroom.js to not disappear as aggressively at the top of the page */
-/* https://github.com/rstudio/quillt/blob/57ba0ce7aa850e42165a8993d4b493c44917b7a8/inst/pkgdown/assets/rmd.css#L452 */
-.headroom {
-  will-change: transform;
-  transition: transform 400ms ease;
-}
 
 /* blockquote ---------------------------------------------- */
 
 blockquote, .line-block {
-    border-left: .5rem solid #eee;
+    border-left: .5rem solid $table-border-color;
     padding-left: .5rem;
     margin-left: -.5rem;
 }
@@ -421,13 +409,15 @@ mark {
 }
 
 .algolia-autocomplete .aa-hint {
-  color: #999;
+  color: $gray-900;
 }
+
+
+/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
-  width: max(100%, 20rem);
-  background-color: #fff;
-  border: 1px solid var(--gray);
-  border-radius: 0.2rem;
+  width: Max(100%, 20rem);
+  background-color: $body-bg;
+  border: $border-width solid $table-border-color;
   margin-top: 2px;
 
   max-height: 50vh;
@@ -436,33 +426,25 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
   padding: 5px 4px;
-  border-bottom: 1px #ddd solid;
+  border-bottom: 1px $gray-200 solid;
   font-size: 0.9rem;
-  color: #5E5E5E;
+  color: $gray-900;
 
 }
 
 .search-details {
   font-size: 0.9rem;
-  color: #0054AD;
+  color: $primary;
   display: inline;
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: #B2D7FF;
+  background-color: mix($primary, $body-bg, 10%);
 }
 
 /* Compromise to avoid flash of invisible text + flash of unstyled text */
 body {
   font-display: fallback;
-}
-
-/* Navbar constrast */
-.navbar-light .navbar-nav .nav-link {
-  color: rgba(0,0,0,0.7);
-}
-.navbar-light .navbar-nav .nav-link:hover {
-  color: rgba(0,0,0,0.9);
 }
 
 /* Details margin */
@@ -473,6 +455,7 @@ summary {
 details p {
   margin-top: -.5rem;
 }
+
 
 /* tabsets */
 .nav-row {

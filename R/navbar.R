@@ -26,8 +26,10 @@ data_navbar <- function(pkg = ".", depth = 0L) {
     )
   } else {
     list(
-      type = navbar$type %||% "light",
+      # background colour can be anything
       bg = navbar$bg %||% "light",
+      # text colour must be light or dark to contrast with background colour
+      type = navbar$type %||% "light",
       left = render_navbar_links(left, depth = depth, pkg$bs_version),
       right = render_navbar_links(right, depth = depth, pkg$bs_version)
     )
