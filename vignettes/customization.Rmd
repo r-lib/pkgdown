@@ -35,7 +35,7 @@ Next, we'll discuss how to give multiple sites the same style by using a package
 
 Most theming features work only with Bootstrap 4, so begin by updating your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
 ```
@@ -64,19 +64,19 @@ If you were using the paper theme, note that it was renamed [materia](https://bl
 
 To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
   bootswatch: materia
 ```
 
 **NB**: Some Bootswatch templates like lux or pulse won't work out of the box because of their tall navbar.
-You'll need to use custom CSS to add [padding to the body](https://stackoverflow.com/questions/10336194/top-nav-bar-blocking-top-content-of-the-page).
+You'll need to set the `pkgdown-nav-height` bslib variable to the height of the navbar (by default it's `56px`).
 
 By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background.
 If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set `highlightcss` to false:
 
-``` {.yaml}
+``` yaml
 template:
   params:
     highlightcss: false
@@ -86,62 +86,51 @@ You will then have to provide your own CSS rules for syntax highlighting.
 
 ### bslib variables
 
-Rather than picking an entire theme, you can customise individual theme components using bslib variables:
+You can customise individual theme components using bslib variables:
 
-``` {.yaml}
+``` yaml
 template:
   bootstrap: 4
   bslib:
-    font_scale: 1.2
+    bg: "#202123"
+    fg: "#B8BCC2"
     base_font:
       google: "Prompt"
     heading_font:
       google: "Muli"
     code_font:
       google: "JetBrains Mono"
-    bg: "#202123"
-    fg: "#B8BCC2"
-    primary: "#EA80FC"
-    success: "#4F9B29"
-    info: "#28B3ED"
-    warning: "#FD7424"
-    danger: "#F7367E"
 ```
 
+There are three key variables for setting colour:
+
+-   `bg` (background) determines the page background.
+-   `fg` (foreground) determines the text colour.
+-   `primary` sets the link colour, and is mixed with the page background to yield the hover colour in the navbar and sidebar.
+
+`bg` and `fg` are mixed to yield `gray-100`, `gray-200`, ..., `grey-900`, which are used to style other elements to match the overall colour scheme.
+If you want to move away from these defaults, you'll need to set more specific bootstrap variables, taking advantage of inheritance where possible.
+For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
+If you want to change the colour of all border, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
 
-You can also combine both approaches, starting with a Bootswatch theme then changing the bits you don't like:
-
-``` {.yaml}
-template:
-  bootstrap: 4
-  bootswatch: materia
-  bslib:
-    bg: "#202123"
-    fg: "#B8BCC2"
-```
+While iterating on these variables you only need to rerun `init_site()` to re-generate the CSS files.
 
 ### Navbar colors
 
-You can also customize the color scheme of the navbar by using the [`type` and `bg` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
-For example, if your theme is dark, you probably want to use a dark navbar:
+The navbar colours are determined by HTML classes, not CSS.
+They can be customized the color scheme of the navbar by using the [`bg` and `type` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
+You can set the `bg` to any colour, and then pick either `type: light` or `type: dark` depending on whether the background is light (and hence needs dark text) or dark (and hence needs light text.)
 
-```yaml
+For example, if the primary colour is dark, you'll want to use a dark navbar:
+
+``` yaml
 navbar:
-  type: dark
-```
-
-Alternatively, you could use the bg parameter to make the navbar more visually prominent:
-
-```yaml
-navbar:
-  type: dark
   bg: primary
+  type: dark
 ```
 
-will produce a navbar with a background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable).
-
-To change the color of the navbar background depending on its type, you can also use the bslib variables `navbar-light-bg` and `navbar-dark-bg`.
+Because the navbar is styled with HTML, you'll need to `build_site()` to see the effect of changing this parameter.
 
 ### More CSS / JS / other assets
 
@@ -154,7 +143,7 @@ The contents will be automatically copied to the root of your website folder by 
 ## Layout {#layout}
 
 You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site.
-Furthermore, if you want to tweak _which_ authors of the package appear in the sidebar and footer, also refer to `?build_home`.
+Furthermore, if you want to tweak *which* authors of the package appear in the sidebar and footer, also refer to `?build_home`.
 
 ### Navbar
 
@@ -207,7 +196,7 @@ Once you have created your template package `theverybest`, you can use it by:
 
 -   Setting it as your sites theme:
 
-    ``` {.yaml}
+    ``` yaml
     template:
       package: theverybest
     ```
