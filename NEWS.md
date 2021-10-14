@@ -4,6 +4,9 @@
   can now customise more parts of the site using only `_pkgdown.yml`, 
   without having to supply custom css.
 
+* When copy and pasting code blocks, lines containing output (e.g. `#>`)
+  are automatically omitted (#1675).
+
 * Code blocks in reference topics now get syntax highlighting according
   to their declared language information (e.g. `yaml`), if the documentation 
   was built with roxygen2 7.1.2 or later (#1690, #1692).
