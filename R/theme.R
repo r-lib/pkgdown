@@ -34,7 +34,7 @@ bs_theme <- function(pkg = ".") {
   bootswatch_theme <- get_bootswatch_theme(pkg)
   check_bootswatch_theme(bootswatch_theme, pkg$bs_version, pkg)
 
-  bs_theme <- bslib::bs_theme(
+  bs_theme <- exec(bslib::bs_theme,
     version = pkg$bs_version,
     bootswatch = bootswatch_theme,
     !!!pkg$meta$template$bslib
