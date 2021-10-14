@@ -119,16 +119,19 @@ While iterating on these variables you only need to rerun `init_site()` to re-ge
 ### Navbar colors
 
 The navbar colours are determined by HTML classes, not CSS.
-They can be customized the color scheme of the navbar by using the [`bg` and `type` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
-You can set the `bg` to any colour, and then pick either `type: light` or `type: dark` depending on whether the background is light (and hence needs dark text) or dark (and hence needs light text.)
-
-For example, if the primary colour is dark, you'll want to use a dark navbar:
+They can be customized using the [`bg` and `type` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
+Typically `bg` will be one of `light`, `dark` or `primary`:
 
 ``` yaml
 navbar:
   bg: primary
-  type: dark
 ```
+
+If you use a bootswatch theme, pkgdown will a pick the `bg` used on the preview site.
+
+The type argument determines the colour of the text.
+Use `type: light` if the background is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
+pkgdown will guess if you don't supply this argument.
 
 Because the navbar is styled with HTML, you'll need to `build_site()` to see the effect of changing this parameter.
 

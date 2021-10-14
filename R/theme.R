@@ -52,11 +52,11 @@ bs_theme <- function(pkg = ".") {
 get_bootswatch_theme <- function(pkg) {
   pkg$meta[["template"]]$bootswatch %||%
     pkg$meta[["template"]]$params$bootswatch %||%
-    NULL
+    "_default"
 }
 
 check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (is.null(bootswatch_theme)) {
+  if (bootswatch_theme == "_default") {
     return(invisible())
   }
 

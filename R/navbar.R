@@ -18,6 +18,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
+
   if (pkg$bs_version == 3) {
     list(
       type = navbar$type %||% "default",
@@ -25,11 +26,13 @@ data_navbar <- function(pkg = ".", depth = 0L) {
       right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
     )
   } else {
+    bg <- navbar$bg %||% bootswatch_bg[[get_bootswatch_theme(pkg)]]
+    # bg is usually light, dark, or primary, but can use any .bg-*
+    type <- navbar$type %||% if (bg == "light") "light" else "dark"
+
     list(
-      # background colour can be anything
-      bg = navbar$bg %||% "light",
-      # text colour must be light or dark to contrast with background colour
-      type = navbar$type %||% "light",
+      bg = bg,
+      type = type,
       left = render_navbar_links(left, depth = depth, pkg$bs_version),
       right = render_navbar_links(right, depth = depth, pkg$bs_version)
     )
@@ -306,3 +309,33 @@ pkg_navbar_vignettes <- function(name = character(),
 
   tibble::tibble(name = name, title = title, file_out)
 }
+
+
+# bootswatch defaults -----------------------------------------------------
+
+# Scraped from bootswatch preivews, see code in
+# <https://github.com/r-lib/pkgdown/issues/1758>
+bootswatch_bg <- c(
+  "_default" = "light",
+  cerulean = "primary",
+  cosmo = "primary",
+  cyborg = "dark",
+  darkly = "primary",
+  flatly = "primary",
+  journal = "light",
+  litera = "light",
+  lumen = "light",
+  lux = "light",
+  materia = "primary",
+  minty = "primary",
+  pulse = "primary",
+  sandstone = "primary",
+  simplex = "light",
+  sketchy = "light",
+  slate = "primary",
+  solar = "dark",
+  spacelab = "light",
+  superhero = "dark",
+  united = "primary",
+  yeti = "primary"
+)
