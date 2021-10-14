@@ -247,11 +247,6 @@ flex-direction: column;
   border: none;
 }
 
-/* h1 */
-h1.display-4 {
-  font-size: $h1-font-size;
-}
-
 /* Navbar ------------------------------------------------------------------  */
 .navbar-nav .nav-item > .nav-link {
   @include border-radius($border-radius);
