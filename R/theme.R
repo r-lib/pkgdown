@@ -10,6 +10,20 @@ build_bslib <- function(pkg = ".") {
   write_lines(head, data_deps_path(pkg))
 }
 
+data_deps <- function(pkg, depth) {
+  if (!file.exists(data_deps_path(pkg))) {
+    abort("Run pkgdown::init_site() first.")
+  }
+
+  deps_path <- paste0(up_path(depth), "deps")
+
+  data_deps <- read_lines(data_deps_path(pkg))
+  data_deps <- gsub('src="deps', sprintf('src="%s', deps_path), data_deps)
+  data_deps <- gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
+
+  paste0(data_deps, collapse = "")
+}
+
 data_deps_path <- function(pkg) {
   file.path(pkg$dst_path, "deps", "data-deps.txt")
 }

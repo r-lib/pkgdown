@@ -396,26 +396,3 @@ footer_pkgdown <- function(data) {
     data$pkgdown$version, "."
   )
 }
-
-data_deps <- function(pkg, depth) {
-  if (!file.exists(data_deps_path(pkg))) {
-    abort("Run pkgdown::init_site() first.")
-  }
-  data_deps <- read_lines(data_deps_path(pkg))
-  if (depth == 0) {
-    return(data_deps)
-  }
-
-  deps_path <-  paste0(
-    paste0(rep("..", depth), collapse = "/"), # as many levels up as depth
-    "/deps"
-  )
-  paste0(
-    c(
-      gsub('src="deps', sprintf('src="%s', deps_path), data_deps),
-      gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
-    ),
-    collapse = ""
-  )
-
-}
