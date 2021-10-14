@@ -96,7 +96,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
     <div class="d-none name"><code>build_site.Rd</code></div>
     </div>
 
-    <div class="ref-description section level2">
+    <div id="ref-description" class="ref-description section level2">
     <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul><li><p><code><a href="init_site.html">init_site()</a></code></p></li>
 <li><p><code><a href="build_home.html">build_home()</a></code></p></li>
 <li><p><code><a href="build_reference.html">build_reference()</a></code></p></li>
@@ -125,8 +125,9 @@ that aspect of the site.</p>
 <span class="op">)</span></code></pre>
     </div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
-    <dl class="row" id="ref-arguments"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
+    <div id="ref-arguments">
+    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-examples">examples</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples?</p></dd>
@@ -164,9 +165,10 @@ in the current process affects the build process.</p></dd>
 so it is available for vignettes.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-document">document</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
-    </dl><div class="ref-section section level2" id="section-yaml-config">
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config" aria-hidden="true"></a>YAML config</h2>
+    </dl></div>
 
+    <div class="ref-section section level2" id="section-yaml-config">
+    <h2>YAML config<a class="anchor" aria-label="anchor" href="#section-yaml-config"></a></h2>
     
 
 <p>There are five top-level YAML settings that affect the entire site:
@@ -199,8 +201,7 @@ text:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">    html</span><span class="kw">: </span><span class="at">&lt;img src=</span><span class="st">"https://www.tidyverse.org/rstudio-logo.svg"</span><span class="at"> height=</span><span class="st">"24"</span><span class="at"> /</span><span class="ch">&gt;</span></span></code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-development-mode">
-    <h2 class="hasAnchor" id="development-mode"><a class="anchor" href="#development-mode" aria-hidden="true"></a>Development mode</h2>
-
+    <h2>Development mode<a class="anchor" aria-label="anchor" href="#section-development-mode"></a></h2>
     
 
 <p>The development mode of a site controls four main things:</p><ul><li><p>Where the site is built.</p></li>
@@ -238,8 +239,7 @@ to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-navbar">
-    <h2 class="hasAnchor" id="yaml-config-navbar"><a class="anchor" href="#yaml-config-navbar" aria-hidden="true"></a>YAML config - navbar</h2>
-
+    <h2>YAML config - navbar<a class="anchor" aria-label="anchor" href="#section-yaml-config-navbar"></a></h2>
     
 
 <p>By default, the top navbar will contain links to:</p><ul><li><p>"Get Started", if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
@@ -288,15 +288,13 @@ Unless you explicitly mention new components in the <code>structure</code> they'
 <p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-search">
-    <h2 class="hasAnchor" id="yaml-config-search"><a class="anchor" href="#yaml-config-search" aria-hidden="true"></a>YAML config - search</h2>
-
+    <h2>YAML config - search<a class="anchor" aria-label="anchor" href="#section-yaml-config-search"></a></h2>
     
 
 <p>See <code><a href="../articles/search.html">vignette("search")</a></code></p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-template">
-    <h2 class="hasAnchor" id="yaml-config-template"><a class="anchor" href="#yaml-config-template" aria-hidden="true"></a>YAML config - template</h2>
-
+    <h2>YAML config - template<a class="anchor" aria-label="anchor" href="#section-yaml-config-template"></a></h2>
     
 
 <p>You can get complete control over the appearance of the site using the
@@ -344,8 +342,7 @@ added to the <code>&lt;head&gt;</code> of the home page.</p><div class="sourceCo
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">trailing_slash_redirect</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-repo">
-    <h2 class="hasAnchor" id="yaml-config-repo"><a class="anchor" href="#yaml-config-repo" aria-hidden="true"></a>YAML config - repo</h2>
-
+    <h2>YAML config - repo<a class="anchor" aria-label="anchor" href="#section-yaml-config-repo"></a></h2>
     
 
 <p>pkgdown automatically generates links to the source repository in a few
@@ -380,8 +377,7 @@ specifying a branch name:</p><div class="sourceCode yaml"><pre><code><span id="c
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre><p></p></div>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-deploy">
-    <h2 class="hasAnchor" id="yaml-config-deploy"><a class="anchor" href="#yaml-config-deploy" aria-hidden="true"></a>YAML config - deploy</h2>
-
+    <h2>YAML config - deploy<a class="anchor" aria-label="anchor" href="#section-yaml-config-deploy"></a></h2>
     
 
 <p><code>deploy</code> currently offers a single parameter:</p><ul><li><p><code>install_metadata</code> allows you to install package index metadata into
@@ -392,8 +388,7 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
     <div class="ref-section section level2" id="section-yaml-config-footer">
-    <h2 class="hasAnchor" id="yaml-config-footer"><a class="anchor" href="#yaml-config-footer" aria-hidden="true"></a>YAML config - footer</h2>
-
+    <h2>YAML config - footer<a class="anchor" aria-label="anchor" href="#section-yaml-config-footer"></a></h2>
     
 
 <p>By default, the footer is automatically populated with:</p><ul><li><p>The names of the <a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>, on the left.</p></li>
@@ -409,8 +404,7 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-redirects">
-    <h2 class="hasAnchor" id="yaml-config-redirects"><a class="anchor" href="#yaml-config-redirects" aria-hidden="true"></a>YAML config - redirects</h2>
-
+    <h2>YAML config - redirects<a class="anchor" aria-label="anchor" href="#section-yaml-config-redirects"></a></h2>
     
 
 <p>If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
@@ -423,8 +417,7 @@ This works by creating a html page that performs a "meta refresh", which isn't t
 <p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
     </div>
     <div class="ref-section section level2" id="section-options">
-    <h2 class="hasAnchor" id="options"><a class="anchor" href="#options" aria-hidden="true"></a>Options</h2>
-
+    <h2>Options<a class="anchor" aria-label="anchor" href="#section-options"></a></h2>
     
 
 <p>Users with limited internet connectivity can disable CRAN checks by setting
@@ -437,18 +430,19 @@ or vignettes, this connection is required as this option won't apply on them.</p
 hanging in cron jobs.</p>
     </div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples" aria-hidden="true"></a>Examples</h2>
+    <div id="ref-examples">
+    <h2>Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">build_site</span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
-
     </nav></div>
   </div>
 </div>

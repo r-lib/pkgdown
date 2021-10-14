@@ -74,7 +74,7 @@ of the site, and copies CSS/JS assets and extra files."><meta property="og:image
     <div class="d-none name"><code>init_site.Rd</code></div>
     </div>
 
-    <div class="ref-description section level2">
+    <div id="ref-description" class="ref-description section level2">
     <p>This creates the output directory (<code>docs/</code>), a machine readable description
 of the site, and copies CSS/JS assets and extra files.</p>
     </div>
@@ -83,12 +83,14 @@ of the site, and copies CSS/JS assets and extra files.</p>
     <pre class="sourceCode r"><code><span class="fu">init_site</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
-    <dl class="row" id="ref-arguments"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
+    <div id="ref-arguments">
+    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    </dl><div class="ref-section section level2" id="section-build-ignored-files">
-    <h2 class="hasAnchor" id="build-ignored-files"><a class="anchor" href="#build-ignored-files" aria-hidden="true"></a>Build-ignored files</h2>
+    </dl></div>
 
+    <div class="ref-section section level2" id="section-build-ignored-files">
+    <h2>Build-ignored files<a class="anchor" aria-label="anchor" href="#section-build-ignored-files"></a></h2>
     
 
 <p>We recommend using <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown()</a></code> to build-ignore <code>docs/</code> and
@@ -98,8 +100,7 @@ an unexpected file during <code>R CMD CHECK</code> is an indication you have not
 correctly ignored these files.</p>
     </div>
     <div class="ref-section section level2" id="section-custom-css-js">
-    <h2 class="hasAnchor" id="custom-css-js"><a class="anchor" href="#custom-css-js" aria-hidden="true"></a>Custom CSS/JS</h2>
-
+    <h2>Custom CSS/JS<a class="anchor" aria-label="anchor" href="#section-custom-css-js"></a></h2>
     
 
 <p>If you want to do minor customisation of your pkgdown site, the easiest
@@ -108,16 +109,14 @@ will be automatically copied to <code>docs/</code> and inserted into the
 <code>&lt;HEAD&gt;</code> after the default pkgdown CSS and JS.</p>
     </div>
     <div class="ref-section section level2" id="section-favicon">
-    <h2 class="hasAnchor" id="favicon"><a class="anchor" href="#favicon" aria-hidden="true"></a>Favicon</h2>
-
+    <h2>Favicon<a class="anchor" aria-label="anchor" href="#section-favicon"></a></h2>
     
 
 <p>Favicons are built automatically from a logo PNG or SVG by <code>init_site()</code> and
 copied to <code>pkgdown/favicon</code>.</p>
     </div>
     <div class="ref-section section level2" id="section--">
-    <h2 class="hasAnchor" id="-"><a class="anchor" href="#-" aria-hidden="true"></a>404</h2>
-
+    <h2>404<a class="anchor" aria-label="anchor" href="#section--"></a></h2>
     
 
 <p>pkgdown creates a default 404 page (<code>404.html</code>). You can customize 404
@@ -128,7 +127,6 @@ page content using <code>.github/404.md</code>.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
-
     </nav></div>
   </div>
 </div>

@@ -102,7 +102,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
     <div class="d-none name"><code>build_articles.Rd</code></div>
     </div>
 
-    <div class="ref-description section level2">
+    <div id="ref-description" class="ref-description section level2">
     <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul><li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
@@ -132,8 +132,9 @@ you are primarily working on the text of an article.</p>
 <span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
-    <dl class="row" id="ref-arguments"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
+    <div id="ref-arguments">
+    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-quiet">quiet</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Set to <code>FALSE</code> to display output of knitr and
@@ -152,9 +153,10 @@ freshly generated section in browser.</p></dd>
 relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-data">data</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Additional data to pass on to template.</p></dd>
-    </dl><div class="ref-section section level2" id="section-index-and-navbar">
-    <h2 class="hasAnchor" id="index-and-navbar"><a class="anchor" href="#index-and-navbar" aria-hidden="true"></a>Index and navbar</h2>
+    </dl></div>
 
+    <div class="ref-section section level2" id="section-index-and-navbar">
+    <h2>Index and navbar<a class="anchor" aria-label="anchor" href="#section-index-and-navbar"></a></h2>
     
 
 <p>You can control the articles index and navbar with a <code>articles</code> section in
@@ -199,8 +201,7 @@ the navbar, it will link directly to the articles index instead of
 providing a drop-down.</p>
     </div>
     <div class="ref-section section level2" id="section-get-started">
-    <h2 class="hasAnchor" id="get-started"><a class="anchor" href="#get-started" aria-hidden="true"></a>Get started</h2>
-
+    <h2>Get started<a class="anchor" aria-label="anchor" href="#section-get-started"></a></h2>
     
 
 <p>Note that a vignette with the same name as the package (e.g.,
@@ -211,8 +212,7 @@ drop-down.</p>
 vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
     </div>
     <div class="ref-section section level2" id="section-external-files">
-    <h2 class="hasAnchor" id="external-files"><a class="anchor" href="#external-files" aria-hidden="true"></a>External files</h2>
-
+    <h2>External files<a class="anchor" aria-label="anchor" href="#section-external-files"></a></h2>
     
 
 <p>pkgdown differs from base R in its handling of external files. When building
@@ -231,8 +231,7 @@ will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:
 generated figures as its default value is a strong assumption of rmarkdown.</p>
     </div>
     <div class="ref-section section level2" id="section-embedding-shiny-apps">
-    <h2 class="hasAnchor" id="embedding-shiny-apps"><a class="anchor" href="#embedding-shiny-apps" aria-hidden="true"></a>Embedding Shiny apps</h2>
-
+    <h2>Embedding Shiny apps<a class="anchor" aria-label="anchor" href="#section-embedding-shiny-apps"></a></h2>
     
 
 <p>If you would like to embed a Shiny app into an article, the app will have
@@ -243,8 +242,7 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 some hints on how to customise the appearance with CSS.</p>
     </div>
     <div class="ref-section section level2" id="section-output-formats">
-    <h2 class="hasAnchor" id="output-formats"><a class="anchor" href="#output-formats" aria-hidden="true"></a>Output formats</h2>
-
+    <h2>Output formats<a class="anchor" aria-label="anchor" href="#section-output-formats"></a></h2>
     
 
 <p>By default, pkgdown builds all articles using the
@@ -268,8 +266,7 @@ you'll still need to add <code>as_is: true</code> to each individual vignette.</
 <p>Additionally, htmlwidgets do not work when <code>as_is: true</code>.</p>
     </div>
     <div class="ref-section section level2" id="section-suppressing-vignettes">
-    <h2 class="hasAnchor" id="suppressing-vignettes"><a class="anchor" href="#suppressing-vignettes" aria-hidden="true"></a>Suppressing vignettes</h2>
-
+    <h2>Suppressing vignettes<a class="anchor" aria-label="anchor" href="#section-suppressing-vignettes"></a></h2>
     
 
 <p>If you want articles that are not vignettes, either put them in
@@ -279,8 +276,7 @@ present: if you do not want this, you will need to customise the navbar. See
 <code><a href="build_site.html">build_site()</a></code> details.</p>
     </div>
     <div class="ref-section section level2" id="section-figures">
-    <h2 class="hasAnchor" id="figures"><a class="anchor" href="#figures" aria-hidden="true"></a>Figures</h2>
-
+    <h2>Figures<a class="anchor" aria-label="anchor" href="#section-figures"></a></h2>
     
 
 
@@ -306,7 +302,6 @@ as HTML widgets.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
-
     </nav></div>
   </div>
 </div>

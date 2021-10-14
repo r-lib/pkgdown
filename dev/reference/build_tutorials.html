@@ -82,7 +82,7 @@ list in _pkgdown.yml as described below."><meta property="og:image" content="htt
     <div class="d-none name"><code>build_tutorials.Rd</code></div>
     </div>
 
-    <div class="ref-description section level2">
+    <div id="ref-description" class="ref-description section level2">
     <p>learnr tutorials must be hosted elsewhere as they require an
 R execution engine. Currently, pkgdown will not build or publish tutorials
 for you, but makes it easy to embed (using <code>&lt;iframe&gt;</code>s) published tutorials.
@@ -95,8 +95,9 @@ list in <code>_pkgdown.yml</code> as described below.</p>
     <pre class="sourceCode r"><code><span class="fu">build_tutorials</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre>
     </div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments" aria-hidden="true"></a>Arguments</h2>
-    <dl class="row" id="ref-arguments"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
+    <div id="ref-arguments">
+    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
@@ -104,9 +105,10 @@ values in <code>_pkgdown.yml</code></p></dd>
     <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
       <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-    </dl><div class="ref-section section level2" id="section-yaml-config">
-    <h2 class="hasAnchor" id="yaml-config"><a class="anchor" href="#yaml-config" aria-hidden="true"></a>YAML config</h2>
+    </dl></div>
 
+    <div class="ref-section section level2" id="section-yaml-config">
+    <h2>YAML config<a class="anchor" aria-label="anchor" href="#section-yaml-config"></a></h2>
     
 
 <p>To override the default discovery process, you can provide a <code>tutorials</code>
@@ -127,7 +129,6 @@ section. This should be a list where each element specifies:</p><ul><li><p><code
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="sticky-top">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
-
     </nav></div>
   </div>
 </div>

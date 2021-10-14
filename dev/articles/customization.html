@@ -117,16 +117,16 @@
 </ul>
 <p>This vignette begins with a discussion of the most common theming and layout options made available through <code>_pkgdown.yml</code>. We’ll then discuss how to customise the underlying HTML template files, this is less commonly needed but gives you full control over the appearance of the website. Next, we’ll discuss how to give multiple sites the same style by using a package, and we’ll finish up with some workflow advice.</p>
 <div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor" aria-hidden="true"></a>Getting started</h2>
+<h2>Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
 <p>Most theming features work only with Bootstrap 4, so begin by updating your site to use Bootstrap 4 by adding the following lines to your <code>_pkgdown.yml</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span></code></pre></div>
 <p>Overall, the site should look pretty similar, but you should notice a number of small improvements; most importantly the default font is much bigger, making it considerably easier to read. Upgrading to Bootstrap 4 has a low chance of breaking your site, but if you were managing your <a href="#layout">own pkgdown templates</a> or using custom CSS, you might need to tweak a few files.</p>
 </div>
 <div id="theming" class="section level2">
-<h2 class="hasAnchor">
-<a href="#theming" class="anchor" aria-hidden="true"></a>Theming</h2>
+<h2>Theming<a class="anchor" aria-label="anchor" href="#theming"></a>
+</h2>
 <p>There are three main ways to change the visual style of your site:</p>
 <ul>
 <li><p>With a pre-packaged bootswatch theme.</p></li>
@@ -135,8 +135,8 @@
 </ul>
 <p>They can be combined depending on your needs.</p>
 <div id="choosing-a-bootswatch-theme" class="section level3">
-<h3 class="hasAnchor">
-<a href="#choosing-a-bootswatch-theme" class="anchor" aria-hidden="true"></a>Choosing a Bootswatch theme</h3>
+<h3>Choosing a Bootswatch theme<a class="anchor" aria-label="anchor" href="#choosing-a-bootswatch-theme"></a>
+</h3>
 <p>The easiest way to change the appearance of your website, or to start changing it, is to pick a complete Bootswatch theme. You can choose any <a href="https://bootswatch.com/" class="external-link">Bootswatch theme</a> that’s compatible with the Bootstrap version you use. Run either <code>bslib::bootswatch_themes(3)</code> or <code>bslib::bootswatch_themes(4)</code> to get a list. If you were using the paper theme, note that it was renamed <a href="https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400" class="external-link">materia</a> in Bootstrap version 4.</p>
 <p>To choose a Bootswatch theme here’s what to write in your <code>pkgdown</code> configuration.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
@@ -150,8 +150,8 @@
 <p>You will then have to provide your own CSS rules for syntax highlighting.</p>
 </div>
 <div id="bslib-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bslib-variables" class="anchor" aria-hidden="true"></a>bslib variables</h3>
+<h3>bslib variables<a class="anchor" aria-label="anchor" href="#bslib-variables"></a>
+</h3>
 <p>You can customise individual theme components using bslib variables:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
@@ -177,8 +177,8 @@
 <p>While iterating on these variables you only need to rerun <code><a href="../reference/init_site.html">init_site()</a></code> to re-generate the CSS files.</p>
 </div>
 <div id="navbar-colors" class="section level3">
-<h3 class="hasAnchor">
-<a href="#navbar-colors" class="anchor" aria-hidden="true"></a>Navbar colors</h3>
+<h3>Navbar colors<a class="anchor" aria-label="anchor" href="#navbar-colors"></a>
+</h3>
 <p>The navbar colours are determined by HTML classes, not CSS. They can be customized the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes" class="external-link"><code>bg</code> and <code>type</code> parameters</a>. You can set the <code>bg</code> to any colour, and then pick either <code>type: light</code> or <code>type: dark</code> depending on whether the background is light (and hence needs dark text) or dark (and hence needs light text.)</p>
 <p>For example, if the primary colour is dark, you’ll want to use a dark navbar:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
@@ -187,19 +187,19 @@
 <p>Because the navbar is styled with HTML, you’ll need to <code><a href="../reference/build_site.html">build_site()</a></code> to see the effect of changing this parameter.</p>
 </div>
 <div id="more-css-js-other-assets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#more-css-js-other-assets" class="anchor" aria-hidden="true"></a>More CSS / JS / other assets</h3>
+<h3>More CSS / JS / other assets<a class="anchor" aria-label="anchor" href="#more-css-js-other-assets"></a>
+</h3>
 <p>If you know CSS or JS, you can customise your site by including <code>pkgdown/extra.css</code> or <code>pkgdown/extra.js</code>. These will be automatically copied the home directory of your website and inserted into the <code>&lt;head&gt;</code> (after the pkgdown defaults).</p>
 <p>You can add arbitrary additional files by putting them in <code>pkgdown/assets/BS4</code>. The contents will be automatically copied to the root of your website folder by pkgdown by <code><a href="../reference/init_site.html">init_site()</a></code>.</p>
 </div>
 </div>
 <div id="layout" class="section level2">
-<h2 class="hasAnchor">
-<a href="#layout" class="anchor" aria-hidden="true"></a>Layout</h2>
+<h2>Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
+</h2>
 <p>You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site. Furthermore, if you want to tweak <em>which</em> authors of the package appear in the sidebar and footer, also refer to <code><a href="../reference/build_home.html">?build_home</a></code>.</p>
-<div id="navbar" class="section level3">
-<h3 class="hasAnchor">
-<a href="#navbar" class="anchor" aria-hidden="true"></a>Navbar</h3>
+<div id="navbar-1" class="section level3">
+<h3>Navbar<a class="anchor" aria-label="anchor" href="#navbar-1"></a>
+</h3>
 <p>By default, the top navbar will contain links to:</p>
 <ul>
 <li>“Get Started”, if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</li>
@@ -244,8 +244,8 @@
 <p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
 </div>
 <div id="footer" class="section level3">
-<h3 class="hasAnchor">
-<a href="#footer" class="anchor" aria-hidden="true"></a>Footer</h3>
+<h3>Footer<a class="anchor" aria-label="anchor" href="#footer"></a>
+</h3>
 <p>By default, the footer is automatically populated with:</p>
 <ul>
 <li>The names of the <a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>, on the left.</li>
@@ -262,8 +262,8 @@
 <p>Like the navbar and side, you can control both the structure and the components. Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
 </div>
 <div id="sidebar" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sidebar" class="anchor" aria-hidden="true"></a>Sidebar</h3>
+<h3>Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
+</h3>
 <p>By default, the sidebar is automatically populated with the following elements (in order): <code>links</code>, <code>license</code>, <code>community</code>, <code>citation</code>, <code>authors</code>, <code>dev</code>. We shall first explain their creation, then how to tweak them.</p>
 <ul>
 <li>
@@ -310,8 +310,8 @@
 </div>
 </div>
 <div id="templates" class="section level2">
-<h2 class="hasAnchor">
-<a href="#templates" class="anchor" aria-hidden="true"></a>Templates</h2>
+<h2>Templates<a class="anchor" aria-label="anchor" href="#templates"></a>
+</h2>
 <p>Other layout changes require tinkering with pkgdown <strong>templates</strong> (in <code>inst/templates</code> in <a href="https://github.com/r-lib/pkgdown" class="external-link">pkgdown source</a>). Three pkgdown templates are empty by default, so you can fill them with your own content:</p>
 <ul>
 <li>
@@ -331,8 +331,8 @@
 <p>It is possible to customise other templates but this is recommended for advanced users only because you’ll need to keep it up to date as pkgdown itself changes. If you’ve used <code>head.html</code> in the past, we now recommend switching to using <code>in-header.html</code> instead. A limitation to tweaking templates is that your templates can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of <code><a href="../reference/render_page.html">render_page()</a></code>.</p>
 </div>
 <div id="sharing-pkgdown-styles-template-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sharing-pkgdown-styles-template-packages" class="anchor" aria-hidden="true"></a>Sharing pkgdown styles: template packages</h2>
+<h2>Sharing pkgdown styles: template packages<a class="anchor" aria-label="anchor" href="#sharing-pkgdown-styles-template-packages"></a>
+</h2>
 <p>To share a pkgdown style across several packages, the best workflow is to create… a package! It can contain any of the following:</p>
 <ul>
 <li>A configuration file in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority: they will be overridden by a local <code>_pkgdown.yml</code> which is in turn overridden by <code>override</code> parameter of <code><a href="../reference/build_site.html">build_site()</a></code>.</li>
@@ -363,8 +363,8 @@
 </ul>
 <p>But please note that these templates aren’t suitable for use with your own package as they’re all designed to give a common visual identity to a specific family of packages.</p>
 <div id="workflow-tips" class="section level3">
-<h3 class="hasAnchor">
-<a href="#workflow-tips" class="anchor" aria-hidden="true"></a>Workflow tips</h3>
+<h3>Workflow tips<a class="anchor" aria-label="anchor" href="#workflow-tips"></a>
+</h3>
 <p>When crafting a new style you will need to re-build your website quite often. How to have a faster workflow?</p>
 <ul>
 <li>Use a simpler package for previewing your style. This might be over the top for a single package but if you are working on a template package, the template package can contain minimal vignettes, reference pages for testing.</li>
@@ -373,8 +373,8 @@
 </ul>
 </div>
 <div id="previews-on-pull-requests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#previews-on-pull-requests" class="anchor" aria-hidden="true"></a>Previews on pull requests</h3>
+<h3>Previews on pull requests<a class="anchor" aria-label="anchor" href="#previews-on-pull-requests"></a>
+</h3>
 <p>Furthermore, it might be useful for you to get a preview of the website in internal pull requests. For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):</p>
 <ul>
 <li>create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as <code>NETLIFY_SITE_ID</code> in your repo secrets; from your account developer settings get a token to be saved as <code>NETLIFY_TOKEN</code> in your repo secrets.</li>
@@ -383,8 +383,8 @@
 </div>
 </div>
 <div id="conclusion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#conclusion" class="anchor" aria-hidden="true"></a>Conclusion</h2>
+<h2>Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
 <p>In this vignette we explained how to change the theming and layout of pkgdown websites. Further work to improve user experience is:</p>
 <ul>
 <li>Working on the article (<code><a href="../reference/build_articles.html">?build_articles</a></code>) and reference indexes (<code><a href="../reference/build_reference.html">?build_reference</a></code>).</li>
