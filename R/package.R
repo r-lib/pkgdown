@@ -100,7 +100,7 @@ check_bootstrap_version <- function(version, pkg = list()) {
     5
   } else {
     abort(c(
-      "Boostrap version must be 3, 4, or 5.",
+      "Boostrap version must be 3 or 5.",
       x = sprintf(
         "You specified a value of %s in %s.",
         version,
