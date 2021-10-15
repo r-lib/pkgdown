@@ -59,7 +59,7 @@
     <div class="table-of-contents">
     <h2 data-toc-skip>Table of contents</h2>
     <ul class="list-unstyled">
-    <li><nav id="toc" class="sticky-top"></nav></li>
+    <li><nav id="toc"></nav></li>
     </ul>
     </div>
 
