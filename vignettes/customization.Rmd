@@ -127,7 +127,7 @@ navbar:
   bg: primary
 ```
 
-If you use a bootswatch theme, pkgdown will a pick the `bg` used on the preview site.
+If you use a bootswatch theme, pkgdown will pick the `bg` used on the [preview site](https://bootswatch.com/).
 
 The type argument determines the colour of the text.
 Use `type: light` if the background is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
