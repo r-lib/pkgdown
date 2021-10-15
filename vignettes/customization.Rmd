@@ -33,15 +33,15 @@ Next, we'll discuss how to give multiple sites the same style by using a package
 
 ## Getting started
 
-Most theming features work only with Bootstrap 4, so begin by updating your site to use Bootstrap 4 by adding the following lines to your `_pkgdown.yml`:
+Most theming features work only with Bootstrap 5, so begin by updating your site to use Bootstrap 5 by adding the following lines to your `_pkgdown.yml`:
 
 ``` yaml
 template:
-  bootstrap: 4
+  bootstrap: 5
 ```
 
 Overall, the site should look pretty similar, but you should notice a number of small improvements; most importantly the default font is much bigger, making it considerably easier to read.
-Upgrading to Bootstrap 4 has a low chance of breaking your site, but if you were managing your [own pkgdown templates](#layout) or using custom CSS, you might need to tweak a few files.
+Upgrading to Bootstrap 5 has a low chance of breaking your site, but if you were managing your [own pkgdown templates](#layout) or using custom CSS, you might need to tweak a few files.
 
 ## Theming
 
@@ -59,14 +59,14 @@ They can be combined depending on your needs.
 
 The easiest way to change the appearance of your website, or to start changing it, is to pick a complete Bootswatch theme.
 You can choose any [Bootswatch theme](https://bootswatch.com/) that's compatible with the Bootstrap version you use.
-Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(4)` to get a list.
+Run either `bslib::bootswatch_themes(3)` or `bslib::bootswatch_themes(5)` to get a list.
 If you were using the paper theme, note that it was renamed [materia](https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400) in Bootstrap version 4.
 
 To choose a Bootswatch theme here's what to write in your `pkgdown` configuration.
 
 ``` yaml
 template:
-  bootstrap: 4
+  bootstrap: 5
   bootswatch: materia
 ```
 
@@ -90,7 +90,7 @@ You can customise individual theme components using bslib variables:
 
 ``` yaml
 template:
-  bootstrap: 4
+  bootstrap: 5
   bslib:
     bg: "#202123"
     fg: "#B8BCC2"
@@ -112,14 +112,14 @@ There are three key variables for setting colour:
 If you want to move away from these defaults, you'll need to set more specific bootstrap variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
 If you want to change the colour of all border, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
-You can find a full list of variables in `vignette("bs4-variables", package = "bslib")`.
+You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
 
 While iterating on these variables you only need to rerun `init_site()` to re-generate the CSS files.
 
 ### Navbar colors
 
 The navbar colours are determined by HTML classes, not CSS.
-They can be customized using the [`bg` and `type` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
+They can be customized using the [`bg` and `type` parameters](https://getbootstrap.com/docs/5.0/components/navbar/#color-schemes).
 Typically `bg` will be one of `light`, `dark` or `primary`:
 
 ``` yaml
@@ -140,7 +140,7 @@ Because the navbar is styled with HTML, you'll need to `build_site()` to see the
 If you know CSS or JS, you can customise your site by including `pkgdown/extra.css` or `pkgdown/extra.js`.
 These will be automatically copied the home directory of your website and inserted into the `<head>` (after the pkgdown defaults).
 
-You can add arbitrary additional files by putting them in `pkgdown/assets/BS4`.
+You can add arbitrary additional files by putting them in `pkgdown/assets/BS5`.
 The contents will be automatically copied to the root of your website folder by pkgdown by `init_site()`.
 
 ## Layout {#layout}

@@ -2,11 +2,6 @@
 
     Can't find Bootswatch theme 'paper' (template.bootswatch) for Bootstrap version '4' (template.bootstrap).
 
-# get_bs_version gives an informative error message
-
-    Boostrap version must be 3 or 4.
-    x You specified a value of 5 in template.bootstrap in '_pkgdown.yml'.
-
 # pkgdown_footer() works by default
 
     Code

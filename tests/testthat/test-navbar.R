@@ -86,17 +86,17 @@ test_that("data_navbar()can remove elements", {
 })
 
 test_that("for bs4, default bg and type come from bootswatch", {
-  style <- navbar_style(bs_version = 4)
+  style <- navbar_style(bs_version = 5)
   expect_equal(style, list(bg = "light", type = "light"))
 
-  style <- navbar_style(theme = "cyborg", bs_version = 4)
+  style <- navbar_style(theme = "cyborg", bs_version = 5)
   expect_equal(style, list(bg = "dark", type = "dark"))
 
   # but can override
-  style <- navbar_style(list(bg = "primary"), bs_version = 4)
+  style <- navbar_style(list(bg = "primary"), bs_version = 5)
   expect_equal(style, list(bg = "primary", type = "dark"))
 
-  style <- navbar_style(list(bg = "primary", type = "light"), bs_version = 4)
+  style <- navbar_style(list(bg = "primary", type = "light"), bs_version = 5)
   expect_equal(style, list(bg = "primary", type = "light"))
 })
 

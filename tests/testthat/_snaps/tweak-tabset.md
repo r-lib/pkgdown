@@ -5,8 +5,8 @@
     
     
     <ul class="nav nav-pills nav-row" id="tabset" role="tablist">
-    <li role="presentation" class="nav-item"><a data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
-    <li role="presentation" class="nav-item"><a data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
+    <li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
+    <li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
     </ul>
     <div class="tab-content">
     <div id="tab-1" class="active tab-pane" role="tabpanel"  aria-labelledby="tab-1">

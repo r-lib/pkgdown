@@ -217,7 +217,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           class = menu_class,
           htmltools::tags$a(
             href = "#", class = "nav-link dropdown-toggle",
-            `data-toggle` = "dropdown", role = "button",
+            `data-bs-toggle` = "dropdown", role = "button",
             `aria-expanded` = "false", `aria-haspopup` = "true",
             link_text,
             id = paste0("dropdown-", make_slug(link_text)),
@@ -339,7 +339,9 @@ bootswatch_bg <- c(
   lux = "light",
   materia = "primary",
   minty = "primary",
+  morph = "primary",
   pulse = "primary",
+  quartz = "primary",
   sandstone = "primary",
   simplex = "light",
   sketchy = "light",
@@ -348,5 +350,7 @@ bootswatch_bg <- c(
   spacelab = "light",
   superhero = "dark",
   united = "primary",
-  yeti = "primary"
+  vapor = "primary",
+  yeti = "primary",
+  zephyr = "primary"
 )
