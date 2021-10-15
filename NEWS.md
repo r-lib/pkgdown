@@ -76,7 +76,7 @@
 
 * `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
 
-* pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
+* pkgdown, for Bootstrap 5, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
 
 * New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
 
@@ -131,7 +131,7 @@
 
 * Autolinking no longer failures if a package contains duplicated Rd aliases.
 
-* pkgdown websites using BS4 will be more accessible, besides a better color contrast:
+* pkgdown websites using BS5 will be more accessible, besides a better color contrast:
 
     * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
 
@@ -160,7 +160,7 @@
   They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
   `override` parameter of `build_site()`. (#1499)
 
-* pkgdown now contains templates and assets that use Bootstrap 4 and sass (with help from @jayhesselberth & @apreshill & @cpsievert).
+* pkgdown now contains templates and assets that use Bootstrap 5 and sass (with help from @jayhesselberth & @apreshill & @cpsievert).
 
    * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
 
