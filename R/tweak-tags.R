@@ -153,8 +153,8 @@ tweak_footnotes <- function(html) {
     xml2::xml_attr(links, "href") <- NULL
     xml2::xml_attr(links, "id") <- NULL
     xml2::xml_attr(links, "tabindex") <- "0"
-    xml2::xml_attr(links, "data-toggle") <- "popover"
-    xml2::xml_attr(links, "data-content") <- contents[[i]]
+    xml2::xml_attr(links, "data-bs-toggle") <- "popover"
+    xml2::xml_attr(links, "data-bs-content") <- contents[[i]]
   }
   # Delete container
   xml2::xml_remove(container)
