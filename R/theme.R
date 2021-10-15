@@ -45,6 +45,7 @@ bs_theme <- function(pkg = ".") {
       sass::sass_file(path_pkgdown("css/BS5/syntax-highlighting.scss"))
     )
   )
+  bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
   bs_theme
 }
