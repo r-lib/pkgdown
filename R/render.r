@@ -206,13 +206,13 @@ get_bs_version <- function(pkg = ".") {
   if (is.null(template$bootstrap)) {
     return(3)
   }
-  if (template$bootstrap %in% c(3, 4)) {
+  if (template$bootstrap %in% 3:5) {
     return(template$bootstrap)
   }
 
   abort(
     message = c(
-      "Boostrap version must be 3 or 4.",
+      "Boostrap version must be 3, 4, or 5.",
       x = sprintf(
         "You specified a value of %s in %s.",
         template$bootstrap,
@@ -259,21 +259,23 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
-find_template <- function(type, name, ext = ".html", template_path = NULL,
-                          bs_version) {
-  paths <- c(
-    template_path,
-    path_pkgdown("templates", paste0("BS", bs_version))
-  )
-  names <- c(
-    paste0(type, "-", name, ext),
-    paste0(type, ext)
-  )
+find_template <- function(type,
+                          name,
+                          ext = ".html",
+                          template_path = NULL,
+                          bs_version = 3) {
+
+  bs_dir <- if (bs_version == 3) "BS3" else "BS4"
+  paths <- c(template_path, path_pkgdown("templates", bs_dir))
+  names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(path = paths, name = names)
   locations <- path(all$path, all$name)
 
-  Find(file_exists, locations, nomatch =
-       stop("Can't find template for ", type, "-", name, ".", call. = FALSE))
+  Find(
+    file_exists,
+    locations,
+    nomatch = abort(paste0("Can't find template for ", type, "-", name, "."))
+  )
 }
 
 
