@@ -179,11 +179,11 @@
 <div id="navbar-colors" class="section level3">
 <h3>Navbar colors<a class="anchor" aria-label="anchor" href="#navbar-colors"></a>
 </h3>
-<p>The navbar colours are determined by HTML classes, not CSS. They can be customized the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes" class="external-link"><code>bg</code> and <code>type</code> parameters</a>. You can set the <code>bg</code> to any colour, and then pick either <code>type: light</code> or <code>type: dark</code> depending on whether the background is light (and hence needs dark text) or dark (and hence needs light text.)</p>
-<p>For example, if the primary colour is dark, you’ll want to use a dark navbar:</p>
+<p>The navbar colours are determined by HTML classes, not CSS. They can be customized using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes" class="external-link"><code>bg</code> and <code>type</code> parameters</a>. Typically <code>bg</code> will be one of <code>light</code>, <code>dark</code> or <code>primary</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> dark</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span></code></pre></div>
+<p>If you use a bootswatch theme, pkgdown will pick the <code>bg</code> used on the <a href="https://bootswatch.com/" class="external-link">preview site</a>.</p>
+<p>The type argument determines the colour of the text. Use <code>type: light</code> if the background is light (so you need dark text) or <code>type: dark</code> if the background is dark (so you need light text). pkgdown will guess if you don’t supply this argument.</p>
 <p>Because the navbar is styled with HTML, you’ll need to <code><a href="../reference/build_site.html">build_site()</a></code> to see the effect of changing this parameter.</p>
 </div>
 <div id="more-css-js-other-assets" class="section level3">
