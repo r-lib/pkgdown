@@ -31,7 +31,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   package <- desc$get("Package")[[1]]
   version <- desc$get_field("Version")
 
-  bs_version <- get_bs_version(list(meta = meta))
+  bs_version <- check_bootstrap_version(meta$template$bootstrap, pkg)
 
   development <- meta_development(meta, version, bs_version)
 
@@ -44,8 +44,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   if (development$in_dev) {
     dst_path <- path(dst_path, development$destination)
   }
-
-
 
   install_metadata <- meta$deploy$install_metadata %||% FALSE
 
@@ -90,6 +88,26 @@ read_desc <- function(path = ".") {
     stop("Can't find DESCRIPTION", call. = FALSE)
   }
   desc::description$new(path)
+}
+
+check_bootstrap_version <- function(version, pkg = list()) {
+  if (is.null(version)) {
+    3
+  } else if (version %in% c(3, 5)) {
+    version
+  } else if (version == 4) {
+    warn("Using boostrap: 4")
+    5
+  } else {
+    abort(c(
+      "Boostrap version must be 3, 4, or 5.",
+      x = sprintf(
+        "You specified a value of %s in %s.",
+        version,
+        pkgdown_field(pkg = pkg, "template", "bootstrap")
+      )
+    ))
+  }
 }
 
 # Metadata ----------------------------------------------------------------

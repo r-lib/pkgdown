@@ -199,29 +199,6 @@ check_open_graph <- function(og) {
   og[intersect(supported_fields, names(og))]
 }
 
-get_bs_version <- function(pkg = ".") {
-
-  template <- pkg$meta[["template"]]
-
-  if (is.null(template$bootstrap)) {
-    return(3)
-  }
-  if (template$bootstrap %in% 3:5) {
-    return(template$bootstrap)
-  }
-
-  abort(
-    message = c(
-      "Boostrap version must be 3, 4, or 5.",
-      x = sprintf(
-        "You specified a value of %s in %s.",
-        template$bootstrap,
-        pkgdown_field(pkg = pkg, "template", "bootstrap")
-      )
-    )
-  )
-
-}
 
 template_path <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
@@ -265,7 +242,7 @@ find_template <- function(type,
                           template_path = NULL,
                           bs_version = 3) {
 
-  bs_dir <- if (bs_version == 3) "BS3" else "BS4"
+  bs_dir <- paste0("BS", bs_version)
   paths <- c(template_path, path_pkgdown("templates", bs_dir))
   names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(path = paths, name = names)

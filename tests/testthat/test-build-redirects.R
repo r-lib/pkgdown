@@ -4,7 +4,7 @@ test_that("build_redirect() works", {
     dst_path = withr::local_tempdir(),
     meta = list(url = "https://example.com"),
     prefix = "",
-    bs_version = 4
+    bs_version = 5
   )
   pkg <- structure(pkg, class = "pkgdown")
   build_redirect(c("old.html", "new.html#section"), 1, pkg = pkg)
@@ -22,7 +22,7 @@ test_that("build_redirect() errors if one entry is not right.", {
     dst_path = withr::local_tempdir(),
     meta = list(url = "https://example.com"),
     prefix = "",
-    bs_version = 4
+    bs_version = 5
   )
   pkg <- structure(pkg, class = "pkgdown")
   expect_snapshot_error(build_redirect(c("old.html"), 5, pkg = pkg))

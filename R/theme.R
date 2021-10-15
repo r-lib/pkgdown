@@ -41,8 +41,8 @@ bs_theme <- function(pkg = ".") {
   )
   bs_theme <- bslib::bs_add_rules(bs_theme,
     list(
-      sass::sass_file(path_pkgdown("css/BS4/pkgdown.scss")),
-      sass::sass_file(path_pkgdown("css/BS4/syntax-highlighting.scss"))
+      sass::sass_file(path_pkgdown("css/BS5/pkgdown.scss")),
+      sass::sass_file(path_pkgdown("css/BS5/syntax-highlighting.scss"))
     )
   )
 

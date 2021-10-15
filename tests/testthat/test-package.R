@@ -7,6 +7,17 @@ test_that("package_vignettes() doesn't trip over directories", {
   expect_equal(as.character(package_vignettes(dir)$file_in), "vignettes/test2.Rmd")
 })
 
+test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
+  expect_equal(check_bootstrap_version(3), 3)
+  expect_warning(expect_equal(check_bootstrap_version(4), 5))
+  expect_equal(check_bootstrap_version(5), 5)
+})
+
+test_that("check_bootstrap_version() gives informative error otherwise", {
+  expect_snapshot(check_bootstrap_version(1), error = TRUE)
+})
+
+
 # titles ------------------------------------------------------------------
 
 test_that("multiline titles are collapsed", {
