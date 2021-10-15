@@ -85,7 +85,6 @@ $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
   color: inherit;
   padding: 0.25rem 0.5rem;
   margin-bottom: 2px;
-  margin-left: -0.5rem;
   @include border-radius($border-radius);
   border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 }
