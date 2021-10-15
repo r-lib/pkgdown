@@ -339,7 +339,9 @@ bootswatch_bg <- c(
   lux = "light",
   materia = "primary",
   minty = "primary",
+  morph = "primary",
   pulse = "primary",
+  quartz = "primary",
   sandstone = "primary",
   simplex = "light",
   sketchy = "light",
@@ -348,5 +350,7 @@ bootswatch_bg <- c(
   spacelab = "light",
   superhero = "dark",
   united = "primary",
-  yeti = "primary"
+  vapor = "primary",
+  yeti = "primary",
+  zephyr = "primary"
 )
