@@ -116,16 +116,13 @@ build_search_index <- function(pkg) {
     index <- unlist(index, recursive = FALSE)
   }
 
-  purrr::compact(index)
-
   # Make URLs absolute if possible
   url <- pkg$meta$url %||% ""
   fix_path <- function(x) {
     x$path <- sprintf("%s%s", url, x$path)
     x
   }
-  index <- purrr::map(index, fix_path)
-
+  purrr::map(index, fix_path)
 }
 
 news_search_index <- function(path, pkg) {
@@ -136,22 +133,10 @@ news_search_index <- function(path, pkg) {
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
-  # Headings (where in the page)
-  get_headings <- function(section) {
-    if (get_section_level(section) < 4) {
-      return("")
-    }
-
-    headings <- purrr::map_chr(seq(3, get_section_level(section) - 1), get_h, section = section) %>%
-      purrr::discard(function(x) x == "")
-
-    paste0(headings, collapse = " > ")
-  }
-
   purrr::pmap(
     list(
       sections,
-      purrr::map_chr(sections, get_headings),
+      purrr::map_chr(sections, get_headings, depth = 4),
       title = purrr::map_chr(sections, get_version)
     ),
     bs4_index_data,
@@ -169,24 +154,12 @@ file_search_index <- function(path, pkg) {
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
-  sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
-
-  # Headings (where in the page)
-  get_headings <- function(section) {
-    if (get_section_level(section) < 3) {
-      return("")
-    }
-
-    headings <- purrr::map_chr(seq(2, get_section_level(section) - 1), get_h, section = section) %>%
-      purrr::discard(function(x) x == "")
-
-    paste0(headings, collapse = " > ")
-  }
+  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]")
 
   purrr::pmap(
     list(
       sections,
-      purrr::map_chr(sections, get_headings),
+      purrr::map_chr(sections, get_headings, depth = 3),
       title = title
     ),
     bs4_index_data,
@@ -202,6 +175,16 @@ get_dir <- function(path) {
     return("")
   }
   paste(capitalise(unlist(fs::path_split(dir))), collapse = " > ")
+}
+# Headings (where in the page)
+get_headings <- function(section, depth) {
+  level <- get_section_level(section)
+  if (level < depth) {
+    return("")
+  }
+
+  headings <- purrr::map_chr(seq(depth - 1, level - 1), get_h, section = section)
+  paste0(headings[headings != ""], collapse = " > ")
 }
 # Function for extracting all headers
 get_h <- function(level, section) {
@@ -248,10 +231,10 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
   }
   text_xpath <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
   code_xpath <- all("pre")
+  code <- xml2::xml_find_all(node_copy, code_xpath)
 
   # Special case for definitions (mostly encountered in Rd files)
   if (xml2::xml_name(node_copy) == "dt") {
-    code <- xml2::xml_find_all(node_copy, code_xpath)
     # both argument name and definition
     text <- paste(
       xml_text1(node_copy),
@@ -261,7 +244,6 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     heading <- paste(xml_text1(node_copy), "(argument)")
   } else {
     # Other cases
-    code <- xml2::xml_find_all(node_copy, code_xpath)
     text <- xml_text1(xml2::xml_find_all(node_copy, text_xpath))
     children <- xml2::xml_children(node_copy)
     heading_node <- children[purrr::map_lgl(children, is_heading)][1]
@@ -290,7 +272,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     code = xml_text1(code)
   )
 
-  if (index_data$text=="" && index_data$code == "") {
+  if (index_data$text == "" && index_data$code == "") {
     return(NULL)
   }
 
