@@ -11,7 +11,7 @@ articles:
   pdf: test/pdf.pdf
   rendering: test/rendering.html
   widgets: test/widgets.html
-last_built: 2021-10-15T14:54Z
+last_built: 2021-10-15T15:57Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
