@@ -1,36 +1,108 @@
-/* Sticky footer */
+/* navbar =================================================================== */
 
-/**
- * Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
- * Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
- *
- * .Site -> body > .container
- * .Site-content -> body > .container .row
- * .footer -> footer
- *
- * Key idea seems to be to ensure that .container and __all its parents__
- * have height set to 100%
- *
- */
+// boostrap doesn't style active/hovered nav making it hard to see where
+// you are and where you're going, so we add our own styling
+.navbar-nav .nav-item > .nav-link {
+  @include border-radius($border-radius);
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+  background: $gray-200;
+  color:      $body-color;
+}
+.navbar-dark .navbar-nav .active > .nav-link {
+  background: $gray-800;
+  color:      $body-bg;
+}
+
+.navbar-dark .navbar-nav .nav-item > .nav-link:hover,
+.navbar-light .navbar-nav .nav-item > .nav-link:hover {
+  background: change-color($primary, $alpha: 0.1);
+}
+
+/* headroom.js -------------------------------------------------------------- */
+
+.headroom {
+  will-change: transform;
+  transition: transform 400ms ease;
+}
+.headroom--pinned   { transform: translateY(0%); }
+.headroom--unpinned { transform: translateY(-100%); }
+
+// Need to adjust body components down by height of navbar so it
+// doesn't overlap them when visible
+$pkgdown-nav-height: 56px;
+
+.contents, #pkgdown-sidebar {
+  margin-top: $pkgdown-nav-height;
+}
 html, body {
-  height: 100%;
+  scroll-padding: $pkgdown-nav-height
 }
 
-body {
-  position: relative;
+// Make scrollable, sticky TOC
+#toc {
+  position: sticky;
+  top: $pkgdown-nav-height;
+  max-height: calc(100vh - #{$pkgdown-nav-height} - 1rem);
+  overflow-y: scroll;
 }
 
-body > .container {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
+/* sidebar ================================================================== */
+
+#pkgdown-sidebar h2 {
+  margin-top: 1.5rem;
+  font-size: $font-size-lg;
 }
 
-body > .container .row {
-  flex: 1 0 auto;
+#pkgdown-sidebar .list-unstyled li {
+  margin-bottom: 0.5rem;
 }
 
-/* Footer ------------------------------------------------------------------- */
+/* table of contents -------------------------------------------------------- */
+$pkgdown-toc-border-width: 0 !default;
+$pkgdown-toc-border-color: $border-color !default;
+$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
+$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
+$pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
+$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
+
+// boostrap doesn't style active/hovered nav making it hard to see where
+// you are and where you're going, so we add our own styling
+#toc .nav > li > a {
+  color: inherit;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 2px;
+  @include border-radius($border-radius);
+  border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
+}
+
+#toc .nav > li > a:hover,
+#toc .nav > li > a:focus {
+  background-color: $pkgdown-toc-hover-bg;
+  color: $pkgdown-toc-hover-color;
+}
+#toc .nav-link.active,
+#toc .nav-link.active:hover,
+#toc .nav-link.active:focus {
+  background-color: $pkgdown-toc-active-bg;
+  color: $pkgdown-toc-active-color;
+}
+
+/* Only show second level if active.
+   Requires !important because that's how BS5 sets display: flex
+*/
+#toc .nav > li > a + ul {
+  display: none !important;
+}
+#toc .nav-link.active + ul {
+  display: flex !important;
+}
+#toc .nav .nav > li > a {
+  margin-left: 0.5rem;
+}
+
+/* footer  ================================================================== */
 
 $pkgdown-footer-color: $body-color !default;
 $pkgdown-footer-bg: $body-bg !default;
@@ -56,85 +128,56 @@ footer .pkgdown-footer-right {
   text-align: right;
 }
 
+// "Sticky" footer - i.e. the footer always hugs the bottom of the viewport
+// even for short pages.
+//
+// Basic idea: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+// Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
 
-/* Sidebar ------------------------------------------------------------------ */
-
-#pkgdown-sidebar h2 {
-  margin-top: 1em;
-  font-size: $font-size-lg;
+// Need .container and __all parents__ have height set to 100%
+html, body, body > .container {
+  height: 100%;
+}
+body > .container {
+  display: flex;
+  flex-direction: column;
+}
+body > .container .row {
+  flex: 1 0 auto;
 }
 
-#pkgdown-sidebar h2:first-child {
-  margin-top: 0;
-}
+/* General typography ======================================================= */
 
-#pkgdown-sidebar .list-unstyled li {
-  margin-bottom: 0.5em;
-}
-
-/* Table of contents */
-$pkgdown-toc-border-width: 0 !default;
-$pkgdown-toc-border-color: $border-color !default;
-$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
-$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
-$pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
-$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
-
-/* Base TOC item */
-#toc .nav > li > a {
-  color: inherit;
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 2px;
-  @include border-radius($border-radius);
-  border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
-}
-
-/* Under hover */
-#toc .nav > li > a:hover,
-#toc .nav > li > a:focus {
-  background-color: $pkgdown-toc-hover-bg;
-  color: $pkgdown-toc-hover-color;
-}
-
-/* Current */
-#toc .nav-link.active,
-#toc .nav-link.active:hover,
-#toc .nav-link.active:focus {
-  background-color: $pkgdown-toc-active-bg;
-  color: $pkgdown-toc-active-color;
-}
-
-/* Only show second level if active.
-  Requires !important because that's how BS4 sets display: flex
-*/
-#toc .nav > li > a + ul {
-  display: none !important;
-}
-#toc .nav-link.active + ul {
-  display: flex !important;
-}
-#toc .nav .nav > li > a {
-  margin-left: 0.5rem;
-}
-
-/* General typography ------------------------------------------------------- */
-
-img.icon {
-  float: right;
-}
-
-/* Ensure in-page images don't run outside their container */
+// Ensure in-page images don't run outside their container
 .contents img {
   max-width: 100%;
   height: auto;
 }
+.contents table {
+  display: block;
+  overflow: auto;
+}
 
+// avoid flash of invisible text + flash of unstyled text
+body {
+  font-display: fallback;
+}
+
+// spacing tweaks
 dd {
   margin-left: 3em;
 }
+summary {
+  margin-bottom: 1rem;
+}
+details p {
+  margin-top: -0.5rem;
+}
+.html-widget {
+  margin-bottom: 1rem;
+}
 
-/* Section anchors ---------------------------------*/
-
+// Section anchors
 a.anchor {
   display: none;
   margin-left: 5px;
@@ -146,7 +189,6 @@ a.anchor {
   background-size: 20px 20px;
   background-position: center center;
 }
-
 h1:hover .anchor,
 h2:hover .anchor,
 h3:hover .anchor,
@@ -156,159 +198,59 @@ h6:hover .anchor {
   display: inline-block;
 }
 
-/* headroom.js -------------------------------------------------------------- */
-
-/* tweak headroom.js to not disappear as aggressively at the top of the page */
-/* from quillt https://github.com/rstudio/quillt/blob/c2c826dfa21070e3a2a0308f569255d6be950134/inst/pkgdown/assets/rmd.css#L423 */
-.headroom {
-  will-change: transform;
-  transition: transform 400ms ease;
-}
-.headroom--pinned   { transform: translateY(0%); }
-.headroom--unpinned { transform: translateY(-100%); }
-
-$pkgdown-nav-height: 56px;
-
-html, body {
-  scroll-padding: $pkgdown-nav-height
-}
-.contents {
-  margin-top: $pkgdown-nav-height;
-}
-
-#pkgdown-sidebar{
-  margin-top: calc(#{$pkgdown-nav-height} + 1rem);
-}
-
-#toc {
-  position: sticky;
-  top: calc(#{$pkgdown-nav-height} + 1rem);
-  max-height: calc(100vh - #{$pkgdown-nav-height} - 2rem);
-  overflow-y: scroll;
-}
-
-/* orcid --------------------------*/
-
+// orcid badge
 .orcid {
-    font-size: 16px;
-    color: #A6CE39;
-    margin-left: 4px;
-    margin-right: 4px;
-    vertical-align: middle;
+  font-size: 16px;
+  color: #A6CE39;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
-/* copy button --------------------------*/
-
+// copy button
 .hasCopyButton {
   position: relative;
 }
-
 .btn-copy-ex {
   position: absolute;
   right: 5px;
   top: 5px;
   visibility: hidden;
 }
-
 .hasCopyButton:hover button.btn-copy-ex {
   visibility: visible;
 }
 
-
-/* vertical spacing after htmlwidgets */
-.html-widget {
-  margin-bottom: 10px;
+// activate font awesome
+.fab {
+  font-family: "Font Awesome 5 Brands" !important;
 }
 
-/* bootstrap-toc tweaks */
-.nav {
-flex-direction: column;
-}
-
-/* version badge  */
-#version-badge {
-  border: none;
-}
-
-/* Navbar ------------------------------------------------------------------  */
-.navbar-nav .nav-item > .nav-link {
-  @include border-radius($border-radius);
-}
-
-.navbar-light .navbar-nav .active > .nav-link {
-  background: $gray-200;
-  color:      $body-color;
-}
-.navbar-dark .navbar-nav .active > .nav-link {
-  background: $gray-800;
-  color:      $body-bg;
-}
-
-.navbar-dark .navbar-nav .nav-item > .nav-link:hover,
-.navbar-light .navbar-nav .nav-item > .nav-link:hover {
-  background: change-color($primary, $alpha: 0.1);
-}
-
-.navbar-nav .nav-link {
-  padding-left: 0.5rem;
-}
-
-/* Never uppercase the package name */
-.navbar-brand {
-  text-transform: none !important;
-}
-
-/* Navbar submenu: https://github.com/r-lib/pkgdown/pull/1214 */
-.dropdown-menu {
-  padding: .5rem 0 .5rem 0;
-}
-h6.dropdown-header {
-  margin-top: 0;
-}
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  @include border-radius(0 6px 6px 6px);
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
+// package logo
+.pkg-logo {
   float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: $dropdown-border-color;
-  margin-top: 5px;
-  margin-right: -10px;
+  width: 100px;
+  margin-left: 30px;
+  margin-top: 25px;
 }
-.dropdown-submenu:hover>a:after {
-  border-left-color: $dropdown-border-color;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  @include border-radius(6px 0 6px 6px);
+// line up h1 border-bottom with corner of hexagon
+.page-header {min-height: 88px}
+
+blockquote, .line-block {
+  border-left: .5rem solid $table-border-color;
+  padding-left: .5rem;
+  margin-left: -.5rem;
 }
 
-/* Footnotes --------------------------------------------- */
+/* Footnotes ---------------------------------------------------------------- */
 
-/* "Min" needed until libsass supports
-   https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
+a.footnote-ref {
+  cursor: pointer;
+}
+
+// use "Min" to trigger computation in css, not sass
 .popover {
-  max-width: Min(100vw, 32rem);
+  width: Min(100vw, 32rem);
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px change-color($black, $alpha: 0.3);
 }
@@ -319,153 +261,32 @@ h6.dropdown-header {
   margin-bottom: 0;
 }
 
-a.footnote-ref {
-  cursor: pointer;
-}
-/* Reference index & topics ----------------------------------------------- */
-
-.ref-index th {font-weight: normal;}
-
-.ref-index td {vertical-align: top; min-width: 100px}
-.ref-index .icon {width: 40px;}
-.ref-index .alias {width: 40%;}
-.ref-index-icons .alias {width: calc(40% - 40px);}
-.ref-index .title {width: 60%;}
-
-/* Nice scrolling for wide elements --------------------------------------- */
-
-table {
-  display: block;
-  overflow: auto;
-}
-
-/* fontawesome ------------------------ */
-
-.fab {
-    font-family: "Font Awesome 5 Brands" !important;
-}
-
-/* logo homepage */
-.pkg-logo {
-  float: right;
-  width: 100px;
-  margin-left: 30px;
-  margin-top: 25px;
-}
-
-@media (max-width: 767px) {
-  .pkg-logo {
-  float: none;
-  width: 100px;
-}
-}
-
-div.pb-2.mt-4.mb-2.border-bottom {
-  min-height: 129px;
-}
-
-
-/* blockquote ---------------------------------------------- */
-
-blockquote, .line-block {
-    border-left: .5rem solid $table-border-color;
-    padding-left: .5rem;
-    margin-left: -.5rem;
-}
-
-/* Search ---------------------------------------------- */
-
-mark {
-  background: linear-gradient(-100deg,
-    change-color($info, $alpha: 0.2),
-    change-color($info, $alpha: 0.7) 95%,
-    change-color($info, $alpha: 0.1)
-  )
-}
-
-.algolia-autocomplete .aa-hint {
-  color: $gray-900;
-}
-
-
-/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
-.algolia-autocomplete .aa-dropdown-menu {
-  width: Max(100%, 20rem);
-  background-color: $body-bg;
-  border: $border-width solid $table-border-color;
-  margin-top: 2px;
-
-  max-height: 50vh;
-  overflow-y: auto;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-  cursor: pointer;
-  padding: 5px 4px;
-  border-bottom: 1px $gray-200 solid;
-  font-size: 0.9rem;
-  color: $gray-900;
-
-}
-
-.search-details {
-  font-size: 0.9rem;
-  color: $primary;
-  display: inline;
-  font-weight: bolder;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $body-bg, 10%);
-}
-
-/* Compromise to avoid flash of invisible text + flash of unstyled text */
-body {
-  font-display: fallback;
-}
-
-/* Details margin */
-summary {
-  margin-bottom: 1rem;
-}
-
-details p {
-  margin-top: -.5rem;
-}
-
-
-/* tabsets */
-.nav-row {
-  flex-direction: row;
-}
+/* tabsets ------------------------------------------------------------------ */
 
 .tab-content {
   padding: 1rem;
 }
-
 .tabset-pills .tab-content {
   border: solid 1px #e5e5e5;
 }
 
-/* https://observablehq.com/@rkaravia/css-trick-tabs-with-consistent-height */
-/* Make tab height consistent  */
-
+// Make tab height consistent
+// https://observablehq.com/@rkaravia/css-trick-tabs-with-consistent-height
 .tab-content {
   display: flex;
 }
-
 .tab-content > .tab-pane {
   display: block; /* undo "display: none;" */
   visibility: hidden;
   margin-right: -100%;
   width: 100%;
 }
-
 .tab-content > .active {
   visibility: visible;
 }
 
-/* Section anchors ---------------------------------
-   Added in pandoc 2.11: https://github.com/jgm/pandoc-templates/commit/9904bf71
-*/
+/* bibliography styling ----------------------------------------------------- */
+// Added in pandoc 2.11: https://github.com/jgm/pandoc-templates/commit/9904bf71
 
 div.csl-bib-body { }
 div.csl-entry {
@@ -485,4 +306,55 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
+}
+
+/* reference index & topics ------------------------------------------------- */
+
+.ref-index th {font-weight: normal;}
+
+.ref-index td {vertical-align: top; min-width: 100px}
+.ref-index .icon {width: 40px;}
+.ref-index .alias {width: 40%;}
+.ref-index-icons .alias {width: calc(40% - 40px);}
+.ref-index .title {width: 60%;}
+
+/* search =================================================================== */
+
+mark {
+  background: linear-gradient(-100deg,
+    change-color($info, $alpha: 0.2),
+    change-color($info, $alpha: 0.7) 95%,
+    change-color($info, $alpha: 0.1)
+  )
+}
+
+.algolia-autocomplete .aa-hint {
+  color: $gray-900;
+}
+
+/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
+.algolia-autocomplete .aa-dropdown-menu {
+  width: Max(100%, 20rem);
+  background-color: $body-bg;
+  border: $border-width solid $table-border-color;
+  margin-top: 2px;
+
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px $gray-200 solid;
+  font-size: 0.9rem;
+  color: $gray-900;
+}
+.search-details {
+  font-size: 0.9rem;
+  color: $primary;
+  display: inline;
+  font-weight: bolder;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: mix($primary, $body-bg, 10%);
 }
