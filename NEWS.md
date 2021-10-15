@@ -29,6 +29,8 @@
     * The active item in TOC is indicated with background color
     * If present a logo will appear on all pages near the header
     * Section anchors now appear on the right (making them usable on mobile phones) (#1782).
+    * The TOC is scrollable independently on the main content. This makes it
+      more useful on long pages with many headings (#1610).
 
 ## Local search
 

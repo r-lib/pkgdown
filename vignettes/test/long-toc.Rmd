@@ -1,0 +1,15 @@
+---
+title: "Long TOC"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette tests has a very long TOC. You should be able to navigate to a heading near the bottom of the doc without having to scroll all the way down.
+
+```{r, echo = FALSE}
+h2 <- paste0("## Heading ", t(outer(letters, 1:9, paste0)))
+knitr::asis_output(paste(h2, collapse = "\n\n"))
+```
+

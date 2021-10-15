@@ -85,7 +85,6 @@ $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
   color: inherit;
   padding: 0.25rem 0.5rem;
   margin-bottom: 2px;
-  margin-left: -0.5rem;
   @include border-radius($border-radius);
   border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 }
@@ -176,11 +175,16 @@ html, body {
 .contents {
   margin-top: $pkgdown-nav-height;
 }
-#pkgdown-sidebar {
-  top: $pkgdown-nav-height;
+
+#pkgdown-sidebar{
+  margin-top: calc(#{$pkgdown-nav-height} + 1rem);
 }
-.sticky-top {
+
+#toc {
+  position: sticky;
   top: calc(#{$pkgdown-nav-height} + 1rem);
+  max-height: calc(100vh - #{$pkgdown-nav-height} - 2rem);
+  overflow-y: scroll;
 }
 
 /* orcid --------------------------*/

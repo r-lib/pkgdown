@@ -160,7 +160,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 data_home_toc <- function(pkg) {
   sidebar_section(
     "Table of contents",
-    '<nav id="toc" class="sticky-top"></nav>'
+    '<nav id="toc"></nav>'
   )
 }
 
