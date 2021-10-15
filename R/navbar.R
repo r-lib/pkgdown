@@ -1,12 +1,51 @@
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  # Take structure as is from meta
   navbar <- purrr::pluck(pkg, "meta", "navbar")
-  structure <- modify_list(navbar_structure_defaults(), navbar$structure)
+
+  style <- navbar_style(
+    navbar = navbar,
+    theme = get_bootswatch_theme(pkg),
+    bs_version = pkg$bs_version
+  )
+
+  components <- navbar_components(pkg)
+  links <- navbar_links(
+    navbar = navbar,
+    components = components,
+    depth = depth,
+    bs_version = pkg$bs_version
+  )
+
+  c(style, links)
+}
+
+# Default navbar ----------------------------------------------------------
+
+navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
+  if (bs_version == 3) {
+    list(type = navbar$type %||% "default")
+  } else {
+    # bg is usually light, dark, or primary, but can use any .bg-*
+    bg <- navbar$bg %||% bootswatch_bg[[theme]]
+    type <- navbar$type %||% if (bg == "light") "light" else "dark"
+
+    list(bg = bg, type = type)
+  }
+}
+
+navbar_structure <- function() {
+  print_yaml(list(
+    left = c("intro", "reference", "articles", "tutorials", "news"),
+    right = "github"
+  ))
+}
+
+navbar_links <- function(navbar, components, depth = 0L, bs_version = 3L) {
+  # Take structure as is from meta
+  structure <- modify_list(navbar_structure(), navbar$structure)
 
   # Merge components from meta
-  components <- navbar_components(pkg)
   components_meta <- navbar$components %||% list()
   components[names(components_meta)] <- components_meta
   components <- purrr::compact(components)
@@ -14,26 +53,14 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   right_comp <- intersect(structure$right, names(components))
   left_comp <- intersect(structure$left, names(components))
 
-  # Backward compatiblity
+  # Backward compatibility
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
-  if (pkg$bs_version == 3) {
-    list(
-      type = navbar$type %||% "default",
-      left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
-      right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
-    )
-  } else {
-    list(
-      # background colour can be anything
-      bg = navbar$bg %||% "light",
-      # text colour must be light or dark to contrast with background colour
-      type = navbar$type %||% "light",
-      left = render_navbar_links(left, depth = depth, pkg$bs_version),
-      right = render_navbar_links(right, depth = depth, pkg$bs_version)
-    )
-  }
+  list(
+    left = render_navbar_links(left, depth = depth, bs_version = bs_version),
+    right = render_navbar_links(right, depth = depth, bs_version = bs_version)
+  )
 }
 
 render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
@@ -59,21 +86,9 @@ render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
   } else {
     bs4_navbar_links_html(x)
   }
-
 }
 
-# Default navbar ----------------------------------------------------------
-
-navbar_structure <- function() {
-  print_yaml(navbar_structure_defaults())
-}
-
-navbar_structure_defaults <- function() {
-  list(
-    left = c("intro", "reference", "articles", "tutorials", "news"),
-    right = "github"
-  )
-}
+# Components --------------------------------------------------------------
 
 navbar_components <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
@@ -112,7 +127,6 @@ navbar_articles <- function(pkg = ".") {
 
     menu$intro <- menu_link("Get started", intro$file_out)
   }
-
 
   meta <- pkg$meta
   if (!has_name(meta, "articles")) {
@@ -306,3 +320,33 @@ pkg_navbar_vignettes <- function(name = character(),
 
   tibble::tibble(name = name, title = title, file_out)
 }
+
+
+# bootswatch defaults -----------------------------------------------------
+
+# Scraped from bootswatch preivews, see code in
+# <https://github.com/r-lib/pkgdown/issues/1758>
+bootswatch_bg <- c(
+  "_default" = "light",
+  cerulean = "primary",
+  cosmo = "primary",
+  cyborg = "dark",
+  darkly = "primary",
+  flatly = "primary",
+  journal = "light",
+  litera = "light",
+  lumen = "light",
+  lux = "light",
+  materia = "primary",
+  minty = "primary",
+  pulse = "primary",
+  sandstone = "primary",
+  simplex = "light",
+  sketchy = "light",
+  slate = "primary",
+  solar = "dark",
+  spacelab = "light",
+  superhero = "dark",
+  united = "primary",
+  yeti = "primary"
+)
