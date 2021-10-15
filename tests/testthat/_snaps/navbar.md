@@ -206,7 +206,7 @@
         <a class="nav-link" href="reference/index.html">Reference</a>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
         <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
           <a class="dropdown-item" href="articles/search.html">Search</a>
@@ -226,7 +226,7 @@
       cat(render_navbar_links(x, bs_version = 4))
     Output
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
         <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <h6 class="dropdown-header" data-toc-skip>First section</h6>
           <a class="dropdown-item" href="articles/search.html">Search</a>

@@ -19,7 +19,7 @@ test_that("build_search() builds the expected search`.json with an URL", {
       development = list(mode = "devel")
     )
   )
-  pkg$bs_version <- 4
+  pkg$bs_version <- 5
 
   expect_output(init_site(pkg))
   expect_output(build_news(pkg))
@@ -39,7 +39,7 @@ test_that("build_search() builds the expected search.json with no URL", {
       development = list(mode = "devel")
     )
   )
-  pkg$bs_version <- 4
+  pkg$bs_version <- 5
 
   expect_output(init_site(pkg))
   expect_output(build_news(pkg))

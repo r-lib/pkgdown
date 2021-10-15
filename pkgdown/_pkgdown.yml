@@ -13,7 +13,7 @@ authors:
     href: https://masalmon.eu
 
 template:
-  bootstrap: 4
+  bootstrap: 5
   bslib:
     primary: "#0054AD"
     border-radius: 0.5rem

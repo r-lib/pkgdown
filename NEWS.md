@@ -1,34 +1,151 @@
 # pkgdown (development version)
 
-* Anchors now appear on the right (making them usable on mobile phones) (#1782).
+## Bootstrap 5
 
-* Duplicated section are now de-duplicated; this makes pkgdown work better with
-  documentation for R6 classes.
+* pkgdown can style your site with Bootstrap 5 (with help from @jayhesselberth,
+  @apreshill, @cpsievert). Opt-in by setting `boostrap` version in your 
+  `_pkgdown.yml`.
 
-* pkgdown now uses scss for its internal css tweaks. This means that you
-  can now customise more parts of the site using only `_pkgdown.yml`, 
-  without having to supply custom css.
+* We reviewed site accessibility and made a number of improvements: (#782, #1553):
 
-* When copy and pasting code blocks, lines containing output (e.g. `#>`)
-  are automatically omitted (#1675).
+    * Larger default font, and more visible links.
+    * Heading anchors use `aria-hidden` to reduce noise for screenreader users.
+    * Improved `aria-labelledby` property for navbar dropdowns.
+    * The default GitHub/GitLab links gain an `aria-label`; use of 
+      `aria-labels` for other icons is now supported, and encouraged in the 
+      docs
+    * Syntax highlighting uses a new more
+      [accessible colour scheme](https://apreshill.github.io/rmda11y/arrow.html), 
+      designed by Alison Hill (#1536)
 
-* Code blocks in reference topics now get syntax highlighting according
-  to their declared language information (e.g. `yaml`), if the documentation 
-  was built with roxygen2 7.1.2 or later (#1690, #1692).
+* In-line footnotes mean you can read asides next to the next they refer to. 
 
-* `build_articles()` and `build_home()` now warn if you have images that 
-  won't rendered on the website because they're in unsupported directories 
-  (#1810). Generally, it's only safe to refer to figures in `man/figures`
-  and `vignettes`.
+* Can use tabsets in articles, 
+  [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html).
+  (@JamesHWade, #1667).
+
+* Other styling changes:
+    
+    * The active item in TOC is indicated with background color
+    * If present a logo will appear on all pages near the header
+    * Section anchors now appear on the right (making them usable on mobile phones) (#1782).
+
+## Local search
+
+* pkgdown now supports local searching. It is enabled by default because no 
+  set-up is needed for users to search pkgdown websites. (#1629, with help 
+  from @gustavdelius in #1655 and @dieghernan @GregorDeCillia in #1770).
+
+* pkgdown builds a more exhaustive sitemap.xml even for websites built with 
+  Bootstrap 3. This might change Algolia results if you use Algolia for search 
+  (#1629).
+
+## Customisation
+
+* New `vignette("customization")` vignette documents all the ways you can 
+  customise your site, including the new options described below (#1573).
+
+* Sites can be easily themed either with bootswatch themes or by selectively
+  override the "bslib" variables used to generate the CSS. pkgdown now uses scss 
+  for its internal css tweaks. This means that you can now customise more parts 
+  of the site using only `_pkgdown.yml`, without having to supply custom css.
+
+* Template packages can now provide a default configuration `_pkgdown.yml`, 
+  stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
+  definitions, Bootstrap version and variables, the sidebar, footer, navbar, 
+  etc. Parameters supplied this way will be be overridden by a local 
+  `_pkgdown.yml`, which is in turn overridden by `build_site(override =)` 
+  (#1499).
+
+* New templates `in-header.html`/`after-head.html`, `before-body.html`, and 
+  `after-body.html` make it easier to add HTML to every page. Their content 
+  will be placed at the end of the `<head>` tag, right below the opening 
+  `<body>` tag, and before the closing tag `</body>` respectively (#1487). 
+  They match the bookdown options `in_header`, `before_body` and `after_body`.
+
+* Authors configuration is more flexible (#1516). Users can now:
+
+    * Choose the roles used for filtering authors for the sidebar and footer.
+    * Choose the text before authors in the footer.
+    * Add text before and after the authors list in the sidebar.
+    * Add text before and after the authors list of the authors page.
+
+* Sidebar specification is more flexible (#1443, #1488, #1502). You can now:
+
+    * Change the order of sidebar elements.
+    * Add custom sidebar sections (title, text that can be Markdown or HTML).
+    * Add a table of contents for the README.
+    * Completely suppress the sidebar (even "Dev status")
+    * Provide your own HTML for the navbar. 
+
+* Navbar specification is more flexible: you can now exclude all default 
+  components from the navbar (#1517). 
+
+* The default navbar no longer includes a home icon - this took up precious
+  horizontal space and wasn't very useful since there is already a link to the 
+  home page immediately to its left (#1383).
+
+* Footer specification is more flexible (#1502). You can now:
+    
+    * Change the placement of elements on the left and right.
+    * Add text to the left and right (or even remove/replace default text)
+
+## New features
+
+* pkgdown now supports defining redirects. (#1259, @lorenzwalthert). 
+  The syntax is the following, with old paths on the left, and new paths or 
+  URLs on the right.
+
+  ```yaml
+  redirects:
+    - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
+    - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
+    - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
+  ```
+
+## Code
+
+* `build_reference()` now allows linking to topics from other packages (either 
+  function names e.g. `rlang::is_installed` or topic names e.g. 
+  `sass::font_face`). (#1664)
+
+* Reference index section with `title: internal` is now silently dropped,
+  allowing you to suppress warnings about topics that are not listed in the
+  index (#1716).
+
+* `build_reference()` will run `pkgdown/pre-reference.R` before and 
+  `pkgdown/post-reference.R` after running examples. These allow you to
+  do any setup or teardown operations you might need (#1602).
+
+* Code blocks now get syntax highlighting according to their declared language 
+  (e.g. `yaml`), if the documentation was built with roxygen2 7.1.2 or later 
+  (#1690, #1692).
 
 * Auto-generated links to inherited R6 methods now work correctly 
   whether internal (#1173, @vandenman) or external (#1476).
 
-* `build_articles()` now correctly handles links to images in `man/figures`
-  (which have the form `../man/figures`) (#1472).
+* New `pkgdown_print()` allows you to control how your objects are rendered in
+  examples. It includes built-in handling for htmlwidgets and "browseable" HTML
+  so pkgdown output now more closely resembles what you see in RStudio.
+  Added extension points to make HTML widgets (and RGL in particular) work
+  in rendered examples (@dmurdoch).
 
-* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
-  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
+* Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
+
+* `\value{}` now does a better job of handling multiple mingled items and text 
+  (#1479).
+
+* Autolinking no longer fails if a package contains duplicated Rd aliases.
+
+* Automatic links to reference pages were generated incorrectly, and 
+  self-links were generated, if the `\name{}` entry in the `*.Rd` file didn't 
+  match the filename (@dmurdoch, #1586; #1676).
+
+## Articles
+
+* Article subtitle, author and date (specified in the YAML frontmatter) are now 
+  correctly omitted from the article table of contents in the sidebar 
+  (@maxheld83, #1428).
 
 * Support for `as_is: true` and non-default output formats for vignettes/
   articles has been somewhat improved. Support is fundamentally limited due to
@@ -41,50 +158,31 @@
   versions will attempt to relax these restrictions, likely through a new 
   document format.
 
-* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
-  to make it easier to decouple building and deployment, and so we can take
-  advantage of standard deployment actions (#1756).
+* When copy and pasting code blocks, lines containing output (e.g. `#>`)
+  are automatically omitted (#1675).
 
-* `pkgdown.css` now incldues updated css styles from pandoc to support better
-  reference list styling (#1469).
-
-* `build_articler()` no longer fails if you have a directory underneath 
+* `build_articles()` no longer fails if you have a directory underneath 
   vignettes with a `.Rmd` extension (#1425).
 
-* The version tooltip showed in the top navbar is now only set if you've 
-  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+* `build_articles()` now correctly handles links to images in `man/figures`
+  (which have the form `../man/figures`) (#1472).
 
-* Reference index section with `title: internal` is now silently dropped,
-  allowing you to suppress warnings about topics that are not listed in the
-  index (#1716).
+* `build_articles()` again sets the `theme` argument of the document format 
+  to `NULL` when `as_is: true` but lets users override this via the `theme`
+  argument of the output format.
 
-* `build_reference()` will run `pkgdown/pre-reference.R` before and 
-  `pkgdown/post-reference.R` after running examples. These allow you to
-  do any setup or teardown operations you might need (#1602).
+* `build_articles()` and `build_home()` now warn if you have images that 
+  won't rendered on the website because they're in unsupported directories 
+  (#1810). Generally, it's only safe to refer to figures in `man/figures`
+  and `vignettes`.
 
-* Headings on the reference index page, and the arguments heading on the 
-  reference pages, now get anchors (#1747).
+## HTML, CSS and JS
 
-* New `pkgdown_print()` allows you to control how your objects are rendered in
-  examples. It includes built-in handling for htmlwidgets and "browseable" HTML
-  so pkgdown output now more closely resembles what you see in RStudio.
-
-* Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
-
-* `\value{}` now does a better job of handling multiple mingled items and text 
-  (#1479).
-
-* `build_reference()` now allows linking to topics from other packages (either function names e.g. `rlang::is_installed` or topic names e.g. `sass::font_face`). (#1664)
-
-* pkgdown, for Bootstrap 4, supports tabsets in articles [as in R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html) including [fading effect](https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections) (@JamesHWade, #1667).
-
-* New template option `trailingslash_redirect` that allows adding a script to redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, @apreshill)
-
-* `build_reference()` now runs examples with two more local options `rlang_interactive = FALSE` (therefore ensuring non-interactive behavior even in interactive sessions -- see `rlang::is_interactive()`) and `cli.dynamic = FALSE`, `withr::local_envvar(RSTUDIO = NA)` and `withr::local_collate("C")`(#1693).
-
-* New `pkgdown_sitrep()` function reporting whether the pkgdown website URL is stored in the pkgdown configuration and in DESCRIPTION. (#1478)
-
-* pkgdown (in concert with downlit and roxygen2) is moving towards more consistent HTML structure for syntax highlighting. The goal is to always have a `<div>` with class `sourceCode` (and other classes as needed), which contains one or more `<pre>`s that has class `sourceCode` and the language, and each `<pre>` contains `<code>`. Something like this:
+* pkgdown (in concert with downlit and roxygen2) is moving towards more 
+  consistent HTML structure for syntax highlighting. The goal is to always have 
+  a `<div>` with class `sourceCode` (and other classes as needed), which 
+  contains one or more `<pre>`s that has class `sourceCode` and the language, 
+  and each `<pre>` contains `<code>`. Something like this:
 
     ```html
     <div class='sourceCode'>
@@ -93,164 +191,104 @@
     </div>
     ```
 
+* Styling for errors, warnings, and messages has been tweaked. Messages 
+  are now displayed the same way as output, and warnings and errors are
+  bolded, but not coloured. This is part of a suite of changes that aim to
+  give package authors greater control over the appearance of messages, 
+  warnings, and errors. 
+
 * Long lines in code output are now wrapped, rather than requiring scrolling.
   This better matches `rmarkdown::html_document()` and what you see in the 
   console.
   
-* Use `autolink_bare_uris` for Pandoc above version 2.0 (@marcosmolla, #1618).
+* New template option `trailingslash_redirect` that allows adding a script to 
+  redirect `your-package-url.com` to `your-package-url.com/`. (#1439, @cderv, 
+  @apreshill)
 
-* pkgdown now supports defining redirects. (#1259, @lorenzwalthert). The syntax is the following, with old paths on the left, and new paths or URLs on the right.
+* `build_reference()` now runs examples with 
+  `options(rlang_interactive = FALSE)` (ensuring non-interactive behaviour in 
+  functions that use `rlang::is_interactive()`), 
+  `options(cli.dynamic = FALSE)`, `Sys.setenv(RSTUDIO = NA)` 
+  and `Sys.setLocale("LC_COLLATE", "C")` (#1693).
 
-  ```yaml
-  redirects:
-    - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
-    - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
-    - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-  ```
-  
+* External links now get the class `external-link`. This makes them easier to 
+  style with CSS (#881, #1491).
+
+* Duplicated section ids are now de-duplicated; this makes pkgdown work better with
+  documentation for R6 classes.
+
+* `pkgdown.css` now includes updated css styles from pandoc to support better
+  reference list styling (#1469).
+
+## News
+
 * `build_news()` no longer breaks URLs with numeric fragments (@krassowski, #1456).
 
-* The 404 page (default or from `.github/404.md`) is no longer built in the development mode (see `?build_site`) as e.g. GitHub pages only uses the 404.html page that is at the root, that is to say, the 404 page built for the unreleased or release modes. (#1622)
+* `build_news()` recognises more styles of release heading (#1437).
 
-* All links on the 404 pages (navbar, scripts, CSS) are now absolute if there is an URL in the configuration file. (#1622)
+* Heading links/IDs in the changelog are now permanent except from links 
+  corresponding to the development version. They are built as the combination 
+  of the heading slug and package version number. (@Bisaloo, #1015)
 
-* Heading links/IDs in the changelog are now permanent except from links corresponding to the development version. They are built as the combination of the heading slug and package version number. (@Bisaloo, #1015)
+## Deployment
 
-* pkgdown's deploy_to_branch() now cleans out the website directory by default (`clean = TRUE`). To revert to previous behaviour, call it with `clean = FALSE`. (#1394)
+* `deploy_to_branch()` now calls `git remote set-branches` with `--add` to avoid
+  overwriting the existing `remote.{remote}.fetch` value (@kyleam, #1382).
 
-* pkgdown now supports local searching. It is enabled by default because no set-up is needed for users to
-  search pkgdown websites. (#1629, with help from @gustavdelius in #1655 and @dieghernan @GregorDeCillia in #1770)
+* `build_site_github_pages()` has been extracted out of `deploy_from_github()`
+  to make it easier to decouple building and deployment, and so we can take
+  advantage of standard deployment actions (#1756).
 
-* pkgdown builds a more exhaustive sitemap.xml even for websites built with Bootstrap 3. 
-  This might change Algolia results if you use Algolia for search. (#1629)
+* Missing topics makes the build fail when the environment variable `CI` is set
+  to `"true"` (@ThierryO, #1378).
 
-* Styling for errors, warnings, and messages has been tweaked. Messages 
-  are now displayed the same way as output, and warnings and errors are
-  bolded, but not coloured. This is part of a suite of changes that allow
-  package authors greater control over message/warning/error appearance. 
+* pkgdown's `deploy_to_branch()` now cleans out the website directory by default 
+  (`clean = TRUE`). Revert to previous behaviour with `clean = FALSE` (#1394).
 
-* Autolinking no longer failures if a package contains duplicated Rd aliases.
+## Other minor improvements and bug fixes 
 
-* pkgdown websites using BS4 will be more accessible, besides a better color contrast:
-
-    * the heading anchors now have the property aria-hidden which should reduce noise for screenreader users.
-
-    * the aria-labelledby property for navbar dropdowns was fixed.
-
-    * the default GitHub/GitLab links gained an aria-label; use of aria-labels for other icons is encouraged in the docs. (#1635)
-
-* README badges in a single paragraph, placed between the `badges: end` and `badges: end` comments,
-  are detected again (#1603). 
-
-* Automatic links to reference pages were generated incorrectly, and 
-  self-links were generated, if the
-  `\name{}` entry in the `*.Rd` file didn't match the filename
-  (@dmurdoch, #1586; #1676).
-
-* New "Customize your pkgdown website" vignette (#1573).
-
-* Added extension points to make HTML widgets (and RGL in particular) work
-  in rendered examples (@dmurdoch).
-
-* Allow template packages to provide a default configuration `_pkgdown.yml`, 
-  stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
-  definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
-
-  Configuration parameters supplied by a template package have the lowest priority
-  They will be overridden by a local `_pkgdown.yml` which is in turn overridden by
-  `override` parameter of `build_site()`. (#1499)
-
-* pkgdown now contains templates and assets that use Bootstrap 4 and sass (with help from @jayhesselberth & @apreshill & @cpsievert).
-
-   * Biggest differences with the Bootstrap 3 templates and assets: bigger default font size; darker links; the active item in tables of contents is highlighted by a grey background and bold font instead of a left border; in the changelog the release date is a sub-title under the version name; if present a logo will appear on all pages near the header (cf `usethis::use_logo()` for using a logo file in your package).
-
-   * Easy customisation of colours and fonts with bslib
-
-   * Thoughtful typography to make the contents as easy as possible to read, regardless of the size of your device.
-   * R syntax highlighting and autolinking by downlit is now paired with an [accessible colour scheme designed by Alison Hill](https://apreshill.github.io/rmda11y/arrow.html).
-   (#1536)
-
-   * In-line footnotes mean you can read asides next to the next they refer to. 
-
-* `build_articles()` again sets the `theme` argument of the document format 
-  to `NULL` when `as_is: true` but lets users override this via the `theme`
-  argument of the output format.
-
-* Authors configuration is more flexible. Users can now:
-
-  * Choose the roles used for filtering authors for the sidebar and footer.
-
-  * Choose the text before authors in the footer.
-
-  * Add text before and after the authors list in the sidebar.
-
-  * Add text before and after the authors list of the authors page. (#1516)
-
-* Make authors' non-ORCID comments from DESCRIPTION more usable as bio/description of 
-  contributions: add a link to the authors page from the sidebar if any author
-  has a non-ORCID comment, and only render non-ORCID comments on the authors page. (#1516)
+* Make authors' non-ORCID comments from `DESCRIPTION` more usable as 
+  bio/description of contributions: add a link to the authors page from the 
+  sidebar if any author has a non-ORCID comment, and render non-ORCID 
+  comments on the authors page. (#1516)
 
 * Better handling for mix of citations with and without text version. Also
   escapes HTML in the text version (@bastistician, #1507).
 
-* Make links of 404's navbar absolute (#1524).
+* README badges in a single paragraph placed between `<!-- badges: end -->`and 
+  `<!-- badges: end -->` comments are again detected (#1603). 
 
-* Make navbar specification more flexible: it is now possible to not include 
-  all default components in the navbar structure. (#1517)
+* The 404 page (default or from `.github/404.md`) is no longer built in the 
+  development mode (see `?build_site`) as e.g. GitHub pages only uses the 
+  `404.html` in the site root (#1622).
 
-* Make footer specification more flexible: users can now
-    * change the placement of elements on the left and right
-    * add text to the left and right (or even remove/replace default text)
-  (#1502)
+* All links on the 404 pages (navbar, scripts, CSS) are now absolute if there 
+  is an URL in the configuration file (#1622).
+
+* The version tooltip showed in the top navbar is now only set if you've 
+  explicitly set the `development$mode` in `_pkgdown.yml` (#1768).
+
+* Headings on the reference index page, and the arguments heading on the 
+  reference pages, now get anchors (#1747).
+
+* New `pkgdown_sitrep()` function reporting whether the pkgdown website URL is 
+  stored in the pkgdown configuration and in `DESCRIPTION` (#1478).
+
+* Use `autolink_bare_uris` for Pandoc above version 2.0 (@marcosmolla, #1618).
 
 * pkgdown now recognizes GitLab URLs to the source repository and adds the corresponding icon
   to the navbar (#1493). It also properly supports [GitLab subgroups](https://docs.gitlab.com/ee/user/group/subgroups/)
   now (@salim-b, #1532).
 
-* External links now get the class "external-link" on top of their usual classes, if they had any. 
-  Therefore they can be targeted more easily by CSS rules. (#881, #1491)
-
-* pkgdown can now use the templates "in-header.html"/"after-head.html", "before-body.html" and 
-"after-body.html" whose content will be placed 
-(similarly to bookdown options `in_header`, `before_body` and `after_body`), 
-respectively, at the end of the `<head>` tag; 
-right below the opening `<body>` tag; and before the closing tag `</body>` (#1487).
-
 * Links for GitHub Enterprise and GitLab Enterprise repositories are detected 
   by assuming such host address begin with `github.` or `gitlab.` 
   (@ijlyttle, #1452).
-
-* Make sidebar specification more flexible: users can now
-
-    * change the order of sidebar elements
-
-    * add custom sidebar sections (title, text that can be Markdown or HTML)
-
-    * add a table of contents for the README
-
-    * completely suppress the sidebar (even "Dev status")
-
-    * provide their own HTML for the navbar. (#1443, #1488, #1502)
-
 
 * Protect the rules drawn by the CLI (as for example, in `build_site()`) against
   very narrow terminal windows with small `getOption('width')`s 
   (@maxheld83, #1435).
 
 * [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) can now be configured for pkgdown sites.
-
-* `build_news()` recognises more styles of release heading (#1437).
-
-* Article subtitle, author and date (specified in the YAML frontmatter) are now 
-  correctly ommitted from the article table of contents in the sidebar 
-  (@maxheld83, #1428).
-
-* Missing topics makes the build fail when the environment variable `CI` is set
-  to `"true"` (@ThierryO, #1378).
-
-* The default navbar no longer includes a home icon - this took up precious
-  horizontal space and wasn't very useful since there is already a link to the 
-  home page immediately to its left (#1383).
 
 * `build_rmarkdown_format` internally sets `html_document(anchor_sections = FALSE)` so to avoid needless dependencies (@atusy, #1426).
 

@@ -31,20 +31,21 @@ data_deps_path <- function(pkg) {
 bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  bootswatch_theme <- get_bootswatch_theme(pkg)
-  check_bootswatch_theme(bootswatch_theme, pkg$bs_version, pkg)
+  theme <- get_bootswatch_theme(pkg)
+  theme <- check_bootswatch_theme(theme, pkg$bs_version, pkg)
 
   bs_theme <- exec(bslib::bs_theme,
     version = pkg$bs_version,
-    bootswatch = bootswatch_theme,
+    bootswatch = theme,
     !!!pkg$meta$template$bslib
   )
   bs_theme <- bslib::bs_add_rules(bs_theme,
     list(
-      sass::sass_file(path_pkgdown("css/BS4/pkgdown.scss")),
-      sass::sass_file(path_pkgdown("css/BS4/syntax-highlighting.scss"))
+      sass::sass_file(path_pkgdown("css/BS5/pkgdown.scss")),
+      sass::sass_file(path_pkgdown("css/BS5/syntax-highlighting.scss"))
     )
   )
+  bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
   bs_theme
 }
@@ -52,25 +53,24 @@ bs_theme <- function(pkg = ".") {
 get_bootswatch_theme <- function(pkg) {
   pkg$meta[["template"]]$bootswatch %||%
     pkg$meta[["template"]]$params$bootswatch %||%
-    NULL
+    "_default"
 }
 
 check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (is.null(bootswatch_theme)) {
-    return(invisible())
-  }
-
-  if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    return(invisible())
-  }
-
-  abort(
-    sprintf(
-      "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
-      bootswatch_theme,
-      pkgdown_field(pkg, "template", "bootswatch"),
-      bs_version,
-      pkgdown_field(pkg, "template", "bootstrap")
+  if (bootswatch_theme == "_default") {
+    NULL
+  } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+    bootswatch_theme
+  } else {
+    abort(
+      sprintf(
+        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+        bootswatch_theme,
+        pkgdown_field(pkg, "template", "bootswatch"),
+        bs_version,
+        pkgdown_field(pkg, "template", "bootstrap")
+      )
     )
-  )
+  }
+
 }

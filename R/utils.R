@@ -236,12 +236,12 @@ is_internal_link <- function(links, pkg) {
 }
 
 get_section_level <- function(section) {
-  as.numeric(
-     gsub(
-        ".*section level(\\d+).*", '\\1',
-        xml2::xml_attr(section, "class")
-      )
-  )
+  class <- xml2::xml_attr(section, "class")
+  if (!grepl("level(\\d+)", class)) {
+    0
+  } else {
+    as.numeric(gsub(".*section level(\\d+).*", '\\1', class))
+  }
 }
 
 # Helpers for testing -----------------------------------------------------

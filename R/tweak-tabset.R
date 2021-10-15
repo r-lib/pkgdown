@@ -76,7 +76,7 @@ tablist_item <- function(tab, html, parent_id) {
     ul_nav,
     "a",
     text,
-    `data-toggle` = "tab",
+    `data-bs-toggle` = "tab",
     href = paste0("#", id),
     role = "tab",
     `aria-controls` = id,

@@ -25,7 +25,7 @@ test_that("render_rmarkdown yields useful error", {
 test_that("render_rmarkdown styles ANSI escapes", {
   skip_if_no_pandoc()
   tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 4)
+  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 5)
 
   expect_output({
     path <- render_rmarkdown(pkg,
