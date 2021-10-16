@@ -110,22 +110,21 @@ $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
 
 footer {
-  margin-top: 2rem;
-  padding: 2rem 0 2rem 0;
+  margin: 1rem 0 1rem 0;
   border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
   background: $pkgdown-footer-bg;
   color: $pkgdown-footer-color;
   display: flex;
-  flex-shrink: 0;
 }
-footer p {
-  margin-bottom: 0;
+@include media-breakpoint-down(sm) {
+  footer {flex-direction: column;}
 }
+@include media-breakpoint-up(sm) {
+  footer .pkgdown-footer-right { text-align: right;}
+}
+
 footer div {
   flex: 1;
-}
-footer .pkgdown-footer-right {
-  text-align: right;
 }
 
 // "Sticky" footer - i.e. the footer always hugs the bottom of the viewport
@@ -227,14 +226,21 @@ h6:hover .anchor {
 }
 
 // package logo
-.pkg-logo {
+img.pkg-logo {
   float: right;
   width: 100px;
   margin-left: 30px;
   margin-top: 25px;
 }
+@include media-breakpoint-down(sm) {
+  img.pkg-logo {width: 80px;}
+  // Avoid wrapping into reference index table
+  .template-reference-index img.pkg-logo {display: none;}
+}
 // line up h1 border-bottom with corner of hexagon
-.page-header {min-height: 88px}
+@include media-breakpoint-up(sm) {
+  .page-header {min-height: 88px}
+}
 
 blockquote, .line-block {
   border-left: .5rem solid $table-border-color;
