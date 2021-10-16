@@ -66,7 +66,7 @@ html, body {
   #pkgdown-sidebar {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
-    background-color: $gray-200;
+    background-color: $gray-100;
     border-color: $border-color;
     @include border-radius($border-radius);
 
