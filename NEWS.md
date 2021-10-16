@@ -31,6 +31,9 @@
     * Section anchors now appear on the right (making them usable on mobile phones) (#1782).
     * The TOC is scrollable independently on the main content. This makes it
       more useful on long pages with many headings (#1610).
+    * The sidebar is shown on mobile
+    * Function arguments use a definition list rather than a table. This
+      gives more room for long argument names and detailed descriptions.
 
 ## Local search
 

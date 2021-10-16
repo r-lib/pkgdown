@@ -15,7 +15,7 @@
     });
 
     // Activate popovers
-    $('[data-toggle="popover"]').popover({
+    $('[data-bs-toggle="popover"]').popover({
       container: 'body',
       html: true,
       trigger: 'focus',
@@ -23,7 +23,7 @@
       sanitize: false,
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
 
   /* Clipboard --------------------------*/
 

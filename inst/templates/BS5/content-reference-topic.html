@@ -22,12 +22,12 @@
     {{/usage}}
 
     {{#has_args}}
-    <div id="ref-arguments">
+    <div id="ref-arguments" class="ref-arguments section level2">
     <h2>Arguments</h2>
-    <dl class="row">
+    <dl>
     {{#arguments}}
-    <dt class="col-sm-3 section level2" id="pkg-arg-{{{name}}}">{{{name}}}</dt>
-      <dd class="col-sm-9" id="ref-arguments desc">{{{description}}}</dd>
+      <dt id="ref-argument-{{{name}}}">{{{name}}}</dt>
+      <dd>{{{description}}}</dd>
     {{/arguments}}
     </dl>
     </div>
@@ -49,7 +49,7 @@
     </div>
     {{/examples}}
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc">
       <h2 data-toc-skip>Contents</h2>
     </nav>

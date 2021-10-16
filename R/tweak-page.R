@@ -91,7 +91,7 @@ class_page_header <- function(bs_version, header) {
   if (bs_version == 3) {
     paste0("<div class='page-header'>", header, "</div>")
   } else {
-    paste0("<div class='pb-2 mt-4 mb-2 border-bottom'>", header, "</div>")
+    paste0("<div class='page-header pb-2 mt-4 mb-2 border-bottom'>", header, "</div>")
   }
 }
 
