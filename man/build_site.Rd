@@ -176,21 +176,25 @@ By default, the top navbar will contain links to:
 \item The reference index.
 \item Articles (i.e., vignettes, if present).
 \item News (if present).
-\item An icon linking to the source repository.
+\item To the source repository (with an icon).
 }
 
-You can override (and even remove) these defaults with the \code{navbar} field.
-It has two primary components: \code{structure} and \code{components}.
-These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.
-
-The \code{structure} defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components, remove some default components and add your own components.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
- structure:
-   left:  [intro, reference, articles, tutorials, news]
-   right: [github]
+You can override these defaults with the \code{navbar} field.
+It's made up of two pieces: \code{structure} and \code{components}.
+\code{structure} defines the overall layout of the navbar, i.e. the order of the components, and whether they're on the left or the right.
+The default navbar structure looks something like this:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
 }\if{html}{\out{</div>}}
 
-The \code{components} describes the appearance of each element in the navbar.
+You can use the \code{structure} field to reorganise the navbar without changing the default contents:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    left:  [search]
+    right: [reference, articles]
+}\if{html}{\out{</div>}}
+
+The \code{components} what content appears in each of these named elements.
 It uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown}.
 The following YAML snippet illustrates some of the most important features.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
  components:
@@ -204,24 +208,27 @@ The following YAML snippet illustrates some of the most important features.\if{h
       href: articles/a2.html
     - text: -------
     - text: "Category B"
-    - text: Title B1
-      menu:
-      - text: "Sub-category B11"
-        href: articles/b11.html
-    twitter:
-      icon: "fab fa-twitter fa-lg"
-      href: https://twitter.com/hadleywickham
-      aria-label: "twitter account"
+    - text: Article B1
+      href: articles/b1.html
 }\if{html}{\out{</div>}}
 
 Components can contain sub-\code{menu}s with headings (indicated by missing \code{href}) and separators (indicated by a bunch of \code{-}).
 You can also use \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
-When using icons with no text, for accessibility it's best practice to include an \code{aria-label} for screenreader users.
+When using icons instead of text, also supply \code{aria-label} for screenreader users.
 
-This yaml would override the default "articles" component, and add a new "twitter" component.
-Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
+If you want to add a new component to the navbar, you'll need to modify both \code{structure} and \code{components}.
+For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/hadleywickham
+      aria-label: Twitter
+}\if{html}{\out{</div>}}
 
-You can also customise the color scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}. See \code{vignette("customise")} for more details.
+You can also customise the colour scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}.
+See \code{vignette("customise")} for more details.
 }
 
 \section{YAML config - search}{
@@ -352,21 +359,24 @@ time (e.g. because it's only behind the firewall or requires auth).\if{html}{\ou
 
 By default, the footer is automatically populated with:
 \itemize{
-\item The names of the \href{https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors}{authors \code{authors}}, on the left.
-\item A reference to pkgdown \code{pkgdown}, on the right.
+\item The names of the authors on the left.
+\item A link to the pkgdown website on the right.
 }
 
+You can override these defaults with the \code{footer} field.
 The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
- left:
-   structure: [pkgdown]
- right:
-   structure: [authors, legal]
-   components:
-     legal: Provided without ***any warranty***.
+  left:
+    structure: [pkgdown]
+  right:
+    structure: [authors, legal]
+    components:
+      legal: Provided without ***any warranty***.
 }\if{html}{\out{</div>}}
 
-Like the navbar and side, you can control both the structure and the components.
+Like the navbar and sidebar, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.
+
+See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.
 }
 
 \section{YAML config - redirects}{
