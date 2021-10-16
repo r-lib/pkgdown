@@ -36,7 +36,7 @@ website to any desired branch.
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" id="version-badge" class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="In-development version">1.9000.9000.9000</button>
+    <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
@@ -115,38 +115,38 @@ website to any desired branch.</p></li>
 <span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments">
+    <div id="ref-arguments" class="ref-arguments section level2">
     <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
-    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-install">install</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Optionally, opt-out of automatic installation. This is
+    <dl><dt id="ref-argument-pkg">pkg</dt>
+      <dd><p>Path to package.</p></dd>
+      <dt id="ref-argument-install">install</dt>
+      <dd><p>Optionally, opt-out of automatic installation. This is
 necessary if the package you're documenting is a dependency of pkgdown</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-tarball">tarball</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The location of the built package tarball. The default Travis
+      <dt id="ref-argument-tarball">tarball</dt>
+      <dd><p>The location of the built package tarball. The default Travis
 configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-ssh_id">ssh_id</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The private id to use, a base64 encoded content of the private
+      <dt id="ref-argument-ssh_id">ssh_id</dt>
+      <dd><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-commit_message">commit_message</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The commit message to be used for the commit.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-clean">clean</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Clean all files from old site.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-verbose">verbose</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Print verbose output</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-host">host</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The GitHub host url.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-...">...</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-repo_slug">repo_slug</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>The <code>user/repo</code> slug for the repository.</p></dd>
+      <dt id="ref-argument-commit_message">commit_message</dt>
+      <dd><p>The commit message to be used for the commit.</p></dd>
+      <dt id="ref-argument-clean">clean</dt>
+      <dd><p>Clean all files from old site.</p></dd>
+      <dt id="ref-argument-verbose">verbose</dt>
+      <dd><p>Print verbose output</p></dd>
+      <dt id="ref-argument-host">host</dt>
+      <dd><p>The GitHub host url.</p></dd>
+      <dt id="ref-argument-...">...</dt>
+      <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+      <dt id="ref-argument-repo_slug">repo_slug</dt>
+      <dd><p>The <code>user/repo</code> slug for the repository.</p></dd>
     </dl></div>
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 </div>

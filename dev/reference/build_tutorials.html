@@ -28,7 +28,7 @@ list in _pkgdown.yml as described below."><meta property="og:image" content="htt
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" id="version-badge" class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="In-development version">1.9000.9000.9000</button>
+    <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
@@ -95,15 +95,15 @@ list in <code>_pkgdown.yml</code> as described below.</p>
     <pre class="sourceCode r"><code><span class="fu">build_tutorials</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments">
+    <div id="ref-arguments" class="ref-arguments section level2">
     <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
-    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
+    <dl><dt id="ref-argument-pkg">pkg</dt>
+      <dd><p>Path to package.</p></dd>
+      <dt id="ref-argument-override">override</dt>
+      <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
+      <dt id="ref-argument-preview">preview</dt>
+      <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
     </dl></div>
 
@@ -126,7 +126,7 @@ section. This should be a list where each element specifies:</p><ul><li><p><code
     </div>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 </div>

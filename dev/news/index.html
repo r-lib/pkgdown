@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" id="version-badge" class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="In-development version">1.9000.9000.9000</button>
+    <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
@@ -94,6 +94,8 @@
 <li>If present a logo will appear on all pages near the header</li>
 <li>Section anchors now appear on the right (making them usable on mobile phones) (<a href="https://github.com/r-lib/pkgdown/issues/1782">#1782</a>).</li>
 <li>The TOC is scrollable independently on the main content. This makes it more useful on long pages with many headings (<a href="https://github.com/r-lib/pkgdown/issues/1610">#1610</a>).</li>
+<li>The sidebar is shown on mobile</li>
+<li>Function arguments use a definition list rather than a table. This gives more room for long argument names and detailed descriptions.</li>
 </ul></li>
 </ul></div>
 <div id="local-search" class="section level3">
@@ -585,7 +587,7 @@
 </ul></div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 

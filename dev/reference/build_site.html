@@ -42,7 +42,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" id="version-badge" class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="In-development version">1.9000.9000.9000</button>
+    <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
@@ -125,28 +125,28 @@ that aspect of the site.</p>
 <span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments">
+    <div id="ref-arguments" class="ref-arguments section level2">
     <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
-    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-examples">examples</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples?</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-run_dont_run">run_dont_run</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples that are surrounded in \dontrun?</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-seed">seed</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Seed used to initialize so that random examples are
+    <dl><dt id="ref-argument-pkg">pkg</dt>
+      <dd><p>Path to package.</p></dd>
+      <dt id="ref-argument-examples">examples</dt>
+      <dd><p>Run examples?</p></dd>
+      <dt id="ref-argument-run_dont_run">run_dont_run</dt>
+      <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
+      <dt id="ref-argument-seed">seed</dt>
+      <dd><p>Seed used to initialize so that random examples are
 reproducible.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-lazy">lazy</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, will only rebuild articles and reference pages
+      <dt id="ref-argument-lazy">lazy</dt>
+      <dd><p>If <code>TRUE</code>, will only rebuild articles and reference pages
 if the source is newer than the destination.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
+      <dt id="ref-argument-override">override</dt>
+      <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
+      <dt id="ref-argument-preview">preview</dt>
+      <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-devel">devel</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Use development or deployment process?</p>
+      <dt id="ref-argument-devel">devel</dt>
+      <dd><p>Use development or deployment process?</p>
 <p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
 and will load code with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code>.</p>
@@ -156,15 +156,15 @@ and will run all examples and vignettes in a new process.</p>
 outputs when you building the complete site; <code><a href="build_reference.html">build_reference()</a></code>,
 <code><a href="build_home.html">build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-new_process">new_process</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
+      <dt id="ref-argument-new_process">new_process</dt>
+      <dd><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-install">install</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, will install the package in a temporary library
+      <dt id="ref-argument-install">install</dt>
+      <dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-document">document</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
+      <dt id="ref-argument-document">document</dt>
+      <dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
     </dl></div>
 
     <div class="ref-section section level2" id="section-yaml-config">
@@ -440,7 +440,7 @@ hanging in cron jobs.</p>
 </code></pre></div>
     </div>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 </div>

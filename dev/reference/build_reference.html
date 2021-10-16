@@ -22,7 +22,7 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <button type="button" id="version-badge" class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="In-development version">1.9000.9000.9000</button>
+    <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
@@ -99,36 +99,36 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 <span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments">
+    <div id="ref-arguments" class="ref-arguments section level2">
     <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
-    <dl class="row"><dt class="col-sm-3 section level2" id="pkg-arg-pkg">pkg</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Path to package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-lazy">lazy</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
+    <dl><dt id="ref-argument-pkg">pkg</dt>
+      <dd><p>Path to package.</p></dd>
+      <dt id="ref-argument-lazy">lazy</dt>
+      <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
 rapidly prototype. It is set to <code>FALSE</code> by <code><a href="build_site.html">build_site()</a></code>.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-examples">examples</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples?</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-run_dont_run">run_dont_run</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Run examples that are surrounded in \dontrun?</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-seed">seed</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Seed used to initialize so that random examples are
+      <dt id="ref-argument-examples">examples</dt>
+      <dd><p>Run examples?</p></dd>
+      <dt id="ref-argument-run_dont_run">run_dont_run</dt>
+      <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
+      <dt id="ref-argument-seed">seed</dt>
+      <dd><p>Seed used to initialize so that random examples are
 reproducible.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-override">override</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>An optional named list used to temporarily override
+      <dt id="ref-argument-override">override</dt>
+      <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-preview">preview</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
+      <dt id="ref-argument-preview">preview</dt>
+      <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-devel">devel</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Determines how code is loaded in order to run examples.
+      <dt id="ref-argument-devel">devel</dt>
+      <dd><p>Determines how code is loaded in order to run examples.
 If <code>TRUE</code> (the default), assumes you are in a live development
 environment, and loads source package with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code>.
 If <code>FALSE</code>, uses the installed version of the package.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-document">document</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
-    <dt class="col-sm-3 section level2" id="pkg-arg-topics">topics</dt>
-      <dd class="col-sm-9" id="ref-arguments desc"><p>Build only specified topics. If supplied, sets <code>lazy</code>
+      <dt id="ref-argument-document">document</dt>
+      <dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
+      <dt id="ref-argument-topics">topics</dt>
+      <dd><p>Build only specified topics. If supplied, sets <code>lazy</code>
 and <code>preview</code> to <code>FALSE</code>.</p></dd>
     </dl></div>
 
@@ -297,7 +297,7 @@ as HTML widgets.</p>
     </div>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 </div>
