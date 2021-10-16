@@ -57,7 +57,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
-    <a class="dropdown-item" href="../articles/customization.html">Customize your pkgdown website</a>
+    <a class="dropdown-item" href="../articles/customise.html">Customise your website</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
@@ -186,7 +186,7 @@ See <code><a href="../articles/linking.html">vignette("linking")</a></code> for 
 <li><p>Generate metadata used by Twitter and the Open Graph protocol
 for rich social media cards, see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>.</p></li>
 <li><p>Adds the "external-link" class to external links
-for sites using BS4, see <code><a href="../articles/customization.html">vignette("customization")</a></code>.</p></li>
+for sites using BS4, see <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p></li>
 </ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre><p></p></div>
 <p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
@@ -282,10 +282,7 @@ You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?
 When using icons with no text, for accessibility it's best practice to include an <code>aria-label</code> for screenreader users.</p>
 <p>This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
-<p>You can also customize the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> dark</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span></code></pre><p></p></div>
-<p>will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf <code><a href="../articles/customization.html">vignette("customization", package ="pkgdown")</a></code>)</p>
+<p>You can also customise the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
     </div>
     <div class="ref-section section level2" id="section-yaml-config-search">
     <h2>YAML config - search<a class="anchor" aria-label="anchor" href="#section-yaml-config-search"></a></h2>
@@ -305,10 +302,7 @@ used to render the page in the browser.</p>
 by passing on the <code>bootswatch</code> template parameter to the built-in
 template:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre><p></p></div>
-<p>Note that if you use Bootstrap version 3 the syntax is</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre><p></p></div>
-<p>Refer to <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
+<p>See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details.</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics</a>.
 It should correspond to your
@@ -335,7 +329,7 @@ of the default assets, set <code>default_assets</code> to false.</p><div class="
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
 <p>For further information including how to provide templates and assets in
-a separate package, see <code><a href="../articles/customization.html">vignette("customization", package = "pkgdown")</a></code>.</p>
+a separate package, see <code><a href="../articles/customise.html">vignette("customise")</a></code>c.</p>
 <p>You can use the <code>trailing_slash_redirect</code> to automatically redirect
 <code>your-package-url.com</code> to <code>your-package-url.com/</code>, using a JS script
 added to the <code>&lt;head&gt;</code> of the home page.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
