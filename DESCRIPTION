@@ -42,7 +42,6 @@ Imports:
     ragg,
     rlang (>= 0.99.0.9000),
     rmarkdown (>= 1.1.9007),
-    sass,
     tibble,
     whisker,
     withr,
@@ -62,6 +61,7 @@ Suggests:
     rsconnect,
     rstudioapi,
     rticles,
+    sass,
     testthat (>= 3.0.0),
     tools
 VignetteBuilder: 
