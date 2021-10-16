@@ -41,11 +41,13 @@ html, body {
 }
 
 // Make scrollable, sticky TOC
-#toc {
-  position: sticky;
-  top: $pkgdown-nav-height;
-  max-height: calc(100vh - #{$pkgdown-nav-height} - 1rem);
-  overflow-y: scroll;
+@include media-breakpoint-up(sm) {
+  #toc {
+    position: sticky;
+    top: $pkgdown-nav-height;
+    max-height: calc(100vh - #{$pkgdown-nav-height} - 1rem);
+    overflow-y: scroll;
+  }
 }
 
 /* sidebar ================================================================== */
@@ -59,6 +61,21 @@ html, body {
   margin-bottom: 0.5rem;
 }
 
+// Add some visual distinction between content and "sidebar" on mobile
+@include media-breakpoint-down(sm) {
+  #pkgdown-sidebar {
+    margin: 0.5rem;
+    width: calc(100vw - 1rem);
+    background-color: $gray-200;
+    border-color: $border-color;
+    @include border-radius($border-radius);
+
+    h2:first-child {
+      margin-top: 1rem;
+    }
+  }
+}
+
 /* table of contents -------------------------------------------------------- */
 $pkgdown-toc-border-width: 0 !default;
 $pkgdown-toc-border-color: $border-color !default;
@@ -66,6 +83,10 @@ $pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
 $pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
 $pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
 $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
+
+#toc .nav {
+  margin-bottom: 1rem;
+}
 
 // boostrap doesn't style active/hovered nav making it hard to see where
 // you are and where you're going, so we add our own styling

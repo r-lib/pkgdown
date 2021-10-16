@@ -31,6 +31,7 @@
     * Section anchors now appear on the right (making them usable on mobile phones) (#1782).
     * The TOC is scrollable independently on the main content. This makes it
       more useful on long pages with many headings (#1610).
+    * The sidebar is shown on mobile
 
 ## Local search
 
