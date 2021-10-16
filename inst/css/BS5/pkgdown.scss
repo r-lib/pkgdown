@@ -4,6 +4,7 @@
 // you are and where you're going, so we add our own styling
 .navbar-nav .nav-item > .nav-link {
   @include border-radius($border-radius);
+  padding: 0.5rem;
 }
 
 .navbar-light .navbar-nav .active > .nav-link {
