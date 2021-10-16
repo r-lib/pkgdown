@@ -38,7 +38,7 @@ You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^othe
       bootswatch: cerulean
     ```
     
-  For Boostrap version 3 the syntax is
+    For Boostrap version 3 the syntax is
     
     ```yaml
     template:
