@@ -98,7 +98,7 @@ See \code{vignette("linking")} for more information.
 \item Generate metadata used by Twitter and the Open Graph protocol
 for rich social media cards, see \code{vignette("metadata")}.
 \item Adds the "external-link" class to external links
-for sites using BS4, see \code{vignette("customization")}.
+for sites using BS4, see \code{vignette("customise")}.
 }\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
@@ -221,12 +221,7 @@ When using icons with no text, for accessibility it's best practice to include a
 This yaml would override the default "articles" component, and add a new "twitter" component.
 Unless you explicitly mention new components in the \code{structure} they'll be added to the far right of the left menu.
 
-You can also customize the color scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  type: dark
-  bg: primary
-}\if{html}{\out{</div>}}
-
-will produce a navbar with a dark background of the primary color (defined by Bootstrap default, a Bootswatch theme, or bslib variable cf \code{vignette("customization", package ="pkgdown")})
+You can also customise the color scheme of the navbar by using the \href{https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes}{\code{type} and \code{bg} parameters}. See \code{vignette("customise")} for more details.
 }
 
 \section{YAML config - search}{
@@ -247,12 +242,7 @@ template:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   bootswatch: cerulean
 }\if{html}{\out{</div>}}
 
-Note that if you use Bootstrap version 3 the syntax is\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  params:
-    bootswatch: cerulean
-}\if{html}{\out{</div>}}
-
-Refer to \code{vignette("customization", package = "pkgdown")}.
+See \code{vignette("customise")} for details.
 
 Optionally provide the \code{ganalytics} template parameter to enable
 \href{https://marketingplatform.google.com/about/analytics/}{Google Analytics}.
@@ -288,7 +278,7 @@ is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.
 
 For further information including how to provide templates and assets in
-a separate package, see \code{vignette("customization", package = "pkgdown")}.
+a separate package, see \code{vignette("customise")}c.
 
 You can use the \code{trailing_slash_redirect} to automatically redirect
 \code{your-package-url.com} to \verb{your-package-url.com/}, using a JS script

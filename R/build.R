@@ -35,7 +35,7 @@
 #' * Generate metadata used by Twitter and the Open Graph protocol
 #'   for rich social media cards, see `vignette("metadata")`.
 #' * Adds the "external-link" class to external links
-#'   for sites using BS4, see `vignette("customization")`.
+#'   for sites using BS4, see `vignette("customise")`.
 #'
 #' ```yaml
 #' url: https://pkgdown.r-lib.org
@@ -134,15 +134,7 @@
 #'   bootswatch: cerulean
 #' ```
 #'
-#' Note that if you use Bootstrap version 3 the syntax is
-#'
-#' ```yaml
-#' template:
-#'   params:
-#'     bootswatch: cerulean
-#' ```
-#'
-#'  Refer to `vignette("customization", package = "pkgdown")`.
+#' See `vignette("customise")` for details.
 #'
 #' Optionally provide the `ganalytics` template parameter to enable
 #' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
@@ -188,7 +180,7 @@
 #' for pkgdown templates to ensure that you use the correct components.
 #'
 #' For further information including how to provide templates and assets in
-#' a separate package, see `vignette("customization", package = "pkgdown")`.
+#' a separate package, see `vignette("customise")`c.
 #'
 #' You can use the `trailing_slash_redirect` to automatically redirect
 #' `your-package-url.com` to `your-package-url.com/`, using a JS script

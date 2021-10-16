@@ -47,7 +47,7 @@
 
 ## Customisation
 
-* New `vignette("customization")` vignette documents all the ways you can 
+* New `vignette("customise")` documents all the ways you can 
   customise your site, including the new options described below (#1573).
 
 * Sites can be easily themed either with bootswatch themes or by selectively
