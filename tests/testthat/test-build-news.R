@@ -112,3 +112,15 @@ test_that("anchors de-duplicated with version", {
   expect_equal(xpath_attr(html, "//h3", "id"), "x-1-0")
   expect_equal(xpath_attr(html, "//a", "href"), "#x-1-0")
 })
+
+test_that("news headings get class and release date", {
+  timeline <- tibble::tibble(version = "1.0", date = "2020-01-01")
+
+  html <- xml2::read_xml("<div><h2></h2></div>")
+  tweak_news_heading(html, version = "1.0", timeline = timeline, bs_version = 3)
+  expect_snapshot_output(xpath_xml(html, "//div"))
+
+  html <- xml2::read_xml("<div><h2></h2></div>")
+  tweak_news_heading(html, version = "1.0", timeline = timeline, bs_version = 4)
+  expect_snapshot_output(xpath_xml(html, "//div"))
+})

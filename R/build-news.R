@@ -275,8 +275,8 @@ tweak_news_heading <- function(html, version, timeline, bs_version) {
     date <- timeline$date[match(version, timeline$version)]
     if (!is.na(date)) {
       if (bs_version == 3) {
-        release_str <- paste(" <small>", data, "</small>", collapse = "")
-        release_html <- xml2::xml_find_first(xml2::read_html(version_str), ".//small")
+        release_str <- paste0(" <small>", date, "</small>")
+        release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//small")
         xml2::xml_add_child(h2, release_html, .where = 1)
       } else {
         release_str <- sprintf("<p class='text-muted'>CRAN release: %s</p>", date)
