@@ -35,7 +35,14 @@ x
 ## Details tag
 
 <details>
-  This should only be shown when required
+This should only be shown when required
+</details>
+
+<details>
+<summary>Multiple paragraphs</summary>
+First paragraph
+
+Second paragraph
 </details>
 
 <details>
