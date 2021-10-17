@@ -89,9 +89,11 @@ Some more text
 
 There should however be no bug here!
 
-## Results in tabset {.tabset .tabset-pills}
+## Tabsets
 
-### Tab 1
+### Tabset with pills {.tabset .tabset-pills}
+
+#### Tab 1
 
 blablablabla
 
@@ -99,14 +101,19 @@ blablablabla
 1 + 1
 ```
 
-### Tab 2
+Should be "cool" heading below
+
+##### cool
+
+Stuff
+
+#### Tab 2
 
 blop
 
+### Tabset without pils {.tabset}
 
-## Results in tabset, no pills {.tabset}
-
-### A thing
+#### Tab 1
 
 something nice
 
@@ -114,28 +121,20 @@ something nice
 plot(1:42)
 ```
 
-#### cool
+#### Tab 2 {.active}
 
-yay
+This tab should be active
 
-### Tab 2 {.active}
+### Fading tabset {.tabset .tabset-fade}
 
-hello
+#### English
 
-## Results in tabset, fading {.tabset .tabset-fade}
+Hello!
 
-### Something
+#### French
 
-ok
+Bonjour!
 
-```{r}
-plot(1)
-```
+#### German
 
-#### cool
-
-yay
-
-### Nice {.active}
-
-bonjour
+Guten tag.
