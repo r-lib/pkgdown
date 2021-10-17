@@ -173,34 +173,7 @@ idea to take advantage of the YAML <code>&gt;</code> notation:</p><div class="so
 <span id="cb1-2"><a href="#cb1-2"></a>  This is a very _long_ and **overly** flowery description of a</span>
 <span id="cb1-3"><a href="#cb1-3"></a>  single simple function. By using `&gt;`, it's easy to write a description</span>
 <span id="cb1-4"><a href="#cb1-4"></a>  that runs over multiple lines.</span></code></pre><p></p></div><div id="topic-matching">
-<h3>
-
-<a class="anchor" aria-label="anchor" href="#topic-matching"></a></h3><p><code>contents</code> can contain:</p><ul><li><p>Individual function/topic names.</p></li>
-<li><p>Weirdly named functions with doubled quoting, once for YAML and once for
-R, e.g. <code>"`+.gg`"</code>.</p></li>
-<li><p><code>starts_with("prefix")</code> to select all functions with common prefix.</p></li>
-<li><p><code>ends_with("suffix")</code> to select all functions with common suffix.</p></li>
-<li><p><code>matches("regexp")</code> for more complex regular expressions.</p></li>
-<li><p><code>has_keyword("x")</code> to select all topics with keyword "x";
-<code>has_keyword("datasets")</code> selects all data documentation.</p></li>
-<li><p><code>has_concept("blah")</code> to select all topics with concept "blah".
-If you are using roxygen2, <code>has_concept()</code> also matches family tags, because
-roxygen2 converts them to concept tags.</p></li>
-<li><p><code>lacks_concepts(c("concept1", "concept2"))</code> to select all topics
-without those concepts. This is useful to capture topics not otherwise
-captured by <code>has_concepts()</code>.</p></li>
-<li><p>Topics from other installed packages, e.g. <code><a href="https://rlang.r-lib.org/reference/is_installed.html">rlang::is_installed()</a></code> (function name)
-or <code><a href="https://rdrr.io/pkg/sass/man/font_face.html">sass::font_face</a></code> (topic name).</p></li>
-</ul><p>All functions (except for <code>has_keywords()</code>) automatically exclude internal
-topics (i.e. those with <code>\keyword{internal}</code>). You can choose to include
-with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
-<p>Use a leading <code>-</code> to remove topics from a section, e.g. <code>-topic_name</code>,
-<code>-starts_with("foo")</code>.</p>
-<p>pkgdown will check that all non-internal topics are included on
-the reference index page, and will generate a warning if you have missed any.
-When the code is run in a continuous integration environment (i.e. when the
-CI envar is "true"), this is an error so that the build will fail if you
-forget to include topics in the index.</p>
+<h3>Topic matching<a class="anchor" aria-label="anchor" href="#topic-matching"></a></h3>
 
 
 <p><code>contents</code> can contain:</p><ul><li><p>Individual function/topic names.</p></li>
@@ -232,12 +205,7 @@ forget to include topics in the index.</p>
 </div>
 
 <div id="missing-topics">
-<h3>
-
-<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3><p>pkgdown will warn if there are (non-internal) topics that not listed
-in the reference index. You can suppress these warnings by listing the
-topics in section with "title: internal" (case sensitive) which will not be
-displayed on the reference index.</p>
+<h3>Missing topics<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3>
 
 
 <p>pkgdown will warn if there are (non-internal) topics that not listed
@@ -247,12 +215,7 @@ displayed on the reference index.</p>
 </div>
 
 <div id="icons">
-<h3>
-
-<a class="anchor" aria-label="anchor" href="#icons"></a></h3><p>You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level <code>icons</code> directory. This should contain .png files that are
-either 30x30 (for regular display) or 60x60 (if you want retina display).
-Icons are matched to topics by aliases.</p>
+<h3>Icons<a class="anchor" aria-label="anchor" href="#icons"></a></h3>
 
 
 <p>You can optionally supply an icon for each help topic. To do so, you'll need
@@ -262,10 +225,7 @@ Icons are matched to topics by aliases.</p>
 </div>
 
 <div id="examples">
-<h3>
-
-<a class="anchor" aria-label="anchor" href="#examples"></a></h3><p>If you need to run extra code before or after all examples are run, you
-can create <code>pkgdown/pre-reference.R</code> and <code>pkgdown/post-reference.R</code>.</p>
+<h3>Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
 
 
 <p>If you need to run extra code before or after all examples are run, you
