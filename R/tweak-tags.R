@@ -2,7 +2,7 @@ tweak_anchors <- function(html) {
   # Anchors are manually added in content-reference-index.html because the
   # sections are organised within a table
 
-  divs <- xml2::xml_find_all(html, "//div[@id]")
+  divs <- xml2::xml_find_all(html, ".//div[@id]")
   if (length(divs) == 0) {
     return(invisible())
   }

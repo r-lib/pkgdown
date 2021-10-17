@@ -242,6 +242,11 @@ get_section_level <- function(section) {
   ifelse(has_level, as.numeric(gsub(".*section level(\\d+).*", '\\1', class)), 0)
 }
 
+section_id <- function(section) {
+  h <- xml2::xml_find_first(section, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
+  xml2::xml_attr(h, "id")
+}
+
 # Helpers for testing -----------------------------------------------------
 
 xpath_xml <- function(x, xpath) {
