@@ -12,7 +12,7 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script></head><body data-spy="scroll" data-target="#toc" data-headroom>
+</script></head><body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -24,7 +24,7 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -45,7 +45,7 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a></h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -76,13 +76,13 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
     <div class="d-none name"><code>build_reference.Rd</code></div>
     </div>
 
-    <div id="ref-description" class="ref-description section level2">
+    <div class="ref-description section level2">
     <p>By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a <code>reference</code> section in your
 <code>_pkgdown.yml</code> as described below.</p>
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <div class="ref-usage section level2 sourceCode">
     <pre class="sourceCode r"><code><span class="fu">build_reference</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   lazy <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -99,8 +99,8 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 <span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments" class="ref-arguments section level2">
-    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <div class="ref-arguments section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt id="ref-argument-pkg">pkg</dt>
       <dd><p>Path to package.</p></dd>
       <dt id="ref-argument-lazy">lazy</dt>
@@ -132,8 +132,8 @@ If <code>FALSE</code>, uses the installed version of the package.</p></dd>
 and <code>preview</code> to <code>FALSE</code>.</p></dd>
     </dl></div>
 
-    <div class="ref-section section level2" id="section-reference-index">
-    <h2>Reference index<a class="anchor" aria-label="anchor" href="#section-reference-index"></a></h2>
+    <div class="section level2">
+    <h2 id="reference-index">Reference index<a class="anchor" aria-label="anchor" href="#reference-index"></a></h2>
     
 
 <p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>.
@@ -148,32 +148,35 @@ on the right.</p></li>
 subtitle, but this is no longer recommended).</p>
 <p>Most packages will only need to use <code>title</code> and <code>contents</code> components.
 For example, here's a snippet from the YAML that pkgdown uses to generate
-its own reference index:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Build</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at">  Build a complete site or its individual section components.</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("build_")</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Templates</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> template_navbar</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> render_page</span></span></code></pre><p></p></div>
+its own reference index:</p><div class="sourceCode yaml"><pre><code>reference:
+- title: Build
+  desc:  Build a complete site or its individual section components.
+- contents:
+  - starts_with("build_")
+- title: Templates
+- contents:
+  - template_navbar
+  - render_page
+</code></pre><p></p></div>
 <p>Bigger packages, e.g. ggplot2, may need an additional layer of
-structure in order to clearly organise large number of functions:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Layers</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">-</span><span class="at"> </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> Geoms</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Geom is short for geometric element</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("geom")</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">-</span><span class="at"> </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> Stats</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Statistical transformations transform data before display.</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("stat")</span></span></code></pre><p></p></div>
+structure in order to clearly organise large number of functions:</p><div class="sourceCode yaml"><pre><code>reference:
+- title: Layers
+- subtitle: Geoms
+  desc: Geom is short for geometric element
+- contents:
+  - starts_with("geom")
+- subtitle: Stats
+  desc: Statistical transformations transform data before display.
+  contents:
+  - starts_with("stat")
+</code></pre><p></p></div>
 <p><code>desc</code> can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML <code>&gt;</code> notation:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  This is a very _long_ and **overly** flowery description of a</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  single simple function. By using `&gt;`, it's easy to write a description</span>
-<span id="cb1-4"><a href="#cb1-4"></a>  that runs over multiple lines.</span></code></pre><p></p></div><div id="topic-matching">
-<h3>Topic matching<a class="anchor" aria-label="anchor" href="#topic-matching"></a></h3>
+idea to take advantage of the YAML <code>&gt;</code> notation:</p><div class="sourceCode yaml"><pre><code>desc: &gt;
+  This is a very _long_ and **overly** flowery description of a
+  single simple function. By using `&gt;`, it's easy to write a description
+  that runs over multiple lines.
+</code></pre><p></p></div><div>
+<h3 id="topic-matching">Topic matching<a class="anchor" aria-label="anchor" href="#topic-matching"></a></h3>
 
 
 <p><code>contents</code> can contain:</p><ul><li><p>Individual function/topic names.</p></li>
@@ -204,8 +207,8 @@ CI envar is "true"), this is an error so that the build will fail if you
 forget to include topics in the index.</p>
 </div>
 
-<div id="missing-topics">
-<h3>Missing topics<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3>
+<div>
+<h3 id="missing-topics">Missing topics<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3>
 
 
 <p>pkgdown will warn if there are (non-internal) topics that not listed
@@ -214,8 +217,8 @@ topics in section with "title: internal" (case sensitive) which will not be
 displayed on the reference index.</p>
 </div>
 
-<div id="icons">
-<h3>Icons<a class="anchor" aria-label="anchor" href="#icons"></a></h3>
+<div>
+<h3 id="icons">Icons<a class="anchor" aria-label="anchor" href="#icons"></a></h3>
 
 
 <p>You can optionally supply an icon for each help topic. To do so, you'll need
@@ -224,8 +227,8 @@ either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.</p>
 </div>
 
-<div id="examples">
-<h3>Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
+<div>
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
 
 
 <p>If you need to run extra code before or after all examples are run, you
@@ -233,23 +236,24 @@ can create <code>pkgdown/pre-reference.R</code> and <code>pkgdown/post-reference
 </div>
 
     </div>
-    <div class="ref-section section level2" id="section-figures">
-    <h2>Figures<a class="anchor" aria-label="anchor" href="#section-figures"></a></h2>
+    <div class="section level2">
+    <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
     
 
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">96</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">dev.args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">fig.ext</span><span class="kw">:</span><span class="at"> png</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="fu">fig.width</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2916667</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">  </span><span class="fu">fig.height</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="fu">fig.retina</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">fig.asp</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.618</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> NA</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">  </span><span class="fu">other.parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre><p></p></div>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code>figures:
+  dev: ragg::agg_png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+  bg: NA
+  other.parameters: []
+</code></pre><p></p></div>
 <p>Most of these parameters are interpreted similarly to knitr chunk
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such
@@ -257,8 +261,8 @@ as HTML widgets.</p>
     </div>
 
   </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2 data-toc-skip>Contents</h2>
+  <div class="col-md-3">
+    <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a></h2>
     </nav></div>
 </div>
 

@@ -14,7 +14,7 @@ with different sizes, as needed for modern web usage."><meta property="og:image"
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script></head><body data-spy="scroll" data-target="#toc" data-headroom>
+</script></head><body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -26,7 +26,7 @@ with different sizes, as needed for modern web usage."><meta property="og:image"
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -47,7 +47,7 @@ with different sizes, as needed for modern web usage."><meta property="og:image"
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a></h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -78,29 +78,29 @@ with different sizes, as needed for modern web usage."><meta property="og:image"
     <div class="d-none name"><code>build_favicons.Rd</code></div>
     </div>
 
-    <div id="ref-description" class="ref-description section level2">
+    <div class="ref-description section level2">
     <p>This function auto-detects the location of your package logo (with the name
 <code>logo.svg</code> (recommended format) or <code>logo.png</code>) and runs it through the
 <a href="https://realfavicongenerator.net">https://realfavicongenerator.net</a> API to build a complete set of favicons
 with different sizes, as needed for modern web usage.</p>
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <div class="ref-usage section level2 sourceCode">
     <pre class="sourceCode r"><code><span class="fu">build_favicons</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="fu">build_favicon</span><span class="op">(</span><span class="va">pkg</span>, <span class="va">overwrite</span><span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments" class="ref-arguments section level2">
-    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <div class="ref-arguments section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt id="ref-argument-pkg">pkg</dt>
       <dd><p>Path to package.</p></dd>
       <dt id="ref-argument-overwrite">overwrite</dt>
       <dd><p>If <code>TRUE</code>, re-create favicons from package logo.</p></dd>
     </dl></div>
 
-    <div class="ref-section section level2" id="section-details">
-    <h2>Details<a class="anchor" aria-label="anchor" href="#section-details"></a></h2>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>You only need to run the function once. The favicon set will be stored in
 <code>pkgdown/favicon</code> and copied by <code><a href="init_site.html">init_site()</a></code> to the relevant location when
 the website is rebuilt.</p>
@@ -109,8 +109,8 @@ during package checking.</p>
     </div>
 
   </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2 data-toc-skip>Contents</h2>
+  <div class="col-md-3">
+    <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a></h2>
     </nav></div>
 </div>
 

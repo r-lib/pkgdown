@@ -24,7 +24,7 @@ the other.parameters entry under the package name, e.g.figures:
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script></head><body data-spy="scroll" data-target="#toc" data-headroom>
+</script></head><body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -36,7 +36,7 @@ the other.parameters entry under the package name, e.g.figures:
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -57,7 +57,7 @@ the other.parameters entry under the package name, e.g.figures:
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a></h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -88,7 +88,7 @@ the other.parameters entry under the package name, e.g.figures:
     <div class="d-none name"><code>fig_settings.Rd</code></div>
     </div>
 
-    <div id="ref-description" class="ref-description section level2">
+    <div class="ref-description section level2">
     <p>You will generally not need to use this function unless you are handling
 custom plot output.</p>
 <p>Packages needing custom parameters should ask users to place them within
@@ -100,21 +100,21 @@ the <code>other.parameters</code> entry under the package name, e.g.</p><pre><co
 
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <div class="ref-usage section level2 sourceCode">
     <pre class="sourceCode r"><code><span class="fu">fig_settings</span><span class="op">(</span><span class="op">)</span></code></pre>
     </div>
 
 
-    <div class="ref-section section level2" id="section-value">
-    <h2>Value<a class="anchor" aria-label="anchor" href="#section-value"></a></h2>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list containing the entries from the <code>figures</code> field in <code>_pkgdown.yaml</code>
 (see <code><a href="build_reference.html">build_reference()</a></code>), with default values added. Computed <code>width</code> and
 <code>height</code> values (in pixels) are also included.</p>
     </div>
 
   </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2 data-toc-skip>Contents</h2>
+  <div class="col-md-3">
+    <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a></h2>
     </nav></div>
 </div>
 

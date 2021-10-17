@@ -32,7 +32,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc" data-headroom>
+<body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -44,7 +44,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../../articles/pkgdown.html">Get started</a>
@@ -66,7 +66,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
+</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -110,40 +111,40 @@
     
     
 <p>This vignette tests pkgdown output rendering for several use cases.</p>
-<div id="footnotes" class="section level2">
-<h2>Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
+<div class="section level2">
+<h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
 </h2>
 <p>Yay<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Including &lt;strong&gt;footnotes&lt;/strong&gt;! 😁&lt;/p&gt;"><sup>1</sup></a></p>
 </div>
-<div id="figures" class="section level2">
-<h2>Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
+<div class="section level2">
+<h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
-<div id="external-files" class="section level2">
-<h2>External files<a class="anchor" aria-label="anchor" href="#external-files"></a>
+<div class="section level2">
+<h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
 <p><img src="bacon.jpg"></p>
 </div>
-<div id="details-tag" class="section level2">
-<h2>Details tag<a class="anchor" aria-label="anchor" href="#details-tag"></a>
+<div class="section level2">
+<h2 id="details-tag">Details tag<a class="anchor" aria-label="anchor" href="#details-tag"></a>
 </h2>
 <details>
 This should only be shown when required
 </details><details><p><summary>Some R code</summary></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 </details>
 </div>
-<div id="tables" class="section level2">
-<h2>Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
+<div class="section level2">
+<h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
 </h2>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -166,16 +167,16 @@ This should only be shown when required
 </tr></tbody>
 </table>
 </div>
-<div id="mathjax" class="section level2">
-<h2>Mathjax<a class="anchor" aria-label="anchor" href="#mathjax"></a>
+<div class="section level2">
+<h2 id="mathjax">Mathjax<a class="anchor" aria-label="anchor" href="#mathjax"></a>
 </h2>
 <p><span class="math display">\[f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}\]</span></p>
 <p>Inline equations: <span class="math inline">\(y=x^2\)</span></p>
 </div>
-<div id="crayon" class="section level2">
-<h2>Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
+<div class="section level2">
+<h2 id="crayon">Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
@@ -188,13 +189,13 @@ This should only be shown when required
 <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></code></pre></div>
 <p>Some text</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></code></pre></div>
 <p>Some more text</p>
 </div>
-<div id="quoted-text" class="section level2">
-<h2>Quoted text<a class="anchor" aria-label="anchor" href="#quoted-text"></a>
+<div class="section level2">
+<h2 id="quoted-text">Quoted text<a class="anchor" aria-label="anchor" href="#quoted-text"></a>
 </h2>
 <blockquote>
 <p>Single-line quote about something miscellaneous.</p>
@@ -204,86 +205,86 @@ This should only be shown when required
   2 space indent<br>
    3 space indent</div>
 </div>
-<div id="this-section-is-unnumbered" class="section level2 unnumbered">
-<h2>This section is unnumbered<a class="anchor" aria-label="anchor" href="#this-section-is-unnumbered"></a>
+<div class="section level2 unnumbered">
+<h2 id="this-section-is-unnumbered">This section is unnumbered<a class="anchor" aria-label="anchor" href="#this-section-is-unnumbered"></a>
 </h2>
 <p>There should however be no bug here!</p>
 </div>
-<div id="tabsets" class="section level2">
-<h2>Tabsets<a class="anchor" aria-label="anchor" href="#tabsets"></a>
+<div class="section level2">
+<h2 id="tabsets">Tabsets<a class="anchor" aria-label="anchor" href="#tabsets"></a>
 </h2>
-<div id="tabset-with-pills" class="section level3 tabset tabset-pills">
-<h3>Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
+<div class="section level3 tabset tabset-pills">
+<h3 id="tabset-with-pills">Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
 </h3>
 
 
 <ul class="nav nav-pills nav-row" id="tabset-with-pills" role="tablist">
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-1-tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-2-tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
 </ul>
 <div class="tab-content">
-<div id="tab-1" class="active tab-pane" role="tabpanel"  aria-labelledby="tab-1">
+<div class="active  tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
 
 <p>blablablabla</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <p>Should be “cool” heading below</p>
-<div id="cool" class="section level5">
-<h5>cool<a class="anchor" aria-label="anchor" href="#cool"></a>
+<div class="section level5">
+<h5 id="cool">cool<a class="anchor" aria-label="anchor" href="#cool"></a>
 </h5>
 <p>Stuff</p>
 </div>
 </div>
-<div id="tab-2" class="tab-pane" role="tabpanel"  aria-labelledby="tab-2">
+<div class="tab-pane" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
 
 <p>blop</p>
 </div>
 </div>
 </div>
-<div id="tabset-without-pils" class="section level3 tabset">
-<h3>Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
+<div class="section level3 tabset">
+<h3 id="tabset-without-pils">Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
 </h3>
 
 
 <ul class="nav nav-tabs nav-row" id="tabset-without-pils" role="tablist">
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-1-1" role="tab" aria-controls="tab-1-1" aria-selected="false" class="nav-link">Tab 1</a></li>
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-2-1" role="tab" aria-controls="tab-2-1" aria-selected="true" class="nav-link active">Tab 2</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-1-1-tab" href="#tab-1-1" role="tab" aria-controls="tab-1-1" aria-selected="false" class="nav-link">Tab 1</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-2-1-tab" href="#tab-2-1" role="tab" aria-controls="tab-2-1" aria-selected="true" class="nav-link active">Tab 2</a></li>
 </ul>
 <div class="tab-content">
-<div id="tab-1-1" class="tab-pane" role="tabpanel"  aria-labelledby="tab-1-1">
+<div class="tab-pane" id="tab-1-1" role="tabpanel" aria-labelledby="tab-1-1-tab">
 
 <p>something nice</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
-<div id="tab-2-1" class="active tab-pane" role="tabpanel"  aria-labelledby="tab-2-1">
+<div class="active tab-pane" id="tab-2-1" role="tabpanel" aria-labelledby="tab-2-1-tab">
 
 <p>This tab should be active</p>
 </div>
 </div>
 </div>
-<div id="fading-tabset" class="section level3 tabset tabset-fade">
-<h3>Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
+<div class="section level3 tabset tabset-fade">
+<h3 id="fading-tabset">Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
 </h3>
 
 
 
 <ul class="nav nav-tabs nav-row" id="fading-tabset" role="tablist">
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#english" role="tab" aria-controls="english" aria-selected="false" class="active nav-link">English</a></li>
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#french" role="tab" aria-controls="french" aria-selected="false" class="nav-link">French</a></li>
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#german" role="tab" aria-controls="german" aria-selected="false" class="nav-link">German</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="english-tab" href="#english" role="tab" aria-controls="english" aria-selected="false" class="active nav-link">English</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="french-tab" href="#french" role="tab" aria-controls="french" aria-selected="false" class="nav-link">French</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="german-tab" href="#german" role="tab" aria-controls="german" aria-selected="false" class="nav-link">German</a></li>
 </ul>
 <div class="tab-content">
-<div id="english" class="show active fade tab-pane" role="tabpanel"  aria-labelledby="english">
+<div class="active show fade tab-pane" id="english" role="tabpanel" aria-labelledby="english-tab">
 
 <p>Hello!</p>
 </div>
-<div id="french" class="fade tab-pane" role="tabpanel"  aria-labelledby="french">
+<div class="fade tab-pane" id="french" role="tabpanel" aria-labelledby="french-tab">
 
 <p>Bonjour!</p>
 </div>
-<div id="german" class="fade tab-pane" role="tabpanel"  aria-labelledby="german">
+<div class="fade tab-pane" id="german" role="tabpanel" aria-labelledby="german-tab">
 
 <p>Guten tag.</p>
 </div>
@@ -292,8 +293,9 @@ This should only be shown when required
 </div>
 
   </div>
- <div class="col-md-3" id="pkgdown-sidebar">
-        <nav id="toc"><h2 data-toc-skip>Contents</h2>
+ <div class="col-md-3">
+        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
+</h2>
     </nav>
 </div>
 

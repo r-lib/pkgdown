@@ -34,7 +34,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc" data-headroom>
+<body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -46,7 +46,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
@@ -68,7 +68,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
+</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -108,7 +109,7 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span></code></pre></div>
 <p>You can alter the design/styling of your pkgdown website to suit your brand and needs. There are two main techniques:</p>
 <ul>
@@ -116,16 +117,16 @@
 <li><p><strong>Layout</strong> changes the content (or ordering) of e.g. the navbar, authors page, or <code>&lt;head&gt;</code> tag, by using pkgdown options or templates.</p></li>
 </ul>
 <p>This vignette begins with a discussion of the most common theming and layout options made available through <code>_pkgdown.yml</code>. We’ll then discuss how to customise the underlying HTML template files, this is less commonly needed but gives you full control over the appearance of the website. Next, we’ll discuss how to give multiple sites the same style by using a package, and we’ll finish up with some workflow advice.</p>
-<div id="getting-started" class="section level2">
-<h2>Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<div class="section level2">
+<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p>Most theming features work only with Bootstrap 5, so begin by updating your site to use Bootstrap 5 by adding the following lines to your <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
 <p>Overall, the site should look pretty similar, but you should notice a number of small improvements; most importantly the default font is much bigger, making it considerably easier to read. Upgrading to Bootstrap 5 has a low chance of breaking your site, but if you were managing your <a href="#layout">own pkgdown templates</a> or using custom CSS, you might need to tweak a few files.</p>
 </div>
-<div id="theming" class="section level2">
-<h2>Theming<a class="anchor" aria-label="anchor" href="#theming"></a>
+<div class="section level2">
+<h2 id="theming">Theming<a class="anchor" aria-label="anchor" href="#theming"></a>
 </h2>
 <p>There are three main ways to change the visual style of your site:</p>
 <ul>
@@ -134,26 +135,26 @@
 <li><p>With your own CSS and JS.</p></li>
 </ul>
 <p>They can be combined depending on your needs.</p>
-<div id="choosing-a-bootswatch-theme" class="section level3">
-<h3>Choosing a Bootswatch theme<a class="anchor" aria-label="anchor" href="#choosing-a-bootswatch-theme"></a>
+<div class="section level3">
+<h3 id="choosing-a-bootswatch-theme">Choosing a Bootswatch theme<a class="anchor" aria-label="anchor" href="#choosing-a-bootswatch-theme"></a>
 </h3>
 <p>The easiest way to change the appearance of your website, or to start changing it, is to pick a complete Bootswatch theme. You can choose any <a href="https://bootswatch.com/" class="external-link">Bootswatch theme</a> that’s compatible with the Bootstrap version you use. Run either <code>bslib::bootswatch_themes(3)</code> or <code>bslib::bootswatch_themes(5)</code> to get a list. If you were using the paper theme, note that it was renamed <a href="https://blog.bootswatch.com/post/167233472837/announcing-bootswatch-400" class="external-link">materia</a> in Bootstrap version 4.</p>
 <p>To choose a Bootswatch theme here’s what to write in your <code>pkgdown</code> configuration.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> materia</span></span></code></pre></div>
 <p><strong>NB</strong>: Some Bootswatch templates like lux or pulse won’t work out of the box because of their tall navbar. You’ll need to set the <code>pkgdown-nav-height</code> bslib variable to the height of the navbar (by default it’s <code>56px</code>).</p>
 <p>By default pkgdown uses an accessible colour scheme for code highlighting designed to work well on a light background. If you wish to opt out of this colour scheme to suit a dark Bootswatch theme better, set <code>highlightcss</code> to false:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">highlightcss</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>You will then have to provide your own CSS rules for syntax highlighting.</p>
 </div>
-<div id="bslib-variables" class="section level3">
-<h3>bslib variables<a class="anchor" aria-label="anchor" href="#bslib-variables"></a>
+<div class="section level3">
+<h3 id="bslib-variables">bslib variables<a class="anchor" aria-label="anchor" href="#bslib-variables"></a>
 </h3>
 <p>You can customise individual theme components using bslib variables:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">bslib</span><span class="kw">:</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a><span class="at">    </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#202123"</span></span>
@@ -176,29 +177,29 @@
 <p><code>bg</code> and <code>fg</code> are mixed to yield <code>gray-100</code>, <code>gray-200</code>, …, <code>grey-900</code>, which are used to style other elements to match the overall colour scheme. If you want to move away from these defaults, you’ll need to set more specific bootstrap variables, taking advantage of inheritance where possible. For example, <code>table-border-color</code> defaults to <code>border-color</code> which defaults to <code>gray-300</code>. If you want to change the colour of all border, you can set <code>border-color</code>; if you just want to change the colour of table borders, you can set <code>table-border-color</code>. You can find a full list of variables in <code><a href="https://rstudio.github.io/bslib/articles/bs5-variables.html" class="external-link">vignette("bs5-variables", package = "bslib")</a></code>.</p>
 <p>While iterating on these variables you only need to rerun <code><a href="../reference/init_site.html">init_site()</a></code> to re-generate the CSS files.</p>
 </div>
-<div id="navbar-colors" class="section level3">
-<h3>Navbar colors<a class="anchor" aria-label="anchor" href="#navbar-colors"></a>
+<div class="section level3">
+<h3 id="navbar-colors">Navbar colors<a class="anchor" aria-label="anchor" href="#navbar-colors"></a>
 </h3>
 <p>The navbar colours are determined by HTML classes, not CSS. They can be customized using the <a href="https://getbootstrap.com/docs/5.0/components/navbar/#color-schemes" class="external-link"><code>bg</code> and <code>type</code> parameters</a>. Typically <code>bg</code> will be one of <code>light</code>, <code>dark</code> or <code>primary</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span></code></pre></div>
 <p>If you use a bootswatch theme, pkgdown will pick the <code>bg</code> used on the <a href="https://bootswatch.com/" class="external-link">preview site</a>.</p>
 <p>The type argument determines the colour of the text. Use <code>type: light</code> if the background is light (so you need dark text) or <code>type: dark</code> if the background is dark (so you need light text). pkgdown will guess if you don’t supply this argument.</p>
 <p>Because the navbar is styled with HTML, you’ll need to <code><a href="../reference/build_site.html">build_site()</a></code> to see the effect of changing this parameter.</p>
 </div>
-<div id="more-css-js-other-assets" class="section level3">
-<h3>More CSS / JS / other assets<a class="anchor" aria-label="anchor" href="#more-css-js-other-assets"></a>
+<div class="section level3">
+<h3 id="more-css-js-other-assets">More CSS / JS / other assets<a class="anchor" aria-label="anchor" href="#more-css-js-other-assets"></a>
 </h3>
 <p>If you know CSS or JS, you can customise your site by including <code>pkgdown/extra.css</code> or <code>pkgdown/extra.js</code>. These will be automatically copied the home directory of your website and inserted into the <code>&lt;head&gt;</code> (after the pkgdown defaults).</p>
 <p>You can add arbitrary additional files by putting them in <code>pkgdown/assets/BS5</code>. The contents will be automatically copied to the root of your website folder by pkgdown by <code><a href="../reference/init_site.html">init_site()</a></code>.</p>
 </div>
 </div>
-<div id="layout" class="section level2">
-<h2>Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
+<div class="section level2">
+<h2 id="layout">Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
 </h2>
 <p>You can also customise the contents of the navbar, footer, and sidebar that appears on the home page of your site. Furthermore, if you want to tweak <em>which</em> authors of the package appear in the sidebar and footer, also refer to <code><a href="../reference/build_home.html">?build_home</a></code>.</p>
-<div id="navbar-1" class="section level3">
-<h3>Navbar<a class="anchor" aria-label="anchor" href="#navbar-1"></a>
+<div class="section level3">
+<h3 id="navbar-1">Navbar<a class="anchor" aria-label="anchor" href="#navbar-1"></a>
 </h3>
 <p>By default, the top navbar will contain links to:</p>
 <ul>
@@ -210,12 +211,12 @@
 </ul>
 <p>You can override (and even remove) these defaults with the <code>navbar</code> field. It has two primary components: <code>structure</code> and <code>components</code>. These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.</p>
 <p>The <code>structure</code> defines the layout of the navbar, i.e. the order of the components, and whether they’re right aligned or left aligned. You can use this component to change the order of the default components, remove some default components and add your own components.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="at"> </span><span class="fu">structure</span><span class="kw">:</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="at">   </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="at">   </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">github</span><span class="kw">]</span></span></code></pre></div>
 <p>The <code>components</code> describes the appearance of each element in the navbar. It uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown</a>. The following YAML snippet illustrates some of the most important features.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
@@ -239,8 +240,8 @@
 <p>This yaml would override the default “articles” component, and add a new “twitter” component. Unless you explicitly mention new components in the <code>structure</code> they’ll be added to the far right of the left menu.</p>
 <p>You can also customise the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes" class="external-link"><code>type</code> and <code>bg</code> parameters</a>. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
 </div>
-<div id="footer" class="section level3">
-<h3>Footer<a class="anchor" aria-label="anchor" href="#footer"></a>
+<div class="section level3">
+<h3 id="footer">Footer<a class="anchor" aria-label="anchor" href="#footer"></a>
 </h3>
 <p>By default, the footer is automatically populated with:</p>
 <ul>
@@ -248,7 +249,7 @@
 <li>A reference to pkgdown <code>pkgdown</code>, on the right.</li>
 </ul>
 <p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="at"> </span><span class="fu">left</span><span class="kw">:</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="at">   </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">pkgdown</span><span class="kw">]</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="at"> </span><span class="fu">right</span><span class="kw">:</span></span>
@@ -257,8 +258,8 @@
 <span id="cb9-7"><a href="#cb9-7"></a><span class="at">     </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without ***any warranty***.</span></span></code></pre></div>
 <p>Like the navbar and side, you can control both the structure and the components. Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
 </div>
-<div id="sidebar" class="section level3">
-<h3>Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
+<div class="section level3">
+<h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
 </h3>
 <p>By default, the sidebar is automatically populated with the following elements (in order): <code>links</code>, <code>license</code>, <code>community</code>, <code>citation</code>, <code>authors</code>, <code>dev</code>. We shall first explain their creation, then how to tweak them.</p>
 <ul>
@@ -267,7 +268,7 @@
 <p>You can add additional links with a subsection called <code>links</code>, which should contain a list of <code>text</code> + <code>href</code> elements:</p>
 </li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
@@ -289,7 +290,7 @@
 <li><p><code>toc</code>: Not added by default (see below), a table of contents for the README.</p></li>
 </ul>
 <p>You can change the order of sidebar components: <code>links</code>, <code>license</code>, <code>community</code>, <code>citation</code>, <code>authors</code>, <code>dev</code>; you can add a README table of contents <code>toc</code>, you can add custom components. The example below creates a sidebar whose only components will be the authors section, a custom section, a table of contents for the README and a Dev Status section if there are badges. The <code>text</code> will be treated as Markdown.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
@@ -297,16 +298,16 @@
 <span id="cb11-6"><a href="#cb11-6"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre></div>
 <p>Alternatively, you can provide a ready-made sidebar HTML:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre></div>
 <p>Finally, you can completely remove the sidebar.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
 </div>
-<div id="templates" class="section level2">
-<h2>Templates<a class="anchor" aria-label="anchor" href="#templates"></a>
+<div class="section level2">
+<h2 id="templates">Templates<a class="anchor" aria-label="anchor" href="#templates"></a>
 </h2>
 <p>Other layout changes require tinkering with pkgdown <strong>templates</strong> (in <code>inst/templates</code> in <a href="https://github.com/r-lib/pkgdown" class="external-link">pkgdown source</a>). Three pkgdown templates are empty by default, so you can fill them with your own content:</p>
 <ul>
@@ -326,8 +327,8 @@
 </ul>
 <p>It is possible to customise other templates but this is recommended for advanced users only because you’ll need to keep it up to date as pkgdown itself changes. If you’ve used <code>head.html</code> in the past, we now recommend switching to using <code>in-header.html</code> instead. A limitation to tweaking templates is that your templates can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of <code><a href="../reference/render_page.html">render_page()</a></code>.</p>
 </div>
-<div id="sharing-pkgdown-styles-template-packages" class="section level2">
-<h2>Sharing pkgdown styles: template packages<a class="anchor" aria-label="anchor" href="#sharing-pkgdown-styles-template-packages"></a>
+<div class="section level2">
+<h2 id="sharing-pkgdown-styles-template-packages">Sharing pkgdown styles: template packages<a class="anchor" aria-label="anchor" href="#sharing-pkgdown-styles-template-packages"></a>
 </h2>
 <p>To share a pkgdown style across several packages, the best workflow is to create… a package! It can contain any of the following:</p>
 <ul>
@@ -339,7 +340,7 @@
 <ul>
 <li>
 <p>Setting it as your sites theme:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 </li>
 <li>
@@ -358,8 +359,8 @@
 <a href="https://github.com/ropensci-org/rotemplate" class="external-link">rotemplate</a> used for rOpenSci packages.</li>
 </ul>
 <p>But please note that these templates aren’t suitable for use with your own package as they’re all designed to give a common visual identity to a specific family of packages.</p>
-<div id="workflow-tips" class="section level3">
-<h3>Workflow tips<a class="anchor" aria-label="anchor" href="#workflow-tips"></a>
+<div class="section level3">
+<h3 id="workflow-tips">Workflow tips<a class="anchor" aria-label="anchor" href="#workflow-tips"></a>
 </h3>
 <p>When crafting a new style you will need to re-build your website quite often. How to have a faster workflow?</p>
 <ul>
@@ -368,8 +369,8 @@
 <li>If you edit CSS, you can run <code><a href="../reference/init_site.html">init_site()</a></code> to have them copied to your website folder, and then refresh the website in your browser.</li>
 </ul>
 </div>
-<div id="previews-on-pull-requests" class="section level3">
-<h3>Previews on pull requests<a class="anchor" aria-label="anchor" href="#previews-on-pull-requests"></a>
+<div class="section level3">
+<h3 id="previews-on-pull-requests">Previews on pull requests<a class="anchor" aria-label="anchor" href="#previews-on-pull-requests"></a>
 </h3>
 <p>Furthermore, it might be useful for you to get a preview of the website in internal pull requests. For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):</p>
 <ul>
@@ -378,8 +379,8 @@
 </ul>
 </div>
 </div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
 <p>In this vignette we explained how to change the theming and layout of pkgdown websites. Further work to improve user experience is:</p>
 <ul>
@@ -389,8 +390,9 @@
 </ul>
 </div>
   </div>
- <div class="col-md-3" id="pkgdown-sidebar">
-        <nav id="toc"><h2 data-toc-skip>Contents</h2>
+ <div class="col-md-3">
+        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
+</h2>
     </nav>
 </div>
 

@@ -34,7 +34,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc" data-headroom>
+<body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -46,7 +46,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
@@ -68,7 +68,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
+</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -108,8 +109,8 @@
 
     
     
-<div id="within-a-package" class="section level2">
-<h2>Within a package<a class="anchor" aria-label="anchor" href="#within-a-package"></a>
+<div class="section level2">
+<h2 id="within-a-package">Within a package<a class="anchor" aria-label="anchor" href="#within-a-package"></a>
 </h2>
 <p>pkgdown will automatically link to documentation and articles wherever it’s possible to do unambiguously. This includes:</p>
 <ul>
@@ -119,8 +120,8 @@
 <li>Calls to <code><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette()</a></code>, like <code><a href="../articles/pkgdown.html">vignette("pkgdown")</a></code>.</li>
 </ul>
 </div>
-<div id="across-packages" class="section level2">
-<h2>Across packages<a class="anchor" aria-label="anchor" href="#across-packages"></a>
+<div class="section level2">
+<h2 id="across-packages">Across packages<a class="anchor" aria-label="anchor" href="#across-packages"></a>
 </h2>
 <p>Linking to documentation in another package is straightforward. Just adapt the call in the usual way:</p>
 <ul>
@@ -140,9 +141,9 @@
 </li>
 <li>
 <p>In the <code>url</code> field in <code>_pkgdown.yml</code>, as in <a href="https://github.com/tidyverse/dplyr/blob/master/_pkgdown.yml#L1" class="external-link">dplyr</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://dplyr.tidyverse.org</span></span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://dplyr.tidyverse.org</span></span></code></pre></div>
 <p>When this field is defined, pkgdown generate a public facing <a href="https://dplyr.tidyverse.org/pkgdown.yml" class="external-link"><code>pkgdown.yml</code> file</a> that provides metadata about the site:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">pandoc</span><span class="kw">:</span><span class="at"> </span><span class="st">'2.2'</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">pandoc</span><span class="kw">:</span><span class="at"> </span><span class="st">'2.2'</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">pkgdown</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.3.0</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="fu">pkgdown_sha</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="fu">articles</span><span class="kw">:</span></span>
@@ -160,13 +161,14 @@
 </ul>
 <p>Now, when you build a pkgdown site for a package that links to the dplyr documentation (e.g., <code>dplyr::mutate()</code>), pkgdown looks first in dplyr’s <code>DESCRIPTION</code> to find its website, then it looks for <code>pkgdown.yml</code>, and uses the metadata to generate the correct links.</p>
 <p>To allow your package to be linked by other locally installed packages, even if your website is not reachable at build time, the following option needs to be set in <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>This allows locally installed packages to access package index metadata from the locally installed copy, which may be useful if your website require auth, or you build behind a firewall.</p>
 </div>
   </div>
- <div class="col-md-3" id="pkgdown-sidebar">
-        <nav id="toc"><h2 data-toc-skip>Contents</h2>
+ <div class="col-md-3">
+        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
+</h2>
     </nav>
 </div>
 

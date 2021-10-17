@@ -38,7 +38,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script></head><body data-spy="scroll" data-target="#toc" data-headroom>
+</script></head><body>
     
 
       <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
@@ -50,7 +50,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -71,7 +71,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a></h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -102,7 +102,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
     <div class="d-none name"><code>build_articles.Rd</code></div>
     </div>
 
-    <div id="ref-description" class="ref-description section level2">
+    <div class="ref-description section level2">
     <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul><li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
@@ -118,7 +118,7 @@ package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
-    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <div class="ref-usage section level2 sourceCode">
     <pre class="sourceCode r"><code><span class="fu">build_articles</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   quiet <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -132,8 +132,8 @@ you are primarily working on the text of an article.</p>
 <span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
-    <div id="ref-arguments" class="ref-arguments section level2">
-    <h2>Arguments<a class="anchor" aria-label="anchor" href="#ref-arguments"></a></h2>
+    <div class="ref-arguments section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt id="ref-argument-pkg">pkg</dt>
       <dd><p>Path to package.</p></dd>
       <dt id="ref-argument-quiet">quiet</dt>
@@ -155,8 +155,8 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
       <dd><p>Additional data to pass on to template.</p></dd>
     </dl></div>
 
-    <div class="ref-section section level2" id="section-index-and-navbar">
-    <h2>Index and navbar<a class="anchor" aria-label="anchor" href="#section-index-and-navbar"></a></h2>
+    <div class="section level2">
+    <h2 id="index-and-navbar">Index and navbar<a class="anchor" aria-label="anchor" href="#index-and-navbar"></a></h2>
     
 
 <p>You can control the articles index and navbar with a <code>articles</code> section in
@@ -175,20 +175,21 @@ path under <code>vignettes</code> without extension so that the name of the vign
 found at <code>vignettes/pizza/slice.Rmd</code> is <code>pizza/slice</code>.</p></li>
 </ul><p>The title and description of individual vignettes displayed on the index
 comes from <code>title</code> and <code>description</code> fields of the YAML header in the Rmds.</p>
-<p>For example, this yaml might be used for some version of dplyr:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">articles</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Main verbs</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> one-table</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> two-table</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> rowwise</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> colwise</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Developer</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Vignettes aimed at package developers</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="at">  </span><span class="kw">-</span><span class="at"> programming</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="at">  </span><span class="kw">-</span><span class="at"> packages</span></span></code></pre><p></p></div>
+<p>For example, this yaml might be used for some version of dplyr:</p><div class="sourceCode yaml"><pre><code>articles:
+- title: Main verbs
+  navbar: ~
+  contents:
+  - one-table
+  - two-table
+  - rowwise
+  - colwise
+
+- title: Developer
+  desc: Vignettes aimed at package developers
+  contents:
+  - programming
+  - packages
+</code></pre><p></p></div>
 <p>Note the use of the <code>navbar</code> fields. <code>navbar: ~</code> means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the <code>navbar</code>
 field in the developer vignettes means that they will only be
@@ -200,8 +201,8 @@ include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.</p>
     </div>
-    <div class="ref-section section level2" id="section-get-started">
-    <h2>Get started<a class="anchor" aria-label="anchor" href="#section-get-started"></a></h2>
+    <div class="section level2">
+    <h2 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a></h2>
     
 
 <p>Note that a vignette with the same name as the package (e.g.,
@@ -211,8 +212,8 @@ drop-down.</p>
 <p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code>-</code> in the
 vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
     </div>
-    <div class="ref-section section level2" id="section-external-files">
-    <h2>External files<a class="anchor" aria-label="anchor" href="#section-external-files"></a></h2>
+    <div class="section level2">
+    <h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a></h2>
     
 
 <p>pkgdown differs from base R in its handling of external files. When building
@@ -221,17 +222,18 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
 <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> My Document</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">resource_files</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data/mydata.csv</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> images/figure.png</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="pp">---</span></span></code></pre><p></p></div>
+will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><div class="sourceCode yaml"><pre><code>---
+title: My Document
+resource_files:
+  - data/mydata.csv
+  - images/figure.png
+---
+</code></pre><p></p></div>
 <p>Note that you can not use the <code>fig.path</code> to change the output directory of
 generated figures as its default value is a strong assumption of rmarkdown.</p>
     </div>
-    <div class="ref-section section level2" id="section-embedding-shiny-apps">
-    <h2>Embedding Shiny apps<a class="anchor" aria-label="anchor" href="#section-embedding-shiny-apps"></a></h2>
+    <div class="section level2">
+    <h2 id="embedding-shiny-apps">Embedding Shiny apps<a class="anchor" aria-label="anchor" href="#embedding-shiny-apps"></a></h2>
     
 
 <p>If you would like to embed a Shiny app into an article, the app will have
@@ -241,8 +243,8 @@ can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
     </div>
-    <div class="ref-section section level2" id="section-output-formats">
-    <h2>Output formats<a class="anchor" aria-label="anchor" href="#section-output-formats"></a></h2>
+    <div class="section level2">
+    <h2 id="output-formats">Output formats<a class="anchor" aria-label="anchor" href="#output-formats"></a></h2>
     
 
 <p>By default, pkgdown builds all articles using the
@@ -251,12 +253,14 @@ your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
 limited support for other output formats and you have to opt-in by setting
-the <code>as_is</code> field in your <code>.Rmd</code> metadata:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">as_is</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
+the <code>as_is</code> field in your <code>.Rmd</code> metadata:</p><div class="sourceCode yaml"><pre><code>pkgdown:
+  as_is: true
+</code></pre><p></p></div>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">as_is</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">extension</span><span class="kw">:</span><span class="at"> pdf</span></span></code></pre><p></p></div>
+<code>extension</code> field:</p><div class="sourceCode yaml"><pre><code>pkgdown:
+  as_is: true
+  extension: pdf
+</code></pre><p></p></div>
 <p>To work with pkgdown, the output format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> arguments, and must work without any additional CSS or
 JSS files. Note that if you use
@@ -265,8 +269,8 @@ or <a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html"><code
 you'll still need to add <code>as_is: true</code> to each individual vignette.</p>
 <p>Additionally, htmlwidgets do not work when <code>as_is: true</code>.</p>
     </div>
-    <div class="ref-section section level2" id="section-suppressing-vignettes">
-    <h2>Suppressing vignettes<a class="anchor" aria-label="anchor" href="#section-suppressing-vignettes"></a></h2>
+    <div class="section level2">
+    <h2 id="suppressing-vignettes">Suppressing vignettes<a class="anchor" aria-label="anchor" href="#suppressing-vignettes"></a></h2>
     
 
 <p>If you want articles that are not vignettes, either put them in
@@ -275,23 +279,24 @@ automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 <code><a href="build_site.html">build_site()</a></code> details.</p>
     </div>
-    <div class="ref-section section level2" id="section-figures">
-    <h2>Figures<a class="anchor" aria-label="anchor" href="#section-figures"></a></h2>
+    <div class="section level2">
+    <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
     
 
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">96</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">dev.args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">fig.ext</span><span class="kw">:</span><span class="at"> png</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="fu">fig.width</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2916667</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">  </span><span class="fu">fig.height</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">  </span><span class="fu">fig.retina</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">fig.asp</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.618</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> NA</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">  </span><span class="fu">other.parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre><p></p></div>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code>figures:
+  dev: ragg::agg_png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
+  bg: NA
+  other.parameters: []
+</code></pre><p></p></div>
 <p>Most of these parameters are interpreted similarly to knitr chunk
 options. <code>other.parameters</code> is a list of parameters
 that will be available to custom graphics output devices such
@@ -299,8 +304,8 @@ as HTML widgets.</p>
     </div>
 
   </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2 data-toc-skip>Contents</h2>
+  <div class="col-md-3">
+    <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a></h2>
     </nav></div>
 </div>
 
