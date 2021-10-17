@@ -28,14 +28,14 @@ test_that("ids move from div to headings", {
     <div id="6"><h6>abc</h6></div>
   </body>')
   tweak_anchors(html)
-  expect_equal(xpath_attr(html, "//h1|//h2|//h3|//h4|//h5|//h6", "id"), as.character(1:6))
-  expect_equal(xpath_attr(html, "//div", "id"), rep(NA_character_, 6))
+  expect_equal(xpath_attr(html, ".//h1|//h2|//h3|//h4|//h5|//h6", "id"), as.character(1:6))
+  expect_equal(xpath_attr(html, ".//div", "id"), rep(NA_character_, 6))
 })
 
 test_that("anchor html added to headings", {
-  html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
+  html <- xml2::read_xml('<body><div id="x"><h1>abc</h1></div></body>')
   tweak_anchors(html)
-  expect_snapshot_output(xpath_xml(html, "//h1"))
+  expect_snapshot_output(xpath_xml(html, ".//h1"))
 })
 
 test_that("deduplicates ids", {
@@ -46,7 +46,7 @@ test_that("deduplicates ids", {
     </body>
   ')
   tweak_anchors(html)
-  expect_equal(xpath_attr(html, "//h1", "id"), c("x", "x-1", "x-2"))
+  expect_equal(xpath_attr(html, ".//h1", "id"), c("x", "x-1", "x-2"))
 })
 
 test_that("can process multiple header levels", {
@@ -58,31 +58,31 @@ test_that("can process multiple header levels", {
     </div>
   ')
   tweak_anchors(html)
-  expect_equal(xpath_attr(html, "//a", "href"), c("#1", "#2", "#3", "#4"))
+  expect_equal(xpath_attr(html, ".//a", "href"), c("#1", "#2", "#3", "#4"))
 })
 
 test_that("only modifies first header", {
-  html <- xml2::read_xml('<div id="x"><h1>one</h1><h1>two</h1></div>')
+  html <- xml2::read_xml('<body><div id="x"><h1>one</h1><h1>two</h1></div></body>')
   tweak_anchors(html)
-  expect_equal(xpath_length(html, "//h1/a"), 1)
+  expect_equal(xpath_length(html, ".//h1/a"), 1)
 })
 
 test_that("anchors don't get additional newline", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
   tweak_anchors(html)
-  expect_equal(xpath_text(html, "//h1"), "abc")
+  expect_equal(xpath_text(html, ".//h1"), "abc")
 })
 
 test_that("empty headings are skipped", {
   html <- xml2::read_xml('<div id="x"><h1></h1></div>')
   tweak_anchors(html)
-  expect_equal(xpath_length(html, "//h1/a"), 0)
+  expect_equal(xpath_length(html, ".//h1/a"), 0)
 })
 
 test_that("docs with no headings are left unchanged", {
   html <- xml2::read_xml('<div>Nothing</div>')
   tweak_anchors(html)
-  expect_equal(as.character(xpath_xml(html, "//div")), '<div>Nothing</div>')
+  expect_equal(as.character(xpath_xml(html, ".")), '<div>Nothing</div>')
 })
 
 # links -----------------------------------------------------------------
