@@ -32,7 +32,7 @@ test_that("deduplicates ids", {
     </body>
   ')
   tweak_anchors(html)
-  expect_equal(xpath_attr(html, "//div", "id"), c("x", "x-1", "x-2"))
+  expect_equal(xpath_attr(html, "//h1", "id"), c("x", "x-1", "x-2"))
 })
 
 test_that("can process multiple header levels", {

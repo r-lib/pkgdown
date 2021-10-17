@@ -7,22 +7,25 @@ tweak_anchors <- function(html) {
     return(invisible())
   }
 
-  # Update ids: dot in the anchor breaks scrollspy and rd translation
-  # doesn't have enough information to generate unique ids
   id <- xml2::xml_attr(divs, "id")
-  new_id <- make.unique(gsub(".", "-", id, fixed = TRUE), "-")
-  purrr::walk2(divs, new_id, xml2::xml_set_attr, attr = "id")
-
   headings <- xml2::xml_find_first(divs, ".//h1|h2|h3|h4|h5")
   has_heading <- !is.na(xml2::xml_name(headings))
 
+  id <- id[has_heading]
   headings <- headings[has_heading]
-  new_id <- new_id[has_heading]
 
+  # Update ids: dot in the anchor breaks scrollspy and rd translation
+  # doesn't have enough information to generate unique ids
+  new_id <- make.unique(gsub(".", "-", id, fixed = TRUE), "-")
+
+  # Move ids to headings so that the js TOC doesn't add create new ids
+  xml2::xml_attr(divs, "id") <- NULL
+  xml2::xml_attr(headings, "id") <- new_id
+
+  # Insert anchors
   anchor <- paste0(
     "<a class='anchor' aria-label='anchor' href='#", new_id, "'></a>"
   )
-
   for (i in seq_along(headings)) {
     heading <- headings[[i]]
     if (length(xml2::xml_contents(heading)) == 0) {
