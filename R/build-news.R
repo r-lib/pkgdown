@@ -147,22 +147,18 @@ data_news <- function(pkg = ".") {
 
   sections <- xml2::xml_find_all(xml, "./body/div")
 
-  if (pkg$bs_version > 3) {
-    tweak_section_levels(xml)
-  }
+  # By convention NEWS.md, uses h1 for versions, but in pkgdown we reserve
+  # a single h1 for the page title, so we need to bump every heading down one
+  # level
+  tweak_section_levels(xml)
 
-  titles <- sections %>%
-    xml2::xml_find_first(".//h1|h2") %>%
-    xml2::xml_text(trim = TRUE)
-  anchors <- sections %>% xml2::xml_attr("id")
-
+  titles <- xml2::xml_text(xml2::xml_find_first(sections, ".//h2"), trim = TRUE)
   if (any(is.na(titles))) {
     stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
   }
 
   versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]
-  anchors <- anchors[!is.na(versions)]
   versions <- versions[!is.na(versions)]
 
   show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = TRUE)
@@ -182,6 +178,7 @@ data_news <- function(pkg = ".") {
     purrr::map_chr(as.character, options = character()) %>%
     purrr::map_chr(repo_auto_link, pkg = pkg)
 
+  anchors <- xml2::xml_attr(sections, "id")
   news <- tibble::tibble(
     version = versions,
     page = purrr::map_chr(versions, version_page),
@@ -266,92 +263,62 @@ pkg_timeline <- function(package) {
   )
 }
 
-tweak_news_heading <- function(x, version, timeline, bs_version) {
+tweak_news_heading <- function(html, version, timeline, bs_version) {
+  class <- if (bs_version == 3) "page-header" else "pkg-version"
 
-  class <- if (bs_version == 3) "page-header" else "pb-2 mt-4 mb-2 border-bottom pkg-version"
+  h2 <- xml2::xml_find_all(html, ".//h2")
+  xml2::xml_set_attr(h2, "class", class)
+  xml2::xml_set_attr(h2, "data-toc-text", version)
 
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("class", class)
-
-  x %>%
-    xml2::xml_find_all(".//h1") %>%
-    xml2::xml_set_attr("data-toc-text", version)
-
+  # Add release date, if known
   if (!is.null(timeline)) {
     date <- timeline$date[match(version, timeline$version)]
-    date_str <- ifelse(is.na(date), "Unreleased", as.character(date))
-
-    if (bs_version == 3) {
-      date_nodes <- paste(" <small>", date_str, "</small>", collapse = "") %>%
-        xml2::read_html() %>%
-        xml2::xml_find_all(".//small")
-
-      x %>%
-        xml2::xml_find_all(".//h1") %>%
-        xml2::xml_add_child(date_nodes, .where = 1)
-    } else {
-      cran_release_string <-  sprintf("<h6 class='text-muted' data-toc-skip> CRAN release: %s</h6>", date_str)
-      date_nodes <- cran_release_string %>%
-        xml2::read_html() %>%
-        xml2::xml_find_all(".//h6")
-
-      x %>%
-        xml2::xml_find_all(".//h1") %>%
-        xml2::xml_add_sibling(date_nodes, .where = "after")
+    if (!is.na(date)) {
+      if (bs_version == 3) {
+        release_str <- paste0(" <small>", date, "</small>")
+        release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//small")
+        xml2::xml_add_child(h2, release_html, .where = 1)
+      } else {
+        release_str <- sprintf("<p class='text-muted'>CRAN release: %s</p>", date)
+        release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//p")
+        xml2::xml_add_sibling(h2, release_html, .where = "after")
+      }
     }
-
   }
 
-  ## one level down for BS4
-  if (bs_version > 3) {
-    x %>%
-      xml2::xml_find_all(".//div[contains(@class, 'section level')]")
-    x %>%
-      xml2::xml_find_all(".//h5") %>%
-      xml2::xml_set_name("h6") %>%
-      purrr::walk(add_version, version)
-    x %>%
-      xml2::xml_find_all(".//h4") %>%
-      xml2::xml_set_name("h5") %>%
-      purrr::walk(add_version, version)
-    x %>%
-      xml2::xml_find_all(".//h3") %>%
-      xml2::xml_set_name("h4") %>%
-      purrr::walk(add_version, version)
-    x %>%
-      xml2::xml_find_all(".//h2") %>%
-      xml2::xml_set_name("h3") %>%
-      purrr::walk(add_version, version)
-    x %>%
-      xml2::xml_find_all(".//h1") %>%
-      xml2::xml_set_name("h2")
-  }
+  tweak_news_anchor(html, version)
 
   invisible()
 }
 
-add_version <- function(header, version) {
-  version <- gsub("\\s+", "-", version)
-  anchor <- xml2::xml_find_first(header, ".//a")
-  # remove the numbers added by Pandoc
-  xml2::xml_attr(anchor, "href") <- sub("-[0-9]+$", "", xml2::xml_attr(anchor, "href"))
-  # add the package version instead
-  xml2::xml_attr(anchor, "href") <- paste(xml2::xml_attr(anchor, "href"), version, sep = "-")
-  # make header ID the same as its anchor href
-  xml2::xml_attr(header, "id") <- sub("^#", "", xml2::xml_attr(anchor, "href"))
+# Manually de-duplicate repeated section anchors using version
+tweak_news_anchor <- function(html, version) {
+  h <- xml2::xml_find_all(html, "(.//h3|.//h4|.//h5|.//h6)")
 
+  id <- xml2::xml_attr(h, "id")
+  id <- gsub("-[0-9]+", "", id) # remove pandoc de-duplication suffixes
+  id <- paste0(id, "-", gsub("[^a-z0-9]+", "-", version)) # . breaks scrollspy
+
+  xml2::xml_attr(h, "id") <- id
+  # Also need to update anchors, since these were added earlier
+  a <- xml2::xml_find_first(h, ".//a[@class='anchor']")
+  xml2::xml_attr(a, "href") <- paste0("#", id)
+
+  invisible()
 }
 
+tweak_section_levels <- function(html) {
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h5"), "h6")
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h4"), "h5")
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h3"), "h4")
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h2"), "h3")
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h1"), "h2")
 
-tweak_section_levels <- function(xml) {
-  down_level <- function(x) {
-    xml2::xml_attr(x, "class") <- paste0("section level", get_section_level(x) + 1)
-  }
+  # Important because search index uses section class rather than heading
+  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
+  xml2::xml_attr(sections, "class") <- paste0("section level", get_section_level(sections) + 1)
 
-  xml %>%
-    xml2::xml_find_all(".//div[contains(@class, 'section level')]") %>%
-    purrr::walk(down_level)
+  invisible()
 }
 
 news_style <- function(meta) {

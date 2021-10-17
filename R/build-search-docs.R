@@ -263,7 +263,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
 
   index_data <- list(
     path = path,
-    id = xml2::xml_attr(node_copy, "id"),
+    id = section_id(node_copy),
     dir = dir,
     previous_headings = previous_headings,
     what = heading,

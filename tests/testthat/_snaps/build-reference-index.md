@@ -6,10 +6,10 @@
       pagetitle: Function reference
       rows:
       - title: A
-        slug: section-a
+        slug: a
         desc: ~
       - subtitle: B
-        slug: section-b
+        slug: b
         desc: ~
       - topics:
         - path: a.html
@@ -59,7 +59,7 @@
       pagetitle: Function reference
       rows:
       - title: bla
-        slug: section-bla
+        slug: bla
         desc: ~
       - topics:
         - path: a.html

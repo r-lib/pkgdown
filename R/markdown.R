@@ -92,7 +92,9 @@ markdown_to_html <- function(text, dedent = 4) {
   write_lines(text, md_path)
   convert_markdown_to_html(md_path, html_path)
 
-  xml2::read_html(html_path, encoding = "UTF-8")
+  html <- xml2::read_html(html_path, encoding = "UTF-8")
+  tweak_anchors(html)
+  html
 }
 
 convert_markdown_to_html <- function(in_path, out_path, ...) {

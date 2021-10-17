@@ -10,8 +10,8 @@
     });
 
     $('body').scrollspy({
-      target: '#pkgdown-sidebar',
-      offset: 60
+      target: '#toc',
+      offset: 56 // headroom height
     });
 
     // Activate popovers

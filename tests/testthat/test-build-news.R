@@ -87,3 +87,40 @@ test_that("correctly collapses version to page for common cases", {
   pages <- purrr::map_chr(versions, version_page)
   expect_equal(pages, c("1.0", "1.0", "dev", "dev"))
 })
+
+# Tweaks ------------------------------------------------------------------
+
+test_that("sections tweaked down a level", {
+  html <- xml2::read_xml("<body>
+    <div class='section level1'><h1></h1></div>
+    <div class='section level2'><h2></h2></div>
+    <div class='section level3'><h3></h3></div>
+    <div class='section level4'><h4></h4></div>
+    <div class='section level5'><h5></h5></div>
+  </body>")
+  tweak_section_levels(html)
+  expect_equal(xml2::xml_name(xpath_xml(html, "//div/*")), paste0("h", 2:6))
+  expect_equal(xpath_attr(html, "//div", "class"), paste0("section level", 2:6))
+})
+
+test_that("anchors de-duplicated with version", {
+  html <- xml2::read_xml("<body>
+    <h3 id='x-1'>Heading <a class='anchor'></a></h3>
+  </body>")
+  tweak_news_anchor(html, "1.0")
+
+  expect_equal(xpath_attr(html, "//h3", "id"), "x-1-0")
+  expect_equal(xpath_attr(html, "//a", "href"), "#x-1-0")
+})
+
+test_that("news headings get class and release date", {
+  timeline <- tibble::tibble(version = "1.0", date = "2020-01-01")
+
+  html <- xml2::read_xml("<div><h2></h2></div>")
+  tweak_news_heading(html, version = "1.0", timeline = timeline, bs_version = 3)
+  expect_snapshot_output(xpath_xml(html, "//div"))
+
+  html <- xml2::read_xml("<div><h2></h2></div>")
+  tweak_news_heading(html, version = "1.0", timeline = timeline, bs_version = 4)
+  expect_snapshot_output(xpath_xml(html, "//div"))
+})
