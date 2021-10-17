@@ -1,10 +1,10 @@
 ---
-title: "Customise your website"
+title: "Styling your site"
 output: rmarkdown::html_vignette
 description: >
   Learn how to change the look and feel of pkgdown websites.
 vignette: >
-  %\VignetteIndexEntry{Customise your website}
+  %\VignetteIndexEntry{Style your site}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
