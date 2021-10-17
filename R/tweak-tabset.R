@@ -53,6 +53,7 @@ tablist_item <- function(tab, nav, parent_id) {
   li <- xml2::xml_add_child(nav, "li", role = "presentation", class = "nav-item")
   xml2::xml_add_child(li, "a", title,
     `data-bs-toggle` = "tab",
+    id = paste0(id, "-tab"),
     href = paste0("#", id),
     role = "tab",
     `aria-controls` = id,
@@ -82,7 +83,7 @@ tablist_content <- function(tab, content, parent_id, fade) {
   xml2::xml_attr(tab, "class") <- paste(tab_class, collapse = " ")
 
   xml2::xml_attr(tab, "role") <- "tabpanel"
-  xml2::xml_attr(tab, "aria-labelledby") <- id
+  xml2::xml_attr(tab, "aria-labelledby") <- paste0(id, "-tab")
 
   xml2::xml_add_child(content, tab)
 
