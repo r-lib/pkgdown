@@ -46,7 +46,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
@@ -68,8 +68,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
-</h6>
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -115,7 +114,7 @@
 </h2>
 <p>Building your pkgdown website will build a search index, that will be used in the search form of the navbar using <a href="https://fusejs.io/" class="external-link">fuse.js</a>.</p>
 <p>You can exclude some paths from the search index. Below we exclude the changelog from the search index.</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">search</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">search</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">exclude</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'news/index.html'</span><span class="kw">]</span></span></code></pre></div>
 <p>Note that locally, search won’t work if you simply use pkgdown preview of the static files. You can use <code>servr::httw("docs")</code> instead.</p>
 </div>
@@ -133,7 +132,7 @@
 <h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h3>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">docsearch</span>(<span class="op">{</span> </span>
 <span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </span>
@@ -141,22 +140,21 @@
 <span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span>)<span class="op">;</span> </span></code></pre></div>
 <p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code> under <code>template: params</code>:</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">docsearch</span><span class="kw">:</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="at">      </span><span class="fu">api_key</span><span class="kw">:</span><span class="at"> API_KEY</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="at">      </span><span class="fu">index_name</span><span class="kw">:</span><span class="at"> INDEX_NAME</span></span></code></pre></div>
 <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
 <p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11" class="external-link">pkgdown configuration</a> for a functional search configuration.</p>
 <p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing <code>shift</code> + <code>/</code> (i.e., “?”) will move the focus to the search bar.</p>
 </div>
 </div>
   </div>
- <div class="col-md-3">
-        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
-</h2>
+ <div class="col-md-3" id="pkgdown-sidebar">
+        <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
 

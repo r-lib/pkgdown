@@ -24,7 +24,7 @@ DESCRIPTION and inst/CITATION (if present)."><meta property="og:image" content="
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -45,7 +45,7 @@ DESCRIPTION and inst/CITATION (if present)."><meta property="og:image" content="
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a></h6>
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -117,8 +117,8 @@ for you because it only touches files in the <code>doc/</code> directory.</p>
 <code>docs/</code> and converted to HTML.</p>
 <p>The home page also features a sidebar with information extracted from
 the package. You can tweak it via the configuration file, to help make
-the home page an as informative as possible landing page.</p><div>
-<h3 id="images-and-figures">Images and figures<a class="anchor" aria-label="anchor" href="#images-and-figures"></a></h3>
+the home page an as informative as possible landing page.</p><div id="images-and-figures">
+<h3>Images and figures</h3>
 
 
 <p>If you want to include images in your <code>README.md</code>, they must be stored
@@ -137,8 +137,8 @@ knitr::opts_chunk$set(
 </code></pre><p></p></div>
 </div>
 
-<div>
-<h3 id="package-logo">Package logo<a class="anchor" aria-label="anchor" href="#package-logo"></a></h3>
+<div id="package-logo">
+<h3>Package logo</h3>
 
 
 <p>If you have a package logo, you can include it at the top of your README
@@ -148,13 +148,13 @@ in a level-one heading:</p><div class="sourceCode markdown"><pre><code># pkgdown
 set from your package logo.</p>
 </div>
 
-<div>
-<h3 id="yaml-config-home">YAML config - home<a class="anchor" aria-label="anchor" href="#yaml-config-home"></a></h3>
+<div id="yaml-config-home">
+<h3>YAML config - home</h3>
 
 
 <p>To tweak the home page, you need a section of the configuration file
-called <code>home</code>.</p><div>
-<h4 id="page-title-and-description">Page title and description<a class="anchor" aria-label="anchor" href="#page-title-and-description"></a></h4>
+called <code>home</code>.</p><div id="page-title-and-description">
+<h4>Page title and description</h4>
 
 
 <p>By default, the page title and description are extracted automatically
@@ -174,8 +174,8 @@ search for:</p><div class="sourceCode yaml"><pre><code>home:
 of writing paragraphs of text.)</p>
 </div>
 
-<div>
-<h4 id="readme-header">README header<a class="anchor" aria-label="anchor" href="#readme-header"></a></h4>
+<div id="readme-header">
+<h4>README header</h4>
 
 
 <p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name. If
@@ -185,8 +185,8 @@ remove it with <code>strip_header: true</code>:</p><div class="sourceCode yaml">
 </code></pre><p></p></div>
 </div>
 
-<div>
-<h4 id="other-homepage-tweaks">Other homepage tweaks<a class="anchor" aria-label="anchor" href="#other-homepage-tweaks"></a></h4>
+<div id="other-homepage-tweaks">
+<h4>Other homepage tweaks</h4>
 
 
 <p>See the subsections about the sidebar and authors for more tweaks via
@@ -196,8 +196,8 @@ the pkgdown configuration file.</p>
 
 </div>
 
-<div>
-<h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a></h3>
+<div id="sidebar">
+<h3>Sidebar</h3>
 
 
 <p>By default, the sidebar is automatically populated with the following
@@ -237,8 +237,8 @@ links.</p></li>
 </ul></li>
 <li><p><code>toc</code>: Not added by default (see below), a table of contents for the
 README.</p></li>
-</ul><div>
-<h4 id="yaml-config-sidebar">YAML config - sidebar<a class="anchor" aria-label="anchor" href="#yaml-config-sidebar"></a></h4>
+</ul><div id="yaml-config-sidebar">
+<h4>YAML config - sidebar</h4>
 
 
 <p>You can change the order of sidebar components: <code>links</code>, <code>license</code>,
@@ -275,8 +275,8 @@ there are badges. The <code>text</code> will be treated as Markdown.</p><div cla
 </ul><p>This documentation describes how to customise the overall author
 display. See <code>?build_home</code> and <code><a href="build_site.html">?build_site</a></code> for details about changing
 the location of the authors information within the home sidebar and the
-site footer.</p><div>
-<h3 id="authors-orcid-and-bio">Authors ORCID and bio<a class="anchor" aria-label="anchor" href="#authors-orcid-and-bio"></a></h3>
+site footer.</p><div id="authors-orcid-and-bio">
+<h3>Authors ORCID and bio</h3>
 
 
 <p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked
@@ -302,8 +302,8 @@ the authors page.</p><div class="sourceCode r"><pre><code>Authors@R: c(
 </code></pre><p></p></div>
 </div>
 
-<div>
-<h3 id="yaml-config-authors">YAML config - authors<a class="anchor" aria-label="anchor" href="#yaml-config-authors"></a></h3>
+<div id="yaml-config-authors">
+<h3>YAML config - authors</h3>
 
 
 <p>You can tweak a few things via the <code>authors</code> YAML field:</p><ul><li><p>display of each author in the footer, sidebar and authors page,</p></li>
@@ -352,8 +352,8 @@ consider using a custom sidebar/footer component (see
     </div>
 
   </div>
-  <div class="col-md-3">
-    <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a></h2>
+  <div class="col-md-3" id="pkgdown-sidebar">
+    <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav></div>
 </div>
 

@@ -46,7 +46,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="active nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
@@ -68,8 +68,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
-</h6>
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -110,7 +109,7 @@
     
     
 <p>The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes:</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Run once to configure package to use pkgdown</span>
 <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># Run to build the website</span>
@@ -130,22 +129,22 @@
 <ul>
 <li>
 <p>A <a href="https://bootswatch.com" class="external-link"><code>bootswatch</code></a> theme that affects the overall appearance of the whole site.</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre></div>
 <p>For Boostrap version 3 the syntax is</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre></div>
 </li>
 <li>
 <p>A Google analytics user ID if you want to track the people who are using your site</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">ganalytics</span><span class="kw">:</span><span class="at"> UA-000000-01</span></span></code></pre></div>
 </li>
 <li>
 <p>A Google site verification code to be added to page headers</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="at">    </span><span class="fu">google_site_verification</span><span class="kw">:</span><span class="at"> _nn6ile-a6x6lctOW</span></span></code></pre></div>
 </li>
@@ -172,7 +171,7 @@
 <li>A subtitle, defined by <code>subtitle</code> and optional <code>desc</code> (description) fields.</li>
 <li>A list of topics defined by a <code>contents</code> field.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>    Functions for installing Spark components and managing</span>
@@ -203,7 +202,7 @@
 <h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
 </h2>
 <p>If <code>NEWS.md</code> is present, it will be rendered into a single-page Changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
-<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="fu">## Bug Fixes</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a></span>
@@ -224,7 +223,7 @@
 </h2>
 <p>The easiest way to publish your website is to use GitHub <a href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch" class="external-link"><code>docs/</code> directory</a> support. If you want to build and publish your package automatically with GitHub actions, try <code>usethis::use_github_action("pkgdown")</code>.</p>
 <p>Once your site is online you must finish configuring it by adding its URL to its configuration file. This URL will be used by pkgdown to e.g. generate the metadata correcty (see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>). See <code><a href="../reference/build_site.html">?build_site</a></code> for other effects of specifying this important parameter.</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="promoting">Promoting<a class="anchor" aria-label="anchor" href="#promoting"></a>
@@ -241,9 +240,8 @@
 </div>
 
   </div>
- <div class="col-md-3">
-        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
-</h2>
+ <div class="col-md-3" id="pkgdown-sidebar">
+        <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
 

@@ -44,7 +44,7 @@
 
     <span class="badge bg-danger d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</span>
 
-    <div class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../../articles/pkgdown.html">Get started</a>
@@ -66,8 +66,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <h6 class="dropdown-header" data-toc-skip id="navbar">Releases<a class="anchor" aria-label="anchor" href="#navbar"></a>
-</h6>
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -119,14 +118,14 @@
 <div class="section level2">
 <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
 </h2>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a>
 </h2>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
@@ -140,7 +139,7 @@ This should only be shown when required
 </details><details><p><summary>Multiple paragraphs</summary> First paragraph</p>
 Second paragraph
 </details><details><p><summary>Some R code</summary></p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 </details>
@@ -178,7 +177,7 @@ Second paragraph
 <div class="section level2">
 <h2 id="crayon">Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
 </h2>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
@@ -191,7 +190,7 @@ Second paragraph
 <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></code></pre></div>
 <p>Some text</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></code></pre></div>
 <p>Some more text</p>
@@ -228,7 +227,7 @@ Second paragraph
 <div class="active  tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
 
 <p>blablablabla</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <p>Should be “cool” heading below</p>
 <div class="section level5">
@@ -256,7 +255,7 @@ Second paragraph
 <div class="tab-pane" id="tab-1-1" role="tabpanel" aria-labelledby="tab-1-1-tab">
 
 <p>something nice</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
@@ -295,9 +294,8 @@ Second paragraph
 </div>
 
   </div>
- <div class="col-md-3">
-        <nav id="toc"><h2 data-toc-skip id="pkgdown-sidebar">Contents<a class="anchor" aria-label="anchor" href="#pkgdown-sidebar"></a>
-</h2>
+ <div class="col-md-3" id="pkgdown-sidebar">
+        <nav id="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
 
