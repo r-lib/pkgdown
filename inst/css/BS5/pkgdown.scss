@@ -260,10 +260,10 @@ img.pkg-logo {
   .page-header {min-height: 88px}
 }
 
-blockquote, .line-block {
-  border-left: .5rem solid $table-border-color;
-  padding-left: .5rem;
-  margin-left: -.5rem;
+// line-block produced by pandoc needs margin-bottom since it doesn't
+// contain other tags
+.line-block {
+  margin-bottom: 1rem;
 }
 
 /* Footnotes ---------------------------------------------------------------- */

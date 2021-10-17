@@ -80,11 +80,10 @@ Some more text
 
 > Single-line quote about something miscellaneous.
 
-| When dollars appear it's a sign
-|   that your code does not quite align  
-| Ensure that your math  
-|   in xaringan hath  
-|   been placed on a single long line
+| Flush
+|  1 space indent
+|   2 space indent
+|    3 space indent
 
 ## This section is unnumbered {-}
 
