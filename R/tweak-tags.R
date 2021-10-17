@@ -8,7 +8,7 @@ tweak_anchors <- function(html) {
   }
 
   id <- xml2::xml_attr(divs, "id")
-  headings <- xml2::xml_find_first(divs, ".//h1|h2|h3|h4|h5")
+  headings <- xml2::xml_find_first(divs, ".//h1|h2|h3|h4|h5|h6")
   has_heading <- !is.na(xml2::xml_name(headings))
 
   id <- id[has_heading]

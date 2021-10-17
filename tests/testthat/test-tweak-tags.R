@@ -18,6 +18,20 @@ test_that("tables get additional table class", {
 
 # anchors -------------------------------------------------------------
 
+test_that("ids move from div to headings", {
+  html <- xml2::read_xml('<body>
+    <div id="1"><h1>abc</h1></div>
+    <div id="2"><h2>abc</h2></div>
+    <div id="3"><h3>abc</h3></div>
+    <div id="4"><h4>abc</h4></div>
+    <div id="5"><h5>abc</h5></div>
+    <div id="6"><h6>abc</h6></div>
+  </body>')
+  tweak_anchors(html)
+  expect_equal(xpath_attr(html, "//h1|//h2|//h3|//h4|//h5|//h6", "id"), as.character(1:6))
+  expect_equal(xpath_attr(html, "//div", "id"), rep(NA_character_, 6))
+})
+
 test_that("anchor html added to headings", {
   html <- xml2::read_xml('<div id="x"><h1>abc</h1></div>')
   tweak_anchors(html)
