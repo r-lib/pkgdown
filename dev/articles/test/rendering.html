@@ -209,12 +209,15 @@ This should only be shown when required
 </h2>
 <p>There should however be no bug here!</p>
 </div>
-<div id="results-in-tabset" class="section level2 tabset tabset-pills">
-<h2>Results in tabset<a class="anchor" aria-label="anchor" href="#results-in-tabset"></a>
+<div id="tabsets" class="section level2">
+<h2>Tabsets<a class="anchor" aria-label="anchor" href="#tabsets"></a>
 </h2>
+<div id="tabset-with-pills" class="section level3 tabset tabset-pills">
+<h3>Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
+</h3>
 
 
-<ul class="nav nav-pills nav-row" id="results-in-tabset" role="tablist">
+<ul class="nav nav-pills nav-row" id="tabset-with-pills" role="tablist">
 <li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
 <li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
 </ul>
@@ -224,6 +227,12 @@ This should only be shown when required
 <p>blablablabla</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<p>Should be “cool” heading below</p>
+<div id="cool" class="section level5">
+<h5>cool<a class="anchor" aria-label="anchor" href="#cool"></a>
+</h5>
+<p>Stuff</p>
+</div>
 </div>
 <div id="tab-2" class="tab-pane" role="tabpanel"  aria-labelledby="tab-2">
 
@@ -231,59 +240,53 @@ This should only be shown when required
 </div>
 </div>
 </div>
-<div id="results-in-tabset-no-pills" class="section level2 tabset">
-<h2>Results in tabset, no pills<a class="anchor" aria-label="anchor" href="#results-in-tabset-no-pills"></a>
-</h2>
+<div id="tabset-without-pils" class="section level3 tabset">
+<h3>Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
+</h3>
 
 
-<ul class="nav nav-tabs nav-row" id="results-in-tabset-no-pills" role="tablist">
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#a-thing" role="tab" aria-controls="a-thing" aria-selected="false" class="nav-link">A thing</a></li>
+<ul class="nav nav-tabs nav-row" id="tabset-without-pils" role="tablist">
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-1-1" role="tab" aria-controls="tab-1-1" aria-selected="false" class="nav-link">Tab 1</a></li>
 <li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#tab-2-1" role="tab" aria-controls="tab-2-1" aria-selected="true" class="nav-link active">Tab 2</a></li>
 </ul>
 <div class="tab-content">
-<div id="a-thing" class="tab-pane" role="tabpanel"  aria-labelledby="a-thing">
+<div id="tab-1-1" class="tab-pane" role="tabpanel"  aria-labelledby="tab-1-1">
 
 <p>something nice</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div id="cool" class="section level4">
-<h4>cool<a class="anchor" aria-label="anchor" href="#cool"></a>
-</h4>
-<p>yay</p>
-</div>
 </div>
 <div id="tab-2-1" class="active tab-pane" role="tabpanel"  aria-labelledby="tab-2-1">
 
-<p>hello</p>
+<p>This tab should be active</p>
 </div>
 </div>
 </div>
-<div id="results-in-tabset-fading" class="section level2 tabset tabset-fade">
-<h2>Results in tabset, fading<a class="anchor" aria-label="anchor" href="#results-in-tabset-fading"></a>
-</h2>
+<div id="fading-tabset" class="section level3 tabset tabset-fade">
+<h3>Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
+</h3>
 
 
-<ul class="nav nav-tabs nav-row" id="results-in-tabset-fading" role="tablist">
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#something" role="tab" aria-controls="something" aria-selected="false" class="nav-link">Something</a></li>
-<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#nice" role="tab" aria-controls="nice" aria-selected="true" class="nav-link active">Nice</a></li>
+
+<ul class="nav nav-tabs nav-row" id="fading-tabset" role="tablist">
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#english" role="tab" aria-controls="english" aria-selected="false" class="active nav-link">English</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#french" role="tab" aria-controls="french" aria-selected="false" class="nav-link">French</a></li>
+<li role="presentation" class="nav-item"><a data-bs-toggle="tab" href="#german" role="tab" aria-controls="german" aria-selected="false" class="nav-link">German</a></li>
 </ul>
 <div class="tab-content">
-<div id="something" class="fade tab-pane" role="tabpanel"  aria-labelledby="something">
+<div id="english" class="show active fade tab-pane" role="tabpanel"  aria-labelledby="english">
 
-<p>ok</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="rendering_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div id="cool-1" class="section level4">
-<h4>cool<a class="anchor" aria-label="anchor" href="#cool-1"></a>
-</h4>
-<p>yay</p>
+<p>Hello!</p>
 </div>
-</div>
-<div id="nice" class="show active fade tab-pane" role="tabpanel"  aria-labelledby="nice">
+<div id="french" class="fade tab-pane" role="tabpanel"  aria-labelledby="french">
 
-<p>bonjour</p>
+<p>Bonjour!</p>
+</div>
+<div id="german" class="fade tab-pane" role="tabpanel"  aria-labelledby="german">
+
+<p>Guten tag.</p>
+</div>
 </div>
 </div>
 </div>
