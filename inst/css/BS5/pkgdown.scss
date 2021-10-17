@@ -203,6 +203,11 @@ details {
   margin-bottom: 1rem;
 }
 
+// dt on reference index are all links so don't need additional styling
+.template-reference-index dt {
+  font-weight: normal;
+}
+
 // Section anchors
 a.anchor {
   display: none;
@@ -335,16 +340,6 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }
-
-/* reference index & topics ------------------------------------------------- */
-
-.ref-index th {font-weight: normal;}
-
-.ref-index td {vertical-align: top; min-width: 100px}
-.ref-index .icon {width: 40px;}
-.ref-index .alias {width: 40%;}
-.ref-index-icons .alias {width: calc(40% - 40px);}
-.ref-index .title {width: 60%;}
 
 /* search =================================================================== */
 
