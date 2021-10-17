@@ -1,7 +1,4 @@
 tweak_anchors <- function(html) {
-  # Anchors are manually added in content-reference-index.html because the
-  # sections are organised within a table
-
   divs <- xml2::xml_find_all(html, ".//div[@id]")
   if (length(divs) == 0) {
     return(invisible())
@@ -9,10 +6,11 @@ tweak_anchors <- function(html) {
 
   id <- xml2::xml_attr(divs, "id")
   headings <- xml2::xml_find_first(divs, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
-  has_heading <- !is.na(xml2::xml_name(headings))
 
-  id <- id[has_heading]
-  headings <- headings[has_heading]
+  is_ok <- !is.na(xml2::xml_name(headings)) & has_class(divs, "section")
+  divs <- divs[is_ok]
+  id <- id[is_ok]
+  headings <- headings[is_ok]
 
   # Update ids: dot in the anchor breaks scrollspy and rd translation
   # doesn't have enough information to generate unique ids
