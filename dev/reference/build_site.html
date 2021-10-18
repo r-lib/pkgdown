@@ -54,10 +54,10 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/customise.html">Styling your site</a>
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
-    <a class="dropdown-item" href="../articles/customise.html">Customise your website</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
@@ -246,23 +246,28 @@ to danger). Finally, you can choose to override the default tooltip with
     <h2 id="yaml-config-navbar">YAML config - navbar<a class="anchor" aria-label="anchor" href="#yaml-config-navbar"></a></h2>
     
 
-<p>By default, the top navbar will contain links to:</p><ul><li><p>"Get Started", if you have an article with the same name as the package (e.g., <code>vignettes/pkgdown.Rmd</code>).</p></li>
-<li><p>The reference index.</p></li>
-<li><p>Articles (i.e., vignettes, if present).</p></li>
-<li><p>News (if present).</p></li>
-<li><p>An icon linking to the source repository.</p></li>
-</ul><p>You can override (and even remove) these defaults with the <code>navbar</code> field.
-It has two primary components: <code>structure</code> and <code>components</code>.
-These components interact in a somewhat complicated way, but the complexity allows you to make minor tweaks to part of the navbar while relying on pkgdown to automatically generate the rest.</p>
-<p>The <code>structure</code> defines the layout of the navbar, i.e. the order of the components, and whether they're right aligned or left aligned.
-You can use this component to change the order of the default components, remove some default components and add your own components.</p><div class="sourceCode yaml"><pre><code>navbar:
- structure:
-   left:  [intro, reference, articles, tutorials, news]
-   right: [github]
+<p>You can customise the navigation bar that appears at the top of the page with the <code>navbar</code> field.
+It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
+This organisation makes it easy to mix and match pkgdown defaults with your own customisations.</p>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code>navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
 </code></pre><p></p></div>
-<p>The <code>components</code> describes the appearance of each element in the navbar.
-It uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown</a>.
-The following YAML snippet illustrates some of the most important features.</p><div class="sourceCode yaml"><pre><code>navbar:
+<p>It makes use of the the six built-in components:</p><ul><li><p><code>intro</code>: "Get Started", which links to a vignette with the same name as the package.</p></li>
+<li><p><code>reference</code>, if there are any <code>.Rd</code> files.</p></li>
+<li><p><code>articles</code>, if there are any vignettes or articles.</p></li>
+<li><p><code>tutorials</code>, if there any tutorials.</p></li>
+<li><p><code>news</code>, if <code>NEWS.md</code> exists.</p></li>
+<li><p><code>search</code>, the search box (see <code><a href="../articles/search.html">vignette("search")</a></code> for more details).</p></li>
+<li><p><code>github</code>, a link to the source repository (with an icon), if it can be automatically determined from the <code>DESCRIPTION</code>.</p></li>
+</ul><p>You can use the <code>structure</code> field to reorganise the navbar without changing the default contents:</p><div class="sourceCode yaml"><pre><code>navbar:
+  structure:
+    left:  [search]
+    right: [reference, articles]
+</code></pre><p></p></div>
+<p>You can use <code>components</code> to override the default content.
+For example, this yaml provides a custom articles menu:</p><div class="sourceCode yaml"><pre><code>navbar:
  components:
    articles:
     text: Articles
@@ -274,21 +279,27 @@ The following YAML snippet illustrates some of the most important features.</p><
       href: articles/a2.html
     - text: -------
     - text: "Category B"
-    - text: Title B1
-      menu:
-      - text: "Sub-category B11"
-        href: articles/b11.html
-    twitter:
-      icon: "fab fa-twitter fa-lg"
-      href: https://twitter.com/hadleywickham
-      aria-label: "twitter account"
+    - text: Article B1
+      href: articles/b1.html
 </code></pre><p></p></div>
-<p>Components can contain sub-<code>menu</code>s with headings (indicated by missing <code>href</code>) and separators (indicated by a bunch of <code>-</code>).
-You can also use <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.
-When using icons with no text, for accessibility it's best practice to include an <code>aria-label</code> for screenreader users.</p>
-<p>This yaml would override the default "articles" component, and add a new "twitter" component.
-Unless you explicitly mention new components in the <code>structure</code> they'll be added to the far right of the left menu.</p>
-<p>You can also customise the color scheme of the navbar by using the <a href="https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes"><code>type</code> and <code>bg</code> parameters</a>. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
+<p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown menus</a>.
+The elements of <code>menu</code> can be:</p><ul><li><p>A link (<code>text</code> + <code>href</code>)</p></li>
+<li><p>A heading (just <code>text</code>)</p></li>
+<li><p>A separator (<code>text: ——–</code>)</p></li>
+</ul><p>Instead of text, you can also use the name of an <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.
+You should also provide a textual description in the <code>aria-label</code> field for screenreader users.</p>
+<p>To add a new component to the navbar, you need to modify both <code>structure</code> and <code>components</code>.
+For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.</p><div class="sourceCode yaml"><pre><code>navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/hadleywickham
+      aria-label: Twitter
+</code></pre><p></p></div>
+<p>You can also customise the colour scheme of the navbar by using the <code>type</code>
+and <code>bg</code> parameters. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
     </div>
     <div class="section level2">
     <h2 id="yaml-config-search">YAML config - search<a class="anchor" aria-label="anchor" href="#yaml-config-search"></a></h2>
@@ -400,18 +411,21 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
     <h2 id="yaml-config-footer">YAML config - footer<a class="anchor" aria-label="anchor" href="#yaml-config-footer"></a></h2>
     
 
-<p>By default, the footer is automatically populated with:</p><ul><li><p>The names of the <a href="https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors">authors <code>authors</code></a>, on the left.</p></li>
-<li><p>A reference to pkgdown <code>pkgdown</code>, on the right.</p></li>
-</ul><p>The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p><div class="sourceCode yaml"><pre><code>footer:
- left:
-   structure: [pkgdown]
- right:
-   structure: [authors, legal]
-   components:
-     legal: Provided without ***any warranty***.
+<p>You can customise the top navbar with the <code>footer</code> field.</p>
+<p>By default, the footer is automatically populated with:</p><ul><li><p>The names of the authors on the left.</p></li>
+<li><p>A link to the pkgdown website on the right.</p></li>
+</ul><p>You can override these defaults with the <code>footer</code> field.
+The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p><div class="sourceCode yaml"><pre><code>footer:
+  left:
+    structure: [pkgdown]
+  right:
+    structure: [authors, legal]
+    components:
+      legal: Provided without ***any warranty***.
 </code></pre><p></p></div>
-<p>Like the navbar and side, you can control both the structure and the components.
+<p>Like the navbar and sidebar, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
+<p>See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.</p>
     </div>
     <div class="section level2">
     <h2 id="yaml-config-redirects">YAML config - redirects<a class="anchor" aria-label="anchor" href="#yaml-config-redirects"></a></h2>
