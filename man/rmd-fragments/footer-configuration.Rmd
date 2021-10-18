@@ -1,19 +1,24 @@
+You can customise the top navbar with the `footer` field.
+
 By default, the footer is automatically populated with:
 
--   The names of the [authors `authors`](https://pkgdown.r-lib.org/reference/build_home.html#yaml-config-authors), on the left.
--   A reference to pkgdown `pkgdown`, on the right.
+-   The names of the authors on the left.
+-   A link to the pkgdown website on the right.
 
+You can override these defaults with the `footer` field.
 The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.
 
-```yaml
+``` yaml
 footer:
- left:
-   structure: [pkgdown]
- right:
-   structure: [authors, legal]
-   components:
-     legal: Provided without ***any warranty***.
+  left:
+    structure: [pkgdown]
+  right:
+    structure: [authors, legal]
+    components:
+      legal: Provided without ***any warranty***.
 ```
 
-Like the navbar and side, you can control both the structure and the components.
+Like the navbar and sidebar, you can control both the structure and the components.
 Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.
+
+See `?build_home` if you want to tweak *which* authors appear in the footer.

@@ -1,10 +1,27 @@
 #' Build home section
 #'
-#' This function generates the home page, converts `.md` files found in the
-#' package root (and in `.github/`), and builds an authors page from
-#' `DESCRIPTION` and `inst/CITATION` (if present).
-#' @includeRmd man/rmd-fragments/home-configuration.Rmd
-#' @includeRmd man/rmd-fragments/authors-configuration.Rmd
+#' @description
+#' `build_home()` function generates pages at the top-level of the site
+#' including:
+#'
+#' * The home page
+#' * HTML files from any `.md` files in `./` or `.github/`.
+#' * The authors page (from `DESCRIPTION`)
+#' * The citation page (from `inst/CITATION`, if present).
+#' * The license page
+#'
+#' `build_home_index()` rebuilds just the index page; it's useful for rapidly
+#' iterating when experimenting with site styles.
+#'
+#' ```{r child="man/rmd-fragments/home-configuration.Rmd"}
+#' ```
+#' ```{r child="man/rmd-fragments/authors-configuration.Rmd"}
+#' ```
+#'
+#' @section Sidebar:
+#' ```{r child="man/rmd-fragments/sidebar-configuration.Rmd"}
+#' ```
+#'
 #' @inheritParams build_articles
 #' @export
 build_home <- function(pkg = ".",

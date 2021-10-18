@@ -5,6 +5,11 @@
 * pkgdown can style your site with Bootstrap 5 (with help from @jayhesselberth,
   @apreshill, @cpsievert). Opt-in by setting `boostrap` version in your 
   `_pkgdown.yml`.
+  
+    ```yaml
+    template:
+      bootstrap: 5
+    ```
 
 * We reviewed site accessibility and made a number of improvements: (#782, #1553):
 

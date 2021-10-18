@@ -32,7 +32,7 @@
 
 // Need to adjust body components down by height of navbar so it
 // doesn't overlap them when visible
-$pkgdown-nav-height: 56px;
+$pkgdown-nav-height: 56px !default;
 
 .contents, #pkgdown-sidebar {
   margin-top: $pkgdown-nav-height;
@@ -88,7 +88,7 @@ $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 // needed for scrollspy
 body {position: relative;}
 
-#toc .nav {
+#toc > .nav {
   margin-bottom: 1rem;
 }
 
@@ -130,7 +130,7 @@ body {position: relative;}
 /* footer  ================================================================== */
 
 $pkgdown-footer-color: $body-color !default;
-$pkgdown-footer-bg: $body-bg !default;
+$pkgdown-footer-bg: transparent !default;
 $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
 

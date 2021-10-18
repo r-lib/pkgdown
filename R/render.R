@@ -43,9 +43,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     data$headdeps <- data_deps(pkg = pkg, depth = depth)
   }
 
-  # Potential opt-out of syntax highlighting CSS
-  data$needs_highlight_css <- !isFALSE(pkg$meta[["template"]]$params$highlightcss)
-
   # render template components
   pieces <- c(
     "head", "navbar", "header", "content", "docsearch", "footer",
