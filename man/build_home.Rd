@@ -202,15 +202,18 @@ consider using a custom sidebar/footer component
 
 \section{Sidebar}{
 
-Like the navbar and footer, you can change the structure and components of the sidebar independently.
-The default structure contains six components:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
+You can customise the homepage sidebar with the \code{home.sidebar} field.
+It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
+
+This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   sidebar:
     structure: [links, license, community, citation, authors, dev]
 }\if{html}{\out{</div>}}
 
-which are drawn from the following list:
+These are drawn from seven built-in components:
 \itemize{
-\item \code{links}: automated links generated from \code{URL} and \code{BugReports} \code{DESCRIPTION} fields plus manual links from the \code{home} yaml field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
+\item \code{links}: automated links generated from \code{URL} and \code{BugReports} \code{DESCRIPTION} fields plus manual links from the \code{home.links} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   links:
   - text: Link text
     href: https://website.com
@@ -222,7 +225,7 @@ which are drawn from the following list:
 \item \code{citation}: link to the package citation if it exists.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
 \item \code{dev}: development status badges found in \code{README.md}/\code{index.md}.
-\item \code{toc}: a table of contents for the README (not added by default).
+\item \code{toc}: a table of contents for the README (not shown by default).
 }
 
 You can also add your own components, where \code{text} is markdown text:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:

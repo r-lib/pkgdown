@@ -33,7 +33,7 @@ These are drawn from seven built-in components:
 
 -   `dev`: development status badges found in `README.md`/`index.md`.
 
--   `toc`: a table of contents for the README (not added by default).
+-   `toc`: a table of contents for the README (not shown by default).
 
 You can also add your own components, where `text` is markdown text:
 
