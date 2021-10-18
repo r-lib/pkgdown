@@ -29,14 +29,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   }
 
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
-  data$pkgdown <- list(
-    version = utils::packageDescription("pkgdown", fields = "Version")
-  )
   data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
-
-  data$footer <- pkgdown_footer(data, pkg)
+  data$footer <- data_footer(pkg)
 
   # Dependencies for head
   if (pkg$bs_version > 3) {
@@ -92,11 +88,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  roles <- pkg$meta$authors$footer$roles %||% default_roles()
-  authors <- data_authors(pkg, roles = roles)$main %>%
-    purrr::map_chr("name") %>%
-    paste(collapse = ", ")
-
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
   yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
@@ -111,8 +102,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     year = strftime(Sys.time(), "%Y"),
     package = list(
       name = pkg$package,
-      version = as.character(pkg$version),
-      authors = authors
+      version = as.character(pkg$version)
     ),
     development = pkg$development,
     site = list(

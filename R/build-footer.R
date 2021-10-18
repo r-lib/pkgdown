@@ -1,62 +1,49 @@
+data_footer <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
 
-pkgdown_footer <- function(data, pkg) {
+  meta_footer <- pkg$meta$footer
+  components <- modify_list(footnote_components(pkg), meta_footer$components)
+  structure <- modify_list(footnote_structure(), meta_footer$structure)
 
-  footer_components <- list(
-    authors = footer_authors(data, pkg),
-    pkgdown = footer_pkgdown(data)
+  left <- markdown_text_block(
+    paste0(components[structure$left], collapse = " "),
+    pkg = pkg
   )
-
-  # footer left
-  left_structure <- pkg$meta$footer$left$structure %||% c("authors")
-
-  left_components <- modify_list(
-    footer_components,
-    pkg$meta$footer$left$components
-  )
-
-  check_components(
-    needed = left_structure,
-    present = names(left_components),
-    where = c("footer", "left", "components"),
+  right <- markdown_text_block(
+    paste0(components[structure$right], collapse = " "),
     pkg = pkg
   )
 
-  left_final_components <- markdown_text_block(
-    paste0(left_components[left_structure], collapse = " "),
-    pkg = pkg
-  )
-
-  # footer right
-  right_structure <- pkg$meta$footer$right$structure %||% c("pkgdown")
-
-  right_components <- modify_list(
-    footer_components,
-    pkg$meta$footer$right$components
-  )
-
-  check_components(
-    needed = right_structure,
-    present = names(right_components),
-    where = c("footer", "right", "components"),
-    pkg = pkg
-  )
-
-  right_final_components <- markdown_text_block(
-    paste0(right_components[right_structure], collapse = " "),
-    pkg = pkg
-  )
-
-  list(left = left_final_components, right = right_final_components)
+  list(left = left, right = right)
 }
 
-footer_authors <- function(data, pkg) {
-  text <- pkg$meta$authors$footer$text %||% "Developed by"
-  paste0(trimws(text), " ", data$package$authors, ".")
-}
+footnote_components <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
 
-footer_pkgdown <- function(data) {
-  paste0(
+  # Authors
+  roles <- pkg$meta$authors$footer$roles %||% default_roles()
+  authors <- data_authors(pkg, roles = roles)$main %>%
+    purrr::map_chr("name") %>%
+    paste(collapse = ", ")
+
+  prefix <- pkg$meta$authors$footer$text %||% "Developed by"
+  developed_by <- paste0(trimws(prefix), " ", authors, ".")
+
+  # pkgdown
+  built_with <- paste0(
     'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
-    data$pkgdown$version, "."
+    utils::packageVersion("pkgdown"), "."
   )
+
+  print_yaml(list(
+    developed_by = developed_by,
+    built_with = built_with
+  ))
+}
+
+footnote_structure <- function() {
+  print_yaml(list(
+    left = "developed_by",
+    right = "built_with"
+  ))
 }

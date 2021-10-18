@@ -1,40 +1,38 @@
-test_that("pkgdown_footer() works by default", {
-  data <- list(
-    package = list(authors = "bla"),
-    pkgdown = list(version = "42")
+test_that("works by default", {
+  pkg <- structure(
+    list(
+      desc = desc::desc(text = "Authors@R: person('a', 'b', roles = 'cre')")
+    ),
+    class = "pkgdown"
   )
-  pkg <- list()
-  expect_snapshot(pkgdown_footer(data, pkg))
+  expect_snapshot(data_footer(pkg))
 })
 
-test_that("pkgdown_footer() can use custom components", {
-  data <- list(
-    package = list(authors = "bla"),
-    pkgdown = list(version = "42")
+test_that("can use custom components", {
+  pkg <- structure(list(
+    desc = desc::desc(text = "Authors@R: person('a', 'b', roles = 'cre')"),
+    meta = list(
+      footer = list(
+        structure = list(left = "test"),
+        components = list(test = "_test_")
+      )
+    )),
+    class = "pkgdown"
   )
-  pkg <- list(meta = list(footer = list(left = list(structure = c("authors", "pof")))))
-  pkg$meta$footer$left$components$pof <- "***Wow***"
-  expect_snapshot(pkgdown_footer(data, pkg))
-
-
-  pkg <- list(meta = list(footer = list(left = list(structure = c("pof")))))
-  pkg$meta$footer$left$components$pof <- "***Wow***"
-  expect_snapshot(pkgdown_footer(data, pkg))
+  expect_equal(data_footer(pkg)$left, "<p><em>test</em></p>")
 })
 
-test_that("pkgdown_footer() throws informative error messages", {
-  data <- list(
-    authors = "bla",
-    pkgdown = list(version = "42")
+test_that("multiple components are pasted together", {
+  pkg <- structure(list(
+    desc = desc::desc(text = "Authors@R: person('a', 'b', roles = 'cre')"),
+    meta = list(
+      footer = list(
+        structure = list(left = c("a", "b")),
+        components = list(a = "a", b = "b")
+      )
+    )),
+    class = "pkgdown"
   )
-  pkg <- test_path("assets/sidebar")
-  pkg <- as_pkgdown(pkg)
-  pkg$meta$footer$left$structure <- c("pof")
-  expect_snapshot_error(pkgdown_footer(data, pkg))
-
-  pkg <- test_path("assets/sidebar")
-  pkg <- as_pkgdown(pkg)
-  pkg$meta$footer$left$structure <- c("pkgdown")
-  pkg$meta$footer$right$structure <- c("bof")
-  expect_snapshot_error(pkgdown_footer(data, pkg))
+  expect_equal(data_footer(pkg)$left, "<p>a b</p>")
 })
+
