@@ -17,7 +17,7 @@
     * Syntax highlighting uses a new more
       [accessible colour scheme](https://apreshill.github.io/rmda11y/arrow.html), 
       designed by Alison Hill (#1536)
-    * A Skip link makes it easier to get directly to the page contents (#1827).
+    * A skip link makes it easier to get directly to the page contents (#1827).
 
 * In-line footnotes mean you can read asides next to the next they refer to. 
 
