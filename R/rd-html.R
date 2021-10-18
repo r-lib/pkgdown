@@ -104,7 +104,7 @@ as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
   text <- flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
 
   paste0(
-    "<div id='", id, "'>\n",
+    "<div class='section' id='", id, "'>\n",
     "<", h, ">", title, "</", h, ">\n",
     text, "\n",
     "</div>"
