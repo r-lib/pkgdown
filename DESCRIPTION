@@ -1,26 +1,19 @@
 Package: pkgdown
 Title: Make Static HTML Documentation for a Package
 Version: 1.9000.9000.9000
-Authors@R: 
-    c(person(given = "Hadley",
-             family = "Wickham",
-             role = c("aut", "cre"),
-             email = "hadley@rstudio.com",
-             comment = c(ORCID = "0000-0003-4757-117X")),
-      person(given = "Jay",
-             family = "Hesselberth",
-             role = "aut",
-             comment = c(ORCID = "0000-0002-6299-179X")),
-      person(given = "RStudio",
-             role = c("cph", "fnd")),
-      person(given = "Maëlle",
-             family = "Salmon",
-             role = "aut",
-             comment = c(ORCID = "0000-0002-2815-0399")))
-Description: Generate an attractive and useful website from a
-    source package.  'pkgdown' converts your documentation, vignettes,
-    'README', and more to 'HTML' making it easy to share information about
-    your package online.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-4757-117X")),
+    person("Jay", "Hesselberth", role = "aut",
+           comment = c(ORCID = "0000-0002-6299-179X")),
+    person("Maëlle", "Salmon", role = "aut",
+           comment = c(ORCID = "0000-0002-2815-0399")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
+Description: Generate an attractive and useful website from a source
+    package.  'pkgdown' converts your documentation, vignettes, 'README',
+    and more to 'HTML' making it easy to share information about your
+    package online.
 License: MIT + file LICENSE
 URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
 BugReports: https://github.com/r-lib/pkgdown/issues
@@ -34,8 +27,8 @@ Imports:
     digest,
     downlit (>= 0.2.9000.9001),
     fs (>= 1.3.0),
-    jsonlite,
     httr (>= 1.4.2),
+    jsonlite,
     magrittr,
     memoise,
     purrr,
@@ -66,11 +59,11 @@ Suggests:
     tools
 VignetteBuilder: 
     knitr
+Remotes: 
+    r-lib/downlit,
+    r-lib/rlang
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 SystemRequirements: pandoc
-Remotes:  
-    r-lib/downlit,
-    r-lib/rlang

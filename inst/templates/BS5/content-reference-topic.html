@@ -7,7 +7,7 @@
     <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
-    <div id="ref-description" class="ref-description section level2">
+    <div class="ref-description section level2">
     {{#description}}
     {{#contents}}
     {{{.}}}
@@ -16,13 +16,13 @@
     </div>
 
     {{#usage}}
-    <div id="ref-usage" class="ref-usage section level2 sourceCode">
+    <div class="ref-usage section level2 sourceCode">
     {{{.}}}
     </div>
     {{/usage}}
 
     {{#has_args}}
-    <div id="ref-arguments" class="ref-arguments section level2">
+    <div id="arguments" class="ref-arguments section level2">
     <h2>Arguments</h2>
     <dl>
     {{#arguments}}
@@ -34,7 +34,7 @@
     {{/has_args}}
 
     {{#sections}}
-    <div class="ref-section section level2" id="section-{{slug}}">
+    <div class="section level2" id="{{slug}}">
     <h2>{{{title}}}</h2>
     {{#contents}}
     {{{.}}}
@@ -43,7 +43,7 @@
     {{/sections}}
 
     {{#examples}}
-    <div id="ref-examples">
+    <div id="examples">
     <h2>Examples</h2>
     <div class="ref-examples sourceCode">{{{.}}}</div>
     </div>

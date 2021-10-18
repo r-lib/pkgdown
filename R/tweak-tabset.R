@@ -1,5 +1,5 @@
-
-# Tabsets tweaking: find Markdown recommended in https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html
+# Tabsets tweaking: find Markdown recommended in
+# https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html
 # and https://bookdown.org/yihui/rmarkdown/html-document.html#tabbed-sections
 # i.e. "## Heading {.tabset}" or "## Heading {.tabset .tabset-pills}"
 #  no matter the heading level -- the headings one level down are the tabs
@@ -11,115 +11,81 @@ tweak_tabsets <- function(html) {
   invisible()
 }
 
-tweak_tabset <- function(html) {
-  id <- xml2::xml_attr(html, "id")
-
-  # Users can choose pills or tabs
-  nav_class <- if (has_class(html, "tabset-pills")) {
-    "nav-pills"
-  } else {
-    "nav-tabs"
-  }
-  # Users can choose to make content fade
-  fade <- has_class(html, "tabset-fade")
-
+tweak_tabset <- function(div) {
   # Get tabs and remove them from original HTML
-  tabs <- xml2::xml_find_all(html, "div")
+  tabs <- xml2::xml_find_all(div, "div")
   xml2::xml_remove(tabs)
 
   # Add empty ul for nav and div for content
-  xml2::xml_add_child(
-    html,
-    "ul",
-    class = sprintf("nav %s nav-row", nav_class),
-    id = id,
-    role = "tablist"
-  )
-  xml2::xml_add_child(html, "div", class="tab-content")
+  nav_class <- if (has_class(div, "tabset-pills")) {
+    "nav nav-pills nav-row"
+  } else {
+    "nav nav-tabs nav-row"
+  }
+  fade <- has_class(div, "tabset-fade")
+
+  id <- section_id(div)
+  nav <- xml2::xml_add_child(div, "ul", class = nav_class, id = id, role = "tablist")
+  content <- xml2::xml_add_child(div, "div", class = "tab-content")
 
   # Fill the ul for nav and div for content
-  purrr::walk(tabs, tablist_item, html = html, parent_id = id)
-  purrr::walk(tabs, tablist_content, html = html, parent_id = id, fade = fade)
+  purrr::walk(tabs, tablist_item, nav = nav, parent_id = id)
+  purrr::walk(tabs, tablist_content, content = content, parent_id = id, fade = fade)
 
-  # activate first tab unless another one is already activated
-  # (by the attribute {.active} in the source Rmd)
-  nav_links <- xml2::xml_find_all(html, sprintf("//ul[@id='%s']/li/a", id))
+  # if not tabs active, activate the first tab
+  if (!any(has_class(xml2::xml_children(content), "active"))) {
+    tweak_class_prepend(xml2::xml_find_first(nav, ".//li/a"), "active")
 
-  if (!any(has_class(nav_links, "active"))) {
-    tweak_class_prepend(nav_links[1], "active")
-  }
-
-  content_div <- xml2::xml_find_first(html, sprintf("//div[@id='%s']/div", id))
-  if (!any(has_class(xml2::xml_children(content_div), "active"))) {
-    tweak_class_prepend(xml2::xml_child(content_div), "active")
-    if (fade) {
-      tweak_class_prepend(xml2::xml_child(content_div), "show")
-    }
+    tab_class <- paste("active", if (has_class(div, "tabset-fade")) "show")
+    tweak_class_prepend(xml2::xml_child(content), tab_class)
   }
 }
 
 # Add an item (tab) to the tablist
-tablist_item <- function(tab, html, parent_id) {
-  id <- xml2::xml_attr(tab, "id")
-  text <- xml_text1(xml2::xml_child(tab))
-  ul_nav <- xml2::xml_find_first(html, sprintf("//ul[@id='%s']", parent_id))
+tablist_item <- function(tab, nav, parent_id) {
+  id <- section_id(tab)
+  title <- xml_text1(xml2::xml_child(tab))
 
   # Activate (if there was "{.active}" in the source Rmd)
   active <- has_class(tab, "active")
-  class <- if (active) {
-    "nav-link active"
-  } else {
-    "nav-link"
-  }
+  li_class <- paste0("nav-link", if (active) " active")
 
-  xml2::xml_add_child(
-    ul_nav,
-    "a",
-    text,
+  li <- xml2::xml_add_child(nav, "li", role = "presentation", class = "nav-item")
+  xml2::xml_add_child(li, "a", title,
     `data-bs-toggle` = "tab",
+    id = paste0(id, "-tab"),
     href = paste0("#", id),
     role = "tab",
     `aria-controls` = id,
-    `aria-selected` = tolower(as.character(active)),
-    class = class
+    `aria-selected` = tolower(active),
+    class = li_class
   )
 
-  # tab a's need to be wrapped in li's
-  xml2::xml_add_parent(
-    xml2::xml_find_first(html, sprintf("//a[@href='%s']", paste0("#", id))),
-    "li",
-    role = "presentation",
-    class = "nav-item"
-  )
+  invisible()
 }
 
 # Add content of a tab to a tabset
-tablist_content <- function(tab, html, parent_id, fade) {
-  active <- has_class(tab, "active")
-
-  # remove first child, that is the header
+tablist_content <- function(tab, content, parent_id, fade) {
+  id <- section_id(tab)
+  # remove the header, the first child
   xml2::xml_remove(xml2::xml_child(tab))
 
-  xml2::xml_attr(tab, "class") <- "tab-pane"
-  if (fade) {
-    tweak_class_prepend(tab, "fade")
-  }
+  xml2::xml_attr(tab, "id") <- id
 
   # Activate (if there was "{.active}" in the source Rmd)
-  if (active) {
-    tweak_class_prepend(tab, "active")
-    if (fade) {
-      tweak_class_prepend(tab, "show")
-    }
-  }
+  active <- has_class(tab, "active")
+  tab_class <- c(
+    if (fade && active) "show",
+    if (active) "active",
+    if (fade) "fade",
+    "tab-pane"
+  )
+  xml2::xml_attr(tab, "class") <- paste(tab_class, collapse = " ")
 
   xml2::xml_attr(tab, "role") <- "tabpanel"
-  xml2::xml_attr(tab, " aria-labelledby") <- xml2::xml_attr(tab, "id")
+  xml2::xml_attr(tab, "aria-labelledby") <- paste0(id, "-tab")
 
-  content_div <- xml2::xml_find_first(
-    html,
-    sprintf("//div[@id='%s']/div", parent_id)
-  )
+  xml2::xml_add_child(content, tab)
 
-  xml2::xml_add_child(content_div, tab)
+  invisible()
 }

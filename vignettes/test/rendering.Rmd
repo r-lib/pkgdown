@@ -35,7 +35,14 @@ x
 ## Details tag
 
 <details>
-  This should only be shown when required
+This should only be shown when required
+</details>
+
+<details>
+<summary>Multiple paragraphs</summary>
+First paragraph
+
+Second paragraph
 </details>
 
 <details>
@@ -80,19 +87,20 @@ Some more text
 
 > Single-line quote about something miscellaneous.
 
-| When dollars appear it's a sign
-|   that your code does not quite align  
-| Ensure that your math  
-|   in xaringan hath  
-|   been placed on a single long line
+| Flush
+|  1 space indent
+|   2 space indent
+|    3 space indent
 
 ## This section is unnumbered {-}
 
 There should however be no bug here!
 
-## Results in tabset {.tabset .tabset-pills}
+## Tabsets
 
-### Tab 1
+### Tabset with pills {.tabset .tabset-pills}
+
+#### Tab 1
 
 blablablabla
 
@@ -100,14 +108,19 @@ blablablabla
 1 + 1
 ```
 
-### Tab 2
+Should be "cool" heading below
+
+##### cool
+
+Stuff
+
+#### Tab 2
 
 blop
 
+### Tabset without pils {.tabset}
 
-## Results in tabset, no pills {.tabset}
-
-### A thing
+#### Tab 1
 
 something nice
 
@@ -115,28 +128,20 @@ something nice
 plot(1:42)
 ```
 
-#### cool
+#### Tab 2 {.active}
 
-yay
+This tab should be active
 
-### Tab 2 {.active}
+### Fading tabset {.tabset .tabset-fade}
 
-hello
+#### English
 
-## Results in tabset, fading {.tabset .tabset-fade}
+Hello!
 
-### Something
+#### French
 
-ok
+Bonjour!
 
-```{r}
-plot(1)
-```
+#### German
 
-#### cool
-
-yay
-
-### Nice {.active}
-
-bonjour
+Guten tag.

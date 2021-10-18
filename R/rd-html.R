@@ -105,7 +105,7 @@ as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
 
   paste0(
     "<div id='", id, "'>\n",
-    "<", h, ">", text, "</", h, ">\n",
+    "<", h, ">", title, "</", h, ">\n",
     text, "\n",
     "</div>"
   )

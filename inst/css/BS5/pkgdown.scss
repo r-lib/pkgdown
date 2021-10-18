@@ -85,6 +85,8 @@ $pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
 $pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
 $pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 
+body {position: relative;}
+
 #toc > .nav {
   margin-bottom: 1rem;
 }
@@ -190,11 +192,12 @@ dd {
   margin-left: 1.5rem;
 }
 summary {
+  margin-bottom: 0.5rem;
+}
+details {
   margin-bottom: 1rem;
 }
-details p {
-  margin-top: -0.5rem;
-}
+
 .html-widget {
   margin-bottom: 1rem;
 }
@@ -260,10 +263,10 @@ img.pkg-logo {
   .page-header {min-height: 88px}
 }
 
-blockquote, .line-block {
-  border-left: .5rem solid $table-border-color;
-  padding-left: .5rem;
-  margin-left: -.5rem;
+// line-block produced by pandoc needs margin-bottom since it doesn't
+// contain other tags
+.line-block {
+  margin-bottom: 1rem;
 }
 
 /* Footnotes ---------------------------------------------------------------- */
