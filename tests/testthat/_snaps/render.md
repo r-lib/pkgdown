@@ -11,7 +11,7 @@
       [1] "<p>Developed by bla.</p>"
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\">pkgdown</a> 42.</p>"
       
 
 # pkgdown_footer() can use custom components
@@ -23,7 +23,7 @@
       [1] "<p>Developed by bla. <strong><em>Wow</em></strong></p>"
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\">pkgdown</a> 42.</p>"
       
 
 ---
@@ -35,7 +35,7 @@
       [1] "<p><strong><em>Wow</em></strong></p>"
       
       $right
-      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\" class=\"external-link\">pkgdown</a> 42.</p>"
+      [1] "<p>Site built with <a href=\"https://pkgdown.r-lib.org/\">pkgdown</a> 42.</p>"
       
 
 # pkgdown_footer() throws informative error messages
