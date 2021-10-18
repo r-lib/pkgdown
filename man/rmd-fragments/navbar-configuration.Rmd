@@ -1,6 +1,6 @@
-You can customise the top navbar with the `navbar` field.
+You can customise the navigation bar that appears at the top of the page with the `navbar` field.
 It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
+This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
 
 This is the default structure:
 
@@ -18,6 +18,7 @@ These there are six built-in components:
 -   `articles`, if there are any vignettes or articles.
 -   `tutorials`, if there any tutorials.
 -   `news`, if `NEWS.md` exists.
+-   `search`, the search box (see `vignette("search")` for more details).
 -   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
 
 You can use the `structure` field to reorganise the navbar without changing the default contents:
@@ -30,7 +31,7 @@ navbar:
 ```
 
 You can use `components` to override the default content.
-The following yaml overrides the default articles menu:
+For example, this yaml provides a custom articles menu:
 
 ``` yaml
 navbar:
@@ -49,10 +50,17 @@ navbar:
       href: articles/b1.html
 ```
 
-Components uses the same syntax as [RMarkdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation) menus.
-Components can contain sub-`menu`s with headings (indicated by missing `href`) and separators (indicated by a bunch of `-`).
-You can also use `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
-When using icons instead of text, also supply `aria-label` for screenreader users.
+Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+The elements of `menu` can be:
+
+-   A link (`text` + `href`)
+
+-   A heading (just `text`)
+
+-   A separator (`text: ——–`)
+
+Instead of text, you can also use the name of an `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
+You should also provide a textual description in the `aria-label` field for screenreader users.
 
 To add a new component to the navbar, you need to modify both `structure` and `components`.
 For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.
@@ -67,6 +75,3 @@ navbar:
       href: http://twitter.com/hadleywickham
       aria-label: Twitter
 ```
-
-You can also customise the colour scheme of the navbar by using the [`type` and `bg` parameters](https://getbootstrap.com/docs/4.0/components/navbar/#color-schemes).
-See `vignette("customise")` for more details.
