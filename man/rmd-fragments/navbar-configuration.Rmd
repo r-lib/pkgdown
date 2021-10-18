@@ -11,7 +11,7 @@ navbar:
     right: [search, github]
 ```
 
-These there are six built-in components:
+It makes use of the the six built-in components:
 
 -   `intro`: "Get Started", which links to a vignette with the same name as the package.
 -   `reference`, if there are any `.Rd` files.

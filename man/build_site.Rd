@@ -180,7 +180,7 @@ This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\pre
     right: [search, github]
 }\if{html}{\out{</div>}}
 
-These there are six built-in components:
+It makes use of the the six built-in components:
 \itemize{
 \item \code{intro}: "Get Started", which links to a vignette with the same name as the package.
 \item \code{reference}, if there are any \code{.Rd} files.

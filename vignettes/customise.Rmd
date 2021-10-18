@@ -16,14 +16,14 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette teaches you how to customise the style/design of your pkgdown site.
+We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yaml`: **theming** (colours and fonts) and **layout** (content of the navbar, sidebar, footer, ...).
+We'll then discuss how to customise the underlying HTML **templates**; this is needed less commonly, but gives you full control over the site.
+Next, we'll discuss how to give multiple sites the same style using a **package**, then finish up with some workflow advice.
+
 ```{r setup}
 library(pkgdown)
 ```
-
-This vignette teaches you how to customise the style/design of your pkgdown site.
-We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yaml`: **theming** (colours and fonts) and layout (**content** of the navbar, sidebar, footer, ...).
-We'll then discuss how to customise the underlying HTML templates; this is needed less commonly, but gives you full control over the site.
-Next, we'll discuss how to give multiple sites the same style using a package, and we'll finish up with some workflow advice.
 
 ## Getting started
 
@@ -54,7 +54,7 @@ template:
 ```
 
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
-While you're initially experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
+While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
 
 Bootswatch templates with tall navbars (like lux or pulse) also require that you set the `pkgdown-nav-height` bslib variable:
 
@@ -77,8 +77,8 @@ The primary advantage of scss over CSS is that it's more programmable, so you ca
 There are three key variables that affect the colour:
 
 -   `bg` (background) determines the page background.
--   `fg` (foreground) determines the text colour.
--   `primary` sets the link colour, and is mixed with the page background to yield the hover colour in the navbar and sidebar.
+-   `fg` (foreground) determines the text colour. `bg` and `fg` are mixed to yield `gray-100`, `gray-200`, ..., `grey-900`, which are used to style other elements to match the overall colour scheme.
+-   `primary` sets the link colour and the (translucent) hover colour in the navbar and sidebar.
 
 ``` yaml
 template:
@@ -89,11 +89,9 @@ template:
     primary: "#306cc9"
 ```
 
-`bg` and `fg` are mixed to yield `gray-100`, `gray-200`, ..., `grey-900`, which are used to style other elements to match the overall colour scheme.
-
-If you want to move away from these defaults, you can to set more specific bootstrap variables, taking advantage of inheritance where possible.
+You can customise other components by setting more specific bslib variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
-If you want to change the colour of all border, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
+If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
 
 You can also override the default fonts used for the majority of the text (`base_font`), for headings (`heading_font`) and for code (`code_font`).
@@ -103,15 +101,12 @@ The easiest way is to supply the name of a [Google font](https://fonts.google.co
 template:
   bootstrap: 5
   bslib:
-    base_font:
-      google: "Roboto"
-    heading_font:
-      google: "Roboto Slab"
-    code_font:
-      google: "JetBrains Mono"
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
 ```
 
-While iterating on bslib colour variables you only need to rerun `init_site()` and refresh your browser; when iterating on fonts, you'll need to run `build_home_index(); init_site()`.
+While iterating on colours and other variables you only need to rerun `init_site()` and refresh your browser; when iterating on fonts, you'll need to run `build_home_index(); init_site()`.
 
 ### Navbar style
 
