@@ -53,14 +53,15 @@ read_theme <- function(name) {
 }
 
 theme_df <- function(theme) {
-  background <- pluck(theme, "background-color") %||% pluck(theme, "editor-colors", "BackgroundColor")
+  bg <- pluck(theme, "background-color") %||% pluck(theme, "editor-colors", "BackgroundColor")
+  fg <- pluck(theme, "text-color")
 
   df <- purrr::map_df(theme$`text-styles`, compact, .id = "name")
   df %>%
     rename(color = any_of("text-color"), background = any_of("background-color")) %>%
     mutate(class = class[name], name = name, `selected-text-color` = NULL) %>%
     arrange(class) %>%
-    structure(background = background)
+    structure(bg = bg, fg = fg)
 }
 
 style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE, italic = FALSE, underline = FALSE, ...) {
@@ -86,8 +87,16 @@ theme_as_css <- function(df, path = stdout()) {
     mutate(name = safe_format(name), class = safe_format(class)) %>%
     pmap_chr(style_to_css)
 
-  if ("background" %in% names(attributes(df))) {
-    css <- c(paste0("pre {background-color: ", attr(df, "background"), "}"), css)
+  attrs <- attributes(df)
+  if (any(c("bg", "fg") %in% names(attrs))) {
+    pre <- paste0("pre {",
+      paste(c(
+        paste0("background-color: ", attrs$bg, ";", recycle0 = TRUE),
+        paste0("color: ", attrs$fg, ";", recycle0 = TRUE)
+      ), collapse = " "),
+      "}"
+    )
+    css <- c(pre, css)
   }
 
   base::writeLines(css, path)
