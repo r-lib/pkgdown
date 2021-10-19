@@ -83,7 +83,7 @@ copy_assets <- function(pkg = ".") {
 
   # extras
   copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
-  # site assets directory
+  # site assets
   copy_asset_dir(pkg, "pkgdown/assets")
 
   invisible()
@@ -106,6 +106,7 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   if (!is.null(file_regexp)) {
     files <- files[grepl(file_regexp, path_file(files))]
   }
+  # Handled in bs_theme()
   files <- files[path_ext(files) != "scss"]
 
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
