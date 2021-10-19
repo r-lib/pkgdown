@@ -43,12 +43,12 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -57,7 +57,7 @@
         <input type="search" class="form-control me-sm-2" aria-label="Search" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search..." autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -69,7 +69,7 @@
   <div class="col-md-9 contents">
     <img src="../logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
     <h1>Test case: output styles</h1>
-    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/test.R"><code>R/test.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/test.R" class="external-link"><code>R/test.R</code></a></small>
     <div class="d-none name"><code>test-output-styles.Rd</code></div>
     </div>
 
@@ -96,30 +96,31 @@
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># This example illustrates some important output types</span></span>
-<span class="r-in"><span class="co"># The following output should be wrapped over multiple lines</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
-<span class="r-in"><span class="va">a</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [91]  91  92  93  94  95  96  97  98  99 100</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"This some text!\n"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This some text!</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"This is a message!"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> This is a message!</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"This is a warning!"</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>This is a warning!</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># This is a multi-line block</span></span>
-<span class="r-in"><span class="op">{</span></span>
-<span class="r-in">  <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></span>
-<span class="r-in">  <span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># This example illustrates some important output types</span>
+<span class="co"># The following output should be wrapped over multiple lines</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
+<span class="va">a</span>
+<span class="co">#&gt;   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18</span>
+<span class="co">#&gt;  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36</span>
+<span class="co">#&gt;  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54</span>
+<span class="co">#&gt;  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72</span>
+<span class="co">#&gt;  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90</span>
+<span class="co">#&gt;  [91]  91  92  93  94  95  96  97  98  99 100</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"This some text!\n"</span><span class="op">)</span>
+<span class="co">#&gt; This some text!</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"This is a message!"</span><span class="op">)</span>
+<span class="co">#&gt; This is a message!</span>
+<span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"This is a warning!"</span><span class="op">)</span>
+<span class="co">#&gt; Warning: This is a warning!</span>
+
+<span class="co"># This is a multi-line block</span>
+<span class="op">{</span>
+  <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
+  <span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 4</span>
 </code></pre></div>
     </div>
   </div>

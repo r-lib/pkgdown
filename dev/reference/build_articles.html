@@ -73,12 +73,12 @@ you are primarily working on the text of an article."><meta property="og:image" 
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -87,7 +87,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
         <input type="search" class="form-control me-sm-2" aria-label="Search" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search..." autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -99,38 +99,39 @@ you are primarily working on the text of an article."><meta property="og:image" 
   <div class="col-md-9 contents">
     <img src="../logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
     <h1>Build articles section</h1>
-    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build-articles.R"><code>R/build-articles.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build-articles.R" class="external-link"><code>R/build-articles.R</code></a></small>
     <div class="d-none name"><code>build_articles.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
+    <p><code><a href="../reference/build_articles.html">build_articles()</a></code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul><li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
-<a href="https://bookdown.org/yihui/bookdown/">bookdown</a></p></li>
+<a href="https://bookdown.org/yihui/bookdown/" class="external-link">bookdown</a></p></li>
 <li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href="build_tutorials.html">build_tutorials()</a></code></p></li>
 </ul><p>Vignettes are rendered using a special document format that reconciles
-<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
-<p>Note that when you run <code>build_articles()</code> directly (outside of
+<p>Note that when you run <code><a href="../reference/build_articles.html">build_articles()</a></code> directly (outside of
 <code><a href="build_site.html">build_site()</a></code>) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="sourceCode r"><code><span class="fu">build_articles</span><span class="op">(</span>
+    <pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/build_articles.html">build_articles</a></span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   quiet <span class="op">=</span> <span class="cn">TRUE</span>,
   lazy <span class="op">=</span> <span class="cn">TRUE</span>,
-  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>,
+  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
   preview <span class="op">=</span> <span class="cn">NA</span>
 <span class="op">)</span>
 
-<span class="fu">build_article</span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/build_articles.html">build_article</a></span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
+<span class="fu"><a href="../reference/build_articles.html">build_articles_index</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
     <div class="ref-arguments section level2">
@@ -221,7 +222,7 @@ vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
-<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html" class="external-link">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
 will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><div class="sourceCode yaml"><pre><code>---
 title: My Document
@@ -238,10 +239,10 @@ generated figures as its default value is a strong assumption of rmarkdown.</p>
     
 
 <p>If you would like to embed a Shiny app into an article, the app will have
-to be hosted independently, (e.g. <a href="https://www.shinyapps.io">https://www.shinyapps.io</a>). Then, you
+to be hosted independently, (e.g. <a href="https://www.shinyapps.io" class="external-link">https://www.shinyapps.io</a>). Then, you
 can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <code>&lt;iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app"&gt;</code>.</p>
-<p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
+<p>See <a href="https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856" class="external-link">https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856</a> for
 some hints on how to customise the appearance with CSS.</p>
     </div>
     <div class="section level2">
@@ -249,7 +250,7 @@ some hints on how to customise the appearance with CSS.</p>
     
 
 <p>By default, pkgdown builds all articles using the
-<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
 your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
@@ -265,8 +266,8 @@ the <code>as_is</code> field in your <code>.Rmd</code> metadata:</p><div class="
 <p>To work with pkgdown, the output format must accept <code>template</code>, <code>theme</code>, and
 <code>self_contained</code> arguments, and must work without any additional CSS or
 JSS files. Note that if you use
-<a href="https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options"><code>_output.yml</code></a>
-or <a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html"><code>_site.yml</code></a>
+<a href="https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options" class="external-link"><code>_output.yml</code></a>
+or <a href="https://rmarkdown.rstudio.com/docs/reference/render_site.html" class="external-link"><code>_site.yml</code></a>
 you'll still need to add <code>as_is: true</code> to each individual vignette.</p>
 <p>Additionally, htmlwidgets do not work when <code>as_is: true</code>.</p>
     </div>

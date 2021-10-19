@@ -67,12 +67,12 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    <a class="dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -81,7 +81,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
         <input type="search" class="form-control me-sm-2" aria-label="Search" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search..." autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -93,12 +93,12 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
   <div class="col-md-9 contents">
     <img src="../logo.png" class="pkg-logo" alt=""><div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
     <h1>Build a complete pkgdown website</h1>
-    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build.R"><code>R/build.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build.R" class="external-link"><code>R/build.R</code></a></small>
     <div class="d-none name"><code>build_site.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul><li><p><code><a href="init_site.html">init_site()</a></code></p></li>
+    <p><code><a href="../reference/build_site.html">build_site()</a></code> is a convenient wrapper around six functions:</p><ul><li><p><code><a href="init_site.html">init_site()</a></code></p></li>
 <li><p><code><a href="build_home.html">build_home()</a></code></p></li>
 <li><p><code><a href="build_reference.html">build_reference()</a></code></p></li>
 <li><p><code><a href="build_articles.html">build_articles()</a></code></p></li>
@@ -111,13 +111,14 @@ that aspect of the site.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="sourceCode r"><code><span class="fu">build_site</span><span class="op">(</span>
+    <pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   examples <span class="op">=</span> <span class="cn">TRUE</span>,
   run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,
   seed <span class="op">=</span> <span class="fl">1014</span>,
   lazy <span class="op">=</span> <span class="cn">FALSE</span>,
-  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>,
+  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
   preview <span class="op">=</span> <span class="cn">NA</span>,
   devel <span class="op">=</span> <span class="cn">FALSE</span>,
   new_process <span class="op">=</span> <span class="op">!</span><span class="va">devel</span>,
@@ -150,15 +151,15 @@ freshly generated section in browser.</p></dd>
       <dd><p>Use development or deployment process?</p>
 <p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code>.</p>
+and will load code with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">pkgload::load_all()</a></code>.</p>
 <p>If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.</p>
-<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+<p><code><a href="../reference/build_site.html">build_site()</a></code> defaults to <code>devel = FALSE</code> so that you get high fidelity
 outputs when you building the complete site; <code><a href="build_reference.html">build_reference()</a></code>,
 <code><a href="build_home.html">build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></dd>
       <dt id="ref-argument-new_process">new_process</dt>
-      <dd><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
+      <dd><p>If <code>TRUE</code>, will run <code><a href="../reference/build_site.html">build_site()</a></code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></dd>
       <dt id="ref-argument-install">install</dt>
@@ -179,7 +180,7 @@ so it is available for vignettes.</p></dd>
 paths will be taken relative to the package root.</p>
 <p><code>url</code> is optional, but strongly recommended.
 It specifies where the site will be published and is used to:</p><ul><li><p>Allow other pkgdown sites to link to your site when needed,
-rather than using generic links to <a href="https://rdrr.io">https://rdrr.io</a>.
+rather than using generic links to <a href="https://rdrr.io" class="external-link">https://rdrr.io</a>.
 See <code><a href="../articles/linking.html">vignette("linking")</a></code> for more information.</p></li>
 <li><p>Generate a <code>sitemap.xml</code>, increasing the searchability of your site.</p></li>
 <li><p>Automatically generate a <code>CNAME</code> when
@@ -283,11 +284,11 @@ For example, this yaml provides a custom articles menu:</p><div class="sourceCod
     - text: Article B1
       href: articles/b1.html
 </code></pre><p></p></div>
-<p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">RMarkdown menus</a>.
+<p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown menus</a>.
 The elements of <code>menu</code> can be:</p><ul><li><p>A link (<code>text</code> + <code>href</code>)</p></li>
 <li><p>A heading (just <code>text</code>)</p></li>
 <li><p>A separator (<code>text: ——–</code>)</p></li>
-</ul><p>Instead of text, you can also use the name of an <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery">fontawesome</a>.
+</ul><p>Instead of text, you can also use the name of an <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery" class="external-link">fontawesome</a>.
 You should also provide a textual description in the <code>aria-label</code> field for screenreader users.</p>
 <p>To add a new component to the navbar, you need to modify both <code>structure</code> and <code>components</code>.
 For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.</p><div class="sourceCode yaml"><pre><code>navbar:
@@ -323,9 +324,9 @@ template:</p><div class="sourceCode yaml"><pre><code>template:
 </code></pre><p></p></div>
 <p>See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details.</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
-<a href="https://marketingplatform.google.com/about/analytics/">Google Analytics</a>.
+<a href="https://marketingplatform.google.com/about/analytics/" class="external-link">Google Analytics</a>.
 It should correspond to your
-<a href="https://support.google.com/analytics/answer/1008080">tracking id</a>.</p>
+<a href="https://support.google.com/analytics/answer/1008080" class="external-link">tracking id</a>.</p>
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
@@ -458,11 +459,12 @@ hanging in cron jobs.</p>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">build_site</span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
+<span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
 </code></pre></div>
     </div>
   </div>
