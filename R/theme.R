@@ -44,9 +44,8 @@ bs_theme <- function(pkg = ".") {
 
   # Add additional pkgdown rules
   rules <- bs_theme_rules(pkg)
-  for (rule in rules) {
-    bs_theme <- bslib::bs_add_rules(bs_theme, sass::sass_file(rule))
-  }
+  files <- lapply(rules, sass::sass_file)
+  bs_theme <- bslib::bs_add_rules(bs_theme, files)
 
   bs_theme
 }
@@ -55,11 +54,11 @@ bs_theme_rules <- function(pkg) {
   paths <- path_pkgdown("assets", "BS5", "pkgdown.scss")
 
   theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
-  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".css"))
+  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
     abort(c(
-      paste0("Unknown theme '", theme, "')"),
-      paste0("Valid themes are", paste0(highlight_styles(), collapse = ", "))
+      paste0("Unknown theme '", theme, "'"),
+      i = paste0("Valid themes are: ", paste0(highlight_styles(), collapse = ", "))
     ))
   }
   paths <- c(paths, theme_path)

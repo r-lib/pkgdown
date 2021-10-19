@@ -96,7 +96,7 @@ theme_as_css <- function(df, path = stdout()) {
 save_theme <- function(theme, name) {
   cat(name, "\n", sep = "")
   df <- theme_df(theme)
-  theme_as_css(df, path("inst", "highlight-styles", path_ext_set(name, "css")))
+  theme_as_css(df, path("inst", "highlight-styles", path_ext_set(name, "scss")))
 }
 
 json <- gh::gh("/repos/{owner}/{repo}/contents/{path}",
