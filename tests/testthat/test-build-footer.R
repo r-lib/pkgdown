@@ -1,7 +1,7 @@
 test_that("works by default", {
   pkg <- structure(
     list(
-      desc = desc::desc(text = "Authors@R: person('a', 'b', roles = 'cre')")
+      desc = desc::desc(text = "Authors@R: person('First', 'Last', role = 'cre')")
     ),
     class = "pkgdown"
   )
