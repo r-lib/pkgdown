@@ -172,22 +172,27 @@ For example, if you've used `head.html` in the past, we now recommend switching 
 
 Note that template can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of `render_page()`.
 
-### Custom CSS and JS
+### Extra files
 
-If you know CSS or JS, you can also customise your site by including `pkgdown/extra.css` or `pkgdown/extra.js`.
-These will be automatically copied the home directory of your website and inserted into the `<head>` (after the pkgdown defaults).
+-   `pkgdown/extra.css` and `pkgdown/extra.js` will be copied to the destination directory and linked from `<head>` (after the pkgdown defaults).
 
-You can add arbitrary additional files by putting them in `pkgdown/assets/BS5`.
-The contents will be automatically copied to the root of your website folder by pkgdown by `init_site()`.
+-   `pkgdown/extra.scss` will be added to the scss ruleset used to generate the site CSS.
+
+-   Any additional files in `pkgdown/assets` will be copied to the destination directory.
+
+Use `init_site()` to update your rendered website after making changes to these files.
 
 ## Template packages
 
 To share a pkgdown style across several packages, the best workflow is to create... a package!
 It can contain any of the following:
 
--   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority and will be overridden by a local `_pkgdown.yml`.
+-   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
 -   Templates in `inst/pkgdown/templates/` will override the default templates.
 -   Assets in `inst/pkgdown/assets/` will be copied in to the destination directory.
+-   `inst/pkgdown/extra.scss` will be added to the bslib ruleset.
+
+Any configuration/files supplied by overrides the pkgdown defaults, but will be overridden by site specific settings.
 
 Once you have created your template package `theverybest`, you can use it by:
 

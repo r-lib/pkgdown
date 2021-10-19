@@ -42,6 +42,14 @@ str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 # devtools metadata -------------------------------------------------------
 
+system_file <- function(..., package) {
+  if (is.null(devtools_meta(package))) {
+    path(system.file(package = package), ...)
+  } else {
+    path(getNamespaceInfo(package, "path"), "inst", ...)
+  }
+}
+
 devtools_loaded <- function(x) {
   if (!x %in% loadedNamespaces()) {
     return(FALSE)
