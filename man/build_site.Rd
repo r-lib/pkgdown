@@ -383,7 +383,7 @@ Which draws from the two built-in components:
 }
 
 You can override these defaults with the \code{footer} field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
   structure: 
     left: pkgdown
     right: [authors, legal]

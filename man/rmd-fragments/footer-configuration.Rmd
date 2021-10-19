@@ -17,7 +17,7 @@ Which draws from the two built-in components:
 -   `built_with`, a sentence advertising pkgdown
 
 You can override these defaults with the `footer` field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link.
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
 
 ``` yaml
 footer:
