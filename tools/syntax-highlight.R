@@ -45,7 +45,7 @@ class <- c(
   "Normal"         = ""
 )
 
-theme_json <- function(name) {
+read_theme <- function(name) {
   jsonlite::read_json(paste0(
     "https://raw.githubusercontent.com/quarto-dev/quarto-cli/",
     "main/src/resources/pandoc/highlight-styles/", name
@@ -53,8 +53,7 @@ theme_json <- function(name) {
 }
 
 theme_df <- function(theme) {
-  background <- theme$`background-color` %||% theme$`editor-colors`$BackgroundColor
-  print(background)
+  background <- pluck(theme, "background-color") %||% pluck(theme, "editor-colors", "BackgroundColor")
 
   df <- purrr::map_df(theme$`text-styles`, compact, .id = "name")
   df %>%
@@ -95,6 +94,7 @@ theme_as_css <- function(df, path = stdout()) {
 }
 
 save_theme <- function(theme, name) {
+  cat(name, "\n", sep = "")
   df <- theme_df(theme)
   theme_as_css(df, path("inst", "highlight-styles", path_ext_set(name, "css")))
 }
@@ -106,15 +106,11 @@ json <- gh::gh("/repos/{owner}/{repo}/contents/{path}",
 )
 
 theme_names <- json %>% map_chr("name")
-theme_json <- map(theme_names, theme_json)
+theme_json <- map(theme_names, read_theme)
 names(theme_json) <- theme_names
 iwalk(theme_json, save_theme)
-
 
 # themes <- theme_names %>% set_names() %>% map_df(theme_df, .id = "theme")
 # themes %>% count(name, sort = T)
 # themes %>% count(theme, is.na(color)) %>% print(n = Inf)
 # themes %>% filter(is.na(class)) %>% print(n = Inf)
-
-arrow <- theme_df("dracula")
-theme_as_css(arrow)
