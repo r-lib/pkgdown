@@ -55,7 +55,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   templates <- purrr::map_chr(
     pieces, find_template, name,
-    template_path = template_path(pkg),
+    templates_dir = templates_dir(pkg),
     bs_version = pkg$bs_version
   )
   components <- purrr::map(templates, render_template, data = data)
@@ -65,7 +65,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # render complete layout
   template <- find_template(
     "layout", name,
-    template_path = template_path(pkg),
+    templates_dir = templates_dir(pkg),
     bs_version = pkg$bs_version
   )
   rendered <- render_template(template, components)
@@ -196,35 +196,6 @@ check_open_graph <- function(og) {
   og[intersect(supported_fields, names(og))]
 }
 
-
-template_path <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  template <- pkg$meta[["template"]]
-
-  if (!is.null(template$path)) {
-    path <- path_abs(template$path, start = pkg$src_path)
-
-    if (!file_exists(path))
-      abort(paste0("Can not find template path ", src_path(path)))
-
-    path
-  } else if (is.null(template$package)) {
-    default_template_path <- file.path(pkg$src_path, "pkgdown", "templates")
-    if (dir.exists(default_template_path)) {
-      default_template_path
-    } else {
-      character()
-    }
-  } else {
-    path_package_pkgdown(
-      template$package,
-      bs_version = pkg$bs_version,
-      "templates"
-    )
-  }
-}
-
 render_template <- function(path, data) {
   template <- read_file(path)
   if (length(template) == 0)
@@ -232,26 +203,6 @@ render_template <- function(path, data) {
 
   whisker::whisker.render(template, data)
 }
-
-find_template <- function(type,
-                          name,
-                          ext = ".html",
-                          template_path = NULL,
-                          bs_version = 3) {
-
-  bs_dir <- paste0("BS", bs_version)
-  paths <- c(template_path, path_pkgdown("templates", bs_dir))
-  names <- c(paste0(type, "-", name, ext), paste0(type, ext))
-  all <- expand.grid(path = paths, name = names)
-  locations <- path(all$path, all$name)
-
-  Find(
-    file_exists,
-    locations,
-    nomatch = abort(paste0("Can't find template for ", type, "-", name, "."))
-  )
-}
-
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
   # Almost all uses are relative to destination, except for rmarkdown templates
