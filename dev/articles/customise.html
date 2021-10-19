@@ -340,10 +340,14 @@
 <p>Note that template can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of <code><a href="../reference/render_page.html">render_page()</a></code>.</p>
 </div>
 <div class="section level3">
-<h3 id="custom-css-and-js">Custom CSS and JS<a class="anchor" aria-label="anchor" href="#custom-css-and-js"></a>
+<h3 id="extra-files">Extra files<a class="anchor" aria-label="anchor" href="#extra-files"></a>
 </h3>
-<p>If you know CSS or JS, you can also customise your site by including <code>pkgdown/extra.css</code> or <code>pkgdown/extra.js</code>. These will be automatically copied the home directory of your website and inserted into the <code>&lt;head&gt;</code> (after the pkgdown defaults).</p>
-<p>You can add arbitrary additional files by putting them in <code>pkgdown/assets/BS5</code>. The contents will be automatically copied to the root of your website folder by pkgdown by <code><a href="../reference/init_site.html">init_site()</a></code>.</p>
+<ul>
+<li><p><code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code> will be copied to the destination directory and linked from <code>&lt;head&gt;</code> (after the pkgdown defaults).</p></li>
+<li><p><code>pkgdown/extra.scss</code> will be added to the scss ruleset used to generate the site CSS.</p></li>
+<li><p>Any additional files in <code>pkgdown/assets</code> will be copied to the destination directory.</p></li>
+</ul>
+<p>Use <code><a href="../reference/init_site.html">init_site()</a></code> to update your rendered website after making changes to these files.</p>
 </div>
 </div>
 <div class="section level2">
@@ -351,10 +355,13 @@
 </h2>
 <p>To share a pkgdown style across several packages, the best workflow is to create… a package! It can contain any of the following:</p>
 <ul>
-<li>A configuration file in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Configuration parameters supplied by a template package have low priority and will be overridden by a local <code>_pkgdown.yml</code>.</li>
+<li>A configuration file in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.</li>
 <li>Templates in <code>inst/pkgdown/templates/</code> will override the default templates.</li>
 <li>Assets in <code>inst/pkgdown/assets/</code> will be copied in to the destination directory.</li>
+<li>
+<code>inst/pkgdown/extra.scss</code> will be added to the bslib ruleset.</li>
 </ul>
+<p>Any configuration/files supplied by overrides the pkgdown defaults, but will be overridden by site specific settings.</p>
 <p>Once you have created your template package <code>theverybest</code>, you can use it by:</p>
 <ul>
 <li>
