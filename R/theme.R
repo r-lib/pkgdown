@@ -85,7 +85,7 @@ bs_theme_rules <- function(pkg) {
 }
 
 highlight_styles <- function() {
-  paths <- dir_ls(path_pkgdown("highlight-styles"), glob = "*.css")
+  paths <- dir_ls(path_pkgdown("highlight-styles"), glob = "*.scss")
   path_ext_remove(path_file(paths))
 }
 
