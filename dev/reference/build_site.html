@@ -413,21 +413,25 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
     <h2 id="yaml-config-footer">YAML config - footer<a class="anchor" aria-label="anchor" href="#yaml-config-footer"></a></h2>
     
 
-<p>You can customise the top navbar with the <code>footer</code> field.</p>
-<p>By default, the footer is automatically populated with:</p><ul><li><p>The names of the authors on the left.</p></li>
-<li><p>A link to the pkgdown website on the right.</p></li>
-</ul><p>You can override these defaults with the <code>footer</code> field.
-The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p><div class="sourceCode yaml"><pre><code>footer:
-  left:
-    structure: [pkgdown]
-  right:
-    structure: [authors, legal]
-    components:
-      legal: Provided without ***any warranty***.
+<p>You can customise the footer with the <code>footer</code> field.
+It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code>footer:
+  structure: 
+    left: developed_by
+    right: built_with
 </code></pre><p></p></div>
-<p>Like the navbar and sidebar, you can control both the structure and the components.
-Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
-<p>See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.</p>
+<p>Which draws from the two built-in components:</p><ul><li><p><code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</p></li>
+<li><p><code>built_with</code>, a sentence advertising pkgdown</p></li>
+</ul><p>You can override these defaults with the <code>footer</code> field.
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p><div class="sourceCode yaml"><pre><code>footer:
+  structure: 
+    left: pkgdown
+    right: [authors, legal]
+  components:
+    legal: Provided without **any warranty**.
+</code></pre><p></p></div>
+<p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
     </div>
     <div class="section level2">
     <h2 id="yaml-config-redirects">YAML config - redirects<a class="anchor" aria-label="anchor" href="#yaml-config-redirects"></a></h2>

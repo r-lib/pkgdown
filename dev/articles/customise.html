@@ -249,41 +249,46 @@
 <div class="section level3">
 <h3 id="footer">Footer<a class="anchor" aria-label="anchor" href="#footer"></a>
 </h3>
-<p>You can customise the top navbar with the <code>footer</code> field.</p>
-<p>By default, the footer is automatically populated with:</p>
-<ul>
-<li>The names of the authors on the left.</li>
-<li>A link to the pkgdown website on the right.</li>
-</ul>
-<p>You can override these defaults with the <code>footer</code> field. The example below puts the authors information on the right together with a legal disclaimer, and puts pkgdown on the left.</p>
+<p>You can customise the footer with the <code>footer</code> field. It’s made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like. This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
+<p>This is the default structure:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">pkgdown</span><span class="kw">]</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="at">  </span><span class="fu">right</span><span class="kw">:</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="at">      </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without ***any warranty***.</span></span></code></pre></div>
-<p>Like the navbar and sidebar, you can control both the structure and the components. Unlike the navbar or sidebar, the components of the footer are just pasted together into a string that converted to HTML and insert in the document.</p>
-<p>See <code><a href="../reference/build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.</p>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre></div>
+<p>Which draws from the two built-in components:</p>
+<ul>
+<li>
+<code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="../reference/build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</li>
+<li>
+<code>built_with</code>, a sentence advertising pkgdown</li>
+</ul>
+<p>You can override these defaults with the <code>footer</code> field. The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre></div>
+<p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
 </div>
 <div class="section level3">
 <h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
 </h3>
 <p>You can customise the homepage sidebar with the <code>home.sidebar</code> field. It’s made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like. This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
 <p>This is the default structure:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre></div>
 <p>These are drawn from seven built-in components:</p>
 <ul>
 <li>
 <p><code>links</code>: automated links generated from <code>URL</code> and <code>BugReports</code> <code>DESCRIPTION</code> fields plus manual links from the <code>home.links</code> field:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre></div>
 </li>
 <li><p><code>license</code>: Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or <code>LICENSE.md</code>/<code>LICENCE.md</code> files are present.</p></li>
 <li><p><code>community</code>: links to to <code>.github/CONTRIBUTING.md</code>, <code>.github/CODE_OF_CONDUCT.md</code>, etc.</p></li>
@@ -293,20 +298,20 @@
 <li><p><code>toc</code>: a table of contents for the README (not shown by default).</p></li>
 </ul>
 <p>You can also add your own components, where <code>text</code> is markdown text:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre></div>
-<p>Alternatively, you can provide a ready-made sidebar HTML:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">home</span><span class="kw">:</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre></div>
-<p>Or completely remove it:</p>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre></div>
+<p>Alternatively, you can provide a ready-made sidebar HTML:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre></div>
+<p>Or completely remove it:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -366,8 +371,8 @@
 <ul>
 <li>
 <p>Setting it as your sites theme:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 </li>
 <li>
 <p>If you’re building your site using GitHub actions or other similar tool, you’ll also need to installed <code>theverybest</code>. If you’re using the r-lib <a href="https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site" class="external-link">pkgdown workflow</a>, you can add the following line to your <code>DESCRIPTION</code>:</p>
