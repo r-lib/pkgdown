@@ -16,7 +16,7 @@ test_that("links to vignettes & figures tweaked", {
     <img src="../man/figures/x.png" />
   </body>')
 
-  tweak_homepage_html(html, bs_version = 3)
+  tweak_page(html, list(bs_version = 3, desc = desc::desc(text = "")))
   expect_equal(
     xpath_attr(html, ".//img", "src"),
     c("articles/x.png", "../articles/x.png", "reference/figures/x.png", "../reference/figures/x.png")

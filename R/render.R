@@ -71,13 +71,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   rendered <- render_template(template, components)
 
   html <- xml2::read_html(rendered, encoding = "UTF-8")
+
+  tweak_page(html, pkg = pkg)
   if (pkg$bs_version > 3) {
-    tweak_footnotes(html)
     activate_navbar(html, data$output_file %||% path, pkg)
-    trim_toc(html)
-  }
-  if (pkg$desc$has_dep("R6")) {
-    tweak_link_R6(html, pkg$package)
   }
   for (tweak in tweaks) {
     tweak(html)
