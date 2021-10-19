@@ -105,6 +105,7 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   if (!is.null(file_regexp)) {
     files <- files[grepl(file_regexp, path_file(files))]
   }
+  files <- files[path_ext(files) != "scss"]
 
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }
