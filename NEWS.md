@@ -5,6 +5,11 @@
 * pkgdown can style your site with Bootstrap 5 (with help from @jayhesselberth,
   @apreshill, @cpsievert). Opt-in by setting `boostrap` version in your 
   `_pkgdown.yml`.
+  
+    ```yaml
+    template:
+      bootstrap: 5
+    ```
 
 * We reviewed site accessibility and made a number of improvements: (#782, #1553):
 
@@ -17,6 +22,7 @@
     * Syntax highlighting uses a new more
       [accessible colour scheme](https://apreshill.github.io/rmda11y/arrow.html), 
       designed by Alison Hill (#1536)
+    * A skip link makes it easier to get directly to the page contents (#1827).
 
 * In-line footnotes mean you can read asides next to the next they refer to. 
 

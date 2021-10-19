@@ -116,6 +116,10 @@
 #' @section YAML config - navbar:
 #' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
 #' ```
+#'
+#' You can also customise the colour scheme of the navbar by using the `type`
+#' and `bg` parameters. See `vignette("customise")` for more details.
+#'
 #' @section YAML config - search:
 #' See `vignette("search")`
 #'

@@ -3,7 +3,7 @@
     Code
       cat_line(rd2html("\\subsection{A}{B}"))
     Output
-      <div id='a'>
+      <div class='section' id='a'>
       <h3>A</h3>
       <p>B</p>
       </div>
@@ -13,7 +13,7 @@
     Code
       cat_line(rd2html("\\subsection{A}{\n    p1\n\n    p2\n  }"))
     Output
-      <div id='a'>
+      <div class='section' id='a'>
       <h3>A</h3>
       <p>p1</p>
       <p>p2</p>
@@ -24,9 +24,9 @@
     Code
       cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}"))
     Output
-      <div id='h-'>
+      <div class='section' id='h-'>
       <h3>H3</h3>
-      <div id='h-'>
+      <div class='section' id='h-'>
       <h4>H4</h4>
       
       </div>

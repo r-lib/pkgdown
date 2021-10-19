@@ -1,3 +1,5 @@
+#' @export
+#' @rdname build_home
 build_home_index <- function(pkg = ".", quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
@@ -121,6 +123,7 @@ data_home_sidebar <- function(pkg = ".") {
 
 }
 
+# Update sidebar-configuration.Rmd if this changes
 default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }

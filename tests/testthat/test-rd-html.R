@@ -34,6 +34,16 @@ test_that("subsection generates h3", {
     p2
   }")))
 })
+
+test_that("subsection generates generated anchor", {
+  text <- c("<body>", rd2html("\\subsection{A}{B}"), "</body>")
+  html <- xml2::read_xml(paste0(text, collapse = "\n"))
+  tweak_anchors(html)
+
+  expect_equal(xpath_attr(html, ".//h3", "id"), "a")
+  expect_equal(xpath_attr(html, ".//a", "href"), "#a")
+})
+
 test_that("nested subsection generates h4", {
   expect_snapshot(cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
 })

@@ -60,32 +60,33 @@ copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   template <- purrr::pluck(pkg$meta, "template", .default = list())
 
-  # Copy default assets
+  # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
     copy_asset_dir(pkg, path_pkgdown("assets", paste0("BS", pkg$bs_version)))
   }
 
-  # Copy extras
-  copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
-
-  # Copy assets from directory
+  # manually specified directory: I don't think this is documented
+  # and no longer seems important, so I suspect it could be removed
   if (!is.null(template$assets)) {
     copy_asset_dir(pkg, template$assets)
-  } else {
-    # default directory
-    copy_asset_dir(pkg, file.path("pkgdown", "assets"))
   }
 
-  # Copy assets from package
+  # package assets
   if (!is.null(template$package)) {
     assets <- path_package_pkgdown(
-      template$package,
-      bs_version = pkg$bs_version,
-      "assets"
+      "assets",
+      package = template$package,
+      bs_version = pkg$bs_version
     )
-
     copy_asset_dir(pkg, assets)
   }
+
+  # extras
+  copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
+  # site assets
+  copy_asset_dir(pkg, "pkgdown/assets")
+
+  invisible()
 }
 
 copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
@@ -105,6 +106,8 @@ copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
   if (!is.null(file_regexp)) {
     files <- files[grepl(file_regexp, path_file(files))]
   }
+  # Handled in bs_theme()
+  files <- files[path_ext(files) != "scss"]
 
   file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
 }

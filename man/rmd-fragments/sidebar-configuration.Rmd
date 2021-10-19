@@ -1,8 +1,43 @@
-You can change the order of sidebar components: `r pkgdown:::code_commas(pkgdown:::default_sidebar_structure())`; you can add a README table of contents `toc`, you can add custom components.
-The example below creates a sidebar whose only components will be the authors section, a custom section, a table of contents for the README and a Dev Status section if there are badges.
-The `text` will be treated as Markdown.
+You can customise the homepage sidebar with the `home.sidebar` field.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
 
-```yaml
+This is the default structure:
+
+``` yaml
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+```
+
+These are drawn from seven built-in components:
+
+-   `links`: automated links generated from `URL` and `BugReports` `DESCRIPTION` fields plus manual links from the `home.links` field:
+
+    ``` yaml
+    home:
+      links:
+      - text: Link text
+        href: https://website.com
+      - text: Roadmap
+        href: /roadmap.html
+    ```
+
+-   `license`: Licensing information if `LICENSE`/`LICENCE` or `LICENSE.md`/`LICENCE.md` files are present.
+
+-   `community`: links to to `.github/CONTRIBUTING.md`, `.github/CODE_OF_CONDUCT.md`, etc.
+
+-   `citation`: link to the package citation if it exists.
+
+-   `authors`: selected authors from the `DESCRIPTION`.
+
+-   `dev`: development status badges found in `README.md`/`index.md`.
+
+-   `toc`: a table of contents for the README (not shown by default).
+
+You can also add your own components, where `text` is markdown text:
+
+``` yaml
 home:
   sidebar:
     structure: [authors, custom, toc, dev]
@@ -14,15 +49,15 @@ home:
 
 Alternatively, you can provide a ready-made sidebar HTML:
 
-```yaml
+``` yaml
 home:
   sidebar:
     html: path-to-sidebar.html
 ```
 
-Finally, you can completely remove the sidebar.
+Or completely remove it:
 
-```yaml
+``` yaml
 home:
   sidebar: FALSE
 ```

@@ -39,15 +39,43 @@ bs_theme <- function(pkg = ".") {
     bootswatch = theme,
     !!!pkg$meta$template$bslib
   )
-  bs_theme <- bslib::bs_add_rules(bs_theme,
-    list(
-      sass::sass_file(path_pkgdown("css/BS5/pkgdown.scss")),
-      sass::sass_file(path_pkgdown("css/BS5/syntax-highlighting.scss"))
-    )
-  )
+  # Drop bs3 compat files added for shiny/RMarkdown
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
+  # Add additional pkgdown rules
+  rules <- bs_theme_rules(pkg)
+  for (rule in rules) {
+    bs_theme <- bslib::bs_add_rules(bs_theme, sass::sass_file(rule))
+  }
+
   bs_theme
+}
+
+bs_theme_rules <- function(pkg) {
+  paths <- c(
+    path_pkgdown("assets", "BS5", "pkgdown.scss"),
+    path_pkgdown("assets", "BS5", "syntax-highlighting.scss")
+  )
+
+  package <- pkg$meta$template$package
+  if (!is.null(package)) {
+    package_extra <- path_package_pkgdown(
+      "extra.scss",
+      package = package,
+      bs_version = pkg$bs_version
+    )
+    if (file_exists(package_extra)) {
+      paths <- c(paths, package_extra)
+    }
+  }
+
+  # Also look in site supplied
+  site_extra <- path(pkg$src_path, "pkgdown", "extra.scss")
+  if (file_exists(site_extra)) {
+    paths <- c(paths, site_extra)
+  }
+
+  paths
 }
 
 get_bootswatch_theme <- function(pkg) {
