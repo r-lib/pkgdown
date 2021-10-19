@@ -1,0 +1,12 @@
+pre code span.al /* Alert         */ {font-weight: bold}
+pre code span.an /* Annotation    */ {font-style: italic}
+pre code span.cf /* ControlFlow   */ {font-weight: bold}
+pre code span.co /* Comment       */ {font-style: italic}
+pre code span.cv /* CommentVar    */ {font-style: italic}
+pre code span.do /* Documentation */ {font-style: italic}
+pre code span.dt /* DataType      */ {text-decoration: underline}
+pre code span.er /* Error         */ {font-weight: bold}
+pre code span.in /* Information   */ {font-style: italic}
+pre code span.kw /* Keyword       */ {font-weight: bold}
+pre code span.pp /* Preprocessor  */ {font-weight: bold}
+pre code span.wa /* Warning       */ {font-style: italic}
