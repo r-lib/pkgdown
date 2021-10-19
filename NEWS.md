@@ -38,8 +38,10 @@
     * The TOC is scrollable independently on the main content. This makes it
       more useful on long pages with many headings (#1610).
     * The sidebar is shown on mobile
-    * Function arguments use a definition list rather than a table. This
-      gives more room for long argument names and detailed descriptions.
+    * Function arguments and reference index (#1822) use definition list 
+      (`<dl>`) rather than a table. This gives more room for long argument 
+      names/lists of function and detailed descriptions, and displays better 
+      on mobile.
 
 ## Local search
 
