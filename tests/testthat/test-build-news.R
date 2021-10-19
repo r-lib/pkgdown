@@ -6,8 +6,16 @@ test_that("github links are added to news items", {
     list(news = list(cran_dates = FALSE))
   )
   news_tbl <- data_news(pkg)
+  html <- xml2::read_xml(news_tbl$html)
 
-  expect_snapshot_output(cat(news_tbl$html))
+  expect_equal(
+    xpath_attr(html, ".//a", "href"),
+    c(
+      "https://github.com/hadley",
+      "https://github.com/hadley/pkgdown/issues/100",
+      "https://github.com/josue-rodriguez"
+    )
+  )
 })
 
 test_that("pkg_timeline fails cleanly for unknown package", {
@@ -105,12 +113,11 @@ test_that("sections tweaked down a level", {
 
 test_that("anchors de-duplicated with version", {
   html <- xml2::read_xml("<body>
-    <h3 id='x-1'>Heading <a class='anchor'></a></h3>
+    <div class='section' id='x-1'>Heading</div>
   </body>")
   tweak_news_anchor(html, "1.0")
 
-  expect_equal(xpath_attr(html, "//h3", "id"), "x-1-0")
-  expect_equal(xpath_attr(html, "//a", "href"), "#x-1-0")
+  expect_equal(xpath_attr(html, ".//div", "id"), "x-1-0")
 })
 
 test_that("news headings get class and release date", {

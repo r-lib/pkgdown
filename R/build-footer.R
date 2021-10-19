@@ -1,0 +1,49 @@
+data_footer <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  meta_footer <- pkg$meta$footer
+  components <- modify_list(footnote_components(pkg), meta_footer$components)
+  structure <- modify_list(footnote_structure(), meta_footer$structure)
+
+  left <- markdown_text_block(
+    paste0(components[structure$left], collapse = " "),
+    pkg = pkg
+  )
+  right <- markdown_text_block(
+    paste0(components[structure$right], collapse = " "),
+    pkg = pkg
+  )
+
+  list(left = left, right = right)
+}
+
+footnote_components <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  # Authors
+  roles <- pkg$meta$authors$footer$roles %||% default_roles()
+  authors <- data_authors(pkg, roles = roles)$main %>%
+    purrr::map_chr("name") %>%
+    paste(collapse = ", ")
+
+  prefix <- pkg$meta$authors$footer$text %||% "Developed by"
+  developed_by <- paste0(trimws(prefix), " ", authors, ".")
+
+  # pkgdown
+  built_with <- paste0(
+    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
+    utils::packageVersion("pkgdown"), "."
+  )
+
+  print_yaml(list(
+    developed_by = developed_by,
+    built_with = built_with
+  ))
+}
+
+footnote_structure <- function() {
+  print_yaml(list(
+    left = "developed_by",
+    right = "built_with"
+  ))
+}

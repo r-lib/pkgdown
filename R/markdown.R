@@ -73,15 +73,10 @@ markdown_path_html <- function(path, strip_header = FALSE, pkg = list()) {
     xml2::xml_remove(h1)
   }
 
-  downlit::downlit_html_node(xml)
-  tweak_link_md(xml)
-  tweak_link_external(xml, pkg = pkg)
-  tweak_anchors(xml)
-
   structure(xml, title = title)
 }
 
-markdown_to_html <- function(text, dedent = 4) {
+markdown_to_html <- function(text, dedent = 4, bs_version = 3) {
   if (dedent) {
     text <- gsub(paste0("($|\n)", strrep(" ", dedent)), "\\1", text, perl = TRUE)
   }
@@ -93,7 +88,7 @@ markdown_to_html <- function(text, dedent = 4) {
   convert_markdown_to_html(md_path, html_path)
 
   html <- xml2::read_html(html_path, encoding = "UTF-8")
-  tweak_anchors(html)
+  tweak_page(html, list(bs_version = bs_version))
   html
 }
 

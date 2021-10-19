@@ -15,7 +15,7 @@ test_that("render_rmarkdown copies image files in subdirectories", {
 test_that("render_rmarkdown yields useful error", {
   skip_if_no_pandoc()
   tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp)
+  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
 
   expect_snapshot(error = TRUE, {
     render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html")
