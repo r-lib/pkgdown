@@ -56,7 +56,17 @@ template:
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
 
-Bootswatch templates with tall navbars (like lux or pulse) also require that you set the `pkgdown-nav-height` bslib variable:
+Theme with a dark background (e.g. cyborg, darkly, solar) will also need a different syntax highlight `theme`.
+The dark equivalent of the default light colour scheme is called `arrow-dark`
+
+``` yaml
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: arrow-dark
+```
+
+Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable:
 
 ``` yaml
 template:

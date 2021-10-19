@@ -63,6 +63,9 @@
   for its internal css tweaks. This means that you can now customise more parts 
   of the site using only `_pkgdown.yml`, without having to supply custom css.
 
+* You can pick from a variety of built-in syntax highlighting themes (#1823).
+  These control the colours (and background) of code in `<pre>` tags.
+  
 * Template packages can now provide a default configuration `_pkgdown.yml`, 
   stored in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author 
   definitions, Bootstrap version and variables, the sidebar, footer, navbar, 
