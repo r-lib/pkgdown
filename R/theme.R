@@ -52,12 +52,19 @@ bs_theme <- function(pkg = ".") {
 }
 
 bs_theme_rules <- function(pkg) {
-  paths <- c(
-    path_pkgdown("assets", "BS5", "pkgdown.scss"),
-    path_pkgdown("assets", "BS5", "syntax-highlighting.scss")
-  )
+  paths <- path_pkgdown("assets", "BS5", "pkgdown.scss")
 
-  package <- pkg$meta$template$package
+  theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
+  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".css"))
+  if (!file_exists(theme_path)) {
+    abort(c(
+      paste0("Unknown theme '", theme, "')"),
+      paste0("Valid themes are", paste0(highlight_styles(), collapse = ", "))
+    ))
+  }
+  paths <- c(paths, theme_path)
+
+  package <- purrr::pluck(pkg, "meta", "template", "package")
   if (!is.null(package)) {
     package_extra <- path_package_pkgdown(
       "extra.scss",
@@ -76,6 +83,11 @@ bs_theme_rules <- function(pkg) {
   }
 
   paths
+}
+
+highlight_styles <- function() {
+  paths <- dir_ls(path_pkgdown("highlight-styles"), glob = "*.css")
+  path_ext_remove(path_file(paths))
 }
 
 get_bootswatch_theme <- function(pkg) {

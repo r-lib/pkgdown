@@ -336,6 +336,48 @@ div.csl-indent {
   margin-left: 2em;
 }
 
+/* code ===================================================================== */
+
+pre, pre code {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+pre code {
+  padding: 0;
+}
+pre code a:any-link {
+  color: inherit;
+}
+
+pre .img, pre .r-plt {
+  margin: 5px 0;
+}
+pre .img img, pre .r-plt img {
+  background-color: #fff;
+}
+
+code a:any-link {
+  text-decoration: underline;
+  text-decoration-color: $gray-400;
+}
+
+/* don't display links in code chunks when printing */
+/* source: https://stackoverflow.com/a/10781533 */
+@media print {
+  code a:link:after, code a:visited:after {
+    content: "";
+  }
+}
+
+a.sourceLine:hover {
+  text-decoration: none;
+}
+
+pre code span.error   {font-weight: bolder;}
+pre code span.warning {font-weight: bolder;}
+
 /* search =================================================================== */
 
 mark {
