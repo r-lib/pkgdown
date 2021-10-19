@@ -79,9 +79,9 @@ copy_assets <- function(pkg = ".") {
   # Copy assets from package
   if (!is.null(template$package)) {
     assets <- path_package_pkgdown(
-      template$package,
-      bs_version = pkg$bs_version,
-      "assets"
+      "assets",
+      package = template$package,
+      bs_version = pkg$bs_version
     )
 
     copy_asset_dir(pkg, assets)

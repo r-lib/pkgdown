@@ -42,6 +42,16 @@ str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 # devtools metadata -------------------------------------------------------
 
+system_file <- function(..., package) {
+  if (is.null(devtools_meta(package))) {
+    # pkgdown is probably installed
+    path(system.file(package = package), ...)
+  } else {
+    # pkgdown was probably loaded with devtools
+    path(getNamespaceInfo(package, "path"), "inst", ...)
+  }
+}
+
 devtools_loaded <- function(x) {
   if (!x %in% loadedNamespaces()) {
     return(FALSE)
