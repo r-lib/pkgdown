@@ -5,36 +5,19 @@
       <h1>Reference</h1>
     </div>
 
-    <table class="ref-index{{#has_icons}} ref-index-icons{{/has_icons}}">
+    {{#rows}}<div id="{{slug}}" class="section level2">
+      {{#title}}<h2>{{.}}</h2>{{/title}}
+      {{#subtitle}}<h3>{{.}}</h3>{{/subtitle}}
+      {{#desc}}<p class="section-desc">{{{desc}}}</p>{{/desc}}
 
-    <colgroup>
-      {{#has_icons}}<col class="icon" />{{/has_icons}}
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    {{#rows}}<tbody>
-      {{#title}}<tr>
-        <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h2 id="{{slug}}">{{title}} <a href="#{{slug}}" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc">{{{desc}}}</p>
-        </th>
-      </tr>{{/title}}
-      {{#subtitle}}<tr>
-        <th colspan="{{#has_icons}}3{{/has_icons}}{{^has_icons}}2{{/has_icons}}">
-          <h3 id="{{slug}}">{{subtitle}} <a href="#{{slug}}" class="anchor" aria-hidden="true"></a></h3>
-          <p class="section-desc">{{{desc}}}</p>
-        </th>
-      </tr>{{/subtitle}}
-      {{#topics}}<tr>
-        {{#has_icons}}<td>{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" alt="" /></a>{{/icon}}</td>{{/has_icons}}
-        <td>
-          <p>{{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}</p>
-        </td>
-        <td><p>{{{title}}}</p></td>
-      </tr>{{/topics}}
-    </tbody>{{/rows}}
-    </table>
+      {{#topics}}<dl>
+        <dt>
+          {{#has_icons}}{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" alt="" class="icon"/></a>{{/icon}}{{/has_icons}}
+          {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code>{{/aliases}}
+        </dt>
+        <dd>{{{title}}}</dd>
+      </dl>{{/topics}}
+    </div>{{/rows}}
   </div>
 
   <div class="col-md-3" id="pkgdown-sidebar">

@@ -249,7 +249,7 @@ find_template_config <- function(package) {
     return(list())
   }
 
-  config <- path_package_pkgdown(package, bs_version = NULL, "_pkgdown.yml")
+  config <- path_package_pkgdown("_pkgdown.yml", package = package)
   if (length(config) == 0) {
     return(list())
   }

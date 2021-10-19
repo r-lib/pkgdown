@@ -293,16 +293,13 @@ tweak_news_heading <- function(html, version, timeline, bs_version) {
 
 # Manually de-duplicate repeated section anchors using version
 tweak_news_anchor <- function(html, version) {
-  h <- xml2::xml_find_all(html, "(.//h3|.//h4|.//h5|.//h6)")
+  div <- xml2::xml_find_all(html, ".//div")
+  div <- div[has_class(div, "section")]
 
-  id <- xml2::xml_attr(h, "id")
+  id <- xml2::xml_attr(div, "id")
   id <- gsub("-[0-9]+", "", id) # remove pandoc de-duplication suffixes
   id <- paste0(id, "-", gsub("[^a-z0-9]+", "-", version)) # . breaks scrollspy
-
-  xml2::xml_attr(h, "id") <- id
-  # Also need to update anchors, since these were added earlier
-  a <- xml2::xml_find_first(h, ".//a[@class='anchor']")
-  xml2::xml_attr(a, "href") <- paste0("#", id)
+  xml2::xml_attr(div, "id") <- id
 
   invisible()
 }

@@ -1,17 +1,25 @@
 # File level tweaks --------------------------------------------
-
-tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
+tweak_page <- function(html, pkg = list()) {
   # Automatically link function mentions
   downlit::downlit_html_node(html)
   tweak_anchors(html)
   tweak_link_md(html)
   tweak_link_external(html, pkg = pkg)
+  tweak_tables(html)
+  tweak_img_src(html)
 
   if (pkg$bs_version > 3) {
     tweak_footnotes(html)
     tweak_tabsets(html)
+    trim_toc(html)
   }
 
+  if (!is.null(pkg$desc) && pkg$desc$has_dep("R6")) {
+    tweak_link_R6(html, pkg$package)
+  }
+}
+
+tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
@@ -29,8 +37,10 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
     )
   }
 
-  tweak_img_src(html)
-  tweak_tables(html)
+  # Has to occur after path normalisation
+  # This get called twice on the contents of content-article.html, but that
+  # should be harmless
+  tweak_page(html, pkg = pkg)
 
   invisible()
 }
@@ -80,9 +90,6 @@ tweak_homepage_html <- function(html,
         .where = "before"
       )
   }
-
-  tweak_img_src(html)
-  tweak_tables(html)
 
   invisible()
 }
