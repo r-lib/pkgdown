@@ -19,9 +19,8 @@
 #'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
-#' @param tweaks List of "tweak" functions applied to output HTML.
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE, tweaks = NULL) {
+render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -68,12 +67,9 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 
   html <- xml2::read_html(rendered, encoding = "UTF-8")
 
-  tweak_page(html, pkg = pkg)
+  tweak_page(html, name, pkg = pkg)
   if (pkg$bs_version > 3) {
     activate_navbar(html, data$output_file %||% path, pkg)
-  }
-  for (tweak in tweaks) {
-    tweak(html)
   }
 
   rendered <- as.character(html, options = character())

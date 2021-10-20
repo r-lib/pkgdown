@@ -67,9 +67,13 @@ tweak_link_external <- function(html, pkg = list()) {
   if (length(links) == 0)
     return()
 
+  links <- links[!has_class(links, "external-link")]
+
   hrefs <- xml2::xml_attr(links, "href")
+  links <- links[!is_internal_link(hrefs, pkg = pkg)]
+
   # Users might have added absolute URLs to e.g. the Code of Conduct
-  tweak_class_prepend(links[!is_internal_link(hrefs, pkg = pkg)], "external-link")
+  tweak_class_prepend(links, "external-link")
 
   invisible()
 }
@@ -128,14 +132,7 @@ tweak_link_R6 <- function(html, cur_package) {
 }
 
 tweak_tables <- function(html) {
-  # Don't tweak reference index since the BS3 reference index uses a table
-  # which is styled differently.
-  div <- xml2::xml_find_first(html, ".//div[contains(@class, 'template-reference-index')]")
-  if (!is.na(div)) {
-    return()
-  }
-
-  # Ensure all tables have class="table"
+  # Ensure all tables have class="table" apart from arguments
   table <- xml2::xml_find_all(html, ".//table")
   table <- table[!has_class(table, "ref-arguments")]
 
