@@ -126,6 +126,7 @@ values in <code>_pkgdown.yml</code></p></dd>
 freshly generated section in browser.</p></dd>
     </dl></div>
 
+    <div id="ref-sections">
     <div class="section level2">
     <h2 id="home-page">Home page<a class="anchor" aria-label="anchor" href="#home-page"></a></h2>
     <p>The main content of the home page (<code>index.html</code>) is generated from <code>pkgdown/index.md</code>, <code>index.md</code>, or <code>README.md</code>, in that order.
@@ -141,24 +142,20 @@ You can tweak it via the configuration file, to help make the home page an as in
 
 <p>If you want to include images in your <code>README.md</code>, they must be stored somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is <code>man/figures</code>.
-If you are generating figures with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><div class="sourceCode r"><pre><code>knitr::opts_chunk$set(
-  fig.path = "man/figures/"
-)
-</code></pre><p></p></div>
-<p>This should usually go in a chunk with <code>include = FALSE</code>.</p><div class="sourceCode markdown"><pre><code>```{r chunk-name, include=FALSE}
-knitr::opts_chunk$set(
-  fig.path = "man/figures/"
-)
-```
-</code></pre><p></p></div>
+If you are generating figures with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><div class="sourceCode r"><pre><code><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
+  fig.path <span class="op">=</span> <span class="st">"man/figures/"</span>
+<span class="op">)</span></code></pre><p></p></div>
+<p>This should usually go in a chunk with <code>include = FALSE</code>.</p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="bn">```{r chunk-name, include=FALSE}</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bn">knitr::opts_chunk$set(</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="bn">  fig.path = "man/figures/"</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="bn">)</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
 <h3 id="package-logo">Package logo<a class="anchor" aria-label="anchor" href="#package-logo"></a></h3>
 
 
-<p>If you have a package logo, you can include it at the top of your README in a level-one heading:</p><div class="sourceCode markdown"><pre><code># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;
-</code></pre><p></p></div>
+<p>If you have a package logo, you can include it at the top of your README in a level-one heading:</p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu"># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span></span></code></pre><p></p></div>
 <p>[init_site()] will also automatically create a favicon set from your package logo.</p>
 </div>
 
@@ -172,13 +169,12 @@ knitr::opts_chunk$set(
 
 <p>By default, the page title and description are extracted automatically from the <code>Title</code> and <code>Description</code> fields <code>DESCRIPTION</code> (stripping single quotes off quoted words).
 CRAN ensures that these fields don't contain phrases like "R package" because that's obvious on CRAN.
-To make your package more findable on search engines, it's good practice to override the <code>title</code> and <code>description</code>, thinking about what people might search for:</p><div class="sourceCode yaml"><pre><code>home:
-  title: An R package for pool-noodle discovery
-  description: &gt;
-    Do you love R? Do you love pool-noodles? If so, you might enjoy
-    using this package to automatically discover and add pool-noodles
-    to your growing collection.
-</code></pre><p></p></div>
+To make your package more findable on search engines, it's good practice to override the <code>title</code> and <code>description</code>, thinking about what people might search for:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">  description</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    Do you love R? Do you love pool-noodles? If so, you might enjoy</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    using this package to automatically discover and add pool-noodles</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    to your growing collection.</span></code></pre><p></p></div>
 <p>(Note the use of YAML's <code>&gt;</code> i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)</p>
 </div>
 
@@ -187,9 +183,8 @@ To make your package more findable on search engines, it's good practice to over
 
 
 <p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name.
-If that feels duplicative with the package name in the navbar you can remove it with <code>strip_header: true</code>:</p><div class="sourceCode yaml"><pre><code>home:
-  strip_header: true
-</code></pre><p></p></div>
+If that feels duplicative with the package name in the navbar you can remove it with <code>strip_header: true</code>:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">strip_header</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
 </div>
 
 
@@ -216,25 +211,23 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
 <h3 id="authors-orcid-and-bio">Authors ORCID and bio<a class="anchor" aria-label="anchor" href="#authors-orcid-and-bio"></a></h3>
 
 
-<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using the ORCID logo:</p><div class="sourceCode r"><pre><code>Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0003-4757-117X")
-    ),
-    person("Jay", "Hesselberth", role = "aut",
-      comment = c(ORCID = "0000-0002-6299-179X")
-    )
-  )
-</code></pre><p></p></div>
+<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using the ORCID logo:</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span>
+    <span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
+    <span class="op">)</span>
+  <span class="op">)</span></code></pre><p></p></div>
 <p>If you want to add more details about authors or their involvement with the package,
-you can use the comment field, which will be rendered on the authors page.</p><div class="sourceCode r"><pre><code>Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0003-4757-117X", "Indenter-in-chief")
-    ),
-    person("Jay", "Hesselberth", role = "aut",
-      comment = c(ORCID = "0000-0002-6299-179X")
-    )
-  )
-</code></pre><p></p></div>
+you can use the comment field, which will be rendered on the authors page.</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span>, <span class="st">"Indenter-in-chief"</span><span class="op">)</span>
+    <span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
+    <span class="op">)</span>
+  <span class="op">)</span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -254,11 +247,10 @@ and can contain <code>href</code> and/or <code>html</code> fields:</p><ul><li><p
 <li><p>If <code>html</code> is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
 sponsor.</p></li>
-</ul><p></p><div class="sourceCode yaml"><pre><code>authors:
-  firstname lastname:
-    href: "http://name-website.com"
-    html: "&lt;img src='name-picture.png' height=24&gt;"
-</code></pre><p></p></div>
+</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">firstname lastname</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> </span><span class="st">"http://name-website.com"</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;img src='name-picture.png' height=24&gt;"</span></span></code></pre><p></p></div>
 <p>By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>.
 You could choose other roles for filtering.
@@ -266,17 +258,16 @@ With the configuration below:</p><ul><li><p>only the maintainer and funder(s) ap
 <li><p>all authors and contributors appear in the sidebar,</p></li>
 <li><p>the authors list on the sidebar is preceded and followed by some text,</p></li>
 <li><p>the authors list on the authors page is preceded and followed by some text.</p></li>
-</ul><p></p><div class="sourceCode yaml"><pre><code>authors:
-  footer:
-    roles: [cre, fnd]
-    text: "Crafted by"
-  sidebar:
-    roles: [aut, ctb]
-    before: "So *who* does the work?"
-    after: "Thanks all!"
-  before: "This package is proudly brought to you by:"
-  after: "See the [changelog](news/index.html) for other contributors. :pray:"
-</code></pre><p></p></div>
+</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">cre</span><span class="kw">,</span><span class="at"> fnd</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Crafted by"</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">aut</span><span class="kw">,</span><span class="at"> ctb</span><span class="kw">]</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"So *who* does the work?"</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">    </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"Thanks all!"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"This package is proudly brought to you by:"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"See the [changelog](news/index.html) for other contributors. :pray:"</span></span></code></pre><p></p></div>
 <p>If you want to filter authors based on something else than their roles,
 consider using a custom sidebar/footer component
 (see <code><a href="../reference/build_home.html">?build_home</a></code>/<code><a href="build_site.html">?build_site</a></code>, respectively).</p>
@@ -290,38 +281,34 @@ consider using a custom sidebar/footer component
 <p>You can customise the homepage sidebar with the <code>home.sidebar</code> field.
 It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
 This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code>home:
-  sidebar:
-    structure: [links, license, community, citation, authors, dev]
-</code></pre><p></p></div>
-<p>These are drawn from seven built-in components:</p><ul><li><p><code>links</code>: automated links generated from <code>URL</code> and <code>BugReports</code> <code>DESCRIPTION</code> fields plus manual links from the <code>home.links</code> field:</p><div class="sourceCode yaml"><pre><code>home:
-  links:
-  - text: Link text
-    href: https://website.com
-  - text: Roadmap
-    href: /roadmap.html
-</code></pre><p></p></div></li>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre><p></p></div>
+<p>These are drawn from seven built-in components:</p><ul><li><p><code>links</code>: automated links generated from <code>URL</code> and <code>BugReports</code> <code>DESCRIPTION</code> fields plus manual links from the <code>home.links</code> field:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre><p></p></div></li>
 <li><p><code>license</code>: Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or <code>LICENSE.md</code>/<code>LICENCE.md</code> files are present.</p></li>
 <li><p><code>community</code>: links to to <code>.github/CONTRIBUTING.md</code>, <code>.github/CODE_OF_CONDUCT.md</code>, etc.</p></li>
 <li><p><code>citation</code>: link to the package citation if it exists.</p></li>
 <li><p><code>authors</code>: selected authors from the <code>DESCRIPTION</code>.</p></li>
 <li><p><code>dev</code>: development status badges found in <code>README.md</code>/<code>index.md</code>.</p></li>
 <li><p><code>toc</code>: a table of contents for the README (not shown by default).</p></li>
-</ul><p>You can also add your own components, where <code>text</code> is markdown text:</p><div class="sourceCode yaml"><pre><code>home:
-  sidebar:
-    structure: [authors, custom, toc, dev]
-    components:
-      custom:
-        title: Funding
-        text: We are *grateful* for funding!
-</code></pre><p></p></div>
-<p>Alternatively, you can provide a ready-made sidebar HTML:</p><div class="sourceCode yaml"><pre><code>home:
-  sidebar:
-    html: path-to-sidebar.html
-</code></pre><p></p></div>
-<p>Or completely remove it:</p><div class="sourceCode yaml"><pre><code>home:
-  sidebar: FALSE
-</code></pre><p></p></div>
+</ul><p>You can also add your own components, where <code>text</code> is markdown text:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre><p></p></div>
+<p>Alternatively, you can provide a ready-made sidebar HTML:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre><p></p></div>
+<p>Or completely remove it:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre><p></p></div>
+    </div>
     </div>
 
   </div>

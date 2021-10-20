@@ -91,14 +91,14 @@
 values in <code>_pkgdown.yml</code></p></dd>
     </dl></div>
 
+    <div id="ref-sections">
     <div class="section level2">
     <h2 id="yaml-config">YAML config<a class="anchor" aria-label="anchor" href="#yaml-config"></a></h2>
     
 
 <p>You can exclude some paths from the search index.
-Below we exclude the changelog from the search index.</p><div class="sourceCode yaml"><pre><code>search:
-  exclude: ['news/index.html']
-</code></pre><p></p></div>
+Below we exclude the changelog from the search index.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">search</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">exclude</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'news/index.html'</span><span class="kw">]</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="debugging-and-local-testing">Debugging and local testing<a class="anchor" aria-label="anchor" href="#debugging-and-local-testing"></a></h2>
@@ -111,6 +111,7 @@ You can use <code>servr::httw("docs")</code> instead.</p>
 <p>If search is not working, run <code><a href="pkgdown_sitrep.html">pkgdown::pkgdown_sitrep()</a></code> to eliminate
 common issues such as the absence of URL in the pkgdown configuration file
 of your package.</p>
+    </div>
     </div>
 
   </div>

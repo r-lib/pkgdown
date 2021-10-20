@@ -169,6 +169,7 @@ so it is available for vignettes.</p></dd>
       <dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
     </dl></div>
 
+    <div id="ref-sections">
     <div class="section level2">
     <h2 id="yaml-config">YAML config<a class="anchor" aria-label="anchor" href="#yaml-config"></a></h2>
     
@@ -189,20 +190,18 @@ See <code><a href="../articles/linking.html">vignette("linking")</a></code> for 
 for rich social media cards, see <code><a href="../articles/metadata.html">vignette("metadata")</a></code>.</p></li>
 <li><p>Adds the "external-link" class to external links
 for sites using BS4, see <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p></li>
-</ul><p></p><div class="sourceCode yaml"><pre><code>url: https://pkgdown.r-lib.org
-</code></pre><p></p></div>
+</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre><p></p></div>
 <p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p>
 <p>You can also provided information to override the default display of
 the authors. Provided a list named with the name of each author,
 including <code>href</code> to add a link, or <code>html</code> to override the
-text:</p><div class="sourceCode yaml"><pre><code>authors:
-  Hadley Wickham:
-    href: http://hadley.nz
-  RStudio:
-    href: https://www.rstudio.com
-    html: &lt;img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" /&gt;
-</code></pre><p></p></div>
+text:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">Hadley Wickham</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://hadley.nz</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">RStudio</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://www.rstudio.com</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">    html</span><span class="kw">: </span><span class="at">&lt;img src=</span><span class="st">"https://www.tidyverse.org/rstudio-logo.svg"</span><span class="at"> height=</span><span class="st">"24"</span><span class="at"> /</span><span class="ch">&gt;</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="development-mode">Development mode<a class="anchor" aria-label="anchor" href="#development-mode"></a></h2>
@@ -213,9 +212,8 @@ text:</p><div class="sourceCode yaml"><pre><code>authors:
 <li><p>The optional tooltip associated with the version.</p></li>
 <li><p>The indexing of the site by search engines.</p></li>
 </ul><p>You can override the default development mode by adding a
-new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><div class="sourceCode yaml"><pre><code>development:
-  mode: devel
-</code></pre><p></p></div>
+new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
 <p>There are currently four possible modes:</p><ul><li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
 Version in navbar gets the default colouring.</p></li>
 <li><p><strong>development</strong> (<code>mode: devel</code>). Site is written to <code>docs/dev/</code>.
@@ -230,11 +228,10 @@ based on the version number:</p><ul><li><p><code>0.0.0.9000</code> (<code>0.0.0.
 <li><p>four version components: development.</p></li>
 <li><p>everything else -&gt; release.</p></li>
 </ul></li>
-</ul><p>There are three other options that you can control:</p><div class="sourceCode yaml"><pre><code>development:
-  destination: dev
-  version_label: danger
-  version_tooltip: "Custom message here"
-</code></pre><p></p></div>
+</ul><p>There are three other options that you can control:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">destination</span><span class="kw">:</span><span class="at"> dev</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">version_label</span><span class="kw">:</span><span class="at"> danger</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">version_tooltip</span><span class="kw">:</span><span class="at"> </span><span class="st">"Custom message here"</span></span></code></pre><p></p></div>
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
 override the style used for development (and unreleased) versions of the
@@ -251,11 +248,10 @@ to danger). Finally, you can choose to override the default tooltip with
 <p>You can customise the navigation bar that appears at the top of the page with the <code>navbar</code> field.
 It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
 This organisation makes it easy to mix and match pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code>navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
-</code></pre><p></p></div>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span></code></pre><p></p></div>
 <p>It makes use of the the six built-in components:</p><ul><li><p><code>intro</code>: "Get Started", which links to a vignette with the same name as the package.</p></li>
 <li><p><code>reference</code>, if there are any <code>.Rd</code> files.</p></li>
 <li><p><code>articles</code>, if there are any vignettes or articles.</p></li>
@@ -263,27 +259,25 @@ This organisation makes it easy to mix and match pkgdown defaults with your own 
 <li><p><code>news</code>, if <code>NEWS.md</code> exists.</p></li>
 <li><p><code>search</code>, the search box (see <code><a href="../articles/search.html">vignette("search")</a></code> for more details).</p></li>
 <li><p><code>github</code>, a link to the source repository (with an icon), if it can be automatically determined from the <code>DESCRIPTION</code>.</p></li>
-</ul><p>You can use the <code>structure</code> field to reorganise the navbar without changing the default contents:</p><div class="sourceCode yaml"><pre><code>navbar:
-  structure:
-    left:  [search]
-    right: [reference, articles]
-</code></pre><p></p></div>
+</ul><p>You can use the <code>structure</code> field to reorganise the navbar without changing the default contents:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">search</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">]</span></span></code></pre><p></p></div>
 <p>You can use <code>components</code> to override the default content.
-For example, this yaml provides a custom articles menu:</p><div class="sourceCode yaml"><pre><code>navbar:
- components:
-   articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Article B1
-      href: articles/b1.html
-</code></pre><p></p></div>
+For example, this yaml provides a custom articles menu:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Category A</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A1</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a1.html</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A2</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a2.html</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> -------</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Category B"</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Article B1</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/b1.html</span></span></code></pre><p></p></div>
 <p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown menus</a>.
 The elements of <code>menu</code> can be:</p><ul><li><p>A link (<code>text</code> + <code>href</code>)</p></li>
 <li><p>A heading (just <code>text</code>)</p></li>
@@ -291,15 +285,14 @@ The elements of <code>menu</code> can be:</p><ul><li><p>A link (<code>text</code
 </ul><p>Instead of text, you can also use the name of an <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery" class="external-link">fontawesome</a>.
 You should also provide a textual description in the <code>aria-label</code> field for screenreader users.</p>
 <p>To add a new component to the navbar, you need to modify both <code>structure</code> and <code>components</code>.
-For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.</p><div class="sourceCode yaml"><pre><code>navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/hadleywickham
-      aria-label: Twitter
-</code></pre><p></p></div>
+For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://twitter.com/hadleywickham</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> Twitter</span></span></code></pre><p></p></div>
 <p>You can also customise the colour scheme of the navbar by using the <code>type</code>
 and <code>bg</code> parameters. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
     </div>
@@ -319,9 +312,8 @@ the HTML templates used to layout each page, and the css/js assets
 used to render the page in the browser.</p>
 <p>The easiest way to tweak the default style is to use a bootswatch template,
 by passing on the <code>bootswatch</code> template parameter to the built-in
-template:</p><div class="sourceCode yaml"><pre><code>template:
-  bootswatch: cerulean
-</code></pre><p></p></div>
+template:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre><p></p></div>
 <p>See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details.</p>
 <p>Optionally provide the <code>ganalytics</code> template parameter to enable
 <a href="https://marketingplatform.google.com/about/analytics/" class="external-link">Google Analytics</a>.
@@ -330,24 +322,21 @@ It should correspond to your
 <p>When enabling Google Analytics, be aware of the type and amount of
 user information that you are collecting. You may wish to limit the
 extent of data collection or to add a privacy disclosure to your
-site, in keeping with current laws and regulations.</p><div class="sourceCode yaml"><pre><code>template:
-  params:
-    ganalytics: UA-000000-01
-</code></pre><p></p></div>
-<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><div class="sourceCode yaml"><pre><code>template:
-  params:
-    noindex: true
-</code></pre><p></p></div>
+site, in keeping with current laws and regulations.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">ganalytics</span><span class="kw">:</span><span class="at"> UA-000000-01</span></span></code></pre><p></p></div>
+<p>Suppress indexing of your pages by web robots by setting <code>noindex: true</code>:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
 <p>You can also override the default templates and provide additional
 assets. You can do so by either storing them in the
 directories <code>pkgdown/assets</code> and <code>pkgdown/templates</code>,
 or by supplying <code>path</code> and <code>asset_path</code> pointing to alternative folders.
 To suppress inclusion
-of the default assets, set <code>default_assets</code> to false.</p><div class="sourceCode yaml"><pre><code>template:
-  path: path/to/templates
-  assets: path/to/assets
-  default_assets: false
-</code></pre><p></p></div>
+of the default assets, set <code>default_assets</code> to false.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">path</span><span class="kw">:</span><span class="at"> path/to/templates</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">assets</span><span class="kw">:</span><span class="at"> path/to/assets</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">default_assets</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre><p></p></div>
 <p>These settings are currently recommended for advanced users only. There
 is little documentation, and you'll need to read the existing source
 for pkgdown templates to ensure that you use the correct components.</p>
@@ -355,9 +344,8 @@ for pkgdown templates to ensure that you use the correct components.</p>
 a separate package, see <code><a href="../articles/customise.html">vignette("customise")</a></code>c.</p>
 <p>You can use the <code>trailing_slash_redirect</code> to automatically redirect
 <code>your-package-url.com</code> to <code>your-package-url.com/</code>, using a JS script
-added to the <code>&lt;head&gt;</code> of the home page.</p><div class="sourceCode yaml"><pre><code>template:
-  trailing_slash_redirect: true
-</code></pre><p></p></div>
+added to the <code>&lt;head&gt;</code> of the home page.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">trailing_slash_redirect</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="yaml-config-repo">YAML config - repo<a class="anchor" aria-label="anchor" href="#yaml-config-repo"></a></h2>
@@ -370,13 +358,12 @@ underlying source file.</p></li>
 <li><p>The homepage provides a link to  "Browse source code"</p></li>
 </ul><p>pkgdown automatically figures out the necessary URLs if you link to a GitHub
 or GitLab repo in your <code>BugReports</code> or <code>URL</code> field. Otherwise, you can
-supply your own in the <code>repo</code> component:</p><div class="sourceCode yaml"><pre><code>repo:
-  url:
-    home: https://github.com/r-lib/pkgdown/
-    source: https://github.com/r-lib/pkgdown/blob/master/
-    issue: https://github.com/r-lib/pkgdown/issues/
-    user: https://github.com/
-</code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
+supply your own in the <code>repo</code> component:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/master/</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
 <li><p><code>source:</code>: path to source of individual file in master branch.</p></li>
 <li><p><code>issue</code>: path to individual issue.</p></li>
 <li><p><code>user</code>: path to user.</p></li>
@@ -386,16 +373,14 @@ the end of these URLs so they should have trailing <code>/</code>s.</p>
 both a custom <code>issue</code> URL as well as your Jira project names to auto-link in
 <code>jira_projects</code>. You can specify as many projects as you would like in a last
 (in the example below we would link both the <code>PROJ</code> and <code>OTHER</code> Jira
-projects):</p><div class="sourceCode yaml"><pre><code>repo:
-  jira_projects: [PROJ, OTHER]
-  url:
-    issue: https://jira.organisation.com/jira/browse/
-</code></pre><p></p></div>
+projects):</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">jira_projects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">PROJ</span><span class="kw">,</span><span class="at"> OTHER</span><span class="kw">]</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://jira.organisation.com/jira/browse/</span></span></code></pre><p></p></div>
 <p>pkgdown defaults to using the "master" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
-specifying a branch name:</p><div class="sourceCode yaml"><pre><code>repo:
-  branch: main
-</code></pre><p></p></div>
+specifying a branch name:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="yaml-config-deploy">YAML config - deploy<a class="anchor" aria-label="anchor" href="#yaml-config-deploy"></a></h2>
@@ -405,9 +390,8 @@ specifying a branch name:</p><div class="sourceCode yaml"><pre><code>repo:
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
-time (e.g. because it's only behind the firewall or requires auth).</p><div class="sourceCode yaml"><pre><code>deploy:
-  install_metadata: true
-</code></pre><p></p></div></li>
+time (e.g. because it's only behind the firewall or requires auth).</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
     <div class="section level2">
     <h2 id="yaml-config-footer">YAML config - footer<a class="anchor" aria-label="anchor" href="#yaml-config-footer"></a></h2>
@@ -416,21 +400,19 @@ time (e.g. because it's only behind the firewall or requires auth).</p><div clas
 <p>You can customise the footer with the <code>footer</code> field.
 It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
 This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code>footer:
-  structure: 
-    left: developed_by
-    right: built_with
-</code></pre><p></p></div>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre><p></p></div>
 <p>Which draws from the two built-in components:</p><ul><li><p><code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</p></li>
 <li><p><code>built_with</code>, a sentence advertising pkgdown</p></li>
 </ul><p>You can override these defaults with the <code>footer</code> field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p><div class="sourceCode yaml"><pre><code>footer:
-  structure: 
-    left: pkgdown
-    right: [authors, legal]
-  components:
-    legal: Provided without **any warranty**.
-</code></pre><p></p></div>
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre><p></p></div>
 <p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
     </div>
     <div class="section level2">
@@ -440,11 +422,10 @@ The example below puts the authors information on the right along with a legal d
 <p>If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
 One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
 This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.</p>
-<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p><div class="sourceCode yaml"><pre><code>redirects:
-  - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
-  - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
-  - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-</code></pre><p></p></div>
+<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre><p></p></div>
 <p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
     </div>
     <div class="section level2">
@@ -459,6 +440,7 @@ or vignettes, this connection is required as this option won't apply on them.</p
 <p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
 <code>options(pkgdown.timeout = Inf)</code>, which is useful to prevent stalled builds from
 hanging in cron jobs.</p>
+    </div>
     </div>
 
     <div id="examples">
