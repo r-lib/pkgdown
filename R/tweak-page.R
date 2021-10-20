@@ -1,12 +1,23 @@
 # File level tweaks --------------------------------------------
-tweak_page <- function(html, pkg = list()) {
-  # Automatically link function mentions
-  downlit::downlit_html_node(html)
+tweak_page <- function(html, name, pkg = list()) {
+  # Syntax highlighting and linking
+  if (name == "reference-topic") {
+    # Reference topic takes a minimal approach since some is
+    # already handled by Rd processing
+    tweak_reference_highlighting(html)
+  } else {
+    downlit::downlit_html_node(html)
+  }
+
   tweak_anchors(html)
   tweak_link_md(html)
   tweak_link_external(html, pkg = pkg)
-  tweak_tables(html)
   tweak_img_src(html)
+
+  # BS3 uses table for layout of reference-index
+  if (name != "reference-index") {
+    tweak_tables(html)
+  }
 
   if (pkg$bs_version > 3) {
     tweak_footnotes(html)
@@ -40,7 +51,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
   # Has to occur after path normalisation
   # This get called twice on the contents of content-article.html, but that
   # should be harmless
-  tweak_page(html, pkg = pkg)
+  tweak_page(html, "article", pkg = pkg)
 
   invisible()
 }

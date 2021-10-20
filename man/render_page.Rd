@@ -5,15 +5,7 @@
 \alias{data_template}
 \title{Render page with template}
 \usage{
-render_page(
-  pkg = ".",
-  name,
-  data,
-  path = "",
-  depth = NULL,
-  quiet = FALSE,
-  tweaks = NULL
-)
+render_page(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE)
 
 data_template(pkg = ".", depth = 0L)
 }
@@ -39,8 +31,6 @@ If \code{""} (the default), prints to standard out.}
 \item{depth}{Depth of path relative to base directory.}
 
 \item{quiet}{If \code{quiet}, will suppress output messages}
-
-\item{tweaks}{List of "tweak" functions applied to output HTML.}
 }
 \description{
 Each page is composed of four templates: "head", "header", "content", and

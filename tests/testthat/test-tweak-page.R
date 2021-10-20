@@ -16,10 +16,21 @@ test_that("links to vignettes & figures tweaked", {
     <img src="../man/figures/x.png" />
   </body>')
 
-  tweak_page(html, list(bs_version = 3, desc = desc::desc(text = "")))
+  tweak_page(html, "article", list(bs_version = 3, desc = desc::desc(text = "")))
   expect_equal(
     xpath_attr(html, ".//img", "src"),
     c("articles/x.png", "../articles/x.png", "reference/figures/x.png", "../reference/figures/x.png")
   )
 })
 
+
+test_that("reference index table is not altered", {
+  html <- xml2::read_html("<body>
+    <div class='template-reference-index'>
+      <table></table>
+    </div>
+  </body>")
+  pkg <- list(bs_version = 3, desc = desc::desc(text = ""))
+  tweak_page(html, "reference-index", pkg)
+  expect_equal(xpath_attr(html, ".//table", "class"), NA_character_)
+})
