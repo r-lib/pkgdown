@@ -20,7 +20,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- utils::modifyList(meta, override)
 
-  template_config <- find_template_config(meta[["template"]]$package)
+  template_config <- find_template_config(meta$template$package)
   meta <- modify_list(template_config, meta)
 
   # Ensure the URL has no trailing slash
@@ -250,7 +250,7 @@ find_template_config <- function(package) {
   }
 
   config <- path_package_pkgdown("_pkgdown.yml", package = package)
-  if (length(config) == 0) {
+  if (!file_exists(config)) {
     return(list())
   }
 

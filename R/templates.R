@@ -25,11 +25,9 @@ template_candidates <- function(type,
                                 templates_dir = NULL,
                                 bs_version = 3) {
 
-  bs_dir <- paste0("BS", bs_version)
   paths <- c(
-    path(templates_dir, bs_dir),
     templates_dir,
-    path_pkgdown("templates", bs_dir)
+    path_pkgdown("templates", paste0("BS", bs_version))
   )
   names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(paths, names)
@@ -51,8 +49,8 @@ templates_dir <- function(pkg = list()) {
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {
-    path_package_pkgdown("templates", package = template$package)
+    path_package_pkgdown("templates", package = template$package, bs_version = pkg$bs_version)
   } else {
-    file.path(pkg$src_path, "pkgdown", "templates")
+    path(pkg$src_path, "pkgdown", "templates")
   }
 }
