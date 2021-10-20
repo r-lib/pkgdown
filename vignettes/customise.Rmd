@@ -216,6 +216,10 @@ To get some sense of how a theming package works you can look at:
 
 But please note that these templates aren't suitable for use with your own package as they're all designed to give a common visual identity to a specific family of packages.
 
+### Porting a template package
+
+If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you don't have any templates/assets make sure to a add dummy file to ensure that git tracks them). The `templates` and `assets` directories directly under `inst/pkgdown` will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`. The directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0 with `boostrap: 5`. This lets your package support both versions of bootstrap and pkgdown.
+
 ## PR previews
 
 Lastly it might be useful for you to get a preview of the website in internal pull requests.

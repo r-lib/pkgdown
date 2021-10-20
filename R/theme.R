@@ -53,8 +53,8 @@ bs_theme <- function(pkg = ".") {
 
 bs_theme_rules <- function(pkg) {
   paths <- c(
-    path_pkgdown("assets", "BS5", "pkgdown.scss"),
-    path_pkgdown("assets", "BS5", "syntax-highlighting.scss")
+    path_pkgdown("BS5", "assets", "pkgdown.scss"),
+    path_pkgdown("BS5", "assets", "syntax-highlighting.scss")
   )
 
   package <- pkg$meta$template$package
