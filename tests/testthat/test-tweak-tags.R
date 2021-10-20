@@ -16,6 +16,17 @@ test_that("tables get additional table class", {
   )
 })
 
+test_that("except in the argument list", {
+  html <- xml2::read_html("<body>
+    <div class='template-reference-index'>
+      <table class='ref-arguments'></table>
+    </div>
+  </body>")
+  tweak_tables(html)
+  expect_equal(xpath_attr(html, ".//table", "class"), "ref-arguments")
+})
+
+
 # anchors -------------------------------------------------------------
 
 test_that("ids move from div to headings", {
@@ -115,11 +126,12 @@ test_that("local md links are replaced with html", {
   )
 })
 
-test_that("tweak_link_external() add the external-link class", {
+test_that("tweak_link_external() add the external-link class if needed", {
   html <- xml2::read_html('
     <a href="#anchor"></a>
     <a href="http://remote.com/remote.md"></a>
-    <a class = "thumbnail" href="http://remote.com/remote.md"></a>
+    <a href="http://remote.com/remote.md" class="external-link"></a>
+    <a href="http://remote.com/remote.md" class="thumbnail" ></a>
     <a href="http://example.com/remote.md"></a>
   ')
 
@@ -128,7 +140,7 @@ test_that("tweak_link_external() add the external-link class", {
 
   expect_equal(
     xpath_attr(html, "//a", "class"),
-    c(NA, "external-link", "external-link thumbnail", NA)
+    c(NA, "external-link", "external-link", "external-link thumbnail", NA)
   )
 })
 

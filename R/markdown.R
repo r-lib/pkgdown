@@ -88,7 +88,7 @@ markdown_to_html <- function(text, dedent = 4, bs_version = 3) {
   convert_markdown_to_html(md_path, html_path)
 
   html <- xml2::read_html(html_path, encoding = "UTF-8")
-  tweak_page(html, list(bs_version = bs_version))
+  tweak_page(html, "markdown", list(bs_version = bs_version))
   html
 }
 

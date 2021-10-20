@@ -1,8 +1,8 @@
-# Syntax highlight for preformatted code blocks
+# Syntax highlighting for `\preformatted{}` blocks in reference topics
 tweak_reference_highlighting <- function(html) {
   # We only process code inside ref-section since examples and usage are
   # handled elsewhere
-  base <- xml2::xml_find_all(html, ".//div[contains(@class, 'ref-section')]")
+  base <- find_ref_sections(html)
 
   # There are three cases:
   # 1) <pre> with no wrapper <div>, as created by ```
@@ -20,6 +20,10 @@ tweak_reference_highlighting <- function(html) {
   purrr::walk(div_sourceCode_other, tweak_highlight_other)
 
   invisible()
+}
+
+find_ref_sections <- function(html) {
+  xml2::xml_find_all(html, ".//div[@id='ref-sections']")
 }
 
 tweak_highlight_r <- function(block) {

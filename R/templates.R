@@ -19,17 +19,26 @@ find_template <- function(type,
   existing[[1]]
 }
 
+# Used for testing
+read_template_html <- function(type, name, templates_dir = NULL, bs_version = 3) {
+  path <- find_template(
+    type = type,
+    name = name,
+    templates_dir = templates_dir,
+    bs_version = bs_version
+  )
+  xml2::read_html(path)
+}
+
 template_candidates <- function(type,
                                 name,
                                 ext = ".html",
                                 templates_dir = NULL,
                                 bs_version = 3) {
 
-  bs_dir <- paste0("BS", bs_version)
   paths <- c(
-    path(templates_dir, bs_dir),
     templates_dir,
-    path_pkgdown("templates", bs_dir)
+    path_pkgdown(paste0("BS", bs_version), "templates")
   )
   names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(paths, names)
@@ -47,12 +56,12 @@ templates_dir <- function(pkg = list()) {
   if (!is.null(template$path)) {
     # Directory specified in yaml doesn't exist, so eagerly error
     if (!dir_exists(template$path)) {
-      abort(paste0("Can not find templates path ", src_path(template_path)))
+      abort(paste0("Can not find templates path ", src_path(template$path)))
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {
-    path_package_pkgdown("templates", package = template$package)
+    path_package_pkgdown("templates", package = template$package, bs_version = pkg$bs_version)
   } else {
-    file.path(pkg$src_path, "pkgdown", "templates")
+    path(pkg$src_path, "pkgdown", "templates")
   }
 }

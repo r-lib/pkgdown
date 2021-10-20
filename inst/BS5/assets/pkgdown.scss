@@ -160,10 +160,11 @@ footer div {
 // Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
 
 // Need .container and __all parents__ have height set to 100%
-html, body, body > .container {
+html, body {
   height: 100%;
 }
 body > .container {
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -377,6 +378,7 @@ a.sourceLine:hover {
 
 pre code span.error   {font-weight: bolder;}
 pre code span.warning {font-weight: bolder;}
+
 
 /* search =================================================================== */
 

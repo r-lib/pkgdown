@@ -1,12 +1,13 @@
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header">
+    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
     <h1>{{{title}}}</h1>
     {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-    <div class="hidden name"><code>{{filename}}</code></div>
+    <div class="d-none name"><code>{{filename}}</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     {{#description}}
     {{#contents}}
     {{{.}}}
@@ -15,32 +16,33 @@
     </div>
 
     {{#usage}}
-    <div class="ref-usage sourceCode">{{{.}}}</div>
+    <div class="ref-usage section level2 sourceCode">
+    {{{.}}}
+    </div>
     {{/usage}}
 
     {{#has_args}}
-    <div id="arguments">
+    <div id="arguments" class="ref-arguments section level2">
     <h2>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <dl>
     {{#arguments}}
-    <tr>
-      <th>{{{name}}}</th>
-      <td>{{{description}}}</td>
-    </tr>
+      <dt id="ref-argument-{{{name}}}">{{{name}}}</dt>
+      <dd>{{{description}}}</dd>
     {{/arguments}}
-    </table>
+    </dl>
     </div>
     {{/has_args}}
 
+    <div id="ref-sections">
     {{#sections}}
-    <div id="{{slug}}">
+    <div class="section level2" id="{{slug}}">
     <h2>{{{title}}}</h2>
     {{#contents}}
     {{{.}}}
     {{/contents}}
     </div>
     {{/sections}}
+    </div>
 
     {{#examples}}
     <div id="examples">
@@ -49,8 +51,8 @@
     </div>
     {{/examples}}
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
+  <div class="col-md-3" id="pkgdown-sidebar">
+    <nav id="toc">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>

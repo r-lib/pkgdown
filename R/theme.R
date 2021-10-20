@@ -51,7 +51,7 @@ bs_theme <- function(pkg = ".") {
 }
 
 bs_theme_rules <- function(pkg) {
-  paths <- path_pkgdown("assets", "BS5", "pkgdown.scss")
+  paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
   theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
