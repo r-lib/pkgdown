@@ -389,6 +389,11 @@
 <a href="https://github.com/ropensci-org/rotemplate" class="external-link">rotemplate</a> used for rOpenSci packages.</li>
 </ul>
 <p>But please note that these templates aren’t suitable for use with your own package as they’re all designed to give a common visual identity to a specific family of packages.</p>
+<div class="section level3">
+<h3 id="porting-a-template-package">Porting a template package<a class="anchor" aria-label="anchor" href="#porting-a-template-package"></a>
+</h3>
+<p>If you are updating a template package that works with pkgdown 1.0.0, create directories <code>inst/pkgdown/BS5/templates</code> and <code>inst/pkgdown/BS5/assets</code> (if you don’t have any templates/assets make sure to a add dummy file to ensure that git tracks them). The <code>templates</code> and <code>assets</code> directories directly under <code>inst/pkgdown</code> will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if <code>boostrap: 3</code>. The directories under <code>inst/pkgdown/BS5/</code> will be used for pkgdown 2.0.0 with <code>boostrap: 5</code>. This lets your package support both versions of bootstrap and pkgdown.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="pr-previews">PR previews<a class="anchor" aria-label="anchor" href="#pr-previews"></a>
