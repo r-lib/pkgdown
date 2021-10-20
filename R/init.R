@@ -62,7 +62,7 @@ copy_assets <- function(pkg = ".") {
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown("assets", paste0("BS", pkg$bs_version)))
+    copy_asset_dir(pkg, path_pkgdown(paste0("BS", pkg$bs_version), "assets"))
   }
 
   # manually specified directory: I don't think this is documented

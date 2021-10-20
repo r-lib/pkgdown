@@ -38,7 +38,7 @@ template_candidates <- function(type,
 
   paths <- c(
     templates_dir,
-    path_pkgdown("templates", paste0("BS", bs_version))
+    path_pkgdown(paste0("BS", bs_version), "templates")
   )
   names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(paths, names)
