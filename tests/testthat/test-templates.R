@@ -8,7 +8,7 @@ test_that("template_candidates look for specific first", {
 test_that("template_candidates look in template dir then pkgdown", {
   paths <- template_candidates("content", "article", templates_dir = "/test")
   dirs <- unique(path_dir(paths))
-  expect_equal(dirs, c("/test", path_pkgdown("templates", "BS3")))
+  expect_equal(dirs, c("/test", path_pkgdown("BS3", "templates")))
 })
 
 
