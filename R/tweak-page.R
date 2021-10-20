@@ -73,9 +73,7 @@ tweak_homepage_html <- function(html,
   if (strip_header) {
     xml2::xml_remove(header, free = TRUE)
   } else {
-    page_header_text <- class_page_header(bs_version = bs_version, header = header)
-    page_header <- xml2::read_html(page_header_text, encoding = "UTF-8") %>% xml2::xml_find_first("//div")
-    xml2::xml_replace(header, page_header)
+    xml2::xml_add_parent(header, "div", class = "page-header")
   }
 
   if (!is.null(logo) && bs_version > 3) {
@@ -103,14 +101,6 @@ tweak_homepage_html <- function(html,
   }
 
   invisible()
-}
-
-class_page_header <- function(bs_version, header) {
-  if (bs_version == 3) {
-    paste0("<div class='page-header'>", header, "</div>")
-  } else {
-    paste0("<div class='page-header pb-2 mt-4 mb-2 border-bottom'>", header, "</div>")
-  }
 }
 
 
