@@ -312,7 +312,7 @@ build_reference_topic <- function(topic,
     pkg, "reference-topic",
     data = data,
     path = path("reference", topic$file_out),
-    tweaks = list(tweak_reference_highlighting, tweak_anchors)
+    tweaks = list(tweak_reference_highlighting)
   )
 
   invisible()

@@ -128,8 +128,17 @@ tweak_link_R6 <- function(html, cur_package) {
 }
 
 tweak_tables <- function(html) {
+  # Don't tweak reference index since the BS3 reference index uses a table
+  # which is styled differently.
+  div <- xml2::xml_find_first(html, ".//div[contains(@class, 'template-reference-index')]")
+  if (!is.na(div)) {
+    return()
+  }
+
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
+  table <- table[!has_class(table, "ref-arguments")]
+
   tweak_class_prepend(table, "table")
 
   invisible()

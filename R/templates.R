@@ -19,6 +19,17 @@ find_template <- function(type,
   existing[[1]]
 }
 
+# Used for testing
+read_template_html <- function(type, name, templates_dir = NULL, bs_version = 3) {
+  path <- find_template(
+    type = type,
+    name = name,
+    templates_dir = templates_dir,
+    bs_version = bs_version
+  )
+  xml2::read_html(path)
+}
+
 template_candidates <- function(type,
                                 name,
                                 ext = ".html",
@@ -45,7 +56,7 @@ templates_dir <- function(pkg = list()) {
   if (!is.null(template$path)) {
     # Directory specified in yaml doesn't exist, so eagerly error
     if (!dir_exists(template$path)) {
-      abort(paste0("Can not find templates path ", src_path(template_path)))
+      abort(paste0("Can not find templates path ", src_path(template$path)))
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {

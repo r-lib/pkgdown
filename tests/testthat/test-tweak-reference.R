@@ -1,6 +1,14 @@
+test_that("ensure templates have expected div", {
+  html3 <- read_template_html("content", "reference-topic", bs_version = 3)
+  expect_equal(length(find_ref_sections(html3)), 1)
+
+  html5 <- read_template_html("content", "reference-topic", bs_version = 5)
+  expect_equal(length(find_ref_sections(html5)), 1)
+})
+
 test_that("highlights <pre> wrapped in <div> with language info", {
   html <- xml2::read_html('
-    <div class="ref-section">
+    <div id="ref-sections">
       <div class="sourceCode r">
       <pre><code>1 + 2</code></pre>
       </div>
@@ -11,7 +19,7 @@ test_that("highlights <pre> wrapped in <div> with language info", {
   expect_equal(xpath_text(html, "//code/span"), c("1", "+", "2"))
 
   html <- xml2::read_html('
-    <div class="ref-section">
+    <div id="ref-sections">
       <div class="sourceCode yaml">
         <pre><code>field: value</code></pre>
       </div>
@@ -26,7 +34,7 @@ test_that("highlights <pre> wrapped in <div> with language info", {
 test_that("highlight unwrapped <pre>", {
   # If parseable, assume R
   html <- xml2::read_html('
-    <div class="ref-section">
+    <div id="ref-sections">
       <pre><code>1 + 2</code></pre>
     <div>
   ')
@@ -36,7 +44,7 @@ test_that("highlight unwrapped <pre>", {
 
   # If not parseable, leave as is
   html <- xml2::read_html('
-    <div class="ref-section">
+    <div id="ref-sections">
       <pre><code>foo(</code></pre>
     <div>
   ')
