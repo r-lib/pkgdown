@@ -19,6 +19,17 @@ find_template <- function(type,
   existing[[1]]
 }
 
+# Used for testing
+read_template_html <- function(type, name, templates_dir = NULL, bs_version = 3) {
+  path <- find_template(
+    type = type,
+    name = name,
+    templates_dir = templates_dir,
+    bs_version = bs_version
+  )
+  xml2::read_html(path)
+}
+
 template_candidates <- function(type,
                                 name,
                                 ext = ".html",
