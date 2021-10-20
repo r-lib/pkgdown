@@ -98,7 +98,7 @@ clean_site() first to clean up orphan files."><meta property="og:image" content=
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="../reference/build_site.html">build_site()</a></code> is a convenient wrapper around six functions:</p><ul><li><p><code><a href="init_site.html">init_site()</a></code></p></li>
+    <p><code>build_site()</code> is a convenient wrapper around six functions:</p><ul><li><p><code><a href="init_site.html">init_site()</a></code></p></li>
 <li><p><code><a href="build_home.html">build_home()</a></code></p></li>
 <li><p><code><a href="build_reference.html">build_reference()</a></code></p></li>
 <li><p><code><a href="build_articles.html">build_articles()</a></code></p></li>
@@ -111,8 +111,7 @@ that aspect of the site.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span>
+    <pre class="sourceCode r"><code><span class="fu">build_site</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   examples <span class="op">=</span> <span class="cn">TRUE</span>,
   run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -154,12 +153,12 @@ iteration; it will run examples and vignettes in the current process,
 and will load code with <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">pkgload::load_all()</a></code>.</p>
 <p>If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.</p>
-<p><code><a href="../reference/build_site.html">build_site()</a></code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+<p><code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
 outputs when you building the complete site; <code><a href="build_reference.html">build_reference()</a></code>,
 <code><a href="build_home.html">build_home()</a></code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></dd>
       <dt id="ref-argument-new_process">new_process</dt>
-      <dd><p>If <code>TRUE</code>, will run <code><a href="../reference/build_site.html">build_site()</a></code> in a separate process.
+      <dd><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></dd>
       <dt id="ref-argument-install">install</dt>
@@ -445,12 +444,11 @@ hanging in cron jobs.</p>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-<span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">build_site</span><span class="op">(</span>override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>destination <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>

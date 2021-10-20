@@ -93,7 +93,7 @@ website to any desired branch.
 
     <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a></p>
-<p><code><a href="../reference/deploy_site_github.html">deploy_site_github()</a></code> was designed to deploy your site from Travis CI,
+<p><code>deploy_site_github()</code> was designed to deploy your site from Travis CI,
 which we no longer recommend, so this function is deprecated. There are
 two replacements:</p><ul><li><p><code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> will setup a GitHub action to
 automatically build and deploy your package website to GitHub pages.</p></li>
@@ -102,8 +102,7 @@ website to any desired branch.</p></li>
 </ul></div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/deploy_site_github.html">deploy_site_github</a></span><span class="op">(</span>
+    <pre class="sourceCode r"><code><span class="fu">deploy_site_github</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   install <span class="op">=</span> <span class="cn">TRUE</span>,
   tarball <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"PKG_TARBALL"</span>, <span class="st">""</span><span class="op">)</span>,

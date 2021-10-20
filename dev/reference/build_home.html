@@ -94,21 +94,20 @@ iterating when experimenting with site styles."><meta property="og:image" conten
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="../reference/build_home.html">build_home()</a></code> function generates pages at the top-level of the site
+    <p><code>build_home()</code> function generates pages at the top-level of the site
 including:</p><ul><li><p>The home page</p></li>
 <li><p>HTML files from any <code>.md</code> files in <code>./</code> or <code>.github/</code>.</p></li>
 <li><p>The authors page (from <code>DESCRIPTION</code>)</p></li>
 <li><p>The citation page (from <code>inst/CITATION</code>, if present).</p></li>
 <li><p>The license page</p></li>
-</ul><p><code><a href="../reference/build_home.html">build_home_index()</a></code> rebuilds just the index page; it's useful for rapidly
+</ul><p><code>build_home_index()</code> rebuilds just the index page; it's useful for rapidly
 iterating when experimenting with site styles.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/build_home.html">build_home_index</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    <pre class="sourceCode r"><code><span class="fu">build_home_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/build_home.html">build_home</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
+<span class="fu">build_home</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
     </div>
 
     <div class="ref-arguments section level2">
@@ -134,7 +133,7 @@ Most packages will use <code>README.md</code> because that's also displayed by G
 Use <code>index.md</code> if you want your package website to look different to your README, and use <code>pkgdown/index.md</code> if you don't want that file to live in your package root directory.</p>
 <p>If you use <code>index.Rmd</code> or <code>README.Rmd</code> it's your responsibility to knit the document to create the corresponding <code>.md</code>.
 pkgdown does not do this for you because it only touches files in the <code>doc/</code> directory.</p>
-<p>Extra markdown files in the base directory (e.g. <code>ROADMAP.md</code>) or in <code>.github/</code> (e.g. <code>CODE_OF_CONDUCT.md</code>) are copied by <code><a href="../reference/build_home.html">build_home()</a></code> to <code>docs/</code> and converted to HTML.</p>
+<p>Extra markdown files in the base directory (e.g. <code>ROADMAP.md</code>) or in <code>.github/</code> (e.g. <code>CODE_OF_CONDUCT.md</code>) are copied by <code>build_home()</code> to <code>docs/</code> and converted to HTML.</p>
 <p>The home page also features a sidebar with information extracted from the package.
 You can tweak it via the configuration file, to help make the home page an as informative as possible landing page.</p><div class="section">
 <h3 id="images-and-figures">Images and figures<a class="anchor" aria-label="anchor" href="#images-and-figures"></a></h3>
@@ -142,7 +141,7 @@ You can tweak it via the configuration file, to help make the home page an as in
 
 <p>If you want to include images in your <code>README.md</code>, they must be stored somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is <code>man/figures</code>.
-If you are generating figures with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><div class="sourceCode r"><pre><code><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
+If you are generating figures with R Markdown, make sure you set up <code>fig.path</code> as followed:</p><div class="sourceCode r"><pre><code><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
   fig.path <span class="op">=</span> <span class="st">"man/figures/"</span>
 <span class="op">)</span></code></pre><p></p></div>
 <p>This should usually go in a chunk with <code>include = FALSE</code>.</p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="bn">```{r chunk-name, include=FALSE}</span></span>
@@ -207,25 +206,25 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
     <p>By default, pkgdown will display author information in three places:</p><ul><li><p>the sidebar,</p></li>
 <li><p>the left part side of the footer,</p></li>
 <li><p>the author page.</p></li>
-</ul><p>This documentation describes how to customise the overall author display. See <code><a href="../reference/build_home.html">?build_home</a></code> and <code><a href="build_site.html">?build_site</a></code> for details about changing the location of the authors information within the home sidebar and the site footer.</p><div class="section">
+</ul><p>This documentation describes how to customise the overall author display. See <code>?build_home</code> and <code><a href="build_site.html">?build_site</a></code> for details about changing the location of the authors information within the home sidebar and the site footer.</p><div class="section">
 <h3 id="authors-orcid-and-bio">Authors ORCID and bio<a class="anchor" aria-label="anchor" href="#authors-orcid-and-bio"></a></h3>
 
 
-<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using the ORCID logo:</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span>
+<p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using the ORCID logo:</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span>
     <span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
     <span class="op">)</span>
   <span class="op">)</span></code></pre><p></p></div>
 <p>If you want to add more details about authors or their involvement with the package,
-you can use the comment field, which will be rendered on the authors page.</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span>, <span class="st">"Indenter-in-chief"</span><span class="op">)</span>
+you can use the comment field, which will be rendered on the authors page.</p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span>, <span class="st">"Indenter-in-chief"</span><span class="op">)</span>
     <span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
+      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
     <span class="op">)</span>
   <span class="op">)</span></code></pre><p></p></div>
 </div>
@@ -270,7 +269,7 @@ With the configuration below:</p><ul><li><p>only the maintainer and funder(s) ap
 <span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"See the [changelog](news/index.html) for other contributors. :pray:"</span></span></code></pre><p></p></div>
 <p>If you want to filter authors based on something else than their roles,
 consider using a custom sidebar/footer component
-(see <code><a href="../reference/build_home.html">?build_home</a></code>/<code><a href="build_site.html">?build_site</a></code>, respectively).</p>
+(see <code>?build_home</code>/<code><a href="build_site.html">?build_site</a></code>, respectively).</p>
 </div>
 
     </div>

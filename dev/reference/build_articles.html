@@ -104,7 +104,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="../reference/build_articles.html">build_articles()</a></code> renders each R Markdown file underneath <code>vignettes/</code> and
+    <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul><li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
 enabling the use of child documents in
 <a href="https://bookdown.org/yihui/bookdown/" class="external-link">bookdown</a></p></li>
@@ -113,15 +113,14 @@ enabling the use of child documents in
 <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
-<p>Note that when you run <code><a href="../reference/build_articles.html">build_articles()</a></code> directly (outside of
+<p>Note that when you run <code>build_articles()</code> directly (outside of
 <code><a href="build_site.html">build_site()</a></code>) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/build_articles.html">build_articles</a></span><span class="op">(</span>
+    <pre class="sourceCode r"><code><span class="fu">build_articles</span><span class="op">(</span>
   pkg <span class="op">=</span> <span class="st">"."</span>,
   quiet <span class="op">=</span> <span class="cn">TRUE</span>,
   lazy <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -129,9 +128,9 @@ you are primarily working on the text of an article.</p>
   preview <span class="op">=</span> <span class="cn">NA</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/build_articles.html">build_article</a></span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">build_article</span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/build_articles.html">build_articles_index</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
+<span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre>
     </div>
 
     <div class="ref-arguments section level2">

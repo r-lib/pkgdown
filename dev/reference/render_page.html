@@ -84,18 +84,9 @@ then assembled into an overall page using the "layout" template.</p>
     </div>
 
     <div class="ref-usage section level2 sourceCode">
-    <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/render_page.html">render_page</a></span><span class="op">(</span>
-  pkg <span class="op">=</span> <span class="st">"."</span>,
-  <span class="va">name</span>,
-  <span class="va">data</span>,
-  path <span class="op">=</span> <span class="st">""</span>,
-  depth <span class="op">=</span> <span class="cn">NULL</span>,
-  quiet <span class="op">=</span> <span class="cn">FALSE</span>,
-  tweaks <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
+    <pre class="sourceCode r"><code><span class="fu">render_page</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, <span class="va">name</span>, <span class="va">data</span>, path <span class="op">=</span> <span class="st">""</span>, depth <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/render_page.html">data_template</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, depth <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></code></pre>
+<span class="fu">data_template</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, depth <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></code></pre>
     </div>
 
     <div class="ref-arguments section level2">
@@ -109,7 +100,7 @@ then assembled into an overall page using the "layout" template.</p>
 <p>This is automatically supplemented with three lists:</p><ul><li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
 <li><p><code>yaml</code>: the <code>template</code> key from <code>_pkgdown.yml</code>.</p></li>
 <li><p><code>package</code>: package metadata including <code>name</code> and<code>version</code>.</p></li>
-</ul><p>See the full contents by running <code><a href="../reference/render_page.html">data_template()</a></code>.</p></dd>
+</ul><p>See the full contents by running <code>data_template()</code>.</p></dd>
       <dt id="ref-argument-path">path</dt>
       <dd><p>Location to create file; relative to destination directory.
 If <code>""</code> (the default), prints to standard out.</p></dd>
@@ -117,8 +108,6 @@ If <code>""</code> (the default), prints to standard out.</p></dd>
       <dd><p>Depth of path relative to base directory.</p></dd>
       <dt id="ref-argument-quiet">quiet</dt>
       <dd><p>If <code>quiet</code>, will suppress output messages</p></dd>
-      <dt id="ref-argument-tweaks">tweaks</dt>
-      <dd><p>List of "tweak" functions applied to output HTML.</p></dd>
     </dl></div>
 
     <div id="ref-sections">
