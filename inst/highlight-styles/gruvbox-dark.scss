@@ -1,0 +1,32 @@
+pre {background-color: #282828;}
+pre code         /* Normal         */ {color:#ebdbb2}
+pre code span.al /* Alert          */ {color:#282828; background-color:#cc241d; font-weight: bold}
+pre code span.an /* Annotation     */ {color:#98971a}
+pre code span.at /* Attribute      */ {color:#d79921}
+pre code span.bn /* BaseN          */ {color:#f67400}
+pre code span.bu /* BuiltIn        */ {color:#d65d0e}
+pre code span.cf /* ControlFlow    */ {color:#cc241d; font-weight: bold}
+pre code span.ch /* Char           */ {color:#b16286}
+pre code span.cn /* Constant       */ {color:#b16286; font-weight: bold}
+pre code span.co /* Comment        */ {color:#928374}
+pre code span.cv /* CommentVar     */ {color:#928374}
+pre code span.do /* Documentation  */ {color:#98971a}
+pre code span.dt /* DataType       */ {color:#d79921}
+pre code span.dv /* DecVal         */ {color:#f67400}
+pre code span.er /* Error          */ {color:#cc241d; text-decoration: underline}
+pre code span.ex /* Extension      */ {color:#689d6a; font-weight: bold}
+pre code span.fl /* Float          */ {color:#f67400}
+pre code span.fu /* Function       */ {color:#689d6a}
+pre code span.im /* Import         */ {color:#689d6a}
+pre code span.in /* Information    */ {color:#282828; background-color:#83a598}
+pre code span.kw /* Keyword        */ {color:#ebdbb2; font-weight: bold}
+pre code span.op /* Operator       */ {color:#ebdbb2}
+pre code span.ot /* Others         */ {color:#689d6a}
+pre code span.pp /* Preprocessor   */ {color:#d65d0e}
+pre code span.re /* RegionMarker   */ {color:#928374; background-color:#1d2021}
+pre code span.sc /* SpecialChar    */ {color:#b16286}
+pre code span.ss /* SpecialString  */ {color:#98971a}
+pre code span.st /* String         */ {color:#98971a}
+pre code span.va /* Variable       */ {color:#458588}
+pre code span.vs /* VerbatimString */ {color:#98971a}
+pre code span.wa /* Warning        */ {color:#282828; background-color:#fabd2f}

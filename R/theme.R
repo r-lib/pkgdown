@@ -44,20 +44,26 @@ bs_theme <- function(pkg = ".") {
 
   # Add additional pkgdown rules
   rules <- bs_theme_rules(pkg)
-  for (rule in rules) {
-    bs_theme <- bslib::bs_add_rules(bs_theme, sass::sass_file(rule))
-  }
+  files <- lapply(rules, sass::sass_file)
+  bs_theme <- bslib::bs_add_rules(bs_theme, files)
 
   bs_theme
 }
 
 bs_theme_rules <- function(pkg) {
-  paths <- c(
-    path_pkgdown("BS5", "assets", "pkgdown.scss"),
-    path_pkgdown("BS5", "assets", "syntax-highlighting.scss")
-  )
+  paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
-  package <- pkg$meta$template$package
+  theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
+  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
+  if (!file_exists(theme_path)) {
+    abort(c(
+      paste0("Unknown theme '", theme, "'"),
+      i = paste0("Valid themes are: ", paste0(highlight_styles(), collapse = ", "))
+    ))
+  }
+  paths <- c(paths, theme_path)
+
+  package <- purrr::pluck(pkg, "meta", "template", "package")
   if (!is.null(package)) {
     package_extra <- path_package_pkgdown(
       "extra.scss",
@@ -76,6 +82,11 @@ bs_theme_rules <- function(pkg) {
   }
 
   paths
+}
+
+highlight_styles <- function() {
+  paths <- dir_ls(path_pkgdown("highlight-styles"), glob = "*.scss")
+  path_ext_remove(path_file(paths))
 }
 
 get_bootswatch_theme <- function(pkg) {
