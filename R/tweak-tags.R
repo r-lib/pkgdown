@@ -137,6 +137,8 @@ tweak_tables <- function(html) {
 
   # Ensure all tables have class="table"
   table <- xml2::xml_find_all(html, ".//table")
+  table <- table[!has_class(table, "ref-arguments")]
+
   tweak_class_prepend(table, "table")
 
   invisible()
