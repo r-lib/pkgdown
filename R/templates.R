@@ -47,7 +47,7 @@ templates_dir <- function(pkg = list()) {
   if (!is.null(template$path)) {
     # Directory specified in yaml doesn't exist, so eagerly error
     if (!dir_exists(template$path)) {
-      abort(paste0("Can not find templates path ", src_path(template_path)))
+      abort(paste0("Can not find templates path ", src_path(template$path)))
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {
