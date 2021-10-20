@@ -160,10 +160,11 @@ footer div {
 // Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
 
 // Need .container and __all parents__ have height set to 100%
-html, body, body > .container {
-  min-height: 100%;
+html, body {
+  height: 100%;
 }
 body > .container {
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }
