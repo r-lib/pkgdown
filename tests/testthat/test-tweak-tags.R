@@ -16,6 +16,18 @@ test_that("tables get additional table class", {
   )
 })
 
+test_that("except on the reference index", {
+  html <- xml2::read_html("<body>
+    <div class='template-reference-index'>
+      <table></table>
+    </div>
+  </body>")
+  tweak_tables(html)
+
+  expect_equal(xpath_attr(html, ".//table", "class"), NA_character_)
+})
+
+
 # anchors -------------------------------------------------------------
 
 test_that("ids move from div to headings", {
