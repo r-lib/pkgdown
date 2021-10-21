@@ -90,41 +90,31 @@ body {position: relative;}
 
 #toc > .nav {
   margin-bottom: 1rem;
-}
 
-// boostrap doesn't style active/hovered nav making it hard to see where
-// you are and where you're going, so we add our own styling
-#toc .nav > li > a {
-  color: inherit;
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 2px;
-  @include border-radius($border-radius);
-  border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
-}
+  a.nav-link {
+    color: inherit;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 2px;
+    @include border-radius($border-radius);
+    border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 
-#toc .nav > li > a:hover,
-#toc .nav > li > a:focus {
-  background-color: $pkgdown-toc-hover-bg;
-  color: $pkgdown-toc-hover-color;
-}
-#toc .nav-link.active,
-#toc .nav-link.active:hover,
-#toc .nav-link.active:focus {
-  background-color: $pkgdown-toc-active-bg;
-  color: $pkgdown-toc-active-color;
-}
+    &:hover, &:focus {
+      background-color: $pkgdown-toc-hover-bg;
+      color: $pkgdown-toc-hover-color;
+    }
+    &.active {
+      background-color: $pkgdown-toc-active-bg;
+      color: $pkgdown-toc-active-color;
+    }
+  }
 
-/* Only show second level if active.
-   Requires !important because that's how BS5 sets display: flex
-*/
-#toc .nav > li > a + ul {
-  display: none !important;
-}
-#toc .nav-link.active + ul {
-  display: flex !important;
-}
-#toc .nav .nav > li > a {
-  margin-left: 0.5rem;
+  // Nested headings are indented
+  .nav a.nav-link { margin-left: 0.5rem; }
+
+  // Only show second level if active.
+  // Requires !important because that's how BS5 sets display: flex
+  .nav { display: none !important; }
+  a.active + .nav { display: flex !important; }
 }
 
 /* footer  ================================================================== */
