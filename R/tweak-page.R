@@ -71,9 +71,9 @@ tweak_homepage_html <- function(html,
 
   header <- xml2::xml_find_first(html, ".//h1")
   if (strip_header) {
-    xml2::xml_remove(header, free = TRUE)
+    page_header <- xml2::xml_remove(header, free = TRUE)
   } else {
-    xml2::xml_add_parent(header, "div", class = "page-header")
+    page_header <- xml2::xml_add_parent(header, "div", class = "page-header")
   }
 
   if (!is.null(logo) && bs_version > 3) {
@@ -88,16 +88,13 @@ tweak_homepage_html <- function(html,
       )
     )
 
-    # Add logo
-    xml2::xml_find_first(html,".//div[contains(@class,'contents')]") %>%
-      xml2::xml_child() %>%
-      xml2::xml_add_sibling("img",
-        src = logo,
-        class = "pkg-logo",
-        alt = "",
-        width = "120",
-        .where = "before"
-      )
+    # Add back to header
+    xml2::xml_add_sibling(page_header, "img",
+      src = logo,
+      class = "logo",
+      alt = "",
+      .where = "before"
+    )
   }
 
   invisible()

@@ -4,8 +4,8 @@ $endfor${{/as_is}}
 
 <div class="row">
   <div class="col-md-9 contents">
-    {{#logo}}<img src="{{logo.src}}" class="pkg-logo" alt="" >{{/logo}}
     <div class="page-header">
+      {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1 data-toc-skip>$title$</h1>
       $if(subtitle)$
       <h3 data-toc-skip class="subtitle">$subtitle$</h3>
@@ -31,7 +31,6 @@ $endfor${{/as_is}}
 
       {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
       <div class="d-none name"><code>{{filename}}</code></div>
-
     </div>
 
     $for(include-before)$

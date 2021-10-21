@@ -257,20 +257,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // package logo
-img.pkg-logo {
+img.logo {
   float: right;
   width: 100px;
   margin-left: 30px;
-  margin-top: 25px;
 }
+.template-home img.logo {
+  width: 120px;
+}
+
 @include media-breakpoint-down(sm) {
-  img.pkg-logo {width: 80px;}
-  // Avoid wrapping into reference index table
-  .template-reference-index img.pkg-logo {display: none;}
+  img.logo {width: 80px;}
 }
 // line up h1 border-bottom with corner of hexagon
+// values determined empirically
 @include media-breakpoint-up(sm) {
   .page-header {min-height: 88px}
+  .template-home .page-header {min-height: 104px}
 }
 
 // line-block produced by pandoc needs margin-bottom since it doesn't
