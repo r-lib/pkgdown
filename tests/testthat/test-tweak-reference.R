@@ -7,16 +7,27 @@ test_that("ensure templates have expected div", {
 })
 
 test_that("highlights <pre> wrapped in <div> with language info", {
+  withr::local_options(downlit.topic_index = c(foo = "foo"))
   html <- xml2::read_html('
     <div id="ref-sections">
       <div class="sourceCode r">
-      <pre><code>1 + 2</code></pre>
+      <pre><code>foo(x)</code></pre>
       </div>
     </div>
   ')
   tweak_reference_highlighting(html)
-  expect_equal(xpath_attr(html, "//code/span", "class"), c("fl", "op", "fl"))
-  expect_equal(xpath_text(html, "//code/span"), c("1", "+", "2"))
+  expect_equal(xpath_attr(html, ".//code//a", "href"), "foo.html")
+
+  # Or upper case R
+  html <- xml2::read_html('
+    <div id="ref-sections">
+      <div class="sourceCode R">
+      <pre><code>foo(x)</code></pre>
+      </div>
+    </div>
+  ')
+  tweak_reference_highlighting(html)
+  expect_equal(xpath_attr(html, ".//code//a", "href"), "foo.html")
 
   html <- xml2::read_html('
     <div id="ref-sections">
@@ -32,15 +43,16 @@ test_that("highlights <pre> wrapped in <div> with language info", {
 })
 
 test_that("highlight unwrapped <pre>", {
+  withr::local_options(downlit.topic_index = c(foo = "foo"))
+
   # If parseable, assume R
   html <- xml2::read_html('
     <div id="ref-sections">
-      <pre><code>1 + 2</code></pre>
+      <pre><code>foo(x)</code></pre>
     <div>
   ')
   tweak_reference_highlighting(html)
-  expect_equal(xpath_attr(html, "//code/span", "class"), c("fl", "op", "fl"))
-  expect_equal(xpath_text(html, "//code/span"), c("1", "+", "2"))
+  expect_equal(xpath_attr(html, ".//code//a", "href"), "foo.html")
 
   # If not parseable, leave as is
   html <- xml2::read_html('

@@ -5,19 +5,22 @@ tweak_reference_highlighting <- function(html) {
   base <- find_ref_sections(html)
 
   # There are three cases:
-  # 1) <pre> with no wrapper <div>, as created by ```
-  pre_unwrapped <- xml2::xml_find_all(base, ".//pre")
-  purrr::walk(pre_unwrapped, tweak_highlight_r)
-
+  # 1) <div> with class sourceCode + r/R, as created by ```R
   div <- xml2::xml_find_all(base, ".//div")
   div_sourceCode <- div[has_class(div, "sourceCode")]
-  # 2) <div> with class sourceCode + R, as created by ```R
-  div_sourceCode_r <- div_sourceCode[has_class(div_sourceCode, "r")]
+  is_r <- has_class(div_sourceCode, c("r", "R"))
+  div_sourceCode_r <- div_sourceCode[is_r]
   purrr::walk(div_sourceCode_r, tweak_highlight_r)
 
-  # 3) <div> with class sourceCode + another language, e.g. ```yaml
-  div_sourceCode_other <- div_sourceCode[!has_class(div_sourceCode, "r")]
+  # 2) <div> with class sourceCode + another language, e.g. ```yaml
+  div_sourceCode_other <- div_sourceCode[!is_r]
   purrr::walk(div_sourceCode_other, tweak_highlight_other)
+
+  # 3) <pre> with no wrapper <div>, as created by ```
+  pre <- xml2::xml_find_all(base, ".//pre")
+  pre_parent <- xml2::xml_parent(pre)
+  pre_unwrapped <- pre[!pre_parent %in% div_sourceCode]
+  purrr::walk(pre_unwrapped, tweak_highlight_r)
 
   invisible()
 }

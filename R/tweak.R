@@ -1,6 +1,6 @@
 has_class <- function(html, class) {
   classes <- strsplit(xml2::xml_attr(html, "class"), " ")
-  purrr::map_lgl(classes, ~ class %in% .x)
+  purrr::map_lgl(classes, ~ any(class %in% .x))
 }
 
 tweak_class_prepend <- function(x, class) {

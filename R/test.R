@@ -191,36 +191,42 @@ NULL
 
 #' Test case: preformatted blocks & syntax highlighting
 #'
-#' This description block is required so that verbatim blocks are recognized
-#' and rendered correctly.
+#' Manual test cases for various ways of embedding code in sections.
+#'
+#' # Should be highlighted
+#'
+#' Valid R code in `\preformatted{}`:
 #'
 #' ```
-#' foo
-#'
-#' bar
+#' mean(a + 1)
 #' ```
 #'
-#' ```
-#' yaml:
-#'   this
+#' R code in `R` block:
 #'
-#' OR:
-#'
-#' yaml:
-#'   that
+#' ```R
+#' mean(a + 1)
 #' ```
 #'
-#' And this block should get syntax highlighting:
+#' R code in `r` block:
+#'
+#' ```R
+#' mean(a + 1)
+#' ```
+#'
+#' Yaml
 #'
 #' ```yaml
-#' yaml:
-#'   this
-#'
-#' OR:
-#'
-#' yaml:
-#'   that
+#' yaml: [a, 1]
 #' ```
+#'
+#' # Shouldn't be highlighted
+#'
+#' Non-R code in `\preformatted{}`
+#'
+#' ```
+#' yaml: [a, b, c]
+#' ```
+#'
 #' @name test-verbatim
 #' @keywords internal
 #' @family tests

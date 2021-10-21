@@ -4,31 +4,27 @@
 \alias{test-verbatim}
 \title{Test case: preformatted blocks & syntax highlighting}
 \description{
-This description block is required so that verbatim blocks are recognized
-and rendered correctly.
+Manual test cases for various ways of embedding code in sections.
 }
-\details{
-\preformatted{foo
-
-bar
-}\preformatted{yaml:
-  this
-
-OR:
-
-yaml:
-  that
+\section{Should be highlighted}{
+Valid R code in \verb{\preformatted{}}:\preformatted{mean(a + 1)
 }
 
-And this block should get syntax highlighting:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml:
-  this
+R code in \code{R} block:\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
+}\if{html}{\out{</div>}}
 
-OR:
+R code in \code{r} block:\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
+}\if{html}{\out{</div>}}
 
-yaml:
-  that
+Yaml\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml: [a, 1]
 }\if{html}{\out{</div>}}
 }
+
+\section{Shouldn't be highlighted}{
+Non-R code in \verb{\preformatted{}}\preformatted{yaml: [a, b, c]
+}
+}
+
 \seealso{
 Other tests: 
 \code{\link{index}},
