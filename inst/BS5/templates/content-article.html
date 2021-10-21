@@ -46,14 +46,13 @@ $endfor${{/as_is}}
 
 $body$
   </div>
- <div class="col-md-3" id="pkgdown-sidebar">
+
+  <div class="col-md-3 toc" id="pkgdown-sidebar">
     $if(toc)$
-    <nav id="toc">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+    <h2>Contents</h2>
+    <nav id="toc"></nav>
     $endif$
   </div>
-
 </div>
 
 $for(include-after)$
