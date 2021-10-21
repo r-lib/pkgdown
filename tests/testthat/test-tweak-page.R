@@ -34,3 +34,26 @@ test_that("reference index table is not altered", {
   tweak_page(html, "reference-index", pkg)
   expect_equal(xpath_attr(html, ".//table", "class"), NA_character_)
 })
+
+test_that("toc removed if one or fewer headings", {
+  html <- xml2::read_html("<body>
+    <div id='contents'><h2></h2><h2></h2></div>
+    <nav id='toc'></nav>
+  </body>")
+  tweak_useless_toc(html)
+  expect_equal(xpath_length(html, ".//nav"), 1)
+
+  html <- xml2::read_html("<body>
+    <div id='contents'><h2></h2></div>
+    <nav id='toc'></nav>
+  </body>")
+  tweak_useless_toc(html)
+  expect_equal(xpath_length(html, ".//nav"), 0)
+
+  html <- xml2::read_html("<body>
+    <div id='contents'></div>
+    <nav id='toc'></nav>
+  </body>")
+  tweak_useless_toc(html)
+  expect_equal(xpath_length(html, ".//nav"), 0)
+})

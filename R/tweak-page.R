@@ -22,7 +22,7 @@ tweak_page <- function(html, name, pkg = list()) {
   if (pkg$bs_version > 3) {
     tweak_footnotes(html)
     tweak_tabsets(html)
-    trim_toc(html)
+    tweak_useless_toc(html)
   }
 
   if (!is.null(pkg$desc) && pkg$desc$has_dep("R6")) {
@@ -98,6 +98,16 @@ tweak_homepage_html <- function(html,
   }
 
   invisible()
+}
+
+# Strip off #toc if it's not needed; easier to do this here than in js
+tweak_useless_toc <- function(html) {
+  contents <- xml2::xml_find_all(html, ".//div[@id='contents']")
+  headings <- xml2::xml_find_all(contents, ".//h2|.//h3|.//h4|.//h5|.//h6")
+
+  if (length(headings) <= 1) {
+    xml2::xml_remove(xml2::xml_find_first(html, '//nav[@id="toc"]'))
+  }
 }
 
 
