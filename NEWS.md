@@ -148,8 +148,10 @@
 
 * Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
 
-* `\value{}` now does a better job of handling multiple mingled items and text 
-  (#1479).
+* `\value{}` and `\arguments{}` now do a better job of handling multiple 
+  mingled items and text (#1479).
+
+* The contents of `\value{}` are now shown immediately after `\arguments{}`.
 
 * Autolinking no longer fails if a package contains duplicated Rd aliases.
 
