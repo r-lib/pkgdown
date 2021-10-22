@@ -11,15 +11,15 @@ test_that("docsearch.json and sitemap.xml are valid", {
 })
 
 test_that("build_search() builds the expected search`.json with an URL", {
-  pkg <- local_pkgdown_site(
-    test_path("assets/news"),
-    list(
-      news = list(cran_dates = FALSE),
-      url = "https://example.com",
-      development = list(mode = "devel")
-    )
-  )
-  pkg$bs_version <- 5
+  pkg <- local_pkgdown_site(test_path("assets/news"), '
+    url: https://example.com
+    template:
+      bootstrap: 5
+    news:
+      cran_dates: false
+    development:
+      mode: devel
+  ')
 
   expect_output(init_site(pkg))
   expect_output(build_news(pkg))
@@ -32,14 +32,14 @@ test_that("build_search() builds the expected search`.json with an URL", {
 })
 
 test_that("build_search() builds the expected search.json with no URL", {
-  pkg <- local_pkgdown_site(test_path("assets/news"),
-    list(
-      news = list(cran_dates = FALSE),
-      url = NULL,
-      development = list(mode = "devel")
-    )
-  )
-  pkg$bs_version <- 5
+  pkg <- local_pkgdown_site(test_path("assets/news"), '
+    template:
+      bootstrap: 5
+    news:
+      cran_dates: false
+    development:
+      mode: devel
+  ')
 
   expect_output(init_site(pkg))
   expect_output(build_news(pkg))

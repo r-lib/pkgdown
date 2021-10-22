@@ -27,6 +27,18 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
+  html <- render_page_html(pkg, name = name, data = data, depth = depth)
+
+  tweak_page(html, name, pkg = pkg)
+  if (pkg$bs_version > 3) {
+    activate_navbar(html, data$output_file %||% path, pkg)
+  }
+
+  rendered <- as.character(html, options = character())
+  write_if_different(pkg, rendered, path, quiet = quiet)
+}
+
+render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
@@ -41,7 +53,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # render template components
   pieces <- c(
     "head", "navbar", "header", "content", "docsearch", "footer",
-    "in-header", "after-head", "before-body", "after-body"
+    "in-header", "before-body", "after-body"
   )
 
   if (pkg$bs_version > 3) {
@@ -65,15 +77,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   rendered <- render_template(template, components)
 
-  html <- xml2::read_html(rendered, encoding = "UTF-8")
-
-  tweak_page(html, name, pkg = pkg)
-  if (pkg$bs_version > 3) {
-    activate_navbar(html, data$output_file %||% path, pkg)
-  }
-
-  rendered <- as.character(html, options = character())
-  write_if_different(pkg, rendered, path, quiet = quiet)
+  xml2::read_html(rendered, encoding = "UTF-8")
 }
 
 #' @export
@@ -85,6 +89,8 @@ data_template <- function(pkg = ".", depth = 0L) {
   # in the mustache templates
   yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   yaml$.present <- TRUE
+
+  includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
 
   # Look for extra assets to add
   extra <- list()
@@ -105,6 +111,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     dev = pkg$use_dev,
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
+    includes = includes,
     yaml = yaml
   ))
 }

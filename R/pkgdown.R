@@ -27,8 +27,14 @@ local_envvar_pkgdown <- function(scope = parent.frame()) {
   withr::local_envvar(list(IN_PKGDOWN = "true"), .local_envir = scope)
 }
 
-local_pkgdown_site <- function(path, override = list(), env = parent.frame()) {
-  pkg <- as_pkgdown(path, override)
+local_pkgdown_site <- function(path, meta = NULL, env = parent.frame()) {
+  if (!is.null(meta)) {
+    meta <- yaml::yaml.load(meta)
+  } else {
+    meta <- list()
+  }
+  pkg <- as_pkgdown(path, meta)
+
 
   clean_up <- function(path) {
     if (!fs::dir_exists(path)) {
