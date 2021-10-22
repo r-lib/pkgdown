@@ -27,6 +27,18 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
 
+  html <- render_page_html(pkg, name = name, data = data, depth = depth)
+
+  tweak_page(html, name, pkg = pkg)
+  if (pkg$bs_version > 3) {
+    activate_navbar(html, data$output_file %||% path, pkg)
+  }
+
+  rendered <- as.character(html, options = character())
+  write_if_different(pkg, rendered, path, quiet = quiet)
+}
+
+render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   data <- utils::modifyList(data, data_template(pkg, depth = depth))
   data$logo <- list(src = logo_path(pkg, depth = depth))
   data$has_favicons <- has_favicons(pkg)
@@ -65,15 +77,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   )
   rendered <- render_template(template, components)
 
-  html <- xml2::read_html(rendered, encoding = "UTF-8")
-
-  tweak_page(html, name, pkg = pkg)
-  if (pkg$bs_version > 3) {
-    activate_navbar(html, data$output_file %||% path, pkg)
-  }
-
-  rendered <- as.character(html, options = character())
-  write_if_different(pkg, rendered, path, quiet = quiet)
+  xml2::read_html(rendered, encoding = "UTF-8")
 }
 
 #' @export
