@@ -73,11 +73,11 @@
   `_pkgdown.yml`, which is in turn overridden by `build_site(override =)` 
   (#1499).
 
-* New templates `in-header.html`/`after-head.html`, `before-body.html`, and 
-  `after-body.html` make it easier to add HTML to every page. Their content 
-  will be placed at the end of the `<head>` tag, right below the opening 
-  `<body>` tag, and before the closing tag `</body>` respectively (#1487). 
-  They match the bookdown options `in_header`, `before_body` and `after_body`.
+* New templates `in-header.html`, `before-body.html`, and `after-body.html` 
+  make it easier to add HTML to every page. Their content will be placed at 
+  the end of the `<head>` tag, right below the opening `<body>` tag, and before 
+  the closing tag `</body>` respectively (#1487). They match the bookdown 
+  options `in_header`, `before_body` and `after_body`.
 
 * Authors configuration is more flexible (#1516). Users can now:
 

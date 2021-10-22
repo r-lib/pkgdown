@@ -41,7 +41,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # render template components
   pieces <- c(
     "head", "navbar", "header", "content", "docsearch", "footer",
-    "in-header", "after-head", "before-body", "after-body"
+    "in-header", "before-body", "after-body"
   )
 
   if (pkg$bs_version > 3) {
