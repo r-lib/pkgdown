@@ -116,36 +116,27 @@ website to any desired branch.</p></li>
 <span class="op">)</span></code></pre>
     </div>
 
-    <div class="ref-arguments section level2">
+    <div id="ref-sections">
+    <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt id="ref-argument-pkg">pkg</dt>
-      <dd><p>Path to package.</p></dd>
-      <dt id="ref-argument-install">install</dt>
-      <dd><p>Optionally, opt-out of automatic installation. This is
+    
+
+<dl><dt>pkg</dt><dd><p>Path to package.</p></dd>
+</dl><dl><dt>install</dt><dd><p>Optionally, opt-out of automatic installation. This is
 necessary if the package you're documenting is a dependency of pkgdown</p></dd>
-      <dt id="ref-argument-tarball">tarball</dt>
-      <dd><p>The location of the built package tarball. The default Travis
+</dl><dl><dt>tarball</dt><dd><p>The location of the built package tarball. The default Travis
 configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></dd>
-      <dt id="ref-argument-ssh_id">ssh_id</dt>
-      <dd><p>The private id to use, a base64 encoded content of the private
+</dl><dl><dt>ssh_id</dt><dd><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></dd>
-      <dt id="ref-argument-commit_message">commit_message</dt>
-      <dd><p>The commit message to be used for the commit.</p></dd>
-      <dt id="ref-argument-clean">clean</dt>
-      <dd><p>Clean all files from old site.</p></dd>
-      <dt id="ref-argument-verbose">verbose</dt>
-      <dd><p>Print verbose output</p></dd>
-      <dt id="ref-argument-host">host</dt>
-      <dd><p>The GitHub host url.</p></dd>
-      <dt id="ref-argument-...">...</dt>
-      <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
-      <dt id="ref-argument-repo_slug">repo_slug</dt>
-      <dd><p>The <code>user/repo</code> slug for the repository.</p></dd>
-    </dl></div>
-
-    <div id="ref-sections">
+</dl><dl><dt>commit_message</dt><dd><p>The commit message to be used for the commit.</p></dd>
+</dl><dl><dt>clean</dt><dd><p>Clean all files from old site.</p></dd>
+</dl><dl><dt>verbose</dt><dd><p>Print verbose output</p></dd>
+</dl><dl><dt>host</dt><dd><p>The GitHub host url.</p></dd>
+</dl><dl><dt>...</dt><dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+</dl><dl><dt>repo_slug</dt><dd><p>The <code>user/repo</code> slug for the repository.</p></dd>
+</dl></div>
     </div>
 
   </div>

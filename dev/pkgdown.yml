@@ -13,7 +13,7 @@ articles:
   rendering: test/rendering.html
   short: test/short.html
   widgets: test/widgets.html
-last_built: 2021-10-21T22:19Z
+last_built: 2021-10-22T16:59Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
