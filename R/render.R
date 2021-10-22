@@ -90,6 +90,8 @@ data_template <- function(pkg = ".", depth = 0L) {
   yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   yaml$.present <- TRUE
 
+  includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
+
   # Look for extra assets to add
   extra <- list()
   extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
@@ -109,6 +111,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     dev = pkg$use_dev,
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
+    includes = includes,
     yaml = yaml
   ))
 }
