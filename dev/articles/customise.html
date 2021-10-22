@@ -108,7 +108,7 @@
 
     
     
-<p>This vignette teaches you how to customise the style/design of your pkgdown site. We’ll start by discussing two techniques that only require tweaks to your <code>_pkgdown.yaml</code>: <strong>theming</strong> (colours and fonts) and <strong>layout</strong> (content of the navbar, sidebar, footer, …). We’ll then discuss how to customise the underlying HTML <strong>templates</strong>; this is needed less commonly, but gives you full control over the site. Next, we’ll discuss how to give multiple sites the same style using a <strong>package</strong>, then finish up with some workflow advice.</p>
+<p>This vignette teaches you how to customise the style/design of your pkgdown site. We’ll start by discussing two techniques that only require tweaks to your <code>_pkgdown.yaml</code>: theming (colours and fonts) and layout (content of the navbar, sidebar, footer, …). We’ll then discuss how to add additional HTML and other files. Next, we’ll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
@@ -320,45 +320,21 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="templates">Templates<a class="anchor" aria-label="anchor" href="#templates"></a>
+<h2 id="additional-html-and-files">Additional HTML and files<a class="anchor" aria-label="anchor" href="#additional-html-and-files"></a>
 </h2>
-<p>Bigger layout changes require tinkering with pkgdown <strong>templates</strong>. You can see the defaults, found in <code>inst/templates,</code> in <a href="https://github.com/r-lib/pkgdown" class="external-link">pkgdown source</a>.</p>
-<div class="section level3">
-<h3 id="blank-templates">Blank templates<a class="anchor" aria-label="anchor" href="#blank-templates"></a>
-</h3>
-<p>There are three pkgdown templates that are empty by default. This makes it easier to add custom HTML in common places:</p>
+<p>If you need to include additional HTML, you can add it in three locations:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the head --</span><span class="ch">&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">    before_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the beginging of the body --</span><span class="ch">&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the body --</span><span class="ch">&gt;</span></span></code></pre></div>
+<p>You can add additional files by putting them in the right place:</p>
 <ul>
-<li>
-<code>in-header.html</code> is inserted right before closing the head tag.</li>
-<li>
-<code>before-body.html</code> is inserted right after opening the body tag.</li>
-<li>
-<code>after-body.html</code> is inserted right before closing the body tag.</li>
-</ul>
-<p>To add content to these templates:</p>
-<ul>
-<li>Create a folder <code>pkgdown/templates</code>.</li>
-<li>Create <code>in-header.html</code>, <code>before-body.html</code> or <code>after-body.html</code> in that folder.</li>
-<li>Edit and save that file.</li>
-<li>Re-build your site and review it.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="other-templates">Other templates<a class="anchor" aria-label="anchor" href="#other-templates"></a>
-</h3>
-<p>It is possible to customise other templates, but this is recommended for advanced users only because you’ll need to keep it up to date as pkgdown itself changes. For example, if you’ve used <code>head.html</code> in the past, we now recommend switching to using <code>in-header.html</code> instead.</p>
-<p>Note that template can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of <code><a href="../reference/render_page.html">render_page()</a></code>.</p>
-</div>
-<div class="section level3">
-<h3 id="extra-files">Extra files<a class="anchor" aria-label="anchor" href="#extra-files"></a>
-</h3>
-<ul>
-<li><p><code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code> will be copied to the destination directory and linked from <code>&lt;head&gt;</code> (after the pkgdown defaults).</p></li>
+<li><p><code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code> will be copied in to rendered site and linked from <code>&lt;head&gt;</code> (after the pkgdown defaults).</p></li>
 <li><p><code>pkgdown/extra.scss</code> will be added to the scss ruleset used to generate the site CSS.</p></li>
-<li><p>Any additional files in <code>pkgdown/assets</code> will be copied to the destination directory.</p></li>
+<li><p>Any files in <code>pkgdown/assets</code> will be copied to the website root directory.</p></li>
 </ul>
 <p>Use <code><a href="../reference/init_site.html">init_site()</a></code> to update your rendered website after making changes to these files.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="template-packages">Template packages<a class="anchor" aria-label="anchor" href="#template-packages"></a>
@@ -376,8 +352,8 @@
 <ul>
 <li>
 <p>Setting it as your sites theme:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 </li>
 <li>
 <p>If you’re building your site using GitHub actions or other similar tool, you’ll also need to installed <code>theverybest</code>. If you’re using the r-lib <a href="https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site" class="external-link">pkgdown workflow</a>, you can add the following line to your <code>DESCRIPTION</code>:</p>
