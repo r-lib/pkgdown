@@ -350,10 +350,6 @@ data_reference_topic <- function(topic,
   out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
   out$usage <- as_data(tags$tag_usage[[1]])
-  out$arguments <- as_data(tags$tag_arguments[[1]])
-  if (length(out$arguments)) {
-    out$has_args <- TRUE # Work around mustache deficiency
-  }
 
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(
@@ -370,10 +366,10 @@ data_reference_topic <- function(topic,
   }
 
   # Everything else stays in original order, and becomes a list of sections.
-  section_tags <- c(
-    "tag_details", "tag_references", "tag_source", "tag_format",
-    "tag_note", "tag_seealso", "tag_section", "tag_value", "tag_author"
-  )
+  section_tags <- paste0("tag_", c(
+    "arguments", "value", "details", "references", "source", "format", "note",
+    "seealso", "section", "author"
+  ))
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- sections %>%
     purrr::map(as_data) %>%
