@@ -150,7 +150,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   meta <- purrr::pluck(pkg, "meta", "home", "links")
 
   links <- c(
-    link_url(paste0("Download from ", repo$repo), repo$url),
+    link_url(paste0("View on CRAN", repo$repo), repo$url),
     link_url("Browse source code", repo_home(pkg)),
     if (pkg$desc$has_fields("BugReports"))
       link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
