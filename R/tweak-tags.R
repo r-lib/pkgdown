@@ -168,10 +168,10 @@ tweak_footnotes <- function(html) {
 }
 
 tweak_strip <- function(html, in_dev = FALSE) {
-  class <- if (in_dev) "hide-devel" else "hide-release"
+  to_remove <- if (in_dev) "pkgdown-release" else "pkgdown-devel"
   xpath <- paste0(
-    ".//*[contains(@class, '", class, "')]|",
-    ".//*[contains(@class, 'hide-all')]"
+    ".//*[contains(@class, '", to_remove, "')]|",
+    ".//*[contains(@class, 'pkgdown-hide')]"
   )
   nodes <- xml2::xml_find_all(html, xpath)
   xml2::xml_remove(nodes)

@@ -119,9 +119,10 @@
     - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
   ```
 
-* You can selectively strip HTML out of the devel site, release site, or all
-  pkgdown sites by adding classes `hide-devel`, `hide-release`, and `hide-all`
-  respectively (#1299).
+* You can selectively show HTML only on the devel site or release site by
+  adding claseess `pkgdown-devel` and `pkgdown-release`. You can hide HTML on
+  all pkgdown sites with class `pkgdown-hide` (this allows you to show stuff 
+  only on GitHub/CRAN) (#1299).
 
 ## Code
 
