@@ -119,6 +119,10 @@
     - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
   ```
 
+* You can selectively strip HTML out of the devel site, release site, or all
+  pkgdown sites by adding classes `hide-devel`, `hide-release`, and `hide-all`
+  respectively (#1299).
+
 ## Code
 
 * `build_reference()` now allows linking to topics from other packages (either 

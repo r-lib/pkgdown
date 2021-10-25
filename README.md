@@ -7,9 +7,8 @@
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![CRAN
-Status](https://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown)
-[![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/pkgdown/actions)
+<a href="https://cran.r-project.org/package=pkgdown" class="hide-devel"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
+<a href="https://github.com/r-lib/pkgdown/actions" class="hide-release"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
 [![Codecov test
 coverage](https://codecov.io/gh/r-lib/pkgdown/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=master)
 <!-- badges: end -->
@@ -22,13 +21,23 @@ the latest version of pkgdown. Learn more in `vignette("pkgdown")` or
 
 ## Installation
 
-``` r
-# Install release version from CRAN
-install.packages("pkgdown")
+<div class=".hide-devel">
 
+``` r
+# Install released version from CRAN
+install.packages("pkgdown")
+```
+
+</div>
+
+<div class=".hide-release">
+
+``` r
 # Install development version from GitHub
 devtools::install_github("r-lib/pkgdown")
 ```
+
+</div>
 
 ## Usage
 

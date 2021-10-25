@@ -166,3 +166,13 @@ tweak_footnotes <- function(html) {
   # Delete container
   xml2::xml_remove(container)
 }
+
+tweak_strip <- function(html, in_dev = FALSE) {
+  class <- if (in_dev) "hide-devel" else "hide-release"
+  xpath <- paste0(
+    ".//*[contains(@class, '", class, "')]|",
+    ".//*[contains(@class, 'hide-all')]"
+  )
+  nodes <- xml2::xml_find_all(html, xpath)
+  xml2::xml_remove(nodes)
+}
