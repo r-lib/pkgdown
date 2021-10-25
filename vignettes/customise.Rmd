@@ -133,6 +133,7 @@ navbar:
 You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootstwatch preview](https://bootswatch.com/).
 Similarly, you don't usually need to set `type` because bootstrap will guess it for you.
 If it guesses wrong, override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
+Unfortunately these are defined relative to the page background, so if you have a dark site you'll need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
 
 Because the navbar is styled with HTML, you'll need to `build_home_index(); init_site()` to see the effect of changing this parameter.
 

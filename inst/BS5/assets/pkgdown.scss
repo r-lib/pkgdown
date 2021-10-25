@@ -21,6 +21,19 @@
   background: change-color($primary, $alpha: 0.1);
 }
 
+.navbar-dark {
+  input[type="search"] {
+    border-color: $gray-600;
+    background-color: $gray-900;
+    color: $gray-200;
+  }
+}
+
+input[type="search"] {
+  border-color: $border-color;
+  width: 12rem;
+}
+
 /* headroom.js -------------------------------------------------------------- */
 
 .headroom {
