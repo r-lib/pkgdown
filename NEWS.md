@@ -265,6 +265,8 @@
 
 ## Other minor improvements and bug fixes 
 
+* Links on the homepage no longer show the full url in the text.
+
 * Make authors' non-ORCID comments from `DESCRIPTION` more usable as 
   bio/description of contributions: add a link to the authors page from the 
   sidebar if any author has a non-ORCID comment, and render non-ORCID 
