@@ -272,6 +272,18 @@ img.logo {
   margin-bottom: 1rem;
 }
 
+// Override bootstrap defaults that make sense in page bodies, but not on
+// the reference index
+.template-reference-index {
+  dt {font-weight: normal;}
+  // Don't allow breaking within a function name
+  code {word-wrap: normal;}
+}
+.icon {
+  float: right;
+  img {width: 40px;}
+}
+
 /* Footnotes ---------------------------------------------------------------- */
 
 a.footnote-ref {

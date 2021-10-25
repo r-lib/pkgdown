@@ -12,8 +12,8 @@
 
       {{#topics}}<dl>
         <dt>
-          {{#has_icons}}{{#icon}}<a href="{{path}}"><img src="icons/{{{.}}}" width="30" height="30" alt="" class="icon"/></a>{{/icon}}{{/has_icons}}
-          {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code>{{/aliases}}
+          {{#has_icons}}{{#icon}}<a class="icon" href="{{path}}"><img src="icons/{{{.}}}" alt=""/></a>{{/icon}}{{/has_icons}}
+          {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}
         </dt>
         <dd>{{{title}}}</dd>
       </dl>{{/topics}}
