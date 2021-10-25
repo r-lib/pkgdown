@@ -60,16 +60,16 @@ match_env <- function(topics) {
 
   topic_index <- seq_along(topics$name)
 
-  # Each name is mapped to the position of its topic
-  env_bind(out, !!!set_names(topic_index, topics$name))
-
-  # As is each alias
+  # Each alias is match to the position
   topics$alias <- lapply(topics$alias, unique)
   aliases <- set_names(
     rep(topic_index, lengths(topics$alias)),
     unlist(topics$alias)
   )
   env_bind(out, !!!aliases)
+
+  # As is each name - and we want names to have preference
+  env_bind(out, !!!set_names(topic_index, topics$name))
 
   # dplyr-like matching functions
 
