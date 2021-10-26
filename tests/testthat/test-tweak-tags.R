@@ -192,3 +192,23 @@ test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
     )
   )
 })
+
+# stripped divs etc -------------------------------------------------------
+
+test_that("selectively remove hide- divs", {
+  html <- xml2::read_xml("<body>
+    <div class='pkgdown-devel'>devel</div>
+    <div class='pkgdown-release'>release</div>
+    <div class='pkgdown-hide'>all</div>
+  </body>")
+  tweak_strip(html, in_dev = TRUE)
+  expect_equal(xpath_text(html, ".//div"), "devel")
+
+  html <- xml2::read_xml("<body>
+    <div class='pkgdown-devel'>devel</div>
+    <div class='pkgdown-release'>release</div>
+    <div class='pkgdown-hide'>all</div>
+  </body>")
+  tweak_strip(html, in_dev = FALSE)
+  expect_equal(xpath_text(html, ".//div"), "release")
+})

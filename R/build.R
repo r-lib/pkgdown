@@ -66,15 +66,24 @@
 #' * The optional tooltip associated with the version.
 #' * The indexing of the site by search engines.
 #'
+#' ### Setting development mode
+#'
 #' You can override the default development mode by adding a
 #' new `development` field to `_pkgdown.yml`, e.g.
 #'
 #' ```yaml
 #' development:
-#'   mode: devel
+#'   mode: auto
 #' ```
 #'
-#' There are currently four possible modes:
+#' There are four possible modes:
+#'
+#' * **automatic** (`mode: auto`): automatically detects the mode based on the
+#'   version number:
+#'
+#'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
+#'   * four version components: development.
+#'   * everything else -> release.
 #'
 #' * **release** (`mode: release`), the default. Site is written to `docs/`.
 #'   Version in navbar gets the default colouring.
@@ -88,12 +97,30 @@
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
 #'
-#' * **automatic** (`mode: auto`): pkgdown automatically detects the mode
-#'   based on the version number:
+#' ### Selective HTML
 #'
-#'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
-#'   * four version components: development.
-#'   * everything else -> release.
+#' If you're using `mode: auto` you can selectively show HTML only on the
+#' devel or release site by adding class `pkgdown-devel` or `pkgdown-release`.
+#' This is most easily accessed from `.Rmd` where you can use pandoc's div
+#' syntax to control where a block of markdown will display. For example,
+#' you can use this on your README to only show instructions on how to
+#' install from GitHub on the development version of the site:
+#'
+#' ```
+#' ::: {.pkgdown-devel}
+#' You can install the development version of pkgdown from GitHub with:
+#' `remotes::install_github("r-lib/pkgdown")`
+#' :::
+#' ```
+#'
+#' You can use a similar technique to control where badges are displayed:
+#'
+#' ```
+#' [![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
+#'   (https://cran.r-project.org/package=pkgdown){.pkgdown-release}
+#' ```
+#'
+#' ### Other options
 #'
 #' There are three other options that you can control:
 #'
@@ -112,6 +139,8 @@
 #' theme, but become progressively more eye catching as you go from default
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
+#'
+#'
 #'
 #' @section YAML config - navbar:
 #' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}

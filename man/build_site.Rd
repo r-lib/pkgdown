@@ -126,14 +126,22 @@ The development mode of a site controls four main things:
 \item The optional tooltip associated with the version.
 \item The indexing of the site by search engines.
 }
+\subsection{Setting development mode}{
 
 You can override the default development mode by adding a
 new \code{development} field to \verb{_pkgdown.yml}, e.g.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
-  mode: devel
+  mode: auto
 }\if{html}{\out{</div>}}
 
-There are currently four possible modes:
+There are four possible modes:
 \itemize{
+\item \strong{automatic} (\code{mode: auto}): automatically detects the mode based on the
+version number:
+\itemize{
+\item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased.
+\item four version components: development.
+\item everything else -> release.
+}
 \item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
 Version in navbar gets the default colouring.
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
@@ -143,14 +151,28 @@ is used to ensure that these packages are not indexed by search engines.
 \item \strong{unreleased} (\code{mode: unreleased}). Site is written to \verb{docs/}.
 Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
-\item \strong{automatic} (\code{mode: auto}): pkgdown automatically detects the mode
-based on the version number:
-\itemize{
-\item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased.
-\item four version components: development.
-\item everything else -> release.
 }
 }
+
+\subsection{Selective HTML}{
+
+If you're using \code{mode: auto} you can selectively show HTML only on the
+devel or release site by adding class \code{pkgdown-devel} or \code{pkgdown-release}.
+This is most easily accessed from \code{.Rmd} where you can use pandoc's div
+syntax to control where a block of markdown will display. For example,
+you can use this on your README to only show instructions on how to
+install from GitHub on the development version of the site:\preformatted{::: \{.pkgdown-devel\}
+You can install the development version of pkgdown from GitHub with:
+`remotes::install_github("r-lib/pkgdown")`
+:::
+}
+
+You can use a similar technique to control where badges are displayed:\preformatted{[![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
+  (https://cran.r-project.org/package=pkgdown)\{.pkgdown-release\}
+}
+}
+
+\subsection{Other options}{
 
 There are three other options that you can control:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   destination: dev
@@ -166,6 +188,7 @@ package. It defaults to "danger", but you can set to "default", "info", or
 theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
+}
 }
 
 \section{YAML config - navbar}{
