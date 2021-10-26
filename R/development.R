@@ -3,18 +3,7 @@ meta_development <- function(meta, version, bs_version = 3) {
 
   destination <- purrr::pluck(development, "destination", .default = "dev")
 
-  mode <- purrr::pluck(development, "mode", .default = "default")
-  mode <- switch(mode,
-    auto = dev_mode(version),
-    default = ,
-    release = ,
-    devel = ,
-    unreleased = mode,
-    stop(
-      "development$mode` in `_pkgdown.yml must be one of auto, release, devel, or unreleased",
-      call. = FALSE
-    )
-  )
+  mode <- dev_mode(version, development)
 
   version_label <- purrr::pluck(development, "version_label")
   if (is.null(version_label)) {
@@ -45,7 +34,21 @@ meta_development <- function(meta, version, bs_version = 3) {
   )
 }
 
-dev_mode <- function(version) {
+dev_mode <- function(version, development) {
+  mode <- Sys.getenv("PKGDOWN_DEV_MODE")
+  if (identical(mode, "")) {
+    mode <- purrr::pluck(development, "mode", .default = "default")
+  }
+
+  if (mode == "auto") {
+    mode <- dev_mode_auto(version)
+  }
+  check_mode(mode)
+
+  mode
+}
+
+dev_mode_auto <- function(version) {
   version <- unclass(package_version(version))[[1]]
 
   if (length(version) < 3) {
@@ -60,5 +63,15 @@ dev_mode <- function(version) {
     "unreleased"
   } else {
     "devel"
+  }
+}
+
+check_mode <- function(mode) {
+  valid_mode <- c("auto", "default", "release", "devel", "unreleased")
+  if (!mode %in% valid_mode) {
+    abort(paste0(
+      "`development.mode` in `_pkgdown.yml` must be one of ",
+      paste(valid_mode, collapse = ", ")
+    ))
   }
 }
