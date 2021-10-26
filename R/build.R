@@ -164,6 +164,60 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
+#' @section Analytics:
+#'
+#' To capture usage of your site with a web analytics platform, you can make
+#' use of the `includes` field to add the HTML supplied to you by the platform.
+#' Typically these are either placed `after_body` or `in_header`. I include
+#' a few examples below, but I highly recommend getting the recommended HTML
+#' directly from the platform.
+#'
+#' *   [counter.dev](https://counter.dev)
+#'
+#'     ```yaml
+#'     template:
+#'       includes:
+#'         after_body: >
+#'           <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){
+#'          fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{YOUR USERNAME}",
+#'        utcoffset:"1"}))};sessionStorage.setItem("_swa","1");</script>
+#'     ```
+#'
+#' *   [GoatCounter](https://www.goatcounter.com):
+#'
+#'     ```yaml
+#'     template:
+#'       includes:
+#'         after_body: >
+#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
+#'     ```
+#'
+#' *   [Google analytics](https://analytics.google.com):
+#'
+#'     ```yaml
+#'     template:
+#'       includes:
+#'         in_header: |
+#'            <!-- Global site tag (gtag.js) - Google Analytics -->
+#'            <script async src="https://www.googletagmanager.com/gtag/js?id={YOUR TRACKING ID}"#' ></script>
+#'            <script>
+#'              window.dataLayer = window.dataLayer || [];
+#'              function gtag(){dataLayer.push(arguments);}
+#'              gtag('js', new Date());
+#'
+#'              gtag('config', '{YOUR TRACKING ID}');
+#'            </script>
+#'     ```
+#'
+#' *   [plausible.io](https://plausible.io):
+#'
+#'     ```yaml
+#'     templates:
+#'       includes:
+#'         in_header: |
+#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
+#'     ```
+#'
 #' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,

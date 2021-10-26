@@ -300,6 +300,48 @@ redirect scenarios.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{t
 }
 }
 
+\section{Analytics}{
+
+
+To capture usage of your site with a web analytics platform, you can make
+use of the \code{includes} field to add the HTML supplied to you by the platform.
+Typically these are either placed \code{after_body} or \code{in_header}. I include
+a few examples below, but I highly recommend getting the recommended HTML
+directly from the platform.
+\itemize{
+\item \href{https://counter.dev}{counter.dev}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  includes:
+    after_body: >
+      <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0)\{
+     fetch("https://counter.dev/track?"+new URLSearchParams(\{referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"\{YOUR USERNAME\}",
+   utcoffset:"1"\}))\};sessionStorage.setItem("_swa","1");</script>
+}\if{html}{\out{</div>}}
+\item \href{https://www.goatcounter.com}{GoatCounter}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  includes:
+    after_body: >
+      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
+}\if{html}{\out{</div>}}
+\item \href{https://analytics.google.com}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  includes:
+    in_header: |
+       <!-- Global site tag (gtag.js) - Google Analytics -->
+       <script async src="https://www.googletagmanager.com/gtag/js?id=\{YOUR TRACKING ID\}"#' ></script>
+       <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag()\{dataLayer.push(arguments);\}
+         gtag('js', new Date());
+
+         gtag('config', '\{YOUR TRACKING ID\}');
+       </script>
+}\if{html}{\out{</div>}}
+\item \href{https://plausible.io}{plausible.io}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{templates:
+  includes:
+    in_header: |
+      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
+}\if{html}{\out{</div>}}
+}
+}
+
 \section{Source repository}{
 
 Use the \code{repo} field to override pkgdown's automatically discovery
