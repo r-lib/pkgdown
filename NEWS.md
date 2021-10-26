@@ -163,6 +163,9 @@
 * Automatic links to reference pages were generated incorrectly, and 
   self-links were generated, if the `\name{}` entry in the `*.Rd` file didn't 
   match the filename (@dmurdoch, #1586; #1676).
+  
+* The default "branch" for auto-linking is `HEAD`, which will work regardless
+  of whether your default branch is called "main" or "master".
 
 ## Articles
 

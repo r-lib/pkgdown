@@ -170,7 +170,7 @@
 #' repo:
 #'   url:
 #'     home: https://github.com/r-lib/pkgdown/
-#'     source: https://github.com/r-lib/pkgdown/blob/master/
+#'     source: https://github.com/r-lib/pkgdown/blob/HEAD/
 #'     issue: https://github.com/r-lib/pkgdown/issues/
 #'     user: https://github.com/
 #' ```
@@ -194,13 +194,13 @@
 #'     issue: https://jira.organisation.com/jira/browse/
 #' ```
 #'
-#' pkgdown defaults to using the "master" branch for source file URLs. This can
+#' pkgdown defaults to using the "HEAD" branch for source file URLs. This can
 #' be configured to use a specific branch when linking to source files by
 #' specifying a branch name:
 #'
 #' ```yaml
 #' repo:
-#'   branch: main
+#'   branch: devel
 #' ````
 #'
 #' @section Deployment (`deploy`):

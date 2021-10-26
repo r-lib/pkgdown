@@ -308,7 +308,7 @@ field.
 Otherwise, you can supply your own in the \code{repo} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   url:
     home: https://github.com/r-lib/pkgdown/
-    source: https://github.com/r-lib/pkgdown/blob/master/
+    source: https://github.com/r-lib/pkgdown/blob/HEAD/
     issue: https://github.com/r-lib/pkgdown/issues/
     user: https://github.com/
 }\if{html}{\out{</div>}}
@@ -330,10 +330,10 @@ custom \code{issue} URL as well Jira project names to auto-link in
     issue: https://jira.organisation.com/jira/browse/
 }\if{html}{\out{</div>}}
 
-pkgdown defaults to using the "master" branch for source file URLs. This can
+pkgdown defaults to using the "HEAD" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
 specifying a branch name:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
-  branch: main
+  branch: devel
 }\if{html}{\out{</div>}}
 }
 
