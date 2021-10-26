@@ -3,14 +3,9 @@ a <- function(text, href) {
 }
 
 link_url <- function(text, href) {
-  # Needs to handle NA for desc::desc_get()
-  if (is.null(href) || identical(href, NA)) {
-    return()
+  if (!is.null(href)) {
+    paste0("<a href='", href, "'>", text, "</a>")
   }
-
-  # insert zero-width spaces to allow for nicer line breaks
-  label <- gsub("(/+)", "\\1&#8203;", href)
-  paste0(text, " at <br /><a href='", href, "'>", label, "</a>")
 }
 
 linkify <- function(text) {

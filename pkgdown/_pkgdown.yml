@@ -2,9 +2,6 @@ url: https://pkgdown.r-lib.org
 
 home:
   title: Build websites for R packages
-  links:
-  - text: Ask a question about pkgdown
-    href: https://community.rstudio.com/
 
 authors:
   Jay Hesselberth:
