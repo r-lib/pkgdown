@@ -119,11 +119,7 @@
     - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
   ```
 
-* You can selectively show HTML only on the devel site or release site by
-  adding claseess `pkgdown-devel` and `pkgdown-release`. You can hide HTML on
-  all pkgdown sites with class `pkgdown-hide` (this allows you to show stuff 
-  only on GitHub/CRAN) (#1299).
-
+* The classes `pkgdown-devel` and `pkgdown-release` allow you to declare that certain content should appear only on the devel site or on the release site. Use the class `pkgdown-hide` for content that should only appear only on GitHub/CRAN (#1299).
 ## Code
 
 * `build_reference()` now allows linking to topics from other packages (either 
