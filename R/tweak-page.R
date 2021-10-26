@@ -13,6 +13,7 @@ tweak_page <- function(html, name, pkg = list()) {
   tweak_link_md(html)
   tweak_link_external(html, pkg = pkg)
   tweak_img_src(html)
+  tweak_strip(html, !identical(pkg$development$mode, "release"))
 
   # BS3 uses table for layout of reference-index
   if (name != "reference-index") {

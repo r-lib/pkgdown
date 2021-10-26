@@ -18,21 +18,6 @@
     <div class="ref-usage sourceCode">{{{.}}}</div>
     {{/usage}}
 
-    {{#has_args}}
-    <div id="arguments">
-    <h2>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    {{#arguments}}
-    <tr>
-      <th>{{{name}}}</th>
-      <td>{{{description}}}</td>
-    </tr>
-    {{/arguments}}
-    </table>
-    </div>
-    {{/has_args}}
-
     <div id="ref-sections">
     {{#sections}}
     <div id="{{slug}}">

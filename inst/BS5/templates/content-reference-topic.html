@@ -21,18 +21,6 @@
     </div>
     {{/usage}}
 
-    {{#has_args}}
-    <div id="arguments" class="ref-arguments section level2">
-    <h2>Arguments</h2>
-    <dl>
-    {{#arguments}}
-      <dt id="ref-argument-{{{name}}}">{{{name}}}</dt>
-      <dd>{{{description}}}</dd>
-    {{/arguments}}
-    </dl>
-    </div>
-    {{/has_args}}
-
     <div id="ref-sections">
     {{#sections}}
     <div class="section level2" id="{{slug}}">

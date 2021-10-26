@@ -49,10 +49,10 @@ test_that("determines page style from meta", {
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
-  pkg <- local_pkgdown_site(
-    test_path("assets/news-multi-page"),
-    list(news = list(cran_dates = FALSE))
-  )
+  pkg <- local_pkgdown_site(test_path("assets/news-multi-page"), '
+    news:
+      cran_dates: false
+  ')
   expect_output(build_news(pkg))
 
   # test that index links are correct

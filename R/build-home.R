@@ -9,6 +9,7 @@
 #' * The authors page (from `DESCRIPTION`)
 #' * The citation page (from `inst/CITATION`, if present).
 #' * The license page
+#' * A default 404 page if `.github/404.md` is not found.
 #'
 #' `build_home_index()` rebuilds just the index page; it's useful for rapidly
 #' iterating when experimenting with site styles.
@@ -41,6 +42,11 @@ build_home <- function(pkg = ".",
   build_home_md(pkg)
   build_home_license(pkg)
   build_home_index(pkg, quiet = quiet)
+
+  if (!pkg$development$in_dev) {
+    build_404(pkg)
+  }
+
 
   preview_site(pkg, "/", preview = preview)
 }

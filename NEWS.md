@@ -73,11 +73,11 @@
   `_pkgdown.yml`, which is in turn overridden by `build_site(override =)` 
   (#1499).
 
-* New templates `in-header.html`/`after-head.html`, `before-body.html`, and 
-  `after-body.html` make it easier to add HTML to every page. Their content 
-  will be placed at the end of the `<head>` tag, right below the opening 
-  `<body>` tag, and before the closing tag `</body>` respectively (#1487). 
-  They match the bookdown options `in_header`, `before_body` and `after_body`.
+* New `includes` parameters `in-header`, `before-body`, and `after-body` 
+  make it easy to add arbitrary HTML to every page. Their content will be 
+  placed at the end of the `<head>` tag, right below the opening `<body>` tag, 
+  and before the closing tag `</body>` respectively (#1487). They match the 
+  bookdown options `in_header`, `before_body` and `after_body`.
 
 * Authors configuration is more flexible (#1516). Users can now:
 
@@ -119,6 +119,11 @@
     - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
   ```
 
+* Use HTML classes `pkgdown-devel` or `pkgdown-release` to declare that certain 
+  content should appear only on the devel or release site. Use the class
+  `pkgdown-hide` for content that should only appear only on GitHub/CRAN 
+  (#1299).
+
 ## Code
 
 * `build_reference()` now allows linking to topics from other packages (either 
@@ -148,14 +153,19 @@
 
 * Fix rendering of `\special{}` tags with complex contents (@klmr, #1744).
 
-* `\value{}` now does a better job of handling multiple mingled items and text 
-  (#1479).
+* `\value{}` and `\arguments{}` now do a better job of handling multiple 
+  mingled items and text (#1479).
+
+* The contents of `\value{}` are now shown immediately after `\arguments{}`.
 
 * Autolinking no longer fails if a package contains duplicated Rd aliases.
 
 * Automatic links to reference pages were generated incorrectly, and 
   self-links were generated, if the `\name{}` entry in the `*.Rd` file didn't 
   match the filename (@dmurdoch, #1586; #1676).
+  
+* The default "branch" for auto-linking is `HEAD`, which will work regardless
+  of whether your default branch is called "main" or "master".
 
 ## Articles
 
@@ -261,7 +271,14 @@
 * pkgdown's `deploy_to_branch()` now cleans out the website directory by default 
   (`clean = TRUE`). Revert to previous behaviour with `clean = FALSE` (#1394).
 
+* You can override the `auto` development mode detected from the package 
+  version by setting env var `PKGDOWN_DEV_MODE` to `release` or `devel`.
+  This is useful if your package uses a different convention to indicate
+  development and release versions (#1081).
+
 ## Other minor improvements and bug fixes 
+
+* Links on the homepage no longer show the full url in the text.
 
 * Make authors' non-ORCID comments from `DESCRIPTION` more usable as 
   bio/description of contributions: add a link to the authors page from the 

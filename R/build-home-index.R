@@ -147,14 +147,13 @@ data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   repo <- cran_link(pkg$package)
-  meta <- purrr::pluck(pkg, "meta", "home", "links")
+  links <- purrr::pluck(pkg, "meta", "home", "links")
 
   links <- c(
-    link_url(paste0("Download from ", repo$repo), repo$url),
+    link_url(paste0("View on ", repo$repo), repo$url),
     link_url("Browse source code", repo_home(pkg)),
-    if (pkg$desc$has_fields("BugReports"))
-      link_url("Report a bug", pkg$desc$get("BugReports")[[1]]),
-    purrr::map_chr(meta, ~ link_url(.$text, .$href))
+    link_url("Report a bug", pkg$desc$get_field("BugReports", default = NULL)),
+    purrr::map_chr(links, ~ link_url(.$text, .$href))
   )
 
   sidebar_section("Links", links)
@@ -199,7 +198,7 @@ cran_link <- memoise(function(pkg) {
   bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
   req <- httr::RETRY("HEAD", bioc_url, quiet = TRUE)
   if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
-    return(list(repo = "BIOC", url = bioc_url))
+    return(list(repo = "Bioconductor", url = bioc_url))
   }
 
   NULL

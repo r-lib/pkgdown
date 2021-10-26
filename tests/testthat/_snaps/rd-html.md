@@ -60,3 +60,35 @@
     Error <rlang_error>
       Failed to parse \linkS4class{}.
 
+# \describe items can contain multiple paragraphs
+
+    <dl>
+    <dt>Label 1</dt>
+    <dd><p>Contents 1</p></dd>
+    
+    <dt>Label 2</dt>
+    <dd><p>Contents 2</p></dd>
+    
+    
+    </dl>
+
+---
+
+    <dl>
+    <dt>Label</dt>
+    <dd><p>Paragraph 1</p>
+    <p>Paragraph 2</p></dd>
+    
+    
+    </dl>
+
+# nested item with whitespace parsed correctly
+
+    <dl>
+    <dt>Label</dt>
+    <dd>
+    
+    <p>This text is indented in a way pkgdown doesn't like.</p></dd>
+    
+    </dl>
+

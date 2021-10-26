@@ -17,24 +17,6 @@ as_data.tag_usage <- function(x, ...) {
   highlight_text(text)
 }
 
-# Arguments ------------------------------------------------------------------
-
-#' @export
-as_data.tag_arguments <- function(x, ...) {
-  x %>%
-    purrr::keep(inherits, "tag_item") %>%
-    purrr::map(as_data, ...)
-}
-
-#' @export
-as_data.tag_item <- function(x, ...) {
-
-  list(
-    name = as_html(x[[1]], ...),
-    description = flatten_para(x[[2]], ...)
-  )
-}
-
 # Sections ----------------------------------------------------------------
 
 parse_section <- function(x, title, ...) {
@@ -84,30 +66,56 @@ as_data.tag_seealso <- function(x, ...) {
 as_data.tag_section <- function(x, ...) {
   parse_section(x[[2]], as_html(x[[1]], ...), ...)
 }
+
+# \arguments{} & \details{} -----------------------------------------------
+# Both are like the contents of \description{} but can contain arbitrary
+# text outside of \item{}
+
+#' @export
+as_data.tag_arguments <- function(x, ...) {
+  list(
+    title = "Arguments",
+    contents = describe_contents(x, ...)
+  )
+}
+
 #' @export
 as_data.tag_value <- function(x, ...) {
-  # \value is a mixture of \items (which should be put inside of \describe)
-  # and other blocks
+  list(
+    title = "Value",
+    contents = describe_contents(x, ...)
+  )
+}
 
+describe_contents <- function(x, ...) {
+  # Drop pure whitespace nodes between items
+  is_ws <- purrr::map_lgl(x, is_whitespace)
+  x <- x[!is_ws]
+
+  # Group continguous \items{} into a <dl>
   is_item <- purrr::map_lgl(x, inherits, "tag_item")
   changed <- is_item[-1] != is_item[-length(is_item)]
   group <- cumsum(c(TRUE, changed))
 
   parse_piece <- function(x) {
     if (inherits(x[[1]], "tag_item")) {
-      paste0("<dl>\n", parse_descriptions(x, ...), "\n</dl>")
+      paste0("<dl>\n", parse_descriptions(x, ...), "</dl>")
     } else {
       flatten_para(x, ...)
     }
   }
   pieces <- split(x, group)
   out <- purrr::map(pieces, parse_piece)
-  list(
-    title = "Value",
-    contents = paste(unlist(out), collapse = "\n")
-  )
+
+  paste(unlist(out), collapse = "\n")
 }
 
+is_whitespace <- function(x) {
+  inherits(x, "TEXT") && all(grepl("^\\s*$", x))
+}
+
+
+# For testing
 value2html <- function(x) {
   rd <- rd_text(paste0("\\value{", x, "}"), fragment = FALSE)[[1]]
   html <- as_data(rd)$contents

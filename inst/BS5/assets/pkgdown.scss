@@ -21,6 +21,19 @@
   background: change-color($primary, $alpha: 0.1);
 }
 
+.navbar-dark {
+  input[type="search"] {
+    border-color: $gray-600;
+    background-color: $gray-900;
+    color: $gray-200;
+  }
+}
+
+input[type="search"] {
+  border-color: $border-color;
+  width: 12rem;
+}
+
 /* headroom.js -------------------------------------------------------------- */
 
 .headroom {
@@ -255,11 +268,8 @@ h2, h3, h4, h5, h6 {
 
 // orcid badge
 .orcid {
-  font-size: 16px;
   color: #A6CE39;
-  margin-left: 4px;
   margin-right: 4px;
-  vertical-align: middle;
 }
 
 // copy button
@@ -305,6 +315,18 @@ img.logo {
 // contain other tags
 .line-block {
   margin-bottom: 1rem;
+}
+
+// Override bootstrap defaults that make sense in page bodies, but not on
+// the reference index
+.template-reference-index {
+  dt {font-weight: normal;}
+  // Don't allow breaking within a function name
+  code {word-wrap: normal;}
+}
+.icon {
+  float: right;
+  img {width: 40px;}
 }
 
 /* Footnotes ---------------------------------------------------------------- */
@@ -383,16 +405,18 @@ pre, pre code {
 
 pre code {
   padding: 0;
-}
-pre code a:any-link {
-  color: inherit;
+  background: transparent;
+
+  a:any-link {
+    color: inherit;
+  }
 }
 
 pre .img, pre .r-plt {
-  margin: 5px 0;
-}
-pre .img img, pre .r-plt img {
-  background-color: #fff;
+  img {
+    margin: 5px 0;
+    background-color: #fff;
+  }
 }
 
 code a:any-link {

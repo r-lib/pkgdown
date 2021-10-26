@@ -387,8 +387,8 @@ parse_descriptions <- function(rd, ...) {
   parse_item <- function(x) {
     if (inherits(x, "tag_item")) {
       paste0(
-        "<dt>", flatten_text(x[[1]], ...), "</dt>",
-        "<dd>", flatten_para(x[-1], ...), "</dd>"
+        "<dt>", flatten_text(x[[1]], ...), "</dt>\n",
+        "<dd>", flatten_para(x[[2]], ...), "</dd>\n"
       )
     } else {
       flatten_text(x, ...)

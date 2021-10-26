@@ -90,7 +90,7 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 
 repo_meta_gh_like <- function(link, branch = NULL) {
   gh <- parse_github_like_url(link)
-  branch <- branch %||% "master"
+  branch <- branch %||% "HEAD"
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),

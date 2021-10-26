@@ -166,3 +166,13 @@ tweak_footnotes <- function(html) {
   # Delete container
   xml2::xml_remove(container)
 }
+
+tweak_strip <- function(html, in_dev = FALSE) {
+  to_remove <- if (in_dev) "pkgdown-release" else "pkgdown-devel"
+  xpath <- paste0(
+    ".//*[contains(@class, '", to_remove, "')]|",
+    ".//*[contains(@class, 'pkgdown-hide')]"
+  )
+  nodes <- xml2::xml_find_all(html, xpath)
+  xml2::xml_remove(nodes)
+}

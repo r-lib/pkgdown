@@ -37,21 +37,21 @@ test_that("reference index table is not altered", {
 
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
-    <div id='contents'><h2></h2><h2></h2></div>
+    <div id='container'><h2></h2><h2></h2></div>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 1)
 
   html <- xml2::read_html("<body>
-    <div id='contents'><h2></h2></div>
+    <div id='container'><h2></h2></div>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
 
   html <- xml2::read_html("<body>
-    <div id='contents'></div>
+    <div id='container'></div>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)

@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 ```
 
 This vignette teaches you how to customise the style/design of your pkgdown site.
-We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yaml`: **theming** (colours and fonts) and **layout** (content of the navbar, sidebar, footer, ...).
-We'll then discuss how to customise the underlying HTML **templates**; this is needed less commonly, but gives you full control over the site.
-Next, we'll discuss how to give multiple sites the same style using a **package**, then finish up with some workflow advice.
+We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yaml`: theming (colours and fonts) and layout (content of the navbar, sidebar, footer, ...).
+We'll then discuss how to add additional HTML and other files.
+Next, we'll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.
 
 ```{r setup}
 library(pkgdown)
@@ -133,6 +133,7 @@ navbar:
 You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootstwatch preview](https://bootswatch.com/).
 Similarly, you don't usually need to set `type` because bootstrap will guess it for you.
 If it guesses wrong, override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
+Unfortunately these are defined relative to the page background, so if you have a dark site you'll need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
 
 Because the navbar is styled with HTML, you'll need to `build_home_index(); init_site()` to see the effect of changing this parameter.
 
@@ -156,41 +157,25 @@ They all use a similar structure that separately defines the overall `structure`
 ```{r child = "../man/rmd-fragments/sidebar-configuration.Rmd"}
 ```
 
-## Templates {#templates}
+## Additional HTML and files
 
-Bigger layout changes require tinkering with pkgdown **templates**.
-You can see the defaults, found in `inst/templates,` in [pkgdown source](https://github.com/r-lib/pkgdown).
+If you need to include additional HTML, you can add it in three locations:
 
-### Blank templates
+``` yaml
+template:
+  includes:
+    in_header: <!-- inserted at the end of the head -->
+    before_body: <!-- inserted at the beginging of the body -->
+    after_body: <!-- inserted at the end of the body -->
+```
 
-There are three pkgdown templates that are empty by default.
-This makes it easier to add custom HTML in common places:
+You can add additional files by putting them in the right place:
 
--   `in-header.html` is inserted right before closing the head tag.
--   `before-body.html` is inserted right after opening the body tag.
--   `after-body.html` is inserted right before closing the body tag.
-
-To add content to these templates:
-
--   Create a folder `pkgdown/templates`.
--   Create `in-header.html`, `before-body.html` or `after-body.html` in that folder.
--   Edit and save that file.
--   Re-build your site and review it.
-
-### Other templates
-
-It is possible to customise other templates, but this is recommended for advanced users only because you'll need to keep it up to date as pkgdown itself changes.
-For example, if you've used `head.html` in the past, we now recommend switching to using `in-header.html` instead.
-
-Note that template can only access data that pkgdown specifically supplies; you can learn more in the documentation and source code of `render_page()`.
-
-### Extra files
-
--   `pkgdown/extra.css` and `pkgdown/extra.js` will be copied to the destination directory and linked from `<head>` (after the pkgdown defaults).
+-   `pkgdown/extra.css` and `pkgdown/extra.js` will be copied in to rendered site and linked from `<head>` (after the pkgdown defaults).
 
 -   `pkgdown/extra.scss` will be added to the scss ruleset used to generate the site CSS.
 
--   Any additional files in `pkgdown/assets` will be copied to the destination directory.
+-   Any files in `pkgdown/assets` will be copied to the website root directory.
 
 Use `init_site()` to update your rendered website after making changes to these files.
 
@@ -230,7 +215,10 @@ But please note that these templates aren't suitable for use with your own packa
 
 ### Porting a template package
 
-If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you don't have any templates/assets make sure to a add dummy file to ensure that git tracks them). The `templates` and `assets` directories directly under `inst/pkgdown` will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`. The directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0 with `boostrap: 5`. This lets your package support both versions of bootstrap and pkgdown.
+If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you don't have any templates/assets make sure to a add dummy file to ensure that git tracks them).
+The `templates` and `assets` directories directly under `inst/pkgdown` will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`.
+The directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0 with `boostrap: 5`.
+This lets your package support both versions of bootstrap and pkgdown.
 
 ## PR previews
 

@@ -115,6 +115,6 @@ test_that("package repo verification", {
   )
   expect_equal(
     cran_link("Biobase"),
-    list(repo = "BIOC", url = "https://www.bioconductor.org/packages/Biobase")
+    list(repo = "Bioconductor", url = "https://www.bioconductor.org/packages/Biobase")
   )
 })

@@ -30,6 +30,7 @@ including:
 \item The authors page (from \code{DESCRIPTION})
 \item The citation page (from \code{inst/CITATION}, if present).
 \item The license page
+\item A default 404 page if \verb{.github/404.md} is not found.
 }
 
 \code{build_home_index()} rebuilds just the index page; it's useful for rapidly
