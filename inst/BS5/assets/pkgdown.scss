@@ -84,43 +84,33 @@ html, body {
     margin-top: 0;
   }
 
-  #pkgdown-sidebar {
-    margin: 0.5rem 0.5rem 0.5rem;
+  #pkgdown-sidebar.toc {
+    margin: calc(#{$pkgdown-nav-height} + 0.5rem) 0.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
     width: calc(100vw - 1rem);
     background-color: $gray-100;
     border-color: $border-color;
     @include border-radius($border-radius);
-    padding: 0.5rem;
+    line-height: 1.8;
 
-    &.toc {
-      margin: calc(#{$pkgdown-nav-height} + 0.5rem) 0.5rem 0.5rem 0.5rem;
-      line-height: 1.8;
-
-      h2 {
-        font-size: 1rem;
-        display: inline;
-        margin-right: 0.5rem;
-      }
-      h2:after {
-        content: ": ";
-      }
-      nav {display: inline}
-      ul, ul > li, ul > li > a {display: inline; }
-      .nav {display: inline !important;}
-
-      .nav a.nav-link {
-        padding: 0;
-        margin-right: 0.5rem;
-
-        &:hover, &:focus {
-          background-color: inherit;
-          text-decoration: underline;
-        }
-      }
+    h2 {
+      font-size: 1rem;
+      display: inline;
+      margin-right: 0.5rem;
+      &:after {content: ": ";}
     }
 
-    h2:first-child {
-      margin-top: 0.5rem;
+    nav {display: inline}
+    ul, ul > li, ul > li > a {display: inline; }
+
+    .nav a.nav-link {
+      padding: 0;
+      margin-right: 0.5rem;
+
+      &:hover, &:focus {
+        background-color: inherit;
+        text-decoration: underline;
+      }
     }
   }
 }
