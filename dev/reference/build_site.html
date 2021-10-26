@@ -91,7 +91,7 @@ whole site."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.p
   <div class="col-md-9 contents">
     <div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Build a complete pkgdown website</h1>
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/R/build.R" class="external-link"><code>R/build.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/R/build.R" class="external-link"><code>R/build.R</code></a></small>
       <div class="d-none name"><code>build_site.Rd</code></div>
     </div>
 
@@ -306,6 +306,28 @@ For example, the following yaml adds a new "twitter" component that appears to t
 and <code>bg</code> parameters. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
     </div>
     <div class="section level2">
+    <h2 id="footer">Footer<a class="anchor" aria-label="anchor" href="#footer"></a></h2>
+    
+
+<p>You can customise the footer with the <code>footer</code> field.
+It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
+<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre><p></p></div>
+<p>Which draws from the two built-in components:</p><ul><li><p><code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</p></li>
+<li><p><code>built_with</code>, a sentence advertising pkgdown</p></li>
+</ul><p>You can override these defaults with the <code>footer</code> field.
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre><p></p></div>
+<p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
+    </div>
+    <div class="section level2">
     <h2 id="search">Search<a class="anchor" aria-label="anchor" href="#search"></a></h2>
     
 
@@ -341,7 +363,7 @@ field.</p>
 <p>Otherwise, you can supply your own in the <code>repo</code> field:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/master/</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/HEAD/</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
 <li><p><code>source:</code>: path to source of individual file in master branch.</p></li>
@@ -355,10 +377,10 @@ custom <code>issue</code> URL as well Jira project names to auto-link in
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">jira_projects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">this_project</span><span class="kw">,</span><span class="at"> another_project</span><span class="kw">]</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://jira.organisation.com/jira/browse/</span></span></code></pre><p></p></div>
-<p>pkgdown defaults to using the "master" branch for source file URLs. This can
+<p>pkgdown defaults to using the "HEAD" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
 specifying a branch name:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre><p></p></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="deployment-deploy-">Deployment (<code>deploy</code>)<a class="anchor" aria-label="anchor" href="#deployment-deploy-"></a></h2>
@@ -371,28 +393,6 @@ available for autolinking even if your website is not reachable at build
 time (e.g. because behind a firewall or requires auth).</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="footer">Footer<a class="anchor" aria-label="anchor" href="#footer"></a></h2>
-    
-
-<p>You can customise the footer with the <code>footer</code> field.
-It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre><p></p></div>
-<p>Which draws from the two built-in components:</p><ul><li><p><code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</p></li>
-<li><p><code>built_with</code>, a sentence advertising pkgdown</p></li>
-</ul><p>You can override these defaults with the <code>footer</code> field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre><p></p></div>
-<p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
-    </div>
     <div class="section level2">
     <h2 id="redirects">Redirects<a class="anchor" aria-label="anchor" href="#redirects"></a></h2>
     
