@@ -11,74 +11,46 @@
 #' * [build_news()]
 #'
 #' See the documentation for the each function to learn how to control
-#' that aspect of the site.
+#' that aspect of the site. This page documents options that affect the
+#' whole site.
 #'
-#' Note if names of generated files were changed, you will need to use
-#' [clean_site()] first to clean up orphan files.
+#' @section General config:
+#' *  `destination` controls where the site will be generated, defaulting to
+#'    `docs/`. Paths are relative to the package root.
 #'
-#' @section YAML config:
-#' There are five top-level YAML settings that affect the entire site:
-#' `destination`, `url`, `title`, `template`, and `navbar`.
+#' *  `url` is optional, but strongly recommended.
 #'
-#' `destination` controls where the site will be generated. It defaults to
-#' `docs/` (for GitHub pages), but you can override if desired. Relative
-#' paths will be taken relative to the package root.
+#'    ```yaml
+#'    url: https://pkgdown.r-lib.org
+#'    ```
 #'
-#' `url` is optional, but strongly recommended.
-#' It specifies where the site will be published and is used to:
-#' * Allow other pkgdown sites to link to your site when needed,
-#'   rather than using generic links to <https://rdrr.io>.
-#'   See `vignette("linking")` for more information.
-#' * Generate a `sitemap.xml`, increasing the searchability of your site.
-#' * Automatically generate a `CNAME` when
-#'   [deploying to github][deploy_site_github].
-#' * Generate metadata used by Twitter and the Open Graph protocol
-#'   for rich social media cards, see `vignette("metadata")`.
-#' * Adds the "external-link" class to external links
-#'   for sites using BS4, see `vignette("customise")`.
+#'    It specifies where the site will be published and is used to allow other
+#'    pkgdown sites to link to your site when needed (`vignette("linking")`),
+#'    generate a `sitemap.xml`, automatically generate a `CNAME` when
+#'    [deploying to github][deploy_site_github], generate the metadata needed
+#'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
-#' ```yaml
-#' url: https://pkgdown.r-lib.org
-#' ```
-#'
-#' `title` overrides the default site title, which is the package name.
-#' It's used in the page title and default navbar.
-#'
-#' You can also provided information to override the default display of
-#' the authors. Provided a list named with the name of each author,
-#' including `href` to add a link, or `html` to override the
-#' text:
-#'
-#' ```yaml
-#' authors:
-#'   Hadley Wickham:
-#'     href: http://hadley.nz
-#'   RStudio:
-#'     href: https://www.rstudio.com
-#'     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
-#' ```
+#' *  `title` overrides the default site title, which is the package name.
+#'    It's used in the page title and default navbar.
 #'
 #' @section Development mode:
-#' The development mode of a site controls four main things:
-#'
-#' * Where the site is built.
-#' * The colour of the package version in the navbar.
-#' * The optional tooltip associated with the version.
-#' * The indexing of the site by search engines.
-#'
-#' ### Setting development mode
-#'
-#' You can override the default development mode by adding a
-#' new `development` field to `_pkgdown.yml`, e.g.
+#' The `development` field allows you to generate different sites for the
+#' development and released versions of your package. To use it, you first
+#' need to set the development `mode`:
 #'
 #' ```yaml
 #' development:
 #'   mode: auto
 #' ```
 #'
-#' There are four possible modes:
+#' ### Setting development mode
 #'
-#' * **automatic** (`mode: auto`): automatically detects the mode based on the
+#' The development `mode` of a site controls where the site is built,
+#' the colour of the package version in the navbar, the version tooltip,
+#' and whether or not the site is indexed by search engines. There are
+#' four possible modes:
+#'
+#' * **automatic** (`mode: auto`): automatically determines the mode based on the
 #'   version number:
 #'
 #'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
@@ -89,7 +61,7 @@
 #'   Version in navbar gets the default colouring.
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
-#'   Version in navbar gets the "danger" class and a message stating these are
+#'   The navbar version gets a "danger" class and a tooltip stating these are
 #'   docs for an in-development version of the package. The `noindex` meta tag
 #'   is used to ensure that these packages are not indexed by search engines.
 #'
@@ -99,25 +71,29 @@
 #'
 #' ### Selective HTML
 #'
-#' If you're using `mode: auto` you can selectively show HTML only on the
-#' devel or release site by adding class `pkgdown-devel` or `pkgdown-release`.
-#' This is most easily accessed from `.Rmd` where you can use pandoc's div
-#' syntax to control where a block of markdown will display. For example,
-#' you can use this on your README to only show instructions on how to
-#' install from GitHub on the development version of the site:
+#' You can selectively show HTML only on the devel or release site by adding
+#' class `pkgdown-devel` or `pkgdown-release`. This is most easily accessed
+#' from `.Rmd` files where you can use pandoc's `<div>` syntax to control
+#' where a block of markdown will display. For example, you can use the
+#' following markdown in your README to only show GitHub install instructions
+#' on the development version of your site:
 #'
-#' ```
+#' ```md
 #' ::: {.pkgdown-devel}
 #' You can install the development version of pkgdown from GitHub with:
 #' `remotes::install_github("r-lib/pkgdown")`
 #' :::
 #' ```
 #'
-#' You can use a similar technique to control where badges are displayed:
+#' You can use a similar technique to control where badges are displayed.
+#' This markdown show the CRAN status badge on the site for the released
+#' package and the GitHub check status for the development package:
 #'
-#' ```
+#' ```md
 #' [![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
 #'   (https://cran.r-project.org/package=pkgdown){.pkgdown-release}
+#' [![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)]
+#'   (https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}
 #' ```
 #'
 #' ### Other options
@@ -140,104 +116,55 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#'
-#'
-#' @section YAML config - navbar:
+#' @section Navigation bar:
 #' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
 #' ```
 #'
 #' You can also customise the colour scheme of the navbar by using the `type`
 #' and `bg` parameters. See `vignette("customise")` for more details.
 #'
-#' @section YAML config - search:
-#' See `vignette("search")`
-#'
-#' @section YAML config - template:
-#' You can get complete control over the appearance of the site using the
-#' `template` component. There are two components to the template:
-#' the HTML templates used to layout each page, and the css/js assets
-#' used to render the page in the browser.
-#'
-#' The easiest way to tweak the default style is to use a bootswatch template,
-#' by passing on the `bootswatch` template parameter to the built-in
-#' template:
-#'
-#' ```yaml
-#' template:
-#'   bootswatch: cerulean
+#' @section Footer:
+#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
 #' ```
 #'
+#' @section Search:
+#' The `search` field controls the built-in search. See `vignette("search")`
+#' for details.
+#'
+#' @section Template:
+#' The `template` field is mostly used to control the appearance of the site.
 #' See `vignette("customise")` for details.
 #'
-#' Optionally provide the `ganalytics` template parameter to enable
-#' [Google Analytics](https://marketingplatform.google.com/about/analytics/).
-#' It should correspond to your
-#' [tracking id](https://support.google.com/analytics/answer/1008080).
+#' There are two other `template` fields that control other aspects of the
+#' site:
 #'
-#' When enabling Google Analytics, be aware of the type and amount of
-#' user information that you are collecting. You may wish to limit the
-#' extent of data collection or to add a privacy disclosure to your
-#' site, in keeping with current laws and regulations.
+#' *   `noindex: true` will suppress indexing of your pages by search engines:
 #'
-#' ```yaml
-#' template:
-#'   params:
-#'     ganalytics: UA-000000-01
-#' ```
+#'     ```yaml
+#'     template:
+#'       params:
+#'         noindex: true
+#'     ```
 #'
-#' Suppress indexing of your pages by web robots by setting `noindex:
-#' true`:
+#' *   `trailing_slash_redirect: true` will automatically redirect
+#'     `your-package-url.com` to `your-package-url.com/`, using a JS script
+#'      added to the `<head>` of the home page. This is useful in certain
+#'      redirect scenarios.
 #'
-#' ```yaml
-#' template:
-#'   params:
-#'     noindex: true
-#' ```
+#'      ```yaml
+#'      template:
+#'        trailing_slash_redirect: true
+#'      ```
 #'
-#' You can also override the default templates and provide additional
-#' assets. You can do so by either storing them in the
-#' directories `pkgdown/assets` and `pkgdown/templates`,
-#' or by supplying `path` and `asset_path` pointing to alternative folders.
-#' To suppress inclusion
-#' of the default assets, set `default_assets` to false.
+#' @section Source repository:
+#' Use the `repo` field to override pkgdown's automatically discovery
+#' of your source repository. This is used in the navbar, on the homepage,
+#' in articles and reference topics, and in the changelog (to link to issue
+#' numbers and user names). pkgdown can automatically figure out the necessary
+#' URLs if you link to a GitHub or GitLab repo in your `BugReports` or `URL`
+#' field.
 #'
-#' ```yaml
-#' template:
-#'   path: path/to/templates
-#'   assets: path/to/assets
-#'   default_assets: false
-#' ```
-#'
-#' These settings are currently recommended for advanced users only. There
-#' is little documentation, and you'll need to read the existing source
-#' for pkgdown templates to ensure that you use the correct components.
-#'
-#' For further information including how to provide templates and assets in
-#' a separate package, see `vignette("customise")`c.
-#'
-#' You can use the `trailing_slash_redirect` to automatically redirect
-#' `your-package-url.com` to `your-package-url.com/`, using a JS script
-#'  added to the `<head>` of the home page.
-#'
-#' ```yaml
-#' template:
-#'   trailing_slash_redirect: true
-#' ```
-#'
-#' @section YAML config - repo:
-#' pkgdown automatically generates links to the source repository in a few
-#' places
-#'
-#' * Articles and documentation topics are linked back to the
-#'   underlying source file.
-#'
-#' * The NEWS automatically links issue numbers and user names.
-#'
-#' * The homepage provides a link to  "Browse source code"
-#'
-#' pkgdown automatically figures out the necessary URLs if you link to a GitHub
-#' or GitLab repo in your `BugReports` or `URL` field. Otherwise, you can
-#' supply your own in the `repo` component:
+#' Otherwise, you can supply your own in the `repo` field:
 #'
 #' ```yaml
 #' repo:
@@ -256,15 +183,13 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
-#' pkgdown can automatically link to Jira issues as well, but you must specify
-#' both a custom `issue` URL as well as your Jira project names to auto-link in
-#' `jira_projects`. You can specify as many projects as you would like in a last
-#' (in the example below we would link both the `PROJ` and `OTHER` Jira
-#' projects):
+#' pkgdown can automatically link to Jira issues as well if specify both a
+#' custom `issue` URL as well Jira project names to auto-link in
+#' `jira_projects`. You can specify as many projects as you would like:
 #'
 #' ```yaml
 #' repo:
-#'   jira_projects: [PROJ, OTHER]
+#'   jira_projects: [this_project, another_project]
 #'   url:
 #'     issue: https://jira.organisation.com/jira/browse/
 #' ```
@@ -278,23 +203,21 @@
 #'   branch: main
 #' ````
 #'
-#' @section YAML config - deploy:
-#' `deploy` currently offers a single parameter:
+#' @section Deployment (`deploy`):
+#' There is a single `deploy` field
 #'
 #' *  `install_metadata` allows you to install package index metadata into
 #'    the package itself. Normally this metadata is made available on the
 #'    published site; installing it into your package means that it's
 #'    available for autolinking even if your website is not reachable at build
-#'    time (e.g. because it's only behind the firewall or requires auth).
+#'    time (e.g. because behind a firewall or requires auth).
 #'
 #'    ```yaml
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#' @section YAML config - footer:
-#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
-#' ```
-#' @section YAML config - redirects:
+#'
+#' @section Redirects:
 #' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
 #' ```
 #'
