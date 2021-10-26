@@ -197,10 +197,19 @@ text:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-
 <li><p>The colour of the package version in the navbar.</p></li>
 <li><p>The optional tooltip associated with the version.</p></li>
 <li><p>The indexing of the site by search engines.</p></li>
-</ul><p>You can override the default development mode by adding a
+</ul><div class="section">
+<h3 id="setting-development-mode">Setting development mode<a class="anchor" aria-label="anchor" href="#setting-development-mode"></a></h3>
+
+
+<p>You can override the default development mode by adding a
 new <code>development</code> field to <code>_pkgdown.yml</code>, e.g.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">development</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
-<p>There are currently four possible modes:</p><ul><li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre><p></p></div>
+<p>There are four possible modes:</p><ul><li><p><strong>automatic</strong> (<code>mode: auto</code>): automatically detects the mode based on the
+version number:</p><ul><li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased.</p></li>
+<li><p>four version components: development.</p></li>
+<li><p>everything else -&gt; release.</p></li>
+</ul></li>
+<li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
 Version in navbar gets the default colouring.</p></li>
 <li><p><strong>development</strong> (<code>mode: devel</code>). Site is written to <code>docs/dev/</code>.
 Version in navbar gets the "danger" class and a message stating these are
@@ -209,12 +218,34 @@ is used to ensure that these packages are not indexed by search engines.</p></li
 <li><p><strong>unreleased</strong> (<code>mode: unreleased</code>). Site is written to <code>docs/</code>.
 Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.</p></li>
-<li><p><strong>automatic</strong> (<code>mode: auto</code>): pkgdown automatically detects the mode
-based on the version number:</p><ul><li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): unreleased.</p></li>
-<li><p>four version components: development.</p></li>
-<li><p>everything else -&gt; release.</p></li>
-</ul></li>
-</ul><p>There are three other options that you can control:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+</ul></div>
+
+<div class="section">
+<h3 id="selective-html">Selective HTML<a class="anchor" aria-label="anchor" href="#selective-html"></a></h3>
+
+
+<p>If you're using <code>mode: auto</code> you can selectively show HTML only on the
+devel or release site by adding class <code>pkgdown-devel</code> or <code>pkgdown-release</code>.
+This is most easily accessed from <code>.Rmd</code> where you can use pandoc's div
+syntax to control where a block of markdown will display. For example,
+you can use this on your README to only show instructions on how to
+install from GitHub on the development version of the site:</p><pre><code>::: {.pkgdown-devel}
+You can install the development version of pkgdown from GitHub with:
+`remotes::install_github("r-lib/pkgdown")`
+:::
+</code></pre>
+
+<p>You can use a similar technique to control where badges are displayed:</p><pre><code>[![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
+  (https://cran.r-project.org/package=pkgdown){.pkgdown-release}
+</code></pre>
+
+</div>
+
+<div class="section">
+<h3 id="other-options">Other options<a class="anchor" aria-label="anchor" href="#other-options"></a></h3>
+
+
+<p>There are three other options that you can control:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">development</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">destination</span><span class="kw">:</span><span class="at"> dev</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">version_label</span><span class="kw">:</span><span class="at"> danger</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="fu">version_tooltip</span><span class="kw">:</span><span class="at"> </span><span class="st">"Custom message here"</span></span></code></pre><p></p></div>
@@ -226,6 +257,8 @@ package. It defaults to "danger", but you can set to "default", "info", or
 theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
+</div>
+
     </div>
     <div class="section level2">
     <h2 id="yaml-config-navbar">YAML config - navbar<a class="anchor" aria-label="anchor" href="#yaml-config-navbar"></a></h2>
