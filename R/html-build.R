@@ -3,10 +3,7 @@ a <- function(text, href) {
 }
 
 link_url <- function(text, href) {
-  # Needs to handle NA for desc::desc_get()
-  if (is.null(href) || identical(href, NA)) {
-    return()
-  } else {
+  if (!is.null(href)) {
     paste0("<a href='", href, "'>", text, "</a>")
   }
 }
