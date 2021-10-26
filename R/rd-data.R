@@ -88,20 +88,30 @@ as_data.tag_value <- function(x, ...) {
 }
 
 describe_contents <- function(x, ...) {
+  # Drop pure whitespace nodes between items
+  is_ws <- purrr::map_lgl(x, is_whitespace)
+  x <- x[!is_ws]
+
+  # Group continguous \items{} into a <dl>
   is_item <- purrr::map_lgl(x, inherits, "tag_item")
   changed <- is_item[-1] != is_item[-length(is_item)]
   group <- cumsum(c(TRUE, changed))
 
   parse_piece <- function(x) {
     if (inherits(x[[1]], "tag_item")) {
-      paste0("<dl>\n", parse_descriptions(x, ...), "\n</dl>")
+      paste0("<dl>\n", parse_descriptions(x, ...), "</dl>")
     } else {
       flatten_para(x, ...)
     }
   }
   pieces <- split(x, group)
   out <- purrr::map(pieces, parse_piece)
+
   paste(unlist(out), collapse = "\n")
+}
+
+is_whitespace <- function(x) {
+  inherits(x, "TEXT") && all(grepl("^\\s*$", x))
 }
 
 

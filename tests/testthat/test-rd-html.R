@@ -352,6 +352,25 @@ test_that("simple lists work", {
   )
 })
 
+test_that("\\describe items can contain multiple paragraphs", {
+  out <- rd2html("\\describe{
+    \\item{Label 1}{Contents 1}
+    \\item{Label 2}{Contents 2}
+  }")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
+test_that("\\describe items can contain multiple paragraphs", {
+  out <- rd2html("\\describe{
+    \\item{Label}{
+      Paragraph 1
+
+      Paragraph 2
+    }
+  }")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
 test_that("nested item with whitespace parsed correctly", {
   out <- rd2html("
     \\describe{
@@ -359,11 +378,7 @@ test_that("nested item with whitespace parsed correctly", {
 
       This text is indented in a way pkgdown doesn't like.
   }}")
-  expect_equal(out, c(
-    "<dl>",
-    "<dt>Label</dt><dd><p>This text is indented in a way pkgdown doesn't like.</p></dd>",
-    "</dl>"
-  ))
+  expect_snapshot_output(cat(out, sep = "\n"))
 })
 
 # Verbatim ----------------------------------------------------------------
