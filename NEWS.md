@@ -271,6 +271,11 @@
 * pkgdown's `deploy_to_branch()` now cleans out the website directory by default 
   (`clean = TRUE`). Revert to previous behaviour with `clean = FALSE` (#1394).
 
+* You can override the `auto` development mode detected from the package 
+  version by setting env var `PKGDOWN_DEV_MODE` to `release` or `devel`.
+  This is useful if your package uses a different convention to indicate
+  development and release versions (#1081).
+
 ## Other minor improvements and bug fixes 
 
 * Links on the homepage no longer show the full url in the text.

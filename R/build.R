@@ -69,6 +69,9 @@
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
 #'
+#' You can override the mode specified in the `_pkgdown.yml` by setting
+#' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
+#'
 #' ### Selective HTML
 #'
 #' You can selectively show HTML only on the devel or release site by adding

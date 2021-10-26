@@ -124,6 +124,9 @@ is used to ensure that these packages are not indexed by search engines.
 Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
 }
+
+You can override the mode specified in the \verb{_pkgdown.yml} by setting
+by setting \code{PKGDOWN_DEV_MODE} to \code{devel} or \code{release}.
 }
 
 \subsection{Selective HTML}{
