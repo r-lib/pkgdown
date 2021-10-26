@@ -10,8 +10,16 @@ init_site(pkg = ".")
 \item{pkg}{Path to package.}
 }
 \description{
-This creates the output directory (\verb{docs/}), a machine readable description
-of the site, and copies CSS/JS assets and extra files.
+\code{init_site()}:
+\itemize{
+\item creates the output directory (\verb{docs/}),
+\item generates a machine readable description of the site, used for autolinking,
+\item copies CSS/JS assets and extra files, and
+\item runs \code{build_favicons()}, if needed.
+}
+
+See \code{vignette("customise")} for the various ways you can customise the
+display of your site.
 }
 \section{Build-ignored files}{
 
@@ -20,25 +28,5 @@ We recommend using \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown()}} to 
 you'll need to add them to \code{.Rbuildignore} yourself. A \code{NOTE} about
 an unexpected file during \verb{R CMD CHECK} is an indication you have not
 correctly ignored these files.
-}
-
-\section{Custom CSS/JS}{
-
-If you want to do minor customisation of your pkgdown site, the easiest
-way is to add \code{pkgdown/extra.css} and \code{pkgdown/extra.js}. These
-will be automatically copied to \verb{docs/} and inserted into the
-\verb{<HEAD>} after the default pkgdown CSS and JS.
-}
-
-\section{Favicon}{
-
-Favicons are built automatically from a logo PNG or SVG by \code{\link[=init_site]{init_site()}} and
-copied to \code{pkgdown/favicon}.
-}
-
-\section{404}{
-
-pkgdown creates a default 404 page (\verb{404.html}). You can customize 404
-page content using \verb{.github/404.md}.
 }
 

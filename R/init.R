@@ -1,7 +1,15 @@
 #' Initialise site infrastructure
 #'
-#' This creates the output directory (`docs/`), a machine readable description
-#' of the site, and copies CSS/JS assets and extra files.
+#' @description
+#' `init_site()`:
+#'
+#' * creates the output directory (`docs/`),
+#' * generates a machine readable description of the site, used for autolinking,
+#' * copies CSS/JS assets and extra files, and
+#' * runs `build_favicons()`, if needed.
+#'
+#' See `vignette("customise")` for the various ways you can customise the
+#' display of your site.
 #'
 #' @section Build-ignored files:
 #' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
@@ -9,20 +17,6 @@
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
 #' an unexpected file during `R CMD CHECK` is an indication you have not
 #' correctly ignored these files.
-#'
-#' @section Custom CSS/JS:
-#' If you want to do minor customisation of your pkgdown site, the easiest
-#' way is to add `pkgdown/extra.css` and `pkgdown/extra.js`. These
-#' will be automatically copied to `docs/` and inserted into the
-#' `<HEAD>` after the default pkgdown CSS and JS.
-#'
-#' @section Favicon:
-#' Favicons are built automatically from a logo PNG or SVG by [init_site()] and
-#' copied to `pkgdown/favicon`.
-#'
-#' @section 404:
-#' pkgdown creates a default 404 page (`404.html`). You can customize 404
-#' page content using `.github/404.md`.
 #'
 #' @inheritParams build_articles
 #' @export
@@ -49,9 +43,6 @@ init_site <- function(pkg = ".") {
   copy_logo(pkg)
 
   build_site_meta(pkg)
-  if (!pkg$development$in_dev) {
-    build_404(pkg)
-  }
 
   invisible()
 }
