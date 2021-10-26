@@ -370,16 +370,18 @@ pre, pre code {
 
 pre code {
   padding: 0;
-}
-pre code a:any-link {
-  color: inherit;
+  background: transparent;
+
+  a:any-link {
+    color: inherit;
+  }
 }
 
 pre .img, pre .r-plt {
-  margin: 5px 0;
-}
-pre .img img, pre .r-plt img {
-  background-color: #fff;
+  img {
+    margin: 5px 0;
+    background-color: #fff;
+  }
 }
 
 code a:any-link {
