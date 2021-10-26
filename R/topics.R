@@ -60,7 +60,7 @@ match_env <- function(topics) {
 
   topic_index <- seq_along(topics$name)
 
-  # Each alias is match to the position
+  # Each \alias{} is matched to its position
   topics$alias <- lapply(topics$alias, unique)
   aliases <- set_names(
     rep(topic_index, lengths(topics$alias)),
@@ -68,7 +68,10 @@ match_env <- function(topics) {
   )
   env_bind(out, !!!aliases)
 
-  # As is each name - and we want names to have preference
+  # As is each \name{} - we bind these second so that if \name{x} and \alias{x}
+  # are in different files, \name{x} wins. This doesn't usually matter, but
+  # \name{} needs to win so that the default_reference_index() matches the
+  # correct files
   env_bind(out, !!!set_names(topic_index, topics$name))
 
   # dplyr-like matching functions
