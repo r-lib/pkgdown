@@ -239,6 +239,36 @@ You can also customise the colour scheme of the navbar by using the \code{type}
 and \code{bg} parameters. See \code{vignette("customise")} for more details.
 }
 
+\section{Footer}{
+
+You can customise the footer with the \code{footer} field.
+It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
+
+This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
+  structure: 
+    left: developed_by
+    right: built_with
+}\if{html}{\out{</div>}}
+
+Which draws from the two built-in components:
+\itemize{
+\item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
+\item \code{built_with}, a sentence advertising pkgdown
+}
+
+You can override these defaults with the \code{footer} field.
+The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
+  structure: 
+    left: pkgdown
+    right: [authors, legal]
+  components:
+    legal: Provided without **any warranty**.
+}\if{html}{\out{</div>}}
+
+Each side is pasted into a single string (separated by \code{" "}) and then converted from markdown to HTML.
+}
+
 \section{Search}{
 
 The \code{search} field controls the built-in search. See \code{vignette("search")}
@@ -319,36 +349,6 @@ time (e.g. because behind a firewall or requires auth).\if{html}{\out{<div class
   install_metadata: true
 }\if{html}{\out{</div>}}
 }
-}
-
-\section{Footer}{
-
-You can customise the footer with the \code{footer} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
-
-This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: developed_by
-    right: built_with
-}\if{html}{\out{</div>}}
-
-Which draws from the two built-in components:
-\itemize{
-\item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
-\item \code{built_with}, a sentence advertising pkgdown
-}
-
-You can override these defaults with the \code{footer} field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: pkgdown
-    right: [authors, legal]
-  components:
-    legal: Provided without **any warranty**.
-}\if{html}{\out{</div>}}
-
-Each side is pasted into a single string (separated by \code{" "}) and then converted from markdown to HTML.
 }
 
 \section{Redirects}{
