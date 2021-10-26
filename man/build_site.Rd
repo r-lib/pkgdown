@@ -287,6 +287,10 @@ site:
   params:
     noindex: true
 }\if{html}{\out{</div>}}
+\item \code{google_site_verification} allows you to verify your site with google:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  params:
+    google_site_verification: _nn6ile-a6x6lctOW
+}\if{html}{\out{</div>}}
 \item \code{trailing_slash_redirect: true} will automatically redirect
 \code{your-package-url.com} to \verb{your-package-url.com/}, using a JS script
 added to the \verb{<head>} of the home page. This is useful in certain
