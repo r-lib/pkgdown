@@ -92,19 +92,23 @@ then assembled into an overall page using the "layout" template.</p>
     <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    
-
-<dl><dt>pkg</dt><dd><p>Path to package to document.</p></dd>
-</dl><dl><dt>name</dt><dd><p>Name of the template (e.g. "home", "vignette", "news")</p></dd>
-</dl><dl><dt>data</dt><dd><p>Data for the template.This is automatically supplemented with three lists:
-</p><ul><li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
+    <dl><dt>pkg</dt>
+<dd><p>Path to package to document.</p></dd>
+<dt>name</dt>
+<dd><p>Name of the template (e.g. "home", "vignette", "news")</p></dd>
+<dt>data</dt>
+<dd><p>Data for the template.</p>
+<p>This is automatically supplemented with three lists:</p><ul><li><p><code>site</code>: <code>title</code> and path to <code>root</code>.</p></li>
 <li><p><code>yaml</code>: the <code>template</code> key from <code>_pkgdown.yml</code>.</p></li>
 <li><p><code>package</code>: package metadata including <code>name</code> and<code>version</code>.</p></li>
-</ul>See the full contents by running <code>data_template()</code>.</dd>
-</dl><dl><dt>path</dt><dd><p>Location to create file; relative to destination directory.
+</ul><p>See the full contents by running <code>data_template()</code>.</p></dd>
+<dt>path</dt>
+<dd><p>Location to create file; relative to destination directory.
 If <code>""</code> (the default), prints to standard out.</p></dd>
-</dl><dl><dt>depth</dt><dd><p>Depth of path relative to base directory.</p></dd>
-</dl><dl><dt>quiet</dt><dd><p>If <code>quiet</code>, will suppress output messages</p></dd>
+<dt>depth</dt>
+<dd><p>Depth of path relative to base directory.</p></dd>
+<dt>quiet</dt>
+<dd><p>If <code>quiet</code>, will suppress output messages</p></dd>
 </dl></div>
     </div>
 
