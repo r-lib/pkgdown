@@ -182,7 +182,7 @@
 * Articles now render output styles created by cli/crayon. This is currently a 
   little fragile: you must use `collapse = TRUE` and `echo = TRUE`. Future
   versions will attempt to relax these restrictions, likely through a new 
-  document format.
+  document format (#1556).
 
 * When copy and pasting code blocks, lines containing output (e.g. `#>`)
   are automatically omitted (#1675).
