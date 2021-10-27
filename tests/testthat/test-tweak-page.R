@@ -35,6 +35,20 @@ test_that("reference index table is not altered", {
   expect_equal(xpath_attr(html, ".//table", "class"), NA_character_)
 })
 
+
+test_that("articles get rescue highlighting for non-collapsed output", {
+  html <- xml2::read_xml("<body>
+    <pre><code>1</code></pre>
+    <pre class='downlit'><code>1</code></pre>
+    <div class='sourceCode'><pre><code>1</code></pre></div>
+  </body>")
+  pkg <- list(bs_version = 3, desc = desc::desc(text = ""))
+  tweak_page(html, "article", pkg)
+
+  pre <- xml2::xml_find_all(html, ".//pre")
+  expect_equal(xml2::xml_find_num(pre, "count(.//span)"), c(1, 0, 0))
+})
+
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
     <div id='container'><h2></h2><h2></h2></div>

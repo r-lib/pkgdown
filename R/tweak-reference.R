@@ -18,11 +18,14 @@ tweak_reference_highlighting <- function(html) {
 
   # 3) <pre> with no wrapper <div>, as created by ```
   pre <- xml2::xml_find_all(base, ".//pre")
-  pre_parent <- xml2::xml_parent(pre)
-  pre_unwrapped <- pre[!pre_parent %in% div_sourceCode]
-  purrr::walk(pre_unwrapped, tweak_highlight_r)
+  is_wrapped <- is_wrapped_pre(pre)
+  purrr::walk(pre[!is_wrapped], tweak_highlight_r)
 
   invisible()
+}
+
+is_wrapped_pre <- function(html) {
+  xml2::xml_find_lgl(html, "boolean(parent::div[contains(@class, 'sourceCode')])")
 }
 
 find_ref_sections <- function(html) {

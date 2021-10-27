@@ -1,5 +1,5 @@
 # File level tweaks --------------------------------------------
-tweak_page <- function(html, name, pkg = list()) {
+tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
   # Syntax highlighting and linking
   if (name == "reference-topic") {
     # Reference topic takes a minimal approach since some is
@@ -7,6 +7,11 @@ tweak_page <- function(html, name, pkg = list()) {
     tweak_reference_highlighting(html)
   } else {
     downlit::downlit_html_node(html)
+
+    # Rescue highlighting of non-collapsed output - needed for ANSI escapes
+    pre <- xml2::xml_find_all(html, ".//pre[not(contains(@class, 'downlit'))]")
+    is_wrapped <- is_wrapped_pre(pre)
+    purrr::walk(pre[!is_wrapped], tweak_highlight_r)
   }
 
   tweak_anchors(html)
