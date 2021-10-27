@@ -1,7 +1,7 @@
 #' @export
 #' @rdname build_home
 build_home_index <- function(pkg = ".", quiet = TRUE) {
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg, depth = 0L)
 
   src_path <- path_first_existing(
     pkg$src_path,

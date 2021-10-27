@@ -23,8 +23,12 @@ in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true")
 }
 
-local_envvar_pkgdown <- function(scope = parent.frame()) {
-  withr::local_envvar(list(IN_PKGDOWN = "true"), .local_envir = scope)
+local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
+  withr::local_envvar(
+    IN_PKGDOWN = "true",
+    LANGUAGE = pkg$lang,
+    .local_envir = scope
+  )
 }
 
 local_pkgdown_site <- function(path, meta = NULL, env = parent.frame()) {

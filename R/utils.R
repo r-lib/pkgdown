@@ -278,9 +278,9 @@ print.pkgdown_xml <- function(x, ...) {
 
 
 translate <- function(...) {
-  gettext(..., domain = "pkgdown")
+  gettext(..., domain = "R-pkgdown")
 }
 translate_f <- function(fmt, ...) {
-  gettextf(fmt, ..., domain = "pkgdown")
+  gettextf(fmt, ..., domain = "R-pkgdown")
 }
 

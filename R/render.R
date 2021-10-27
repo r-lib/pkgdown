@@ -68,6 +68,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
+  components$lang <- pkg$lang
 
   # render complete layout
   template <- find_template(
@@ -98,6 +99,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
 
   print_yaml(list(
+    lang = pkg$lang,
     year = strftime(Sys.time(), "%Y"),
     package = list(
       name = pkg$package,

@@ -218,7 +218,7 @@ build_article <- function(name,
     return(invisible())
   }
 
-  local_envvar_pkgdown()
+  local_envvar_pkgdown(pkg)
   local_options_link(pkg, depth = depth)
 
   front <- rmarkdown::yaml_front_matter(input_path)
