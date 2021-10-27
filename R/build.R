@@ -241,7 +241,7 @@
 #' ```
 #'
 #' * `home`: path to package home on source code repository.
-#' * `source:`: path to source of individual file in master branch.
+#' * `source:`: path to source of individual file in default branch.
 #' * `issue`: path to individual issue.
 #' * `user`: path to user.
 #'

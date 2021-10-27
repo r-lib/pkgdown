@@ -7,10 +7,10 @@
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-<a href="https://cran.r-project.org/package=pkgdown" class="hide-devel"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
-<a href="https://github.com/r-lib/pkgdown/actions" class="hide-release"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
+<a href="https://cran.r-project.org/package=pkgdown" class="pkgdown-release"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
+<a href="https://github.com/r-lib/pkgdown/actions" class="pkgdown-devel"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/pkgdown/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=master)
+coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for
@@ -21,7 +21,7 @@ the latest version of pkgdown. Learn more in `vignette("pkgdown")` or
 
 ## Installation
 
-<div class=".hide-devel">
+<div class=".pkgdown-release">
 
 ``` r
 # Install released version from CRAN
@@ -30,7 +30,7 @@ install.packages("pkgdown")
 
 </div>
 
-<div class=".hide-release">
+<div class=".pkgdown-devel">
 
 ``` r
 # Install development version from GitHub

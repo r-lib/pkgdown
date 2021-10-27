@@ -133,7 +133,7 @@ test_that("can find github enterprise url", {
 })
 
 test_that("meta overrides autodetection", {
-  ref <- repo_meta("https://github.com/r-lib/pkgdown/blob/master/")
+  ref <- repo_meta("https://github.com/r-lib/pkgdown/blob/main/")
   desc <- desc::desc(text = "URL: https://github.com/r-lib/pkgdown")
   expect_equal(package_repo(desc, list(repo = ref)), ref)
 })
