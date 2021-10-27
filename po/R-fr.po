@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 11:57-0500\n"
+"POT-Creation-Date: 2021-10-27 17:23-0500\n"
 "PO-Revision-Date: 2021-10-27 11:57-0500\n"
 "Last-Translator: \n"
 "Language-Team: fr\n"
@@ -11,6 +11,102 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: potools 0.2.2\n"
+
+#: build-home-authors.R:92
+msgid "More about authors..."
+msgstr ""
+
+#: build-home-authors.R:95
+msgid "Developers"
+msgstr ""
+
+#: build-home-authors.R:108
+msgid "Authors"
+msgstr ""
+
+#: build-home-authors.R:199
+msgid "Author"
+msgstr ""
+
+#: build-home-authors.R:200
+msgid "Compiler"
+msgstr ""
+
+#: build-home-authors.R:201
+msgid "Contractor"
+msgstr ""
+
+#: build-home-authors.R:202
+msgid "Contributor"
+msgstr ""
+
+#: build-home-authors.R:203
+msgid "Copyright holder"
+msgstr ""
+
+#: build-home-authors.R:204
+msgid "Creator"
+msgstr ""
+
+#: build-home-authors.R:205
+msgid "Data contributor"
+msgstr ""
+
+#: build-home-authors.R:206
+msgid "Funder"
+msgstr ""
+
+#: build-home-authors.R:207
+msgid "Reviewer"
+msgstr ""
+
+#: build-home-authors.R:208
+msgid "Thesis advisor"
+msgstr ""
+
+#: build-home-authors.R:209
+msgid "Translator"
+msgstr ""
+
+#: build-home-community.R:18
+msgid "Contributing guide"
+msgstr ""
+
+#: build-home-community.R:22
+msgid "Code of conduct"
+msgstr ""
+
+#: build-home-community.R:29
+msgid "Community"
+msgstr ""
+
+#: build-home-index.R:85
+msgid "Dev Status"
+msgstr ""
+
+#: build-home-index.R:154
+msgid "Browse source code"
+msgstr ""
+
+#: build-home-index.R:155
+msgid "Report a bug"
+msgstr ""
+
+#: build-home-index.R:159
+msgid "Links"
+msgstr ""
+
+#: build-home-index.R:164
+msgid "Table of contents"
+msgstr ""
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr ""
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr ""
 
 #: build-news.R:224
 msgid "News"
@@ -43,3 +139,7 @@ msgstr "Articles"
 #: navbar.R:154
 msgid "More articles..."
 msgstr "Plus d'articles ..."
+
+#: tweak-sidebar.R:17
+msgid "Dev status"
+msgstr ""

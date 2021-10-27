@@ -14,7 +14,7 @@ tweak_sidebar_html <- function(html, sidebar) {
     return(html)
   }
 
-  list <- sidebar_section("Dev status", badges)
+  list <- sidebar_section(translate("Dev status"), badges)
   list_html <- list %>% xml2::read_html(encoding = "UTF-8") %>% xml2::xml_find_first(".//div")
   xml2::xml_replace(dev_status_html, list_html)
   html
