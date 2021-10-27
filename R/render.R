@@ -69,6 +69,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   components <- purrr::set_names(components, pieces)
   components$template <- name
   components$lang <- pkg$lang
+  components$translate <- data$translate
 
   # render complete layout
   template <- find_template(
@@ -114,7 +115,12 @@ data_template <- function(pkg = ".", depth = 0L) {
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
     includes = includes,
-    yaml = yaml
+    yaml = yaml,
+    translate = list(
+      skip = translate("Skip to contents"),
+      toggle_nav = translate("Toggle navigation"),
+      search_for = translate("Search for")
+    )
   ))
 }
 
