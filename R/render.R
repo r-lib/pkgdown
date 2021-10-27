@@ -145,8 +145,7 @@ check_open_graph <- function(og) {
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
     warn(paste0(
-      "Unsupported `opengraph` ",
-      ngettext(length(unsupported_fields), "field", "fields"), ": ",
+      "Unsupported `opengraph` field(s): ",
       paste(unsupported_fields, collapse = ", ")
     ))
   }
