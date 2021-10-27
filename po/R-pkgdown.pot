@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 1.9000.9000.9000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-27 12:01-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build-news.R:224
+msgid "News"
+msgstr ""
+
+#: build-news.R:226
+msgid "Releases"
+msgstr ""
+
+#: build-news.R:230 build-news.R:235
+msgid "Changelog"
+msgstr ""
+
+#: navbar.R:97
+msgid "Reference"
+msgstr ""
+
+#: navbar.R:100
+msgid "Tutorials"
+msgstr ""
+
+#: navbar.R:128
+msgid "Get started"
+msgstr ""
+
+#: navbar.R:134 navbar.R:141 navbar.R:156
+msgid "Articles"
+msgstr ""
+
+#: navbar.R:154
+msgid "More articles..."
+msgstr ""
