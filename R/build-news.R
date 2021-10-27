@@ -221,18 +221,18 @@ version_page <- function(x) {
 navbar_news <- function(pkg) {
   releases_meta <- pkg$meta$news$releases
   if (!is.null(releases_meta)) {
-    menu("News",
+    menu(translate("News"),
       c(
-        list(menu_text("Releases")),
+        list(menu_text(translate("Releases"))),
         releases_meta,
         list(
           menu_spacer(),
-          menu_link("Changelog", "news/index.html")
+          menu_link(translate("Changelog"), "news/index.html")
         )
       )
     )
   } else if (has_news(pkg$src_path)) {
-    menu_link("Changelog", "news/index.html")
+    menu_link(translate("Changelog"), "news/index.html")
   }
 }
 
