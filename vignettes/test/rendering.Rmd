@@ -65,7 +65,43 @@ $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
 Inline equations: $y=x^2$
 
-## Crayon
+## Syntax highlighting
+
+### Should be highlighted
+
+Valid R code in `\preformatted{}`:
+
+```
+mean(a + 1)
+```
+
+R code in `R` block:
+
+```R
+mean(a + 1)
+```
+
+R code in `r` block:
+
+```R
+mean(a + 1)
+```
+
+Yaml
+
+```yaml
+yaml: [a, 1]
+```
+
+### Shouldn't be highlighted
+
+Non-R code in `\preformatted{}`
+
+```
+yaml: [a, b, c]
+```
+
+### Crayon
 
 ```{r}
 cat(crayon::red("This is red"), "\n")
