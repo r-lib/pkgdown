@@ -368,7 +368,7 @@ data_articles_index <- function(pkg = ".") {
   }
 
   print_yaml(list(
-    pagetitle = "Articles",
+    pagetitle = translate("Articles"),
     sections = sections
   ))
 }

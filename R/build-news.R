@@ -131,7 +131,10 @@ build_news_multi <- function(pkg) {
   render_page(
     pkg,
     "news-index",
-    list(versions = news_paged %>% purrr::transpose(), pagetitle = "News"),
+    list(
+      versions = news_paged %>% purrr::transpose(),
+      pagetitle = translate("News")
+    ),
     path("news", "index.html")
   )
 }

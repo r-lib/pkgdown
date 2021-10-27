@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 17:39-0500\n"
+"POT-Creation-Date: 2021-10-27 17:45-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -11,6 +11,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: potools 0.2.2\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr ""
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr ""
+
+#: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
+msgid "Articles"
+msgstr "Guías"
 
 #: build-home-authors.R:92
 msgid "More about authors..."
@@ -108,17 +120,25 @@ msgstr ""
 msgid "Full license"
 msgstr ""
 
-#: build-news.R:100 build-news.R:230 build-news.R:235
+#: build-news.R:100 build-news.R:233 build-news.R:238
 msgid "Changelog"
 msgstr "Lista de cambios"
 
-#: build-news.R:224
+#: build-news.R:136 build-news.R:227
 msgid "News"
 msgstr "Noticias"
 
-#: build-news.R:226
+#: build-news.R:229
 msgid "Releases"
 msgstr "Versiones"
+
+#: build-reference-index.R:19
+msgid "Function reference"
+msgstr ""
+
+#: build-tutorials.R:46 navbar.R:100
+msgid "Tutorials"
+msgstr "Tutoriales"
 
 #: development.R:20
 #, fuzzy
@@ -137,17 +157,9 @@ msgstr ""
 msgid "Reference"
 msgstr "Ayuda"
 
-#: navbar.R:100
-msgid "Tutorials"
-msgstr "Tutoriales"
-
 #: navbar.R:128
 msgid "Get started"
 msgstr "Como empezar"
-
-#: navbar.R:134 navbar.R:141 navbar.R:156
-msgid "Articles"
-msgstr "Guías"
 
 #: navbar.R:154
 msgid "More articles..."
