@@ -97,7 +97,7 @@ build_news_single <- function(pkg) {
     "news",
     list(
       contents = purrr::transpose(news),
-      pagetitle = "Changelog",
+      pagetitle = translate("Changelog"),
       source = repo_source(pkg, "NEWS.md")
     ),
     path("news", "index.html")
@@ -121,7 +121,7 @@ build_news_multi <- function(pkg) {
       list(
         version = version,
         contents = rev(purrr::transpose(contents)),
-        pagetitle = paste0("Version ", version)
+        pagetitle = translate_f("Version %s", version)
       ),
       path("news", file_out),
     )
@@ -279,7 +279,8 @@ tweak_news_heading <- function(html, version, timeline, bs_version) {
         release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//small")
         xml2::xml_add_child(h2, release_html, .where = 1)
       } else {
-        release_str <- sprintf("<p class='text-muted'>CRAN release: %s</p>", date)
+        release_date <- translate_f("CRAN release: %s", date)
+        release_str <- paste0("<p class='text-muted'>", release_date, "</p>")
         release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//p")
         xml2::xml_add_sibling(h2, release_html, .where = "after")
       }

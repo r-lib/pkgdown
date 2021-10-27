@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 17:23-0500\n"
+"POT-Creation-Date: 2021-10-27 17:29-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -108,6 +108,10 @@ msgstr ""
 msgid "Full license"
 msgstr ""
 
+#: build-news.R:100 build-news.R:230 build-news.R:235
+msgid "Changelog"
+msgstr "Lista de cambios"
+
 #: build-news.R:224
 msgid "News"
 msgstr "Noticias"
@@ -116,9 +120,18 @@ msgstr "Noticias"
 msgid "Releases"
 msgstr "Versiones"
 
-#: build-news.R:230 build-news.R:235
-msgid "Changelog"
-msgstr "Lista de cambios"
+#: development.R:20
+#, fuzzy
+msgid "Released version"
+msgstr "Versiones"
+
+#: development.R:21
+msgid "In-development version"
+msgstr ""
+
+#: development.R:22
+msgid "Unreleased version"
+msgstr ""
 
 #: navbar.R:97
 msgid "Reference"

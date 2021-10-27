@@ -17,9 +17,9 @@ meta_development <- function(meta, version, bs_version = 3) {
   if (is.null(version_tooltip)) {
     version_tooltip <- switch(mode,
       default = "",
-      release = "Released version",
-      devel = "In-development version",
-      unreleased = "Unreleased version"
+      release = translate("Released version"),
+      devel = translate("In-development version"),
+      unreleased = translate("Unreleased version")
     )
   }
 
