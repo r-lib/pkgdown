@@ -41,7 +41,6 @@ test_that("articles get rescue highlighting for non-collapsed output", {
     <pre><code>1</code></pre>
     <pre class='downlit'><code>1</code></pre>
     <div class='sourceCode'><pre><code>1</code></pre></div>
-
   </body>")
   pkg <- list(bs_version = 3, desc = desc::desc(text = ""))
   tweak_page(html, "article", pkg)
