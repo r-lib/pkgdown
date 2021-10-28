@@ -66,7 +66,7 @@ msgstr "titulaire des droits d'auteur"
 
 #: build-home-authors.R:205
 msgid "maintainer"
-msgstr ""
+msgstr "mainteneur"
 
 #: build-home-authors.R:206
 msgid "data contributor"
