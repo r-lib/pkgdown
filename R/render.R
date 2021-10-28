@@ -117,9 +117,9 @@ data_template <- function(pkg = ".", depth = 0L) {
     includes = includes,
     yaml = yaml,
     translate = list(
-      skip = translate("Skip to contents"),
-      toggle_nav = translate("Toggle navigation"),
-      search_for = translate("Search for")
+      skip = tr_("Skip to contents"),
+      toggle_nav = tr_("Toggle navigation"),
+      search_for = tr_("Search for")
     )
   ))
 }

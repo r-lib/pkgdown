@@ -82,7 +82,7 @@ data_home_sidebar <- function(pkg = ".") {
     community = data_home_sidebar_community(pkg),
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
-    dev = sidebar_section(translate("Dev Status"), "placeholder"),
+    dev = sidebar_section(tr_("Dev Status"), "placeholder"),
     toc = data_home_toc(pkg)
   )
 
@@ -150,18 +150,18 @@ data_home_sidebar_links <- function(pkg = ".") {
   links <- purrr::pluck(pkg, "meta", "home", "links")
 
   links <- c(
-    link_url(translate_f("View on %s", repo$repo), repo$url),
-    link_url(translate("Browse source code"), repo_home(pkg)),
-    link_url(translate("Report a bug"), pkg$desc$get_field("BugReports", default = NULL)),
+    link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
+    link_url(tr_("Browse source code"), repo_home(pkg)),
+    link_url(tr_("Report a bug"), pkg$desc$get_field("BugReports", default = NULL)),
     purrr::map_chr(links, ~ link_url(.$text, .$href))
   )
 
-  sidebar_section(translate("Links"), links)
+  sidebar_section(tr_("Links"), links)
 }
 
 data_home_toc <- function(pkg) {
   sidebar_section(
-    translate("Table of contents"),
+    tr_("Table of contents"),
     '<nav id="toc"></nav>'
   )
 }

@@ -16,7 +16,7 @@ data_reference_index <- function(pkg = ".") {
   check_missing_topics(rows, pkg)
 
   print_yaml(list(
-    pagetitle = translate("Function reference"),
+    pagetitle = tr_("Function reference"),
     rows = rows,
     has_icons = has_icons
   ))

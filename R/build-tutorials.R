@@ -43,7 +43,7 @@ build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
   # Build index
   render_page(pkg, "tutorial-index",
     data = list(
-      pagetitle = translate("Tutorials"),
+      pagetitle = tr_("Tutorials"),
       tutorials = purrr::transpose(list(
         path = path_rel(tutorials$file_out, "tutorials"),
         title = tutorials$title

@@ -97,7 +97,7 @@ build_news_single <- function(pkg) {
     "news",
     list(
       contents = purrr::transpose(news),
-      pagetitle = translate("Changelog"),
+      pagetitle = tr_("Changelog"),
       source = repo_source(pkg, "NEWS.md")
     ),
     path("news", "index.html")
@@ -121,7 +121,7 @@ build_news_multi <- function(pkg) {
       list(
         version = version,
         contents = rev(purrr::transpose(contents)),
-        pagetitle = translate_f("Version %s", version)
+        pagetitle = sprintf(tr_("Version %s"), version)
       ),
       path("news", file_out),
     )
@@ -133,7 +133,7 @@ build_news_multi <- function(pkg) {
     "news-index",
     list(
       versions = news_paged %>% purrr::transpose(),
-      pagetitle = translate("News")
+      pagetitle = tr_("News")
     ),
     path("news", "index.html")
   )
@@ -224,18 +224,18 @@ version_page <- function(x) {
 navbar_news <- function(pkg) {
   releases_meta <- pkg$meta$news$releases
   if (!is.null(releases_meta)) {
-    menu(translate("News"),
+    menu(tr_("News"),
       c(
-        list(menu_text(translate("Releases"))),
+        list(menu_text(tr_("Releases"))),
         releases_meta,
         list(
           menu_spacer(),
-          menu_link(translate("Changelog"), "news/index.html")
+          menu_link(tr_("Changelog"), "news/index.html")
         )
       )
     )
   } else if (has_news(pkg$src_path)) {
-    menu_link(translate("Changelog"), "news/index.html")
+    menu_link(tr_("Changelog"), "news/index.html")
   }
 }
 
@@ -282,7 +282,7 @@ tweak_news_heading <- function(html, version, timeline, bs_version) {
         release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//small")
         xml2::xml_add_child(h2, release_html, .where = 1)
       } else {
-        release_date <- translate_f("CRAN release: %s", date)
+        release_date <- sprintf(tr_("CRAN release: %s"), date)
         release_str <- paste0("<p class='text-muted'>", release_date, "</p>")
         release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//p")
         xml2::xml_add_sibling(h2, release_html, .where = "after")

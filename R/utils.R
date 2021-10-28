@@ -276,11 +276,6 @@ print.pkgdown_xml <- function(x, ...) {
   invisible(x)
 }
 
-
-translate <- function(...) {
+tr_ <- function(...) {
   gettext(..., domain = "R-pkgdown")
 }
-translate_f <- function(fmt, ...) {
-  gettextf(fmt, ..., domain = "R-pkgdown")
-}
-

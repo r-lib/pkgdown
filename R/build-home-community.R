@@ -15,17 +15,17 @@ data_home_sidebar_community <- function (pkg){
   links <- NULL
 
   if (has_contributing(pkg$src_path)) {
-    links <- c(links, a(translate("Contributing guide"), "CONTRIBUTING.html"))
+    links <- c(links, a(tr_("Contributing guide"), "CONTRIBUTING.html"))
   }
 
   if (has_coc(pkg$src_path)) {
-    links <- c(links, a(translate("Code of conduct"), "CODE_OF_CONDUCT.html"))
+    links <- c(links, a(tr_("Code of conduct"), "CODE_OF_CONDUCT.html"))
   }
 
   if (is.null(links)) {
     return("")
   }
 
-  sidebar_section(translate("Community"), links)
+  sidebar_section(tr_("Community"), links)
 
 }

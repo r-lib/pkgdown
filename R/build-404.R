@@ -8,8 +8,8 @@ build_404 <- function(pkg = ".") {
     render_page(
       pkg, "title-body",
       data = list(
-        pagetitle = translate("Page not found (404)"),
-        body = translate("Content not found. Please use links in the navbar.")
+        pagetitle = tr_("Page not found (404)"),
+        body = tr_("Content not found. Please use links in the navbar.")
       ),
       path = "404.html"
     )

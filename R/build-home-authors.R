@@ -89,10 +89,10 @@ data_home_sidebar_authors <- function(pkg = ".") {
   )
 
   if (data$needs_page) {
-    bullets <- c(bullets, a(translate("More about authors..."), "authors.html"))
+    bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
   }
 
-  sidebar_section(translate("Developers"), bullets)
+  sidebar_section(tr_("Developers"), bullets)
 }
 
 build_authors <- function(pkg = ".") {
@@ -105,7 +105,7 @@ build_authors <- function(pkg = ".") {
 
 data_authors_page <- function(pkg) {
   data <- list(
-    pagetitle = translate("Authors"),
+    pagetitle = tr_("Authors"),
     authors = data_authors(pkg)$all
   )
 
@@ -196,17 +196,17 @@ orcid_link <- function(orcid) {
 #' dput(setNames(db$term, db$code))
 role_lookup <- function(abbr) {
   roles <- c(
-    aut = translate("Author"),
-    com = translate("Compiler"),
-    ctr = translate("Contractor"),
-    ctb = translate("Contributor"),
-    cph = translate("Copyright holder"),
-    cre = translate("Creator"),
-    dtc = translate("Data contributor"),
-    fnd = translate("Funder"),
-    rev = translate("Reviewer"),
-    ths = translate("Thesis advisor"),
-    trl = translate("Translator")
+    aut = tr_("Author"),
+    com = tr_("Compiler"),
+    ctr = tr_("Contractor"),
+    ctb = tr_("Contributor"),
+    cph = tr_("Copyright holder"),
+    cre = tr_("Creator"),
+    dtc = tr_("Data contributor"),
+    fnd = tr_("Funder"),
+    rev = tr_("Reviewer"),
+    ths = tr_("Thesis advisor"),
+    trl = tr_("Translator")
   )
   unname(roles[abbr])
 }
