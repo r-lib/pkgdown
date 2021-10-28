@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 07:19-0500\n"
+"POT-Creation-Date: 2021-10-28 07:28-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -227,10 +227,8 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: rd-html.R:204
-msgid ""
-"# %s method for %s\n"
-"%s"
+#: rd-html.R:205
+msgid "# %s method for %s"
 msgstr ""
 
 #: render.R:120
