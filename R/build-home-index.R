@@ -82,7 +82,7 @@ data_home_sidebar <- function(pkg = ".") {
     community = data_home_sidebar_community(pkg),
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
-    dev = sidebar_section(tr_("Dev Status"), "placeholder"),
+    dev = sidebar_section(tr_("Dev Status"), "placeholder", class = "dev-status"),
     toc = data_home_toc(pkg)
   )
 
