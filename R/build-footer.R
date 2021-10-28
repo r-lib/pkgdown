@@ -26,13 +26,14 @@ footnote_components <- function(pkg = ".") {
     purrr::map_chr("name") %>%
     paste(collapse = ", ")
 
-  prefix <- pkg$meta$authors$footer$text %||% "Developed by"
+  prefix <- pkg$meta$authors$footer$text %||% tr_("Developed by")
   developed_by <- paste0(trimws(prefix), " ", authors, ".")
 
   # pkgdown
-  built_with <- paste0(
-    'Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> ',
-    utils::packageVersion("pkgdown"), "."
+  built_with <- sprintf(
+    tr_('Site built with <a href="%s">pkgdown</a> %s.'),
+    "https://pkgdown.r-lib.org/",
+    utils::packageVersion("pkgdown")
   )
 
   print_yaml(list(
