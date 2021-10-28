@@ -9,7 +9,7 @@
       <li>yay</li>
       <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
-      <li><a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br />
+      <li><a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br />
       <small class = 'roles'> Copyright holder, funder </small>  </li>
       <li>cool</li>
       <li><a href='authors.html'>More about authors...</a></li>

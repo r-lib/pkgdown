@@ -50,6 +50,7 @@ test_that("errors well when a content entry is not a character", {
 })
 
 test_that("errors well when a content entry refers to a not installed package", {
+  withr::local_options(cli.condition_width = Inf)
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 

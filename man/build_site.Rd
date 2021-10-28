@@ -363,7 +363,7 @@ Otherwise, you can supply your own in the \code{repo} field:\if{html}{\out{<div 
 }\if{html}{\out{</div>}}
 \itemize{
 \item \code{home}: path to package home on source code repository.
-\item \verb{source:}: path to source of individual file in master branch.
+\item \verb{source:}: path to source of individual file in default branch.
 \item \code{issue}: path to individual issue.
 \item \code{user}: path to user.
 }
