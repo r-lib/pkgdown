@@ -30,35 +30,35 @@ parse_section <- function(x, title, ...) {
 
 #' @export
 as_data.tag_details <- function(x, ...) {
-  parse_section(x, "Details", ...)
+  parse_section(x, tr_("Details"), ...)
 }
 #' @export
 as_data.tag_description <- function(x, ...) {
-  parse_section(x, "Description", ...)
+  parse_section(x, tr_("Description"), ...)
 }
 #' @export
 as_data.tag_references <- function(x, ...) {
-  parse_section(x, "References", ...)
+  parse_section(x, tr_("References"), ...)
 }
 #' @export
 as_data.tag_source <- function(x, ...) {
-  parse_section(x, "Source", ...)
+  parse_section(x, tr_("Source"), ...)
 }
 #' @export
 as_data.tag_format <- function(x, ...) {
-  parse_section(x, "Format", ...)
+  parse_section(x, tr_("Format"), ...)
 }
 #' @export
 as_data.tag_note <- function(x, ...) {
-  parse_section(x, "Note", ...)
+  parse_section(x, tr_("Note"), ...)
 }
 #' @export
 as_data.tag_author <- function(x, ...) {
-  parse_section(x, "Author", ...)
+  parse_section(x, tr_("Author"), ...)
 }
 #' @export
 as_data.tag_seealso <- function(x, ...) {
-  section <- parse_section(x, "See also", ...)
+  section <- parse_section(x, tr_("See also"), ...)
   section$contents <- dont_index(section$contents)
   section
 }
@@ -74,7 +74,7 @@ as_data.tag_section <- function(x, ...) {
 #' @export
 as_data.tag_arguments <- function(x, ...) {
   list(
-    title = "Arguments",
+    title = tr_("Arguments"),
     contents = describe_contents(x, ...)
   )
 }
@@ -82,7 +82,7 @@ as_data.tag_arguments <- function(x, ...) {
 #' @export
 as_data.tag_value <- function(x, ...) {
   list(
-    title = "Value",
+    title = tr_("Value"),
     contents = describe_contents(x, ...)
   )
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 06:57-0500\n"
+"POT-Creation-Date: 2021-10-28 07:04-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Authors"
 msgstr ""
 
-#: build-home-authors.R:199
+#: build-home-authors.R:199 rd-data.R:57
 msgid "Author"
 msgstr ""
 
@@ -182,6 +182,49 @@ msgstr "Como empezar"
 msgid "More articles..."
 msgstr "Más guías"
 
+#: rd-data.R:33
+msgid "Details"
+msgstr ""
+
+#: rd-data.R:37
+msgid "Description"
+msgstr ""
+
+#: rd-data.R:41
+#, fuzzy
+msgid "References"
+msgstr "Ayuda"
+
+#: rd-data.R:45 render.R:124
+msgid "Source"
+msgstr ""
+
+#: rd-data.R:49
+msgid "Format"
+msgstr ""
+
+#: rd-data.R:53
+msgid "Note"
+msgstr ""
+
+#: rd-data.R:61
+msgid "See also"
+msgstr ""
+
+#: rd-data.R:77
+msgid "Arguments"
+msgstr ""
+
+#: rd-data.R:85
+msgid "Value"
+msgstr ""
+
+#: rd-html.R:204
+msgid ""
+"# %s method for %s\n"
+"%s"
+msgstr ""
+
 #: render.R:120
 msgid "Skip to contents"
 msgstr ""
@@ -196,10 +239,6 @@ msgstr ""
 
 #: render.R:123
 msgid "On this page"
-msgstr ""
-
-#: render.R:124
-msgid "Source"
 msgstr ""
 
 #: render.R:125

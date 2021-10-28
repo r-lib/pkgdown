@@ -201,11 +201,7 @@ as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
 method_usage <- function(x, type) {
   fun <- as_html(x[[1]])
   class <- as_html(x[[2]])
-
-  paste0(
-    "# ", type, " method for ", class, "\n",
-    fun
-  )
+  sprintf(tr_("# %s method for %s\n%s"), type, class, fun)
 }
 
 # Conditionals and Sexprs ----------------------------------------------------
