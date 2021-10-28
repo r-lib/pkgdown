@@ -193,20 +193,21 @@ orcid_link <- function(orcid) {
 # Derived from:
 # db <- utils:::MARC_relator_db
 # db <- db[db$usage != "",]
-# dput(setNames(db$term, db$code))
+# dput(setNames(tolower(db$term), db$code))
+# # and replace creater with maintainer
 role_lookup <- function(abbr) {
   roles <- c(
-    aut = tr_("Author"),
-    com = tr_("Compiler"),
-    ctr = tr_("Contractor"),
-    ctb = tr_("Contributor"),
-    cph = tr_("Copyright holder"),
-    cre = tr_("Creator"),
-    dtc = tr_("Data contributor"),
-    fnd = tr_("Funder"),
-    rev = tr_("Reviewer"),
-    ths = tr_("Thesis advisor"),
-    trl = tr_("Translator")
+    aut = tr_("author"),
+    com = tr_("compiler"),
+    ctr = tr_("contractor"),
+    ctb = tr_("contributor"),
+    cph = tr_("copyright holder"),
+    cre = tr_("maintainer"),
+    dtc = tr_("data contributor"),
+    fnd = tr_("funder"),
+    rev = tr_("reviewer"),
+    ths = tr_("thesis advisor"),
+    trl = tr_("translator")
   )
   unname(roles[abbr])
 }

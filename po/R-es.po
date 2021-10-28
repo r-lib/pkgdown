@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 07:28-0500\n"
+"POT-Creation-Date: 2021-10-28 08:02-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -44,48 +44,48 @@ msgstr ""
 msgid "Authors"
 msgstr ""
 
-#: build-home-authors.R:199 rd-data.R:57
-msgid "Author"
-msgstr ""
-
 #: build-home-authors.R:200
-msgid "Compiler"
+msgid "author"
 msgstr ""
 
 #: build-home-authors.R:201
-msgid "Contractor"
+msgid "compiler"
 msgstr ""
 
 #: build-home-authors.R:202
-msgid "Contributor"
+msgid "contractor"
 msgstr ""
 
 #: build-home-authors.R:203
-msgid "Copyright holder"
+msgid "contributor"
 msgstr ""
 
 #: build-home-authors.R:204
-msgid "Creator"
+msgid "copyright holder"
 msgstr ""
 
 #: build-home-authors.R:205
-msgid "Data contributor"
+msgid "maintainer"
 msgstr ""
 
 #: build-home-authors.R:206
-msgid "Funder"
+msgid "data contributor"
 msgstr ""
 
 #: build-home-authors.R:207
-msgid "Reviewer"
+msgid "funder"
 msgstr ""
 
 #: build-home-authors.R:208
-msgid "Thesis advisor"
+msgid "reviewer"
 msgstr ""
 
 #: build-home-authors.R:209
-msgid "Translator"
+msgid "thesis advisor"
+msgstr ""
+
+#: build-home-authors.R:210
+msgid "translator"
 msgstr ""
 
 #: build-home-citation.R:39
@@ -213,6 +213,10 @@ msgstr ""
 
 #: rd-data.R:53
 msgid "Note"
+msgstr ""
+
+#: rd-data.R:57
+msgid "Author"
 msgstr ""
 
 #: rd-data.R:61
