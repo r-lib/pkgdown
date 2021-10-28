@@ -171,7 +171,7 @@ sponsor.
 }\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   firstname lastname:
     href: "http://name-website.com"
-    html: "<img src='name-picture.png' height=24>"
+    html: "<img src='name-picture.png' width=72>"
 }\if{html}{\out{</div>}}
 
 By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
