@@ -43,6 +43,20 @@
       names/lists of function and detailed descriptions, and displays better 
       on mobile.
 
+* pkgdown can now translate all the text that it generates (#1446)- this means 
+  that if you have a package where the docs are written in another language, you 
+  can match all the pkgdown UI to provide a seamless experience to non-English
+  speakers. Currently pkgdown includes translations for Spanish and French;
+  if you're interested in adding translations for your language please file
+  an issue and I'll help you get started.
+  
+    You can activate the translations by setting the `lang` field in 
+    `_pkgdown.yaml` to `fr` (French) or `es` (Spanish):
+   
+    ```yaml
+    lang: fr
+    ```
+
 ## Local search
 
 * pkgdown now supports local searching. It is enabled by default because no 
