@@ -119,7 +119,13 @@ data_template <- function(pkg = ".", depth = 0L) {
     translate = list(
       skip = tr_("Skip to contents"),
       toggle_nav = tr_("Toggle navigation"),
-      search_for = tr_("Search for")
+      search_for = tr_("Search for"),
+      on_this_page = tr_("On this page"),
+      source = tr_("Source"),
+      abstract = tr_("Abstract"),
+      authors = tr_("Authors"),
+      version = tr_("Version"),
+      examples = tr_("Examples")
     )
   ))
 }

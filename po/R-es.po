@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 17:58-0500\n"
+"POT-Creation-Date: 2021-10-28 06:57-0500\n"
 "PO-Revision-Date: 2021-10-27 12:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
-#: build-home-authors.R:108
+#: build-home-authors.R:108 render.R:126
 msgid "Authors"
 msgstr ""
 
@@ -192,6 +192,26 @@ msgstr ""
 
 #: render.R:122
 msgid "Search for"
+msgstr ""
+
+#: render.R:123
+msgid "On this page"
+msgstr ""
+
+#: render.R:124
+msgid "Source"
+msgstr ""
+
+#: render.R:125
+msgid "Abstract"
+msgstr ""
+
+#: render.R:127
+msgid "Version"
+msgstr ""
+
+#: render.R:128
+msgid "Examples"
 msgstr ""
 
 #: tweak-sidebar.R:17
