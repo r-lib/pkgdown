@@ -190,10 +190,10 @@ orcid_link <- function(orcid) {
   )
 }
 
-#' Derived from:
-#' db <- utils:::MARC_relator_db
-#' db <- db[db$usage != "",]
-#' dput(setNames(db$term, db$code))
+# Derived from:
+# db <- utils:::MARC_relator_db
+# db <- db[db$usage != "",]
+# dput(setNames(db$term, db$code))
 role_lookup <- function(abbr) {
   roles <- c(
     aut = tr_("Author"),
