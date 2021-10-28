@@ -18,7 +18,7 @@ msgstr "Page introuvable (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Contenu introuble. Veuillez utiliser les liens de la navbar."
+msgstr "Contenu introuvable. Veuillez utiliser les liens de la navbar."
 
 #: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
@@ -26,11 +26,11 @@ msgstr "Articles"
 
 #: build-footer.R:29
 msgid "Developed by"
-msgstr ""
+msgstr "Développé par"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr ""
+msgstr "Site créé avec <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:92
 msgid "More about authors..."
@@ -190,43 +190,43 @@ msgstr "Plus d'articles ..."
 
 #: rd-data.R:33
 msgid "Details"
-msgstr ""
+msgstr "Détails"
 
 #: rd-data.R:37
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: rd-data.R:41
 msgid "References"
-msgstr "Référence"
+msgstr "Références"
 
 #: rd-data.R:45 render.R:124
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: rd-data.R:49
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: rd-data.R:53
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: rd-data.R:61
 msgid "See also"
-msgstr ""
+msgstr "Voir également"
 
 #: rd-data.R:77
 msgid "Arguments"
-msgstr ""
+msgstr "Arguments"
 
 #: rd-data.R:85
 msgid "Value"
-msgstr ""
+msgstr "Valeur"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
-msgstr ""
+msgstr "# Méthode %s pour %s"
 
 #: render.R:120
 msgid "Skip to contents"
@@ -242,11 +242,11 @@ msgstr "Chercher"
 
 #: render.R:123
 msgid "On this page"
-msgstr ""
+msgstr "Sur cette page"
 
 #: render.R:125
 msgid "Abstract"
-msgstr ""
+msgstr "Résumé"
 
 #: render.R:127
 msgid "Version"
@@ -254,11 +254,11 @@ msgstr "Version"
 
 #: render.R:128
 msgid "Examples"
-msgstr ""
+msgstr "Exemples"
 
 #: repo.R:33
 msgid "Source:"
-msgstr ""
+msgstr "Source:"
 
 #: tweak-sidebar.R:17
 msgid "Dev status"
