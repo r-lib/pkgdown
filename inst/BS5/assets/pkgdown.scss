@@ -368,6 +368,14 @@ pre, pre code {
   overflow-wrap: break-word;
 }
 
+// "Pop" code out of page margins on small screens to give a little more room
+@include media-breakpoint-down(sm) {
+  pre {
+    margin-left: calc(var(--bs-gutter-x) * -.5);
+    margin-right: calc(var(--bs-gutter-x) * -.5);
+  }
+}
+
 pre code {
   padding: 0;
   background: transparent;
