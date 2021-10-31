@@ -4,7 +4,7 @@ library(dplyr)
 library(fs)
 
 # Pandoc styles are based on KDE default styles:
-# https://docs.kde.org/stable5/en/applications/katepart/highlight.html#kate-highlight-default-styles
+# https://docs.kde.org/stable5/en/kate/katepart/highlight.html#kate-highlight-default-styles
 # But in HTML use two letter abbreviations:
 # https://github.com/jgm/skylighting/blob/a1d02a0db6260c73aaf04aae2e6e18b569caacdc/skylighting-core/src/Skylighting/Format/HTML.hs#L117-L147
 # Summary at
