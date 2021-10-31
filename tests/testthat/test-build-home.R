@@ -22,6 +22,7 @@ test_that("intermediate files cleaned up automatically", {
 })
 
 test_that("warns about missing images", {
+  skip_if_not_installed("rlang", "0.99")
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_home(pkg))
 })
