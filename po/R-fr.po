@@ -18,7 +18,7 @@ msgstr "Page introuvable (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Contenu introuvable. Veuillez utiliser les liens de la navbar."
+msgstr "Contenu introuvable. Merci d'utiliser les liens de la barre de navigation."
 
 #: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
@@ -106,11 +106,11 @@ msgstr "Communauté"
 
 #: build-home-index.R:85
 msgid "Dev Status"
-msgstr "Status de développement"
+msgstr "Statut de développement"
 
 #: build-home-index.R:153
 msgid "View on %s"
-msgstr "Ouvrir avec %s"
+msgstr "Voir sur %s"
 
 #: build-home-index.R:154
 msgid "Browse source code"
@@ -154,11 +154,11 @@ msgstr "Versions"
 
 #: build-news.R:285
 msgid "CRAN release: %s"
-msgstr "Version CRAN: %s"
+msgstr "Version CRAN : %s"
 
 #: build-reference-index.R:19
 msgid "Function reference"
-msgstr "Référence des fonctions"
+msgstr "Documentation des fonctions"
 
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
@@ -166,7 +166,7 @@ msgstr "Tutoriels"
 
 #: development.R:20
 msgid "Released version"
-msgstr "Version actuelle"
+msgstr "Dernière version publiée"
 
 #: development.R:21
 msgid "In-development version"
@@ -186,7 +186,7 @@ msgstr "Prise en main"
 
 #: navbar.R:154
 msgid "More articles..."
-msgstr "Plus d'articles ..."
+msgstr "Plus d'articles..."
 
 #: rd-data.R:33
 msgid "Details"
@@ -226,7 +226,7 @@ msgstr "Arguments"
 
 #: rd-data.R:85
 msgid "Value"
-msgstr "Valeur"
+msgstr "Valeur de retour"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
@@ -242,7 +242,7 @@ msgstr "Activer la navigation"
 
 #: render.R:122
 msgid "Search for"
-msgstr "Chercher"
+msgstr "Rechercher"
 
 #: render.R:123
 msgid "On this page"
@@ -262,8 +262,8 @@ msgstr "Exemples"
 
 #: repo.R:33
 msgid "Source:"
-msgstr "Source:"
+msgstr "Source :"
 
 #: tweak-sidebar.R:17
 msgid "Dev status"
-msgstr "Status de développement"
+msgstr "Statut de développement"
