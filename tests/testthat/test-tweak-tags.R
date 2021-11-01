@@ -43,13 +43,14 @@ test_that("ids move from div to headings", {
   expect_equal(xpath_attr(html, ".//div", "id"), rep(NA_character_, 6))
 })
 
-test_that("non-section divs are not affected", {
+test_that("must be in div with section an class and id", {
   html <- xml2::read_xml('<body>
+    <h1>abc</h1>
     <div id="1"><h1>abc</h1></div>
+    <div class="section"><h1>abc</h1></div>
   </body>')
   tweak_anchors(html)
-  expect_equal(xpath_attr(html, ".//h1", "id"), NA_character_)
-  expect_equal(xpath_attr(html, ".//div", "id"), "1")
+  expect_equal(xpath_attr(html, ".//h1", "id"), rep(NA_character_, 3))
 })
 
 test_that("anchor html added to headings", {
@@ -81,12 +82,14 @@ test_that("can process multiple header levels", {
   expect_equal(xpath_attr(html, ".//a", "href"), c("#1", "#2", "#3", "#4"))
 })
 
-test_that("only modifies first header", {
+test_that("can handle multiple header", {
   html <- xml2::read_xml('<body>
     <div id="x" class="section"><h1>one</h1><h1>two</h1></div>
   </body>')
   tweak_anchors(html)
-  expect_equal(xpath_length(html, ".//h1/a"), 1)
+  expect_equal(xpath_attr(html, ".//div", "id"), NA_character_)
+  expect_equal(xpath_attr(html, ".//h1", "id"), c("x", "x-1"))
+  expect_equal(xpath_attr(html, ".//h1/a", "href"), c("#x", "#x-1"))
 })
 
 test_that("anchors don't get additional newline", {

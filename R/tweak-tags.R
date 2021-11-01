@@ -1,22 +1,23 @@
 tweak_anchors <- function(html) {
-  divs <- xml2::xml_find_all(html, ".//div[@id]")
-  if (length(divs) == 0) {
+  headings <- xml2::xml_find_all(html, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
+  # Find all headings that are contained in a div with an id and
+  # have class 'section'
+  is_ok <- xml2::xml_find_lgl(headings,
+    "boolean(parent::div[contains(@class, 'section') and @id])"
+  )
+  headings <- headings[is_ok]
+  if (length(headings) == 0) {
     return(invisible())
   }
 
-  id <- xml2::xml_attr(divs, "id")
-  headings <- xml2::xml_find_first(divs, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
-
-  is_ok <- !is.na(xml2::xml_name(headings)) & has_class(divs, "section")
-  divs <- divs[is_ok]
-  id <- id[is_ok]
-  headings <- headings[is_ok]
+  id <- xml2::xml_find_chr(headings, "string(parent::div/@id)")
 
   # Update ids: dot in the anchor breaks scrollspy and rd translation
   # doesn't have enough information to generate unique ids
   new_id <- make.unique(gsub(".", "-", id, fixed = TRUE), "-")
 
   # Move ids to headings so that the js TOC doesn't add create new ids
+  divs <- xml2::xml_parent(headings)
   xml2::xml_attr(divs, "id") <- NULL
   xml2::xml_attr(headings, "id") <- new_id
 
