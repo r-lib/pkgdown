@@ -8,6 +8,8 @@ The example results should have the copy button correctly placed when
 scrollings
 }
 \examples{
+pkgdown:::ruler()
+
 cat(rep("x ", 100), sep = "")
 cat(rep("xy", 100), sep = "")
 cat(rep("x ", 100), sep = "")
