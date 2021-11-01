@@ -111,8 +111,16 @@ tweak_useless_toc <- function(html) {
   contents <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
   headings <- xml2::xml_find_all(contents, ".//h2|.//h3|.//h4|.//h5|.//h6")
 
-  if (length(headings) <= 1) {
-    xml2::xml_remove(xml2::xml_find_first(html, '//nav[@id="toc"]'))
+  if (length(headings) > 1) {
+    return()
+  }
+
+  toc <- xml2::xml_find_first(html, '//nav[@id="toc"]')
+  sidebar <- xml2::xml_parent(toc)
+  if (length(xml2::xml_children(sidebar)) == 1) {
+    xml2::xml_remove(sidebar)
+  } else {
+    xml2::xml_remove(toc)
   }
 }
 
