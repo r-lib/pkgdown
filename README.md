@@ -48,30 +48,38 @@ Get started with [usethis](https://usethis.r-lib.org/):
 usethis::use_pkgdown()
 ```
 
-Use pkgdown to update your website:
+Then use pkgdown to build your website:
 
 ``` r
-# Run to build the website
 pkgdown::build_site()
 ```
 
 This generates a `docs/` directory containing a website. Your
 `README.md` becomes the homepage, documentation in `man/` generates a
 function reference, and vignettes will be rendered into `articles/`.
-Read `vignette("pkgdown")` for more details and to learn how to
-customise your site.
+Read `vignette("pkgdown")` for more details, and to learn how to deploy
+your site to GitHub pages.
 
-If you are using GitHub, the easiest way to make this your package
-website is to check into git, then go to settings for your repo and make
-sure that the **GitHub pages** source is set to “gh-pages branch /(root)
-folder”. Be sure to update the URL on your github repository homepage so
-others can easily navigate to your new site.
+### pkgdown 2.0.0 and Bootstrap 5
+
+pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which
+is accompanied by a whole bunch of minor UI improvements. If you’ve
+heavily customised your site, there’s a small chance that this will
+break you site, so everyone needs to explicitly opt-in to the upgrade by
+adding the following to `_pkgdown.yaml`:
+
+``` yaml
+template:
+  bootstrap: 5
+```
+
+Then learn about the many new ways to customise your site in
+`vignette("customise")`.
 
 ## In the wild
 
 At last count, pkgdown is used [by over 6,000
 packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
-
 Here are a few examples created by contributors to pkgdown:
 
 -   [bayesplot](http://mc-stan.org/bayesplot/index.html)
