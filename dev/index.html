@@ -127,18 +127,23 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Run once to configure your package to use pkgdown</span>
 <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>Use pkgdown to update your website:</p>
+<p>Then use pkgdown to build your website:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Run to build the website</span>
-<span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details and to learn how to customise your site.</p>
-<p>If you are using GitHub, the easiest way to make this your package website is to check into git, then go to settings for your repo and make sure that the <strong>GitHub pages</strong> source is set to “gh-pages branch /(root) folder”. Be sure to update the URL on your github repository homepage so others can easily navigate to your new site.</p>
+<code class="sourceCode R"><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details, and to learn how to deploy your site to GitHub pages.</p>
+<div class="section level3">
+<h3 id="pkgdown-200-and-bootstrap-5">pkgdown 2.0.0 and Bootstrap 5<a class="anchor" aria-label="anchor" href="#pkgdown-200-and-bootstrap-5"></a>
+</h3>
+<p>pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which is accompanied by a whole bunch of minor UI improvements. If you’ve heavily customised your site, there’s a small chance that this will break you site, so everyone needs to explicitly opt-in to the upgrade by adding the following to <code>_pkgdown.yaml</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
+<p>Then learn about the many new ways to customise your site in <code><a href="articles/customise.html">vignette("customise")</a></code>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="in-the-wild">In the wild<a class="anchor" aria-label="anchor" href="#in-the-wild"></a>
 </h2>
-<p>At last count, pkgdown is used <a href="https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&amp;type=Code" class="external-link">by over 6,000 packages</a>.</p>
-<p>Here are a few examples created by contributors to pkgdown:</p>
+<p>At last count, pkgdown is used <a href="https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&amp;type=Code" class="external-link">by over 6,000 packages</a>. Here are a few examples created by contributors to pkgdown:</p>
 <ul>
 <li><p><a href="http://mc-stan.org/bayesplot/index.html" class="external-link">bayesplot</a> (<a href="https://github.com/stan-dev/bayesplot/tree/gh-pages" class="external-link">source</a>): plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
 <li><p><a href="https://rnabioco.github.io/valr/" class="external-link">valr</a> (<a href="https://github.com/rnabioco/valr" class="external-link">source</a>): read and manipulate genome intervals and signals.</p></li>
