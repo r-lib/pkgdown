@@ -275,3 +275,7 @@ print.pkgdown_xml <- function(x, ...) {
   cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
   invisible(x)
 }
+
+tr_ <- function(...) {
+  gettext(..., domain = "R-pkgdown")
+}

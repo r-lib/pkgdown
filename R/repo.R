@@ -30,7 +30,7 @@ repo_source <- function(pkg, paths) {
     links <- c(links[1:3], paste0("and ", n - 3, " more"))
   }
 
-  paste0("Source: ", paste(links, collapse = ", "))
+  paste0(tr_("Source:"), " ", paste(links, collapse = ", "))
 }
 
 repo_auto_link <- function(pkg, text) {

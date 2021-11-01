@@ -68,6 +68,8 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
+  components$lang <- pkg$lang
+  components$translate <- data$translate
 
   # render complete layout
   template <- find_template(
@@ -98,6 +100,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
 
   print_yaml(list(
+    lang = pkg$lang,
     year = strftime(Sys.time(), "%Y"),
     package = list(
       name = pkg$package,
@@ -112,7 +115,18 @@ data_template <- function(pkg = ".", depth = 0L) {
     extra = extra,
     navbar = data_navbar(pkg, depth = depth),
     includes = includes,
-    yaml = yaml
+    yaml = yaml,
+    translate = list(
+      skip = tr_("Skip to contents"),
+      toggle_nav = tr_("Toggle navigation"),
+      search_for = tr_("Search for"),
+      on_this_page = tr_("On this page"),
+      source = tr_("Source"),
+      abstract = tr_("Abstract"),
+      authors = tr_("Authors"),
+      version = tr_("Version"),
+      examples = tr_("Examples")
+    )
   ))
 }
 
@@ -145,8 +159,7 @@ check_open_graph <- function(og) {
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
     warn(paste0(
-      "Unsupported `opengraph` ",
-      ngettext(length(unsupported_fields), "field", "fields"), ": ",
+      "Unsupported `opengraph` field(s): ",
       paste(unsupported_fields, collapse = ", ")
     ))
   }

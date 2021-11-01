@@ -94,10 +94,10 @@ navbar_components <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   menu <- list()
-  menu$reference <- menu_link("Reference", "reference/index.html")
+  menu$reference <- menu_link(tr_("Reference"), "reference/index.html")
 
   if (!is.null(pkg$tutorials)) {
-    menu$tutorials <- menu("Tutorials",
+    menu$tutorials <- menu(tr_("Tutorials"),
       menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
     )
   }
@@ -125,20 +125,20 @@ navbar_articles <- function(pkg = ".") {
   if (any(pkg_intro)) {
     intro <- vignettes[pkg_intro, , drop = FALSE]
 
-    menu$intro <- menu_link("Get started", intro$file_out)
+    menu$intro <- menu_link(tr_("Get started"), intro$file_out)
   }
 
   meta <- pkg$meta
   if (!has_name(meta, "articles")) {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
-    menu$articles <- menu("Articles", menu_links(vignettes$title, vignettes$file_out))
+    menu$articles <- menu(tr_("Articles"), menu_links(vignettes$title, vignettes$file_out))
   } else {
     articles <- meta$articles
 
     navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
     if (length(navbar) == 0) {
       # No articles to be included in navbar so just link to index
-      menu$articles <- menu_link("Articles", "articles/index.html")
+      menu$articles <- menu_link(tr_("Articles"), "articles/index.html")
     } else {
       sections <- lapply(navbar, function(section) {
         vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
@@ -151,9 +151,9 @@ navbar_articles <- function(pkg = ".") {
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
       if (length(navbar) != length(articles)) {
-        children <- c(children, list(menu_spacer(), menu_link("More articles...", "articles/index.html")))
+        children <- c(children, list(menu_spacer(), menu_link(tr_("More articles..."), "articles/index.html")))
       }
-      menu$articles <- menu("Articles", children)
+      menu$articles <- menu(tr_("Articles"), children)
     }
   }
   print_yaml(menu)

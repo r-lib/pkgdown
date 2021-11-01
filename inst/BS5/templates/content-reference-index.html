@@ -2,7 +2,7 @@
   <div class="contents col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
-      <h1>Reference</h1>
+      <h1>{{{pagetitle}}}</h1>
     </div>
 
     {{#rows}}<div id="{{slug}}" class="section level2">
@@ -22,7 +22,7 @@
 
   <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc">
-      <h2 data-toc-skip>Contents</h2>
+      <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
   </div>
 </div>

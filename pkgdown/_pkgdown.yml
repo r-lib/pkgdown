@@ -1,5 +1,7 @@
 url: https://pkgdown.r-lib.org
 
+lang: fr
+
 home:
   title: Build websites for R packages
 

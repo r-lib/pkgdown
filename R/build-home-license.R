@@ -9,7 +9,7 @@ build_home_license <- function(pkg) {
   if (!is.null(license_raw)) {
     render_page(pkg, "title-body",
       data = list(
-        pagetitle = "License",
+        pagetitle = tr_("License"),
         body = paste0("<pre>", escape_html(read_file(license_raw)), "</pre>")
       ),
       path = "LICENSE-text.html"
@@ -26,12 +26,12 @@ data_home_sidebar_license <- function(pkg = ".") {
   license_md <- path_first_existing(pkg$src_path, c("LICENSE.md", "LICENCE.md"))
   if (!is.null(license_md)) {
     link <- c(
-      "<a href='LICENSE.html'>Full license</a>",
+      a(tr_("Full license"), "LICENSE.html"),
       paste0("<small>", link, "</small>")
     )
   }
 
-  sidebar_section("License", link)
+  sidebar_section(tr_("License"), link)
 }
 
 # helpers -----------------------------------------------------------------

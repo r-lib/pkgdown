@@ -34,10 +34,10 @@ data_home_sidebar_citation <- function(pkg = ".") {
   if (!has_citation(pkg$src_path)) {
     return(character())
   }
-
-  citation <- paste0("<a href='authors.html'>Citing ", pkg$package, "</li>")
-
-  sidebar_section("Citation", citation)
+  sidebar_section(
+    heading = "Citation",
+    bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html")
+  )
 }
 
 data_citations <- function(pkg = ".") {

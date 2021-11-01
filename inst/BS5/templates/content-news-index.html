@@ -2,11 +2,11 @@
   <div class="contents col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
-      <h1>Release notes</h1>
+      <h1>{{{pagetitle}}}</h1>
     </div>
     <ul>
     {{#versions}}
-    <li><a href="{{{file_out}}}">Version {{{version}}}</a></li>
+    <li><a href="{{{file_out}}}">{{#translate}}{{version}}{{/translate}} {{{version}}}</a></li>
     {{/versions}}
     </ul>
   </div>

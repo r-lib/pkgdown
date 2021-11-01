@@ -53,6 +53,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   pkg_list <- list(
       package = package,
       version = version,
+      lang = meta$lang %||% "en",
 
       src_path = path_abs(pkg),
       dst_path = path_abs(dst_path),
