@@ -6,7 +6,7 @@
 
     Toc.init({
       $nav: $("#toc"),
-      $scope: $("h2, h3, h4, h5, h6")
+      $scope: $(".contents h2, .contents h3, .contents h4, .contents h5,.contents h6")
     });
 
     $('body').scrollspy({
