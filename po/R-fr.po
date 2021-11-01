@@ -34,31 +34,31 @@ msgstr "Site créé avec <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:92
 msgid "More about authors..."
-msgstr "À propos des auteurs..."
+msgstr "À propos des auteur·rice·s..."
 
 #: build-home-authors.R:95
 msgid "Developers"
-msgstr "Développeurs"
+msgstr "Développeur·se·s"
 
 #: build-home-authors.R:108 render.R:126
 msgid "Authors"
-msgstr "Auteurs"
+msgstr "Auteur·rice·s"
 
 #: build-home-authors.R:200
 msgid "author"
-msgstr "auteur"
+msgstr "auteur·rice"
 
 #: build-home-authors.R:201
 msgid "compiler"
-msgstr "compilateur"
+msgstr "compilateur·rice"
 
 #: build-home-authors.R:202
 msgid "contractor"
-msgstr "fournisseur"
+msgstr "fournisseur·se"
 
 #: build-home-authors.R:203
 msgid "contributor"
-msgstr "contributeur"
+msgstr "contributeur·rice"
 
 #: build-home-authors.R:204
 msgid "copyright holder"
@@ -66,27 +66,27 @@ msgstr "titulaire des droits d'auteur"
 
 #: build-home-authors.R:205
 msgid "maintainer"
-msgstr "mainteneur"
+msgstr "mainteneur·se"
 
 #: build-home-authors.R:206
 msgid "data contributor"
-msgstr "contributeur des données"
+msgstr "contributeur·rice des données"
 
 #: build-home-authors.R:207
 msgid "funder"
-msgstr "fondateur"
+msgstr "fondateur·rice"
 
 #: build-home-authors.R:208
 msgid "reviewer"
-msgstr "réviseur"
+msgstr "réviseur·se"
 
 #: build-home-authors.R:209
 msgid "thesis advisor"
-msgstr "directeur de thèse"
+msgstr "directeur·rice de thèse"
 
 #: build-home-authors.R:210
 msgid "translator"
-msgstr "traducteur"
+msgstr "traducteur·rice"
 
 #: build-home-citation.R:39
 msgid "Citing %s"
