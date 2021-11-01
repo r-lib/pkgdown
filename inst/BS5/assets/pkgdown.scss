@@ -60,7 +60,7 @@ html, body {
     position: sticky;
     top: $pkgdown-nav-height;
     max-height: calc(100vh - #{$pkgdown-nav-height} - 1rem);
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 
