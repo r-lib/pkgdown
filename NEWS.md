@@ -181,6 +181,14 @@
 * The default "branch" for auto-linking is `HEAD`, which will work regardless
   of whether your default branch is called "main" or "master".
 
+* You can globally set the `width` of code output (in reference and articles)
+  with
+    
+    ```yaml
+    code:
+      width: 50
+    ```
+
 ## Articles
 
 * Article subtitle, author and date (specified in the YAML frontmatter) are now 

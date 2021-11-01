@@ -1,0 +1,8 @@
+---
+title: "Width"
+---
+
+```{r}
+getOption("width")
+```
+

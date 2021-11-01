@@ -301,6 +301,14 @@ build_rmarkdown_format <- function(pkg,
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
+  old_pre <- out$pre_knit
+  out$pre_knit <- function(...) {
+    options(width = purrr::pluck(pkg, "meta", "code", "width", .default = 80))
+    if (is.function(old_pre)) {
+      old_pre(...)
+    }
+  }
+
   # Surgically eliminate html_dependency_header_attrs() whichs otherwise
   # injects javascript that breaks our HTML anchor system
   pre_process_env <- environment(environment(out$pre_processor)$base)

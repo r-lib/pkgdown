@@ -243,6 +243,15 @@ is_internal_link <- function(links, pkg) {
   }
 }
 
+ruler <- function(width = getOption("width")) {
+  x <- seq_len(width)
+  y <- rep("-", length(x))
+  y[x %% 5 == 0] <- "+"
+  y[x %% 10 == 0] <- (x[x%%10 == 0] %/% 10) %% 10
+  cat(y, "\n", sep = "")
+  cat(x %% 10, "\n", sep = "")
+}
+
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 

@@ -84,3 +84,14 @@ test_that("can override options with _output.yml", {
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
 })
+
+test_that("can set width", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"), "
+    code:
+      width: 50
+  ")
+
+  expect_output(path <- build_article("width", pkg))
+  html <- xml2::read_html(path)
+  expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
+})

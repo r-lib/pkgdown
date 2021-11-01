@@ -168,6 +168,8 @@ NULL
 #' @keywords internal
 #' @family tests
 #' @examples
+#' pkgdown:::ruler()
+#'
 #' cat(rep("x ", 100), sep = "")
 #' cat(rep("xy", 100), sep = "")
 #' cat(rep("x ", 100), sep = "")

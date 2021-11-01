@@ -16,3 +16,13 @@ test_that("examples_env runs pre and post code", {
   env <- local(examples_env(pkg))
   expect_equal(env$a, 2)
 })
+
+test_that("examples_env sets width", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+    code:
+      width: 50
+  ")
+
+  examples_env(pkg)
+  expect_equal(getOption("width"), 50)
+})

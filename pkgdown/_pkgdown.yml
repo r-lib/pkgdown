@@ -19,6 +19,9 @@ template:
   params:
     ganalytics: UA-115082821-1
 
+code:
+  width: 72
+
 development:
   mode: auto
 

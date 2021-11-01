@@ -223,7 +223,8 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   post_path <- path_abs(path(pkg$src_path, "pkgdown", "post-reference.R"))
 
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
-  withr::local_options(width = 80, .local_envir = envir)
+  width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
+  withr::local_options(width = width, .local_envir = envir)
   withr::local_seed(seed)
 
   examples_env <- child_env(globalenv())
