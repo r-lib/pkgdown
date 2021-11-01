@@ -52,6 +52,16 @@ template:
 
 You can learn more about controlling the appearance of your site in `vignette("customise")`.
 
+### Language
+
+If your documentation (`.Rd` and `.Rmd`) is written in an language other than English, declare it by setting setting `lang` to the [two letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
+
+``` yaml
+lang: fr
+```
+
+This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site (if a translation for your language is available).
+
 ## Home page
 
 The contents of home page is automatically generated from `index.md` or `README.md`.
