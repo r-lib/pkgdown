@@ -4,7 +4,8 @@ tweak_reference_highlighting <- function(html) {
   # 1) <div> with class sourceCode + r/R, as created by ```R
   div <- xml2::xml_find_all(html, ".//div")
   # must have sourceCode and not be in examples or usage
-  is_source <- has_class(div, "sourceCode") & !is_handled_section(div)
+  is_source <- has_class(div, "sourceCode") & !has_class(div, c("ref-usage", "ref-examples"))
+
   div_sourceCode <- div[is_source]
   is_r <- has_class(div_sourceCode, c("r", "R"))
   div_sourceCode_r <- div_sourceCode[is_r]

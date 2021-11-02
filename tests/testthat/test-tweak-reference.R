@@ -50,6 +50,16 @@ test_that("highlights <pre> wrapped in <div> with language info", {
   # Select all leaf <span> to work around variations in pandoc styling
   expect_equal(xpath_attr(html, "//code//span[not(span)]", "class"), c("fu", "kw", "at"))
   expect_equal(xpath_text(html, "//code//span[not(span)]"), c("field", ":", " value"))
+
+  # But don't touch examples
+  html <- xml2::read_html('
+    <div class="ref-examples sourceCode">
+      <pre><code>foo(x)</code></pre>
+    <div>
+  ')
+  tweak_reference_highlighting(html)
+  expect_equal(xpath_length(html, "//code//span"), 0)
+
 })
 
 test_that("highlight unwrapped <pre>", {
@@ -68,15 +78,6 @@ test_that("highlight unwrapped <pre>", {
   html <- xml2::read_html('
     <div id="ref-sections">
       <pre><code>foo(</code></pre>
-    <div>
-  ')
-  tweak_reference_highlighting(html)
-  expect_equal(xpath_length(html, "//code//span"), 0)
-
-  # And don't touch examples
-  html <- xml2::read_html('
-    <div class="ref-examples">
-      <pre><code>foo(x)</code></pre>
     <div>
   ')
   tweak_reference_highlighting(html)
