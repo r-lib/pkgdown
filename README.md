@@ -65,8 +65,8 @@ your site to GitHub pages.
 pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which
 is accompanied by a whole bunch of minor UI improvements. If you’ve
 heavily customised your site, there’s a small chance that this will
-break you site, so everyone needs to explicitly opt-in to the upgrade by
-adding the following to `_pkgdown.yaml`:
+break your site, so everyone needs to explicitly opt-in to the upgrade
+by adding the following to `_pkgdown.yaml`:
 
 ``` yaml
 template:
