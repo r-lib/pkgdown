@@ -177,6 +177,10 @@ body > .container .row {
 
 /* General typography ======================================================= */
 
+::selection {
+  background-color: mix($primary, $body-bg, 20%);
+}
+
 // Ensure in-page images don't run outside their container
 .contents img {
   max-width: 100%;
