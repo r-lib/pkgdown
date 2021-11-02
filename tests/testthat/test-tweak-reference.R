@@ -1,9 +1,19 @@
 test_that("ensure templates have expected div", {
   html3 <- read_template_html("content", "reference-topic", bs_version = 3)
-  expect_equal(length(find_ref_sections(html3)), 1)
+  div3 <- xml2::xml_find_all(html3, ".//div")
+  div3 <- div3[has_class(div3, "sourceCode")]
+  expect_equal(
+    xpath_attr(div3, ".", "class"),
+    c("ref-usage sourceCode", "ref-examples sourceCode")
+  )
 
   html5 <- read_template_html("content", "reference-topic", bs_version = 5)
-  expect_equal(length(find_ref_sections(html5)), 1)
+  div5 <- xml2::xml_find_all(html5, ".//div")
+  div5 <- div5[has_class(div5, "sourceCode")]
+  expect_equal(
+    xpath_attr(div5, ".", "class"),
+    c("ref-usage section level2 sourceCode", "ref-examples sourceCode")
+  )
 })
 
 test_that("highlights <pre> wrapped in <div> with language info", {
@@ -58,6 +68,15 @@ test_that("highlight unwrapped <pre>", {
   html <- xml2::read_html('
     <div id="ref-sections">
       <pre><code>foo(</code></pre>
+    <div>
+  ')
+  tweak_reference_highlighting(html)
+  expect_equal(xpath_length(html, "//code//span"), 0)
+
+  # And don't touch examples
+  html <- xml2::read_html('
+    <div class="ref-examples">
+      <pre><code>foo(x)</code></pre>
     <div>
   ')
   tweak_reference_highlighting(html)
