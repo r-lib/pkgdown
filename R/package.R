@@ -100,7 +100,7 @@ check_bootstrap_version <- function(version, pkg = list()) {
   } else if (version %in% c(3, 5)) {
     version
   } else if (version == 4) {
-    warn("`boostrap: 4` no longer supported; using `boostrap: 5` instead")
+    warn("`bootstrap: 4` no longer supported; using `bootstrap: 5` instead")
     5
   } else {
     abort(c(
