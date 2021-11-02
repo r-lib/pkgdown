@@ -13,256 +13,256 @@ msgstr ""
 
 #: build-404.R:11
 msgid "Page not found (404)"
-msgstr ""
+msgstr "页面未找到（404）"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr ""
+msgstr "请求的页面未找到。请使用导航栏内的链接。"
 
 #: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
-msgstr ""
+msgstr "文章"
 
 #: build-footer.R:29
 msgid "Developed by"
-msgstr ""
+msgstr "开发者："
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr ""
+msgstr "该网站由 <a href=\"%s\">pkgdown</a> %s 构建。"
 
 #: build-home-authors.R:92
 msgid "More about authors..."
-msgstr ""
+msgstr "关于作者…"
 
 #: build-home-authors.R:95
 msgid "Developers"
-msgstr ""
+msgstr "开发者"
 
 #: build-home-authors.R:108 render.R:126
 msgid "Authors"
-msgstr ""
+msgstr "作者"
 
 #: build-home-authors.R:200
 msgid "author"
-msgstr ""
+msgstr "作者"
 
 #: build-home-authors.R:201
 msgid "compiler"
-msgstr ""
+msgstr "编译者"
 
 #: build-home-authors.R:202
 msgid "contractor"
-msgstr ""
+msgstr "合同员工"
 
 #: build-home-authors.R:203
 msgid "contributor"
-msgstr ""
+msgstr "合作者"
 
 #: build-home-authors.R:204
 msgid "copyright holder"
-msgstr ""
+msgstr "版权所有者"
 
 #: build-home-authors.R:205
 msgid "maintainer"
-msgstr ""
+msgstr "维护者"
 
 #: build-home-authors.R:206
 msgid "data contributor"
-msgstr ""
+msgstr "数据提供者"
 
 #: build-home-authors.R:207
 msgid "funder"
-msgstr ""
+msgstr "赞助者"
 
 #: build-home-authors.R:208
 msgid "reviewer"
-msgstr ""
+msgstr "审核者"
 
 #: build-home-authors.R:209
 msgid "thesis advisor"
-msgstr ""
+msgstr "论文导师"
 
 #: build-home-authors.R:210
 msgid "translator"
-msgstr ""
+msgstr "翻译者"
 
 #: build-home-citation.R:39
 msgid "Citing %s"
-msgstr ""
+msgstr "引用 %s"
 
 #: build-home-community.R:18
 msgid "Contributing guide"
-msgstr ""
+msgstr "开发指南"
 
 #: build-home-community.R:22
 msgid "Code of conduct"
-msgstr ""
+msgstr "行为准则"
 
 #: build-home-community.R:29
 msgid "Community"
-msgstr ""
+msgstr "社区"
 
 #: build-home-index.R:85
 msgid "Dev Status"
-msgstr ""
+msgstr "开发状态"
 
 #: build-home-index.R:153
 msgid "View on %s"
-msgstr ""
+msgstr "访问%s"
 
 #: build-home-index.R:154
 msgid "Browse source code"
-msgstr ""
+msgstr "浏览源代码"
 
 #: build-home-index.R:155
 msgid "Report a bug"
-msgstr ""
+msgstr "缺陷报告"
 
 #: build-home-index.R:159
 msgid "Links"
-msgstr ""
+msgstr "链接"
 
 #: build-home-index.R:164
 msgid "Table of contents"
-msgstr ""
+msgstr "目录"
 
 #: build-home-license.R:12 build-home-license.R:34
 msgid "License"
-msgstr ""
+msgstr "许可"
 
 #: build-home-license.R:29
 msgid "Full license"
-msgstr ""
+msgstr "许可全部条款"
 
 #: build-news.R:100 build-news.R:233 build-news.R:238
 msgid "Changelog"
-msgstr ""
+msgstr "更改日志"
 
 #: build-news.R:124
 msgid "Version %s"
-msgstr ""
+msgstr "%s 版"
 
 #: build-news.R:136 build-news.R:227
 msgid "News"
-msgstr ""
+msgstr "新闻"
 
 #: build-news.R:229
 msgid "Releases"
-msgstr ""
+msgstr "发布版本"
 
 #: build-news.R:285
 msgid "CRAN release: %s"
-msgstr ""
+msgstr "CRAN发布版本：%s"
 
 #: build-reference-index.R:19
 msgid "Function reference"
-msgstr ""
+msgstr "函数参考"
 
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
-msgstr ""
+msgstr "教程"
 
 #: development.R:20
 msgid "Released version"
-msgstr ""
+msgstr "已发布的版本"
 
 #: development.R:21
 msgid "In-development version"
-msgstr ""
+msgstr "开发中的版本"
 
 #: development.R:22
 msgid "Unreleased version"
-msgstr ""
+msgstr "未发布的版本"
 
 #: navbar.R:97
 msgid "Reference"
-msgstr ""
+msgstr "参考"
 
 #: navbar.R:128
 msgid "Get started"
-msgstr ""
+msgstr "入门简介"
 
 #: navbar.R:154
 msgid "More articles..."
-msgstr ""
+msgstr "更多文章…"
 
 #: rd-data.R:33
 msgid "Details"
-msgstr ""
+msgstr "细节"
 
 #: rd-data.R:37
 msgid "Description"
-msgstr ""
+msgstr "概述"
 
 #: rd-data.R:41
 msgid "References"
-msgstr ""
+msgstr "参考文献"
 
 #: rd-data.R:45 render.R:124
 msgid "Source"
-msgstr ""
+msgstr "参考文献出处"
 
 #: rd-data.R:49
 msgid "Format"
-msgstr ""
+msgstr "格式"
 
 #: rd-data.R:53
 msgid "Note"
-msgstr ""
+msgstr "注释"
 
 #: rd-data.R:57
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: rd-data.R:61
 msgid "See also"
-msgstr ""
+msgstr "相关话题"
 
 #: rd-data.R:77
 msgid "Arguments"
-msgstr ""
+msgstr "参数"
 
 #: rd-data.R:85
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
-msgstr ""
+msgstr "# %s 函数（ %s类 ）"
 
 #: render.R:120
 msgid "Skip to contents"
-msgstr ""
+msgstr "跳到正文"
 
 #: render.R:121
 msgid "Toggle navigation"
-msgstr ""
+msgstr "切换导航栏"
 
 #: render.R:122
 msgid "Search for"
-msgstr ""
+msgstr "搜索"
 
 #: render.R:123
 msgid "On this page"
-msgstr ""
+msgstr "该页面"
 
 #: render.R:125
 msgid "Abstract"
-msgstr ""
+msgstr "摘要"
 
 #: render.R:127
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #: render.R:128
 msgid "Examples"
-msgstr ""
+msgstr "范例"
 
 #: repo.R:33
 msgid "Source:"
-msgstr ""
+msgstr "来源："
 
 #: tweak-sidebar.R:17
 msgid "Dev status"
-msgstr ""
+msgstr "开发状态"
