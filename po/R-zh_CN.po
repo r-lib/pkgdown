@@ -229,7 +229,7 @@ msgstr "值"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
-msgstr "# %s 函数（ %s类 ）"
+msgstr "# %2$s类的%1$s函数"
 
 #: render.R:120
 msgid "Skip to contents"
