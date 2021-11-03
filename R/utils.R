@@ -286,5 +286,5 @@ print.pkgdown_xml <- function(x, ...) {
 }
 
 tr_ <- function(...) {
-  gettext(..., domain = "R-pkgdown")
+  enc2utf8(gettext(..., domain = "R-pkgdown"))
 }
