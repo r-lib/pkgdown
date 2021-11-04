@@ -46,18 +46,22 @@
 * pkgdown can now translate all the text that it generates (#1446)- this means 
   that if you have a package where the docs are written in another language, you 
   can match all the pkgdown UI to provide a seamless experience to non-English
-  speakers. Currently pkgdown includes translations for French (thanks to
-  @romainfrancois, @lionel-, @jplecavalier, and @maelle), Spanish 
-  (thanks to @edgararuiz-zz) and simplified Chinese (thanks to @yitao).
-  If you're interested in adding translations for your language please file
-  an issue and I'll help you get started.
-  
-    You can activate the translations by setting the `lang` field in 
-    `_pkgdown.yaml` to `fr` (French), `es` (Spanish), or `zh_CN` (Chinese):
+  speakers. You can activate the translations by setting the `lang` field in 
+  `_pkgdown.yaml`:
    
     ```yaml
     lang: fr
     ```
+    
+    pkgdown includes translations for:
+    
+    * `es`, Spanish, thanks to @edgararuiz-zz.
+    * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
+    * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
+    * `zh_CN`, simplified Chinese, thanks to @yitao.
+  
+    If you're interested in adding translations for your language please file
+    an issue and I'll help you get started.
 
 ## Local search
 
