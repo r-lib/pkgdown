@@ -14,256 +14,256 @@ msgstr ""
 
 #: build-404.R:11
 msgid "Page not found (404)"
-msgstr ""
+msgstr "Sayfa bulunamıyor (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr ""
+msgstr "İçerik bulunamıyor. Lütfen yukarıdaki gezinme çubuğundaki bağları kullanın."
 
 #: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
-msgstr ""
+msgstr "Makaleler"
 
 #: build-footer.R:29
 msgid "Developed by"
-msgstr ""
+msgstr "Geliştiren"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr ""
+msgstr "Site <a href=\"%s\">pkgdown</a> %s ile geliştirilmiştir."
 
 #: build-home-authors.R:92
 msgid "More about authors..."
-msgstr ""
+msgstr "Yazarlar hakkında daha fazla bilgi..."
 
 #: build-home-authors.R:95
 msgid "Developers"
-msgstr ""
+msgstr "Geliştiriciler"
 
 #: build-home-authors.R:108 render.R:126
 msgid "Authors"
-msgstr ""
+msgstr "Yazarlar"
 
 #: build-home-authors.R:200
 msgid "author"
-msgstr ""
+msgstr "yazar"
 
 #: build-home-authors.R:201
 msgid "compiler"
-msgstr ""
+msgstr "derleyici"
 
 #: build-home-authors.R:202
 msgid "contractor"
-msgstr ""
+msgstr "anlaşmalı taraf"
 
 #: build-home-authors.R:203
 msgid "contributor"
-msgstr ""
+msgstr "katkıda bulunan"
 
 #: build-home-authors.R:204
 msgid "copyright holder"
-msgstr ""
+msgstr "telif hakkı sahibi"
 
 #: build-home-authors.R:205
 msgid "maintainer"
-msgstr ""
+msgstr "koruyucu"
 
 #: build-home-authors.R:206
 msgid "data contributor"
-msgstr ""
+msgstr "veri katkısında bulunan"
 
 #: build-home-authors.R:207
 msgid "funder"
-msgstr ""
+msgstr "fon sağlayıcı"
 
 #: build-home-authors.R:208
 msgid "reviewer"
-msgstr ""
+msgstr "eleştirmen"
 
 #: build-home-authors.R:209
 msgid "thesis advisor"
-msgstr ""
+msgstr "tez danışmanı"
 
 #: build-home-authors.R:210
 msgid "translator"
-msgstr ""
+msgstr "çevirmen"
 
 #: build-home-citation.R:39
 msgid "Citing %s"
-msgstr ""
+msgstr "%s'ı kaynak gösterme"
 
 #: build-home-community.R:18
 msgid "Contributing guide"
-msgstr ""
+msgstr "Katkıda bulunma rehberi"
 
 #: build-home-community.R:22
 msgid "Code of conduct"
-msgstr ""
+msgstr "Davranış kuralları"
 
 #: build-home-community.R:29
 msgid "Community"
-msgstr ""
+msgstr "Komünite"
 
 #: build-home-index.R:85
 msgid "Dev Status"
-msgstr ""
+msgstr "Geliştirme statüsü"
 
 #: build-home-index.R:153
 msgid "View on %s"
-msgstr ""
+msgstr "%s'da gör"
 
 #: build-home-index.R:154
 msgid "Browse source code"
-msgstr ""
+msgstr "Kaynak koduna göz at"
 
 #: build-home-index.R:155
 msgid "Report a bug"
-msgstr ""
+msgstr "Hata bildir"
 
 #: build-home-index.R:159
 msgid "Links"
-msgstr ""
+msgstr "Bağlantılar"
 
 #: build-home-index.R:164
 msgid "Table of contents"
-msgstr ""
+msgstr "İçindekiler"
 
 #: build-home-license.R:12 build-home-license.R:34
 msgid "License"
-msgstr ""
+msgstr "Lisans"
 
 #: build-home-license.R:29
 msgid "Full license"
-msgstr ""
+msgstr "Tam lisans"
 
 #: build-news.R:100 build-news.R:233 build-news.R:238
 msgid "Changelog"
-msgstr ""
+msgstr "Değişiklik günlüğü"
 
 #: build-news.R:124
 msgid "Version %s"
-msgstr ""
+msgstr "Sürüm %s"
 
 #: build-news.R:136 build-news.R:227
 msgid "News"
-msgstr ""
+msgstr "Haberler"
 
 #: build-news.R:229
 msgid "Releases"
-msgstr ""
+msgstr "Yayınlar"
 
 #: build-news.R:285
 msgid "CRAN release: %s"
-msgstr ""
+msgstr "CRAN yayını: %s"
 
 #: build-reference-index.R:19
 msgid "Function reference"
-msgstr ""
+msgstr "Fonksiyon referansı"
 
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
-msgstr ""
+msgstr "Öğreticiler"
 
 #: development.R:20
 msgid "Released version"
-msgstr ""
+msgstr "Yayımlanan sürüm"
 
 #: development.R:21
 msgid "In-development version"
-msgstr ""
+msgstr "Geliştirme aşamasındaki sürüm"
 
 #: development.R:22
 msgid "Unreleased version"
-msgstr ""
+msgstr "Yayınlanmamış sürüm"
 
 #: navbar.R:97
 msgid "Reference"
-msgstr ""
+msgstr "Referans"
 
 #: navbar.R:128
 msgid "Get started"
-msgstr ""
+msgstr "Başla"
 
 #: navbar.R:154
 msgid "More articles..."
-msgstr ""
+msgstr "Diğer makaleler..."
 
 #: rd-data.R:33
 msgid "Details"
-msgstr ""
+msgstr "Detaylar"
 
 #: rd-data.R:37
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: rd-data.R:41
 msgid "References"
-msgstr ""
+msgstr "Referanslar"
 
 #: rd-data.R:45 render.R:124
 msgid "Source"
-msgstr ""
+msgstr "Kaynak"
 
 #: rd-data.R:49
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: rd-data.R:53
 msgid "Note"
-msgstr ""
+msgstr "Not"
 
 #: rd-data.R:57
 msgid "Author"
-msgstr ""
+msgstr "Yazar"
 
 #: rd-data.R:61
 msgid "See also"
-msgstr ""
+msgstr "Ayrıca bak"
 
 #: rd-data.R:77
 msgid "Arguments"
-msgstr ""
+msgstr "Argümanlar"
 
 #: rd-data.R:85
 msgid "Value"
-msgstr ""
+msgstr "Değer"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
-msgstr ""
+msgstr "%s için # %s metodu"
 
 #: render.R:120
 msgid "Skip to contents"
-msgstr ""
+msgstr "İçeriğe atla"
 
 #: render.R:121
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Gezinmeyi aç/kapat"
 
 #: render.R:122
 msgid "Search for"
-msgstr ""
+msgstr "Ara"
 
 #: render.R:123
 msgid "On this page"
-msgstr ""
+msgstr "Bu sayfada"
 
 #: render.R:125
 msgid "Abstract"
-msgstr ""
+msgstr "Özet"
 
 #: render.R:127
 msgid "Version"
-msgstr ""
+msgstr "Sürüm"
 
 #: render.R:128
 msgid "Examples"
-msgstr ""
+msgstr "Örnekler"
 
 #: repo.R:33
 msgid "Source:"
-msgstr ""
+msgstr "Kaynak:"
 
 #: tweak-sidebar.R:17
 msgid "Dev status"
-msgstr ""
+msgstr "Geliştirme statüsü"
