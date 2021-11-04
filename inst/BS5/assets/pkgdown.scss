@@ -240,21 +240,6 @@ h2, h3, h4, h5, h6 {
   color: #A6CE39;
   margin-right: 4px;
 }
-
-// copy button
-.hasCopyButton {
-  position: relative;
-}
-.btn-copy-ex {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  visibility: hidden;
-}
-.hasCopyButton:hover button.btn-copy-ex {
-  visibility: visible;
-}
-
 // activate font awesome
 .fab {
   font-family: "Font Awesome 5 Brands" !important;
@@ -372,11 +357,33 @@ pre, pre code {
   overflow-wrap: break-word;
 }
 
+// copy button
+.hasCopyButton {
+  position: relative;
+}
+.btn-copy-ex {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  visibility: hidden;
+}
+.hasCopyButton:hover button.btn-copy-ex {
+  visibility: visible;
+}
+// Ensure there's enough space for the copy button
+.sourceCode pre {
+  padding: 1rem 0.5rem;
+}
+
 // "Pop" code out of page margins on small screens to give a little more room
 @include media-breakpoint-down(sm) {
-  pre {
+  div > pre {
     margin-left: calc(var(--bs-gutter-x) * -.5);
     margin-right: calc(var(--bs-gutter-x) * -.5);
+    border-radius: 0;
+  }
+  .btn-copy-ex {
+    right: calc(var(--bs-gutter-x) * -.5 + 5px);
   }
 }
 
@@ -384,9 +391,8 @@ pre code {
   padding: 0;
   background: transparent;
 
-  a:any-link {
-    color: inherit;
-  }
+  a:any-link {color: inherit;}
+  .error, .warning {font-weight: bolder;}
 }
 
 pre .img, pre .r-plt {
@@ -412,10 +418,6 @@ code a:any-link {
 a.sourceLine:hover {
   text-decoration: none;
 }
-
-pre code span.error   {font-weight: bolder;}
-pre code span.warning {font-weight: bolder;}
-
 
 /* search =================================================================== */
 
