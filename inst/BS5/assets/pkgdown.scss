@@ -404,7 +404,10 @@ pre .img, pre .r-plt {
 
 code a:any-link {
   text-decoration: underline;
-  text-decoration-color: $gray-400;
+  text-decoration-color: $primary;
+}
+pre code a:any-link {
+  text-decoration-color: $gray-600;
 }
 
 /* don't display links in code chunks when printing */
