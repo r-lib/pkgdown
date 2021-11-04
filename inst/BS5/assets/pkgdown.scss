@@ -391,7 +391,10 @@ pre code {
   padding: 0;
   background: transparent;
 
-  a:any-link {color: inherit;}
+  a:any-link {
+    color: inherit;
+    text-decoration-color: $gray-600;
+  }
   .error, .warning {font-weight: bolder;}
 }
 
@@ -402,13 +405,6 @@ pre .img, pre .r-plt {
   }
 }
 
-code a:any-link {
-  text-decoration: underline;
-  text-decoration-color: $primary;
-}
-pre code a:any-link {
-  text-decoration-color: $gray-600;
-}
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
