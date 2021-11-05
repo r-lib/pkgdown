@@ -46,19 +46,19 @@ articles:
 
 reference:
 - title: Build
-  desc:  Build a complete site or its individual section components.
+  desc:  Build a complete site or one of its components.
   contents:
   - build_site
-  - init_site
-  - pkgdown_sitrep
+  - build_articles
   - build_favicons
   - build_home
-  - build_reference
-  - build_articles
   - build_news
-  - build_search
   - build_tutorials
+  - build_reference
+  - build_search
+  - init_site
   - preview_site
+  - pkgdown_sitrep
 
 - title: Deployment
   contents:
