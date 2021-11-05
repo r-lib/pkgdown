@@ -1,3 +1,19 @@
+/* control page width ====================================================== */
+
+// Ensure contents never become unreadably wide
+.contents {
+  max-width: 50rem;
+}
+// Put extra space between content and navbar
+@include media-breakpoint-only(xl) {
+  .container .row { justify-content: space-evenly; }
+}
+// Boost font size and give big (but not infinite) margin on sidebar
+@include media-breakpoint-up(xxl) {
+  body { font-size: 18px }
+  .col-md-3 { margin-left: 5rem; }
+}
+
 /* navbar =================================================================== */
 
 // boostrap doesn't style active/hovered nav making it hard to see where
@@ -66,13 +82,18 @@ html, body {
 
 /* sidebar ================================================================== */
 
-#pkgdown-sidebar h2 {
-  margin-top: 1.5rem;
-  font-size: $font-size-lg;
-}
+#pkgdown-sidebar {
+  h2 {
+    margin-top: 1.5rem;
+    font-size: $font-size-lg;
+  }
+  .roles {
+    color: mix($body-color, $body-bg, 80%);
+  }
 
-#pkgdown-sidebar .list-unstyled li {
-  margin-bottom: 0.5rem;
+  .list-unstyled li {
+    margin-bottom: 0.5rem;
+  }
 }
 
 // Add some visual distinction between content and "sidebar" on mobile
@@ -132,19 +153,21 @@ body {position: relative;}
 
 /* footer  ================================================================== */
 
-$pkgdown-footer-color: $body-color !default;
+$pkgdown-footer-color: mix($body-color, $body-bg, 80%) !default;
 $pkgdown-footer-bg: transparent !default;
 $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
 
 footer {
   margin: 1rem 0 1rem 0;
+  font-size: .875em;
   border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
   background: $pkgdown-footer-bg;
   color: $pkgdown-footer-color;
   display: flex;
   column-gap: 1rem;
 }
+
 @include media-breakpoint-down(sm) {
   footer {flex-direction: column;}
 }
@@ -371,16 +394,20 @@ pre, pre code {
   visibility: visible;
 }
 // Ensure there's enough space for the copy button
-.sourceCode pre {
+pre {
   padding: 1rem 0.5rem;
 }
 
 // "Pop" code out of page margins on small screens to give a little more room
 @include media-breakpoint-down(sm) {
-  div > pre {
+  // div.section div.sourceCode pre
+  // prevents matching <pre> inside (e.g.) a <li>
+  div > div > pre {
     margin-left: calc(var(--bs-gutter-x) * -.5);
     margin-right: calc(var(--bs-gutter-x) * -.5);
     border-radius: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .btn-copy-ex {
     right: calc(var(--bs-gutter-x) * -.5 + 5px);
