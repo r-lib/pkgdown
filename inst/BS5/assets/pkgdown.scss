@@ -91,9 +91,8 @@ html, body {
     color: mix($body-color, $body-bg, 80%);
   }
 
-  .list-unstyled li {
-    margin-bottom: 0.5rem;
-  }
+  .list-unstyled li { margin-bottom: 0.5rem; }
+  .dev-status .list-unstyled li { margin-bottom: 0.1rem; }
 }
 
 // Add some visual distinction between content and "sidebar" on mobile
