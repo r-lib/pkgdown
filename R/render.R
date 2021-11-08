@@ -52,7 +52,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
 
   # render template components
   pieces <- c(
-    "head", "navbar", "header", "content", "docsearch", "footer",
+    "head", "header", "content", "docsearch", "footer",
     "in-header", "before-body", "after-body"
   )
 
@@ -67,6 +67,28 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
+
+  # Special case for the navbar that uses a nested partial template
+  navbar_package_version_fragment_path <- find_template(
+    "navbar-package-version", name,
+    templates_dir = templates_dir(pkg),
+    bs_version = pkg$bs_version
+  )
+  navbar_package_version_fragment <- render_template(
+    navbar_package_version_fragment_path,
+    data = data
+  )
+
+  navbar_layout_path <- find_template(
+    "navbar", name,
+    templates_dir = templates_dir(pkg),
+    bs_version = pkg$bs_version
+  )
+  components$navbar <- render_template(
+    navbar_layout_path,
+    data = c(data, `navbar-package-version` = navbar_package_version_fragment)
+  )
+
   components$template <- name
   components$lang <- pkg$lang
   components$translate <- data$translate
