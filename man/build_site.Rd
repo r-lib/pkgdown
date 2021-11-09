@@ -170,10 +170,81 @@ to danger). Finally, you can choose to override the default tooltip with
 }
 }
 
-\section{Navigation bar}{
+\section{Navigation bar (links)}{
 
 You can customise the navigation bar that appears at the top of the page with the \code{navbar} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
+
+Navbar links, the main part of the navbar, is made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
+This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
+
+This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
+}\if{html}{\out{</div>}}
+
+It makes use of the the six built-in components:
+\itemize{
+\item \code{intro}: "Get Started", which links to a vignette with the same name as the package.
+\item \code{reference}, if there are any \code{.Rd} files.
+\item \code{articles}, if there are any vignettes or articles.
+\item \code{tutorials}, if there any tutorials.
+\item \code{news}, if \code{NEWS.md} exists.
+\item \code{search}, the search box (see \code{vignette("search")} for more details).
+\item \code{github}, a link to the source repository (with an icon), if it can be automatically determined from the \code{DESCRIPTION}.
+}
+
+You can use the \code{structure} field to reorganise the navbar without changing the default contents:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    left:  [search]
+    right: [reference, articles]
+}\if{html}{\out{</div>}}
+
+You can use \code{components} to override the default content.
+For example, this yaml provides a custom articles menu:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Article B1
+      href: articles/b1.html
+}\if{html}{\out{</div>}}
+
+Components uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown menus}.
+The elements of \code{menu} can be:
+\itemize{
+\item A link (\code{text} + \code{href})
+\item A heading (just \code{text})
+\item A separator (\verb{text: ——–})
+}
+
+Instead of text, you can also use the name of an \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
+You should also provide a textual description in the \code{aria-label} field for screenreader users.
+
+To add a new component to the navbar, you need to modify both \code{structure} and \code{components}.
+For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/hadleywickham
+      aria-label: Twitter
+}\if{html}{\out{</div>}}
+}
+
+\section{Navigation bar (brand)}{
+
+You can customise the navigation bar that appears at the top of the page with the \code{navbar} field.
+
+Navbar links, the main part of the navbar, is made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
 This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
 
 This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:

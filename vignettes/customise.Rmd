@@ -147,6 +147,11 @@ They all use a similar structure that separately defines the overall `structure`
 ```{r child="../man/rmd-fragments/navbar-configuration.Rmd"}
 ```
 
+#### Navbar brand
+
+```{r child="../man/rmd-fragments/navbar-brand-configuration.Rmd"}
+```
+
 ### Footer
 
 ```{r child="../man/rmd-fragments/footer-configuration.Rmd"}

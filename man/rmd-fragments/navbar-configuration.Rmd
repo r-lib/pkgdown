@@ -1,5 +1,6 @@
 You can customise the navigation bar that appears at the top of the page with the `navbar` field.
-It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+
+Navbar links, the main part of the navbar, is made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
 This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
 
 This is the default structure:
@@ -75,3 +76,4 @@ navbar:
       href: http://twitter.com/hadleywickham
       aria-label: Twitter
 ```
+

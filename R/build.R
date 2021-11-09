@@ -119,7 +119,11 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Navigation bar:
+#' @section Navigation bar (links):
+#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
+#' ```
+
+#' @section Navigation bar (brand):
 #' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
 #' ```
 #'

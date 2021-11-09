@@ -1,5 +1,11 @@
 url: https://pkgdown.r-lib.org
 
+navbar:
+  brand:
+    structure: [dog, package, version]
+    components:
+      dog: '<img alt="husky" src="https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" style="width:30px;"></img>'
+
 home:
   title: Build websites for R packages
 

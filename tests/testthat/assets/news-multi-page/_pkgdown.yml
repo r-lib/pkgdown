@@ -1,3 +1,6 @@
 news:
 - one_page: false
 
+development:
+  mode: release
+

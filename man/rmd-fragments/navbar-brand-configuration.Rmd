@@ -1,0 +1,24 @@
+You can also customize the "brand" part of the navbar which appears on the left and is not collapsed on any device.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+Like for navbar links, this organisation makes it easy to mix and match pkgdown defaults with your own customisations.
+The components are pasted together.
+
+This is the default structure:
+
+``` yaml
+navbar:
+  brand:
+    structure:  [package, version]
+```
+
+To add a new component to the navbar brand, you need to modify both `brand.structure` and `brand.components`.
+For example, the following yaml adds a dog image [from Pexels](https://www.pexels.com/fr-fr/photo/husky-siberien-noir-et-blanc-4681107/) left to the package name.
+
+``` yaml
+navbar:
+  brand:
+    structure: [dog, package, version]
+    components:
+      dog: '<img alt="husky" src="https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" style="width:30px;"></img>'
+```
+

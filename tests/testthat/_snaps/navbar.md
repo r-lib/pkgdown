@@ -139,7 +139,7 @@
       [1] "<li>\n  <a href=\"news/index.html\">Changelog</a>\n</li>"
       
 
-# data_navbar()can remove elements
+# data_navbar() can remove elements
 
     Code
       data_navbar(pkg)
@@ -152,6 +152,48 @@
       
       $right
       [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
+      
+
+# brand
+
+    Code
+      pkg$development
+    Output
+      $destination
+      [1] "dev"
+      
+      $mode
+      [1] "default"
+      
+      $version_label
+      [1] "muted"
+      
+      $version_tooltip
+      [1] ""
+      
+      $in_dev
+      [1] FALSE
+      
+
+---
+
+    Code
+      data_navbar(pkg)
+    Output
+      $bg
+      [1] "light"
+      
+      $type
+      [1] "light"
+      
+      $left
+      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"reference/index.html\">Reference</a>\n</li>"
+      
+      $right
+      [1] ""
+      
+      $brand
+      [1] "<img alt=\"husky\" src=\"https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940\" style=\"width:30px;\"></img> <a class=\"navbar-brand me-2\" href=\"index.html\">testpackage</a> <small class=\"nav-text text-muted me-auto\" data-bs-toggle=\"tooltip\" data-bs-placement=\"bottom\" title=\"\">1.0.0</small>"
       
 
 # render_navbar_links BS3 & BS4 default

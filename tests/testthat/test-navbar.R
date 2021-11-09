@@ -78,10 +78,18 @@ test_that("data_navbar() can re-order default elements", {
   expect_snapshot(data_navbar(pkg))
 })
 
-test_that("data_navbar()can remove elements", {
+test_that("data_navbar() can remove elements", {
   pkg <- as_pkgdown(test_path("assets/news-multi-page"))
   pkg$meta$navbar$structure$left <- c("github")
   pkg$meta$navbar$structure$right <- c("reference")
+  expect_snapshot(data_navbar(pkg))
+})
+
+test_that("brand", {
+  pkg <- as_pkgdown(test_path("assets/reference"))
+  expect_snapshot(pkg$development)
+  pkg$meta$navbar$brand$structure <- c("dog", "package", "version")
+  pkg$meta$navbar$brand$components$dog <- '<img alt="husky" src="https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" style="width:30px;"></img>'
   expect_snapshot(data_navbar(pkg))
 })
 

@@ -16,8 +16,12 @@ data_navbar <- function(pkg = ".", depth = 0L) {
     depth = depth,
     bs_version = pkg$bs_version
   )
+  if (pkg$bs_version == 3) {
+    return(c(style, links))
+  }
 
-  c(style, links)
+  brand <- list(brand = navbar_brand(pkg, depth))
+  c(style, links, brand)
 }
 
 # Default navbar ----------------------------------------------------------
@@ -43,7 +47,9 @@ navbar_structure <- function() {
 
 navbar_links <- function(navbar, components, depth = 0L, bs_version = 3L) {
   # Take structure as is from meta
-  structure <- modify_list(navbar_structure(), navbar$structure)
+  structure <- modify_list(
+    navbar_structure(), navbar$structure
+  )
 
   # Merge components from meta
   components_meta <- navbar$components %||% list()
@@ -159,6 +165,53 @@ navbar_articles <- function(pkg = ".") {
   print_yaml(menu)
 }
 
+navbar_brand <- function(pkg, depth) {
+  bs_version <- pkg$bs_version
+  meta_navbar_brand <- pkg$meta$navbar$brand
+  components <- modify_list(brand_components(pkg, depth), meta_navbar_brand$components)
+  structure <- meta_navbar_brand$structure %||% brand_structure()
+  paste0(components[structure], collapse = " ")
+}
+
+brand_structure <- function() {
+   c("package", "version")
+}
+
+brand_components <- function(pkg, depth) {
+  list(
+    package = navbar_package_brand(pkg, depth),
+    version = navbar_package_version(pkg)
+  )
+}
+
+navbar_package_brand <- function(pkg, depth) {
+
+  root <- up_path(depth)
+  title <- pkgdown_site_title(pkg)
+
+  sprintf(
+    '<a class="navbar-brand me-2" href="%sindex.html">%s</a>',
+    root,
+    title
+  )
+
+}
+
+navbar_package_version <- function(pkg) {
+
+  label <- pkg$development$version_label
+  tooltip <- pkg$development$version_tooltip
+  if (is.null(tooltip)) tooltip <- ""
+  version <- pkg$version
+
+  sprintf(
+    '<small class="nav-text text-%s me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="%s">%s</small>',
+    label,
+    tooltip,
+    version
+  )
+
+}
 
 # Menu helpers -------------------------------------------------------------
 
