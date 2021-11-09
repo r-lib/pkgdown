@@ -18,9 +18,9 @@ tweak_tabset <- function(div) {
 
   # Add empty ul for nav and div for content
   nav_class <- if (has_class(div, "tabset-pills")) {
-    "nav nav-pills nav-row"
+    "nav nav-pills"
   } else {
-    "nav nav-tabs nav-row"
+    "nav nav-tabs"
   }
   fade <- has_class(div, "tabset-fade")
 
