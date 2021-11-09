@@ -23,6 +23,10 @@
 render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
 
+  if (is.null(data$has_toc)) {
+    data$has_toc <- TRUE
+  }
+
   if (is.null(depth)) {
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
