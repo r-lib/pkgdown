@@ -34,7 +34,9 @@ tweak_tabset <- function(div) {
 
   # if not tabs active, activate the first tab
   if (!any(has_class(xml2::xml_children(content), "active"))) {
-    tweak_class_prepend(xml2::xml_find_first(nav, ".//li/a"), "active")
+    first_tab <- xml2::xml_find_first(nav, ".//li/button")
+    tweak_class_prepend(first_tab, "active")
+    xml2::xml_attr(first_tab, "aria-selected") <- TRUE
 
     tab_class <- paste("active", if (has_class(div, "tabset-fade")) "show")
     tweak_class_prepend(xml2::xml_child(content), tab_class)
@@ -49,12 +51,12 @@ tablist_item <- function(tab, nav, parent_id) {
   # Activate (if there was "{.active}" in the source Rmd)
   active <- has_class(tab, "active")
   li_class <- paste0("nav-link", if (active) " active")
-
   li <- xml2::xml_add_child(nav, "li", role = "presentation", class = "nav-item")
-  xml2::xml_add_child(li, "a", title,
+  xml2::xml_add_child(li, "button", title,
     `data-bs-toggle` = "tab",
+    `data-bs-target` = paste0("#", id),
     id = paste0(id, "-tab"),
-    href = paste0("#", id),
+    type = "button",
     role = "tab",
     `aria-controls` = id,
     `aria-selected` = tolower(active),
