@@ -4,7 +4,7 @@ title: "Has TOC"
 
 ## Introduction
 
-An otherwise standard vignette, without a TOC.
+An otherwise standard vignette, with a TOC.
 
 ## More Content
 
