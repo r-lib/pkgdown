@@ -6,17 +6,28 @@ test_that("template_candidates look for specific first", {
 })
 
 test_that("template_candidates look in template dir then pkgdown", {
-  # pkgdown object where templates_dir(pkg) => assets/templates-local/pkgdown/templates
-  pkg <- local_pkgdown_site(test_path("assets", "templates-local"))
-  pkg$meta$template <- list(path = path(pkg$src_path, "pkgdown", "templates"))
+  pkg_dir <- withr::local_tempdir()
+  template_dir <- withr::local_tempdir()
 
-  # ensure that templates_dir(pkg) returns the expected path
-  pkg_templates_dir <- path_abs(test_path("assets", "templates-local", "pkgdown", "templates"))
-  expect_equal(templates_dir(pkg), pkg_templates_dir)
+  pkg <- list(
+    src_path = pkg_dir,
+    meta = list(template = list(path  = template_dir)),
+    bs_version = 3
+  )
+
+  # ensure that templates_dir(pkg) returns the specific template path
+  expect_equal(templates_dir(pkg), path(template_dir))
 
   paths <- template_candidates("content", "article", pkg = pkg)
   dirs <- unique(path_dir(paths))
-  expect_equal(dirs, c(pkg_templates_dir, path_pkgdown("BS3", "templates")))
+  expect_equal(
+    dirs,
+    c(                                       # search for candidates...
+      path(pkg_dir, "pkgdown", "templates"), # first in local templates
+      path(template_dir),                    # second in global template path
+      path_pkgdown("BS3", "templates")       # finally in pkgdown templates
+    )
+  )
 })
 
 
@@ -33,17 +44,17 @@ test_that("look for templates_dir in right places", {
 })
 
 test_that("find templates in local pkgdown first", {
-  pkg <- local_pkgdown_site(test_path("assets", "templates-local"))
+  pkg <- test_path("assets", "templates-local")
 
   # local template used over default pkgdown template
   expect_equal(
     find_template("content", "article", pkg = pkg),
-    path(pkg$src_path, "pkgdown", "templates", "content-article.html")
+    path_abs(path(pkg, "pkgdown", "templates", "content-article.html"))
   )
 
   expect_equal(
     find_template("footer", "article", pkg = pkg),
-    path(pkg$src_path, "pkgdown", "templates", "footer-article.html")
+    path_abs(path(pkg, "pkgdown", "templates", "footer-article.html"))
   )
 
   # pkgdown template used (no local template)
