@@ -74,6 +74,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     )
 
     ext <- rbind(ext, ext2)
+    ext <- ext[!duplicated(ext$path), ]
 
     # copy web + explicit files beneath vignettes/
     is_child <- path_has_parent(ext$path, ".")
