@@ -1,18 +1,8 @@
-find_template <- function(type,
-                          name,
-                          ext = ".html",
-                          templates_dir = NULL,
-                          bs_version = 3,
-                          src_path = NULL) {
+find_template <- function(type, name, ext = ".html", pkg = ".") {
+  pkg <- as_pkgdown(pkg)
 
-  paths <- template_candidates(
-    type = type,
-    name = name,
-    ext = ext,
-    templates_dir = templates_dir,
-    bs_version = bs_version,
-    src_path = src_path
-  )
+  paths <- template_candidates(type = type, name = name, ext = ext, pkg = pkg)
+
   existing <- paths[file_exists(paths)]
 
   if (length(existing) == 0) {
@@ -22,32 +12,20 @@ find_template <- function(type,
 }
 
 # Used for testing
-read_template_html <- function(type,
-                               name,
-                               templates_dir = NULL,
-                               bs_version = 3,
-                               src_path = NULL) {
-  path <- find_template(
-    type = type,
-    name = name,
-    templates_dir = templates_dir,
-    bs_version = bs_version,
-    src_path = src_path
-  )
+read_template_html <- function(type, name, pkg = list()) {
+  if (is_list(pkg)) {
+    # promote to a shell "pkgdown" object so we don't need a complete pkg
+    class(pkg) <- "pkgdown"
+  }
+  path <- find_template(type = type, name = name, pkg = pkg)
   xml2::read_html(path)
 }
 
-template_candidates <- function(type,
-                                name,
-                                ext = ".html",
-                                templates_dir = NULL,
-                                bs_version = 3,
-                                src_path = NULL) {
-
+template_candidates <- function(type, name, ext = ".html", pkg = list()) {
   paths <- c(
-    if (!is.null(src_path)) path(src_path, "pkgdown", "templates"),
-    templates_dir,
-    path_pkgdown(paste0("BS", bs_version), "templates")
+    path(pkg$src_path, "pkgdown", "templates"),
+    templates_dir(pkg),
+    path_pkgdown(paste0("BS", pkg$bs_version), "templates")
   )
   names <- c(paste0(type, "-", name, ext), paste0(type, ext))
   all <- expand.grid(paths, names)

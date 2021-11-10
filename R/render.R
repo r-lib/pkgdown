@@ -60,12 +60,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
     pieces <- pieces[pieces != "docsearch"]
   }
 
-  templates <- purrr::map_chr(
-    pieces, find_template, name,
-    templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version,
-    src_path = pkg$src_path
-  )
+  templates <- purrr::map_chr(pieces, find_template, name = name, pkg = pkg)
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
@@ -73,12 +68,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   components$translate <- data$translate
 
   # render complete layout
-  template <- find_template(
-    "layout", name,
-    templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version,
-    src_path = pkg$src_path
-  )
+  template <- find_template("layout", name, pkg = pkg)
   rendered <- render_template(template, components)
 
   xml2::read_html(rendered, encoding = "UTF-8")

@@ -6,9 +6,17 @@ test_that("template_candidates look for specific first", {
 })
 
 test_that("template_candidates look in template dir then pkgdown", {
-  paths <- template_candidates("content", "article", templates_dir = "/test")
+  # pkgdown object where templates_dir(pkg) => assets/templates-local/pkgdown/templates
+  pkg <- local_pkgdown_site(test_path("assets", "templates-local"))
+  pkg$meta$template <- list(path = path(pkg$src_path, "pkgdown", "templates"))
+
+  # ensure that templates_dir(pkg) returns the expected path
+  pkg_templates_dir <- path_abs(test_path("assets", "templates-local", "pkgdown", "templates"))
+  expect_equal(templates_dir(pkg), pkg_templates_dir)
+
+  paths <- template_candidates("content", "article", pkg = pkg)
   dirs <- unique(path_dir(paths))
-  expect_equal(dirs, c("/test", path_pkgdown("BS3", "templates")))
+  expect_equal(dirs, c(pkg_templates_dir, path_pkgdown("BS3", "templates")))
 })
 
 
@@ -29,23 +37,23 @@ test_that("find templates in local pkgdown first", {
 
   # local template used over default pkgdown template
   expect_equal(
-    find_template("content", "article", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    find_template("content", "article", pkg = pkg),
     path(pkg$src_path, "pkgdown", "templates", "content-article.html")
   )
 
   expect_equal(
-    find_template("footer", "article", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    find_template("footer", "article", pkg = pkg),
     path(pkg$src_path, "pkgdown", "templates", "footer-article.html")
   )
 
   # pkgdown template used (no local template)
   expect_equal(
-    find_template("content", "tutorial", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    find_template("content", "tutorial", pkg = pkg),
     path_pkgdown("BS3", "templates", "content-tutorial.html")
   )
 
   expect_equal(
-    find_template("footer", "ignored", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    find_template("footer", "ignored", pkg = pkg),
     path_pkgdown("BS3", "templates", "footer.html")
   )
 })
