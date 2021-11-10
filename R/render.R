@@ -63,7 +63,8 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   templates <- purrr::map_chr(
     pieces, find_template, name,
     templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version
+    bs_version = pkg$bs_version,
+    src_path = pkg$src_path
   )
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
@@ -75,7 +76,8 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   template <- find_template(
     "layout", name,
     templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version
+    bs_version = pkg$bs_version,
+    src_path = pkg$src_path
   )
   rendered <- render_template(template, components)
 

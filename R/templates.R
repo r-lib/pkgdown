@@ -2,14 +2,16 @@ find_template <- function(type,
                           name,
                           ext = ".html",
                           templates_dir = NULL,
-                          bs_version = 3) {
+                          bs_version = 3,
+                          src_path = NULL) {
 
   paths <- template_candidates(
     type = type,
     name = name,
     ext = ext,
     templates_dir = templates_dir,
-    bs_version = bs_version
+    bs_version = bs_version,
+    src_path = src_path
   )
   existing <- paths[file_exists(paths)]
 
@@ -20,12 +22,17 @@ find_template <- function(type,
 }
 
 # Used for testing
-read_template_html <- function(type, name, templates_dir = NULL, bs_version = 3) {
+read_template_html <- function(type,
+                               name,
+                               templates_dir = NULL,
+                               bs_version = 3,
+                               src_path = NULL) {
   path <- find_template(
     type = type,
     name = name,
     templates_dir = templates_dir,
-    bs_version = bs_version
+    bs_version = bs_version,
+    src_path = src_path
   )
   xml2::read_html(path)
 }
@@ -34,9 +41,11 @@ template_candidates <- function(type,
                                 name,
                                 ext = ".html",
                                 templates_dir = NULL,
-                                bs_version = 3) {
+                                bs_version = 3,
+                                src_path = NULL) {
 
   paths <- c(
+    if (!is.null(src_path)) path(src_path, "pkgdown", "templates"),
     templates_dir,
     path_pkgdown(paste0("BS", bs_version), "templates")
   )

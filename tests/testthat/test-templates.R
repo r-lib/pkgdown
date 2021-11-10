@@ -23,3 +23,29 @@ test_that("look for templates_dir in right places", {
   pkg$meta$template$path <- path(withr::local_tempdir())
   expect_equal(templates_dir(pkg), pkg$meta$template$path)
 })
+
+test_that("find templates in local pkgdown first", {
+  pkg <- local_pkgdown_site(test_path("assets", "templates-local"))
+
+  # local template used over default pkgdown template
+  expect_equal(
+    find_template("content", "article", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    path(pkg$src_path, "pkgdown", "templates", "content-article.html")
+  )
+
+  expect_equal(
+    find_template("footer", "article", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    path(pkg$src_path, "pkgdown", "templates", "footer-article.html")
+  )
+
+  # pkgdown template used (no local template)
+  expect_equal(
+    find_template("content", "tutorial", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    path_pkgdown("BS3", "templates", "content-tutorial.html")
+  )
+
+  expect_equal(
+    find_template("footer", "ignored", templates_dir = templates_dir(pkg), src_path = pkg$src_path),
+    path_pkgdown("BS3", "templates", "footer.html")
+  )
+})

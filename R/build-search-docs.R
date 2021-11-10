@@ -16,7 +16,8 @@ build_docsearch_json <- function(pkg = ".") {
     "config",
     "docsearch",
     ext = ".json",
-    bs_version = pkg$bs_version
+    bs_version = pkg$bs_version,
+    src_path = pkg$src_path
   )
 
   json <- render_template(template, data)
