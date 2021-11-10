@@ -1,0 +1,11 @@
+---
+title: "Has TOC"
+---
+
+## Introduction
+
+An otherwise standard vignette, without a TOC.
+
+## More Content
+
+Adipiscing conubia leo molestie diam pulvinar turpis pellentesque augue?
