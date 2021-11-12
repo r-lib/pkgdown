@@ -90,6 +90,10 @@ msgstr ""
 msgid "Citing %s"
 msgstr ""
 
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr ""
+
 #: build-home-community.R:18
 msgid "Contributing guide"
 msgstr ""
