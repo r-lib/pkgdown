@@ -101,7 +101,7 @@ test_that("finds external resources referenced by R code in the article html", {
 
   expect_output(path <- build_article("resources", pkg))
 
-  # ensure that we the HTML references `<img src="external" />` directly
+  # ensure that we the HTML references `<img src="external.png" />` directly
   expect_equal(
     xpath_attr(xml2::read_html(path), ".//img", "src"),
     "external.png"
