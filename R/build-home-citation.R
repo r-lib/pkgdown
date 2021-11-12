@@ -33,7 +33,7 @@ data_home_sidebar_citation <- function(pkg = ".") {
 
   sidebar_section(
     heading = "Citation",
-    bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html")
+    bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html#citation")
   )
 }
 
