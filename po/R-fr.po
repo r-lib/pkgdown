@@ -260,6 +260,10 @@ msgstr "Version"
 msgid "Examples"
 msgstr "Exemples"
 
+#: render.R:129
+msgid "Citation"
+msgstr "Citation"
+
 #: repo.R:33
 msgid "Source:"
 msgstr "Source :"

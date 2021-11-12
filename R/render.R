@@ -125,7 +125,8 @@ data_template <- function(pkg = ".", depth = 0L) {
       abstract = tr_("Abstract"),
       authors = tr_("Authors"),
       version = tr_("Version"),
-      examples = tr_("Examples")
+      examples = tr_("Examples"),
+      citation = tr_("Citation")
     )
   ))
 }

@@ -31,9 +31,6 @@ read_citation <- function(path = ".") {
 data_home_sidebar_citation <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  if (!has_citation(pkg$src_path)) {
-    return(character())
-  }
   sidebar_section(
     heading = "Citation",
     bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html")
@@ -42,28 +39,47 @@ data_home_sidebar_citation <- function(pkg = ".") {
 
 data_citations <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  cit <- read_citation(pkg$src_path)
 
-  text_version <- format(cit, style = "textVersion")
-  cit <- list(
-    html = ifelse(
-      text_version == "",
-      format(cit, style = "html"),
-      paste0("<p>", escape_html(text_version), "</p>")
-    ),
+  if (has_citation(pkg$src_path)) {
+
+    cit <- read_citation(pkg$src_path)
+
+    text_version <- format(cit, style = "textVersion")
+    if (identical(text_version, "")) {
+      cit <- list(
+        html = format(cit, style = "html"),
+        bibtex = format(cit, style = "bibtex")
+      )
+    } else {
+      cit <- list(
+        html = paste0("<p>", text_version, "</p>"),
+        bibtex = format(cit, style = "bibtex")
+      )
+    }
+
+    return(purrr::transpose(cit))
+  }
+
+  autocit <- utils::packageDescription(pkg$package)
+  autocit$`Date/Publication` <- Sys.time()
+  cit <- utils::citation(auto = autocit)
+  list(
+    html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
     bibtex = format(cit, style = "bibtex")
-  )
-
-  purrr::transpose(cit)
+    )
 }
 
 build_citation_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  source <- repo_source(pkg, "inst/CITATION")
+  source <- if (has_citation(pkg$src_path)) {
+    repo_source(pkg, "inst/CITATION")
+  } else {
+    repo_source(pkg, "DESCRIPTION")
+  }
 
   data <- list(
-    pagetitle = "Citation and Authors",
+    pagetitle = "Authors and Citation",
     citations = data_citations(pkg),
     authors = unname(data_authors(pkg)$all),
     source = source

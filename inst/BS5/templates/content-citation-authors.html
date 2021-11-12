@@ -3,18 +3,9 @@
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
-      {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
-    </div>
 
-    {{#citations}}
-    {{{html}}}
-    <pre>{{{bibtex}}}</pre>
-    {{/citations}}
-
-    <div class="page-header">
-      <h1>{{#translate}}{{authors}}{{/translate}}</h2>
     </div>
-   {{{before}}}
+     {{{before}}}
     <ul class="list-unstyled">
       {{#authors}}
       <li>
@@ -24,6 +15,15 @@
       {{/authors}}
     </ul>
    {{{after}}}
+
+    <div class="page-header">
+      <h2>{{#translate}}{{citation}}{{/translate}}</h2>
+    </div>
+    {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
+   {{#citations}}
+    {{{html}}}
+    <pre>{{{bibtex}}}</pre>
+    {{/citations}}
   </div>
 
 </div>
