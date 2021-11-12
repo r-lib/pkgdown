@@ -59,21 +59,16 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
 
   # Copy over images needed by the document
   if (copy_images) {
-    ext <- rmarkdown::find_external_resources(input_path)
+    ext_src <- rmarkdown::find_external_resources(input_path)
 
     # temporarily copy the rendered html into the input path directory and scan
-    # again for additional external resources that may be been referenced by R code
-    ext2 <- withr::with_tempfile(
-      new = "input_path_html",
-      tmpdir = path_dir(input_path),
-      fileext = ".html",
-      {
-        file_copy(path, input_path_html)
-        rmarkdown::find_external_resources(input_path_html)
-      }
-    )
+    # again for additional external resources that may be been included by R code
+    tempfile_in_input_dir <- file_temp(ext = "html", tmp_dir = path_dir(input_path))
+    file_copy(path, tempfile_in_input_dir)
+    withr::defer(unlink(tempfile_in_input_dir))
+    ext_post <- rmarkdown::find_external_resources(tempfile_in_input_dir)
 
-    ext <- rbind(ext, ext2)
+    ext <- rbind(ext_src, ext_post)
     ext <- ext[!duplicated(ext$path), ]
 
     # copy web + explicit files beneath vignettes/
