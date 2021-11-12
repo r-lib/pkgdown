@@ -169,16 +169,16 @@ msgstr "Listado de funciones"
 msgid "Tutorials"
 msgstr "Tutoriales"
 
-#: development.R:20
+#: development.R:25
 #, fuzzy
 msgid "Released version"
 msgstr "Version official"
 
-#: development.R:21
+#: development.R:26
 msgid "In-development version"
 msgstr "Versión en desarrollo"
 
-#: development.R:22
+#: development.R:27
 msgid "Unreleased version"
 msgstr "Versión no en CRAN"
 

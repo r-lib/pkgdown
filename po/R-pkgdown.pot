@@ -166,15 +166,15 @@ msgstr ""
 msgid "Tutorials"
 msgstr ""
 
-#: development.R:20
+#: development.R:25
 msgid "Released version"
 msgstr ""
 
-#: development.R:21
+#: development.R:26
 msgid "In-development version"
 msgstr ""
 
-#: development.R:22
+#: development.R:27
 msgid "Unreleased version"
 msgstr ""
 
