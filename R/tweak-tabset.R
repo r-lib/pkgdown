@@ -36,7 +36,7 @@ tweak_tabset <- function(div) {
   if (!any(has_class(xml2::xml_children(content), "active"))) {
     first_tab <- xml2::xml_find_first(nav, ".//li/button")
     tweak_class_prepend(first_tab, "active")
-    xml2::xml_attr(first_tab, "aria-selected") <- TRUE
+    xml2::xml_attr(first_tab, "aria-selected") <- "true"
 
     tab_class <- paste("active", if (has_class(div, "tabset-fade")) "show")
     tweak_class_prepend(xml2::xml_child(content), tab_class)
