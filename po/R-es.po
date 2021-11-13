@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-28 08:02-0500\n"
-"PO-Revision-Date: 2021-11-13 08:13+0100\n"
+"PO-Revision-Date: 2021-11-13 09:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
 "Language: es\n"
@@ -26,6 +26,10 @@ msgstr ""
 #: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr "Guías"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr "Artículos disponibles"
 
 #: build-footer.R:29
 msgid "Developed by"
