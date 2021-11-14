@@ -2,18 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 08:02-0500\n"
+"POT-Creation-Date: 2021-11-11 06:33-0600\n"
 "PO-Revision-Date: 2021-11-14 18:09+0000\n"
 "Last-Translator: @dieghernan\n"
 "Language-Team: es\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: es_ES\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Parser: loco_parse_po"
+"X-Loco-Parser: loco_parse_po\n"
 
 #: build-404.R:11
 msgid "Page not found (404)"
@@ -21,9 +21,11 @@ msgstr "Página no encontrada (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Contenido no encontrado. Por favor utilice los enlaces de la barra de navegación."
+msgstr ""
+"Contenido no encontrado. Por favor utilice los enlaces de la barra de "
+"navegación."
 
-#: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr "Artículos"
 
