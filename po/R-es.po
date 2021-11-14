@@ -175,15 +175,15 @@ msgstr "Listado de funciones"
 msgid "Tutorials"
 msgstr "Tutoriales"
 
-#: development.R:25
+#: development.R:20
 msgid "Released version"
 msgstr "Version official"
 
-#: development.R:26
+#: development.R:21
 msgid "In-development version"
 msgstr "Versión en desarrollo"
 
-#: development.R:27
+#: development.R:22
 msgid "Unreleased version"
 msgstr "Versión no en CRAN"
 

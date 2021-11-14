@@ -171,15 +171,15 @@ msgstr "函数参考"
 msgid "Tutorials"
 msgstr "教程"
 
-#: development.R:25
+#: development.R:20
 msgid "Released version"
 msgstr "已发布的版本"
 
-#: development.R:26
+#: development.R:21
 msgid "In-development version"
 msgstr "开发中的版本"
 
-#: development.R:27
+#: development.R:22
 msgid "Unreleased version"
 msgstr "未发布的版本"
 

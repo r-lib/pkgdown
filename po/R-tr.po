@@ -172,15 +172,15 @@ msgstr "Fonksiyon referansı"
 msgid "Tutorials"
 msgstr "Öğreticiler"
 
-#: development.R:25
+#: development.R:20
 msgid "Released version"
 msgstr "Yayımlanan sürüm"
 
-#: development.R:26
+#: development.R:21
 msgid "In-development version"
 msgstr "Geliştirme aşamasındaki sürüm"
 
-#: development.R:27
+#: development.R:22
 msgid "Unreleased version"
 msgstr "Yayınlanmamış sürüm"
 
