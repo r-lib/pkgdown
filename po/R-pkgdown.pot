@@ -18,7 +18,7 @@ msgstr ""
 msgid "Content not found. Please use links in the navbar."
 msgstr ""
 
-#: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr ""
 
