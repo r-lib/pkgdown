@@ -23,6 +23,10 @@ msgstr "请求的页面未找到。请使用导航栏内的链接。"
 msgid "Articles"
 msgstr "文章"
 
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr ""
+
 #: build-footer.R:29
 msgid "Developed by"
 msgstr "开发者："
@@ -90,6 +94,10 @@ msgstr "翻译者"
 #: build-home-citation.R:39
 msgid "Citing %s"
 msgstr "引用 %s"
+
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr ""
 
 #: build-home-community.R:18
 msgid "Contributing guide"
@@ -163,15 +171,15 @@ msgstr "函数参考"
 msgid "Tutorials"
 msgstr "教程"
 
-#: development.R:20
+#: development.R:25
 msgid "Released version"
 msgstr "已发布的版本"
 
-#: development.R:21
+#: development.R:26
 msgid "In-development version"
 msgstr "开发中的版本"
 
-#: development.R:22
+#: development.R:27
 msgid "Unreleased version"
 msgstr "未发布的版本"
 
@@ -266,3 +274,4 @@ msgstr "来源："
 #: tweak-sidebar.R:17
 msgid "Dev status"
 msgstr "开发状态"
+

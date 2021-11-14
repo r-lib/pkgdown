@@ -24,6 +24,10 @@ msgstr "Contenu introuvable. Merci d'utiliser les liens de la barre de navigatio
 msgid "Articles"
 msgstr "Articles"
 
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr ""
+
 #: build-footer.R:29
 msgid "Developed by"
 msgstr "Développé par"
@@ -91,6 +95,10 @@ msgstr "traducteur·rice"
 #: build-home-citation.R:39
 msgid "Citing %s"
 msgstr "Citer %s"
+
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr ""
 
 #: build-home-community.R:18
 msgid "Contributing guide"
@@ -164,15 +172,15 @@ msgstr "Documentation des fonctions"
 msgid "Tutorials"
 msgstr "Tutoriels"
 
-#: development.R:20
+#: development.R:25
 msgid "Released version"
 msgstr "Dernière version publiée"
 
-#: development.R:21
+#: development.R:26
 msgid "In-development version"
 msgstr "Version en développement"
 
-#: development.R:22
+#: development.R:27
 msgid "Unreleased version"
 msgstr "Version inédite"
 
