@@ -1,9 +1,4 @@
 meta_development <- function(meta, version, bs_version = 3) {
-  # Need to re-bind locales here for translation
-  local_envvar_pkgdown(meta)
-  dir <- system.file("po", package = "pkgdown")
-  bindtextdomain("R-pkgdown", dir)
-
   development <- purrr::pluck(meta, "development", .default = list())
 
   destination <- purrr::pluck(development, "destination", .default = "dev")
