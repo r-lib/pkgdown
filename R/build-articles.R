@@ -425,7 +425,7 @@ default_articles_index <- function(pkg = ".") {
 
   print_yaml(list(
     list(
-      title = "All vignettes",
+      title = tr_("All vignettes"),
       desc = NULL,
       contents = paste0("`", pkg$vignettes$name, "`")
     )

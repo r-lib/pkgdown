@@ -3,14 +3,15 @@ msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-28 08:02-0500\n"
-"PO-Revision-Date: 2021-10-27 12:01-0500\n"
+"PO-Revision-Date: 2021-11-13 09:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: es\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: potools 0.2.2\n"
+"X-Generator: PO File Editor https://pofile.net/free-po-editor\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: build-404.R:11
 msgid "Page not found (404)"
@@ -18,11 +19,17 @@ msgstr "Página desconocida (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Contenido desconocido. Por favor utilize los enlaces ubicados en la barra de navegación"
+msgstr ""
+"Contenido desconocido. Por favor utilize los enlaces ubicados en la barra "
+"de navegación"
 
-#: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr "Guías"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr "Artículos disponibles"
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -92,6 +99,10 @@ msgstr "traducido por"
 msgid "Citing %s"
 msgstr "Como citar %s"
 
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr "Citas y Autores"
+
 #: build-home-community.R:18
 msgid "Contributing guide"
 msgstr "Guía para colaboradores"
@@ -153,7 +164,6 @@ msgid "Releases"
 msgstr "Versiones"
 
 #: build-news.R:285
-#, fuzzy
 msgid "CRAN release: %s"
 msgstr "Versión en CRAN %s"
 
@@ -166,7 +176,6 @@ msgid "Tutorials"
 msgstr "Tutoriales"
 
 #: development.R:20
-#, fuzzy
 msgid "Released version"
 msgstr "Version official"
 
@@ -199,7 +208,6 @@ msgid "Description"
 msgstr "Descripción"
 
 #: rd-data.R:41
-#, fuzzy
 msgid "References"
 msgstr "Ayuda"
 
@@ -234,6 +242,7 @@ msgstr "Valor"
 #: rd-html.R:205
 msgid "# %s method for %s"
 msgstr "# %s método para %s"
+
 #: render.R:120
 msgid "Skip to contents"
 msgstr "Ver contenido"
