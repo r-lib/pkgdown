@@ -273,7 +273,7 @@ msgstr "Ejemplos"
 
 #: repo.R:33
 msgid "Source:"
-msgstr "Fuente:"
+msgstr "Código:"
 
 #: tweak-sidebar.R:17
 msgid "Dev status"
