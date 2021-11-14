@@ -22,6 +22,10 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr ""
+
 #: build-footer.R:29
 msgid "Developed by"
 msgstr ""
@@ -88,6 +92,10 @@ msgstr ""
 
 #: build-home-citation.R:39
 msgid "Citing %s"
+msgstr ""
+
+#: build-home-citation.R:66
+msgid "Citation and Authors"
 msgstr ""
 
 #: build-home-community.R:18
