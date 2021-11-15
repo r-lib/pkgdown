@@ -55,7 +55,7 @@
     
     pkgdown includes translations for:
     
-    * `es`, Spanish, thanks to @edgararuiz-zz.
+    * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
     * `de`, German, thnaks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
