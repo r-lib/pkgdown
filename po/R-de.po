@@ -26,7 +26,7 @@ msgstr "Artikel"
 
 #: build-articles.R:428
 msgid "All vignettes"
-msgstr ""
+msgstr "Alle Vignetten"
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -98,7 +98,7 @@ msgstr "%s zitieren"
 
 #: build-home-citation.R:66
 msgid "Citation and Authors"
-msgstr ""
+msgstr "Zitierung und Autor:innen"
 
 #: build-home-community.R:18
 msgid "Contributing guide"
