@@ -113,11 +113,4 @@ test_that("BS5 sidebar is removed if TOC is not used", {
   # The #pkgdown-sidebar is suppressed if the article has toc: false
   xpath_id_sidebar <- "descendant-or-self::*[(@id = 'pkgdown-sidebar')]"
   expect_equal(xpath_length(toc_false_html, xpath_id_sidebar), 0)
-
-  # check the inverse, these elements aren't dropped for articles with a TOC
-  expect_output(toc_true_path <- build_article("toc-true", pkg))
-  toc_true_html <- xml2::read_html(toc_true_path)
-
-  expect_match(xpath_attr(toc_true_html, xpath_class_contents, "class"), "col-md-9")
-  expect_equal(xpath_length(toc_true_html, xpath_id_sidebar), 1)
 })
