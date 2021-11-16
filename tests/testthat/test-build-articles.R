@@ -95,3 +95,20 @@ test_that("can set width", {
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
+
+test_that("finds external resources referenced by R code in the article html", {
+  pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
+
+  expect_output(path <- build_article("resources", pkg))
+
+  # ensure that we the HTML references `<img src="external.png" />` directly
+  expect_equal(
+    xpath_attr(xml2::read_html(path), ".//img", "src"),
+    "external.png"
+  )
+
+  # expect that `external.png` was copied to the rendered article directory
+  expect_true(
+    file_exists(path(path_dir(path), "external.png"))
+  )
+})
