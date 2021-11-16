@@ -106,11 +106,10 @@ test_that("BS5 sidebar is removed if TOC is not used", {
   expect_output(toc_false_path <- build_article("toc-false", pkg))
   toc_false_html <- xml2::read_html(toc_false_path)
 
-  # The .contents div doesn't have .col-md-9 if TOC isn't present
-  xpath_class_contents <- "descendant-or-self::*[(@class and contains(concat(' ', normalize-space(@class), ' '), ' contents '))]"
-  expect_no_match(xpath_attr(toc_false_html, xpath_class_contents, "class"), "col-md-9")
+  # We don't have a div.contents with .col-md-9 if TOC isn't present
+  xpath_contents <- "div[contains(@class, 'col-md-9') and contains(concat(@class, ' '), 'contents ')]"
+  expect_equal(xpath_length(toc_false_html, xpath_contents), 0)
 
   # The #pkgdown-sidebar is suppressed if the article has toc: false
-  xpath_id_sidebar <- "descendant-or-self::*[(@id = 'pkgdown-sidebar')]"
-  expect_equal(xpath_length(toc_false_html, xpath_id_sidebar), 0)
+  expect_equal(xpath_length(toc_false_html, "*[@id = 'pkgdown-sidebar']"), 0)
 })
