@@ -355,6 +355,8 @@
 `repo: jira_projects: [...]` and specifying a custom issue URL with
 `repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
 
+* Tab title in tabsets may include HTML (@gadenbuie, #1915).
+
 # pkgdown 1.6.1
 
 * The article index (used for autolinking vignettes across packages) 
