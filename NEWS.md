@@ -227,6 +227,11 @@
   (#1810). Generally, it's only safe to refer to figures in `man/figures`
   and `vignettes`.
 
+* Articles stored in `vignettes/articles` are moved up one level so that they
+  appear in `articles/` on the website. Previously, they would appear in
+  `articles/articles`, so `build_redirects()` automatically adds redirects for
+  any articles in the `vignettes/articles` directory (@gadenbuie #1911).
+
 ## HTML, CSS and JS
 
 * pkgdown (in concert with downlit and roxygen2) is moving towards more 
