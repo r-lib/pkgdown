@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 08:02-0500\n"
+"POT-Creation-Date: 2021-11-11 06:33-0600\n"
 "PO-Revision-Date: 2021-10-27 11:57-0500\n"
 "Last-Translator: \n"
 "Language-Team: fr\n"
@@ -18,7 +18,8 @@ msgstr "Page introuvable (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Contenu introuvable. Merci d'utiliser les liens de la barre de navigation."
+msgstr ""
+"Contenu introuvable. Merci d'utiliser les liens de la barre de navigation."
 
 #: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
@@ -191,6 +192,10 @@ msgstr "Référence"
 #: navbar.R:128
 msgid "Get started"
 msgstr "Prise en main"
+
+#: build-reference.R:353
+msgid "Usage"
+msgstr ""
 
 #: navbar.R:154
 msgid "More articles..."
