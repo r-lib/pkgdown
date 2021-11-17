@@ -45,6 +45,8 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
   data$footer <- data_footer(pkg)
 
+  pkg$development$version_tooltip <- tr_(pkg$development$version_tooltip)
+
   # Dependencies for head
   if (pkg$bs_version > 3) {
     data$headdeps <- data_deps(pkg = pkg, depth = depth)
