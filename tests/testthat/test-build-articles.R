@@ -101,4 +101,20 @@ test_that("articles in vignettes/articles/ are unnested into articles", {
   expect_output(path <- build_article("articles/nested", pkg))
 
   expect_equal(path, file.path(pkg$dst_path, "articles", "nested.html"))
+
+  # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
+  pkg$meta$url <- "https://example.com"
+  expect_output(build_redirects(pkg))
+
+  # Check that the redirect file exists in <dst>/articles/articles/
+  redirect_path <- path(pkg$dst_path, "articles", "articles", "nested.html")
+  expect_true(file_exists(redirect_path))
+
+  # Check that we redirect to correct location
+  html <- xml2::read_html(redirect_path)
+  expect_match(
+    xpath_attr(html, ".//meta[@http-equiv = 'refresh']", "content"),
+    "https://example.com/articles/nested.html",
+    fixed = TRUE
+  )
 })
