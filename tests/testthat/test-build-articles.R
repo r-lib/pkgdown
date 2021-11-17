@@ -96,7 +96,25 @@ test_that("can set width", {
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
 
-test_that("articles in vignettes/articles/ are unnested into articles", {
+test_that("finds external resources referenced by R code in the article html", {
+  pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
+
+  expect_output(path <- build_article("resources", pkg))
+
+  # ensure that we the HTML references `<img src="external.png" />` directly
+  expect_equal(
+    xpath_attr(xml2::read_html(path), ".//img", "src"),
+    "external.png"
+  )
+
+  # expect that `external.png` was copied to the rendered article directory
+  expect_true(
+    file_exists(path(path_dir(path), "external.png"))
+  )
+})
+
+
+test_that("articles in vignettes/articles/ are unnested into articles/", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("articles/nested", pkg))
 
