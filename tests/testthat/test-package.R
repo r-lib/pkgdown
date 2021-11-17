@@ -22,7 +22,9 @@ test_that("package_vignettes() moves vignettes/articles up one level", {
   dir_create(path(dir, "vignettes", "articles"))
   file_create(path(dir, "vignettes", "articles", "test.Rmd"))
 
-  expect_equal(as.character(package_vignettes(dir)$file_out), "articles/test.html")
+  pkg_vig <- package_vignettes(dir)
+  expect_equal(as.character(pkg_vig$file_out), "articles/test.html")
+  expect_equal(pkg_vig$depth, 1L)
 })
 
 test_that("package_vignettes() detects conflicts in final article paths", {

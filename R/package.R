@@ -253,7 +253,8 @@ package_vignettes <- function(path = ".") {
     file_in = file_in,
     file_out = file_out,
     title = title,
-    description = desc
+    description = desc,
+    depth = dir_depth(file_out)
   )
 }
 
