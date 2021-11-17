@@ -197,6 +197,10 @@ msgstr "Índice"
 msgid "Get started"
 msgstr "Primeros pasos"
 
+#: build-reference.R:353
+msgid "Usage"
+msgstr "Uso"
+
 #: navbar.R:154
 msgid "More articles..."
 msgstr "Más artículos..."

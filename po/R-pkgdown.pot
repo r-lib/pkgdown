@@ -190,6 +190,10 @@ msgstr ""
 msgid "Get started"
 msgstr ""
 
+#: build-reference.R:353
+msgid "Usage"
+msgstr ""
+
 #: navbar.R:154
 msgid "More articles..."
 msgstr ""
