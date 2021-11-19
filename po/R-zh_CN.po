@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-11 06:33-0600\n"
+"POT-Creation-Date: 2021-11-19 08:37+0100\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -43,7 +43,7 @@ msgstr "关于作者…"
 msgid "Developers"
 msgstr "开发者"
 
-#: build-home-authors.R:108 render.R:126
+#: build-home-authors.R:108 render.R:128
 msgid "Authors"
 msgstr "作者"
 
@@ -167,6 +167,10 @@ msgstr "CRAN发布版本：%s"
 msgid "Function reference"
 msgstr "函数参考"
 
+#: build-reference.R:353
+msgid "Usage"
+msgstr ""
+
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
 msgstr "教程"
@@ -191,10 +195,6 @@ msgstr "参考"
 msgid "Get started"
 msgstr "入门简介"
 
-#: build-reference.R:353
-msgid "Usage"
-msgstr ""
-
 #: navbar.R:154
 msgid "More articles..."
 msgstr "更多文章…"
@@ -211,7 +211,7 @@ msgstr "概述"
 msgid "References"
 msgstr "参考文献"
 
-#: rd-data.R:45 render.R:124
+#: rd-data.R:45 render.R:126
 msgid "Source"
 msgstr "参考文献出处"
 
@@ -243,31 +243,31 @@ msgstr "值"
 msgid "# %s method for %s"
 msgstr "# %2$s类的%1$s函数"
 
-#: render.R:120
+#: render.R:122
 msgid "Skip to contents"
 msgstr "跳到正文"
 
-#: render.R:121
+#: render.R:123
 msgid "Toggle navigation"
 msgstr "切换导航栏"
 
-#: render.R:122
+#: render.R:124
 msgid "Search for"
 msgstr "搜索"
 
-#: render.R:123
+#: render.R:125
 msgid "On this page"
 msgstr "该页面"
 
-#: render.R:125
+#: render.R:127
 msgid "Abstract"
 msgstr "摘要"
 
-#: render.R:127
+#: render.R:129
 msgid "Version"
 msgstr "版本"
 
-#: render.R:128
+#: render.R:130
 msgid "Examples"
 msgstr "范例"
 
