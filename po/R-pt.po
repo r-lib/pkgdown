@@ -142,7 +142,7 @@ msgstr "Changelog"
 
 #: build-news.R:124
 msgid "Version %s"
-msgstr "Versão% s"
+msgstr "Versão %s"
 
 #: build-news.R:136 build-news.R:227
 msgid "News"
