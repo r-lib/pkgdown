@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
-"POT-Creation-Date: 2021-11-24 21:26+0100\n"
+"POT-Creation-Date: 2021-11-24 17:35-0600\n"
 "PO-Revision-Date: 2021-11-12 15:18-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr "Mais sobre autores..."
 msgid "Developers"
 msgstr "Desenvolvedores"
 
-#: build-home-authors.R:108 render.R:133
+#: build-home-authors.R:108 render.R:127
 msgid "Authors"
 msgstr "Autores"
 
@@ -176,18 +176,6 @@ msgstr ""
 msgid "Tutorials"
 msgstr "Tutoriais"
 
-#: development.R:20 render.R:31
-msgid "Released version"
-msgstr "Versão lançada"
-
-#: development.R:21 render.R:32
-msgid "In-development version"
-msgstr "Versão em desenvolvimento"
-
-#: development.R:22 render.R:33
-msgid "Unreleased version"
-msgstr "Versão não lançada"
-
 #: navbar.R:97
 msgid "Reference"
 msgstr "Referência"
@@ -212,7 +200,7 @@ msgstr "Descrição"
 msgid "References"
 msgstr "Referências"
 
-#: rd-data.R:45 render.R:131
+#: rd-data.R:45 render.R:125
 msgid "Source"
 msgstr "Fonte"
 
@@ -244,31 +232,43 @@ msgstr "Valor"
 msgid "# %s method for %s"
 msgstr "# %s método para %s"
 
-#: render.R:127
+#: render.R:98
+msgid "Released version"
+msgstr "Versão lançada"
+
+#: render.R:99
+msgid "In-development version"
+msgstr "Versão em desenvolvimento"
+
+#: render.R:100
+msgid "Unreleased version"
+msgstr "Versão não lançada"
+
+#: render.R:121
 msgid "Skip to contents"
 msgstr "Avance para o conteúdo"
 
-#: render.R:128
+#: render.R:122
 msgid "Toggle navigation"
 msgstr "Alternar de navegação"
 
-#: render.R:129
+#: render.R:123
 msgid "Search for"
 msgstr "Procurar"
 
-#: render.R:130
+#: render.R:124
 msgid "On this page"
 msgstr "Nesta página"
 
-#: render.R:132
+#: render.R:126
 msgid "Abstract"
 msgstr "Resumo"
 
-#: render.R:134
+#: render.R:128
 msgid "Version"
 msgstr "Versão"
 
-#: render.R:135
+#: render.R:129
 msgid "Examples"
 msgstr "Exemplos"
 
