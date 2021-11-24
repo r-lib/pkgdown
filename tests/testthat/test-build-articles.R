@@ -153,4 +153,3 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
     fixed = TRUE
   )
 })
->>>>>>> 4c1668a04209e82db5367a420c894ff946379ca6
