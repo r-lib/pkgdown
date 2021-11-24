@@ -23,21 +23,6 @@
 render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
 
-  # Translate tooltip on render
-  mode <- pkg$development$mode
-
-  tooltip_tr <- switch(mode,
-    default = "",
-    release = tr_("Released version"),
-    devel = tr_("In-development version"),
-    unreleased = tr_("Unreleased version")
-  )
-
-  pkg <- utils::modifyList(
-    pkg,
-    list(development = list(version_tooltip = tooltip_tr))
-  )
-
   if (is.null(depth)) {
     depth <- length(strsplit(path, "/")[[1]]) - 1L
   }
@@ -105,6 +90,15 @@ data_template <- function(pkg = ".", depth = 0L) {
   extra <- list()
   extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
   extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
+
+  # Need to translate tooltip at render time
+  pkg$development$version_tooltip <- switch(
+    pkg$development$mode,
+    default = "",
+    release = tr_("Released version"),
+    devel = tr_("In-development version"),
+    unreleased = tr_("Unreleased version")
+  )
 
   print_yaml(list(
     lang = pkg$lang,
