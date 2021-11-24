@@ -17,6 +17,25 @@ test_that("check_bootstrap_version() gives informative error otherwise", {
   expect_snapshot(check_bootstrap_version(1), error = TRUE)
 })
 
+test_that("package_vignettes() moves vignettes/articles up one level", {
+  dir <- withr::local_tempdir()
+  dir_create(path(dir, "vignettes", "articles"))
+  file_create(path(dir, "vignettes", "articles", "test.Rmd"))
+
+  pkg_vig <- package_vignettes(dir)
+  expect_equal(as.character(pkg_vig$file_out), "articles/test.html")
+  expect_equal(pkg_vig$depth, 1L)
+})
+
+test_that("package_vignettes() detects conflicts in final article paths", {
+  dir <- withr::local_tempdir()
+  dir_create(path(dir, "vignettes", "articles"))
+  file_create(path(dir, "vignettes", "test.Rmd"))
+  file_create(path(dir, "vignettes", "articles", "test.Rmd"))
+
+  expect_error(package_vignettes(dir))
+})
+
 
 # titles ------------------------------------------------------------------
 

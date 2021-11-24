@@ -177,6 +177,8 @@ You can add additional files by putting them in the right place:
 
 -   Any files in `pkgdown/assets` will be copied to the website root directory.
 
+-   For expert users: template files in `pkgdown/templates` will override layout templates provided by pkgdown or [template packages](#template-packages).
+
 Use `init_site()` to update your rendered website after making changes to these files.
 
 ## Template packages
