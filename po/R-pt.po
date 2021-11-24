@@ -30,7 +30,7 @@ msgstr "Desenvolvido por"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr "Site criado com <a href="%s">pkgdown</a> %s."
+msgstr "Site criado com <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:92
 msgid "More about authors..."
