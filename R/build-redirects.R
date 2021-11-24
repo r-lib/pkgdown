@@ -38,11 +38,7 @@ build_redirect <- function(entry, index, pkg) {
   new <- entry[2]
   old <- path(pkg$dst_path, entry[1])
 
-  path <- find_template(
-    "content", "redirect",
-    templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version
-  )
+  path <- find_template("content", "redirect", pkg = pkg)
   template <- read_file(path)
 
   url <- sprintf("%s/%s%s", pkg$meta$url, pkg$prefix, new)

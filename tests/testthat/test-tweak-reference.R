@@ -1,5 +1,5 @@
 test_that("ensure templates have expected div", {
-  html3 <- read_template_html("content", "reference-topic", bs_version = 3)
+  html3 <- read_template_html("content", "reference-topic", list(bs_version = 3))
   div3 <- xml2::xml_find_all(html3, ".//div")
   div3 <- div3[has_class(div3, "sourceCode")]
   expect_equal(
@@ -7,7 +7,7 @@ test_that("ensure templates have expected div", {
     c("ref-usage sourceCode", "ref-examples sourceCode")
   )
 
-  html5 <- read_template_html("content", "reference-topic", bs_version = 5)
+  html5 <- read_template_html("content", "reference-topic", list(bs_version = 5))
   div5 <- xml2::xml_find_all(html5, ".//div")
   div5 <- div5[has_class(div5, "sourceCode")]
   expect_equal(
