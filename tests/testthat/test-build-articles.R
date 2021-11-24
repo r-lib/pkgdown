@@ -128,7 +128,7 @@ test_that("BS5 sidebar is removed if TOC is not used", {
   expect_equal(xpath_length(toc_false_html, xpath_contents), 0)
 
   # The #pkgdown-sidebar is suppressed if the article has toc: false
-  expect_equal(xpath_length(toc_false_html, ".//*[@id = 'pkgdown-sidebar']"), 0)
+  expect_equal(xpath_length(toc_false_html, ".//aside"), 0)
 })
 
 test_that("articles in vignettes/articles/ are unnested into articles/", {

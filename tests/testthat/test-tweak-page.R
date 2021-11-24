@@ -75,21 +75,21 @@ test_that("toc removed if one or fewer headings", {
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
     <main><h2></h2><h2></h2></main>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 1)
 
   html <- xml2::read_html("<body>
     <main><h2></h2></main>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
 
   html <- xml2::read_html("<body>
     <main></main>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
@@ -99,7 +99,7 @@ test_that("toc removed if one or fewer headings", {
 test_that("sidebar removed if empty", {
   html <- xml2::read_html("<body>
     <main></main>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//div"), 0)
@@ -109,9 +109,9 @@ test_that("sidebar removed if empty", {
 test_that("sidebar removed if empty", {
   html <- xml2::read_html("<body>
     <main></main>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
-  expect_equal(xpath_length(html, ".//div"), 0)
+  expect_equal(xpath_length(html, ".//aside"), 0)
 })
 
