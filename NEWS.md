@@ -58,6 +58,7 @@
     * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
     * `de`, German, thnaks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
+    * `pt`, Portoguese, thanks to @rich-iannone.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
     * `zh_CN`, simplified Chinese, thanks to @yitao.
   
