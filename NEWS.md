@@ -125,6 +125,9 @@
     
     * Change the placement of elements on the left and right.
     * Add text to the left and right (or even remove/replace default text)
+    
+* Expert users can now override layout templates provided by pkgdown or template
+  packages by placing template files in `pkgdown/templates` (@gadenbuie, #1897).
 
 ## New features
 
