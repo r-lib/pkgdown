@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
-"POT-Creation-Date: 2021-11-11 06:33-0600\n"
+"POT-Creation-Date: 2021-11-24 21:26+0100\n"
 "PO-Revision-Date: 2021-11-12 15:18-0500\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: pt\n"
 
 #: build-404.R:11
 msgid "Page not found (404)"
@@ -23,6 +23,10 @@ msgstr "Conteúdo não encontrado. Por favor, use links na navbar."
 #: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr "Artigos"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr ""
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -40,7 +44,7 @@ msgstr "Mais sobre autores..."
 msgid "Developers"
 msgstr "Desenvolvedores"
 
-#: build-home-authors.R:108 render.R:126
+#: build-home-authors.R:108 render.R:133
 msgid "Authors"
 msgstr "Autores"
 
@@ -91,6 +95,10 @@ msgstr "tradutor"
 #: build-home-citation.R:39
 msgid "Citing %s"
 msgstr "Citando %s"
+
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr ""
 
 #: build-home-community.R:18
 msgid "Contributing guide"
@@ -160,19 +168,23 @@ msgstr "Lançamento CRAN: %s"
 msgid "Function reference"
 msgstr "Referência de funções"
 
+#: build-reference.R:354
+msgid "Usage"
+msgstr ""
+
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
 msgstr "Tutoriais"
 
-#: development.R:20
+#: development.R:20 render.R:31
 msgid "Released version"
 msgstr "Versão lançada"
 
-#: development.R:21
+#: development.R:21 render.R:32
 msgid "In-development version"
 msgstr "Versão em desenvolvimento"
 
-#: development.R:22
+#: development.R:22 render.R:33
 msgid "Unreleased version"
 msgstr "Versão não lançada"
 
@@ -200,7 +212,7 @@ msgstr "Descrição"
 msgid "References"
 msgstr "Referências"
 
-#: rd-data.R:45 render.R:124
+#: rd-data.R:45 render.R:131
 msgid "Source"
 msgstr "Fonte"
 
@@ -232,31 +244,31 @@ msgstr "Valor"
 msgid "# %s method for %s"
 msgstr "# %s método para %s"
 
-#: render.R:120
+#: render.R:127
 msgid "Skip to contents"
 msgstr "Avance para o conteúdo"
 
-#: render.R:121
+#: render.R:128
 msgid "Toggle navigation"
 msgstr "Alternar de navegação"
 
-#: render.R:122
+#: render.R:129
 msgid "Search for"
 msgstr "Procurar"
 
-#: render.R:123
+#: render.R:130
 msgid "On this page"
 msgstr "Nesta página"
 
-#: render.R:125
+#: render.R:132
 msgid "Abstract"
 msgstr "Resumo"
 
-#: render.R:127
+#: render.R:134
 msgid "Version"
 msgstr "Versão"
 
-#: render.R:128
+#: render.R:135
 msgid "Examples"
 msgstr "Exemplos"
 
