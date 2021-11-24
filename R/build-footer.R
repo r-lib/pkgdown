@@ -38,7 +38,8 @@ footnote_components <- function(pkg = ".") {
 
   print_yaml(list(
     developed_by = developed_by,
-    built_with = built_with
+    built_with = built_with,
+    package = pkg[["package"]]
   ))
 }
 
