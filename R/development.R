@@ -64,3 +64,13 @@ check_mode <- function(mode) {
     ))
   }
 }
+
+# Called in render_page() so that LANG env var set up
+version_tooltip <- function(mode) {
+  switch(mode,
+    default = "",
+    release = tr_("Released version"),
+    devel = tr_("In-development version"),
+    unreleased = tr_("Unreleased version")
+  )
+}
