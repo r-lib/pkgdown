@@ -254,10 +254,11 @@ This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\pre
     right: built_with
 }\if{html}{\out{</div>}}
 
-Which draws from the two built-in components:
+Which uses two of the three built-in components:
 \itemize{
 \item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
-\item \code{built_with}, a sentence advertising pkgdown
+\item \code{built_with}, a sentence advertising pkgdown.
+\item \code{package}, the name of the package.
 }
 
 You can override these defaults with the \code{footer} field.
