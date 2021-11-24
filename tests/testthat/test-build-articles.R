@@ -95,6 +95,7 @@ test_that("can set width", {
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
+
 test_that("finds external resources referenced by R code in the article html", {
   pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
 
@@ -129,3 +130,27 @@ test_that("BS5 sidebar is removed if TOC is not used", {
   # The #pkgdown-sidebar is suppressed if the article has toc: false
   expect_equal(xpath_length(toc_false_html, ".//*[@id = 'pkgdown-sidebar']"), 0)
 })
+
+test_that("articles in vignettes/articles/ are unnested into articles/", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  expect_output(path <- build_article("articles/nested", pkg))
+
+  expect_equal(path, file.path(pkg$dst_path, "articles", "nested.html"))
+
+  # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
+  pkg$meta$url <- "https://example.com"
+  expect_output(build_redirects(pkg))
+
+  # Check that the redirect file exists in <dst>/articles/articles/
+  redirect_path <- path(pkg$dst_path, "articles", "articles", "nested.html")
+  expect_true(file_exists(redirect_path))
+
+  # Check that we redirect to correct location
+  html <- xml2::read_html(redirect_path)
+  expect_match(
+    xpath_attr(html, ".//meta[@http-equiv = 'refresh']", "content"),
+    "https://example.com/articles/nested.html",
+    fixed = TRUE
+  )
+})
+>>>>>>> 4c1668a04209e82db5367a420c894ff946379ca6
