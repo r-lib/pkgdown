@@ -3,7 +3,7 @@ $header-includes$
 $endfor${{/as_is}}
 
 <div class="row">
-  <div class="$if(toc)$col-md-9 $endif$contents">
+  <main id="main" $if(toc)$class="col-md-9"$endif$>
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
@@ -45,7 +45,7 @@ $endfor${{/as_is}}
     $endif$
 
 $body$
-  </div>
+  </main>
  $if(toc)$
  <div class="col-md-3" id="pkgdown-sidebar">
     <nav id="toc">
