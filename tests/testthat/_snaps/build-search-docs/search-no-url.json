@@ -4,10 +4,20 @@
     "id": [null],
     "dir": [""],
     "previous_headings": [""],
-    "what": ["Authors"],
-    "title": ["Authors"],
+    "what": ["Authors and Citation"],
+    "title": ["Authors and Citation"],
     "text": ["Hadley Wickham. Author, maintainer. . Copyright holder, funder."],
     "code": [""]
+  },
+  {
+    "path": ["/dev/authors.html"],
+    "id": ["citation"],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["Citation"],
+    "title": ["Authors and Citation"],
+    "text": ["Hadley Wickham, Jay Hesselberth Maëlle Salmon (2021). pkgdown: Make Static HTML Documentation Package. https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown."],
+    "code": ["@Manual{,   title = {pkgdown: Make Static HTML Documentation for a Package},   author = {Hadley Wickham and Jay Hesselberth and Maëlle Salmon},   year = {2021},   note = {https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown}, }"]
   },
   {
     "path": ["/dev/index.html"],
@@ -41,11 +51,11 @@
   },
   {
     "path": ["/dev/news/index.html"],
-    "id": ["testpackage-1009000"],
+    "id": ["pkgdown-1009000"],
     "dir": ["Changelog"],
     "previous_headings": [""],
-    "what": ["testpackage 1.0.0.9000"],
-    "title": ["testpackage 1.0.0.9000"],
+    "what": ["pkgdown 1.0.0.9000"],
+    "title": ["pkgdown 1.0.0.9000"],
     "text": ["bullet (#222 @someone)"],
     "code": [""]
   },
@@ -58,7 +68,7 @@
     "dir": ["Changelog"],
     "previous_headings": [""],
     "what": ["sub-heading"],
-    "title": ["testpackage 1.0.0"],
+    "title": ["pkgdown 1.0.0"],
     "text": ["first thing (#111 @githubuser) second thing"],
     "code": [""]
   }
