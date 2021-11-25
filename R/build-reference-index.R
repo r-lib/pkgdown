@@ -48,7 +48,9 @@ data_reference_index_rows <- function(section, index, pkg) {
   if (has_name(section, "contents")) {
     check_all_characters(section$contents, index, pkg)
     contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
-    names <- unique(unlist(purrr::map(contents, "name")))
+    names <- unlist(purrr::map(contents, "name"))
+    contents <- contents[!duplicated(names)]
+    names <- unique(names)
     contents <- purrr::map(contents, function(x) x[names(x) != "name"])
     contents <- do.call(rbind, contents)
     rows[[3]] <- list(
