@@ -63,7 +63,7 @@ citation_provided <- function(src_path) {
     bibtex = format(provided_citation, style = "bibtex")
   )
 
-  return(purrr::transpose(cit))
+  purrr::transpose(cit)
 }
 
 citation_auto <- function(pkg) {
