@@ -41,32 +41,39 @@ data_citations <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   if (has_citation(pkg$src_path)) {
-
-    cit <- read_citation(pkg$src_path)
-
-    text_version <- format(cit, style = "textVersion")
-    if (identical(text_version, "")) {
-      cit <- list(
-        html = format(cit, style = "html"),
-        bibtex = format(cit, style = "bibtex")
-      )
-    } else {
-      cit <- list(
-        html = paste0("<p>", text_version, "</p>"),
-        bibtex = format(cit, style = "bibtex")
-      )
-    }
-
-    return(purrr::transpose(cit))
+    return(citation_provided(pkg$src_path))
   }
 
+  citation_auto(pkg)
+
+}
+
+citation_provided <- function(src_path) {
+  provided_citation <- read_citation(src_path)
+
+  text_version <- format(provided_citation, style = "textVersion")
+  html_version <- if (identical(text_version, "")) {
+    format(provided_citation, style = "html")
+  } else {
+    paste0("<p>", text_version, "</p>")
+  }
+
+  cit <- list(
+    html = html_version,
+    bibtex = format(provided_citation, style = "bibtex")
+  )
+
+  return(purrr::transpose(cit))
+}
+
+citation_auto <- function(pkg) {
   autocit <- utils::packageDescription(pkg$package)
   autocit$`Date/Publication` <- Sys.time()
   cit <- utils::citation(auto = autocit)
   list(
     html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
     bibtex = format(cit, style = "bibtex")
-    )
+  )
 }
 
 build_citation_authors <- function(pkg = ".") {
@@ -79,7 +86,7 @@ build_citation_authors <- function(pkg = ".") {
   }
 
   data <- list(
-    pagetitle = "Authors and Citation",
+    pagetitle = tr_("Authors and Citation"),
     citations = data_citations(pkg),
     authors = unname(data_authors(pkg)$all),
     source = source
