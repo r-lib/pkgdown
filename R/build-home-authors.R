@@ -196,6 +196,7 @@ orcid_link <- function(orcid) {
 # dput(setNames(tolower(db$term), db$code))
 # # and replace creater with maintainer
 role_lookup <- function(abbr) {
+  # CRAN roles are translated
   roles <- c(
     aut = tr_("author"),
     com = tr_("compiler"),
@@ -209,7 +210,19 @@ role_lookup <- function(abbr) {
     ths = tr_("thesis advisor"),
     trl = tr_("translator")
   )
-  unname(roles[abbr])
+
+  # Other roles are left as is
+  marc_db <- getNamespace("utils")$MARC_relator_db
+  extra <- setdiff(marc_db$code, names(roles))
+  roles[extra] <- tolower(marc_db$term[match(extra, marc_db$code)])
+
+  out <- unname(roles[abbr])
+  if (any(is.na(out))) {
+    missing <- paste0("'", abbr[is.na(out)], "'", collapse = ", ")
+    warn(paste0("Unknown MARC role abbreviation ", missing))
+    out[is.na(out)] <- abbr[is.na(out)]
+  }
+  out
 }
 
 # helpers -----------------------------------------------------------------

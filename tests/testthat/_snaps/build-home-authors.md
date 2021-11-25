@@ -16,3 +16,12 @@
       </ul>
       </div>
 
+# role has multiple fallbacks
+
+    Code
+      role_lookup("unknown")
+    Warning <warning>
+      Unknown MARC role abbreviation 'unknown'
+    Output
+      [1] "unknown"
+

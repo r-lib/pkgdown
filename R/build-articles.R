@@ -207,9 +207,9 @@ build_article <- function(name,
     stop("Can't find article called ", src_path(name), call. = FALSE)
   }
 
-  depth <- dir_depth(name) + 1L
-  output_file <- pkg$vignettes$file_out[vig]
   input <- pkg$vignettes$file_in[vig]
+  output_file <- pkg$vignettes$file_out[vig]
+  depth <- pkg$vignettes$depth[vig]
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output_file, pkg$dst_path)
@@ -425,7 +425,7 @@ default_articles_index <- function(pkg = ".") {
 
   print_yaml(list(
     list(
-      title = "All vignettes",
+      title = tr_("All vignettes"),
       desc = NULL,
       contents = paste0("`", pkg$vignettes$name, "`")
     )

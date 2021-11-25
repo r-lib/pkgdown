@@ -239,12 +239,22 @@ package_vignettes <- function(path = ".") {
   ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
   title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
 
+  # Vignettes will be written to /articles/ with path relative to vignettes/
+  # *except* for vignettes in vignettes/articles, which are moved up a level
+  file_in <- path("vignettes", vig_path)
+  file_out <- path_ext_set(vig_path, ext)
+  file_out[!path_has_parent(file_out, "articles")] <- path(
+    "articles", file_out[!path_has_parent(file_out, "articles")]
+  )
+  check_unique_article_paths(file_in, file_out)
+
   tibble::tibble(
     name = path_ext_remove(vig_path),
-    file_in = path("vignettes", vig_path),
-    file_out = path("articles", paste0(path_ext_remove(vig_path), ".", ext)),
+    file_in = file_in,
+    file_out = file_out,
     title = title,
-    description = desc
+    description = desc,
+    depth = dir_depth(file_out)
   )
 }
 
@@ -264,4 +274,27 @@ find_template_config <- function(package, bs_version = NULL) {
   }
 
   yaml::yaml.load_file(config) %||% list()
+}
+
+check_unique_article_paths <- function(file_in, file_out) {
+  if (!any(duplicated(file_out))) {
+    return()
+  }
+  # Since we move vignettes/articles/* up one level, we may end up with two
+  # vignettes destined for the same final location. We also know that if there
+  # are conflicting final paths, they are the result of exactly two source files
+
+  file_out_dup <- file_out[duplicated(file_out)]
+
+  same_out_bullets <- purrr::map_chr(file_out_dup, function(f_out) {
+    src_files <- src_path(file_in[which(file_out == f_out)])
+    src_files <- paste(src_files, collapse = " and ")
+    sprintf("%s both create %s", src_files, dst_path(f_out))
+  })
+  names(same_out_bullets) <- rep_len("x", length(same_out_bullets))
+
+  rlang::abort(c(
+    "Rendered articles must have unique names. Rename or relocate one of the following source files:",
+    same_out_bullets
+  ))
 }

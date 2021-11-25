@@ -20,9 +20,13 @@ msgstr "Sayfa bulunamıyor (404)"
 msgid "Content not found. Please use links in the navbar."
 msgstr "İçerik bulunamıyor. Lütfen yukarıdaki gezinme çubuğundaki bağları kullanın."
 
-#: build-articles.R:371 navbar.R:134 navbar.R:141 navbar.R:156
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
 msgstr "Makaleler"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr ""
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -91,6 +95,10 @@ msgstr "çevirmen"
 #: build-home-citation.R:39
 msgid "Citing %s"
 msgstr "%s'ı kaynak gösterme"
+
+#: build-home-citation.R:66
+msgid "Citation and Authors"
+msgstr ""
 
 #: build-home-community.R:18
 msgid "Contributing guide"

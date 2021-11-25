@@ -55,9 +55,10 @@
     
     pkgdown includes translations for:
     
-    * `es`, Spanish, thanks to @edgararuiz-zz.
+    * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
     * `de`, German, thnaks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
+    * `pt`, Portoguese, thanks to @rich-iannone.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
     * `zh_CN`, simplified Chinese, thanks to @yitao.
   
@@ -126,6 +127,9 @@
     
     * Change the placement of elements on the left and right.
     * Add text to the left and right (or even remove/replace default text)
+    
+* Expert users can now override layout templates provided by pkgdown or template
+  packages by placing template files in `pkgdown/templates` (@gadenbuie, #1897).
 
 ## New features
 
@@ -227,6 +231,11 @@
   won't rendered on the website because they're in unsupported directories 
   (#1810). Generally, it's only safe to refer to figures in `man/figures`
   and `vignettes`.
+
+* Articles stored in `vignettes/articles` are moved up one level so that they
+  appear in `articles/` on the website. Previously, they would appear in
+  `articles/articles`, so `build_redirects()` automatically adds redirects for
+  any articles in the `vignettes/articles` directory (@gadenbuie #1911).
 
 ## HTML, CSS and JS
 
