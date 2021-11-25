@@ -91,6 +91,9 @@ data_template <- function(pkg = ".", depth = 0L) {
   extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
   extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
 
+  # Need to translate tooltip at render time
+  pkg$development$version_tooltip <- version_tooltip(pkg$development$mode)
+
   print_yaml(list(
     lang = pkg$lang,
     year = strftime(Sys.time(), "%Y"),

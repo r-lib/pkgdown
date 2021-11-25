@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 08:02-0500\n"
+"POT-Creation-Date: 2021-11-24 17:35-0600\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,7 +18,8 @@ msgstr "Sayfa bulunamıyor (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "İçerik bulunamıyor. Lütfen yukarıdaki gezinme çubuğundaki bağları kullanın."
+msgstr ""
+"İçerik bulunamıyor. Lütfen yukarıdaki gezinme çubuğundaki bağları kullanın."
 
 #: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
@@ -44,7 +45,7 @@ msgstr "Yazarlar hakkında daha fazla bilgi..."
 msgid "Developers"
 msgstr "Geliştiriciler"
 
-#: build-home-authors.R:108 render.R:126
+#: build-home-authors.R:108 render.R:127
 msgid "Authors"
 msgstr "Yazarlar"
 
@@ -168,21 +169,13 @@ msgstr "CRAN yayını: %s"
 msgid "Function reference"
 msgstr "Fonksiyon referansı"
 
+#: build-reference.R:354
+msgid "Usage"
+msgstr ""
+
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
 msgstr "Öğreticiler"
-
-#: development.R:20
-msgid "Released version"
-msgstr "Yayımlanan sürüm"
-
-#: development.R:21
-msgid "In-development version"
-msgstr "Geliştirme aşamasındaki sürüm"
-
-#: development.R:22
-msgid "Unreleased version"
-msgstr "Yayınlanmamış sürüm"
 
 #: navbar.R:97
 msgid "Reference"
@@ -208,7 +201,7 @@ msgstr "Açıklama"
 msgid "References"
 msgstr "Referanslar"
 
-#: rd-data.R:45 render.R:124
+#: rd-data.R:45 render.R:125
 msgid "Source"
 msgstr "Kaynak"
 
@@ -240,31 +233,43 @@ msgstr "Değer"
 msgid "# %s method for %s"
 msgstr "%s için # %s metodu"
 
-#: render.R:120
+#: render.R:98
+msgid "Released version"
+msgstr "Yayımlanan sürüm"
+
+#: render.R:99
+msgid "In-development version"
+msgstr "Geliştirme aşamasındaki sürüm"
+
+#: render.R:100
+msgid "Unreleased version"
+msgstr "Yayınlanmamış sürüm"
+
+#: render.R:121
 msgid "Skip to contents"
 msgstr "İçeriğe atla"
 
-#: render.R:121
+#: render.R:122
 msgid "Toggle navigation"
 msgstr "Gezinmeyi aç/kapat"
 
-#: render.R:122
+#: render.R:123
 msgid "Search for"
 msgstr "Ara"
 
-#: render.R:123
+#: render.R:124
 msgid "On this page"
 msgstr "Bu sayfada"
 
-#: render.R:125
+#: render.R:126
 msgid "Abstract"
 msgstr "Özet"
 
-#: render.R:127
+#: render.R:128
 msgid "Version"
 msgstr "Sürüm"
 
-#: render.R:128
+#: render.R:129
 msgid "Examples"
 msgstr "Örnekler"
 

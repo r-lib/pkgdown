@@ -13,23 +13,12 @@ meta_development <- function(meta, version, bs_version = 3) {
       version_label <- "danger"
     }
   }
-  version_tooltip <- purrr::pluck(development, "version_tooltip")
-  if (is.null(version_tooltip)) {
-    version_tooltip <- switch(mode,
-      default = "",
-      release = tr_("Released version"),
-      devel = tr_("In-development version"),
-      unreleased = tr_("Unreleased version")
-    )
-  }
-
   in_dev <- mode == "devel"
 
   list(
     destination = destination,
     mode = mode,
     version_label = version_label,
-    version_tooltip = version_tooltip,
     in_dev = in_dev
   )
 }
@@ -74,4 +63,14 @@ check_mode <- function(mode) {
       paste(valid_mode, collapse = ", ")
     ))
   }
+}
+
+# Called in render_page() so that LANG env var set up
+version_tooltip <- function(mode) {
+  switch(mode,
+    default = "",
+    release = tr_("Released version"),
+    devel = tr_("In-development version"),
+    unreleased = tr_("Unreleased version")
+  )
 }
