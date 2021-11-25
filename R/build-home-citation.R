@@ -52,14 +52,12 @@ citation_provided <- function(src_path) {
   provided_citation <- read_citation(src_path)
 
   text_version <- format(provided_citation, style = "textVersion")
-  html_version <- if (identical(text_version, "")) {
-    format(provided_citation, style = "html")
-  } else {
-    paste0("<p>", text_version, "</p>")
-  }
-
   cit <- list(
-    html = html_version,
+    html = ifelse(
+      text_version == "",
+      format(provided_citation, style = "html"),
+      paste0("<p>", escape_html(text_version), "</p>")
+    ),
     bibtex = format(provided_citation, style = "bibtex")
   )
 
