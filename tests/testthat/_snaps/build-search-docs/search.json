@@ -16,8 +16,8 @@
     "previous_headings": [""],
     "what": ["Citation"],
     "title": ["Authors and Citation"],
-    "text": ["Hadley Wickham, Jay Hesselberth Maëlle Salmon (2021). pkgdown: Make Static HTML Documentation Package. https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown."],
-    "code": ["@Manual{,   title = {pkgdown: Make Static HTML Documentation for a Package},   author = {Hadley Wickham and Jay Hesselberth and Maëlle Salmon},   year = {2021},   note = {https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown}, }"]
+    "text": ["Hadley Wickham (2021). testpackage: test package. R package version 1.0.0."],
+    "code": ["@Manual{,   title = {testpackage: A test package},   author = {Hadley Wickham},   year = {2021},   note = {R package version 1.0.0}, }"]
   },
   {
     "path": ["https://example.com/dev/index.html"],
@@ -51,11 +51,11 @@
   },
   {
     "path": ["https://example.com/dev/news/index.html"],
-    "id": ["pkgdown-1009000"],
+    "id": ["testpackage-1009000"],
     "dir": ["Changelog"],
     "previous_headings": [""],
-    "what": ["pkgdown 1.0.0.9000"],
-    "title": ["pkgdown 1.0.0.9000"],
+    "what": ["testpackage 1.0.0.9000"],
+    "title": ["testpackage 1.0.0.9000"],
     "text": ["bullet (#222 @someone)"],
     "code": [""]
   },
@@ -68,7 +68,7 @@
     "dir": ["Changelog"],
     "previous_headings": [""],
     "what": ["sub-heading"],
-    "title": ["pkgdown 1.0.0"],
+    "title": ["testpackage 1.0.0"],
     "text": ["first thing (#111 @githubuser) second thing"],
     "code": [""]
   }

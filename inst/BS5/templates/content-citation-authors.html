@@ -1,6 +1,6 @@
 <div class="row">
   <div class="contents col-md-9">
-    <section class="section level2 authors-section">
+    <div class="section level2 authors-section">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
@@ -16,8 +16,8 @@
       {{/authors}}
     </ul>
    {{{after}}}
-   </section>
-   <section class="section level2 citation">
+   </div>
+   <div class="section level2 citation">
       <h2 id="citation">{{#translate}}{{citation}}{{/translate}}</h2>
     {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
    {{#citations}}
@@ -25,7 +25,7 @@
     <pre>{{{bibtex}}}</pre>
     {{/citations}}
 
-   </section>
+   </div>
 
 </div>
 

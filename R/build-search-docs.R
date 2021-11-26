@@ -149,7 +149,7 @@ file_search_index <- function(path, pkg) {
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
-  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]|.//section")
+  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]")
 
   purrr::pmap(
     list(

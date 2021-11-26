@@ -65,9 +65,13 @@ citation_provided <- function(src_path) {
 }
 
 citation_auto <- function(pkg) {
-  autocit <- utils::packageDescription(pkg$package)
-  autocit$`Date/Publication` <- Sys.time()
-  cit <- utils::citation(auto = autocit)
+  cit_info <- utils::packageDescription(
+    path_file(pkg$src_path),
+    lib.loc = path_dir(pkg$src_path)
+  )
+  cit_info$`Date/Publication` <- Sys.time()
+
+  cit <- utils::citation(auto = cit_info)
   list(
     html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
     bibtex = format(cit, style = "bibtex")
