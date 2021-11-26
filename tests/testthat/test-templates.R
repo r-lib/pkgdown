@@ -68,3 +68,27 @@ test_that("find templates in local pkgdown first", {
     path_pkgdown("BS3", "templates", "footer.html")
   )
 })
+
+
+# Expected contents -------------------------------------------------------
+
+test_that("BS5 templates have main + aside", {
+  names <- dir(path_pkgdown("bs5", "templates"), pattern = "content-")
+  names <- path_ext_remove(names)
+  names <- gsub("content-", "", names)
+
+  templates <- lapply(names, read_template_html,
+    type = "content",
+    pkg = list(bs_version = 5)
+  )
+  for (i in seq_along(templates)) {
+    template <- templates[[i]]
+    name <- names[[i]]
+
+    expect_equal(xpath_length(template, ".//div/main"), 1, info = name)
+    expect_equal(xpath_attr(template, ".//div/main", "id"), "main", info = name)
+    expect_equal(xpath_length(template, ".//div/aside"), 1, info = name)
+    expect_equal(xpath_attr(template, ".//div/aside", "class"), "col-md-3", info = name)
+  }
+})
+
