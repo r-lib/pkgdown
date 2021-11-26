@@ -1,7 +1,7 @@
 /* control page width ====================================================== */
 
 // Ensure contents never become unreadably wide
-.contents {
+.row > main {
   max-width: 50rem;
 }
 // Put extra space between content and navbar
@@ -63,7 +63,7 @@ input[type="search"] {
 // doesn't overlap them when visible
 $pkgdown-nav-height: 56px !default;
 
-.contents, #pkgdown-sidebar {
+.row > main, .row > aside {
   margin-top: $pkgdown-nav-height;
 }
 html, body {
@@ -82,7 +82,7 @@ html, body {
 
 /* sidebar ================================================================== */
 
-#pkgdown-sidebar {
+aside {
   h2 {
     margin-top: 1.5rem;
     font-size: $font-size-lg;
@@ -97,7 +97,7 @@ html, body {
 
 // Add some visual distinction between content and "sidebar" on mobile
 @include media-breakpoint-down(sm) {
-  #pkgdown-sidebar {
+  aside {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
     background-color: $gray-100;
@@ -204,11 +204,11 @@ body > .container .row {
 }
 
 // Ensure in-page images don't run outside their container
-.contents img {
+main img {
   max-width: 100%;
   height: auto;
 }
-.contents table {
+main table {
   display: block;
   overflow: auto;
 }

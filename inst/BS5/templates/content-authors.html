@@ -4,11 +4,19 @@
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
     </div>
-    <ul>
-    {{#versions}}
-    <li><a href="{{{file_out}}}">{{#translate}}{{version}}{{/translate}} {{{version}}}</a></li>
-    {{/versions}}
+
+    <div class="section level1">
+    {{{before}}}
+    <ul class="list-unstyled">
+      {{#authors}}
+      <li>
+        <p><strong>{{{name}}}</strong>. {{{roles}}}. {{{orcid}}}
+        {{#comment}}<br /><small>{{{.}}}</small>{{/comment}}</p>
+      </li>
+      {{/authors}}
     </ul>
+    {{{after}}}
+    </div>
   </main>
 
   <aside class="col-md-3">
@@ -17,4 +25,3 @@
     </nav>
   </aside>
 </div>
-
