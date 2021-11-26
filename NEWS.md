@@ -364,9 +364,9 @@
 `repo: jira_projects: [...]` and specifying a custom issue URL with
 `repo: url: issue: ...` in `_pkgdown.yml` (@jonkeane, #1466).
 
-* Always creates citation information for the authors page, using metadata from
-  `DESCRIPTION` when there is no `inst/CITATION` file, and links to this from the 
-  sidebar (#1904).
+* `build_home()` always creates citation information for the authors page,
+  using metadata from `DESCRIPTION` when there is no `inst/CITATION` file, 
+  and links to this from the sidebar (#1904).
 
 # pkgdown 1.6.1
 
