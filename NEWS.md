@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+## New authors
+
+@maelle is now a pkgdown authors in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5 and implementation of local search.
+
 ## Bootstrap 5
 
 * pkgdown can style your site with Bootstrap 5 (with help from @jayhesselberth,
