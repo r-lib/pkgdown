@@ -73,7 +73,7 @@ citation_auto <- function(pkg) {
 
   cit <- utils::citation(auto = cit_info)
   list(
-    html = paste0("<p>", format(cit, style = "textVersion"), "</p>"),
+    html = format(cit, style = "html"),
     bibtex = format(cit, style = "bibtex")
   )
 }
