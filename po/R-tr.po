@@ -97,7 +97,7 @@ msgid "Citing %s"
 msgstr "%s'ı kaynak gösterme"
 
 #: build-home-citation.R:66
-msgid "Citation and Authors"
+msgid "Authors and Citation"
 msgstr ""
 
 #: build-home-community.R:18

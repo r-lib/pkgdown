@@ -97,8 +97,8 @@ msgid "Citing %s"
 msgstr "%s zitieren"
 
 #: build-home-citation.R:66
-msgid "Citation and Authors"
-msgstr "Zitierung und Autor:innen"
+msgid "Authors and Citation"
+msgstr "Autor:innen und Zitierung"
 
 #: build-home-community.R:18
 msgid "Contributing guide"

@@ -96,7 +96,7 @@ msgid "Citing %s"
 msgstr "引用 %s"
 
 #: build-home-citation.R:66
-msgid "Citation and Authors"
+msgid "Authors and Citation"
 msgstr ""
 
 #: build-home-community.R:18

@@ -102,8 +102,8 @@ msgid "Citing %s"
 msgstr "Cómo citar %s"
 
 #: build-home-citation.R:66
-msgid "Citation and Authors"
-msgstr "Citas y autores"
+msgid "Authors and Citation"
+msgstr "Autores y Citas"
 
 #: build-home-community.R:18
 msgid "Contributing guide"
