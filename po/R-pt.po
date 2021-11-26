@@ -92,6 +92,10 @@ msgstr "tradutor"
 msgid "Citing %s"
 msgstr "Citando %s"
 
+#: build-home-citation.R:66
+msgid "Authors and Citation"
+msgstr ""
+
 #: build-home-community.R:18
 msgid "Contributing guide"
 msgstr "Guia de contribuição"
