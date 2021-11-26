@@ -23,6 +23,19 @@ test_that("rows with title internal are dropped", {
   expect_equal(length(index$rows), 1)
 })
 
+test_that("duplicate entries within a group is dropped", {
+  ref <- list(
+    list(contents = c("a", "b", "a", "a")),
+    list(contents = c("b", "c", "?"))
+  )
+  meta <- list(reference = ref)
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  index <- data_reference_index(pkg)
+  expect_equal(length(index$rows[[1]]$topics), 2)
+  expect_equal(length(index$rows[[2]]$topics), 3)
+})
+
 test_that("warns if missing topics", {
   ref <- list(
     list(contents = c("a", "b"))
