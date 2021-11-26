@@ -157,27 +157,6 @@
 # brand
 
     Code
-      pkg$development
-    Output
-      $destination
-      [1] "dev"
-      
-      $mode
-      [1] "default"
-      
-      $version_label
-      [1] "muted"
-      
-      $version_tooltip
-      [1] ""
-      
-      $in_dev
-      [1] FALSE
-      
-
----
-
-    Code
       data_navbar(pkg)
     Output
       $bg
