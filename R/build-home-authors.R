@@ -95,14 +95,6 @@ data_home_sidebar_authors <- function(pkg = ".") {
   sidebar_section(tr_("Developers"), bullets)
 }
 
-build_authors <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  data <- data_authors_page(pkg)
-
-  render_page(pkg, "authors", data, "authors.html")
-}
-
 data_authors_page <- function(pkg) {
   data <- list(
     pagetitle = tr_("Authors"),
