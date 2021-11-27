@@ -223,7 +223,7 @@ These are drawn from seven built-in components:
 }\if{html}{\out{</div>}}
 \item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or \code{LICENSE.md}/\code{LICENCE.md} files are present.
 \item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
-\item \code{citation}: link to the package citation if it exists.
+\item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
 \item \code{dev}: development status badges found in \code{README.md}/\code{index.md}.
 \item \code{toc}: a table of contents for the README (not shown by default).
