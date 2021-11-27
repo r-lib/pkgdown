@@ -34,11 +34,8 @@ build_home <- function(pkg = ".",
   rule("Building home")
   dir_create(pkg$dst_path)
 
-  if (has_citation(pkg$src_path)) {
-    build_citation_authors(pkg)
-  } else {
-    build_authors(pkg)
-  }
+  build_citation_authors(pkg)
+
   build_home_md(pkg)
   build_home_license(pkg)
   build_home_index(pkg, quiet = quiet)

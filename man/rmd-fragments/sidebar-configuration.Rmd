@@ -27,7 +27,7 @@ These are drawn from seven built-in components:
 
 -   `community`: links to to `.github/CONTRIBUTING.md`, `.github/CODE_OF_CONDUCT.md`, etc.
 
--   `citation`: link to the package citation if it exists.
+-   `citation`: link to package citation information. Uses either `inst/CITATION` or, if absent, information from the `DESCRIPTION`.
 
 -   `authors`: selected authors from the `DESCRIPTION`.
 

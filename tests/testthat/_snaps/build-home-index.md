@@ -11,6 +11,13 @@
       </div>
       
       
+      <div class='citation'>
+      <h2 data-toc-skip>Citation</h2>
+      <ul class='list-unstyled'>
+      <li><a href='authors.html#citation'>Citing testpackage</a></li>
+      </ul>
+      </div>
+      
       <div class='developers'>
       <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>

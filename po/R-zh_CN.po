@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-26 15:56-0600\n"
+"POT-Creation-Date: 2021-11-26 15:57-0600\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -43,60 +43,60 @@ msgstr "关于作者…"
 msgid "Developers"
 msgstr "开发者"
 
-#: build-home-authors.R:108 render.R:121
+#: build-home-authors.R:100 render.R:121
 msgid "Authors"
 msgstr "作者"
 
-#: build-home-authors.R:201
+#: build-home-authors.R:193
 msgid "author"
 msgstr "作者"
 
-#: build-home-authors.R:202
+#: build-home-authors.R:194
 msgid "compiler"
 msgstr "编译者"
 
-#: build-home-authors.R:203
+#: build-home-authors.R:195
 msgid "contractor"
 msgstr "合同员工"
 
-#: build-home-authors.R:204
+#: build-home-authors.R:196
 msgid "contributor"
 msgstr "合作者"
 
-#: build-home-authors.R:205
+#: build-home-authors.R:197
 msgid "copyright holder"
 msgstr "版权所有者"
 
-#: build-home-authors.R:206
+#: build-home-authors.R:198
 msgid "maintainer"
 msgstr "维护者"
 
-#: build-home-authors.R:207
+#: build-home-authors.R:199
 msgid "data contributor"
 msgstr "数据提供者"
 
-#: build-home-authors.R:208
+#: build-home-authors.R:200
 msgid "funder"
 msgstr "赞助者"
 
-#: build-home-authors.R:209
+#: build-home-authors.R:201
 msgid "reviewer"
 msgstr "审核者"
 
-#: build-home-authors.R:210
+#: build-home-authors.R:202
 msgid "thesis advisor"
 msgstr "论文导师"
 
-#: build-home-authors.R:211
+#: build-home-authors.R:203
 msgid "translator"
 msgstr "翻译者"
 
-#: build-home-citation.R:39
+#: build-home-citation.R:36
 msgid "Citing %s"
 msgstr "引用 %s"
 
-#: build-home-citation.R:66
-msgid "Citation and Authors"
+#: build-home-citation.R:91
+msgid "Authors and Citation"
 msgstr ""
 
 #: build-home-community.R:18
@@ -270,6 +270,10 @@ msgstr "版本"
 #: render.R:123
 msgid "Examples"
 msgstr "范例"
+
+#: render.R:124
+msgid "Citation"
+msgstr ""
 
 #: repo.R:33
 msgid "Source:"
