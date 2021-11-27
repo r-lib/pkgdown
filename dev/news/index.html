@@ -254,6 +254,7 @@
 <li><p><a href="https://support.google.com/webmasters/answer/9008080?hl=en" class="external-link">Google Site Verification</a> can now be configured for pkgdown sites.</p></li>
 <li><p><code>build_rmarkdown_format</code> internally sets <code>html_document(anchor_sections = FALSE)</code> so to avoid needless dependencies (<a href="https://github.com/atusy" class="external-link">@atusy</a>, <a href="https://github.com/r-lib/pkgdown/issues/1426" class="external-link">#1426</a>).</p></li>
 <li><p>Automatically link Jira issues by setting your project name(s) with <code>repo: jira_projects: [...]</code> and specifying a custom issue URL with <code>repo: url: issue: ...</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/jonkeane" class="external-link">@jonkeane</a>, <a href="https://github.com/r-lib/pkgdown/issues/1466" class="external-link">#1466</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> always creates citation information for the authors page, using metadata from <code>DESCRIPTION</code> when there is no <code>inst/CITATION</code> file, and links to this from the sidebar (<a href="https://github.com/r-lib/pkgdown/issues/1904" class="external-link">#1904</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
