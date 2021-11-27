@@ -4,7 +4,7 @@
     "id": [null],
     "dir": [""],
     "previous_headings": [""],
-    "what": ["Authors and Citation"],
+    "what": ["Authors"],
     "title": ["Authors and Citation"],
     "text": ["Hadley Wickham. Author, maintainer. . Copyright holder, funder."],
     "code": [""]
@@ -16,7 +16,7 @@
     "previous_headings": [""],
     "what": ["Citation"],
     "title": ["Authors and Citation"],
-    "text": ["Hadley Wickham (2021). testpackage: test package. R package version 1.0.0."],
+    "text": ["Wickham H (2021). testpackage: test package. R package version 1.0.0."],
     "code": ["@Manual{,   title = {testpackage: A test package},   author = {Hadley Wickham},   year = {2021},   note = {R package version 1.0.0}, }"]
   },
   {
