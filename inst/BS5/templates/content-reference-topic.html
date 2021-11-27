@@ -16,7 +16,7 @@
     </div>
 
     {{#usage}}
-    <div class="ref-usage section level2 sourceCode">
+    <div class="section level2" id="ref-usage">
     <h2>{{{title}}}</h2>
     {{#contents}}
     {{{.}}}
@@ -24,7 +24,6 @@
     </div>
     {{/usage}}
 
-    <div id="ref-sections">
     {{#sections}}
     <div class="section level2" id="{{slug}}">
     <h2>{{{title}}}</h2>
@@ -33,12 +32,11 @@
     {{/contents}}
     </div>
     {{/sections}}
-    </div>
 
     {{#examples}}
-    <div id="examples">
+    <div class="section level2" id="ref-examples">
     <h2>{{#translate}}{{examples}}{{/translate}}</h2>
-    <div class="ref-examples sourceCode">{{{.}}}</div>
+    {{{.}}}
     </div>
     {{/examples}}
   </main>

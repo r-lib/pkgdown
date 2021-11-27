@@ -1,9 +1,11 @@
+# highligh_text() and highlight_examples() are only used for usage
+# and examples, and are specifically excluded in tweak_reference_highlighting()
 highlight_text <- function(text) {
   out <- downlit::highlight(text, classes = downlit::classes_pandoc())
   if (!is.na(out)) {
-    pre(out, r_code = TRUE)
+    sourceCode(pre(out, r_code = TRUE))
   } else {
-    pre(escape_html(text))
+    sourceCode(pre(escape_html(text)))
   }
 }
 
@@ -34,7 +36,7 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
   structure(
-    pre(out, r_code = TRUE),
+    sourceCode(pre(out, r_code = TRUE)),
     dependencies = attr(out, "dependencies")
   )
 }
@@ -45,4 +47,8 @@ pre <- function(x, r_code = FALSE) {
     x,
     "</code>","</pre>"
   )
+}
+
+sourceCode <- function(x) {
+  paste0("<div class='sourceCode'>", x, "</div>")
 }
