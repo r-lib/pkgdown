@@ -19,6 +19,8 @@ tweak_reference_highlighting <- function(html) {
   pre <- xml2::xml_find_all(html, ".//pre")
   handled <- is_wrapped_pre(pre) | is_handled_section(pre)
   purrr::walk(pre[!handled], tweak_highlight_r)
+  # Add div.sourceCode for copy button
+  xml2::xml_add_parent(pre[!handled], "div", class = "sourceCode")
 
   invisible()
 }

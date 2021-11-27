@@ -62,19 +62,21 @@ test_that("highlight unwrapped <pre>", {
   html <- xml2::read_html('
     <div id="ref-sections">
       <pre><code>foo(x)</code></pre>
-    <div>
+    </div>
   ')
   tweak_reference_highlighting(html)
   expect_equal(xpath_attr(html, ".//code//a", "href"), "foo.html")
+  expect_equal(xpath_attr(html, ".//div/div", "class"), "sourceCode")
 
   # If not parseable, leave as is
   html <- xml2::read_html('
     <div id="ref-sections">
       <pre><code>foo(</code></pre>
-    <div>
+    </div>
   ')
   tweak_reference_highlighting(html)
   expect_equal(xpath_length(html, "//code//span"), 0)
+  expect_equal(xpath_attr(html, ".//div/div", "class"), "sourceCode")
 })
 
 
