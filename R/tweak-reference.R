@@ -4,7 +4,7 @@ tweak_reference_highlighting <- function(html) {
   # 1) <div> with class sourceCode + r/R, as created by ```R
   div <- xml2::xml_find_all(html, ".//div")
   # must have sourceCode and not be in examples or usage
-  is_source <- has_class(div, "sourceCode") & !has_class(div, c("ref-usage", "ref-examples"))
+  is_source <- has_class(div, "sourceCode") & !is_handled_section(div)
 
   div_sourceCode <- div[is_source]
   is_r <- has_class(div_sourceCode, c("r", "R"))
@@ -19,6 +19,8 @@ tweak_reference_highlighting <- function(html) {
   pre <- xml2::xml_find_all(html, ".//pre")
   handled <- is_wrapped_pre(pre) | is_handled_section(pre)
   purrr::walk(pre[!handled], tweak_highlight_r)
+  # Add div.sourceCode for copy button
+  xml2::xml_add_parent(pre[!handled], "div", class = "sourceCode")
 
   invisible()
 }
@@ -28,7 +30,7 @@ is_wrapped_pre <- function(html) {
 }
 
 is_handled_section <- function(html) {
-  xml2::xml_find_lgl(html, "boolean(ancestor::div[contains(@class, 'ref-examples') or contains(@class, 'ref-usage')])")
+  xml2::xml_find_lgl(html, "boolean(ancestor::div[@id='ref-examples' or @id='ref-usage'])")
 }
 
 tweak_highlight_r <- function(block) {

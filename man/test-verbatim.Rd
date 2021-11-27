@@ -5,6 +5,7 @@
 \title{Test case: preformatted blocks & syntax highlighting}
 \description{
 Manual test cases for various ways of embedding code in sections.
+All code blocks should have copy and paste button.
 }
 \section{Should be highlighted}{
 Valid R code in \verb{\preformatted{}}:\preformatted{mean(a + 1)

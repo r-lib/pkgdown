@@ -9,6 +9,13 @@ test_that("highlight_examples captures depencies", {
   expect_equal(attr(out, "dependencies")[-1], list(dummy_dep))
 })
 
+test_that("highlight_text & highlight_examples include sourceCode div", {
+  html <- xml2::read_html(highlight_examples("a + a", "x"))
+  expect_equal(xpath_attr(html, "./body/div", "class"), "sourceCode")
+
+  html <- xml2::read_html(highlight_text("a + a"))
+  expect_equal(xpath_attr(html, "./body/div", "class"), "sourceCode")
+})
 
 test_that("pre() can produce needed range of outputs", {
   expect_snapshot({

@@ -245,7 +245,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     heading <- xml_text1(heading_node)
 
     # Add heading for Usage section of Rd
-    if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
+    if (xml2::xml_attr(node_copy, "id", default = "") == "ref-usage") {
       heading <- "Usage"
     }
   }
