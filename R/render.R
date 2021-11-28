@@ -48,13 +48,15 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
 
   # render template components
   pieces <- c(
-    "head", "navbar", "header", "content", "docsearch", "footer",
-    "in-header", "before-body", "after-body"
+    "head",
+    "in-header",
+    "before-body",
+    "navbar",
+    "content",
+    "footer",
+    "after-body",
+    if (pkg$bs_version == 3) c("header", "docsearch")
   )
-
-  if (pkg$bs_version > 3) {
-    pieces <- pieces[pieces != "docsearch"]
-  }
 
   templates <- purrr::map_chr(pieces, find_template, name = name, pkg = pkg)
   components <- purrr::map(templates, render_template, data = data)
