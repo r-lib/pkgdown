@@ -39,11 +39,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 }
 
 render_page_html <- function(pkg, name, data = list(), depth = 0L) {
-  data <- utils::modifyList(data, data_template(pkg, depth = depth))
-  data$logo <- list(src = logo_path(pkg, depth = depth))
-  data$has_favicons <- has_favicons(pkg)
-  data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
-  data$footer <- data_footer(pkg)
+  data <- utils::modifyList(data_template(pkg, depth = depth), data)
 
   # Dependencies for head
   if (pkg$bs_version > 3) {
@@ -85,6 +81,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     name = pkg$package,
     version = as.character(pkg$version)
   )
+  out$logo <- list(src = logo_path(pkg, depth = depth))
   out$site <- list(
     root = up_path(depth),
     title = pkg$meta$title %||% pkg$package
@@ -107,6 +104,8 @@ data_template <- function(pkg = ".", depth = 0L) {
   )
 
   # Components that mostly end up in the <head>
+  out$has_favicons <- has_favicons(pkg)
+  out$opengraph <- data_open_graph(pkg)
   out$extra <- list(
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
@@ -116,12 +115,16 @@ data_template <- function(pkg = ".", depth = 0L) {
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
   out$yaml$.present <- TRUE
+  if (pkg$bs_version > 3) {
+    out$headdeps <- data_deps(pkg = pkg, depth = depth)
+  }
 
   # Development settings; tooltip needs to be generated at render time
   out$development <- pkg$development
   out$development$version_tooltip <- version_tooltip(pkg$development$mode)
 
   out$navbar <- data_navbar(pkg, depth = depth)
+  out$footer <- data_footer(pkg)
 
   print_yaml(out)
 }
