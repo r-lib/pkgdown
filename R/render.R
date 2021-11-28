@@ -46,7 +46,6 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
     "head",
     "in-header",
     "before-body",
-    "navbar",
     "content",
     "footer",
     "after-body",
@@ -56,6 +55,8 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   templates <- purrr::map_chr(pieces, find_template, name = name, pkg = pkg)
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
+
+  components$navbar <- render_navbar(pkg, name, data = data, depth = depth)
   components$template <- name
   components$lang <- pkg$lang
   components$translate <- data$translate
@@ -65,6 +66,16 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   rendered <- render_template(template, components)
 
   xml2::read_html(rendered, encoding = "UTF-8")
+}
+
+render_navbar <- function(pkg, name, data = list(), depth = 0L) {
+  data$navbar <- data_navbar(pkg, depth = depth)
+
+  header_path <- find_template("navbar-header", name, pkg = pkg)
+  data$header <- render_template(header_path, data)
+
+  navbar_path <- find_template("navbar", name, pkg = pkg)
+  render_template(navbar_path, data)
 }
 
 #' @export
@@ -120,7 +131,6 @@ data_template <- function(pkg = ".", depth = 0L) {
   out$development <- pkg$development
   out$development$version_tooltip <- version_tooltip(pkg$development$mode)
 
-  out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
 
   print_yaml(out)
