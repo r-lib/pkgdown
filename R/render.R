@@ -41,11 +41,6 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   data <- utils::modifyList(data_template(pkg, depth = depth), data)
 
-  # Dependencies for head
-  if (pkg$bs_version > 3) {
-    data$headdeps <- data_deps(pkg = pkg, depth = depth)
-  }
-
   # render template components
   pieces <- c(
     "head",
