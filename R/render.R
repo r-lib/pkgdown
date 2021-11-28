@@ -78,52 +78,52 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
 #' @rdname render_page
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
+  out <- list()
 
+  # Basic metadata
+  out$package <- list(
+    name = pkg$package,
+    version = as.character(pkg$version)
+  )
+  out$site <- list(
+    root = up_path(depth),
+    title = pkg$meta$title %||% pkg$package
+  )
+  out$year <- strftime(Sys.time(), "%Y")
+
+  # Language and translations
+  out$lang <- pkg$lang
+  out$translate <- list(
+    skip = tr_("Skip to contents"),
+    toggle_nav = tr_("Toggle navigation"),
+    search_for = tr_("Search for"),
+    on_this_page = tr_("On this page"),
+    source = tr_("Source"),
+    abstract = tr_("Abstract"),
+    authors = tr_("Authors"),
+    version = tr_("Version"),
+    examples = tr_("Examples"),
+    citation = tr_("Citation")
+  )
+
+  # Components that mostly end up in the <head>
+  out$extra <- list(
+    css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
+    js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
+  )
+  out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
+  out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
-  yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
-  yaml$.present <- TRUE
+  out$yaml$.present <- TRUE
 
-  includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
+  # Development settings; tooltip needs to be generated at render time
+  out$development <- pkg$development
+  out$development$version_tooltip <- version_tooltip(pkg$development$mode)
 
-  # Look for extra assets to add
-  extra <- list()
-  extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
-  extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
+  out$navbar <- data_navbar(pkg, depth = depth)
 
-  # Need to translate tooltip at render time
-  pkg$development$version_tooltip <- version_tooltip(pkg$development$mode)
-
-  print_yaml(list(
-    lang = pkg$lang,
-    year = strftime(Sys.time(), "%Y"),
-    package = list(
-      name = pkg$package,
-      version = as.character(pkg$version)
-    ),
-    development = pkg$development,
-    site = list(
-      root = up_path(depth),
-      title = pkg$meta$title %||% pkg$package
-    ),
-    dev = pkg$use_dev,
-    extra = extra,
-    navbar = data_navbar(pkg, depth = depth),
-    includes = includes,
-    yaml = yaml,
-    translate = list(
-      skip = tr_("Skip to contents"),
-      toggle_nav = tr_("Toggle navigation"),
-      search_for = tr_("Search for"),
-      on_this_page = tr_("On this page"),
-      source = tr_("Source"),
-      abstract = tr_("Abstract"),
-      authors = tr_("Authors"),
-      version = tr_("Version"),
-      examples = tr_("Examples"),
-      citation = tr_("Citation")
-    )
-  ))
+  print_yaml(out)
 }
 
 data_open_graph <- function(pkg = ".") {
