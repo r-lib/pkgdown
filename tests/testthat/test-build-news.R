@@ -24,6 +24,7 @@ test_that("pkg_timeline fails cleanly for unknown package", {
 })
 
 test_that("pkg_timeline returns NULL if CRAN dates suppressed", {
+  skip_on_cran()
   expect_null(pkg_timeline(list(meta = list(news = list(cran_dates = FALSE)))))
 })
 
