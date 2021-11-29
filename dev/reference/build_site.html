@@ -35,10 +35,12 @@ whole site."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.p
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -85,6 +87,8 @@ whole site."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.p
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -303,6 +307,12 @@ For example, the following yaml adds a new "twitter" component that appears to t
 <span id="cb1-6"><a href="#cb1-6"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://twitter.com/hadleywickham</span></span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> Twitter</span></span></code></pre><p></p></div>
+<p>Finally, you can add arbitrary HTML to three locations in the navbar:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre><p></p></div>
+<p>These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.</p>
 <p>You can also customise the colour scheme of the navbar by using the <code>type</code>
 and <code>bg</code> parameters. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
     </div>

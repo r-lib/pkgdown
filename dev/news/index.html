@@ -13,10 +13,12 @@
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9000.9000.9000</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,6 +65,8 @@
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-news">
 <div class="row">
@@ -134,7 +138,10 @@
 <li><p>Sites can be easily themed either with bootswatch themes or by selectively override the “bslib” variables used to generate the CSS. pkgdown now uses scss for its internal css tweaks. This means that you can now customise more parts of the site using only <code>_pkgdown.yml</code>, without having to supply custom css.</p></li>
 <li><p>You can pick from a variety of built-in syntax highlighting themes (<a href="https://github.com/r-lib/pkgdown/issues/1823" class="external-link">#1823</a>). These control the colours (and background) of code in <code>&lt;pre&gt;</code> tags.</p></li>
 <li><p>Template packages can now provide a default configuration <code>_pkgdown.yml</code>, stored in <code>inst/pkgdown/_pkgdown.yml</code>. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc. Parameters supplied this way will be be overridden by a local <code>_pkgdown.yml</code>, which is in turn overridden by <code>build_site(override =)</code> (<a href="https://github.com/r-lib/pkgdown/issues/1499" class="external-link">#1499</a>).</p></li>
-<li><p>New <code>includes</code> parameters <code>in-header</code>, <code>before-body</code>, and <code>after-body</code> make it easy to add arbitrary HTML to every page. Their content will be placed at the end of the <code>&lt;head&gt;</code> tag, right below the opening <code>&lt;body&gt;</code> tag, and before the closing tag <code>&lt;/body&gt;</code> respectively (<a href="https://github.com/r-lib/pkgdown/issues/1487" class="external-link">#1487</a>). They match the bookdown options <code>in_header</code>, <code>before_body</code> and <code>after_body</code>.</p></li>
+<li>
+<p>New <code>includes</code> parameters <code>in-header</code>, <code>before-body</code>, and <code>after-body</code> make it easy to add arbitrary HTML to every page. Their content will be placed at the end of the <code>&lt;head&gt;</code> tag, right below the opening <code>&lt;body&gt;</code> tag, and before the closing tag <code>&lt;/body&gt;</code> respectively (<a href="https://github.com/r-lib/pkgdown/issues/1487" class="external-link">#1487</a>). They match the bookdown options <code>in_header</code>, <code>before_body</code> and <code>after_body</code>.</p>
+<p>Additionally, you can use <code>before_title</code>, <code>before_navbar</code>, and <code>after_navbar</code> to add arbitrary HTML in to the navbar/page header: to the left of the package name/version, and to the left and right of the navigation links (<a href="https://github.com/r-lib/pkgdown/issues/1882" class="external-link">#1882</a>).</p>
+</li>
 <li>
 <p>Authors configuration is more flexible (<a href="https://github.com/r-lib/pkgdown/issues/1516" class="external-link">#1516</a>). Users can now:</p>
 <ul><li>Choose the roles used for filtering authors for the sidebar and footer.</li>
