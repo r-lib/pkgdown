@@ -238,6 +238,15 @@ For example, the following yaml adds a new "twitter" component that appears to t
       aria-label: Twitter
 }\if{html}{\out{</div>}}
 
+Finally, you can add arbitrary HTML to three locations in the navbar:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  includes:
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
+}\if{html}{\out{</div>}}
+
+These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
+
 You can also customise the colour scheme of the navbar by using the \code{type}
 and \code{bg} parameters. See \code{vignette("customise")} for more details.
 }

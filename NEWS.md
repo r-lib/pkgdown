@@ -104,6 +104,11 @@
   placed at the end of the `<head>` tag, right below the opening `<body>` tag, 
   and before the closing tag `</body>` respectively (#1487). They match the 
   bookdown options `in_header`, `before_body` and `after_body`.
+  
+    Additionally, you can use `before_title`, `before_navbar`, and
+    `after_navbar` to add arbitrary HTML in to the navbar/page header: to 
+    the left of the package name/version, and to the left and right of the
+    navigation links (#1882).
 
 * Authors configuration is more flexible (#1516). Users can now:
 
