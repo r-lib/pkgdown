@@ -2,7 +2,7 @@
 
 ## New authors
 
-@maelle is now a pkgdown authors in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5 and implementation of local search.
+@maelle is now a pkgdown author in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5 and implementation of local search.
 
 ## Bootstrap 5
 
