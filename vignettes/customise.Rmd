@@ -159,7 +159,7 @@ They all use a similar structure that separately defines the overall `structure`
 
 ## Additional HTML and files
 
-If you need to include additional HTML, you can add it in three locations:
+If you need to include additional HTML, you can add it in five locations:
 
 ``` yaml
 template:
@@ -167,6 +167,9 @@ template:
     in_header: <!-- inserted at the end of the head -->
     before_body: <!-- inserted at the beginging of the body -->
     after_body: <!-- inserted at the end of the body -->
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
 ```
 
 You can add additional files by putting them in the right place:
@@ -181,7 +184,7 @@ You can add additional files by putting them in the right place:
 
 Use `init_site()` to update your rendered website after making changes to these files.
 
-## Template packages
+## Template packages {#template-packages}
 
 To share a pkgdown style across several packages, the best workflow is to create... a package!
 It can contain any of the following:
@@ -238,3 +241,4 @@ Further work to improve user experience is:
 -   Working on the article (`?build_articles`) and reference indexes (`?build_reference`).
 -   Writing a compelling README that explains why your package is so cool/useful/fun.
 -   Improving the contents of the individual articles and reference topics 😉.
+
