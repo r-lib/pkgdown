@@ -34,7 +34,7 @@ You'll learn about the main components of the site (the home page, reference, ar
 You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^1].
 The most important field is `url`, which gives the final location of the site:
 
-[^1]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep the package root clutter free, or in `inst/_pkgdown.yml` if you want to make it available when your package is installed.
+[^1]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep the package root clutter-free, or in `inst/_pkgdown.yml` if you want to make it available when your package is installed.
 
 ``` yaml
 url: https://pkgdown.r-lib.org
@@ -54,7 +54,7 @@ You can learn more about controlling the appearance of your site in `vignette("c
 
 ### Language
 
-If your documentation (`.Rd` and `.Rmd`) is written in an language other than English, declare it by setting setting `lang` to the [two letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
+If your documentation (`.Rd` and `.Rmd`) is written in a language other than English, declare it by setting setting `lang` to the [two letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
 
 ``` yaml
 lang: fr
@@ -64,7 +64,7 @@ This will be used to set the language of the web page and to translate the Engli
 
 ## Home page
 
-The contents of home page is automatically generated from `index.md` or `README.md`.
+The contents of home page are automatically generated from `index.md` or `README.md`.
 pkgdown tries them in order, so it's possible to have a different display on GitHub and pkgdown by providing both files.
 The homepage also includes a sidebar full of useful links; see `?build_home` for how these are generated and how you can customise them.
 
@@ -93,7 +93,7 @@ reference:
   desc: >
     Functions for installing Spark components and managing
     connections to Spark
-- contents: 
+  contents: 
   - spark_config
   - spark_connect
   - spark_disconnect
@@ -101,7 +101,7 @@ reference:
   - spark_log
 - title: "Reading and Writing Data"
   desc: "Functions for reading and writing Spark DataFrames."
-- contents:
+  contents:
   - starts_with("spark_read")
   - starts_with("spark_write")
   - matches("saveload")
@@ -112,7 +112,7 @@ You can also use `ends_with()` and `matches()`.
 See complete details in `?build_reference`.
 
 While iterating on the reference index you might want to run `pkgdown::build_reference_index()`.
-It just re-builds the index page, making it faster to quick change `_pkgdown.yaml` and see how it affects your site.
+It just re-builds the index page, making it faster to quickly change `_pkgdown.yaml` and see how it affects your site.
 
 ## Articles
 
@@ -120,7 +120,7 @@ pkgdown will automatically build all vignettes found in `vignettes/`, translatin
 Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
 You can see the details in `?build_articles`.
 
-If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header).
+If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header).
 In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
 ## News
