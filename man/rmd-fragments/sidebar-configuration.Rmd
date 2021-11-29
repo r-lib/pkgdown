@@ -12,7 +12,7 @@ home:
 
 These are drawn from seven built-in components:
 
--   `links`: automated links generated from `URL` and `BugReports` `DESCRIPTION` fields plus manual links from the `home.links` field:
+-   `links`: automated links generated from `URL` and `BugReports` fields from `DESCRIPTION` plus manual links from the `home.links` field:
 
     ``` yaml
     home:
