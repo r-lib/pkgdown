@@ -17,21 +17,21 @@ knitr::opts_chunk$set(
 ```
 
 Depending on the Bootstrap version used for your pkgdown website, search will be either built-in (Bootstrap 4 and next versions) or will need some more configuration of an external service (Bootstrap 3).
-We'd recomment switching to Bootstrap 4, see `vignette("customise")`.
+We'd recommend switching to Bootstrap 4, see `vignette("customise")`.
 
 ## Bootstrap 4 and above: built-in search
 
 Building your pkgdown website will build a search index, that will be used in the search form of the navbar using [fuse.js](https://fusejs.io/).
 
 You can exclude some paths from the search index.
-Below we exclude the changelog from the search index.
+Below, we exclude the changelog from the search index.
 
 ```yaml
 search:
   exclude: ['news/index.html']
 ```
 
-Note that locally, search won't work if you simply use pkgdown preview of the static files.
+Note that the search won't work locally if you simply use pkgdown preview of the static files.
 You can use `servr::httw("docs")` instead.
 
 ## Bootstrap 3: Algolia
@@ -78,4 +78,4 @@ If you are building your own custom Docsearch index, you can also include your D
 
 See the [pkgdown configuration](https://github.com/r-lib/pkgdown/blob/main/pkgdown/_pkgdown.yml#L7-L11) for a functional search configuration.
 
-Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing `shift` + `/` (i.e., "?") will move the focus to the search bar.
+Once this configuration is complete, you should find a search bar after re-building your site. After the search is enabled, pressing `shift` + `/` (i.e., "?") will move the focus to the search bar.
