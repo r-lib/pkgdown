@@ -111,15 +111,14 @@
 
     
     
-<p>Depending on the Bootstrap version used for your pkgdown website, search will be either built-in (Bootstrap 4 and next versions) or will need some more configuration of an external service (Bootstrap 3). We’d recomment switching to Bootstrap 4, see <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
+<p>Depending on the Bootstrap version used for your pkgdown website, search will be either built-in (Bootstrap 5 and up) or will need some more configuration of an external service (Bootstrap 3). We’d recommend switching to Bootstrap 5, see <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
 <div class="section level2">
-<h2 id="bootstrap-4-and-above-built-in-search">Bootstrap 4 and above: built-in search<a class="anchor" aria-label="anchor" href="#bootstrap-4-and-above-built-in-search"></a>
+<h2 id="bootstrap-5-built-in-search">Bootstrap 5: built-in search<a class="anchor" aria-label="anchor" href="#bootstrap-5-built-in-search"></a>
 </h2>
-<p>Building your pkgdown website will build a search index, that will be used in the search form of the navbar using <a href="https://fusejs.io/" class="external-link">fuse.js</a>.</p>
-<p>You can exclude some paths from the search index. Below we exclude the changelog from the search index.</p>
+<p>With BS5, search is built-in so building your pkgdown website will automatically build a search index that’s available in navbar (using <a href="https://fusejs.io/" class="external-link">fuse.js</a>). Currently the only available customisation is excluding some paths from the search index:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">search</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">exclude</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'news/index.html'</span><span class="kw">]</span></span></code></pre></div>
-<p>Note that locally, search won’t work if you simply use pkgdown preview of the static files. You can use <code>servr::httw("docs")</code> instead.</p>
+<p>Note that search requires a “real” server, not a local <code>file://</code> based preview, so search won’t work with the default preview. To test search with a local preview, you’ll need to use <code>servr::httw("docs")</code> or similar.</p>
 </div>
 <div class="section level2">
 <h2 id="bootstrap-3-algolia">Bootstrap 3: Algolia<a class="anchor" aria-label="anchor" href="#bootstrap-3-algolia"></a>
