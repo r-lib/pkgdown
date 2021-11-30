@@ -157,8 +157,8 @@ print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
 }
 
-skip_if_no_pandoc <- function() {
-  testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
+skip_if_no_pandoc <- function(version = "1.12.3") {
+  testthat::skip_if_not(rmarkdown::pandoc_available(version))
 }
 
 has_internet <- function() {

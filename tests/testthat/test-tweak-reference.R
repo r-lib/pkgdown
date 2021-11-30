@@ -1,4 +1,6 @@
 test_that("highlights <pre> wrapped in <div> with language info", {
+  skip_if_no_pandoc("2.16")
+
   withr::local_options(downlit.topic_index = c(foo = "foo"))
   html <- xml2::read_html('
     <div id="ref-section">
@@ -29,7 +31,7 @@ test_that("highlights <pre> wrapped in <div> with language info", {
     </div>
   ')
   tweak_reference_highlighting(html)
-  # Select first leaf <span> to work around variations in pandoc styling
+  # Select all leaf <span> to work around variations in pandoc styling
   expect_equal(xpath_attr(html, "//code//span[not(span)]", "class")[[1]], "fu")
   expect_equal(xpath_text(html, "//code//span[not(span)]")[[1]], "field")
 
@@ -102,10 +104,11 @@ test_that("fails cleanly", {
 })
 
 test_that("can highlight other languages", {
+  skip_if_no_pandoc("2.16")
   html <- xml2::read_xml('<div class="yaml"><pre><code>field: value</code></pre></div>')
   tweak_highlight_other(html)
 
-  # Select first leaf <span> to work around variations in pandoc styling
+  # Select all leaf <span> to work around variations in pandoc styling
   expect_equal(xpath_attr(html, "//code//span[not(span)]", "class")[[1]], "fu")
   expect_equal(xpath_text(html, "//code//span[not(span)]")[[1]], "field")
 })

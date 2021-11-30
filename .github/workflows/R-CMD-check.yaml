@@ -44,6 +44,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.16.1'
+
+      - uses: r-lib/actions/setup-tinytex@v1
+
+      - name: Install makeindex
+        run: tlmgr install makeindex
 
       - uses: r-lib/actions/setup-r@v1
         with:
