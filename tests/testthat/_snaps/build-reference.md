@@ -8,6 +8,9 @@
       Reading 'man/f.Rd'
     Error <rlang_error>
       Failed to parse Rd in f.Rd
-      i Failed to parse \url{}.
-      i Check for empty \url{} tags.
+        i Failed to parse \url{}.
+        i Check for empty \url{} tags.
+      Caused by error in `stop_bad_tag()`:
+        Failed to parse \url{}.
+        i Check for empty \url{} tags.
 
