@@ -4,7 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Learn how to set up search for your pkgdown site.
+">
 <title>Search • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,15 +14,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Search">
-<meta property="og:description" content="Learn how to set up search for your pkgdown site using  [DocSearch](https://community.algolia.com/docsearch/) from Algolia.
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Search">
+<meta property="og:description" content="Learn how to set up search for your pkgdown site.
 ">
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,195 +31,150 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script>
+</script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.1</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
-<li>
-  <a href="../articles/pkgdown.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/customise.html">Customise your site</a>
+    <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="../articles/search.html">Search</a>
+    <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/linking.html">Auto-linking</a>
-    </li>
-    <li>
-      <a href="../articles/search.html">Search</a>
-    </li>
-    <li>
-      <a href="../articles/metadata.html">Metadata</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../news/index.html">Changelog</a>
+  </div>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/r-lib/pkgdown/">
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-      
-
-      </header><script src="search_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Search</h1>
+</nav><div class="container template-article">
+<script src="search_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Search</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/search.Rmd"><code>vignettes/search.Rmd</code></a></small>
-      <div class="hidden name"><code>search.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/vignettes/search.Rmd" class="external-link"><code>vignettes/search.Rmd</code></a></small>
+      <div class="d-none name"><code>search.Rmd</code></div>
     </div>
 
     
     
-<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/">DocSearch</a> from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.</p>
-<div id="indexing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#indexing" class="anchor"></a>Indexing</h2>
-<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
-<p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction">additional options</a> to fine tune the scraping.</p>
+<p>Depending on the Bootstrap version used for your pkgdown website, search will be either built-in (Bootstrap 5 and up) or will need some more configuration of an external service (Bootstrap 3). We’d recommend switching to Bootstrap 5, see <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
+<div class="section level2">
+<h2 id="bootstrap-5-built-in-search">Bootstrap 5: built-in search<a class="anchor" aria-label="anchor" href="#bootstrap-5-built-in-search"></a>
+</h2>
+<p>With BS5, search is built-in so building your pkgdown website will automatically build a search index that’s available in navbar (using <a href="https://fusejs.io/" class="external-link">fuse.js</a>). Currently the only available customisation is excluding some paths from the search index:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">search</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">exclude</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'news/index.html'</span><span class="kw">]</span></span></code></pre></div>
+<p>Note that search requires a “real” server, not a local <code>file://</code> based preview, so search won’t work with the default preview. To test search with a local preview, you’ll need to use <code>servr::httw("docs")</code> or similar.</p>
 </div>
-<div id="configuration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#configuration" class="anchor"></a>Configuration</h2>
+<div class="section level2">
+<h2 id="bootstrap-3-algolia">Bootstrap 3: Algolia<a class="anchor" aria-label="anchor" href="#bootstrap-3-algolia"></a>
+</h2>
+<p>pkgdown websites can integrate search capability using <a href="https://community.algolia.com/docsearch/" class="external-link">DocSearch</a> from Algolia. DocSearch is a powerful search engine that is free for documentation websites. There are only two steps needed to enable DocSearch on a pkgdown website.</p>
+<div class="section level3">
+<h3 id="indexing">Indexing<a class="anchor" aria-label="anchor" href="#indexing"></a>
+</h3>
+<p>Once you have published your pkgdown website, submit the <a href="https://community.algolia.com/docsearch/" class="external-link">pkgdown site URL to Docsearch</a>. Docsearch will contact you via e-mail to confirm you are the website owner.</p>
+<p>Docsearch will set up a crawler configuration that indexes your site every 24 hours. pkgdown builds a suggested Docsearch crawler configuration in <code>docsearch.json</code> and you should point the Docsearch team to this configuration as a starting point. If you want to optimize your search, Docsearch will accept pull requests to the configuration that incorporate <a href="https://github.com/algolia/docsearch-configs#introduction" class="external-link">additional options</a> to fine tune the scraping.</p>
+</div>
+<div class="section level3">
+<h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
+</h3>
 <p>The Docsearch team will e-mail you some JavaScript to integrate into your website.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="at">docsearch</span>(<span class="op">{</span> </span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="op">}</span>)<span class="op">;</span> </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"text/javascript"</span><span class="op">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">docsearch</span>(<span class="op">{</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">apiKey</span><span class="op">:</span> <span class="st">'API_KEY'</span><span class="op">,</span>  <span class="co">// a long hex string</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">indexName</span><span class="op">:</span> <span class="st">'INDEX_NAME'</span><span class="op">,</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="dt">inputSelector</span><span class="op">:</span> <span class="st">'### REPLACE ME ####'</span><span class="op">,</span> </span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">debug</span><span class="op">:</span> <span class="kw">false</span> <span class="co">// Set debug to true if you want to inspect the dropdown </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span>)<span class="op">;</span> </span></code></pre></div>
 <p>Put the value of the <code>apiKey</code> and <code>indexName</code> parameters into your site <code>_pkgdown.yml</code> under <code>template: params</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">    </span><span class="fu">docsearch</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">      </span><span class="fu">api_key</span><span class="kw">:</span><span class="at"> API_KEY</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">      </span><span class="fu">index_name</span><span class="kw">:</span><span class="at"> INDEX_NAME</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="fu">docsearch</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="at">      </span><span class="fu">api_key</span><span class="kw">:</span><span class="at"> API_KEY</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="at">      </span><span class="fu">index_name</span><span class="kw">:</span><span class="at"> INDEX_NAME</span></span></code></pre></div>
 <p>You also need to add a <code>url:</code> field to <code>_pkgdown.yml</code> that specifies the location of your documentation on the web. For pkgdown, the URL field is:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
 <p>If you are building your own custom Docsearch index, you can also include your Docsearch <code>app_id</code> in <code>_pkgdown.yml</code>.</p>
-<p>See the <a href="https://github.com/r-lib/pkgdown/blob/master/pkgdown/_pkgdown.yml#L7-L11">pkgdown configuration</a> for a functional search configuration.</p>
-<p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing <code>shift</code> + <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> (i.e., “?”) will move the focus to the search bar.</p>
+<p>See the <a href="https://github.com/r-lib/pkgdown/blob/main/pkgdown/_pkgdown.yml#L7-L11" class="external-link">pkgdown configuration</a> for a functional search configuration.</p>
+<p>Once this configuration is complete, you should find a search bar after re-building your site. After search is enabled, pressing <code>shift</code> + <code>/</code> (i.e., “?”) will move the focus to the search bar.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
 </div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://hesselberthlab.org">Jay Hesselberth</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.0.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
-    indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>

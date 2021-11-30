@@ -1,0 +1,409 @@
+.d2h-diff-table{width:100%;border-collapse:collapse;font-family:Menlo,Consolas,monospace;font-size:13px}
+
+.diffviewer * {
+    box-sizing: border-box;
+}
+
+.diffviewer .diff-file-list {
+    list-style: none;
+    padding-left: 2px;
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.diffviewer .diff-file-list a,
+.diffviewer .diff-file-list a:visited,
+.diffviewer .diff-file-list a:hover {
+    color: #337ab7;
+}
+.diffviewer .diff-file-list .diff-file-icon {
+    margin-right: 6px;
+    width: 15px;
+    height: 15px;
+    color: #fff;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inlineflexbox;
+    display: inline-flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    font-size: 12px;
+    border-radius: 1px;
+}
+.diffviewer .diff-file-list > .diff-file-same .diff-file-icon {
+    background-color: #aaa;
+}
+.diffviewer .diff-file-list > .diff-file-same .diff-file-icon::before {
+    content: "\25cf";
+}
+.diffviewer .diff-file-list > .diff-file-modified .diff-file-icon {
+    background-color: #5687d9;
+}
+.diffviewer .diff-file-list > .diff-file-modified .diff-file-icon::before {
+    content: "M";
+}
+.diffviewer .diff-file-list > .diff-file-added .diff-file-icon {
+    background-color: #f2cc36;
+}
+.diffviewer .diff-file-list > .diff-file-added .diff-file-icon::before {
+    content: "A";
+}
+.diffviewer .diff-file-list > .diff-file-removed .diff-file-icon {
+    background-color: #e73f1d;
+}
+.diffviewer .diff-file-list > .diff-file-removed .diff-file-icon::before {
+    content: "D";
+}
+
+
+.diffviewer .diff-expand-button {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+    color: #777;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.diffviewer .diff-expand-button::before {
+    content: "\2013";
+}
+
+.diffviewer .diffviewer-collapsed .diff-expand-button::before {
+    content: "+";
+}
+
+/* Collapsed diff blocks */
+.diffviewer .image-diff.diffviewer-collapsed .image-diff-controls,
+.diffviewer .image-diff.diffviewer-collapsed .image-diff-container,
+.diffviewer .d2h-file-wrapper.diffviewer-collapsed .d2h-file-diff {
+    display: none;
+}
+.diffviewer .d2h-file-wrapper.diffviewer-collapsed .d2h-file-header {
+    /* Needed so that we don't have a double border on the bottom */
+    border-bottom: 0;
+}
+
+
+/* Remove vertical padding between rows in code diffs */
+.d2h-diff-tbody > tr > td {
+    padding: 0;
+}
+
+/* Need this for scrolling to work properly with flexbox. */
+.d2h-wrapper {
+    position: relative;
+}
+
+
+.diffviewer .image-diff {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #f7f7f7;
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    margin: 0 0 15px 0;
+}
+
+.diffviewer .image-diff .image-diff-header {
+    padding: 5px 10px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+}
+
+.diffviewer .image-diff .image-diff-header .image-diff-filename-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+}
+
+.diffviewer .diff-tag{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 10px;
+    margin-left: 5px;
+    padding: 2px 4px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 1px;
+    line-height: normal;
+}
+.diffviewer .diff-same-tag {
+    background-color: #aaa;
+}
+.diffviewer .diff-modified-tag {
+    background-color: #5687d9;
+}
+.diffviewer .diff-added-tag {
+    background-color: #f2cc36;
+}
+.diffviewer .diff-removed-tag {
+    background-color: #e73f1d;
+}
+
+
+.diffviewer .image-diff .image-diff-controls {
+    padding: 5px 5px;
+    background: #f8fafd;
+    /* remove to match style of d2h
+    border-top: 1px solid #d8d8d8; */
+}
+
+.diffviewer .image-diff-controls .image-diff-button {
+    display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    padding: 3px 8px;
+    border: 1px solid #b4b9be;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #fff;
+    line-height: 16px;
+    font-size: 13px;
+    text-align: center;
+}
+.diffviewer .image-diff-controls .image-diff-button-selected {
+    color: #fff;
+    background: #5bb4e7;
+}
+.diffviewer .image-zoom-buttons > .image-diff-button {
+    width: 25px;
+    font-size: 11px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.diffviewer .image-diff-view-buttons {
+    margin-left: 10px;
+}
+
+.diffviewer .image-diff-view-buttons > .image-diff-button {
+    width: 75px;
+}
+
+.diffviewer .image-diff-controls .image-diff-button.image-diff-button-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.diffviewer .image-diff-controls .image-diff-button.image-diff-button-middle {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.diffviewer .image-diff-controls .image-diff-button.image-diff-button-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+}
+
+
+.diffviewer .image-diff-controls-sub {
+    margin-left: 11px;
+}
+.diffviewer .image-diff-controls-sub > .image-diff-button {
+    width: 45px;
+}
+
+.diffviewer .image-diff-controls-sub .image-toggle-play-button {
+    margin-left: 10px;
+    width: 28px;
+    text-align: center;
+    padding-right: 10px;
+}
+.diffviewer .image-diff-controls-sub .image-toggle-play-button {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAARAQMAAAA12hSlAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAnSURBVAgdBcExDQAwCACwSkfapCCBk4PAWsEjKZphOS4cy9AUySN8ktwPgrya8wIAAAAASUVORK5CYII=");
+    background-size: 5px 9px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.diffviewer .image-diff-controls-sub .image-toggle-play-button.image-toggle-play-button-pause {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAARAQMAAADXBg/cAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAOSURBVAjXY/hgw0AiAgACTRPtBetI+QAAAABJRU5ErkJggg==");
+    background-size: 7px 9px;
+}
+
+.diffviewer .image-diff-controls-sub .image-toggle-play-button::before {
+    content: "\00a0 ";
+}
+
+.diffviewer .image-diff-controls-sub .image-toggle-delay-slider {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 60px;
+}
+.diffviewer .image-diff-controls-sub .image-toggle-delay-text {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.diffviewer .image-diff-controls-sub .image-toggle-delay-slider input[type="range"] {
+    width: 100%;
+}
+
+
+.diffviewer .image-diff-container {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    padding: 5px;
+    margin: 0 0 15px 0;
+    background: #f8fafd;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+
+.diffviewer .image-difference {
+    box-shadow: 1px 2px 20px -2px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    transition-property: width;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+}
+
+.diffviewer .image-difference > img {
+    width: 100%;
+    display: block; /* Avoid blank space under image */
+}
+
+
+.diffviewer .image-slider {
+    position: relative;
+    line-height: 0;
+    cursor: ew-resize;
+    box-shadow: 1px 2px 20px -2px rgba(0, 0, 0, 0.25);
+}
+
+.diffviewer .image-slider > .image-slider-left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgb(255, 150, 150);
+}
+
+.diffviewer .image-slider.zooming,
+.diffviewer .image-slider.zooming > .image-slider-left,
+.diffviewer .image-slider.zooming > .image-slider-right,
+.diffviewer .image-slider.zooming > .image-slider-left > img,
+.diffviewer .image-slider.zooming > .image-slider-right > img {
+    transition-property: width, height;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+}
+
+.diffviewer .image-slider > .image-slider-left,
+.diffviewer .image-slider > .image-slider-right,
+.diffviewer .image-toggle > .image-toggle-old,
+.diffviewer .image-toggle > .image-toggle-new {
+    /* Checkerboard pattern */
+    background:url(
+        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQoU2Ps6Oj4z4AGXFxc0IUYGIeCwjNnzmB4Zs+ePZieGQIKAZKhLO1oE8Z/AAAAAElFTkSuQmCC
+    ) repeat;
+}
+
+.diffviewer .image-slider .image-slider-label {
+    position: absolute;
+    top: 0;
+    height: 25px;
+    width: 60px;
+    display: table;
+    vertical-align: middle;
+    text-align: center;
+    background: rgba(100, 100, 100, 0.4);
+    color: rgba(255, 255, 255, 0.85);
+}
+.diffviewer .image-slider > .image-slider-left .image-slider-label {
+    left: 0;
+}
+.diffviewer .image-slider > .image-slider-right .image-slider-label {
+    right: 0;
+}
+.diffviewer .image-slider .image-slider-label .image-slider-label-text{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.diffviewer .image-toggle {
+    position:relative;
+    line-height: 0;
+    box-shadow: 1px 2px 20px -2px rgba(0, 0, 0, 0.25);
+    width: 600px;
+}
+
+.diffviewer .image-toggle > .image-toggle-new {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.diffviewer .image-toggle.zooming,
+.diffviewer .image-toggle.zooming > .image-toggle-old,
+.diffviewer .image-toggle.zooming > .image-toggle-new,
+.diffviewer .image-toggle.zooming > .image-toggle-old > img,
+.diffviewer .image-toggle.zooming > .image-toggle-new > img {
+    transition-property: width, height;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+}
+
+table.highlighter {
+    /*
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    */
+    font-family: Menlo,Consolas,monospace;
+    font-size: 13px;
+
+}
+
+table.highlighter .add {
+    background-color: #97F295;
+}
+
+table.highlighter .remove {
+    background-color: #FFB6BA;
+}
+
+table.highlighter .spec {
+    background-color: #bcbcbc;
+}
+
+table.highlighter td, table.highlighter th {
+    border: 1px solid #eee;
+}
+
+table.highlighter tr.header th {
+    border-bottom: 2px solid #eee;
+}
+
+table.highlighter tr:first-child td {
+    border-top: 1px solid #eee;
+}
+
+table.highlighter td:first-child {
+    border-left: 1px solid #eee;
+}

@@ -1,16 +1,19 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.0
 pkgdown_sha: ~
 articles:
+  customise: customise.html
   linking: linking.html
   metadata: metadata.html
   pkgdown: pkgdown.html
   search: search.html
-  test/jss: jss.pdf
-  test/output: output.html
-  test/pdf: pdf.pdf
-  test/rendering: rendering.html
-last_built: 2020-09-12T15:19Z
+  jss: test/jss.pdf
+  long-toc: test/long-toc.html
+  pdf: test/pdf.pdf
+  rendering: test/rendering.html
+  short: test/short.html
+  widgets: test/widgets.html
+last_built: 2021-11-30T21:50Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles

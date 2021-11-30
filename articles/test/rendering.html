@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="pkgdown">
 <title>Output Rendering • pkgdown</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -12,14 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
-<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../pkgdown.js"></script><!-- docsearch --><script src="../../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Output Rendering">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Output Rendering">
 <meta property="og:description" content="pkgdown">
 <meta property="og:image" content="https://pkgdown.r-lib.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,218 +29,127 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script>
+</script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../../index.html">pkgdown</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.1</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../../index.html">pkgdown</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../../articles/pkgdown.html">Get started</a>
 </li>
-<li>
-  <a href="../../articles/pkgdown.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../../reference/index.html">Reference</a>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../../articles/customise.html">Customise your site</a>
+    <a class="dropdown-item" href="../../articles/linking.html">Auto-linking</a>
+    <a class="dropdown-item" href="../../articles/search.html">Search</a>
+    <a class="dropdown-item" href="../../articles/metadata.html">Metadata</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../../articles/index.html">More articles...</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../../articles/linking.html">Auto-linking</a>
-    </li>
-    <li>
-      <a href="../../articles/search.html">Search</a>
-    </li>
-    <li>
-      <a href="../../articles/metadata.html">Metadata</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../../articles/index.html">More...</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../../news/index.html">Changelog</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/12/pkgdown-1-3-0/">Version 1.3.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/">Version 1.0.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../../news/index.html">Changelog</a>
+  </div>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/r-lib/pkgdown/">
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/r-lib/pkgdown/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-      
-
-      </header><script src="rendering_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="rendering_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="rendering_files/jquery-1.12.4/jquery.min.js"></script><link href="rendering_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
-<script src="rendering_files/leaflet-1.3.1/leaflet.js"></script><link href="rendering_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
-<script src="rendering_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script><script src="rendering_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="rendering_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="rendering_files/leaflet-binding-2.0.3/leaflet.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Output Rendering</h1>
+</nav><div class="container template-article">
+<script src="rendering_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../../logo.png" class="logo" alt=""><h1>Output Rendering</h1>
+            <h3 data-toc-skip class="subtitle">Subtitle is skipped from the TOC</h3>
+                        <h4 data-toc-skip class="author">Author is skipped from the TOC</h4>
             
+            <h4 data-toc-skip class="date">Date is skipped from the TOC</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/master/vignettes/test/rendering.Rmd"><code>vignettes/test/rendering.Rmd</code></a></small>
-      <div class="hidden name"><code>rendering.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/vignettes/test/rendering.Rmd" class="external-link"><code>vignettes/test/rendering.Rmd</code></a></small>
+      <div class="d-none name"><code>rendering.Rmd</code></div>
     </div>
 
     
     
 <p>This vignette tests pkgdown output rendering for several use cases.</p>
-<div id="highlighting" class="section level1">
-<h1 class="hasAnchor">
-<a href="#highlighting" class="anchor"></a>Highlighting</h1>
-<p>This document uses a variety of linking styles for testing purposes</p>
-<div id="inline-code" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inline-code" class="anchor"></a>Inline code</h2>
-<p>Local:</p>
-<ul>
-<li><code><a href="../../articles/pkgdown.html">vignette("pkgdown")</a></code></li>
-<li><code><a href="../../reference/build_site.html">build_site()</a></code></li>
-<li><code><a href="../../reference/template_navbar.html">?template_navbar</a></code></li>
-</ul>
-<p>Remote:</p>
-<ul>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">MASS::enlist</a></code></li>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">MASS::enlist()</a></code></li>
-<li><code><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">?MASS::enlist</a></code></li>
-<li><code><a href="https://rdrr.io/r/base/match.html">%in%</a></code></li>
-<li><code><a href="https://rdrr.io/r/base/match.html">?`%in%`</a></code></li>
-</ul>
+<div class="section level2">
+<h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
+</h2>
+<p>Yay<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Including &lt;strong&gt;footnotes&lt;/strong&gt;! 😁&lt;/p&gt;"><sup>1</sup></a></p>
 </div>
-<div id="spurious-links" class="section level2">
-<h2 class="hasAnchor">
-<a href="#spurious-links" class="anchor"></a>Spurious links</h2>
-<p>These shouldn’t be linked.</p>
-<ul>
-<li><code>Authors@R</code></li>
-<li><code>content-home.html</code></li>
-<li><code>toc: depth</code></li>
-<li><code>x = y</code></li>
-</ul>
+<div class="section level2">
+<h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
+<p><img src="rendering_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
-<div id="code-blocks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-blocks" class="anchor"></a>Code blocks</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># Shouldn't get linked</span>
-<span class="fu">enlist</span>(<span class="fl">5</span>)
-<span class="co"># Should get linked</span>
-<span class="kw">MASS</span>::<span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">enlist</a></span>(<span class="fl">5</span>)</pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span>)
-<span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">enlist</a></span>(<span class="fl">5</span>)
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Should get linked because MASS was loaded previously</span>
-<span class="fu"><a href="https://rdrr.io/pkg/MASS/man/MASS-internal.html">enlist</a></span>(<span class="fl">5</span>)
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 5</span></pre></div>
-<hr>
-</div>
-</div>
-<div id="figures" class="section level1">
-<h1 class="hasAnchor">
-<a href="#figures" class="anchor"></a>Figures</h1>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)</pre></div>
-<p><img src="rendering_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<hr>
-</div>
-<div id="external-files" class="section level1">
-<h1 class="hasAnchor">
-<a href="#external-files" class="anchor"></a>External files</h1>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"test.txt"</span>)
-<span class="kw">x</span>
-<span class="co">#&gt; [1] "a" "b" "c" "d"</span></pre></div>
+<div class="section level2">
+<h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
 <p><img src="bacon.jpg"></p>
-<hr>
 </div>
-<div id="details-tag" class="section level1">
-<h1 class="hasAnchor">
-<a href="#details-tag" class="anchor"></a>Details tag</h1>
+<div class="section level2">
+<h2 id="details-tag">Details tag<a class="anchor" aria-label="anchor" href="#details-tag"></a>
+</h2>
 <details>
 This should only be shown when required
+</details><details><p><summary>Multiple paragraphs</summary> First paragraph</p>
+Second paragraph
 </details><details><p><summary>Some R code</summary></p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
-<span class="co">#&gt; [1] 3</span></pre></div>
-</details><hr>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+</details>
 </div>
-<div id="tables" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tables" class="anchor"></a>Tables</h1>
-<table class="table">
+<div class="section level2">
+<h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
+</h2>
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="33%">
 <col width="25%">
@@ -262,82 +169,198 @@ This should only be shown when required
 <td align="center">test</td>
 </tr></tbody>
 </table>
-<hr>
 </div>
-<div id="mathjax" class="section level1">
-<h1 class="hasAnchor">
-<a href="#mathjax" class="anchor"></a>Mathjax</h1>
+<div class="section level2">
+<h2 id="mathjax">Mathjax<a class="anchor" aria-label="anchor" href="#mathjax"></a>
+</h2>
 <p><span class="math display">\[f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}\]</span></p>
 <p>Inline equations: <span class="math inline">\(y=x^2\)</span></p>
-<hr>
 </div>
-<div id="widgets" class="section level1">
-<h1 class="hasAnchor">
-<a href="#widgets" class="anchor"></a>Widgets</h1>
-<p>Test spacing above widget.</p>
-<div id="htmlwidget-30e4409849e39179307f" style="width:700px;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30e4409849e39179307f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.852,174.768,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"The birthplace of R",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.852,-36.852],"lng":[174.768,174.768]}},"evals":[],"jsHooks":[]}</script><p>Test spacing below widget.</p>
-<hr>
+<div class="section level2">
+<h2 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">pkgdown</span><span class="fu">:::</span><span class="fu">ruler</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--</span>
+<span class="co">#&gt; 123456789012345678901234567890123456789012345678901234567890123456789012</span></code></pre></div>
+<div class="section level3">
+<h3 id="should-be-highlighted">Should be highlighted<a class="anchor" aria-label="anchor" href="#should-be-highlighted"></a>
+</h3>
+<p>Valid R code in <code>\preformatted{}</code>:</p>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre>
+<p>R code in <code>R</code> block:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p>R code in <code>r</code> block:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p>Yaml</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
 </div>
-<div id="crayon" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crayon" class="anchor"></a>Crayon</h1>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw">crayon</span>::<span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html">red</a></span>(<span class="st">"This is red"</span>), <span class="st">"\n"</span>)
-<span class="co">#&gt; This is red</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw">crayon</span>::<span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html">blue</a></span>(<span class="st">"This is blue\n"</span>), <span class="st">"\n"</span>)
-<span class="co">#&gt; This is blue</span>
-<span class="co">#&gt; </span>
+<div class="section level3">
+<h3 id="shouldnt-be-highlighted">Shouldn’t be highlighted<a class="anchor" aria-label="anchor" href="#shouldnt-be-highlighted"></a>
+</h3>
+<p>Non-R code in <code>\preformatted{}</code></p>
+<pre><code>yaml: [a, b, c]</code></pre>
+</div>
+<div class="section level3">
+<h3 id="crayon">Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span>
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #0000BB;">This is blue</span></span>
+<span class="co"><span style="color: #0000BB;">#&gt; </span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="kw">crayon</span>::<span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html">green</a></span>(<span class="st">"This is green"</span>))
-<span class="co">#&gt; This is green</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">(</span><span class="st">"This is green"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #00BB00;">This is green</span></span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/warning.html">warning</a></span>(<span class="kw">crayon</span>::<span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html">bold</a></span>(<span class="st">"This is bold"</span>))
-<span class="co">#&gt; Warning: This is bold</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></code></pre></div>
 <p>Some text</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>(<span class="kw">crayon</span>::<span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html">italic</a></span>(<span class="st">"This is italic"</span>))
-<span class="co">#&gt; Error in eval(expr, envir, enclos): This is italic</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></code></pre></div>
 <p>Some more text</p>
 </div>
-  </div>
+</div>
+<div class="section level2">
+<h2 id="quoted-text">Quoted text<a class="anchor" aria-label="anchor" href="#quoted-text"></a>
+</h2>
+<blockquote>
+<p>Single-line quote about something miscellaneous.</p>
+</blockquote>
+<div class="line-block">Flush<br>
+ 1 space indent<br>
+  2 space indent<br>
+   3 space indent</div>
+</div>
+<div class="section level2 unnumbered">
+<h2 id="this-section-is-unnumbered">This section is unnumbered<a class="anchor" aria-label="anchor" href="#this-section-is-unnumbered"></a>
+</h2>
+<p>There should however be no bug here!</p>
+</div>
+<div class="section level2">
+<h2 id="tabsets">Tabsets<a class="anchor" aria-label="anchor" href="#tabsets"></a>
+</h2>
+<div class="section level3 tabset tabset-pills">
+<h3 id="tabset-with-pills">Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
+</h3>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
+<ul class="nav nav-pills" id="tabset-with-pills" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-1" id="tab-1-tab" type="button" role="tab" aria-controls="tab-1" aria-selected="true" class="active nav-link">Tab 1</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-2" id="tab-2-tab" type="button" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</button></li>
+</ul>
+<div class="tab-content">
+<div class="active  tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
+
+<p>blablablabla</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<p>Should be “cool” heading below</p>
+<div class="section level5">
+<h5 id="cool">cool<a class="anchor" aria-label="anchor" href="#cool"></a>
+</h5>
+<p>Stuff</p>
+</div>
+</div>
+<div class="tab-pane" id="tab-2" role="tabpanel" aria-labelledby="tab-2-tab">
+
+<p>blop</p>
+</div>
+</div>
+</div>
+<div class="section level3 tabset">
+<h3 id="tabset-without-pils">Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
+</h3>
+
+
+<ul class="nav nav-tabs" id="tabset-without-pils" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-1-1" id="tab-1-1-tab" type="button" role="tab" aria-controls="tab-1-1" aria-selected="false" class="nav-link">Tab 1</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-2-1" id="tab-2-1-tab" type="button" role="tab" aria-controls="tab-2-1" aria-selected="true" class="nav-link active">Tab 2</button></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane" id="tab-1-1" role="tabpanel" aria-labelledby="tab-1-1-tab">
+
+<p>something nice</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
+<p><img src="rendering_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+</div>
+<div class="active tab-pane" id="tab-2-1" role="tabpanel" aria-labelledby="tab-2-1-tab">
+
+<p>This tab should be active</p>
+</div>
+</div>
+</div>
+<div class="section level3 tabset tabset-fade">
+<h3 id="fading-tabset">Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
+</h3>
+
+
+
+<ul class="nav nav-tabs" id="fading-tabset" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#english" id="english-tab" type="button" role="tab" aria-controls="english" aria-selected="true" class="active nav-link">English</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#french" id="french-tab" type="button" role="tab" aria-controls="french" aria-selected="false" class="nav-link">French</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#german" id="german-tab" type="button" role="tab" aria-controls="german" aria-selected="false" class="nav-link">German</button></li>
+</ul>
+<div class="tab-content">
+<div class="active show fade tab-pane" id="english" role="tabpanel" aria-labelledby="english-tab">
+
+<p>Hello!</p>
+</div>
+<div class="fade tab-pane" id="french" role="tabpanel" aria-labelledby="french-tab">
+
+<p>Bonjour!</p>
+</div>
+<div class="fade tab-pane" id="german" role="tabpanel" aria-labelledby="german-tab">
+
+<p>Guten tag.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="deep-headings">Deep headings<a class="anchor" aria-label="anchor" href="#deep-headings"></a>
+</h2>
+<div class="section level3">
+<h3 id="heading-3">Heading 3<a class="anchor" aria-label="anchor" href="#heading-3"></a>
+</h3>
+<div class="section level4">
+<h4 id="heading-4">Heading 4<a class="anchor" aria-label="anchor" href="#heading-4"></a>
+</h4>
+<div class="section level5">
+<h5 id="heading-5">Heading 5<a class="anchor" aria-label="anchor" href="#heading-5"></a>
+</h5>
+</div>
+</div>
+</div>
 </div>
 
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://hesselberthlab.org">Jay Hesselberth</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.0.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'fbd8d79ed49f21fc9ca7b2cf601a3f5b',
-    indexName: 'pkgdown',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
