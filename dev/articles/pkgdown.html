@@ -124,7 +124,7 @@
 <div class="section level2">
 <h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
 </h2>
-<p>You can override pkgdown’s defaults with a YAML file called <code>_pkgdown.yml</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;You can also put it in &lt;code&gt;pkgdown/_pkgdown.yml&lt;/code&gt; if you want to keep the package root clutter free, or in &lt;code&gt;inst/_pkgdown.yml&lt;/code&gt; if you want to make it available when your package is installed.&lt;/p&gt;"><sup>1</sup></a>. The most important field is <code>url</code>, which gives the final location of the site:</p>
+<p>You can override pkgdown’s defaults with a YAML file called <code>_pkgdown.yml</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;You can also put it in &lt;code&gt;pkgdown/_pkgdown.yml&lt;/code&gt; if you want to keep the package root clutter-free, or in &lt;code&gt;inst/_pkgdown.yml&lt;/code&gt; if you want to make it available when your package is installed.&lt;/p&gt;"><sup>1</sup></a>. The most important field is <code>url</code>, which gives the final location of the site:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
 <p><code>url</code> is used throughout the site to generate absolute urls where they are needed.</p>
 <p>Another important option is <code>template</code>, which allows you to control the overall appearance of your site:</p>
@@ -135,7 +135,7 @@
 <div class="section level3">
 <h3 id="language">Language<a class="anchor" aria-label="anchor" href="#language"></a>
 </h3>
-<p>If your documentation (<code>.Rd</code> and <code>.Rmd</code>) is written in an language other than English, declare it by setting setting <code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">two letter language code</a> for your language:</p>
+<p>If your documentation (<code>.Rd</code> and <code>.Rmd</code>) is written in a language other than English, declare it by setting setting <code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">two letter language code</a> for your language:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
 <p>This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site (if a translation for your language is available).</p>
 </div>
@@ -143,7 +143,7 @@
 <div class="section level2">
 <h2 id="home-page">Home page<a class="anchor" aria-label="anchor" href="#home-page"></a>
 </h2>
-<p>The contents of home page is automatically generated from <code>index.md</code> or <code>README.md</code>. pkgdown tries them in order, so it’s possible to have a different display on GitHub and pkgdown by providing both files. The homepage also includes a sidebar full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are generated and how you can customise them.</p>
+<p>The contents of home page are automatically generated from <code>index.md</code> or <code>README.md</code>. pkgdown tries them in order, so it’s possible to have a different display on GitHub and pkgdown by providing both files. The homepage also includes a sidebar full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are generated and how you can customise them.</p>
 </div>
 <div class="section level2">
 <h2 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
@@ -165,7 +165,7 @@
 <span id="cb6-3"><a href="#cb6-3"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>    Functions for installing Spark components and managing</span>
 <span id="cb6-5"><a href="#cb6-5"></a>    connections to Spark</span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
 <span id="cb6-7"><a href="#cb6-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
 <span id="cb6-8"><a href="#cb6-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
 <span id="cb6-9"><a href="#cb6-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
@@ -173,18 +173,18 @@
 <span id="cb6-11"><a href="#cb6-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
 <span id="cb6-13"><a href="#cb6-13"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="kw">-</span><span class="at"> </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
 <span id="cb6-15"><a href="#cb6-15"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
 <span id="cb6-16"><a href="#cb6-16"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
 <span id="cb6-17"><a href="#cb6-17"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
 <p>Note the use of <code>starts_with()</code> to select all functions with a common prefix. You can also use <code>ends_with()</code> and <code>matches()</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
-<p>While iterating on the reference index you might want to run <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the index page, making it faster to quick change <code>_pkgdown.yaml</code> and see how it affects your site.</p>
+<p>While iterating on the reference index you might want to run <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the index page, making it faster to quickly change <code>_pkgdown.yaml</code> and see how it affects your site.</p>
 </div>
 <div class="section level2">
 <h2 id="articles">Articles<a class="anchor" aria-label="anchor" href="#articles"></a>
 </h2>
 <p>pkgdown will automatically build all vignettes found in <code>vignettes/</code>, translating them to HTML files in <code>articles/</code>. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format. You can see the details in <code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
-<p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> or add it to <code>.Rbuildignore</code> (and make sure that there’s no <code>vignettes:</code> section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
+<p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> (e.g. <code>vignettes/web_only</code>) or add it to <code>.Rbuildignore</code> (and make sure that there’s no <code>vignettes:</code> section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
 </div>
 <div class="section level2">
 <h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
