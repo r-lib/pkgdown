@@ -18,7 +18,7 @@ Which uses two of the three built-in components:
 -   `package`, the name of the package.
 
 You can override these defaults with the `footer` field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
+The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
 
 ``` yaml
 footer:
