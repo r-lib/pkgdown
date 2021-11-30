@@ -1,8 +1,8 @@
 ---
-title: "Styling your site"
+title: "Customise your site"
 output: rmarkdown::html_vignette
 description: >
-  Learn how to change the look and feel of pkgdown websites.
+  Learn how to change the look and feel of your pkgdown site.
 vignette: >
   %\VignetteIndexEntry{Styling your site}
   %\VignetteEngine{knitr::rmarkdown}
@@ -241,4 +241,3 @@ Further work to improve user experience is:
 -   Working on the article (`?build_articles`) and reference indexes (`?build_reference`).
 -   Writing a compelling README that explains why your package is so cool/useful/fun.
 -   Improving the contents of the individual articles and reference topics 😉.
-
