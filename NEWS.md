@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 2.0.0
 
 ## New authors
