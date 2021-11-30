@@ -10,6 +10,10 @@
       --------------------------------------------------------------------------------
     Error <rlang_error>
       Failed to render RMarkdown
+      Caused by error:
+        callr subprocess failed: pandoc document conversion failed with error 99
+      Caused by error:
+        pandoc document conversion failed with error 99
 
 # render_rmarkdown styles ANSI escapes
 

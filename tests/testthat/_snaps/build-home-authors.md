@@ -20,7 +20,7 @@
 
     Code
       role_lookup("unknown")
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown MARC role abbreviation 'unknown'
     Output
       [1] "unknown"

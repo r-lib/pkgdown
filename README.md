@@ -5,12 +5,10 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <a href="https://cran.r-project.org/package=pkgdown" class="pkgdown-release"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
 <a href="https://github.com/r-lib/pkgdown/actions" class="pkgdown-devel"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=main)
+coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for
@@ -91,7 +89,7 @@ Here are a few examples created by contributors to pkgdown:
     ([source](https://github.com/rnabioco/valr)): read and manipulate
     genome intervals and signals.
 
--   [mkin](http://jranke.github.io/mkin/)
+-   [mkin](https://pkgdown.jrwb.de/mkin/)
     ([source](https://github.com/jranke/mkin)): calculation routines
     based on the FOCUS Kinetics Report
 
