@@ -49,6 +49,10 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v1
 
+      - name: Install makeindex
+        run: tinytex::tlmgr_install("makeindex")
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r@v1
         with:
           r-version: ${{ matrix.config.r }}
