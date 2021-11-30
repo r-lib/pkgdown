@@ -334,7 +334,7 @@ directly from the platform.
     after_body: >
       <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
-\item \href{https://analytics.google.com}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \href{https://analytics.google.com/analytics/web/}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     in_header: |
        <!-- Global site tag (gtag.js) - Google Analytics -->

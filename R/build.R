@@ -195,7 +195,7 @@
 #'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
 #'
-#' *   [Google analytics](https://analytics.google.com):
+#' *   [Google analytics](https://analytics.google.com/analytics/web/):
 #'
 #'     ```yaml
 #'     template:

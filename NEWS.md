@@ -334,7 +334,7 @@
 * The rules drawn by the CLI (as for example, in `build_site()`) are protected
   against very narrow terminal windows (@maxheld83, #1435).
 
-* [Google Site Verification](https://support.google.com/webmasters/answer/9008080?hl=en) 
+* Google Site Verification (https://support.google.com/webmasters/answer/9008080?hl=en)
   can now be configured for pkgdown sites.
 
 * `build_rmarkdown_format` sets `html_document(anchor_sections = FALSE)` 
