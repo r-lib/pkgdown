@@ -24,6 +24,10 @@
           aliases: c()
           title: C
           icon: ~
+        - path: e.html
+          aliases: e
+          title: E
+          icon: ~
         - path: help.html
           aliases: '`?`()'
           title: D
@@ -32,6 +36,7 @@
         - a
         - b
         - c
+        - e
         - '?'
         row_has_icons: no
       has_icons: no
@@ -73,6 +78,10 @@
           aliases: c()
           title: C
           icon: ~
+        - path: e.html
+          aliases: e
+          title: E
+          icon: ~
         - path: help.html
           aliases: '`?`()'
           title: D
@@ -96,6 +105,7 @@
         - a
         - b
         - c
+        - e
         - '?'
         row_has_icons: no
       has_icons: no
