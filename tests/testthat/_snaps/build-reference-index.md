@@ -107,6 +107,8 @@
         - c
         - e
         - '?'
+        - rlang::is_installed()
+        - bslib::bs_add_rules
         row_has_icons: no
       has_icons: no
       

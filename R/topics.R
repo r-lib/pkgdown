@@ -178,7 +178,7 @@ content_info <- function(content_entry, index, pkg, section) {
     tibble::tibble(
       path = topics$file_out,
       aliases = purrr::map2(topics$funs, topics$name, ~ if (length(.x) > 0) .x else .y),
-      name = list(topics$name),
+      name = topics$name,
       title = topics$title,
       icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
     )
@@ -196,7 +196,7 @@ content_info <- function(content_entry, index, pkg, section) {
     tibble::tibble(
       path = rd_href,
       aliases = rd_aliases,
-      name = list(content_entry = NULL),
+      name = content_entry,
       title = sprintf("%s (from %s)", rd_title, pkg_name),
       icon = list(content_entry = NULL)
     )
