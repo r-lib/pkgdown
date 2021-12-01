@@ -98,7 +98,9 @@ describe_contents <- function(x, ...) {
   group <- cumsum(c(TRUE, changed))
 
   parse_piece <- function(x) {
-    if (inherits(x[[1]], "tag_item")) {
+    if (length(x) == 0) {
+      NULL
+    } else if (inherits(x[[1]], "tag_item")) {
       paste0("<dl>\n", parse_descriptions(x, ...), "</dl>")
     } else {
       flatten_para(x, ...)

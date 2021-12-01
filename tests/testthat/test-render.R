@@ -8,6 +8,7 @@ test_that("capture data_template()", {
   pkg <- as_pkgdown(test_path("assets/site-empty"))
   data <- data_template(pkg)
   data$year <- "<year>"
+  data$footer$right <- gsub(packageVersion("pkgdown"), "{version}", data$footer$right, fixed = TRUE)
   expect_snapshot_output(data)
 })
 
