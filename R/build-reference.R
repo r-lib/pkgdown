@@ -350,10 +350,13 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
   out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
-  out$usage <- list(
-    title = tr_("Usage"),
-    contents = as_data(tags$tag_usage[[1]])
-  )
+  if (length(tags$tag_usage[[1]])) {
+    out$usage <- list(
+      title = tr_("Usage"),
+      contents = as_data(tags$tag_usage[[1]])
+    )
+  }
+
 
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(
