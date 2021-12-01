@@ -214,7 +214,7 @@ This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\pre
 
 These are drawn from seven built-in components:
 \itemize{
-\item \code{links}: automated links generated from \code{URL} and \code{BugReports} \code{DESCRIPTION} fields plus manual links from the \code{home.links} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
+\item \code{links}: automated links generated from \code{URL} and \code{BugReports} fields from \code{DESCRIPTION} plus manual links from the \code{home.links} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   links:
   - text: Link text
     href: https://website.com
