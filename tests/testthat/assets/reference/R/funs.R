@@ -15,3 +15,7 @@ c <- function() {}
 #' \special{?topic}
 #' @export
 `?` <- function() {}
+
+#' E
+#' @name e
+NULL

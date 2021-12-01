@@ -81,7 +81,6 @@ test_that("highlight unwrapped <pre>", {
   expect_equal(xpath_attr(html, ".//div/div", "class"), "sourceCode")
 })
 
-
 # highlighting ------------------------------------------------------------
 
 test_that("can highlight R code", {

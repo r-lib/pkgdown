@@ -273,8 +273,8 @@ xpath_xml <- function(x, xpath) {
 xpath_attr <- function(x, xpath, attr) {
   xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
 }
-xpath_text <- function(x, xpath) {
-  xml2::xml_text(xml2::xml_find_all(x, xpath))
+xpath_text <- function(x, xpath, trim = FALSE) {
+  xml2::xml_text(xml2::xml_find_all(x, xpath), trim = trim)
 }
 xpath_length <- function(x, xpath) {
   length(xml2::xml_find_all(x, xpath))
