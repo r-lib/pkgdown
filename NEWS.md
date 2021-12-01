@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Empty `\value{}` no longer errors (#1930).
+
 # pkgdown 2.0.0
 
 ## New authors
