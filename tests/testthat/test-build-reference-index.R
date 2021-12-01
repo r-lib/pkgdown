@@ -2,7 +2,7 @@ test_that("can generate three types of row", {
   ref <- list(
     list(title = "A"),
     list(subtitle = "B"),
-    list(contents = c("a", "b", "c", "?"))
+    list(contents = c("a", "b", "c", "e", "?"))
   )
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
@@ -13,7 +13,7 @@ test_that("can generate three types of row", {
 test_that("rows with title internal are dropped", {
   ref <- list(
     list(title = "internal"),
-    list(contents = c("a", "b", "c", "?")),
+    list(contents = c("a", "b", "c", "e", "?")),
     list(title = "internal")
   )
   meta <- list(reference = ref)
@@ -26,14 +26,14 @@ test_that("rows with title internal are dropped", {
 test_that("duplicate entries within a group is dropped", {
   ref <- list(
     list(contents = c("a", "b", "a", "a")),
-    list(contents = c("b", "c", "?"))
+    list(contents = c("b", "c", "?", "e"))
   )
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   index <- data_reference_index(pkg)
   expect_equal(length(index$rows[[1]]$topics), 2)
-  expect_equal(length(index$rows[[2]]$topics), 3)
+  expect_equal(length(index$rows[[2]]$topics), 4)
 })
 
 test_that("warns if missing topics", {
@@ -52,7 +52,7 @@ test_that("warns if missing topics", {
 
 test_that("default reference includes all functions", {
   ref <- default_reference_index(test_path("assets/reference"))
-  expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "?"), "`"))
+  expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
 })
 
 test_that("errors well when a content entry is not a character", {
@@ -83,7 +83,7 @@ test_that("errors well when a content entry refers to a non existing function", 
 test_that("can use a topic from another package", {
   meta <- list(reference = list(list(
     title = "bla",
-    contents = c("a", "b", "c", "?", "rlang::is_installed()", "bslib::bs_add_rules")
+    contents = c("a", "b", "c", "e", "?", "rlang::is_installed()", "bslib::bs_add_rules")
   )))
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 

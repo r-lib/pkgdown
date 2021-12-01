@@ -27,3 +27,40 @@ test_that("examples_env sets width", {
   examples_env(pkg)
   expect_equal(getOption("width"), 50)
 })
+
+
+test_that("test usage ok on rendered page", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  expect_output(build_reference(pkg, topics = "c"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
+  expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
+  clean_site(pkg)
+
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+      template:
+        bootstrap: 5
+    ")
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "c"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
+  # tweak_anchors() moves id into <h2>
+  expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")
+})
+
+test_that(".Rd without usage doesn't get Usage section", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  expect_output(build_reference(pkg, topics = "e"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
+  expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
+  clean_site(pkg)
+
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+      template:
+        bootstrap: 5
+    ")
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "e"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
+  # tweak_anchors() moves id into <h2>
+  expect_equal(xpath_length(html, "//div[h2[@id='ref-usage']]"), 0)
+})

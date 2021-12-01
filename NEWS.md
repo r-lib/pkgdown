@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Usage sections only generated for topics that have them; usage correctly
+  displayed with BS3 (#1931)
+
 * Empty `\value{}` no longer errors (#1930).
 
 # pkgdown 2.0.0

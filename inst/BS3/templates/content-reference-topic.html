@@ -15,7 +15,9 @@
     </div>
 
     {{#usage}}
-    <div id="ref-usage">{{{.}}}</div>
+    <div id="ref-usage">{{#contents}}
+    {{{.}}}
+    {{/contents}}</div>
     {{/usage}}
 
     {{#sections}}
