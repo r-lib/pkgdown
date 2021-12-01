@@ -5,7 +5,10 @@ test_that("works by default", {
     ),
     class = "pkgdown"
   )
-  expect_snapshot(data_footer(pkg))
+  footer <- data_footer(pkg)
+  footer$right <- gsub(packageVersion("pkgdown"), "{version}", footer$right, fixed = TRUE)
+
+  expect_snapshot_output(footer)
 })
 
 test_that("includes package component", {
