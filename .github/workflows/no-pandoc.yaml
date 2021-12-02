@@ -27,4 +27,4 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v1
         with:
-          build_args: --no-manual
+          build_args: "--no-manual"
