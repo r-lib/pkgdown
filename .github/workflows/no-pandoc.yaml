@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
 
-name: R-CMD-check
+name: no-pandoc
 
 jobs:
   R-CMD-check:
@@ -26,3 +26,5 @@ jobs:
           extra-packages: rcmdcheck
 
       - uses: r-lib/actions/check-r-package@v1
+        with:
+          build-args: --no-manual
