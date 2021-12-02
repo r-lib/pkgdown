@@ -48,11 +48,12 @@ data_reference_index_rows <- function(section, index, pkg) {
   if (has_name(section, "contents")) {
     check_all_characters(section$contents, index, pkg)
     contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
-    names <- unlist(purrr::map(contents, "name"))
-    contents <- contents[!duplicated(names)]
-    names <- unique(names)
-    contents <- purrr::map(contents, function(x) x[names(x) != "name"])
     contents <- do.call(rbind, contents)
+    contents <- contents[!duplicated(contents$name), , drop = FALSE]
+
+    names <- contents$name
+    contents$name <- NULL
+
     rows[[3]] <- list(
       topics = purrr::transpose(contents),
       names = names,
