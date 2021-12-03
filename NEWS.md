@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Fix CRAN failures.
+
 * Reference sections are de-duplicated correctly (#1935).
 
 * Usage sections only generated for topics that have them; usage correctly
