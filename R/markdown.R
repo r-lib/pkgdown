@@ -98,7 +98,11 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
   } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes"
   } else {
-    stop("Pandoc not available", call. = FALSE)
+    if (is_testing()) {
+      testthat::skip("Pandoc not available")
+    } else {
+      abort("Pandoc not available")
+    }
   }
 
   rmarkdown::pandoc_convert(
