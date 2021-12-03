@@ -28,3 +28,9 @@ jobs:
       - uses: r-lib/actions/check-r-package@v1
         with:
           build_args: "'--no-manual'"
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
