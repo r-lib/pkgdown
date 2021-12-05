@@ -196,6 +196,21 @@ test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
   )
 })
 
+test_that("tweak_img_src() doesn't modify absolute links", {
+  html <- xml2::read_html('<body>
+    <img src="https://raw.githubusercontent.com/OWNER/REPO/main/vignettes/foo" />
+    <img src="https://github.com/OWNER/REPO/raw/main/man/figures/foo" />
+  </body>')
+  urls_before <- xpath_attr(html, ".//img", "src")
+
+  tweak_img_src(html)
+  expect_equal(
+    xpath_attr(html, ".//img", "src"),
+    urls_before
+  )
+})
+
+
 # stripped divs etc -------------------------------------------------------
 
 test_that("selectively remove hide- divs", {
