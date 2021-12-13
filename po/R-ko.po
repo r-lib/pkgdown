@@ -84,7 +84,7 @@ msgstr "리뷰어"
 
 #: build-home-authors.R:202
 msgid "thesis advisor"
-msgstr "고문"
+msgstr "지도교수"
 
 #: build-home-authors.R:203
 msgid "translator"
