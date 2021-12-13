@@ -16,7 +16,7 @@ msgstr "페이지를 찾을 수 없습니다 (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "콘텐츠를 찾을 수 없습니다. 네비게이션 바의 링크를 이용해주세요."
+msgstr "콘텐츠를 찾을 수 없습니다. 네비게이션 바의 링크를 이용해 주세요."
 
 #: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
 msgid "Articles"
@@ -32,7 +32,7 @@ msgstr "개발자:"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr "현재 사이트는 <a href=\"%s\">pkgdown</a> %s 로 만들었습니다."
+msgstr "현재 사이트는 다음 패키지로 생성하였습니다. - <a href=\"%s\">pkgdown</a> %s"
 
 #: build-home-authors.R:92
 msgid "More about authors..."
@@ -116,7 +116,7 @@ msgstr "개발 상태"
 
 #: build-home-index.R:153
 msgid "View on %s"
-msgstr "(%s)에서 보기"
+msgstr "%s에서 보기"
 
 #: build-home-index.R:154
 msgid "Browse source code"
@@ -144,7 +144,7 @@ msgstr "전체 라이선스"
 
 #: build-news.R:100 build-news.R:233 build-news.R:238
 msgid "Changelog"
-msgstr "변경사항"
+msgstr "변경 사항"
 
 #: build-news.R:124
 msgid "Version %s"
@@ -156,7 +156,7 @@ msgstr "뉴스"
 
 #: build-news.R:229
 msgid "Releases"
-msgstr "배포"
+msgstr "릴리즈"
 
 #: build-news.R:285
 msgid "CRAN release: %s"
@@ -240,7 +240,7 @@ msgstr "값"
 
 #: rd-html.R:205
 msgid "# %s method for %s"
-msgstr "# %s 타입인 %s의 메소드"
+msgstr "# %s 타입인 %s의 메서드"
 
 #: render.R:115
 msgid "Skip to contents"
@@ -268,7 +268,7 @@ msgstr "버전"
 
 #: render.R:123
 msgid "Examples"
-msgstr "예시코드"
+msgstr "예시 코드"
 
 #: render.R:124
 msgid "Citation"
