@@ -120,7 +120,7 @@ msgstr "%s에서 보기"
 
 #: build-home-index.R:154
 msgid "Browse source code"
-msgstr "소스코드 확인"
+msgstr "소스코드 보기"
 
 #: build-home-index.R:155
 msgid "Report a bug"
