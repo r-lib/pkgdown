@@ -1,3 +1,25 @@
+# data_news works as expected
+
+    Code
+      data_news(as_pkgdown(test_path("assets/news")))
+    Output
+      # A tibble: 2 x 4
+        version    page  anchor              html                                     
+        <chr>      <chr> <chr>               <chr>                                    
+      1 1.0.0.9000 dev   testpackage-1009000 "<div id=\"testpackage-1009000\" class=\~
+      2 1.0.0      1.0   testpackage-100     "<div id=\"testpackage-100\" class=\"sec~
+
+---
+
+    Code
+      data_news(as_pkgdown(test_path("assets/news-h2-changes")))
+    Output
+      # A tibble: 2 x 4
+        version    page  anchor              html                                     
+        <chr>      <chr> <chr>               <chr>                                    
+      1 1.0.0.9000 dev   changes-in-v1009000 "<div id=\"changes-in-v1009000\" class=\~
+      2 1.0.0      1.0   changes-in-v100     "<div id=\"changes-in-v100\" class=\"sec~
+
 # news headings get class and release date
 
     <div>

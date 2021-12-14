@@ -1,3 +1,10 @@
+test_that("data_news works as expected", {
+  skip_if_no_pandoc()
+
+  expect_snapshot(data_news(as_pkgdown(test_path("assets/news"))))
+  expect_snapshot(data_news(as_pkgdown(test_path("assets/news-h2-changes"))))
+})
+
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
 
