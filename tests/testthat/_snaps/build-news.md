@@ -18,3 +18,8 @@
     Invalid NEWS.md: inconsistent use of headers for sections.
     i See ?build_news
 
+---
+
+    Invalid NEWS.md: no use of h1 or h2 headers for sections.
+    i See ?build_news
+

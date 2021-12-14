@@ -139,4 +139,7 @@ test_that("clear error for bad hierarchy", {
 
   pkg <- as_pkgdown(test_path("assets/news-bad-nesting"))
   expect_snapshot_error(data_news(pkg))
+
+  pkg <- as_pkgdown(test_path("assets/news-bad-h3"))
+  expect_snapshot_error(data_news(pkg))
 })
