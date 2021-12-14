@@ -147,18 +147,38 @@ data_news <- function(pkg = ".") {
   html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
-
   sections <- xml2::xml_find_all(xml, "./body/div")
 
-  # By convention NEWS.md, uses h1 for versions, but in pkgdown we reserve
-  # a single h1 for the page title, so we need to bump every heading down one
-  # level
-  tweak_section_levels(xml)
+  # check that the same header level is use for all divs
+  find_level <- function(section) {
+    section %>%
+    xml2::xml_find_first(".//h1|h2|h3|h4|h5") %>%
+    xml2::xml_name()
+  }
+  levels <- purrr::map_chr(sections, find_level)
+  if (length(unique(levels)) > 1) {
+    rlang::abort(
+      c(
+        x = "Invalid NEWS.md: inconsistent use of headers for sections.",
+        i = "See ?build_news"
+        )
+      )
+  }
+  if (!unique(levels) %in% c("h1", "h2")) {
+        rlang::abort(
+      c(
+        x = "Invalid NEWS.md: no use of h1 or h2 headers for sections.",
+        i = "See ?build_news"
+        )
+      )
+  }
+
+  # If NEWS.md uses h1 for versions,
+  # we need to bump every heading down one level
+  # a in pkgdown we reserve a single h1 for the page title.
+  if (unique(levels) == "h1") tweak_section_levels(xml)
 
   titles <- xml2::xml_text(xml2::xml_find_first(sections, ".//h2"), trim = TRUE)
-  if (any(is.na(titles))) {
-    stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
-  }
 
   versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]

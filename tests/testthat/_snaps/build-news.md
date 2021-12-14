@@ -13,3 +13,8 @@
       <p class="text-muted">CRAN release: 2020-01-01</p>
     </div>
 
+# clear error for bad hierarchy
+
+    Invalid NEWS.md: inconsistent use of headers for sections.
+    i See ?build_news
+

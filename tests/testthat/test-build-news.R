@@ -132,3 +132,11 @@ test_that("news headings get class and release date", {
   tweak_news_heading(html, version = "1.0", timeline = timeline, bs_version = 4)
   expect_snapshot_output(xpath_xml(html, "//div"))
 })
+
+# Header checks ----------------------------------------------------------
+test_that("clear error for bad hierarchy", {
+  skip_if_no_pandoc()
+
+  pkg <- as_pkgdown(test_path("assets/news-bad-nesting"))
+  expect_snapshot_error(data_news(pkg))
+})
