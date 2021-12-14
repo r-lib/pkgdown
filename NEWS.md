@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* New Korean (`kr`) translation thanks to @mrchypark and @peremen (#1994).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
