@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* New Korean (`kr`) translation thanks to @mrchypark and @peremen (#1994).
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
 
 # pkgdown 2.0.1
 
