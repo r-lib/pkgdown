@@ -113,14 +113,16 @@ test_that("determines page style from meta", {
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
-    skip_if_no_pandoc()
-
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5,
-    news = list(one_page = FALSE, cran_dates = FALSE)
+   temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-news")
   )
 
+  yaml::write_yaml(
+    list(news = list(one_page = FALSE, cran_dates = FALSE)),
+    file.path(temp_pkg, "_pkgdown.yml")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
   write_lines(
     c(
       "# testpackage 2.0", "",
@@ -134,10 +136,11 @@ test_that("multi-page news are rendered", {
       "* first thing (#111 @githubuser)", "",
       "* second thing"
     ),
-    file.path(temp_pkg$src_path, "NEWS.md")
+    file.path(pkg$src_path, "NEWS.md")
   )
 
-  expect_snapshot_output(build_news(temp_pkg))
+  expect_snapshot_output(data_news(pkg))
+  expect_snapshot_output(build_news(pkg))
 
   # test that index links are correct
   lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
