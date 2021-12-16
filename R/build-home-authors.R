@@ -101,8 +101,8 @@ data_authors_page <- function(pkg) {
     authors = data_authors(pkg)$all
   )
 
-  data$before <- markdown_text_block(pkg$meta$authors$before, pkg = pkg)
-  data$after <- markdown_text_block(pkg$meta$authors$after, pkg = pkg)
+  data$before <- markdown_text_block(pkg$meta$authors$before)
+  data$after <- markdown_text_block(pkg$meta$authors$after)
 
   return(data)
 }

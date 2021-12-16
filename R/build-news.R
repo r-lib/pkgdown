@@ -145,7 +145,7 @@ globalVariables(".")
 
 data_news <- function(pkg = NULL) {
 
-  html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
+  html <- markdown_body(path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
   sections <- xml2::xml_find_all(xml, "./body/div")
