@@ -81,15 +81,7 @@ test_that("data_navbar() works by default", {
   write_lines(
     c(
       "# testpackage 2.0", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing"
+      "* bullet (#222 @someone)"
     ),
     file.path(temp_pkg, "NEWS.md")
   )
@@ -113,15 +105,7 @@ test_that("data_navbar() can re-order default elements", {
   write_lines(
     c(
       "# testpackage 2.0", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing"
+      "* bullet (#222 @someone)"
     ),
     file.path(temp_pkg, "NEWS.md")
   )
@@ -147,15 +131,7 @@ test_that("data_navbar()can remove elements", {
   write_lines(
     c(
       "# testpackage 2.0", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing"
+      "* bullet (#222 @someone)"
     ),
     file.path(temp_pkg, "NEWS.md")
   )
