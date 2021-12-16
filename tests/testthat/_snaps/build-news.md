@@ -35,12 +35,12 @@
       <p class="text-muted">CRAN release: 2020-01-01</p>
     </div>
 
-# clear error for bad hierarchy
+# clear error for bad hierarchy - bad nesting
 
     Invalid NEWS.md: inconsistent use of headers for sections.
     i See ?build_news
 
----
+# clear error for bad hierarchy - h3
 
     Invalid NEWS.md: no use of h1 or h2 headers for sections.
     i See ?build_news

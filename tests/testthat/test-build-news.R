@@ -113,11 +113,31 @@ test_that("determines page style from meta", {
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
-  pkg <- local_pkgdown_site(test_path("assets/news-multi-page"), '
-    news:
-      cran_dates: false
-  ')
-  expect_output(build_news(pkg))
+    skip_if_no_pandoc()
+
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5,
+    news = list(one_page = FALSE, cran_dates = FALSE)
+  )
+
+  write_lines(
+    c(
+      "# testpackage 2.0", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing"
+    ),
+    file.path(temp_pkg$src_path, "NEWS.md")
+  )
+
+  expect_snapshot_output(build_news(temp_pkg))
 
   # test that index links are correct
   lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
@@ -197,12 +217,44 @@ test_that("news headings get class and release date", {
 })
 
 # Header checks ----------------------------------------------------------
-test_that("clear error for bad hierarchy", {
-  skip_if_no_pandoc()
+test_that("clear error for bad hierarchy - bad nesting", {
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5
+  )
 
-  pkg <- as_pkgdown(test_path("assets/news-bad-nesting"))
-  expect_snapshot_error(data_news(pkg))
+  write_lines(
+    c(
+      "### testpackage 1.0.0.9000", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing", ""
+    ),
+    file.path(temp_pkg$src_path, "NEWS.md")
+  )
 
-  pkg <- as_pkgdown(test_path("assets/news-bad-h3"))
-  expect_snapshot_error(data_news(pkg))
+  expect_snapshot_error(data_news(temp_pkg))
+})
+
+test_that("clear error for bad hierarchy - h3", {
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5
+  )
+
+  write_lines(
+    c(
+      "### testpackage 1.0.0.9000", "",
+      "* bullet (#222 @someone)", "",
+      "### testpackage 1.0.0", "",
+      "#### sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing", ""
+    ),
+    file.path(temp_pkg$src_path, "NEWS.md")
+  )
+
+  expect_snapshot_error(data_news(temp_pkg))
 })
