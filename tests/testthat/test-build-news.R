@@ -1,11 +1,11 @@
 test_that("data_news works as expected - h1", {
   skip_if_no_pandoc()
 
-  temp_pkg <- local_test_package(
-    path = withr::local_tempdir(pattern = "pkgdown-news")
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5
   )
 
-  pkg <- local_pkgdown_site(temp_pkg)
   write_lines(
     c(
       "# testpackage 1.0.0.9000", "",
@@ -15,7 +15,7 @@ test_that("data_news works as expected - h1", {
       "* first thing (#111 @githubuser)", "",
       "* second thing", ""
     ),
-    file.path(temp_pkg, "NEWS.md")
+    file.path(temp_pkg$src_path, "NEWS.md")
   )
 
   expect_snapshot(data_news(temp_pkg))
@@ -24,11 +24,11 @@ test_that("data_news works as expected - h1", {
 test_that("data_news works as expected - h2", {
   skip_if_no_pandoc()
 
-  temp_pkg <- local_test_package(
-    path = withr::local_tempdir(pattern = "pkgdown-news")
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5
   )
 
-  pkg <- local_pkgdown_site(temp_pkg)
   write_lines(
     c(
       "## Changes in v1.0.0.9000", "",
@@ -38,7 +38,7 @@ test_that("data_news works as expected - h2", {
       "* first thing (#111 @githubuser)", "",
       "* second thing", ""
     ),
-    file.path(temp_pkg, "NEWS.md")
+    file.path(temp_pkg$src_path, "NEWS.md")
   )
 
   expect_snapshot(data_news(temp_pkg))

@@ -90,6 +90,7 @@ build_news <- function(pkg = ".",
 }
 
 build_news_single <- function(pkg) {
+  pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
 
   render_page(
@@ -105,6 +106,7 @@ build_news_single <- function(pkg) {
 }
 
 build_news_multi <- function(pkg) {
+  pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
   page <- factor(news$page, levels = unique(news$page))
 
@@ -141,8 +143,7 @@ build_news_multi <- function(pkg) {
 
 globalVariables(".")
 
-data_news <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
+data_news <- function(pkg = NULL) {
 
   html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
   xml <- xml2::read_html(html)
