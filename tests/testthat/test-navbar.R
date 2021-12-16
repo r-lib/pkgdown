@@ -67,19 +67,100 @@ test_that("can control articles navbar through articles meta", {
 })
 
 test_that("data_navbar() works by default", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+   temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-navbar")
+  )
+
+  yaml::write_yaml(
+    list(
+      news = list(one_page = FALSE, cran_dates = FALSE),
+      repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+    ),
+    file.path(temp_pkg, "_pkgdown.yml")
+  )
+  write_lines(
+    c(
+      "# testpackage 2.0", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing"
+    ),
+    file.path(temp_pkg, "NEWS.md")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() can re-order default elements", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-navbar")
+  )
+
+  yaml::write_yaml(
+    list(
+      news = list(one_page = FALSE, cran_dates = FALSE),
+      repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+    ),
+    file.path(temp_pkg, "_pkgdown.yml")
+  )
+  write_lines(
+    c(
+      "# testpackage 2.0", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing"
+    ),
+    file.path(temp_pkg, "NEWS.md")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
   pkg$meta$navbar$structure$right <- c("news")
   pkg$meta$navbar$structure$left <- c("github", "reference")
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar()can remove elements", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+   temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-navbar")
+  )
+
+  yaml::write_yaml(
+    list(
+      news = list(one_page = FALSE, cran_dates = FALSE),
+      repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+    ),
+    file.path(temp_pkg, "_pkgdown.yml")
+  )
+  write_lines(
+    c(
+      "# testpackage 2.0", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.1", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing"
+    ),
+    file.path(temp_pkg, "NEWS.md")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
   pkg$meta$navbar$structure$left <- c("github")
   pkg$meta$navbar$structure$right <- c("reference")
   expect_snapshot(data_navbar(pkg))
