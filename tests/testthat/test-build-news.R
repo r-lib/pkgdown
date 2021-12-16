@@ -47,18 +47,35 @@ test_that("data_news works as expected - h2", {
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
 
-  pkg <- as_pkgdown(
-    test_path("assets/news-github-links"),
-    list(news = list(cran_dates = FALSE))
+  temp_pkg <- list(
+    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
+    bs_version = 5,
+    repo = list(
+      url = list(
+        home = "https://github.com/r-lib/pkgdown",
+        user = "https://github.com/",
+        issue = "https://github.com/r-lib/pkgdown/issues/"
+      )
+    )
   )
-  news_tbl <- data_news(pkg)
+
+  write_lines(
+    c(
+      "# testpackage 0.1.0", "",
+      "## Major changes", "",
+      "- Bug fixes (@hadley, #100)", "",
+      "- Merges (@josue-rodriguez)"
+    ),
+    file.path(temp_pkg$src_path, "NEWS.md")
+  )
+  news_tbl <- data_news(temp_pkg)
   html <- xml2::read_xml(news_tbl$html)
 
   expect_equal(
     xpath_attr(html, ".//a", "href"),
     c(
       "https://github.com/hadley",
-      "https://github.com/hadley/pkgdown/issues/100",
+      "https://github.com/r-lib/pkgdown/issues/100",
       "https://github.com/josue-rodriguez"
     )
   )
