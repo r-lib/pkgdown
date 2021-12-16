@@ -1,7 +1,7 @@
-# data_news works as expected
+# data_news works as expected - h1
 
     Code
-      data_news(as_pkgdown(test_path("assets/news")))
+      data_news(temp_pkg)
     Output
       # A tibble: 2 x 4
         version    page  anchor              html                                     
@@ -9,10 +9,10 @@
       1 1.0.0.9000 dev   testpackage-1009000 "<div id=\"testpackage-1009000\" class=\~
       2 1.0.0      1.0   testpackage-100     "<div id=\"testpackage-100\" class=\"sec~
 
----
+# data_news works as expected - h2
 
     Code
-      data_news(as_pkgdown(test_path("assets/news-h2-changes")))
+      data_news(temp_pkg)
     Output
       # A tibble: 2 x 4
         version    page  anchor              html                                     

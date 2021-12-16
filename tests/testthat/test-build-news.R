@@ -1,8 +1,47 @@
-test_that("data_news works as expected", {
+test_that("data_news works as expected - h1", {
   skip_if_no_pandoc()
 
-  expect_snapshot(data_news(as_pkgdown(test_path("assets/news"))))
-  expect_snapshot(data_news(as_pkgdown(test_path("assets/news-h2-changes"))))
+  temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-news")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
+  write_lines(
+    c(
+      "# testpackage 1.0.0.9000", "",
+      "* bullet (#222 @someone)", "",
+      "# testpackage 1.0.0", "",
+      "## sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing", ""
+    ),
+    file.path(temp_pkg, "NEWS.md")
+  )
+
+  expect_snapshot(data_news(temp_pkg))
+})
+
+test_that("data_news works as expected - h2", {
+  skip_if_no_pandoc()
+
+  temp_pkg <- local_test_package(
+    path = withr::local_tempdir(pattern = "pkgdown-news")
+  )
+
+  pkg <- local_pkgdown_site(temp_pkg)
+  write_lines(
+    c(
+      "## Changes in v1.0.0.9000", "",
+      "* bullet (#222 @someone)", "",
+      "## Changes in v1.0.0", "",
+      "### sub-heading", "",
+      "* first thing (#111 @githubuser)", "",
+      "* second thing", ""
+    ),
+    file.path(temp_pkg, "NEWS.md")
+  )
+
+  expect_snapshot(data_news(temp_pkg))
 })
 
 test_that("github links are added to news items", {

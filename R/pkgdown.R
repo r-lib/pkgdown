@@ -54,3 +54,12 @@ local_pkgdown_site <- function(path, meta = NULL, env = parent.frame()) {
 
   pkg
 }
+
+local_test_package <- function(path) {
+  dir.create(path, "testpackage")
+  desc <- desc::desc("!new")
+  desc$set("Package", "testpackage")
+  desc$set("Title", "A test package")
+  desc$write(file = file.path(path, "DESCRIPTION"))
+  return(path)
+}
