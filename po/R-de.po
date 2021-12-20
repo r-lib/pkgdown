@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-26 15:57-0600\n"
+"POT-Creation-Date: 2021-12-20 18:48+0100\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -44,7 +44,7 @@ msgstr "Mehr zu den Autor:innen"
 msgid "Developers"
 msgstr "Entwicker:innen"
 
-#: build-home-authors.R:100 render.R:121
+#: build-home-authors.R:100 render.R:97
 msgid "Authors"
 msgstr "Autor:innen"
 
@@ -168,7 +168,11 @@ msgstr "CRAN-Veröffentlichung: %s"
 msgid "Function reference"
 msgstr "Funktionsverzeichnis"
 
-#: build-reference.R:354
+#: build-reference-index.R:112
+msgid "All functions"
+msgstr ""
+
+#: build-reference.R:355
 msgid "Usage"
 msgstr ""
 
@@ -212,7 +216,7 @@ msgstr "Beschreibung"
 msgid "References"
 msgstr "Literaturangaben"
 
-#: rd-data.R:45 render.R:119
+#: rd-data.R:45 render.R:95
 msgid "Source"
 msgstr "Quelle"
 
@@ -244,35 +248,35 @@ msgstr "Rückgabewert"
 msgid "# %s method for %s"
 msgstr "# %s-Methode für %s"
 
-#: render.R:115
+#: render.R:91
 msgid "Skip to contents"
 msgstr "Direkt zum Inhalt springen"
 
-#: render.R:116
+#: render.R:92
 msgid "Toggle navigation"
 msgstr "Navigation ein-/ausschalten"
 
-#: render.R:117
+#: render.R:93
 msgid "Search for"
 msgstr "Suchen nach"
 
-#: render.R:118
+#: render.R:94
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
-#: render.R:120
+#: render.R:96
 msgid "Abstract"
 msgstr "Kurzzusammenfassung"
 
-#: render.R:122
+#: render.R:98
 msgid "Version"
 msgstr "Version"
 
-#: render.R:123
+#: render.R:99
 msgid "Examples"
 msgstr "Beispiele"
 
-#: render.R:124
+#: render.R:100
 msgid "Citation"
 msgstr ""
 
