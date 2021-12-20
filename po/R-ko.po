@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
-"POT-Creation-Date: 2021-11-26 15:57-0600\n"
+"POT-Creation-Date: 2021-12-20 18:48+0100\n"
 "PO-Revision-Date: 2021-11-26 15:57-0600\n"
 "Last-Translator: Chanyub Park <mrchypark@gmail.com>\n"
 "Language-Team: @mrchypark\n"
@@ -32,7 +32,8 @@ msgstr "개발자:"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr "현재 사이트는 다음 패키지로 생성하였습니다. - <a href=\"%s\">pkgdown</a> %s"
+msgstr ""
+"현재 사이트는 다음 패키지로 생성하였습니다. - <a href=\"%s\">pkgdown</a> %s"
 
 #: build-home-authors.R:92
 msgid "More about authors..."
@@ -42,7 +43,7 @@ msgstr "저자에 대한 부분은..."
 msgid "Developers"
 msgstr "개발자들"
 
-#: build-home-authors.R:100 render.R:121
+#: build-home-authors.R:100 render.R:97
 msgid "Authors"
 msgstr "저자들"
 
@@ -166,7 +167,11 @@ msgstr "CRAN 배포: %s"
 msgid "Function reference"
 msgstr "함수 레퍼런스"
 
-#: build-reference.R:354
+#: build-reference-index.R:112
+msgid "All functions"
+msgstr ""
+
+#: build-reference.R:355
 msgid "Usage"
 msgstr "사용법"
 
@@ -210,7 +215,7 @@ msgstr "설명"
 msgid "References"
 msgstr "참조"
 
-#: rd-data.R:45 render.R:119
+#: rd-data.R:45 render.R:95
 msgid "Source"
 msgstr "소스코드"
 
@@ -242,35 +247,35 @@ msgstr "값"
 msgid "# %s method for %s"
 msgstr "# %s 타입인 %s의 메서드"
 
-#: render.R:115
+#: render.R:91
 msgid "Skip to contents"
 msgstr "콘텐츠로 바로가기"
 
-#: render.R:116
+#: render.R:92
 msgid "Toggle navigation"
 msgstr "네비게이션바 열기"
 
-#: render.R:117
+#: render.R:93
 msgid "Search for"
 msgstr "검색"
 
-#: render.R:118
+#: render.R:94
 msgid "On this page"
 msgstr "목차"
 
-#: render.R:120
+#: render.R:96
 msgid "Abstract"
 msgstr "초록"
 
-#: render.R:122
+#: render.R:98
 msgid "Version"
 msgstr "버전"
 
-#: render.R:123
+#: render.R:99
 msgid "Examples"
 msgstr "예시 코드"
 
-#: render.R:124
+#: render.R:100
 msgid "Citation"
 msgstr "인용"
 
