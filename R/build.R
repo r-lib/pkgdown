@@ -439,7 +439,6 @@ build_site_local <- function(pkg = ".",
 
   init_site(pkg)
 
-  build_home(pkg, override = override, preview = FALSE)
   build_reference(pkg,
     lazy = lazy,
     examples = examples,
@@ -449,6 +448,7 @@ build_site_local <- function(pkg = ".",
     preview = FALSE,
     devel = devel
   )
+  build_home(pkg, override = override, preview = FALSE)
   build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
