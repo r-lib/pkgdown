@@ -5,6 +5,10 @@
 
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
 
+* When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or
+  articles, pkgdown's versions of jQuery and Boostrap will take precedence over
+  the versions used by the htmlwidget (@gadenbuie, #1997).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
