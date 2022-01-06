@@ -77,7 +77,7 @@ check_all_characters <- function(contents, index, pkg) {
           index,
           pkgdown_field(pkg, "reference")
         ),
-        i = "You might want to delete or fill that line."
+        i = "Either delete the empty line or add a function name."
       )
     )
   }
