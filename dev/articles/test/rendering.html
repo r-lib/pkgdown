@@ -98,7 +98,8 @@
     
   </div>
 </nav><div class="container template-article">
-<script src="rendering_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../../logo.png" class="logo" alt=""><h1>Output Rendering</h1>
             <h3 data-toc-skip class="subtitle">Subtitle is skipped from the TOC</h3>
@@ -139,10 +140,13 @@
 </h2>
 <details>
 This should only be shown when required
-</details><details><p><summary>Multiple paragraphs</summary> First paragraph</p>
+</details><details><summary>
+Multiple paragraphs
+</summary><p>First paragraph</p>
 Second paragraph
-</details><details><p><summary>Some R code</summary></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+</details><details><summary>
+Some R code
+</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 </details>
@@ -196,7 +200,7 @@ Second paragraph
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p>Yaml</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="shouldnt-be-highlighted">Shouldn’t be highlighted<a class="anchor" aria-label="anchor" href="#shouldnt-be-highlighted"></a>
@@ -238,7 +242,7 @@ Second paragraph
    3 space indent</div>
 </div>
 <div class="section level2 unnumbered">
-<h2 id="this-section-is-unnumbered">This section is unnumbered<a class="anchor" aria-label="anchor" href="#this-section-is-unnumbered"></a>
+<h2 class="unnumbered" id="this-section-is-unnumbered">This section is unnumbered<a class="anchor" aria-label="anchor" href="#this-section-is-unnumbered"></a>
 </h2>
 <p>There should however be no bug here!</p>
 </div>
@@ -246,7 +250,7 @@ Second paragraph
 <h2 id="tabsets">Tabsets<a class="anchor" aria-label="anchor" href="#tabsets"></a>
 </h2>
 <div class="section level3 tabset tabset-pills">
-<h3 id="tabset-with-pills">Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
+<h3 class="tabset tabset-pills" id="tabset-with-pills">Tabset with pills<a class="anchor" aria-label="anchor" href="#tabset-with-pills"></a>
 </h3>
 
 
@@ -274,7 +278,7 @@ Second paragraph
 </div>
 </div>
 <div class="section level3 tabset">
-<h3 id="tabset-without-pils">Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
+<h3 class="tabset" id="tabset-without-pils">Tabset without pils<a class="anchor" aria-label="anchor" href="#tabset-without-pils"></a>
 </h3>
 
 
@@ -297,7 +301,7 @@ Second paragraph
 </div>
 </div>
 <div class="section level3 tabset tabset-fade">
-<h3 id="fading-tabset">Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
+<h3 class="tabset tabset-fade" id="fading-tabset">Fading tabset<a class="anchor" aria-label="anchor" href="#fading-tabset"></a>
 </h3>
 
 
