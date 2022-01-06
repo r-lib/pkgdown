@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
+  starts with "http" (#1955).
+
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
 
 # pkgdown 2.0.1
