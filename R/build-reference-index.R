@@ -65,7 +65,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_all_characters <- function(contents, index, pkg) {
-  null <- purrr::map_lgl(contents, function(x) {typeof(x) == "NULL"})
+  null <- purrr::map_lgl(contents, is.null)
   any_null <- any(null)
 
   if (any_null) {
