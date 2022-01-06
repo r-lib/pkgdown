@@ -59,6 +59,7 @@ reference:
   - init_site
   - preview_site
   - pkgdown_sitrep
+  - n
 
 - title: Deployment
   contents:
