@@ -270,7 +270,7 @@
 
 ## HTML, CSS and JS
 
-* New `template` option `trailingslash_redirect` that allows adding a script to 
+* New `template` option `trailing_slash_redirect` that allows adding a script to 
   redirect `your-package-url.com` to `your-package-url.com/` (#1439, @cderv, 
   @apreshill).
 
