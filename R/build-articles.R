@@ -297,7 +297,8 @@ build_rmarkdown_format <- function(pkg,
     self_contained = FALSE,
     theme = NULL,
     template = template$path,
-    anchor_sections = FALSE
+    anchor_sections = FALSE,
+    extra_dependencies = bs_theme_deps_suppress()
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
