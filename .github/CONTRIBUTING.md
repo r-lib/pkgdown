@@ -7,8 +7,7 @@ info about contributing to this and other tidyverse packages, please see the
 ## pkgdown and Pandoc versions
 
 The versions of pkgdown and Pandoc used to build a website are stored in the 
-public facing `pkgdown.yml` file. 
-[Example for dplyr](https://dplyr.tidyverse.org/pkgdown.yml).
+public facing `pkgdown.yml` file, e.g. <https://dplyr.tidyverse.org/pkgdown.yml>.
 
 ## Package reprexes
 
