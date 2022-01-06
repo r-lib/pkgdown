@@ -53,8 +53,9 @@
       i This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
-    Error <simpleError>
-      subscript out of bounds
+    Error <rlang_error>
+      Failed to parse \email{}.
+      i empty {}
     Code
       rd2html("\\linkS4class{}")
     Error <rlang_error>
