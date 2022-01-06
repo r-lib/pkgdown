@@ -82,7 +82,7 @@ check_all_characters <- function(contents, index, pkg) {
     )
   }
 
-  not_char <- purrr::map_lgl(contents, function(x) {typeof(x) != "character"})
+  not_char <- !purrr::map_lgl(contents, is.character)
   any_not_char <- any(not_char)
 
   if (!any_not_char) {
