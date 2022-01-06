@@ -55,8 +55,15 @@ test_that("default reference includes all functions", {
   expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
 })
 
+test_that("errors well when a content entry is empty", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - ")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})
+
 test_that("errors well when a content entry is not a character", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - N")
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   expect_snapshot_error(build_reference_index(pkg))

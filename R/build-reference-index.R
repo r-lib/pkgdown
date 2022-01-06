@@ -65,7 +65,25 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_all_characters <- function(contents, index, pkg) {
-  any_not_char <- any(purrr::map_lgl(contents, function(x) {typeof(x) != "character"}))
+  null <- purrr::map_lgl(contents, is.null)
+  any_null <- any(null)
+
+  if (any_null) {
+    abort(
+      c(
+        sprintf(
+          "Item %s in section %s in %s is empty.",
+          toString(which(null)),
+          index,
+          pkgdown_field(pkg, "reference")
+        ),
+        i = "Either delete the empty line or add a function name."
+      )
+    )
+  }
+
+  not_char <- !purrr::map_lgl(contents, is.character)
+  any_not_char <- any(not_char)
 
   if (!any_not_char) {
     return(invisible())
@@ -75,7 +93,7 @@ check_all_characters <- function(contents, index, pkg) {
     c(
       sprintf(
         "Item %s in section %s in %s must be a character.",
-        toString(which(any_not_char)),
+        toString(which(not_char)),
         index,
         pkgdown_field(pkg, "reference")
       ),

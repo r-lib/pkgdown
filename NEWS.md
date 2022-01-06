@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_reference()` now gives a correct hint when the reference index YAML is not formatted correctly (e.g. empty item, or item such as "n" that needs to be escaped with quotes to not be interpreted as Boolean) (#1995).
+
 * `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
   starts with "http" (#1955).
 
