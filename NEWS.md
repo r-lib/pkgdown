@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
+  starts with "http" (#1955).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
