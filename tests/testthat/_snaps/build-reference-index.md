@@ -45,7 +45,7 @@
 # errors well when a content entry is empty
 
     Item 2 in section 1 in reference in '_pkgdown.yml' is empty.
-    i You might want to delete or fill that line.
+    i Either delete the empty line or add a function name.
 
 # errors well when a content entry is not a character
 
