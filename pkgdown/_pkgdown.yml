@@ -8,6 +8,11 @@ authors:
     href: https://hesselberthlab.org
   Maëlle Salmon:
     href: https://masalmon.eu
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: <img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' width='72' />
 
 template:
   bootstrap: 5

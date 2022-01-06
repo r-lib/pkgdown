@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* pkgdown no longer includes bundled author metadata for Hadley Wickham,
+  RStudio, or the RConsortium, since there are now ways to include this 
+  meta data in template packages, and special casing these three entities
+  feels increasingly weird (#1952).
+
 * Using `title: internal` now works as designed: it removes the section from
   the reference index _and_ it doesn't list the topics in that sections
   as missing (#1958).
