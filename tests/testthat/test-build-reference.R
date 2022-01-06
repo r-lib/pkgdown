@@ -64,3 +64,28 @@ test_that(".Rd without usage doesn't get Usage section", {
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_length(html, "//div[h2[@id='ref-usage']]"), 0)
 })
+
+test_that("pkgdown html dependencies are suppressed from examples in references", {
+  pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "a"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
+
+  # jquery is only loaded once, even though it's included by an example
+  expect_equal(xpath_length(html, ".//script[(@src and contains(@src, '/jquery'))]"), 1)
+
+  # same for bootstrap js and css
+  str_subset_bootstrap <- function(x) {
+    bs_rgx <- "bootstrap-[\\d.]+" # ex: bootstrap-5.1.0 not bootstrap-toc,
+    grep(bs_rgx, x, value = TRUE, perl = TRUE)
+  }
+  bs_js_src <- str_subset_bootstrap(
+    xpath_attr(html, ".//script[(@src and contains(@src, '/bootstrap'))]", "src")
+  )
+  expect_length(bs_js_src, 1)
+
+  bs_css_href <- str_subset_bootstrap(
+    xpath_attr(html, ".//link[(@href and contains(@href, '/bootstrap'))]", "href")
+  )
+  expect_length(bs_css_href, 1)
+})
