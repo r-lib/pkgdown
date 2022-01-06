@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: >
   Learn how to change the look and feel of your pkgdown site.
 vignette: >
-  %\VignetteIndexEntry{Styling your site}
+  %\VignetteIndexEntry{Customise your site}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
