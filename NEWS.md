@@ -5,6 +5,8 @@
 
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
 
+* Fixed issues that occurred on pages without a table of contents (@gadenbuie, #1998).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
