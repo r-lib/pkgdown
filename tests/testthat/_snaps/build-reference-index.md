@@ -8,9 +8,11 @@
       - title: A
         slug: a
         desc: ~
+        is_internal: no
       - subtitle: B
         slug: b
         desc: ~
+        is_internal: no
       - topics:
         - path: a.html
           aliases: a()
@@ -39,6 +41,7 @@
         - e
         - '?'
         row_has_icons: no
+        is_internal: no
       has_icons: no
       
 
@@ -66,6 +69,7 @@
       - title: bla
         slug: bla
         desc: ~
+        is_internal: no
       - topics:
         - path: a.html
           aliases: a()
@@ -111,6 +115,7 @@
         - rlang::is_installed()
         - bslib::bs_add_rules
         row_has_icons: no
+        is_internal: no
       has_icons: no
       
 

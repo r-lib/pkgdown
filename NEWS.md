@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Using `title: internal` now works as designed: it removes the section from
+  the reference index _and_ it doesn't list the topics in that sections
+  as missing (#1958).
+
 * `build_home_index()` no longer spuriously complains about missing images
   if you use plots in your `README.Rmd` (#1980, #1977).
 
