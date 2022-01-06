@@ -14,7 +14,7 @@ Valid R code in \verb{\preformatted{}}:\preformatted{mean(a + 1)
 R code in \code{R} block:\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
 }\if{html}{\out{</div>}}
 
-R code in \code{r} block:\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
+R code in \code{r} block:\if{html}{\out{<div class="sourceCode r">}}\preformatted{mean(a + 1)
 }\if{html}{\out{</div>}}
 
 Yaml\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml: [a, 1]

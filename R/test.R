@@ -212,7 +212,7 @@ NULL
 #'
 #' R code in `r` block:
 #'
-#' ```R
+#' ```r
 #' mean(a + 1)
 #' ```
 #'

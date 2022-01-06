@@ -36,7 +36,7 @@ template:
 
 Overall, the site should look pretty similar, but you will notice a number of small improvements.
 Most importantly, the default font is much bigger, making it considerably easier to read.
-Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were using your [own pkgdown templates](#templates) or custom CSS.
+Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were using your [own pkgdown templates](#template-packages) or custom CSS.
 
 ## Theming
 

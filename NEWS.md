@@ -3,6 +3,8 @@
 * `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
   starts with "http" (#1955).
 
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
@@ -271,7 +273,7 @@
 
 ## HTML, CSS and JS
 
-* New `template` option `trailingslash_redirect` that allows adding a script to 
+* New `template` option `trailing_slash_redirect` that allows adding a script to 
   redirect `your-package-url.com` to `your-package-url.com/` (#1439, @cderv, 
   @apreshill).
 
