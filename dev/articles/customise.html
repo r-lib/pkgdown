@@ -397,7 +397,7 @@
 </h2>
 <p>Lastly, it might be useful for you to get a preview of the website in internal pull requests. For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):</p>
 <ul>
-<li>Create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as <code>NETLIFY_SITE_ID</code> in your repo secrets; from your account developer settings get a token to be saved as <code>NETLIFY_TOKEN</code> in your repo secrets.</li>
+<li>Create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as <code>NETLIFY_SITE_ID</code> in your repo secrets; from your account developer settings get a token to be saved as <code>NETLIFY_AUTH_TOKEN</code> in your repo secrets.</li>
 <li>Starting from the standard pkgdown workflow <code>usethis::use_github_action("pkgdown")</code>, add some logic to build the site and deploy it to Netlify for pull requests from inside the repository, not pull requests from forks. <a href="https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml" class="external-link">Example workflow</a>.</li>
 </ul>
 </div>
