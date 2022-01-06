@@ -113,3 +113,17 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   }
 
 }
+
+bs_theme_deps_suppress <- function(deps = list()) {
+  bs_deps <- purrr::map(c("jquery", "bootstrap"), function(name) {
+    # minimal version of htmltools::htmlDependency() (see suppressDependencies())
+    structure(list(
+      name = name,
+      version = "9999",
+      src = list(href = ""),
+      all_files = TRUE
+    ), class = "html_dependency")
+  })
+
+  c(deps, bs_deps)
+}
