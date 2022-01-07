@@ -47,8 +47,7 @@
         </li>
       right: ''
     footer:
-      left: <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img
-        src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+      left: <p>Developed by Hadley Wickham, RStudio.</p>
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     
 

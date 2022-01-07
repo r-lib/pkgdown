@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* pkgdown no longer includes bundled author metadata for Hadley Wickham,
+  RStudio, or the RConsortium, since there are now ways to include this 
+  meta data in template packages, and special casing these three entities
+  feels increasingly weird (#1952).
+
 * Long lines in code output once again scroll, rather than being wrapped. 
   While this is different to what you'll see in the console, it's a better
   fit for web pages where the avaiable code width varies based on the browser

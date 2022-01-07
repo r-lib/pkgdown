@@ -19,8 +19,7 @@ test_that("links to man/figures are automatically relocated", {
   expect_equal(src, c(
     "../reference/figures/kitten.jpg",
     "../reference/figures/kitten.jpg",
-    "another-kitten.jpg",
-    "https://www.tidyverse.org/rstudio-logo.svg"
+    "another-kitten.jpg"
   ))
 
   # And files aren't copied

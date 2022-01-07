@@ -1,6 +1,6 @@
 data_authors <- function(pkg = ".", roles = default_roles()) {
   pkg <- as_pkgdown(pkg)
-  author_info <- data_author_info(pkg)
+  author_info <- pkg$meta$authors %||% list()
 
   all <- pkg %>%
     pkg_authors() %>%
@@ -45,27 +45,6 @@ pkg_authors <- function(pkg, role = NULL) {
     purrr::keep(authors, ~ any(.$role %in% role))
   }
 }
-
-
-data_author_info <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  defaults <- list(
-    "Hadley Wickham" = list(
-      href = "http://hadley.nz"
-    ),
-    "RStudio" = list(
-      href = "https://www.rstudio.com",
-      html = "<img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' width='72' />"
-    ),
-    "R Consortium" = list(
-      href = "https://www.r-consortium.org"
-    )
-  )
-
-  utils::modifyList(defaults, pkg$meta$authors %||% list())
-}
-
 
 data_home_sidebar_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
