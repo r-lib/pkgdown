@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* scrollspy (which highlights the "active" heading in the sidebar) now computes
+  the offset dynamically which makes it work better on sites with taller 
+  navbars (#1993).
+
 * Using `title: internal` now works as designed: it removes the section from
   the reference index _and_ it doesn't list the topics in that sections
   as missing (#1958).

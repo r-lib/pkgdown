@@ -12,7 +12,7 @@
     if ($('#toc').length) {
       $('body').scrollspy({
         target: '#toc',
-        offset: 56 // headroom height
+        offset: $("nav.navbar").outerHeight() + 1
       });
     }
 
