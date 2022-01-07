@@ -40,9 +40,9 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
     desc$write(file = file.path(path, "DESCRIPTION"))
   }
 
-  if (!is.null(meta)) {
+  if (is.character(meta)) {
     meta <- yaml::yaml.load(meta)
-  } else {
+  } else if (is.null(meta)) {
     meta <- list()
   }
   pkg <- as_pkgdown(path, meta)
