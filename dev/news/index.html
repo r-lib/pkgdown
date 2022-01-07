@@ -23,7 +23,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -77,9 +77,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/build_news.html">build_news()</a></code> once again works if <code>NEWS.md</code> uses <code>&lt;h1&gt;</code> headings (<a href="https://github.com/r-lib/pkgdown/issues/1947" class="external-link">#1947</a>).</p></li>
+<ul><li><p>The navbar gets a little more space after the version number, and aligns the baseline with rest of the navbar (<a href="https://github.com/r-lib/pkgdown/issues/1989" class="external-link">#1989</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> once again works if <code>NEWS.md</code> uses <code>&lt;h1&gt;</code> headings (<a href="https://github.com/r-lib/pkgdown/issues/1947" class="external-link">#1947</a>).</p></li>
 <li><p>pkgdown no longer includes bundled author metadata for Hadley Wickham, RStudio, or the RConsortium, since there are now ways to include this meta data in template packages, and special casing these three entities feels increasingly weird (<a href="https://github.com/r-lib/pkgdown/issues/1952" class="external-link">#1952</a>).</p></li>
-<li><p>Long lines in code output once again scroll, rather than being wrapped. While this is different to what you’ll see in the console, it’s a better fit for web pages where the avaiable code width varies based on the browser width (<a href="https://github.com/r-lib/pkgdown/issues/1940" class="external-link">#1940</a>).</p></li>
+<li><p>Long lines in code output once again scroll, rather than being wrapped. While this is different to what you’ll see in the console, it’s a better fit for web pages where the available code width varies based on the browser width (<a href="https://github.com/r-lib/pkgdown/issues/1940" class="external-link">#1940</a>).</p></li>
 <li><p>scrollspy (which highlights the “active” heading in the sidebar) now computes the offset dynamically which makes it work better on sites with taller navbars (<a href="https://github.com/r-lib/pkgdown/issues/1993" class="external-link">#1993</a>).</p></li>
 <li><p>Using <code>title: internal</code> now works as designed: it removes the section from the reference index <em>and</em> it doesn’t list the topics in that sections as missing (<a href="https://github.com/r-lib/pkgdown/issues/1958" class="external-link">#1958</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home_index()</a></code> no longer spuriously complains about missing images if you use plots in your <code>README.Rmd</code> (<a href="https://github.com/r-lib/pkgdown/issues/1980" class="external-link">#1980</a>, <a href="https://github.com/r-lib/pkgdown/issues/1977" class="external-link">#1977</a>).</p></li>
@@ -87,6 +88,7 @@
 <li><p><code>tweak_img_src()</code> no longer tweaks the <code>src</code> path for <code>&lt;img&gt;</code> tags if <code>src</code> starts with “http” (<a href="https://github.com/r-lib/pkgdown/issues/1955" class="external-link">#1955</a>).</p></li>
 <li><p>New Korean (<code>ko</code>) translation thanks to <a href="https://github.com/mrchypark" class="external-link">@mrchypark</a> and <a href="https://github.com/peremen" class="external-link">@peremen</a> (<a href="https://github.com/r-lib/pkgdown/issues/1994" class="external-link">#1994</a>).</p></li>
 <li><p>Fixed issues that occurred on pages without a table of contents (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/1998" class="external-link">#1998</a>).</p></li>
+<li><p>When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or articles, pkgdown’s versions of jQuery and Boostrap will take precedence over the versions used by the htmlwidget (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/1997" class="external-link">#1997</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="pkgdown-201">pkgdown 2.0.1<a class="anchor" aria-label="anchor" href="#pkgdown-201"></a></h2><p class="text-muted">CRAN release: 2021-12-03</p>
