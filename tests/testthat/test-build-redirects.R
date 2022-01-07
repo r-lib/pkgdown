@@ -34,6 +34,7 @@ test_that("article_redirects() creates redirects for vignettes in vignettes/arti
   file_create(path(dir, "vignettes", "articles", "test.Rmd"))
 
   pkg <- list(
+    meta = list(url = "http://foo.com"),
     vignettes = package_vignettes(dir)
   )
 

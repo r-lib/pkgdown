@@ -13,9 +13,8 @@ build_redirects <- function(pkg = ".",
 
   rule("Building redirects")
   if (is.null(pkg$meta$url)) {
-    abort(sprintf("Can't find %s.", pkgdown_field(pkg, "url")))
+    abort(sprintf("%s required to generate redirects", pkgdown_field(pkg, "url")))
   }
-
 
   purrr::iwalk(
     redirects,
@@ -48,6 +47,10 @@ build_redirect <- function(entry, index, pkg) {
 }
 
 article_redirects <- function(pkg) {
+  if (is.null(pkg$meta$url)) {
+    return(NULL)
+  }
+
   is_vig_in_articles <- path_has_parent(pkg$vignettes$name, "articles")
   if (!any(is_vig_in_articles)) {
     return(NULL)
