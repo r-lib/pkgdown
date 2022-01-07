@@ -1,48 +1,65 @@
-test_that("data_news works as expected - h1", {
+test_that("data_news works as expected for h1 & h2", {
   skip_if_no_pandoc()
 
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5
+  lines_h1 <- c(
+    "# testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
   )
+  lines_h2 <- gsub("^#", "##", lines_h1)
 
-  write_lines(
-    c(
-      "# testpackage 1.0.0.9000", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing", ""
-    ),
-    file.path(temp_pkg$src_path, "NEWS.md")
-  )
+  pkg <- local_pkgdown_site(meta = "
+    template:
+      bootstrap: 5
+    news:
+      cran_dates: false
+  ")
 
-  expect_snapshot(data_news(temp_pkg))
+  write_lines(lines_h1, file.path(pkg$src_path, "NEWS.md"))
+  expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
+
+  write_lines(lines_h2, file.path(pkg$src_path, "NEWS.md"))
+  expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 })
 
-test_that("data_news works as expected - h2", {
+
+test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5
+  pkg <- local_pkgdown_site(meta = "
+    news:
+      one_page: false
+      cran_dates: false
+    "
   )
+  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
+    "# testpackage 2.0", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.1", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.1", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing"
+  ))
 
-  write_lines(
-    c(
-      "## Changes in v1.0.0.9000", "",
-      "* bullet (#222 @someone)", "",
-      "## Changes in v1.0.0", "",
-      "### sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing", ""
-    ),
-    file.path(temp_pkg$src_path, "NEWS.md")
-  )
+  expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
+  expect_output(build_news(pkg))
 
-  expect_snapshot(data_news(temp_pkg))
+  # test that index links are correct
+  lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
+  expect_true(any(grepl("<a href=\"news-2.0.html\">Version 2.0</a>", lines)))
+
+  # test single page structure
+  lines <- read_lines(path(pkg$dst_path, "news", "news-1.0.html"))
+  expect_true(any(grepl("<h1 data-toc-skip>Changelog <small>1.0</small></h1>", lines)))
 })
+
 
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
@@ -108,47 +125,6 @@ test_that("determines page style from meta", {
   expect_equal(news_style(meta = list()), "single")
   expect_equal(news_style(meta = list(news = list(one_page = FALSE))), "multi")
   expect_equal(news_style(meta = list(news = list(list(one_page = FALSE)))), "multi")
-})
-
-test_that("multi-page news are rendered", {
-  skip_if_no_pandoc()
-
-   temp_pkg <- local_test_package(
-    path = withr::local_tempdir(pattern = "pkgdown-news")
-  )
-
-  yaml::write_yaml(
-    list(news = list(one_page = FALSE, cran_dates = FALSE)),
-    file.path(temp_pkg, "_pkgdown.yml")
-  )
-
-  pkg <- local_pkgdown_site(temp_pkg)
-  write_lines(
-    c(
-      "# testpackage 2.0", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.1", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing"
-    ),
-    file.path(pkg$src_path, "NEWS.md")
-  )
-
-  expect_snapshot_output(data_news(pkg))
-  expect_snapshot_output(build_news(pkg))
-
-  # test that index links are correct
-  lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
-  expect_true(any(grepl("<a href=\"news-2.0.html\">Version 2.0</a>", lines)))
-
-  # test single page structure
-  lines <- read_lines(path(pkg$dst_path, "news", "news-1.0.html"))
-  expect_true(any(grepl("<h1 data-toc-skip>Changelog <small>1.0</small></h1>", lines)))
 })
 
 # news_title and version_page -----------------------------------------------

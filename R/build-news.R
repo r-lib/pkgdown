@@ -149,13 +149,9 @@ data_news <- function(pkg = list()) {
   downlit::downlit_html_node(xml)
 
   sections <- xml2::xml_find_all(xml, "./body/div")
-  find_level <- function(section) {
-    section %>%
-      xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
-      xml2::xml_name()
-  }
-
-  levels <- purrr::map_chr(sections, find_level)
+  levels <- sections %>%
+    xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
+    xml2::xml_name()
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
     abort(c(
