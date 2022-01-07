@@ -94,6 +94,11 @@ deploy_site_github <- function(
 #'   file for custom domain name support, and a `.nojekyll` file to suppress
 #'   jekyll rendering.
 #' @param ... Additional arguments passed to [build_site()].
+#' @param subdir The sub-directory where the site should be built on the branch.
+#'   This argument can be used to support a number of site configurations.
+#'   For example, you could build version-specific documentation by setting
+#'   `subdir = "v1.2.3"`; `deploy_to_branch()` will build and deploy the
+#'   package documentation in the `v.1.2.3/` directory of your site.
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
 #' @export
@@ -103,7 +108,8 @@ deploy_to_branch <- function(pkg = ".",
                          branch = "gh-pages",
                          remote = "origin",
                          github_pages = (branch == "gh-pages"),
-                         ...) {
+                         ...,
+                         subdir = NULL) {
   dest_dir <- fs::dir_create(fs::file_temp())
   on.exit(fs::dir_delete(dest_dir))
 
@@ -129,7 +135,20 @@ deploy_to_branch <- function(pkg = ".",
   github_worktree_add(dest_dir, remote, branch)
   on.exit(github_worktree_remove(dest_dir), add = TRUE)
 
-  build_site_github_pages(pkg, dest_dir = dest_dir, ..., clean = clean)
+  site_dest_dir <-
+    if (!is.null(subdir)) {
+      fs::dir_create(fs::path(dest_dir, subdir))
+    } else {
+      dest_dir
+    }
+
+  pkg <- as_pkgdown(pkg, override = list(destination = site_dest_dir))
+
+  if (!is.null(subdir) && !is.null(pkg$meta$url)) {
+    pkg$meta$url <- file.path(pkg$meta$url, subdir)
+  }
+
+  build_site_github_pages(pkg, ..., clean = clean)
 
   github_push(dest_dir, commit_message, remote, branch)
 
