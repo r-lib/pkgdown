@@ -5,6 +5,15 @@
   meta data in template packages, and special casing these three entities
   feels increasingly weird (#1952).
 
+* Long lines in code output once again scroll, rather than being wrapped. 
+  While this is different to what you'll see in the console, it's a better
+  fit for web pages where the avaiable code width varies based on the browser
+  width (#1940).
+
+* scrollspy (which highlights the "active" heading in the sidebar) now computes
+  the offset dynamically which makes it work better on sites with taller 
+  navbars (#1993).
+
 * Using `title: internal` now works as designed: it removes the section from
   the reference index _and_ it doesn't list the topics in that sections
   as missing (#1958).
