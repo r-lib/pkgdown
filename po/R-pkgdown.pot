@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pkgdown 1.9000.9000.9000\n"
-"POT-Creation-Date: 2021-11-26 15:57-0600\n"
+"Project-Id-Version: pkgdown 2.0.1.9000\n"
+"POT-Creation-Date: 2021-12-20 18:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
-#: build-home-authors.R:100 render.R:121
+#: build-home-authors.R:100 render.R:97
 msgid "Authors"
 msgstr ""
 
@@ -166,7 +166,11 @@ msgstr ""
 msgid "Function reference"
 msgstr ""
 
-#: build-reference.R:354
+#: build-reference-index.R:112
+msgid "All functions"
+msgstr ""
+
+#: build-reference.R:355
 msgid "Usage"
 msgstr ""
 
@@ -210,7 +214,7 @@ msgstr ""
 msgid "References"
 msgstr ""
 
-#: rd-data.R:45 render.R:119
+#: rd-data.R:45 render.R:95
 msgid "Source"
 msgstr ""
 
@@ -242,35 +246,35 @@ msgstr ""
 msgid "# %s method for %s"
 msgstr ""
 
-#: render.R:115
+#: render.R:91
 msgid "Skip to contents"
 msgstr ""
 
-#: render.R:116
+#: render.R:92
 msgid "Toggle navigation"
 msgstr ""
 
-#: render.R:117
+#: render.R:93
 msgid "Search for"
 msgstr ""
 
-#: render.R:118
+#: render.R:94
 msgid "On this page"
 msgstr ""
 
-#: render.R:120
+#: render.R:96
 msgid "Abstract"
 msgstr ""
 
-#: render.R:122
+#: render.R:98
 msgid "Version"
 msgstr ""
 
-#: render.R:123
+#: render.R:99
 msgid "Examples"
 msgstr ""
 
-#: render.R:124
+#: render.R:100
 msgid "Citation"
 msgstr ""
 

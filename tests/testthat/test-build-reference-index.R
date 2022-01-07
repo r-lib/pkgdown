@@ -12,14 +12,14 @@ test_that("can generate three types of row", {
 
 test_that("rows with title internal are dropped", {
   ref <- list(
-    list(title = "internal"),
-    list(contents = c("a", "b", "c", "e", "?")),
+    list(title = "internal", contents = c("a", "b")),
+    list(contents = c("c", "e", "?")),
     list(title = "internal")
   )
   meta <- list(reference = ref)
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  index <- data_reference_index(pkg)
+  expect_warning(index <- data_reference_index(pkg), NA)
   expect_equal(length(index$rows), 1)
 })
 
@@ -55,8 +55,15 @@ test_that("default reference includes all functions", {
   expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
 })
 
+test_that("errors well when a content entry is empty", {
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - ")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot_error(build_reference_index(pkg))
+})
+
 test_that("errors well when a content entry is not a character", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - N")
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   expect_snapshot_error(build_reference_index(pkg))

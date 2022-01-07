@@ -32,6 +32,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     logo = logo_path(pkg, depth = 0)
   )
 
+  copy_figures(pkg)
   check_missing_images(pkg, path_rel(src_path, pkg$src_path), "index.html")
 
   invisible()

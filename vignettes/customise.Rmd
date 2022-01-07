@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 description: >
   Learn how to change the look and feel of your pkgdown site.
 vignette: >
-  %\VignetteIndexEntry{Styling your site}
+  %\VignetteIndexEntry{Customise your site}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -36,7 +36,7 @@ template:
 
 Overall, the site should look pretty similar, but you will notice a number of small improvements.
 Most importantly, the default font is much bigger, making it considerably easier to read.
-Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were using your [own pkgdown templates](#templates) or custom CSS.
+Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were using your [own pkgdown templates](#template-packages) or custom CSS.
 
 ## Theming
 
@@ -230,7 +230,7 @@ This lets your package support both versions of bootstrap and pkgdown.
 Lastly, it might be useful for you to get a preview of the website in internal pull requests.
 For that, you could use Netlify and GitHub Actions (or apply a similar logic to your toolset):
 
--   Create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from your account developer settings get a token to be saved as `NETLIFY_TOKEN` in your repo secrets.
+-   Create a new Netlify website (either from scratch by dragging and dropping a simple index.html, or by creating a site from a GitHub repository and then unlinking that repository); from the site settings get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from your account developer settings get a token to be saved as `NETLIFY_AUTH_TOKEN` in your repo secrets.
 -   Starting from the standard pkgdown workflow `usethis::use_github_action("pkgdown")`, add some logic to build the site and deploy it to Netlify for pull requests from inside the repository, not pull requests from forks. [Example workflow](https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml).
 
 ## Conclusion

@@ -70,7 +70,7 @@ knitr::opts_chunk$set(
 If you have a package logo, you can include it at the top of your README in a level-one heading:\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
 }\if{html}{\out{</div>}}
 
-[init_site()] will also automatically create a favicon set from your package logo.
+\code{\link[=init_site]{init_site()}} will also automatically create a favicon set from your package logo.
 }
 
 \subsection{YAML config - home}{

@@ -8,7 +8,7 @@ markdown_text <- function(text, ...) {
   markdown_path_html(md_path, ...)
 }
 
-markdown_text_inline <- function(text, pkg = list(), where = "<inline>", ...) {
+markdown_text_inline <- function(text, where = "<inline>", ...) {
   html <- markdown_text(text, ...)
   if (is.null(html)) {
     return()
@@ -18,8 +18,8 @@ markdown_text_inline <- function(text, pkg = list(), where = "<inline>", ...) {
   if (length(children) > 1) {
     abort(
       sprintf(
-        "Can't use a block element here, need an inline element: \n %s \n%s",
-        what = pkgdown_field(pkg = pkg, where),
+        "Can't use a block element in %s, need an inline element: \n%s",
+        where,
         text
       )
     )

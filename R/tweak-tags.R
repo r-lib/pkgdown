@@ -81,7 +81,7 @@ tweak_link_external <- function(html, pkg = list()) {
 
 # Fix relative image links
 tweak_img_src <- function(html) {
-  imgs <- xml2::xml_find_all(html, ".//img")
+  imgs <- xml2::xml_find_all(html, ".//img[not(starts-with(@src, 'http'))]")
   urls <- xml2::xml_attr(imgs, "src")
   new_urls <- gsub("(^|/)vignettes/", "\\1articles/", urls, perl = TRUE)
   new_urls <- gsub("(^|/)man/figures/", "\\1reference/figures/", new_urls, perl = TRUE)

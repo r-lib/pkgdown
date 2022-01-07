@@ -1,5 +1,35 @@
 # pkgdown (development version)
 
+* pkgdown no longer includes bundled author metadata for Hadley Wickham,
+  RStudio, or the RConsortium, since there are now ways to include this 
+  meta data in template packages, and special casing these three entities
+  feels increasingly weird (#1952).
+
+* Long lines in code output once again scroll, rather than being wrapped. 
+  While this is different to what you'll see in the console, it's a better
+  fit for web pages where the avaiable code width varies based on the browser
+  width (#1940).
+
+* scrollspy (which highlights the "active" heading in the sidebar) now computes
+  the offset dynamically which makes it work better on sites with taller 
+  navbars (#1993).
+
+* Using `title: internal` now works as designed: it removes the section from
+  the reference index _and_ it doesn't list the topics in that sections
+  as missing (#1958).
+
+* `build_home_index()` no longer spuriously complains about missing images
+  if you use plots in your `README.Rmd` (#1980, #1977).
+
+* `build_reference()` now gives a correct hint when the reference index YAML is not formatted correctly (e.g. empty item, or item such as "n" that needs to be escaped with quotes to not be interpreted as Boolean) (#1995).
+
+* `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
+  starts with "http" (#1955).
+
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+
+* Fixed issues that occurred on pages without a table of contents (@gadenbuie, #1998).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
@@ -268,7 +298,7 @@
 
 ## HTML, CSS and JS
 
-* New `template` option `trailingslash_redirect` that allows adding a script to 
+* New `template` option `trailing_slash_redirect` that allows adding a script to 
   redirect `your-package-url.com` to `your-package-url.com/` (#1439, @cderv, 
   @apreshill).
 
