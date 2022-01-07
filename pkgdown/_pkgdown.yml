@@ -8,6 +8,11 @@ authors:
     href: https://hesselberthlab.org
   Maëlle Salmon:
     href: https://masalmon.eu
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: <img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' width='72' />
 
 template:
   bootstrap: 5
@@ -21,9 +26,6 @@ template:
   includes:
     in_header:
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
-
-code:
-  width: 72
 
 development:
   mode: auto

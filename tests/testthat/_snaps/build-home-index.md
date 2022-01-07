@@ -21,9 +21,9 @@
       <div class='developers'>
       <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>
-      <li><a href='http://hadley.nz'>Hadley Wickham</a> <br />
+      <li>Hadley Wickham <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
-      <li><a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br />
+      <li>RStudio <br />
       <small class = 'roles'> Copyright holder, funder </small>  </li>
       </ul>
       </div>
@@ -40,10 +40,8 @@
     <div class="developers">
     <h2 data-toc-skip>Developers</h2>
     <ul class="list-unstyled">
-    <li>
-    <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
-    <li>
-    <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+    <li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>  </li>
+    <li>RStudio <br><small class="roles"> Copyright holder, funder </small>  </li>
     <li><a href="authors.html">More about authors...</a></li>
     </ul>
     </div>

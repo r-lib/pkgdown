@@ -297,7 +297,8 @@ build_rmarkdown_format <- function(pkg,
     self_contained = FALSE,
     theme = NULL,
     template = template$path,
-    anchor_sections = FALSE
+    anchor_sections = FALSE,
+    extra_dependencies = bs_theme_deps_suppress()
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
@@ -308,11 +309,6 @@ build_rmarkdown_format <- function(pkg,
       old_pre(...)
     }
   }
-
-  # Surgically eliminate html_dependency_header_attrs() whichs otherwise
-  # injects javascript that breaks our HTML anchor system
-  pre_process_env <- environment(environment(out$pre_processor)$base)
-  pre_process_env$html_dependency_header_attrs <- function() NULL
 
   attr(out, "__cleanup") <- template$cleanup
 
@@ -398,12 +394,12 @@ data_articles_index_section <- function(section, pkg) {
     name = section_vignettes$name,
     path = path_rel(section_vignettes$file_out, "articles"),
     title = section_vignettes$title,
-    description = lapply(section_vignettes$description, markdown_text_block, pkg = pkg),
+    description = lapply(section_vignettes$description, markdown_text_block),
   )
 
   list(
     title = section$title,
-    desc = markdown_text_block(section$desc, pkg = pkg),
+    desc = markdown_text_block(section$desc),
     class = section$class,
     contents = purrr::transpose(contents)
   )

@@ -23,6 +23,12 @@
   padding: 0.5rem;
 }
 
+// Align baselines of package name, version, and nav items
+.navbar > .container {
+  align-items: baseline;
+  -webkit-align-items: baseline;
+}
+
 .navbar-light .navbar-nav .active > .nav-link {
   background: $gray-200;
   color:      $body-color;
@@ -373,8 +379,8 @@ div.csl-indent {
 
 /* code ===================================================================== */
 
-pre, pre code {
-  white-space: pre-wrap;
+code {
+  // break long functions across multiple lines
   word-break: break-all;
   overflow-wrap: break-word;
 }

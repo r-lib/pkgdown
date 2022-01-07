@@ -31,14 +31,21 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   )
 }
 
-local_pkgdown_site <- function(path, meta = NULL, env = parent.frame()) {
-  if (!is.null(meta)) {
+local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
+  if (is.null(path)) {
+    path <- withr::local_tempdir(.local_envir = env)
+    desc <- desc::desc("!new")
+    desc$set("Package", "testpackage")
+    desc$set("Title", "A test package")
+    desc$write(file = file.path(path, "DESCRIPTION"))
+  }
+
+  if (is.character(meta)) {
     meta <- yaml::yaml.load(meta)
-  } else {
+  } else if (is.null(meta)) {
     meta <- list()
   }
   pkg <- as_pkgdown(path, meta)
-
 
   clean_up <- function(path) {
     if (!fs::dir_exists(path)) {

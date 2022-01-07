@@ -8,9 +8,11 @@
       - title: A
         slug: a
         desc: ~
+        is_internal: no
       - subtitle: B
         slug: b
         desc: ~
+        is_internal: no
       - topics:
         - path: a.html
           aliases: a()
@@ -39,17 +41,19 @@
         - e
         - '?'
         row_has_icons: no
+        is_internal: no
       has_icons: no
       
 
+# errors well when a content entry is empty
+
+    Item 2 in section 1 in reference in '_pkgdown.yml' is empty.
+    i Either delete the empty line or add a function name.
+
 # errors well when a content entry is not a character
 
-    Item 1 in section 1 in reference in '_pkgdown.yml' must be a character.
+    Item 2 in section 1 in reference in '_pkgdown.yml' must be a character.
     i You might need to add '' around e.g. - 'N' or - 'off'.
-
-# errors well when a content entry refers to a not installed package
-
-    The package `notapackage` is required as it is mentioned in the reference index.
 
 # errors well when a content entry refers to a non existing function
 
@@ -65,6 +69,7 @@
       - title: bla
         slug: bla
         desc: ~
+        is_internal: no
       - topics:
         - path: a.html
           aliases: a()
@@ -110,6 +115,7 @@
         - rlang::is_installed()
         - bslib::bs_add_rules
         row_has_icons: no
+        is_internal: no
       has_icons: no
       
 

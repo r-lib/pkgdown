@@ -19,8 +19,7 @@ test_that("links to man/figures are automatically relocated", {
   expect_equal(src, c(
     "../reference/figures/kitten.jpg",
     "../reference/figures/kitten.jpg",
-    "another-kitten.jpg",
-    "https://www.tidyverse.org/rstudio-logo.svg"
+    "another-kitten.jpg"
   ))
 
   # And files aren't copied
@@ -159,4 +158,34 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
     "https://example.com/articles/nested.html",
     fixed = TRUE
   )
+})
+
+test_that("pkgdown deps are included only once in articles", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"), "
+    template:
+      bootstrap: 5
+  ")
+
+  expect_output(init_site(pkg))
+  expect_output(path <- build_article("html-deps", pkg))
+
+  html <- xml2::read_html(path)
+
+  # jquery is only loaded once, even though it's also added by code in the article
+  expect_equal(xpath_length(html, ".//script[(@src and contains(@src, '/jquery'))]"), 1)
+
+  # same for bootstrap js and css
+  str_subset_bootstrap <- function(x) {
+    bs_rgx <- "bootstrap-[\\d.]+" # ex: bootstrap-5.1.0 not bootstrap-toc,
+    grep(bs_rgx, x, value = TRUE, perl = TRUE)
+  }
+  bs_js_src <- str_subset_bootstrap(
+    xpath_attr(html, ".//script[(@src and contains(@src, '/bootstrap'))]", "src")
+  )
+  expect_length(bs_js_src, 1)
+
+  bs_css_href <- str_subset_bootstrap(
+    xpath_attr(html, ".//link[(@href and contains(@href, '/bootstrap'))]", "href")
+  )
+  expect_length(bs_css_href, 1)
 })

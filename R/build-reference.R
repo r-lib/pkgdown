@@ -295,6 +295,7 @@ build_reference_topic <- function(topic,
   deps <- data$dependencies
   data$has_deps <- !is.null(deps)
   if (data$has_deps) {
+    deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
     deps <- purrr::map(deps,
       htmltools::copyDependencyToDir,
@@ -306,7 +307,7 @@ build_reference_topic <- function(topic,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
-    data$dependencies <- htmltools::renderDependencies(deps, "file")
+    data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))
   }
 
   render_page(
