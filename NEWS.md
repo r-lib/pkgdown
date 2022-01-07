@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `deploy_to_branch()` gains a `subdir` argument, allowing you to deploy the
+  site to a subdirectory (@gadenbuie, #2001).
+
 * The navbar gets a little more space after the version number, and aligns
   the baseline with rest of the navbar (#1989).
 
