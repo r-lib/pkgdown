@@ -82,13 +82,9 @@ test_that("data_navbar() works by default", {
 
 test_that("data_navbar() can re-order default elements", {
   pkg <- local_pkgdown_site(meta = list(
-    news = list(one_page = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
-    "# testpackage 2.0", "",
-    "* bullet (#222 @someone)"
-  ))
+  file.create(file.path(pkg$src_path, "NEWS.md"))
 
   pkg$meta$navbar$structure$right <- c("news")
   pkg$meta$navbar$structure$left <- c("github", "reference")
@@ -97,13 +93,9 @@ test_that("data_navbar() can re-order default elements", {
 
 test_that("data_navbar() can remove elements", {
   pkg <- local_pkgdown_site(meta = list(
-    news = list(one_page = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
-    "# testpackage 2.0", "",
-    "* bullet (#222 @someone)"
-  ))
+  file.create(file.path(pkg$src_path, "NEWS.md"))
 
   pkg$meta$navbar$structure$left <- c("github")
   pkg$meta$navbar$structure$right <- c("reference")
