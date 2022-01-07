@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_news()` once again works if `NEWS.md` uses `<h1>` headings (#1947).
+
 * pkgdown no longer includes bundled author metadata for Hadley Wickham,
   RStudio, or the RConsortium, since there are now ways to include this 
   meta data in template packages, and special casing these three entities
