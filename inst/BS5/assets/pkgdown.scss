@@ -23,6 +23,12 @@
   padding: 0.5rem;
 }
 
+// Align baselines of package name, version, and nav items
+.navbar > .container {
+  align-items: baseline;
+  -webkit-align-items: baseline;
+}
+
 .navbar-light .navbar-nav .active > .nav-link {
   background: $gray-200;
   color:      $body-color;

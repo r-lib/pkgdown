@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* The navbar gets a little more space after the version number, and aligns
+  the baseline with rest of the navbar (#1989).
+
 * `build_news()` once again works if `NEWS.md` uses `<h1>` headings (#1947).
 
 * pkgdown no longer includes bundled author metadata for Hadley Wickham,
