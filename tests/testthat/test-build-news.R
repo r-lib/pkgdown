@@ -14,8 +14,6 @@ test_that("data_news works as expected for h1 & h2", {
   pkg <- local_pkgdown_site(meta = "
     template:
       bootstrap: 5
-    news:
-      cran_dates: false
   ")
 
   write_lines(lines_h1, file.path(pkg$src_path, "NEWS.md"))
@@ -32,7 +30,6 @@ test_that("multi-page news are rendered", {
   pkg <- local_pkgdown_site(meta = "
     news:
       one_page: false
-      cran_dates: false
     "
   )
   write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
@@ -101,11 +98,6 @@ test_that("github links are added to news items", {
 test_that("pkg_timeline fails cleanly for unknown package", {
   skip_on_cran()
   expect_null(pkg_timeline("__XYZ__"))
-})
-
-test_that("pkg_timeline returns NULL if CRAN dates suppressed", {
-  skip_on_cran()
-  expect_null(pkg_timeline(list(meta = list(news = list(cran_dates = FALSE)))))
 })
 
 test_that("correct timeline for first ggplot2 releases", {
@@ -237,3 +229,4 @@ test_that("clear error for bad hierarchy - h3", {
 
   expect_snapshot_error(data_news(temp_pkg))
 })
+

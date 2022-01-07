@@ -171,7 +171,7 @@ data_news <- function(pkg = list()) {
   sections <- sections[!is.na(versions)]
   versions <- versions[!is.na(versions)]
 
-  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = TRUE)
+  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())
   if (show_dates) {
     timeline <- pkg_timeline(pkg$package)
   } else {
