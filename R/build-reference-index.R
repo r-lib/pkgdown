@@ -14,6 +14,7 @@ data_reference_index <- function(pkg = ".") {
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
   check_missing_topics(rows, pkg)
+  rows <- Filter(function(x) !x$is_internal, rows)
 
   print_yaml(list(
     pagetitle = tr_("Function reference"),
@@ -23,16 +24,15 @@ data_reference_index <- function(pkg = ".") {
 }
 
 data_reference_index_rows <- function(section, index, pkg) {
-  if (identical(section$title, "internal")) {
-    return(list())
-  }
+  is_internal <- identical(section$title, "internal")
 
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
       title = section$title,
       slug = make_slug(section$title),
-      desc = markdown_text_block(section$desc, pkg = pkg)
+      desc = markdown_text_block(section$desc, pkg = pkg),
+      is_internal = is_internal
     )
   }
 
@@ -40,7 +40,8 @@ data_reference_index_rows <- function(section, index, pkg) {
     rows[[2]] <- list(
       subtitle = section$subtitle,
       slug = make_slug(section$subtitle),
-      desc = markdown_text_block(section$desc, pkg = pkg)
+      desc = markdown_text_block(section$desc, pkg = pkg),
+      is_internal = is_internal
     )
   }
 
@@ -57,7 +58,8 @@ data_reference_index_rows <- function(section, index, pkg) {
     rows[[3]] <- list(
       topics = purrr::transpose(contents),
       names = names,
-      row_has_icons = !purrr::every(contents$icon, is.null)
+      row_has_icons = !purrr::every(contents$icon, is.null),
+      is_internal = is_internal
     )
   }
 
@@ -65,7 +67,25 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_all_characters <- function(contents, index, pkg) {
-  any_not_char <- any(purrr::map_lgl(contents, function(x) {typeof(x) != "character"}))
+  null <- purrr::map_lgl(contents, is.null)
+  any_null <- any(null)
+
+  if (any_null) {
+    abort(
+      c(
+        sprintf(
+          "Item %s in section %s in %s is empty.",
+          toString(which(null)),
+          index,
+          pkgdown_field(pkg, "reference")
+        ),
+        i = "Either delete the empty line or add a function name."
+      )
+    )
+  }
+
+  not_char <- !purrr::map_lgl(contents, is.character)
+  any_not_char <- any(not_char)
 
   if (!any_not_char) {
     return(invisible())
@@ -75,7 +95,7 @@ check_all_characters <- function(contents, index, pkg) {
     c(
       sprintf(
         "Item %s in section %s in %s must be a character.",
-        toString(which(any_not_char)),
+        toString(which(not_char)),
         index,
         pkgdown_field(pkg, "reference")
       ),

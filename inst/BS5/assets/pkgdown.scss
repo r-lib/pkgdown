@@ -373,8 +373,8 @@ div.csl-indent {
 
 /* code ===================================================================== */
 
-pre, pre code {
-  white-space: pre-wrap;
+code {
+  // break long functions across multiple lines
   word-break: break-all;
   overflow-wrap: break-word;
 }

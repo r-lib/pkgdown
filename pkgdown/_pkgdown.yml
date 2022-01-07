@@ -22,9 +22,6 @@ template:
     in_header:
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
-code:
-  width: 72
-
 development:
   mode: auto
 
