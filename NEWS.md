@@ -32,6 +32,10 @@
 
 * Fixed issues that occurred on pages without a table of contents (@gadenbuie, #1998).
 
+* When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or
+  articles, pkgdown's versions of jQuery and Boostrap will take precedence over
+  the versions used by the htmlwidget (@gadenbuie, #1997).
+
 # pkgdown 2.0.1
 
 * Fix CRAN failures.
