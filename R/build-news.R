@@ -89,7 +89,7 @@ build_news <- function(pkg = ".",
   preview_site(pkg, "news", preview = preview)
 }
 
-build_news_single <- function(pkg) {
+build_news_single <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
 
@@ -105,7 +105,7 @@ build_news_single <- function(pkg) {
   )
 }
 
-build_news_multi <- function(pkg) {
+build_news_multi <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
   page <- factor(news$page, levels = unique(news$page))
