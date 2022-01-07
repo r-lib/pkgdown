@@ -144,40 +144,30 @@ build_news_multi <- function(pkg = ".") {
 globalVariables(".")
 
 data_news <- function(pkg = list()) {
-
   html <- markdown_body(path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
-  sections <- xml2::xml_find_all(xml, "./body/div")
 
-  # check that the same header level is use for all divs
+  sections <- xml2::xml_find_all(xml, "./body/div")
   find_level <- function(section) {
     section %>%
-    xml2::xml_find_first(".//h1|h2|h3|h4|h5") %>%
-    xml2::xml_name()
-  }
-  levels <- purrr::map_chr(sections, find_level)
-  if (length(unique(levels)) > 1) {
-    rlang::abort(
-      c(
-        x = "Invalid NEWS.md: inconsistent use of headers for sections.",
-        i = "See ?build_news"
-        )
-      )
-  }
-  if (!unique(levels) %in% c("h1", "h2")) {
-        rlang::abort(
-      c(
-        x = "Invalid NEWS.md: no use of h1 or h2 headers for sections.",
-        i = "See ?build_news"
-        )
-      )
+      xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
+      xml2::xml_name()
   }
 
-  # If NEWS.md uses h1 for versions,
-  # we need to bump every heading down one level
-  # a in pkgdown we reserve a single h1 for the page title.
-  if (unique(levels) == "h1") tweak_section_levels(xml)
+  levels <- purrr::map_chr(sections, find_level)
+  ulevels <- unique(levels)
+  if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
+    abort(c(
+      "Invalid NEWS.md: inconsistent use of section headings.",
+      i = "Top-level headings must be either all <h1> or all <h2>.",
+      i = "See ?build_news for more details."
+    ))
+  }
+  if (ulevels == "h1") {
+    # Bump every heading down a level so to get a single <h1> for the page title
+    tweak_section_levels(xml)
+  }
 
   titles <- xml2::xml_text(xml2::xml_find_first(sections, ".//h2"), trim = TRUE)
 

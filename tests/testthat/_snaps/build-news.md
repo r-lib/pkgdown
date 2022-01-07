@@ -55,11 +55,13 @@
 
 # clear error for bad hierarchy - bad nesting
 
-    Invalid NEWS.md: inconsistent use of headers for sections.
-    i See ?build_news
+    Invalid NEWS.md: inconsistent use of section headings.
+    i Top-level headings must be either all <h1> or all <h2>.
+    i See ?build_news for more details.
 
 # clear error for bad hierarchy - h3
 
-    Invalid NEWS.md: no use of h1 or h2 headers for sections.
-    i See ?build_news
+    Invalid NEWS.md: inconsistent use of section headings.
+    i Top-level headings must be either all <h1> or all <h2>.
+    i See ?build_news for more details.
 
