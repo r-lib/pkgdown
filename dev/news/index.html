@@ -77,7 +77,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li><p>The navbar gets a little more space after the version number, and aligns the baseline with rest of the navbar (<a href="https://github.com/r-lib/pkgdown/issues/1989" class="external-link">#1989</a>).</p></li>
+<ul><li><p><code><a href="../reference/deploy_to_branch.html">deploy_to_branch()</a></code> gains a <code>subdir</code> argument, allowing you to deploy the site to a subdirectory (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/2001" class="external-link">#2001</a>).</p></li>
+<li><p>The navbar gets a little more space after the version number, and aligns the baseline with rest of the navbar (<a href="https://github.com/r-lib/pkgdown/issues/1989" class="external-link">#1989</a>).</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code> once again works if <code>NEWS.md</code> uses <code>&lt;h1&gt;</code> headings (<a href="https://github.com/r-lib/pkgdown/issues/1947" class="external-link">#1947</a>).</p></li>
 <li><p>pkgdown no longer includes bundled author metadata for Hadley Wickham, RStudio, or the RConsortium, since there are now ways to include this meta data in template packages, and special casing these three entities feels increasingly weird (<a href="https://github.com/r-lib/pkgdown/issues/1952" class="external-link">#1952</a>).</p></li>
 <li><p>Long lines in code output once again scroll, rather than being wrapped. While this is different to what you’ll see in the console, it’s a better fit for web pages where the available code width varies based on the browser width (<a href="https://github.com/r-lib/pkgdown/issues/1940" class="external-link">#1940</a>).</p></li>
