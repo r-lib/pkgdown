@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* Long lines in code output once again scroll, rather than being wrapped. 
+  While this is different to what you'll see in the console, it's a better
+  fit for web pages where the avaiable code width varies based on the browser
+  width (#1940).
+
 * scrollspy (which highlights the "active" heading in the sidebar) now computes
   the offset dynamically which makes it work better on sites with taller 
   navbars (#1993).
