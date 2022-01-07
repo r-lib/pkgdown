@@ -5,14 +5,8 @@ data_footer <- function(pkg = ".") {
   components <- modify_list(footnote_components(pkg), meta_footer$components)
   structure <- modify_list(footnote_structure(), meta_footer$structure)
 
-  left <- markdown_text_block(
-    paste0(components[structure$left], collapse = " "),
-    pkg = pkg
-  )
-  right <- markdown_text_block(
-    paste0(components[structure$right], collapse = " "),
-    pkg = pkg
-  )
+  left <- markdown_text_block(paste0(components[structure$left], collapse = " "))
+  right <- markdown_text_block(paste0(components[structure$right], collapse = " "))
 
   list(left = left, right = right)
 }

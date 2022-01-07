@@ -56,14 +56,12 @@ data_home_sidebar_authors <- function(pkg = ".") {
   bullets <- c(
     markdown_text_inline(
       pkg$meta$authors$sidebar$before,
-      pkg = pkg,
-      where = c("authors", "sidebar", "before")
+      pkgdown_field(pkg, c("authors", "sidebar", "before"))
     ),
     authors,
     markdown_text_inline(
       pkg$meta$authors$sidebar$after,
-      pkg = pkg,
-      where = c("authors", "sidebar", "after")
+      pkgdown_field(pkg, c("authors", "sidebar", "after"))
     )
   )
 
@@ -80,8 +78,8 @@ data_authors_page <- function(pkg) {
     authors = data_authors(pkg)$all
   )
 
-  data$before <- markdown_text_block(pkg$meta$authors$before, pkg = pkg)
-  data$after <- markdown_text_block(pkg$meta$authors$after, pkg = pkg)
+  data$before <- markdown_text_block(pkg$meta$authors$before)
+  data$after <- markdown_text_block(pkg$meta$authors$after)
 
   return(data)
 }
@@ -98,8 +96,7 @@ author_name <- function(x, authors, pkg) {
   if (!is.null(author$html)) {
     name <- markdown_text_inline(
       author$html,
-      pkg = pkg,
-      where = c("authors", name, "html")
+      pkgdown_field(pkg, c("authors", name, "html"))
     )
   }
 
