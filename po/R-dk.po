@@ -56,7 +56,7 @@ msgstr "compiler"
 
 #: build-home-authors.R:195
 msgid "contractor"
-msgstr "contractor"
+msgstr "leverandør"
 
 #: build-home-authors.R:196
 msgid "contributor"
