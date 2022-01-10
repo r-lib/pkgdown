@@ -6,7 +6,7 @@
 
     Toc.init({
       $nav: $("#toc"),
-      $scope: $("main h2, main h3, main h4, main h5, main h6")
+      $scope: $("main h1, main h2, main h3, main h4, main h5, main h6").not(".page-header h1")
     });
 
     if ($('#toc').length) {
