@@ -110,7 +110,7 @@ tweak_homepage_html <- function(html,
 tweak_useless_toc <- function(html) {
   contents <- xml2::xml_find_all(html, ".//main")
   copied_contents <- contents
-  xml2::xml_remove(copied_contents, xml2::xml_find_first('.//div[@class="page-header"]'))
+  xml2::xml_remove(copied_contents, xml2::xml_find_first(copied_contents, './/div[@class="page-header"]'))
   headings <- xml2::xml_find_all(copied_contents, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
 
   if (length(headings) > 1) {
