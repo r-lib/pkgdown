@@ -108,11 +108,10 @@ tweak_homepage_html <- function(html,
 
 # Strip off #toc if it's not needed; easier to do this here than in js
 tweak_useless_toc <- function(html) {
-  contents <- xml2::xml_find_all(copy_html(html), ".//main")
-  xml2::xml_remove(xml2::xml_find_first(contents, './/div[@class="page-header"]'))
+  contents <- xml2::xml_find_all(html, ".//main")
   headings <- xml2::xml_find_all(contents, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
 
-  if (length(headings) > 1) {
+  if (length(headings) > 2) {
     return()
   }
 
@@ -125,10 +124,6 @@ tweak_useless_toc <- function(html) {
   }
 }
 
-# https://github.com/ropensci/tinkr/blob/cb20edd554ab8220efed37ee5692ce0662dbe460/R/to_md.R#L85
-copy_html <- function(html) {
-  xml2::read_html(as.character(html))
-}
 
 # Update file on disk -----------------------------------------------------
 
