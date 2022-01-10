@@ -51,7 +51,7 @@ test_that("articles get rescue highlighting for non-collapsed output", {
 
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
-    <main><h2></h2><h2></h2></main>
+    <main><h2></h2><h2></h2><h2></h2></main>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
@@ -74,7 +74,7 @@ test_that("toc removed if one or fewer headings", {
 
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
-    <main><h2></h2><h2></h2></main>
+    <main><h2></h2><h2></h2><h2></h2></main>
     <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
