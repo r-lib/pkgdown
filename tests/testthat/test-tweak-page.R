@@ -115,3 +115,17 @@ test_that("sidebar removed if empty", {
   expect_equal(xpath_length(html, ".//aside"), 0)
 })
 
+
+
+# rmarkdown ---------------------------------------------------------------
+
+test_that("h1 headings adjusted to h2 (and so on)", {
+  html <- xml2::read_html("
+    <h1>1</h1>
+    <h2>1.1</h2>
+    <h1>2</h1>
+  ")
+  tweak_rmarkdown_html(html)
+  expect_equal(xpath_text(html, ".//h2"), c("1", "2"))
+  expect_equal(xpath_text(html, ".//h3"), "1.1")
+})
