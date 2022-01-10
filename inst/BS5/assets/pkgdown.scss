@@ -379,6 +379,12 @@ div.csl-indent {
 
 /* code ===================================================================== */
 
+pre, pre code {
+  // override bootstrap deafult that causes problems in old safari + IE
+  // https://github.com/rstudio/shiny/issues/2233
+  word-wrap: normal;
+}
+
 code {
   // break long functions into multiple lines
   overflow-wrap: break-word;
