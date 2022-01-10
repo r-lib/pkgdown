@@ -380,8 +380,7 @@ div.csl-indent {
 /* code ===================================================================== */
 
 code {
-  // break long functions across multiple lines
-  word-break: break-all;
+  // break long functions into multiple lines
   overflow-wrap: break-word;
 }
 
