@@ -12,7 +12,7 @@ msgstr ""
 
 #: build-404.R:11
 msgid "Page not found (404)"
-msgstr "Side ikke fundet"
+msgstr "Side ikke fundet (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
@@ -32,7 +32,7 @@ msgstr "Udviklet af"
 
 #: build-footer.R:34
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr "Hjemmeside bygget med <a href=\"%s\">pkgdown</a> %s."
+msgstr "Side bygget med <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:92
 msgid "More about authors..."
@@ -164,7 +164,7 @@ msgstr "CRAN udgivelse: %s"
 
 #: build-reference-index.R:19
 msgid "Function reference"
-msgstr "Funktionsreference"
+msgstr "Funktionsoversigt"
 
 #: build-reference-index.R:112
 msgid "All functions"
