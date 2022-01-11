@@ -36,7 +36,7 @@ tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
   }
 }
 
-tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
+tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
@@ -52,6 +52,12 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = pkg) {
       xml2::xml_set_attr,
       attr = "src"
     )
+  }
+
+  # If top-level headings use h1, move everything down one level
+  h1 <- xml2::xml_find_all(html, "//h1")
+  if (length(h1) > 1) {
+    tweak_section_levels(html)
   }
 
   # Has to occur after path normalisation

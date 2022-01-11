@@ -58,7 +58,10 @@ test_that("can override html_document() options", {
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
+  expect_equal(xpath_text(html, ".//h2//span"), c("1", "2"))
+
+  # But title isn't affected
+  expect_equal(xpath_text(html, ".//h1"), "html_document + as_is")
 
   # And no links or scripts are inlined
   expect_equal(xpath_length(html, ".//body//link"), 0)
@@ -83,7 +86,7 @@ test_that("can override options with _output.yml", {
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
+  expect_equal(xpath_text(html, ".//h2//span"), c("1", "2"))
 })
 
 test_that("can set width", {

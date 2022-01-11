@@ -316,14 +316,16 @@ tweak_news_anchor <- function(html, version) {
 }
 
 tweak_section_levels <- function(html) {
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h5"), "h6")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h4"), "h5")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h3"), "h4")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h2"), "h3")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h1"), "h2")
-
-  # Important because search index uses section class rather than heading
   sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
+
+  # Update headings
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h5"), "h6")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h4"), "h5")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h3"), "h4")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h2"), "h3")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h1"), "h2")
+
+  # Update section
   xml2::xml_attr(sections, "class") <- paste0("section level", get_section_level(sections) + 1)
 
   invisible()
