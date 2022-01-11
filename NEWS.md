@@ -1,8 +1,9 @@
 # pkgdown (development version)
 
-* Vignettes/articles that use `<h1>` as top-level heading automatically have
-  headings adjusted one level down so that's there's one top-level heading 
-  (#2004).
+* Vignettes/articles that use `<h1>` as section headings automatically have
+  all headings adjusted one level down so that's there's one top-level heading 
+  (#2004). This ensures that there's one `<h1>`, the title, on each page,
+  and makes the TOC in the sidebar work correctly.
 
 * `deploy_to_branch()` gains a `subdir` argument, allowing you to deploy the
   site to a subdirectory (@gadenbuie, #2001).
