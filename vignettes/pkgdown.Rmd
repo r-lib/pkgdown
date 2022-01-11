@@ -60,7 +60,17 @@ If your documentation (`.Rd` and `.Rmd`) is written in a language other than Eng
 lang: fr
 ```
 
-This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site (if a translation for your language is available).
+This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
+Current available translations are:
+
+-   `de`: German
+-   `dk`: Danish
+-   `es`: Spanish
+-   `fr`: French
+-   `ko`: Korean
+-   `pt`: Portuguese
+-   `tr`: Turkish
+-   `zh_CN`: Chinese (simplified)
 
 ## Home page
 

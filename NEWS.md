@@ -34,6 +34,7 @@
   starts with "http" (#1955).
 
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+  New Danish (`dk`) translation thanks to @LDalby.
 
 * Fixed issues that occurred on pages without a table of contents 
   (@gadenbuie, #1998).
