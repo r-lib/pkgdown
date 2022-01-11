@@ -320,7 +320,7 @@ tweak_section_levels <- function(html) {
   xml2::xml_set_name(xml2::xml_find_all(html, ".//h4"), "h5")
   xml2::xml_set_name(xml2::xml_find_all(html, ".//h3"), "h4")
   xml2::xml_set_name(xml2::xml_find_all(html, ".//h2"), "h3")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h1"), "h2")
+  xml2::xml_set_name(xml2::xml_find_all(html, ".//h1[not(ancestor::div/@class = 'page-header')]"), "h2")
 
   # Important because search index uses section class rather than heading
   sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
