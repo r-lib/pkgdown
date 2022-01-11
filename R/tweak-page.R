@@ -54,7 +54,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
     )
   }
 
-  # If top-level headings use h1, move eveything down one level
+  # If top-level headings use h1, move everything down one level
   h1 <- xml2::xml_find_all(html, "//h1")
   if (length(h1) > 1) {
     tweak_section_levels(html)
