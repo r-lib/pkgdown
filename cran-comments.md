@@ -1,10 +1,11 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
-
-* Days since last update: 3
-  See below. I've fixed the problems revealed by other CRAN check machines.
+0 errors | 0 warnings | 0 notes
 
 ## revdepcheck results
 
-This patch includes fixes for R CMD check that shouldn't affect revdeps, so I didn't check them.
+We checked 106 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
