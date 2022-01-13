@@ -175,17 +175,6 @@
 #' a few examples below, but I highly recommend getting the recommended HTML
 #' directly from the platform.
 #'
-#' *   [counter.dev](https://counter.dev)
-#'
-#'     ```yaml
-#'     template:
-#'       includes:
-#'         after_body: >
-#'           <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){
-#'          fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{YOUR USERNAME}",
-#'        utcoffset:"1"}))};sessionStorage.setItem("_swa","1");</script>
-#'     ```
-#'
 #' *   [GoatCounter](https://www.goatcounter.com):
 #'
 #'     ```yaml

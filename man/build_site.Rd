@@ -322,13 +322,6 @@ Typically these are either placed \code{after_body} or \code{in_header}. I inclu
 a few examples below, but I highly recommend getting the recommended HTML
 directly from the platform.
 \itemize{
-\item \href{https://counter.dev}{counter.dev}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  includes:
-    after_body: >
-      <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0)\{
-     fetch("https://counter.dev/track?"+new URLSearchParams(\{referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"\{YOUR USERNAME\}",
-   utcoffset:"1"\}))\};sessionStorage.setItem("_swa","1");</script>
-}\if{html}{\out{</div>}}
 \item \href{https://www.goatcounter.com}{GoatCounter}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     after_body: >
