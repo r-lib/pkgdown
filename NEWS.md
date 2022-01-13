@@ -1,55 +1,55 @@
 # pkgdown (development version)
 
-* Vignettes/articles that use `<h1>` as section headings automatically have
-  all headings adjusted one level down so that's there's one top-level heading 
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+  New Danish (`dk`) translation thanks to @LDalby.
+
+* `build_articles()` now adjusts the heading levels of vignettes/articles that 
+  use `<h1>` as section headings to ensure that there's one top-level heading 
   (#2004). This ensures that there's one `<h1>`, the title, on each page,
   and makes the TOC in the sidebar work correctly.
 
-* `deploy_to_branch()` gains a `subdir` argument, allowing you to deploy the
-  site to a subdirectory (@gadenbuie, #2001).
-
-* The navbar gets a little more space after the version number, and aligns
-  the baseline with rest of the navbar (#1989).
+* `build_home_index()` no longer spuriously complains about missing images
+  if you use plots in your `README.Rmd` (#1980, #1977). It no longer
+  tweaks the `src` path for `<img>` tags with absolute paths (#1955).
 
 * `build_news()` once again works if `NEWS.md` uses `<h1>` headings (#1947).
 
-* pkgdown no longer includes bundled author metadata for Hadley Wickham,
-  RStudio, or the RConsortium, since there are now ways to include this 
-  meta data in template packages, and special casing these three entities
-  feels increasingly weird (#1952).
-
-* Long lines in code output once again scroll, rather than being wrapped. 
-  While this is different to what you'll see in the console, it's a better
-  fit for web pages where the available code width varies based on the browser
-  width (#1940).
-
-* scrollspy (which highlights the "active" heading in the sidebar) now computes
-  the offset dynamically which makes it work better on sites with taller 
-  navbars (#1993).
-
-* Using `title: internal` now works as designed: it removes the section from
-  the reference index _and_ it doesn't list the topics in that sections
-  as missing (#1958).
-
-* `build_home_index()` no longer spuriously complains about missing images
-  if you use plots in your `README.Rmd` (#1980, #1977).
+* `build_reference()` now correctly interprets `title: internal`: it removes 
+  the section from the reference index _and_ it doesn't list the topics in that 
+  section as missing (#1958).
 
 * `build_reference()` now gives a correct hint when the reference index YAML 
   is not formatted correctly (e.g. empty item, or item such as "n" that needs
   to be escaped with quotes to not be interpreted as Boolean) (#1995).
 
-* `tweak_img_src()` no longer tweaks the `src` path for `<img>` tags if `src`
-  starts with "http" (#1955).
+* `deploy_to_branch()` gains a `subdir` argument, allowing you to deploy the
+  site to a subdirectory (@gadenbuie, #2001).
 
-* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
-  New Danish (`dk`) translation thanks to @LDalby.
+* Front end changes:
 
-* Fixed issues that occurred on pages without a table of contents 
-  (@gadenbuie, #1998).
+    * The navbar gets a little more space after the version number, and aligns
+      the baseline with rest of the navbar (#1989).
 
-* When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or
-  articles, pkgdown's versions of jQuery and Boostrap will take precedence over
-  the versions used by the htmlwidget (@gadenbuie, #1997).
+    * Long lines in code output once again scroll, rather than being wrapped. 
+      While this is different to what you'll see in the console, it's a better
+      fit for web pages where the available code width varies based on the 
+      browser width (#1940).
+    
+    * scrollspy (which highlights the "active" heading in the sidebar) now 
+      computes the offset dynamically which makes it work better on sites with 
+      taller navbars (#1993).
+
+    * Fixed js issues that occurred on pages without a table of contents 
+      (@gadenbuie, #1998).
+
+    * When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or
+      articles, pkgdown's versions of jQuery and Boostrap will take precedence over
+      the versions used by the htmlwidget (@gadenbuie, #1997).
+
+* pkgdown no longer includes bundled author metadata for Hadley Wickham,
+  RStudio, or the RConsortium, since there are now ways to include this 
+  meta data in template packages, and special casing these three entities
+  feels increasingly weird (#1952).
 
 # pkgdown 2.0.1
 
