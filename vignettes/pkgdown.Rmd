@@ -161,7 +161,7 @@ See `?build_news` for more customisation options including how to:
 
 If you use GitHub, there are two ways to publish your site on GitHub Pages:
 
--   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
+-   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
 -   Use GitHub actions to automatically build and publish the site every time you make a change.
     The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`.
