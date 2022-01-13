@@ -375,13 +375,7 @@ redirect scenarios.</p><div class="sourceCode yaml"><pre><code><span id="cb1-1">
 use of the <code>includes</code> field to add the HTML supplied to you by the platform.
 Typically these are either placed <code>after_body</code> or <code>in_header</code>. I include
 a few examples below, but I highly recommend getting the recommended HTML
-directly from the platform.</p><ul><li><p><a href="https://counter.dev" class="external-link">counter.dev</a></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      &lt;script&gt;if(!sessionStorage.getItem("_swa")&amp;&amp;document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{YOUR USERNAME}",</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">   utcoffset:"1"}))};sessionStorage.setItem("_swa","1");&lt;/script&gt;</span></span></code></pre><p></p></div></li>
-<li><p><a href="https://www.goatcounter.com" class="external-link">GoatCounter</a>:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+directly from the platform.</p><ul><li><p><a href="https://www.goatcounter.com" class="external-link">GoatCounter</a>:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
