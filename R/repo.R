@@ -64,8 +64,9 @@ package_repo <- function(desc, meta) {
   }
 
   # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
+  # the /-/issues pattern corresponds to GitLab repos
   urls <- c(
-    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
+    sub("/-/", "", sub("/issues/?", "/", desc$get_field("BugReports", default = character()))),
     desc$get_urls()
   )
 
