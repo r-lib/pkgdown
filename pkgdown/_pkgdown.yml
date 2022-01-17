@@ -1,12 +1,5 @@
 url: https://pkgdown.r-lib.org
-navbar:
-  type: inverse
-  structure:
-    right: [home, intro, articles, reference, faq, news, github]
-  components:
-    faq:
-      text: FAQ
-      href: ./articles/fmtr-faq.html
+
 home:
   title: Build websites for R packages
 

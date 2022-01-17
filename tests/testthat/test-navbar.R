@@ -102,6 +102,17 @@ test_that("data_navbar() can remove elements", {
   expect_snapshot(data_navbar(pkg))
 })
 
+test_that("data_navbar() does not duplicate elements", {
+  pkg <- local_pkgdown_site(meta = list(
+    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+  ))
+  file.create(file.path(pkg$src_path, "NEWS.md"))
+
+  pkg$meta$navbar$structure$right <- c("intro", "reference", "articles", "tutorials", "news")
+  expect_snapshot(data_navbar(pkg))
+})
+
+
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
   expect_equal(style, list(bg = "light", type = "light"))

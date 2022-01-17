@@ -154,6 +154,21 @@
       [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
       
 
+# data_navbar() does not duplicate elements
+
+    Code
+      data_navbar(pkg)
+    Output
+      $type
+      [1] "default"
+      
+      $left
+      [1] ""
+      
+      $right
+      [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"news/index.html\">Changelog</a>\n</li>"
+      
+
 # render_navbar_links BS3 & BS4 default
 
     Code
