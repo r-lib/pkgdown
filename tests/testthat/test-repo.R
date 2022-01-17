@@ -82,11 +82,18 @@ test_that("can find github from BugReports or URL", {
   )
   expect_equal(package_repo(desc, list()), ref)
 })
-
 test_that("can find gitlab url", {
   ref <- repo_meta_gh_like("https://gitlab.com/msberends/AMR")
   desc <- desc::desc(text = c(
-    "BugReports: https://gitlab.com/msberends/AMR"
+    "BugReports: https://gitlab.com/msberends/AMR/issues"
+  ))
+  expect_equal(package_repo(desc, list()), ref)
+})
+
+test_that("can find gitlab url with special issues URL", {
+  ref <- repo_meta_gh_like("https://gitlab.com/msberends/AMR")
+  desc <- desc::desc(text = c(
+    "BugReports: https://gitlab.com/msberends/AMR/-/issues"
   ))
   expect_equal(package_repo(desc, list()), ref)
 })
