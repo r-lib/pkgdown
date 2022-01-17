@@ -51,7 +51,6 @@ navbar_links <- function(navbar, components, depth = 0L, bs_version = 3L) {
   structure$left <- navbar$structure$left %||%
     left_defaults[!(left_defaults %in% navbar$structure$right)]
 
-
   structure$right <- navbar$structure$right %||%
     right_defaults[!(right_defaults %in% navbar$structure$left)]
 
