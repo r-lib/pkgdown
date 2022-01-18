@@ -16,14 +16,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
 </li>
@@ -45,6 +45,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/">Version 2.0.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -76,6 +77,25 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.2" id="pkgdown-202">pkgdown 2.0.2<a class="anchor" aria-label="anchor" href="#pkgdown-202"></a></h2><p class="text-muted">CRAN release: 2022-01-13</p>
+<ul><li><p>New Korean (<code>ko</code>) translation thanks to <a href="https://github.com/mrchypark" class="external-link">@mrchypark</a> and <a href="https://github.com/peremen" class="external-link">@peremen</a> (<a href="https://github.com/r-lib/pkgdown/issues/1994" class="external-link">#1994</a>). New Danish (<code>dk</code>) translation thanks to <a href="https://github.com/LDalby" class="external-link">@LDalby</a>.</p></li>
+<li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> now adjusts the heading levels of vignettes/articles that use <code>&lt;h1&gt;</code> as section headings to ensure that there’s one top-level heading (<a href="https://github.com/r-lib/pkgdown/issues/2004" class="external-link">#2004</a>). This ensures that there’s one <code>&lt;h1&gt;</code>, the title, on each page, and makes the TOC in the sidebar work correctly.</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home_index()</a></code> no longer spuriously complains about missing images if you use plots in your <code>README.Rmd</code> (<a href="https://github.com/r-lib/pkgdown/issues/1980" class="external-link">#1980</a>, <a href="https://github.com/r-lib/pkgdown/issues/1977" class="external-link">#1977</a>). It no longer tweaks the <code>src</code> path for <code>&lt;img&gt;</code> tags with absolute paths (<a href="https://github.com/r-lib/pkgdown/issues/1955" class="external-link">#1955</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> once again works if <code>NEWS.md</code> uses <code>&lt;h1&gt;</code> headings (<a href="https://github.com/r-lib/pkgdown/issues/1947" class="external-link">#1947</a>).</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> now correctly interprets <code>title: internal</code>: it removes the section from the reference index <em>and</em> it doesn’t list the topics in that section as missing (<a href="https://github.com/r-lib/pkgdown/issues/1958" class="external-link">#1958</a>).</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> now gives a correct hint when the reference index YAML is not formatted correctly (e.g. empty item, or item such as “n” that needs to be escaped with quotes to not be interpreted as Boolean) (<a href="https://github.com/r-lib/pkgdown/issues/1995" class="external-link">#1995</a>).</p></li>
+<li><p><code><a href="../reference/deploy_to_branch.html">deploy_to_branch()</a></code> gains a <code>subdir</code> argument, allowing you to deploy the site to a subdirectory (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/2001" class="external-link">#2001</a>).</p></li>
+<li>
+<p>Front end changes:</p>
+<ul><li><p>The navbar gets a little more space after the version number, and aligns the baseline with rest of the navbar (<a href="https://github.com/r-lib/pkgdown/issues/1989" class="external-link">#1989</a>).</p></li>
+<li><p>Long lines in code output once again scroll, rather than being wrapped. While this is different to what you’ll see in the console, it’s a better fit for web pages where the available code width varies based on the browser width (<a href="https://github.com/r-lib/pkgdown/issues/1940" class="external-link">#1940</a>).</p></li>
+<li><p>scrollspy (which highlights the “active” heading in the sidebar) now computes the offset dynamically which makes it work better on sites with taller navbars (<a href="https://github.com/r-lib/pkgdown/issues/1993" class="external-link">#1993</a>).</p></li>
+<li><p>Fixed js issues that occurred on pages without a table of contents (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/1998" class="external-link">#1998</a>).</p></li>
+<li><p>When htmlwidgets with jQuery or Bootstrap dependencies are used in examples or articles, pkgdown’s versions of jQuery and Boostrap will take precedence over the versions used by the htmlwidget (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/r-lib/pkgdown/issues/1997" class="external-link">#1997</a>).</p></li>
+</ul></li>
+<li><p>pkgdown no longer includes bundled author metadata for Hadley Wickham, RStudio, or the RConsortium, since there are now ways to include this meta data in template packages, and special casing these three entities feels increasingly weird (<a href="https://github.com/r-lib/pkgdown/issues/1952" class="external-link">#1952</a>).</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="pkgdown-201">pkgdown 2.0.1<a class="anchor" aria-label="anchor" href="#pkgdown-201"></a></h2><p class="text-muted">CRAN release: 2021-12-03</p>
 <ul><li><p>Fix CRAN failures.</p></li>
 <li><p>Reference sections are de-duplicated correctly (<a href="https://github.com/r-lib/pkgdown/issues/1935" class="external-link">#1935</a>).</p></li>
@@ -92,8 +112,8 @@
 <h3 id="bootstrap-2-0-0">Bootstrap 5<a class="anchor" aria-label="anchor" href="#bootstrap-2-0-0"></a></h3>
 <ul><li>
 <p>pkgdown can style your site with Bootstrap 5 (with help from <a href="https://github.com/jayhesselberth" class="external-link">@jayhesselberth</a>, <a href="https://github.com/apreshill" class="external-link">@apreshill</a>, <a href="https://github.com/cpsievert" class="external-link">@cpsievert</a>). Opt-in by setting <code>boostrap</code> version in your <code>_pkgdown.yml</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code></pre></div>
 </li>
 <li>
 <p>We reviewed site accessibility and made a number of small improvements: (<a href="https://github.com/r-lib/pkgdown/issues/782" class="external-link">#782</a>, <a href="https://github.com/r-lib/pkgdown/issues/1553" class="external-link">#1553</a>):</p>
@@ -130,7 +150,7 @@
 <li><p>You can pick from a variety of built-in syntax highlighting themes (<a href="https://github.com/r-lib/pkgdown/issues/1823" class="external-link">#1823</a>). These control the colours (and background) of code in <code>&lt;pre&gt;</code> tags.</p></li>
 <li>
 <p>pkgdown can now translate all the text that it generates (<a href="https://github.com/r-lib/pkgdown/issues/1446" class="external-link">#1446</a>): this means that if you have a package where the docs are written in another language, you can match all the pkgdown UI to provide a seamless experience to non-English speakers. Activate the translations by setting the <code>lang</code> in <code>_pkgdown.yaml</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
 <p>pkgdown includes translations for:</p>
 <ul><li>
 <code>es</code>, Spanish, thanks to <a href="https://github.com/edgararuiz-zz" class="external-link">@edgararuiz-zz</a>, <a href="https://github.com/dieghernan" class="external-link">@dieghernan</a>, <a href="https://github.com/rivaquiroga" class="external-link">@rivaquiroga</a>.</li>
@@ -178,10 +198,10 @@
 <h3 id="new-features-2-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-0-0"></a></h3>
 <ul><li>
 <p>pkgdown now supports redirects (<a href="https://github.com/r-lib/pkgdown/issues/1259" class="external-link">#1259</a>, <a href="https://github.com/lorenzwalthert" class="external-link">@lorenzwalthert</a>). The following yaml demonstrates the syntax, with old paths on the left and new paths/URLs on the right.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre></div>
 </li>
 <li><p>Use HTML classes <code>pkgdown-devel</code> or <code>pkgdown-release</code> to declare that certain content should appear only on the devel or release site. Use the class <code>pkgdown-hide</code> for content that should only appear only on GitHub/CRAN (<a href="https://github.com/r-lib/pkgdown/issues/1299" class="external-link">#1299</a>).</p></li>
 <li><p>New <code><a href="../reference/pkgdown_sitrep.html">pkgdown_sitrep()</a></code> function reports whether the site is set up correctly; in particularly it currently reports if auto-linking will work (<a href="https://github.com/r-lib/pkgdown/issues/1478" class="external-link">#1478</a>).</p></li>
@@ -197,8 +217,8 @@
 <li><p>New <code><a href="../reference/pkgdown_print.html">pkgdown_print()</a></code> allows you to control how your objects are rendered in examples. It includes built-in handling for htmlwidgets and “browseable” HTML so pkgdown output now more closely resembles what you see in RStudio. Added extension points to make HTML widgets (and RGL in particular) work in rendered examples (<a href="https://github.com/dmurdoch" class="external-link">@dmurdoch</a>).</p></li>
 <li>
 <p>You can globally set the <code>width</code> of code output (in reference and articles) with</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">code</span><span class="kw">:</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">width</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">code</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">width</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span></code></pre></div>
 </li>
 <li><p>Articles now render output styles created by cli/crayon (<a href="https://github.com/r-lib/pkgdown/issues/1556" class="external-link">#1556</a>).</p></li>
 <li><p>When copy and pasting code blocks, lines containing output (e.g. <code>#&gt;</code>) are automatically omitted (<a href="https://github.com/r-lib/pkgdown/issues/1675" class="external-link">#1675</a>).</p></li>
@@ -221,7 +241,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="html-css-and-js-2-0-0">HTML, CSS and JS<a class="anchor" aria-label="anchor" href="#html-css-and-js-2-0-0"></a></h3>
-<ul><li><p>New <code>template</code> option <code>trailingslash_redirect</code> that allows adding a script to redirect <code>your-package-url.com</code> to <code>your-package-url.com/</code> (<a href="https://github.com/r-lib/pkgdown/issues/1439" class="external-link">#1439</a>, <a href="https://github.com/cderv" class="external-link">@cderv</a>, <a href="https://github.com/apreshill" class="external-link">@apreshill</a>).</p></li>
+<ul><li><p>New <code>template</code> option <code>trailing_slash_redirect</code> that allows adding a script to redirect <code>your-package-url.com</code> to <code>your-package-url.com/</code> (<a href="https://github.com/r-lib/pkgdown/issues/1439" class="external-link">#1439</a>, <a href="https://github.com/cderv" class="external-link">@cderv</a>, <a href="https://github.com/apreshill" class="external-link">@apreshill</a>).</p></li>
 <li><p>External links now get the class <code>external-link</code>. This makes them easier to style with CSS (<a href="https://github.com/r-lib/pkgdown/issues/881" class="external-link">#881</a>, <a href="https://github.com/r-lib/pkgdown/issues/1491" class="external-link">#1491</a>).</p></li>
 <li><p>Duplicated section ids are now de-duplicated; this makes pkgdown work better with the documentation of R6 classes.</p></li>
 <li><p>Updated CSS styles from pandoc to improve styling of reference lists (<a href="https://github.com/r-lib/pkgdown/issues/1469" class="external-link">#1469</a>).</p></li>
@@ -289,8 +309,8 @@
 <h4 id="auto-linking-and-syntax-highlighting-1-6-0">Auto-linking and syntax highlighting<a class="anchor" aria-label="anchor" href="#auto-linking-and-syntax-highlighting-1-6-0"></a></h4>
 <ul><li>
 <p>The branch used for source linking can be configured by setting <code>repo: branch: branch_name</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/jonkeane" class="external-link">@jonkeane</a>, <a href="https://github.com/r-lib/pkgdown/issues/1355" class="external-link">#1355</a>):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> instead.</p></li>
 <li><p>Highlighting of empty expressions works once more (<a href="https://github.com/r-lib/pkgdown/issues/1310" class="external-link">#1310</a>).</p></li>
@@ -327,12 +347,12 @@
 <li><p>Tables of contents in sidebars now use <a href="https://afeld.github.io/bootstrap-toc/" class="external-link">bootstrap-toc</a>; this considerably improves navigation for long articles and reference pages.</p></li>
 <li>
 <p>You can now control the links to source files (in reference pages and articles) and issues and users (in the NEWS) with new <code>repo$url</code> config option (<a href="https://github.com/r-lib/pkgdown/issues/1238" class="external-link">#1238</a>). This makes it easier to use pkgdown with GitHub enterprise, packages in subdirectories, and other source hosts (like bitbucket).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/main/</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/main/</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre></div>
 <p>The individual components (e.g. path, issue number, username) are pasted on the end of these urls so they should have trailing <code>/</code>s.</p>
 <p>You don’t need to set these links for GitLab, as pkgdown now detects GitLab urls automatically (since they use the same structure as GitHub) (<a href="https://github.com/r-lib/pkgdown/issues/1045" class="external-link">#1045</a>).</p>
 </li>
@@ -513,8 +533,8 @@
 <h4 id="articles-1-2-0">Articles<a class="anchor" aria-label="anchor" href="#articles-1-2-0"></a></h4>
 <ul><li>
 <p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/r-lib/pkgdown/issues/821" class="external-link">#821</a>):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">toc</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="at">  </span><span class="fu">depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
 </li>
 </ul></div>
 <div class="section level4">
@@ -556,9 +576,9 @@
 <li><p>Default navbar template now uses site title, not package name (the package name is the default title, so this will not affect most sites) (<a href="https://github.com/r-lib/pkgdown/issues/654" class="external-link">#654</a>).</p></li>
 <li>
 <p>You can suppress indexing by search engines by setting <code>noindex: true</code> <code>pkgdown.yml</code> (<a href="https://github.com/r-lib/pkgdown/issues/686" class="external-link">#686</a>)</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> sets <code>IN_PKGDOWN</code> env var so <code><a href="../reference/in_pkgdown.html">in_pkgdown()</a></code> works (<a href="https://github.com/r-lib/pkgdown/issues/650" class="external-link">#650</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code>: CITATION files with non-UTF-8 encodings (latin1) work correctly, instead of generating an error. For non-UTF-8 locales, ensure you have e.g. <code>Encoding: latin1</code> in your <code>DESCRIPTION</code>; but best practice is to re-enode your CITATION file to UTF-8 (<a href="https://github.com/r-lib/pkgdown/issues/689" class="external-link">#689</a>).</p></li>
@@ -581,7 +601,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer></div>

@@ -41,14 +41,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/pkgdown.html">Get started</a>
@@ -71,6 +71,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/">Version 2.0.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/pkgdown-1-5-0/">Version 1.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/pkgdown-1-4-0/">Version 1.4.0</a>
@@ -99,7 +100,11 @@
     
   </div>
 </nav><div class="container template-article">
-<script src="metadata_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+
+
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Metadata</h1>
             
@@ -120,25 +125,25 @@
 <h2 id="necessary-configuration">Necessary configuration<a class="anchor" aria-label="anchor" href="#necessary-configuration"></a>
 </h2>
 <p>Metadata can only be produced correctly if your pkgdown website URL is indicated in its configuration file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="site-wide-customization">Site-wide customization<a class="anchor" aria-label="anchor" href="#site-wide-customization"></a>
 </h2>
 <p>Metadata for the entire pkgdown website can be specified in the site’s <code>_pkgdown.yml</code> configuration file in the <code>home</code> and <code>template: opengraph</code> sections:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Discover and add pool-noodles to your growing collection.</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">  </span><span class="fu">opengraph</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">      </span><span class="fu">src</span><span class="kw">:</span><span class="at"> man/figures/card.png</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="at">      </span><span class="fu">alt</span><span class="kw">:</span><span class="at"> </span><span class="st">"Pool noodles configured to form the word poolnoodlr"</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="at">      </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@hadleywickham"</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="fu">site</span><span class="kw">:</span><span class="at"> </span><span class="st">"@rstudio"</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="at">      </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary_large_image</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Discover and add pool-noodles to your growing collection.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">opengraph</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">src</span><span class="kw">:</span><span class="at"> man/figures/card.png</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">alt</span><span class="kw">:</span><span class="at"> </span><span class="st">"Pool noodles configured to form the word poolnoodlr"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@hadleywickham"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">site</span><span class="kw">:</span><span class="at"> </span><span class="st">"@rstudio"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary_large_image</span></span></code></pre></div>
 <p>The <code>home: title</code> and <code>home: description</code> fields override the <code>Title</code> and <code>Description</code> fields in the package <code>DESCRIPTION</code>. It’s good practice to set these fields to make your package documentation easier to find via search, rather than sticking with the title and description needed by CRAN.</p>
 <p>The <code>template: opengraph</code> section allows you to further customize the social media card.</p>
 <ul>
@@ -164,20 +169,20 @@
 <h2 id="article-metadata">Article metadata<a class="anchor" aria-label="anchor" href="#article-metadata"></a>
 </h2>
 <p>Articles and vignettes rendered as articles by pkgdown can have individually customized metadata and social media cards.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction to poolnoodlr"</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A brief introduction to pool noodles in R."</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Mara Averick"</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">opengraph</span><span class="kw">:</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://example.com/pkg/batpig.png"</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="at">  </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="at">    </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="at">    </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@dataandme"</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>  %\VignetteIndexEntry{Introduction to poolnoodlr}</span>
-<span id="cb3-13"><a href="#cb3-13"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
-<span id="cb3-14"><a href="#cb3-14"></a>  %\VignetteEncoding{UTF-8}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Introduction to poolnoodlr"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"A brief introduction to pool noodles in R."</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Mara Averick"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">opengraph</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">src</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://example.com/pkg/batpig.png"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">card</span><span class="kw">:</span><span class="at"> summary</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">creator</span><span class="kw">:</span><span class="at"> </span><span class="st">"@dataandme"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  %\VignetteIndexEntry{Introduction to poolnoodlr}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  %\VignetteEncoding{UTF-8}</span></code></pre></div>
 <p>Use the <code>title</code>, <code>description</code>, and <code>author</code> fields to specify the title, description, and (optional) author of the vignette or article.</p>
 <ul>
 <li><p>The <code>title</code> field is used as the title of your article in your pkgdown site and should always be included.</p></li>
@@ -199,7 +204,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
