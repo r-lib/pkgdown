@@ -143,7 +143,7 @@ check_missing_topics <- function(rows, pkg) {
   missing <- !in_index & !pkg$topics$internal
   if (any(missing)) {
     text <- sprintf("Topics missing from index: %s", unname(pkg$topics$name[missing]))
-    if (on_ci()) {
+    if (abort_on_missing_topics()) {
       abort(text)
     } else {
       warn(text)
@@ -151,6 +151,6 @@ check_missing_topics <- function(rows, pkg) {
   }
 }
 
-on_ci <- function() {
-  isTRUE(as.logical(Sys.getenv("CI")))
+abort_on_missing_topics <- function() {
+  isTRUE(as.logical(Sys.getenv("ABORT_ON_MISSING_TOPICS", Sys.getenv("CI"))))
 }

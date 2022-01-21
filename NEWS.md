@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Environment variable ABORT_ON_MISSING_TOPICS can be used to enable/disable
+  failing a build if a topic is missing. Default is still to enable only in CI.
+
 # pkgdown 2.0.2
 
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
