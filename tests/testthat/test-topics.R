@@ -78,8 +78,8 @@ test_that("can select by presense or absence of concept", {
   topics$alias <- as.list(topics$alias)
 
   expect_equal(select_topics("has_concept('a')", topics), c(1, 2))
-  expect_equal(select_topics("lacks_concepts('b')", topics), c(1, 3))
-  expect_equal(select_topics("lacks_concepts(c('a', 'b'))", topics), 3)
+  expect_equal(select_topics("lacks_concepts('b')", topics), c(1, 3, 4))
+  expect_equal(select_topics("lacks_concepts(c('a', 'b'))", topics), c(3,4))
 })
 
 test_that("can select by keyword", {
