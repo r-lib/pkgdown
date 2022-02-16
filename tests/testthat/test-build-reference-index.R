@@ -96,3 +96,25 @@ test_that("can use a topic from another package", {
 
   expect_snapshot(data_reference_index(pkg))
 })
+
+test_that("can exclude one topic", {
+  meta <- list(reference = list(list(
+    title = "bla",
+    contents = c("starts_with('*')", "-a")
+  )))
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot(data_reference_index(pkg))
+
+})
+
+test_that("can exclude several topics", {
+  meta <- list(reference = list(list(
+    title = "bla",
+    contents = c("starts_with('*')", "-matches('[ab]')")
+  )))
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot(data_reference_index(pkg))
+
+})

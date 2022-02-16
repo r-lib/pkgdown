@@ -55,6 +55,10 @@
     Item 2 in section 1 in reference in '_pkgdown.yml' must be a character.
     i You might need to add '' around e.g. - 'N' or - 'off'.
 
+# errors well when a content entry refers to a not installed package
+
+    The package `notapackage` is required as it is mentioned in the reference index.
+
 # errors well when a content entry refers to a non existing function
 
     Could not find an href for topic lala of package rlang
@@ -114,6 +118,82 @@
         - '?'
         - rlang::is_installed()
         - bslib::bs_add_rules
+        row_has_icons: no
+        is_internal: no
+      has_icons: no
+      
+
+# can exclude one topic
+
+    Code
+      data_reference_index(pkg)
+    Warning <rlang_warning>
+      Topics missing from index: a
+    Output
+      pagetitle: Function reference
+      rows:
+      - title: bla
+        slug: bla
+        desc: ~
+        is_internal: no
+      - topics:
+        - path: b.html
+          aliases: b()
+          title: B
+          icon: ~
+        - path: c.html
+          aliases: c()
+          title: C
+          icon: ~
+        - path: e.html
+          aliases: e
+          title: E
+          icon: ~
+        - path: help.html
+          aliases: '`?`()'
+          title: D
+          icon: ~
+        names:
+        - b
+        - c
+        - e
+        - '?'
+        row_has_icons: no
+        is_internal: no
+      has_icons: no
+      
+
+# can exclude several topics
+
+    Code
+      data_reference_index(pkg)
+    Warning <rlang_warning>
+      Topics missing from index: a
+      * Topics missing from index: b
+    Output
+      pagetitle: Function reference
+      rows:
+      - title: bla
+        slug: bla
+        desc: ~
+        is_internal: no
+      - topics:
+        - path: c.html
+          aliases: c()
+          title: C
+          icon: ~
+        - path: e.html
+          aliases: e
+          title: E
+          icon: ~
+        - path: help.html
+          aliases: '`?`()'
+          title: D
+          icon: ~
+        names:
+        - c
+        - e
+        - '?'
         row_has_icons: no
         is_internal: no
       has_icons: no

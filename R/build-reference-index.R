@@ -48,9 +48,20 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "contents")) {
     check_all_characters(section$contents, index, pkg)
-    contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
-    contents <- do.call(rbind, contents)
-    contents <- contents[!duplicated(contents$name), , drop = FALSE]
+
+    exclusions <- section$contents[grepl("^-", section$contents)]
+    exclusions <- gsub("^-", "", exclusions)
+    excluded <- purrr::imap(exclusions, content_info, pkg = pkg, section = index)
+    excluded <- do.call(rbind, excluded)
+    excluded <- excluded[!duplicated(excluded$name), , drop = FALSE]
+
+    inclusions <- section$contents[!grepl("^-", section$contents)]
+    included <- purrr::imap(inclusions, content_info, pkg = pkg, section = index)
+    included <- do.call(rbind, included)
+    included <- included[!duplicated(included$name), , drop = FALSE]
+
+    # An antijoin would be ideal
+    contents <- included[! (included$name %in% excluded$name),]
 
     names <- contents$name
     contents$name <- NULL
