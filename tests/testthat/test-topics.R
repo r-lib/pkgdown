@@ -94,23 +94,6 @@ test_that("can select by keyword", {
   expect_equal(select_topics("has_keyword('c')", topics), integer())
 })
 
-test_that("can combine positive and negative selections", {
-  topics <- tibble::tribble(
-    ~name, ~alias,        ~internal,
-    "x",   c("a1", "a2"), FALSE,
-    "a",   c("a3"),       FALSE,
-    "b",   "b1",          FALSE,
-    "d",   "d",           TRUE,
-  )
-
-  expect_equal(select_topics("-x", topics), c(2, 3))
-  expect_equal(select_topics(c("-x", "-a"), topics), 3)
-  expect_equal(select_topics(c("-x", "x"), topics), c(2, 3, 1))
-  expect_equal(select_topics(c("a", "x", "-a"), topics), 1)
-
-  expect_error(select_topics("c(a, -x)", topics), "all negative or all positive")
-})
-
 test_that("an unmatched selection generates a warning", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,
@@ -120,8 +103,7 @@ test_that("an unmatched selection generates a warning", {
     "d",   "d",           TRUE,
   )
 
-  expect_warning(
-    select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE),
-    "topic must match a function or concept"
+  expect_snapshot(
+    select_topics(c("starts_with('unmatched')"), topics, check = TRUE)
   )
 })

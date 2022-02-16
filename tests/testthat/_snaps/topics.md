@@ -30,3 +30,12 @@
     Warning <rlang_warning>
       No topics matched in '_pkgdown.yml'. No topics selected.
 
+# an unmatched selection generates a warning
+
+    Code
+      select_topics(c("starts_with('unmatched')"), topics, check = TRUE)
+    Warning <rlang_warning>
+      No topics matched in '_pkgdown.yml'. No topics selected.
+    Output
+      integer(0)
+
