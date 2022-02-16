@@ -14,28 +14,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     }
     return(integer())
   }
-
-  # Combine integer positions; adding if +ve, removing if -ve
-  sel <- switch(
-    all_sign(indexes[[1]], match_strings[[1]]),
-    "+" = integer(),
-    "-" = seq_len(n)[!topics$internal]
-  )
-
-  for (i in seq2(1, length(indexes))) {
-    index <- indexes[[i]]
-
-    if (check && length(index) == 0) {
-      topic_must("match a function or concept", match_strings[[i]])
-    }
-
-    sel <- switch(all_sign(index, match_strings[[i]]),
-      "+" = union(sel, index),
-      "-" = setdiff(sel, -index)
-    )
-  }
-
-  sel
+  unlist(indexes)
 }
 
 all_sign <- function(x, text) {
