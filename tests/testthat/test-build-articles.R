@@ -119,6 +119,24 @@ test_that("finds external resources referenced by R code in the article html", {
   )
 })
 
+test_that("BS5 article layout when article", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"), "
+    template:
+      bootstrap: 5
+  ")
+
+  expect_output(init_site(pkg))
+  expect_output(toc_true_path <- build_article("standard", pkg))
+  toc_true_html <- xml2::read_html(toc_true_path)
+
+  # We have a main with .col-md-9 if TOC is present
+  xpath_contents <- ".//main[contains(@class, 'col-md-9')]"
+  expect_equal(xpath_length(toc_true_html, xpath_contents), 1)
+
+  # The #pkgdown-sidebar is suppressed if the article has toc: false
+  expect_equal(xpath_length(toc_true_html, ".//aside"), 1)
+})
+
 test_that("BS5 sidebar is removed if TOC is not used", {
   pkg <- local_pkgdown_site(test_path("assets/articles"), "
     template:
