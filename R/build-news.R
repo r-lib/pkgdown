@@ -148,7 +148,7 @@ data_news <- function(pkg = list()) {
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
-  sections <- xml2::xml_find_all(xml, "./body/div")
+  sections <- xml2::xml_find_all(xml, "./body/div[not(contains(@class, 'footnotes'))]")
   levels <- sections %>%
     xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
     xml2::xml_name()
