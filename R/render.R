@@ -63,6 +63,9 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   # render complete layout
   template <- find_template("layout", name, pkg = pkg)
   rendered <- render_template(template, components)
+  rendered <- gsub(
+    "<doi:(.*?)>", "<a href=\"https://doi.org/\\1\">doi:\\1</a>", rendered
+  )
 
   xml2::read_html(rendered, encoding = "UTF-8")
 }
