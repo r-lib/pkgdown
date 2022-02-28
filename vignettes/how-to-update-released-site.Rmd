@@ -206,12 +206,14 @@ git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG
 Now you should backport innovations from the future that you would like to retroactively apply to your released site.
 
 Files you must update:
+
 * `.github/workflows/pkgdown.yaml`
 * `_pkgdown.yml`
 * `Config/Needs/website` field of DESCRIPTION (And, probably, only this field!
   In particular, do not mess with the version number.)
 
 Other likely candidates:  
+
 * `README.Rmd` + `README.md`, e.g., if you've updated badges.
 * Any documentation fixes that **apply to the released version**. This is the
   only reason to touch anything below `R/` and even then it should only affect
