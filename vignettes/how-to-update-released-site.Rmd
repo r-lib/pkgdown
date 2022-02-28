@@ -100,7 +100,7 @@ For a development version number, the rendered site is written to `docs/dev/`.
 For a released version number, the site is written to `docs/`.
 (There are also other signals to alert users that they are reading documentation for a dev version vs. a released version.)
 
-Automatic development mode is recommended for packages with a broad user base, because it decreases the chance a user will read documentation for a version different from the version they have installed.
+Automatic development mode is recommended for packages with a broad user base, because it maximizes the chance that a user will read web-based documentation that reflects the package version that is locally installed.
 
 ### Publishing
 
