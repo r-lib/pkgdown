@@ -20,9 +20,12 @@ If you're already up-to-speed, here's the checklist:
 
 * Update to usethis >= v2.1.5.9000, maybe with
   `pak::pak("r-lib/usethis")`.
+* Update pkgdown to its latest version, maybe with `pak::pak("pkgdown")`.
 * Check out your default branch and `git pull`.
-* Call `usethis::use_pkgdown_github_pages()`. This is safe and a good idea even
-  if you are already using pkgdown + GitHub Pages + GitHub Actions. It will:
+* Call `usethis::use_pkgdown_github_pages()`. You may want to do this even if
+  you are already using pkgdown + GitHub Pages + GitHub Actions. However, you
+  will need to inspect the changes and use your judgement when staging /
+  discarding individual diffs. Intended benefits:
   - Update `.github/workflows/pkgdown.yaml` to the latest version from
     `r-lib/actions`. (This specific step can also be achieved with
     `usethis::use_github_action("pkgdown")` or
