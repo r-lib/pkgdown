@@ -260,8 +260,6 @@ This should kick off a pkgdown build-and-deploy and, specifically, it should cau
   
 You can keep this branch around for a while, in case you didn't get everything right the first time or if more things crop up that you'd like backport to the released site, before your next CRAN release.
 
-<https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/>
-
 ## Problem-solving
 
 Remember GitHub search is a great way to get other people's `_pkgdown.yml` files in front of your eyeballs:
