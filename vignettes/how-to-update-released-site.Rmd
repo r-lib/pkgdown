@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 If you're already up-to-speed, here's the checklist:
 
 * Update to usethis >= v2.1.5.9000, maybe with
-  `pak::pkg_install("r-lib/usethis")`.
+  `pak::pak("r-lib/usethis")`.
 * Check out your default branch and `git pull`.
 * Call `usethis::use_pkgdown_github_pages()`. This is safe and a good idea even
   if you are already using pkgdown + GitHub Pages + GitHub Actions. It will:
