@@ -58,7 +58,8 @@ If you're already up-to-speed, here's the checklist:
   a pull request (the branch will still be created and pushed).
 * Go to your package's GHA page, maybe using `usethis::browse_github_actions()`.
   Select the pkgdown workflow. Click *Run workflow* and select the branch you
-  just pushed.
+  just pushed. If there's no dropdown menu for this, that means your pkgdown
+  workflow config is not current.
 * Scrutinize your newly published **released** site and make sure things look
   right.
 * You can let this branch sit around for a while, in case you need to iterate
