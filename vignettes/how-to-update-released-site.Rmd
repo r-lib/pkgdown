@@ -60,10 +60,13 @@ If you're already up-to-speed, here's the checklist:
   - Any fixes to released roxygen comments / docs, then `document()`.
   - Any new vignettes or articles that apply to the released version.
   
-  Useful git commands
+  Example of a useful opening move:  
+  `git checkout main -- _pkgdown.yml .github/workflows/pkgdown.yaml`
+  
+  These are the two main Git commands you'll need:
   ```
-  git cherry-pick SHA
   git checkout REF -- path/to/a/specific/file
+  git cherry-pick SHA
   ```
 * Push this branch, maybe using `usethis::pr_push()`. Don't bother opening
   a pull request (the branch will still be created and pushed).
