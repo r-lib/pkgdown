@@ -18,32 +18,17 @@ knitr::opts_chunk$set(
 
 If you're already up-to-speed, here's the checklist:
 
-* Update to usethis >= v2.1.5.9000, maybe with
-  `pak::pak("r-lib/usethis")`.
-* Update pkgdown to its latest version, maybe with `pak::pak("pkgdown")`.
-* Check out your default branch and `git pull`.
-* Call `usethis::use_pkgdown_github_pages()`. You may want to do this even if
-  you are already using pkgdown + GitHub Pages + GitHub Actions. However, you
-  will need to inspect the changes and use your judgement when staging /
-  discarding individual diffs. Intended benefits:
-  - Update `.github/workflows/pkgdown.yaml` to the latest version from
-    `r-lib/actions`. (This specific step can also be achieved with
-    `usethis::use_github_action("pkgdown")` or
-    `usethis::use_tidy_github_actions()`.)
-  - Make sure the pkgdown site's URL appears in `_pkgdown.yml`, in the URL
-    field of DESCRIPTION, and as the website associated with the GitHub repo.
-  - Add "tidyverse/tidytemplate" to `Config/Needs/website` in DESCRIPTION, if
-    repo is owned by one of these orgs: tidyverse, r-lib, tidymodels, rstudio. 
-* Make sure you're using automatic development mode, i.e. in `_pkgdown.yml`:
+* Make sure your dev site looks the way you want before embarking on an update
+  of your released site. Here are good instructions for updating an existing
+  site for pkgdown 2.0.0, bs 5, and "tidyverse/tidytemplate":  
+  <https://tidytemplate.tidyverse.org>
+* Make sure you are using automatic development mode. In `_pkgdown.yml`:
 
   ``` yaml
   development:
     mode: auto
   ```
-* Modernize `_pkgdown.yml` following the instructions here:
-  - <https://tidytemplate.tidyverse.org>
-* Commit and push, if any of the above caused local changes.
-* Scrutinize your newly published dev site and make sure things look right.
+* Push/pull to sync your default branch.
 * Create and checkout a branch based on the tag of your most recent GitHub/CRAN
   release.
   
@@ -55,7 +40,7 @@ If you're already up-to-speed, here's the checklist:
 * Backport innovations from the future. Most likely candidates:
   - `_pkgdown.yml`
   - `.github/workflows/pkgdown.yaml`
-  - `Config/Needs/website` field of DESCRIPTION
+  - `Config/Needs/website: tidyverse/tidytemplate` in DESCRIPTION
   - `README.Rmd` / `README.md`. Do you need `devtools::build_readme()`?
   - Any fixes to released roxygen comments / docs, then `document()`.
   - Any new vignettes or articles that apply to the released version.
@@ -68,6 +53,7 @@ If you're already up-to-speed, here's the checklist:
   git checkout REF -- path/to/a/specific/file
   git cherry-pick SHA
   ```
+* Monitor your progress locally with `pkgdown::build_site()`.
 * Push this branch, maybe using `usethis::pr_push()`. Don't bother opening
   a pull request (the branch will still be created and pushed).
 * Go to your package's GHA page, maybe using `usethis::browse_github_actions()`.
@@ -75,6 +61,9 @@ If you're already up-to-speed, here's the checklist:
   just pushed.
 * Scrutinize your newly published **released** site and make sure things look
   right.
+* You can let this branch sit around for a while, in case you need to iterate
+  on this or if you'd like to backport more niceties before your next CRAN
+  release.
 
 ## Context
 
