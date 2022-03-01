@@ -65,7 +65,8 @@ If you're already up-to-speed, here's the checklist:
   git cherry-pick SHA
   git checkout REF -- path/to/a/specific/file
   ```
-* Push this branch, maybe using `usethis::pr_push()`.
+* Push this branch, maybe using `usethis::pr_push()`. Don't bother opening
+  a pull request (the branch will still be created and pushed).
 * Go to your package's GHA page, maybe using `usethis::browse_github_actions()`.
   Select the pkgdown workflow. Click *Run workflow* and select the branch you
   just pushed.
