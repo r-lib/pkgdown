@@ -3,6 +3,7 @@ pkgdown: 2.0.2.9000
 pkgdown_sha: ~
 articles:
   customise: customise.html
+  how-to-update-released-site: how-to-update-released-site.html
   linking: linking.html
   metadata: metadata.html
   pkgdown: pkgdown.html
@@ -13,7 +14,7 @@ articles:
   rendering: test/rendering.html
   short: test/short.html
   widgets: test/widgets.html
-last_built: 2022-01-29T16:44Z
+last_built: 2022-03-02T19:09Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
