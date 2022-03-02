@@ -20,7 +20,8 @@ If you're already up-to-speed, here's the checklist:
 
 * Make sure your dev site looks the way you want before embarking on an update
   of your released site. Here are good instructions for updating an existing
-  site for pkgdown 2.0.0, Bootstrap 5, and "tidyverse/tidytemplate":  
+  site for pkgdown 2.0.0, Bootstrap 5, and "tidyverse/tidytemplate" (only
+  applies to certain packages):  
   <https://tidytemplate.tidyverse.org>
 * Make sure you are using automatic development mode. In `_pkgdown.yml`:
 
