@@ -113,3 +113,21 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   }
 
 }
+
+bs_theme_deps_suppress <- function(deps = list()) {
+  # jquery and bootstrap are provided by bslib
+  # headr-attrs is included for pandoc 2.7.3 - 2.9.2.1 to improve accessibility
+  # but includes javascript that breaks our HTML anchor system
+  bs_dep_names <- c("jquery", "bootstrap", "header-attrs")
+  bs_deps <- purrr::map(bs_dep_names, function(name) {
+    # minimal version of htmltools::htmlDependency() (see suppressDependencies())
+    structure(list(
+      name = name,
+      version = "9999",
+      src = list(href = ""),
+      all_files = TRUE
+    ), class = "html_dependency")
+  })
+
+  c(deps, bs_deps)
+}

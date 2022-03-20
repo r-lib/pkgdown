@@ -4,6 +4,11 @@ This document outlines how to propose a change to pkgdown. For more detailed
 info about contributing to this and other tidyverse packages, please see the
 [**tidyverse contribution guide**](https://rstd.io/tidy-contrib).
 
+## pkgdown and Pandoc versions
+
+The versions of pkgdown and Pandoc used to build a website are stored in the 
+public facing `pkgdown.yml` file, e.g. <https://dplyr.tidyverse.org/pkgdown.yml>.
+
 ## Package reprexes
 
 If you encounter unexpected errors after running `pkgdown::build_site()`, try

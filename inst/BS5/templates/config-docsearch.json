@@ -35,25 +35,25 @@
   "selectors": {
     "homepage": {
       "lvl0": {
-        "selector": ".contents h1",
+        "selector": "main h1",
         "default_value": "{{package}} Home page"
       },
       "lvl1": {
-        "selector": ".contents h2"
+        "selector": "main h2"
       },
       "lvl2": {
-        "selector": ".contents h3",
+        "selector": "main h3",
         "default_value": "Context"
       },
       "lvl3": ".ref-arguments td, .ref-description",
-      "text": ".contents p, .contents li, .contents .pre"
+      "text": "main p, main li, main .pre"
     },
     "reference": {
       "lvl0": {
-        "selector": ".contents h1"
+        "selector": "main h1"
       },
       "lvl1": {
-        "selector": ".contents .name",
+        "selector": "main .name",
         "default_value": "Argument"
       },
       "lvl2": {
@@ -61,20 +61,20 @@
         "default_value": "Description"
       },
       "lvl3": ".ref-arguments td, .ref-description",
-      "text": ".contents p, .contents li"
+      "text": "main p, main li"
     },
     "articles": {
       "lvl0": {
-        "selector": ".contents h1"
+        "selector": "main h1"
       },
       "lvl1": {
-        "selector": ".contents .name"
+        "selector": "main .name"
       },
       "lvl2": {
-        "selector": ".contents h2, .contents h3",
+        "selector": "main h2, main h3",
         "default_value": "Context"
       },
-      "text": ".contents p, .contents li"
+      "text": "main p, main li"
     }
   },
   "selectors_exclude": [

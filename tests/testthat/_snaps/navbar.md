@@ -139,7 +139,7 @@
       [1] "<li>\n  <a href=\"news/index.html\">Changelog</a>\n</li>"
       
 
-# data_navbar()can remove elements
+# data_navbar() can remove elements
 
     Code
       data_navbar(pkg)

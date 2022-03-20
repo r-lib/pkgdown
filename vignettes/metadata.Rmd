@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Package authors can customize the metadata used by Twitter and the [Open Graph protocol][ogp] for rich social media cards. In addition to specifying an alternate description for the package and any individual articles, you may also choose the preview image shown and the style of card used on Twitter.
+Package authors can customize the metadata used by Twitter and the [Open Graph protocol][ogp] for rich social media cards. In addition to specifying an alternate description for the package and any individual articles, you may also choose the preview image shown and the style of the card used on Twitter.
 
 You can preview and validate the appearance of the social media cards with online tools:
 
@@ -77,7 +77,7 @@ The `template: opengraph` section allows you to further customize the social med
     * `site`: The Twitter handle of the organization affiliated with the
       package author or sponsoring the package development. 
       
-    * If only one of `creator` or `site` are included, the provided value will 
+    * If only one of `creator` or `site` is included, the provided value will 
       be used for both fields.
     
     * `card`: The [style of social media card][twitter-card] that Twitter will 

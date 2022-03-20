@@ -89,7 +89,8 @@ build_news <- function(pkg = ".",
   preview_site(pkg, "news", preview = preview)
 }
 
-build_news_single <- function(pkg) {
+build_news_single <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
 
   render_page(
@@ -104,7 +105,8 @@ build_news_single <- function(pkg) {
   )
 }
 
-build_news_multi <- function(pkg) {
+build_news_multi <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
   news <- data_news(pkg)
   page <- factor(news$page, levels = unique(news$page))
 
@@ -141,30 +143,35 @@ build_news_multi <- function(pkg) {
 
 globalVariables(".")
 
-data_news <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  html <- markdown_body(path(pkg$src_path, "NEWS.md"), pkg = pkg)
+data_news <- function(pkg = list()) {
+  html <- markdown_body(path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
   sections <- xml2::xml_find_all(xml, "./body/div")
-
-  # By convention NEWS.md, uses h1 for versions, but in pkgdown we reserve
-  # a single h1 for the page title, so we need to bump every heading down one
-  # level
-  tweak_section_levels(xml)
+  levels <- sections %>%
+    xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
+    xml2::xml_name()
+  ulevels <- unique(levels)
+  if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
+    abort(c(
+      "Invalid NEWS.md: inconsistent use of section headings.",
+      i = "Top-level headings must be either all <h1> or all <h2>.",
+      i = "See ?build_news for more details."
+    ))
+  }
+  if (ulevels == "h1") {
+    # Bump every heading down a level so to get a single <h1> for the page title
+    tweak_section_levels(xml)
+  }
 
   titles <- xml2::xml_text(xml2::xml_find_first(sections, ".//h2"), trim = TRUE)
-  if (any(is.na(titles))) {
-    stop("Invalid NEWS.md: bad nesting of titles", call. = FALSE)
-  }
 
   versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]
   versions <- versions[!is.na(versions)]
 
-  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = TRUE)
+  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())
   if (show_dates) {
     timeline <- pkg_timeline(pkg$package)
   } else {
@@ -309,14 +316,16 @@ tweak_news_anchor <- function(html, version) {
 }
 
 tweak_section_levels <- function(html) {
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h5"), "h6")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h4"), "h5")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h3"), "h4")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h2"), "h3")
-  xml2::xml_set_name(xml2::xml_find_all(html, ".//h1"), "h2")
-
-  # Important because search index uses section class rather than heading
   sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
+
+  # Update headings
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h5"), "h6")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h4"), "h5")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h3"), "h4")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h2"), "h3")
+  xml2::xml_set_name(xml2::xml_find_all(sections, ".//h1"), "h2")
+
+  # Update section
   xml2::xml_attr(sections, "class") <- paste0("section level", get_section_level(sections) + 1)
 
   invisible()

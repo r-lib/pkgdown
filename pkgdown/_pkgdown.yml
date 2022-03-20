@@ -8,6 +8,11 @@ authors:
     href: https://hesselberthlab.org
   Maëlle Salmon:
     href: https://masalmon.eu
+  Hadley Wickham:
+    href: http://hadley.nz
+  RStudio:
+    href: https://www.rstudio.com
+    html: <img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' width='72' />
 
 template:
   bootstrap: 5
@@ -22,9 +27,6 @@ template:
     in_header:
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
-code:
-  width: 72
-
 development:
   mode: auto
 
@@ -37,6 +39,7 @@ articles:
   - linking
   - search
   - metadata
+  - how-to-update-released-site
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not
@@ -83,6 +86,8 @@ reference:
 
 news:
   releases:
+  - text: "Version 2.0.0"
+    href: https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/
   - text: "Version 1.6.0"
     href: https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/
   - text: "Version 1.5.0"

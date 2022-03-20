@@ -67,10 +67,14 @@ Inline equations: $y=x^2$
 
 ## Code
 
+### Line width
+
 ```{r}
 pkgdown:::ruler()
-```
 
+cat(rep("x ", 100), sep = "")
+cat(rep("xy", 100), sep = "")
+```
 
 ### Should be highlighted
 
@@ -186,3 +190,11 @@ Bonjour!
 #### German
 
 Guten tag.
+
+## Deep headings
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5

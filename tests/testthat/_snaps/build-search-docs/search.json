@@ -5,9 +5,19 @@
     "dir": [""],
     "previous_headings": [""],
     "what": ["Authors"],
-    "title": ["Authors"],
-    "text": ["Hadley Wickham. Author, maintainer. . Copyright holder, funder."],
+    "title": ["Authors and Citation"],
+    "text": ["Hadley Wickham. Author, maintainer. RStudio. Copyright holder, funder."],
     "code": [""]
+  },
+  {
+    "path": ["https://example.com/dev/authors.html"],
+    "id": ["citation"],
+    "dir": [""],
+    "previous_headings": [""],
+    "what": ["Citation"],
+    "title": ["Authors and Citation"],
+    "text": ["Wickham H (2021). testpackage: test package. R package version 1.0.0."],
+    "code": ["@Manual{,   title = {testpackage: A test package},   author = {Hadley Wickham},   year = {2021},   note = {R package version 1.0.0}, }"]
   },
   {
     "path": ["https://example.com/dev/index.html"],

@@ -27,3 +27,19 @@ test_that("build_redirect() errors if one entry is not right.", {
   pkg <- structure(pkg, class = "pkgdown")
   expect_snapshot_error(build_redirect(c("old.html"), 5, pkg = pkg))
 })
+
+test_that("article_redirects() creates redirects for vignettes in vignettes/articles", {
+  dir <- withr::local_tempdir()
+  dir_create(path(dir, "vignettes", "articles"))
+  file_create(path(dir, "vignettes", "articles", "test.Rmd"))
+
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    vignettes = package_vignettes(dir)
+  )
+
+  expect_equal(
+    article_redirects(pkg),
+    list(c("articles/articles/test.html", "articles/test.html"))
+  )
+})

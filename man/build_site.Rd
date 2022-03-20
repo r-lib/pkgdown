@@ -238,6 +238,15 @@ For example, the following yaml adds a new "twitter" component that appears to t
       aria-label: Twitter
 }\if{html}{\out{</div>}}
 
+Finally, you can add arbitrary HTML to three locations in the navbar:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  includes:
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
+}\if{html}{\out{</div>}}
+
+These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
+
 You can also customise the colour scheme of the navbar by using the \code{type}
 and \code{bg} parameters. See \code{vignette("customise")} for more details.
 }
@@ -254,14 +263,15 @@ This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\pre
     right: built_with
 }\if{html}{\out{</div>}}
 
-Which draws from the two built-in components:
+Which uses two of the three built-in components:
 \itemize{
 \item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
-\item \code{built_with}, a sentence advertising pkgdown
+\item \code{built_with}, a sentence advertising pkgdown.
+\item \code{package}, the name of the package.
 }
 
 You can override these defaults with the \code{footer} field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
+The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
   structure: 
     left: pkgdown
     right: [authors, legal]
@@ -312,19 +322,12 @@ Typically these are either placed \code{after_body} or \code{in_header}. I inclu
 a few examples below, but I highly recommend getting the recommended HTML
 directly from the platform.
 \itemize{
-\item \href{https://counter.dev}{counter.dev}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  includes:
-    after_body: >
-      <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0)\{
-     fetch("https://counter.dev/track?"+new URLSearchParams(\{referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"\{YOUR USERNAME\}",
-   utcoffset:"1"\}))\};sessionStorage.setItem("_swa","1");</script>
-}\if{html}{\out{</div>}}
 \item \href{https://www.goatcounter.com}{GoatCounter}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     after_body: >
       <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
-\item \href{https://analytics.google.com}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \href{https://analytics.google.com/analytics/web/}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     in_header: |
        <!-- Global site tag (gtag.js) - Google Analytics -->

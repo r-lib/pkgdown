@@ -5,7 +5,26 @@ test_that("works by default", {
     ),
     class = "pkgdown"
   )
-  expect_snapshot(data_footer(pkg))
+  footer <- data_footer(pkg)
+  footer$right <- gsub(packageVersion("pkgdown"), "{version}", footer$right, fixed = TRUE)
+
+  expect_snapshot_output(footer)
+})
+
+test_that("includes package component", {
+  pkg <- structure(
+    list(
+      package = "noodlr",
+      desc = desc::desc(text = "Authors@R: person('First', 'Last', role = 'cre')"),
+      meta = list(
+        footer = list(
+          structure = list(left = "package")
+        )
+      )
+    ),
+    class = "pkgdown"
+  )
+  expect_equal(data_footer(pkg)$left, "<p>noodlr</p>")
 })
 
 test_that("can use custom components", {

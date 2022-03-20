@@ -12,12 +12,7 @@ build_docsearch_json <- function(pkg = ".") {
     url = pkg$meta$url
   )
 
-  template <- find_template(
-    "config",
-    "docsearch",
-    ext = ".json",
-    bs_version = pkg$bs_version
-  )
+  template <- find_template("config", "docsearch", ext = ".json", pkg = pkg)
 
   json <- render_template(template, data)
 
@@ -129,7 +124,7 @@ news_search_index <- function(path, pkg) {
   html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
-  node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
+  node <- xml2::xml_find_all(html, ".//main")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
@@ -152,7 +147,7 @@ file_search_index <- function(path, pkg) {
     xml2::xml_attr("content")
 
   # Get contents minus logo
-  node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
+  node <- xml2::xml_find_all(html, ".//main")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]")
 
@@ -250,7 +245,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     heading <- xml_text1(heading_node)
 
     # Add heading for Usage section of Rd
-    if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
+    if (xml2::xml_attr(node_copy, "id", default = "") == "ref-usage") {
       heading <- "Usage"
     }
   }

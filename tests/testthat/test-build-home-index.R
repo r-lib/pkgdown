@@ -37,7 +37,7 @@ test_that("data_home_sidebar() can be removed", {
   dir_create(path(pkg$dst_path))
   build_home_index(pkg)
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
-  expect_equal(xpath_length(html, ".//div[@id='pkgdown-sidebar']/*"), 0)
+  expect_equal(xpath_length(html, ".//aside/*"), 0)
 })
 
 test_that("data_home_sidebar() can be defined by a HTML file", {

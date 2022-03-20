@@ -146,6 +146,9 @@ as_html.tag_href <- function(x, ...) {
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
+  if (length(x) != 1) {
+    stop_bad_tag("email", "empty {}")
+  }
   paste0("<a href='mailto:", x[[1]], "'>", x[[1]], "</a>")
 }
 

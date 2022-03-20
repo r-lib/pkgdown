@@ -1,0 +1,288 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 1.9000.9000.9000\n"
+"POT-Creation-Date: 2021-12-20 18:48+0100\n"
+"PO-Revision-Date: 2021-11-26 15:57-0600\n"
+"Last-Translator: Chanyub Park <mrchypark@gmail.com>\n"
+"Language-Team: @mrchypark\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "페이지를 찾을 수 없습니다 (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "콘텐츠를 찾을 수 없습니다. 네비게이션 바의 링크를 이용해 주세요."
+
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
+msgid "Articles"
+msgstr "관련 글 목록"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr "전체 사용설명서(비네트)"
+
+#: build-footer.R:29
+msgid "Developed by"
+msgstr "개발자:"
+
+#: build-footer.R:34
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr ""
+"현재 사이트는 다음 패키지로 생성하였습니다. - <a href=\"%s\">pkgdown</a> %s"
+
+#: build-home-authors.R:92
+msgid "More about authors..."
+msgstr "저자에 대한 부분은..."
+
+#: build-home-authors.R:95
+msgid "Developers"
+msgstr "개발자들"
+
+#: build-home-authors.R:100 render.R:97
+msgid "Authors"
+msgstr "저자들"
+
+#: build-home-authors.R:193
+msgid "author"
+msgstr "저자"
+
+#: build-home-authors.R:194
+msgid "compiler"
+msgstr "편집자"
+
+#: build-home-authors.R:195
+msgid "contractor"
+msgstr "계약자"
+
+#: build-home-authors.R:196
+msgid "contributor"
+msgstr "기여자"
+
+#: build-home-authors.R:197
+msgid "copyright holder"
+msgstr "저작권자"
+
+#: build-home-authors.R:198
+msgid "maintainer"
+msgstr "관리자"
+
+#: build-home-authors.R:199
+msgid "data contributor"
+msgstr "데이터 기여자"
+
+#: build-home-authors.R:200
+msgid "funder"
+msgstr "자금 제공자"
+
+#: build-home-authors.R:201
+msgid "reviewer"
+msgstr "리뷰어"
+
+#: build-home-authors.R:202
+msgid "thesis advisor"
+msgstr "지도교수"
+
+#: build-home-authors.R:203
+msgid "translator"
+msgstr "번역자"
+
+#: build-home-citation.R:36
+msgid "Citing %s"
+msgstr "%s 인용하기"
+
+#: build-home-citation.R:91
+msgid "Authors and Citation"
+msgstr "저자와 인용"
+
+#: build-home-community.R:18
+msgid "Contributing guide"
+msgstr "기여 가이드"
+
+#: build-home-community.R:22
+msgid "Code of conduct"
+msgstr "행동강령"
+
+#: build-home-community.R:29
+msgid "Community"
+msgstr "커뮤니티"
+
+#: build-home-index.R:85
+msgid "Dev Status"
+msgstr "개발 상태"
+
+#: build-home-index.R:153
+msgid "View on %s"
+msgstr "%s에서 보기"
+
+#: build-home-index.R:154
+msgid "Browse source code"
+msgstr "소스코드 보기"
+
+#: build-home-index.R:155
+msgid "Report a bug"
+msgstr "버그 신고"
+
+#: build-home-index.R:159
+msgid "Links"
+msgstr "링크"
+
+#: build-home-index.R:164
+msgid "Table of contents"
+msgstr "목차"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "라이선스"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "전체 라이선스"
+
+#: build-news.R:100 build-news.R:233 build-news.R:238
+msgid "Changelog"
+msgstr "변경 사항"
+
+#: build-news.R:124
+msgid "Version %s"
+msgstr "버전 %s"
+
+#: build-news.R:136 build-news.R:227
+msgid "News"
+msgstr "뉴스"
+
+#: build-news.R:229
+msgid "Releases"
+msgstr "릴리즈"
+
+#: build-news.R:285
+msgid "CRAN release: %s"
+msgstr "CRAN 배포: %s"
+
+#: build-reference-index.R:19
+msgid "Function reference"
+msgstr "함수 레퍼런스"
+
+#: build-reference-index.R:112
+msgid "All functions"
+msgstr ""
+
+#: build-reference.R:355
+msgid "Usage"
+msgstr "사용법"
+
+#: build-tutorials.R:46 navbar.R:100
+msgid "Tutorials"
+msgstr "튜토리얼"
+
+#: development.R:72
+msgid "Released version"
+msgstr "배포 버전"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "개발 버전"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "배포전 버전"
+
+#: navbar.R:97
+msgid "Reference"
+msgstr "참조"
+
+#: navbar.R:128
+msgid "Get started"
+msgstr "시작하기"
+
+#: navbar.R:154
+msgid "More articles..."
+msgstr "더 보기..."
+
+#: rd-data.R:33
+msgid "Details"
+msgstr "세부사항"
+
+#: rd-data.R:37
+msgid "Description"
+msgstr "설명"
+
+#: rd-data.R:41
+msgid "References"
+msgstr "참조"
+
+#: rd-data.R:45 render.R:95
+msgid "Source"
+msgstr "소스코드"
+
+#: rd-data.R:49
+msgid "Format"
+msgstr "양식"
+
+#: rd-data.R:53
+msgid "Note"
+msgstr "노트"
+
+#: rd-data.R:57
+msgid "Author"
+msgstr "저자"
+
+#: rd-data.R:61
+msgid "See also"
+msgstr "더 보기"
+
+#: rd-data.R:77
+msgid "Arguments"
+msgstr "인수"
+
+#: rd-data.R:85
+msgid "Value"
+msgstr "값"
+
+#: rd-html.R:205
+msgid "# %s method for %s"
+msgstr "# %s 타입인 %s의 메서드"
+
+#: render.R:91
+msgid "Skip to contents"
+msgstr "콘텐츠로 바로가기"
+
+#: render.R:92
+msgid "Toggle navigation"
+msgstr "네비게이션바 열기"
+
+#: render.R:93
+msgid "Search for"
+msgstr "검색"
+
+#: render.R:94
+msgid "On this page"
+msgstr "목차"
+
+#: render.R:96
+msgid "Abstract"
+msgstr "초록"
+
+#: render.R:98
+msgid "Version"
+msgstr "버전"
+
+#: render.R:99
+msgid "Examples"
+msgstr "예시 코드"
+
+#: render.R:100
+msgid "Citation"
+msgstr "인용"
+
+#: repo.R:33
+msgid "Source:"
+msgstr "소스코드:"
+
+#: tweak-sidebar.R:17
+msgid "Dev status"
+msgstr "개발 상태"

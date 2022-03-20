@@ -4,6 +4,14 @@ test_that("check_bootswatch_theme() works", {
   expect_snapshot_error(check_bootswatch_theme("paper", 4, list()))
 })
 
+test_that("capture data_template()", {
+  pkg <- as_pkgdown(test_path("assets/site-empty"))
+  data <- data_template(pkg)
+  data$year <- "<year>"
+  data$footer$right <- gsub(packageVersion("pkgdown"), "{version}", data$footer$right, fixed = TRUE)
+  expect_snapshot_output(data)
+})
+
 test_that("can include text in header, before body, and after body", {
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:

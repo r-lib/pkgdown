@@ -15,10 +15,11 @@
     </div>
 
     {{#usage}}
-    <div class="ref-usage sourceCode">{{{.}}}</div>
+    <div id="ref-usage">{{#contents}}
+    {{{.}}}
+    {{/contents}}</div>
     {{/usage}}
 
-    <div id="ref-sections">
     {{#sections}}
     <div id="{{slug}}">
     <h2>{{{title}}}</h2>
@@ -27,12 +28,11 @@
     {{/contents}}
     </div>
     {{/sections}}
-    </div>
 
     {{#examples}}
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode">{{{.}}}</div>
+    {{{.}}}
     </div>
     {{/examples}}
   </div>

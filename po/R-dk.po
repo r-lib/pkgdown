@@ -1,0 +1,287 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.1.9000\n"
+"POT-Creation-Date: 2021-12-20 18:48+0100\n"
+"PO-Revision-Date: 2021-12-20 18:48+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: dk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "Side ikke fundet (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "Indhold ikke fundet. Brug venligst links i menuen"
+
+#: build-articles.R:379 navbar.R:134 navbar.R:141 navbar.R:156
+msgid "Articles"
+msgstr "Artikler"
+
+#: build-articles.R:428
+msgid "All vignettes"
+msgstr "Alle vignetter"
+
+#: build-footer.R:29
+msgid "Developed by"
+msgstr "Udviklet af"
+
+#: build-footer.R:34
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "Side bygget med <a href=\"%s\">pkgdown</a> %s."
+
+#: build-home-authors.R:92
+msgid "More about authors..."
+msgstr "Mere om forfatterene"
+
+#: build-home-authors.R:95
+msgid "Developers"
+msgstr "Udviklere"
+
+#: build-home-authors.R:100 render.R:97
+msgid "Authors"
+msgstr "Forfattere"
+
+#: build-home-authors.R:193
+msgid "author"
+msgstr "forfatter"
+
+#: build-home-authors.R:194
+msgid "compiler"
+msgstr "compiler"
+
+#: build-home-authors.R:195
+msgid "contractor"
+msgstr "leverandør"
+
+#: build-home-authors.R:196
+msgid "contributor"
+msgstr "Bidragsyder"
+
+#: build-home-authors.R:197
+msgid "copyright holder"
+msgstr "Indehaver af ophavsret"
+
+#: build-home-authors.R:198
+msgid "maintainer"
+msgstr "maintainer"
+
+#: build-home-authors.R:199
+msgid "data contributor"
+msgstr "dataleverandør"
+
+#: build-home-authors.R:200
+msgid "funder"
+msgstr "bevilgingsgiver"
+
+#: build-home-authors.R:201
+msgid "reviewer"
+msgstr "bedømmer"
+
+#: build-home-authors.R:202
+msgid "thesis advisor"
+msgstr "vejleder"
+
+#: build-home-authors.R:203
+msgid "translator"
+msgstr "oversætter"
+
+#: build-home-citation.R:36
+msgid "Citing %s"
+msgstr "Citér %s"
+
+#: build-home-citation.R:91
+msgid "Authors and Citation"
+msgstr "Forfattere og citation"
+
+#: build-home-community.R:18
+msgid "Contributing guide"
+msgstr "Guide til bidragsydere"
+
+#: build-home-community.R:22
+msgid "Code of conduct"
+msgstr "Etisk regelsæt"
+
+#: build-home-community.R:29
+msgid "Community"
+msgstr "Fællesskab"
+
+#: build-home-index.R:85
+msgid "Dev Status"
+msgstr "Udviklingsstatus"
+
+#: build-home-index.R:153
+msgid "View on %s"
+msgstr "Se på %s"
+
+#: build-home-index.R:154
+msgid "Browse source code"
+msgstr "Se kildekode"
+
+#: build-home-index.R:155
+msgid "Report a bug"
+msgstr "Rapportér en fejl"
+
+#: build-home-index.R:159
+msgid "Links"
+msgstr "Links"
+
+#: build-home-index.R:164
+msgid "Table of contents"
+msgstr "Indholdsfortegnelse"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "Licens"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "Fuld licens"
+
+#: build-news.R:100 build-news.R:233 build-news.R:238
+msgid "Changelog"
+msgstr "Ændringslog"
+
+#: build-news.R:124
+msgid "Version %s"
+msgstr "Version %s"
+
+#: build-news.R:136 build-news.R:227
+msgid "News"
+msgstr "Nyheder"
+
+#: build-news.R:229
+msgid "Releases"
+msgstr "Udgivelser"
+
+#: build-news.R:285
+msgid "CRAN release: %s"
+msgstr "CRAN udgivelse: %s"
+
+#: build-reference-index.R:19
+msgid "Function reference"
+msgstr "Funktionsoversigt"
+
+#: build-reference-index.R:112
+msgid "All functions"
+msgstr "Alle funktioner"
+
+#: build-reference.R:355
+msgid "Usage"
+msgstr "Brug"
+
+#: build-tutorials.R:46 navbar.R:100
+msgid "Tutorials"
+msgstr "Vejledning"
+
+#: development.R:72
+msgid "Released version"
+msgstr "Udgivet version"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "Version under udvikling"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "Ikke-udgivet version"
+
+#: navbar.R:97
+msgid "Reference"
+msgstr "Reference"
+
+#: navbar.R:128
+msgid "Get started"
+msgstr "Kom igang"
+
+#: navbar.R:154
+msgid "More articles..."
+msgstr "Flere artikler..."
+
+#: rd-data.R:33
+msgid "Details"
+msgstr "Detaljer"
+
+#: rd-data.R:37
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: rd-data.R:41
+msgid "References"
+msgstr "Referencer"
+
+#: rd-data.R:45 render.R:95
+msgid "Source"
+msgstr "Kilde"
+
+#: rd-data.R:49
+msgid "Format"
+msgstr "Format"
+
+#: rd-data.R:53
+msgid "Note"
+msgstr "Note"
+
+#: rd-data.R:57
+msgid "Author"
+msgstr "Forfatter"
+
+#: rd-data.R:61
+msgid "See also"
+msgstr "Se også"
+
+#: rd-data.R:77
+msgid "Arguments"
+msgstr "Argumenter"
+
+#: rd-data.R:85
+msgid "Value"
+msgstr "Værdi"
+
+#: rd-html.R:205
+msgid "# %s method for %s"
+msgstr "# %s metode for %s"
+
+#: render.R:91
+msgid "Skip to contents"
+msgstr "Spring til indhold"
+
+#: render.R:92
+msgid "Toggle navigation"
+msgstr "Slå navigation til og fra"
+
+#: render.R:93
+msgid "Search for"
+msgstr "Søg"
+
+#: render.R:94
+msgid "On this page"
+msgstr "På denne side"
+
+#: render.R:96
+msgid "Abstract"
+msgstr "Sammenfatning"
+
+#: render.R:98
+msgid "Version"
+msgstr "Version"
+
+#: render.R:99
+msgid "Examples"
+msgstr "Eksempler"
+
+#: render.R:100
+msgid "Citation"
+msgstr "Reference"
+
+#: repo.R:33
+msgid "Source:"
+msgstr "Kilde:"
+
+#: tweak-sidebar.R:17
+msgid "Dev status"
+msgstr "Udviklingsstatus"

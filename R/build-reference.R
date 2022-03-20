@@ -295,6 +295,7 @@ build_reference_topic <- function(topic,
   deps <- data$dependencies
   data$has_deps <- !is.null(deps)
   if (data$has_deps) {
+    deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
     deps <- purrr::map(deps,
       htmltools::copyDependencyToDir,
@@ -306,7 +307,7 @@ build_reference_topic <- function(topic,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
-    data$dependencies <- htmltools::renderDependencies(deps, "file")
+    data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))
   }
 
   render_page(
@@ -350,7 +351,13 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
   out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
-  out$usage <- as_data(tags$tag_usage[[1]])
+  if (length(tags$tag_usage[[1]])) {
+    out$usage <- list(
+      title = tr_("Usage"),
+      contents = as_data(tags$tag_usage[[1]])
+    )
+  }
+
 
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(

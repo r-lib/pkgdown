@@ -70,7 +70,7 @@ knitr::opts_chunk$set(
 If you have a package logo, you can include it at the top of your README in a level-one heading:\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{# pkgdown <img src="man/figures/logo.png" align="right" />
 }\if{html}{\out{</div>}}
 
-[init_site()] will also automatically create a favicon set from your package logo.
+\code{\link[=init_site]{init_site()}} will also automatically create a favicon set from your package logo.
 }
 
 \subsection{YAML config - home}{
@@ -214,7 +214,7 @@ This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\pre
 
 These are drawn from seven built-in components:
 \itemize{
-\item \code{links}: automated links generated from \code{URL} and \code{BugReports} \code{DESCRIPTION} fields plus manual links from the \code{home.links} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
+\item \code{links}: automated links generated from \code{URL} and \code{BugReports} fields from \code{DESCRIPTION} plus manual links from the \code{home.links} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   links:
   - text: Link text
     href: https://website.com
@@ -223,7 +223,7 @@ These are drawn from seven built-in components:
 }\if{html}{\out{</div>}}
 \item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or \code{LICENSE.md}/\code{LICENCE.md} files are present.
 \item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
-\item \code{citation}: link to the package citation if it exists.
+\item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
 \item \code{dev}: development status badges found in \code{README.md}/\code{index.md}.
 \item \code{toc}: a table of contents for the README (not shown by default).

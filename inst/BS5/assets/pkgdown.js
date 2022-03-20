@@ -6,13 +6,15 @@
 
     Toc.init({
       $nav: $("#toc"),
-      $scope: $(".contents h2, .contents h3, .contents h4, .contents h5,.contents h6")
+      $scope: $("main h2, main h3, main h4, main h5, main h6")
     });
 
-    $('body').scrollspy({
-      target: '#toc',
-      offset: 56 // headroom height
-    });
+    if ($('#toc').length) {
+      $('body').scrollspy({
+        target: '#toc',
+        offset: $("nav.navbar").outerHeight() + 1
+      });
+    }
 
     // Activate popovers
     $('[data-bs-toggle="popover"]').popover({
@@ -68,7 +70,7 @@
     /* Search marking --------------------------*/
     var url = new URL(window.location.href);
     var toMark = url.searchParams.get("q");
-    var mark = new Mark("div.col-md-9");
+    var mark = new Mark("main#main");
     if (toMark) {
       mark.mark(toMark, {
         accuracy: {

@@ -16,6 +16,10 @@ test_that("leading text is optional", {
   )
 })
 
+test_that("can process empty string", {
+  expect_equal(value2html(""), character())
+})
+
 test_that("leading text is optional", {
   expect_equal( value2html("text"),"<p>text</p>")
 })

@@ -1,4 +1,5 @@
 test_that("parse failures include file name", {
+  skip_if_not_installed("rlang", "0.99")
   pkg <- local_pkgdown_site("assets/reference-fail")
   expect_snapshot(build_reference(pkg), error = TRUE)
 })
@@ -25,4 +26,66 @@ test_that("examples_env sets width", {
 
   examples_env(pkg)
   expect_equal(getOption("width"), 50)
+})
+
+
+test_that("test usage ok on rendered page", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  expect_output(build_reference(pkg, topics = "c"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
+  expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
+  clean_site(pkg)
+
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+      template:
+        bootstrap: 5
+    ")
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "c"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
+  # tweak_anchors() moves id into <h2>
+  expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")
+})
+
+test_that(".Rd without usage doesn't get Usage section", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  expect_output(build_reference(pkg, topics = "e"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
+  expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
+  clean_site(pkg)
+
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+      template:
+        bootstrap: 5
+    ")
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "e"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
+  # tweak_anchors() moves id into <h2>
+  expect_equal(xpath_length(html, "//div[h2[@id='ref-usage']]"), 0)
+})
+
+test_that("pkgdown html dependencies are suppressed from examples in references", {
+  pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
+  expect_output(init_site(pkg))
+  expect_output(build_reference(pkg, topics = "a"))
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
+
+  # jquery is only loaded once, even though it's included by an example
+  expect_equal(xpath_length(html, ".//script[(@src and contains(@src, '/jquery'))]"), 1)
+
+  # same for bootstrap js and css
+  str_subset_bootstrap <- function(x) {
+    bs_rgx <- "bootstrap-[\\d.]+" # ex: bootstrap-5.1.0 not bootstrap-toc,
+    grep(bs_rgx, x, value = TRUE, perl = TRUE)
+  }
+  bs_js_src <- str_subset_bootstrap(
+    xpath_attr(html, ".//script[(@src and contains(@src, '/bootstrap'))]", "src")
+  )
+  expect_length(bs_js_src, 1)
+
+  bs_css_href <- str_subset_bootstrap(
+    xpath_attr(html, ".//link[(@href and contains(@href, '/bootstrap'))]", "href")
+  )
+  expect_length(bs_css_href, 1)
 })
