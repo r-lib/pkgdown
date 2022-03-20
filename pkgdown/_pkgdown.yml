@@ -39,6 +39,7 @@ articles:
   - linking
   - search
   - metadata
+  - how-to-update-released-site
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not
