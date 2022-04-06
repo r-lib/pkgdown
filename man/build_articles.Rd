@@ -16,7 +16,7 @@ build_articles(
 
 build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
 
-build_articles_index(pkg = ".")
+build_articles_index(pkg = ".", no_render = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -37,6 +37,8 @@ freshly generated section in browser.}
 relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
 
 \item{data}{Additional data to pass on to template.}
+
+\item{no_render}{Whether to skip rendering the articles index.}
 }
 \description{
 \code{build_articles()} renders each R Markdown file underneath \verb{vignettes/} and

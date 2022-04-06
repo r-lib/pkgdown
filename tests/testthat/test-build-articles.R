@@ -192,3 +192,8 @@ test_that("pkgdown deps are included only once in articles", {
   )
   expect_length(bs_css_href, 1)
 })
+
+test_that("building article index works with no render", {
+  pkg <- as_pkgdown(test_path("assets/articles"))
+  expect_silent(build_articles_index(pkg, no_render = TRUE))
+})

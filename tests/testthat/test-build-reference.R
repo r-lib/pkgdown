@@ -89,3 +89,17 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
   )
   expect_length(bs_css_href, 1)
 })
+
+test_that("warns if missing topics with no render", {
+  ref <- list(
+    list(contents = c("a", "b"))
+  )
+  meta <- list(reference = ref)
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  withr::local_envvar(c(CI = "false"))
+  expect_warning(build_reference_index(pkg, no_render = TRUE), "Topics missing")
+
+  withr::local_envvar(c(CI = "true"))
+  expect_error(build_reference_index(pkg, no_render = TRUE), "Topics missing")
+})

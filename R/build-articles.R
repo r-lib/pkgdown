@@ -334,16 +334,22 @@ rmarkdown_template <- function(pkg, name, data, depth) {
 
 #' @export
 #' @rdname build_articles
-build_articles_index <- function(pkg = ".") {
+#' @param no_render Whether to skip rendering the articles index.
+build_articles_index <- function(pkg = ".", no_render = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   dir_create(path(pkg$dst_path, "articles"))
+
+  if (isTRUE(no_render)) {
+    data_articles_index(pkg)
+  } else {
   render_page(
     pkg,
     "article-index",
     data = data_articles_index(pkg),
     path = path("articles", "index.html")
   )
+  }
 }
 
 data_articles_index <- function(pkg = ".") {

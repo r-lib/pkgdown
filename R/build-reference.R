@@ -240,7 +240,8 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".") {
+#' @param no_render Whether to skip rendering the reference index.
+build_reference_index <- function(pkg = ".", no_render = FALSE) {
   pkg <- section_init(pkg, depth = 1L)
   dir_create(path(pkg$dst_path, "reference"))
 
@@ -251,12 +252,15 @@ build_reference_index <- function(pkg = ".") {
     dir_copy_to(pkg, src_icons, dst_icons)
   }
 
-  render_page(
-    pkg, "reference-index",
-    data = data_reference_index(pkg),
-    path = "reference/index.html"
-  )
-
+  if (isTRUE(no_render)) {
+    data_reference_index(pkg)
+  } else {
+    render_page(
+      pkg, "reference-index",
+      data = data_reference_index(pkg),
+      path = "reference/index.html"
+    )
+}
   invisible()
 }
 

@@ -18,7 +18,7 @@ build_reference(
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", no_render = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -49,6 +49,8 @@ If \code{FALSE}, uses the installed version of the package.}
 
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}
+
+\item{no_render}{Whether to skip rendering the reference index.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in
