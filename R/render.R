@@ -117,6 +117,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   }
 
   # Development settings; tooltip needs to be generated at render time
+
   out$development <- pkg$development
   out$development$version_tooltip <- version_tooltip(pkg$development$mode)
 
