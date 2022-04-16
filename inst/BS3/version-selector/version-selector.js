@@ -37,16 +37,10 @@ function check_page_exists_and_redirect(event) {
    * dropdown where you can select the version of the docs to view.
    */
 
-     // Get the start of the path which includes the version number or "dev"
-     // where applicable and add the "/docs/" suffix
-    $pathStart = function(){
-      return window.location.origin + "/docs/";
-    }
-
     // Get the end of the path after the version number or "dev" if present
     $pathEnd  = function(){
       var current_path = window.location.pathname;
-      return current_path.match("(?<=\/r).*");
+      return current_path.match("\/r.*")[0].substr(2);
     }
 
     // Load JSON file mapping between docs version and R package version
@@ -67,7 +61,7 @@ function check_page_exists_and_redirect(event) {
         // Add a new option to the dropdown selector
         const opt = document.createElement("option");
         // Set the path based on the 'version' field
-        opt.value = $pathStart() + val.version + "r" + $pathEnd();
+        opt.value = window.location.origin + val.version + $pathEnd();
         // Set the currently selected item based on the major and minor version numbers
         opt.selected = val.name.match("[0-9.]*")[0] === displayed_version;
         // Set the displayed text based on the 'name' field
