@@ -12,18 +12,17 @@ $(window).bind("pageshow", function(event) {
  */
 function check_page_exists_and_redirect(event) {
 
-  const path_to_try = event.target.value;
+  const path_to_try = event.target.value[0];
+  const fallback_path = event.target.value[1]
 
-  const base_path = path_to_try.match("(.*\/r\/)?")[0];
-  let try_url = path_to_try;
   $.ajax({
       type: 'HEAD',
-      url: try_url,
+      url: path_to_try,
       success: function() {
-          location.href = try_url;
+          location.href = path_to_try;
       }
   }).fail(function() {
-      location.href = base_path;
+      location.href = fallback_path;
   });
   return false;
 }
@@ -57,7 +56,8 @@ function check_page_exists_and_redirect(event) {
         // Get the final component of the path
         const pathEnd = window.location.pathname.replace(val.path, "");
         // Set the path based on the 'path' field
-        opt.value = window.location.origin + val.path + pathEnd;
+        const base_path = window.location.origin + val.path;
+        opt.value = [base_path + pathEnd, base_path];
         // Set the currently selected item based on the major and minor version numbers
         opt.selected = val.version === displayed_version;
         // Set the displayed text based on the 'label' field
