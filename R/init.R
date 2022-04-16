@@ -72,6 +72,10 @@ copy_assets <- function(pkg = ".") {
     copy_asset_dir(pkg, assets)
   }
 
+  if (!is.null(pkg$meta$version_selector)) {
+    copy_asset_dir(pkg, path_pkgdown(paste0("BS", pkg$bs_version), "version-selector"))
+  }
+
   # extras
   copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
   # site assets
