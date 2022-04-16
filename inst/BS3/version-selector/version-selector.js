@@ -59,9 +59,9 @@ function check_page_exists_and_redirect(event) {
         // Set the path based on the 'version' field
         opt.value = window.location.origin + val.path + pathEnd;
         // Set the currently selected item based on the major and minor version numbers
-        opt.selected = val.name.match("[0-9.]*")[0] === displayed_version;
+        opt.selected = val.version === displayed_version;
         // Set the displayed text based on the 'name' field
-        opt.text = val.name;
+        opt.text = val.label;
         // Add to the selector
         sel.append(opt);
       });
