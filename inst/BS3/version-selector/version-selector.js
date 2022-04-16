@@ -50,7 +50,7 @@ function check_page_exists_and_redirect(event) {
     }
 
     // Load JSON file mapping between docs version and R package version
-    $.getJSON("https://arrow.apache.org/docs/r/versions.json", function( data ) {
+    $.getJSON("./versions.json", function( data ) {
       // get the current page's version number:
       var displayed_version = $('.version').text();
       // Create a dropdown selector and add the appropriate attributes
