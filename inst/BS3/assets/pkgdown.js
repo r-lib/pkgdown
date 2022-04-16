@@ -76,6 +76,24 @@
     element.setAttribute('data-original-title', tooltipOriginalTitle);
   }
 
+  function check_page_exists_and_redirect(event) {
+
+    const path_to_try = event.target.value;
+
+    const base_path = path_to_try.match("(.*\/r\/)?")[0];
+    let try_url = path_to_try;
+    $.ajax({
+        type: 'HEAD',
+        url: try_url,
+        success: function() {
+            location.href = try_url;
+        }
+    }).fail(function() {
+        location.href = base_path;
+    });
+    return false;
+  }
+
   if(ClipboardJS.isSupported()) {
     $(document).ready(function() {
       var copyButton = "<button type='button' class='btn btn-primary btn-copy-ex' type = 'submit' title='Copy to clipboard' aria-label='Copy to clipboard' data-toggle='tooltip' data-placement='left auto' data-trigger='hover' data-clipboard-copy><i class='fa fa-copy'></i></button>";
