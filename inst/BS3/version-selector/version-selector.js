@@ -61,7 +61,7 @@ function check_page_exists_and_redirect(event) {
         // Add a new option to the dropdown selector
         const opt = document.createElement("option");
         // Set the path based on the 'version' field
-        opt.value = window.location.origin + val.version + $pathEnd();
+        opt.value = window.location.origin + val.path + $pathEnd();
         // Set the currently selected item based on the major and minor version numbers
         opt.selected = val.name.match("[0-9.]*")[0] === displayed_version;
         // Set the displayed text based on the 'name' field
