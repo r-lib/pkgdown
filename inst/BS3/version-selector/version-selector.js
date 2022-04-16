@@ -12,8 +12,9 @@ $(window).bind("pageshow", function(event) {
  */
 function check_page_exists_and_redirect(event) {
 
-  const path_to_try = event.target.value[0];
-  const fallback_path = event.target.value[1]
+  const urls = event.target.value.split(",")
+  const path_to_try = urls[0];
+  const fallback_path = urls[1]
 
   $.ajax({
       type: 'HEAD',
@@ -37,7 +38,7 @@ function check_page_exists_and_redirect(event) {
    */
 
     // Load JSON file mapping between docs version and R package version
-    $.getJSON("./versions.json", function( data ) {
+    $.getJSON(window.location.origin + "/versions.json", function( data ) {
       // get the current page's version number:
       var displayed_version = $('.version').text();
       // Create a dropdown selector and add the appropriate attributes
@@ -69,8 +70,5 @@ function check_page_exists_and_redirect(event) {
       // Replace the HTML "version" component with the new selector
       $("span.version").replaceWith(sel);
     });
-});
-
-
+  });
 })();
-
