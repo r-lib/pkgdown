@@ -1,6 +1,7 @@
 version_selector:
   base_url: https://arrow.apache.org/docs/
-  - ["7.0.0.9000 (dev)", "dev/r"]
-  - ["7.0.0 (release)", "r"]
-  - ["6.0.1", "6.0/r"]
-  - ["5.0.0", "5.0/r"]
+  versions:
+    - ["7.0.0.9000 (dev)", "dev/r"]
+    - ["7.0.0 (release)", "r"]
+    - ["6.0.1", "6.0/r"]
+    - ["5.0.0", "5.0/r"]
