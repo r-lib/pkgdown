@@ -165,5 +165,5 @@ is_non_pkgdown_site <- function(dst_path) {
 has_versions <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  file.exists(path(pkg$src_path, "pkgdown", "versions.json"))
+  file.exists(path(pkg$src_path, "pkgdown", "assets", "versions.json"))
 }
