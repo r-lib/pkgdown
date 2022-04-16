@@ -56,11 +56,11 @@ function check_page_exists_and_redirect(event) {
         const opt = document.createElement("option");
         // Get the final component of the path
         const pathEnd = window.location.pathname.replace(val.path, "");
-        // Set the path based on the 'version' field
+        // Set the path based on the 'path' field
         opt.value = window.location.origin + val.path + pathEnd;
         // Set the currently selected item based on the major and minor version numbers
         opt.selected = val.version === displayed_version;
-        // Set the displayed text based on the 'name' field
+        // Set the displayed text based on the 'label' field
         opt.text = val.label;
         // Add to the selector
         sel.append(opt);
