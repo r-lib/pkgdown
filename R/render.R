@@ -107,6 +107,7 @@ data_template <- function(pkg = ".", depth = 0L) {
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
   )
+  out$version_selector <- has_versions(pkg)
   out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
   out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   # Force inclusion so you can reliably refer to objects inside yaml
