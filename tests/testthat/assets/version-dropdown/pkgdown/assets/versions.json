@@ -1,42 +1,22 @@
 [
     {
-        "label": "7.0.0.9000 (dev)",
-        "version": "7.0.0.9000",
-        "path": "/docs/dev/r"
+        "label": "the latest, the greatest, it's 1.0.0 (dev)",
+        "version": "1.0.0",
+        "path": ""
     },
     {
-        "label": "7.0.0 (release)",
-        "version": "7.0.0",
-        "path": "/docs/r"
+        "label": "last one was 0.8",
+        "version": "0.9",
+        "path": "/0.9"
     },
     {
-        "label": "6.0.1",
-        "version": "6.0.1",
-        "path": "/docs/6.0/r"
+        "label": "0.8 is old",
+        "version": "0.8",
+        "path": "/0.8"
     },
     {
-        "label": "5.0.0",
-        "version": "5.0.0",
-        "path": "/docs/5.0/r"
-    },
-    {
-        "label": "4.0.1",
-        "version": "4.0.1",
-        "path": "/docs/4.0/r"
-    },
-    {
-        "label": "3.0.0",
-        "version": "3.0.0",
-        "path": "/docs/3.0/r"
-    },
-    {
-        "label": "2.0.0",
-        "version": "2.0.0",
-        "path": "/docs/2.0/r"
-    },
-    {
-        "label": "1.0.1",
-        "version": "1.0.1",
-        "path": "/docs/1.0/r"
+        "label": "0.7 is the oldest tho",
+        "version": "0.7",
+        "path": "/0.7"
     }
 ]
