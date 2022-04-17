@@ -73,7 +73,7 @@ copy_assets <- function(pkg = ".") {
   }
 
   if (has_versions(pkg)) {
-    copy_asset_dir(pkg, path_pkgdown(paste0("BS", pkg$bs_version), "version-selector"))
+    copy_asset_dir(pkg, path_pkgdown("version-selector"))
   }
 
   # extras
