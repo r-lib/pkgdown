@@ -58,6 +58,7 @@ $(document).ready(function () {
       const pathEnd = window.location.pathname.replace(val.path, "");
       // Set the path based on the 'path' field
       const base_path = window.location.origin + val.path;
+      // Set value to the path and the fallback path
       opt.value = [base_path + pathEnd, base_path];
       // Set the currently selected item based on the major and minor version numbers
       opt.selected = val.version === displayed_version;
