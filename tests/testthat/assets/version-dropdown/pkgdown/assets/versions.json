@@ -1,6 +1,11 @@
 [
     {
-        "label": "the latest, the greatest, it's 1.0.0 (dev)",
+        "label": "the latest, the greatest, it's 1.0.0 (release)",
+        "version": "1.0.0.9000",
+        "path": "dev/"
+    },
+    {
+        "label": "the latest, the greatest, it's 1.0.0 (release)",
         "version": "1.0.0",
         "path": ""
     },
@@ -12,7 +17,7 @@
     {
         "label": "0.8 is old",
         "version": "0.8.1",
-        "path": "/0.8.0"
+        "path": "/0.8.1"
     },
     {
         "label": "0.7 is the oldest tho",
