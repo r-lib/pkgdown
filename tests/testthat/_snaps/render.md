@@ -48,6 +48,8 @@
       right: ''
     footer:
       left: <p>Developed by Hadley Wickham, RStudio.</p>
-      right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
+      right: |-
+        <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>
+        {version}.</p>
     
 
