@@ -139,7 +139,7 @@ test_that("BS5 sidebar is removed if TOC is not used", {
 
 test_that("articles in vignettes/articles/ are unnested into articles/", {
   # weird path differences that I don't have the energy to dig into
-  skip_if(identical(R.version$crt, "ucrt"))
+  skip_on_cran()
 
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("articles/nested", pkg))
