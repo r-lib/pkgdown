@@ -86,7 +86,12 @@ markdown_to_html <- function(text, dedent = 4, bs_version = 3) {
   md_path <- withr::local_tempfile()
   html_path <- withr::local_tempfile()
 
-  write_lines(text, md_path)
+  # Quick hack to output the same \n on all platforms
+  # This probably doesn't handle UTF-8 correctly, but that's ok because this
+  # is only used for generating HTML in tests
+  con <- file(md_path, open = "wb+", encoding = "native.enc")
+  base::writeLines(text, con, useBytes = TRUE)
+  close(con)
   convert_markdown_to_html(md_path, html_path)
 
   html <- xml2::read_html(html_path, encoding = "UTF-8")
