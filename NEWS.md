@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 2.0.3
 
 * Fixes for R CMD check
