@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,7 @@
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
+    <a class="dropdown-item" href="../articles/how-to-update-released-site.html">How to update a released site</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/index.html">More articles...</a>
   </div>
@@ -76,6 +77,9 @@
       <small>Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.3" id="pkgdown-203">pkgdown 2.0.3<a class="anchor" aria-label="anchor" href="#pkgdown-203"></a></h2>
+<ul><li>Fixes for R CMD check</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.2" id="pkgdown-202">pkgdown 2.0.2<a class="anchor" aria-label="anchor" href="#pkgdown-202"></a></h2><p class="text-muted">CRAN release: 2022-01-13</p>
 <ul><li><p>New Korean (<code>ko</code>) translation thanks to <a href="https://github.com/mrchypark" class="external-link">@mrchypark</a> and <a href="https://github.com/peremen" class="external-link">@peremen</a> (<a href="https://github.com/r-lib/pkgdown/issues/1994" class="external-link">#1994</a>). New Danish (<code>dk</code>) translation thanks to <a href="https://github.com/LDalby" class="external-link">@LDalby</a>.</p></li>
@@ -210,7 +214,7 @@
 <h3 id="code-2-0-0">Code<a class="anchor" aria-label="anchor" href="#code-2-0-0"></a></h3>
 <ul><li><p>Styling for errors, warnings, and messages has been tweaked. Messages are now displayed the same way as output, and warnings and errors are bolded, not coloured. This is part of a suite of changes that aim to give package authors greater control over the appearance of messages, warnings, and errors.</p></li>
 <li><p>Long lines in code output are now wrapped, rather than requiring scrolling. This better matches <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> and what you see in the console.</p></li>
-<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> now allows linking to topics from other packages (either function names e.g. <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::is_installed</a></code> or topic names e.g.  <code><a href="https://rdrr.io/pkg/sass/man/font_face.html" class="external-link">sass::font_face</a></code>). (<a href="https://github.com/r-lib/pkgdown/issues/1664" class="external-link">#1664</a>)</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> now allows linking to topics from other packages (either function names e.g. <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::is_installed</a></code> or topic names e.g.  <code><a href="https://rstudio.github.io/sass/reference/font_face.html" class="external-link">sass::font_face</a></code>). (<a href="https://github.com/r-lib/pkgdown/issues/1664" class="external-link">#1664</a>)</p></li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> now runs examples with <code>options(rlang_interactive = FALSE)</code> (ensuring non-interactive behaviour in functions that use <code><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">rlang::is_interactive()</a></code>), <code>options(cli.dynamic = FALSE)</code>, <code>Sys.setenv(RSTUDIO = NA)</code> and <code>Sys.setLocale("LC_COLLATE", "C")</code> (<a href="https://github.com/r-lib/pkgdown/issues/1693" class="external-link">#1693</a>). It also runs <code>pkgdown/pre-reference.R</code> before and <code>pkgdown/post-reference.R</code> after examples. These allow you to do any setup or teardown operations you might need (<a href="https://github.com/r-lib/pkgdown/issues/1602" class="external-link">#1602</a>).</p></li>
 <li><p>A reference index section with <code>title: internal</code> is now silently dropped, allowing you to suppress warnings about topics that are not listed in the index (<a href="https://github.com/r-lib/pkgdown/issues/1716" class="external-link">#1716</a>).</p></li>
 <li><p>Code blocks are now highlighted according to their declared language (e.g. <code>yaml</code>) if the documentation was built with roxygen2 7.1.2 or later (<a href="https://github.com/r-lib/pkgdown/issues/1690" class="external-link">#1690</a>, <a href="https://github.com/r-lib/pkgdown/issues/1692" class="external-link">#1692</a>).</p></li>
@@ -273,16 +277,14 @@
 <li><p><code>build_rmarkdown_format</code> sets <code>html_document(anchor_sections = FALSE)</code> to avoid needless dependencies (<a href="https://github.com/atusy" class="external-link">@atusy</a>, <a href="https://github.com/r-lib/pkgdown/issues/1426" class="external-link">#1426</a>).</p></li>
 <li>
 <p>Jira issues in NEWS can be automatically linked by setting your project name</p>
-<ol start="19" style="list-style-type: lower-alpha"><li>with <code>repo: jira_projects: [...]</code> and specifying a custom issue URL with <code>repo: url: issue: ...</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/jonkeane" class="external-link">@jonkeane</a>, <a href="https://github.com/r-lib/pkgdown/issues/1466" class="external-link">#1466</a>).</li>
-</ol></li>
+<ol start="19" style="list-style-type: lower-alpha"><li>with <code>repo: jira_projects: [...]</code> and specifying a custom issue URL with <code>repo: url: issue: ...</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/jonkeane" class="external-link">@jonkeane</a>, <a href="https://github.com/r-lib/pkgdown/issues/1466" class="external-link">#1466</a>).</li></ol></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> always creates citation information for the authors page, using metadata from <code>DESCRIPTION</code> when there is no <code>inst/CITATION</code> file, and links to this from the sidebar (<a href="https://github.com/r-lib/pkgdown/issues/1904" class="external-link">#1904</a>).</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code> no longer breaks with URLs containing numeric fragments (<a href="https://github.com/krassowski" class="external-link">@krassowski</a>, <a href="https://github.com/r-lib/pkgdown/issues/1456" class="external-link">#1456</a>), recognises more styles of release heading (<a href="https://github.com/r-lib/pkgdown/issues/1437" class="external-link">#1437</a>), and generate stable IDs using a the combination of the heading slug and package number. (<a href="https://github.com/Bisaloo" class="external-link">@Bisaloo</a>, <a href="https://github.com/r-lib/pkgdown/issues/1015" class="external-link">#1015</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.1" id="pkgdown-161">pkgdown 1.6.1<a class="anchor" aria-label="anchor" href="#pkgdown-161"></a></h2><p class="text-muted">CRAN release: 2020-09-12</p>
-<ul><li>The article index (used for autolinking vignettes across packages) once again works (<a href="https://github.com/r-lib/pkgdown/issues/1401" class="external-link">#1401</a>).</li>
-</ul></div>
+<ul><li>The article index (used for autolinking vignettes across packages) once again works (<a href="https://github.com/r-lib/pkgdown/issues/1401" class="external-link">#1401</a>).</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.0" id="pkgdown-160">pkgdown 1.6.0<a class="anchor" aria-label="anchor" href="#pkgdown-160"></a></h2><p class="text-muted">CRAN release: 2020-09-07</p>
 <div class="section level3">
@@ -419,8 +421,7 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.1" id="pkgdown-141">pkgdown 1.4.1<a class="anchor" aria-label="anchor" href="#pkgdown-141"></a></h2><p class="text-muted">CRAN release: 2019-09-14</p>
-<ul><li>Don’t install test package in user library (fixes CRAN failure).</li>
-</ul></div>
+<ul><li>Don’t install test package in user library (fixes CRAN failure).</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.0" id="pkgdown-140">pkgdown 1.4.0<a class="anchor" aria-label="anchor" href="#pkgdown-140"></a></h2><p class="text-muted">CRAN release: 2019-09-03</p>
 <div class="section level3">
@@ -522,8 +523,7 @@
 </ul></div>
 <div class="section level4">
 <h4 id="news-1-2-0">News<a class="anchor" aria-label="anchor" href="#news-1-2-0"></a></h4>
-<ul><li>Uses stricter regular expression when linking to GitHub authors (<a href="https://github.com/r-lib/pkgdown/issues/902" class="external-link">#902</a>).</li>
-</ul></div>
+<ul><li>Uses stricter regular expression when linking to GitHub authors (<a href="https://github.com/r-lib/pkgdown/issues/902" class="external-link">#902</a>).</li></ul></div>
 <div class="section level4">
 <h4 id="reference-1-2-0">Reference<a class="anchor" aria-label="anchor" href="#reference-1-2-0"></a></h4>
 <ul><li><p>Unexported functions and test helpers are no longer loaded (<a href="https://github.com/r-lib/pkgdown/issues/789" class="external-link">#789</a>).</p></li>
@@ -535,8 +535,7 @@
 <p>The display depth of vignette tables of contents can be configured by setting <code>toc: depth</code> in <code>_pkgdown.yml</code> (<a href="https://github.com/r-lib/pkgdown/issues/821" class="external-link">#821</a>):</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span><span class="kw">:</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code></pre></div>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level4">
 <h4 id="overall-site-1-2-0">Overall site<a class="anchor" aria-label="anchor" href="#overall-site-1-2-0"></a></h4>
 <ul><li><p><code><a href="../reference/init_site.html">init_site()</a></code> now creates a CNAME file if one doesn’t already exist and the site’s metadata includes a <code>url</code> field.</p></li>
@@ -559,8 +558,7 @@
 <li><p>The Algolia logo is correctly shown in the search results (<a href="https://github.com/r-lib/pkgdown/issues/673" class="external-link">#673</a>).</p></li>
 <li>
 <p>Navbar active tab highlighting uses a superior approach (suggested by</p>
-<ol class="example" style="list-style-type: decimal"><li>which should mean that the active page is correctly highlighted in all scenarios (<a href="https://github.com/r-lib/pkgdown/issues/660" class="external-link">#660</a>).</li>
-</ol></li>
+<ol class="example" style="list-style-type: decimal"><li>which should mean that the active page is correctly highlighted in all scenarios (<a href="https://github.com/r-lib/pkgdown/issues/660" class="external-link">#660</a>).</li></ol></li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href="https://github.com/r-lib/pkgdown/issues/655" class="external-link">#655</a>).</p></li>
 </ul></div>
 <div class="section level3">
@@ -601,7 +599,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
