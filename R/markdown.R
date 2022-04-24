@@ -115,6 +115,7 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
       if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
       "--indented-code-classes=R",
       "--section-divs",
+      "--wrap=none",
       ...
     ))
   )
