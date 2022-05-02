@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
+
 # pkgdown 2.0.3
 
 * Fixes for R CMD check
