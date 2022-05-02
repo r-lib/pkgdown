@@ -288,3 +288,13 @@ print.pkgdown_xml <- function(x, ...) {
 tr_ <- function(...) {
   enc2utf8(gettext(..., domain = "R-pkgdown"))
 }
+
+strict_intersect <- function(...) {
+  out <- intersect(...)
+  if (length(out) == 0) {
+    return(character(0))
+  } else {
+    return(out)
+  }
+}
+

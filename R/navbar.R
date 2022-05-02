@@ -50,8 +50,8 @@ navbar_links <- function(navbar, components, depth = 0L, bs_version = 3L) {
   components[names(components_meta)] <- components_meta
   components <- purrr::compact(components)
 
-  right_comp <- intersect(structure$right, names(components))
-  left_comp <- intersect(structure$left, names(components))
+  right_comp <- strict_intersect(structure$right, names(components))
+  left_comp <- strict_intersect(structure$left, names(components))
 
   # Backward compatibility
   left <- navbar$left %||% components[left_comp]

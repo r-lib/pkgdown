@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+*  Workaround changes in R-4.2 that can break loading of yml configs (@jeroen, #2070).
+
 # pkgdown 2.0.3
 
 * Fixes for R CMD check

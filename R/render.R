@@ -192,7 +192,7 @@ check_open_graph <- function(og) {
       abort("The `opengraph: image` option must be a list.")
     }
   }
-  og[intersect(supported_fields, names(og))]
+  og[strict_intersect(supported_fields, names(og))]
 }
 
 render_template <- function(path, data) {
