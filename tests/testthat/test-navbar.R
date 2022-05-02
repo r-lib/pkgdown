@@ -155,3 +155,13 @@ test_that("render_navbar_links BS4 no divider before first element", {
   )
   expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
 })
+
+test_that("data_navbar() works with empty side", {
+  pkg <- local_pkgdown_site(meta = list(
+    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+  ))
+
+  pkg$meta$navbar$structure$right <- list()
+  pkg$meta$navbar$structure$left <- c("github", "reference")
+  expect_snapshot(data_navbar(pkg))
+})
