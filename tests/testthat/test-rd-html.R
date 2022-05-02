@@ -455,3 +455,8 @@ test_that("figures are converted to img", {
     "<img src='figures/a' height=1 />"
   )
 })
+
+test_that("figures with multilines alternative text can be parsed", {
+  expect_equal(rd2html("\\figure{a}{blabla
+    blop}"), "<img src='figures/a' alt='blabla blop' />")
+})
