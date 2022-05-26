@@ -2,6 +2,8 @@
 
 * Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
 
+* Bug fix: accounts roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff).
+
 # pkgdown 2.0.3
 
 * Fixes for R CMD check
