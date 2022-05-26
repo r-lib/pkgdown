@@ -25,3 +25,13 @@ test_that("pre() can produce needed range of outputs", {
     cat(pre("x", r_code = TRUE))
   })
 })
+
+test_that("tweak_highlight_other() renders generic code blocks for roxygen2 >= 7.2.0", {
+  div <- xml2::read_html('<div class="sourceCode"><pre><code>1+1\n</code></pre></div>') %>%
+    xml2::xml_find_first("//div")
+  tweak_highlight_other(div)
+  expect_equal(
+    xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
+    "1+1"
+  )
+})
