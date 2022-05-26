@@ -60,7 +60,7 @@ tweak_highlight_other <- function(div) {
 
   lang <- sub("sourceCode ", "", xml2::xml_attr(div, "class"))
   # since roxygen 7.2.0 generic code blocks have sourceCode with no lang
-  if (lang == "sourceCode") lang <- "r"
+  if (!is.na(lang) && lang == "sourceCode") lang <- "r"
   md <- paste0("```", lang, "\n", xml2::xml_text(code), "\n```")
   html <- markdown_text(md)
 
