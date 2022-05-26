@@ -58,6 +58,7 @@ tweak_highlight_other <- function(div) {
   }
 
   lang <- sub("sourceCode ", "", xml2::xml_attr(div, "class"))
+  if (lang == "sourceCode") lang <- "r"
   md <- paste0("```", lang, "\n", xml2::xml_text(code), "\n```")
   html <- markdown_text(md)
 
