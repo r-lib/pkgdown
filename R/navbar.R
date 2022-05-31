@@ -200,9 +200,6 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
   # function for links
   tackle_link <- function(x, index, is_submenu, depth) {
 
-    target = NULL
-    if (!is.na(x$target) && !is.null(x$target)) target =  x$target
-
     if (!is.null(x$menu)) {
 
       if (is_submenu) {
@@ -258,7 +255,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         htmltools::tags$a(
           class = "dropdown-item",
           href = x$href,
-          target = target,
+          target = x$target,
           textTags,
           "aria-label" = x$`aria-label` %||% NULL
         )
@@ -270,7 +267,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
       htmltools::tags$a(
         class = "nav-link",
         href = x$href,
-        target = target,
+        target = x$target,
         textTags,
         "aria-label" = x$`aria-label` %||% NULL
       )
