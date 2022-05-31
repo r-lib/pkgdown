@@ -175,7 +175,8 @@ path under <code>vignettes</code> without extension so that the name of the vign
 found at <code>vignettes/pizza/slice.Rmd</code> is <code>pizza/slice</code>.</p></li>
 </ul><p>The title and description of individual vignettes displayed on the index
 comes from <code>title</code> and <code>description</code> fields of the YAML header in the Rmds.</p>
-<p>For example, this yaml might be used for some version of dplyr:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articles</span><span class="kw">:</span></span>
+<p>For example, this yaml might be used for some version of dplyr:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articles</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Main verbs</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
@@ -221,7 +222,8 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
 <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html" class="external-link">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> My Document</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resource_files</span><span class="kw">:</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data/mydata.csv</span></span>
@@ -251,10 +253,12 @@ your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
 limited support for other output formats and you have to opt-in by setting
-the <code>as_is</code> field in your <code>.Rmd</code> metadata:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
+the <code>as_is</code> field in your <code>.Rmd</code> metadata:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">as_is</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
 <p>If the output format produces a PDF, you'll also need to specify the
-<code>extension</code> field:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
+<code>extension</code> field:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pkgdown</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">as_is</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">extension</span><span class="kw">:</span><span class="at"> pdf</span></span></code></pre><p></p></div>
 <p>To work with pkgdown, the output format must accept <code>template</code>, <code>theme</code>, and
@@ -281,7 +285,8 @@ present: if you do not want this, you will need to customise the navbar. See
 
 
 <p>You can control the default rendering of figures by specifying the <code>figures</code>
-field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
+field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">96</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dev.args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
