@@ -181,13 +181,13 @@ and can contain \code{href} and/or \code{html} fields:
 \item If \code{href} is provided, the author's name will be linked to this URL.
 \item If \code{html} is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
-sponsor.
+sponsor. Use an absolute URL to an image, not a relative link.
 }
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   firstname lastname:
     href: "http://name-website.com"
-    html: "<img src='name-picture.png' width=72>"
+    html: "<img src='https://website.com/name-picture.png' width=72>"
 }\if{html}{\out{</div>}}
 
 By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
