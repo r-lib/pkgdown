@@ -5,7 +5,8 @@
     Output
       -- Building home ---------------------------------------------------------------
       Writing 'authors.html'
-    Warning <rlang_warning>
+    Condition
+      Warning:
       Missing images in 'README.md': 'foo.png'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
     Output

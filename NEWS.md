@@ -1,5 +1,13 @@
 # pkgdown (development version)
 
+* Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
+
+* Bug fix: accounts roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff).
+
+# pkgdown 2.0.3
+
+* Fixes for R CMD check
+
 # pkgdown 2.0.2
 
 * New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).

@@ -18,7 +18,9 @@ Build a JSON file encompassing all HTML pages, for use by the search script.
 \section{YAML config}{
 
 You can exclude some paths from the search index.
-Below we exclude the changelog from the search index.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{search:
+Below we exclude the changelog from the search index.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{search:
   exclude: ['news/index.html']
 }\if{html}{\out{</div>}}
 }
