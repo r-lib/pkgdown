@@ -2,6 +2,9 @@
 
 * Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
 
+* New syntax highlight themes a11y-light, a11y-dark, monochrome-light, 
+  monochrome-dark, and solarized
+
 * Links to `@username` in NEWS.md work in more places (#2030).
 
 * Footnotes work with more contents, including code (@banfai, #2042).

@@ -115,8 +115,10 @@ json <- gh::gh("/repos/{owner}/{repo}/contents/{path}",
 )
 
 theme_names <- json %>% map_chr("name")
-theme_json <- map(theme_names, read_theme)
-names(theme_json) <- theme_names
+if (!exists("theme_json")) {
+  theme_json <- map(theme_names, read_theme)
+  names(theme_json) <- theme_names
+}
 iwalk(theme_json, save_theme)
 
 # themes <- theme_names %>% set_names() %>% map_df(theme_df, .id = "theme")
