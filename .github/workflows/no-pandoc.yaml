@@ -30,4 +30,5 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
+          build_args: --no-manual --no-build-vignette
           args: --no-vignettes
