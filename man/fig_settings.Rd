@@ -16,10 +16,12 @@ You will generally not need to use this function unless you are handling
 custom plot output.
 
 Packages needing custom parameters should ask users to place them within
-the \code{other.parameters} entry under the package name, e.g.\preformatted{figures:
+the \code{other.parameters} entry under the package name, e.g.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{figures:
   other.parameters:
     rgl:
       fig.asp: 1
-}
+}\if{html}{\out{</div>}}
 }
 \keyword{internal}
