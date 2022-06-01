@@ -17,13 +17,6 @@ Yay[^footnote]
 
 [^footnote]: Including **footnotes**! 😁
 
-Hooray[^footnote-code]
-
-[^footnote-code]: Including **footnotes** with code:
-```r
-1 + 2
-```
-
 ## Figures
 
 ```{r}
