@@ -144,7 +144,7 @@ tweak_tables <- function(html) {
 
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
-  container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
+  container <- xml2::xml_find_all(html, ".//div[contains(@class, 'footnotes')]")
   if (length(container) != 1) {
     return()
   }
@@ -153,7 +153,7 @@ tweak_footnotes <- function(html) {
   id <- xml2::xml_attr(footnotes, "id")
   xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
   contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
-    as.character(xml2::xml_children(x), options = character())
+    paste(as.character(xml2::xml_children(x), options = character()), collapse = "\n")
   })
   # Add popover attributes to links
   for (i in seq_along(id)) {
