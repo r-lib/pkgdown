@@ -120,13 +120,7 @@ match_env <- function(topics) {
 
     which(nomatch & is_public(internal))
   }
-  out$lacks_concept <- function(x, internal = FALSE) {
-    nomatch <- topics$concepts %>%
-      purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
-      purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
-
-    which(nomatch & is_public(internal))
-  }
+  out$lacks_concept <- out$lacks_concepts
   out
 }
 
