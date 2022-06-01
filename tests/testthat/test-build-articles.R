@@ -119,7 +119,7 @@ test_that("finds external resources referenced by R code in the article html", {
   )
 })
 
-test_that("BS5 article layout when article", {
+test_that("BS5 article laid out correctly with and without TOC", {
   pkg <- local_pkgdown_site(test_path("assets/articles"), "
     template:
       bootstrap: 5
@@ -127,32 +127,18 @@ test_that("BS5 article layout when article", {
 
   expect_output(init_site(pkg))
   expect_output(toc_true_path <- build_article("standard", pkg))
-  toc_true_html <- xml2::read_html(toc_true_path)
-
-  # We have a main with .col-md-9 if TOC is present
-  xpath_contents <- ".//main[contains(@class, 'col-md-9')]"
-  expect_equal(xpath_length(toc_true_html, xpath_contents), 1)
-
-  # The #pkgdown-sidebar is suppressed if the article has toc: false
-  expect_equal(xpath_length(toc_true_html, ".//aside"), 1)
-})
-
-test_that("BS5 sidebar is removed if TOC is not used", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"), "
-    template:
-      bootstrap: 5
-  ")
-
-  expect_output(init_site(pkg))
   expect_output(toc_false_path <- build_article("toc-false", pkg))
-  toc_false_html <- xml2::read_html(toc_false_path)
 
-  # We don't have a main with .col-md-9 if TOC isn't present
-  xpath_contents <- ".//main[contains(@class, 'col-md-9')]"
-  expect_equal(xpath_length(toc_false_html, xpath_contents), 0)
+  toc_true <- xml2::read_html(toc_true_path)
+  toc_false <- xml2::read_html(toc_false_path)
 
-  # The #pkgdown-sidebar is suppressed if the article has toc: false
-  expect_equal(xpath_length(toc_false_html, ".//aside"), 0)
+  # Always has class col-md-9
+  expect_equal(xpath_attr(toc_false, ".//main", "class"), "col-md-9")
+  expect_equal(xpath_attr(toc_true, ".//main", "class"), "col-md-9")
+
+  # The no sidebar without toc
+  expect_equal(xpath_length(toc_true, ".//aside"), 1)
+  expect_equal(xpath_length(toc_false, ".//aside"), 0)
 })
 
 test_that("articles in vignettes/articles/ are unnested into articles/", {
