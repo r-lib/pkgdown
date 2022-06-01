@@ -230,3 +230,25 @@ test_that("selectively remove hide- divs", {
   tweak_strip(html, in_dev = FALSE)
   expect_equal(xpath_text(html, ".//div"), "release")
 })
+
+
+# footnotes ---------------------------------------------------------------
+
+test_that("can process footnote with code", {
+  html <- markdown_to_html("
+Hooray[^1]
+
+[^1]: Including code:
+```
+1 +
+2 +
+```
+And more text
+  ")
+  tweak_footnotes(html)
+
+  expect_equal(xpath_length(html, "//a[@class='footnote-back']"), 0)
+  expect_equal(xpath_attr(html, ".//a", "class"), "footnote-ref")
+  expect_equal(xpath_attr(html, ".//a", "tabindex"), "0")
+  expect_snapshot(xpath_attr(html, ".//a", "data-bs-content"))
+})
