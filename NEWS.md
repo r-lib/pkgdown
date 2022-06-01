@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Links to `@username` in NEWS.md work in more places (#2030).
+
 * Footnotes work with more contents, including code (@banfai, #2042).
 
 * Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
