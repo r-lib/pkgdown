@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
+
 * Links to `@username` in NEWS.md work in more places (#2030).
 
 * Footnotes work with more contents, including code (@banfai, #2042).
