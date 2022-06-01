@@ -84,7 +84,7 @@ then assembled into an overall page using the "layout" template.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">render_page</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, <span class="va">name</span>, <span class="va">data</span>, path <span class="op">=</span> <span class="st">""</span>, depth <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">render_page</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, <span class="va">name</span>, <span class="va">data</span>, <span class="va">path</span>, depth <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="fu">data_template</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, depth <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></code></pre></div>
     </div>
@@ -102,8 +102,7 @@ then assembled into an overall page using the "layout" template.</p>
 <li><p><code>package</code>: package metadata including <code>name</code> and<code>version</code>.</p></li>
 </ul><p>See the full contents by running <code>data_template()</code>.</p></dd>
 <dt>path</dt>
-<dd><p>Location to create file; relative to destination directory.
-If <code>""</code> (the default), prints to standard out.</p></dd>
+<dd><p>Location to create file; relative to destination directory.</p></dd>
 <dt>depth</dt>
 <dd><p>Depth of path relative to base directory.</p></dd>
 <dt>quiet</dt>
