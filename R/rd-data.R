@@ -90,10 +90,9 @@ as_data.tag_value <- function(x, ...) {
 describe_contents <- function(x, ...) {
   # Drop pure whitespace nodes between items
   is_ws <- purrr::map_lgl(x, is_whitespace)
-  x <- x[!is_ws]
 
-  # Group continguous \items{} into a <dl>
-  is_item <- purrr::map_lgl(x, inherits, "tag_item")
+  # Group contiguous \items{}/whitespace into a <dl>
+  is_item <- purrr::map_lgl(x, inherits, "tag_item") | is_ws
   changed <- is_item[-1] != is_item[-length(is_item)]
   group <- cumsum(c(TRUE, changed))
 
