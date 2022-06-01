@@ -1,20 +1,22 @@
 # render_rmarkdown yields useful error
 
     Code
-      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html")
+      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = rmarkdown::html_document(
+        pandoc_args = "--fail-if-warnings"))
     Output
       Reading 'assets/pandoc-fail.Rmd'
       -- RMarkdown error -------------------------------------------------------------
-      File path-to-image.png not found in resource path
-      Error : pandoc document conversion failed with error 99
+      [WARNING] Could not fetch resource path-to-image.png
+      Failing because there were warnings.
+      Error : pandoc document conversion failed with error 3
       --------------------------------------------------------------------------------
     Condition
       Error in `render_rmarkdown()`:
       ! Failed to render RMarkdown
       Caused by error:
-      ! callr subprocess failed: pandoc document conversion failed with error 99
+      ! callr subprocess failed: pandoc document conversion failed with error 3
       Caused by error:
-      ! pandoc document conversion failed with error 99
+      ! pandoc document conversion failed with error 3
 
 # render_rmarkdown styles ANSI escapes
 
