@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
 
-name: R-CMD-check
+name: no-pandoc
 
 jobs:
   R-CMD-check:
@@ -29,3 +29,5 @@ jobs:
       - run: sudo apt-get --purge remove pandoc
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          args: --no-vignettes
