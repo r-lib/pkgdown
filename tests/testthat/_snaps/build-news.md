@@ -51,3 +51,11 @@
     i Top-level headings must be either all <h1> or all <h2>.
     i See ?build_news for more details.
 
+# news can contain footnotes
+
+    Code
+      x <- data_news(pkg)
+    Condition
+      Warning:
+      Footnotes in NEWS.md are not currently suppoted
+

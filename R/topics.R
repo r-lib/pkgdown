@@ -99,7 +99,7 @@ match_env <- function(topics) {
 
     which(nomatch & is_public(internal))
   }
-
+  out$lacks_concept <- out$lacks_concepts
   out
 }
 

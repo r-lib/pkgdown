@@ -127,7 +127,8 @@
 
     Code
       data_reference_index(pkg)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       Topics missing from index: a
     Output
       pagetitle: Function reference
@@ -167,7 +168,8 @@
 
     Code
       data_reference_index(pkg)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       Topics missing from index: a
       * Topics missing from index: b
     Output
