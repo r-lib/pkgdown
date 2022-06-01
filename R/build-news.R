@@ -148,7 +148,13 @@ data_news <- function(pkg = list()) {
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
-  sections <- xml2::xml_find_all(xml, "./body/div[not(contains(@class, 'footnotes'))]")
+  sections <- xml2::xml_find_all(xml, "./body/div")
+  footnotes <- has_class(sections, "footnotes")
+  if (any(footnotes)) {
+    warn("Footnotes in NEWS.md are not currently suppoted")
+  }
+  sections <- sections[!footnotes]
+
   levels <- sections %>%
     xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
     xml2::xml_name()

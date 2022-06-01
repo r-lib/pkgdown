@@ -230,21 +230,16 @@ test_that("clear error for bad hierarchy - h3", {
   expect_snapshot_error(data_news(temp_pkg))
 })
 
-test_that("no error when footnotes", {
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5
-  )
+test_that("news can contain footnotes", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = file.path(pkg$src_path, "NEWS.md"), c(
+    "## testpackage 1.0.0.9000",
+    "",
+    "* bullet",
+    "",
+    "* inline footnote^[used to fail] ",
+    ""
+  ))
 
-  write_lines(
-    c(
-      "## testpackage 1.0.0.9000", "",
-      "* bullet (#222 @someone)", "",
-      "* first thing (#111 @githubuser)", "",
-      "* whereas ^[] chokes build_news()", ""
-    ),
-    file.path(temp_pkg$src_path, "NEWS.md")
-  )
-
-  expect_silent(data_news(temp_pkg))
+  expect_snapshot(x <- data_news(pkg))
 })
