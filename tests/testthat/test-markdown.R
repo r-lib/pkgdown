@@ -18,9 +18,10 @@ test_that("markdown_text_inline() works with inline markdown", {
 })
 
 test_that("markdown_text_block() works with inline and block markdown", {
+  skip_if_no_pandoc("2.17.1")
+
   expect_equal(markdown_text_block("**x**"), "<p><strong>x</strong></p>")
-  expect_equal(markdown_text_block("x\n\ny"), "<p>x</p><p>y</p>"
-  )
+  expect_equal(markdown_text_block("x\n\ny"), "<p>x</p><p>y</p>")
 })
 
 test_that("markdown_body() captures title", {

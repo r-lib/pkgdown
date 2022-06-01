@@ -16,11 +16,10 @@
 #'
 #'   See the full contents by running [data_template()].
 #' @param path Location to create file; relative to destination directory.
-#'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
