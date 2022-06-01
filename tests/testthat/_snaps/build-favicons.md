@@ -4,6 +4,6 @@
       build_favicons(pkg)
     Output
       -- Building favicons -----------------------------------------------------------
-    Message <simpleMessage>
+    Message
       Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.
 

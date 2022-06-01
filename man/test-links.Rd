@@ -5,8 +5,10 @@
 \title{Test case: links}
 \description{
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{magrittr::subtract(10, 1)
-}\if{html}{\out{</div>}}\preformatted{## [1] 9
-}
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## [1] 9
+}\if{html}{\out{</div>}}
 }
 \examples{
 magrittr::subtract(10, 1)

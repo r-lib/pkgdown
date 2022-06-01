@@ -1,0 +1,268 @@
+---
+title: "How to update a released site"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to update a released site}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Checklist
+
+If you're already up-to-speed, here's the checklist:
+
+* Make sure your dev site looks the way you want before embarking on an update
+  of your released site. Here are good instructions for updating an existing
+  site for pkgdown 2.0.0, Bootstrap 5, and "tidyverse/tidytemplate" (only
+  applies to certain packages):  
+  <https://tidytemplate.tidyverse.org>
+* Make sure you are using automatic development mode. In `_pkgdown.yml`:
+
+  ``` yaml
+  development:
+    mode: auto
+  ```
+* Push/pull to sync your default branch.
+* Create and checkout a branch based on the tag of your most recent GitHub/CRAN
+  release.
+  
+  Example for readr, whose latest release is 2.1.1:  
+  `git checkout -b update-pkgdown-2-1-1 v2.1.1`
+  
+  General pattern:  
+  `git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG`
+* Backport innovations from the future. Example of a useful opening move:  
+  `git checkout main -- _pkgdown.yml .github/workflows/pkgdown.yaml`
+
+  Most likely candidates:
+  - `_pkgdown.yml`
+  - `.github/workflows/pkgdown.yaml`
+  - `Config/Needs/website: tidyverse/tidytemplate` in DESCRIPTION
+  - Any fixes to `README.Rmd` / `README.md` or released roxygen comments. Don't
+    forget to `devtools::build_readme()` or `devtools::document()`, in that
+    case.
+  
+  These are the two main Git commands you'll need:
+  ```
+  git checkout REF -- path/to/a/specific/file
+  git cherry-pick SHA
+  ```
+* Monitor your progress locally with `pkgdown::build_site()`.
+* Push this branch, maybe using `usethis::pr_push()`. Don't bother opening
+  a pull request (the branch will still be created and pushed).
+* Go to your package's GHA page, maybe using `usethis::browse_github_actions()`.
+  Select the pkgdown workflow. Click *Run workflow* and select the branch you
+  just pushed. If there's no dropdown menu for this, that means your pkgdown
+  workflow config is not current.
+* Scrutinize your newly published **released** site and make sure things look
+  right.
+* You can let this branch sit around for a while, in case you need to iterate
+  on this or if you'd like to backport more niceties before your next CRAN
+  release. Or you can delete immediately, if you're happy with the released
+  site.
+
+## Context
+
+Before we talk about **how** to update a released site, we first establish **why** you might need to do this.
+What is a released site? What other kind of pkgdown site could you have?
+Why does updating a released site take special effort?
+
+### Automatic development mode
+
+Every pkgdown site has a so-called [*development mode*](https://pkgdown.r-lib.org/reference/build_site.html#development-mode), which can be specified via the `development` field in `_pkgdown.yml`.
+If unspecified, the default is `mode: release`, which results in a single pkgdown site.
+Despite the name, this single site reflects "the current package state", which could be either a released state or a development state.
+
+For packages with a substantial user base, it is recommended instead to specify `mode: auto` like so:
+
+``` yaml
+development:
+  mode: auto
+```
+
+This directs pkgdown to "generate different sites for the development and released versions of your package."
+
+The readr package demonstrates what happens in automatic development mode:
+
+[readr.tidyverse.org](https://readr.tidyverse.org) documents the released version, i.e. what `install.packages()` would deliver.  
+[readr.tidyverse.org/dev/](https://readr.tidyverse.org/dev/) documents the dev version, i.e. what you'd get by installing from GitHub.
+
+In this mode, `pkgdown::build_site()`, consults DESCRIPTION to learn the package's version number.
+For a development version number, the rendered site is written to `docs/dev/`.
+For a released version number, the site is written to `docs/`.
+(There are also other signals to alert users that they are reading documentation for a dev version vs. a released version.)
+
+Automatic development mode is recommended for packages with a broad user base, because it maximizes the chance that a user will read web-based documentation that reflects the package version that is locally installed.
+
+### Publishing
+
+Now that we've established the meaning of a released (vs dev) site, we have to consider how the site gets rendered and deployed.
+
+Many people use `usethis::use_pkgdown_github_pages()` to do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to automatically render and publish the site to GitHub Pages.
+Here's an overview of what this function does:
+
+```
+usethis::use_pkgdown_github_pages() =
+  use_pkgdown() +
+  use_github_pages() + 
+  use_github_action("pkgdown") +
+  add the pkgdown site's URL to _pkgdown.yml, URL field of DESCRIPTION,
+    and to the GitHub repo +
+  (if owning org is one of: tidyverse, r-lib, tidymodels, rstudio) 
+  add "tidyverse/tidytemplate" to Config/Needs/website in DESCRIPTION
+```
+
+As a result, the publishing cadence of many pkgdown sites is governed by the workflow maintained at [`r-lib/actions/examples/pkgdown.yaml`](https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml).
+(Do not confuse `_pkgdown.yml`, which gives instructions to the pkgdown package, with `.github/workflows/pkgdown.yaml`, which gives instructions to GHA.)
+
+Here are some of the most important bits of the GHA workflow config:
+
+*NOTE: this is from v2 of `r-lib/actions`, which is important! If you use usethis to add/update workflow config, make sure you're using the dev version of usethis, which will pull from the `v2` tag.*
+
+``` yaml
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
+  
+<snip, snip>
+
+      - name: Build site
+        run: Rscript -e 'pkgdown::build_site_github_pages(...)'
+        
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        
+        <snip, snip>
+```
+
+We build and deploy for pushes to `main` (or `master`).    
+We build for pull requests against `main` (or `master`).  
+But we don't deploy for pull requests.
+
+We build and deploy when we publish a GitHub release.  
+By convention, we assume that a GitHub release coincides with a CRAN release.  
+**This is the primary mechanism for building the released pkgdown site.**  
+
+`pkgdown::build_site_github_pages()` consults the version in DESCRIPTION to detect whether it's building from a released version or a dev version.
+That determines the `dest_dir`, e.g. `docs/` for released and `docs/dev/` for dev.
+For a package in automatic development mode, this means that almost all of your pushes trigger an update to the dev site. 
+The released site is only updated when you push a state with a non-development version number or when you publish a GitHub release.
+
+So how do you tweak things about the released site *in between* releases?
+
+That brings us to `workflow_dispatch:`. (Yes that dangling colon is correct.)
+
+The inclusion of `workflow_dispatch` as a trigger means the pkgdown workflow can be run on demand, either manually from the browser or via the GitHub REST API.
+We're going to show how to update a released site from a GitHub branch or tag, using the browser method.
+In the future, we might build some tooling around the API method.
+
+Places to learn more about triggering GHA workflows:
+
+* <https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#workflow_dispatch>
+* <https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow>
+* <https://docs.github.com/en/rest/reference/actions/#create-a-workflow-dispatch-event>
+
+Before we move on, I repeat:  
+It is important that your `main` branch have the latest pkgdown workflow.
+(Or whatever your default branch is called.)
+At the time of writing, this means the `v2` tag in `r-lib/actions`.
+The easiest way to get this is to install dev usethis and run `usethis::use_github_action("pkgdown")`.
+
+## Construct a branch for the update
+
+The overall goal is to create a package state from which to update the released site that corresponds to (HEAD of) a Git branch.
+This package state should:
+
+* Be based on the most recent GitHub and CRAN release.
+* Incorporate all desired updates to your documentation, such as pkgdown config.
+
+Create and checkout a branch based on the tag of the most recent CRAN release.
+For example, if readr's latest release is 2.1.1:
+
+```
+git checkout -b update-pkgdown-2-1-1 v2.1.1
+```
+
+And here is the general pattern:
+
+```
+git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG
+```
+
+Now you should backport innovations from the future that you would like to retroactively apply to your released site.
+
+Files you must update:
+
+* `.github/workflows/pkgdown.yaml`
+* `_pkgdown.yml`
+* `Config/Needs/website` field of DESCRIPTION (And, probably, only this field!
+  In particular, do not mess with the version number.)
+
+Other likely candidates:  
+
+* `README.Rmd` + `README.md`, e.g., if you've updated badges.
+* Any documentation fixes that **apply to the released version**. This is the
+  only reason to touch anything below `R/` and even then it should only affect
+  roxygen comments. Don't forget to `document()` if you do this!
+* Any new vignettes or articles that apply to the released version.
+
+Here are some tips on backporting specific changes into this branch.
+If you are lucky, there are specific commits in your default branch that contain all the necessary changes.
+In that case, we can cherry pick such a commit by its SHA:
+
+```
+git cherry-pick SHA
+```
+
+If that doesn't cover everything, for each file you want to update, identify a Git reference (meaning: a SHA, tag, or branch) where the file is in the desired state.
+Checkout that specific file path from that specific ref:
+
+```
+git checkout REF -- path/to/the/file
+```
+  
+For example, readr recently gained a new vignette that applies to the released version of readr, i.e. it does not document any dev-only features or functions.
+Here's how to introduce the new vignette from HEAD of `main` into the current branch:
+
+```
+git checkout main -- vignettes/column-types.Rmd
+```
+
+Commit and push this new branch to GitHub.
+`usethis::pr_push()` can be handy for this.
+Just don't bother opening a pull request (the branch will still be pushed).
+
+Now we will use the `workflow_dispatch` GHA trigger.
+Go to the Actions page of your repo, maybe via `usethis::browse_github_actions()`.
+Click on the `pkgdown` workflow.
+
+You should see "This workflow has a workflow_dispatch event trigger."  
+(If you don't, that means you didn't do one of the pre-requisites, which is to update to `v2` of the pkgdown workflow.)
+  
+See the "Run workflow" button?
+CLICK IT.
+In the "Use workflow from" dropdown menu, select the branch you've just made and pushed.
+This should kick off a pkgdown build-and-deploy and, specifically, it should cause updates to the **released** site.
+  
+You can keep this branch around for a while, in case you didn't get everything right the first time or if more things crop up that you'd like backport to the released site, before your next CRAN release.
+
+## Problem-solving
+
+Remember GitHub search is a great way to get other people's `_pkgdown.yml` files in front of your eyeballs:
+
+Example query: [`filename:_pkgdown.yml org:tidyverse org:r-lib`](https://github.com/search?q=filename%3A_pkgdown.yml+org%3Atidyverse+org%3Ar-lib)
+
+For any given `_pkgdown.yml` file on GitHub, remember that its History and Blame can be helpful for seeing how another package's config has evolved over time.

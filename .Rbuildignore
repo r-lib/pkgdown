@@ -18,3 +18,4 @@
 ^appveyor\.yml$
 ^\.github$
 ^fake-index.html$
+^CRAN-SUBMISSION$

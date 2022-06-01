@@ -8,22 +8,32 @@ Manual test cases for various ways of embedding code in sections.
 All code blocks should have copy and paste button.
 }
 \section{Should be highlighted}{
-Valid R code in \verb{\preformatted{}}:\preformatted{mean(a + 1)
-}
+Valid R code in \verb{\preformatted{}}:
 
-R code in \code{R} block:\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mean(a + 1)
 }\if{html}{\out{</div>}}
 
-R code in \code{r} block:\if{html}{\out{<div class="sourceCode r">}}\preformatted{mean(a + 1)
+R code in \code{R} block:
+
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{mean(a + 1)
 }\if{html}{\out{</div>}}
 
-Yaml\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml: [a, 1]
+R code in \code{r} block:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mean(a + 1)
+}\if{html}{\out{</div>}}
+
+Yaml
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{yaml: [a, 1]
 }\if{html}{\out{</div>}}
 }
 
 \section{Shouldn't be highlighted}{
-Non-R code in \verb{\preformatted{}}\preformatted{yaml: [a, b, c]
-}
+Non-R code in \verb{\preformatted{}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{yaml: [a, b, c]
+}\if{html}{\out{</div>}}
 }
 
 \seealso{

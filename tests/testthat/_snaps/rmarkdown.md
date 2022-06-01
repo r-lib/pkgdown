@@ -8,8 +8,9 @@
       File path-to-image.png not found in resource path
       Error : pandoc document conversion failed with error 99
       --------------------------------------------------------------------------------
-    Error <rlang_error>
-      Failed to render RMarkdown
+    Condition
+      Error in `render_rmarkdown()`:
+      ! Failed to render RMarkdown
       Caused by error:
       ! callr subprocess failed: pandoc document conversion failed with error 99
       Caused by error:
