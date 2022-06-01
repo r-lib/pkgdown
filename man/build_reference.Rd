@@ -74,7 +74,9 @@ subtitle, but this is no longer recommended).
 
 Most packages will only need to use \code{title} and \code{contents} components.
 For example, here's a snippet from the YAML that pkgdown uses to generate
-its own reference index:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
+its own reference index:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
 - contents:
@@ -86,7 +88,9 @@ its own reference index:\if{html}{\out{<div class="sourceCode yaml">}}\preformat
 }\if{html}{\out{</div>}}
 
 Bigger packages, e.g. ggplot2, may need an additional layer of
-structure in order to clearly organise large number of functions:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
+structure in order to clearly organise large number of functions:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Layers
 - subtitle: Geoms
   desc: Geom is short for geometric element
@@ -99,7 +103,9 @@ structure in order to clearly organise large number of functions:\if{html}{\out{
 }\if{html}{\out{</div>}}
 
 \code{desc} can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML \code{>} notation:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{desc: >
+idea to take advantage of the YAML \code{>} notation:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{desc: >
   This is a very _long_ and **overly** flowery description of a
   single simple function. By using `>`, it's easy to write a description
   that runs over multiple lines.
@@ -167,7 +173,9 @@ can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []

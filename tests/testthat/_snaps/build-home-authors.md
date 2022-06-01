@@ -20,7 +20,8 @@
 
     Code
       role_lookup("unknown")
-    Warning <warning>
+    Condition
+      Warning:
       Unknown MARC role abbreviation 'unknown'
     Output
       [1] "unknown"

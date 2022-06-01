@@ -81,7 +81,9 @@ found at \code{vignettes/pizza/slice.Rmd} is \code{pizza/slice}.
 The title and description of individual vignettes displayed on the index
 comes from \code{title} and \code{description} fields of the YAML header in the Rmds.
 
-For example, this yaml might be used for some version of dplyr:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
+For example, this yaml might be used for some version of dplyr:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
 - title: Main verbs
   navbar: ~
   contents:
@@ -129,7 +131,9 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in \code{.install_extras}. pkgdown takes a different approach based on
 \code{\link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources()}}, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a \code{resource_files} field to the yaml metadata, e.g.:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
+will need to add a \code{resource_files} field to the yaml metadata, e.g.:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
 title: My Document
 resource_files:
   - data/mydata.csv
@@ -160,12 +164,16 @@ your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
 limited support for other output formats and you have to opt-in by setting
-the \code{as_is} field in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+the \code{as_is} field in your \code{.Rmd} metadata:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
 }\if{html}{\out{</div>}}
 
 If the output format produces a PDF, you'll also need to specify the
-\code{extension} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+\code{extension} field:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
   extension: pdf
 }\if{html}{\out{</div>}}
@@ -193,7 +201,9 @@ present: if you do not want this, you will need to customise the navbar. See
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []

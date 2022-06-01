@@ -1,4 +1,5 @@
 test_that("sections with class .tabset are converted to tabsets", {
+  skip_on_os("windows") # some line ending problem
   html <- markdown_to_html("
     # Tabset {.tabset .tabset-pills}
 
@@ -21,6 +22,7 @@ test_that("sections with class .tabset are converted to tabsets", {
 })
 
 test_that("can adjust active tab", {
+  skip_on_os("windows") # some line ending problem
   html <- markdown_to_html("
     ## Tabset {.tabset .tabset-pills}
 

@@ -328,7 +328,7 @@ as_html.tag_figure <- function(x, ...) {
   if (n == 1) {
     paste0("<img src='figures/", path, "' alt='' />")
   } else if (n == 2) {
-    opt <- as.character(x[[2]])
+    opt <- paste(trimws(as.character(x[[2]])), collapse = " ")
     if (substr(opt, 1, 9) == "options: ") {
       extra <- substr(opt, 9, nchar(opt))
       paste0("<img src='figures/", path, "'",  extra, " />")

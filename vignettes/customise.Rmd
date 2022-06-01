@@ -78,7 +78,7 @@ template:
     pkgdown-nav-height: 100px
 ```
 
-You can find the correct height by running `$(".navbar").outerHeight()` in the [javascript console](https://developer.mozilla.org/en-US/docs/Tools/Web_Console).
+You can find the correct height by running `$(".navbar").outerHeight()` in the [javascript console](https://firefox-source-docs.mozilla.org/devtools-user/web_console/index.html).
 
 ### bslib variables
 
