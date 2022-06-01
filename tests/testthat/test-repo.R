@@ -6,16 +6,17 @@ test_that("authors are automatically linked", {
   # email addresses shouldn't get linked
   expect_equal(repo_auto_link(pkg, "x@y.com"), "x@y.com")
 
-  # must have leading whitespace or open parens
-  expect_equal(repo_auto_link(pkg, "@y"), "<a href='TEST/y'>@y</a>")
+  # must have leading whitespace or open parens or end of HTML tag
   expect_equal(repo_auto_link(pkg, " @y"), " <a href='TEST/y'>@y</a>")
   expect_equal(repo_auto_link(pkg, "(@y)"), "(<a href='TEST/y'>@y</a>)")
+  expect_equal(repo_auto_link(pkg, "<p>@y"), "<p><a href='TEST/y'>@y</a>")
 })
 
 test_that("issues are automatically linked", {
   pkg <- list(repo = repo_meta(issue = "TEST/"))
-  expect_equal(repo_auto_link(pkg, "(#123"), "(<a href='TEST/123'>#123</a>")
-  expect_equal(repo_auto_link(pkg, "in #123"), "in <a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, " #123"), " <a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "(#123)"), "(<a href='TEST/123'>#123</a>)")
+  expect_equal(repo_auto_link(pkg, "<p>#123"), "<p><a href='TEST/123'>#123</a>")
 })
 
 test_that("URLs with hash (#) are preserved", {
