@@ -155,3 +155,23 @@ test_that("render_navbar_links BS4 no divider before first element", {
   )
   expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
 })
+
+test_that("render_navbar_links BS4 with target argument", {
+  x <- list(
+    intro = list(text = "Get started", href = "articles/pkgdown.html"),
+    reference = list(text = "Reference", href = "reference/index.html"),
+    articles = list(
+      text = "Articles",
+      menu = list(
+        list(text = "Auto-linking",  href = "articles/linking.html"),
+        list(text = "Search", href = "articles/search.html"),
+        list(text = "Metadata", href = "articles/metadata.html"),
+        list(text = "Customize your pkgdown website", href = "articles/customization.html"),
+        list(text = "---------"),
+        list(text = "More...", href = "articles/index.html")
+      )
+    ),
+    news = list(text = "News", href = "news/index.html", target = '_blank')
+  )
+  expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
+})

@@ -4,6 +4,8 @@
 
 * Bug fix: accounts roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff).
 
+* Navbar components now accept `target` argument (#2089, @JSchoenbachler).
+
 # pkgdown 2.0.3
 
 * Fixes for R CMD check
