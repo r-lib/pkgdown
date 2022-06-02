@@ -95,7 +95,8 @@ rule <- function(x = NULL, line = "-") {
   cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
 }
 
-yaml_list <- function(...) print_yaml(list(...))
+
+# YAML --------------------------------------------------------------------
 
 print_yaml <- function(x) {
   structure(x, class = "print_yaml")

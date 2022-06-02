@@ -15,12 +15,12 @@
 template_navbar <- function(path = ".") {
   pkg <- as_pkgdown(path)
 
-  yaml_list(
+  print_yaml(list(
     navbar = list(
       structure = navbar_structure(),
       components = navbar_components(pkg)
     )
-  )
+  ))
 }
 
 #' @rdname templates
