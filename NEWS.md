@@ -1,5 +1,14 @@
 # pkgdown (development version)
 
+* Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
+
+* New syntax highlight themes a11y-light, a11y-dark, monochrome-light, 
+  monochrome-dark, and solarized
+
+* Links to `@username` in NEWS.md work in more places (#2030).
+
+* Footnotes work with more contents, including code (@banfai, #2042).
+
 * Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
 
 * Bug fix: accounts roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff).
