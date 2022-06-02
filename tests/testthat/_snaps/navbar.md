@@ -237,29 +237,12 @@
         </div>
       </li>
 
-# render_navbar_links BS4 with target argument
+# can specific link target
 
     Code
-      cat(render_navbar_links(x, bs_version = 4))
+      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")))
     Output
       <li class="nav-item">
-        <a class="nav-link" href="articles/pkgdown.html">Get started</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="reference/index.html">Reference</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-          <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
-          <a class="dropdown-item" href="articles/search.html">Search</a>
-          <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
-          <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="articles/index.html">More...</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="news/index.html" target="_blank">News</a>
+        <a class="nav-link" href="href" target="_blank">text</a>
       </li>
 
