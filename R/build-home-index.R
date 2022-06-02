@@ -109,7 +109,7 @@ data_home_sidebar <- function(pkg = ".") {
       set_names(names(components))
   )
 
-  check_components(
+  check_yaml_has(
     setdiff(sidebar_structure, names(sidebar_components)),
     where = c("home", "sidebar", "components"),
     pkg = pkg
@@ -130,7 +130,7 @@ default_sidebar_structure <- function() {
 
 data_home_component <- function(component, component_name, pkg) {
 
-  check_components(
+  check_yaml_has(
     setdiff(c("title", "text"), names(component)),
     where = c("home", "sidebar", "components", component_name),
     pkg = pkg

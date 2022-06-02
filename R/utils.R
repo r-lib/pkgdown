@@ -120,7 +120,7 @@ pkgdown_fields <- function(pkg, fields, join = ", ") {
   }
 }
 
-check_components <- function(missing, where, pkg) {
+check_yaml_has <- function(missing, where, pkg) {
   if (length(missing) == 0) {
     return()
   }
