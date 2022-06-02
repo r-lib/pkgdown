@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* All article pages are given class `col-md-9` for consistency with other
+  pages (#2045).
+
 * Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
 
 * New syntax highlight themes a11y-light, a11y-dark, monochrome-light, 
