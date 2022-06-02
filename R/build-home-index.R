@@ -66,7 +66,7 @@ data_home_sidebar <- function(pkg = ".") {
         sprintf(
           "Can't find file '%s' specified by %s.",
           pkg$meta$home$sidebar$html,
-          pkgdown_field(pkg = pkg, "home", "sidebar", "html")
+          pkgdown_field(pkg, c("home", "sidebar", "html"))
         )
       )
     }

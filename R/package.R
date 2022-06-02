@@ -108,7 +108,7 @@ check_bootstrap_version <- function(version, pkg = list()) {
       x = sprintf(
         "You specified a value of %s in %s.",
         version,
-        pkgdown_field(pkg = pkg, "template", "bootstrap")
+        pkgdown_field(pkg, c("template", "bootstrap"))
       )
     ))
   }

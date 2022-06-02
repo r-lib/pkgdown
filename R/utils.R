@@ -101,26 +101,16 @@ print_yaml <- function(x) {
   structure(x, class = "print_yaml")
 }
 
-pkgdown_field <- function(pkg, ...) {
-
-  field <- paste0(list(...), collapse = ".")
-
-  config_path <- pkgdown_config_path(path = pkg$src_path)
+pkgdown_field <- function(pkg, field) {
+  field <- paste0(crayon::bold(field), collapse = ".")
+  config_path <- pkgdown_config_path(pkg$src_path)
 
   if (is.null(config_path)) {
-    return(crayon::bold(field))
+    field
+  } else {
+    config <- src_path(fs::path_rel(config_path, pkg$src_path))
+    paste0(field, " in ", config)
   }
-
-  config <- src_path(
-    fs::path_rel(
-      config_path,
-      pkg$src_path
-    )
-  )
-
-  paste0(
-    crayon::bold(field), " in ", config
-  )
 }
 
 pkgdown_fields <- function(pkg, fields) {
