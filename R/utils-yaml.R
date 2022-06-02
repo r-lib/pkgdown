@@ -1,8 +1,15 @@
+check_yaml_has <- function(missing, where, pkg) {
+  if (length(missing) == 0) {
+    return()
+  }
 
-# YAML --------------------------------------------------------------------
+  missing_components <- lapply(missing, function(x) c(where, x))
+  missing_fields <- pkgdown_fields(pkg, missing_components)
 
-print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
+  abort(paste0(
+    "Can't find component", if (length(missing) > 1) "s", " ",
+    missing_fields, "."
+  ))
 }
 
 pkgdown_field <- function(pkg, field) {
@@ -23,21 +30,18 @@ pkgdown_fields <- function(pkg, fields, join = ", ") {
   }
 }
 
-check_yaml_has <- function(missing, where, pkg) {
-  if (length(missing) == 0) {
-    return()
-  }
+# print helper ------------------------------------------------------------
 
-  missing_components <- lapply(missing, function(x) c(where, x))
-  missing_fields <- pkgdown_fields(pkg, missing_components)
-
-  abort(paste0(
-    "Can't find component", if (length(missing) > 1) "s", " ",
-    missing_fields, "."
-  ))
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
 }
-
 #' @export
 print.print_yaml <- function(x, ...) {
   cat(yaml::as.yaml(x), "\n", sep = "")
+}
+
+# IO ----------------------------------------------------------------------
+
+write_yaml <- function(x, path) {
+  write_lines(yaml::as.yaml(x), path = path)
 }
