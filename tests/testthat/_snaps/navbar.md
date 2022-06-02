@@ -237,3 +237,12 @@
         </div>
       </li>
 
+# can specific link target
+
+    Code
+      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")))
+    Output
+      <li class="nav-item">
+        <a class="nav-link" href="href" target="_blank">text</a>
+      </li>
+

@@ -255,6 +255,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         htmltools::tags$a(
           class = "dropdown-item",
           href = x$href,
+          target = x$target,
           textTags,
           "aria-label" = x$`aria-label` %||% NULL
         )
@@ -266,6 +267,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
       htmltools::tags$a(
         class = "nav-link",
         href = x$href,
+        target = x$target,
         textTags,
         "aria-label" = x$`aria-label` %||% NULL
       )
