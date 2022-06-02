@@ -245,4 +245,9 @@
       <li class="nav-item">
         <a class="nav-link" href="href" target="_blank">text</a>
       </li>
+    Code
+      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")),
+      depth = 1)
+    Output
+      <a class="dropdown-item" href="href" target="_blank">text</a>
 

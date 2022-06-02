@@ -159,7 +159,11 @@ test_that("render_navbar_links BS4 no divider before first element", {
 test_that("can specific link target", {
   expect_snapshot({
     bs4_navbar_links_tags(
-      list(menu = list( text = "text", href = "href", target = '_blank')
-    ))
+      list(menu = list(text = "text", href = "href", target = '_blank'))
+    )
+    bs4_navbar_links_tags(
+      list(menu = list(text = "text", href = "href", target = '_blank')),
+      depth = 1
+    )
   })
 })
