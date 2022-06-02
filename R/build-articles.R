@@ -234,6 +234,7 @@ build_article <- function(name,
 
   default_data <- list(
     pagetitle = front$title,
+    toc = toc <- front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, path_rel(input, pkg$src_path)),
     filename = path_file(input),
