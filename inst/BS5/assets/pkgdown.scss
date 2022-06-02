@@ -435,6 +435,12 @@ pre code {
   .error, .warning {font-weight: bolder;}
 }
 
+code a:any-link {
+  color: inherit;
+  text-decoration-color: $gray-600;
+}
+
+
 pre .img, pre .r-plt {
   img {
     margin: 5px 0;

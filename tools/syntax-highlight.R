@@ -64,7 +64,7 @@ theme_df <- function(theme) {
     structure(bg = bg, fg = fg)
 }
 
-style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE, italic = FALSE, underline = FALSE, ...) {
+style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE, italic = FALSE, underline = FALSE, ..., pre = TRUE) {
   attr <- c(
     if (!is.na(color)) paste0("color:", color),
     if (!is.na(background)) paste0("background-color:", background),
@@ -73,7 +73,10 @@ style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE,
     if (!is.na(underline) && underline) "text-decoration: underline"
   )
 
-  paste0("pre code ", class, " /* ", name, " */ {", paste0(attr, collapse = "; "), "}")
+  paste0(
+    if (pre) "pre ", "code", if (class != "") " ", class, if (pre) paste0(" /* ", name, " */"),
+    " {", paste0(attr, collapse = "; "), "}"
+  )
 }
 
 
@@ -96,7 +99,19 @@ theme_as_css <- function(df, path = stdout()) {
       ), collapse = " "),
       "}"
     )
-    css <- c(pre, css)
+
+    normal <- filter(df, class == "span.fu")
+    if (nrow(normal) == 1) {
+      if (!has_name(normal, "background")) {
+        normal$background <- attrs$bg
+      }
+      normal$class <- ""
+      code <- exec(style_to_css, !!!normal, pre = FALSE)
+    } else {
+      code <- NULL
+    }
+
+    css <- c(pre, code, css)
   }
 
   base::writeLines(css, path)
