@@ -110,15 +110,14 @@ data_home_sidebar <- function(pkg = ".") {
   )
 
   check_components(
-    needed = sidebar_structure,
-    present = names(sidebar_components),
+    setdiff(sidebar_structure, names(sidebar_components)),
     where = c("home", "sidebar", "components"),
     pkg = pkg
   )
 
   sidebar_final_components <- purrr::compact(
     sidebar_components[sidebar_structure]
-    )
+  )
 
   paste0(sidebar_final_components, collapse = "\n")
 
@@ -132,8 +131,7 @@ default_sidebar_structure <- function() {
 data_home_component <- function(component, component_name, pkg) {
 
   check_components(
-    needed = c("title", "text"),
-    present = names(component),
+    setdiff(c("title", "text"), names(component)),
     where = c("home", "sidebar", "components", component_name),
     pkg = pkg
   )

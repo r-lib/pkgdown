@@ -103,44 +103,35 @@ print_yaml <- function(x) {
 }
 
 pkgdown_field <- function(pkg, field) {
-  field <- paste0(crayon::bold(field), collapse = ".")
+  pkgdown_fields(pkg, list(field))
+}
+
+pkgdown_fields <- function(pkg, fields, join = ", ") {
+  fields <- purrr::map_chr(fields, ~ paste0(crayon::bold(.x), collapse = "."))
+  fields_str <- paste0(fields, collapse = join)
+
   config_path <- pkgdown_config_path(pkg$src_path)
 
   if (is.null(config_path)) {
-    field
+    fields_str
   } else {
     config <- src_path(fs::path_rel(config_path, pkg$src_path))
-    paste0(field, " in ", config)
+    paste0(fields_str, " in ", config)
   }
 }
 
-pkgdown_fields <- function(pkg, fields) {
-  fields <- purrr::map_chr(fields, paste0, collapse = ".")
-  fields <- toString(crayon::bold(fields))
-  pkgdown_field(pkg, fields)
-}
-
-check_components <- function(needed, present, where, pkg) {
-  missing <- setdiff(needed, present)
-
+check_components <- function(missing, where, pkg) {
   if (length(missing) == 0) {
     return()
   }
 
-  missing_components <- lapply(
-      missing, append,
-      where,
-      after = 0
-    )
-    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
+  missing_components <- lapply(missing, function(x) c(where, x))
+  missing_fields <- pkgdown_fields(pkg, missing_components)
 
-    abort(
-      paste0(
-        "Can't find component", if (length(missing) > 1) "s", " ",
-        paste0(missing_fields, collapse = " or "),
-        "."
-      )
-    )
+  abort(paste0(
+    "Can't find component", if (length(missing) > 1) "s", " ",
+    missing_fields, "."
+  ))
 }
 
 #' @export
