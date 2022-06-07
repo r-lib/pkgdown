@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Automatically added links in code blocks are now styled less aggressively,
+  so they occupy less visual weight on the page (#2007).
+
 * All article pages are given class `col-md-9` for consistency with other
   pages (#2045).
 
