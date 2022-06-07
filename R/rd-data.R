@@ -99,7 +99,7 @@ describe_contents <- function(x, ...) {
   parse_piece <- function(x) {
     if (length(x) == 0) {
       NULL
-    } else if (inherits(x[[1]], "tag_item")) {
+    } else if (any(purrr::map_lgl(x, inherits, "tag_item"))) {
       paste0("<dl>\n", parse_descriptions(x, ...), "</dl>")
     } else {
       flatten_para(x, ...)
