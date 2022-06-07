@@ -27,7 +27,7 @@ msgstr "Articles"
 
 #: build-articles.R:428
 msgid "All vignettes"
-msgstr ""
+msgstr "Tous les articles"
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -171,11 +171,11 @@ msgstr "Documentation des fonctions"
 
 #: build-reference-index.R:112
 msgid "All functions"
-msgstr ""
+msgstr "Toutes les fonctions"
 
 #: build-reference.R:355
 msgid "Usage"
-msgstr ""
+msgstr "Utilisation"
 
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
