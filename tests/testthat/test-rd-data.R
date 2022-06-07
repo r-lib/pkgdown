@@ -43,7 +43,7 @@ test_that("whitespace between items doesn't affect grouping", {
   )
 })
 
-test_that("leading whitespace doesn't affect grouping", {
+test_that("leading whitespace doesn't break items", {
   expect_equal(
     value2html("\n\\item{a}{b}\n\n\\item{c}{d}\n\n\\item{e}{f}"),
     c(
