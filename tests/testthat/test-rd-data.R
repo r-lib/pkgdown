@@ -43,6 +43,20 @@ test_that("whitespace between items doesn't affect grouping", {
   )
 })
 
+test_that("leading whitespace doesn't affect grouping", {
+  expect_equal(
+    value2html("\n\\item{a}{b}\n\n\\item{c}{d}\n\n\\item{e}{f}"),
+    c(
+      "<dl>",
+        "",
+        "<dt>a</dt>", "<dd><p>b</p></dd>", "", "",
+        "<dt>c</dt>", "<dd><p>d</p></dd>", "", "",
+        "<dt>e</dt>", "<dd><p>f</p></dd>",
+      "</dl>"
+    )
+  )
+})
+
 test_that("whitespace between text is preserved", {
   expect_equal(
     value2html("a\n\nb\n\nc"),
