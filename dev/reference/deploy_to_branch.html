@@ -98,15 +98,44 @@ this process using GitHub actions.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-    </div>
+    <dl><dt>pkg</dt>
+<dd><p>Path to package.</p></dd>
+
+
+<dt>commit_message</dt>
+<dd><p>The commit message to be used for the commit.</p></dd>
+
+
+<dt>clean</dt>
+<dd><p>Clean all files from old site.</p></dd>
+
+
+<dt>branch</dt>
+<dd><p>The git branch to deploy to</p></dd>
+
+
+<dt>remote</dt>
+<dd><p>The git remote to deploy to</p></dd>
+
+
+<dt>github_pages</dt>
+<dd><p>Is this a GitHub pages deploy. If <code>TRUE</code>, adds a <code>CNAME</code>
+file for custom domain name support, and a <code>.nojekyll</code> file to suppress
+jekyll rendering.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+
+
+<dt>subdir</dt>
+<dd><p>The sub-directory where the site should be built on the branch.
+This argument can be used to support a number of site configurations.
+For example, you could build version-specific documentation by setting
+<code>subdir = "v1.2.3"</code>; <code>deploy_to_branch()</code> will build and deploy the
+package documentation in the <code>v.1.2.3/</code> directory of your site.</p></dd>
+
+</dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
