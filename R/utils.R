@@ -95,67 +95,6 @@ rule <- function(x = NULL, line = "-") {
   cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
 }
 
-yaml_list <- function(...) print_yaml(list(...))
-
-print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
-}
-
-pkgdown_field <- function(pkg, ...) {
-
-  field <- paste0(list(...), collapse = ".")
-
-  config_path <- pkgdown_config_path(path = pkg$src_path)
-
-  if (is.null(config_path)) {
-    return(crayon::bold(field))
-  }
-
-  config <- src_path(
-    fs::path_rel(
-      config_path,
-      pkg$src_path
-    )
-  )
-
-  paste0(
-    crayon::bold(field), " in ", config
-  )
-}
-
-pkgdown_fields <- function(pkg, fields) {
-  fields <- purrr::map_chr(fields, paste0, collapse = ".")
-  fields <- toString(crayon::bold(fields))
-  pkgdown_field(pkg, fields)
-}
-
-check_components <- function(needed, present, where, pkg) {
-  missing <- setdiff(needed, present)
-
-  if (length(missing) == 0) {
-    return()
-  }
-
-  missing_components <- lapply(
-      missing, append,
-      where,
-      after = 0
-    )
-    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
-
-    abort(
-      paste0(
-        "Can't find component", if (length(missing) > 1) "s", " ",
-        paste0(missing_fields, collapse = " or "),
-        "."
-      )
-    )
-}
-
-#' @export
-print.print_yaml <- function(x, ...) {
-  cat(yaml::as.yaml(x), "\n", sep = "")
-}
 
 skip_if_no_pandoc <- function(version = "1.12.3") {
   testthat::skip_if_not(rmarkdown::pandoc_available(version))
@@ -271,7 +210,7 @@ xpath_xml <- function(x, xpath) {
   structure(x, class = c("pkgdown_xml", class(x)))
 }
 xpath_attr <- function(x, xpath, attr) {
-  xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
+  gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
 }
 xpath_text <- function(x, xpath, trim = FALSE) {
   xml2::xml_text(xml2::xml_find_all(x, xpath), trim = trim)

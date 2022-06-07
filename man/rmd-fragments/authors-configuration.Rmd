@@ -57,13 +57,13 @@ and can contain `href` and/or `html` fields:
 * If `href` is provided, the author's name will be linked to this URL.
 * If `html` is provided, it will be shown instead of the author's name.
   This is particularly useful if you want to display the logo of a corporate
-  sponsor.
+  sponsor. Use an absolute URL to an image, not a relative link.
 
 ```yaml
 authors:
   firstname lastname:
     href: "http://name-website.com"
-    html: "<img src='name-picture.png' width=72>"
+    html: "<img src='https://website.com/name-picture.png' width=72>"
 ```
 
 

@@ -166,7 +166,7 @@
         <a href="reference/index.html">Reference</a>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Articles
            
           <span class="caret"></span>
@@ -236,4 +236,18 @@
           <a class="dropdown-item" href="articles/index.html">More...</a>
         </div>
       </li>
+
+# can specific link target
+
+    Code
+      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")))
+    Output
+      <li class="nav-item">
+        <a class="nav-link" href="href" target="_blank">text</a>
+      </li>
+    Code
+      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")),
+      depth = 1)
+    Output
+      <a class="dropdown-item" href="href" target="_blank">text</a>
 
