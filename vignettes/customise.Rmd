@@ -56,18 +56,6 @@ template:
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
 
-Theme with a dark background (e.g. cyborg, darkly, solar) will also need a different syntax highlight `theme`.
-The dark equivalent of the default light colour scheme is called `arrow-dark`:
-
-``` yaml
-template:
-  bootstrap: 5
-  bootswatch: cyborg
-  theme: arrow-dark
-```
-
-Other themes you can use are `r paste0(pkgdown:::highlight_styles(), collapse = ", ")`.
-
 Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable:
 
 ``` yaml
@@ -119,6 +107,38 @@ template:
 ```
 
 While iterating on colours and other variables you only need to rerun `init_site()` and refresh your browser; when iterating on fonts, you'll need to run `build_home_index(); init_site()`.
+
+### Syntax highlighting
+
+The colours used for syntax highlighting in code blocks are controlled by the `theme` setting:
+
+``` yaml
+template:
+  bootstrap: 5
+  theme: breeze-light
+```
+
+You can choose from any of the following options: `r paste0(pkgdown:::highlight_styles(), collapse = ", ")`.
+
+Bootswatch themes with a dark background (e.g. cyborg, darkly, solar) will need a dark syntax highlighting `theme`, e.g. `arrow-dark`:
+
+``` yaml
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: arrow-dark
+```
+
+The foreground and background colours used for inline code are controlled by `code-color` and `code-bg` bslib variables.
+If you want inline code to match code blocks, you'll need to override the variables yourself, e.g.:
+
+``` yaml
+template: 
+  bootstrap: 5
+  theme: arrow-dark  
+  bslib:
+    code-bg: "#2b2b2b"
+```
 
 ### Navbar style
 

@@ -424,14 +424,15 @@ pre {
   }
 }
 
+code a:any-link {
+  color: inherit;
+  text-decoration-color: $gray-600;
+}
+
 pre code {
   padding: 0;
   background: transparent;
 
-  a:any-link {
-    color: inherit;
-    text-decoration-color: $gray-600;
-  }
   .error, .warning {font-weight: bolder;}
 }
 
@@ -441,7 +442,6 @@ pre .img, pre .r-plt {
     background-color: #fff;
   }
 }
-
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
