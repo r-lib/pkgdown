@@ -59,12 +59,15 @@ test_that("can move badges to sidebar", {
   expect_snapshot(xpath_xml(html, ".//div"))
 })
 
-test_that("remove dev-status if no badges", {
+test_that("remove dev-status & badges if badges suppress", {
   html <- xml2::read_html('
     <h1>Title</h1>
+    <div id="badges">
+      <p><a href="x"><img src="y"></a></p>
+    </div>
     <div class="dev-status"></div>
   ')
-  tweak_sidebar_html(html)
+  tweak_sidebar_html(html, show_badges = FALSE)
   expect_equal(xpath_length(html, "//div"), 0)
 })
 

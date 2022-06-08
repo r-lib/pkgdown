@@ -22,12 +22,14 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
+  hide_badges <- pkg$development$mode == "release" && !pkg$development$in_dev
 
   update_html(
     dst_path,
     tweak_homepage_html,
     strip_header = strip_header,
     sidebar = !isFALSE(pkg$meta$home$sidebar),
+    show_badges = !hide_badges,
     bs_version = pkg$bs_version,
     logo = logo_path(pkg, depth = 0)
   )

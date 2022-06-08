@@ -1,10 +1,11 @@
 tweak_homepage_html <- function(html,
                                 strip_header = FALSE,
                                 sidebar = TRUE,
+                                show_badges = TRUE,
                                 bs_version = 3,
                                 logo = NULL) {
 
-  html <- tweak_sidebar_html(html, sidebar = sidebar)
+  html <- tweak_sidebar_html(html, sidebar = sidebar, show_badges = show_badges)
 
   # Always remove dummy page header
   header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
@@ -42,7 +43,7 @@ tweak_homepage_html <- function(html,
   invisible()
 }
 
-tweak_sidebar_html <- function(html, sidebar = TRUE) {
+tweak_sidebar_html <- function(html, sidebar = TRUE, show_badges = TRUE) {
   if (!sidebar) {
     return(html)
   }
@@ -53,7 +54,7 @@ tweak_sidebar_html <- function(html, sidebar = TRUE) {
   }
 
   badges <- badges_extract(html)
-  if (length(badges) == 0) {
+  if (!show_badges || length(badges) == 0) {
     xml2::xml_remove(dev_status_html)
   } else {
     list <- sidebar_section(tr_("Dev status"), badges)
