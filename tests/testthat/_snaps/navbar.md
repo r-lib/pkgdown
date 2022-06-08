@@ -154,6 +154,29 @@
       [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
       
 
+# data_navbar() works with empty side
+
+    Code
+      data_navbar(pkg)
+    Output
+      $type
+      [1] "default"
+      
+      $left
+      [1] ""
+      
+      $right
+      [1] ""
+      
+
+# data_navbar() errors with bad side specifications
+
+    Code
+      data_navbar(pkg)
+    Condition
+      Error in `yaml_character()`:
+      ! navbar.structure.right must be a character vector
+
 # render_navbar_links BS3 & BS4 default
 
     Code

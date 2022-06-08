@@ -102,6 +102,24 @@ test_that("data_navbar() can remove elements", {
   expect_snapshot(data_navbar(pkg))
 })
 
+test_that("data_navbar() works with empty side", {
+   pkg <- local_pkgdown_site()
+
+   pkg$meta$navbar$structure$right <- list()
+   pkg$meta$navbar$structure$left <- list()
+   expect_snapshot(data_navbar(pkg))
+})
+
+test_that("data_navbar() errors with bad side specifications", {
+   pkg <- local_pkgdown_site(meta = list(
+     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+   ))
+
+   pkg$meta$navbar$structure$right <- 1
+   pkg$meta$navbar$structure$left <- c("github", "reference")
+   expect_snapshot(data_navbar(pkg), error = TRUE)
+})
+
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
   expect_equal(style, list(bg = "light", type = "light"))
