@@ -5,6 +5,7 @@ tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
     # Reference topic takes a minimal approach since some is
     # already handled by Rd processing
     tweak_reference_highlighting(html)
+    tweak_extra_logo(html)
   } else {
     downlit::downlit_html_node(html)
 

@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* If you've included the logo in the a topic description (as on the 
+  package reference page), it's automatically stripped (#2083).
+
 * Development status badges are no longer shown on the released version of
   a site (#2054).
 

@@ -120,3 +120,18 @@ test_that("fails cleanly", {
   html <- xml2::read_xml('<div><pre></pre></div>')
   expect_equal(tweak_highlight_other(html), FALSE)
 })
+
+
+# logo --------------------------------------------------------------------
+
+test_that("can strip extra logo from description", {
+  html <- xml2::read_html('
+    <div class="ref-description">
+    <p>Hi</p>
+    <img src="logo.png" />
+    <p>Bye</p>
+    </div>
+  ')
+  tweak_extra_logo(html)
+  expect_equal(xpath_length(html, "//img"), 0)
+})
