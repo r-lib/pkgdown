@@ -76,3 +76,11 @@ xml_replace_contents <- function(node, new) {
     xml2::xml_add_child(node, child)
   }
 }
+
+
+tweak_extra_logo <- function(html) {
+  img <- xml2::xml_find_all(html, ".//div[contains(@class,'ref-description')]//img[contains(@src,'logo')]")
+  xml2::xml_remove(img)
+
+  invisible()
+}
