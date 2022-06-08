@@ -12,6 +12,18 @@ check_yaml_has <- function(missing, where, pkg) {
   ))
 }
 
+yaml_character <- function(pkg, where) {
+  x <- purrr::pluck(pkg$meta, !!!where)
+
+  if (identical(x, list()) || is.null(x)) {
+    character()
+  } else if (is.character(x)) {
+    x
+  } else {
+    abort(paste0(pkgdown_field(pkg, where), " must be a character vector"))
+  }
+}
+
 pkgdown_field <- function(pkg, field) {
   pkgdown_fields(pkg, list(field))
 }
