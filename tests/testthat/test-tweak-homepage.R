@@ -4,9 +4,33 @@ test_that("first header is wrapped in page-header div", {
     <h1>Second</h1>
   ')
 
-  tweak_homepage_html(html, bs_version = 3)
+  tweak_homepage_html(html)
   expect_equal(xpath_attr(html, ".//div", "class"), "page-header")
 })
+
+test_that("removes dummy page-header", {
+  html <- xml2::read_html('
+    <div class="page-header"><h1>Page header</h1></div>
+    <h1>Header</h1>
+  ')
+
+  tweak_homepage_html(html)
+  expect_equal(xpath_text(html, ".//h1"), "Header")
+})
+
+
+test_that("can remove first header", {
+  html <- xml2::read_html('
+    <h1>First</h1>
+    <h1>Second</h1>
+  ')
+
+  tweak_homepage_html(html, strip_header = TRUE)
+  expect_equal(xpath_length(html, ".//div"), 0)
+})
+
+
+# badges -------------------------------------------------------------------
 
 test_that("doesn't find badges when they don't exist", {
   expect_equal(badges_extract_text("<h1></h1>"), character())
