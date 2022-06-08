@@ -10,6 +10,20 @@ test_that("can generate three types of row", {
   expect_snapshot(data_reference_index(pkg))
 })
 
+test_that("can use markdown in title and subtitle", {
+  ref <- list(
+    list(title = "*A*"),
+    list(subtitle = "*B*"),
+    list(contents = c("a", "b", "c", "e", "?"))
+  )
+  meta <- list(reference = ref)
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  data <- data_reference_index(pkg)
+  expect_equal(data$rows[[1]]$title, "<em>A</em>")
+  expect_equal(data$rows[[2]]$subtitle, "<em>B</em>")
+})
+
 test_that("rows with title internal are dropped", {
   ref <- list(
     list(title = "internal", contents = c("a", "b")),

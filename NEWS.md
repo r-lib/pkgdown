@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* You can now use inline markdown in the reference index `title`s and 
+  `subtitle`s and article index `title`s (#2039).
+
 * Automatically added links in code blocks are now styled less aggressively,
   so they occupy less visual weight on the page (#2007).
 
