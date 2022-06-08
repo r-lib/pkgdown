@@ -29,6 +29,22 @@ test_that("can remove first header", {
   expect_equal(xpath_length(html, ".//div"), 0)
 })
 
+test_that("can remove logo", {
+  # Without link
+  html <- xml2::read_html('
+    <h1>First <img src="logo.png" /></h1>
+  ')
+  tweak_homepage_html(html, bs_version = 5, logo = "mylogo.png")
+  expect_snapshot(xpath_xml(html, ".//div"))
+
+  # With link
+  html <- xml2::read_html('
+    <h1>First <a><img src="logo.png" /></a></h1>
+  ')
+  tweak_homepage_html(html, bs_version = 5, logo = "mylogo.png")
+  expect_snapshot(xpath_xml(html, ".//div"))
+})
+
 
 # badges -------------------------------------------------------------------
 
