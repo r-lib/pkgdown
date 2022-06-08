@@ -45,8 +45,28 @@ test_that("can remove logo", {
   expect_snapshot(xpath_xml(html, ".//div"))
 })
 
-
 # badges -------------------------------------------------------------------
+
+test_that("can move badges to sidebar", {
+  html <- xml2::read_html('
+    <h1>Title</h1>
+    <div id="badges">
+      <p><a href="x"><img src="y"></a></p>
+    </div>
+    <div class="dev-status"></div>
+  ')
+  tweak_sidebar_html(html)
+  expect_snapshot(xpath_xml(html, ".//div"))
+})
+
+test_that("remove dev-status if no badges", {
+  html <- xml2::read_html('
+    <h1>Title</h1>
+    <div class="dev-status"></div>
+  ')
+  tweak_sidebar_html(html)
+  expect_equal(xpath_length(html, "//div"), 0)
+})
 
 test_that("doesn't find badges when they don't exist", {
   expect_equal(badges_extract_text("<h1></h1>"), character())
