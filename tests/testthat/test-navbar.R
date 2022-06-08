@@ -115,8 +115,8 @@ test_that("data_navbar() works with empty side", {
   pkg <- local_pkgdown_site(meta = "
     navbar:
       structure:
-        left:
-        right:
+        left: []
+        right: []
   ")
 
    expect_snapshot(data_navbar(pkg))
