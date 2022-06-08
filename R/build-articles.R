@@ -399,7 +399,7 @@ data_articles_index_section <- function(section, pkg) {
   )
 
   list(
-    title = section$title,
+    title = markdown_text_inline(section$title),
     desc = markdown_text_block(section$desc),
     class = section$class,
     contents = purrr::transpose(contents)

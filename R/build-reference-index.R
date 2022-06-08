@@ -29,7 +29,7 @@ data_reference_index_rows <- function(section, index, pkg) {
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
-      title = section$title,
+      title = markdown_text_inline(section$title),
       slug = make_slug(section$title),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
@@ -38,7 +38,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "subtitle")) {
     rows[[2]] <- list(
-      subtitle = section$subtitle,
+      subtitle = markdown_text_inline(section$subtitle),
       slug = make_slug(section$subtitle),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
