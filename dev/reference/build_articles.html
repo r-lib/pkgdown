@@ -109,7 +109,7 @@ enabling the use of child documents in
 <a href="https://bookdown.org/yihui/bookdown/" class="external-link">bookdown</a></p></li>
 <li><p>Files in <code>vignettes/tutorials</code> are handled by <code><a href="build_tutorials.html">build_tutorials()</a></code></p></li>
 </ul><p>Vignettes are rendered using a special document format that reconciles
-<code><a href="https://rdrr.io/pkg/rmarkdown/man/html_document.html" class="external-link">rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
 external files, and custom output formats. See below for more details.</p>
 <p>Note that when you run <code>build_articles()</code> directly (outside of
@@ -233,7 +233,7 @@ vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
-<code><a href="https://rdrr.io/pkg/rmarkdown/man/find_external_resources.html" class="external-link">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/find_external_resources.html" class="external-link">rmarkdown::find_external_resources()</a></code>, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
 will need to add a <code>resource_files</code> field to the yaml metadata, e.g.:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -261,7 +261,7 @@ some hints on how to customise the appearance with CSS.</p>
     
 
 <p>By default, pkgdown builds all articles using the
-<code><a href="https://rdrr.io/pkg/rmarkdown/man/html_document.html" class="external-link">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
 your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
