@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Development status badges are no longer shown on the released version of
+  a site (#2054).
+
 * You can now use inline markdown in the reference index `title`s and 
   `subtitle`s and article index `title`s (#2039).
 
