@@ -151,7 +151,7 @@
       [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
       
       $right
-      [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>"
+      [1] ""
       
 
 # data_navbar() works with empty side
@@ -175,7 +175,7 @@
       data_navbar(pkg)
     Condition
       Error in `yaml_character()`:
-      ! navbar.structure.right must be a character vector
+      ! navbar.structure.left must be a character vector
 
 # render_navbar_links BS3 & BS4 default
 

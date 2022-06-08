@@ -81,42 +81,54 @@ test_that("data_navbar() works by default", {
 })
 
 test_that("data_navbar() can re-order default elements", {
-  pkg <- local_pkgdown_site(meta = list(
-    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
-  ))
+  pkg <- local_pkgdown_site(meta = "
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
+
+    navbar:
+      structure:
+        left: [github, reference]
+        right: news
+  ")
   file.create(file.path(pkg$src_path, "NEWS.md"))
 
-  pkg$meta$navbar$structure$right <- c("news")
-  pkg$meta$navbar$structure$left <- c("github", "reference")
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() can remove elements", {
-  pkg <- local_pkgdown_site(meta = list(
-    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
-  ))
-  file.create(file.path(pkg$src_path, "NEWS.md"))
+  pkg <- local_pkgdown_site(meta = "
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
 
-  pkg$meta$navbar$structure$left <- c("github")
-  pkg$meta$navbar$structure$right <- c("reference")
+    navbar:
+      structure:
+        left: github
+        right: ~
+  ")
+
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() works with empty side", {
-   pkg <- local_pkgdown_site()
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      structure:
+        left:
+        right:
+  ")
 
-   pkg$meta$navbar$structure$right <- list()
-   pkg$meta$navbar$structure$left <- list()
    expect_snapshot(data_navbar(pkg))
-})
+ })
 
 test_that("data_navbar() errors with bad side specifications", {
-   pkg <- local_pkgdown_site(meta = list(
-     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
-   ))
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      structure:
+        left: 1
+  ")
 
-   pkg$meta$navbar$structure$right <- 1
-   pkg$meta$navbar$structure$left <- c("github", "reference")
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })
 
