@@ -23,6 +23,7 @@ test_that("examples_env sets width", {
     code:
       width: 50
   ")
+  dir.create(file.path(pkg$dst_path, "reference"), recursive = TRUE)
 
   examples_env(pkg)
   expect_equal(getOption("width"), 50)

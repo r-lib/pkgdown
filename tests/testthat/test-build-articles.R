@@ -148,7 +148,7 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   expect_output(path <- build_article("articles/nested", pkg))
 
-  expect_equal(path, file.path(pkg$dst_path, "articles", "nested.html"))
+  expect_equal(path, normalizePath(file.path(pkg$dst_path, "articles", "nested.html")))
 
   # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
   pkg$meta$url <- "https://example.com"

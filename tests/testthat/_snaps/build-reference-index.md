@@ -15,24 +15,24 @@
         is_internal: no
       - topics:
         - path: a.html
-          aliases: a()
           title: A
+          aliases: a()
           icon: ~
         - path: b.html
-          aliases: b()
           title: B
+          aliases: b()
           icon: ~
         - path: c.html
-          aliases: c()
           title: C
+          aliases: c()
           icon: ~
         - path: e.html
-          aliases: e
           title: E
+          aliases: e
           icon: ~
         - path: help.html
-          aliases: '`?`()'
           title: D
+          aliases: '`?`()'
           icon: ~
         names:
         - a
@@ -66,11 +66,11 @@
 
 # errors well when a content entry refers to a not installed package
 
-    The package `notapackage` is required as it is mentioned in the reference index.
+    The package `notapackage` is required as it's used in the reference index.
 
 # errors well when a content entry refers to a non existing function
 
-    Could not find an href for topic lala of package rlang
+    Could not find documentation for rlang::lala
 
 # can use a topic from another package
 
@@ -85,39 +85,39 @@
         is_internal: no
       - topics:
         - path: a.html
-          aliases: a()
           title: A
+          aliases: a()
           icon: ~
         - path: b.html
-          aliases: b()
           title: B
+          aliases: b()
           icon: ~
         - path: c.html
-          aliases: c()
           title: C
+          aliases: c()
           icon: ~
         - path: e.html
-          aliases: e
           title: E
+          aliases: e
           icon: ~
         - path: help.html
-          aliases: '`?`()'
           title: D
+          aliases: '`?`()'
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
+          title: Are packages installed in any of the libraries? (from rlang)
           aliases:
           - is_installed()
           - check_installed()
-          title: Are packages installed in any of the libraries? (from rlang)
           icon: ~
         - path: https://rstudio.github.io/bslib/reference/bs_bundle.html
+          title: Add low-level theming customizations (from bslib)
           aliases:
           - bs_add_variables()
           - bs_add_rules()
           - bs_add_functions()
           - bs_add_mixins()
           - bs_bundle()
-          title: Add low-level theming customizations (from bslib)
           icon: ~
         names:
         - a

@@ -46,6 +46,7 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
     meta <- list()
   }
   pkg <- as_pkgdown(path, meta)
+  pkg$dst_path <- withr::local_tempdir(.local_envir = env)
 
   clean_up <- function(path) {
     if (!fs::dir_exists(path)) {

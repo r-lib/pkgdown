@@ -48,17 +48,15 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "contents")) {
     check_all_characters(section$contents, index, pkg)
-    contents <- purrr::imap(section$contents, content_info, pkg = pkg, section = index)
-    contents <- do.call(rbind, contents)
-    contents <- contents[!duplicated(contents$name), , drop = FALSE]
+    topics <- section_topics(section$contents, pkg)
 
-    names <- contents$name
-    contents$name <- NULL
+    names <- topics$name
+    topics$name <- NULL
 
     rows[[3]] <- list(
-      topics = purrr::transpose(contents),
+      topics = purrr::transpose(topics),
       names = names,
-      row_has_icons = !purrr::every(contents$icon, is.null),
+      row_has_icons = !purrr::every(topics$icon, is.null),
       is_internal = is_internal
     )
   }

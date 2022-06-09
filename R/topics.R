@@ -149,94 +149,51 @@ match_eval <- function(string, env) {
       topic_must("be a known topic name or alias", string)
       integer()
     }
-  } else if (is_call(expr)) {
-    value <- tryCatch(eval(expr, env), error = function(e) NULL)
-
-    if (is.null(value)) {
-      topic_must("be a known selector function", string)
-      integer()
+  } else if (is_call(expr, "::")) {
+    name <- paste0(expr[[2]], "::", expr[[3]])
+    val <- env_get(env, name, default = NULL)
+    if (is.integer(val)) {
+      val
     } else {
-      value
+      topic_must("be a known topic name or alias", string)
+      integer()
     }
+  } else if (is_call(expr)) {
+    tryCatch(
+      eval(expr, env),
+      error = function(e) {
+        topic_must("be a known selector function", string, parent = e)
+      }
+    )
   } else {
     topic_must("be a string or function call", string)
     integer()
   }
 }
 
-topic_must <- function(message, topic) {
-  abort(c(
-    paste0("In '_pkgdown.yml', topic must ", message),
-    x = paste0("Not ", encodeString(topic, quote = "'"))
-  ))
-}
-
-content_info <- function(content_entry, index, pkg, section) {
-
-  if (!grepl("::", content_entry, fixed = TRUE)) {
-    topics <- pkg$topics[select_topics(content_entry, pkg$topics),]
-    tibble::tibble(
-      path = topics$file_out,
-      aliases = purrr::map2(topics$funs, topics$name, ~ if (length(.x) > 0) .x else .y),
-      name = topics$name,
-      title = topics$title,
-      icon = find_icons(topics$alias, path(pkg$src_path, "icons"))
-    )
-  } else { # topic from another package
-    names <- strsplit(content_entry, "::")[[1]]
-    pkg_name <- names[1]
-    topic <- names[2]
-    check_package_presence(pkg_name)
-
-    rd_href <- find_rd_href(sub("\\(\\)$", "", topic), pkg_name)
-    rd <- get_rd(rd_href, pkg_name)
-    rd_title <- extract_title(rd)
-    rd_aliases <- find_rd_aliases(rd)
-
-    tibble::tibble(
-      path = rd_href,
-      aliases = rd_aliases,
-      name = content_entry,
-      title = sprintf("%s (from %s)", rd_title, pkg_name),
-      icon = list(content_entry = NULL)
-    )
-  }
-}
-
-check_package_presence <- function(pkg_name) {
-  rlang::check_installed(
-    pkg = pkg_name,
-    reason = "as it is mentioned in the reference index."
+topic_must <- function(message, topic, ..., call = NULL) {
+  abort(
+    c(
+      paste0("In '_pkgdown.yml', topic must ", message),
+      x = paste0("Not ", encodeString(topic, quote = "'"))
+    ),
+    ...,
+    call = call
   )
 }
 
-get_rd <- function(rd_href, pkg_name) {
-  rd_name <- fs::path_ext_set(fs::path_file(rd_href), "Rd")
-  # adapted from printr
-  # https://github.com/yihui/printr/blob/0267c36f49e92bd99e5434f695f80b417d14e090/R/help.R#L32
-  db <- tools::Rd_db(pkg_name)
-  Rd <- db[[rd_name]]
-  set_classes(Rd)
-}
+section_topics <- function(match_strings, pkg) {
+  topics <- pkg$topics[, c("name", "file_out", "title", "funs", "alias", "internal")]
+  # Add rows for external docs
+  ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
+  topics <- rbind(topics, ext_topics(ext_strings))
 
-find_rd_aliases <- function(rd) {
-  funs <- topic_funs(rd)
-  if (length(funs) > 0) {
-    list(funs)
-  } else {
-    extract_tag(rd, "tag_name")
-  }
-}
-
-find_rd_href <- function(topic, pkg_name) {
-  href <- downlit::href_topic(topic, pkg_name)
-  if (is.na(href)) {
-    abort(
-      sprintf(
-        "Could not find an href for topic %s of package %s",
-        topic, pkg_name
-      )
-    )
-  }
-  href
+  selected <- topics[select_topics(match_strings, topics), , ]
+  tibble::tibble(
+    name = selected$name,
+    path = selected$file_out,
+    title = selected$title,
+    aliases = purrr::map2(selected$funs, selected$name, ~ if (length(.x) > 0) .x else .y),
+    icon = find_icons(selected$alias, path(pkg$src_path, "icons"))
+  )
 }
