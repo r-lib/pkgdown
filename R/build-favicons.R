@@ -93,10 +93,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
   },
   warning = function(e) {
-    stop("Your logo file couldn't be processed and may be corrupt.", call. = FALSE)
+    abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
   },
   error = function(e) {
-    stop("Your logo file couldn't be processed and may be corrupt.", call. = FALSE)
+    abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
   })
 
   invisible()

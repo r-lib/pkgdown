@@ -141,16 +141,11 @@ check_missing_topics <- function(rows, pkg) {
   in_index <- pkg$topics$name %in% all_topics
 
   missing <- !in_index & !pkg$topics$internal
-  if (any(missing)) {
-    text <- sprintf("Topics missing from index: %s", unname(pkg$topics$name[missing]))
-    if (on_ci()) {
-      abort(text)
-    } else {
-      warn(text)
-    }
-  }
-}
 
-on_ci <- function() {
-  isTRUE(as.logical(Sys.getenv("CI")))
+  if (any(missing)) {
+    abort(c(
+      "All topics must be included in reference index",
+      paste0("Missing topics: ", paste0(pkg$topics$name[missing], collapse = ", "))
+    ))
+  }
 }

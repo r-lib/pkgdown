@@ -10,7 +10,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      warn("No topics matched in '_pkgdown.yml'. No topics selected.")
+      abort("No topics matched in '_pkgdown.yml'. No topics selected.")
     }
     return(integer())
   }
@@ -165,7 +165,7 @@ match_eval <- function(string, env) {
 }
 
 topic_must <- function(message, topic) {
-  warn(c(
+  abort(c(
     paste0("In '_pkgdown.yml', topic must ", message),
     x = paste0("Not ", encodeString(topic, quote = "'"))
   ))

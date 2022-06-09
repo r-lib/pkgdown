@@ -64,6 +64,7 @@ reference:
   contents:
   - starts_with("deploy_")
   - build_site_github_pages
+  - check_pkgdown
 
 - title: Templates
   contents:

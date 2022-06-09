@@ -364,11 +364,9 @@ data_articles_index <- function(pkg = ".") {
   missing <- !(pkg$vignettes$name %in% listed)
 
   if (any(missing)) {
-    warning(
+    abort(
       "Vignettes missing from index: ",
-      paste(pkg$vignettes$name[missing], collapse = ", "),
-      call. =  FALSE,
-      immediate. = TRUE
+      paste(pkg$vignettes$name[missing], collapse = ", ")
     )
   }
 
@@ -380,12 +378,7 @@ data_articles_index <- function(pkg = ".") {
 
 data_articles_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "contents"))) {
-    warning(
-      "Section must have components `title`, `contents`",
-      call. = FALSE,
-      immediate. = TRUE
-    )
-    return(NULL)
+    abort("Section must have components `title`, `contents`")
   }
 
   # Match topics against any aliases
@@ -419,6 +412,11 @@ select_vignettes <- function(match_strings, vignettes) {
 
 default_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+
+  if (nrow(pkg$vignettes) == 0L) {
+    return(NULL)
+  }
+
 
   print_yaml(list(
     list(

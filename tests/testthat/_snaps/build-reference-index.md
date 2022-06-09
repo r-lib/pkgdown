@@ -45,6 +45,15 @@
       has_icons: no
       
 
+# warns if missing topics
+
+    Code
+      data_reference_index(pkg)
+    Condition
+      Error in `check_missing_topics()`:
+      ! All topics must be included in reference index
+      * Missing topics: c, e, ?
+
 # errors well when a content entry is empty
 
     Item 2 in section 1 in reference in '_pkgdown.yml' is empty.
