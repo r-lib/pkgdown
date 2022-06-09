@@ -73,7 +73,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li><p>If you’ve included the logo in the a topic description (as on the package reference page), it’s automatically stripped (<a href="https://github.com/r-lib/pkgdown/issues/2083" class="external-link">#2083</a>).</p></li>
+<ul><li><p>Invalid <code>_pkgdown.yml</code> now consistently generates errors both locally and on CI (<a href="https://github.com/r-lib/pkgdown/issues/2055" class="external-link">#2055</a>).</p></li>
+<li><p>New <code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> provides a lightweight way to check that your <code>_pkgdown.yml</code> is valid without building the site (<a href="https://github.com/r-lib/pkgdown/issues/2056" class="external-link">#2056</a>).</p></li>
+<li><p>If you’ve included the logo in the a topic description (as on the package reference page), it’s automatically stripped (<a href="https://github.com/r-lib/pkgdown/issues/2083" class="external-link">#2083</a>).</p></li>
 <li><p>Development status badges are no longer shown on the released version of a site (<a href="https://github.com/r-lib/pkgdown/issues/2054" class="external-link">#2054</a>).</p></li>
 <li><p>You can now use inline markdown in the reference index <code>title</code>s and <code>subtitle</code>s and article index <code>title</code>s (<a href="https://github.com/r-lib/pkgdown/issues/2039" class="external-link">#2039</a>).</p></li>
 <li><p>Automatically added links in code blocks are now styled less aggressively, so they occupy less visual weight on the page (<a href="https://github.com/r-lib/pkgdown/issues/2007" class="external-link">#2007</a>).</p></li>
