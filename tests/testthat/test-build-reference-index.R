@@ -96,6 +96,24 @@ test_that("errors well when a content entry refers to a non existing function", 
   expect_snapshot_error(build_reference_index(pkg))
 })
 
+test_that("can exclude topics", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: Exclude
+      contents: [a, b, -a]
+    - title: Exclude multiple
+      contents: [a, b, c, -matches('a|b')]
+    - title: Everything else
+      contents: [a, c, e, '?']
+  ")
+
+  ref <- data_reference_index(pkg)
+  # row 1 is the title row
+  expect_equal(length(ref$rows[[2]]$topics), 1)
+  expect_equal(ref$rows[[2]]$topics[[1]]$aliases, "b()")
+  expect_equal(length(ref$rows[[4]]$topics), 1)
+  expect_equal(ref$rows[[4]]$topics[[1]]$aliases, "c()")
+})
 
 test_that("can use a topic from another package", {
   meta <- list(reference = list(list(

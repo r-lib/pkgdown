@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* You can once again exclude topics from the reference index with `-` (#2040).
+
 * Invalid `_pkgdown.yml` now consistently generates errors both locally and on
   CI (#2055).
 

@@ -6,7 +6,7 @@ test_that("intermediate files cleaned up automatically", {
   pkg <- local_pkgdown_site(test_path("assets/home-index-rmd"))
   expect_output(build_home(pkg))
 
-  expect_setequal(dir(pkg$src_path), c("docs", "DESCRIPTION", "index.Rmd"))
+  expect_setequal(dir(pkg$src_path), c("DESCRIPTION", "index.Rmd"))
 })
 
 test_that("intermediate files cleaned up automatically", {
@@ -16,8 +16,8 @@ test_that("intermediate files cleaned up automatically", {
   expect_output(build_home(pkg))
 
   expect_setequal(
-    setdiff(dir(pkg$src_path), "man"),
-    c("docs", "NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
+    dir(pkg$src_path),
+    c("NAMESPACE", "DESCRIPTION", "README.md", "README.Rmd")
   )
 })
 

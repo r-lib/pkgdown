@@ -46,18 +46,9 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
     meta <- list()
   }
   pkg <- as_pkgdown(path, meta)
+  pkg$dst_path <- withr::local_tempdir(.local_envir = env)
 
-  clean_up <- function(path) {
-    if (!fs::dir_exists(path)) {
-      return()
-    }
-    fs::dir_delete(path)
-  }
-  if (pkg$development$in_dev) {
-    withr::defer(clean_up(path_dir(pkg$dst_path)), envir = env)
-  } else {
-    withr::defer(clean_up(pkg$dst_path), envir = env)
-  }
+  withr::defer(unlink(pkg$dst_path, recursive = TRUE), envir = env)
 
   pkg
 }
