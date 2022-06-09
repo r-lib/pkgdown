@@ -1,42 +1,48 @@
 # pkgdown (development version)
 
-* You can once again exclude topics from the reference index with `-` (#2040).
-
-* Invalid `_pkgdown.yml` now consistently generates errors both locally and on
+* New `check_pkgdown()` provides a lightweight way to check that your 
+  `_pkgdown.yml` is valid without building the site (#2056). Invalid 
+  `_pkgdown.yml` now consistently generates errors both locally and on
   CI (#2055).
 
-* New `check_pkgdown()` provides a lightweight way to check that your 
-  `_pkgdown.yml` is valid without building the site (#2056).
+* `build_article()` now supports inline markdown in the `title` (#2039).
 
-* If you've included the logo in the a topic description (as on the 
-  package reference page), it's automatically stripped (#2083).
+* `build_home()` no longer shows development status badges on the released 
+  version of the site (#2054).
 
-* Development status badges are no longer shown on the released version of
-  a site (#2054).
+* `build_news()` support automated `@username` links in more places (#2030).
 
-* You can now use inline markdown in the reference index `title`s and 
-  `subtitle`s and article index `title`s (#2039).
+* `build_reference()`: 
 
-* Automatically added links in code blocks are now styled less aggressively,
-  so they occupy less visual weight on the page (#2007).
+    * You can once again exclude topics from the reference index with `-` (#2040). 
 
-* All article pages are given class `col-md-9` for consistency with other
-  pages (#2045).
+    * Inline markdown in `title`s and `subtitle`s is now supported(#2039). 
 
-* Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
+    * Package logos will be automatically stripped from the `.Rd` you don't end 
+      up with two on one page. (#2083).
 
-* New syntax highlight themes a11y-light, a11y-dark, monochrome-light, 
+    * `\figure{file}{alternative text}` with multline alt text is now parsed
+      correctly (#2080)
+
+    * roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff) is
+      processed correctly.
+
+* Front end changes:
+
+    * Automatically added links in code blocks are now styled less aggressively,
+      so they occupy less visual weight on the page (#2007).
+
+    * All article pages are given class `col-md-9` for consistency with other
+      pages (#2045).
+
+    * Fixed width HTML widgets are sized correctly (@dmurdoch, #2062).
+
+    * Footnotes work with more contents, including code (@banfai, #2042).
+
+    * Navbar components now accept `target` argument (#2089, @JSchoenbachler).
+
+* New syntax highlighting themes a11y-light, a11y-dark, monochrome-light, 
   monochrome-dark, and solarized
-
-* Links to `@username` in NEWS.md work in more places (#2030).
-
-* Footnotes work with more contents, including code (@banfai, #2042).
-
-* Manual pages `\figure{file}{alternative text}` tags with multines alternative text can now be parsed. (#2080)
-
-* Bug fix: accounts roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff).
-
-* Navbar components now accept `target` argument (#2089, @JSchoenbachler).
 
 # pkgdown 2.0.3
 
