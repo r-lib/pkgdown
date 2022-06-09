@@ -5,9 +5,14 @@
 
 <!-- badges: start -->
 
-<a href="https://cran.r-project.org/package=pkgdown" class="pkgdown-release"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
-<a href="https://github.com/r-lib/pkgdown/actions" class="pkgdown-devel"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
-[![Codecov test
+<a href="https://cran.r-project.org/package=pkgdown"
+class="pkgdown-release"><img
+src="https://www.r-pkg.org/badges/version/pkgdown"
+alt="CRAN Status" /></a>
+<a href="https://github.com/r-lib/pkgdown/actions"
+class="pkgdown-devel"><img
+src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg"
+alt="R-CMD-check" /></a> [![Codecov test
 coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
 
