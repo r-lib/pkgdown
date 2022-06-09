@@ -1,5 +1,11 @@
 # pkgdown (development version)
 
+* Invalid `_pkgdown.yml` now consistently generates errors both locally and on
+  CI (#2055).
+
+* New `check_pkgdown()` provides a lightweight way to check that your 
+  `_pkgdown.yml` is valid without building the site (#2056).
+
 * If you've included the logo in the a topic description (as on the 
   package reference page), it's automatically stripped (#2083).
 

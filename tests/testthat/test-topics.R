@@ -5,7 +5,7 @@ test_that("bad inputs give informative warnings", {
     "x",   c("x", "x1"), FALSE,      character(),
   )
 
-  expect_snapshot({
+  expect_snapshot(error = TRUE, {
     t <- select_topics("x + ", topics)
     t <- select_topics("y", topics)
     t <- select_topics("paste(1)", topics)
@@ -34,7 +34,7 @@ test_that("can select by name or alias", {
   expect_equal(select_topics("b-a", topics), 3)
 
   # Or missing
-  expect_warning(select_topics("a4", topics), "known topic")
+  expect_snapshot(select_topics("a4", topics), error = TRUE)
 })
 
 test_that("selection preserves original order", {
@@ -120,8 +120,7 @@ test_that("an unmatched selection generates a warning", {
     "d",   "d",           TRUE,
   )
 
-  expect_warning(
+  expect_snapshot(error = TRUE,
     select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE),
-    "topic must match a function or concept"
   )
 })
