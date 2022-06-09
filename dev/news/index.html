@@ -73,21 +73,27 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
+<ul><li><p>New <code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> provides a lightweight way to check that your <code>_pkgdown.yml</code> is valid without building the site (<a href="https://github.com/r-lib/pkgdown/issues/2056" class="external-link">#2056</a>). Invalid <code>_pkgdown.yml</code> now consistently generates errors both locally and on CI (<a href="https://github.com/r-lib/pkgdown/issues/2055" class="external-link">#2055</a>).</p></li>
+<li><p><code><a href="../reference/build_articles.html">build_article()</a></code> now supports inline markdown in the <code>title</code> (<a href="https://github.com/r-lib/pkgdown/issues/2039" class="external-link">#2039</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> no longer shows development status badges on the released version of the site (<a href="https://github.com/r-lib/pkgdown/issues/2054" class="external-link">#2054</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> support automated <code><a href="https://github.com/username" class="external-link">@username</a></code> links in more places (<a href="https://github.com/r-lib/pkgdown/issues/2030" class="external-link">#2030</a>).</p></li>
+<li>
+<p><code><a href="../reference/build_reference.html">build_reference()</a></code>:</p>
 <ul><li><p>You can once again exclude topics from the reference index with <code>-</code> (<a href="https://github.com/r-lib/pkgdown/issues/2040" class="external-link">#2040</a>).</p></li>
-<li><p>Invalid <code>_pkgdown.yml</code> now consistently generates errors both locally and on CI (<a href="https://github.com/r-lib/pkgdown/issues/2055" class="external-link">#2055</a>).</p></li>
-<li><p>New <code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> provides a lightweight way to check that your <code>_pkgdown.yml</code> is valid without building the site (<a href="https://github.com/r-lib/pkgdown/issues/2056" class="external-link">#2056</a>).</p></li>
-<li><p>If you’ve included the logo in the a topic description (as on the package reference page), it’s automatically stripped (<a href="https://github.com/r-lib/pkgdown/issues/2083" class="external-link">#2083</a>).</p></li>
-<li><p>Development status badges are no longer shown on the released version of a site (<a href="https://github.com/r-lib/pkgdown/issues/2054" class="external-link">#2054</a>).</p></li>
-<li><p>You can now use inline markdown in the reference index <code>title</code>s and <code>subtitle</code>s and article index <code>title</code>s (<a href="https://github.com/r-lib/pkgdown/issues/2039" class="external-link">#2039</a>).</p></li>
-<li><p>Automatically added links in code blocks are now styled less aggressively, so they occupy less visual weight on the page (<a href="https://github.com/r-lib/pkgdown/issues/2007" class="external-link">#2007</a>).</p></li>
+<li><p>Inline markdown in <code>title</code>s and <code>subtitle</code>s is now supported(<a href="https://github.com/r-lib/pkgdown/issues/2039" class="external-link">#2039</a>).</p></li>
+<li><p>Package logos will be automatically stripped from the <code>.Rd</code> you don’t end up with two on one page. (<a href="https://github.com/r-lib/pkgdown/issues/2083" class="external-link">#2083</a>).</p></li>
+<li><p><code>\figure{file}{alternative text}</code> with multline alt text is now parsed correctly (<a href="https://github.com/r-lib/pkgdown/issues/2080" class="external-link">#2080</a>)</p></li>
+<li><p>roxygen 7.2.0 output for generic code blocks (<a href="https://github.com/r-lib/pkgdown/issues/2092" class="external-link">#2092</a>, <a href="https://github.com/jabenninghoff" class="external-link">@jabenninghoff</a>) is processed correctly.</p></li>
+</ul></li>
+<li>
+<p>Front end changes:</p>
+<ul><li><p>Automatically added links in code blocks are now styled less aggressively, so they occupy less visual weight on the page (<a href="https://github.com/r-lib/pkgdown/issues/2007" class="external-link">#2007</a>).</p></li>
 <li><p>All article pages are given class <code>col-md-9</code> for consistency with other pages (<a href="https://github.com/r-lib/pkgdown/issues/2045" class="external-link">#2045</a>).</p></li>
 <li><p>Fixed width HTML widgets are sized correctly (<a href="https://github.com/dmurdoch" class="external-link">@dmurdoch</a>, <a href="https://github.com/r-lib/pkgdown/issues/2062" class="external-link">#2062</a>).</p></li>
-<li><p>New syntax highlight themes a11y-light, a11y-dark, monochrome-light, monochrome-dark, and solarized</p></li>
-<li><p>Links to <code><a href="https://github.com/username" class="external-link">@username</a></code> in NEWS.md work in more places (<a href="https://github.com/r-lib/pkgdown/issues/2030" class="external-link">#2030</a>).</p></li>
 <li><p>Footnotes work with more contents, including code (<a href="https://github.com/banfai" class="external-link">@banfai</a>, <a href="https://github.com/r-lib/pkgdown/issues/2042" class="external-link">#2042</a>).</p></li>
-<li><p>Manual pages <code>\figure{file}{alternative text}</code> tags with multines alternative text can now be parsed. (<a href="https://github.com/r-lib/pkgdown/issues/2080" class="external-link">#2080</a>)</p></li>
-<li><p>Bug fix: accounts roxygen 7.2.0 output for generic code blocks (<a href="https://github.com/r-lib/pkgdown/issues/2092" class="external-link">#2092</a>, <a href="https://github.com/jabenninghoff" class="external-link">@jabenninghoff</a>).</p></li>
 <li><p>Navbar components now accept <code>target</code> argument (<a href="https://github.com/r-lib/pkgdown/issues/2089" class="external-link">#2089</a>, <a href="https://github.com/JSchoenbachler" class="external-link">@JSchoenbachler</a>).</p></li>
+</ul></li>
+<li><p>New syntax highlighting themes a11y-light, a11y-dark, monochrome-light, monochrome-dark, and solarized</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.3" id="pkgdown-203">pkgdown 2.0.3<a class="anchor" aria-label="anchor" href="#pkgdown-203"></a></h2><p class="text-muted">CRAN release: 2022-04-24</p>
