@@ -20,13 +20,7 @@ website to any desired branch.
 "><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+<![endif]--><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -34,7 +28,7 @@ website to any desired branch.
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,29 +120,48 @@ website to any desired branch.</p></li>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>pkg</dt>
 <dd><p>Path to package.</p></dd>
+
+
 <dt>install</dt>
 <dd><p>Optionally, opt-out of automatic installation. This is
 necessary if the package you're documenting is a dependency of pkgdown</p></dd>
+
+
 <dt>tarball</dt>
 <dd><p>The location of the built package tarball. The default Travis
 configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></dd>
+
+
 <dt>ssh_id</dt>
 <dd><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p>The commit message to be used for the commit.</p></dd>
+
+
 <dt>clean</dt>
 <dd><p>Clean all files from old site.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Print verbose output</p></dd>
+
+
 <dt>host</dt>
 <dd><p>The GitHub host url.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+
+
 <dt>repo_slug</dt>
 <dd><p>The <code>user/repo</code> slug for the repository.</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -160,7 +173,7 @@ new keypair specifically for deploying the site. The easiest way is to use
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

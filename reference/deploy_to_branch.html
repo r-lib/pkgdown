@@ -6,13 +6,7 @@ already installed. Use usethis::use_pkgdown_github_pages() to automate
 this process using GitHub actions."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+<![endif]--><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -20,7 +14,7 @@ this process using GitHub actions."><meta property="og:image" content="https://p
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,26 +100,41 @@ this process using GitHub actions.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>pkg</dt>
 <dd><p>Path to package.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p>The commit message to be used for the commit.</p></dd>
+
+
 <dt>clean</dt>
 <dd><p>Clean all files from old site.</p></dd>
+
+
 <dt>branch</dt>
 <dd><p>The git branch to deploy to</p></dd>
+
+
 <dt>remote</dt>
 <dd><p>The git remote to deploy to</p></dd>
+
+
 <dt>github_pages</dt>
 <dd><p>Is this a GitHub pages deploy. If <code>TRUE</code>, adds a <code>CNAME</code>
 file for custom domain name support, and a <code>.nojekyll</code> file to suppress
 jekyll rendering.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+
+
 <dt>subdir</dt>
 <dd><p>The sub-directory where the site should be built on the branch.
 This argument can be used to support a number of site configurations.
 For example, you could build version-specific documentation by setting
 <code>subdir = "v1.2.3"</code>; <code>deploy_to_branch()</code> will build and deploy the
 package documentation in the <code>v.1.2.3/</code> directory of your site.</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -137,7 +146,7 @@ package documentation in the <code>v.1.2.3/</code> directory of your site.</p></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
