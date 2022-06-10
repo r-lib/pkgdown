@@ -13,7 +13,7 @@
       check_pkgdown(pkg)
     Condition
       Error in `data_articles_index()`:
-      ! Vignettes missing from index: 
+      ! Vignettes missing from index: articles/nested, width
 
 # informs if everything is ok
 
