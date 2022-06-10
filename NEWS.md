@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.0.4
 
 * New `check_pkgdown()` provides a lightweight way to check that your 
   `_pkgdown.yml` is valid without building the site (#2056). Invalid 
