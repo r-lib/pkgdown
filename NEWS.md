@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 2.0.4
 
 * New `check_pkgdown()` provides a lightweight way to check that your 
