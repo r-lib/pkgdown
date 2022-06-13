@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * If `SUPPORT.md` is present in `/.github` folder, it will be included on
-  homepage as "Getting help" (@patilindrajeets, #2124).
+  homepage as "Getting help" (@IndrajeetPatil, #2124).
 
 # pkgdown 2.0.4
 
