@@ -27,7 +27,7 @@ data_home_sidebar_community <- function (pkg){
     links <- c(links, a(tr_("Code of conduct"), "CODE_OF_CONDUCT.html"))
   }
 
-  if (has_coc(pkg$src_path)) {
+  if (has_support(pkg$src_path)) {
     links <- c(links, a(tr_("Getting help"), "SUPPORT.html"))
   }
 
