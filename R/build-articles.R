@@ -364,10 +364,10 @@ data_articles_index <- function(pkg = ".") {
   missing <- !(pkg$vignettes$name %in% listed)
 
   if (any(missing)) {
-    abort(
-      "Vignettes missing from index: ",
+    abort(paste(
+      "Vignettes missing from index:",
       paste(pkg$vignettes$name[missing], collapse = ", ")
-    )
+    ))
   }
 
   print_yaml(list(
