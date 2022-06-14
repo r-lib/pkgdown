@@ -33,3 +33,15 @@ test_that("multiple citations all have HTML and BibTeX formats", {
   citations <- data_citations(test_path("assets/site-citation/multi"))
   expect_snapshot_output(citations)
 })
+
+test_that("links in curly braces in authors comments are escaped", {
+  pkg_dir <- withr::local_tempdir()
+  desc <- desc::description$new(cmd = "!new")
+  desc$add_author("Jane", "Doe", comment = "reviewed see <https://github.com/r-lib/pkgdown/pulls>")
+  desc$write(file.path(pkg_dir, "DESCRIPTION"))
+  authors_data <- data_authors(pkg_dir)
+  expect_equal(
+    authors_data$all[[2]]$comment,
+    "reviewed see &lt;<a href='https://github.com/r-lib/pkgdown/pulls'>https://github.com/r-lib/pkgdown/pulls</a>&gt;"
+  )
+})
