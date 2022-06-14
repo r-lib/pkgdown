@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * `build_home()` now escapes angle brackets in author comments on the authors page,
-  avoiding URLs from authors comments to be hidden.
+  avoiding URLs from authors comments to be hidden (#2127).
 
 # pkgdown 2.0.4
 
