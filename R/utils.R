@@ -110,6 +110,13 @@ with_dir <- function(new, code) {
   force(code)
 }
 
+with_options <- function(new, code) {
+  old <- do.call(options, as.list(new))
+  on.exit(options(old))
+  force(code)
+}
+
+
 # remove '' quoting
 # e.g. 'title' becomes title.s
 cran_unquote <- function(string) {

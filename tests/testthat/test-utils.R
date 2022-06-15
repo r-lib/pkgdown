@@ -13,7 +13,7 @@ test_that("cran_unquote works", {
 })
 
 test_that("is_internal_link() works", {
-  pkg=list(meta=list(url="https://pkgdown.r-lib.org"))
+  pkg = list(meta = list(url = "https://pkgdown.r-lib.org"))
   expect_false(is_internal_link("https://github.com", pkg = pkg))
   expect_false(is_internal_link("http://github.com", pkg = pkg))
   expect_true(is_internal_link("https://pkgdown.r-lib.org/articles", pkg = pkg))
@@ -24,4 +24,16 @@ test_that("is_internal_link() works", {
       c(TRUE, FALSE)
     )
   )
+})
+
+test_that("ruler() respects `width` argument", {
+  expect_snapshot({
+    ruler(width = 60)
+  })
+})
+
+test_that("ruler() respects `width` from `options()$width`", {
+  with_options(list(width = 20), {
+    expect_snapshot(ruler())
+  })
 })
