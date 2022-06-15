@@ -215,6 +215,7 @@ method_usage <- function(x, type) {
 #' @export
 as_html.tag_Sexpr <- function(x, ...) {
   code <- flatten_text(x, escape = FALSE)
+  return(code)
   options <- parse_opts(attr(x, "Rd_option"))
 
   # Needs to be package root

@@ -1,6 +1,7 @@
 # highligh_text() and highlight_examples() are only used for usage
 # and examples, and are specifically excluded in tweak_reference_highlighting()
 highlight_text <- function(text) {
+  return(text)
   out <- downlit::highlight(text, classes = downlit::classes_pandoc())
   if (!is.na(out)) {
     sourceCode(pre(out, r_code = TRUE))
