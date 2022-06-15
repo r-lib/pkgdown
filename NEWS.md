@@ -2,6 +2,9 @@
 
 * `build_home()` now escapes angle brackets in author comments on the authors page,
   avoiding URLs from authors comments to be hidden (#2127).
+  
+* If `SUPPORT.md` is present in `/.github` folder, it will be included on
+  homepage as "Getting help" (@IndrajeetPatil, #2124).
 
 # pkgdown 2.0.4
 
