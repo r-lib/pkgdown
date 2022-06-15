@@ -33,7 +33,7 @@ test_that("ruler() respects `width` argument", {
 })
 
 test_that("ruler() respects `width` from `options()$width`", {
-  with_options(list(width = 20), {
+  withr::with_options(list(width = 20), {
     expect_snapshot(ruler())
   })
 })
