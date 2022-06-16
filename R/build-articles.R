@@ -365,8 +365,10 @@ data_articles_index <- function(pkg = ".") {
 
   if (any(missing)) {
     abort(
-      "Vignettes missing from index: ",
-      paste(pkg$vignettes$name[missing], collapse = ", ")
+      paste0(
+        "Vignettes missing from index: ",
+        paste(pkg$vignettes$name[missing], collapse = ", ")
+      )
     )
   }
 
