@@ -183,10 +183,9 @@ topic_must <- function(message, topic, ..., call = NULL) {
 }
 
 section_topics <- function(match_strings, pkg) {
-  topics <- pkg$topics[, c("name", "file_out", "title", "funs", "alias", "internal")]
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
-  topics <- rbind(topics, ext_topics(ext_strings))
+  topics <- rbind(pkg$topics, ext_topics(ext_strings))
 
   selected <- topics[select_topics(match_strings, topics), , ]
   tibble::tibble(
