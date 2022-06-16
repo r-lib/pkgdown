@@ -96,12 +96,6 @@ has_internet <- function() {
   return(getOption("pkgdown.internet", default = TRUE))
 }
 
-with_dir <- function(new, code) {
-  old <- setwd(dir = new)
-  on.exit(setwd(old))
-  force(code)
-}
-
 # remove '' quoting
 # e.g. 'title' becomes title.s
 cran_unquote <- function(string) {
