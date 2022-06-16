@@ -399,5 +399,5 @@ make_slug <- function(x) {
 }
 
 get_rdname <- function(topics) {
-  fs::path_ext_remove(topics$file_in)
+  gsub("\\.[Rr]d$", "", topics$file_in)
 }

@@ -90,3 +90,8 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
   )
   expect_length(bs_css_href, 1)
 })
+
+test_that("get_rdname handles edge cases", {
+  expect_equal(get_rdname(list(file_in = "foo..Rd")), "foo.")
+  expect_equal(get_rdname(list(file_in = "foo.rd")), "foo")
+})

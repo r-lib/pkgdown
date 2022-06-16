@@ -3,6 +3,9 @@
 * If build fails because the index doesn't include all articles, you're now 
   told what articles are missing (@zkamvar, #2121).
 
+* Correctly generates link targets for topics that have a file name ending in
+  `.` (#2128).
+
 * Restore accidentally nerfed `has_keyword()` and `has_concept()` reference
   selectors (#2126).
 
