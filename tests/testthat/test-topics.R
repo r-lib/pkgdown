@@ -16,25 +16,38 @@ test_that("bad inputs give informative warnings", {
   })
 })
 
+test_that("empty input returns empty vector", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
+  )
+  expect_equal(select_topics(character(), topics), integer())
+})
+
 test_that("can select by name or alias", {
   topics <- tibble::tribble(
     ~name, ~alias,
     "x",   c("a1", "a2"),
     "a",   c("a3"),
-    "a-b", "b-a"
+    "a-b", "b-a",
+    "c::d", "d",
   )
 
   expect_equal(select_topics("x", topics), 1)
   expect_equal(select_topics("'x'", topics), 1)
   expect_equal(select_topics("a1", topics), 1)
   expect_equal(select_topics("a2", topics), 1)
+  expect_equal(select_topics("c::d", topics), 4)
 
   # Even if name is non-syntactic
   expect_equal(select_topics("a-b", topics), 3)
   expect_equal(select_topics("b-a", topics), 3)
 
   # Or missing
-  expect_snapshot(select_topics("a4", topics), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    select_topics("a4", topics)
+    select_topics("c::a", topics)
+  })
 })
 
 test_that("selection preserves original order", {
@@ -123,4 +136,16 @@ test_that("an unmatched selection generates a warning", {
   expect_snapshot(error = TRUE,
     select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE),
   )
+})
+
+test_that("full topic selection process works", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+
+  # can mix local and remote
+  out <- section_topics(c("a", "base::mean"), pkg)
+  expect_equal(unname(out$name), c("a", "base::mean"))
+
+  # concepts and keywords work
+  out <- section_topics(c("has_concept('graphics')", "has_keyword('foo')"), pkg)
+  expect_equal(unname(out$name), c("b", "a"))
 })

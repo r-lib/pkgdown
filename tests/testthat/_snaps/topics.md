@@ -46,6 +46,12 @@
       Error:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
       x Not 'a4'
+    Code
+      select_topics("c::a", topics)
+    Condition
+      Error:
+      ! In '_pkgdown.yml', topic must be a known topic name or alias
+      x Not 'c::a'
 
 # an unmatched selection generates a warning
 

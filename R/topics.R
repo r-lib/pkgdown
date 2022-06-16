@@ -137,7 +137,6 @@ match_eval <- function(string, env) {
   expr <- tryCatch(parse_expr(string), error = function(e) NULL)
   if (is.null(expr)) {
     topic_must("be valid R code", string)
-    return(integer())
   }
 
   if (is_string(expr) || is_symbol(expr)) {
@@ -147,7 +146,6 @@ match_eval <- function(string, env) {
       val
     } else {
       topic_must("be a known topic name or alias", string)
-      integer()
     }
   } else if (is_call(expr, "::")) {
     name <- paste0(expr[[2]], "::", expr[[3]])
@@ -156,7 +154,6 @@ match_eval <- function(string, env) {
       val
     } else {
       topic_must("be a known topic name or alias", string)
-      integer()
     }
   } else if (is_call(expr)) {
     tryCatch(
@@ -167,7 +164,6 @@ match_eval <- function(string, env) {
     )
   } else {
     topic_must("be a string or function call", string)
-    integer()
   }
 }
 
@@ -183,10 +179,9 @@ topic_must <- function(message, topic, ..., call = NULL) {
 }
 
 section_topics <- function(match_strings, pkg) {
-  topics <- pkg$topics[, c("name", "file_out", "title", "funs", "alias", "internal")]
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
-  topics <- rbind(topics, ext_topics(ext_strings))
+  topics <- rbind(pkg$topics, ext_topics(ext_strings))
 
   selected <- topics[select_topics(match_strings, topics), , ]
   tibble::tibble(
