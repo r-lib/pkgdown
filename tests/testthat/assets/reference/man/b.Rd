@@ -9,3 +9,4 @@ b()
 \description{
 B
 }
+\concept{graphics}

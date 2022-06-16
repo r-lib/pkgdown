@@ -137,3 +137,15 @@ test_that("an unmatched selection generates a warning", {
     select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE),
   )
 })
+
+test_that("full topic selection process works", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+
+  # can mix local and remote
+  out <- section_topics(c("a", "base::mean"), pkg)
+  expect_equal(unname(out$name), c("a", "base::mean"))
+
+  # concepts and keywords work
+  out <- section_topics(c("has_concept('graphics')", "has_keyword('foo')"), pkg)
+  expect_equal(unname(out$name), c("b", "a"))
+})
