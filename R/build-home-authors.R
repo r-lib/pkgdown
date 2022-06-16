@@ -129,7 +129,7 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
   list(
     name = name,
     roles = roles,
-    comment = x$comment,
+    comment = linkify(x$comment),
     orcid = orcid_link(orcid)
   )
 }

@@ -184,7 +184,7 @@ github_push <- function(dir, commit_message, remote, branch) {
 
   rule("Commiting updated site", line = 1)
 
-  with_dir(dir, {
+  withr::with_dir(dir, {
     git("add", "-A", ".")
     git("commit", "--allow-empty", "-m", commit_message)
 

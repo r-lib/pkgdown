@@ -1,9 +1,11 @@
 #' A
 #' @export
+#' @keywords foo
 a <- function() {}
 
 #' B
 #' @export
+#' @concept graphics
 b <- function() {}
 
 #' C

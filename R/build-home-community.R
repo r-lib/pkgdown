@@ -8,6 +8,11 @@ has_coc <- function(path = ".") {
     file_exists(path(path, '.github', 'CODE_OF_CONDUCT.md'))
 }
 
+has_support <- function(path = ".") {
+  file_exists(path(path, 'SUPPORT.md')) ||
+    file_exists(path(path, '.github', 'SUPPORT.md'))
+}
+
 data_home_sidebar_community <- function (pkg){
 
   pkg <- as_pkgdown(pkg)
@@ -20,6 +25,10 @@ data_home_sidebar_community <- function (pkg){
 
   if (has_coc(pkg$src_path)) {
     links <- c(links, a(tr_("Code of conduct"), "CODE_OF_CONDUCT.html"))
+  }
+
+  if (has_support(pkg$src_path)) {
+    links <- c(links, a(tr_("Getting help"), "SUPPORT.html"))
   }
 
   if (is.null(links)) {

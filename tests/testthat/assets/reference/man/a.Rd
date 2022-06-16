@@ -9,3 +9,4 @@ a()
 \description{
 A
 }
+\keyword{foo}

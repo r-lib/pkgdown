@@ -10,10 +10,15 @@ ext_topics <- function(match_strings) {
 
   tibble::tibble(
     name = match_strings,
+    file_in = NA_character_,
     file_out = ext_href,
-    title = sprintf("%s (from %s)", ext_title, pkg),
+    alias = list(character()), # used to find icons,
     funs = ext_funs,           # used list alternative names
-    alias = list(character()), # used to find icons
+    title = sprintf("%s (from %s)", ext_title, pkg),
+    rd = list(character()),
+    source = NA_character_,
+    keywords = list(character()), # used for has_keyword()
+    concepts = list(character()), # used for has_concept()
     internal = FALSE
   )
 }

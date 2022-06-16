@@ -3,13 +3,21 @@
     Code
       str(ext_topics("base::mean"))
     Output
-      tibble [1 x 6] (S3: tbl_df/tbl/data.frame)
+      tibble [1 x 11] (S3: tbl_df/tbl/data.frame)
        $ name    : chr "base::mean"
+       $ file_in : chr NA
        $ file_out: chr "https://rdrr.io/r/base/mean.html"
-       $ title   : chr "Arithmetic Mean (from base)"
+       $ alias   :List of 1
+        ..$ : chr(0) 
        $ funs    :List of 1
         ..$ : chr "mean()"
-       $ alias   :List of 1
+       $ title   : chr "Arithmetic Mean (from base)"
+       $ rd      :List of 1
+        ..$ : chr(0) 
+       $ source  : chr NA
+       $ keywords:List of 1
+        ..$ : chr(0) 
+       $ concepts:List of 1
         ..$ : chr(0) 
        $ internal: logi FALSE
 

@@ -50,14 +50,6 @@ system_file <- function(..., package) {
   }
 }
 
-devtools_loaded <- function(x) {
-  if (!x %in% loadedNamespaces()) {
-    return(FALSE)
-  }
-  ns <- .getNamespace(x)
-  env_has(ns, ".__DEVTOOLS__")
-}
-
 devtools_meta <- function(x) {
   ns <- .getNamespace(x)
   ns[[".__DEVTOOLS__"]]
@@ -104,12 +96,6 @@ has_internet <- function() {
   return(getOption("pkgdown.internet", default = TRUE))
 }
 
-with_dir <- function(new, code) {
-  old <- setwd(dir = new)
-  on.exit(setwd(old))
-  force(code)
-}
-
 # remove '' quoting
 # e.g. 'title' becomes title.s
 cran_unquote <- function(string) {
@@ -126,10 +112,6 @@ modify_list <- function(x, y) {
   }
 
   utils::modifyList(x, y)
-}
-
-code_commas <- function(x) {
-  paste0("`", x, "`", collapse = ", ")
 }
 
 # from https://github.com/r-lib/rematch2/blob/8098bd06f251bfe0f20c0598d90fc20b741d13f8/R/package.R#L47
