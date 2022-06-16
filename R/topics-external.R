@@ -15,7 +15,7 @@ ext_topics <- function(match_strings) {
     alias = list(character()), # used to find icons,
     funs = ext_funs,           # used list alternative names
     title = sprintf("%s (from %s)", ext_title, pkg),
-    rd = list(),
+    rd = list(character()),
     source = NA_character_,
     keywords = list(character()), # used for has_keyword()
     concepts = list(character()), # used for has_concept()
