@@ -235,6 +235,8 @@ test_that("selectively remove hide- divs", {
 # footnotes ---------------------------------------------------------------
 
 test_that("can process footnote with code", {
+  skip_if_no_pandoc("2.17.1")
+
   html <- markdown_to_html("
 Hooray[^1]
 
