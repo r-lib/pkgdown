@@ -87,8 +87,8 @@ test_that("can highlight R code", {
   html <- xml2::read_xml('<div><pre><code>1 + 2</code></pre></div>')
   tweak_highlight_r(html)
 
-  expect_equal(xpath_attr(html, "//code/span", "class"), c("fl", "op", "fl"))
-  expect_equal(xpath_text(html, "//code/span"), c("1", "+", "2"))
+  expect_equal(xpath_attr(html, "//code//span[@class]", "class"), c("fl", "op", "fl"))
+  expect_equal(xpath_text(html, "//code//span[@class]"), c("1", "+", "2"))
 })
 
 test_that("fails cleanly", {

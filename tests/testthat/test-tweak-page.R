@@ -36,7 +36,7 @@ test_that("articles get rescue highlighting for non-collapsed output", {
   tweak_page(html, "article", pkg)
 
   pre <- xml2::xml_find_all(html, ".//pre")
-  expect_equal(xml2::xml_find_num(pre, "count(.//span)"), c(1, 0, 0))
+  expect_equal(xml2::xml_find_num(pre, "count(.//span[@class])"), c(1, 0, 0))
 })
 
 test_that("toc removed if one or fewer headings", {
