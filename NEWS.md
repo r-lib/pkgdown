@@ -6,6 +6,9 @@
 * Correctly generates link targets for topics that have a file name ending in
   `.` (#2128).
 
+* Reverted #2030 so links to `@username` in NEWS.md work in fewer places.
+  See #2122 for details.
+
 * Restore accidentally nerfed `has_keyword()` and `has_concept()` reference
   selectors (#2126).
 
