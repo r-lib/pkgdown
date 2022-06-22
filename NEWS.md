@@ -1,22 +1,21 @@
 # pkgdown (development version)
 
-* If build fails because the index doesn't include all articles, you're now 
-  told what articles are missing (@zkamvar, #2121).
+* Correctly generate downlit link targets for topics that have a file name 
+  ending in `.` (#2128).
 
-* Correctly generates link targets for topics that have a file name ending in
-  `.` (#2128).
+* `build_articles()`: if build fails because the index doesn't include all
+  articles, you're now told what articles are missing (@zkamvar, #2121).
 
-* Reverted #2030 so links to `@username` in NEWS.md work in fewer places.
-  See #2122 for details.
-
-* Restore accidentally nerfed `has_keyword()` and `has_concept()` reference
-  selectors (#2126).
-
-* `build_home()` now escapes angle brackets in author comments on the authors page,
-  avoiding URLs from authors comments to be hidden (#2127).
+* `build_home()` now escapes angle brackets in author comments(#2127).
   
-* If `SUPPORT.md` is present in `/.github` folder, it will be included on
-  homepage as "Getting help" (@IndrajeetPatil, #2124).
+* `build_home()` will automatically render and link `.github/SUPPORT.md`
+  (@IndrajeetPatil, #2124).
+
+* `build_news()` once again fails to link `@username` at start of 
+  bullet. I had to reverted #2030 because of #2122.
+
+* `build_reference()`: restore accidentally nerfed `has_keyword()` and
+  `has_concept()` reference selectors (#2126) and add tests.
 
 # pkgdown 2.0.4
 
