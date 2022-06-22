@@ -89,10 +89,7 @@
 #' `-starts_with("foo")`.
 #'
 #' pkgdown will check that all non-internal topics are included on
-#' the reference index page, and will generate a warning if you have missed any.
-#' When the code is run in a continuous integration environment (i.e. when the
-#' CI envar is "true"), this is an error so that the build will fail if you
-#' forget to include topics in the index.
+#' the reference index page, and error if you have missed any.
 #'
 #' ## Missing topics
 #'

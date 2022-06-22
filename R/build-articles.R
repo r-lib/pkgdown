@@ -21,8 +21,11 @@
 #' you are primarily working on the text of an article.
 #'
 #' @section Index and navbar:
-#' You can control the articles index and navbar with a `articles` section in
-#' your `_pkgdown.yaml`. It defines a list of sections, each of which
+#' You can control the articles index and navbar with a `articles` field in
+#' your `_pkgdown.yaml`. If you use it, pkgdown will check that all articles
+#' are included, and will error if you have missed any.
+#'
+#' The `articles` field defines a list of sections, each of which
 #' can contain four fields:
 #'
 #' * `title` (required): title of section, which appears as a heading on the
