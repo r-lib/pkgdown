@@ -172,8 +172,10 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
     <h2 id="index-and-navbar">Index and navbar<a class="anchor" aria-label="anchor" href="#index-and-navbar"></a></h2>
     
 
-<p>You can control the articles index and navbar with a <code>articles</code> section in
-your <code>_pkgdown.yaml</code>. It defines a list of sections, each of which
+<p>You can control the articles index and navbar with a <code>articles</code> field in
+your <code>_pkgdown.yaml</code>. If you use it, pkgdown will check that all articles
+are included, and will error if you have missed any.</p>
+<p>The <code>articles</code> field defines a list of sections, each of which
 can contain four fields:</p><ul><li><p><code>title</code> (required): title of section, which appears as a heading on the
 articles index.</p></li>
 <li><p><code>desc</code> (optional): An optional markdown description displayed underneath
