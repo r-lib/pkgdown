@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,11 +72,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.0.4" id="pkgdown-204">pkgdown 2.0.4<a class="anchor" aria-label="anchor" href="#pkgdown-204"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.5" id="pkgdown-205">pkgdown 2.0.5<a class="anchor" aria-label="anchor" href="#pkgdown-205"></a></h2><p class="text-muted">CRAN release: 2022-06-23</p>
+<ul><li><p>Correctly generate downlit link targets for topics that have a file name ending in <code>.</code> (<a href="https://github.com/r-lib/pkgdown/issues/2128" class="external-link">#2128</a>).</p></li>
+<li><p><code><a href="../reference/build_articles.html">build_articles()</a></code>: if build fails because the index doesn’t include all articles, you’re now told what articles are missing (<a href="https://github.com/zkamvar" class="external-link">@zkamvar</a>, <a href="https://github.com/r-lib/pkgdown/issues/2121" class="external-link">#2121</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> now escapes angle brackets in author comments(<a href="https://github.com/r-lib/pkgdown/issues/2127" class="external-link">#2127</a>).</p></li>
+<li><p><code><a href="../reference/build_home.html">build_home()</a></code> will automatically render and link <code>.github/SUPPORT.md</code> (<a href="https://github.com/IndrajeetPatil" class="external-link">@IndrajeetPatil</a>, <a href="https://github.com/r-lib/pkgdown/issues/2124" class="external-link">#2124</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> once again fails to link <code>@username</code> at start of bullet. I had to reverted <a href="https://github.com/r-lib/pkgdown/issues/2030" class="external-link">#2030</a> because of <a href="https://github.com/r-lib/pkgdown/issues/2122" class="external-link">#2122</a>.</p></li>
+<li><p><code><a href="../reference/build_reference.html">build_reference()</a></code>: restore accidentally nerfed <code>has_keyword()</code> and <code>has_concept()</code> reference selectors (<a href="https://github.com/r-lib/pkgdown/issues/2126" class="external-link">#2126</a>) and add tests.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.4" id="pkgdown-204">pkgdown 2.0.4<a class="anchor" aria-label="anchor" href="#pkgdown-204"></a></h2><p class="text-muted">CRAN release: 2022-06-10</p>
 <ul><li><p>New <code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> provides a lightweight way to check that your <code>_pkgdown.yml</code> is valid without building the site (<a href="https://github.com/r-lib/pkgdown/issues/2056" class="external-link">#2056</a>). Invalid <code>_pkgdown.yml</code> now consistently generates errors both locally and on CI (<a href="https://github.com/r-lib/pkgdown/issues/2055" class="external-link">#2055</a>).</p></li>
 <li><p><code><a href="../reference/build_articles.html">build_article()</a></code> now supports inline markdown in the <code>title</code> (<a href="https://github.com/r-lib/pkgdown/issues/2039" class="external-link">#2039</a>).</p></li>
 <li><p><code><a href="../reference/build_home.html">build_home()</a></code> no longer shows development status badges on the released version of the site (<a href="https://github.com/r-lib/pkgdown/issues/2054" class="external-link">#2054</a>).</p></li>
-<li><p><code><a href="../reference/build_news.html">build_news()</a></code> support automated <code><a href="https://github.com/username" class="external-link">@username</a></code> links in more places (<a href="https://github.com/r-lib/pkgdown/issues/2030" class="external-link">#2030</a>).</p></li>
+<li><p><code><a href="../reference/build_news.html">build_news()</a></code> support automated <code>@username</code> links in more places (<a href="https://github.com/r-lib/pkgdown/issues/2030" class="external-link">#2030</a>).</p></li>
 <li>
 <p><code><a href="../reference/build_reference.html">build_reference()</a></code>:</p>
 <ul><li><p>You can once again exclude topics from the reference index with <code>-</code> (<a href="https://github.com/r-lib/pkgdown/issues/2040" class="external-link">#2040</a>).</p></li>
@@ -128,7 +137,7 @@
 <h2 class="pkg-version" data-toc-text="2.0.0" id="pkgdown-200">pkgdown 2.0.0<a class="anchor" aria-label="anchor" href="#pkgdown-200"></a></h2><p class="text-muted">CRAN release: 2021-11-30</p>
 <div class="section level3">
 <h3 id="new-authors-2-0-0">New authors<a class="anchor" aria-label="anchor" href="#new-authors-2-0-0"></a></h3>
-<p><a href="https://github.com/maelle" class="external-link">@maelle</a> is now a pkgdown author in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5, improvements to customisation, and implementation of local search.</p>
+<p>@maelle is now a pkgdown author in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5, improvements to customisation, and implementation of local search.</p>
 </div>
 <div class="section level3">
 <h3 id="bootstrap-2-0-0">Bootstrap 5<a class="anchor" aria-label="anchor" href="#bootstrap-2-0-0"></a></h3>
@@ -617,7 +626,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
