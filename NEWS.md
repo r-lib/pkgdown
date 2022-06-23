@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.0.5
 
 * Correctly generate downlit link targets for topics that have a file name 
   ending in `.` (#2128).
