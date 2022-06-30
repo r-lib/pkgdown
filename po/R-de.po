@@ -26,7 +26,7 @@ msgstr "Artikel"
 
 #: build-articles.R:428
 msgid "All vignettes"
-msgstr "Alle Vignetten"
+msgstr "Alle Artikel"
 
 #: build-footer.R:29
 msgid "Developed by"
@@ -78,7 +78,7 @@ msgstr "Datenbeitragende:r"
 
 #: build-home-authors.R:200
 msgid "funder"
-msgstr "Finanzierer:in"
+msgstr "Sponsor"
 
 #: build-home-authors.R:201
 msgid "reviewer"
@@ -86,7 +86,7 @@ msgstr "Gutachter:in"
 
 #: build-home-authors.R:202
 msgid "thesis advisor"
-msgstr "Abschlussarbeitsbetreuer:in"
+msgstr "Betreuer:in der Abschlussarbeit"
 
 #: build-home-authors.R:203
 msgid "translator"
@@ -170,11 +170,11 @@ msgstr "Funktionsverzeichnis"
 
 #: build-reference-index.R:112
 msgid "All functions"
-msgstr ""
+msgstr "Alle Funktionen"
 
 #: build-reference.R:355
 msgid "Usage"
-msgstr ""
+msgstr "Verwendung"
 
 #: build-tutorials.R:46 navbar.R:100
 msgid "Tutorials"
@@ -278,7 +278,7 @@ msgstr "Beispiele"
 
 #: render.R:100
 msgid "Citation"
-msgstr ""
+msgstr "Zitiervorschlag"
 
 #: repo.R:33
 msgid "Source:"
