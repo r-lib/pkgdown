@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* All third-party resources have been updated to the latest versions for 
+  Bootstrap 5 (@IndrajeetPatil).
+
 # pkgdown 2.0.5
 
 * Correctly generate downlit link targets for topics that have a file name 
