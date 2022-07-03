@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * All third-party resources have been updated to the latest versions for 
-  Bootstrap 5 (@IndrajeetPatil).
+  Bootstrap 5 (@IndrajeetPatil, #2153).
 
 # pkgdown 2.0.5
 
