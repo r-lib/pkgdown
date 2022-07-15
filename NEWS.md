@@ -1,7 +1,14 @@
 # pkgdown (development version)
 
+
 * All third-party resources have been updated to the latest versions for 
   Bootstrap 5 (@IndrajeetPatil, #2153).
+
+* Getting started vignette no longer must be included in the articles index
+  (#2150).
+
+* If roxygen2 doesn't find any functions in the `\usage{}` section, then it
+  shows all aliases on the reference index, rather than the topic name (#1624).
 
 # pkgdown 2.0.5
 
@@ -218,7 +225,7 @@
 * pkgdown can now translate all the text that it generates (#1446): this means 
   that if you have a package where the docs are written in another language, you 
   can match all the pkgdown UI to provide a seamless experience to non-English
-  speakers. Activate the translations by setting the `lang` in `_pkgdown.yaml`:
+  speakers. Activate the translations by setting the `lang` in `_pkgdown.yml`:
    
     ```yaml
     lang: fr
@@ -237,7 +244,7 @@
     an issue and we'll help you get started.
   
 * Template packages can now provide `inst/pkgdown/_pkgdown.yml` which is used
-  as a set of defaults for `_pkgdown.yaml`. It can be used to (e.g.) provide 
+  as a set of defaults for `_pkgdown.yml`. It can be used to (e.g.) provide 
   author definitions, select Bootstrap version and define bslib variables, 
   and customise the sidebar, footer, navbar, etc. (#1499).
 

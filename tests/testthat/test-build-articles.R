@@ -199,3 +199,18 @@ test_that("pkgdown deps are included only once in articles", {
   )
   expect_length(bs_css_href, 1)
 })
+
+test_that("check doesn't include getting started vignette", {
+  pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
+  getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))
+  file_create(getting_started)
+  withr::defer(unlink(getting_started))
+
+  pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = "
+    articles:
+     - title: Title
+       contents: resources
+  ")
+
+  expect_error(data_articles_index(pkg), NA)
+})

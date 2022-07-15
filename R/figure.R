@@ -82,7 +82,7 @@ meta_figures <- function(meta = list()) {
 #' ```
 #'
 #' @return
-#' A list containing the entries from the `figures` field in `_pkgdown.yaml`
+#' A list containing the entries from the `figures` field in `_pkgdown.yml`
 #' (see [build_reference()]), with default values added. Computed `width` and
 #' `height` values (in pixels) are also included.
 #' @export

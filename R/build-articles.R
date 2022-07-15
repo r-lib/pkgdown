@@ -22,7 +22,7 @@
 #'
 #' @section Index and navbar:
 #' You can control the articles index and navbar with a `articles` field in
-#' your `_pkgdown.yaml`. If you use it, pkgdown will check that all articles
+#' your `_pkgdown.yml`. If you use it, pkgdown will check that all articles
 #' are included, and will error if you have missed any.
 #'
 #' The `articles` field defines a list of sections, each of which
@@ -364,14 +364,16 @@ data_articles_index <- function(pkg = ".") {
     purrr::map(. %>% purrr::map_chr("name")) %>%
     purrr::flatten_chr() %>%
     unique()
-  missing <- !(pkg$vignettes$name %in% listed)
 
-  if (any(missing)) {
+  missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
+
+  if (length(missing) > 0) {
     abort(
       paste0(
         "Vignettes missing from index: ",
-        paste(pkg$vignettes$name[missing], collapse = ", ")
-      )
+        paste(missing, collapse = ", ")
+      ),
+      call. = FALSE
     )
   }
 

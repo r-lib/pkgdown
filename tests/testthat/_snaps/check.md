@@ -5,7 +5,8 @@
     Condition
       Error in `check_missing_topics()`:
       ! All topics must be included in reference index
-      * Missing topics: ?
+      x Missing topics: ?
+      i Either add to _pkgdown.yml or use @keyword internal
 
 # fails if article index incomplete
 

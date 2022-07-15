@@ -52,7 +52,8 @@
     Condition
       Error in `check_missing_topics()`:
       ! All topics must be included in reference index
-      * Missing topics: c, e, ?
+      x Missing topics: c, e, ?
+      i Either add to _pkgdown.yml or use @keyword internal
 
 # errors well when a content entry is empty
 
