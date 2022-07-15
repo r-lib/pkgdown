@@ -122,16 +122,16 @@
 <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span>
-<span class="va">x</span>
-<span class="co">#&gt; [1] "a" "b" "c" "d"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] "a" "b" "c" "d"</span></span></code></pre></div>
 <p><img src="bacon.jpg"></p>
 </div>
 <div class="section level2">
@@ -146,8 +146,8 @@ Second paragraph
 </details><details><summary>
 Some R code
 </summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </details>
 </div>
 <div class="section level2">
@@ -187,26 +187,26 @@ Some R code
 <h3 id="line-width">Line width<a class="anchor" aria-label="anchor" href="#line-width"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">pkgdown</span><span class="fu">:::</span><span class="fu">ruler</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8</span>
-<span class="co">#&gt; 12345678901234567890123456789012345678901234567890123456789012345678901234567890</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"x "</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-<span class="co">#&gt; x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"xy"</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-<span class="co">#&gt; xyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxy</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">:::</span><span class="fu">ruler</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8</span></span>
+<span><span class="co">#&gt; 12345678901234567890123456789012345678901234567890123456789012345678901234567890</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"x "</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co">#&gt; x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"xy"</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co">#&gt; xyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxy</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="should-be-highlighted">Should be highlighted<a class="anchor" aria-label="anchor" href="#should-be-highlighted"></a>
 </h3>
 <p>Valid R code in <code>\preformatted{}</code>:</p>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 <p>R code in <code>R</code> block:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>R code in <code>r</code> block:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Yaml</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
 </div>
@@ -220,21 +220,21 @@ Some R code
 <h3 id="crayon">Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #0000BB;">This is blue</span></span>
-<span class="co"><span style="color: #0000BB;">#&gt; </span></span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">(</span><span class="st">"This is green"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">This is green</span></span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">This is blue</span></span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">(</span><span class="st">"This is green"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">This is green</span></span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></span></code></pre></div>
 <p>Some text</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></span></code></pre></div>
 <p>Some more text</p>
 </div>
 </div>
@@ -271,7 +271,7 @@ Some R code
 
 <p>blablablabla</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Should be “cool” heading below</p>
 <div class="section level5">
 <h5 id="cool">cool<a class="anchor" aria-label="anchor" href="#cool"></a>
@@ -299,7 +299,7 @@ Some R code
 
 <p>something nice</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div class="active tab-pane" id="tab-2-1" role="tabpanel" aria-labelledby="tab-2-1-tab">

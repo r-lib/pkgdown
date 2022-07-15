@@ -108,9 +108,9 @@ iterating when experimenting with site styles.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_home_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">build_home</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_home_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">build_home</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, preview <span class="op">=</span> <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -150,9 +150,9 @@ You can tweak it via the configuration file, to help make the home page an as in
 <p>If you want to include images in your <code>README.md</code>, they must be stored somewhere in the package so that they can be displayed on the CRAN website.
 The best place to put them is <code>man/figures</code>.
 If you are generating figures with R Markdown, make sure you set up <code>fig.path</code> as followed:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
-  fig.path <span class="op">=</span> <span class="st">"man/figures/"</span>
-<span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  fig.path <span class="op">=</span> <span class="st">"man/figures/"</span></span>
+<span><span class="op">)</span></span></code></pre><p></p></div>
 <p>This should usually go in a chunk with <code>include = FALSE</code>.</p>
 <p></p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r chunk-name, include=FALSE}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(</span></span>
@@ -224,24 +224,24 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
 
 
 <p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using the ORCID logo:</p>
-<p></p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span>
-    <span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,</span>
+<span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,</span>
+<span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre><p></p></div>
 <p>If you want to add more details about authors or their involvement with the package,
 you can use the comment field, which will be rendered on the authors page.</p>
-<p></p><div class="sourceCode r"><pre><code><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span>, <span class="st">"Indenter-in-chief"</span><span class="op">)</span>
-    <span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,
-      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,</span>
+<span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span>, <span class="st">"Indenter-in-chief"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,</span>
+<span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">

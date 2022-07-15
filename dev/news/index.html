@@ -71,7 +71,9 @@
       <small>Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
+<ul><li>If roxygen2 doesn’t find any functions in the <code>\usage{}</code> section, then it shows all aliases on the reference index, rather than the topic name (<a href="https://github.com/r-lib/pkgdown/issues/1624" class="external-link">#1624</a>).</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.5" id="pkgdown-205">pkgdown 2.0.5<a class="anchor" aria-label="anchor" href="#pkgdown-205"></a></h2><p class="text-muted">CRAN release: 2022-06-23</p>
 <ul><li><p>Correctly generate downlit link targets for topics that have a file name ending in <code>.</code> (<a href="https://github.com/r-lib/pkgdown/issues/2128" class="external-link">#2128</a>).</p></li>
@@ -396,7 +398,7 @@
 <li><p>In examples and Rmd, calls of the form <code>current_package::foo</code> now get a local link (<a href="https://github.com/r-lib/pkgdown/issues/1262" class="external-link">#1262</a>).</p></li>
 <li><p><code>\preformatted{}</code> blocks are now highlighted and linked if they parse as R code (<a href="https://github.com/r-lib/pkgdown/issues/1180" class="external-link">#1180</a>).</p></li>
 <li><p><code><a href="https://pkgdown.r-lib.org">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1161" class="external-link">#1161</a>).</p></li>
-<li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code>help()</code> (<a href="https://github.com/r-lib/pkgdown/issues/1210" class="external-link">#1210</a>)</p></li>
+<li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1210" class="external-link">#1210</a>)</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-1-5-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-1-5-0"></a></h3>
@@ -457,7 +459,7 @@
 <ul><li><p>build citation as specified by the <code>textVersion</code> argument of <code>citEntry</code> in the <code>CITATION</code> file (<a href="https://github.com/r-lib/pkgdown/issues/1096" class="external-link">#1096</a>, <a href="https://github.com/yiluheihei" class="external-link">@yiluheihei</a>)</p></li>
 <li>
 <p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which controls whether you’re in deployment or development mode. It generalises and replaces (with deprecation) the existing <code>document</code> argument.</p>
-<p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
+<p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
 <p>Deployment mode is slower, but guarantees correct results, and is the default for <code><a href="../reference/build_site.html">build_site()</a></code>. It installs the package into a temporary library, and runs examples/articles in a new process.</p>
 </li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code>devtools::document()</code> (<a href="https://github.com/r-lib/pkgdown/issues/1079" class="external-link">#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code> or <code>index.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>

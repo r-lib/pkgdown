@@ -113,7 +113,7 @@
     
 <p>This vignette teaches you how to customise the style/design of your pkgdown site. We’ll start by discussing two techniques that only require tweaks to your <code>_pkgdown.yaml</code>: theming (colours and fonts) and layout (content of the navbar, sidebar, footer, …). We’ll then discuss how to add additional HTML and other files. Next, we’ll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -387,7 +387,7 @@
 </li>
 <li>
 <p>If you’re building your site using GitHub actions or other similar tool, you’ll also need to installed <code>theverybest</code>. If you’re using the r-lib <a href="https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site" class="external-link">pkgdown workflow</a>, you can add the following line to your <code>DESCRIPTION</code>:</p>
-<pre><code><span class="va">Config</span><span class="op">/</span><span class="va">Needs</span><span class="op">/</span><span class="va">website</span><span class="op">:</span> <span class="va">theverybest</span></code></pre>
+<pre><code><span><span class="va">Config</span><span class="op">/</span><span class="va">Needs</span><span class="op">/</span><span class="va">website</span><span class="op">:</span> <span class="va">theverybest</span></span></code></pre>
 </li>
 </ul>
 <p>To get some sense of how a theming package works, you can look at:</p>
