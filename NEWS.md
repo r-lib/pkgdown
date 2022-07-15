@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* If you're using an RStudio daily, output file names will are now clickable
+  to preview in browser (#2157).
+
 * Getting started vignette no longer must be included in the articles index
   (#2150).
 

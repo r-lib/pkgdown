@@ -58,11 +58,11 @@ devtools_meta <- function(x) {
 # CLI ---------------------------------------------------------------------
 
 dst_path <- function(...) {
-  crayon::blue(encodeString(path(...), quote = "'"))
+  cli::col_blue(encodeString(path(...), quote = "'"))
 }
 
 src_path <- function(...) {
-  crayon::green(encodeString(path(...), quote = "'"))
+  cli::col_green(encodeString(path(...), quote = "'"))
 }
 
 cat_line <- function(...) {
@@ -84,7 +84,7 @@ rule <- function(x = NULL, line = "-") {
   line_length <- width - nchar(x) - nchar(prefix) - nchar(suffix)
   # protect against negative values which can result in narrow terminals
   line_length <- max(0, line_length)
-  cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
+  cat_line(prefix, cli::style_bold(x), suffix, strrep(line, line_length))
 }
 
 
