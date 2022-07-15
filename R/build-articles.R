@@ -364,14 +364,16 @@ data_articles_index <- function(pkg = ".") {
     purrr::map(. %>% purrr::map_chr("name")) %>%
     purrr::flatten_chr() %>%
     unique()
-  missing <- !(pkg$vignettes$name %in% listed)
 
-  if (any(missing)) {
+  missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
+
+  if (length(missing) > 0) {
     abort(
       paste0(
         "Vignettes missing from index: ",
-        paste(pkg$vignettes$name[missing], collapse = ", ")
-      )
+        paste(missing, collapse = ", ")
+      ),
+      call. = FALSE
     )
   }
 

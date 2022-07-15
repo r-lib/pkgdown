@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Getting started vignette no longer must be included in the articles index
+  (#2150).
+
 * If roxygen2 doesn't find any functions in the `\usage{}` section, then it
   shows all aliases on the reference index, rather than the topic name (#1624).
 
