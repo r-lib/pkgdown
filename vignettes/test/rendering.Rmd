@@ -113,17 +113,17 @@ yaml: [a, b, c]
 ### Crayon
 
 ```{r}
-cat(crayon::red("This is red"), "\n")
-cat(crayon::blue("This is blue\n"), "\n")
+cat(cli::col_red("This is red"), "\n")
+cat(cli::col_blue("This is blue\n"), "\n")
 
-message(crayon::green("This is green"))
+message(cli::col_green("This is green"))
 
-warning(crayon::bold("This is bold"))
+warning(cli::style_bold("This is bold"))
 ```
 Some text
 
 ```{r, error = TRUE}
-stop(crayon::italic("This is italic"))
+stop(cli::style_italic("This is italic"))
 ```
 
 Some more text

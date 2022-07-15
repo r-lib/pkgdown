@@ -23,7 +23,6 @@ Imports:
     bslib (>= 0.3.1),
     callr (>= 2.0.2),
     cli,
-    crayon,
     desc,
     digest,
     downlit (>= 0.4.0),

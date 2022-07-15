@@ -388,15 +388,14 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
-    crayon_enabled = crayon::has_color(),
-    crayon_colors = crayon::num_colors(),
+    cli_colors = cli::num_ansi_colors(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
+    function(..., cli_colors, pkgdown_internet) {
       options(
-        crayon.enabled = crayon_enabled,
-        crayon.colors = crayon_colors,
+        cli.num_colors = cli_colors,
+        crayon.colors = cli_colors, # backward compatibility
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)
