@@ -178,17 +178,17 @@ topic_must <- function(message, topic, ..., call = NULL) {
   )
 }
 
-section_topics <- function(match_strings, pkg) {
+section_topics <- function(match_strings, topics, src_path) {
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
-  topics <- rbind(pkg$topics, ext_topics(ext_strings))
+  topics <- rbind(topics, ext_topics(ext_strings))
 
   selected <- topics[select_topics(match_strings, topics), , ]
   tibble::tibble(
     name = selected$name,
     path = selected$file_out,
     title = selected$title,
-    aliases = purrr::map2(selected$funs, selected$name, ~ if (length(.x) > 0) .x else .y),
-    icon = find_icons(selected$alias, path(pkg$src_path, "icons"))
+    aliases = purrr::map2(selected$funs, selected$alias, ~ if (length(.x) > 0) .x else .y),
+    icon = find_icons(selected$alias, path(src_path, "icons"))
   )
 }

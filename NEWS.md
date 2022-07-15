@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* If roxygen2 doesn't find any functions in the `\usage{}` section, then it
+  shows all aliases on the reference index, rather than the topic name (#1624).
+
 # pkgdown 2.0.5
 
 * Correctly generate downlit link targets for topics that have a file name 
