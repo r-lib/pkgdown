@@ -61,7 +61,7 @@ you are primarily working on the text of an article.
 \section{Index and navbar}{
 
 You can control the articles index and navbar with a \code{articles} field in
-your \verb{_pkgdown.yaml}. If you use it, pkgdown will check that all articles
+your \verb{_pkgdown.yml}. If you use it, pkgdown will check that all articles
 are included, and will error if you have missed any.
 
 The \code{articles} field defines a list of sections, each of which

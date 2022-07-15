@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 This vignette teaches you how to customise the style/design of your pkgdown site.
-We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yaml`: theming (colours and fonts) and layout (content of the navbar, sidebar, footer, ...).
+We'll start by discussing two techniques that only require tweaks to your `_pkgdown.yml`: theming (colours and fonts) and layout (content of the navbar, sidebar, footer, ...).
 We'll then discuss how to add additional HTML and other files.
 Next, we'll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.
 
@@ -40,7 +40,7 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 
 ## Theming
 
-There are two ways to change the visual style of your site from `_pkgdown.yaml`: using a pre-packaged bootswatch theme or customising theme variables with bslib.
+There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with bslib.
 The following sections show you how.
 
 ### Bootswatch themes

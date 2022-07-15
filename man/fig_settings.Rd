@@ -7,7 +7,7 @@
 fig_settings()
 }
 \value{
-A list containing the entries from the \code{figures} field in \verb{_pkgdown.yaml}
+A list containing the entries from the \code{figures} field in \verb{_pkgdown.yml}
 (see \code{\link[=build_reference]{build_reference()}}), with default values added. Computed \code{width} and
 \code{height} values (in pixels) are also included.
 }

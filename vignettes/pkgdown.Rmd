@@ -122,7 +122,7 @@ You can also use `ends_with()` and `matches()`.
 See complete details in `?build_reference`.
 
 While iterating on the reference index you might want to run `pkgdown::build_reference_index()`.
-It just re-builds the index page, making it faster to quickly change `_pkgdown.yaml` and see how it affects your site.
+It just re-builds the index page, making it faster to quickly change `_pkgdown.yml` and see how it affects your site.
 
 ## Articles
 
