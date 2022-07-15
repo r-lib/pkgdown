@@ -138,14 +138,30 @@ test_that("an unmatched selection generates a warning", {
   )
 })
 
+test_that("uses funs or aliases", {
+  topics <- tibble::tribble(
+    ~name, ~funs,         ~alias,        ~file_out, ~title,
+    "x",   character(),   c("x1", "x2"), "x.html",  "X",
+    "y",   c("y1", "y2"), "y3",          "y.html",   "Y"
+  )
+
+  out <- section_topics(c("x", "y"), topics, ".")
+  expect_equal(out$aliases, list(c("x1", "x2"), c("y1", "y2")))
+})
+
+
 test_that("full topic selection process works", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
 
   # can mix local and remote
-  out <- section_topics(c("a", "base::mean"), pkg)
+  out <- section_topics(c("a", "base::mean"), pkg$topics, pkg$src_path)
   expect_equal(unname(out$name), c("a", "base::mean"))
 
   # concepts and keywords work
-  out <- section_topics(c("has_concept('graphics')", "has_keyword('foo')"), pkg)
+  out <- section_topics(
+    c("has_concept('graphics')", "has_keyword('foo')"),
+    pkg$topics,
+    pkg$src_path
+  )
   expect_equal(unname(out$name), c("b", "a"))
 })
