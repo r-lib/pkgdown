@@ -18,6 +18,18 @@ preview_site <- function(pkg = ".", path = ".", preview = NA) {
   invisible()
 }
 
+#' Preview a local pkgdown page in the browser
+#'
+#' Only works when rendering the working directory, as this is the most
+#' common interactive workflow.
+#'
+#' @export
+#' @keywords internal
+preview_page <- function(path, pkg = ".") {
+  pkg <- as_pkgdown(".")
+  utils::browseURL(path_abs(path(pkg$dst_path, path)))
+}
+
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
