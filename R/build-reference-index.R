@@ -141,9 +141,11 @@ check_missing_topics <- function(rows, pkg) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
+    topics <- paste0(pkg$topics$name[missing], collapse = ", ")
     abort(c(
       "All topics must be included in reference index",
-      paste0("Missing topics: ", paste0(pkg$topics$name[missing], collapse = ", "))
+      `x` = paste0("Missing topics: ", topics),
+      i = "Either add to _pkgdown.yml or use @keyword internal"
     ))
   }
 }
