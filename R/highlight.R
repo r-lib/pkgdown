@@ -15,10 +15,9 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   # some options from testthat::local_reproducible_output()
   # https://github.com/r-lib/testthat/blob/47935141d430e002070a95dd8af6dbf70def0994/R/local.R#L86
   withr::local_options(list(
-    crayon.enabled = TRUE,
-    crayon.colors = 256,
     device = function(...) ragg::agg_png(..., bg = bg),
     rlang_interactive = FALSE,
+    cli.num_colors = 256,
     cli.dynamic = FALSE
   ))
   withr::local_envvar(RSTUDIO = NA)

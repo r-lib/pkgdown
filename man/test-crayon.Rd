@@ -7,12 +7,12 @@
 Test case: crayon
 }
 \examples{
-cat(crayon::red("This is red"), "\n")
-cat(crayon::blue("This is blue"), "\n")
+cat(cli::col_red("This is red"), "\n")
+cat(cli::col_blue("This is blue"), "\n")
 
-message(crayon::green("This is green"))
+message(cli::col_green("This is green"))
 
-warning(crayon::bold("This is bold"))
+warning(cli::style_bold("This is bold"))
 }
 \seealso{
 Other tests: 

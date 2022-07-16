@@ -29,7 +29,7 @@ pkgdown_field <- function(pkg, field) {
 }
 
 pkgdown_fields <- function(pkg, fields, join = ", ") {
-  fields <- purrr::map_chr(fields, ~ paste0(crayon::bold(.x), collapse = "."))
+  fields <- purrr::map_chr(fields, ~ paste0(cli::style_bold(.x), collapse = "."))
   fields_str <- paste0(fields, collapse = join)
 
   config_path <- pkgdown_config_path(pkg$src_path)

@@ -1,8 +1,10 @@
 # pkgdown (development version)
 
-
 * All third-party resources have been updated to the latest versions for 
   Bootstrap 5 (@IndrajeetPatil, #2153).
+
+* If you're using an RStudio daily, output file names will are now clickable
+  to preview in browser (#2157).
 
 * Getting started vignette no longer must be included in the articles index
   (#2150).

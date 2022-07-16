@@ -22,7 +22,7 @@ Depends:
 Imports: 
     bslib (>= 0.3.1),
     callr (>= 2.0.2),
-    crayon,
+    cli,
     desc,
     digest,
     downlit (>= 0.4.0),

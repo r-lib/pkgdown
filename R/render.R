@@ -221,7 +221,8 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (!quiet) {
-    cat_line("Writing ", dst_path(path))
+    href <- paste0("ide:run:pkgdown::preview_page('", path_rel(full_path, pkg$dst_path), "')")
+    cat_line("Writing ", cli::style_hyperlink(dst_path(path), href))
   }
   write_lines(contents, path = full_path)
   TRUE
