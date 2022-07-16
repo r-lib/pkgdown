@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.0.6
 
 * If you're using an RStudio daily, output file names are now clickable,
   previewing the generated HTML in the browser (#2157).
