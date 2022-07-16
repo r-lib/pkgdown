@@ -3,14 +3,17 @@
 * All third-party resources have been updated to the latest versions for 
   Bootstrap 5 (@IndrajeetPatil, #2153).
 
-* If you're using an RStudio daily, output file names will are now clickable
-  to preview in browser (#2157).
+# pkgdown 2.0.6
 
-* Getting started vignette no longer must be included in the articles index
+* If you're using an RStudio daily, output file names are now clickable,
+  previewing the generated HTML in the browser (#2157).
+
+* Getting started vignette no longer needs to be included in the articles index
   (#2150).
 
-* If roxygen2 doesn't find any functions in the `\usage{}` section, then it
-  shows all aliases on the reference index, rather than the topic name (#1624).
+* If there aren't any functions in the `\usage{}` block, then pkgdown will
+  now shows all aliases on the reference index, rather than just the topic 
+  name (#1624).
 
 # pkgdown 2.0.5
 
