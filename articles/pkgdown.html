@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,13 +112,13 @@
     
 <p>The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Run once to configure package to use pkgdown</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co"># Run to build the website</span>
-<span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Run once to configure package to use pkgdown</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Run to build the website</span></span>
+<span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you’re using GitHub, we also recommend setting up GitHub actions to automatically build and publish your site:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>While you’ll get a decent website without any additional work, if you want a website that really pops, you’ll need to read the rest of this vignette. It starts by showing you how to configure pkgdown with a <code>_pkgdown.yml</code>. You’ll learn about the main components of the site (the home page, reference, articles, and news), and then how to publish and promote your site.</p>
 <div class="section level2">
 <h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
@@ -195,7 +195,7 @@
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
 <p>Note the use of <code>starts_with()</code> to select all functions with a common prefix. You can also use <code>ends_with()</code> and <code>matches()</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
-<p>While iterating on the reference index you might want to run <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the index page, making it faster to quickly change <code>_pkgdown.yaml</code> and see how it affects your site.</p>
+<p>While iterating on the reference index you might want to run <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the index page, making it faster to quickly change <code>_pkgdown.yml</code> and see how it affects your site.</p>
 </div>
 <div class="section level2">
 <h2 id="articles">Articles<a class="anchor" aria-label="anchor" href="#articles"></a>
@@ -260,7 +260,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,6 +71,12 @@
       <small>Source: <a href="https://github.com/r-lib/pkgdown/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.6" id="pkgdown-206">pkgdown 2.0.6<a class="anchor" aria-label="anchor" href="#pkgdown-206"></a></h2><p class="text-muted">CRAN release: 2022-07-16</p>
+<ul><li><p>If you’re using an RStudio daily, output file names are now clickable, previewing the generated HTML in the browser (<a href="https://github.com/r-lib/pkgdown/issues/2157" class="external-link">#2157</a>).</p></li>
+<li><p>Getting started vignette no longer needs to be included in the articles index (<a href="https://github.com/r-lib/pkgdown/issues/2150" class="external-link">#2150</a>).</p></li>
+<li><p>If there aren’t any functions in the <code>\usage{}</code> block, then pkgdown will now shows all aliases on the reference index, rather than just the topic name (<a href="https://github.com/r-lib/pkgdown/issues/1624" class="external-link">#1624</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.5" id="pkgdown-205">pkgdown 2.0.5<a class="anchor" aria-label="anchor" href="#pkgdown-205"></a></h2><p class="text-muted">CRAN release: 2022-06-23</p>
 <ul><li><p>Correctly generate downlit link targets for topics that have a file name ending in <code>.</code> (<a href="https://github.com/r-lib/pkgdown/issues/2128" class="external-link">#2128</a>).</p></li>
@@ -180,7 +186,7 @@
 <li><p>Sites can be easily themed with either bootswatch themes or by selectively overriding the <code>bslib</code> variables used to generate the CSS. pkgdown now uses scss for its own Bootstrap css tweaks, which means that you can customise more of the site from within <code>_pkgdown.yml</code>.</p></li>
 <li><p>You can pick from a variety of built-in syntax highlighting themes (<a href="https://github.com/r-lib/pkgdown/issues/1823" class="external-link">#1823</a>). These control the colours (and background) of code in <code>&lt;pre&gt;</code> tags.</p></li>
 <li>
-<p>pkgdown can now translate all the text that it generates (<a href="https://github.com/r-lib/pkgdown/issues/1446" class="external-link">#1446</a>): this means that if you have a package where the docs are written in another language, you can match all the pkgdown UI to provide a seamless experience to non-English speakers. Activate the translations by setting the <code>lang</code> in <code>_pkgdown.yaml</code>:</p>
+<p>pkgdown can now translate all the text that it generates (<a href="https://github.com/r-lib/pkgdown/issues/1446" class="external-link">#1446</a>): this means that if you have a package where the docs are written in another language, you can match all the pkgdown UI to provide a seamless experience to non-English speakers. Activate the translations by setting the <code>lang</code> in <code>_pkgdown.yml</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
 <p>pkgdown includes translations for:</p>
 <ul><li>
@@ -197,7 +203,7 @@
 <code>zh_CN</code>, simplified Chinese, thanks to <a href="https://github.com/yitao" class="external-link">@yitao</a>.</li>
 </ul><p>If you’re interested in adding translations for your language please file an issue and we’ll help you get started.</p>
 </li>
-<li><p>Template packages can now provide <code>inst/pkgdown/_pkgdown.yml</code> which is used as a set of defaults for <code>_pkgdown.yaml</code>. It can be used to (e.g.) provide author definitions, select Bootstrap version and define bslib variables, and customise the sidebar, footer, navbar, etc. (<a href="https://github.com/r-lib/pkgdown/issues/1499" class="external-link">#1499</a>).</p></li>
+<li><p>Template packages can now provide <code>inst/pkgdown/_pkgdown.yml</code> which is used as a set of defaults for <code>_pkgdown.yml</code>. It can be used to (e.g.) provide author definitions, select Bootstrap version and define bslib variables, and customise the sidebar, footer, navbar, etc. (<a href="https://github.com/r-lib/pkgdown/issues/1499" class="external-link">#1499</a>).</p></li>
 <li>
 <p>New <code>includes</code> parameters <code>in-header</code>, <code>before-body</code>, and <code>after-body</code> make it easy to add arbitrary HTML to every page. Their content will be placed at the end of the <code>&lt;head&gt;</code> tag, right below the opening <code>&lt;body&gt;</code> tag, and before the closing tag <code>&lt;/body&gt;</code> respectively (<a href="https://github.com/r-lib/pkgdown/issues/1487" class="external-link">#1487</a>). They match the bookdown options <code>in_header</code>, <code>before_body</code> and <code>after_body</code>.</p>
 <p>Additionally, you can use <code>before_title</code>, <code>before_navbar</code>, and <code>after_navbar</code> to add arbitrary HTML into the navbar/page header; they will appear to the left of the package name/version, and to the left and right of the navigation links respectively (<a href="https://github.com/r-lib/pkgdown/issues/1882" class="external-link">#1882</a>).</p>
@@ -395,7 +401,7 @@
 <li><p>In examples and Rmd, calls of the form <code>current_package::foo</code> now get a local link (<a href="https://github.com/r-lib/pkgdown/issues/1262" class="external-link">#1262</a>).</p></li>
 <li><p><code>\preformatted{}</code> blocks are now highlighted and linked if they parse as R code (<a href="https://github.com/r-lib/pkgdown/issues/1180" class="external-link">#1180</a>).</p></li>
 <li><p><code><a href="https://pkgdown.r-lib.org">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1161" class="external-link">#1161</a>).</p></li>
-<li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code>help()</code> (<a href="https://github.com/r-lib/pkgdown/issues/1210" class="external-link">#1210</a>)</p></li>
+<li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1210" class="external-link">#1210</a>)</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-1-5-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-1-5-0"></a></h3>
@@ -456,7 +462,7 @@
 <ul><li><p>build citation as specified by the <code>textVersion</code> argument of <code>citEntry</code> in the <code>CITATION</code> file (<a href="https://github.com/r-lib/pkgdown/issues/1096" class="external-link">#1096</a>, <a href="https://github.com/yiluheihei" class="external-link">@yiluheihei</a>)</p></li>
 <li>
 <p><code><a href="../reference/build_site.html">build_site()</a></code>, <code><a href="../reference/build_reference.html">build_reference()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> gain a parameter <code>devel</code> which controls whether you’re in deployment or development mode. It generalises and replaces (with deprecation) the existing <code>document</code> argument.</p>
-<p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
+<p>Development mode is optimised for rapid iteration and is the default for <code><a href="../reference/build_reference.html">build_reference()</a></code>. It uses <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> to load code directly from disk in order.</p>
 <p>Deployment mode is slower, but guarantees correct results, and is the default for <code><a href="../reference/build_site.html">build_site()</a></code>. It installs the package into a temporary library, and runs examples/articles in a new process.</p>
 </li>
 <li><p><code><a href="../reference/build_reference.html">build_reference()</a></code> no longer runs <code>devtools::document()</code> (<a href="https://github.com/r-lib/pkgdown/issues/1079" class="external-link">#1079</a>) and <code><a href="../reference/build_home.html">build_home()</a></code> no longer re-builds <code>README.Rmd</code> or <code>index.Rmd</code>. This makes the scope of responsibility of pkgdown more clear: it now only creates/modifies files in <code>doc/</code>.</p></li>
@@ -626,7 +632,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>
