@@ -6,7 +6,7 @@
       Error in `check_missing_topics()`:
       ! All topics must be included in reference index
       x Missing topics: ?
-      i Either add to _pkgdown.yml or use @keyword internal
+      i Either add to _pkgdown.yml or use @keywords internal
 
 # fails if article index incomplete
 
