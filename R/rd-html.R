@@ -205,7 +205,9 @@ method_usage <- function(x, type) {
   fun <- as_html(x[[1]])
   class <- as_html(x[[2]])
   paste0(
-    sprintf(tr_("# %s method for %s"), type, class),
+    ifelse("default" %in% x[[2]],
+           sprintf(tr_("## Default %s method:"), type),
+           sprintf(tr_("## %s method for class '%s'"), type, class)),
     "\n", fun
   )
 }
