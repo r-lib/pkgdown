@@ -145,7 +145,7 @@ check_missing_topics <- function(rows, pkg) {
     abort(c(
       "All topics must be included in reference index",
       `x` = paste0("Missing topics: ", topics),
-      i = "Either add to _pkgdown.yml or use @keyword internal"
+      i = "Either add to _pkgdown.yml or use @keywords internal"
     ))
   }
 }
