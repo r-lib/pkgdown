@@ -1,7 +1,7 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, new_process = TRUE, quiet = TRUE) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -23,27 +23,34 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     ...,
     quiet = quiet
   )
-
-  path <- tryCatch(
-    callr::r_safe(
-      function(...) rmarkdown::render(...),
-      args = args,
-      show = !quiet,
-      env = c(
-        callr::rcmd_safe_env(),
-        BSTINPUTS = bst_paths(input_path),
-        TEXINPUTS = tex_paths(input_path),
-        BIBINPUTS = bib_paths(input_path),
-        R_CLI_NUM_COLORS = 256
-      )
-    ),
-    error = function(cnd) {
-      rule("RMarkdown error")
-      cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
-      rule()
-      abort("Failed to render RMarkdown", parent = cnd)
-    }
+  envir <- c(
+    callr::rcmd_safe_env(),
+    BSTINPUTS = bst_paths(input_path),
+    TEXINPUTS = tex_paths(input_path),
+    BIBINPUTS = bib_paths(input_path),
+    R_CLI_NUM_COLORS = 256
   )
+
+
+  if (new_process) {
+    path <- tryCatch(
+      callr::r_safe(
+        function(...) rmarkdown::render(...),
+        args = args,
+        show = !quiet,
+        envir =
+      ),
+      error = function(cnd) {
+        rule("RMarkdown error")
+        cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
+        rule()
+        abort("Failed to render RMarkdown", parent = cnd)
+      }
+    )
+  } else {
+    withr::local_envvar(envir)
+    path <- inject(rmarkdown::render(!!!args))
+  }
 
   if (identical(path_ext(path)[[1]], "html")) {
     update_html(
