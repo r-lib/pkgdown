@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
-* Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207)
+* Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
+* Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207).
 
 # pkgdown 2.0.6
 
