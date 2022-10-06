@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
+
 # pkgdown 2.0.6
 
 * If you're using an RStudio daily, output file names are now clickable,
