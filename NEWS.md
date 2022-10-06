@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207)
+
 # pkgdown 2.0.6
 
 * If you're using an RStudio daily, output file names are now clickable,
