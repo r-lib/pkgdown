@@ -1,7 +1,12 @@
 # pkgdown (development version)
 
+
 * All third-party resources have been updated to the latest versions for 
   Bootstrap 5 (@IndrajeetPatil, #2153).
+
+* Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
+
+* Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207).
 
 # pkgdown 2.0.6
 
