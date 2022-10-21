@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Remove mention of (defunct) Twitter card validator, provide alternatives (@Bisaloo, #2185)
 * Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
 * Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207).
 
