@@ -120,6 +120,15 @@ test_that("can find badges in comments", {
   expect_equal(badges_extract_text(html), '<a href="x"><img src="y"></a>')
 })
 
+test_that("can find badges with missing first comment", {
+  html <- '
+    <p><a href="x"><img src="y"></a></p>
+    <!-- badges: end -->
+    <p>blablabla</p>
+  '
+  expect_equal(badges_extract_text(html), '<a href="x"><img src="y"></a>')
+})
+
 test_that("ignores extraneous content", {
   html <- '
     <!-- badges: start -->
