@@ -81,15 +81,15 @@ badges_extract <- function(html) {
     ")
 
   }
-  # then try usethis-readme-like structure with missing first comment;
+  # then try usethis-readme-like structure with missing first comment
   if (length(x) == 0) {
     main <- xml2::xml_find_first(html, "//main")
     if (length(main) > 0) {
       first_child <- xml2::xml_child(main)
-      is_first_paragraph <- (xml2::xml_name(first_child) == "p")
+      is_first_element_paragraph <- (xml2::xml_name(first_child) == "p")
       first_comments <- xml2::xml_find_all(first_child, "comment()")
       contains_badges_end <- any(grepl("badges: end", first_comments))
-      if (is_first_paragraph && contains_badges_end) {
+      if (is_first_element_paragraph && contains_badges_end) {
         x <- first_child
       }
     }
