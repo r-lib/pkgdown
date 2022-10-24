@@ -105,6 +105,7 @@ test_that("finds badges in #badges div", {
 test_that("can find badges in comments", {
   html <- '
     <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a></p>
     <!-- badges: end -->
@@ -114,6 +115,7 @@ test_that("can find badges in comments", {
   # produced by usethis
   html <- '
     <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a>
     <!-- badges: end -->
@@ -125,6 +127,7 @@ test_that("can find badges in comments", {
 test_that("ignores extraneous content", {
   html <- '
     <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a></p>
     <p>a</p>
