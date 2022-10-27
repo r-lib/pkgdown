@@ -90,7 +90,8 @@ badges_extract <- function(html) {
 
   # finally try first paragraph
   if (length(x) == 0) {
-    x <- xml2::xml_find_first(html, "//p")
+    # BS5 (main) and BS3 (div)
+    x <- xml2::xml_find_first(html, "//main/p|//div[@class='contents col-md-9']/p")
     strict <- TRUE
   }
 
@@ -117,6 +118,6 @@ badges_extract <- function(html) {
 }
 
 badges_extract_text <- function(x) {
-  xml <- xml2::read_html(x, encoding = "UTF-8")
-  badges_extract(xml)
+  html <- xml2::read_html(x, encoding = "UTF-8")
+  badges_extract(html)
 }

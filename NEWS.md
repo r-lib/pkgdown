@@ -1,8 +1,11 @@
 # pkgdown (development version)
 
-
 * All third-party resources have been updated to the latest versions for 
   Bootstrap 5 (@IndrajeetPatil, #2153).
+  
+* Tweak German translation (@krlmlr, @mgirlich, #2149)
+
+* Remove mention of (defunct) Twitter card validator, provide alternatives (@Bisaloo, #2185)
 
 * Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
 
@@ -91,7 +94,7 @@
 
 # pkgdown 2.0.2
 
-* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1944).
   New Danish (`dk`) translation thanks to @LDalby.
 
 * `build_articles()` now adjusts the heading levels of vignettes/articles that 
