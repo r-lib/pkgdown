@@ -87,7 +87,7 @@
 
 # pkgdown 2.0.2
 
-* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1994).
+* New Korean (`ko`) translation thanks to @mrchypark and @peremen (#1944).
   New Danish (`dk`) translation thanks to @LDalby.
 
 * `build_articles()` now adjusts the heading levels of vignettes/articles that 
