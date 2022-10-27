@@ -111,33 +111,54 @@
 
     
     
-<p>The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes:</p>
+<p>The goal of pkgdown is to make it easy to make an elegant and useful
+package website with a minimum of work. You can get a basic website up
+and running in just a couple of minutes:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run once to configure package to use pkgdown</span></span>
 <span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># Run to build the website</span></span>
 <span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you’re using GitHub, we also recommend setting up GitHub actions to automatically build and publish your site:</p>
+<p>If you’re using GitHub, we also recommend setting up GitHub actions
+to automatically build and publish your site:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>While you’ll get a decent website without any additional work, if you want a website that really pops, you’ll need to read the rest of this vignette. It starts by showing you how to configure pkgdown with a <code>_pkgdown.yml</code>. You’ll learn about the main components of the site (the home page, reference, articles, and news), and then how to publish and promote your site.</p>
+<p>While you’ll get a decent website without any additional work, if you
+want a website that really pops, you’ll need to read the rest of this
+vignette. It starts by showing you how to configure pkgdown with a
+<code>_pkgdown.yml</code>. You’ll learn about the main components of the
+site (the home page, reference, articles, and news), and then how to
+publish and promote your site.</p>
 <div class="section level2">
 <h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
 </h2>
-<p>You can override pkgdown’s defaults with a YAML file called <code>_pkgdown.yml</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;You can also put it in &lt;code&gt;pkgdown/_pkgdown.yml&lt;/code&gt; if you want to keep the package root clutter-free, or in &lt;code&gt;inst/_pkgdown.yml&lt;/code&gt; if you want to make it available when your package is installed.&lt;/p&gt;"><sup>1</sup></a>. The most important field is <code>url</code>, which gives the final location of the site:</p>
+<p>You can override pkgdown’s defaults with a YAML file called
+<code>_pkgdown.yml</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;You can also put it in &lt;code&gt;pkgdown/_pkgdown.yml&lt;/code&gt;
+if you want to keep the package root clutter-free, or in
+&lt;code&gt;inst/_pkgdown.yml&lt;/code&gt; if you want to make it available when
+your package is installed.&lt;/p&gt;"><sup>1</sup></a>. The most important field is
+<code>url</code>, which gives the final location of the site:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
-<p><code>url</code> is used throughout the site to generate absolute urls where they are needed.</p>
-<p>Another important option is <code>template</code>, which allows you to control the overall appearance of your site:</p>
+<p><code>url</code> is used throughout the site to generate absolute
+urls where they are needed.</p>
+<p>Another important option is <code>template</code>, which allows you
+to control the overall appearance of your site:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre></div>
-<p>You can learn more about controlling the appearance of your site in <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
+<p>You can learn more about controlling the appearance of your site in
+<code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
 <div class="section level3">
 <h3 id="language">Language<a class="anchor" aria-label="anchor" href="#language"></a>
 </h3>
-<p>If your documentation (<code>.Rd</code> and <code>.Rmd</code>) is written in a language other than English, declare it by setting setting <code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">two letter language code</a> for your language:</p>
+<p>If your documentation (<code>.Rd</code> and <code>.Rmd</code>) is
+written in a language other than English, declare it by setting setting
+<code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">two letter
+language code</a> for your language:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
-<p>This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site. Current available translations are:</p>
+<p>This will be used to set the language of the web page and to
+translate the English words that pkgdown generates on your site. Current
+available translations are:</p>
 <ul>
 <li>
 <code>de</code>: German</li>
@@ -161,21 +182,38 @@
 <div class="section level2">
 <h2 id="home-page">Home page<a class="anchor" aria-label="anchor" href="#home-page"></a>
 </h2>
-<p>The contents of home page are automatically generated from <code>index.md</code> or <code>README.md</code>. pkgdown tries them in order, so it’s possible to have a different display on GitHub and pkgdown by providing both files. The homepage also includes a sidebar full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are generated and how you can customise them.</p>
+<p>The contents of home page are automatically generated from
+<code>index.md</code> or <code>README.md</code>. pkgdown tries them in
+order, so it’s possible to have a different display on GitHub and
+pkgdown by providing both files. The homepage also includes a sidebar
+full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are
+generated and how you can customise them.</p>
 </div>
 <div class="section level2">
 <h2 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
 </h2>
-<p>pkgdown creates a function reference in <code>reference/</code> that includes one page for each <code>.Rd</code> help topic in <code>man/</code>. The translation of individual help topics from Rd to HTML is generally straightforward, but there are a couple of things you should bear in mind:</p>
+<p>pkgdown creates a function reference in <code>reference/</code> that
+includes one page for each <code>.Rd</code> help topic in
+<code>man/</code>. The translation of individual help topics from Rd to
+HTML is generally straightforward, but there are a couple of things you
+should bear in mind:</p>
 <ul>
-<li><p>pkgdown does its best to autolink all references to help topics and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
-<li><p>pkgdown executes all examples, inserting the rendered results in the generated HTML files.</p></li>
+<li><p>pkgdown does its best to autolink all references to help topics
+and articles described in <code><a href="../articles/linking.html">vignette("linking")</a></code>.</p></li>
+<li><p>pkgdown executes all examples, inserting the rendered results in
+the generated HTML files.</p></li>
 </ul>
-<p>By default, pkgdown generates a reference index that is just an alphabetically-ordered list of functions. The index is much more useful with human curation because functions can be grouped and described in categories. To override the default, provide a <code>reference</code> field in <code>_pkgdown.yml</code>.</p>
+<p>By default, pkgdown generates a reference index that is just an
+alphabetically-ordered list of functions. The index is much more useful
+with human curation because functions can be grouped and described in
+categories. To override the default, provide a <code>reference</code>
+field in <code>_pkgdown.yml</code>.</p>
 <p>Each entry in <code>reference</code> can take one of three forms:</p>
 <ul>
-<li>A title, defined by <code>title</code> and optional <code>desc</code> (description) fields.</li>
-<li>A subtitle, defined by <code>subtitle</code> and optional <code>desc</code> (description) fields.</li>
+<li>A title, defined by <code>title</code> and optional
+<code>desc</code> (description) fields.</li>
+<li>A subtitle, defined by <code>subtitle</code> and optional
+<code>desc</code> (description) fields.</li>
 <li>A list of topics defined by a <code>contents</code> field.</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
@@ -195,19 +233,44 @@
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
-<p>Note the use of <code>starts_with()</code> to select all functions with a common prefix. You can also use <code>ends_with()</code> and <code>matches()</code>. See complete details in <code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
-<p>While iterating on the reference index you might want to run <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the index page, making it faster to quickly change <code>_pkgdown.yml</code> and see how it affects your site.</p>
+<p>Note the use of <code>starts_with()</code> to select all functions
+with a common prefix. You can also use <code>ends_with()</code> and
+<code>matches()</code>. See complete details in
+<code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
+<p>While iterating on the reference index you might want to run
+<code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the
+index page, making it faster to quickly change <code>_pkgdown.yml</code>
+and see how it affects your site.</p>
 </div>
 <div class="section level2">
 <h2 id="articles">Articles<a class="anchor" aria-label="anchor" href="#articles"></a>
 </h2>
-<p>pkgdown will automatically build all vignettes found in <code>vignettes/</code>, translating them to HTML files in <code>articles/</code>. Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format. You can see the details in <code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
-<p>If you want to include an article on the website but not in the package (e.g., because it’s large), you can either place it in a subdirectory of <code>vignettes/</code> (e.g. <code>vignettes/web_only</code>) or add it to <code>.Rbuildignore</code> (and make sure that there’s no <code>vignettes:</code> section in the yaml header). In the extreme case where you want to produce only articles but not vignettes, you should add the complete <code>vignettes/</code> directory to <code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a <code>VignetteBuilder</code> field.</p>
+<p>pkgdown will automatically build all vignettes found in
+<code>vignettes/</code>, translating them to HTML files in
+<code>articles/</code>. Due to the way that pkgdown has to integrate
+RMarkdown generated HTML with its own HTML, relatively little control is
+available over the output format. You can see the details in
+<code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
+<p>If you want to include an article on the website but not in the
+package (e.g., because it’s large), you can either place it in a
+subdirectory of <code>vignettes/</code>
+(e.g. <code>vignettes/web_only</code>) or add it to
+<code>.Rbuildignore</code> (and make sure that there’s no
+<code>vignettes:</code> section in the yaml header). In the extreme case
+where you want to produce only articles but not vignettes, you should
+add the complete <code>vignettes/</code> directory to
+<code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a
+<code>VignetteBuilder</code> field.</p>
 </div>
 <div class="section level2">
 <h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
 </h2>
-<p>If <code>NEWS.md</code> is present, it will be rendered into a single-page changelog based on markdown level headings. pkgdown assumes your <code>NEWS.md</code> is formatted using level one headings (<code>#</code>) to specify package name and version number, and level two headings (<code>##</code>) to provide topical organization for each release.</p>
+<p>If <code>NEWS.md</code> is present, it will be rendered into a
+single-page changelog based on markdown level headings. pkgdown assumes
+your <code>NEWS.md</code> is formatted using level one headings
+(<code>#</code>) to specify package name and version number, and level
+two headings (<code>##</code>) to provide topical organization for each
+release.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bug Fixes</span></span>
@@ -217,31 +280,42 @@
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># pkgdown 1.0.0</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>This is the first release of pkgdown.</span></code></pre></div>
-<p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html" class="external-link">tidyverse style guide</a>.</p>
-<p>See <code><a href="../reference/build_news.html">?build_news</a></code> for more customisation options including how to:</p>
+<p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html" class="external-link">tidyverse style
+guide</a>.</p>
+<p>See <code><a href="../reference/build_news.html">?build_news</a></code> for more customisation options including
+how to:</p>
 <ul>
-<li>Create one page for each major version and related minor versions.</li>
+<li>Create one page for each major version and related minor
+versions.</li>
 <li>Add release announcements to the news navbar drop-down.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="publishing">Publishing<a class="anchor" aria-label="anchor" href="#publishing"></a>
 </h2>
-<p>If you use GitHub, there are two ways to publish your site on GitHub Pages:</p>
+<p>If you use GitHub, there are two ways to publish your site on GitHub
+Pages:</p>
 <ul>
-<li><p>Build the site locally, check in the docs directory, then configure GitHub Pages to <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" class="external-link">use that directory</a>.</p></li>
-<li><p>Use GitHub actions to automatically build and publish the site every time you make a change. The easiest way to set this up is to run <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code>.</p></li>
+<li><p>Build the site locally, check in the docs directory, then
+configure GitHub Pages to <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" class="external-link">use
+that directory</a>.</p></li>
+<li><p>Use GitHub actions to automatically build and publish the site
+every time you make a change. The easiest way to set this up is to run
+<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code>.</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="promoting">Promoting<a class="anchor" aria-label="anchor" href="#promoting"></a>
 </h2>
-<p>Once your finalized site is built and published on the web, you should publicize its URL in a few places:</p>
+<p>Once your finalized site is built and published on the web, you
+should publicize its URL in a few places:</p>
 <ol style="list-style-type: decimal">
 <li>
-<p>The <code>URL</code> field of your package <code>DESCRIPTION</code>, alongside a link to its source:</p>
+<p>The <code>URL</code> field of your package
+<code>DESCRIPTION</code>, alongside a link to its source:</p>
 <pre><code>URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown</code></pre>
-<p>(<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> does this for you.)</p>
+<p>(<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> does this for
+you.)</p>
 </li>
 <li><p>Your repository description on GitHub.</p></li>
 <li><p>On Twitter (make sure to include <code>#rstats</code>).</p></li>
