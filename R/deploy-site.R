@@ -7,7 +7,7 @@
 #' which we no longer recommend, so this function is deprecated. There are
 #' two replacements:
 #'
-#' * [usethis::use_pkgdown_github_pages()] will setup a GitHub action to
+#' * `usethis::use_pkgdown_github_pages()` will setup a GitHub action to
 #'   automatically build and deploy your package website to GitHub pages.
 #'
 #' * [deploy_to_branch()] can be called locally to build and deploy your
@@ -85,7 +85,7 @@ deploy_site_github <- function(
 #' Build and deploy a site locally
 #'
 #' Assumes that you're in a git clone of the project, and the package is
-#' already installed. Use [usethis::use_pkgdown_github_pages()] to automate
+#' already installed. Use `usethis::use_pkgdown_github_pages()` to automate
 #' this process using GitHub actions.
 #'
 #' @param branch The git branch to deploy to
