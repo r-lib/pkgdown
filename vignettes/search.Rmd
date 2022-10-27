@@ -34,13 +34,13 @@ To test search with a local preview, you'll need to use `servr::httw("docs")` or
 
 ## Bootstrap 3: Algolia
 
-pkgdown websites can integrate search capability using [DocSearch](https://community.algolia.com/docsearch/) from Algolia.
+pkgdown websites can integrate search capability using [DocSearch](https://docsearch.algolia.com/) from Algolia.
 DocSearch is a powerful search engine that is free for documentation websites.
 There are only two steps needed to enable DocSearch on a pkgdown website.
 
 ### Indexing
 
-Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://community.algolia.com/docsearch/).
+Once you have published your pkgdown website, submit the [pkgdown site URL to Docsearch](https://docsearch.algolia.com/).
 Docsearch will contact you via e-mail to confirm you are the website owner.
 
 Docsearch will set up a crawler configuration that indexes your site every 24 hours.
