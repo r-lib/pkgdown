@@ -14,7 +14,7 @@
       Error in `render_rmarkdown()`:
       ! Failed to render RMarkdown
       Caused by error:
-      ! callr subprocess failed: pandoc document conversion failed with error 3
+      ! error in callr subprocess
       Caused by error:
       ! pandoc document conversion failed with error 3
 
