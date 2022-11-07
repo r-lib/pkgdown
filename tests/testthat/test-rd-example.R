@@ -77,4 +77,19 @@ test_that("@examplesIf", {
   )
   expect_equal(rd2ex(rd2), exp2)
 
+  cnd <- paste0(strrep("TRUE && ", 100), "FALSE")
+  rd3 <- paste0(
+    "\\dontshow{if (", cnd, ") (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
+    "answer <- 43\n",
+    "\\dontshow{\\}) # examplesIf}"
+  )
+  exp3 <- c(
+    paste0("if (FALSE) { # ", cnd),
+    "answer <- 43",
+    "}"
+  )
+  expect_no_error(expect_warning(
+    expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40)),
+    "is FALSE"
+  ))
 })
