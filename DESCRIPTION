@@ -21,7 +21,7 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     bslib (>= 0.3.1),
-    callr (>= 2.0.2),
+    callr (>= 3.7.3),
     cli,
     desc,
     digest,

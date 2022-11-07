@@ -8,13 +8,12 @@
       -- RMarkdown error -------------------------------------------------------------
       [WARNING] Could not fetch resource path-to-image.png
       Failing because there were warnings.
-      Error : pandoc document conversion failed with error 3
       --------------------------------------------------------------------------------
     Condition
       Error in `render_rmarkdown()`:
       ! Failed to render RMarkdown
       Caused by error:
-      ! callr subprocess failed: pandoc document conversion failed with error 3
+      ! in callr subprocess.
       Caused by error:
       ! pandoc document conversion failed with error 3
 
