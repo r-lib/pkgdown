@@ -21,7 +21,7 @@ Depends:
     R (>= 3.1.0)
 Imports: 
     bslib (>= 0.3.1),
-    callr (>= 3.7.2.9000),
+    callr (>= 3.7.3),
     cli,
     desc,
     digest,
@@ -66,5 +66,3 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 SystemRequirements: pandoc
-Remotes: 
-    r-lib/callr
