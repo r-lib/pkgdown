@@ -31,7 +31,7 @@ These are drawn from seven built-in components:
 
 -   `authors`: selected authors from the `DESCRIPTION`.
 
--   `dev`: development status badges found in `README.md`/`index.md`. *This section is automatically removed for websites of released versions (see "Development mode" in `?build_site`.*
+-   `dev`: development status badges found in `README.md`/`index.md`. *This section is automatically removed for websites of released versions (see "Development mode" in `?build_site`. For all development modes, the badges are removed from the main content.*
 
 -   `toc`: a table of contents for the README (not shown by default).
 
