@@ -58,16 +58,19 @@
 #'   * everything else -> release.
 #'
 #' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring.
+#'   Version in navbar gets the default colouring. Development badges are
+#'   not shown in the sidebar (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are
 #'   docs for an in-development version of the package. The `noindex` meta tag
 #'   is used to ensure that these packages are not indexed by search engines.
+#'   Development badges are shown in the sidebar (see `?build_home`).
 #'
 #' * **unreleased** (`mode: unreleased`). Site is written to `docs/`.
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
+#'   Development badges are shown in the sidebar (see `?build_home`).
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
