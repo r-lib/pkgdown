@@ -78,7 +78,7 @@ msgstr "Datenbeitragende:r"
 
 #: build-home-authors.R:200
 msgid "funder"
-msgstr "Sponsor"
+msgstr "Sponsor:in"
 
 #: build-home-authors.R:201
 msgid "reviewer"
@@ -98,7 +98,7 @@ msgstr "%s zitieren"
 
 #: build-home-citation.R:91
 msgid "Authors and Citation"
-msgstr "Autor:innen und Zitierung"
+msgstr "Autor:innen und Zitation"
 
 #: build-home-community.R:18
 msgid "Contributing guide"
@@ -214,7 +214,7 @@ msgstr "Beschreibung"
 
 #: rd-data.R:41
 msgid "References"
-msgstr "Literaturangaben"
+msgstr "Literaturverzeichnis"
 
 #: rd-data.R:45 render.R:95
 msgid "Source"
@@ -278,7 +278,7 @@ msgstr "Beispiele"
 
 #: render.R:100
 msgid "Citation"
-msgstr "Zitiervorschlag"
+msgstr "Zitationsvorschlag"
 
 #: repo.R:33
 msgid "Source:"
