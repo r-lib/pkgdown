@@ -28,3 +28,12 @@
       </ul>
       </div>
 
+# remove badges even if no dev-status div
+
+    Code
+      html
+    Output
+      {html_document}
+      <html>
+      [1] <body>\n<h1>Title</h1>\n    </body>
+
