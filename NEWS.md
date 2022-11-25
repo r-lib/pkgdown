@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Fix highlighting of nested not R code blocks (for instance, example of R 
+Markdown code with chunks) (@idavydov, #2237).
 * Tweak German translation (@krlmlr, @mgirlich, @lhdjung, #2149, #2236)
 * Remove mention of (defunct) Twitter card validator, provide alternatives (@Bisaloo, #2185)
 * Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
