@@ -50,6 +50,6 @@ lalala
   tweak_highlight_other(div)
   expect_match(
     xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
-    "```\\n"
+    "```.?\\n"
   )
 })
