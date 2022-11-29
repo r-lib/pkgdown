@@ -6,10 +6,9 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   }
 
   indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
-  indexes <- purrr::discard(indexes, is_empty)
 
   # If none of the specified topics have a match, return no topics
-  if (length(indexes) == 0) {
+  if (purrr::every(indexes, is_empty)) {
     if (check) {
       abort("No topics matched in '_pkgdown.yml'. No topics selected.")
     }
@@ -111,6 +110,7 @@ match_env <- function(topics) {
     match <- topics$concepts %>%
       purrr::map(~ str_trim(.) == x) %>%
       purrr::map_lgl(any)
+
     which(match & is_public(internal))
   }
   out$lacks_concepts <- function(x, internal = FALSE) {
@@ -183,7 +183,7 @@ section_topics <- function(match_strings, topics, src_path) {
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
   topics <- rbind(topics, ext_topics(ext_strings))
 
-  selected <- topics[select_topics(match_strings, topics), , ]
+  selected <- topics[select_topics(match_strings, topics, check = TRUE), , ]
   tibble::tibble(
     name = selected$name,
     path = selected$file_out,
