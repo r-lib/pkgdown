@@ -15,6 +15,11 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     return(integer())
   }
 
+  no_match <- match_strings[purrr::map_lgl(indexes, rlang::is_empty)]
+  if (check && length(no_match) > 0) {
+    topic_must("match a function or concept", toString(no_match))
+  }
+
   indexes <- purrr::discard(indexes, is_empty)
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
@@ -25,10 +30,6 @@ select_topics <- function(match_strings, topics, check = FALSE) {
 
   for (i in seq2(1, length(indexes))) {
     index <- indexes[[i]]
-
-    if (check && length(index) == 0) {
-      topic_must("match a function or concept", match_strings[[i]])
-    }
 
     sel <- switch(all_sign(index, match_strings[[i]]),
       "+" = union(sel, index),
