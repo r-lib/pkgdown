@@ -35,3 +35,21 @@ test_that("tweak_highlight_other() renders generic code blocks for roxygen2 >= 7
     "1+1"
   )
 })
+
+test_that("tweak_highlight_other() renders nested code blocks for roxygen2 >= 7.2.0", {
+  div <- xml2::read_html(
+"<div class='sourceCode markdown'><pre><code>
+blablabla
+
+```{r results='asis'}
+lalala
+```
+
+</code></pre></div>") %>%
+    xml2::xml_find_first("//div")
+  tweak_highlight_other(div)
+  expect_match(
+    xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
+    "```.?\\n"
+  )
+})
