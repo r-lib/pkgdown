@@ -166,7 +166,7 @@ test_that("full topic selection process works", {
   expect_equal(unname(out$name), c("b", "a"))
 })
 
-test_that("an unmatched selection with a match selection does not select everything", {
+test_that("an unmatched selection with a matched selection does not select everything", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,
     "x",   c("a1", "a2"), FALSE,
