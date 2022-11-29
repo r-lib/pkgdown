@@ -48,12 +48,13 @@ tweak_sidebar_html <- function(html, sidebar = TRUE, show_badges = TRUE) {
     return(html)
   }
 
+  # this extracts *and removes* badges from HTML
+  badges <- badges_extract(html)
+
   dev_status_html <- html %>% xml2::xml_find_first(".//div[@class='dev-status']")
   if (inherits(dev_status_html, "xml_missing")) {
     return(html)
   }
-
-  badges <- badges_extract(html)
   if (!show_badges || length(badges) == 0) {
     xml2::xml_remove(dev_status_html)
   } else {
