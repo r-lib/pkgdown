@@ -15,6 +15,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     return(integer())
   }
 
+  indexes <- purrr::discard(indexes, is_empty)
   # Combine integer positions; adding if +ve, removing if -ve
   sel <- switch(
     all_sign(indexes[[1]], match_strings[[1]]),
@@ -183,7 +184,7 @@ section_topics <- function(match_strings, topics, src_path) {
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
   topics <- rbind(topics, ext_topics(ext_strings))
 
-  selected <- topics[select_topics(match_strings, topics, check = TRUE), , ]
+  selected <- topics[select_topics(match_strings, topics), , ]
   tibble::tibble(
     name = selected$name,
     path = selected$file_out,
