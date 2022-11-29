@@ -247,7 +247,7 @@ These are drawn from seven built-in components:
 \item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
 \item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
-\item \code{dev}: development status badges found in \code{README.md}/\code{index.md}. \emph{This section is automatically removed for websites of released versions (see "Development mode" in \code{?build_site}. For all development modes, the badges are removed from the main content.}
+\item \code{dev}: development status badges found in \code{README.md}/\code{index.md}. \emph{This section is automatically removed for websites of released versions (For all development modes, the badges are removed from the main content. See "Development mode" in \code{?build_site} for a summary of when badges are shown in the sidebar as opposed to not shown anywhere on the home page)}
 \item \code{toc}: a table of contents for the README (not shown by default).
 }
 
