@@ -86,3 +86,6 @@ pkgdown identifies badges in three ways:
 -   Any image-containing links within `<div id="badges"></div>`.
 
 -   Within the first paragraph, if it only contains image-containing links.
+
+Identified badges are **removed** from the _main content_.
+They are shown or not in the _sidebar_ depending on the development mode and sidebar customization, see the sidebar section.

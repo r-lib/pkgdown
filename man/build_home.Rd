@@ -121,6 +121,9 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
 \item Any image-containing links within \verb{<div id="badges"></div>}.
 \item Within the first paragraph, if it only contains image-containing links.
 }
+
+Identified badges are \strong{removed} from the \emph{main content}.
+They are shown or not in the \emph{sidebar} depending on the development mode and sidebar customization, see the sidebar section.
 }
 }
 
