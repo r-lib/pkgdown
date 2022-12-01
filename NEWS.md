@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Fix topic match selection when there is an unmatched selection followed by a matched selection (@bundfussr, #2234)
 * Fix highlighting of nested not R code blocks (for instance, example of R 
 Markdown code with chunks) (@idavydov, #2237).
 * Tweak German translation (@krlmlr, @mgirlich, @lhdjung, #2149, #2236)

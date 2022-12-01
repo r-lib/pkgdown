@@ -165,3 +165,23 @@ test_that("full topic selection process works", {
   )
   expect_equal(unname(out$name), c("b", "a"))
 })
+
+test_that("an unmatched selection with a matched selection does not select everything", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,
+    "x",   c("a1", "a2"), FALSE,
+    "a",   c("a3"),       FALSE,
+    "b",   "b1",          FALSE,
+    "d",   "d",           TRUE,
+  )
+
+  expect_equal(
+    select_topics(c("a", "starts_with('unmatched')"), topics, check = FALSE),
+    2
+  )
+
+  expect_equal(
+    select_topics(c("starts_with('unmatched')", "a"), topics, check = FALSE),
+    2
+  )
+})
