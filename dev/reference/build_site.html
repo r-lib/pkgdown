@@ -222,14 +222,17 @@ version number:</p><ul><li><p><code>0.0.0.9000</code> (<code>0.0.0.*</code>): un
 <li><p>everything else -&gt; release.</p></li>
 </ul></li>
 <li><p><strong>release</strong> (<code>mode: release</code>), the default. Site is written to <code>docs/</code>.
-Version in navbar gets the default colouring.</p></li>
+Version in navbar gets the default colouring. Development badges are
+not shown in the sidebar (see <code><a href="build_home.html">?build_home</a></code>).</p></li>
 <li><p><strong>development</strong> (<code>mode: devel</code>). Site is written to <code>docs/dev/</code>.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The <code>noindex</code> meta tag
-is used to ensure that these packages are not indexed by search engines.</p></li>
+is used to ensure that these packages are not indexed by search engines.
+Development badges are shown in the sidebar (see <code><a href="build_home.html">?build_home</a></code>).</p></li>
 <li><p><strong>unreleased</strong> (<code>mode: unreleased</code>). Site is written to <code>docs/</code>.
 Version in navbar gets the "danger" class, and a message indicating the
-package is not yet on CRAN.</p></li>
+package is not yet on CRAN.
+Development badges are shown in the sidebar (see <code><a href="build_home.html">?build_home</a></code>).</p></li>
 </ul><p>You can override the mode specified in the <code>_pkgdown.yml</code> by setting
 by setting <code>PKGDOWN_DEV_MODE</code> to <code>devel</code> or <code>release</code>.</p>
 </div>

@@ -212,7 +212,9 @@ There should always be an empty line after the <code>&lt;!-- badges: end --&gt;<
 If you divide badges into paragraphs, make sure to add an empty line before the <code>&lt;!-- badges: end --&gt;</code> line.</p></li>
 <li><p>Any image-containing links within <code>&lt;div id="badges"&gt;&lt;/div&gt;</code>.</p></li>
 <li><p>Within the first paragraph, if it only contains image-containing links.</p></li>
-</ul></div>
+</ul><p>Identified badges are <strong>removed</strong> from the <em>main content</em>.
+They are shown or not in the <em>sidebar</em> depending on the development mode and sidebar customization, see the sidebar section.</p>
+</div>
 
     </div>
     <div class="section level2">
@@ -311,7 +313,7 @@ This organisation makes it easy to mix and match the pkgdown defaults with your 
 <li><p><code>community</code>: links to to <code>.github/CONTRIBUTING.md</code>, <code>.github/CODE_OF_CONDUCT.md</code>, etc.</p></li>
 <li><p><code>citation</code>: link to package citation information. Uses either <code>inst/CITATION</code> or, if absent, information from the <code>DESCRIPTION</code>.</p></li>
 <li><p><code>authors</code>: selected authors from the <code>DESCRIPTION</code>.</p></li>
-<li><p><code>dev</code>: development status badges found in <code>README.md</code>/<code>index.md</code>.</p></li>
+<li><p><code>dev</code>: development status badges extracted from <code>README.md</code>/<code>index.md</code>. This is only shown for "development" versions of websites; see "Development mode" in <code><a href="build_site.html">?build_site</a></code> for details.</p></li>
 <li><p><code>toc</code>: a table of contents for the README (not shown by default).</p></li>
 </ul><p>You can also add your own components, where <code>text</code> is markdown text:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
