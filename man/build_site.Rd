@@ -119,14 +119,17 @@ version number:
 \item everything else -> release.
 }
 \item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
-Version in navbar gets the default colouring.
+Version in navbar gets the default colouring. Development badges are
+not shown in the sidebar (see \code{?build_home}).
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The \code{noindex} meta tag
 is used to ensure that these packages are not indexed by search engines.
+Development badges are shown in the sidebar (see \code{?build_home}).
 \item \strong{unreleased} (\code{mode: unreleased}). Site is written to \verb{docs/}.
 Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
+Development badges are shown in the sidebar (see \code{?build_home}).
 }
 
 You can override the mode specified in the \verb{_pkgdown.yml} by setting

@@ -121,6 +121,9 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
 \item Any image-containing links within \verb{<div id="badges"></div>}.
 \item Within the first paragraph, if it only contains image-containing links.
 }
+
+Identified badges are \strong{removed} from the \emph{main content}.
+They are shown or not in the \emph{sidebar} depending on the development mode and sidebar customization, see the sidebar section.
 }
 }
 
@@ -247,7 +250,7 @@ These are drawn from seven built-in components:
 \item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
 \item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
-\item \code{dev}: development status badges found in \code{README.md}/\code{index.md}.
+\item \code{dev}: development status badges extracted from \code{README.md}/\code{index.md}. This is only shown for "development" versions of websites; see "Development mode" in \code{?build_site} for details.
 \item \code{toc}: a table of contents for the README (not shown by default).
 }
 
