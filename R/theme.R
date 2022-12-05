@@ -40,7 +40,12 @@ assemble_ext_assets <- function(pkg,
           fs::path_norm(fs::path(path_deps(pkg), subdirs)),
           recurse = TRUE
         )
-        remote_urls <- fs::path_norm(fs::path(fs::path_dir(.x$url), urls))
+        url_parsed <- xml2::url_parse(.x$url)
+        url_excl_scheme <- fs::path(url_parsed$server, url_parsed$path)
+        remote_urls <- paste0(
+          url_parsed$scheme, "://",
+          fs::path_norm(fs::path(fs::path_dir(url_excl_scheme), urls))
+        )
         purrr::walk2(
           remote_urls,
           urls,
