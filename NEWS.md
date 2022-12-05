@@ -7,6 +7,9 @@ Markdown code with chunks) (@idavydov, #2237).
 * Remove mention of (defunct) Twitter card validator, provide alternatives (@Bisaloo, #2185)
 * Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
 * Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207).
+* All external assets are now directly included in the site by default instead of
+  being fetched from external CDNs. The old behaviour can be restored via
+  setting the YAML option `template.params.external_assets: true` (@salim-b, #2249)
 
 # pkgdown 2.0.6
 
