@@ -141,7 +141,7 @@
 #' The `template` field is mostly used to control the appearance of the site.
 #' See `vignette("customise")` for details.
 #'
-#' There are two other `template` fields that control other aspects of the
+#' There are three other `template` fields that control other aspects of the
 #' site:
 #'
 #' *   `noindex: true` will suppress indexing of your pages by search engines:
@@ -152,23 +152,38 @@
 #'         noindex: true
 #'     ```
 #'
-#' * `google_site_verification` allows you to verify your site with google:
+#' *   `google_site_verification` allows you to verify your site with google:
 #'
-#'      ```yaml
-#'      template:
-#'        params:
-#'          google_site_verification: _nn6ile-a6x6lctOW
-#'      ```
+#'     ```yaml
+#'     template:
+#'       params:
+#'         google_site_verification: _nn6ile-a6x6lctOW
+#'     ```
 #'
 #' *   `trailing_slash_redirect: true` will automatically redirect
 #'     `your-package-url.com` to `your-package-url.com/`, using a JS script
-#'      added to the `<head>` of the home page. This is useful in certain
-#'      redirect scenarios.
+#'     added to the `<head>` of the home page. This is useful in certain
+#'     redirect scenarios.
 #'
-#'      ```yaml
-#'      template:
-#'        trailing_slash_redirect: true
-#'      ```
+#'     ```yaml
+#'     template:
+#'       trailing_slash_redirect: true
+#'     ```
+#'
+#' *   `external_assets: true` will avoid the direct inclusion of certain
+#'     JS and CSS assets in the built site and instead let them be fetched
+#'     remotely from content delivery networks (CDNs). Enabling this option
+#'     results in additional cross-origin requests which might have adverse
+#'     effects on the privacy of your site's visitors. Your site will also stop
+#'     to work properly in case the CDN operators should decide to shut down
+#'     their service or stop hosting the specific versions of the assets pkgdown
+#'     uses.
+#'
+#'     ```yaml
+#'     template:
+#'       params:
+#'         external_assets: true
+#'     ```
 #'
 #' @section Analytics:
 #'

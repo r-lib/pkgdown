@@ -320,7 +320,7 @@ for details.
 The \code{template} field is mostly used to control the appearance of the site.
 See \code{vignette("customise")} for details.
 
-There are two other \code{template} fields that control other aspects of the
+There are three other \code{template} fields that control other aspects of the
 site:
 \itemize{
 \item \code{noindex: true} will suppress indexing of your pages by search engines:
@@ -342,6 +342,19 @@ redirect scenarios.
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   trailing_slash_redirect: true
+}\if{html}{\out{</div>}}
+\item \code{external_assets: true} will avoid the direct inclusion of certain
+JS and CSS assets in the built site and instead let them be fetched
+remotely from content delivery networks (CDNs). Enabling this option
+results in additional cross-origin requests which might have adverse
+effects on the privacy of your site's visitors. Your site will also stop
+to work properly in case the CDN operators should decide to shut down
+their service or stop hosting the specific versions of the assets pkgdown
+uses.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+  params:
+    external_assets: true
 }\if{html}{\out{</div>}}
 }
 }
