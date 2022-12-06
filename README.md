@@ -85,22 +85,22 @@ At last count, pkgdown is used [by over 6,000
 packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
 Here are a few examples created by contributors to pkgdown:
 
--   [bayesplot](http://mc-stan.org/bayesplot/index.html)
-    ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
-    plotting functions for posterior analysis, model checking, and MCMC
-    diagnostics.
+- [bayesplot](http://mc-stan.org/bayesplot/index.html)
+  ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
+  plotting functions for posterior analysis, model checking, and MCMC
+  diagnostics.
 
--   [valr](https://rnabioco.github.io/valr/)
-    ([source](https://github.com/rnabioco/valr)): read and manipulate
-    genome intervals and signals.
+- [valr](https://rnabioco.github.io/valr/)
+  ([source](https://github.com/rnabioco/valr)): read and manipulate
+  genome intervals and signals.
 
--   [mkin](https://pkgdown.jrwb.de/mkin/)
-    ([source](https://github.com/jranke/mkin)): calculation routines
-    based on the FOCUS Kinetics Report
+- [mkin](https://pkgdown.jrwb.de/mkin/)
+  ([source](https://github.com/jranke/mkin)): calculation routines based
+  on the FOCUS Kinetics Report
 
--   [NMF](http://renozao.github.io/NMF/master/index.html)
-    ([source](https://github.com/renozao/NMF)): a framework to perform
-    non-negative matrix factorization (NMF).
+- [NMF](http://renozao.github.io/NMF/master/index.html)
+  ([source](https://github.com/renozao/NMF)): a framework to perform
+  non-negative matrix factorization (NMF).
 
 Comparing the source and output of these sites is a great way to learn
 new pkgdown techniques.
