@@ -31,7 +31,7 @@ assemble_ext_assets <- function(pkg,
       download.file(.x$url, path, quiet = TRUE)
 
       # check file integrity
-      file_content <- file(path)
+      file_content <- file(path, encoding = "UTF-8")
       sha_version <- regmatches(
         .x$integrity,
         regexpr("(?<=^sha)\\d{3}", .x$integrity, perl = TRUE)
