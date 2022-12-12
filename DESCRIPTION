@@ -50,7 +50,6 @@ Suggests:
     knitr,
     lifecycle,
     methods,
-    openssl,
     pkgload (>= 1.0.2),
     rsconnect,
     rstudioapi,
