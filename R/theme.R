@@ -28,33 +28,32 @@ assemble_ext_assets <- function(pkg,
     # download resource if necessary
     if (!use_ext) {
       path <- path_deps(pkg, basename(.x$url))
-      download.file(.x$url, path, quiet = TRUE)
+      download.file(.x$url, path, quiet = TRUE, mode = "wb")
 
       # check file integrity
-      file_content <- file(path)
-      sha_version <- regmatches(
+      sha_size <- as.integer(regmatches(
         .x$integrity,
         regexpr("(?<=^sha)\\d{3}", .x$integrity, perl = TRUE)
-      )
+      ))
+      if (!(sha_size %in% c(256L, 384L, 512L))) {
+        cli::cli_abort(paste0(
+          "Invalid {.field integrity} value set in {.file ",
+          "{path_assets_yaml}}: {.val {(.x$integrity)}} Allowed are only ",
+          "SHA-256, SHA-384 and SHA-512."
+        ))
+      }
+      con <- file(path, encoding = "UTF-8")
+      hash <- openssl::base64_encode(openssl::sha2(con, sha_size))
       hash_target <- regmatches(
         .x$integrity,
         regexpr("(?<=^sha\\d{3}-).+", .x$integrity, perl = TRUE)
       )
-      hash <- openssl::base64_encode(switch(
-        sha_version,
-        "256" = openssl::sha256(file_content),
-        "384" = openssl::sha384(file_content),
-        "512" = openssl::sha512(file_content),
-        cli::cli_abort(paste0(
-          "Invalid {.field integrity} value set in {.file {path_assets_yaml}}: ",
-          "{.val {(.x$integrity)}} Allowed are only SHA-256, SHA-384 and SHA-512."
-        ))
-      ))
 
-      if (hash_target != hash) {
+      if (hash != hash_target) {
         cli::cli_abort(paste0(
           "Hash of downloaded {(.x$type)} asset doesn't match {.field ",
-          "integrity} value of {.val {(.x$integrity)}}. Asset URL is: {.url {(.x$url)}}"
+          "integrity} value of {.val {(.x$integrity)}}. Asset URL is: {.url ",
+          "{(.x$url)}}"
         ))
       }
 
