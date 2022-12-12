@@ -31,6 +31,7 @@ Imports:
     jsonlite,
     magrittr,
     memoise,
+    openssl,
     purrr,
     ragg,
     rlang (>= 1.0.0),

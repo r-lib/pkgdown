@@ -30,6 +30,34 @@ assemble_ext_assets <- function(pkg,
       path <- path_deps(pkg, basename(.x$url))
       download.file(.x$url, path, quiet = TRUE)
 
+      # check file integrity
+      file_content <- file(path)
+      sha_version <- regmatches(
+        .x$integrity,
+        regexpr("(?<=^sha)\\d{3}", .x$integrity, perl = TRUE)
+      )
+      hash_target <- regmatches(
+        .x$integrity,
+        regexpr("(?<=^sha\\d{3}-).+", .x$integrity, perl = TRUE)
+      )
+      hash <- openssl::base64_encode(switch(
+        sha_version,
+        "256" = openssl::sha256(file_content),
+        "384" = openssl::sha384(file_content),
+        "512" = openssl::sha512(file_content),
+        cli::cli_abort(paste0(
+          "Invalid {.field integrity} value set in {.file {path_assets_yaml}}: ",
+          "{.val {(.x$integrity)}} Allowed are only SHA-256, SHA-384 and SHA-512."
+        ))
+      ))
+
+      if (hash_target != hash) {
+        cli::cli_abort(paste0(
+          "Hash of downloaded {(.x$type)} asset doesn't match {.field ",
+          "integrity} hash of {.val {(.x$integrity)}}. Asset URL is: {.url {(.x$url)}}"
+        ))
+      }
+
       # download subressources (webfonts etc.) if necessary
       if (isTRUE(.x$has_subressources)) {
         file_content <- read_file(path)
