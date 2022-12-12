@@ -54,7 +54,7 @@ assemble_ext_assets <- function(pkg,
       if (hash_target != hash) {
         cli::cli_abort(paste0(
           "Hash of downloaded {(.x$type)} asset doesn't match {.field ",
-          "integrity} hash of {.val {(.x$integrity)}}. Asset URL is: {.url {(.x$url)}}"
+          "integrity} value of {.val {(.x$integrity)}}. Asset URL is: {.url {(.x$url)}}"
         ))
       }
 
