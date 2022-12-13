@@ -2,7 +2,7 @@
 - type: "stylesheet"
   url: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
   integrity: "sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-  has_subressources: true
+  has_subresources: true
 - type: "stylesheet"
   url: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css"
   integrity: "sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw="

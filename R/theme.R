@@ -57,8 +57,8 @@ assemble_ext_assets <- function(pkg,
         ))
       }
 
-      # download subressources (webfonts etc.) if necessary
-      if (isTRUE(.x$has_subressources)) {
+      # download subresources (webfonts etc.) if necessary
+      if (isTRUE(.x$has_subresources)) {
         file_content <- read_file(path)
         pos <- gregexpr("(?<=\\burl\\((?!(data|https?):))[^)?#]*", file_content, perl = TRUE)
         urls <- unique(unlist(regmatches(file_content, pos)))
@@ -76,7 +76,7 @@ assemble_ext_assets <- function(pkg,
         purrr::walk2(
           remote_urls,
           urls,
-          ~ download.file(.x, fs::path_norm(path_deps(pkg, .y)), quiet = TRUE)
+          ~ download.file(.x, fs::path_norm(path_deps(pkg, .y)), quiet = TRUE, mode = "wb")
         )
       }
       .x$url <- fs::path_rel(path, pkg$dst_path)
