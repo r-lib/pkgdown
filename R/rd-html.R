@@ -306,7 +306,7 @@ as_html.tag_tabular <- function(x, ...) {
   # Negative maintains correct ordering once reversed
   cell_grp <- rev(cumsum(-rev(sep)))
   cells <- unname(split(contents, cell_grp))
-  # Remove tailing content (that does not match the dimensions of the table)
+  # Remove trailing content (that does not match the dimensions of the table)
   cells <- cells[seq_len(length(cells) - length(cells)%%length(align))]
   cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
