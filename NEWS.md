@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Avoid unwanted linebreaks from parsing `DESCRIPTION` and `.Rd` file contents (@salim-b, #2247)
+
 # pkgdown 2.0.7
 
 * Fix topic match selection when there is an unmatched selection followed by a matched selection (@bundfussr, #2234)
@@ -9,7 +11,6 @@ Markdown code with chunks) (@idavydov, #2237).
 * Remove mention of (defunct) Twitter card validator, provide alternatives (@Bisaloo, #2185)
 * Fix `keywords` typo in `check_missing_topics()` message (@swsoyee, #2178).
 * Use jsdeliver CDN for bootstrap-toc (@GregorDeCillia, #2207).
-* Avoid unwanted linebreaks from parsing `DESCRIPTION` and `.Rd` file contents (@salim-b, #2247)
 
 # pkgdown 2.0.6
 
