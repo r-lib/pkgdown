@@ -1,3 +1,5 @@
+# pkgdown (development version)
+
 # pkgdown 2.0.7
 
 * Fix topic match selection when there is an unmatched selection followed by a matched selection (@bundfussr, #2234)
