@@ -9,5 +9,6 @@ call_hook <- function(hook_name, ...) {
   # Evaluate hooks
   purrr::map(hooks, function(fun) {
     fun(...)
-  })
+  }) %>%
+    invisible()
 }
