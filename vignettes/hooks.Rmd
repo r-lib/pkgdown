@@ -1,0 +1,39 @@
+---
+title: "Introduction to pkgdown hooks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pkdown hooks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette teaches you how to customise the pkgdown behaviour during generating your site.
+The hooks are functions that are called at specific points during the execution R code. They allow the developer to specify custom behaviour that should occur at these specific points. In the pkgdown case the hooks are used to extend the standard behaviour and allow for custom implementation.
+
+It is important to note that hooks should be used with caution, as they can have unintended consequences if not used properly.
+
+# Supported hooks
+
+- `UserHook::pkgdown::tweak_page`
+This hook is executed in the last step of `tweak_page` and allow for extra modification of html file.
+
+```r
+# Example tweak_page hook
+setHook("UserHook::pkgdown::tweak_page", function(...) {
+  html <- ..1
+
+  links <- xml2::xml_find_all(html, ".//a")
+  if (length(links) == 0)
+    return(invisible())
+
+  # modify links
+  invisible()
+})
+```

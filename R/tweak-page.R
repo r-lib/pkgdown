@@ -35,6 +35,8 @@ tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
   if (!is.null(pkg$desc) && pkg$desc$has_dep("R6")) {
     tweak_link_R6(html, pkg$package)
   }
+
+  call_hook("tweak_page", html, name, pkg)
 }
 
 tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
