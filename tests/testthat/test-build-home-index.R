@@ -8,6 +8,20 @@ test_that("title and description come from DESCRIPTION by default", {
   expect_equal(data_home(pkg)$opengraph$description, "Y")
 })
 
+test_that("math is handled", {
+  withr::local_envvar("PKGDOWN_PANDOC_FAIL_IF_WARNING" = "blabla")
+  pkg_dir <- withr::local_tempdir()
+  fs::dir_copy(test_path("assets/home-old-skool"), pkg_dir)
+  brio::write_lines(
+    c("", "blabla $\\sqrt{blop}$", ""),
+    file.path(pkg_dir, "home-old-skool", "README.md")
+  )
+  expect_snapshot(
+    build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE),
+    error = TRUE
+  )
+})
+
 test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
