@@ -2,9 +2,8 @@
 
     Code
       build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE)
-    Condition
-      Error:
-      ! pandoc document conversion failed with error 3
+    Output
+      Writing 'index.html'
 
 # data_home_sidebar() works by default
 

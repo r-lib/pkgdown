@@ -16,9 +16,10 @@ test_that("math is handled", {
     c("", "blabla $\\sqrt{blop}$", ""),
     file.path(pkg_dir, "home-old-skool", "README.md")
   )
+  expect_output(init_site(file.path(pkg_dir, "home-old-skool")))
   expect_snapshot(
     build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE),
-    error = TRUE
+    error = FALSE
   )
 })
 
