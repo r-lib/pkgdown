@@ -12,7 +12,7 @@ test_that("math is handled", {
   withr::local_envvar("PKGDOWN_PANDOC_FAIL_IF_WARNING" = "blabla")
   pkg_dir <- withr::local_tempdir()
   fs::dir_copy(test_path("assets/home-old-skool"), pkg_dir)
-  brio::write_lines(
+  write_lines(
     c("", "blabla $\\sqrt{blop}$", ""),
     file.path(pkg_dir, "home-old-skool", "README.md")
   )
