@@ -25,8 +25,8 @@ build_site(
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
+\item{seed}{Seed used to initialize random number generation so that
+examples are reproducible.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}

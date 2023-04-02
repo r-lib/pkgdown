@@ -15,7 +15,7 @@ Test spacing above widget.
 
 ```{r, echo=FALSE}
 # set seed for reproducible widget id
-if (requireNamespace("htmltools", quietly = TRUE)) {
+if (requireNamespace("htmlwidgets", quietly = TRUE)) {
   htmlwidgets::setWidgetIdSeed(42)
 }
 
