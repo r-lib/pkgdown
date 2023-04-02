@@ -13,8 +13,7 @@ rd2ex <- function(x, ...) {
 run_examples <- function(x,
                          topic = "unknown",
                          env = globalenv(),
-                         run_dont_run = FALSE
-                         ) {
+                         run_dont_run = FALSE) {
 
   if (!inherits(x, "tag")) {
     x <- rd_text(x)
