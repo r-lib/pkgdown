@@ -63,7 +63,7 @@ and can contain `href` and/or `html` fields:
 authors:
   firstname lastname:
     href: "http://name-website.com"
-    html: "<img src='https://website.com/name-picture.png' width=72>"
+    html: "<img src='https://website.com/name-picture.png' width=72 alt='Name Website'>"
 ```
 
 
