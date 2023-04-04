@@ -3,19 +3,25 @@
     Code
       t <- select_topics("x + ", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be valid R code
       x Not 'x + '
     Code
       t <- select_topics("y", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
       x Not 'y'
     Code
       t <- select_topics("paste(1)", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a known selector function
       x Not 'paste(1)'
       Caused by error in `paste()`:
@@ -23,13 +29,17 @@
     Code
       t <- select_topics("starts_with", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
       x Not 'starts_with'
     Code
       t <- select_topics("1", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a string or function call
       x Not '1'
     Code
@@ -43,13 +53,17 @@
     Code
       select_topics("a4", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
       x Not 'a4'
     Code
       select_topics("c::a", topics)
     Condition
-      Error:
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
       x Not 'c::a'
 
