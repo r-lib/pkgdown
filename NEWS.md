@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 
 # pkgdown 2.0.7
