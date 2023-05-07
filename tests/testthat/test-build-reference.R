@@ -1,5 +1,4 @@
 test_that("parse failures include file name", {
-  skip_if_not_installed("rlang", "0.99")
   pkg <- local_pkgdown_site("assets/reference-fail")
   expect_snapshot(build_reference(pkg), error = TRUE)
 })
