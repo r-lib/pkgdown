@@ -80,7 +80,6 @@ test_that("errors well when a content entry is not a character", {
 })
 
 test_that("errors well when a content entry refers to a not installed package", {
-  skip_if_not_installed("rlang", "0.99")
   skip_if_not_installed("cli", "3.1.0")
 
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
