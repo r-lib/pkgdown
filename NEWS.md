@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
+
 # pkgdown 2.0.7
 
 * Fix topic match selection when there is an unmatched selection followed by a matched selection (@bundfussr, #2234)
