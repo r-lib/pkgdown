@@ -140,7 +140,10 @@ your package is installed.&lt;/p&gt;"><sup>1</sup></a>. The most important field
 <code>url</code>, which gives the final location of the site:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre></div>
 <p><code>url</code> is used throughout the site to generate absolute
-urls where they are needed.</p>
+urls where they are needed. <code>url</code> is also part of what
+enables auto-links to your help topics or vignettes from sites external
+to your package, such as from other pkgdown sites or from Quarto
+websites. See <code><a href="../articles/linking.html">vignette("linking")</a></code> for more.</p>
 <p>Another important option is <code>template</code>, which allows you
 to control the overall appearance of your site:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
@@ -182,7 +185,7 @@ available translations are:</p>
 <div class="section level2">
 <h2 id="home-page">Home page<a class="anchor" aria-label="anchor" href="#home-page"></a>
 </h2>
-<p>The contents of home page are automatically generated from
+<p>The contents of the home page are automatically generated from
 <code>index.md</code> or <code>README.md</code>. pkgdown tries them in
 order, so it’s possible to have a different display on GitHub and
 pkgdown by providing both files. The homepage also includes a sidebar
@@ -317,7 +320,11 @@ should publicize its URL in a few places:</p>
 <p>(<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> does this for
 you.)</p>
 </li>
-<li><p>Your repository description on GitHub.</p></li>
+<li>
+<p>Your repository description on GitHub.</p>
+<p>(<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> does this for
+you.)</p>
+</li>
 <li><p>On Twitter (make sure to include <code>#rstats</code>).</p></li>
 </ol>
 </div>
