@@ -36,6 +36,13 @@ test_that("package_vignettes() detects conflicts in final article paths", {
   expect_error(package_vignettes(dir))
 })
 
+test_that("package_vignettes() sorts articles alphabetically by file name", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  expect_equal(
+    order(basename(pkg$vignettes$file_out)),
+    seq_len(nrow(pkg$vignettes))
+  )
+})
 
 # titles ------------------------------------------------------------------
 
