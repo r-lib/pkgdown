@@ -1,5 +1,4 @@
 test_that("bad inputs give informative warnings", {
-  skip_if_not_installed("rlang", "0.99")
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,  ~concepts,
     "x",   c("x", "x1"), FALSE,      character(),

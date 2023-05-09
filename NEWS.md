@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 * All external assets (JS, CSS, fonts) are now directly included in the site
   instead of being fetched from external CDNs if the [Bootstrap 5 template is
   used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).

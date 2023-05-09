@@ -82,7 +82,7 @@ Then learn about the many new ways to customise your site in
 ## In the wild
 
 At last count, pkgdown is used [by over 6,000
-packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
+packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
 Here are a few examples created by contributors to pkgdown:
 
 - [bayesplot](http://mc-stan.org/bayesplot/index.html)
