@@ -1,8 +1,9 @@
 # pkgdown (development version)
 
-* All external assets are now directly included in the site by default instead of
-  being fetched from external CDNs. The old behaviour can be restored via
-  setting the YAML option `template.params.external_assets: true` (@salim-b, #2249)
+* All external assets (JS, CSS, fonts) are now directly included in the site
+  instead of being fetched from external CDNs if the [Bootstrap 5 template is
+  used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).
+  (@salim-b, #2249)
 
 # pkgdown 2.0.7
 
