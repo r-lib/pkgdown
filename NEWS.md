@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Avoid unwanted linebreaks from parsing `DESCRIPTION` and `.Rd` file contents (@salim-b, #2247)
+* Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
 * Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 
