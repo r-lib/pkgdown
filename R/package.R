@@ -248,7 +248,7 @@ package_vignettes <- function(path = ".") {
   )
   check_unique_article_paths(file_in, file_out)
 
-  tibble::tibble(
+  out <- tibble::tibble(
     name = path_ext_remove(vig_path),
     file_in = file_in,
     file_out = file_out,
@@ -256,6 +256,7 @@ package_vignettes <- function(path = ".") {
     description = desc,
     depth = dir_depth(file_out)
   )
+  out[order(basename(out$file_out)), ]
 }
 
 find_template_config <- function(package, bs_version = NULL) {
