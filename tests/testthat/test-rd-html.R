@@ -295,14 +295,14 @@ test_that("empty input gives empty output", {
 test_that("empty lines break paragraphs", {
   expect_equal(
     flatten_para(rd_text("a\nb\n\nc")),
-    "<p>a b</p>\n<p>c</p>"
+    "<p>a\nb</p>\n<p>c</p>"
   )
 })
 
 test_that("indented empty lines break paragraphs", {
   expect_equal(
     flatten_para(rd_text("a\nb\n  \nc")),
-    "<p>a b</p>  \n<p>c</p>"
+    "<p>a\nb</p>  \n<p>c</p>"
   )
 })
 
@@ -323,7 +323,7 @@ test_that("single item can have multiple paragraphs", {
 
 test_that("nl after tag doesn't trigger paragraphs", {
   out <- flatten_para(rd_text("One \\code{}\nTwo"))
-  expect_equal(out, "<p>One <code></code> Two</p>")
+  expect_equal(out, "<p>One <code></code>\nTwo</p>")
 })
 
 test_that("cr generates line break", {
