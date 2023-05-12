@@ -21,7 +21,7 @@ build_home_license <- function(pkg) {
 data_home_sidebar_license <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  link <- autolink_license(pkg$desc$get("License")[[1]])
+  link <- autolink_license(pkg$desc$get_field("License", ""))
 
   license_md <- path_first_existing(pkg$src_path, c("LICENSE.md", "LICENCE.md"))
   if (!is.null(license_md)) {
