@@ -68,7 +68,7 @@ Markdown code with chunks) (@idavydov, #2237).
     * Package logos will be automatically stripped from the `.Rd` you don't end 
       up with two on one page. (#2083).
 
-    * `\figure{file}{alternative text}` with multline alt text is now parsed
+    * `\figure{file}{alternative text}` with multiline alt text is now parsed
       correctly (#2080)
 
     * roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff) is
@@ -250,9 +250,9 @@ Markdown code with chunks) (@idavydov, #2237).
     pkgdown includes translations for:
     
     * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
-    * `de`, German, thnaks to @hfrick.
+    * `de`, German, thanks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
-    * `pt`, Portoguese, thanks to @rich-iannone.
+    * `pt`, Portuguese, thanks to @rich-iannone.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
     * `zh_CN`, simplified Chinese, thanks to @yitao.
   
@@ -657,7 +657,7 @@ Markdown code with chunks) (@idavydov, #2237).
     (#1045). 
 
 * There's much richer control over Open Graph and Twitter metadata for the 
-  whote site and for individual articles. See new `vignette("metadata")` for 
+  whole site and for individual articles. See new `vignette("metadata")` for 
   details (@gadenbuie, #936).
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,

@@ -203,7 +203,7 @@ build_article <- function(name,
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
-  # specification of depth, output destination, and other parmaters that
+  # specification of depth, output destination, and other parameters that
   # allow code sharing with building of the index.
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {

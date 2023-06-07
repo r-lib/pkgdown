@@ -80,7 +80,7 @@ test_that("support platform specific code", {
 
 # tables ------------------------------------------------------------------
 
-test_that("tabular genereates complete table html", {
+test_that("tabular generates complete table html", {
   table <- "\\tabular{ll}{a \\tab b \\cr}"
   expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td></tr>", "</table>")
   expect_equal(rd2html(table), expectation)
