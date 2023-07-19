@@ -1,4 +1,4 @@
-test_that("highlight_examples captures depencies", {
+test_that("highlight_examples captures dependencies", {
   withr::defer(unlink(test_path("Rplot001.png")))
 
   dummy_dep <- htmltools::htmlDependency("dummy", "1.0.0", "dummy.js")

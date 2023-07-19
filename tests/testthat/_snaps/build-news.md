@@ -57,5 +57,5 @@
       x <- data_news(pkg)
     Condition
       Warning:
-      Footnotes in NEWS.md are not currently suppoted
+      Footnotes in NEWS.md are not currently supported
 

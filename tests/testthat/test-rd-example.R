@@ -17,7 +17,7 @@ test_that("inline tags are stripped", {
   expect_equal(rd2ex("\\dontrun{1}", run_dont_run = TRUE), "1")
 })
 
-test_that("blocks get fillers to preserve spacine", {
+test_that("blocks get fillers to preserve spacing", {
   expect_equal(rd2ex("\\donttest{\n  1\n}"), c("# \\donttest{", "  1", "# }"))
   expect_equal(rd2ex("\\dontrun{\n  1\n}"), c("if (FALSE) {", "  1", "}"))
 })
