@@ -37,7 +37,7 @@ file if needed.
 
 It is designed to be run in CI, so by default it:
 \itemize{
-\item Clean out the old site.
+\item Cleans out the old site.
 \item Does not install the package.
 \item Runs \code{\link[=build_site]{build_site()}} in process.
 }
