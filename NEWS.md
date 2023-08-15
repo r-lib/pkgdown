@@ -3,7 +3,7 @@
 * Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
 * Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
-* Add Catalan translation (@jmaspons, #)
+* Add Catalan translation (@jmaspons, #2333)
 
 # pkgdown 2.0.7
 
