@@ -18,7 +18,7 @@ msgstr "No s'ha trobat la pàgina (404)"
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
 msgstr ""
-"No s'ha trobat el contingut. Utilitzeu enllaços a la barra de navegació."
+"No s'ha trobat el contingut. Useu els enllaços de la barra de navegació."
 
 #: build-articles.R:381 navbar.R:136 navbar.R:143 navbar.R:158
 msgid "Articles"
@@ -78,7 +78,7 @@ msgstr "col·laborador de dades"
 
 #: build-home-authors.R:176
 msgid "funder"
-msgstr "finançador"
+msgstr "patrocinador"
 
 #: build-home-authors.R:177
 msgid "reviewer"
@@ -102,7 +102,7 @@ msgstr "Autors i citació"
 
 #: build-home-community.R:23
 msgid "Contributing guide"
-msgstr "Guia de contribució"
+msgstr "Guia per contribuir"
 
 #: build-home-community.R:27
 msgid "Code of conduct"
