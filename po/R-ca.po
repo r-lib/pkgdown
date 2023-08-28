@@ -78,7 +78,7 @@ msgstr "col·laborador de dades"
 
 #: build-home-authors.R:176
 msgid "funder"
-msgstr "patrocinador"
+msgstr "finançador"
 
 #: build-home-authors.R:177
 msgid "reviewer"
@@ -94,7 +94,7 @@ msgstr "traductor"
 
 #: build-home-citation.R:36
 msgid "Citing %s"
-msgstr "Com citar %s"
+msgstr "Citant %s"
 
 #: build-home-citation.R:91
 msgid "Authors and Citation"
@@ -158,7 +158,7 @@ msgstr "Versió %s"
 
 #: build-news.R:138 build-news.R:240
 msgid "News"
-msgstr "Notícies"
+msgstr "Novetats"
 
 #: build-news.R:242
 msgid "Releases"
