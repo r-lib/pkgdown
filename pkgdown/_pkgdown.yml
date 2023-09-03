@@ -21,8 +21,18 @@ template:
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
   includes:
-    in_header:
+    in_header: >
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css">
+
+navbar:
+  bg: info
+  type: light
+  structure:
+    right: [github, dark-mode]
+  components:
+    dark-mode:
+      href: "#dark-mode"
 
 development:
   mode: auto

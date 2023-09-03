@@ -62,6 +62,8 @@ VignetteBuilder:
 Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
+Remotes:
+  rstudio/bslib
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2.9000
