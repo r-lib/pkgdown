@@ -40,7 +40,7 @@ The most important field is `url`, which gives the final location of the site:
 url: https://pkgdown.r-lib.org
 ```
 
-`url` is used throughout the site to generate absolute urls where they are needed.
+`url` is used throughout the site to generate absolute urls where they are needed, such as search, see `vignette("search")`.
 `url` is also part of what enables auto-links to your help topics or vignettes from sites external to your package, such as from other pkgdown sites or from Quarto websites.
 See `vignette("linking")` for more.
 
