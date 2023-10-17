@@ -8,7 +8,7 @@
 #'
 #' It is designed to be run in CI, so by default it:
 #'
-#' * Clean out the old site.
+#' * Cleans out the old site.
 #' * Does not install the package.
 #' * Runs [build_site()] in process.
 #'
