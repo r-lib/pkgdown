@@ -31,7 +31,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     meta[["url"]] <- sub("/$", "", meta[["url"]])
   }
 
-  package <- desc$get("Package")[[1]]
+  package <- desc$get_field("Package")
   version <- desc$get_field("Version")
 
   bs_version <- check_bootstrap_version(meta$template$bootstrap, pkg)
@@ -199,7 +199,7 @@ extract_title <- function(x) {
   x %>%
     purrr::detect(inherits, "tag_title") %>%
     flatten_text(auto_link = FALSE) %>%
-    str_trim()
+    str_squish()
 }
 
 extract_source <- function(x) {

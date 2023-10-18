@@ -139,8 +139,8 @@
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
-#' @param seed Seed used to initialize so that random examples are
-#'   reproducible.
+#' @param seed Seed used to initialize random number generation so that
+#'   examples are reproducible.
 #' @param devel Determines how code is loaded in order to run examples.
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
@@ -223,6 +223,9 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
   withr::local_options(width = width, .local_envir = envir)
   withr::local_seed(seed)
+  if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+    htmlwidgets::setWidgetIdSeed(seed)
+  }
 
   examples_env <- child_env(globalenv())
   if (file_exists(pre_path)) {

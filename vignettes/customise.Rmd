@@ -185,7 +185,7 @@ If you need to include additional HTML, you can add it in the following location
 template:
   includes:
     in_header: <!-- inserted at the end of the head -->
-    before_body: <!-- inserted at the beginging of the body -->
+    before_body: <!-- inserted at the beginning of the body -->
     after_body: <!-- inserted at the end of the body -->
     before_title: <!-- inserted before the package title in the header ->
     before_navbar: <!-- inserted before the navbar links -->

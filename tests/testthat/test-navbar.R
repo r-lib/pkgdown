@@ -21,7 +21,7 @@ test_that("can control articles navbar through articles meta", {
     pkg_navbar(vignettes = vig, meta = list(...))
   }
 
-  "Default: show all alpabetically"
+  "Default: show all alphabetically"
   expect_snapshot(navbar_articles(pkg()))
 
   "No navbar sections: link to index"

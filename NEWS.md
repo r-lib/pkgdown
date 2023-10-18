@@ -1,6 +1,10 @@
 # pkgdown (development version)
 
+* Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
+* Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
+* Add Catalan translation (@jmaspons, #2333)
+* Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
 * All external assets (JS, CSS, fonts) are now directly included in the site
   instead of being fetched from external CDNs if the [Bootstrap 5 template is
   used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).
@@ -70,7 +74,7 @@ Markdown code with chunks) (@idavydov, #2237).
     * Package logos will be automatically stripped from the `.Rd` you don't end 
       up with two on one page. (#2083).
 
-    * `\figure{file}{alternative text}` with multline alt text is now parsed
+    * `\figure{file}{alternative text}` with multiline alt text is now parsed
       correctly (#2080)
 
     * roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff) is
@@ -252,9 +256,9 @@ Markdown code with chunks) (@idavydov, #2237).
     pkgdown includes translations for:
     
     * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
-    * `de`, German, thnaks to @hfrick.
+    * `de`, German, thanks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
-    * `pt`, Portoguese, thanks to @rich-iannone.
+    * `pt`, Portuguese, thanks to @rich-iannone.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
     * `zh_CN`, simplified Chinese, thanks to @yitao.
   
@@ -659,7 +663,7 @@ Markdown code with chunks) (@idavydov, #2237).
     (#1045). 
 
 * There's much richer control over Open Graph and Twitter metadata for the 
-  whote site and for individual articles. See new `vignette("metadata")` for 
+  whole site and for individual articles. See new `vignette("metadata")` for 
   details (@gadenbuie, #936).
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,

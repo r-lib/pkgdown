@@ -163,7 +163,7 @@ Stuff
 
 blop
 
-### Tabset without pils {.tabset}
+### Tabset without pills {.tabset}
 
 #### Tab 1
 

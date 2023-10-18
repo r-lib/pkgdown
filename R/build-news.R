@@ -151,7 +151,7 @@ data_news <- function(pkg = list()) {
   sections <- xml2::xml_find_all(xml, "./body/div")
   footnotes <- has_class(sections, "footnotes")
   if (any(footnotes)) {
-    warn("Footnotes in NEWS.md are not currently suppoted")
+    warn("Footnotes in NEWS.md are not currently supported")
   }
   sections <- sections[!footnotes]
 
