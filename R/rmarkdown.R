@@ -1,7 +1,7 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, quiet = TRUE) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -20,13 +20,23 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     intermediates_dir = tempdir(),
     encoding = "UTF-8",
     envir = globalenv(),
+    seed = seed,
     ...,
     quiet = quiet
   )
 
   path <- tryCatch(
     callr::r_safe(
-      function(...) rmarkdown::render(...),
+      function(seed, envir, ...) {
+        if (!is.null(seed)) {
+          set.seed(seed)
+          envir$.Random.seed <- .GlobalEnv$.Random.seed
+          if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+            htmlwidgets::setWidgetIdSeed(seed)
+          }
+        }
+        rmarkdown::render(envir = envir, ...)
+      },
       args = args,
       show = !quiet,
       env = c(
