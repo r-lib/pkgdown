@@ -8,7 +8,7 @@ build_site(
   pkg = ".",
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   lazy = FALSE,
   override = list(),
   preview = NA,

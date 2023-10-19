@@ -10,7 +10,7 @@ build_reference(
   lazy = TRUE,
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   override = list(),
   preview = NA,
   devel = TRUE,

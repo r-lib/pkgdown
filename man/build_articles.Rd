@@ -10,7 +10,7 @@ build_articles(
   pkg = ".",
   quiet = TRUE,
   lazy = TRUE,
-  seed = 1014,
+  seed = 1014L,
   override = list(),
   preview = NA
 )
