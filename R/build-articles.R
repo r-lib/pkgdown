@@ -164,7 +164,7 @@
 #' @param lazy If `TRUE`, will only re-build article if input file has been
 #'   modified more recently than the output file.
 #' @param seed Seed used to initialize random number generation in order to
-#'   make article output reproducible.
+#'   make article output reproducible. An integer scalar or `NULL` for no seed.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export

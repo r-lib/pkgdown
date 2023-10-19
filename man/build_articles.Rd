@@ -36,7 +36,7 @@ pandoc. This is useful when debugging.}
 modified more recently than the output file.}
 
 \item{seed}{Seed used to initialize random number generation in order to
-make article output reproducible.}
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
