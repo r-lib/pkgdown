@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Ignore Github issue and pull request templates in `build_home_md()` (@hsloot, #2362)
 * Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
 * Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
 * Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
