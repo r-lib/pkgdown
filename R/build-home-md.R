@@ -17,6 +17,10 @@ build_home_md <- function(pkg) {
     mds <- mds[fs::path_file(mds) != "404.md"]
   }
 
+  # Do not always include GH contribution (issue + PR) templates
+  gh_contrib_templates <- c("pull_request_template.md", "pull_request_template.md")
+  mds <- mds[!fs::path_file(mds) %in% gh_contrib_templates]
+
   lapply(mds, render_md, pkg = pkg)
   invisible()
 }
