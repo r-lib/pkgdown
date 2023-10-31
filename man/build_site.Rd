@@ -199,7 +199,7 @@ This is the default structure:
 
 It makes use of the the six built-in components:
 \itemize{
-\item \code{intro}: "Get Started", which links to a vignette with the same name as the package\link{^dots}.
+\item \code{intro}: "Get Started", which links to a vignette with the same name as the package.
 \item \code{reference}, if there are any \code{.Rd} files.
 \item \code{articles}, if there are any vignettes or articles.
 \item \code{tutorials}, if there any tutorials.
@@ -207,9 +207,6 @@ It makes use of the the six built-in components:
 \item \code{search}, the search box (see \code{vignette("search")} for more details).
 \item \code{github}, a link to the source repository (with an icon), if it can be automatically determined from the \code{DESCRIPTION}.
 }
-
-\link{^dots}: Note that dots (\code{.}) in the package name need to be replaced by hyphens (\code{-}) in the vignette filename to be recognized as the intro. That means for a
-package \code{foo.bar} the intro needs to be named \code{foo-bar.Rmd}.
 
 You can use the \code{structure} field to reorganise the navbar without changing the default contents:
 
