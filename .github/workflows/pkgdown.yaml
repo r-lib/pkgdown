@@ -22,7 +22,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      isPush: ${{ github.event_name == 'push' }}
+      isPush: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: write
     steps:
