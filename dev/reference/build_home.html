@@ -263,11 +263,13 @@ with the author's name (matching <code>DESCRIPTION</code>)
 and can contain <code>href</code> and/or <code>html</code> fields:</p><ul><li><p>If <code>href</code> is provided, the author's name will be linked to this URL.</p></li>
 <li><p>If <code>html</code> is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
-sponsor. Use an absolute URL to an image, not a relative link.</p></li>
+sponsor. Use an absolute URL to an image, not a relative link.
+Use an empty alternative text rather than no alternative text so a screen-reader
+would skip over it.</p></li>
 </ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">firstname lastname</span><span class="kw">:</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> </span><span class="st">"http://name-website.com"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;img src='https://website.com/name-picture.png' width=72&gt;"</span></span></code></pre><p></p></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;img src='https://website.com/name-picture.png' width=72 alt=''&gt;"</span></span></code></pre><p></p></div>
 <p>By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>.
 You could choose other roles for filtering.
@@ -337,7 +339,7 @@ This organisation makes it easy to mix and match the pkgdown defaults with your 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
