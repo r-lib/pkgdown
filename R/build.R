@@ -122,20 +122,16 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Navigation bar:
-#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
-#' ```
+#' ## Page layout
 #'
-#' You can also customise the colour scheme of the navbar by using the `type`
-#' and `bg` parameters. See `vignette("customise")` for more details.
-#'
-#' @section Footer:
-#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
-#' ```
+#' The `navbar`, `footer`, and `sidebar` fields control the appearance
+#' of the navbar, footer, and sidebar respectively. They have many individual
+#' options which are documented in the **Layout** section of
+#' `vignette("customise")`.
 #'
 #' @section Search:
-#' The `search` field controls the built-in search. See `vignette("search")`
-#' for details.
+#' The `search` field controls the built-in search and is
+#' documented in `vignette("search")`.
 #'
 #' @section Template:
 #' The `template` field is mostly used to control the appearance of the site.
