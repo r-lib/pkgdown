@@ -44,6 +44,7 @@ Suggests:
     covr,
     diffviewer,
     evaluate,
+    gert,
     htmltools,
     htmlwidgets,
     knitr,
