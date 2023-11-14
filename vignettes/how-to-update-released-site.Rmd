@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
 
@@ -51,7 +52,7 @@ Run this R code to generate the git code to pull changes for the most common loc
 files <- c(
   # overall site config 
   "_pkgdown.yml",
-  # the GHA that'll impenet
+  # the workflow that builds the site
   ".github/workflows/pkgdown.yaml",
   # readme and vignettes
   "README.md", "vignettes",
@@ -201,7 +202,7 @@ Places to learn more about triggering GHA workflows:
 -   <https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow>
 -   <https://docs.github.com/en/rest/reference/actions/#create-a-workflow-dispatch-event>
 
-Before we move on, I repeat:\
+Before we move on, I repeat:
 It is important that your `main` branch have the latest pkgdown workflow.
 (Or whatever your default branch is called.) At the time of writing, this means the `v2` tag in `r-lib/actions`.
 The easiest way to get this is to install dev usethis and run `usethis::use_github_action("pkgdown")`.
