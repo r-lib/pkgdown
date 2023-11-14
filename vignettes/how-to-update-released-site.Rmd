@@ -23,7 +23,7 @@ Otherwise, read more below.
 
 ### Setup
 
-First, make sure you're in the main branch, and you have the latest version:
+First, make sure you're in the `main` branch, and you have the latest version:
 
 ```{r}
 gert::git_branch_checkout("main")
@@ -36,7 +36,7 @@ Next figure out the released version that we're updating:
 ver <- desc::desc_get_version()[1, 1:3]
 ```
 
-We'll use this to create the branch that you'll work in:
+We'll use this to create and checkout the branch that you'll work in:
 
 ```{r}
 gert::git_branch_create(paste0("pkgdown-v", ver), paste0("v", ver))
@@ -64,7 +64,7 @@ files <- c(
 glue::glue("git checkout v{ver} -- {files}")
 ```
 
-If you update the description, you'll also need undo the change to the `Version`:
+If you backport `DESCRIPTION`, you'll also need undo the change to the `Version`:
 
 ```{r}
 desc::desc_set_version(ver)
@@ -87,7 +87,7 @@ usethis:::git_push_first()
 
 Then trigger the pkgdown workflow:
 
-1.  Going to your package's GHA page, e.g. with `usethis::browse_github_actions())`.
+1.  Go to your package's GHA page, e.g. with `usethis::browse_github_actions())`.
 2.  Select the pkgdown workflow.
 3.  Click *Run workflow* and select the branch you just pushed.
 
