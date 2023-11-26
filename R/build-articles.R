@@ -199,7 +199,8 @@ build_article <- function(name,
                            pkg = ".",
                            data = list(),
                            lazy = FALSE,
-                           quiet = TRUE) {
+                           quiet = TRUE,
+                           new_process = TRUE) {
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
@@ -283,6 +284,7 @@ build_article <- function(name,
     output = output_file,
     output_format = format,
     output_options = options,
+    new_process = new_process,
     quiet = quiet
   )
 }
