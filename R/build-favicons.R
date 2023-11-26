@@ -19,7 +19,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
-  cli::cli_rule("Building favicons")
+  cli::cli_h2("Building favicons")
 
   logo_path <- find_logo(pkg$src_path)
 

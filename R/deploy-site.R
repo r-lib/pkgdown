@@ -54,7 +54,7 @@ deploy_site_github <- function(
     cli::cli_abort("No repo detected, please supply one with {.var repo_slug}")
   }
 
-  cli::cli_rule("Deploying site to GitHub")
+  cli::cli_alert("Deploying site to GitHub")
   if (install) {
     cli::cli_inform("Installing package")
     callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)

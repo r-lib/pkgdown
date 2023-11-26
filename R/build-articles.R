@@ -207,7 +207,7 @@ build_article <- function(name,
   # allow code sharing with building of the index.
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {
-    cli::cli_abort("Can't find article {ui_path(name)}")
+    cli::cli_abort("Can't find article {.file {name}}")
   }
 
   input <- pkg$vignettes$file_in[vig]
