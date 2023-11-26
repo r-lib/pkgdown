@@ -229,7 +229,7 @@ as_html.tag_Sexpr <- function(x, ...) {
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
-    cli::cli_abort("\\Sexpr{result=", results, "} not yet supported")
+    cli::cli_abort("\\\\Sexpr{{result={results}}} not yet supported")
   )
 }
 

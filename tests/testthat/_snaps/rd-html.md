@@ -141,8 +141,8 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `glue()`:
-      ! Expecting '}'
+      Caused by error in `.f()`:
+      ! \\Sexpr{result=verbatim} not yet supported
 
 # Sexprs with multiple args are parsed [ansi]
 
@@ -151,8 +151,8 @@
     Condition
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `glue()`:[22m
-      [33m![39m Expecting '}'
+      [1mCaused by error in `.f()`:[22m
+      [1m[22m[33m![39m \\Sexpr{result=verbatim} not yet supported
 
 # Sexprs with multiple args are parsed [unicode]
 
@@ -161,8 +161,8 @@
     Condition
       Error in `purrr::map_chr()`:
       ℹ In index: 1.
-      Caused by error in `glue()`:
-      ! Expecting '}'
+      Caused by error in `.f()`:
+      ! \\Sexpr{result=verbatim} not yet supported
 
 # Sexprs with multiple args are parsed [fancy]
 
@@ -171,8 +171,8 @@
     Condition
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `glue()`:[22m
-      [33m![39m Expecting '}'
+      [1mCaused by error in `.f()`:[22m
+      [1m[22m[33m![39m \\Sexpr{result=verbatim} not yet supported
 
 # bad specs throw errors [plain]
 
