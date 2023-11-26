@@ -12,6 +12,6 @@ check_pkgdown <- function(pkg = ".") {
   data_articles_index(pkg)
   data_reference_index(pkg)
 
-  cli::cli_alert_success("No problems found in {.file _pkgdown.yml}")
+  cli::cli_alert_success("No problems found in {.file {pkgdown_config_relpath(pkg)}}")
 }
 
