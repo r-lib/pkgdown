@@ -172,6 +172,7 @@ test_that("Sexprs with multiple args are parsed", {
 })
 
 cli::test_that_cli("Sexprs with multiple args are parsed", {
+  skip_if_not(getRversion() >= "4.0.0")
   local_context_eval()
   expect_snapshot(rd2html("\\Sexpr[results=verbatim]{1}"), error = TRUE)
 })
