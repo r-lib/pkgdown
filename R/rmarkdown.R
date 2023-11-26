@@ -7,10 +7,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   output_path <- path_abs(output, pkg$dst_path)
 
   if (!file_exists(input_path)) {
-    stop("Can't find ", src_path(input), call. = FALSE)
+    cli::cli_abort("Can't find {.file {src_path(input)}")
   }
 
-  cat_line("Reading ", src_path(input))
+  cli::cli_alert_info("Reading {src_path(input)}")
   digest <- file_digest(output_path)
 
   args <- list(
@@ -38,10 +38,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
       )
     ),
     error = function(cnd) {
-      rule("RMarkdown error")
+      cli::cli_rule("RMarkdown error")
       cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
-      rule()
-      abort("Failed to render RMarkdown", parent = cnd)
+      cli::cli_rule()
+      cli::cli_abort("Failed to render RMarkdown")
     }
   )
 
@@ -55,7 +55,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   }
   if (digest != file_digest(output_path)) {
     href <- paste0("ide:run:pkgdown::preview_page('", path_rel(output_path, pkg$dst_path), "')")
-    cat_line("Writing ", cli::style_hyperlink(dst_path(output), href))
+    cli::cli_alert_info("Writing {cli::style_hyperlink(dst_path(output), href)}")
   }
 
   # Copy over images needed by the document

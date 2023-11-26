@@ -6,7 +6,7 @@ find_template <- function(type, name, ext = ".html", pkg = ".") {
   existing <- paths[file_exists(paths)]
 
   if (length(existing) == 0) {
-    abort(paste0("Can't find template for ", type, "-", name, "."))
+    cli::cli_abort(paste0("Can't find template for ", type, "-", name, "."))
   }
   existing[[1]]
 }
@@ -43,7 +43,7 @@ templates_dir <- function(pkg = list()) {
   if (!is.null(template$path)) {
     # Directory specified in yaml doesn't exist, so eagerly error
     if (!dir_exists(template$path)) {
-      abort(paste0("Can not find templates path ", src_path(template$path)))
+      cli::cli_abort("Can't find templates path: {src_path(template$path)}")
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {

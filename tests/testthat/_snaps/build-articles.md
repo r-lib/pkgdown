@@ -2,11 +2,13 @@
 
     Code
       build_articles(pkg)
-    Output
-      -- Building articles -----------------------------------------------------------
-      Writing 'articles/index.html'
-      Reading 'vignettes/html-vignette.Rmd'
-      Writing 'articles/html-vignette.html'
+    Message
+      
+      -- Building articles --
+      
+      i Writing articles/index.html
+      i Reading vignettes/html-vignette.Rmd
+      i Writing articles/html-vignette.html
     Condition
       Warning:
       Missing images in 'vignettes/html-vignette.Rmd': 'foo.png'

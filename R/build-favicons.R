@@ -19,20 +19,23 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
-  rule("Building favicons")
+  cli::cli_rule("Building favicons")
 
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    stop("Can't find package logo PNG or SVG to build favicons.", call. = FALSE)
+    cli::cli_abort("Can't find package logo PNG or SVG to build favicons.")
   }
 
   if (has_favicons(pkg) && !overwrite) {
-    message("Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.")
+    cli::cli_inform(c(
+      "Favicons already exist in {.path pkgdown}",
+      "i" = "Set {.var overwrite = TRUE} to re-create."
+    ))
     return(invisible())
   }
 
-  message("Building favicons with realfavicongenerator.net...")
+  cli::cli_inform("Building favicons with {.url https://realfavicongenerator.net} ...")
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
@@ -66,17 +69,18 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     quiet = TRUE
   )
   if (httr::http_error(resp)) {
-    stop("API request failed.", call. = FALSE)
+    cli::cli_abort("API request failed.")
   }
 
   content <- httr::content(resp)
   result <- content$favicon_generation_result
 
   if (!identical(result$result$status, "success")) {
-    stop(
-      "API request failed. ", "
-      Please submit bug report to <https://github.com/r-lib/pkgdown/issues>",
-      call. = FALSE
+    cli::cli_abort(
+      c(
+        "API request failed.",
+        "i" = "{.href [Please submit a bug report](https://github.com/r-lib/pkgdown/issues)}"
+      )
     )
   }
 
@@ -93,10 +97,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
   },
   warning = function(e) {
-    abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.")
   },
   error = function(e) {
-    abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.")
   })
 
   invisible()
@@ -107,10 +111,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 #' @inheritParams build_favicons
 #' @export
 build_favicon <- function(pkg, overwrite) {
-  message(
-    "`build_favicon()` is deprecated as of pkgdown 1.4.0. ",
-    "Please use `build_favicons()` instead."
-  )
+  cli::cli_warn(c(
+    "{.fun build_favicon} is deprecated as of pkgdown 1.4.0. ",
+    "i" = "Please use {.fun build_favicons} instead."
+  ))
   build_favicons(pkg, overwrite)
 }
 

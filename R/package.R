@@ -13,7 +13,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   }
 
   if (!dir_exists(pkg)) {
-    stop("`pkg` is not an existing directory", call. = FALSE)
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
@@ -89,7 +89,7 @@ is_pkgdown <- function(x) inherits(x, "pkgdown")
 read_desc <- function(path = ".") {
   path <- path(path, "DESCRIPTION")
   if (!file_exists(path)) {
-    stop("Can't find DESCRIPTION", call. = FALSE)
+    cli::cli_abort("Can't find {.file DESCRIPTION}")
   }
   desc::description$new(path)
 }
@@ -100,16 +100,13 @@ check_bootstrap_version <- function(version, pkg = list()) {
   } else if (version %in% c(3, 5)) {
     version
   } else if (version == 4) {
-    warn("`bootstrap: 4` no longer supported; using `bootstrap: 5` instead")
+    cli::cli_warn("{.var bootstrap: 4} no longer supported, using {.var bootstrap: 5} instead")
     5
   } else {
-    abort(c(
+    field <- pkgdown_field(pkg, c("template", "bootstrap"))
+    cli::cli_abort(c(
       "Boostrap version must be 3 or 5.",
-      x = sprintf(
-        "You specified a value of %s in %s.",
-        version,
-        pkgdown_field(pkg, c("template", "bootstrap"))
-      )
+      "x" = "You specified a value of {.var {version}} in {.var {field}}"
     ))
   }
 }
@@ -290,12 +287,11 @@ check_unique_article_paths <- function(file_in, file_out) {
   same_out_bullets <- purrr::map_chr(file_out_dup, function(f_out) {
     src_files <- src_path(file_in[which(file_out == f_out)])
     src_files <- paste(src_files, collapse = " and ")
-    sprintf("%s both create %s", src_files, dst_path(f_out))
   })
   names(same_out_bullets) <- rep_len("x", length(same_out_bullets))
 
-  rlang::abort(c(
-    "Rendered articles must have unique names. Rename or relocate one of the following source files:",
+  cli::cli_abort(c(
+    "Rendered articles must have unique names. Rename or relocate:",
     same_out_bullets
   ))
 }

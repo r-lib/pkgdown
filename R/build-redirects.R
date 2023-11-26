@@ -11,9 +11,9 @@ build_redirects <- function(pkg = ".",
     return(invisible())
   }
 
-  rule("Building redirects")
+  cli::cli_h2("Building redirects")
   if (is.null(pkg$meta$url)) {
-    abort(sprintf("%s required to generate redirects", pkgdown_field(pkg, "url")))
+    cli::cli_abort(sprintf("%s required to generate redirects", pkgdown_field(pkg, "url")))
   }
 
   purrr::iwalk(
@@ -25,7 +25,7 @@ build_redirects <- function(pkg = ".",
 
 build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry) || length(entry) != 2) {
-    abort(
+    cli::cli_abort(
       sprintf(
         "Entry %s in %s must be a character vector of length 2.",
         index,

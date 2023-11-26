@@ -162,11 +162,11 @@ build_reference <- function(pkg = ".",
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+    cli::cli_warn("{.var document}is deprecated. Please use {.var devel} instead.")
     devel <- document
   }
 
-  rule("Building function reference")
+  cli::cli_h2("Building function reference")
   build_reference_index(pkg)
 
   copy_figures(pkg)
@@ -274,7 +274,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Reading ", src_path("man", topic$file_in))
+  cli::cli_alert_info("Reading {src_path(path('man', topic$file_in))}")
 
   data <- withCallingHandlers(
     data_reference_topic(

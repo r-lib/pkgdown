@@ -16,5 +16,6 @@ clean_site <- function(pkg = ".") {
   dir_delete(top_level[is_dir])
   file_delete(top_level[!is_dir])
 
+  cli::cli_alert_success("Site cleaned for {.pkg {pkg$package}} (emptied {.path {pkg$dst_path}})")
   invisible(TRUE)
 }

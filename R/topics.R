@@ -10,7 +10,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      abort("No topics matched in '_pkgdown.yml'. No topics selected.")
+      cli::cli_abort("No topics matched in '_pkgdown.yml'. No topics selected.")
     }
     return(integer())
   }
@@ -51,7 +51,7 @@ all_sign <- function(x, text) {
     }
   }
 
-  stop("Must be all negative or all positive: ", text, call. = FALSE)
+  cli::cli_abort("Must be all negative or all positive: {.var {text}}")
 }
 
 match_env <- function(topics) {
@@ -161,7 +161,7 @@ match_eval <- function(string, env) {
     tryCatch(
       eval(expr, env),
       error = function(e) {
-        topic_must("be a known selector function", string, parent = e)
+        topic_must("be a known selector function", string)
       }
     )
   } else {
@@ -169,14 +169,12 @@ match_eval <- function(string, env) {
   }
 }
 
-topic_must <- function(message, topic, ..., call = NULL) {
-  abort(
+topic_must <- function(message, topic) {
+  cli::cli_abort(
     c(
-      paste0("In '_pkgdown.yml', topic must ", message),
-      x = paste0("Not ", encodeString(topic, quote = "'"))
-    ),
-    ...,
-    call = call
+      paste0("In {.file _pkgdown.yml}, topic must ", message),
+      "x" = paste0("Not {.var {topic}}")
+    )
   )
 }
 

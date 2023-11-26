@@ -229,7 +229,7 @@ as_html.tag_Sexpr <- function(x, ...) {
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
-    stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
+    cli::cli_abort("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
   )
 }
 
@@ -510,8 +510,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    message("Unknown tag: ", paste(class(x), collapse = "/"))
-    ""
+    cli::cli_inform("Unknown tag: ", paste(class(x), collapse = "/"))
   }
 }
 
@@ -566,10 +565,12 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  abort(c(
-    paste0("Failed to parse \\", tag, "{}."),
-    i = msg
-  ))
+  bad_tag <- paste0("\\\\", tag, "{}")
+  msg_abort <- 'Failed to parse tag {.var {bad_tag}}.'
+  if (!is.null(msg)) {
+    msg_abort <- c(msg_abort, "x" = msg)
+  }
+  cli::cli_abort(msg_abort)
 }
 
 is_newline <- function(x, trim = FALSE) {

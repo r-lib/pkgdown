@@ -6,10 +6,9 @@ check_yaml_has <- function(missing, where, pkg) {
   missing_components <- lapply(missing, function(x) c(where, x))
   missing_fields <- pkgdown_fields(pkg, missing_components)
 
-  abort(paste0(
-    "Can't find component", if (length(missing) > 1) "s", " ",
-    missing_fields, "."
-  ))
+  cli::cli_abort(
+    "Can't find components {missing_fields}."
+  )
 }
 
 yaml_character <- function(pkg, where) {
@@ -20,7 +19,8 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    abort(paste0(pkgdown_field(pkg, where), " must be a character vector"))
+    fld <- pkgdown_field(pkg, where)
+    cli::cli_abort("{.var {fld}} must be a character vector")
   }
 }
 

@@ -28,7 +28,10 @@ parse_usage <- function(x) {
       parse_exprs(r)
     },
     error = function(e) {
-      warning("Failed to parse usage:\n", r, call. = FALSE, immediate. = TRUE)
+      cli::cli_warn(c(
+        "Failed to parse usage:",
+        "x" = "{.var {r}}"
+      ))
       list()
     }
   )
@@ -83,7 +86,8 @@ usage_type <- function(x) {
 
     out
   } else {
-    stop("Unknown type: ", typeof(x), " (in ", as.character(x), ")",  call. = FALSE)
+    untype <- paste0(typeof(x), " (in ", as.character(x), ")")
+    cli::cli_abort("Unknown type: {.var {untype}}")
   }
 }
 
@@ -127,7 +131,7 @@ fun_info <- function(fun) {
         name = call_name(fun)
       )
     } else {
-      stop("Unknown call: ", as.character(x[[1]]))
+      cli::cli_abort(paste0("Unknown call: ", as.character(x[[1]])))
     }
   } else {
     list(
@@ -158,7 +162,7 @@ usage_code.NULL <- function(x) character()
 #' @export
 usage_code.tag <- function(x) {
   if (!identical(class(x), "tag")) {
-    stop("Undefined tag in usage ", class(x)[[1]], call. = FALSE)
+    cli::cli_abort(paste0("Undefined tag in usage ", class(x)[[1]]))
   }
   paste0(purrr::flatten_chr(purrr::map(x, usage_code)), collapse = "")
 }

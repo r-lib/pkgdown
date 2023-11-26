@@ -41,10 +41,10 @@ file_copy_to <- function(pkg,
 
   eq <- purrr::map2_lgl(from_paths, to_paths, file_equal)
   if (any(!eq)) {
-    cat_line(
-      "Copying ", src_path(path_rel(from_paths[!eq], pkg$src_path)),
-      " to ", dst_path(path_rel(to_paths[!eq], pkg$dst_path))
-    )
+    cli::cli_alert_info(c(
+        "Copying {src_path(path_rel(from_paths[!eq], pkg$src_path))}",
+        " to {dst_path(path_rel(to_paths[!eq], pkg$dst_path))}"
+    ))
   }
 
   file_copy(from_paths[!eq], to_paths[!eq], overwrite = overwrite)
@@ -55,7 +55,7 @@ out_of_date <- function(source, target) {
     return(TRUE)
 
   if (!file_exists(source)) {
-    stop("'", source, "' does not exist", call. = FALSE)
+    cli::cli_abort("{.fn {source}} does not exist")
   }
 
   file.info(source)$mtime > file.info(target)$mtime

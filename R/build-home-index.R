@@ -64,12 +64,8 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (length(html_path)) {
     if (!file.exists(html_path)) {
-      abort(
-        sprintf(
-          "Can't find file '%s' specified by %s.",
-          pkg$meta$home$sidebar$html,
-          pkgdown_field(pkg, c("home", "sidebar", "html"))
-        )
+      cli::cli_abort(
+        "Can't find file {.file {html_path}} specified by {pkgdown_field(pkg, c('home', 'sidebar', 'html'))}"
       )
     }
     return(read_file(html_path))
@@ -215,10 +211,10 @@ check_missing_images <- function(pkg, src_path, dst_path) {
   exists <- fs::file_exists(path(pkg$dst_path, rel_path))
 
   if (any(!exists)) {
-    paths <- encodeString(rel_src[!exists], quote = "'")
-    warn(c(
-      paste0("Missing images in '", src_path, "': ", paste0(paths, collapse = ", ")),
-      i = "pkgdown can only use images in 'man/figures' and 'vignettes'"
+    paths <- rel_src[!exists]
+    cli::cli_warn(c(
+      "Missing images in {.file {src_path}}: {.file {paths}}",
+      "i" = "pkgdown can only use images in {.file man/figures} and {.file vignettes}"
     ))
   }
 }
