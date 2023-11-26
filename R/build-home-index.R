@@ -64,9 +64,12 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (length(html_path)) {
     if (!file.exists(html_path)) {
-      cli::cli_abort(
-        "Can't find file {.file {html_path}} specified by {pkgdown_field(pkg, c('home', 'sidebar', 'html'))}"
-      )
+      rel_html_path <- fs::path_rel(html_path, pkg$src_path)
+      rel_config_path <- pkgdown_config_relpath(pkg)
+      cli::cli_abort(c(
+        "Can't locate {.file {rel_html_path}}",
+        "x" = "{.field {pkgdown_field(c('home', 'sidebar', 'html'))}} in {.file {rel_config_path}} is misconfigured"
+      ))
     }
     return(read_file(html_path))
   }

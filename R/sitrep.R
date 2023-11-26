@@ -17,13 +17,13 @@ pkgdown_sitrep <- function(pkg = ".") {
   warns <- c()
 
   if (is.null(pkg$meta[["url"]])) {
-    warns <- c(warns, "x" = "{pkgdown_field(pkg, 'url')} is not configured. See vignette {.vignette pkgdown::metatdata}.")
+    warns <- c(warns, "x" = "{pkgdown_field('url')} is not configured in {.file {pkgdown_config_relpath(pkg)}}. See vignette {.vignette pkgdown::metatdata}.")
   }
 
   desc_urls <- pkg$desc$get_urls()
-  desc_urls <- sub("/$", "", urls)
-  if (!pkg$meta[["url"]] %in% desc_urls) {
-    warns <- c(warns, "x" = "DESCRIPTION {.field URL} is empty.")
+  desc_urls <- sub("/$", "", desc_urls)
+  if (length(desc_urls) == 0 || !pkg$meta[["url"]] %in% desc_urls) {
+    warns <- c(warns, "x" = "{.file DESCRIPTION} {.field URL} is empty.")
   }
 
   if (length(warns) == 0) {

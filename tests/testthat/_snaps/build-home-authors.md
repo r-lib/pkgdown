@@ -16,13 +16,43 @@
       </ul>
       </div>
 
-# role has multiple fallbacks
+# role has multiple fallbacks [plain]
 
     Code
       role_lookup("unknown")
     Condition
       Warning:
-      Unknown MARC role abbreviation 'unknown'
+      Unknown MARC role abbreviation: unknown
+    Output
+      [1] "unknown"
+
+# role has multiple fallbacks [ansi]
+
+    Code
+      role_lookup("unknown")
+    Condition
+      [1m[33mWarning[39m:[22m
+      [1m[22mUnknown MARC role abbreviation: [32munknown[39m
+    Output
+      [1] "unknown"
+
+# role has multiple fallbacks [unicode]
+
+    Code
+      role_lookup("unknown")
+    Condition
+      Warning:
+      Unknown MARC role abbreviation: unknown
+    Output
+      [1] "unknown"
+
+# role has multiple fallbacks [fancy]
+
+    Code
+      role_lookup("unknown")
+    Condition
+      [1m[33mWarning[39m:[22m
+      [1m[22mUnknown MARC role abbreviation: [32munknown[39m
     Output
       [1] "unknown"
 

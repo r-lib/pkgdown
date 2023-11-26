@@ -14,15 +14,77 @@
     1 1.0.0.9000 dev   testpackage-1009000
     2 1.0.0      1.0   testpackage-100    
 
-# multi-page news are rendered
+# multi-page news are rendered [plain]
 
-    # A tibble: 4 x 3
-      version page  anchor         
-      <chr>   <chr> <chr>          
-    1 2.0     2.0   testpackage-20 
-    2 1.1     1.1   testpackage-11 
-    3 1.0.1   1.0   testpackage-101
-    4 1.0.0   1.0   testpackage-100
+    Code
+      data_news(pkg)[c("version", "page", "anchor")]
+    Output
+      # A tibble: 4 x 3
+        version page  anchor         
+        <chr>   <chr> <chr>          
+      1 2.0     2.0   testpackage-20 
+      2 1.1     1.1   testpackage-11 
+      3 1.0.1   1.0   testpackage-101
+      4 1.0.0   1.0   testpackage-100
+
+---
+
+    Code
+      build_news(pkg)
+
+# multi-page news are rendered [ansi]
+
+    Code
+      data_news(pkg)[c("version", "page", "anchor")]
+    Output
+      [90m# A tibble: 4 x 3[39m
+        version page  anchor         
+        [3m[90m<chr>[39m[23m   [3m[90m<chr>[39m[23m [3m[90m<chr>[39m[23m          
+      [90m1[39m 2.0     2.0   testpackage-20 
+      [90m2[39m 1.1     1.1   testpackage-11 
+      [90m3[39m 1.0.1   1.0   testpackage-101
+      [90m4[39m 1.0.0   1.0   testpackage-100
+
+---
+
+    Code
+      build_news(pkg)
+
+# multi-page news are rendered [unicode]
+
+    Code
+      data_news(pkg)[c("version", "page", "anchor")]
+    Output
+      # A tibble: 4 × 3
+        version page  anchor         
+        <chr>   <chr> <chr>          
+      1 2.0     2.0   testpackage-20 
+      2 1.1     1.1   testpackage-11 
+      3 1.0.1   1.0   testpackage-101
+      4 1.0.0   1.0   testpackage-100
+
+---
+
+    Code
+      build_news(pkg)
+
+# multi-page news are rendered [fancy]
+
+    Code
+      data_news(pkg)[c("version", "page", "anchor")]
+    Output
+      [90m# A tibble: 4 × 3[39m
+        version page  anchor         
+        [3m[90m<chr>[39m[23m   [3m[90m<chr>[39m[23m [3m[90m<chr>[39m[23m          
+      [90m1[39m 2.0     2.0   testpackage-20 
+      [90m2[39m 1.1     1.1   testpackage-11 
+      [90m3[39m 1.0.1   1.0   testpackage-101
+      [90m4[39m 1.0.0   1.0   testpackage-100
+
+---
+
+    Code
+      build_news(pkg)
 
 # news headings get class and release date
 
@@ -43,13 +105,13 @@
 
     Invalid NEWS.md: inconsistent use of section headings.
     i Top-level headings must be either all <h1> or all <h2>.
-    i See ?build_news for more details.
+    i See `?pkgdown::build_news()` for more details.
 
 # clear error for bad hierarchy - h3
 
     Invalid NEWS.md: inconsistent use of section headings.
     i Top-level headings must be either all <h1> or all <h2>.
-    i See ?build_news for more details.
+    i See `?pkgdown::build_news()` for more details.
 
 # news can contain footnotes
 

@@ -51,3 +51,23 @@
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     
 
+# can include text in header, before body, and after body [plain]
+
+    Code
+      init_site(pkg)
+
+# can include text in header, before body, and after body [ansi]
+
+    Code
+      init_site(pkg)
+
+# can include text in header, before body, and after body [unicode]
+
+    Code
+      init_site(pkg)
+
+# can include text in header, before body, and after body [fancy]
+
+    Code
+      init_site(pkg)
+

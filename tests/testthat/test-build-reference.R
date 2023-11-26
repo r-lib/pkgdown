@@ -1,4 +1,4 @@
-test_that("parse failures include file name", {
+cli::test_that_cli("parse failures include file name", {
   skip_if_not(getRversion() >= "4.0.0")
   pkg <- local_pkgdown_site("assets/reference-fail")
   expect_snapshot(build_reference(pkg), error = TRUE)
@@ -30,9 +30,9 @@ test_that("examples_env sets width", {
 })
 
 
-test_that("test usage ok on rendered page", {
+cli::test_that_cli("test usage ok on rendered page", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
-  expect_output(build_reference(pkg, topics = "c"))
+  expect_snapshot(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
   clean_site(pkg)
@@ -41,16 +41,16 @@ test_that("test usage ok on rendered page", {
       template:
         bootstrap: 5
     ")
-  expect_output(init_site(pkg))
-  expect_output(build_reference(pkg, topics = "c"))
+  expect_snapshot(init_site(pkg))
+  expect_snapshot(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")
 })
 
-test_that(".Rd without usage doesn't get Usage section", {
+cli::test_that_cli(".Rd without usage doesn't get Usage section", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
-  expect_output(build_reference(pkg, topics = "e"))
+  expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
   clean_site(pkg)
@@ -59,8 +59,8 @@ test_that(".Rd without usage doesn't get Usage section", {
       template:
         bootstrap: 5
     ")
-  expect_output(init_site(pkg))
-  expect_output(build_reference(pkg, topics = "e"))
+  expect_snapshot(init_site(pkg))
+  expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_length(html, "//div[h2[@id='ref-usage']]"), 0)
@@ -68,8 +68,8 @@ test_that(".Rd without usage doesn't get Usage section", {
 
 test_that("pkgdown html dependencies are suppressed from examples in references", {
   pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
-  expect_output(init_site(pkg))
-  expect_output(build_reference(pkg, topics = "a"))
+  expect_snapshot(init_site(pkg))
+  expect_snapshot(build_reference(pkg, topics = "a"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
 
   # jquery is only loaded once, even though it's included by an example

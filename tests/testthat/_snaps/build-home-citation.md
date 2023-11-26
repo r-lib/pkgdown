@@ -1,3 +1,8 @@
+# source link is added to citation page
+
+    Code
+      build_home(pkg)
+
 # multiple citations all have HTML and BibTeX formats
 
     [[1]]

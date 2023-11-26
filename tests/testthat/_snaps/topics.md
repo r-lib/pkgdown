@@ -5,43 +5,41 @@
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be valid R code
-      x Not 'x + '
+      x Not `x + `
     Code
       t <- select_topics("y", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'y'
+      x Not `y`
     Code
       t <- select_topics("paste(1)", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a known selector function
-      x Not 'paste(1)'
-      Caused by error in `paste()`:
-      ! could not find function "paste"
+      x Not `paste(1)`
     Code
       t <- select_topics("starts_with", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'starts_with'
+      x Not `starts_with`
     Code
       t <- select_topics("1", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a string or function call
-      x Not '1'
+      x Not `1`
     Code
       t <- select_topics("starts_with('y')", topics, check = TRUE)
     Condition
@@ -55,24 +53,24 @@
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'a4'
+      x Not `a4`
     Code
       select_topics("c::a", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
-      Caused by error:
+      Caused by error in `topic_must()`:
       ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'c::a'
+      x Not `c::a`
 
 # an unmatched selection generates a warning
 
     Code
       select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE)
     Condition
-      Error:
+      Error in `topic_must()`:
       ! In '_pkgdown.yml', topic must match a function or concept
-      x Not 'starts_with(\'unmatched\')'
+      x Not `starts_with('unmatched')`
 

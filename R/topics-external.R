@@ -30,7 +30,7 @@ get_rd_from_help <- function(package, alias) {
   help <- utils::help((alias), (package))
   if (length(help) == 0) {
     fun <- paste0(package, "::", alias)
-    cli::cli_abort("Could not find documentation for {.fn fun}.")
+    cli::cli_abort("Could not find documentation for {.fn {fun}}.")
     return()
   }
 

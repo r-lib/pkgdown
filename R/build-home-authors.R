@@ -56,12 +56,12 @@ data_home_sidebar_authors <- function(pkg = ".") {
   bullets <- c(
     markdown_text_inline(
       pkg$meta$authors$sidebar$before,
-      pkgdown_field(pkg, c("authors", "sidebar", "before"))
+      pkgdown_field(c("authors", "sidebar", "before"))
     ),
     authors,
     markdown_text_inline(
       pkg$meta$authors$sidebar$after,
-      pkgdown_field(pkg, c("authors", "sidebar", "after"))
+      pkgdown_field(c("authors", "sidebar", "after"))
     )
   )
 
@@ -96,7 +96,7 @@ author_name <- function(x, authors, pkg) {
   if (!is.null(author$html)) {
     name <- markdown_text_inline(
       author$html,
-      pkgdown_field(pkg, c("authors", name, "html"))
+      pkgdown_field(c("authors", name, "html"))
     )
   }
 
@@ -186,8 +186,8 @@ role_lookup <- function(abbr) {
 
   out <- unname(roles[abbr])
   if (any(is.na(out))) {
-    missing <- paste0("'", abbr[is.na(out)], "'", collapse = ", ")
-    cli::cli_alert_warning("Unknown MARC role abbreviation{?s}: {missing}")
+    missing <- abbr[is.na(out)]
+    cli::cli_warn("Unknown MARC role abbreviation{?s}: {.field {missing}}")
     out[is.na(out)] <- abbr[is.na(out)]
   }
   out

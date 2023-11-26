@@ -65,7 +65,7 @@ process_conditional_examples <- function(rd) {
           if (!is_false) {
             new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
             cli::cli_warn(
-              "@examplesIf condition {.var cond_expr_str} FALSE"
+              "@examplesIf condition {.var cond_expr_str} is FALSE"
             )
           } else {
             new_cond <- "if (FALSE) {"

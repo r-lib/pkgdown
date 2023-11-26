@@ -12,7 +12,7 @@ test_that("capture data_template()", {
   expect_snapshot_output(data)
 })
 
-test_that("can include text in header, before body, and after body", {
+cli::test_that_cli("can include text in header, before body, and after body", {
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:
       includes:
@@ -34,7 +34,7 @@ test_that("can include text in header, before body, and after body", {
   )
 
   pkg$bs_version <- 5
-  expect_output(init_site(pkg))
+  expect_snapshot(init_site(pkg))
   html <- render_page_html(pkg, "title-body")
   expect_equal(
     xpath_text(html, ".//test"),

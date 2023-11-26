@@ -10,8 +10,8 @@ test_that("links to man/figures are automatically relocated", {
   skip_on_cran()
   pkg <- local_pkgdown_site(test_path("assets/man-figures"))
 
-  expect_output(copy_figures(pkg))
-  expect_output(build_articles(pkg, lazy = FALSE))
+  expect_snapshot(copy_figures(pkg))
+  expect_snapshot(build_articles(pkg, lazy = FALSE))
 
   html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
   src <- xpath_attr(html, "//img", "src")
@@ -26,7 +26,7 @@ test_that("links to man/figures are automatically relocated", {
   expect_false(dir_exists(path(pkg$dst_path, "man")))
 })
 
-test_that("warns about missing images", {
+cli::test_that_cli("warns about missing images", {
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_articles(pkg))
 })
@@ -35,7 +35,7 @@ test_that("articles don't include header-attrs.js script", {
   pkg <- as_pkgdown(test_path("assets/articles"))
   withr::defer(clean_site(pkg))
 
-  expect_output(path <- build_article("standard", pkg))
+  expect_snapshot(path <- build_article("standard", pkg))
 
   html <- xml2::read_html(path)
   js <- xpath_attr(html, ".//body//script", "src")
@@ -48,12 +48,12 @@ test_that("can build article that uses html_vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
 
   # theme is not set since html_vignette doesn't support it
-  expect_output(expect_error(build_article("html-vignette", pkg), NA))
+  expect_snapshot(expect_error(build_article("html-vignette", pkg), NA))
 })
 
 test_that("can override html_document() options", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("html-document", pkg))
+  expect_snapshot(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
@@ -69,7 +69,7 @@ test_that("can override html_document() options", {
 
 test_that("html widgets get needed css/js", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("widget", pkg))
+  expect_snapshot(path <- build_article("widget", pkg))
 
   html <- xml2::read_html(path)
   css <- xpath_attr(html, ".//body//link", "href")
@@ -81,7 +81,7 @@ test_that("html widgets get needed css/js", {
 
 test_that("can override options with _output.yml", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("html-document", pkg))
+  expect_snapshot(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
@@ -94,7 +94,7 @@ test_that("can set width", {
       width: 50
   ")
 
-  expect_output(path <- build_article("width", pkg))
+  expect_snapshot(path <- build_article("width", pkg))
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
@@ -104,7 +104,7 @@ test_that("finds external resources referenced by R code in the article html", {
   skip_on_cran()
   pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
 
-  expect_output(path <- build_article("resources", pkg))
+  expect_snapshot(path <- build_article("resources", pkg))
 
   # ensure that we the HTML references `<img src="external.png" />` directly
   expect_equal(
@@ -124,9 +124,9 @@ test_that("BS5 article laid out correctly with and without TOC", {
       bootstrap: 5
   ")
 
-  expect_output(init_site(pkg))
-  expect_output(toc_true_path <- build_article("standard", pkg))
-  expect_output(toc_false_path <- build_article("toc-false", pkg))
+  expect_snapshot(init_site(pkg))
+  expect_snapshot(toc_true_path <- build_article("standard", pkg))
+  expect_snapshot(toc_false_path <- build_article("toc-false", pkg))
 
   toc_true <- xml2::read_html(toc_true_path)
   toc_false <- xml2::read_html(toc_false_path)
@@ -145,7 +145,7 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   skip_on_cran()
 
   pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("articles/nested", pkg))
+  expect_snapshot(path <- build_article("articles/nested", pkg))
 
   expect_equal(
     normalizePath(path),
@@ -154,7 +154,7 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 
   # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
   pkg$meta$url <- "https://example.com"
-  expect_output(build_redirects(pkg))
+  expect_snapshot(build_redirects(pkg))
 
   # Check that the redirect file exists in <dst>/articles/articles/
   redirect_path <- path(pkg$dst_path, "articles", "articles", "nested.html")
@@ -175,8 +175,8 @@ test_that("pkgdown deps are included only once in articles", {
       bootstrap: 5
   ")
 
-  expect_output(init_site(pkg))
-  expect_output(path <- build_article("html-deps", pkg))
+  expect_snapshot(init_site(pkg))
+  expect_snapshot(path <- build_article("html-deps", pkg))
 
   html <- xml2::read_html(path)
 

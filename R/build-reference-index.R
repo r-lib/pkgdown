@@ -69,17 +69,10 @@ check_all_characters <- function(contents, index, pkg) {
   any_null <- any(null)
 
   if (any_null) {
-    abort(
-      c(
-        sprintf(
-          "Item %s in section %s in %s is empty.",
-          toString(which(null)),
-          index,
-          pkgdown_field(pkg, "reference")
-        ),
-        i = "Either delete the empty line or add a function name."
-      )
-    )
+    cli::cli_abort(c(
+      "Item {.field {which(null)}} in section {index} in {.field {pkgdown_field('reference')}} is empty.",
+      i = "Either delete the empty line or add a function name in {.file {pkgdown_config_relpath(pkg)}}."
+    ))
   }
 
   not_char <- !purrr::map_lgl(contents, is.character)
@@ -89,17 +82,10 @@ check_all_characters <- function(contents, index, pkg) {
     return(invisible())
   }
 
-  abort(
-    c(
-      sprintf(
-        "Item %s in section %s in %s must be a character.",
-        toString(which(not_char)),
-        index,
-        pkgdown_field(pkg, "reference")
-      ),
-      i = "You might need to add '' around e.g. - 'N' or - 'off'."
-    )
-  )
+  cli::cli_abort(c(
+    "Item {.field {which(not_char)}} in section {index} in {.field {pkgdown_field('reference')}} must be a character.",
+    i = "You might need to add '' around e.g. - 'N' or - 'off' in {.file {pkgdown_config_relpath(pkg)}}."
+  ))
 
 }
 

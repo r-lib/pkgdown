@@ -24,11 +24,12 @@ test_that("simple wrappers work as expected", {
   expect_equal(rd2html("\\strong{\\emph{x}}"), "<strong><em>x</em></strong>")
 })
 
-test_that("subsection generates h3", {
-  expect_snapshot(cat_line(rd2html("\\subsection{A}{B}")))
+cli::test_that_cli("subsection generates h3", {
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{B}")))
 })
-test_that("subsection generates h3", {
-  expect_snapshot(cat_line(rd2html("\\subsection{A}{
+
+cli::test_that_cli("subsection generates h3", {
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{
     p1
 
     p2
@@ -44,8 +45,8 @@ test_that("subsection generates generated anchor", {
   expect_equal(xpath_attr(html, ".//a", "href"), "#a")
 })
 
-test_that("nested subsection generates h4", {
-  expect_snapshot(cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
+cli::test_that_cli("nested subsection generates h4", {
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
 })
 
 test_that("if generates html", {
@@ -170,9 +171,9 @@ test_that("Sexprs with multiple args are parsed", {
   expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
 })
 
-test_that("Sexprs with multiple args are parsed", {
+cli::test_that_cli("Sexprs with multiple args are parsed", {
   local_context_eval()
-  expect_error(rd2html("\\Sexpr[results=verbatim]{1}"), "not yet supported")
+  expect_snapshot(rd2html("\\Sexpr[results=verbatim]{1}"), error = TRUE)
 })
 
 test_that("Sexprs in file share environment", {
@@ -277,7 +278,7 @@ test_that("link to non-existing functions return label", {
   expect_equal(rd2html("\\linkS4class{TEST}"), "<a href='test.html'>TEST</a>")
 })
 
-test_that("bad specs throw errors", {
+cli::test_that_cli("bad specs throw errors", {
   expect_snapshot(error = TRUE, {
     rd2html("\\url{}")
     rd2html("\\url{a\nb}")

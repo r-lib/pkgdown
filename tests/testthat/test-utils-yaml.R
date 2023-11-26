@@ -1,16 +1,10 @@
-test_that("pkgdown_field(s) produces useful description", {
+cli::test_that_cli("pkgdown_field(s) produces useful description", {
   pkg <- local_pkgdown_site()
   file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
 
   expect_snapshot({
-    pkgdown_field(pkg, c("a", "b"))
-    pkgdown_fields(pkg, list(c("a", "b"), "c"))
+    pkgdown_field(c("a", "b"))
   })
-})
-
-test_that("pkgdown_field(s) produces useful description", {
-  pkg <- local_pkgdown_site()
-  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
 
   expect_snapshot(error = TRUE, {
     check_yaml_has("x", where = "a", pkg = pkg)
