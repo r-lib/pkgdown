@@ -40,7 +40,8 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     error = function(cnd) {
       cli::cli_abort(c(
         "Failed to render RMarkdown document",
-        "x" = cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
+        "x" = cnd$parent$message,
+        "x" = cnd$stderr
       ))
     }
   )
