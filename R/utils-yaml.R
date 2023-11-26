@@ -7,7 +7,7 @@ check_yaml_has <- function(missing, where, pkg) {
   missing_fields <- pkgdown_fields(pkg, missing_components)
 
   cli::cli_abort(
-    "Can't find components {missing_fields}."
+    "Can't find components: {missing_fields}."
   )
 }
 
@@ -20,7 +20,7 @@ yaml_character <- function(pkg, where) {
     x
   } else {
     fld <- pkgdown_field(pkg, where)
-    cli::cli_abort("{.var {fld}} must be a character vector")
+    cli::cli_abort("{fld} must be a character vector")
   }
 }
 
@@ -37,8 +37,8 @@ pkgdown_fields <- function(pkg, fields, join = ", ") {
   if (is.null(config_path)) {
     fields_str
   } else {
-    config <- src_path(fs::path_rel(config_path, pkg$src_path))
-    paste0(fields_str, " in ", config)
+    config <- src_path(pkgdown_config_relpath(pkg))
+    paste0('`', fields_str, "` in ", config)
   }
 }
 

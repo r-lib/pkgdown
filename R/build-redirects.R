@@ -26,11 +26,7 @@ build_redirects <- function(pkg = ".",
 build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry) || length(entry) != 2) {
     cli::cli_abort(
-      sprintf(
-        "Entry %s in %s must be a character vector of length 2.",
-        index,
-        pkgdown_field(pkg, "redirects")
-      )
+      "Entry {.emph index} in {pkgdown_field(pkg, 'redirects')} must be a character vector of length 2.",
     )
   }
 

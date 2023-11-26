@@ -201,8 +201,8 @@ git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
 
 construct_commit_message <- function(pkg, commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
-
-  cli::cli_alert_success(sprintf("Built site for %s: %s@%s", pkg$package, pkg$version, substr(commit, 1, 7)))
+  commit <- sprintf("%s@%s", pkg$version, substr(commit, 1, 7))
+  cli::cli_alert_success("Built site for {cli::col_yellow(pkg$package)}: {.emph {cli::col_green(commit)}}")
 }
 
 ci_commit_sha <- function() {
