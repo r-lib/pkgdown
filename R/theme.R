@@ -57,8 +57,8 @@ bs_theme_rules <- function(pkg) {
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
     cli::cli_abort(c(
-      "Unknown theme: {.var {theme}}",
-      i = "Valid themes are: {highlight_styles()}"
+      "Unknown theme: {.val {theme}}",
+      i = "Valid themes are: {.val highlight_styles()}"
     ))
   }
   paths <- c(paths, theme_path)
@@ -101,15 +101,16 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
     bootswatch_theme
   } else {
-    cli::cli_abort(
+    cli::cli_abort(c(
       sprintf(
-        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+        "Can't find Bootswatch theme {.val %s} ({.val %s}) for Bootstrap version {.val %s} ({.val %s}).",
         bootswatch_theme,
         pkgdown_field(c("template", "bootswatch")),
         bs_version,
         pkgdown_field(c("template", "bootstrap"))
-      )
-    )
+      ),
+      x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
+    ))
   }
 
 }

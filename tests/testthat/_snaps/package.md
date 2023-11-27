@@ -5,5 +5,5 @@
     Condition
       Error in `check_bootstrap_version()`:
       ! Boostrap version must be 3 or 5.
-      x You specified a value of `1` in template.bootstrap.
+      x You specified a value of 1 in template.bootstrap.
 

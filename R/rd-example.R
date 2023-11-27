@@ -29,7 +29,7 @@ run_examples <- function(x,
   code <- flatten_ex(x, run_dont_run = run_dont_run)
 
   if (!can_parse(code)) {
-    cli::cli_warn("Failed to parse example for topic {.var {topic}}")
+    cli::cli_warn("Failed to parse example for topic {.val {topic}}")
     return("")
   }
 
@@ -65,7 +65,7 @@ process_conditional_examples <- function(rd) {
           if (!is_false) {
             new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
             cli::cli_warn(
-              "@examplesIf condition {.var cond_expr_str} is FALSE"
+              "@examplesIf condition {.val {cond_expr_str}} is {.val FALSE}"
             )
           } else {
             new_cond <- "if (FALSE) {"
@@ -111,8 +111,8 @@ as_example.COMMENT <- function(x, run_dont_run = FALSE) {
     meant <- gsub("%", "\\\\%", x)
     xun <- unclass(x)
     cli::cli_warn(c(
-      "In the examples, {.var {xun}} is an Rd comment",
-      "x" = "did you mean {.var {meant}}?"
+      "In the examples, {.val {xun}} is an Rd comment",
+      "x" = "did you mean {.val {meant}}?"
     ))
   }
   ""
@@ -155,7 +155,7 @@ block_tag_to_comment <- function(tag, x, run_dont_run = FALSE) {
 #' @export
 as_example.tag <- function(x, run_dont_run = FALSE) {
   untag <- paste(class(x), collapse = "/")
-  cli::cli_warn("Unknown tag: {.var {untag}}")
+  cli::cli_warn("Unknown tag: {.val {untag}}")
 }
 
 #' @export

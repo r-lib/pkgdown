@@ -6,7 +6,8 @@ find_template <- function(type, name, ext = ".html", pkg = ".") {
   existing <- paths[file_exists(paths)]
 
   if (length(existing) == 0) {
-    cli::cli_abort(paste0("Can't find template for ", type, "-", name, "."))
+    tname <- paste0(type, "-", name)
+    cli::cli_abort("Can't find template for {.val {tname}}.")
   }
   existing[[1]]
 }

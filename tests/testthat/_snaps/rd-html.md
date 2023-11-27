@@ -182,7 +182,7 @@
       Error in `purrr::map_chr()`:
       i In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\url{}`.
+      ! Failed to parse tag "\\url{}".
       x Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
@@ -190,7 +190,7 @@
       Error in `purrr::map_chr()`:
       i In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\url{}`.
+      ! Failed to parse tag "\\url{}".
       x This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
@@ -198,7 +198,7 @@
       Error in `purrr::map_chr()`:
       i In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\email{}`.
+      ! Failed to parse tag "\\email{}".
       x empty
     Code
       rd2html("\\linkS4class{}")
@@ -206,7 +206,7 @@
       Error in `purrr::map_chr()`:
       i In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\linkS4class{}`.
+      ! Failed to parse tag "\\linkS4class{}".
 
 # bad specs throw errors [ansi]
 
@@ -216,7 +216,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mi[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\url{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\url{}"[39m.
       [31mx[39m Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
@@ -224,7 +224,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mi[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\url{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\url{}"[39m.
       [31mx[39m This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
@@ -232,7 +232,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mi[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\email{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\email{}"[39m.
       [31mx[39m empty
     Code
       rd2html("\\linkS4class{}")
@@ -240,7 +240,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mi[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\linkS4class{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\linkS4class{}"[39m.
 
 # bad specs throw errors [unicode]
 
@@ -250,7 +250,7 @@
       Error in `purrr::map_chr()`:
       ℹ In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\url{}`.
+      ! Failed to parse tag "\\url{}".
       ✖ Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
@@ -258,7 +258,7 @@
       Error in `purrr::map_chr()`:
       ℹ In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\url{}`.
+      ! Failed to parse tag "\\url{}".
       ✖ This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
@@ -266,7 +266,7 @@
       Error in `purrr::map_chr()`:
       ℹ In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\email{}`.
+      ! Failed to parse tag "\\email{}".
       ✖ empty
     Code
       rd2html("\\linkS4class{}")
@@ -274,7 +274,7 @@
       Error in `purrr::map_chr()`:
       ℹ In index: 1.
       Caused by error in `stop_bad_tag()`:
-      ! Failed to parse tag `\linkS4class{}`.
+      ! Failed to parse tag "\\linkS4class{}".
 
 # bad specs throw errors [fancy]
 
@@ -284,7 +284,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mℹ[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\url{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\url{}"[39m.
       [31m✖[39m Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
@@ -292,7 +292,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mℹ[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\url{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\url{}"[39m.
       [31m✖[39m This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
@@ -300,7 +300,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mℹ[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\email{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\email{}"[39m.
       [31m✖[39m empty
     Code
       rd2html("\\linkS4class{}")
@@ -308,7 +308,7 @@
       [1m[33mError[39m in `purrr::map_chr()`:[22m
       [1m[22m[36mℹ[39m In index: 1.
       [1mCaused by error in `stop_bad_tag()`:[22m
-      [1m[22m[33m![39m Failed to parse tag `\linkS4class{}`.
+      [1m[22m[33m![39m Failed to parse tag [34m"\\linkS4class{}"[39m.
 
 # \describe items can contain multiple paragraphs
 

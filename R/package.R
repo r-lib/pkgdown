@@ -106,7 +106,7 @@ check_bootstrap_version <- function(version, pkg = list()) {
     field <- pkgdown_field(c("template", "bootstrap"))
     cli::cli_abort(c(
       "Boostrap version must be 3 or 5.",
-      "x" = "You specified a value of {.var {version}} in {.field {field}}."
+      "x" = "You specified a value of {.val {version}} in {.field {field}}."
     ))
   }
 }

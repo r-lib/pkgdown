@@ -162,7 +162,7 @@ build_reference <- function(pkg = ".",
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   if (!missing(document)) {
-    cli::cli_warn("{.var document}is deprecated. Please use {.var devel} instead.")
+    cli::cli_warn("{.var document} is deprecated. Please use {.var devel} instead.")
     devel <- document
   }
 

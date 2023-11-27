@@ -566,7 +566,7 @@ parse_opts <- function(string) {
 
 stop_bad_tag <- function(tag, msg = NULL) {
   bad_tag <- paste0("\\", tag, "{}")
-  msg_abort <- 'Failed to parse tag {.var {bad_tag}}.'
+  msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
   if (!is.null(msg)) {
     msg_abort <- c(msg_abort, "x" = msg)
   }

@@ -4,7 +4,7 @@
       expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40))
     Condition
       Warning:
-      @examplesIf condition `cond_expr_str` is FALSE
+      @examplesIf condition "TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && FALSE" is "FALSE"
 
 # @examplesIf [ansi]
 
@@ -12,7 +12,7 @@
       expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40))
     Condition
       [1m[33mWarning[39m:[22m
-      [1m[22m@examplesIf condition `cond_expr_str` is FALSE
+      [1m[22m@examplesIf condition [34m"TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && FALSE"[39m is [34m"FALSE"[39m
 
 # @examplesIf [unicode]
 
@@ -20,7 +20,7 @@
       expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40))
     Condition
       Warning:
-      @examplesIf condition `cond_expr_str` is FALSE
+      @examplesIf condition "TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && FALSE" is "FALSE"
 
 # @examplesIf [fancy]
 
@@ -28,5 +28,5 @@
       expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40))
     Condition
       [1m[33mWarning[39m:[22m
-      [1m[22m@examplesIf condition `cond_expr_str` is FALSE
+      [1m[22m@examplesIf condition [34m"TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && TRUE && FALSE"[39m is [34m"FALSE"[39m
 
