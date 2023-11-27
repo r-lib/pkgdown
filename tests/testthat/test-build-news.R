@@ -24,8 +24,9 @@ test_that("data_news works as expected for h1 & h2", {
 })
 
 
-cli::test_that_cli("multi-page news are rendered", {
+test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
+  local_edition(3)
 
   pkg <- local_pkgdown_site(meta = "
     news:

@@ -55,7 +55,8 @@ test_that("data_home_sidebar_authors() works with text", {
   expect_snapshot(cat(data_home_sidebar_authors(pkg)))
 })
 
-cli::test_that_cli("role has multiple fallbacks", {
+test_that("role has multiple fallbacks", {
+  local_edition(3)
   expect_equal(role_lookup("cre"), "maintainer")
   expect_equal(role_lookup("res"), "researcher")
   expect_snapshot(role_lookup("unknown"))

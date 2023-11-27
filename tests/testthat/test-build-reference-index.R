@@ -72,15 +72,17 @@ test_that("errors well when a content entry is empty", {
   expect_snapshot_error(build_reference_index(pkg))
 })
 
-cli::test_that_cli("errors well when a content entry is not a character", {
+test_that("errors well when a content entry is not a character", {
+  local_edition(3)
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
-cli::test_that_cli("errors well when a content entry refers to a not installed package", {
+test_that("errors well when a content entry refers to a not installed package", {
   skip_if_not_installed("cli", "3.1.0")
+  local_edition(3)
 
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
@@ -88,7 +90,8 @@ cli::test_that_cli("errors well when a content entry refers to a not installed p
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
-cli::test_that_cli("errors well when a content entry refers to a non existing function", {
+test_that("errors well when a content entry refers to a non existing function", {
+  local_edition(3)
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - rlang::lala")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 

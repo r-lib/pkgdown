@@ -26,7 +26,8 @@ test_that("links to man/figures are automatically relocated", {
   expect_false(dir_exists(path(pkg$dst_path, "man")))
 })
 
-cli::test_that_cli("warns about missing images", {
+test_that("warns about missing images", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_articles(pkg))
 })

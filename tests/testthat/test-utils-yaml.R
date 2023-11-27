@@ -1,4 +1,6 @@
-cli::test_that_cli("pkgdown_field(s) produces useful description", {
+test_that("pkgdown_field(s) produces useful description", {
+  local_edition(3)
+
   pkg <- local_pkgdown_site()
   file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
 

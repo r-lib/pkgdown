@@ -1,4 +1,5 @@
-cli::test_that_cli("fails if reference index incomplete", {
+test_that("fails if reference index incomplete", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
     reference:
      - title: Title
@@ -8,7 +9,8 @@ cli::test_that_cli("fails if reference index incomplete", {
 })
 
 
-cli::test_that_cli("fails if article index incomplete", {
+test_that("fails if article index incomplete", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/articles"), meta = "
     articles:
      - title: Title
@@ -17,7 +19,8 @@ cli::test_that_cli("fails if article index incomplete", {
   expect_snapshot(check_pkgdown(pkg), error = TRUE)
 })
 
-cli::test_that_cli("informs if everything is ok", {
+test_that("informs if everything is ok", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference"))
   expect_snapshot(check_pkgdown(pkg))
 })

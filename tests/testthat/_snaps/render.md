@@ -52,35 +52,11 @@
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     
 
-# can include text in header, before body, and after body [plain]
+# can include text in header, before body, and after body
 
     Code
       init_site(pkg)
     Message
       Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
       to link.svg and pkgdown.js
-
-# can include text in header, before body, and after body [ansi]
-
-    Code
-      init_site(pkg)
-    Message
-      [1m[22mCopying [1m[32m../../../../inst/BS5/assets/link.svg[39m[22m and [1m[32m../../../../inst/BS5/assets/pkgdown.js[39m[22m
-      to [1m[36mlink.svg[39m[22m and [1m[36mpkgdown.js[39m[22m
-
-# can include text in header, before body, and after body [unicode]
-
-    Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
-# can include text in header, before body, and after body [fancy]
-
-    Code
-      init_site(pkg)
-    Message
-      [1m[22mCopying [1m[32m../../../../inst/BS5/assets/link.svg[39m[22m and [1m[32m../../../../inst/BS5/assets/pkgdown.js[39m[22m
-      to [1m[36mlink.svg[39m[22m and [1m[36mpkgdown.js[39m[22m
 

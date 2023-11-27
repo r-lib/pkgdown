@@ -62,7 +62,7 @@
     ! Item 2 in section 1 in reference is empty.
     i Either delete the empty line or add a function name in '_pkgdown.yml'.
 
-# errors well when a content entry is not a character [plain]
+# errors well when a content entry is not a character
 
     Code
       build_reference_index(pkg)
@@ -73,40 +73,7 @@
       ! Item 2 in section 1 in reference must be a character.
       i You might need to add '' around e.g. - 'N' or - 'off' in '_pkgdown.yml'.
 
-# errors well when a content entry is not a character [ansi]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `check_all_characters()`:[22m
-      [1m[22m[33m![39m Item [32m2[39m in section 1 in [32mreference[39m must be a character.
-      [36mi[39m You might need to add '' around e.g. - 'N' or - 'off' in [34m_pkgdown.yml[39m.
-
-# errors well when a content entry is not a character [unicode]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      Error in `map2()`:
-      ℹ In index: 1.
-      Caused by error in `check_all_characters()`:
-      ! Item 2 in section 1 in reference must be a character.
-      ℹ You might need to add '' around e.g. - 'N' or - 'off' in '_pkgdown.yml'.
-
-# errors well when a content entry is not a character [fancy]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `check_all_characters()`:[22m
-      [1m[22m[33m![39m Item [32m2[39m in section 1 in [32mreference[39m must be a character.
-      [36mℹ[39m You might need to add '' around e.g. - 'N' or - 'off' in [34m_pkgdown.yml[39m.
-
-# errors well when a content entry refers to a not installed package [plain]
+# errors well when a content entry refers to a not installed package
 
     Code
       build_reference_index(pkg)
@@ -118,43 +85,7 @@
       Caused by error in `.f()`:
       ! The package "notapackage" is required as it's used in the reference index.
 
-# errors well when a content entry refers to a not installed package [ansi]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `purrr::map2()`:[22m
-      [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `.f()`:[22m
-      [1m[22m[33m![39m The package "notapackage" is required as it's used in the reference index.
-
-# errors well when a content entry refers to a not installed package [unicode]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      Error in `map2()`:
-      ℹ In index: 1.
-      Caused by error in `purrr::map2()`:
-      ℹ In index: 1.
-      Caused by error in `.f()`:
-      ! The package "notapackage" is required as it's used in the reference index.
-
-# errors well when a content entry refers to a not installed package [fancy]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `purrr::map2()`:[22m
-      [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `.f()`:[22m
-      [1m[22m[33m![39m The package "notapackage" is required as it's used in the reference index.
-
-# errors well when a content entry refers to a non existing function [plain]
+# errors well when a content entry refers to a non existing function
 
     Code
       build_reference_index(pkg)
@@ -165,42 +96,6 @@
       i In index: 1.
       Caused by error in `.f()`:
       ! Could not find documentation for `rlang::lala()`.
-
-# errors well when a content entry refers to a non existing function [ansi]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `purrr::map2()`:[22m
-      [1m[22m[36mi[39m In index: 1.
-      [1mCaused by error in `.f()`:[22m
-      [1m[22m[33m![39m Could not find documentation for `rlang::lala()`.
-
-# errors well when a content entry refers to a non existing function [unicode]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      Error in `map2()`:
-      ℹ In index: 1.
-      Caused by error in `purrr::map2()`:
-      ℹ In index: 1.
-      Caused by error in `.f()`:
-      ! Could not find documentation for `rlang::lala()`.
-
-# errors well when a content entry refers to a non existing function [fancy]
-
-    Code
-      build_reference_index(pkg)
-    Condition
-      [1m[33mError[39m in `map2()`:[22m
-      [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `purrr::map2()`:[22m
-      [1m[22m[36mℹ[39m In index: 1.
-      [1mCaused by error in `.f()`:[22m
-      [1m[22m[33m![39m Could not find documentation for `rlang::lala()`.
 
 # can use a topic from another package
 

@@ -51,7 +51,9 @@ test_that("extracts conditions from if", {
   expect_equal(rd2ex("\\ifelse{latex}{1 + 2}{3 + 4}"), "3 + 4")
 })
 
-cli::test_that_cli("@examplesIf", {
+test_that("@examplesIf", {
+  local_edition(3)
+
   rd <- paste0(
     "\\dontshow{if (1 == 0) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
     "answer <- 43\n",

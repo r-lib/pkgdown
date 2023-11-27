@@ -1,4 +1,6 @@
-cli::test_that_cli("can handle logo in subdir", {
+test_that("can handle logo in subdir", {
+  local_edition(3)
+
   src <- withr::local_tempdir()
   dst <- withr::local_tempdir()
 

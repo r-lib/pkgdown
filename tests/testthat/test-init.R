@@ -1,4 +1,5 @@
-cli::test_that_cli("extra.css and extra.js copied and linked", {
+test_that("extra.css and extra.js copied and linked", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-2"))
   expect_snapshot(init_site(pkg))
 
@@ -15,14 +16,16 @@ cli::test_that_cli("extra.css and extra.js copied and linked", {
   expect_true("extra.css" %in% paths)
 })
 
-cli::test_that_cli("single extra.css correctly copied", {
+test_that("single extra.css correctly copied", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
   expect_snapshot(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
 })
 
-cli::test_that_cli("asset subdirectories are copied", {
+test_that("asset subdirectories are copied", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
   expect_snapshot(init_site(pkg))
 
@@ -30,7 +33,8 @@ cli::test_that_cli("asset subdirectories are copied", {
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "subdir2", "file2.txt")))
 })
 
-cli::test_that_cli("site meta doesn't break unexpectedly", {
+test_that("site meta doesn't break unexpectedly", {
+  local_edition(3)
   pkgdown <- as_pkgdown(test_path("assets/reference"))
 
   # null out components that will vary
