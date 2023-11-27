@@ -65,10 +65,9 @@ data_home_sidebar <- function(pkg = ".") {
   if (length(html_path)) {
     if (!file.exists(html_path)) {
       rel_html_path <- fs::path_rel(html_path, pkg$src_path)
-      rel_config_path <- pkgdown_config_relpath(pkg)
       cli::cli_abort(c(
-        "Can't locate {.file {rel_html_path}}",
-        "x" = "{.field {pkgdown_field(c('home', 'sidebar', 'html'))}} in {.file {rel_config_path}} is misconfigured"
+        "Can't locate {.file {rel_html_path}}.",
+        "x" = "{.field {pkgdown_field(c('home', 'sidebar', 'html'))}} in {.file {pkgdown_config_relpath(pkg)}} is misconfigured."
       ))
     }
     return(read_file(html_path))
@@ -217,7 +216,7 @@ check_missing_images <- function(pkg, src_path, dst_path) {
     paths <- rel_src[!exists]
     cli::cli_warn(c(
       "Missing images in {.file {src_path}}: {.file {paths}}",
-      "i" = "pkgdown can only use images in {.file man/figures} and {.file vignettes}"
+      i = "pkgdown can only use images in {.file man/figures} and {.file vignettes}"
     ))
   }
 }

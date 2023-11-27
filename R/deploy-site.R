@@ -43,15 +43,15 @@ deploy_site_github <- function(
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")) {
   rlang::check_installed("openssl")
   if (!nzchar(tarball)) {
-    cli::cli_abort("No built tarball detected, please provide the location of one with {.var tarball}")
+    cli::cli_abort("No built tarball detected, please provide the location of one with {.var tarball}", call = caller_env())
   }
 
   if (!nzchar(ssh_id)) {
-    cli::cli_abort("No deploy key found, please setup with {.fn travis::use_travis_deploy}")
+    cli::cli_abort("No deploy key found, please setup with {.fn travis::use_travis_deploy}", call = caller_env())
   }
 
   if (!nzchar(repo_slug)) {
-    cli::cli_abort("No repo detected, please supply one with {.var repo_slug}")
+    cli::cli_abort("No repo detected, please supply one with {.var repo_slug}", call = caller_env())
   }
 
   cli::cli_alert("Deploying site to GitHub")
@@ -61,13 +61,13 @@ deploy_site_github <- function(
   }
 
   ssh_id_file <- "~/.ssh/id_rsa"
-  cli::cli_alert_info("Setting up SSH id")
-  cli::cli_alert_info("Copying private key to {.file ssh_id_file}")
+  cli::cli_inform("Setting up SSH id")
+  cli::cli_inform("Copying private key to {.file ssh_id_file}")
   write_lines(rawToChar(openssl::base64_decode(ssh_id)), ssh_id_file)
-  cli::cli_alert_info("Setting private key permissions to 0600")
+  cli::cli_inform("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  cli::cli_alert_info("Setting remote to use the ssh url")
+  cli::cli_inform("Setting remote to use the ssh url")
 
   git("remote", "set-url", "origin", sprintf("git@%s:%s.git", host, repo_slug))
 
@@ -165,7 +165,7 @@ git_current_branch <- function() {
 }
 
 github_worktree_add <- function(dir, remote, branch) {
-  cli::cli_alert_info("Adding worktree")
+  cli::cli_inform("Adding worktree")
   git("worktree",
     "add",
     "--track", "-B", branch,
@@ -175,7 +175,7 @@ github_worktree_add <- function(dir, remote, branch) {
 }
 
 github_worktree_remove <- function(dir) {
-  cli::cli_alert_info("Removing worktree")
+  cli::cli_inform("Removing worktree")
   git("worktree", "remove", dir)
 }
 
@@ -183,7 +183,7 @@ github_push <- function(dir, commit_message, remote, branch) {
   # force execution before changing working directory
   force(commit_message)
 
-  cli::cli_alert_info("Commiting updated site")
+  cli::cli_inform("Commiting updated site")
 
   withr::with_dir(dir, {
     git("add", "-A", ".")

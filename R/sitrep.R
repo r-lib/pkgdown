@@ -29,8 +29,8 @@ pkgdown_sitrep <- function(pkg = ".") {
   if (length(warns) == 0) {
     cli::cli_alert_success("pkgdown situation report: {.emph {cli::col_green('all clear')}}")
     cli::cli_alert("{.emph Double-check the following URLs:}")
-    cli::cli_alert_info("{.file {pkgdown_config_relpath(pkg)}} contains URL {.url {pkg$meta['url']}}")
-    cli::cli_alert_info("{.file DESCRIPTION} contains URL{?s} {.url {desc_urls}}")
+    cli::cli_inform("{.file {pkgdown_config_relpath(pkg)}} contains URL {.url {pkg$meta['url']}}")
+    cli::cli_inform("{.file DESCRIPTION} contains URL{?s} {.url {desc_urls}}")
   } else {
     cli::cli_warn(c(
       "pkgdown situation report: {.emph {cli::col_red('configuration error')}}",

@@ -35,7 +35,7 @@ build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
     return(invisible())
   }
 
-  cli::cli_h2("Building tutorials")
+  cli::cli_rule("Building tutorials")
   dir_create(path(pkg$dst_path, "tutorials"))
 
   data <- purrr::transpose(tutorials)

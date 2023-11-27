@@ -41,7 +41,7 @@ file_copy_to <- function(pkg,
 
   eq <- purrr::map2_lgl(from_paths, to_paths, file_equal)
   if (any(!eq)) {
-    cli::cli_alert_info(c(
+    cli::cli_inform(c(
         "Copying {src_path(path_rel(from_paths[!eq], pkg$src_path))}",
         " to {dst_path(path_rel(to_paths[!eq], pkg$dst_path))}"
     ))

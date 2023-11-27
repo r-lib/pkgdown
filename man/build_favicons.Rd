@@ -2,12 +2,9 @@
 % Please edit documentation in R/build-favicons.R
 \name{build_favicons}
 \alias{build_favicons}
-\alias{build_favicon}
 \title{Create favicons from package logo}
 \usage{
 build_favicons(pkg = ".", overwrite = FALSE)
-
-build_favicon(pkg, overwrite)
 }
 \arguments{
 \item{pkg}{Path to package.}

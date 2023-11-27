@@ -1,6 +1,6 @@
 cli::test_that_cli("parse failures include file name", {
   skip_if_not(getRversion() >= "4.0.0")
-  pkg <- local_pkgdown_site("assets/reference-fail")
+  pkg <- local_pkgdown_site(test_path("assets/reference-fail"))
   expect_snapshot(build_reference(pkg), error = TRUE)
 })
 
@@ -35,7 +35,7 @@ cli::test_that_cli("test usage ok on rendered page", {
   expect_snapshot(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
-  clean_site(pkg)
+  clean_site(pkg, quiet = TRUE)
 
   pkg <- local_pkgdown_site(test_path("assets/reference"), "
       template:
@@ -53,7 +53,7 @@ cli::test_that_cli(".Rd without usage doesn't get Usage section", {
   expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
-  clean_site(pkg)
+  clean_site(pkg, quiet = TRUE)
 
   pkg <- local_pkgdown_site(test_path("assets/reference"), "
       template:

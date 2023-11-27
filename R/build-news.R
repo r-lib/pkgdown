@@ -78,7 +78,7 @@ build_news <- function(pkg = ".",
   if (!has_news(pkg$src_path))
     return()
 
-  cli::cli_h2("Building news")
+  cli::cli_rule("Building news")
   dir_create(path(pkg$dst_path, "news"))
 
   switch(news_style(pkg$meta),
@@ -162,8 +162,8 @@ data_news <- function(pkg = list()) {
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
     cli::cli_abort(c(
       "Invalid NEWS.md: inconsistent use of section headings.",
-      "i" = "Top-level headings must be either all <h1> or all <h2>.",
-      "i" = "See {.help pkgdown::build_news} for more details."
+      i = "Top-level headings must be either all <h1> or all <h2>.",
+      i = "See {.help pkgdown::build_news} for more details."
     ))
   }
   if (ulevels == "h1") {

@@ -45,7 +45,7 @@ build_sitemap <- function(pkg = ".") {
   }
 
   xml_path <- path(pkg$dst_path, "sitemap.xml")
-  cli::cli_alert_info("Writing {dst_path(path_rel(xml_path, pkg$dst_path))}")
+  cli::cli_inform("Writing {dst_path(path_rel(xml_path, pkg$dst_path))}")
 
   xml2::write_xml(doc, file = xml_path)
 
@@ -86,7 +86,7 @@ url_node <- function(url) {
 build_search <- function(pkg = ".",
                          override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
-  cli::cli_alert("Building search index")
+  cli::cli_inform("Building search index")
   search_index <- build_search_index(pkg)
   jsonlite::write_json(
     search_index,

@@ -7,7 +7,7 @@ check_yaml_has <- function(missing, where, pkg) {
   missing_fields <- purrr::map_chr(missing_components, pkgdown_field)
 
   cli::cli_abort(
-    "Can't find {.field {missing_fields}} component{?s} in {.file {pkgdown_config_relpath(pkg)}}."
+    "Can't find {cli::qty(missing_fields)} component{?s} {.field {missing_fields}} in {.file {pkgdown_config_relpath(pkg)}}."
   )
 }
 

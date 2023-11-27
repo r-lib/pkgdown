@@ -19,7 +19,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)
 
-  cli::cli_h2("Building favicons")
+  cli::cli_rule("Building favicons")
 
   logo_path <- find_logo(pkg$src_path)
 
@@ -97,25 +97,13 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
   },
   warning = function(e) {
-    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.")
+    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
   },
   error = function(e) {
-    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.")
+    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
   })
 
   invisible()
-}
-
-#' Deprecated as of pkgdown 1.4.0
-#' @rdname build_favicons
-#' @inheritParams build_favicons
-#' @export
-build_favicon <- function(pkg, overwrite) {
-  cli::cli_warn(c(
-    "{.fun build_favicon} is deprecated as of pkgdown 1.4.0. ",
-    "i" = "Please use {.fun build_favicons} instead."
-  ))
-  build_favicons(pkg, overwrite)
 }
 
 copy_favicons <- function(pkg = ".") {

@@ -177,7 +177,7 @@ build_articles <- function(pkg = ".",
     return(invisible())
   }
 
-  cli::cli_h2("Building articles")
+  cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
   purrr::walk(
@@ -368,9 +368,7 @@ data_articles_index <- function(pkg = ".") {
   missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
 
   if (length(missing) > 0) {
-    cli::cli_abort(
-        "Vignette{?s} missing from index: {missing}"
-    )
+    cli::cli_abort("{cli::qty(missing)} Vignette{?s} missing from index: {.file {missing}}")
   }
 
   print_yaml(list(
@@ -381,9 +379,7 @@ data_articles_index <- function(pkg = ".") {
 
 data_articles_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "contents"))) {
-    cli::cli_abort(
-      "Section must have components {.field title, contents}"
-    )
+    cli::cli_abort("Section must have components {.field title}, {.field contents}")
   }
 
   # Match topics against any aliases

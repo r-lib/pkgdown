@@ -13,8 +13,8 @@ a <- 1:100
 a
 
 cat("This some text!\n")
-cli::cli_inform("This is a message!")
-cli::cli_warn("This is a warning!")
+message("This is a message!")
+warning("This is a warning!")
 
 # This is a multi-line block
 {

@@ -21,6 +21,9 @@
 
     Code
       pkgdown_sitrep(pkg)
+    Message
+      '_pkgdown.yml' contains URL <http://example.com/pkg>
+      'DESCRIPTION' contains URL <http://example.com/pkg>
 
 # pkgdown_sitrep works [ansi]
 
@@ -45,6 +48,9 @@
 
     Code
       pkgdown_sitrep(pkg)
+    Message
+      [1m[22m[34m_pkgdown.yml[39m contains URL [3m[34m<http://example.com/pkg>[39m[23m
+      [1m[22m[34mDESCRIPTION[39m contains URL [3m[34m<http://example.com/pkg>[39m[23m
 
 # pkgdown_sitrep works [unicode]
 
@@ -69,6 +75,9 @@
 
     Code
       pkgdown_sitrep(pkg)
+    Message
+      '_pkgdown.yml' contains URL <http://example.com/pkg>
+      'DESCRIPTION' contains URL <http://example.com/pkg>
 
 # pkgdown_sitrep works [fancy]
 
@@ -93,4 +102,7 @@
 
     Code
       pkgdown_sitrep(pkg)
+    Message
+      [1m[22m[34m_pkgdown.yml[39m contains URL [3m[34m<http://example.com/pkg>[39m[23m
+      [1m[22m[34mDESCRIPTION[39m contains URL [3m[34m<http://example.com/pkg>[39m[23m
 

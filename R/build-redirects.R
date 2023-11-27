@@ -11,7 +11,7 @@ build_redirects <- function(pkg = ".",
     return(invisible())
   }
 
-  cli::cli_h2("Building redirects")
+  cli::cli_rule("Building redirects")
   if (is.null(pkg$meta$url)) {
     cli::cli_abort("{.field {pkgdown_field('url')}} in {.file {pkgdown_config_relpath(pkg)}} required to generate redirects")
   }

@@ -10,9 +10,10 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      cli::cli_abort(c(
-        "No topics matched in '_pkgdown.yml'. No topics selected."
-      ))
+      cli::cli_abort(
+        "No topics matched in {.file _pkgdown.yml}. No topics selected.",
+        call = caller_env()
+      )
     }
     return(integer())
   }
@@ -163,7 +164,7 @@ match_eval <- function(string, env) {
     tryCatch(
       eval(expr, env),
       error = function(e) {
-        topic_must("be a known selector function", string)
+        topic_must("be a known selector function", string, parent = e)
       }
     )
   } else {
@@ -171,12 +172,10 @@ match_eval <- function(string, env) {
   }
 }
 
-topic_must <- function(message, topic) {
+topic_must <- function(message, topic, parent = NULL) {
   cli::cli_abort(
-    c(
-      "In {.file _pkgdown.yml}, topic must {message}",
-      "x" = "Not {.val {topic}}"
-    )
+    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}",
+    parent = parent
   )
 }
 

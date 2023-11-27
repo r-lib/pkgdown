@@ -33,7 +33,7 @@ cli::test_that_cli("warns about missing images", {
 
 test_that("articles don't include header-attrs.js script", {
   pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg))
+  withr::defer(clean_site(pkg, quiet = TRUE))
 
   expect_snapshot(path <- build_article("standard", pkg))
 

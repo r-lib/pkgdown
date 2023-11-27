@@ -89,7 +89,7 @@ NULL
 #' @family tests
 #' @examples
 #' \dontrun{
-#'   cli::cli_abort("This is an error!")
+#'   abort("This is an error!")
 #' }
 #'
 #' # Inline \donttest is silently ommitted
@@ -149,8 +149,8 @@ NULL
 #' a
 #'
 #' cat("This some text!\n")
-#' cli::cli_inform("This is a message!")
-#' cli::cli_warn("This is a warning!")
+#' message("This is a message!")
+#' warning("This is a warning!")
 #'
 #' # This is a multi-line block
 #' {

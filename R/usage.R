@@ -28,10 +28,9 @@ parse_usage <- function(x) {
       parse_exprs(r)
     },
     error = function(e) {
-      cli::cli_warn(c(
-        "Failed to parse usage:",
-        "x" = "{.var {r}}"
-      ))
+      cli::cli_warn(
+        "Failed to parse usage: {.code {r}}"
+      )
       list()
     }
   )

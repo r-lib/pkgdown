@@ -8,7 +8,7 @@ Test case: don't
 }
 \examples{
 \dontrun{
-  cli::cli_abort("This is an error!")
+  abort("This is an error!")
 }
 
 # Inline \donttest is silently ommitted

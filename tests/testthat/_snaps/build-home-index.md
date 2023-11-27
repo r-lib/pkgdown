@@ -2,6 +2,9 @@
 
     Code
       init_site(pkg)
+    Message
+      Copying ../../../../inst/BS3/assets/bootstrap-toc.css, ../../../../inst/BS3/assets/bootstrap-toc.js, ../../../../inst/BS3/assets/docsearch.css, ../../../../inst/BS3/assets/docsearch.js, ../../../../inst/BS3/assets/link.svg, ../../../../inst/BS3/assets/pkgdown.css, and ../../../../inst/BS3/assets/pkgdown.js
+      to bootstrap-toc.css, bootstrap-toc.js, docsearch.css, docsearch.js, link.svg, pkgdown.css, and pkgdown.js
 
 # data_home_sidebar() works by default
 
@@ -53,8 +56,8 @@
 
 # data_home_sidebar() errors well when no HTML file
 
-    Can't locate 'file.html'
-    x home.sidebar.html in '_pkgdown.yml' is misconfigured
+    Can't locate 'file.html'.
+    x home.sidebar.html in '_pkgdown.yml' is misconfigured.
 
 # data_home_sidebar() can get a custom markdown formatted component
 
@@ -76,23 +79,23 @@
 
 # data_home_sidebar() outputs informative error messages
 
-    Can't find home.sidebar.components.fancy component in '_pkgdown.yml'.
+    Can't find component home.sidebar.components.fancy in '_pkgdown.yml'.
 
 ---
 
-    Can't find home.sidebar.components.fancy and home.sidebar.components.cool components in '_pkgdown.yml'.
-
----
-
-    i In index: 1.
-    i With name: fancy.
-    Caused by error in `check_yaml_has()`:
-    ! Can't find home.sidebar.components.fancy.title component in '_pkgdown.yml'.
+    Can't find components home.sidebar.components.fancy and home.sidebar.components.cool in '_pkgdown.yml'.
 
 ---
 
     i In index: 1.
     i With name: fancy.
     Caused by error in `check_yaml_has()`:
-    ! Can't find home.sidebar.components.fancy.title and home.sidebar.components.fancy.text components in '_pkgdown.yml'.
+    ! Can't find component home.sidebar.components.fancy.title in '_pkgdown.yml'.
+
+---
+
+    i In index: 1.
+    i With name: fancy.
+    Caused by error in `check_yaml_has()`:
+    ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text in '_pkgdown.yml'.
 

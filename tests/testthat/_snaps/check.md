@@ -44,7 +44,7 @@
       check_pkgdown(pkg)
     Condition
       Error in `data_articles_index()`:
-      ! Vignettes missing from index: articles/nested and width
+      ! Vignettes missing from index: 'articles/nested' and 'width'
 
 # fails if article index incomplete [ansi]
 
@@ -52,7 +52,7 @@
       check_pkgdown(pkg)
     Condition
       [1m[33mError[39m in `data_articles_index()`:[22m
-      [1m[22m[33m![39m Vignettes missing from index: articles/nested and width
+      [1m[22m[33m![39m Vignettes missing from index: [34marticles/nested[39m and [34mwidth[39m
 
 # fails if article index incomplete [unicode]
 
@@ -60,7 +60,7 @@
       check_pkgdown(pkg)
     Condition
       Error in `data_articles_index()`:
-      ! Vignettes missing from index: articles/nested and width
+      ! Vignettes missing from index: 'articles/nested' and 'width'
 
 # fails if article index incomplete [fancy]
 
@@ -68,7 +68,7 @@
       check_pkgdown(pkg)
     Condition
       [1m[33mError[39m in `data_articles_index()`:[22m
-      [1m[22m[33m![39m Vignettes missing from index: articles/nested and width
+      [1m[22m[33m![39m Vignettes missing from index: [34marticles/nested[39m and [34mwidth[39m
 
 # informs if everything is ok [plain]
 

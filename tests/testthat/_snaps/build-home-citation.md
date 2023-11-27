@@ -2,6 +2,9 @@
 
     Code
       build_home(pkg)
+    Message
+      Writing authors.html
+      Writing 404.html
 
 # multiple citations all have HTML and BibTeX formats
 
