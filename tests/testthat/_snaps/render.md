@@ -1,6 +1,6 @@
 # check_bootswatch_theme() works
 
-    Can't find Bootswatch theme "paper" ("template.bootswatch") for Bootstrap version "4" ("template.bootstrap").
+    Can't find Bootswatch theme "paper" (template.bootswatch) for Bootstrap version "4" (template.bootstrap).
     x Edit settings in '_pkgdown.yml'
 
 # capture data_template()

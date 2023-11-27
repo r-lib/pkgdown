@@ -103,7 +103,7 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   } else {
     cli::cli_abort(c(
       sprintf(
-        "Can't find Bootswatch theme {.val %s} ({.val %s}) for Bootstrap version {.val %s} ({.val %s}).",
+        "Can't find Bootswatch theme {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
         bootswatch_theme,
         pkgdown_field(c("template", "bootswatch")),
         bs_version,

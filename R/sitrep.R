@@ -17,7 +17,7 @@ pkgdown_sitrep <- function(pkg = ".") {
   warns <- c()
 
   if (is.null(pkg$meta[["url"]])) {
-    warns <- c(warns, "x" = "{pkgdown_field('url')} is not configured in {.file {pkgdown_config_relpath(pkg)}}. See vignette {.vignette pkgdown::metatdata}.")
+    warns <- c(warns, "x" = "{.field {pkgdown_field('url')}} is not configured in {.file {pkgdown_config_relpath(pkg)}}. See {.vignette pkgdown::metatdata}.")
   }
 
   desc_urls <- pkg$desc$get_urls()
