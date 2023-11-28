@@ -49,31 +49,31 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `stop_bad_tag()`:
+      Caused by error in `.f()`:
       ! Failed to parse tag "\\url{}".
-      x Check for empty \url{} tags.
+      i Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `stop_bad_tag()`:
+      Caused by error in `.f()`:
       ! Failed to parse tag "\\url{}".
-      x This may be caused by a \url tag that spans a line break.
+      i This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `stop_bad_tag()`:
+      Caused by error in `.f()`:
       ! Failed to parse tag "\\email{}".
-      x empty
+      i empty
     Code
       rd2html("\\linkS4class{}")
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `stop_bad_tag()`:
+      Caused by error in `.f()`:
       ! Failed to parse tag "\\linkS4class{}".
 
 # \describe items can contain multiple paragraphs

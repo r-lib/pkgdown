@@ -175,7 +175,7 @@
       data_navbar(pkg)
     Condition
       Error in `yaml_character()`:
-      ! navbar.structure.left must be a character vector
+      ! navbar.structure.left must be a character vector.
 
 # render_navbar_links BS3 & BS4 default
 

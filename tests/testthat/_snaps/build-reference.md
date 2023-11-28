@@ -13,9 +13,9 @@
       ! Failed to parse Rd in 'f.Rd'
       Caused by error in `purrr::map()`:
       i In index: 4.
-      Caused by error in `stop_bad_tag()`:
+      Caused by error in `.f()`:
       ! Failed to parse tag "\\url{}".
-      x Check for empty \url{} tags.
+      i Check for empty \url{} tags.
 
 # test usage ok on rendered page
 

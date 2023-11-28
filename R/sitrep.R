@@ -17,18 +17,19 @@ pkgdown_sitrep <- function(pkg = ".") {
   warns <- c()
 
   if (is.null(pkg$meta[["url"]])) {
-    warns <- c(warns, "x" = "{.field {pkgdown_field('url')}} is not configured in {.file {pkgdown_config_relpath(pkg)}}. See {.vignette pkgdown::metatdata}.")
+    msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
+    warns <- c(warns, x = paste0(msg_fld, "is misconfigured. See {.vignette pkgdown::metatdata}."))
   }
 
   desc_urls <- pkg$desc$get_urls()
   desc_urls <- sub("/$", "", desc_urls)
   if (length(desc_urls) == 0 || !pkg$meta[["url"]] %in% desc_urls) {
-    warns <- c(warns, "x" = "{.file DESCRIPTION} {.field URL} is empty.")
+    warns <- c(warns, x = "{.file DESCRIPTION} {.field URL} is empty.")
   }
 
   if (length(warns) == 0) {
     cli::cli_alert_success("pkgdown situation report: {.emph {cli::col_green('all clear')}}")
-    cli::cli_alert("{.emph Double-check the following URLs:}")
+    cli::cli_inform("{.emph Double-check the following URLs:}")
     cli::cli_inform("{.file {pkgdown_config_relpath(pkg)}} contains URL {.url {pkg$meta['url']}}")
     cli::cli_inform("{.file DESCRIPTION} contains URL{?s} {.url {desc_urls}}")
   } else {

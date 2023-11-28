@@ -69,9 +69,10 @@ check_all_characters <- function(contents, index, pkg) {
   any_null <- any(null)
 
   if (any_null) {
+    msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
     cli::cli_abort(c(
-      "Item {.field {which(null)}} in section {index} in {.field {pkgdown_field('reference')}} is empty.",
-      i = "Either delete the empty line or add a function name in {.file {pkgdown_config_relpath(pkg)}}."
+      "Item {.field {which(null)}} in section {index} is empty.",
+      x = paste0("Delete the empty line or add function name to ", msg_fld, ".")
     ))
   }
 
@@ -82,9 +83,10 @@ check_all_characters <- function(contents, index, pkg) {
     return(invisible())
   }
 
+  msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
   cli::cli_abort(c(
-    "Item {.field {which(not_char)}} in section {index} in {.field {pkgdown_field('reference')}} must be a character.",
-    i = "You might need to add '' around e.g. - 'N' or - 'off' in {.file {pkgdown_config_relpath(pkg)}}."
+    "Item {.field {which(not_char)}} in section {index} must be a character.",
+    x = paste0("You might need to add '' around e.g. - 'N' or - 'off' to ", msg_fld, ".")
   ))
 
 }

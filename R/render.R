@@ -161,7 +161,8 @@ check_open_graph <- function(og) {
   if ("twitter" %in% names(og)) {
     if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
       cli::cli_abort(
-        "The {.var opengraph: twitter} option must be a list."
+        "The {.var opengraph: twitter} option must be a list.",
+        call = caller_env()
       )
     }
     if (!is.list(og$twitter)) {
@@ -169,19 +170,22 @@ check_open_graph <- function(og) {
     }
     if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
       cli::cli_abort(
-        "{.var opengraph: twitter} must include either {.val creator} or {.val site}."
+        "{.var opengraph: twitter} must include either {.val creator} or {.val site}.",
+        call = caller_env()
       )
     }
   }
   if ("image" %in% names(og)) {
     if (is.character(og$image) && length(og$image) == 1) {
       cli::cli_abort(
-        "The {.var opengraph: image} option must be a list."
+        "The {.var opengraph: image} option must be a list.",
+        call = caller_env()
       )
     }
     if (!is.list(og$image)) {
       cli::cli_abort(
-        "The {.var opengraph: image} option must be a list."
+        "The {.var opengraph: image} option must be a list.",
+        call = caller_env()
       )
     }
   }

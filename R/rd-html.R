@@ -511,6 +511,7 @@ as_html.tag <- function(x, ...) {
     flatten_text(x, ...)
   } else {
     cli::cli_inform("Unknown tag: ", paste(class(x), collapse = "/"))
+    ""
   }
 }
 
@@ -567,10 +568,7 @@ parse_opts <- function(string) {
 stop_bad_tag <- function(tag, msg = NULL) {
   bad_tag <- paste0("\\", tag, "{}")
   msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
-  if (!is.null(msg)) {
-    msg_abort <- c(msg_abort, "x" = msg)
-  }
-  cli::cli_abort(msg_abort)
+  cli::cli_abort(c(msg_abort, i = msg), call = caller_env())
 }
 
 is_newline <- function(x, trim = FALSE) {

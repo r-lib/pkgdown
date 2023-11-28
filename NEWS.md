@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Deprecated `build_favicon()` was removed (`build_favicons()` remains).
 * Use [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
 * Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
 * Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).

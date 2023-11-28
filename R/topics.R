@@ -54,7 +54,10 @@ all_sign <- function(x, text) {
     }
   }
 
-  cli::cli_abort("Must be all negative or all positive: {.val {text}}")
+  cli::cli_abort(
+    "Must be all negative or all positive: {.val {text}}",
+    call = caller_env()
+  )
 }
 
 match_env <- function(topics) {
@@ -172,10 +175,11 @@ match_eval <- function(string, env) {
   }
 }
 
-topic_must <- function(message, topic, parent = NULL) {
+topic_must <- function(message, topic, ..., call = NULL) {
   cli::cli_abort(
     "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}",
-    parent = parent
+    ...,
+    call = call
   )
 }
 

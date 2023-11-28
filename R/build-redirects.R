@@ -13,7 +13,8 @@ build_redirects <- function(pkg = ".",
 
   cli::cli_rule("Building redirects")
   if (is.null(pkg$meta$url)) {
-    cli::cli_abort("{.field {pkgdown_field('url')}} in {.file {pkgdown_config_relpath(pkg)}} required to generate redirects")
+    msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
+    cli::cli_abort(paste0(msg_fld, " is required to generate redirects."))
   }
 
   purrr::iwalk(
@@ -25,8 +26,10 @@ build_redirects <- function(pkg = ".",
 
 build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry) || length(entry) != 2) {
+    msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
     cli::cli_abort(
-      "Entry {.emph {index}} in {.field {pkgdown_field('redirects')}} must be a character vector of length 2.",
+      "Entry {.emph {index}} must be a character vector of length 2.",
+      x = paste0("Edit ", msg_fld, ".")
     )
   }
 

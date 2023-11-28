@@ -13,7 +13,8 @@ test_that("capture data_template()", {
   expect_snapshot_output(data)
 })
 
-cli::test_that_cli("can include text in header, before body, and after body", {
+test_that("can include text in header, before body, and after body", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:
       includes:

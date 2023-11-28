@@ -105,9 +105,9 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
       sprintf(
         "Can't find Bootswatch theme {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
         bootswatch_theme,
-        pkgdown_field(c("template", "bootswatch")),
+        pkgdown_field(pkg, c("template", "bootswatch")),
         bs_version,
-        pkgdown_field(c("template", "bootstrap"))
+        pkgdown_field(pkg, c("template", "bootstrap"))
       ),
       x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
     ))
