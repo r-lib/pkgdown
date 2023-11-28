@@ -25,8 +25,8 @@ build_site(
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
+\item{seed}{Seed used to initialize random number generation so that
+examples are reproducible.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
@@ -181,138 +181,20 @@ theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
+
+\subsection{Page layout}{
+
+The \code{navbar}, \code{footer}, and \code{sidebar} fields control the appearance
+of the navbar, footer, and sidebar respectively. They have many individual
+options which are documented in the \strong{Layout} section of
+\code{vignette("customise")}.
 }
-
-\section{Navigation bar}{
-
-You can customise the navigation bar that appears at the top of the page with the \code{navbar} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
-
-This is the default structure:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
-}\if{html}{\out{</div>}}
-
-It makes use of the the six built-in components:
-\itemize{
-\item \code{intro}: "Get Started", which links to a vignette with the same name as the package.
-\item \code{reference}, if there are any \code{.Rd} files.
-\item \code{articles}, if there are any vignettes or articles.
-\item \code{tutorials}, if there any tutorials.
-\item \code{news}, if \code{NEWS.md} exists.
-\item \code{search}, the search box (see \code{vignette("search")} for more details).
-\item \code{github}, a link to the source repository (with an icon), if it can be automatically determined from the \code{DESCRIPTION}.
-}
-
-You can use the \code{structure} field to reorganise the navbar without changing the default contents:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    left:  [search]
-    right: [reference, articles]
-}\if{html}{\out{</div>}}
-
-You can use \code{components} to override the default content.
-For example, this yaml provides a custom articles menu:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
- components:
-   articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Article B1
-      href: articles/b1.html
-}\if{html}{\out{</div>}}
-
-Components uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown menus}.
-The elements of \code{menu} can be:
-\itemize{
-\item A link (\code{text} + \code{href})
-\item A heading (just \code{text})
-\item A separator (\verb{text: ——–})
-}
-
-Instead of text, you can also use the name of an \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
-You should also provide a textual description in the \code{aria-label} field for screenreader users.
-
-To add a new component to the navbar, you need to modify both \code{structure} and \code{components}.
-For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/hadleywickham
-      aria-label: Twitter
-}\if{html}{\out{</div>}}
-
-Finally, you can add arbitrary HTML to three locations in the navbar:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  includes:
-    before_title: <!-- inserted before the package title in the header ->
-    before_navbar: <!-- inserted before the navbar links -->
-    after_navbar: <!-- inserted after the navbar links -->
-}\if{html}{\out{</div>}}
-
-These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
-
-You can also customise the colour scheme of the navbar by using the \code{type}
-and \code{bg} parameters. See \code{vignette("customise")} for more details.
-}
-
-\section{Footer}{
-
-You can customise the footer with the \code{footer} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
-
-This is the default structure:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: developed_by
-    right: built_with
-}\if{html}{\out{</div>}}
-
-Which uses two of the three built-in components:
-\itemize{
-\item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
-\item \code{built_with}, a sentence advertising pkgdown.
-\item \code{package}, the name of the package.
-}
-
-You can override these defaults with the \code{footer} field.
-The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: pkgdown
-    right: [authors, legal]
-  components:
-    legal: Provided without **any warranty**.
-}\if{html}{\out{</div>}}
-
-Each side is pasted into a single string (separated by \code{" "}) and then converted from markdown to HTML.
 }
 
 \section{Search}{
 
-The \code{search} field controls the built-in search. See \code{vignette("search")}
-for details.
+The \code{search} field controls the built-in search and is
+documented in \code{vignette("search")}.
 }
 
 \section{Template}{

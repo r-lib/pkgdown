@@ -65,6 +65,7 @@ lang: fr
 This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
 Current available translations are:
 
+-   `ca`: Catalan
 -   `de`: German
 -   `dk`: Danish
 -   `es`: Spanish
