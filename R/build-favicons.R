@@ -24,7 +24,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    cli::cli_abort("Can't find package logo PNG or SVG to build favicons.")
+    cli::cli_abort(
+      "Can't find package logo PNG or SVG to build favicons.",
+      call = caller_env()
+    )
   }
 
   if (has_favicons(pkg) && !overwrite) {
@@ -69,7 +72,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     quiet = TRUE
   )
   if (httr::http_error(resp)) {
-    cli::cli_abort("API request failed.")
+    cli::cli_abort("API request failed.", call = caller_env())
   }
 
   content <- httr::content(resp)
@@ -80,7 +83,8 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
       c(
         "API request failed.",
         "i" = "{.href [Please submit a bug report](https://github.com/r-lib/pkgdown/issues)}"
-      )
+      ),
+      call = caller_env()
     )
   }
 

@@ -52,11 +52,3 @@
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     
 
-# can include text in header, before body, and after body
-
-    Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-

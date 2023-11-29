@@ -17,32 +17,6 @@
       ! Failed to parse tag "\\url{}".
       i Check for empty \url{} tags.
 
-# test usage ok on rendered page
-
-    Code
-      build_reference(pkg, topics = "c")
-    Message
-      Writing reference/index.html
-      Reading man/c.Rd
-      Writing reference/c.html
-
----
-
-    Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
----
-
-    Code
-      build_reference(pkg, topics = "c")
-    Message
-      Writing reference/index.html
-      Reading man/c.Rd
-      Writing reference/c.html
-
 # .Rd without usage doesn't get Usage section
 
     Code

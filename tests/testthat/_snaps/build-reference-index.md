@@ -58,7 +58,7 @@
 # errors well when a content entry is empty
 
     i In index: 1.
-    Caused by error in `check_all_characters()`:
+    Caused by error in `.f()`:
     ! Item 2 in section 1 is empty.
     x Delete the empty line or add function name to reference in '_pkgdown.yml'.
 
@@ -69,7 +69,7 @@
     Condition
       Error in `map2()`:
       i In index: 1.
-      Caused by error in `check_all_characters()`:
+      Caused by error in `.f()`:
       ! Item 2 in section 1 must be a character.
       x You might need to add '' around e.g. - 'N' or - 'off' to reference in '_pkgdown.yml'.
 

@@ -28,8 +28,11 @@ build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry) || length(entry) != 2) {
     msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
     cli::cli_abort(
-      "Entry {.emph {index}} must be a character vector of length 2.",
-      x = paste0("Edit ", msg_fld, ".")
+      c(
+        "Entry {.emph {index}} must be a character vector of length 2.",
+        x = paste0("Edit ", msg_fld, ".")
+      ),
+      call = caller_env()
     )
   }
 

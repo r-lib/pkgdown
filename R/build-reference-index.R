@@ -70,10 +70,12 @@ check_all_characters <- function(contents, index, pkg) {
 
   if (any_null) {
     msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
-    cli::cli_abort(c(
-      "Item {.field {which(null)}} in section {index} is empty.",
-      x = paste0("Delete the empty line or add function name to ", msg_fld, ".")
-    ))
+    cli::cli_abort(
+      c(
+        "Item {.field {which(null)}} in section {index} is empty.",
+        x = paste0("Delete the empty line or add function name to ", msg_fld, ".")
+      ), call = caller_env()
+    )
   }
 
   not_char <- !purrr::map_lgl(contents, is.character)
@@ -84,10 +86,12 @@ check_all_characters <- function(contents, index, pkg) {
   }
 
   msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
-  cli::cli_abort(c(
-    "Item {.field {which(not_char)}} in section {index} must be a character.",
-    x = paste0("You might need to add '' around e.g. - 'N' or - 'off' to ", msg_fld, ".")
-  ))
+  cli::cli_abort(
+    c(
+      "Item {.field {which(not_char)}} in section {index} must be a character.",
+      x = paste0("You might need to add '' around e.g. - 'N' or - 'off' to ", msg_fld, ".")
+    ), call = caller_env()
+  )
 
 }
 

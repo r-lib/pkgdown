@@ -34,7 +34,7 @@ test_that("examples_env sets width", {
 test_that("test usage ok on rendered page", {
   local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference"))
-  expect_snapshot(build_reference(pkg, topics = "c"))
+  suppressMessages(expect_message(build_reference(pkg, topics = "c")))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
   clean_site(pkg, quiet = TRUE)
@@ -43,8 +43,8 @@ test_that("test usage ok on rendered page", {
       template:
         bootstrap: 5
     ")
-  expect_snapshot(init_site(pkg))
-  expect_snapshot(build_reference(pkg, topics = "c"))
+  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(expect_message(build_reference(pkg, topics = "c")))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")

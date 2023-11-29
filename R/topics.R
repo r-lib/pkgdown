@@ -177,7 +177,7 @@ match_eval <- function(string, env) {
 
 topic_must <- function(message, topic, ..., call = NULL) {
   cli::cli_abort(
-    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}",
+    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}.",
     ...,
     call = call
   )

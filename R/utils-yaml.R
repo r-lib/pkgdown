@@ -7,7 +7,8 @@ check_yaml_has <- function(missing, where, pkg) {
   msg_flds <- pkgdown_field(pkg, missing_components, fmt = TRUE, cfg = TRUE)
 
   cli::cli_abort(
-    paste0("Can't find {cli::qty(missing)} component{?s} ", msg_flds, ".")
+    paste0("Can't find {cli::qty(missing)} component{?s} ", msg_flds, "."),
+    call = caller_env()
   )
 }
 
@@ -20,7 +21,10 @@ yaml_character <- function(pkg, where) {
     x
   } else {
     fld <- pkgdown_field(pkg, where, fmt = TRUE)
-    cli::cli_abort(paste0(fld, " must be a character vector."))
+    cli::cli_abort(
+      paste0(fld, " must be a character vector."),
+      call = caller_env()
+    )
   }
 }
 
