@@ -24,7 +24,10 @@ init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   if (is_non_pkgdown_site(pkg$dst_path)) {
-    cli::cli_abort("{.file {pkg$dst_path}} is non-empty and not built by pkgdown")
+    cli::cli_abort(
+      "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
+      call = caller_env()
+    )
   }
 
   cli::cli_rule("Initialising site")

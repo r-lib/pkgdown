@@ -39,7 +39,7 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error in `map_()`:
       ! \\Sexpr{result=verbatim} not yet supported
 
 # bad specs throw errors

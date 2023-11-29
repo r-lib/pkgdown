@@ -18,6 +18,7 @@ markdown_text_inline <- function(text, where = "<inline>", ...) {
   if (length(children) > 1) {
     cli::cli_abort(
       "Can't use a block element in {.var {where}}, need an inline element: {.var {text}}",
+      call = caller_env()
     )
   }
 

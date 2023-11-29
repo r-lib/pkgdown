@@ -149,7 +149,10 @@ data_open_graph <- function(pkg = ".") {
 check_open_graph <- function(og) {
   if (!is.list(og)) {
     fog <- friendly_type_of(og)
-    cli::cli_abort("{.var opengraph} must be a list, not {.val fog}")
+    cli::cli_abort(
+      "{.var opengraph} must be a list, not {.val fog}",
+      call = caller_env()
+    )
   }
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)

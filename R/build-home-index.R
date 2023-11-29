@@ -70,10 +70,14 @@ data_home_sidebar <- function(pkg = ".") {
         pkg, c('home', 'sidebar', 'html'), fmt = TRUE, cfg = TRUE
       )
 
-      cli::cli_abort(c(
-        "Can't locate {.file {rel_html_path}}.",
-        x = paste0(msg_fld, " is misconfigured.")
-      ))
+      cli::cli_abort(
+        c(
+          "Can't locate {.file {rel_html_path}}.",
+          x = paste0(msg_fld, " is misconfigured.")
+        ),
+        call = caller_env()
+      )
+
 
     }
     return(read_file(html_path))

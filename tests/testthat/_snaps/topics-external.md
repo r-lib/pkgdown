@@ -28,6 +28,6 @@
     Condition
       Error in `purrr::map2()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error in `map2_()`:
       ! Could not find documentation for `base::doesntexist()`.
 

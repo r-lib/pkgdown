@@ -296,8 +296,11 @@ check_unique_article_paths <- function(file_in, file_out) {
   })
   names(same_out_bullets) <- rep_len("x", length(same_out_bullets))
 
-  cli::cli_abort(c(
-    "Rendered articles must have unique names. Rename or relocate:",
-    same_out_bullets
-  ))
+  cli::cli_abort(
+    c(
+      "Rendered articles must have unique names. Rename or relocate:",
+      same_out_bullets
+    ),
+    call = caller_env()
+  )
 }

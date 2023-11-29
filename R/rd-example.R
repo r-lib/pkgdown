@@ -48,13 +48,17 @@ process_conditional_examples <- function(rd) {
         grepl("# examplesIf$", x[[1]])
     }))
     if (length(which_exif) == 0) return(rd)
-    if (length(which_exif) %% 2 != 0) cli::cli_abort("@examplesIf error, not closed?")
+    if (length(which_exif) %% 2 != 0) {
+      cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+    }
     remove <- integer()
     modes <- c("begin", "end")
     for (idx in which_exif) {
       if (rd[[idx]] != "}) # examplesIf") {
         # Start of @examplesIf
-        if (modes[1] == "end") cli::cli_abort("@examplesIf error, not closed?")
+        if (modes[1] == "end") {
+          cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+        }
         cond_expr <- parse(text = paste0(rd[[idx]], "\n})"))[[1]][[2]]
         cond <- eval(cond_expr)
         if (isTRUE(cond)) {
@@ -74,7 +78,9 @@ process_conditional_examples <- function(rd) {
         }
       } else {
         # End of @examplesIf
-        if (modes[1] == "begin") cli::cli_abort("@examplesIf error, closed twice?")
+        if (modes[1] == "begin") {
+          cli::cli_abort("@examplesIf error, closed twice?", call = caller_env())
+        }
         if (isTRUE(cond)) {
           remove <- c(remove, idx, idx + 1L)
         } else {

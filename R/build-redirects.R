@@ -14,7 +14,10 @@ build_redirects <- function(pkg = ".",
   cli::cli_rule("Building redirects")
   if (is.null(pkg$meta$url)) {
     msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
-    cli::cli_abort(paste0(msg_fld, " is required to generate redirects."))
+    cli::cli_abort(
+      paste0(msg_fld, " is required to generate redirects."),
+      call = caller_env()
+    )
   }
 
   purrr::iwalk(

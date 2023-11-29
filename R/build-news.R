@@ -160,11 +160,14 @@ data_news <- function(pkg = list()) {
     xml2::xml_name()
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
-    cli::cli_abort(c(
-      "Invalid NEWS.md: inconsistent use of section headings.",
-      i = "Top-level headings must be either all <h1> or all <h2>.",
-      i = "See {.help pkgdown::build_news} for more details."
-    ))
+    cli::cli_abort(
+      c(
+        "Invalid NEWS.md: inconsistent use of section headings.",
+        i = "Top-level headings must be either all <h1> or all <h2>.",
+        i = "See {.help pkgdown::build_news} for more details."
+      ),
+      call = caller_env()
+    )
   }
   if (ulevels == "h1") {
     # Bump every heading down a level so to get a single <h1> for the page title

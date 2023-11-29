@@ -55,7 +55,10 @@ out_of_date <- function(source, target) {
     return(TRUE)
 
   if (!file_exists(source)) {
-    cli::cli_abort("{.fn {source}} does not exist")
+    cli::cli_abort(
+      "{.fn {source}} does not exist",
+      call = caller_env()
+    )
   }
 
   file.info(source)$mtime > file.info(target)$mtime

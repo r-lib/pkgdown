@@ -12,7 +12,10 @@ build_bslib <- function(pkg = ".") {
 
 data_deps <- function(pkg, depth) {
   if (!file.exists(data_deps_path(pkg))) {
-    cli::cli_abort("Run {.fn pkgdown::init_site} first.")
+    cli::cli_abort(
+      "Run {.fn pkgdown::init_site} first.",
+      call = caller_env()
+    )
   }
 
   deps_path <- paste0(up_path(depth), "deps")
@@ -59,7 +62,7 @@ bs_theme_rules <- function(pkg) {
     cli::cli_abort(c(
       "Unknown theme: {.val {theme}}",
       i = "Valid themes are: {.val highlight_styles()}"
-    ))
+    ), call = caller_env())
   }
   paths <- c(paths, theme_path)
 
@@ -110,7 +113,7 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
         pkgdown_field(pkg, c("template", "bootstrap"))
       ),
       x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
-    ))
+    ), call = caller_env())
   }
 
 }
