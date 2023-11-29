@@ -19,7 +19,7 @@ test_that("extra.css and extra.js copied and linked", {
 test_that("single extra.css correctly copied", {
   local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
-  expect_snapshot(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
 })

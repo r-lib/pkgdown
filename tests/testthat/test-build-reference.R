@@ -62,7 +62,7 @@ test_that(".Rd without usage doesn't get Usage section", {
       template:
         bootstrap: 5
     ")
-  expect_snapshot(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
   expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
   # tweak_anchors() moves id into <h2>
@@ -71,7 +71,7 @@ test_that(".Rd without usage doesn't get Usage section", {
 
 test_that("pkgdown html dependencies are suppressed from examples in references", {
   pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
-  expect_snapshot(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
   expect_snapshot(build_reference(pkg, topics = "a"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
 

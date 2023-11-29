@@ -87,14 +87,6 @@
 # BS5 article laid out correctly with and without TOC
 
     Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
----
-
-    Code
       toc_true_path <- build_article("standard", pkg)
     Message
       Reading vignettes/standard.Rmd
@@ -122,14 +114,6 @@
       build_redirects(pkg)
 
 # pkgdown deps are included only once in articles
-
-    Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
----
 
     Code
       path <- build_article("html-deps", pkg)

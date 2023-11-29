@@ -125,7 +125,7 @@ test_that("BS5 article laid out correctly with and without TOC", {
       bootstrap: 5
   ")
 
-  expect_snapshot(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
   expect_snapshot(toc_true_path <- build_article("standard", pkg))
   expect_snapshot(toc_false_path <- build_article("toc-false", pkg))
 

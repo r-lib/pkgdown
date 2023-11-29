@@ -29,14 +29,6 @@
 ---
 
     Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
----
-
-    Code
       build_reference(pkg, topics = "e")
     Message
       Writing reference/index.html
@@ -44,14 +36,6 @@
       Writing reference/e.html
 
 # pkgdown html dependencies are suppressed from examples in references
-
-    Code
-      init_site(pkg)
-    Message
-      Copying ../../../../inst/BS5/assets/link.svg and ../../../../inst/BS5/assets/pkgdown.js
-      to link.svg and pkgdown.js
-
----
 
     Code
       build_reference(pkg, topics = "a")

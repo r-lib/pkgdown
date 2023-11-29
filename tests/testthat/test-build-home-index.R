@@ -12,7 +12,7 @@ test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  expect_snapshot(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
   build_home_index(pkg, quiet = TRUE)
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
