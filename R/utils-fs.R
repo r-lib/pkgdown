@@ -41,10 +41,10 @@ file_copy_to <- function(pkg,
 
   eq <- purrr::map2_lgl(from_paths, to_paths, file_equal)
   if (any(!eq)) {
-    cat_line(
-      "Copying ", src_path(path_rel(from_paths[!eq], pkg$src_path)),
-      " to ", dst_path(path_rel(to_paths[!eq], pkg$dst_path))
-    )
+    cli::cli_inform(c(
+        "Copying {src_path(path_rel(from_paths[!eq], pkg$src_path))}",
+        " to {dst_path(path_rel(to_paths[!eq], pkg$dst_path))}"
+    ))
   }
 
   file_copy(from_paths[!eq], to_paths[!eq], overwrite = overwrite)
@@ -55,7 +55,10 @@ out_of_date <- function(source, target) {
     return(TRUE)
 
   if (!file_exists(source)) {
-    stop("'", source, "' does not exist", call. = FALSE)
+    cli::cli_abort(
+      "{.fn {source}} does not exist",
+      call = caller_env()
+    )
   }
 
   file.info(source)$mtime > file.info(target)$mtime
@@ -99,4 +102,11 @@ path_package_pkgdown <- function(..., package, bs_version = NULL) {
 
 path_pkgdown <- function(...) {
   system_file(..., package = "pkgdown")
+}
+
+pkgdown_config_relpath <- function(pkg) {
+  pkg <- as_pkgdown(pkg)
+  config_path <- pkgdown_config_path(pkg$src_path)
+
+  fs::path_rel(config_path, pkg$src_path)
 }

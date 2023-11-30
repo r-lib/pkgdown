@@ -2,6 +2,7 @@
 
     Code
       copy_logo(pkg)
-    Output
-      Copying 'man/figures/logo.svg' to 'logo.svg'
+    Message
+      Copying man/figures/logo.svg
+      to logo.svg
 

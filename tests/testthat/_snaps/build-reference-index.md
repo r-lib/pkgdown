@@ -58,32 +58,44 @@
 # errors well when a content entry is empty
 
     i In index: 1.
-    Caused by error in `check_all_characters()`:
-    ! Item 2 in section 1 in reference in '_pkgdown.yml' is empty.
-    i Either delete the empty line or add a function name.
+    Caused by error in `.f()`:
+    ! Item 2 in section 1 is empty.
+    x Delete the empty line or add function name to reference in '_pkgdown.yml'.
 
 # errors well when a content entry is not a character
 
-    i In index: 1.
-    Caused by error in `check_all_characters()`:
-    ! Item 2 in section 1 in reference in '_pkgdown.yml' must be a character.
-    i You might need to add '' around e.g. - 'N' or - 'off'.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `.f()`:
+      ! Item 2 in section 1 must be a character.
+      x You might need to add '' around e.g. - 'N' or - 'off' to reference in '_pkgdown.yml'.
 
 # errors well when a content entry refers to a not installed package
 
-    i In index: 1.
-    Caused by error in `purrr::map2()`:
-    i In index: 1.
-    Caused by error in `.f()`:
-    ! The package "notapackage" is required as it's used in the reference index.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `purrr::map2()`:
+      i In index: 1.
+      Caused by error in `.f()`:
+      ! The package "notapackage" is required as it's used in the reference index.
 
 # errors well when a content entry refers to a non existing function
 
-    i In index: 1.
-    Caused by error in `purrr::map2()`:
-    i In index: 1.
-    Caused by error in `.f()`:
-    ! Could not find documentation for rlang::lala
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `purrr::map2()`:
+      i In index: 1.
+      Caused by error in `map2_()`:
+      ! Could not find documentation for `rlang::lala()`.
 
 # can use a topic from another package
 

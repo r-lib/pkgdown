@@ -31,7 +31,7 @@ build_home <- function(pkg = ".",
                        quiet = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
-  rule("Building home")
+  cli::cli_rule("Building home")
   dir_create(pkg$dst_path)
 
   build_citation_authors(pkg)
