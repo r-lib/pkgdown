@@ -49,7 +49,7 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error:
       ! Failed to parse tag "\\url{}".
       i Check for empty \url{} tags.
     Code
@@ -57,7 +57,7 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error:
       ! Failed to parse tag "\\url{}".
       i This may be caused by a \url tag that spans a line break.
     Code
@@ -65,7 +65,7 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error:
       ! Failed to parse tag "\\email{}".
       i empty
     Code
@@ -73,7 +73,7 @@
     Condition
       Error in `purrr::map_chr()`:
       i In index: 1.
-      Caused by error in `.f()`:
+      Caused by error:
       ! Failed to parse tag "\\linkS4class{}".
 
 # \describe items can contain multiple paragraphs

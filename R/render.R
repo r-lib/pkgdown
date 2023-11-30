@@ -150,7 +150,7 @@ check_open_graph <- function(og) {
   if (!is.list(og)) {
     fog <- friendly_type_of(og)
     cli::cli_abort(
-      "{.var opengraph} must be a list, not {.val fog}",
+      "{.var opengraph} must be a list, not {.val fog}.",
       call = caller_env()
     )
   }
@@ -169,7 +169,10 @@ check_open_graph <- function(og) {
       )
     }
     if (!is.list(og$twitter)) {
-      cli::cli_abort("The {.var opengraph: twitter} option must be a list.")
+      cli::cli_abort(
+        "The {.var opengraph: twitter} option must be a list.",
+        call = caller_env()
+      )
     }
     if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
       cli::cli_abort(

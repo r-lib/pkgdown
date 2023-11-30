@@ -15,7 +15,8 @@
       Reading assets/pandoc-fail.Rmd
     Condition
       Error in `render_rmarkdown()`:
-      ! Failed to render RMarkdown document
+      ! Failed to render RMarkdown document.
+      x [WARNING] Could not fetch resource path-to-image.png Failing because there were warnings.
       Caused by error:
       ! in callr subprocess.
       Caused by error:

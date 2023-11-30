@@ -86,7 +86,7 @@ url_node <- function(url) {
 build_search <- function(pkg = ".",
                          override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
-  cli::cli_inform("Building search index")
+  cli::cli_rule("Building search index")
   search_index <- build_search_index(pkg)
   jsonlite::write_json(
     search_index,

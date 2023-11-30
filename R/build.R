@@ -331,7 +331,7 @@ build_site <- function(pkg = ".",
     lifecycle::deprecate_warn(
       "1.4.0",
       "build_site(document)",
-      details = "Please use `build_site(devel)` instead."
+      details = "build_site(devel)"
     )
     devel <- document
   }
@@ -408,7 +408,7 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
-  cli::cli_rule(paste0("finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
 
   preview_site(pkg, preview = preview)
   invisible()
@@ -453,6 +453,6 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  cli::cli_rule(paste0("finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
   preview_site(pkg, preview = preview)
 }

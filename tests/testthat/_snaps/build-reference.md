@@ -13,7 +13,7 @@
       ! Failed to parse Rd in 'f.Rd'
       Caused by error in `purrr::map()`:
       i In index: 4.
-      Caused by error in `.f()`:
+      Caused by error:
       ! Failed to parse tag "\\url{}".
       i Check for empty \url{} tags.
 

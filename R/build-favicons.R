@@ -25,8 +25,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 
   if (is.null(logo_path)) {
     cli::cli_abort(
-      "Can't find package logo PNG or SVG to build favicons.",
-      call = caller_env()
+      "Can't find package logo PNG or SVG to build favicons."
     )
   }
 
@@ -79,13 +78,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   result <- content$favicon_generation_result
 
   if (!identical(result$result$status, "success")) {
-    cli::cli_abort(
-      c(
+    cli::cli_abort(c(
         "API request failed.",
         "i" = "{.href [Please submit a bug report](https://github.com/r-lib/pkgdown/issues)}"
-      ),
-      call = caller_env()
-    )
+    ))
   }
 
   tmp <- tempfile()

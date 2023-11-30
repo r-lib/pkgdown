@@ -7,7 +7,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   output_path <- path_abs(output, pkg$dst_path)
 
   if (!file_exists(input_path)) {
-    cli::cli_abort("Can't find {src_path(input)", call = caller_env())
+    cli::cli_abort("Can't find {src_path(input).", call = caller_env())
   }
 
   cli::cli_inform("Reading {src_path(input)}")
@@ -39,7 +39,10 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     ),
     error = function(cnd) {
       cli::cli_abort(
-        "Failed to render RMarkdown document",
+        c(
+          "Failed to render RMarkdown document.",
+          x = gsub("\r", "", cnd$stderr, fixed = TRUE)
+        ),
         parent = cnd
       )
     }

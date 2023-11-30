@@ -208,8 +208,7 @@ build_article <- function(name,
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {
     cli::cli_abort(
-      "Can't find article {.file {name}}",
-      call = caller_env()
+      "Can't find article {.file {name}}"
     )
   }
 
@@ -372,7 +371,7 @@ data_articles_index <- function(pkg = ".") {
 
   if (length(missing) > 0) {
     cli::cli_abort(
-      "{cli::qty(missing)} Vignette{?s} missing from index: {.file {missing}}",
+      "{length(missing)} vignette{?s} missing from index: {.file {missing}}.",
       call = caller_env()
     )
   }

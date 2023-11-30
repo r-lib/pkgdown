@@ -14,7 +14,7 @@
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! Vignettes missing from index: 'articles/nested' and 'width'
+      ! 2 vignettes missing from index: 'articles/nested' and 'width'.
 
 # informs if everything is ok
 

@@ -165,7 +165,7 @@ build_reference <- function(pkg = ".",
     lifecycle::deprecate_warn(
       "1.4.0",
       "build_site(document)",
-      details = "Please use `build_site(devel)` instead."
+      details = "build_site(devel)"
     )
     devel <- document
   }

@@ -571,7 +571,7 @@ parse_opts <- function(string) {
 stop_bad_tag <- function(tag, msg = NULL) {
   bad_tag <- paste0("\\", tag, "{}")
   msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
-  cli::cli_abort(c(msg_abort, i = msg), call = caller_env())
+  cli::cli_abort(c(msg_abort, i = msg), call = NULL)
 }
 
 is_newline <- function(x, trim = FALSE) {
