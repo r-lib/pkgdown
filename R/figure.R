@@ -136,12 +136,12 @@ match_fun <- function(x) {
     f <- eval(e, globalenv())
 
     if (!is.function(f)) {
-      stop("`x` must evaluate to a function", call. = FALSE)
+      cli::cli_abort("{.var x} must evaluate to a function", call = caller_env())
     }
 
     f
   } else {
-    stop("`x` must be a function or string", call. = FALSE)
+    cli::cli_abort("{.var x} must be a function or string", call = caller_env())
   }
 }
 
@@ -157,6 +157,6 @@ fun_name <- function(x) {
   } else if (is_call(expr, "::")) {
     as.character(expr[[3]])
   } else {
-    stop("Unknown input", call. = FALSE)
+    cli::cli_abort("Unknown input", call = caller_env())
   }
 }

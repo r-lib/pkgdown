@@ -14,7 +14,11 @@ test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
 })
 
 test_that("check_bootstrap_version() gives informative error otherwise", {
-  expect_snapshot(check_bootstrap_version(1), error = TRUE)
+  local_edition(3)
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
+
+  expect_snapshot(check_bootstrap_version(1, pkg), error = TRUE)
 })
 
 test_that("package_vignettes() moves vignettes/articles up one level", {
