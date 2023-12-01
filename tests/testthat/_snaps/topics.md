@@ -6,24 +6,21 @@
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be valid R code
-      x Not 'x + '
+      ! In '_pkgdown.yml', topic must be valid R code, not "x + ".
     Code
       t <- select_topics("y", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'y'
+      ! In '_pkgdown.yml', topic must be a known topic name or alias, not "y".
     Code
       t <- select_topics("paste(1)", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a known selector function
-      x Not 'paste(1)'
+      ! In '_pkgdown.yml', topic must be a known selector function, not "paste(1)".
       Caused by error in `paste()`:
       ! could not find function "paste"
     Code
@@ -32,20 +29,18 @@
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'starts_with'
+      ! In '_pkgdown.yml', topic must be a known topic name or alias, not "starts_with".
     Code
       t <- select_topics("1", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a string or function call
-      x Not '1'
+      ! In '_pkgdown.yml', topic must be a string or function call, not "1".
     Code
       t <- select_topics("starts_with('y')", topics, check = TRUE)
     Condition
-      Error in `select_topics()`:
+      Error:
       ! No topics matched in '_pkgdown.yml'. No topics selected.
 
 # can select by name or alias
@@ -56,16 +51,14 @@
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'a4'
+      ! In '_pkgdown.yml', topic must be a known topic name or alias, not "a4".
     Code
       select_topics("c::a", topics)
     Condition
       Error in `purrr::map()`:
       i In index: 1.
       Caused by error:
-      ! In '_pkgdown.yml', topic must be a known topic name or alias
-      x Not 'c::a'
+      ! In '_pkgdown.yml', topic must be a known topic name or alias, not "c::a".
 
 # an unmatched selection generates a warning
 
@@ -73,6 +66,5 @@
       select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE)
     Condition
       Error:
-      ! In '_pkgdown.yml', topic must match a function or concept
-      x Not 'starts_with(\'unmatched\')'
+      ! In '_pkgdown.yml', topic must match a function or concept, not "starts_with('unmatched')".
 

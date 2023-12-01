@@ -17,6 +17,7 @@ test_that("build_redirect() works", {
 })
 
 test_that("build_redirect() errors if one entry is not right.", {
+  local_edition(3)
   pkg <- list(
     src_path = withr::local_tempdir(),
     dst_path = withr::local_tempdir(),
@@ -25,7 +26,9 @@ test_that("build_redirect() errors if one entry is not right.", {
     bs_version = 5
   )
   pkg <- structure(pkg, class = "pkgdown")
-  expect_snapshot_error(build_redirect(c("old.html"), 5, pkg = pkg))
+  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
+
+  expect_snapshot(build_redirect(c("old.html"), 5, pkg), error = TRUE)
 })
 
 test_that("article_redirects() creates redirects for vignettes in vignettes/articles", {

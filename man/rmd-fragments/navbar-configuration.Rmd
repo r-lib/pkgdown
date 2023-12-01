@@ -90,3 +90,5 @@ template:
 ```
 
 These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
+
+You can also customise the colour scheme of the navbar by using the `type` and `bg` parameters. See above for details.

@@ -22,7 +22,7 @@
       role_lookup("unknown")
     Condition
       Warning:
-      Unknown MARC role abbreviation 'unknown'
+      Unknown MARC role abbreviation: unknown
     Output
       [1] "unknown"
 

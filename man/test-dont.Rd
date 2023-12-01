@@ -8,7 +8,7 @@ Test case: don't
 }
 \examples{
 \dontrun{
-  stop("This is an error!", call. = FALSE)
+  abort("This is an error!")
 }
 
 # Inline \donttest is silently ommitted

@@ -162,7 +162,7 @@ Because the navbar is styled with HTML, you'll need to `build_home_index(); init
 You can customise the contents of the navbar, footer, and home page sidebar using the `navbar`, `footer`, and `sidebar` fields.
 They all use a similar structure that separately defines the overall `structure` and the individual `components`.
 
-### Navbar
+### Navbar {#navbar-heading}
 
 ```{r child="../man/rmd-fragments/navbar-configuration.Rmd"}
 ```

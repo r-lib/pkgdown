@@ -13,7 +13,10 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   }
 
   if (!dir_exists(pkg)) {
-    stop("`pkg` is not an existing directory", call. = FALSE)
+    cli::cli_abort(
+      "{.file {pkg}} is not an existing directory",
+      call = caller_env()
+    )
   }
 
   desc <- read_desc(pkg)
@@ -89,28 +92,28 @@ is_pkgdown <- function(x) inherits(x, "pkgdown")
 read_desc <- function(path = ".") {
   path <- path(path, "DESCRIPTION")
   if (!file_exists(path)) {
-    stop("Can't find DESCRIPTION", call. = FALSE)
+    cli::cli_abort("Can't find {.file DESCRIPTION}", call = caller_env())
   }
   desc::description$new(path)
 }
 
-check_bootstrap_version <- function(version, pkg = list()) {
+check_bootstrap_version <- function(version, pkg) {
   if (is.null(version)) {
     3
   } else if (version %in% c(3, 5)) {
     version
   } else if (version == 4) {
-    warn("`bootstrap: 4` no longer supported; using `bootstrap: 5` instead")
+    cli::cli_warn("{.var bootstrap: 4} no longer supported, using {.var bootstrap: 5} instead")
     5
   } else {
-    abort(c(
-      "Boostrap version must be 3 or 5.",
-      x = sprintf(
-        "You specified a value of %s in %s.",
-        version,
-        pkgdown_field(pkg, c("template", "bootstrap"))
-      )
-    ))
+    msg_fld <- pkgdown_field(pkg, c("template", "bootstrap"), cfg = TRUE, fmt = TRUE)
+    cli::cli_abort(
+      c(
+        "Boostrap version must be 3 or 5.",
+        x = paste0("You set a value of {.val {version}} to ", msg_fld, ".")
+      ),
+      call = caller_env()
+    )
   }
 }
 
@@ -290,12 +293,14 @@ check_unique_article_paths <- function(file_in, file_out) {
   same_out_bullets <- purrr::map_chr(file_out_dup, function(f_out) {
     src_files <- src_path(file_in[which(file_out == f_out)])
     src_files <- paste(src_files, collapse = " and ")
-    sprintf("%s both create %s", src_files, dst_path(f_out))
   })
   names(same_out_bullets) <- rep_len("x", length(same_out_bullets))
 
-  rlang::abort(c(
-    "Rendered articles must have unique names. Rename or relocate one of the following source files:",
-    same_out_bullets
-  ))
+  cli::cli_abort(
+    c(
+      "Rendered articles must have unique names. Rename or relocate:",
+      same_out_bullets
+    ),
+    call = caller_env()
+  )
 }
