@@ -94,6 +94,17 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
   expect_length(bs_css_href, 1)
 })
 
+test_that("examples are reproducible by default, i.e. 'seed' is respected", {
+  local_edition(3)
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  expect_snapshot(build_reference(pkg, topics = "f"))
+  expect_snapshot(
+    xml2::read_html(file.path(pkg$dst_path, "reference", "f.html")) |>
+      rvest::html_node("div#ref-examples div.sourceCode") |>
+      rvest::html_text()
+  )
+})
+
 test_that("get_rdname handles edge cases", {
   expect_equal(get_rdname(list(file_in = "foo..Rd")), "foo.")
   expect_equal(get_rdname(list(file_in = "foo.rd")), "foo")
