@@ -127,7 +127,7 @@ the latest version:</p>
 <span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_pull</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Next figure out the released version that we’re updating:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ver</span> <span class="op">&lt;-</span> <span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="http://r-lib.github.io/desc/reference/desc_get_version.html" class="external-link">desc_get_version</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ver</span> <span class="op">&lt;-</span> <span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="https://desc.r-lib.org/reference/desc_get_version.html" class="external-link">desc_get_version</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <p>We’ll use this to create and checkout the branch that you’ll work
 in:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -157,7 +157,7 @@ common locations:</p>
 <p>If you backport <code>DESCRIPTION</code>, you’ll also need undo the
 change to the <code>Version</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="http://r-lib.github.io/desc/reference/desc_set_version.html" class="external-link">desc_set_version</a></span><span class="op">(</span><span class="va">ver</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="https://desc.r-lib.org/reference/desc_set_version.html" class="external-link">desc_set_version</a></span><span class="op">(</span><span class="va">ver</span><span class="op">)</span></span></code></pre></div>
 <p>Now build the site locally and check that it looks as you expect:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
