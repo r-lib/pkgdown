@@ -10,6 +10,7 @@
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 * Add Catalan translation (@jmaspons, #2333)
 * Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
+* Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
 
 # pkgdown 2.0.7
 
