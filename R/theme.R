@@ -34,8 +34,7 @@ data_deps_path <- function(pkg) {
 bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  theme <- get_bootswatch_theme(pkg)
-  theme <- check_bootswatch_theme(theme, pkg$bs_version, pkg)
+  theme <- get_bslib_theme(pkg)
 
   bs_theme <- exec(bslib::bs_theme,
     version = pkg$bs_version,
@@ -92,13 +91,29 @@ highlight_styles <- function() {
   path_ext_remove(path_file(paths))
 }
 
-get_bootswatch_theme <- function(pkg) {
-  pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    "_default"
+get_bslib_theme <- function(pkg) {
+  preset <-
+    pkg$meta[["template"]]$preset %||%
+    pkg$meta[["template"]]$params$preset
+
+  if (!is.null(preset)) {
+    check_bslib_theme(preset, pkg, c("template", "preset"))
+    return(preset)
+  }
+
+  bootswatch <-
+    pkg$meta[["template"]]$bootswatch %||%
+    pkg$meta[["template"]]$params$bootswatch
+
+  if (!is.null(bootswatch)) {
+    check_bslib_theme(bootswatch, pkg, c("template", "bootswatch"))
+    return(bootswatch)
+  }
+
+  "default"
 }
 
-check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     if (packageVersion("bslib") >= "0.5.1") {
@@ -110,23 +125,24 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
     "bootstrap"
   )
 
-  if (bootswatch_theme == "_default") {
-    "default"
-  } else if (bootswatch_theme %in% bslib_themes) {
-    bootswatch_theme
-  } else {
-    cli::cli_abort(c(
-      sprintf(
-        "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
-        bootswatch_theme,
-        pkgdown_field(pkg, c("template", "bootswatch")),
-        bs_version,
-        pkgdown_field(pkg, c("template", "bootstrap"))
-      ),
-      x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
-    ), call = caller_env())
+  if (theme == "_default") {
+    return("default")
   }
 
+  if (theme %in% bslib_themes) {
+    return(theme)
+  }
+
+  cli::cli_abort(c(
+    sprintf(
+      "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
+      theme,
+      pkgdown_field(pkg, field),
+      bs_version,
+      pkgdown_field(pkg, c("template", "bootstrap"))
+    ),
+    x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
+  ), call = caller_env())
 }
 
 bs_theme_deps_suppress <- function(deps = list()) {

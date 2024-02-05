@@ -5,7 +5,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   style <- navbar_style(
     navbar = navbar,
-    theme = get_bootswatch_theme(pkg),
+    theme = get_bslib_theme(pkg),
     bs_version = pkg$bs_version
   )
 
