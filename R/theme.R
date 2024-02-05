@@ -99,14 +99,25 @@ get_bootswatch_theme <- function(pkg) {
 }
 
 check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
+  bslib_themes <- c(
+    bslib::bootswatch_themes(bs_version),
+    if (packageVersion("bslib") >= "0.5.1") {
+      # bslib >= 0.5.1 provides built-in theme presets
+      bslib::builtin_themes(bs_version)
+    },
+    # bs_theme() recognizes both below as bare bootstrap
+    "default",
+    "bootstrap"
+  )
+
   if (bootswatch_theme == "_default") {
     "default"
-  } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
+  } else if (bootswatch_theme %in% bslib_themes) {
     bootswatch_theme
   } else {
     cli::cli_abort(c(
       sprintf(
-        "Can't find Bootswatch theme {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
+        "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
         bootswatch_theme,
         pkgdown_field(pkg, c("template", "bootswatch")),
         bs_version,
