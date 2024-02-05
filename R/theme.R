@@ -100,7 +100,7 @@ get_bootswatch_theme <- function(pkg) {
 
 check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   if (bootswatch_theme == "_default") {
-    NULL
+    "default"
   } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
     bootswatch_theme
   } else {
