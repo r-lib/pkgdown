@@ -21,7 +21,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     list(type = navbar$type %||% "default")
   } else {
     # bg is usually light, dark, or primary, but can use any .bg-*
-    bg <- navbar$bg %||% bootswatch_bg[[theme]]
+    bg <- navbar$bg %||% purrr::pluck(bootswatch_bg, theme, .default = "light")
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
     list(bg = bg, type = type)
