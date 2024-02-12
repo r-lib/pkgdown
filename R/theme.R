@@ -35,11 +35,14 @@ bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   theme <- get_bslib_theme(pkg)
+  bs_theme_args <- pkg$meta$template$bslib
+  # Theme is passed to bs_theme(bootswatch=) making `preset` redundant
+  bs_theme_args[["preset"]] <- NULL
 
   bs_theme <- exec(bslib::bs_theme,
     version = pkg$bs_version,
     bootswatch = theme,
-    !!!pkg$meta$template$bslib
+    !!!bs_theme_args
   )
   # Drop bs3 compat files added for shiny/RMarkdown
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
@@ -93,11 +96,11 @@ highlight_styles <- function() {
 
 get_bslib_theme <- function(pkg) {
   preset <-
-    pkg$meta[["template"]]$preset %||%
-    pkg$meta[["template"]]$params$preset
+    pkg$meta[["template"]]$bslib$preset %||%
+    pkg$meta[["template"]]$params$bslib$preset
 
   if (!is.null(preset)) {
-    check_bslib_theme(preset, pkg, c("template", "preset"))
+    check_bslib_theme(preset, pkg, c("template", "bslib", "preset"))
     return(preset)
   }
 

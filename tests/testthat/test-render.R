@@ -6,6 +6,30 @@ test_that("check_bslib_theme() works", {
   expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset")))
 })
 
+test_that("get_bslib_theme() works with template.bslib.preset", {
+  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
+    template:
+      bootstrap: 5
+      bslib:
+        preset: shiny
+        enable-shadows: true
+  ')
+
+  expect_equal(get_bslib_theme(pkg), "shiny")
+  expect_no_error(bs_theme(pkg))
+
+  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
+    template:
+      bootstrap: 5
+      bslib:
+        preset: lux
+        enable-shadows: true
+  ')
+
+  expect_equal(get_bslib_theme(pkg), "lux")
+  expect_no_error(bs_theme(pkg))
+})
+
 test_that("capture data_template()", {
   pkg <- as_pkgdown(test_path("assets/site-empty"))
   data <- data_template(pkg)
