@@ -117,6 +117,10 @@ get_bslib_theme <- function(pkg) {
 }
 
 check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
+  if (theme %in% c("_default", "default")) {
+    return("default")
+  }
+
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     if (packageVersion("bslib") >= "0.5.1") {
@@ -127,10 +131,6 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
     "default",
     "bootstrap"
   )
-
-  if (theme == "_default") {
-    return("default")
-  }
 
   if (theme %in% bslib_themes) {
     return(theme)
