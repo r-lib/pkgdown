@@ -34,16 +34,12 @@ data_deps_path <- function(pkg) {
 bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  theme <- get_bslib_theme(pkg)
-  bs_theme_args <- pkg$meta$template$bslib
-  # Theme is passed to bs_theme(bootswatch=) making `preset` redundant
-  bs_theme_args[["preset"]] <- NULL
+  bs_theme_args <- pkg$meta$template$bslib %||% list()
+  bs_theme_args[["version"]] <- pkg$bs_version
+  bs_theme_args[["preset"]] <- get_bslib_theme(pkg)
 
-  bs_theme <- exec(bslib::bs_theme,
-    version = pkg$bs_version,
-    bootswatch = theme,
-    !!!bs_theme_args
-  )
+  bs_theme <- exec(bslib::bs_theme, !!!bs_theme_args)
+
   # Drop bs3 compat files added for shiny/RMarkdown
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
@@ -123,10 +119,7 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
 
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
-    if (packageVersion("bslib") >= "0.5.1") {
-      # bslib >= 0.5.1 provides built-in theme presets
-      bslib::builtin_themes(bs_version)
-    },
+    bslib::builtin_themes(bs_version),
     # bs_theme() recognizes both below as bare bootstrap
     "default",
     "bootstrap"
