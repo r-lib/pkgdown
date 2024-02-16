@@ -513,8 +513,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    untag <- paste(class(x), collapse = "/")
-    cli::cli_warn("Unknown tag: {.val {untag}}")
+    cli::cli_warn("Unknown tag: {.cls {class(x)}}")
     ""
   }
 }
