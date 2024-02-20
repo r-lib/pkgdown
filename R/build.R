@@ -27,7 +27,7 @@
 #'    It specifies where the site will be published and is used to allow other
 #'    pkgdown sites to link to your site when needed (`vignette("linking")`),
 #'    generate a `sitemap.xml`, automatically generate a `CNAME` when
-#'    [deploying to github][deploy_site_github], generate the metadata needed
+#'    [deploying to GitHub][deploy_site_github], generate the metadata needed
 #'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
 #' *  `title` overrides the default site title, which is the package name.
@@ -87,7 +87,7 @@
 #' ```md
 #' ::: {.pkgdown-devel}
 #' You can install the development version of pkgdown from GitHub with:
-#' `remotes::install_github("r-lib/pkgdown")`
+#' `pak::pak("r-lib/pkgdown")`
 #' :::
 #' ```
 #'
@@ -222,10 +222,10 @@
 #' ```yaml
 #' repo:
 #'   url:
-#'     home: https://github.com/r-lib/pkgdown/
+#'     home: https://github.com/r-lib/pkgdown
 #'     source: https://github.com/r-lib/pkgdown/blob/HEAD/
-#'     issue: https://github.com/r-lib/pkgdown/issues/
-#'     user: https://github.com/
+#'     issue: https://github.com/r-lib/pkgdown/issues
+#'     user: https://github.com
 #' ```
 #'
 #' * `home`: path to package home on source code repository.
@@ -408,7 +408,7 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
-  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
 
   preview_site(pkg, preview = preview)
   invisible()
@@ -426,7 +426,7 @@ build_site_local <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  cli::cli_rule(paste0("Building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
   cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
@@ -453,6 +453,6 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }

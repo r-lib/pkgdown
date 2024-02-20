@@ -147,7 +147,7 @@ on the development version of your site:
 
 \if{html}{\out{<div class="sourceCode md">}}\preformatted{::: \{.pkgdown-devel\}
 You can install the development version of pkgdown from GitHub with:
-`remotes::install_github("r-lib/pkgdown")`
+`pak::pak("r-lib/pkgdown")`
 :::
 }\if{html}{\out{</div>}}
 
@@ -282,10 +282,10 @@ Otherwise, you can supply your own in the \code{repo} field:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   url:
-    home: https://github.com/r-lib/pkgdown/
+    home: https://github.com/r-lib/pkgdown
     source: https://github.com/r-lib/pkgdown/blob/HEAD/
-    issue: https://github.com/r-lib/pkgdown/issues/
-    user: https://github.com/
+    issue: https://github.com/r-lib/pkgdown/issues
+    user: https://github.com
 }\if{html}{\out{</div>}}
 \itemize{
 \item \code{home}: path to package home on source code repository.
