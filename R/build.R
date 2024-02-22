@@ -27,7 +27,7 @@
 #'    It specifies where the site will be published and is used to allow other
 #'    pkgdown sites to link to your site when needed (`vignette("linking")`),
 #'    generate a `sitemap.xml`, automatically generate a `CNAME` when
-#'    [deploying to GitHub][deploy_site_github], generate the metadata needed
+#'    [deploying to github][deploy_site_github], generate the metadata needed
 #'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
 #' *  `title` overrides the default site title, which is the package name.
@@ -87,7 +87,7 @@
 #' ```md
 #' ::: {.pkgdown-devel}
 #' You can install the development version of pkgdown from GitHub with:
-#' `pak::pak("r-lib/pkgdown")`
+#' `remotes::install_github("r-lib/pkgdown")`
 #' :::
 #' ```
 #'
@@ -222,10 +222,10 @@
 #' ```yaml
 #' repo:
 #'   url:
-#'     home: https://github.com/r-lib/pkgdown
+#'     home: https://github.com/r-lib/pkgdown/
 #'     source: https://github.com/r-lib/pkgdown/blob/HEAD/
-#'     issue: https://github.com/r-lib/pkgdown/issues
-#'     user: https://github.com
+#'     issue: https://github.com/r-lib/pkgdown/issues/
+#'     user: https://github.com/
 #' ```
 #'
 #' * `home`: path to package home on source code repository.

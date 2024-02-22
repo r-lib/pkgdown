@@ -88,7 +88,7 @@ whole site.
 It specifies where the site will be published and is used to allow other
 pkgdown sites to link to your site when needed (\code{vignette("linking")}),
 generate a \code{sitemap.xml}, automatically generate a \code{CNAME} when
-\link[=deploy_site_github]{deploying to GitHub}, generate the metadata needed
+\link[=deploy_site_github]{deploying to github}, generate the metadata needed
 rich social "media cards" (\code{vignette("metadata")}), and more.
 \item \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
@@ -147,7 +147,7 @@ on the development version of your site:
 
 \if{html}{\out{<div class="sourceCode md">}}\preformatted{::: \{.pkgdown-devel\}
 You can install the development version of pkgdown from GitHub with:
-`pak::pak("r-lib/pkgdown")`
+`remotes::install_github("r-lib/pkgdown")`
 :::
 }\if{html}{\out{</div>}}
 
@@ -282,10 +282,10 @@ Otherwise, you can supply your own in the \code{repo} field:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   url:
-    home: https://github.com/r-lib/pkgdown
+    home: https://github.com/r-lib/pkgdown/
     source: https://github.com/r-lib/pkgdown/blob/HEAD/
-    issue: https://github.com/r-lib/pkgdown/issues
-    user: https://github.com
+    issue: https://github.com/r-lib/pkgdown/issues/
+    user: https://github.com/
 }\if{html}{\out{</div>}}
 \itemize{
 \item \code{home}: path to package home on source code repository.
