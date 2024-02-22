@@ -91,9 +91,7 @@ highlight_styles <- function() {
 }
 
 get_bslib_theme <- function(pkg) {
-  preset <-
-    pkg$meta[["template"]]$bslib$preset %||%
-    pkg$meta[["template"]]$params$bslib$preset
+  preset <- pkg$meta[["template"]]$bslib$preset
 
   if (!is.null(preset)) {
     check_bslib_theme(preset, pkg, c("template", "bslib", "preset"))
@@ -102,6 +100,7 @@ get_bslib_theme <- function(pkg) {
 
   bootswatch <-
     pkg$meta[["template"]]$bootswatch %||%
+    # Historically (< 0.2.0), bootswatch wasn't a top-level template field
     pkg$meta[["template"]]$params$bootswatch
 
   if (!is.null(bootswatch)) {
