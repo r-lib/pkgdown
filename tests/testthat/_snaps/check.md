@@ -20,4 +20,6 @@
 
     Code
       check_pkgdown(pkg)
+    Message
+      v No problems found in _pkgdown.yml
 
