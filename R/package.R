@@ -229,7 +229,7 @@ package_vignettes <- function(path = ".") {
   if (!dir_exists(base)) {
     vig_path <- character()
   } else {
-    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", type = "file", recurse = TRUE)
+    vig_path <- dir_ls(base, regexp = "\\.[rRq]md$", type = "file", recurse = TRUE)
   }
 
   vig_path <- path_rel(vig_path, base)
