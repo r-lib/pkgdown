@@ -11,7 +11,7 @@
 * Add Catalan translation (@jmaspons, #2333)
 * Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
 * Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
-* Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood).
+* Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood, #2404).
 
 # pkgdown 2.0.7
 
