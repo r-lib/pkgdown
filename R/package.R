@@ -9,6 +9,7 @@
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
   if (is_pkgdown(pkg)) {
+    pkg$meta <- utils::modifyList(pkg$meta, override)
     return(pkg)
   }
 
