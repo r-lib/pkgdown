@@ -73,7 +73,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li><p>Correct parse usage for S3 methods with non-syntactic class names (<a href="https://github.com/r-lib/pkgdown/issues/2384" class="external-link">#2384</a>).</p></li>
+<ul><li><p>Fix parsing of github profiles and issues into links when present at the beginning of list items (<a href="https://github.com/pearsonca" class="external-link">@pearsonca</a>, <a href="https://github.com/r-lib/pkgdown/issues/2122" class="external-link">#2122</a>)</p></li>
+<li><p>Correct parse usage for S3 methods with non-syntactic class names (<a href="https://github.com/r-lib/pkgdown/issues/2384" class="external-link">#2384</a>).</p></li>
 <li><p>Deprecated <code>build_favicon()</code> was removed (<code><a href="../reference/build_favicons.html">build_favicons()</a></code> remains).</p></li>
 <li><p>Use <a href="https://github.com/r-lib/cli" class="external-link">cli</a> to provide interactive feedback.</p></li>
 <li><p>Preserve Markdown code blocks with class rmd from roxygen2 docs (<a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/r-lib/pkgdown/issues/2298" class="external-link">#2298</a>).</p></li>
@@ -83,6 +84,7 @@
 <li><p>Add Catalan translation (<a href="https://github.com/jmaspons" class="external-link">@jmaspons</a>, <a href="https://github.com/r-lib/pkgdown/issues/2333" class="external-link">#2333</a>)</p></li>
 <li><p>Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (<a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/r-lib/pkgdown/issues/2294" class="external-link">#2294</a>).</p></li>
 <li><p>Fix BS5 navbar template to get <code>navbar.type: dark</code> to work with bslib 0.6+ / Bootstrap 5.3+ (<a href="https://github.com/tanho63" class="external-link">@tanho63</a>, <a href="https://github.com/r-lib/pkgdown/issues/2388" class="external-link">#2388</a>)</p></li>
+<li><p>Topic names that conflict with selector functions can now be listed as references in <code>_pkgdown.yml</code> (<a href="https://github.com/dmurdoch" class="external-link">@dmurdoch</a>, <a href="https://github.com/r-lib/pkgdown/issues/2397" class="external-link">#2397</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.7" id="pkgdown-207">pkgdown 2.0.7<a class="anchor" aria-label="anchor" href="#pkgdown-207"></a></h2><p class="text-muted">CRAN release: 2022-12-14</p>
@@ -166,7 +168,7 @@
 <h2 class="pkg-version" data-toc-text="2.0.0" id="pkgdown-200">pkgdown 2.0.0<a class="anchor" aria-label="anchor" href="#pkgdown-200"></a></h2><p class="text-muted">CRAN release: 2021-11-30</p>
 <div class="section level3">
 <h3 id="new-authors-2-0-0">New authors<a class="anchor" aria-label="anchor" href="#new-authors-2-0-0"></a></h3>
-<p>@maelle is now a pkgdown author in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5, improvements to customisation, and implementation of local search.</p>
+<p><a href="https://github.com/maelle" class="external-link">@maelle</a> is now a pkgdown author in recognition of her significant and sustained contributions. She was the powerhouse behind many of the improvements in this release, particularly the switch to bootstrap 5, improvements to customisation, and implementation of local search.</p>
 </div>
 <div class="section level3">
 <h3 id="bootstrap-2-0-0">Bootstrap 5<a class="anchor" aria-label="anchor" href="#bootstrap-2-0-0"></a></h3>
