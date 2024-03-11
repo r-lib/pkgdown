@@ -9,6 +9,7 @@
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
   if (is_pkgdown(pkg)) {
+    pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
@@ -21,7 +22,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   desc <- read_desc(pkg)
   meta <- read_meta(pkg)
-  meta <- utils::modifyList(meta, override)
+  meta <- modify_list(meta, override)
 
   template_config <- find_template_config(
     package = meta$template$package,
