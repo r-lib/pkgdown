@@ -20,7 +20,7 @@ build_article(
   pkg = ".",
   data = list(),
   lazy = FALSE,
-  seed = NULL,
+  seed = 1014L,
   quiet = TRUE
 )
 
