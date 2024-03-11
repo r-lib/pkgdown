@@ -415,14 +415,13 @@ build_site_external <- function(pkg = ".",
 }
 
 build_site_local <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = TRUE
-                       ) {
+                             examples = TRUE,
+                             run_dont_run = FALSE,
+                             seed = 1014,
+                             lazy = FALSE,
+                             override = list(),
+                             preview = NA,
+                             devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
@@ -433,7 +432,8 @@ build_site_local <- function(pkg = ".",
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
-  build_reference(pkg,
+  build_reference(
+    pkg,
     lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
