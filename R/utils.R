@@ -86,7 +86,7 @@ isFALSE <- function(x) {
 }
 
 modify_list <- function(x, y) {
-  if (is.null(y)) {
+  if (is.null(x) || is.null(y)) {
     return(x)
   }
 
