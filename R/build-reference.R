@@ -189,7 +189,8 @@ build_reference <- function(pkg = ".",
     topics <- purrr::transpose(pkg$topics)
   }
 
-  purrr::map(topics,
+  purrr::map(
+    topics,
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
@@ -269,8 +270,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples_env = globalenv(),
-                                  run_dont_run = FALSE
-                                  ) {
+                                  run_dont_run = FALSE ) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
@@ -297,12 +297,14 @@ build_reference_topic <- function(topic,
   if (data$has_deps) {
     deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::copyDependencyToDir,
       outputDir = file.path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::makeDependencyRelative,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
@@ -326,6 +328,7 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples_env = globalenv(),
                                  run_dont_run = FALSE) {
+
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 

@@ -126,3 +126,13 @@ test_that("can use a topic from another package", {
 
   expect_snapshot(data_reference_index(pkg))
 })
+
+test_that("can use a selector name as a topic name", {
+  meta <- list(reference = list(list(
+    title = "bla",
+    contents = c("matches", "matches('A')")
+  )))
+  pkg <- as_pkgdown(test_path("assets/reference-selector"), override = meta)
+
+  expect_snapshot(data_reference_index(pkg))
+})
