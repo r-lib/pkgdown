@@ -44,3 +44,11 @@
       Reading man/a.Rd
       Writing reference/a.html
 
+# examples are reproducible by default, i.e. 'seed' is respected
+
+    Code
+      cat(examples)
+    Output
+      testpackage:::f()
+      #> [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
+

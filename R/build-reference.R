@@ -227,7 +227,7 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
   width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
   withr::local_options(width = width, .local_envir = envir)
-  withr::local_seed(seed)
+  withr::local_seed(seed, .local_envir = envir)
   if (requireNamespace("htmlwidgets", quietly = TRUE)) {
     htmlwidgets::setWidgetIdSeed(seed)
   }

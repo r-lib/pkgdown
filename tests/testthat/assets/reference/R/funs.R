@@ -21,3 +21,9 @@ c <- function() {}
 #' E
 #' @name e
 NULL
+
+#' F
+#' @keywords internal
+#' @examples
+#' testpackage:::f()
+f <- function() {runif(5L)}
