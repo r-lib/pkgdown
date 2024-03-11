@@ -130,7 +130,7 @@ as_html.tag_deqn <- function(x, ...) {
 as_html.tag_url <- function(x, ...) {
   if (length(x) != 1) {
     if (length(x) == 0) {
-      msg <- "Check for empty \\url{} tags."
+      msg <- "Check for empty \\url{{}} tags."
     } else {
       msg <- "This may be caused by a \\url tag that spans a line break."
     }
@@ -229,7 +229,10 @@ as_html.tag_Sexpr <- function(x, ...) {
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
-    stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
+    cli::cli_abort(
+      "\\\\Sexpr{{result={results}}} not yet supported",
+      call = caller_env()
+    )
   )
 }
 
@@ -510,7 +513,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    message("Unknown tag: ", paste(class(x), collapse = "/"))
+    cli::cli_inform("Unknown tag: ", paste(class(x), collapse = "/"))
     ""
   }
 }
@@ -566,10 +569,9 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  abort(c(
-    paste0("Failed to parse \\", tag, "{}."),
-    i = msg
-  ))
+  bad_tag <- paste0("\\", tag, "{}")
+  msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
+  cli::cli_abort(c(msg_abort, i = msg), call = NULL)
 }
 
 is_newline <- function(x, trim = FALSE) {

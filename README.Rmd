@@ -34,7 +34,8 @@ install.packages("pkgdown")
 ::: .pkgdown-devel
 ```{r, eval = FALSE}
 # Install development version from GitHub
-devtools::install_github("r-lib/pkgdown")
+# install.packages("pak")
+pak::pak("r-lib/pkgdown")
 ```
 :::
 

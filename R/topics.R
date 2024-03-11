@@ -10,7 +10,10 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      abort("No topics matched in '_pkgdown.yml'. No topics selected.")
+      cli::cli_abort(
+        "No topics matched in {.file _pkgdown.yml}. No topics selected.",
+        call = caller_env()
+      )
     }
     return(integer())
   }
@@ -51,7 +54,10 @@ all_sign <- function(x, text) {
     }
   }
 
-  stop("Must be all negative or all positive: ", text, call. = FALSE)
+  cli::cli_abort(
+    "Must be all negative or all positive: {.val {text}}",
+    call = caller_env()
+  )
 }
 
 match_env <- function(topics) {
@@ -170,11 +176,8 @@ match_eval <- function(string, env) {
 }
 
 topic_must <- function(message, topic, ..., call = NULL) {
-  abort(
-    c(
-      paste0("In '_pkgdown.yml', topic must ", message),
-      x = paste0("Not ", encodeString(topic, quote = "'"))
-    ),
+  cli::cli_abort(
+    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}.",
     ...,
     call = call
   )
@@ -186,6 +189,7 @@ section_topics <- function(match_strings, topics, src_path) {
   topics <- rbind(topics, ext_topics(ext_strings))
 
   selected <- topics[select_topics(match_strings, topics), , ]
+
   tibble::tibble(
     name = selected$name,
     path = selected$file_out,

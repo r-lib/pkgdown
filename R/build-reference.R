@@ -161,12 +161,16 @@ build_reference <- function(pkg = ".",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+  if (document != "DEPRECATED") {
+    lifecycle::deprecate_warn(
+      "1.4.0",
+      "build_site(document)",
+      details = "build_site(devel)"
+    )
     devel <- document
   }
 
-  rule("Building function reference")
+  cli::cli_rule("Building function reference")
   build_reference_index(pkg)
 
   copy_figures(pkg)
@@ -274,7 +278,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Reading ", src_path("man", topic$file_in))
+  cli::cli_inform("Reading {src_path(path('man', topic$file_in))}")
 
   data <- withCallingHandlers(
     data_reference_topic(
@@ -284,11 +288,7 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
-      msg <- c(
-        paste0("Failed to parse Rd in ", topic$file_in),
-        i = err$message
-      )
-      abort(msg, parent = err)
+      cli::cli_abort("Failed to parse Rd in {.file {topic$file_in}}", parent = err)
     }
   )
 
