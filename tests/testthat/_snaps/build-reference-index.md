@@ -50,9 +50,9 @@
     Code
       data_reference_index(pkg)
     Condition
-      Error in `check_missing_topics()`:
+      Error:
       ! All topics must be included in reference index
-      x Missing topics: c, e, ?
+      x Missing topics: c, e, and ?
       i Either add to _pkgdown.yml or use @keywords internal
 
 # errors well when a content entry is empty
