@@ -38,12 +38,12 @@ repo_auto_link <- function(pkg, text) {
 
   if (!is.null(url$user)) {
     user_link <- paste0("\\1<a href='", url$user, "\\2'>@\\2</a>")
-    text <- gsub("(\\s|^|\\()@([-\\w]+)", user_link, text, perl = TRUE)
+    text <- gsub("(p>|\\s|^|\\()@([-\\w]+)", user_link, text, perl = TRUE)
   }
 
   if (!is.null(url$issue)) {
     issue_link <- paste0("<a href='", url$issue, "\\2'>#\\2</a>")
-    text <- gsub("(\\(|\\s)#(\\d+)", paste0("\\1", issue_link), text, perl = TRUE)
+    text <- gsub("(p>|\\(|\\s)#(\\d+)", paste0("\\1", issue_link), text, perl = TRUE)
 
     if (!is.null(pkg$repo$jira_projects)) {
       issue_link <- paste0("<a href='", url$issue, "\\1\\2'>\\1\\2</a>")

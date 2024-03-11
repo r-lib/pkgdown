@@ -408,32 +408,32 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
-  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
 
   preview_site(pkg, preview = preview)
   invisible()
 }
 
 build_site_local <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = TRUE
-                       ) {
+                             examples = TRUE,
+                             run_dont_run = FALSE,
+                             seed = 1014,
+                             lazy = FALSE,
+                             override = list(),
+                             preview = NA,
+                             devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  cli::cli_rule(paste0("Building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
   cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
-  build_reference(pkg,
+  build_reference(
+    pkg,
     lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
@@ -453,6 +453,6 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }
