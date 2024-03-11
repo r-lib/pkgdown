@@ -215,3 +215,16 @@ test_that("check doesn't include getting started vignette", {
 
   expect_error(data_articles_index(pkg), NA)
 })
+
+test_that("output is reproducible by default, i.e. 'seed' is respected", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(build_article(pkg = pkg, name = "random"))
+
+  output <- xml2::read_html(file.path(pkg$dst_path, "articles/random.html")) %>%
+    rvest::html_node("div.contents > pre") %>%
+    rvest::html_text() %>%
+    # replace line feeds with whitespace to make output platform independent
+    gsub("\r", "", .)
+
+  expect_snapshot(cat(output))
+})
