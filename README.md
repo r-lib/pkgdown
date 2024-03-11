@@ -82,7 +82,7 @@ Then learn about the many new ways to customise your site in
 
 ## In the wild
 
-At last count, pkgdown is used [by over 8,000
+At last count, pkgdown is used [by over 11,000
 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
 Here are a few examples created by contributors to pkgdown:
 
