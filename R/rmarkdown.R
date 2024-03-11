@@ -29,6 +29,9 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     callr::r_safe(
       function(seed, envir, ...) {
         if (!is.null(seed)) {
+          # since envir is copied from the parent fn into callr::r_safe(),
+          # set.seed() sets the seed in the wrong global env and we have to
+          # manually copy it over
           set.seed(seed)
           envir$.Random.seed <- .GlobalEnv$.Random.seed
           if (requireNamespace("htmlwidgets", quietly = TRUE)) {
