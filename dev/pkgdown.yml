@@ -1,4 +1,4 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7.9000
 pkgdown_sha: ~
 articles:
@@ -14,7 +14,7 @@ articles:
   search: search.html
   short: test/short.html
   widgets: test/widgets.html
-last_built: 2024-02-02T15:48Z
+last_built: 2024-03-11T14:52Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
