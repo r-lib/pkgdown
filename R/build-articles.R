@@ -204,7 +204,7 @@ build_article <- function(name,
                           pkg = ".",
                           data = list(),
                           lazy = FALSE,
-                          seed = NULL,
+                          seed = 1014L,
                           quiet = TRUE) {
 
   pkg <- as_pkgdown(pkg)
