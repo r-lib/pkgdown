@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Fix parsing of github profiles and issues into links when present at the beginning of list items (@pearsonca, #2122)
 * Correct parse usage for S3 methods with non-syntactic class names (#2384).
 
 * Deprecated `build_favicon()` was removed (`build_favicons()` remains).
