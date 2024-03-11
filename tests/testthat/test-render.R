@@ -1,7 +1,8 @@
 test_that("check_bootswatch_theme() works", {
-  expect_equal(check_bootswatch_theme("_default", 4, list()), NULL)
-  expect_equal(check_bootswatch_theme("lux", 4, list()), "lux")
-  expect_snapshot_error(check_bootswatch_theme("paper", 4, list()))
+  pkg <- as_pkgdown(test_path("assets/reference"))
+  expect_equal(check_bootswatch_theme("_default", 4, pkg), NULL)
+  expect_equal(check_bootswatch_theme("lux", 4, pkg), "lux")
+  expect_snapshot_error(check_bootswatch_theme("paper", 4, pkg))
 })
 
 test_that("capture data_template()", {
@@ -13,6 +14,7 @@ test_that("capture data_template()", {
 })
 
 test_that("can include text in header, before body, and after body", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:
       includes:
@@ -34,7 +36,7 @@ test_that("can include text in header, before body, and after body", {
   )
 
   pkg$bs_version <- 5
-  expect_output(init_site(pkg))
+  expect_message(init_site(pkg))
   html <- render_page_html(pkg, "title-body")
   expect_equal(
     xpath_text(html, ".//test"),

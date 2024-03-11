@@ -11,7 +11,7 @@ preview_site <- function(pkg = ".", path = ".", preview = NA) {
   }
 
   if (preview) {
-    rule("Previewing site")
+    cli::cli_alert_info("Previewing site")
     utils::browseURL(path(pkg$dst_path, path, "index.html"))
   }
 

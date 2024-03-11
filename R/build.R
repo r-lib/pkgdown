@@ -327,14 +327,18 @@ build_site <- function(pkg = ".",
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg, override = override)
 
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+  if (document != "DEPRECATED") {
+    lifecycle::deprecate_warn(
+      "1.4.0",
+      "build_site(document)",
+      details = "build_site(devel)"
+    )
     devel <- document
   }
 
   if (install) {
     withr::local_temp_libpaths()
-    rule("Installing package into temporary library")
+    cli::cli_rule("Installing package {.pkg {pkg$package}} into temporary library")
     # Keep source, so that e.g. pillar can show the source code
     # of its functions in its articles
     withr::with_options(
@@ -404,6 +408,8 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
+  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
+
   preview_site(pkg, preview = preview)
   invisible()
 }
@@ -420,9 +426,9 @@ build_site_local <- function(pkg = ".",
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Building pkgdown site", line = "=")
-  cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
-  cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
+  cli::cli_rule(paste0("Building pkgdown site for package ", cli::col_blue(pkg$package)))
+  cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
+  cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
   init_site(pkg)
 
@@ -447,6 +453,6 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  rule("DONE", line = "=")
+  cli::cli_rule(paste0("Finished building pkgdown site for package ", cli::col_blue(pkg$package)))
   preview_site(pkg, preview = preview)
 }

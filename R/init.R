@@ -24,10 +24,13 @@ init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   if (is_non_pkgdown_site(pkg$dst_path)) {
-    stop(dst_path(pkg$dst_path), " is non-empty and not built by pkgdown", call. = FALSE)
+    cli::cli_abort(
+      "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
+      call = caller_env()
+    )
   }
 
-  rule("Initialising site")
+  cli::cli_rule("Initialising site")
   dir_create(pkg$dst_path)
 
   copy_assets(pkg)
