@@ -26,4 +26,4 @@ NULL
 #' @keywords internal
 #' @examples
 #' testpackage:::f()
-f <- function() {runif(20L)}
+f <- function() {runif(5L)}
