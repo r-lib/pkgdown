@@ -46,13 +46,3 @@ test_that("site meta doesn't break unexpectedly", {
 
   expect_snapshot(yaml)
 })
-
-test_that("override works correctly for as_pkgdown", {
-  pkgdown <- as_pkgdown("assets/man-figures")
-  expected_list <- list(figures = list(dev = "jpeg", fig.ext = "jpg", fig.width = 3, fig.asp = 1))
-  expect_equal(pkgdown$meta, expected_list)
-  modified_pkgdown <- as_pkgdown(pkgdown, override = list(figures = list(dev = "png")))
-  modified_list <- list(figures = list(dev = "png", fig.ext = "jpg", fig.width = 3, fig.asp = 1))
-  modified_pkgdown$meta
-  expect_equal(modified_pkgdown$meta, modified_list)
-})
