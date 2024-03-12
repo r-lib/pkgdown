@@ -139,8 +139,6 @@
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
-#' @param seed Seed used to initialize random number generation so that
-#'   examples are reproducible.
 #' @param devel Determines how code is loaded in order to run examples.
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
@@ -153,7 +151,7 @@ build_reference <- function(pkg = ".",
                             lazy = TRUE,
                             examples = TRUE,
                             run_dont_run = FALSE,
-                            seed = 1014,
+                            seed = 1014L,
                             override = list(),
                             preview = NA,
                             devel = TRUE,
@@ -210,7 +208,7 @@ copy_figures <- function(pkg) {
   }
 }
 
-examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame()) {
+examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
   # Re-loading pkgdown while it's running causes weird behaviour with
   # the context cache
   if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {

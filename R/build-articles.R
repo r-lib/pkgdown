@@ -163,12 +163,15 @@
 #'   pandoc. This is useful when debugging.
 #' @param lazy If `TRUE`, will only re-build article if input file has been
 #'   modified more recently than the output file.
+#' @param seed Seed used to initialize random number generation in order to
+#'   make article output reproducible. An integer scalar or `NULL` for no seed.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
+                           seed = 1014L,
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
@@ -181,10 +184,12 @@ build_articles <- function(pkg = ".",
 
   build_articles_index(pkg)
   purrr::walk(
-    pkg$vignettes$name, build_article,
+    pkg$vignettes$name,
+    build_article,
     pkg = pkg,
-    quiet = quiet,
-    lazy = lazy
+    lazy = lazy,
+    seed = seed,
+    quiet = quiet
   )
 
   preview_site(pkg, "articles", preview = preview)
@@ -196,10 +201,12 @@ build_articles <- function(pkg = ".",
 #'   relative to `vignettes/` without extension, or `index` or `README`.
 #' @param data Additional data to pass on to template.
 build_article <- function(name,
-                           pkg = ".",
-                           data = list(),
-                           lazy = FALSE,
-                           quiet = TRUE) {
+                          pkg = ".",
+                          data = list(),
+                          lazy = FALSE,
+                          seed = 1014L,
+                          quiet = TRUE) {
+
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
@@ -285,6 +292,7 @@ build_article <- function(name,
     output = output_file,
     output_format = format,
     output_options = options,
+    seed = seed,
     quiet = quiet
   )
 }

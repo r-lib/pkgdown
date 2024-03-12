@@ -1,0 +1,7 @@
+---
+title: "Random"
+---
+
+```{r, repro}
+runif(5L)
+```

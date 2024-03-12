@@ -10,6 +10,10 @@
 * Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 * Add Catalan translation (@jmaspons, #2333)
+* Set RNG seed before building articles by default. Use `build_articles(seed = NULL)` for the old (unreproducible) behaviour. (@salim-b, #2354).
+* Set RNG seed for htmlwidgets IDs. This reduces noise in final HTML output,
+  both for articles and examples in the reference that contain htmlwidgets
+  (@salim-b, #2294, #2354).
 * Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
 * Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
 * Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood, #2404).
