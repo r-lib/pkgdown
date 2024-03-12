@@ -372,7 +372,7 @@ data_articles_index <- function(pkg = ".") {
   if (length(missing) > 0) {
     cli::cli_abort(
       "{length(missing)} vignette{?s} missing from index in \\
-      {pkgdown_config_href({pkg$src_path})}: {.val {missing}}.",
+      {.file {pkgdown_config_relpath(pkg)}}: {.val {missing}}.",
       call = caller_env()
     )
   }

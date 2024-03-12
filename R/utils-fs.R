@@ -104,9 +104,13 @@ path_pkgdown <- function(...) {
   system_file(..., package = "pkgdown")
 }
 
+# To avoid problems in tests, default to _pkgdown.yml
 pkgdown_config_relpath <- function(pkg) {
-  pkg <- as_pkgdown(pkg)
-  config_path <- pkgdown_config_path(pkg$src_path)
+  tryCatch({
+    pkg <- as_pkgdown(pkg)
+    config_path <- pkgdown_config_path(pkg$src_path)
 
-  fs::path_rel(config_path, pkg$src_path)
+    fs::path_rel(config_path, pkg$src_path)
+  },
+  error = function(e) fs::path("_pkgdown.yml"))
 }

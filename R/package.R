@@ -130,12 +130,6 @@ pkgdown_config_path <- function(path) {
     )
   )
 }
-pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
-  )
-}
 
 read_meta <- function(path) {
   path <- pkgdown_config_path(path)

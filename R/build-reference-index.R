@@ -136,7 +136,7 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
     cli::cli_abort(c(
       "All topics must be included in reference index",
       "x" = "Missing topics: {pkg$topics$name[missing]}",
-      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
+      i = "Either add to {.file {pkgdown_config_relpath(pkg)}} or use @keywords internal"
     ),
     call = error_call)
   }
