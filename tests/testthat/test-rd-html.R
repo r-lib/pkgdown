@@ -8,7 +8,7 @@ test_that("simple tags translated to known good values", {
   expect_equal(rd2html("\\ldots"), "...")
   expect_equal(rd2html("\\dots"), "...")
   expect_equal(rd2html("\\R"), "<span style=\"R\">R</span>")
-  expect_equal(rd2html("\\cr"), "<br />")
+  expect_equal(rd2html("\\cr"), "<br>")
 
   "Macros"
   expect_equal(rd2html("\\newcommand{\\f}{'f'} \\f{}"), "'f'")
@@ -335,7 +335,7 @@ test_that("nl after tag doesn't trigger paragraphs", {
 
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
-  expect_equal(out, "<p>a <br /> b</p>")
+  expect_equal(out, "<p>a <br> b</p>")
 })
 
 
