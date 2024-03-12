@@ -485,7 +485,7 @@ as_html.tag_dots <-  function(x, ...) "..."
 #' @export
 as_html.tag_ldots <- function(x, ...) "..."
 #' @export
-as_html.tag_cr <-    function(x, ...) "<br >"
+as_html.tag_cr <-    function(x, ...) "<br>"
 
 # First element of enc is the encoded version (second is the ascii version)
 #' @export
@@ -501,8 +501,6 @@ as_html.tag_enc <- function(x, ...) {
 
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
-#' @export
-as_html.tag_cr <-       function(x, ...) "<br />"
 #' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export
