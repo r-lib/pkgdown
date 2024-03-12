@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Ignore Github issue and pull request templates in `build_home_md()` (@hsloot, #2362)
+* `build_home()` no longer renders Github issue and pull request templates (@hsloot, #2362)
 * `\cr` is now translated to `<br>` not `<br />` (#2400).
 * Fix parsing of github profiles and issues into links when present at the beginning of list items (@pearsonca, #2122)
 * Correct parse usage for S3 methods with non-syntactic class names (#2384).
