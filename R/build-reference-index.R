@@ -1,4 +1,4 @@
-data_reference_index <- function(pkg = ".") {
+data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
@@ -13,7 +13,7 @@ data_reference_index <- function(pkg = ".") {
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
-  check_missing_topics(rows, pkg)
+  check_missing_topics(rows, pkg, error_call = error_call)
   rows <- Filter(function(x) !x$is_internal, rows)
 
   print_yaml(list(
@@ -125,7 +125,7 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-check_missing_topics <- function(rows, pkg) {
+check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
   all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
   in_index <- pkg$topics$name %in% all_topics
@@ -133,11 +133,11 @@ check_missing_topics <- function(rows, pkg) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
-    topics <- paste0(pkg$topics$name[missing], collapse = ", ")
-    abort(c(
+    cli::cli_abort(c(
       "All topics must be included in reference index",
-      `x` = paste0("Missing topics: ", topics),
-      i = "Either add to _pkgdown.yml or use @keywords internal"
-    ))
+      "x" = "Missing topics: {pkg$topics$name[missing]}",
+      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
+    ),
+    call = error_call)
   }
 }

@@ -93,7 +93,7 @@ find_tutorials <- function(path = ".") {
 
   check_installed("rsconnect", "to find published tutorials")
 
-  rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]md$", type = "file"))
+  rmds <- unname(dir_ls(path, recurse = TRUE, regexp = "\\.[Rrq]md$", type = "file"))
   info <- purrr::map(rmds, tutorial_info, base_path = path)
   purrr::compact(info)
 }
