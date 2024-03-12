@@ -110,3 +110,15 @@ pkgdown_config_relpath <- function(pkg) {
 
   fs::path_rel(config_path, pkg$src_path)
 }
+
+# Will error if parent path doesn't exist.
+# https://github.com/r-lib/pkgdown/issues/2329
+check_dst_path_exists <- function(path, call = caller_env()) {
+  if (!dir_exists(path)) {
+    cli::cli_abort(c(
+      "Can't create a site",
+      i = "Do you need to run {.run pkgdown::init_site()}?"
+    ),
+    call = call)
+  }
+}
