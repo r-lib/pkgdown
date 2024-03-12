@@ -153,7 +153,7 @@ test_that("full topic selection process works", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
 
   # can mix local and remote
-  out <- section_topics(c("a", "base::mean"), pkg$topics, pkg$src_path)
+  out <- section_topics(c("a", "base::mean"), pkg$topics, pkg$src_path, pkg)
   expect_equal(unname(out$name), c("a", "base::mean"))
 
   # concepts and keywords work
