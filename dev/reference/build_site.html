@@ -112,7 +112,7 @@ whole site.</p>
 <span>  pkg <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  examples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">1014</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  preview <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -138,8 +138,8 @@ whole site.</p>
 
 
 <dt>seed</dt>
-<dd><p>Seed used to initialize random number generation so that
-examples are reproducible.</p></dd>
+<dd><p>Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
 <dt>lazy</dt>

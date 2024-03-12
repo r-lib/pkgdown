@@ -124,11 +124,19 @@ you are primarily working on the text of an article.</p>
 <span>  pkg <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
 <span>  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  preview <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">build_article</span><span class="op">(</span><span class="va">name</span>, pkg <span class="op">=</span> <span class="st">"."</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, lazy <span class="op">=</span> <span class="cn">FALSE</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">build_article</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  pkg <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -147,6 +155,11 @@ pandoc. This is useful when debugging.</p></dd>
 <dt>lazy</dt>
 <dd><p>If <code>TRUE</code>, will only re-build article if input file has been
 modified more recently than the output file.</p></dd>
+
+
+<dt>seed</dt>
+<dd><p>Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
 <dt>override</dt>
