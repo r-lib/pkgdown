@@ -31,8 +31,8 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize random number generation so that
-examples are reproducible.}
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
