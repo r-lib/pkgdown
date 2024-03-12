@@ -2,10 +2,16 @@
 #'
 #' Delete all files in `docs/` (except for `CNAME`).
 #'
+#' @param quiet If `TRUE`, suppresses a message.
 #' @inheritParams build_site
 #' @export
-clean_site <- function(pkg = ".") {
+clean_site <- function(pkg = ".", quiet = FALSE) {
+
   pkg <- as_pkgdown(pkg)
+
+  if (!quiet) {
+    cli::cli_inform("Cleaning {.pkg {pkg$package}} pkgdown docs from {.path {pkg$dst_path}}")
+  }
 
   if (!dir_exists(pkg$dst_path)) return(invisible())
 

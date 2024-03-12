@@ -90,7 +90,10 @@ assemble_ext_assets <- function(pkg) {
 
 data_deps <- function(pkg, depth) {
   if (!file.exists(path_data_deps(pkg))) {
-    abort("Run pkgdown::init_site() first.")
+    cli::cli_abort(
+      "Run {.fn pkgdown::init_site} first.",
+      call = caller_env()
+    )
   }
 
   deps_path <- paste0(up_path(depth), "deps")
@@ -138,10 +141,10 @@ bs_theme_rules <- function(pkg) {
   theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
-    abort(c(
-      paste0("Unknown theme '", theme, "'"),
-      i = paste0("Valid themes are: ", paste0(highlight_styles(), collapse = ", "))
-    ))
+    cli::cli_abort(c(
+      "Unknown theme: {.val {theme}}",
+      i = "Valid themes are: {.val highlight_styles()}"
+    ), call = caller_env())
   }
   paths <- c(paths, theme_path)
 
@@ -183,15 +186,16 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
   } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
     bootswatch_theme
   } else {
-    abort(
+    cli::cli_abort(c(
       sprintf(
-        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
+        "Can't find Bootswatch theme {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
         bootswatch_theme,
         pkgdown_field(pkg, c("template", "bootswatch")),
         bs_version,
         pkgdown_field(pkg, c("template", "bootstrap"))
-      )
-    )
+      ),
+      x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
+    ), call = caller_env())
   }
 
 }

@@ -112,6 +112,14 @@ test_that("can highlight other languages", {
   expect_equal(xpath_text(html, "//code//span[not(span)]")[[1]], "field")
 })
 
+test_that("can highlight 'rmd'", {
+  skip_if_no_pandoc("2.16")
+  html <- xml2::read_xml('<div class="rmd"><pre><code>field: value</code></pre></div>')
+  tweak_highlight_other(html)
+
+  expect_equal(xpath_attr(html, "//code//span[not(span)]", "class")[[1]], "an")
+})
+
 test_that("fails cleanly", {
   html <- xml2::read_xml('<div><pre><code></code></pre></div>')
   tweak_highlight_other(html)

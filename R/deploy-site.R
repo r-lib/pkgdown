@@ -43,31 +43,31 @@ deploy_site_github <- function(
   repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")) {
   rlang::check_installed("openssl")
   if (!nzchar(tarball)) {
-    stop("No built tarball detected, please provide the location of one with `tarball`", call. = FALSE)
+    cli::cli_abort("No built tarball detected, please provide the location of one with {.var tarball}", call = caller_env())
   }
 
   if (!nzchar(ssh_id)) {
-    stop("No deploy key found, please setup with `travis::use_travis_deploy()`", call. = FALSE)
+    cli::cli_abort("No deploy key found, please setup with {.fn travis::use_travis_deploy}", call = caller_env())
   }
 
   if (!nzchar(repo_slug)) {
-    stop("No repo detected, please supply one with `repo_slug`", call. = FALSE)
+    cli::cli_abort("No repo detected, please supply one with {.var repo_slug}", call = caller_env())
   }
 
-  rule("Deploying site", line = 2)
+  cli::cli_alert("Deploying site to GitHub")
   if (install) {
-    rule("Installing package", line = 1)
+    cli::cli_inform("Installing package")
     callr::rcmd("INSTALL", tarball, show = verbose, fail_on_status = TRUE)
   }
 
   ssh_id_file <- "~/.ssh/id_rsa"
-  rule("Setting up SSH id", line = 1)
-  cat_line("Copying private key to: ", ssh_id_file)
+  cli::cli_inform("Setting up SSH id")
+  cli::cli_inform("Copying private key to {.file ssh_id_file}")
   write_lines(rawToChar(openssl::base64_decode(ssh_id)), ssh_id_file)
-  cat_line("Setting private key permissions to 0600")
+  cli::cli_inform("Setting private key permissions to 0600")
   fs::file_chmod(ssh_id_file, "0600")
 
-  cat_line("Setting remote to use the ssh url")
+  cli::cli_inform("Setting remote to use the ssh url")
 
   git("remote", "set-url", "origin", sprintf("git@%s:%s.git", host, repo_slug))
 
@@ -79,7 +79,7 @@ deploy_site_github <- function(
     ...
   )
 
-  rule("Deploy completed", line = 2)
+  cli::cli_alert_success("Deploy completed")
 }
 
 #' Build and deploy a site locally
@@ -158,13 +158,14 @@ deploy_to_branch <- function(pkg = ".",
 git_has_remote_branch <- function(remote, branch) {
   has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
 }
+
 git_current_branch <- function() {
   branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
   sub("\n$", "", branch)
 }
 
 github_worktree_add <- function(dir, remote, branch) {
-  rule("Adding worktree", line = 1)
+  cli::cli_inform("Adding worktree")
   git("worktree",
     "add",
     "--track", "-B", branch,
@@ -174,7 +175,7 @@ github_worktree_add <- function(dir, remote, branch) {
 }
 
 github_worktree_remove <- function(dir) {
-  rule("Removing worktree", line = 1)
+  cli::cli_inform("Removing worktree")
   git("worktree", "remove", dir)
 }
 
@@ -182,13 +183,13 @@ github_push <- function(dir, commit_message, remote, branch) {
   # force execution before changing working directory
   force(commit_message)
 
-  rule("Commiting updated site", line = 1)
+  cli::cli_inform("Commiting updated site")
 
   withr::with_dir(dir, {
     git("add", "-A", ".")
     git("commit", "--allow-empty", "-m", commit_message)
 
-    rule("Deploying to GitHub Pages", line = 1)
+    cli::cli_alert("Deploying to GitHub Pages")
     git("remote", "-v")
     git("push", "--force", remote, paste0("HEAD:", branch))
   })
@@ -200,8 +201,8 @@ git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
 
 construct_commit_message <- function(pkg, commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
-
-  sprintf("Built site for %s: %s@%s", pkg$package, pkg$version, substr(commit, 1, 7))
+  commit <- sprintf("%s@%s", pkg$version, substr(commit, 1, 7))
+  cli::cli_alert_success("Built site for {cli::col_yellow(pkg$package)}: {.emph {cli::col_green(commit)}}")
 }
 
 ci_commit_sha <- function() {

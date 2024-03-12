@@ -1,10 +1,25 @@
 # pkgdown (development version)
 
+* `\cr` is now translated to `<br>` not `<br />` (#2400).
+* Fix parsing of github profiles and issues into links when present at the beginning of list items (@pearsonca, #2122)
+* Correct parse usage for S3 methods with non-syntactic class names (#2384).
+* Deprecated `build_favicon()` was removed (`build_favicons()` remains).
+* Use [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
+* Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
 * Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
 * Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
 * The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
 * Add Catalan translation (@jmaspons, #2333)
+* Set RNG seed before building articles by default. Use `build_articles(seed = NULL)` for the old (unreproducible) behaviour. (@salim-b, #2354).
+* Set RNG seed for htmlwidgets IDs. This reduces noise in final HTML output,
+  both for articles and examples in the reference that contain htmlwidgets
+  (@salim-b, #2294, #2354).
 * Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
+* Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
+* Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood, #2404).
+* Fix setting `seed` in `build_reference()`. The seed was reset too early, before. (@salim-b, #2355)
+* Translates citation sections (@eliocamp, #2410).
+* Topic names that conflict with selector functions can now be listed as references in `_pkgdown.yml` (@dmurdoch, #2397).
 * All external assets (JS, CSS, fonts) are now directly included in the site
   instead of being fetched from external CDNs if the [Bootstrap 5 template is
   used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).

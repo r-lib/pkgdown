@@ -24,7 +24,7 @@ The example below puts the authors' information on the right along with a legal 
 footer:
   structure: 
     left: pkgdown
-    right: [authors, legal]
+    right: [developed_by, legal]
   components:
     legal: Provided without **any warranty**.
 ```

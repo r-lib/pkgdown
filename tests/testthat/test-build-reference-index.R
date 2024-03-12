@@ -73,26 +73,29 @@ test_that("errors well when a content entry is empty", {
 })
 
 test_that("errors well when a content entry is not a character", {
+  local_edition(3)
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  expect_snapshot_error(build_reference_index(pkg))
+  expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("errors well when a content entry refers to a not installed package", {
   skip_if_not_installed("cli", "3.1.0")
+  local_edition(3)
 
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  expect_snapshot_error(build_reference_index(pkg))
+  expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("errors well when a content entry refers to a non existing function", {
+  local_edition(3)
   meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - rlang::lala")
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
-  expect_snapshot_error(build_reference_index(pkg))
+  expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("can exclude topics", {
@@ -120,6 +123,16 @@ test_that("can use a topic from another package", {
     contents = c("a", "b", "c", "e", "?", "rlang::is_installed()", "bslib::bs_add_rules")
   )))
   pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot(data_reference_index(pkg))
+})
+
+test_that("can use a selector name as a topic name", {
+  meta <- list(reference = list(list(
+    title = "bla",
+    contents = c("matches", "matches('A')")
+  )))
+  pkg <- as_pkgdown(test_path("assets/reference-selector"), override = meta)
 
   expect_snapshot(data_reference_index(pkg))
 })

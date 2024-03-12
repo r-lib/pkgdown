@@ -130,7 +130,7 @@ as_html.tag_deqn <- function(x, ...) {
 as_html.tag_url <- function(x, ...) {
   if (length(x) != 1) {
     if (length(x) == 0) {
-      msg <- "Check for empty \\url{} tags."
+      msg <- "Check for empty \\url{{}} tags."
     } else {
       msg <- "This may be caused by a \\url tag that spans a line break."
     }
@@ -229,7 +229,10 @@ as_html.tag_Sexpr <- function(x, ...) {
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
-    stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
+    cli::cli_abort(
+      "\\\\Sexpr{{result={results}}} not yet supported",
+      call = caller_env()
+    )
   )
 }
 
@@ -482,7 +485,7 @@ as_html.tag_dots <-  function(x, ...) "..."
 #' @export
 as_html.tag_ldots <- function(x, ...) "..."
 #' @export
-as_html.tag_cr <-    function(x, ...) "<br >"
+as_html.tag_cr <-    function(x, ...) "<br>"
 
 # First element of enc is the encoded version (second is the ascii version)
 #' @export
@@ -499,8 +502,6 @@ as_html.tag_enc <- function(x, ...) {
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
-as_html.tag_cr <-       function(x, ...) "<br />"
-#' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export
 as_html.tag_renewcommand <- function(x, ...) ""
@@ -510,7 +511,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    message("Unknown tag: ", paste(class(x), collapse = "/"))
+    cli::cli_inform("Unknown tag: {.cls {class(x)}}")
     ""
   }
 }
@@ -566,10 +567,9 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  abort(c(
-    paste0("Failed to parse \\", tag, "{}."),
-    i = msg
-  ))
+  bad_tag <- paste0("\\", tag, "{}")
+  msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
+  cli::cli_abort(c(msg_abort, i = msg), call = NULL)
 }
 
 is_newline <- function(x, trim = FALSE) {

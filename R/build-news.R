@@ -78,7 +78,7 @@ build_news <- function(pkg = ".",
   if (!has_news(pkg$src_path))
     return()
 
-  rule("Building news")
+  cli::cli_rule("Building news")
   dir_create(path(pkg$dst_path, "news"))
 
   switch(news_style(pkg$meta),
@@ -141,7 +141,7 @@ build_news_multi <- function(pkg = ".") {
   )
 }
 
-globalVariables(".")
+utils::globalVariables(".")
 
 data_news <- function(pkg = list()) {
   html <- markdown_body(path(pkg$src_path, "NEWS.md"))
@@ -151,7 +151,7 @@ data_news <- function(pkg = list()) {
   sections <- xml2::xml_find_all(xml, "./body/div")
   footnotes <- has_class(sections, "footnotes")
   if (any(footnotes)) {
-    warn("Footnotes in NEWS.md are not currently supported")
+    cli::cli_warn("Footnotes in NEWS.md are not currently supported")
   }
   sections <- sections[!footnotes]
 
@@ -160,11 +160,14 @@ data_news <- function(pkg = list()) {
     xml2::xml_name()
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
-    abort(c(
-      "Invalid NEWS.md: inconsistent use of section headings.",
-      i = "Top-level headings must be either all <h1> or all <h2>.",
-      i = "See ?build_news for more details."
-    ))
+    cli::cli_abort(
+      c(
+        "Invalid NEWS.md: inconsistent use of section headings.",
+        i = "Top-level headings must be either all <h1> or all <h2>.",
+        i = "See {.help pkgdown::build_news} for more details."
+      ),
+      call = caller_env()
+    )
   }
   if (ulevels == "h1") {
     # Bump every heading down a level so to get a single <h1> for the page title

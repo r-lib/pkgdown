@@ -50,40 +50,52 @@
     Code
       data_reference_index(pkg)
     Condition
-      Error in `check_missing_topics()`:
+      Error:
       ! All topics must be included in reference index
-      x Missing topics: c, e, ?
+      x Missing topics: c, e, and ?
       i Either add to _pkgdown.yml or use @keywords internal
 
 # errors well when a content entry is empty
 
     i In index: 1.
-    Caused by error in `check_all_characters()`:
-    ! Item 2 in section 1 in reference in '_pkgdown.yml' is empty.
-    i Either delete the empty line or add a function name.
+    Caused by error in `.f()`:
+    ! Item 2 in section 1 is empty.
+    x Delete the empty line or add function name to reference in '_pkgdown.yml'.
 
 # errors well when a content entry is not a character
 
-    i In index: 1.
-    Caused by error in `check_all_characters()`:
-    ! Item 2 in section 1 in reference in '_pkgdown.yml' must be a character.
-    i You might need to add '' around e.g. - 'N' or - 'off'.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `.f()`:
+      ! Item 2 in section 1 must be a character.
+      x You might need to add '' around e.g. - 'N' or - 'off' to reference in '_pkgdown.yml'.
 
 # errors well when a content entry refers to a not installed package
 
-    i In index: 1.
-    Caused by error in `purrr::map2()`:
-    i In index: 1.
-    Caused by error in `.f()`:
-    ! The package "notapackage" is required as it's used in the reference index.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `purrr::map2()`:
+      i In index: 1.
+      Caused by error in `.f()`:
+      ! The package "notapackage" is required as it's used in the reference index.
 
 # errors well when a content entry refers to a non existing function
 
-    i In index: 1.
-    Caused by error in `purrr::map2()`:
-    i In index: 1.
-    Caused by error in `.f()`:
-    ! Could not find documentation for rlang::lala
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `map2()`:
+      i In index: 1.
+      Caused by error in `purrr::map2()`:
+      i In index: 1.
+      Caused by error in `map2_()`:
+      ! Could not find documentation for `rlang::lala()`.
 
 # can use a topic from another package
 
@@ -140,6 +152,34 @@
         - '?'
         - rlang::is_installed()
         - bslib::bs_add_rules
+        row_has_icons: no
+        is_internal: no
+      has_icons: no
+      
+
+# can use a selector name as a topic name
+
+    Code
+      data_reference_index(pkg)
+    Output
+      pagetitle: Function reference
+      rows:
+      - title: bla
+        slug: bla
+        desc: ~
+        is_internal: no
+      - topics:
+        - path: matches.html
+          title: matches
+          aliases: matches()
+          icon: ~
+        - path: A.html
+          title: A
+          aliases: A()
+          icon: ~
+        names:
+        - matches
+        - A
         row_has_icons: no
         is_internal: no
       has_icons: no
