@@ -392,7 +392,7 @@ data_articles_index_section <- function(section, pkg) {
   }
 
   # Match topics against any aliases
-  in_section <- select_vignettes(section$contents, pkg$vignettes)
+  in_section <- select_vignettes(section$contents, pkg$vignettes, pkg = pkg)
   section_vignettes <- pkg$vignettes[in_section, ]
   contents <- tibble::tibble(
     name = section_vignettes$name,
@@ -411,13 +411,13 @@ data_articles_index_section <- function(section, pkg) {
 
 # Quick hack: create the same structure as for topics so we can use
 # the existing select_topics()
-select_vignettes <- function(match_strings, vignettes) {
+select_vignettes <- function(match_strings, vignettes, pkg) {
   topics <- tibble::tibble(
     name = vignettes$name,
     alias = as.list(vignettes$name),
     internal = FALSE
   )
-  select_topics(match_strings, topics)
+  select_topics(match_strings, topics, pkg = pkg)
 }
 
 default_articles_index <- function(pkg = ".") {

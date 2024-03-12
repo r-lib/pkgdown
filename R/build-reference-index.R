@@ -48,7 +48,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "contents")) {
     check_all_characters(section$contents, index, pkg)
-    topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
+    topics <- section_topics(section$contents, pkg$topics, pkg$src_path, pkg)
 
     names <- topics$name
     topics$name <- NULL

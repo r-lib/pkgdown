@@ -1,17 +1,19 @@
 # @return An integer vector giving selected topics
-select_topics <- function(match_strings, topics, check = FALSE) {
+select_topics <- function(match_strings, topics, pkg = ".", check = FALSE) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
     return(integer())
   }
 
-  indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
-
+  indexes <- purrr::map(
+    match_strings,
+    function(x) match_eval(x, env = match_env(topics), pkg = pkg)
+  )
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
       cli::cli_abort(
-        "No topics matched in {.file _pkgdown.yml}. No topics selected.",
+        "No topics matched in {.file {pkgdown_config_relpath(pkg)}}. No topics selected.",
         call = caller_env()
       )
     }
@@ -20,7 +22,7 @@ select_topics <- function(match_strings, topics, check = FALSE) {
 
   no_match <- match_strings[purrr::map_lgl(indexes, rlang::is_empty)]
   if (check && length(no_match) > 0) {
-    topic_must("match a function or concept", toString(no_match))
+    topic_must("match a function or concept", toString(no_match), pkg = pkg)
   }
 
   indexes <- purrr::discard(indexes, is_empty)
@@ -134,7 +136,7 @@ match_env <- function(topics) {
 }
 
 
-match_eval <- function(string, env) {
+match_eval <- function(string, env, pkg = ".") {
   # Early return in case string already matches symbol
   if (env_has(env, string)) {
     val <- env[[string]]
@@ -145,7 +147,7 @@ match_eval <- function(string, env) {
 
   expr <- tryCatch(parse_expr(string), error = function(e) NULL)
   if (is.null(expr)) {
-    topic_must("be valid R code", string)
+    topic_must("be valid R code", string, pkg = pkg)
   }
 
   if (is_string(expr) || is_symbol(expr)) {
@@ -154,7 +156,7 @@ match_eval <- function(string, env) {
     if (is.integer(val)) {
       val
     } else {
-      topic_must("be a known topic name or alias", string)
+      topic_must("be a known topic name or alias", string, pkg = pkg)
     }
   } else if (is_call(expr, "::")) {
     name <- paste0(expr[[2]], "::", expr[[3]])
@@ -162,34 +164,34 @@ match_eval <- function(string, env) {
     if (is.integer(val)) {
       val
     } else {
-      topic_must("be a known topic name or alias", string)
+      topic_must("be a known topic name or alias", string, pkg = pkg)
     }
   } else if (is_call(expr)) {
     tryCatch(
       eval(expr, env),
       error = function(e) {
-        topic_must("be a known selector function", string, parent = e)
+        topic_must("be a known selector function", string, parent = e, pkg = pkg)
       }
     )
   } else {
-    topic_must("be a string or function call", string)
+    topic_must("be a string or function call", string, pkg = pkg)
   }
 }
 
-topic_must <- function(message, topic, ..., call = NULL) {
+topic_must <- function(message, topic, ..., call = NULL, pkg = ".") {
   cli::cli_abort(
-    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}.",
+    "In {.file {pkgdown_config_relpath(pkg)}}, topic must {message}, not {.val {topic}}.",
     ...,
     call = call
   )
 }
 
-section_topics <- function(match_strings, topics, src_path) {
+section_topics <- function(match_strings, topics, src_path, pkg = ".") {
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
   topics <- rbind(topics, ext_topics(ext_strings))
 
-  selected <- topics[select_topics(match_strings, topics), , ]
+  selected <- topics[select_topics(match_strings, topics, pkg), , ]
 
   tibble::tibble(
     name = selected$name,

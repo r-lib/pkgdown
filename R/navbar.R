@@ -143,7 +143,7 @@ navbar_articles <- function(pkg = ".") {
       menu$articles <- menu_link(tr_("Articles"), "articles/index.html")
     } else {
       sections <- lapply(navbar, function(section) {
-        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
+        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes, pkg), , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) list(menu_spacer(), menu_text(section$navbar)),
