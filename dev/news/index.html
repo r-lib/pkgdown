@@ -73,7 +73,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>Fix parsing of github profiles and issues into links when present at the beginning of list items (<a href="https://github.com/pearsonca" class="external-link">@pearsonca</a>, <a href="https://github.com/r-lib/pkgdown/issues/2122" class="external-link">#2122</a>)</li>
+<ul><li>
+<code>\cr</code> is now translated to <code>&lt;br&gt;</code> not <code>&lt;br /&gt;</code> (<a href="https://github.com/r-lib/pkgdown/issues/2400" class="external-link">#2400</a>).</li>
+<li>Fix parsing of github profiles and issues into links when present at the beginning of list items (<a href="https://github.com/pearsonca" class="external-link">@pearsonca</a>, <a href="https://github.com/r-lib/pkgdown/issues/2122" class="external-link">#2122</a>)</li>
 <li>Correct parse usage for S3 methods with non-syntactic class names (<a href="https://github.com/r-lib/pkgdown/issues/2384" class="external-link">#2384</a>).</li>
 <li>Deprecated <code>build_favicon()</code> was removed (<code><a href="../reference/build_favicons.html">build_favicons()</a></code> remains).</li>
 <li>Use <a href="https://github.com/r-lib/cli" class="external-link">cli</a> to provide interactive feedback.</li>
