@@ -9,6 +9,7 @@
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
   if (is_pkgdown(pkg)) {
+    pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
@@ -21,7 +22,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   desc <- read_desc(pkg)
   meta <- read_meta(pkg)
-  meta <- utils::modifyList(meta, override)
+  meta <- modify_list(meta, override)
 
   template_config <- find_template_config(
     package = meta$template$package,
@@ -129,6 +130,12 @@ pkgdown_config_path <- function(path) {
     )
   )
 }
+pkgdown_config_href <- function(path) {
+  cli::style_hyperlink(
+    text = "_pkgdown.yml",
+    url = paste0("file://", pkgdown_config_path(path))
+  )
+}
 
 read_meta <- function(path) {
   path <- pkgdown_config_path(path)
@@ -229,7 +236,7 @@ package_vignettes <- function(path = ".") {
   if (!dir_exists(base)) {
     vig_path <- character()
   } else {
-    vig_path <- dir_ls(base, regexp = "\\.[rR]md$", type = "file", recurse = TRUE)
+    vig_path <- dir_ls(base, regexp = "\\.[Rrq]md$", type = "file", recurse = TRUE)
   }
 
   vig_path <- path_rel(vig_path, base)

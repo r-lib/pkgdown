@@ -32,7 +32,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   if (has_favicons(pkg) && !overwrite) {
     cli::cli_inform(c(
       "Favicons already exist in {.path pkgdown}",
-      "i" = "Set {.var overwrite = TRUE} to re-create."
+      "i" = "Set {.code overwrite = TRUE} to re-create."
     ))
     return(invisible())
   }
@@ -78,10 +78,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   result <- content$favicon_generation_result
 
   if (!identical(result$result$status, "success")) {
-    cli::cli_abort(c(
-        "API request failed.",
-        "i" = "{.href [Please submit a bug report](https://github.com/r-lib/pkgdown/issues)}"
-    ))
+    cli::cli_abort("API request failed.", .internal = TRUE)
   }
 
   tmp <- tempfile()

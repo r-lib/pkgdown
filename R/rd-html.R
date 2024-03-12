@@ -513,7 +513,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    cli::cli_inform("Unknown tag: ", paste(class(x), collapse = "/"))
+    cli::cli_inform("Unknown tag: {.cls {class(x)}}")
     ""
   }
 }

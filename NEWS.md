@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
+* Fix parsing of github profiles and issues into links when present at the beginning of list items (@pearsonca, #2122)
 * Correct parse usage for S3 methods with non-syntactic class names (#2384).
-
 * Deprecated `build_favicon()` was removed (`build_favicons()` remains).
 * Use [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
 * Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
@@ -11,6 +11,10 @@
 * Add Catalan translation (@jmaspons, #2333)
 * Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
 * Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
+* Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood, #2404).
+* Fix setting `seed` in `build_reference()`. The seed was reset too early, before. (@salim-b, #2355)
+* Translates citation sections (@eliocamp, #2410).
+* Topic names that conflict with selector functions can now be listed as references in `_pkgdown.yml` (@dmurdoch, #2397).
 
 # pkgdown 2.0.7
 
