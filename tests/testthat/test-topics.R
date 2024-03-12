@@ -163,6 +163,14 @@ test_that("full topic selection process works", {
     pkg$src_path
   )
   expect_equal(unname(out$name), c("b", "a"))
+  # concepts and keywords error with correct path
+  expect_error(section_topics(
+    c("foo2"),
+    pkg$topics,
+    pkg$src_path,
+    pkg
+  ),
+  regexp = "pkgdown/_pkgdown.yml")
 })
 
 test_that("an unmatched selection with a matched selection does not select everything", {
