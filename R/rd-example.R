@@ -13,8 +13,7 @@ rd2ex <- function(x, ...) {
 run_examples <- function(x,
                          topic = "unknown",
                          env = globalenv(),
-                         run_dont_run = FALSE
-                         ) {
+                         run_dont_run = FALSE) {
 
   if (!inherits(x, "tag")) {
     x <- rd_text(x)
@@ -29,7 +28,7 @@ run_examples <- function(x,
   code <- flatten_ex(x, run_dont_run = run_dont_run)
 
   if (!can_parse(code)) {
-    warning("Failed to parse example for topic '", topic, "'", call. = FALSE)
+    cli::cli_warn("Failed to parse example for topic {.val {topic}}")
     return("")
   }
 
@@ -48,13 +47,17 @@ process_conditional_examples <- function(rd) {
         grepl("# examplesIf$", x[[1]])
     }))
     if (length(which_exif) == 0) return(rd)
-    if (length(which_exif) %% 2 != 0) stop("@examplesIf error, not closed?")
+    if (length(which_exif) %% 2 != 0) {
+      cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+    }
     remove <- integer()
     modes <- c("begin", "end")
     for (idx in which_exif) {
       if (rd[[idx]] != "}) # examplesIf") {
         # Start of @examplesIf
-        if (modes[1] == "end") stop("@examplesIf error, not closed?")
+        if (modes[1] == "end") {
+          cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+        }
         cond_expr <- parse(text = paste0(rd[[idx]], "\n})"))[[1]][[2]]
         cond <- eval(cond_expr)
         if (isTRUE(cond)) {
@@ -64,10 +67,8 @@ process_conditional_examples <- function(rd) {
           is_false <- cond_expr_str == "FALSE"
           if (!is_false) {
             new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
-            warning(
-              "@examplesIf condition `",
-              cond_expr_str,
-              "` is FALSE"
+            cli::cli_warn(
+              "@examplesIf condition {.val {cond_expr_str}} is {.val FALSE}"
             )
           } else {
             new_cond <- "if (FALSE) {"
@@ -76,7 +77,9 @@ process_conditional_examples <- function(rd) {
         }
       } else {
         # End of @examplesIf
-        if (modes[1] == "begin") stop("@examplesIf error, closed twice?")
+        if (modes[1] == "begin") {
+          cli::cli_abort("@examplesIf error, closed twice?", call = caller_env())
+        }
         if (isTRUE(cond)) {
           remove <- c(remove, idx, idx + 1L)
         } else {
@@ -110,11 +113,12 @@ as_example.TEXT <- as_example.RCODE
 #' @export
 as_example.COMMENT <- function(x, run_dont_run = FALSE) {
   if (grepl("^%[^ ]*%", x)) {
-    warning(
-      "In the examples,  ", unclass(x), "\n",
-      "is an Rd comment: did you mean  ", gsub("%", "\\\\%", x), " ?",
-      call. = FALSE
-    )
+    meant <- gsub("%", "\\\\%", x)
+    xun <- unclass(x)
+    cli::cli_warn(c(
+      "In the examples, {.val {xun}} is an Rd comment",
+      "x" = "did you mean {.val {meant}}?"
+    ))
   }
   ""
 }
@@ -155,8 +159,8 @@ block_tag_to_comment <- function(tag, x, run_dont_run = FALSE) {
 
 #' @export
 as_example.tag <- function(x, run_dont_run = FALSE) {
-  warning("Unknown tag: ", paste(class(x), collapse = "/"), call. = FALSE)
-  ""
+  untag <- paste(class(x), collapse = "/")
+  cli::cli_warn("Unknown tag: {.val {untag}}")
 }
 
 #' @export

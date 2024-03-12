@@ -12,6 +12,7 @@ check_pkgdown <- function(pkg = ".") {
   data_articles_index(pkg)
   data_reference_index(pkg)
 
-  inform("No problems found")
+  cli::cli_inform(c(
+    "v" = "No problems found in {pkgdown_config_href({pkg$src_path})}"
+  ))
 }
-

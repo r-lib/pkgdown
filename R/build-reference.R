@@ -161,12 +161,16 @@ build_reference <- function(pkg = ".",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+  if (document != "DEPRECATED") {
+    lifecycle::deprecate_warn(
+      "1.4.0",
+      "build_site(document)",
+      details = "build_site(devel)"
+    )
     devel <- document
   }
 
-  rule("Building function reference")
+  cli::cli_rule("Building function reference")
   build_reference_index(pkg)
 
   copy_figures(pkg)
@@ -185,7 +189,8 @@ build_reference <- function(pkg = ".",
     topics <- purrr::transpose(pkg$topics)
   }
 
-  purrr::map(topics,
+  purrr::map(
+    topics,
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
@@ -222,7 +227,7 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
   width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
   withr::local_options(width = width, .local_envir = envir)
-  withr::local_seed(seed)
+  withr::local_seed(seed, .local_envir = envir)
   if (requireNamespace("htmlwidgets", quietly = TRUE)) {
     htmlwidgets::setWidgetIdSeed(seed)
   }
@@ -265,8 +270,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples_env = globalenv(),
-                                  run_dont_run = FALSE
-                                  ) {
+                                  run_dont_run = FALSE ) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
@@ -274,7 +278,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Reading ", src_path("man", topic$file_in))
+  cli::cli_inform("Reading {src_path(path('man', topic$file_in))}")
 
   data <- withCallingHandlers(
     data_reference_topic(
@@ -284,11 +288,7 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
-      msg <- c(
-        paste0("Failed to parse Rd in ", topic$file_in),
-        i = err$message
-      )
-      abort(msg, parent = err)
+      cli::cli_abort("Failed to parse Rd in {.file {topic$file_in}}", parent = err)
     }
   )
 
@@ -297,12 +297,14 @@ build_reference_topic <- function(topic,
   if (data$has_deps) {
     deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::copyDependencyToDir,
       outputDir = file.path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::makeDependencyRelative,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
@@ -326,6 +328,7 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples_env = globalenv(),
                                  run_dont_run = FALSE) {
+
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 

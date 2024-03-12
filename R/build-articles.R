@@ -177,7 +177,7 @@ build_articles <- function(pkg = ".",
     return(invisible())
   }
 
-  rule("Building articles")
+  cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
   purrr::walk(
@@ -207,7 +207,9 @@ build_article <- function(name,
   # allow code sharing with building of the index.
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {
-    stop("Can't find article called ", src_path(name), call. = FALSE)
+    cli::cli_abort(
+      "Can't find article {.file {name}}"
+    )
   }
 
   input <- pkg$vignettes$file_in[vig]
@@ -368,12 +370,10 @@ data_articles_index <- function(pkg = ".") {
   missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
 
   if (length(missing) > 0) {
-    abort(
-      paste0(
-        "Vignettes missing from index: ",
-        paste(missing, collapse = ", ")
-      ),
-      call. = FALSE
+    cli::cli_abort(
+      "{length(missing)} vignette{?s} missing from index in \\
+      {pkgdown_config_href({pkg$src_path})}: {.val {missing}}.",
+      call = caller_env()
     )
   }
 
@@ -385,7 +385,10 @@ data_articles_index <- function(pkg = ".") {
 
 data_articles_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "contents"))) {
-    abort("Section must have components `title`, `contents`")
+    cli::cli_abort(
+      "Section must have components {.field title}, {.field contents}",
+      call = caller_env()
+    )
   }
 
   # Match topics against any aliases
@@ -423,7 +426,6 @@ default_articles_index <- function(pkg = ".") {
   if (nrow(pkg$vignettes) == 0L) {
     return(NULL)
   }
-
 
   print_yaml(list(
     list(

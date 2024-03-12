@@ -1,4 +1,4 @@
-data_reference_index <- function(pkg = ".") {
+data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
@@ -13,7 +13,7 @@ data_reference_index <- function(pkg = ".") {
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
-  check_missing_topics(rows, pkg)
+  check_missing_topics(rows, pkg, error_call = error_call)
   rows <- Filter(function(x) !x$is_internal, rows)
 
   print_yaml(list(
@@ -69,16 +69,12 @@ check_all_characters <- function(contents, index, pkg) {
   any_null <- any(null)
 
   if (any_null) {
-    abort(
+    msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
+    cli::cli_abort(
       c(
-        sprintf(
-          "Item %s in section %s in %s is empty.",
-          toString(which(null)),
-          index,
-          pkgdown_field(pkg, "reference")
-        ),
-        i = "Either delete the empty line or add a function name."
-      )
+        "Item {.field {which(null)}} in section {index} is empty.",
+        x = paste0("Delete the empty line or add function name to ", msg_fld, ".")
+      ), call = caller_env()
     )
   }
 
@@ -89,16 +85,12 @@ check_all_characters <- function(contents, index, pkg) {
     return(invisible())
   }
 
-  abort(
+  msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
+  cli::cli_abort(
     c(
-      sprintf(
-        "Item %s in section %s in %s must be a character.",
-        toString(which(not_char)),
-        index,
-        pkgdown_field(pkg, "reference")
-      ),
-      i = "You might need to add '' around e.g. - 'N' or - 'off'."
-    )
+      "Item {.field {which(not_char)}} in section {index} must be a character.",
+      x = paste0("You might need to add '' around e.g. - 'N' or - 'off' to ", msg_fld, ".")
+    ), call = caller_env()
   )
 
 }
@@ -133,7 +125,7 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-check_missing_topics <- function(rows, pkg) {
+check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
   all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
   in_index <- pkg$topics$name %in% all_topics
@@ -141,11 +133,11 @@ check_missing_topics <- function(rows, pkg) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
-    topics <- paste0(pkg$topics$name[missing], collapse = ", ")
-    abort(c(
+    cli::cli_abort(c(
       "All topics must be included in reference index",
-      `x` = paste0("Missing topics: ", topics),
-      i = "Either add to _pkgdown.yml or use @keywords internal"
-    ))
+      "x" = "Missing topics: {pkg$topics$name[missing]}",
+      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
+    ),
+    call = error_call)
   }
 }
