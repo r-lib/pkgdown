@@ -38,9 +38,10 @@ pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
   }
 
   if (cfg) {
-    config_path <- pkgdown_config_relpath(pkg)
     if (fmt) {
-      config_path <- paste0("{.file ", config_path, "}")
+      config_path <- pkgdown_config_href(pkg$src_path)
+    } else {
+      config_path <- cli::format_inline(pkgdown_config_relpath(pkg))
     }
 
     paste0(flds, " in ", config_path)
