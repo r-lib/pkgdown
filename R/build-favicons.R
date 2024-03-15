@@ -24,10 +24,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    cli::cli_abort(
+    cli::cli_abort(c(
       "Can't find package logo PNG or SVG to build favicons.",
       "i" = "See {.fun usethis::use_logo} for more information."
-    )
+    ))
   }
 
   if (has_favicons(pkg) && !overwrite) {
