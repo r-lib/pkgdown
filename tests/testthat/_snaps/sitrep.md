@@ -5,7 +5,7 @@
     Condition
       Warning:
       pkgdown situation report: configuration error
-      x url in '_pkgdown.yml'is misconfigured. See `vignette(pkgdown::metatdata)`.
+      x url in _pkgdown.yml is misconfigured. See `vignette(pkgdown::metatdata)`.
       x 'DESCRIPTION' URL is empty.
 
 ---
