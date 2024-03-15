@@ -25,7 +25,8 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 
   if (is.null(logo_path)) {
     cli::cli_abort(
-      "Can't find package logo PNG or SVG to build favicons."
+      "Can't find package logo PNG or SVG to build favicons.",
+      "i" = "See {.fun usethis::use_logo} for more information."
     )
   }
 
@@ -37,7 +38,9 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     return(invisible())
   }
 
-  cli::cli_inform("Building favicons with {.url https://realfavicongenerator.net} ...")
+  cli::cli_inform(c(
+    i = "Building favicons with {.url https://realfavicongenerator.net} ..."
+  ))
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 

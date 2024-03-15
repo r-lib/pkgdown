@@ -22,7 +22,8 @@
     Code
       pkgdown_sitrep(pkg)
     Message
-      Double-check the following URLs:
-      '_pkgdown.yml' contains URL <http://example.com/pkg>
-      'DESCRIPTION' contains URL <http://example.com/pkg>
+      v pkgdown situation report: all clear
+      ! Double-check the following URLs:
+        _pkgdown.yml contains URL <http://example.com/pkg>
+        'DESCRIPTION' contains URL <http://example.com/pkg>
 
