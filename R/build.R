@@ -380,6 +380,7 @@ build_site_external <- function(pkg = ".",
                                 override = list(),
                                 preview = NA,
                                 devel = TRUE) {
+  pkg <- as_pkgdown(pkg, override = override)
   args <- list(
     pkg = pkg,
     examples = examples,
