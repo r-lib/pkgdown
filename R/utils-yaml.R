@@ -1,14 +1,16 @@
-check_yaml_has <- function(missing, where, pkg) {
+check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   if (length(missing) == 0) {
     return()
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  msg_flds <- pkgdown_field(pkg, missing_components, fmt = TRUE, cfg = TRUE)
+  msg_flds <- pkgdown_field(pkg, missing_components, fmt = FALSE, cfg = FALSE)
 
-  cli::cli_abort(
-    paste0("Can't find {cli::qty(missing)} component{?s} ", msg_flds, "."),
-    call = caller_env()
+  cli::cli_abort(c(
+    "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
+    i = "Edit {pkgdown_config_href({pkg$src_path})} to define {cli::qty(missing)} {?it/them}."
+    ),
+    call = call
   )
 }
 
