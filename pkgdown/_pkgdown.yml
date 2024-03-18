@@ -99,3 +99,8 @@ news:
     href: https://www.tidyverse.org/articles/2018/06/pkgdown-1-1-0/
   - text: "Version 1.0.0"
     href: https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/
+
+navbar:
+  structure:
+    left:  [intro, reference, tutorials, news]
+    right: [articles, search, github]

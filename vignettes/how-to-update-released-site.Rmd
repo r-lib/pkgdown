@@ -1,5 +1,5 @@
 ---
-title: "How to update a released site"
+title: "How to update a released site, very important advice, as it can get cumbersome"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to update a released site}
