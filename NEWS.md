@@ -20,6 +20,10 @@
 * Fix setting `seed` in `build_reference()`. The seed was reset too early, before. (@salim-b, #2355)
 * Translates citation sections (@eliocamp, #2410).
 * Topic names that conflict with selector functions can now be listed as references in `_pkgdown.yml` (@dmurdoch, #2397).
+* All external assets (JS, CSS, fonts) are now directly included in the site
+  instead of being fetched from external CDNs if the [Bootstrap 5 template is
+  used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).
+  (@salim-b, #2249)
 
 # pkgdown 2.0.7
 

@@ -3,15 +3,93 @@ build_bslib <- function(pkg = ".") {
   bs_theme <- bs_theme(pkg)
 
   deps <- bslib::bs_theme_dependencies(bs_theme)
-  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
+  deps <- lapply(deps, htmltools::copyDependencyToDir, path_deps(pkg))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
-  write_lines(head, data_deps_path(pkg))
+
+  # include additional external assets
+  head <- paste(
+    head,
+    paste0(assemble_ext_assets(pkg), collapse = "\n"),
+    sep = "\n"
+  )
+
+  write_lines(head, path_data_deps(pkg))
+}
+
+assemble_ext_assets <- function(pkg) {
+  path_assets_yaml <- path_pkgdown(paste0("BS", pkg$bs_version), "assets_external.yaml")
+  deps_ext <- yaml::read_yaml(path_assets_yaml)
+
+  purrr::map_chr(deps_ext, ~ {
+    # download external resource
+    path <- path_deps(pkg, basename(.x$url))
+    download.file(.x$url, path, quiet = TRUE, mode = "wb")
+
+    # check file integrity
+    sha_size <- as.integer(regmatches(
+      .x$integrity,
+      regexpr("(?<=^sha)\\d{3}", .x$integrity, perl = TRUE)
+    ))
+    if (!(sha_size %in% c(256L, 384L, 512L))) {
+      cli::cli_abort(paste0(
+        "Invalid {.field integrity} value set in {.file ",
+        "{path_assets_yaml}}: {.val {(.x$integrity)}} Allowed are only ",
+        "SHA-256, SHA-384 and SHA-512."
+      ))
+    }
+    con <- file(path, encoding = "UTF-8")
+    hash <- openssl::base64_encode(openssl::sha2(con, sha_size))
+    hash_target <- regmatches(
+      .x$integrity,
+      regexpr("(?<=^sha\\d{3}-).+", .x$integrity, perl = TRUE)
+    )
+
+    if (hash != hash_target) {
+      cli::cli_abort(paste0(
+        "Hash of downloaded {(.x$type)} asset doesn't match {.field ",
+        "integrity} value of {.val {(.x$integrity)}}. Asset URL is: {.url ",
+        "{(.x$url)}}"
+      ))
+    }
+
+    # download subresources (webfonts etc.) if necessary
+    if (isTRUE(.x$has_subresources)) {
+      file_content <- read_file(path)
+      pos <- gregexpr("(?<=\\burl\\((?!(data|https?):))[^)?#]*", file_content, perl = TRUE)
+      urls <- unique(unlist(regmatches(file_content, pos)))
+      subdirs <- unique(fs::path_dir(urls))
+      fs::dir_create(
+        fs::path_norm(fs::path(path_deps(pkg), subdirs)),
+        recurse = TRUE
+      )
+      url_parsed <- xml2::url_parse(.x$url)
+      url_excl_scheme <- fs::path(url_parsed$server, url_parsed$path)
+      remote_urls <- paste0(
+        url_parsed$scheme, "://",
+        fs::path_norm(fs::path(fs::path_dir(url_excl_scheme), urls))
+      )
+      purrr::walk2(
+        remote_urls,
+        urls,
+        ~ download.file(.x, fs::path_norm(path_deps(pkg, .y)), quiet = TRUE, mode = "wb")
+      )
+    }
+    .x$url <- fs::path_rel(path, pkg$dst_path)
+
+    # assemble HTML tag
+    switch(
+      .x$type,
+      "stylesheet" = sprintf('<link rel="stylesheet" href="%s" />', .x$url),
+      "script" = sprintf('<script src="%s"></script>', .x$url),
+      cli::cli_abort("Unknown asset type {.val {.x$type}} defined in {.file path_assets_yaml}.")
+    )
+  })
 }
 
 data_deps <- function(pkg, depth) {
-  if (!file.exists(data_deps_path(pkg))) {
+  if (!file.exists(path_data_deps(pkg))) {
     cli::cli_abort(
       "Run {.fn pkgdown::init_site} first.",
       call = caller_env()
@@ -20,15 +98,19 @@ data_deps <- function(pkg, depth) {
 
   deps_path <- paste0(up_path(depth), "deps")
 
-  data_deps <- read_lines(data_deps_path(pkg))
+  data_deps <- read_lines(path_data_deps(pkg))
   data_deps <- gsub('src="deps', sprintf('src="%s', deps_path), data_deps)
   data_deps <- gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
 
   paste0(data_deps, collapse = "")
 }
 
-data_deps_path <- function(pkg) {
-  file.path(pkg$dst_path, "deps", "data-deps.txt")
+path_deps <- function(pkg, ...) {
+  file.path(pkg$dst_path, "deps", ...)
+}
+
+path_data_deps <- function(pkg) {
+  file.path(path_deps(pkg), "data-deps.txt")
 }
 
 bs_theme <- function(pkg = ".") {
