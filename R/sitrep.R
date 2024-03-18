@@ -33,7 +33,7 @@ pkgdown_sitrep <- function(pkg = ".") {
        "!" = "{.emph Double-check the following URLs:}",
        " " = "{pkgdown_config_href({pkg$src_path})} contains URL {.url {pkg$meta['url']}}",
        " " = "{.file DESCRIPTION} contains URL{?s} {.url {desc_urls}}"
-      ))
+    ))
   } else {
     cli::cli_warn(c(
       "pkgdown situation report: {.emph {cli::col_red('configuration error')}}",

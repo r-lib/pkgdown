@@ -41,9 +41,9 @@ pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
 
   if (cfg) {
     if (fmt) {
-      config_path <- pkgdown_config_href(pkg$src_path)
+      config_path <- cli::format_inline(pkgdown_config_href(pkg$src_path))
     } else {
-      config_path <- cli::format_inline(pkgdown_config_relpath(pkg))
+      config_path <- pkgdown_config_relpath(pkg)
     }
 
     paste0(flds, " in ", config_path)
