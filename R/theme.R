@@ -112,7 +112,7 @@ check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
         bs_version,
         pkgdown_field(pkg, c("template", "bootstrap"))
       ),
-      x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
+      x = "Edit settings in {pkgdown_config_href({pkg$src_path})}"
     ), call = caller_env())
   }
 

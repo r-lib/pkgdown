@@ -65,6 +65,7 @@ Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
 Config/testthat/parallel: true
+Config/testthat/start-first: build-articles, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
