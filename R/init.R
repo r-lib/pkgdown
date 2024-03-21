@@ -75,6 +75,10 @@ copy_assets <- function(pkg = ".") {
     copy_asset_dir(pkg, assets)
   }
 
+  if (has_versions(pkg)) {
+    copy_asset_dir(pkg, path_pkgdown("version-selector"))
+  }
+
   # extras
   copy_asset_dir(pkg, "pkgdown", file_regexp = "^extra")
   # site assets
@@ -159,4 +163,10 @@ is_non_pkgdown_site <- function(dst_path) {
   top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
 
   length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
+}
+
+has_versions <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  file.exists(path(pkg$src_path, "pkgdown", "assets", "versions.json"))
 }
