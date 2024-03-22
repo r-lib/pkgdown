@@ -19,7 +19,7 @@ This vignette shows you how to update the released version of your site to match
 
 ## Process
 
-If you're up to speed with the basic idea and just want some code to follow here it us.
+If you're up to speed with the basic idea and just want some code to follow, here it is.
 Otherwise, read more below.
 
 ### Setup
