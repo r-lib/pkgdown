@@ -34,7 +34,7 @@ data_home_sidebar_citation <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   sidebar_section(
-    heading = "Citation",
+    heading = tr_("Citation"),
     bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html#citation")
   )
 }
@@ -91,6 +91,7 @@ build_citation_authors <- function(pkg = ".") {
 
   data <- list(
     pagetitle = tr_("Authors and Citation"),
+    citationtitle = tr_("Citation"),
     citations = data_citations(pkg),
     authors = unname(data_authors(pkg)$all),
     source = source

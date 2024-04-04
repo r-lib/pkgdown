@@ -4,5 +4,6 @@
       check_mode("foo")
     Condition
       Error in `check_mode()`:
-      ! `development.mode` in `_pkgdown.yml` must be one of auto, default, release, devel, unreleased
+      ! development.mode must be one of auto, default, release, devel, or unreleased.
+      i Use an approriate value in `_pkgdown.yml`
 

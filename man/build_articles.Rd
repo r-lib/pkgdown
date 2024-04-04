@@ -10,11 +10,19 @@ build_articles(
   pkg = ".",
   quiet = TRUE,
   lazy = TRUE,
+  seed = 1014L,
   override = list(),
   preview = NA
 )
 
-build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
+build_article(
+  name,
+  pkg = ".",
+  data = list(),
+  lazy = FALSE,
+  seed = 1014L,
+  quiet = TRUE
+)
 
 build_articles_index(pkg = ".")
 }
@@ -26,6 +34,9 @@ pandoc. This is useful when debugging.}
 
 \item{lazy}{If \code{TRUE}, will only re-build article if input file has been
 modified more recently than the output file.}
+
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}

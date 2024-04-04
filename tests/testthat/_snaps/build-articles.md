@@ -121,3 +121,10 @@
       Reading vignettes/html-deps.Rmd
       Writing articles/html-deps.html
 
+# output is reproducible by default, i.e. 'seed' is respected
+
+    Code
+      cat(output)
+    Output
+      ## [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
+

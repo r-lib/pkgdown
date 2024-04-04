@@ -69,7 +69,7 @@ Then learn about the many new ways to customise your site in `vignette("customis
 
 ## In the wild
 
-At last count, pkgdown is used [by over 8,000 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML). Here are a few examples created by contributors to pkgdown:
+At last count, pkgdown is used [by over 11,000 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML). Here are a few examples created by contributors to pkgdown:
 
 * [bayesplot](http://mc-stan.org/bayesplot/index.html)
   ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):

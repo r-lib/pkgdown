@@ -24,20 +24,23 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   logo_path <- find_logo(pkg$src_path)
 
   if (is.null(logo_path)) {
-    cli::cli_abort(
-      "Can't find package logo PNG or SVG to build favicons."
-    )
+    cli::cli_abort(c(
+      "Can't find package logo PNG or SVG to build favicons.",
+      "i" = "See {.fun usethis::use_logo} for more information."
+    ))
   }
 
   if (has_favicons(pkg) && !overwrite) {
     cli::cli_inform(c(
       "Favicons already exist in {.path pkgdown}",
-      "i" = "Set {.var overwrite = TRUE} to re-create."
+      "i" = "Set {.code overwrite = TRUE} to re-create."
     ))
     return(invisible())
   }
 
-  cli::cli_inform("Building favicons with {.url https://realfavicongenerator.net} ...")
+  cli::cli_inform(c(
+    i = "Building favicons with {.url https://realfavicongenerator.net} ..."
+  ))
 
   logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
 
@@ -78,10 +81,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   result <- content$favicon_generation_result
 
   if (!identical(result$result$status, "success")) {
-    cli::cli_abort(c(
-        "API request failed.",
-        "i" = "{.href [Please submit a bug report](https://github.com/r-lib/pkgdown/issues)}"
-    ))
+    cli::cli_abort("API request failed.", .internal = TRUE)
   }
 
   tmp <- tempfile()
