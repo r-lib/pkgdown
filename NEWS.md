@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.0.8
 
 * pkgdown is now compatible with (and requires) bslib >= 0.5.1 
   (@gadenbuie, #2395), including a fix to BS5 navbar template to get 
