@@ -70,8 +70,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     )
   }
   if (digest != file_digest(output_path)) {
-    href <- paste0("ide:run:pkgdown::preview_page('", path_rel(output_path, pkg$dst_path), "')")
-    cli::cli_inform("Writing {cli::style_hyperlink(dst_path(output), href)}")
+    writing_file(path_rel(output_path, pkg$dst_path), output)
   }
 
   # Copy over images needed by the document
