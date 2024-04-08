@@ -40,7 +40,7 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 
 ## Theming
 
-There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with bslib.
+There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
 ### Bootswatch themes
@@ -56,13 +56,14 @@ template:
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
 
-Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable:
+Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable.
+Because Bootswatch themes are provided by the [bslib](https://rstudio.github.io/bslib/) R package, you can also nest the `bootswatch` field under the `bslib` field.
 
 ``` yaml
 template:
   bootstrap: 5
-  bootswatch: lux
   bslib:
+    bootswatch: lux
     pkgdown-nav-height: 100px
 ```
 
@@ -107,6 +108,19 @@ template:
 ```
 
 While iterating on colours and other variables you only need to rerun `init_site()` and refresh your browser; when iterating on fonts, you'll need to run `build_home_index(); init_site()`.
+
+Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
+As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
+
+``` yaml
+template:
+  bslib:
+    version: 5
+    bootswatch: lux
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+```
 
 ### Syntax highlighting
 

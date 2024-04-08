@@ -24,9 +24,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- read_meta(pkg)
   meta <- modify_list(meta, override)
 
+  bs_version <- get_bootstrap_version(list(meta = meta))
+
   template_config <- find_template_config(
     package = meta$template$package,
-    bs_version = meta$template$bootstrap
+    bs_version = bs_version
   )
   meta <- modify_list(template_config, meta)
 
@@ -37,8 +39,6 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   package <- desc$get_field("Package")
   version <- desc$get_field("Version")
-
-  bs_version <- check_bootstrap_version(meta$template$bootstrap, pkg)
 
   development <- meta_development(meta, version, bs_version)
 
@@ -96,6 +96,28 @@ read_desc <- function(path = ".") {
     cli::cli_abort("Can't find {.file DESCRIPTION}", call = caller_env())
   }
   desc::description$new(path)
+}
+
+get_bootstrap_version <- function(pkg) {
+  template_bootstrap <- pkg$meta[["template"]]$bootstrap
+  template_bslib <- pkg$meta[["template"]]$bslib$version
+
+  if (!is.null(template_bootstrap) && !is.null(template_bslib)) {
+    cli::cli_abort(
+      c(
+        sprintf(
+          "Both {.field %s} and {.field %s} are set.",
+          pkgdown_field(pkg, c("template", "bootstrap")),
+          pkgdown_field(pkg, c("template", "bslib", "version"))
+        ),
+        x = "Remove one of them from {.file {pkgdown_config_relpath(pkg)}}"
+      ),
+      call = caller_env()
+    )
+  }
+
+  version <- template_bootstrap %||% template_bslib
+  check_bootstrap_version(version, pkg)
 }
 
 check_bootstrap_version <- function(version, pkg) {
