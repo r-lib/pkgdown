@@ -22,9 +22,8 @@
   `build_articles(seed = NULL)` for the old (unreproducible) behaviour. 
   (@salim-b, #2354).
 
-* `build_articles()` will process `.qmd` articles with the 
-  [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) 
-  vignette builder (@rcannood, #2404).
+* `build_articles()` will process `.qmd` articles with the quarto vignette
+  builder (@rcannood, #2404).
 
 * `build_articles()` and `build_reference()` now set RNG seed for htmlwidgets 
   IDs. This reduces noise in final HTML output, both for articles and examples 
