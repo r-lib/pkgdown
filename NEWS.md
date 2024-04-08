@@ -20,7 +20,7 @@
 * Fix setting `seed` in `build_reference()`. The seed was reset too early, before. (@salim-b, #2355)
 * Translates citation sections (@eliocamp, #2410).
 * Topic names that conflict with selector functions can now be listed as references in `_pkgdown.yml` (@dmurdoch, #2397).
-* pkgdown now requires `{bslib}` >= 0.5.1 (@gadenbuie, #2395)
+* pkgdown is now compatible with (and requires) bslib >= 0.5.1 (@gadenbuie, #2395).
 
 # pkgdown 2.0.7
 
