@@ -10,7 +10,7 @@ A default 404 page if .github/404.md is not found.
 
 
 build_home_index() rebuilds just the index page; it's useful for rapidly
-iterating when experimenting with site styles."><title>Build home section — build_home_index • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build home section — build_home_index"><meta property="og:description" content="build_home() function generates pages at the top-level of the site
+iterating when experimenting with site styles."><title>Build home section — build_home_index • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build home section — build_home_index"><meta property="og:description" content="build_home() function generates pages at the top-level of the site
 including:
 The home page
 HTML files from any .md files in ./ or .github/.
@@ -28,11 +28,11 @@ iterating when experimenting with site styles."><meta property="og:image" conten
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,11 +154,11 @@ If you are generating figures with R Markdown, make sure you set up <code>fig.pa
 <span>  fig.path <span class="op">=</span> <span class="st">"man/figures/"</span></span>
 <span><span class="op">)</span></span></code></pre><p></p></div>
 <p>This should usually go in a chunk with <code>include = FALSE</code>.</p>
-<p></p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r chunk-name, include=FALSE}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">  fig.path = "man/figures/"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="in">```{r chunk-name, include=FALSE}</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="in">  fig.path = "man/figures/"</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="in">```</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -166,7 +166,7 @@ If you are generating figures with R Markdown, make sure you set up <code>fig.pa
 
 
 <p>If you have a package logo, you can include it at the top of your README in a level-one heading:</p>
-<p></p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode markdown"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu"># pkgdown &lt;img src="man/figures/logo.png" align="right" /&gt;</span></span></code></pre><p></p></div>
 <p><code><a href="init_site.html">init_site()</a></code> will also automatically create a favicon set from your package logo.</p>
 </div>
 
@@ -181,12 +181,12 @@ If you are generating figures with R Markdown, make sure you set up <code>fig.pa
 <p>By default, the page title and description are extracted automatically from the <code>Title</code> and <code>Description</code> fields <code>DESCRIPTION</code> (stripping single quotes off quoted words).
 CRAN ensures that these fields don't contain phrases like "R package" because that's obvious on CRAN.
 To make your package more findable on search engines, it's good practice to override the <code>title</code> and <code>description</code>, thinking about what people might search for:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">  description</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Do you love R? Do you love pool-noodles? If so, you might enjoy</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    using this package to automatically discover and add pool-noodles</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    to your growing collection.</span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> An R package for pool-noodle discovery</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">  description</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    Do you love R? Do you love pool-noodles? If so, you might enjoy</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    using this package to automatically discover and add pool-noodles</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    to your growing collection.</span></code></pre><p></p></div>
 <p>(Note the use of YAML's <code>&gt;</code> i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)</p>
 </div>
 
@@ -196,8 +196,8 @@ To make your package more findable on search engines, it's good practice to over
 
 <p>READMEs usually start with an <code>&lt;h1&gt;</code> containing the package name.
 If that feels duplicative with the package name in the navbar you can remove it with <code>strip_header: true</code>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strip_header</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">strip_header</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div>
 </div>
 
 
@@ -263,11 +263,13 @@ with the author's name (matching <code>DESCRIPTION</code>)
 and can contain <code>href</code> and/or <code>html</code> fields:</p><ul><li><p>If <code>href</code> is provided, the author's name will be linked to this URL.</p></li>
 <li><p>If <code>html</code> is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
-sponsor. Use an absolute URL to an image, not a relative link.</p></li>
-</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">firstname lastname</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> </span><span class="st">"http://name-website.com"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;img src='https://website.com/name-picture.png' width=72&gt;"</span></span></code></pre><p></p></div>
+sponsor. Use an absolute URL to an image, not a relative link.
+Use an empty alternative text rather than no alternative text so a screen-reader
+would skip over it.</p></li>
+</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">firstname lastname</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> </span><span class="st">"http://name-website.com"</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;img src='https://website.com/name-picture.png' width=72 alt=''&gt;"</span></span></code></pre><p></p></div>
 <p>By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
 ("aut"), and funder ("fnd") from the <code>DESCRIPTION</code>.
 You could choose other roles for filtering.
@@ -275,16 +277,16 @@ With the configuration below:</p><ul><li><p>only the maintainer and funder(s) ap
 <li><p>all authors and contributors appear in the sidebar,</p></li>
 <li><p>the authors list on the sidebar is preceded and followed by some text,</p></li>
 <li><p>the authors list on the authors page is preceded and followed by some text.</p></li>
-</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">cre</span><span class="kw">,</span><span class="at"> fnd</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Crafted by"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">aut</span><span class="kw">,</span><span class="at"> ctb</span><span class="kw">]</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"So *who* does the work?"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"Thanks all!"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"This package is proudly brought to you by:"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"See the [changelog](news/index.html) for other contributors. :pray:"</span></span></code></pre><p></p></div>
+</ul><p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">authors</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">cre</span><span class="kw">,</span><span class="at"> fnd</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Crafted by"</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">roles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">aut</span><span class="kw">,</span><span class="at"> ctb</span><span class="kw">]</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">    </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"So *who* does the work?"</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">    </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"Thanks all!"</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">  </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">"This package is proudly brought to you by:"</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">"See the [changelog](news/index.html) for other contributors. :pray:"</span></span></code></pre><p></p></div>
 <p>If you want to filter authors based on something else than their roles,
 consider using a custom sidebar/footer component
 (see <code>?build_home</code>/<code><a href="build_site.html">?build_site</a></code>, respectively).</p>
@@ -299,16 +301,16 @@ consider using a custom sidebar/footer component
 It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
 This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
 <p>This is the default structure:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre><p></p></div>
 <p>These are drawn from seven built-in components:</p><ul><li><p><code>links</code>: automated links generated from <code>URL</code> and <code>BugReports</code> fields from <code>DESCRIPTION</code> plus manual links from the <code>home.links</code> field:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre><p></p></div></li>
 <li><p><code>license</code>: Licensing information if <code>LICENSE</code>/<code>LICENCE</code> or <code>LICENSE.md</code>/<code>LICENCE.md</code> files are present.</p></li>
 <li><p><code>community</code>: links to to <code>.github/CONTRIBUTING.md</code>, <code>.github/CODE_OF_CONDUCT.md</code>, etc.</p></li>
 <li><p><code>citation</code>: link to package citation information. Uses either <code>inst/CITATION</code> or, if absent, information from the <code>DESCRIPTION</code>.</p></li>
@@ -316,20 +318,20 @@ This organisation makes it easy to mix and match the pkgdown defaults with your 
 <li><p><code>dev</code>: development status badges extracted from <code>README.md</code>/<code>index.md</code>. This is only shown for "development" versions of websites; see "Development mode" in <code><a href="build_site.html">?build_site</a></code> for details.</p></li>
 <li><p><code>toc</code>: a table of contents for the README (not shown by default).</p></li>
 </ul><p>You can also add your own components, where <code>text</code> is markdown text:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre><p></p></div>
 <p>Alternatively, you can provide a ready-made sidebar HTML:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre><p></p></div>
 <p>Or completely remove it:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre><p></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -341,7 +343,7 @@ This organisation makes it easy to mix and match the pkgdown defaults with your 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.7.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer></div>

@@ -10,7 +10,7 @@ build_news()
 
 See the documentation for the each function to learn how to control
 that aspect of the site. This page documents options that affect the
-whole site."><title>Build a complete pkgdown website — build_site • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build a complete pkgdown website — build_site"><meta property="og:description" content="build_site() is a convenient wrapper around six functions:
+whole site."><title>Build a complete pkgdown website — build_site • pkgdown</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build a complete pkgdown website — build_site"><meta property="og:description" content="build_site() is a convenient wrapper around six functions:
 init_site()
 build_home()
 build_reference()
@@ -28,11 +28,11 @@ whole site."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.p
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +112,7 @@ whole site.</p>
 <span>  pkg <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  examples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  run_dont_run <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">1014</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  preview <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -138,8 +138,8 @@ whole site.</p>
 
 
 <dt>seed</dt>
-<dd><p>Seed used to initialize so that random examples are
-reproducible.</p></dd>
+<dd><p>Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
 <dt>lazy</dt>
@@ -192,7 +192,7 @@ so it is available for vignettes.</p></dd>
 <ul><li><p><code>destination</code> controls where the site will be generated, defaulting to
 <code>docs/</code>. Paths are relative to the package root.</p></li>
 <li><p><code>url</code> is optional, but strongly recommended.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> https://pkgdown.r-lib.org</span></span></code></pre><p></p></div>
 <p>It specifies where the site will be published and is used to allow other
 pkgdown sites to link to your site when needed (<code><a href="../articles/linking.html">vignette("linking")</a></code>),
 generate a <code>sitemap.xml</code>, automatically generate a <code>CNAME</code> when
@@ -208,8 +208,8 @@ It's used in the page title and default navbar.</p></li>
 <p>The <code>development</code> field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
 need to set the development <code>mode</code>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre><p></p></div><div class="section">
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre><p></p></div><div class="section">
 <h3 id="setting-development-mode">Setting development mode<a class="anchor" aria-label="anchor" href="#setting-development-mode"></a></h3>
 
 
@@ -247,17 +247,17 @@ from <code>.Rmd</code> files where you can use pandoc's <code>&lt;div&gt;</code>
 where a block of markdown will display. For example, you can use the
 following markdown in your README to only show GitHub install instructions
 on the development version of your site:</p>
-<p></p><div class="sourceCode md"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {.pkgdown-devel}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>You can install the development version of pkgdown from GitHub with:</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">`remotes::install_github("r-lib/pkgdown")`</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre><p></p></div>
+<p></p><div class="sourceCode md"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>::: {.pkgdown-devel}</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>You can install the development version of pkgdown from GitHub with:</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="in">`remotes::install_github("r-lib/pkgdown")`</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>:::</span></code></pre><p></p></div>
 <p>You can use a similar technique to control where badges are displayed.
 This markdown show the CRAN status badge on the site for the released
 package and the GitHub check status for the development package:</p>
-<p></p><div class="sourceCode md"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)</span><span class="co">]</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  (https://cran.r-project.org/package=pkgdown){.pkgdown-release}</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)</span><span class="co">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  (https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}</span></code></pre><p></p></div>
+<p></p><div class="sourceCode md"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">[</span><span class="al">![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)</span><span class="co">]</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  (https://cran.r-project.org/package=pkgdown){.pkgdown-release}</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">[</span><span class="al">![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)</span><span class="co">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  (https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}</span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -265,10 +265,10 @@ package and the GitHub check status for the development package:</p>
 
 
 <p>There are three other options that you can control:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">destination</span><span class="kw">:</span><span class="at"> dev</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version_label</span><span class="kw">:</span><span class="at"> danger</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version_tooltip</span><span class="kw">:</span><span class="at"> </span><span class="st">"Custom message here"</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">destination</span><span class="kw">:</span><span class="at"> dev</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">version_label</span><span class="kw">:</span><span class="at"> danger</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="fu">version_tooltip</span><span class="kw">:</span><span class="at"> </span><span class="st">"Custom message here"</span></span></code></pre><p></p></div>
 <p><code>destination</code> allows you to override the default subdirectory used for the
 development site; it defaults to <code>dev/</code>. <code>version_label</code> allows you to
 override the style used for development (and unreleased) versions of the
@@ -279,104 +279,23 @@ to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
 </div>
 
-    </div>
-    <div class="section level2">
-    <h2 id="navigation-bar">Navigation bar<a class="anchor" aria-label="anchor" href="#navigation-bar"></a></h2>
-    
+<div class="section">
+<h3 id="page-layout">Page layout<a class="anchor" aria-label="anchor" href="#page-layout"></a></h3>
 
-<p>You can customise the navigation bar that appears at the top of the page with the <code>navbar</code> field.
-It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
-This organisation makes it easy to mix and match pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span></code></pre><p></p></div>
-<p>It makes use of the the six built-in components:</p><ul><li><p><code>intro</code>: "Get Started", which links to a vignette with the same name as the package.</p></li>
-<li><p><code>reference</code>, if there are any <code>.Rd</code> files.</p></li>
-<li><p><code>articles</code>, if there are any vignettes or articles.</p></li>
-<li><p><code>tutorials</code>, if there any tutorials.</p></li>
-<li><p><code>news</code>, if <code>NEWS.md</code> exists.</p></li>
-<li><p><code>search</code>, the search box (see <code><a href="../articles/search.html">vignette("search")</a></code> for more details).</p></li>
-<li><p><code>github</code>, a link to the source repository (with an icon), if it can be automatically determined from the <code>DESCRIPTION</code>.</p></li>
-</ul><p>You can use the <code>structure</code> field to reorganise the navbar without changing the default contents:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">search</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">]</span></span></code></pre><p></p></div>
-<p>You can use <code>components</code> to override the default content.
-For example, this yaml provides a custom articles menu:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Category A</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A1</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a1.html</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A2</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a2.html</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> -------</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Category B"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Article B1</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/b1.html</span></span></code></pre><p></p></div>
-<p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown menus</a>.
-The elements of <code>menu</code> can be:</p><ul><li><p>A link (<code>text</code> + <code>href</code>)</p></li>
-<li><p>A heading (just <code>text</code>)</p></li>
-<li><p>A separator (<code>text: ——–</code>)</p></li>
-</ul><p>Instead of text, you can also use the name of an <code>icon</code>s from <a href="https://fontawesome.com/icons?d=gallery" class="external-link">fontawesome</a>.
-You should also provide a textual description in the <code>aria-label</code> field for screenreader users.</p>
-<p>To add a new component to the navbar, you need to modify both <code>structure</code> and <code>components</code>.
-For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://twitter.com/hadleywickham</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> Twitter</span></span></code></pre><p></p></div>
-<p>Finally, you can add arbitrary HTML to three locations in the navbar:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre><p></p></div>
-<p>These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.</p>
-<p>You can also customise the colour scheme of the navbar by using the <code>type</code>
-and <code>bg</code> parameters. See <code><a href="../articles/customise.html">vignette("customise")</a></code> for more details.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="footer">Footer<a class="anchor" aria-label="anchor" href="#footer"></a></h2>
-    
 
-<p>You can customise the footer with the <code>footer</code> field.
-It's made up of two pieces: <code>structure</code>, which defines the overall layout, and <code>components</code>, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.</p>
-<p>This is the default structure:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre><p></p></div>
-<p>Which uses two of the three built-in components:</p><ul><li><p><code>developed_by</code>, a sentence describing the main authors of the package. (See <code><a href="build_home.html">?build_home</a></code> if you want to tweak <em>which</em> authors appear in the footer.)</p></li>
-<li><p><code>built_with</code>, a sentence advertising pkgdown.</p></li>
-<li><p><code>package</code>, the name of the package.</p></li>
-</ul><p>You can override these defaults with the <code>footer</code> field.
-The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre><p></p></div>
-<p>Each side is pasted into a single string (separated by <code>" "</code>) and then converted from markdown to HTML.</p>
+<p>The <code>navbar</code>, <code>footer</code>, and <code>sidebar</code> fields control the appearance
+of the navbar, footer, and sidebar respectively. They have many individual
+options which are documented in the <strong>Layout</strong> section of
+<code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
+</div>
+
     </div>
     <div class="section level2">
     <h2 id="search">Search<a class="anchor" aria-label="anchor" href="#search"></a></h2>
     
 
-<p>The <code>search</code> field controls the built-in search. See <code><a href="../articles/search.html">vignette("search")</a></code>
-for details.</p>
+<p>The <code>search</code> field controls the built-in search and is
+documented in <code><a href="../articles/search.html">vignette("search")</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="template">Template<a class="anchor" aria-label="anchor" href="#template"></a></h2>
@@ -386,19 +305,19 @@ for details.</p>
 See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details.</p>
 <p>There are two other <code>template</code> fields that control other aspects of the
 site:</p><ul><li><p><code>noindex: true</code> will suppress indexing of your pages by search engines:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">noindex</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 <li><p><code>google_site_verification</code> allows you to verify your site with google:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">google_site_verification</span><span class="kw">:</span><span class="at"> _nn6ile-a6x6lctOW</span></span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">google_site_verification</span><span class="kw">:</span><span class="at"> _nn6ile-a6x6lctOW</span></span></code></pre><p></p></div></li>
 <li><p><code>trailing_slash_redirect: true</code> will automatically redirect
 <code>your-package-url.com</code> to <code>your-package-url.com/</code>, using a JS script
 added to the <code>&lt;head&gt;</code> of the home page. This is useful in certain
 redirect scenarios.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trailing_slash_redirect</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">trailing_slash_redirect</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
     <div class="section level2">
     <h2 id="analytics">Analytics<a class="anchor" aria-label="anchor" href="#analytics"></a></h2>
@@ -410,28 +329,28 @@ use of the <code>includes</code> field to add the HTML supplied to you by the pl
 Typically these are either placed <code>after_body</code> or <code>in_header</code>. I include
 a few examples below, but I highly recommend getting the recommended HTML
 directly from the platform.</p><ul><li><p><a href="https://www.goatcounter.com" class="external-link">GoatCounter</a>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
 <li><p><a href="https://analytics.google.com/analytics/web/" class="external-link">Google analytics</a>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>       &lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       &lt;script async src="https://www.googletagmanager.com/gtag/js?id={YOUR TRACKING ID}"#' &gt;&lt;/script&gt;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       &lt;script&gt;</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         window.dataLayer = window.dataLayer || [];</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         function gtag(){dataLayer.push(arguments);}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         gtag('js', new Date());</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         gtag('config', '{YOUR TRACKING ID}');</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>       &lt;/script&gt;</span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>       &lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>       &lt;script async src="https://www.googletagmanager.com/gtag/js?id={YOUR TRACKING ID}"#' &gt;&lt;/script&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>       &lt;script&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>         window.dataLayer = window.dataLayer || [];</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>         function gtag(){dataLayer.push(arguments);}</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>         gtag('js', new Date());</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>         gtag('config', '{YOUR TRACKING ID}');</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>       &lt;/script&gt;</span></code></pre><p></p></div></li>
 <li><p><a href="https://plausible.io" class="external-link">plausible.io</a>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">templates</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      &lt;script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">templates</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
 </ul></div>
     <div class="section level2">
     <h2 id="source-repository">Source repository<a class="anchor" aria-label="anchor" href="#source-repository"></a></h2>
@@ -444,12 +363,12 @@ numbers and user names). pkgdown can automatically figure out the necessary
 URLs if you link to a GitHub or GitLab repo in your <code>BugReports</code> or <code>URL</code>
 field.</p>
 <p>Otherwise, you can supply your own in the <code>repo</code> field:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/HEAD/</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/HEAD/</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
 <li><p><code>source:</code>: path to source of individual file in default branch.</p></li>
 <li><p><code>issue</code>: path to individual issue.</p></li>
 <li><p><code>user</code>: path to user.</p></li>
@@ -458,15 +377,15 @@ the end of these URLs so they should have trailing <code>/</code>s.</p>
 <p>pkgdown can automatically link to Jira issues as well if specify both a
 custom <code>issue</code> URL as well Jira project names to auto-link in
 <code>jira_projects</code>. You can specify as many projects as you would like:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">jira_projects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">this_project</span><span class="kw">,</span><span class="at"> another_project</span><span class="kw">]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://jira.organisation.com/jira/browse/</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">jira_projects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">this_project</span><span class="kw">,</span><span class="at"> another_project</span><span class="kw">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://jira.organisation.com/jira/browse/</span></span></code></pre><p></p></div>
 <p>pkgdown defaults to using the "HEAD" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
 specifying a branch name:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="deployment-deploy-">Deployment (<code>deploy</code>)<a class="anchor" aria-label="anchor" href="#deployment-deploy-"></a></h2>
@@ -477,8 +396,8 @@ the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
 time (e.g. because behind a firewall or requires auth).</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
     <div class="section level2">
     <h2 id="redirects">Redirects<a class="anchor" aria-label="anchor" href="#redirects"></a></h2>
@@ -488,10 +407,10 @@ time (e.g. because behind a firewall or requires auth).</p>
 One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
 This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.</p>
 <p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre><p></p></div>
 <p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
     </div>
     <div class="section level2">
@@ -526,7 +445,7 @@ hanging in cron jobs.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.7.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer></div>
