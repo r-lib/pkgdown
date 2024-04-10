@@ -1,29 +1,57 @@
 # pkgdown (development version)
 
-* `\cr` is now translated to `<br>` not `<br />` (#2400).
-* Fix parsing of github profiles and issues into links when present at the beginning of list items (@pearsonca, #2122)
-* Correct parse usage for S3 methods with non-syntactic class names (#2384).
-* Deprecated `build_favicon()` was removed (`build_favicons()` remains).
-* Use [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
-* Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
-* Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
-* Remove redundant entries in the documentation index when multiple explicit `@usage` tags are provided (@klmr, #2302)
-* The article index now sorts vignettes and non-vignette articles alphabetically by their filename (literally, their `basename()`), by default (@jennybc, #2253).
-* Add Catalan translation (@jmaspons, #2333)
-* Set RNG seed before building articles by default. Use `build_articles(seed = NULL)` for the old (unreproducible) behaviour. (@salim-b, #2354).
-* Set RNG seed for htmlwidgets IDs. This reduces noise in final HTML output,
-  both for articles and examples in the reference that contain htmlwidgets
-  (@salim-b, #2294, #2354).
-* Set RNG seed for htmlwidgets IDs. This reduces noise in pkgdown reference HTML output when examples generate htmlwidgets (@salim-b, #2294).
-* Fix BS5 navbar template to get `navbar.type: dark` to work with bslib 0.6+ / Bootstrap 5.3+ (@tanho63, #2388)
-* Allow detection of quarto `.qmd` articles and let them be processed using the [`quarto`](https://cran.r-project.org/web/packages/quarto/index.html) vignette builder (@rcannood, #2404).
-* Fix setting `seed` in `build_reference()`. The seed was reset too early, before. (@salim-b, #2355)
-* Translates citation sections (@eliocamp, #2410).
-* Topic names that conflict with selector functions can now be listed as references in `_pkgdown.yml` (@dmurdoch, #2397).
 * All external assets (JS, CSS, fonts) are now directly included in the site
   instead of being fetched from external CDNs if the [Bootstrap 5 template is
   used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).
   (@salim-b, #2249)
+
+# pkgdown 2.0.8
+
+* pkgdown is now compatible with (and requires) bslib >= 0.5.1 
+  (@gadenbuie, #2395), including a fix to BS5 navbar template to get 
+  `navbar.type: dark` to work with Bootstrap 5.3+ (@tanho63, #2388)
+
+* Now uses [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
+
+* Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
+
+* Translations  
+  * New Catalan translation (@jmaspons, #2333). 
+  * Citation sections are correctly translated (@eliocamp, #2410).
+
+* `build_article_index()` now sorts vignettes and non-vignette articles 
+   alphabetically by their filename (literally, their `basename()`), by default 
+   (@jennybc, #2253).
+
+* Deprecated `build_favicon()` was removed (`build_favicons()` remains).
+
+* `build_articles()` now sets RNG seed by default. Use 
+  `build_articles(seed = NULL)` for the old (unreproducible) behaviour. 
+  (@salim-b, #2354).
+
+* `build_articles()` will process `.qmd` articles with the quarto vignette
+  builder (@rcannood, #2404).
+
+* `build_articles()` and `build_reference()` now set RNG seed for htmlwidgets 
+  IDs. This reduces noise in final HTML output, both for articles and examples 
+  that contain htmlwidgets (@salim-b, #2294, #2354).
+
+* `build_news()` correctly parses  of github profiles and issues into links 
+  when present at the beginning of list items (@pearsonca, #2122)
+
+* `build_reference()` sets `seed` correctly; it was previously reset too early
+   (@salim-b, #2355)
+
+* Rd -> html translation
+  * `\cr` is now translated to `<br>` not `<br />` (#2400).
+  * Correct usage for S3 methods with non-syntactic class names (#2384).
+  * Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
+
+* `build_reference_index()` no longer generates redundant entries when multiple 
+  explicit `@usage` tags are provided (@klmr, #2302)
+
+* `build_reference_index()` correctly handles topic names that conflict with 
+  selector functions (@dmurdoch, #2397).
 
 # pkgdown 2.0.7
 

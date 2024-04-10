@@ -21,7 +21,7 @@ We'd recommend switching to Bootstrap 5, see `vignette("customise")`.
 
 ## Bootstrap 5: built-in search
 
-With BS5, search is built-in so building your pkgdown website will automatically build a search index that's available in navbar (using [fuse.js](https://fusejs.io/)).
+With BS5, search is built-in so building your pkgdown website will automatically build a search index that's available in navbar (using [fuse.js](https://www.fusejs.io/)).
 Currently the only available customisation is excluding some paths from the search index:
 
 ``` yaml

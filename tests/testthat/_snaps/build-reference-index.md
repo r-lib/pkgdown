@@ -60,7 +60,7 @@
     i In index: 1.
     Caused by error in `.f()`:
     ! Item 2 in section 1 is empty.
-    x Delete the empty line or add function name to reference in '_pkgdown.yml'.
+    x Delete the empty line or add function name to reference in _pkgdown.yml.
 
 # errors well when a content entry is not a character
 
@@ -71,7 +71,7 @@
       i In index: 1.
       Caused by error in `.f()`:
       ! Item 2 in section 1 must be a character.
-      x You might need to add '' around e.g. - 'N' or - 'off' to reference in '_pkgdown.yml'.
+      x You might need to add '' around e.g. - 'N' or - 'off' to reference in _pkgdown.yml.
 
 # errors well when a content entry refers to a not installed package
 

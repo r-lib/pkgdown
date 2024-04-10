@@ -11,18 +11,18 @@
     Code
       build_articles(pkg, lazy = FALSE)
     Message
-      Writing articles/index.html
+      Writing `articles/index.html`
       Reading vignettes/kitten.Rmd
-      Writing articles/kitten.html
+      Writing `articles/kitten.html`
 
 # warns about missing images
 
     Code
       build_articles(pkg)
     Message
-      Writing articles/index.html
+      Writing `articles/index.html`
       Reading vignettes/html-vignette.Rmd
-      Writing articles/html-vignette.html
+      Writing `articles/html-vignette.html`
     Condition
       Warning:
       Missing images in 'vignettes/html-vignette.Rmd': 'foo.png'
@@ -34,7 +34,7 @@
       path <- build_article("standard", pkg)
     Message
       Reading vignettes/standard.Rmd
-      Writing articles/standard.html
+      Writing `articles/standard.html`
 
 # can build article that uses html_vignette
 
@@ -42,7 +42,7 @@
       expect_error(build_article("html-vignette", pkg), NA)
     Message
       Reading vignettes/html-vignette.Rmd
-      Writing articles/html-vignette.html
+      Writing `articles/html-vignette.html`
 
 # can override html_document() options
 
@@ -50,7 +50,7 @@
       path <- build_article("html-document", pkg)
     Message
       Reading vignettes/html-document.Rmd
-      Writing articles/html-document.html
+      Writing `articles/html-document.html`
 
 # html widgets get needed css/js
 
@@ -58,7 +58,7 @@
       path <- build_article("widget", pkg)
     Message
       Reading vignettes/widget.Rmd
-      Writing articles/widget.html
+      Writing `articles/widget.html`
 
 # can override options with _output.yml
 
@@ -66,7 +66,7 @@
       path <- build_article("html-document", pkg)
     Message
       Reading vignettes/html-document.Rmd
-      Writing articles/html-document.html
+      Writing `articles/html-document.html`
 
 # can set width
 
@@ -74,7 +74,7 @@
       path <- build_article("width", pkg)
     Message
       Reading vignettes/width.Rmd
-      Writing articles/width.html
+      Writing `articles/width.html`
 
 # finds external resources referenced by R code in the article html
 
@@ -82,7 +82,7 @@
       path <- build_article("resources", pkg)
     Message
       Reading vignettes/resources.Rmd
-      Writing articles/resources.html
+      Writing `articles/resources.html`
 
 # BS5 article laid out correctly with and without TOC
 
@@ -90,7 +90,7 @@
       toc_true_path <- build_article("standard", pkg)
     Message
       Reading vignettes/standard.Rmd
-      Writing articles/standard.html
+      Writing `articles/standard.html`
 
 ---
 
@@ -98,7 +98,7 @@
       toc_false_path <- build_article("toc-false", pkg)
     Message
       Reading vignettes/toc-false.Rmd
-      Writing articles/toc-false.html
+      Writing `articles/toc-false.html`
 
 # articles in vignettes/articles/ are unnested into articles/
 
@@ -106,7 +106,7 @@
       path <- build_article("articles/nested", pkg)
     Message
       Reading vignettes/articles/nested.Rmd
-      Writing articles/nested.html
+      Writing `articles/nested.html`
 
 ---
 
@@ -119,7 +119,7 @@
       path <- build_article("html-deps", pkg)
     Message
       Reading vignettes/html-deps.Rmd
-      Writing articles/html-deps.html
+      Writing `articles/html-deps.html`
 
 # output is reproducible by default, i.e. 'seed' is respected
 

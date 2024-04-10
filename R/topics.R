@@ -10,8 +10,10 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      cli::cli_abort(
-        "No topics matched in {.file _pkgdown.yml}. No topics selected.",
+      cli::cli_abort(c(
+        "No topics matched in pkgdown config. No topics selected.",
+        i = "Run {.run usethis::edit_pkgdown_config()} to edit."
+        ),
         call = caller_env()
       )
     }
@@ -177,8 +179,10 @@ match_eval <- function(string, env) {
 }
 
 topic_must <- function(message, topic, ..., call = NULL) {
-  cli::cli_abort(
-    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}.",
+  cli::cli_abort(c(
+    "Topic must {message}, not {.val {topic}}.",
+    i = "Run {.run usethis::edit_pkgdown_config()} to edit."
+    ),
     ...,
     call = call
   )
