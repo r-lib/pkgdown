@@ -196,13 +196,8 @@ The inclusion of `workflow_dispatch` as a trigger means the pkgdown workflow can
 
 ## Construct a branch for the update
 
-The overall goal is to create a package state from which to update the released site that corresponds to (HEAD of) a Git branch.
-This package state should:
+The overall goal is to create a branch that combines some features of the released website (e.g. the released version) and the development version (e.g. improvements to your `_pkgdown.yml`). The easiest way is to start your branch using the latest release tag, then bring in selected changes or files from the development version.
 
--   Be based on the most recent GitHub and CRAN release.
--   Incorporate all desired updates to your documentation, such as pkgdown config.
-
-Create and checkout a branch based on the tag of the most recent CRAN release.
 For example, if readr's latest release is 2.1.1:
 
 ```         
@@ -215,7 +210,7 @@ And here is the general pattern:
 git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG
 ```
 
-Now you should backport innovations from the future that you would like to retroactively apply to your released site.
+Now you should port innovations from the development site that you want to apply to your released site.
 
 Files you must update:
 
@@ -241,11 +236,11 @@ If that doesn't cover everything, for each file you want to update, identify a G
 Checkout that specific file path from that specific ref:
 
 ```         
-git checkout REF -- path/to/the/file
+git checkout main -- path/to/the/file
 ```
 
 For example, readr recently gained a new vignette that applies to the released version of readr, i.e. it does not document any dev-only features or functions.
-Here's how to introduce the new vignette from HEAD of `main` into the current branch:
+We can bring that into the current branch with:
 
 ```         
 git checkout main -- vignettes/column-types.Rmd
@@ -255,12 +250,13 @@ Commit and push this new branch to GitHub.
 `usethis::pr_push()` can be handy for this.
 Just don't bother opening a pull request (the branch will still be pushed).
 
-Now we will use the `workflow_dispatch` GHA trigger.
-Go to the Actions page of your repo, maybe via `usethis::browse_github_actions()`.
-Click on the `pkgdown` workflow.
+Now we will use the `workflow_dispatch` GHA trigger:
 
-See the "Run workflow" button?
-CLICK IT. In the "Use workflow from" dropdown menu, select the branch you've just made and pushed.
+1. Go to the Actions page of your repo, maybe via `usethis::browse_github_actions()`.
+1. Click on the `pkgdown` workflow.
+1. Click the "Run workflow".
+1. In the "Use workflow from" dropdown menu, select the branch you've just made and pushed, then click "Run workflow".
+
 This should kick off a pkgdown build-and-deploy and, specifically, it should cause updates to the **released** site.
 
 You can keep this branch around for a while, in case you didn't get everything right the first time or if more things crop up that you'd like backport to the released site, before your next CRAN release.
