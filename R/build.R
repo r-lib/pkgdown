@@ -254,7 +254,7 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
 #' @section Deployment (`deploy`):
 #' There is a single `deploy` field
@@ -393,13 +393,15 @@ build_site_external <- function(pkg = ".",
     new_process = FALSE,
     devel = devel,
     cli_colors = cli::num_ansi_colors(),
+    hyperlinks = cli::ansi_has_hyperlink_support(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., cli_colors, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks, pkgdown_internet) {
       options(
         cli.num_colors = cli_colors,
-        crayon.colors = cli_colors, # backward compatibility
+        cli.hyperlink = hyperlinks,
+        cli.hyperlink_run = hyperlinks,
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)
