@@ -132,21 +132,15 @@ Automatic development mode is recommended for packages with a broad user base, b
 
 ### Publishing
 
-Now that we've established the meaning of a released (vs dev) site, we have to consider how the site gets rendered and deployed.
+Now that we've established the meaning of a released (vs dev) site, we have to consider how the site is built (i.e. how the HTML is generated) and deployed (i.e. how the HTML is published to a website so people can see it.).
 
-Many people use `usethis::use_pkgdown_github_pages()` to do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to automatically render and publish the site to GitHub Pages.
-Here's an overview of what this function does:
+We recommend `usethis::use_pkgdown_github_pages()` to do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to automatically render and publish the site to GitHub Pages. This function is bascially a shortcut for calling the following functions individually: 
 
-```         
-usethis::use_pkgdown_github_pages() =
-  use_pkgdown() +
-  use_github_pages() + 
-  use_github_action("pkgdown") +
-  add the pkgdown site's URL to _pkgdown.yml, URL field of DESCRIPTION,
-    and to the GitHub repo +
-  (if owning org is one of: tidyverse, r-lib, tidymodels, rstudio) 
-  add "tidyverse/tidytemplate" to Config/Needs/website in DESCRIPTION
-```
+* `use_pkgdown()`
+* `use_github_pages()`
+* `use_github_action("pkgdown")`
+
+It then adds the pkgdown site's URL to `_pkgdown.yml`, the `URL` field of DESCRIPTION, and the GitHub repo.
 
 As a result, the publishing cadence of many pkgdown sites is governed by the workflow maintained at [`r-lib/actions/examples/pkgdown.yaml`](https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml).
 (Do not confuse `_pkgdown.yml`, which gives instructions to the pkgdown package, with `.github/workflows/pkgdown.yaml`, which gives instructions to GHA.)
@@ -175,13 +169,18 @@ on:
         <snip, snip>
 ```
 
-We build and deploy for pushes to `main` (or `master`).\
-We build for pull requests against `main` (or `master`).\
-But we don't deploy for pull requests.
+Altogether this means that we:
 
-We build and deploy when we publish a GitHub release.\
-By convention, we assume that a GitHub release coincides with a CRAN release.\
-**This is the primary mechanism for building the released pkgdown site.**
+* We build and deploy for pushes to `main`.
+
+* We build, but don't deploy, for pull requests against `main`.
+  This reveals any pkgdown errors, but ensures the live site isn't
+  updated until the pull request is merged (because the code is 
+  pushed to `main`).
+
+* We build and deploy when we publish a GitHub release.
+  By convention, we assume that a GitHub release coincides with a CRAN release.
+  So this is the **primary mechanism for building the released pkgdown site**.
 
 `pkgdown::build_site_github_pages()` consults the version in DESCRIPTION to detect whether it's building from a released version or a dev version.
 That determines the `dest_dir`, e.g. `docs/` for released and `docs/dev/` for dev.
