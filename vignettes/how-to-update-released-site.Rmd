@@ -281,8 +281,4 @@ You can keep this branch around for a while, in case you didn't get everything r
 
 ## Problem-solving
 
-Remember GitHub search is a great way to get other people's `_pkgdown.yml` files in front of your eyeballs:
-
-Example query: [`path:"_pkgdown.yml" AND (org:tidyverse OR org:r-lib)`](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code)
-
-For any given `_pkgdown.yml` file on GitHub, remember that its History and Blame can be helpful for seeing how another package's config has evolved over time.
+Another great problem solving technique is to get a bunch of other people's `_pkgdown.yml` files in front of your eyeballs. There are two ways to do this: [GitHub search](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code) or [Michael Chirico's `r-ci-samples` repo](https://github.com/MichaelChirico/r-ci-samples/tree/master/pkgdown). For any given `_pkgdown.yml` file, remember that its History and Blame can be helpful for seeing how it has evolved over time.
