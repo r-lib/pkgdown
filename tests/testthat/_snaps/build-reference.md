@@ -3,7 +3,7 @@
     Code
       build_reference(pkg)
     Message
-      Writing reference/index.html
+      Writing `reference/index.html`
       Reading man/f.Rd
     Condition
       Error in `purrr::map()`:
@@ -22,27 +22,27 @@
     Code
       build_reference(pkg, topics = "e")
     Message
-      Writing reference/index.html
+      Writing `reference/index.html`
       Reading man/e.Rd
-      Writing reference/e.html
+      Writing `reference/e.html`
 
 ---
 
     Code
       build_reference(pkg, topics = "e")
     Message
-      Writing reference/index.html
+      Writing `reference/index.html`
       Reading man/e.Rd
-      Writing reference/e.html
+      Writing `reference/e.html`
 
 # pkgdown html dependencies are suppressed from examples in references
 
     Code
       build_reference(pkg, topics = "a")
     Message
-      Writing reference/index.html
+      Writing `reference/index.html`
       Reading man/a.Rd
-      Writing reference/a.html
+      Writing `reference/a.html`
 
 # examples are reproducible by default, i.e. 'seed' is respected
 

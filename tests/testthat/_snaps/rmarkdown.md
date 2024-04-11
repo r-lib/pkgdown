@@ -4,7 +4,7 @@
       render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
     Message
       Reading assets/vignette-with-img.Rmd
-      Writing test.html
+      Writing `test.html`
 
 # render_rmarkdown yields useful error
 
@@ -29,7 +29,7 @@
         output = "test.html")
     Message
       Reading assets/vignette-with-crayon.Rmd
-      Writing test.html
+      Writing `test.html`
 
 ---
 

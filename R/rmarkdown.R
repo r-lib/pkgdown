@@ -1,7 +1,7 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, quiet = TRUE) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -20,13 +20,26 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     intermediates_dir = tempdir(),
     encoding = "UTF-8",
     envir = globalenv(),
+    seed = seed,
     ...,
     quiet = quiet
   )
 
   path <- tryCatch(
     callr::r_safe(
-      function(...) rmarkdown::render(...),
+      function(seed, envir, ...) {
+        if (!is.null(seed)) {
+          # since envir is copied from the parent fn into callr::r_safe(),
+          # set.seed() sets the seed in the wrong global env and we have to
+          # manually copy it over
+          set.seed(seed)
+          envir$.Random.seed <- .GlobalEnv$.Random.seed
+          if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+            htmlwidgets::setWidgetIdSeed(seed)
+          }
+        }
+        rmarkdown::render(envir = envir, ...)
+      },
       args = args,
       show = !quiet,
       env = c(
@@ -57,8 +70,7 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     )
   }
   if (digest != file_digest(output_path)) {
-    href <- paste0("ide:run:pkgdown::preview_page('", path_rel(output_path, pkg$dst_path), "')")
-    cli::cli_inform("Writing {cli::style_hyperlink(dst_path(output), href)}")
+    writing_file(path_rel(output_path, pkg$dst_path), output)
   }
 
   # Copy over images needed by the document

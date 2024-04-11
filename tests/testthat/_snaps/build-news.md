@@ -32,10 +32,10 @@
     Code
       build_news(pkg)
     Message
-      Writing news/news-2.0.html
-      Writing news/news-1.1.html
-      Writing news/news-1.0.html
-      Writing news/index.html
+      Writing `news/news-2.0.html`
+      Writing `news/news-1.1.html`
+      Writing `news/news-1.0.html`
+      Writing `news/index.html`
 
 # news headings get class and release date
 

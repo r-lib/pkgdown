@@ -141,7 +141,7 @@ build_news_multi <- function(pkg = ".") {
   )
 }
 
-globalVariables(".")
+utils::globalVariables(".")
 
 data_news <- function(pkg = list()) {
   html <- markdown_body(path(pkg$src_path, "NEWS.md"))

@@ -8,7 +8,7 @@ build_site(
   pkg = ".",
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   lazy = FALSE,
   override = list(),
   preview = NA,
@@ -25,8 +25,8 @@ build_site(
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize random number generation so that
-examples are reproducible.}
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}

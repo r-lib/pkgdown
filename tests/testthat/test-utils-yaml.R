@@ -7,9 +7,8 @@ test_that("pkgdown_field produces useful description", {
   expect_equal(pkgdown_field(pkg, c("a", "b")), "a.b")
   expect_equal(pkgdown_field(pkg, c("a", "b"), fmt = TRUE), "{.field a.b}")
   expect_equal(pkgdown_field(pkg, c("a"), cfg = TRUE), "a in _pkgdown.yml")
-  expect_equal(
-    pkgdown_field(pkg, c("a"), cfg = TRUE, fmt = TRUE),
-    "{.field a} in {.file _pkgdown.yml}"
+  expect_snapshot(
+    cli::cli_inform(pkgdown_field(pkg, c("a"), cfg = TRUE, fmt = TRUE))
   )
 
   expect_snapshot(error = TRUE, {

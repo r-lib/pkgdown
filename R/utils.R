@@ -67,6 +67,11 @@ src_path <- cli::combine_ansi_styles(
   cli::style_bold, cli::col_green
 )
 
+writing_file <- function(path, show) {
+  text <- dst_path(show)
+  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
+}
+
 skip_if_no_pandoc <- function(version = "1.12.3") {
   testthat::skip_if_not(rmarkdown::pandoc_available(version))
 }
