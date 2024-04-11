@@ -151,8 +151,6 @@ As a result, the publishing cadence of many pkgdown sites is governed by the wor
 
 Here are some of the most important bits of the GHA workflow config:
 
-*NOTE: this is from v2 of `r-lib/actions`, which is important! If you use usethis to add/update workflow config, make sure you're using the dev version of usethis, which will pull from the `v2` tag.*
-
 ``` yaml
 on:
   push:
