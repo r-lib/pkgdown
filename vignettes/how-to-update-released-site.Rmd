@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 This vignette shows you how to update the released version of your site to match the dev version of the site, so the first step is to ensure that the dev site looks the way that you want it.
 
+This site assumes that you're a recent version of our recommend [pkgdown action](https://github.com/r-lib/actions/blob/v2-branch/examples/pkgdown.yaml). If your workflow does not contain `workflow_dispatch`, you will need to update `.github/actions/pkgdown.yaml` by running `use_github_action("pkgdown")`.
+
 ## Process
 
 If you're up to speed with the basic idea and just want some code to follow, here it is.
@@ -191,19 +193,7 @@ So how do you tweak things about the released site *in between* releases?
 That brings us to `workflow_dispatch:`.
 (Yes that dangling colon is correct.)
 
-The inclusion of `workflow_dispatch` as a trigger means the pkgdown workflow can be run on demand, either manually from the browser or via the GitHub REST API. We're going to show how to update a released site from a GitHub branch or tag, using the browser method.
-In the future, we might build some tooling around the API method.
-
-Places to learn more about triggering GHA workflows:
-
--   <https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#workflow_dispatch>
--   <https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow>
--   <https://docs.github.com/en/rest/reference/actions/#create-a-workflow-dispatch-event>
-
-Before we move on, I repeat:
-It is important that your `main` branch have the latest pkgdown workflow.
-(Or whatever your default branch is called.) At the time of writing, this means the `v2` tag in `r-lib/actions`.
-The easiest way to get this is to install dev usethis and run `usethis::use_github_action("pkgdown")`.
+The inclusion of `workflow_dispatch` as a trigger means the pkgdown workflow can be [run on demand](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow), most importantly from the browser.
 
 ## Construct a branch for the update
 
@@ -269,9 +259,6 @@ Just don't bother opening a pull request (the branch will still be pushed).
 Now we will use the `workflow_dispatch` GHA trigger.
 Go to the Actions page of your repo, maybe via `usethis::browse_github_actions()`.
 Click on the `pkgdown` workflow.
-
-You should see "This workflow has a workflow_dispatch event trigger."\
-(If you don't, that means you didn't do one of the pre-requisites, which is to update to `v2` of the pkgdown workflow.)
 
 See the "Run workflow" button?
 CLICK IT. In the "Use workflow from" dropdown menu, select the branch you've just made and pushed.
