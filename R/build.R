@@ -254,7 +254,7 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
 #' @section Deployment (`deploy`):
 #' There is a single `deploy` field
