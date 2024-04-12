@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 This vignette shows you how to update the released version of your site to match the dev version of the site, so the first step is to ensure that the dev site looks the way that you want it.
 
-This site assumes that you're a recent version of our recommend [pkgdown action](https://github.com/r-lib/actions/blob/v2-branch/examples/pkgdown.yaml). If your workflow does not contain `workflow_dispatch`, you will need to update `.github/actions/pkgdown.yaml` by running `use_github_action("pkgdown")`.
+This site assumes that you're a using recent version of our recommend [pkgdown action](https://github.com/r-lib/actions/blob/main/examples/pkgdown.yaml). If your workflow does not contain `workflow_dispatch`, you will need to update `.github/actions/pkgdown.yaml` by running `use_github_action("pkgdown")`.
 
 ## Process
 
@@ -171,14 +171,14 @@ on:
 
 Altogether this means that we:
 
-* We build and deploy for pushes to `main`.
+* Build and deploy for pushes to `main`.
 
-* We build, but don't deploy, for pull requests against `main`.
+* Build, but don't deploy, for pull requests against `main`.
   This reveals any pkgdown errors, but ensures the live site isn't
   updated until the pull request is merged (because the code is 
   pushed to `main`).
 
-* We build and deploy when we publish a GitHub release.
+* Build and deploy when we publish a GitHub release.
   By convention, we assume that a GitHub release coincides with a CRAN release.
   So this is the **primary mechanism for building the released pkgdown site**.
 
