@@ -112,6 +112,12 @@
 <p>This vignette shows you how to update the released version of your
 site to match the dev version of the site, so the first step is to
 ensure that the dev site looks the way that you want it.</p>
+<p>This site assumes that you’re a using recent version of our recommend
+<a href="https://github.com/r-lib/actions/blob/main/examples/pkgdown.yaml" class="external-link">pkgdown
+action</a>. If your workflow does not contain
+<code>workflow_dispatch</code>, you will need to update
+<code>.github/actions/pkgdown.yaml</code> by running
+<code>use_github_action("pkgdown")</code>.</p>
 <div class="section level2">
 <h2 id="process">Process<a class="anchor" aria-label="anchor" href="#process"></a>
 </h2>
@@ -226,19 +232,21 @@ locally installed.</p>
 <h3 id="publishing">Publishing<a class="anchor" aria-label="anchor" href="#publishing"></a>
 </h3>
 <p>Now that we’ve established the meaning of a released (vs dev) site,
-we have to consider how the site gets rendered and deployed.</p>
-<p>Many people use <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> to
-do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to
-automatically render and publish the site to GitHub Pages. Here’s an
-overview of what this function does:</p>
-<pre><code>usethis::use_pkgdown_github_pages() =
-  use_pkgdown() +
-  use_github_pages() + 
-  use_github_action("pkgdown") +
-  add the pkgdown site's URL to _pkgdown.yml, URL field of DESCRIPTION,
-    and to the GitHub repo +
-  (if owning org is one of: tidyverse, r-lib, tidymodels, rstudio) 
-  add "tidyverse/tidytemplate" to Config/Needs/website in DESCRIPTION</code></pre>
+we have to consider how the site is built (i.e. how the HTML is
+generated) and deployed (i.e. how the HTML is published to a website so
+people can see it.).</p>
+<p>We recommend <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> to do
+basic pkgdown setup and configure a GitHub Actions (GHA) workflow to
+automatically render and publish the site to GitHub Pages. This function
+is bascially a shortcut for calling the following functions
+individually:</p>
+<ul>
+<li><code>use_pkgdown()</code></li>
+<li><code>use_github_pages()</code></li>
+<li><code>use_github_action("pkgdown")</code></li>
+</ul>
+<p>It then adds the pkgdown site’s URL to <code>_pkgdown.yml</code>, the
+<code>URL</code> field of DESCRIPTION, and the GitHub repo.</p>
 <p>As a result, the publishing cadence of many pkgdown sites is governed
 by the workflow maintained at <a href="https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml" class="external-link"><code>r-lib/actions/examples/pkgdown.yaml</code></a>.
 (Do not confuse <code>_pkgdown.yml</code>, which gives instructions to
@@ -246,34 +254,37 @@ the pkgdown package, with <code>.github/workflows/pkgdown.yaml</code>,
 which gives instructions to GHA.)</p>
 <p>Here are some of the most important bits of the GHA workflow
 config:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">,</span><span class="at"> master</span><span class="kw">]</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">,</span><span class="at"> master</span><span class="kw">]</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="at">  </span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="at">&lt;snip, snip&gt;</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> Rscript -e 'pkgdown::build_site_github_pages(...)'</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="at">        </span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to GitHub pages 🚀</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> JamesIves/github-pages-deploy-action@4.1.4</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="at">        </span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="at">        &lt;snip, snip&gt;</span></span></code></pre></div>
-<p>We build and deploy for pushes to <code>main</code> (or
-<code>master</code>).<br>
-We build for pull requests against <code>main</code> (or
-<code>master</code>).<br>
-But we don’t deploy for pull requests.</p>
-<p>We build and deploy when we publish a GitHub release.<br>
-By convention, we assume that a GitHub release coincides with a CRAN
-release.<br><strong>This is the primary mechanism for building the released pkgdown
-site.</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">,</span><span class="at"> master</span><span class="kw">]</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">,</span><span class="at"> master</span><span class="kw">]</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="at">&lt;snip, snip&gt;</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> Rscript -e 'pkgdown::build_site_github_pages(...)'</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to GitHub pages 🚀</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> JamesIves/github-pages-deploy-action@4.1.4</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="at">        &lt;snip, snip&gt;</span></span></code></pre></div>
+<p>Altogether this means that we:</p>
+<ul>
+<li><p>Build and deploy for pushes to <code>main</code>.</p></li>
+<li><p>Build, but don’t deploy, for pull requests against
+<code>main</code>. This reveals any pkgdown errors, but ensures the live
+site isn’t updated until the pull request is merged (because the code is
+pushed to <code>main</code>).</p></li>
+<li><p>Build and deploy when we publish a GitHub release. By convention,
+we assume that a GitHub release coincides with a CRAN release. So this
+is the <strong>primary mechanism for building the released pkgdown
+site</strong>.</p></li>
+</ul>
 <p><code><a href="../reference/build_site_github_pages.html">pkgdown::build_site_github_pages()</a></code> consults the version
 in DESCRIPTION to detect whether it’s building from a released version
 or a dev version. That determines the <code>dest_dir</code>,
@@ -287,42 +298,24 @@ between</em> releases?</p>
 <p>That brings us to <code>workflow_dispatch:</code>. (Yes that dangling
 colon is correct.)</p>
 <p>The inclusion of <code>workflow_dispatch</code> as a trigger means
-the pkgdown workflow can be run on demand, either manually from the
-browser or via the GitHub REST API. We’re going to show how to update a
-released site from a GitHub branch or tag, using the browser method. In
-the future, we might build some tooling around the API method.</p>
-<p>Places to learn more about triggering GHA workflows:</p>
-<ul>
-<li><a href="https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#workflow_dispatch" class="external-link uri">https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#workflow_dispatch</a></li>
-<li><a href="https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow" class="external-link uri">https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/actions/#create-a-workflow-dispatch-event" class="external-link uri">https://docs.github.com/en/rest/reference/actions/#create-a-workflow-dispatch-event</a></li>
-</ul>
-<p>Before we move on, I repeat: It is important that your
-<code>main</code> branch have the latest pkgdown workflow. (Or whatever
-your default branch is called.) At the time of writing, this means the
-<code>v2</code> tag in <code>r-lib/actions</code>. The easiest way to
-get this is to install dev usethis and run
-<code>usethis::use_github_action("pkgdown")</code>.</p>
+the pkgdown workflow can be <a href="https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow" class="external-link">run
+on demand</a>, most importantly from the browser.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="construct-a-branch-for-the-update">Construct a branch for the update<a class="anchor" aria-label="anchor" href="#construct-a-branch-for-the-update"></a>
 </h2>
-<p>The overall goal is to create a package state from which to update
-the released site that corresponds to (HEAD of) a Git branch. This
-package state should:</p>
-<ul>
-<li>Be based on the most recent GitHub and CRAN release.</li>
-<li>Incorporate all desired updates to your documentation, such as
-pkgdown config.</li>
-</ul>
-<p>Create and checkout a branch based on the tag of the most recent CRAN
-release. For example, if readr’s latest release is 2.1.1:</p>
+<p>The overall goal is to create a branch that combines some features of
+the released website (e.g. the released version) and the development
+version (e.g. improvements to your <code>_pkgdown.yml</code>). The
+easiest way is to start your branch using the latest release tag, then
+bring in selected changes or files from the development version.</p>
+<p>For example, if readr’s latest release is 2.1.1:</p>
 <pre><code>git checkout -b update-pkgdown-2-1-1 v2.1.1</code></pre>
 <p>And here is the general pattern:</p>
 <pre><code>git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG</code></pre>
-<p>Now you should backport innovations from the future that you would
-like to retroactively apply to your released site.</p>
+<p>Now you should port innovations from the development site that you
+want to apply to your released site.</p>
 <p>Files you must update:</p>
 <ul>
 <li><code>.github/workflows/pkgdown.yaml</code></li>
@@ -353,27 +346,26 @@ a commit by its SHA:</p>
 identify a Git reference (meaning: a SHA, tag, or branch) where the file
 is in the desired state. Checkout that specific file path from that
 specific ref:</p>
-<pre><code>git checkout REF -- path/to/the/file</code></pre>
+<pre><code>git checkout main -- path/to/the/file</code></pre>
 <p>For example, readr recently gained a new vignette that applies to the
 released version of readr, i.e. it does not document any dev-only
-features or functions. Here’s how to introduce the new vignette from
-HEAD of <code>main</code> into the current branch:</p>
+features or functions. We can bring that into the current branch
+with:</p>
 <pre><code>git checkout main -- vignettes/column-types.Rmd</code></pre>
 <p>Commit and push this new branch to GitHub.
 <code><a href="https://usethis.r-lib.org/reference/pull-requests.html" class="external-link">usethis::pr_push()</a></code> can be handy for this. Just don’t bother
 opening a pull request (the branch will still be pushed).</p>
-<p>Now we will use the <code>workflow_dispatch</code> GHA trigger. Go to
-the Actions page of your repo, maybe via
-<code><a href="https://usethis.r-lib.org/reference/browse-this.html" class="external-link">usethis::browse_github_actions()</a></code>. Click on the
-<code>pkgdown</code> workflow.</p>
-<p>You should see “This workflow has a workflow_dispatch event
-trigger.”<br>
-(If you don’t, that means you didn’t do one of the pre-requisites, which
-is to update to <code>v2</code> of the pkgdown workflow.)</p>
-<p>See the “Run workflow” button? CLICK IT. In the “Use workflow from”
-dropdown menu, select the branch you’ve just made and pushed. This
-should kick off a pkgdown build-and-deploy and, specifically, it should
-cause updates to the <strong>released</strong> site.</p>
+<p>Now we will use the <code>workflow_dispatch</code> GHA trigger:</p>
+<ol style="list-style-type: decimal">
+<li>Go to the Actions page of your repo, maybe via
+<code><a href="https://usethis.r-lib.org/reference/browse-this.html" class="external-link">usethis::browse_github_actions()</a></code>.</li>
+<li>Click on the <code>pkgdown</code> workflow.</li>
+<li>Click the “Run workflow”.</li>
+<li>In the “Use workflow from” dropdown menu, select the branch you’ve
+just made and pushed, then click “Run workflow”.</li>
+</ol>
+<p>This should kick off a pkgdown build-and-deploy and, specifically, it
+should cause updates to the <strong>released</strong> site.</p>
 <p>You can keep this branch around for a while, in case you didn’t get
 everything right the first time or if more things crop up that you’d
 like backport to the released site, before your next CRAN release.</p>
@@ -381,12 +373,13 @@ like backport to the released site, before your next CRAN release.</p>
 <div class="section level2">
 <h2 id="problem-solving">Problem-solving<a class="anchor" aria-label="anchor" href="#problem-solving"></a>
 </h2>
-<p>Remember GitHub search is a great way to get other people’s
-<code>_pkgdown.yml</code> files in front of your eyeballs:</p>
-<p>Example query: <a href="https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&amp;type=code" class="external-link"><code>path:"_pkgdown.yml" AND (org:tidyverse OR org:r-lib)</code></a></p>
-<p>For any given <code>_pkgdown.yml</code> file on GitHub, remember that
-its History and Blame can be helpful for seeing how another package’s
-config has evolved over time.</p>
+<p>Another great problem solving technique is to get a bunch of other
+people’s <code>_pkgdown.yml</code> files in front of your eyeballs.
+There are two ways to do this: <a href="https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&amp;type=code" class="external-link">GitHub
+search</a> or <a href="https://github.com/MichaelChirico/r-ci-samples/tree/master/pkgdown" class="external-link">Michael
+Chirico’s <code>r-ci-samples</code> repo</a>. For any given
+<code>_pkgdown.yml</code> file, remember that its History and Blame can
+be helpful for seeing how it has evolved over time.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
