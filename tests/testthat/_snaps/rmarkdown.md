@@ -18,8 +18,6 @@
       ! Failed to render RMarkdown document.
       x [WARNING] Could not fetch resource path-to-image.png Failing because there were warnings.
       Caused by error:
-      ! in callr subprocess.
-      Caused by error:
       ! pandoc document conversion failed with error 3
 
 # render_rmarkdown styles ANSI escapes

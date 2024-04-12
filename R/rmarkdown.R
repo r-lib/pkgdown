@@ -25,7 +25,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     quiet = quiet
   )
 
-  path <- tryCatch(
+  path <- withCallingHandlers(
     callr::r_safe(
       function(seed, envir, ...) {
         if (!is.null(seed)) {
@@ -51,12 +51,14 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
       )
     ),
     error = function(cnd) {
+      # browser()
       cli::cli_abort(
         c(
           "Failed to render RMarkdown document.",
           x = gsub("\r", "", cnd$stderr, fixed = TRUE)
         ),
-        parent = cnd
+        parent = cnd$parent,
+        trace = cnd$parent$trace
       )
     }
   )
