@@ -51,9 +51,9 @@ file_copy_to <- function(pkg,
 }
 
 # Checks init_site() first.
-create_subdir <- function(dest_base, subdir) {
+create_subdir <- function(dest_base, subdir, pkg = pkg) {
   if (!fs::dir_exists(dest_base)) {
-    init_site()
+    init_site(pkg)
   }
   dir_create(path(dest_base, subdir))
 
