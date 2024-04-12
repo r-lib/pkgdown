@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Preview links now work once again (#2435).
 * `build_home()` no longer renders Github issue and pull request templates (@hsloot, #2362)
 
 # pkgdown 2.0.8
