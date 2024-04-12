@@ -26,7 +26,8 @@ init_site <- function(pkg = ".") {
   if (is_non_pkgdown_site(pkg$dst_path)) {
     cli::cli_abort(c(
       "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
-      i = "Make sure no important information, and use {.run pkgdown::clean_site()} to clear"
+      "!" = "Make sure it contains no important information \\
+             and use {.run pkgdown::clean_site()} to delete its contents."
       ),
       call = caller_env()
     )

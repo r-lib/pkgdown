@@ -79,7 +79,7 @@ build_news <- function(pkg = ".",
     return()
 
   cli::cli_rule("Building news")
-  create_subdir(pkg$dst_path, "news", pkg)
+  create_subdir(pkg, "news")
 
   switch(news_style(pkg$meta),
     single = build_news_single(pkg),
