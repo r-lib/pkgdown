@@ -245,7 +245,7 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
   pkg <- section_init(pkg, depth = 1L)
-  dir_create(path(pkg$dst_path, "reference"))
+  create_subdir(pkg$dst_path, "reference")
 
   # Copy icons, if needed
   src_icons <- path(pkg$src_path, "icons")

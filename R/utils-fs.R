@@ -50,6 +50,15 @@ file_copy_to <- function(pkg,
   file_copy(from_paths[!eq], to_paths[!eq], overwrite = overwrite)
 }
 
+# Checks init_site() first.
+create_subdir <- function(dest_base, subdir) {
+  if (!fs::dir_exists(dest_base)) {
+    init_site()
+  }
+  dir_create(path(dest_base, subdir))
+
+}
+
 out_of_date <- function(source, target) {
   if (!file_exists(target))
     return(TRUE)
