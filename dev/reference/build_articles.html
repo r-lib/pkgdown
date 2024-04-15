@@ -135,6 +135,7 @@ you are primarily working on the text of an article.</p>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
+<span>  new_process <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -179,6 +180,12 @@ relative to <code>vignettes/</code> without extension, or <code>index</code> or 
 
 <dt>data</dt>
 <dd><p>Additional data to pass on to template.</p></dd>
+
+
+<dt>new_process</dt>
+<dd><p>Build the article in a clean R process? The default,
+<code>TRUE</code>, ensures that every article is build in a fresh environment, but
+you may want to set it to <code>FALSE</code> to make debugging easier.</p></dd>
 
 </dl></div>
     <div class="section level2">
