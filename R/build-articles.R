@@ -200,11 +200,15 @@ build_articles <- function(pkg = ".",
 #' @param name Name of article to render. This should be either a path
 #'   relative to `vignettes/` without extension, or `index` or `README`.
 #' @param data Additional data to pass on to template.
+#' @param new_process Build the article in a clean R process? The default,
+#'   `TRUE`, ensures that every article is build in a fresh environment, but
+#'   you may want to set it to `FALSE` to make debugging easier.
 build_article <- function(name,
                           pkg = ".",
                           data = list(),
                           lazy = FALSE,
                           seed = 1014L,
+                          new_process = TRUE,
                           quiet = TRUE) {
 
   pkg <- as_pkgdown(pkg)
@@ -293,6 +297,7 @@ build_article <- function(name,
     output_format = format,
     output_options = options,
     seed = seed,
+    new_process = new_process,
     quiet = quiet
   )
 }
