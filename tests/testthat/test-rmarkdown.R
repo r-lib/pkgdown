@@ -21,17 +21,16 @@ test_that("render_rmarkdown yields useful error", {
   tmp <- dir_create(file_temp())
   pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
 
-  # For pandoc
-  expect_snapshot(error = TRUE, {
-    render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html",
-        output_format = rmarkdown::html_document(pandoc_args = "--fail-if-warnings"))
-  })
+  format <- rmarkdown::html_document(pandoc_args = "--fail-if-warnings")
 
   expect_snapshot(error = TRUE, {
+    "Pandoc error"
+    render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
+    
+    "R error"
     render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
-    last_trace()
+    render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
   })
-
 })
 
 test_that("render_rmarkdown styles ANSI escapes", {

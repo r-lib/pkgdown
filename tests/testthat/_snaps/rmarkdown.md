@@ -9,34 +9,38 @@
 # render_rmarkdown yields useful error
 
     Code
-      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = rmarkdown::html_document(
-        pandoc_args = "--fail-if-warnings"))
+      # Pandoc error
+      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
     Message
       Reading assets/pandoc-fail.Rmd
     Condition
-      Error in `render_rmarkdown()`:
-      ! Failed to render RMarkdown document.
-      x [WARNING] Could not fetch resource path-to-image.png Failing because there were warnings.
+      Error:
+      x Failed to render RMarkdown document.
+        [WARNING] Could not fetch resource path-to-image.png
+        Failing because there were warnings.
       Caused by error:
       ! pandoc document conversion failed with error 3
-
----
-
     Code
+      # R error
       render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
     Message
       Reading assets/r-fail.Rmd
     Condition
-      Error in `render_rmarkdown()`:
-      ! Failed to render RMarkdown document.
-      x Quitting from lines at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+      Error:
+      x Failed to render RMarkdown document.
+        
+        Quitting from lines at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
       Caused by error:
       ! Error!
     Code
-      last_trace()
+      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
+    Message
+      Reading assets/r-fail.Rmd
+      
+      Quitting from lines  at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
     Condition
-      Error:
-      ! Can't show last error because no error was recorded yet
+      Error in `h()`:
+      ! Error!
 
 # render_rmarkdown styles ANSI escapes
 
