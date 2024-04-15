@@ -51,13 +51,12 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
       )
     ),
     error = function(cnd) {
-      # browser()
       cli::cli_abort(
         c(
           "Failed to render RMarkdown document.",
           x = gsub("\r", "", cnd$stderr, fixed = TRUE)
         ),
-        parent = cnd$parent,
+        parent = cnd$parent %||% cnd,
         trace = cnd$parent$trace
       )
     }
