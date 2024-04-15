@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Preview links now work once again (#2435).
+* `build_home()` no longer renders Github issue and pull request templates (@hsloot, #2362)
+* It is now easier to preview parts of the website locally interactively. `build_reference_index()` and friends will call `init_site()` internally instead of erroring (@olivroy, #2329).
+
 # pkgdown 2.0.8
 
 * pkgdown is now compatible with (and requires) bslib >= 0.5.1 
