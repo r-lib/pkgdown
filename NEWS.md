@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_article()` gains a new `new_process` argument which allows to build a vignette in the current process for debugging purposes. We've also improved the error messages and tracebacks if an article fails to build, hopefully also making debugging easier (#2438).
 * Preview links now work once again (#2435).
 * `build_home()` no longer renders Github issue and pull request templates (@hsloot, #2362)
 * It is now easier to preview parts of the website locally interactively. `build_reference_index()` and friends will call `init_site()` internally instead of erroring (@olivroy, #2329).
