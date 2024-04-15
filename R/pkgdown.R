@@ -68,8 +68,10 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
     yaml::write_yaml(meta, path_pkgdown_yml)
   }
 
-  # Returns the path to the package so that it can be loaded with
-  # `pkgload::load_all()`. We don't load because {pkgload} is a suggested dep.
+  rlang::check_installed("pkgload")
+  pkgload::load_all(path)
+  withr::defer(pkgload::unload("templatepackage"), envir = env)
+
   path
 }
 

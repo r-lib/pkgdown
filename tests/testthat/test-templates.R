@@ -99,9 +99,6 @@ test_that("Bootstrap version in template package under `template.bootstrap`", {
     meta = list(template = list(bootstrap = 5))
   )
 
-  pkgload::load_all(path_template_package)
-  withr::defer(pkgload::unload("templatepackage"))
-
   pkg <- local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
 
   expect_equal(pkg$bs_version, 5)
@@ -112,9 +109,6 @@ test_that("Bootstrap version in template package under `template.bslib.version`"
     meta = list(template = list(bslib = list(version = 5)))
   )
 
-  pkgload::load_all(path_template_package)
-  withr::defer(pkgload::unload("templatepackage"))
-
   pkg <- local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
 
   expect_equal(pkg$bs_version, 5)
@@ -124,9 +118,6 @@ test_that("Invalid bootstrap version spec in template package", {
   path_template_package <- local_pkgdown_template_pkg(
     meta = list(template = list(bootstrap = 4, bslib = list(version = 5)))
   )
-
-  pkgload::load_all(path_template_package)
-  withr::defer(pkgload::unload("templatepackage"))
 
   expect_snapshot(
     error = TRUE,
@@ -147,9 +138,6 @@ test_that("Valid local Bootstrap version masks invalid template package", {
   path_template_package <- local_pkgdown_template_pkg(
     meta = list(template = list(bootstrap = 4, bslib = list(version = 5)))
   )
-
-  pkgload::load_all(path_template_package)
-  withr::defer(pkgload::unload("templatepackage"))
 
   expect_no_error(
     local_pkgdown_site(meta = list(template = list(
