@@ -34,8 +34,6 @@ test_that("render_rmarkdown yields useful error", {
 
 })
 
-
-
 test_that("render_rmarkdown styles ANSI escapes", {
   skip_if_no_pandoc()
   local_edition(3)
