@@ -13,7 +13,7 @@ test_that("render_rmarkdown copies image files in subdirectories", {
   )
 })
 
-test_that("render_rmarkdown yields useful error", {
+test_that("render_rmarkdown yields useful error if pandoc fails", {
   local_edition(3)
   skip_on_cran() # fragile due to pandoc dependency
   skip_if_no_pandoc("2.18")
@@ -22,19 +22,30 @@ test_that("render_rmarkdown yields useful error", {
   pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
 
   format <- rmarkdown::html_document(pandoc_args = "--fail-if-warnings")
+  expect_snapshot(
+    render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format),
+    error = TRUE
+  )
+})
+
+test_that("render_rmarkdown yields useful error if R fails", {
+  local_edition(3)
+  skip_if_no_pandoc()
+
+  tmp <- dir_create(file_temp())
+  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
 
   expect_snapshot(
     {
-      "Pandoc error"
-      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
-      
-      "R error"
-      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
-      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
+      "Test traceback"
+      summary(expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")))
+
+      "Just test that it works; needed for browser() etc"
+      expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE))
     },
-    error = TRUE,
     # work around xfun bug
-    transform = function(x) gsub("lines  ?at lines", "lines", x))
+    transform = function(x) gsub("lines  ?at lines", "lines", x)
+  )
 })
 
 test_that("render_rmarkdown styles ANSI escapes", {

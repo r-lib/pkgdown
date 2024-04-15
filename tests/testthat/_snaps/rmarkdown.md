@@ -6,10 +6,9 @@
       Reading assets/vignette-with-img.Rmd
       Writing `test.html`
 
-# render_rmarkdown yields useful error
+# render_rmarkdown yields useful error if pandoc fails
 
     Code
-      # Pandoc error
       render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
     Message
       Reading assets/pandoc-fail.Rmd
@@ -20,27 +19,36 @@
         Failing because there were warnings.
       Caused by error:
       ! pandoc document conversion failed with error 3
+
+# render_rmarkdown yields useful error if R fails
+
     Code
-      # R error
-      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
+      # Test traceback
+      summary(expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")))
     Message
       Reading assets/r-fail.Rmd
-    Condition
+    Output
+      <error/rlang_error>
       Error:
       x Failed to render RMarkdown document.
         
         Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
       Caused by error:
       ! Error!
+      ---
+      Backtrace:
+          x
+       1. \-global f()
+       2.   \-global g()
+       3.     \-global h()
     Code
-      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
+      # Just test that it works; needed for browser() etc
+      expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html",
+        new_process = FALSE))
     Message
       Reading assets/r-fail.Rmd
       
       Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
-    Condition
-      Error in `h()`:
-      ! Error!
 
 # render_rmarkdown styles ANSI escapes
 
