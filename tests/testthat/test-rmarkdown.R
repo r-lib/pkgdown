@@ -23,14 +23,18 @@ test_that("render_rmarkdown yields useful error", {
 
   format <- rmarkdown::html_document(pandoc_args = "--fail-if-warnings")
 
-  expect_snapshot(error = TRUE, {
-    "Pandoc error"
-    render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
-    
-    "R error"
-    render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
-    render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
-  })
+  expect_snapshot(
+    {
+      "Pandoc error"
+      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
+      
+      "R error"
+      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
+      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE)
+    },
+    error = TRUE,
+    # work around xfun bug
+    transform = function(x) gsub("lines  ?at lines", "lines", x))
 })
 
 test_that("render_rmarkdown styles ANSI escapes", {

@@ -29,7 +29,7 @@
       Error:
       x Failed to render RMarkdown document.
         
-        Quitting from lines at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+        Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
       Caused by error:
       ! Error!
     Code
@@ -37,7 +37,7 @@
     Message
       Reading assets/r-fail.Rmd
       
-      Quitting from lines  at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+      Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
     Condition
       Error in `h()`:
       ! Error!
