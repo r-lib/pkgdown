@@ -20,6 +20,24 @@
       Caused by error:
       ! pandoc document conversion failed with error 3
 
+---
+
+    Code
+      render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")
+    Message
+      Reading assets/r-fail.Rmd
+    Condition
+      Error in `render_rmarkdown()`:
+      ! Failed to render RMarkdown document.
+      x Quitting from lines at lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+      Caused by error:
+      ! Error!
+    Code
+      last_trace()
+    Condition
+      Error:
+      ! Can't show last error because no error was recorded yet
+
 # render_rmarkdown styles ANSI escapes
 
     Code
