@@ -92,3 +92,57 @@ test_that("BS5 templates have main + aside", {
   }
 })
 
+
+# Bootstrap version resolution --------------------------------------------
+test_that("Bootstrap version in template package under `template.bootstrap`", {
+  path_template_package <- local_pkgdown_template_pkg(
+    meta = list(template = list(bootstrap = 5))
+  )
+
+  pkg <- local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
+
+  expect_equal(pkg$bs_version, 5)
+})
+
+test_that("Bootstrap version in template package under `template.bslib.version`", {
+  path_template_package <- local_pkgdown_template_pkg(
+    meta = list(template = list(bslib = list(version = 5)))
+  )
+
+  pkg <- local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
+
+  expect_equal(pkg$bs_version, 5)
+})
+
+test_that("Invalid bootstrap version spec in template package", {
+  path_template_package <- local_pkgdown_template_pkg(
+    meta = list(template = list(bootstrap = 4, bslib = list(version = 5)))
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
+  )
+})
+
+test_that("Invalid bootstrap version spec in _pkgdown.yml", {
+  expect_snapshot(
+    error = TRUE,
+    local_pkgdown_site(meta = list(template = list(
+      bootstrap = 4, bslib = list(version = 5)
+    )))
+  )
+})
+
+test_that("Valid local Bootstrap version masks invalid template package", {
+  path_template_package <- local_pkgdown_template_pkg(
+    meta = list(template = list(bootstrap = 4, bslib = list(version = 5)))
+  )
+
+  expect_no_error(
+    local_pkgdown_site(meta = list(template = list(
+      package = "templatepackage",
+      bootstrap = 5
+    )))
+  )
+})

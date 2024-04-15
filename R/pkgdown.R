@@ -52,3 +52,26 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
 
   pkg
 }
+
+local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.frame()) {
+  if (is.null(path)) {
+    path <- withr::local_tempdir(.local_envir = env)
+    desc <- desc::desc("!new")
+    desc$set("Package", "templatepackage")
+    desc$set("Title", "A test template package")
+    desc$write(file = file.path(path, "DESCRIPTION"))
+  }
+
+  if (!is.null(meta)) {
+    path_pkgdown_yml <- fs::path(path, "inst", "pkgdown", "_pkgdown.yml")
+    fs::dir_create(fs::path_dir(path_pkgdown_yml))
+    yaml::write_yaml(meta, path_pkgdown_yml)
+  }
+
+  rlang::check_installed("pkgload")
+  pkgload::load_all(path)
+  withr::defer(pkgload::unload("templatepackage"), envir = env)
+
+  path
+}
+
