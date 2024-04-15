@@ -41,6 +41,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     if (is.null(bs_version_local)) {
       get_bootstrap_version(
         template = template_config$template,
+        config_path = config_path,
         package = meta$template$package
       )
     }
