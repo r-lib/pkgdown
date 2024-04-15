@@ -380,7 +380,9 @@ data_articles_index <- function(pkg = ".") {
     purrr::flatten_chr() %>%
     unique()
 
-  missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
+  missing <- setdiff(pkg$vignettes$name, listed)
+  # Exclude get started vignette or article #2150
+  missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
   if (length(missing) > 0) {
     cli::cli_abort(
