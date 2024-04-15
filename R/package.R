@@ -32,6 +32,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   )
   meta <- modify_list(template_config, meta)
 
+  # BS version can also be set by template package itself
+  bs_version <- get_bootstrap_version(list(meta = meta))
+
   # Ensure the URL has no trailing slash
   if (!is.null(meta[["url"]])) {
     meta[["url"]] <- sub("/$", "", meta[["url"]])
@@ -99,8 +102,10 @@ read_desc <- function(path = ".") {
 }
 
 get_bootstrap_version <- function(pkg) {
-  template_bootstrap <- pkg$meta[["template"]]$bootstrap
-  template_bslib <- pkg$meta[["template"]]$bslib$version
+  template_bootstrap <- pkg[["template"]]$bootstrap %||%
+    pkg$meta[["template"]]$bootstrap
+  template_bslib <- pkg[["template"]]$bootstrap %||%
+    pkg$meta[["template"]]$bslib$version
 
   if (!is.null(template_bootstrap) && !is.null(template_bslib)) {
     cli::cli_abort(
