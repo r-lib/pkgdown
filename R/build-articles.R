@@ -351,7 +351,7 @@ rmarkdown_template <- function(pkg, name, data, depth) {
 build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  dir_create(path(pkg$dst_path, "articles"))
+  create_subdir(pkg, "articles")
   render_page(
     pkg,
     "article-index",
