@@ -244,3 +244,20 @@ test_that("news can contain footnotes", {
 
   expect_snapshot(x <- data_news(pkg))
 })
+
+test_that("data_news warns if no headings found", {
+  skip_if_no_pandoc()
+
+  lines <- c(
+    "# mypackage", "",
+    "## mypackage foo", "",
+    "## mypackage bar", ""
+  )
+  pkg <- local_pkgdown_site(meta = "
+    template:
+      bootstrap: 5
+  ")
+
+  write_lines(lines, file.path(pkg$src_path, "NEWS.md"))
+  expect_snapshot(. <- data_news(pkg))
+})
