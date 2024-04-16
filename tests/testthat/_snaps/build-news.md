@@ -79,5 +79,5 @@
     Condition
       Warning:
       No version headings found in NEWS.md
-      i See `?build_news()` for expected structure.
+      i See `?pkgdown::build_news()` for expected structure.
 
