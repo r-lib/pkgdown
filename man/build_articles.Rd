@@ -59,8 +59,7 @@ you may want to set it to \code{FALSE} to make debugging easier.}
 saves it to \verb{articles/}. There are two exceptions:
 \itemize{
 \item Files that start with \verb{_} (e.g., \verb{_index.Rmd}) are ignored,
-enabling the use of child documents in
-\href{https://bookdown.org/yihui/bookdown/}{bookdown}
+enabling the use of child documents.
 \item Files in \code{vignettes/tutorials} are handled by \code{\link[=build_tutorials]{build_tutorials()}}
 }
 
