@@ -76,5 +76,5 @@ jobs:
           enable-pull-request-comment: false
           enable-commit-comment: false
           # enable-commit-status: true
-          #o verwrites-pull-request-comment: true
+          # overwrites-pull-request-comment: true
         timeout-minutes: 1
