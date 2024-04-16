@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small small amount of vertical scroll) (#2179).
 * `build_article()` gains a new `new_process` argument which allows to build a vignette in the current process for debugging purposes. We've also improved the error messages and tracebacks if an article fails to build, hopefully also making debugging easier (#2438).
 * Preview links now work once again (#2435).
 * `build_home()` no longer renders Github issue and pull request templates (@hsloot, #2362)
