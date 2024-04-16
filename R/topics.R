@@ -103,21 +103,37 @@ match_env <- function(topics) {
     if (!internal) !topics$internal else rep(TRUE, nrow(topics))
   }
   fns$starts_with <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(paste0("^", x), .), .internal = internal)
   }
   fns$ends_with <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
   }
   fns$matches <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(x, .), .internal = internal)
   }
   fns$contains <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
   }
   fns$has_keyword <- function(x) {
+    check_character(x)
     which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
   }
   fns$has_concept <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+
     match <- topics$concepts %>%
       purrr::map(~ str_trim(.) == x) %>%
       purrr::map_lgl(any)
@@ -125,6 +141,9 @@ match_env <- function(topics) {
     which(match & is_public(internal))
   }
   fns$lacks_concepts <- function(x, internal = FALSE) {
+    check_character(x)
+    check_bool(internal)
+   
     nomatch <- topics$concepts %>%
       purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
       purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
@@ -167,10 +186,14 @@ match_eval <- function(string, env) {
       topic_must("be a known topic name or alias", string)
     }
   } else if (is_call(expr)) {
-    tryCatch(
+    withCallingHandlers(
       eval(expr, env),
       error = function(e) {
-        topic_must("be a known selector function", string, parent = e)
+        cli::cli_abort(
+          "Failed to evaluate selector {.val {string}}.", 
+          parent = e,
+          call = NULL
+        )
       }
     )
   } else {

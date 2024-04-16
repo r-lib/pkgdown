@@ -33,7 +33,7 @@ Imports:
     memoise,
     purrr (>= 1.0.0),
     ragg,
-    rlang (>= 1.0.0),
+    rlang (>= 1.1.0),
     rmarkdown (>= 1.1.9007),
     tibble,
     whisker,
