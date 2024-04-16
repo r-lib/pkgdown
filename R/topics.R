@@ -5,11 +5,8 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     return(integer())
   }
 
-  withCallingHandlers(
-    indexes <- purrr::map(match_strings, match_eval, env = match_env(topics)),
-    purrr_error_indexed = function(err) {
-      cnd_signal(err$parent)
-    }
+  unwrap_purrr_error(
+    indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
   )
 
   # If none of the specified topics have a match, return no topics
