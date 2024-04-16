@@ -13,7 +13,7 @@ navbar:
 
 It makes use of the the six built-in components:
 
--   `intro`: "Get Started", which links to a vignette with the same name as the package[^dots].
+-   `intro`: "Get Started", which links to a vignette or article with the same name as the package[^dots].
 -   `reference`, if there are any `.Rd` files.
 -   `articles`, if there are any vignettes or articles.
 -   `tutorials`, if there any tutorials.
