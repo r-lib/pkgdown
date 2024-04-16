@@ -3,6 +3,8 @@
     reference:
       text: Reference
       href: reference/index.html
+    search:
+      search: ~
     
 
 ---
@@ -10,6 +12,8 @@
     reference:
       text: Reference
       href: reference/index.html
+    search:
+      search: ~
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/r-lib/pkgdown
@@ -21,6 +25,8 @@
     reference:
       text: Reference
       href: reference/index.html
+    search:
+      search: ~
     github:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
@@ -32,6 +38,8 @@
     reference:
       text: Reference
       href: reference/index.html
+    search:
+      search: ~
     intro:
       text: Get started
       href: test.html
@@ -273,4 +281,13 @@
       depth = 1)
     Output
       <a class="dropdown-item" href="href" target="_blank">text</a>
+
+# can render search helper
+
+    Code
+      bs4_navbar_links_tags(list(menu = list(search = TRUE)))
+    Output
+      <li><form class="form-inline" role="search">
+      <input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+      </form></li>
 

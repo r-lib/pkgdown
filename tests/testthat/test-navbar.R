@@ -197,3 +197,9 @@ test_that("can specific link target", {
     )
   })
 })
+
+test_that("can render search helper", {
+  expect_snapshot({
+    bs4_navbar_links_tags(list(menu = list(search = TRUE)))
+  })
+})

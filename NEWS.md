@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320).
+* The aria-label on the search box is now "Search site" rather than "Toggle navigation".
 * `build_news()` now warns if it doesn't find any version headings, suggesting that that `NEWS.md` is structured incorrectly (#2213).
 * `build_article()` gains a new `new_process` argument which allows to build a vignette in the current process for debugging purposes. We've also improved the error messages and tracebacks if an article fails to build, hopefully also making debugging easier (#2438).
 * Preview links now work once again (#2435).
