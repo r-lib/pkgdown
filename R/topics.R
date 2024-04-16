@@ -192,7 +192,7 @@ match_eval <- function(string, env) {
       eval(expr, env),
       error = function(e) {
         cli::cli_abort(
-          "Failed to evaluate selector {.val {string}}.", 
+          "Failed to evaluate topic selector {.val {string}}.", 
           parent = e,
           call = NULL
         )

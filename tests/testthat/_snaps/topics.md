@@ -16,7 +16,7 @@
       t <- select_topics("paste(1)", topics)
     Condition
       Error:
-      ! Failed to evaluate selector "paste(1)".
+      ! Failed to evaluate topic selector "paste(1)".
       Caused by error in `paste()`:
       ! could not find function "paste"
     Code
@@ -44,14 +44,14 @@
       t <- select_topics("starts_with('x', 'y')", topics)
     Condition
       Error:
-      ! Failed to evaluate selector "starts_with('x', 'y')".
+      ! Failed to evaluate topic selector "starts_with('x', 'y')".
       Caused by error in `starts_with()`:
       ! `internal` must be `TRUE` or `FALSE`, not the string "y".
     Code
       t <- select_topics("starts_with(c('x', 'y'))", topics)
     Condition
       Error:
-      ! Failed to evaluate selector "starts_with(c('x', 'y'))".
+      ! Failed to evaluate topic selector "starts_with(c('x', 'y'))".
       Caused by error in `starts_with()`:
       ! `x` must be a single string, not a character vector.
 
