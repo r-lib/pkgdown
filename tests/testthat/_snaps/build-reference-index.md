@@ -57,30 +57,34 @@
 
 # errors well when a content entry is empty
 
-    i In index: 1.
-    Caused by error in `.f()`:
-    ! Item 2 in section 1 is empty.
-    x Delete the empty line or add function name to reference in _pkgdown.yml.
+    Section "bla": contents 2 is empty.
+    i This typically indicates that your _pkgdown.yml is malformed.
 
 # errors well when a content entry is not a character
 
     Code
       build_reference_index(pkg)
     Condition
-      Error in `map2()`:
-      i In index: 1.
-      Caused by error in `.f()`:
-      ! Item 2 in section 1 must be a character.
-      x You might need to add '' around e.g. - 'N' or - 'off' to reference in _pkgdown.yml.
+      Error in `build_reference_index()`:
+      ! Section "bla": 2 must be a character.
+      i You might need to add '' around special values like 'N' or 'off'
+      i This typically indicates that your _pkgdown.yml is malformed.
+
+# errors well when a content is totally empty
+
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `build_reference_index()`:
+      ! Section "bla": contents is empty.
+      i This typically indicates that your _pkgdown.yml is malformed.
 
 # errors well when a content entry refers to a not installed package
 
     Code
       build_reference_index(pkg)
     Condition
-      Error in `map2()`:
-      i In index: 1.
-      Caused by error in `purrr::map2()`:
+      Error in `purrr::map2()`:
       i In index: 1.
       Caused by error in `.f()`:
       ! The package "notapackage" is required as it's used in the reference index.
@@ -90,9 +94,7 @@
     Code
       build_reference_index(pkg)
     Condition
-      Error in `map2()`:
-      i In index: 1.
-      Caused by error in `purrr::map2()`:
+      Error in `purrr::map2()`:
       i In index: 1.
       Caused by error in `map2_()`:
       ! Could not find documentation for `rlang::lala()`.
