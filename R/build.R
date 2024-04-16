@@ -45,13 +45,12 @@
 #'
 #' ### Setting development mode
 #'
-#' The development `mode` of a site controls where the site is built,
-#' the colour of the package version in the navbar, the version tooltip,
-#' and whether or not the site is indexed by search engines. There are
-#' four possible modes:
+#' The development `mode` of a site controls where the site is built
+#' and the styling of the site (i.e. the colour of the package version in the 
+#' navbar, the version tooltip), and whether or not the site is indexed by 
+#' search engines. There are four possible modes:
 #'
-#' * **automatic** (`mode: auto`): automatically determines the mode based on the
-#'   version number:
+#' * **automatic** (`mode: auto`): determines the mode based on the version:
 #'
 #'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
 #'   * four version components: development.
@@ -71,6 +70,10 @@
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
 #'   Development badges are shown in the sidebar (see `?build_home`).
+#'
+#' Use `mode: auto` if you want both a released and a dev site, and 
+#' `mode: release` if you just want a single site. It is very rare that you 
+#' will need either devel or unreleased modes.
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
