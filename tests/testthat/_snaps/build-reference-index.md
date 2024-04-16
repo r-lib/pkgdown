@@ -84,9 +84,7 @@
     Code
       build_reference_index(pkg)
     Condition
-      Error in `purrr::map2()`:
-      i In index: 1.
-      Caused by error in `.f()`:
+      Error in `build_reference_index()`:
       ! The package "notapackage" is required as it's used in the reference index.
 
 # errors well when a content entry refers to a non existing function
@@ -94,9 +92,7 @@
     Code
       build_reference_index(pkg)
     Condition
-      Error in `purrr::map2()`:
-      i In index: 1.
-      Caused by error in `map2_()`:
+      Error in `build_reference_index()`:
       ! Could not find documentation for `rlang::lala()`.
 
 # can use a topic from another package
