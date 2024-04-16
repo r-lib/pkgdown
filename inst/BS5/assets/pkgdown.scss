@@ -311,6 +311,16 @@ img.logo {
   img {width: 40px;}
 }
 
+// Ensure skip link is visible if focussed
+a[href='#main'] {
+  position: absolute;
+  margin: 4px;
+  padding: 0.75rem;
+  background-color: $body-bg;
+  text-decoration: none;
+  z-index: 2000;
+}
+
 /* Footnotes ---------------------------------------------------------------- */
 
 a.footnote-ref {
