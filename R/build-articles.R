@@ -5,8 +5,7 @@
 #' saves it to `articles/`. There are two exceptions:
 #'
 #' * Files that start with `_` (e.g., `_index.Rmd`) are ignored,
-#'   enabling the use of child documents in
-#'   [bookdown](https://bookdown.org/yihui/bookdown/)
+#'   enabling the use of child documents.
 #'
 #' * Files in `vignettes/tutorials` are handled by [build_tutorials()]
 #'
