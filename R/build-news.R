@@ -182,7 +182,7 @@ data_news <- function(pkg = list()) {
   if (length(sections) == 0) {
     cli::cli_warn(c( 
       "No version headings found in {src_path('NEWS.md')}",
-      i = "See {.help build_news} for expected structure."
+      i = "See {.help pkgdown::build_news} for expected structure."
     ))
   }
  
