@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 [![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown){.pkgdown-release}
 [![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}
 [![Codecov test coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
-[![R-CMD-check](https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <https://pkgdown.r-lib.org>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in `vignette("pkgdown")` or `?build_site`.
