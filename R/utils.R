@@ -42,6 +42,15 @@ str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
 
+unwrap_purrr_error <- function(code) {
+  withCallingHandlers(
+    code,
+    purrr_error_indexed = function(err) {
+      cnd_signal(err$parent)
+    }
+  )
+}
+
 # devtools metadata -------------------------------------------------------
 
 system_file <- function(..., package) {

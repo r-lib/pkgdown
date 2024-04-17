@@ -80,6 +80,15 @@ test_that("errors well when a content entry is not a character", {
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
+test_that("errors well when a content is totally empty", {
+  local_edition(3)
+  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents: ~")
+  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+
+  expect_snapshot(build_reference_index(pkg), error = TRUE)
+})
+
+
 test_that("errors well when a content entry refers to a not installed package", {
   skip_if_not_installed("cli", "3.1.0")
   local_edition(3)

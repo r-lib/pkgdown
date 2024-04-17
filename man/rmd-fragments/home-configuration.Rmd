@@ -65,16 +65,6 @@ home:
 
 (Note the use of YAML's `>` i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)
 
-### README header
-
-READMEs usually start with an `<h1>` containing the package name.
-If that feels duplicative with the package name in the navbar you can remove it with `strip_header: true`:
-
-``` yaml
-home:
-  strip_header: true
-```
-
 ## Dev badges
 
 pkgdown identifies badges in three ways:
