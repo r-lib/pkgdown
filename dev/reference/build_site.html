@@ -324,15 +324,18 @@ redirect scenarios.</p>
     
 
 
-<p>To capture usage of your site with a web analytics platform, you can make
-use of the <code>includes</code> field to add the HTML supplied to you by the platform.
-Typically these are either placed <code>after_body</code> or <code>in_header</code>. I include
-a few examples below, but I highly recommend getting the recommended HTML
-directly from the platform.</p><ul><li><p><a href="https://www.goatcounter.com" class="external-link">GoatCounter</a>:</p>
+<p>To capture usage of your site with a web analytics tool, you can make
+use of the <code>includes</code> field to add the special HTML they need. This HTML
+is typically placed <code>in_header</code> (actually in the <code>&lt;head&gt;</code>), <code>before_body</code>,
+or <code>after_body</code>.
+You can learn more about how includes work in pkgdown at
+<a href="https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files">https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files</a>.</p>
+<p>I include a few examples of popular analytics platforms below, but we
+recommend getting the HTML directly from the tool:</p><ul><li><p><a href="https://plausible.io" class="external-link">plausible.io</a>:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
 <li><p><a href="https://analytics.google.com/analytics/web/" class="external-link">Google analytics</a>:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
@@ -346,11 +349,11 @@ directly from the platform.</p><ul><li><p><a href="https://www.goatcounter.com" 
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>         gtag('config', '{YOUR TRACKING ID}');</span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>       &lt;/script&gt;</span></code></pre><p></p></div></li>
-<li><p><a href="https://plausible.io" class="external-link">plausible.io</a>:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">templates</span><span class="kw">:</span></span>
+<li><p><a href="https://www.goatcounter.com" class="external-link">GoatCounter</a>:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
 </ul></div>
     <div class="section level2">
     <h2 id="source-repository">Source repository<a class="anchor" aria-label="anchor" href="#source-repository"></a></h2>
