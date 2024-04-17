@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * `build_reference_index()` gives more informative errors if your `contents` field is malformed (#2323).
+* The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (#2381).
 * `build_article_index()` and `build_reference_index()` use an improved BS5 template that correctly wraps each section description in a `<div>`, rather than a `<p>`. This eliminates an empty pargraph tag that preceded each section description (#2352).
 * `build_news()` now warns if it doesn't find any version headings, suggesting that that `NEWS.md` is structured incorrectly (#2213).
 * `build_article()` gains a new `new_process` argument which allows to build a vignette in the current process for debugging purposes. We've also improved the error messages and tracebacks if an article fails to build, hopefully also making debugging easier (#2438).
