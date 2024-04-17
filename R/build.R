@@ -181,7 +181,7 @@
 #' *   [plausible.io](https://plausible.io):
 #'
 #'     ```yaml
-#'     templates:
+#'     template:
 #'       includes:
 #'         in_header: |
 #'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>

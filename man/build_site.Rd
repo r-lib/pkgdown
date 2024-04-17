@@ -243,7 +243,7 @@ recommend getting the HTML directly from the tool:
 \itemize{
 \item \href{https://plausible.io}{plausible.io}:
 
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{templates:
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     in_header: |
       <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
