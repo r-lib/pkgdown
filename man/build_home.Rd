@@ -99,16 +99,6 @@ To make your package more findable on search engines, it's good practice to over
 (Note the use of YAML's \code{>} i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)
 }
 
-\subsection{README header}{
-
-READMEs usually start with an \verb{<h1>} containing the package name.
-If that feels duplicative with the package name in the navbar you can remove it with \code{strip_header: true}:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
-  strip_header: true
-}\if{html}{\out{</div>}}
-}
-
 }
 
 \subsection{Dev badges}{
