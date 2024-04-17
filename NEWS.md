@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* The skip link now becomes visible when focussed (#2138). Thanks to @glin for the styles!
 * `build_reference_index()` gives more informative errors if your `contents` field is malformed (#2323).
 * The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (#2381).
 * `build_article_index()` and `build_reference_index()` use an improved BS5 template that correctly wraps each section description in a `<div>`, rather than a `<p>`. This eliminates an empty pargraph tag that preceded each section description (#2352).
