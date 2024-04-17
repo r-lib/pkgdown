@@ -73,7 +73,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>
+<ul><li>The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (<a href="https://github.com/r-lib/pkgdown/issues/2381" class="external-link">#2381</a>).</li>
+<li>
 <code>build_article_index()</code> and <code><a href="../reference/build_reference.html">build_reference_index()</a></code> use an improved BS5 template that correctly wraps each section description in a <code>&lt;div&gt;</code>, rather than a <code>&lt;p&gt;</code>. This eliminates an empty pargraph tag that preceded each section description (<a href="https://github.com/r-lib/pkgdown/issues/2352" class="external-link">#2352</a>).</li>
 <li>
 <code><a href="../reference/build_news.html">build_news()</a></code> now warns if it doesn’t find any version headings, suggesting that that <code>NEWS.md</code> is structured incorrectly (<a href="https://github.com/r-lib/pkgdown/issues/2213" class="external-link">#2213</a>).</li>
@@ -687,11 +688,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" width="62" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" width="62" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.8.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.8.9000.</p>
 </div>
 
     </footer></div>
