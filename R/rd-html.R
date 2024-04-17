@@ -28,7 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map(x, as_html, ...))
   # split at line breaks for everything except blocks
   empty <- purrr::map_lgl(x, purrr::is_empty)
   needs_split <- !is_block & !empty
@@ -58,7 +58,7 @@ flatten_para <- function(x, ...) {
 flatten_text <- function(x, ...) {
   if (length(x) == 0) return("")
 
-  html <- purrr::map_chr(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map_chr(x, as_html, ...))
   paste(html, collapse = "")
 }
 
@@ -231,7 +231,7 @@ as_html.tag_Sexpr <- function(x, ...) {
     hide = "",
     cli::cli_abort(
       "\\\\Sexpr{{result={results}}} not yet supported",
-      call = caller_env()
+      call = NULL
     )
   )
 }
