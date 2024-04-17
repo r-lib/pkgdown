@@ -73,7 +73,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (<a href="https://github.com/r-lib/pkgdown/issues/2381" class="external-link">#2381</a>).</li>
+<ul><li>
+<code><a href="../reference/build_reference.html">build_reference_index()</a></code> gives more informative errors if your <code>contents</code> field is malformed (<a href="https://github.com/r-lib/pkgdown/issues/2323" class="external-link">#2323</a>).</li>
+<li>The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (<a href="https://github.com/r-lib/pkgdown/issues/2381" class="external-link">#2381</a>).</li>
 <li>
 <code>build_article_index()</code> and <code><a href="../reference/build_reference.html">build_reference_index()</a></code> use an improved BS5 template that correctly wraps each section description in a <code>&lt;div&gt;</code>, rather than a <code>&lt;p&gt;</code>. This eliminates an empty pargraph tag that preceded each section description (<a href="https://github.com/r-lib/pkgdown/issues/2352" class="external-link">#2352</a>).</li>
 <li>
