@@ -110,13 +110,13 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
 
   sidebar_components <- utils::modifyList(
     sidebar_components,
-    purrr::map2(
+    unwrap_purrr_error(purrr::map2(
       components,
       names(components),
       data_home_component,
       pkg = pkg,
       call = call
-      ) %>%
+    )) %>%
       set_names(names(components))
   )
 

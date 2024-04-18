@@ -165,6 +165,7 @@ $pkgdown-footer-border-width: $border-width !default;
 
 footer {
   margin: 1rem 0 1rem 0;
+  padding-top: 1rem;
   font-size: .875em;
   border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
   background: $pkgdown-footer-bg;
@@ -309,6 +310,16 @@ img.logo {
 .icon {
   float: right;
   img {width: 40px;}
+}
+
+// Ensure skip link is visible if focussed
+a[href='#main'] {
+  position: absolute;
+  margin: 4px;
+  padding: 0.75rem;
+  background-color: $body-bg;
+  text-decoration: none;
+  z-index: 2000;
 }
 
 /* Footnotes ---------------------------------------------------------------- */

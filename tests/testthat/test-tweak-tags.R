@@ -119,15 +119,17 @@ test_that("docs with no headings are left unchanged", {
 test_that("local md links are replaced with html", {
   html <- xml2::read_html('
     <a href="local.md"></a>
+    <a href="local.md#fragment"></a>
     <a href="http://remote.com/remote.md"></a>
   ')
   tweak_link_md(html)
 
   expect_equal(
     xpath_attr(html, "//a", "href"),
-    c("local.html", "http://remote.com/remote.md")
+    c("local.html", "local.html#fragment", "http://remote.com/remote.md")
   )
 })
+
 
 test_that("tweak_link_external() add the external-link class if needed", {
   html <- xml2::read_html('

@@ -132,6 +132,16 @@ test_that("data_navbar() errors with bad side specifications", {
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })
 
+test_that("data_navbar() errors with bad left/right", {
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      right: [github]
+  ")
+
+   expect_snapshot(data_navbar(pkg), error = TRUE)
+})
+
+
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
   expect_equal(style, list(bg = "light", type = "light"))
@@ -164,8 +174,9 @@ test_that("render_navbar_links BS3 & BS4 default", {
     ),
     news = list(text = "News", href = "news/index.html")
   )
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 3)))
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
+
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 3))))
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
 })
 
 test_that("render_navbar_links BS4 no divider before first element", {
@@ -183,7 +194,7 @@ test_that("render_navbar_links BS4 no divider before first element", {
       )
     )
   )
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
 })
 
 test_that("can specific link target", {
