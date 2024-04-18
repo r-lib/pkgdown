@@ -6,10 +6,12 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
     return(list())
   }
 
-  rows <- meta %>%
-    purrr::imap(data_reference_index_rows, pkg = pkg) %>%
-    purrr::compact() %>%
-    unlist(recursive = FALSE)
+  unwrap_purrr_error(
+    rows <- meta %>%
+      purrr::imap(data_reference_index_rows, pkg = pkg) %>%
+      purrr::compact() %>%
+      unlist(recursive = FALSE)
+  )
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
@@ -47,7 +49,8 @@ data_reference_index_rows <- function(section, index, pkg) {
 
 
   if (has_name(section, "contents")) {
-    check_all_characters(section$contents, index, pkg)
+    id <- section$title %||% section$subtitle %||% index
+    check_contents(section$contents, id, pkg)
     topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
 
     names <- topics$name
@@ -64,35 +67,42 @@ data_reference_index_rows <- function(section, index, pkg) {
   purrr::compact(rows)
 }
 
-check_all_characters <- function(contents, index, pkg) {
-  null <- purrr::map_lgl(contents, is.null)
-  any_null <- any(null)
+check_contents <- function(contents, id, pkg) {
+  malformed <- "This typically indicates that your {pkgdown_config_href(pkg$src_path)} is malformed."
+  call <- quote(build_reference_index())
 
-  if (any_null) {
-    msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
+  if (length(contents) == 0) {
     cli::cli_abort(
       c(
-        "Item {.field {which(null)}} in section {index} is empty.",
-        x = paste0("Delete the empty line or add function name to ", msg_fld, ".")
-      ), call = caller_env()
+        "Section {.val {id}}: {.field contents} is empty.",
+        i = malformed
+      ),
+      call = call
     )
   }
 
-  not_char <- !purrr::map_lgl(contents, is.character)
-  any_not_char <- any(not_char)
-
-  if (!any_not_char) {
-    return(invisible())
+  is_null <- purrr::map_lgl(contents, is.null)
+  if (any(is_null)) {
+    cli::cli_abort(
+      c(
+        "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
+        i = malformed
+      ),
+      call = call
+    )
   }
 
-  msg_fld <- pkgdown_field(pkg, "reference", cfg = TRUE, fmt = TRUE)
-  cli::cli_abort(
-    c(
-      "Item {.field {which(not_char)}} in section {index} must be a character.",
-      x = paste0("You might need to add '' around e.g. - 'N' or - 'off' to ", msg_fld, ".")
-    ), call = caller_env()
-  )
-
+  is_char <- purrr::map_lgl(contents, is.character)
+  if (!all(is_char)) {
+    cli::cli_abort(
+      c(
+        "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
+        i = "You might need to add '' around special values like 'N' or 'off'",
+        i = malformed
+      ), 
+      call = call
+    )
+  }
 }
 
 find_icons <- function(x, path) {
