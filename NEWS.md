@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+
 # pkgdown 2.0.9
 
 * Fixes for regressions in 2.0.8:
