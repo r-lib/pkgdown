@@ -3,7 +3,7 @@
 \name{build_reference}
 \alias{build_reference}
 \alias{build_reference_index}
-\title{Build reference section}
+\title{Build reference <-> section}
 \usage{
 build_reference(
   pkg = ".",
