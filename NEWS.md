@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.0.9
 
 * Fixes for regressions in 2.0.8:
 
