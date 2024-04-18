@@ -231,18 +231,22 @@ redirect scenarios.
 \section{Analytics}{
 
 
-To capture usage of your site with a web analytics platform, you can make
-use of the \code{includes} field to add the HTML supplied to you by the platform.
-Typically these are either placed \code{after_body} or \code{in_header}. I include
-a few examples below, but I highly recommend getting the recommended HTML
-directly from the platform.
+To capture usage of your site with a web analytics tool, you can make
+use of the \code{includes} field to add the special HTML they need. This HTML
+is typically placed \code{in_header} (actually in the \verb{<head>}), \code{before_body},
+or \code{after_body}.
+You can learn more about how includes work in pkgdown at
+\url{https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files}.
+
+I include a few examples of popular analytics platforms below, but we
+recommend getting the HTML directly from the tool:
 \itemize{
-\item \href{https://www.goatcounter.com}{GoatCounter}:
+\item \href{https://plausible.io}{plausible.io}:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    after_body: >
-      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
+    in_header: |
+      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
 }\if{html}{\out{</div>}}
 \item \href{https://analytics.google.com/analytics/web/}{Google analytics}:
 
@@ -259,12 +263,12 @@ directly from the platform.
          gtag('config', '\{YOUR TRACKING ID\}');
        </script>
 }\if{html}{\out{</div>}}
-\item \href{https://plausible.io}{plausible.io}:
+\item \href{https://www.goatcounter.com}{GoatCounter}:
 
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{templates:
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    in_header: |
-      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
+    after_body: >
+      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
 }
 }

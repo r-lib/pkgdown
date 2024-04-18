@@ -92,10 +92,7 @@
     Code
       data_home_sidebar(pkg)
     Condition
-      Error in `purrr::map2()`:
-      i In index: 1.
-      i With name: fancy.
-      Caused by error:
+      Error:
       ! Can't find component home.sidebar.components.fancy.title.
       i Edit _pkgdown.yml to define it.
 
@@ -104,10 +101,7 @@
     Code
       data_home_sidebar(pkg)
     Condition
-      Error in `purrr::map2()`:
-      i In index: 1.
-      i With name: fancy.
-      Caused by error:
+      Error:
       ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text.
       i Edit _pkgdown.yml to define them.
 
