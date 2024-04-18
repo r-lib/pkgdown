@@ -99,16 +99,6 @@ To make your package more findable on search engines, it's good practice to over
 (Note the use of YAML's \code{>} i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)
 }
 
-\subsection{README header}{
-
-READMEs usually start with an \verb{<h1>} containing the package name.
-If that feels duplicative with the package name in the navbar you can remove it with \code{strip_header: true}:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
-  strip_header: true
-}\if{html}{\out{</div>}}
-}
-
 }
 
 \subsection{Dev badges}{
@@ -121,6 +111,9 @@ If you divide badges into paragraphs, make sure to add an empty line before the 
 \item Any image-containing links within \verb{<div id="badges"></div>}.
 \item Within the first paragraph, if it only contains image-containing links.
 }
+
+Identified badges are \strong{removed} from the \emph{main content}.
+They are shown or not in the \emph{sidebar} depending on the development mode and sidebar customization, see the sidebar section.
 }
 }
 
@@ -182,12 +175,14 @@ and can contain \code{href} and/or \code{html} fields:
 \item If \code{html} is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
 sponsor. Use an absolute URL to an image, not a relative link.
+Use an empty alternative text rather than no alternative text so a screen-reader
+would skip over it.
 }
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
   firstname lastname:
     href: "http://name-website.com"
-    html: "<img src='https://website.com/name-picture.png' width=72>"
+    html: "<img src='https://website.com/name-picture.png' width=72 alt=''>"
 }\if{html}{\out{</div>}}
 
 By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
@@ -247,7 +242,7 @@ These are drawn from seven built-in components:
 \item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
 \item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
-\item \code{dev}: development status badges found in \code{README.md}/\code{index.md}.
+\item \code{dev}: development status badges extracted from \code{README.md}/\code{index.md}. This is only shown for "development" versions of websites; see "Development mode" in \code{?build_site} for details.
 \item \code{toc}: a table of contents for the README (not shown by default).
 }
 

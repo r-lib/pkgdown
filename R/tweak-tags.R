@@ -43,10 +43,12 @@ tweak_link_md <- function(html) {
     return()
 
   hrefs <- xml2::xml_attr(links, "href")
-  needs_tweak <- grepl("\\.md$", hrefs) & xml2::url_parse(hrefs)$scheme == ""
+
+  urls <- xml2::url_parse(hrefs)
+  needs_tweak <- urls$scheme == "" & grepl("\\.md$", urls$path)
 
   fix_links <- function(x) {
-    x <- gsub("\\.md$", ".html", x)
+    x <- gsub("\\.md\\b", ".html", x)
     x <- gsub("\\.github/", "", x)
     x
   }

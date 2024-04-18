@@ -10,7 +10,7 @@ build_reference(
   lazy = TRUE,
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   override = list(),
   preview = NA,
   devel = TRUE,
@@ -31,8 +31,8 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
@@ -154,7 +154,7 @@ displayed on the reference index.
 \subsection{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level \code{icons} directory. This should contain {.png} files that are
+a top-level \code{icons} directory. This should contain \code{.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }

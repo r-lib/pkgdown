@@ -4,10 +4,12 @@
 \alias{clean_site}
 \title{Clean site}
 \usage{
-clean_site(pkg = ".")
+clean_site(pkg = ".", quiet = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
+
+\item{quiet}{If \code{TRUE}, suppresses a message.}
 }
 \description{
 Delete all files in \verb{docs/} (except for \code{CNAME}).

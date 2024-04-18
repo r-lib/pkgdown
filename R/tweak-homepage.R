@@ -48,12 +48,13 @@ tweak_sidebar_html <- function(html, sidebar = TRUE, show_badges = TRUE) {
     return(html)
   }
 
+  # this extracts *and removes* badges from HTML
+  badges <- badges_extract(html)
+
   dev_status_html <- html %>% xml2::xml_find_first(".//div[@class='dev-status']")
   if (inherits(dev_status_html, "xml_missing")) {
     return(html)
   }
-
-  badges <- badges_extract(html)
   if (!show_badges || length(badges) == 0) {
     xml2::xml_remove(dev_status_html)
   } else {
@@ -90,7 +91,8 @@ badges_extract <- function(html) {
 
   # finally try first paragraph
   if (length(x) == 0) {
-    x <- xml2::xml_find_first(html, "//p")
+    # BS5 (main) and BS3 (div)
+    x <- xml2::xml_find_first(html, "//main/p|//div[@class='contents col-md-9']/p")
     strict <- TRUE
   }
 
@@ -117,6 +119,6 @@ badges_extract <- function(html) {
 }
 
 badges_extract_text <- function(x) {
-  xml <- xml2::read_html(x, encoding = "UTF-8")
-  badges_extract(xml)
+  html <- xml2::read_html(x, encoding = "UTF-8")
+  badges_extract(html)
 }

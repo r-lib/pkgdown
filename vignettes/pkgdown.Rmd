@@ -41,6 +41,8 @@ url: https://pkgdown.r-lib.org
 ```
 
 `url` is used throughout the site to generate absolute urls where they are needed.
+`url` is also part of what enables auto-links to your help topics or vignettes from sites external to your package, such as from other pkgdown sites or from Quarto websites.
+See `vignette("linking")` for more.
 
 Another important option is `template`, which allows you to control the overall appearance of your site:
 
@@ -63,6 +65,7 @@ lang: fr
 This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
 Current available translations are:
 
+-   `ca`: Catalan
 -   `de`: German
 -   `dk`: Danish
 -   `es`: Spanish
@@ -74,7 +77,7 @@ Current available translations are:
 
 ## Home page
 
-The contents of home page are automatically generated from `index.md` or `README.md`.
+The contents of the home page are automatically generated from `index.md` or `README.md`.
 pkgdown tries them in order, so it's possible to have a different display on GitHub and pkgdown by providing both files.
 The homepage also includes a sidebar full of useful links; see `?build_home` for how these are generated and how you can customise them.
 
@@ -177,5 +180,7 @@ Once your finalized site is built and published on the web, you should publicize
     (`usethis::use_pkgdown_github_pages()` does this for you.)
 
 2.  Your repository description on GitHub.
+
+    (`usethis::use_pkgdown_github_pages()` does this for you.)
 
 3.  On Twitter (make sure to include `#rstats`).

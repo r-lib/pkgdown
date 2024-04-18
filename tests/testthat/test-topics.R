@@ -1,5 +1,4 @@
 test_that("bad inputs give informative warnings", {
-  skip_if_not_installed("rlang", "0.99")
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,  ~concepts,
     "x",   c("x", "x1"), FALSE,      character(),
@@ -15,6 +14,19 @@ test_that("bad inputs give informative warnings", {
     t <- select_topics("starts_with('y')", topics, check = TRUE)
   })
 })
+
+test_that("selector functions validate their inputs", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
+  )
+
+  expect_snapshot(error = TRUE, {
+    t <- select_topics("starts_with('x', 'y')", topics)
+    t <- select_topics("starts_with(c('x', 'y'))", topics)
+  })
+})
+
 
 test_that("empty input returns empty vector", {
   topics <- tibble::tribble(
@@ -164,4 +176,24 @@ test_that("full topic selection process works", {
     pkg$src_path
   )
   expect_equal(unname(out$name), c("b", "a"))
+})
+
+test_that("an unmatched selection with a matched selection does not select everything", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,
+    "x",   c("a1", "a2"), FALSE,
+    "a",   c("a3"),       FALSE,
+    "b",   "b1",          FALSE,
+    "d",   "d",           TRUE,
+  )
+
+  expect_equal(
+    select_topics(c("a", "starts_with('unmatched')"), topics, check = FALSE),
+    2
+  )
+
+  expect_equal(
+    select_topics(c("starts_with('unmatched')", "a"), topics, check = FALSE),
+    2
+  )
 })

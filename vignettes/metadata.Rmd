@@ -20,8 +20,9 @@ Package authors can customize the metadata used by Twitter and the [Open Graph p
 
 You can preview and validate the appearance of the social media cards with online tools:
 
-* [Twitter Card Validator][twitter-validator]
-* [Google Rich Results Test][ogp-validator]
+* [Google Rich Results Test][ogp-validator];
+* Drafting a tweet to yourself;
+* Sending yourself a Slack message.
 
 ## Necessary configuration
 
@@ -123,6 +124,5 @@ Use the `title`, `description`, and `author` fields to specify the title, descri
 In articles, the `opengraph` section works in the same way as the site-wide `template: opengraph` settings, but is only applied to the article or vignette. This allows you to specify social media card preview images for individual articles, or to associate an article with a particular Twitter account. If not specified, the `opengraph` settings from the site-wide configuration are used.
 
 [ogp]: https://ogp.me/
-[twitter-validator]: https://cards-dev.twitter.com/validator
 [ogp-validator]: https://search.google.com/test/rich-results
 [twitter-card]: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards

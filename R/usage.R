@@ -8,7 +8,8 @@ topic_funs <- function(rd) {
   gens <- name[type == "fun"]
   self_meth <- (name %in% gens) & (type %in% c("s3", "s4"))
 
-  purrr::map_chr(funs[!self_meth], ~ short_name(.$name, .$type, .$signature))
+  funs <- purrr::map_chr(funs[!self_meth], ~ short_name(.$name, .$type, .$signature))
+  unique(funs)
 }
 
 parse_usage <- function(x) {
@@ -27,7 +28,9 @@ parse_usage <- function(x) {
       parse_exprs(r)
     },
     error = function(e) {
-      warning("Failed to parse usage:\n", r, call. = FALSE, immediate. = TRUE)
+      cli::cli_warn(
+        "Failed to parse usage: {.code {r}}"
+      )
       list()
     }
   )
@@ -82,7 +85,11 @@ usage_type <- function(x) {
 
     out
   } else {
-    stop("Unknown type: ", typeof(x), " (in ", as.character(x), ")",  call. = FALSE)
+    untype <- paste0(typeof(x), " (in ", as.character(x), ")")
+    cli::cli_abort(
+      "Unknown type: {.val {untype}}",
+      call = caller_env()
+    )
   }
 }
 
@@ -126,7 +133,10 @@ fun_info <- function(fun) {
         name = call_name(fun)
       )
     } else {
-      stop("Unknown call: ", as.character(x[[1]]))
+      cli::cli_abort(
+        "Unknown call: {.val {as.character(x[[1]])}}",
+        call = caller_env()
+      )
     }
   } else {
     list(
@@ -157,7 +167,10 @@ usage_code.NULL <- function(x) character()
 #' @export
 usage_code.tag <- function(x) {
   if (!identical(class(x), "tag")) {
-    stop("Undefined tag in usage ", class(x)[[1]], call. = FALSE)
+    cli::cli_abort(
+      "Undefined tag in usage: {.val class(x)[[1]]}}",
+      call = caller_env()
+    )
   }
   paste0(purrr::flatten_chr(purrr::map(x, usage_code)), collapse = "")
 }
@@ -186,7 +199,7 @@ usage_code.tag_S3method <- function(x) {
   generic <- paste0(usage_code(x[[1]]), collapse = "")
   class <- paste0(usage_code(x[[2]]), collapse = "")
 
-  paste0("S3method(`", generic, "`, `", class, "`)")
+  paste0("S3method(`", generic, "`, ", class, ")")
 }
 
 #' @export

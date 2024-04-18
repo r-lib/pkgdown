@@ -26,6 +26,7 @@ test_that("data_news works as expected for h1 & h2", {
 
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
+  local_edition(3)
 
   pkg <- local_pkgdown_site(meta = "
     news:
@@ -45,8 +46,8 @@ test_that("multi-page news are rendered", {
     "* second thing"
   ))
 
-  expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
-  expect_output(build_news(pkg))
+  expect_snapshot(data_news(pkg)[c("version", "page", "anchor")])
+  expect_snapshot(build_news(pkg))
 
   # test that index links are correct
   lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
@@ -242,4 +243,21 @@ test_that("news can contain footnotes", {
   ))
 
   expect_snapshot(x <- data_news(pkg))
+})
+
+test_that("data_news warns if no headings found", {
+  skip_if_no_pandoc()
+
+  lines <- c(
+    "# mypackage", "",
+    "## mypackage foo", "",
+    "## mypackage bar", ""
+  )
+  pkg <- local_pkgdown_site(meta = "
+    template:
+      bootstrap: 5
+  ")
+
+  write_lines(lines, file.path(pkg$src_path, "NEWS.md"))
+  expect_snapshot(. <- data_news(pkg))
 })

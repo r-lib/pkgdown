@@ -1,9 +1,20 @@
+# missing logo generates message
+
+    Code
+      expect_output(build_favicons(pkg), "Building favicons")
+    Message
+      -- Building favicons -----------------------------------------------------------
+    Condition
+      Error in `build_favicons()`:
+      ! Can't find package logo PNG or SVG to build favicons.
+      i See `usethis::use_logo()` for more information.
+
 # existing logo generates message
 
     Code
       build_favicons(pkg)
-    Output
-      -- Building favicons -----------------------------------------------------------
     Message
-      Favicons already exist in `pkgdown/`. Set `overwrite = TRUE` to re-create.
+      -- Building favicons -----------------------------------------------------------
+      Favicons already exist in 'pkgdown'
+      i Set `overwrite = TRUE` to re-create.
 

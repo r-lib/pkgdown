@@ -59,6 +59,18 @@ test_that("can move badges to sidebar", {
   expect_snapshot(xpath_xml(html, ".//div"))
 })
 
+
+test_that("remove badges even if no dev-status div", {
+  html <- xml2::read_html('
+    <h1>Title</h1>
+    <div id="badges">
+      <p><a href="x"><img src="y"></a></p>
+    </div>
+  ')
+  tweak_sidebar_html(html)
+  expect_snapshot(html)
+})
+
 test_that("remove dev-status & badges if badges suppress", {
   html <- xml2::read_html('
     <h1>Title</h1>
@@ -84,7 +96,7 @@ test_that("doesn't find badges when they don't exist", {
 
 test_that("finds single badge", {
   expect_equal(
-    badges_extract_text('<p><a href="x"><img src="y"></a></p>'),
+    badges_extract_text('<main><p><a href="x"><img src="y"></a></p></main>'),
     '<a href="x"><img src="y"></a>'
   )
 })
@@ -104,6 +116,8 @@ test_that("finds badges in #badges div", {
 
 test_that("can find badges in comments", {
   html <- '
+    <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a></p>
     <!-- badges: end -->
@@ -112,6 +126,8 @@ test_that("can find badges in comments", {
 
   # produced by usethis
   html <- '
+    <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a>
     <!-- badges: end -->
@@ -122,6 +138,8 @@ test_that("can find badges in comments", {
 
 test_that("ignores extraneous content", {
   html <- '
+    <h1>blop</h1>
+    <p>I am the first paragraph!</p>
     <!-- badges: start -->
     <p><a href="x"><img src="y"></a></p>
     <p>a</p>

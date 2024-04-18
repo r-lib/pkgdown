@@ -48,7 +48,8 @@
 
 # data_home_sidebar() errors well when no HTML file
 
-    Can't find file 'file.html' specified by home.sidebar.html in '_pkgdown.yml'.
+    Can't locate 'file.html'.
+    x home.sidebar.html in _pkgdown.yml is misconfigured.
 
 # data_home_sidebar() can get a custom markdown formatted component
 
@@ -70,17 +71,37 @@
 
 # data_home_sidebar() outputs informative error messages
 
-    Can't find component home.sidebar.components.fancy in '_pkgdown.yml'.
+    Code
+      data_home_sidebar(pkg)
+    Condition
+      Error:
+      ! Can't find component home.sidebar.components.fancy.
+      i Edit _pkgdown.yml to define it.
 
 ---
 
-    Can't find components home.sidebar.components.fancy, home.sidebar.components.cool in '_pkgdown.yml'.
+    Code
+      data_home_sidebar(pkg)
+    Condition
+      Error:
+      ! Can't find components home.sidebar.components.fancy and home.sidebar.components.cool.
+      i Edit _pkgdown.yml to define them.
 
 ---
 
-    Can't find component home.sidebar.components.fancy.title in '_pkgdown.yml'.
+    Code
+      data_home_sidebar(pkg)
+    Condition
+      Error:
+      ! Can't find component home.sidebar.components.fancy.title.
+      i Edit _pkgdown.yml to define it.
 
 ---
 
-    Can't find components home.sidebar.components.fancy.title, home.sidebar.components.fancy.text in '_pkgdown.yml'.
+    Code
+      data_home_sidebar(pkg)
+    Condition
+      Error:
+      ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text.
+      i Edit _pkgdown.yml to define them.
 

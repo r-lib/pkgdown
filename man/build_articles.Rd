@@ -10,11 +10,20 @@ build_articles(
   pkg = ".",
   quiet = TRUE,
   lazy = TRUE,
+  seed = 1014L,
   override = list(),
   preview = NA
 )
 
-build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
+build_article(
+  name,
+  pkg = ".",
+  data = list(),
+  lazy = FALSE,
+  seed = 1014L,
+  new_process = TRUE,
+  quiet = TRUE
+)
 
 build_articles_index(pkg = ".")
 }
@@ -27,6 +36,9 @@ pandoc. This is useful when debugging.}
 \item{lazy}{If \code{TRUE}, will only re-build article if input file has been
 modified more recently than the output file.}
 
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
+
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
 
@@ -37,14 +49,17 @@ freshly generated section in browser.}
 relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
 
 \item{data}{Additional data to pass on to template.}
+
+\item{new_process}{Build the article in a clean R process? The default,
+\code{TRUE}, ensures that every article is build in a fresh environment, but
+you may want to set it to \code{FALSE} to make debugging easier.}
 }
 \description{
 \code{build_articles()} renders each R Markdown file underneath \verb{vignettes/} and
 saves it to \verb{articles/}. There are two exceptions:
 \itemize{
 \item Files that start with \verb{_} (e.g., \verb{_index.Rmd}) are ignored,
-enabling the use of child documents in
-\href{https://bookdown.org/yihui/bookdown/}{bookdown}
+enabling the use of child documents.
 \item Files in \code{vignettes/tutorials} are handled by \code{\link[=build_tutorials]{build_tutorials()}}
 }
 

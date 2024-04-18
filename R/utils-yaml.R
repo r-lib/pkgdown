@@ -1,15 +1,17 @@
-check_yaml_has <- function(missing, where, pkg) {
+check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   if (length(missing) == 0) {
     return()
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  missing_fields <- pkgdown_fields(pkg, missing_components)
+  msg_flds <- pkgdown_field(pkg, missing_components, fmt = FALSE, cfg = FALSE)
 
-  abort(paste0(
-    "Can't find component", if (length(missing) > 1) "s", " ",
-    missing_fields, "."
-  ))
+  cli::cli_abort(c(
+    "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
+    i = "Edit {pkgdown_config_href({pkg$src_path})} to define {cli::qty(missing)} {?it/them}."
+    ),
+    call = call
+  )
 }
 
 yaml_character <- function(pkg, where) {
@@ -20,25 +22,34 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    abort(paste0(pkgdown_field(pkg, where), " must be a character vector"))
+    fld <- pkgdown_field(pkg, where, fmt = TRUE)
+    cli::cli_abort(
+      paste0(fld, " must be a character vector."),
+      call = caller_env()
+    )
   }
 }
 
-pkgdown_field <- function(pkg, field) {
-  pkgdown_fields(pkg, list(field))
-}
+pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
 
-pkgdown_fields <- function(pkg, fields, join = ", ") {
-  fields <- purrr::map_chr(fields, ~ paste0(cli::style_bold(.x), collapse = "."))
-  fields_str <- paste0(fields, collapse = join)
+  if (!is.list(fields)) fields <- list(fields)
 
-  config_path <- pkgdown_config_path(pkg$src_path)
+  flds <- purrr::map_chr(fields, ~ paste0(.x, collapse = "."))
+  if (fmt) {
+    flds <- paste0("{.field ", flds, "}")
+  }
 
-  if (is.null(config_path)) {
-    fields_str
+  if (cfg) {
+    if (fmt) {
+      config_path <- cli::format_inline(pkgdown_config_href(pkg$src_path))
+    } else {
+      config_path <- pkgdown_config_relpath(pkg)
+    }
+
+    paste0(flds, " in ", config_path)
   } else {
-    config <- src_path(fs::path_rel(config_path, pkg$src_path))
-    paste0(fields_str, " in ", config)
+
+    flds
   }
 }
 

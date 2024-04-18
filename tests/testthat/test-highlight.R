@@ -1,4 +1,4 @@
-test_that("highlight_examples captures depencies", {
+test_that("highlight_examples captures dependencies", {
   withr::defer(unlink(test_path("Rplot001.png")))
 
   dummy_dep <- htmltools::htmlDependency("dummy", "1.0.0", "dummy.js")
@@ -33,5 +33,23 @@ test_that("tweak_highlight_other() renders generic code blocks for roxygen2 >= 7
   expect_equal(
     xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
     "1+1"
+  )
+})
+
+test_that("tweak_highlight_other() renders nested code blocks for roxygen2 >= 7.2.0", {
+  div <- xml2::read_html(
+"<div class='sourceCode markdown'><pre><code>
+blablabla
+
+```{r results='asis'}
+lalala
+```
+
+</code></pre></div>") %>%
+    xml2::xml_find_first("//div")
+  tweak_highlight_other(div)
+  expect_match(
+    xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
+    "```.?\\n"
   )
 })

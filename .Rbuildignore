@@ -19,3 +19,4 @@
 ^\.github$
 ^fake-index.html$
 ^CRAN-SUBMISSION$
+^tools$

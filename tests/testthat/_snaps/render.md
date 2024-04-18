@@ -1,6 +1,12 @@
-# check_bootswatch_theme() works
+# check_bslib_theme() works
 
-    Can't find Bootswatch theme 'paper' (template.bootswatch) for Bootstrap version '4' (template.bootstrap).
+    Can't find Bootswatch or bslib theme preset "paper" (template.bootswatch) for Bootstrap version "4" (template.bootstrap).
+    x Edit settings in _pkgdown.yml
+
+---
+
+    Can't find Bootswatch or bslib theme preset "paper" (template.preset) for Bootstrap version "4" (template.bootstrap).
+    x Edit settings in _pkgdown.yml
 
 # capture data_template()
 

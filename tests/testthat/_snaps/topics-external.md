@@ -26,6 +26,6 @@
     Code
       ext_topics("base::doesntexist")
     Condition
-      Error in `.f()`:
-      ! Could not find documentation for base::doesntexist
+      Error in `build_reference_index()`:
+      ! Could not find documentation for `base::doesntexist()`.
 

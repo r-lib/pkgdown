@@ -5,7 +5,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   style <- navbar_style(
     navbar = navbar,
-    theme = get_bootswatch_theme(pkg),
+    theme = get_bslib_theme(pkg),
     bs_version = pkg$bs_version
   )
 
@@ -21,7 +21,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     list(type = navbar$type %||% "default")
   } else {
     # bg is usually light, dark, or primary, but can use any .bg-*
-    bg <- navbar$bg %||% bootswatch_bg[[theme]]
+    bg <- navbar$bg %||% purrr::pluck(bootswatch_bg, theme, .default = "light")
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
     list(bg = bg, type = type)
@@ -54,18 +54,24 @@ navbar_links <- function(pkg, depth = 0L) {
     yaml_character(pkg, c("navbar", "structure", "left")),
     names(components)
   )
-
   # Backward compatibility
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
   list(
-    left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
-    right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
+    left = render_navbar_links(left, depth = depth, pkg = pkg),
+    right = render_navbar_links(right, depth = depth, pkg = pkg)
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
+render_navbar_links <- function(x, depth = 0L, pkg) {
+  if (!is.list(x)) {
+    cli::cli_abort(
+      "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
+      call = quote(data_template())
+    )
+  }
+
   stopifnot(is.integer(depth), depth >= 0L)
 
   tweak <- function(x) {
@@ -83,7 +89,7 @@ render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
     x <- lapply(x, tweak)
   }
 
-  if (bs_version == 3) {
+  if (pkg$bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
     bs4_navbar_links_html(x)

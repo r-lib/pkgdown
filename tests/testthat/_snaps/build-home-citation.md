@@ -1,3 +1,12 @@
+# source link is added to citation page
+
+    Code
+      build_home(pkg)
+    Message
+      -- Building home ---------------------------------------------------------------
+      Writing `authors.html`
+      Writing `404.html`
+
 # multiple citations all have HTML and BibTeX formats
 
     [[1]]
