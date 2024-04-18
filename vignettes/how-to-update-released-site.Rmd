@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 This vignette shows you how to update the released version of your site to match the dev version of the site, so the first step is to ensure that the dev site looks the way that you want it.
 
-This site assumes that you're a using recent version of our recommend [pkgdown action](https://github.com/r-lib/actions/blob/main/examples/pkgdown.yaml). If your workflow does not contain `workflow_dispatch`, you will need to update `.github/actions/pkgdown.yaml` by running `use_github_action("pkgdown")`.
+This site assumes that you're a using recent version of our recommend [pkgdown action](https://github.com/r-lib/actions/blob/HEAD/examples/pkgdown.yaml). If your workflow does not contain `workflow_dispatch`, you will need to update `.github/actions/pkgdown.yaml` by running `use_github_action("pkgdown")`.
 
 ## Process
 
