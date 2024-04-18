@@ -32,6 +32,7 @@
     Code
       build_news(pkg)
     Message
+      -- Building news ---------------------------------------------------------------
       Writing `news/news-2.0.html`
       Writing `news/news-1.1.html`
       Writing `news/news-1.0.html`

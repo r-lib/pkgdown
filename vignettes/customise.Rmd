@@ -226,23 +226,26 @@ It can contain any of the following:
 -   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
 -   Templates in `inst/pkgdown/templates/` will override the default templates.
 -   Assets in `inst/pkgdown/assets/` will be copied in to the destination directory.
+    (Note these files are only copied; you'll need to reference them in your stylesheet or elsewhere in order for them to be actually used.)
 -   `inst/pkgdown/extra.scss` will be added to the bslib ruleset.
+    (Note that `extra.css` is not supported in templates.)
 
-Any configuration/files supplied will override the pkgdown defaults, but will be overridden by site specific settings.
+The pkgdown defaults will be overriden by these template files, which are in turn overridden by package specific settings.
 
-Once you have created your template package `theverybest`, you can use it by:
+Once you have created your template package `theverybest`, you need to set it as your site's theme:
 
--   Setting it as your sites theme:
+``` yaml
+template:
+  package: theverybest
+```
 
-    ``` yaml
-    template:
-      package: theverybest
-    ```
+You then also need to make sure it's available when your site is build. Typically, you won't want to publish this package to CRAN, but you will want to publish to GitHub. Once you've done that, and assuming you're using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
 
--   If you're building your site using GitHub actions or other similar tool, you'll also need to installed `theverybest`.
-    If you're using the r-lib [pkgdown workflow](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site), you can add the following line to your `DESCRIPTION`:
+```yaml
+Config/Needs/website: myorg/theverybest
+```
 
-        Config/Needs/website: theverybest
+This will ensure that the GitHub action will automatically install it from GitHub when building your pkgdown site.
 
 To get some sense of how a theming package works, you can look at:
 

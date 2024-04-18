@@ -3,6 +3,7 @@
     Code
       build_reference(pkg)
     Message
+      -- Building function reference -------------------------------------------------
       Writing `reference/index.html`
       Reading man/f.Rd
     Condition
@@ -17,6 +18,7 @@
     Code
       build_reference(pkg, topics = "e")
     Message
+      -- Building function reference -------------------------------------------------
       Writing `reference/index.html`
       Reading man/e.Rd
       Writing `reference/e.html`
@@ -26,6 +28,7 @@
     Code
       build_reference(pkg, topics = "e")
     Message
+      -- Building function reference -------------------------------------------------
       Writing `reference/index.html`
       Reading man/e.Rd
       Writing `reference/e.html`
@@ -35,6 +38,7 @@
     Code
       build_reference(pkg, topics = "a")
     Message
+      -- Building function reference -------------------------------------------------
       Writing `reference/index.html`
       Reading man/a.Rd
       Writing `reference/a.html`
