@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Clipboard buttons report their action again ("Copied!") (#2468)
+* Clipboard buttons report their action again ("Copied!") (#2462)
 * `build_readme()` now correctly tweaks links to markdown files that use an anchor, e.g. `foo.md#heading-name` (#2313).
 * `build_home()` no longer errors when you have an empty `.md` file (#2309).
 * `data_template()` gives a more informative error if you've misspecified the navbar (#2312).
