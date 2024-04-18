@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Clipboard buttons report their action again ("Copied!") (#2468)
 * The skip link now becomes visible when focussed (#2138). Thanks to @glin for the styles!
 * `build_reference_index()` gives more informative errors if your `contents` field is malformed (#2323).
 * The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (#2381).
