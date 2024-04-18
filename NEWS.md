@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
+
 # pkgdown 2.0.9
 
 * Fixes for regressions in 2.0.8:
