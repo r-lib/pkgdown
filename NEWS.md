@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
+
 # pkgdown 2.0.9
 
 * Fixes for regressions in 2.0.8:
