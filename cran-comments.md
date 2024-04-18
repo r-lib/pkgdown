@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-I did not run rev deps since this is a patch release (and most packages don't actually run pkgdown from `R CMD check`).
+I checked all 139 revdeps and did not see any problems.
