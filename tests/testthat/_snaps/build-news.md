@@ -32,6 +32,7 @@
     Code
       build_news(pkg)
     Message
+      -- Building news ---------------------------------------------------------------
       Writing `news/news-2.0.html`
       Writing `news/news-1.1.html`
       Writing `news/news-1.0.html`
@@ -71,4 +72,13 @@
     Condition
       Warning:
       Footnotes in NEWS.md are not currently supported
+
+# data_news warns if no headings found
+
+    Code
+      . <- data_news(pkg)
+    Condition
+      Warning:
+      No version headings found in NEWS.md
+      i See `?pkgdown::build_news()` for expected structure.
 

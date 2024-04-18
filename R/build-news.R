@@ -178,6 +178,14 @@ data_news <- function(pkg = list()) {
 
   versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]
+
+  if (length(sections) == 0) {
+    cli::cli_warn(c( 
+      "No version headings found in {src_path('NEWS.md')}",
+      i = "See {.help pkgdown::build_news} for expected structure."
+    ))
+  }
+ 
   versions <- versions[!is.na(versions)]
 
   show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())

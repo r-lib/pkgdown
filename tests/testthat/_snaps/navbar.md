@@ -177,10 +177,18 @@
       Error in `navbar_links()`:
       ! navbar.structure.left must be a character vector.
 
+# data_navbar() errors with bad left/right
+
+    Code
+      data_navbar(pkg)
+    Condition
+      Error in `data_template()`:
+      ! Invalid navbar specification in _pkgdown.yml
+
 # render_navbar_links BS3 & BS4 default
 
     Code
-      cat(render_navbar_links(x, bs_version = 3))
+      cat(render_navbar_links(x, pkg = list(bs_version = 3)))
     Output
       <li>
         <a href="articles/pkgdown.html">Get started</a>
@@ -220,7 +228,7 @@
 ---
 
     Code
-      cat(render_navbar_links(x, bs_version = 4))
+      cat(render_navbar_links(x, pkg = list(bs_version = 4)))
     Output
       <li class="nav-item">
         <a class="nav-link" href="articles/pkgdown.html">Get started</a>
@@ -246,7 +254,7 @@
 # render_navbar_links BS4 no divider before first element
 
     Code
-      cat(render_navbar_links(x, bs_version = 4))
+      cat(render_navbar_links(x, pkg = list(bs_version = 4)))
     Output
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>

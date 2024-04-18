@@ -3,6 +3,7 @@
     Code
       build_github_pages(pkg)
     Message
+      -- Extra files for GitHub pages ------------------------------------------------
       Writing `.nojekyll`
       Writing `CNAME`
 
