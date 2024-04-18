@@ -5,8 +5,7 @@
 #' saves it to `articles/`. There are two exceptions:
 #'
 #' * Files that start with `_` (e.g., `_index.Rmd`) are ignored,
-#'   enabling the use of child documents in
-#'   [bookdown](https://bookdown.org/yihui/bookdown/)
+#'   enabling the use of child documents.
 #'
 #' * Files in `vignettes/tutorials` are handled by [build_tutorials()]
 #'
@@ -200,11 +199,15 @@ build_articles <- function(pkg = ".",
 #' @param name Name of article to render. This should be either a path
 #'   relative to `vignettes/` without extension, or `index` or `README`.
 #' @param data Additional data to pass on to template.
+#' @param new_process Build the article in a clean R process? The default,
+#'   `TRUE`, ensures that every article is build in a fresh environment, but
+#'   you may want to set it to `FALSE` to make debugging easier.
 build_article <- function(name,
                           pkg = ".",
                           data = list(),
                           lazy = FALSE,
                           seed = 1014L,
+                          new_process = TRUE,
                           quiet = TRUE) {
 
   pkg <- as_pkgdown(pkg)
@@ -293,6 +296,7 @@ build_article <- function(name,
     output_format = format,
     output_options = options,
     seed = seed,
+    new_process = new_process,
     quiet = quiet
   )
 }
@@ -351,7 +355,7 @@ rmarkdown_template <- function(pkg, name, data, depth) {
 build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  dir_create(path(pkg$dst_path, "articles"))
+  create_subdir(pkg, "articles")
   render_page(
     pkg,
     "article-index",
@@ -375,7 +379,9 @@ data_articles_index <- function(pkg = ".") {
     purrr::flatten_chr() %>%
     unique()
 
-  missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
+  missing <- setdiff(pkg$vignettes$name, listed)
+  # Exclude get started vignette or article #2150
+  missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
   if (length(missing) > 0) {
     cli::cli_abort(

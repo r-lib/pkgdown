@@ -42,6 +42,15 @@ str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
 
+unwrap_purrr_error <- function(code) {
+  withCallingHandlers(
+    code,
+    purrr_error_indexed = function(err) {
+      cnd_signal(err$parent)
+    }
+  )
+}
+
 # devtools metadata -------------------------------------------------------
 
 system_file <- function(..., package) {
@@ -68,7 +77,8 @@ src_path <- cli::combine_ansi_styles(
 )
 
 writing_file <- function(path, show) {
-  text <- dst_path(show)
+  path <- as.character(path)
+  text <- dst_path(as.character(show))
   cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
 }
 

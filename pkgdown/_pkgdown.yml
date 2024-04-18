@@ -13,7 +13,7 @@ authors:
   Posit Software, PBC:
     href: https://www.posit.co
     html: >-
-      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' height='16' style="margin-bottom: 3px;" />
+      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
 
 template:
   bootstrap: 5
@@ -32,12 +32,15 @@ articles:
 - title: Customise your site
   navbar: ~
   contents:
-  - pkgdown
   - customise
   - linking
   - search
   - metadata
+
+- title: Advanced techniques
+  contents:
   - how-to-update-released-site
+
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not

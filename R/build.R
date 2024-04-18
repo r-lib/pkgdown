@@ -168,19 +168,23 @@
 #'
 #' @section Analytics:
 #'
-#' To capture usage of your site with a web analytics platform, you can make
-#' use of the `includes` field to add the HTML supplied to you by the platform.
-#' Typically these are either placed `after_body` or `in_header`. I include
-#' a few examples below, but I highly recommend getting the recommended HTML
-#' directly from the platform.
+#' To capture usage of your site with a web analytics tool, you can make
+#' use of the `includes` field to add the special HTML they need. This HTML
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`, 
+#' or `after_body`. 
+#' You can learn more about how includes work in pkgdown at
+#' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' *   [GoatCounter](https://www.goatcounter.com):
+#' I include a few examples of popular analytics platforms below, but we 
+#' recommend getting the HTML directly from the tool:
+#'
+#' *   [plausible.io](https://plausible.io):
 #'
 #'     ```yaml
 #'     template:
 #'       includes:
-#'         after_body: >
-#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
+#'         in_header: |
+#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
 #'     ```
 #'
 #' *   [Google analytics](https://analytics.google.com/analytics/web/):
@@ -199,15 +203,15 @@
 #'              gtag('config', '{YOUR TRACKING ID}');
 #'            </script>
 #'     ```
-#'
-#' *   [plausible.io](https://plausible.io):
+#' *   [GoatCounter](https://www.goatcounter.com):
 #'
 #'     ```yaml
-#'     templates:
+#'     template:
 #'       includes:
-#'         in_header: |
-#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
+#'         after_body: >
+#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
+#'
 #'
 #' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
@@ -254,7 +258,7 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
 #' @section Deployment (`deploy`):
 #' There is a single `deploy` field
@@ -393,13 +397,15 @@ build_site_external <- function(pkg = ".",
     new_process = FALSE,
     devel = devel,
     cli_colors = cli::num_ansi_colors(),
+    hyperlinks = cli::ansi_has_hyperlink_support(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., cli_colors, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks, pkgdown_internet) {
       options(
         cli.num_colors = cli_colors,
-        crayon.colors = cli_colors, # backward compatibility
+        cli.hyperlink = hyperlinks,
+        cli.hyperlink_run = hyperlinks,
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)

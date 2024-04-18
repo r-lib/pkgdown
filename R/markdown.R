@@ -38,6 +38,10 @@ markdown_text_block <- function(text, ...) {
 markdown_body <- function(path, strip_header = FALSE) {
   xml <- markdown_path_html(path, strip_header = strip_header)
 
+  if (is.null(xml)) {
+    return(NULL)
+  }
+
   # Extract body of html - as.character renders as xml which adds
   # significant whitespace in tags like pre
   transformed_path <- withr::local_tempfile()

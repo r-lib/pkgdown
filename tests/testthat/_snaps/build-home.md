@@ -3,6 +3,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
       Writing `404.html`
 
@@ -11,6 +12,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
       Writing `404.html`
 
@@ -19,6 +21,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
     Condition
       Warning:
@@ -32,6 +35,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
       Writing `404.html`
 
@@ -40,6 +44,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
       Reading .github/404.md
       Writing `404.html`

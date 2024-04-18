@@ -37,9 +37,7 @@
     Code
       rd2html("\\Sexpr[results=verbatim]{1}")
     Condition
-      Error in `purrr::map_chr()`:
-      i In index: 1.
-      Caused by error in `map_()`:
+      Error:
       ! \\Sexpr{result=verbatim} not yet supported
 
 # bad specs throw errors
@@ -47,33 +45,25 @@
     Code
       rd2html("\\url{}")
     Condition
-      Error in `purrr::map_chr()`:
-      i In index: 1.
-      Caused by error:
+      Error:
       ! Failed to parse tag "\\url{}".
       i Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
     Condition
-      Error in `purrr::map_chr()`:
-      i In index: 1.
-      Caused by error:
+      Error:
       ! Failed to parse tag "\\url{}".
       i This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
     Condition
-      Error in `purrr::map_chr()`:
-      i In index: 1.
-      Caused by error:
+      Error:
       ! Failed to parse tag "\\email{}".
       i empty
     Code
       rd2html("\\linkS4class{}")
     Condition
-      Error in `purrr::map_chr()`:
-      i In index: 1.
-      Caused by error:
+      Error:
       ! Failed to parse tag "\\linkS4class{}".
 
 # \describe items can contain multiple paragraphs

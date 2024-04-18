@@ -5,6 +5,58 @@
   used](https://pkgdown.r-lib.org/index.html#pkgdown-200-and-bootstrap-5).
   (@salim-b, #2249)
 
+# pkgdown 2.0.9
+
+* Fixes for regressions in 2.0.8:
+
+  * Output links generated when building the site work once again (#2435).
+  
+  * pkgdown once again uses Bootstrap version specified in a template 
+    package (@gadenbuie, #2443).
+
+* Front-end improvements:
+
+  * The skip link now becomes visible when focussed (#2138). Thanks to @glin 
+    for the styles!
+
+  * The left and right footers no longer contain an extra empty paragraph tag 
+    and the footer gains additional padding-top to keep the whitespace constant 
+    (#2381).
+
+  * Clipboard buttons report their action again ("Copied!") (#2462)
+
+* It is now easier to preview parts of the website locally interactively. 
+  `build_reference_index()` and friends will call `init_site()` automatically
+  instead of erroring (@olivroy, #2329).
+
+* `build_article()` gains a new `new_process` argument which allows to build a
+   vignette in the current process for debugging purposes. We've also improved 
+   the error messages and tracebacks if an article fails to build, hopefully 
+   also making debugging easier (#2438).
+
+* `build_article_index()` and `build_reference_index()` use an improved BS5 
+  template that correctly wraps each section description in a `<div>`, rather 
+  than a `<p>`. This eliminates an empty pargraph tag that preceded each section 
+  description (#2352).
+
+* `build_home()` no longer errors when you have an empty `.md` file (#2309).
+  It alos no longer renders Github issue and pull request templates 
+  (@hsloot, #2362)
+
+* `build_news()` now warns if it doesn't find any version headings, suggesting 
+  that that `NEWS.md` is structured incorrectly (#2213).
+
+* `build_readme()` now correctly tweaks links to markdown files that use an 
+  anchor, e.g. `foo.md#heading-name` (#2313).
+
+* `build_reference_index()` gives more informative errors if your `contents` 
+  field is malformed (#2323).
+
+* `check_pkgdown()` no longer errors if your intro vignette is an article is 
+  not listed in `_pkgdown.yml` (@olivroy #2150).
+
+* `data_template()` gives a more informative error if you've misspecified the navbar (#2312).
+
 # pkgdown 2.0.8
 
 * pkgdown is now compatible with (and requires) bslib >= 0.5.1 

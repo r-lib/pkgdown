@@ -21,6 +21,7 @@ build_article(
   data = list(),
   lazy = FALSE,
   seed = 1014L,
+  new_process = TRUE,
   quiet = TRUE
 )
 
@@ -48,14 +49,17 @@ freshly generated section in browser.}
 relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
 
 \item{data}{Additional data to pass on to template.}
+
+\item{new_process}{Build the article in a clean R process? The default,
+\code{TRUE}, ensures that every article is build in a fresh environment, but
+you may want to set it to \code{FALSE} to make debugging easier.}
 }
 \description{
 \code{build_articles()} renders each R Markdown file underneath \verb{vignettes/} and
 saves it to \verb{articles/}. There are two exceptions:
 \itemize{
 \item Files that start with \verb{_} (e.g., \verb{_index.Rmd}) are ignored,
-enabling the use of child documents in
-\href{https://bookdown.org/yihui/bookdown/}{bookdown}
+enabling the use of child documents.
 \item Files in \code{vignettes/tutorials} are handled by \code{\link[=build_tutorials]{build_tutorials()}}
 }
 
