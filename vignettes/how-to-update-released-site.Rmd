@@ -1,6 +1,9 @@
 ---
 title: "How to update a released site"
 output: rmarkdown::html_vignette
+description: >
+  A guide to updating the "released" version of your pkgdown site without
+  having to release a new version of your package.
 vignette: >
   %\VignetteIndexEntry{How to update a released site}
   %\VignetteEngine{knitr::rmarkdown}
