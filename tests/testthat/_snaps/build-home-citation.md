@@ -3,6 +3,7 @@
     Code
       build_home(pkg)
     Message
+      -- Building home ---------------------------------------------------------------
       Writing `authors.html`
       Writing `404.html`
 
