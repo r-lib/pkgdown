@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * `build_home()` no longer errors when you have an empty `.md` file (#2309).
+* `data_template()` gives a more informative error if you've misspecified the navbar (#2312).
 * The skip link now becomes visible when focussed (#2138). Thanks to @glin for the styles!
 * `build_reference_index()` gives more informative errors if your `contents` field is malformed (#2323).
 * The left and right footers no longer contain an extra empty paragraph tag and the footer gains additional padding-top to keep the whitespace constant (#2381).
