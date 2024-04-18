@@ -11,6 +11,7 @@
     Code
       build_articles(pkg, lazy = FALSE)
     Message
+      -- Building articles -----------------------------------------------------------
       Writing `articles/index.html`
       Reading vignettes/kitten.Rmd
       Writing `articles/kitten.html`
@@ -20,6 +21,7 @@
     Code
       build_articles(pkg)
     Message
+      -- Building articles -----------------------------------------------------------
       Writing `articles/index.html`
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
@@ -112,6 +114,8 @@
 
     Code
       build_redirects(pkg)
+    Message
+      -- Building redirects ----------------------------------------------------------
 
 # pkgdown deps are included only once in articles
 
