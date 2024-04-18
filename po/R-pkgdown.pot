@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 2.0.9.9000\n"
-"POT-Creation-Date: 2024-04-18 17:15-0500\n"
+"POT-Creation-Date: 2024-04-18 17:21-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,11 +251,11 @@ msgid "Value"
 msgstr ""
 
 #: rd-html.R:209
-msgid "## Default %s method:"
+msgid "# Default %s method"
 msgstr ""
 
-#: rd-html.R:210
-msgid "## %s method for class '%s'"
+#: rd-html.R:211
+msgid "# %s method for class '%s'"
 msgstr ""
 
 #: render.R:90
