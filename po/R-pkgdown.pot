@@ -258,8 +258,12 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: rd-html.R:208
-msgid "# %s method for %s"
+#: rd-html.R:209
+msgid "# Default %s method"
+msgstr ""
+
+#: rd-html.R:211
+msgid "# %s method for class '%s'"
 msgstr ""
 
 #: render.R:90

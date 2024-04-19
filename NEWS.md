@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
 * New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
 * You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320). If you have made your own template with a custom `navbar`, you will need to remove the `<form>` with `role="search"` to avoid getting two search boxes.
