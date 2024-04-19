@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
+
 # pkgdown 2.0.9
 
 * Fixes for regressions in 2.0.8:
