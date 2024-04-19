@@ -182,14 +182,14 @@ build_articles <- function(pkg = ".",
   cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
-  purrr::walk(
+  unwrap_purrr_error(purrr::walk(
     pkg$vignettes$name,
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
-  )
+  ))
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -297,7 +297,8 @@ build_article <- function(name,
     output_options = options,
     seed = seed,
     new_process = new_process,
-    quiet = quiet
+    quiet = quiet,
+    call = quote(build_article())
   )
 }
 
