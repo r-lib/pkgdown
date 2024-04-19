@@ -3,3 +3,11 @@ title: "Standard vignette"
 ---
 
 Nothing out of the ordinary here
+
+## One section
+
+Blabla
+
+## Another one
+
+Blop

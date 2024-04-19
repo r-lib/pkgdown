@@ -1,9 +1,11 @@
+# highligh_text() and highlight_examples() are only used for usage
+# and examples, and are specifically excluded in tweak_reference_highlighting()
 highlight_text <- function(text) {
   out <- downlit::highlight(text, classes = downlit::classes_pandoc())
   if (!is.na(out)) {
-    pre(out, r_code = TRUE)
+    sourceCode(pre(out, r_code = TRUE))
   } else {
-    pre(escape_html(text))
+    sourceCode(pre(escape_html(text)))
   }
 }
 
@@ -13,10 +15,9 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   # some options from testthat::local_reproducible_output()
   # https://github.com/r-lib/testthat/blob/47935141d430e002070a95dd8af6dbf70def0994/R/local.R#L86
   withr::local_options(list(
-    crayon.enabled = TRUE,
-    crayon.colors = 256,
     device = function(...) ragg::agg_png(..., bg = bg),
     rlang_interactive = FALSE,
+    cli.num_colors = 256,
     cli.dynamic = FALSE
   ))
   withr::local_envvar(RSTUDIO = NA)
@@ -34,7 +35,7 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     output_handler = evaluate::new_output_handler(value = pkgdown_print)
   )
   structure(
-    pre(out, r_code = TRUE),
+    sourceCode(pre(out, r_code = TRUE)),
     dependencies = attr(out, "dependencies")
   )
 }
@@ -45,4 +46,8 @@ pre <- function(x, r_code = FALSE) {
     x,
     "</code>","</pre>"
   )
+}
+
+sourceCode <- function(x) {
+  paste0("<div class='sourceCode'>", x, "</div>")
 }

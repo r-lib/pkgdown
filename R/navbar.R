@@ -5,17 +5,11 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   style <- navbar_style(
     navbar = navbar,
-    theme = get_bootswatch_theme(pkg),
+    theme = get_bslib_theme(pkg),
     bs_version = pkg$bs_version
   )
 
-  components <- navbar_components(pkg)
-  links <- navbar_links(
-    navbar = navbar,
-    components = components,
-    depth = depth,
-    bs_version = pkg$bs_version
-  )
+  links <- navbar_links(pkg, depth = depth)
 
   c(style, links)
 }
@@ -27,7 +21,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     list(type = navbar$type %||% "default")
   } else {
     # bg is usually light, dark, or primary, but can use any .bg-*
-    bg <- navbar$bg %||% bootswatch_bg[[theme]]
+    bg <- navbar$bg %||% purrr::pluck(bootswatch_bg, theme, .default = "light")
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
     list(bg = bg, type = type)
@@ -37,33 +31,47 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
 navbar_structure <- function() {
   print_yaml(list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
-    right = "github"
+    right = c("search", "github")
   ))
 }
 
-navbar_links <- function(navbar, components, depth = 0L, bs_version = 3L) {
-  # Take structure as is from meta
-  structure <- modify_list(navbar_structure(), navbar$structure)
+navbar_links <- function(pkg, depth = 0L) {
+  navbar <- purrr::pluck(pkg, "meta", "navbar")
 
-  # Merge components from meta
+  # Combine default components with user supplied
+  components <- navbar_components(pkg)
   components_meta <- navbar$components %||% list()
   components[names(components_meta)] <- components_meta
   components <- purrr::compact(components)
 
-  right_comp <- intersect(structure$right, names(components))
-  left_comp <- intersect(structure$left, names(components))
-
+  # Combine default structure with user supplied
+  pkg$meta$navbar$structure <- modify_list(navbar_structure(), pkg$meta$navbar$structure)
+  right_comp <- intersect(
+    yaml_character(pkg, c("navbar", "structure", "right")),
+    names(components)
+  )
+  left_comp <- intersect(
+    yaml_character(pkg, c("navbar", "structure", "left")),
+    names(components)
+  )
   # Backward compatibility
   left <- navbar$left %||% components[left_comp]
   right <- navbar$right %||% components[right_comp]
 
   list(
-    left = render_navbar_links(left, depth = depth, bs_version = bs_version),
-    right = render_navbar_links(right, depth = depth, bs_version = bs_version)
+    left = render_navbar_links(left, depth = depth, pkg = pkg),
+    right = render_navbar_links(right, depth = depth, pkg = pkg)
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
+render_navbar_links <- function(x, depth = 0L, pkg) {
+  if (!is.list(x)) {
+    cli::cli_abort(
+      "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
+      call = quote(data_template())
+    )
+  }
+
   stopifnot(is.integer(depth), depth >= 0L)
 
   tweak <- function(x) {
@@ -81,7 +89,7 @@ render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
     x <- lapply(x, tweak)
   }
 
-  if (bs_version == 3) {
+  if (pkg$bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
     bs4_navbar_links_html(x)
@@ -96,6 +104,11 @@ navbar_components <- function(pkg = ".") {
   menu <- list()
   menu$reference <- menu_link(tr_("Reference"), "reference/index.html")
 
+  # in BS3, search is hardcoded in the template
+  if (pkg$bs_version == 5) {
+    menu$search <- list(search = NULL)
+  }
+  
   if (!is.null(pkg$tutorials)) {
     menu$tutorials <- menu(tr_("Tutorials"),
       menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
@@ -183,6 +196,23 @@ menu_spacer <- function() {
   menu_text("---------")
 }
 
+menu_search <- function(depth = 0) {
+  paste0(
+    '<li><form class="form-inline" role="search">\n',
+    '<input ',
+      'type="search" ',
+      'class="form-control" ',
+      'name="search-input" ', 
+      'id="search-input" ',
+      'autocomplete="off" ',
+      'aria-label="', tr_("Search site"), '" ',
+      'placeholder="', tr_("Search for"), '" ',
+      'data-search-index="', paste0(up_path(depth), "search.json"), '"',
+    '>\n',
+    '</form></li>'
+  )
+}
+
 bs4_navbar_links_html <- function(links) {
   as.character(bs4_navbar_links_tags(links), options = character())
 }
@@ -199,6 +229,10 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
 
   # function for links
   tackle_link <- function(x, index, is_submenu, depth) {
+
+    if (has_name(x, "search")) {
+      return(htmltools::HTML(menu_search(depth)))
+    }
 
     if (!is.null(x$menu)) {
 
@@ -255,6 +289,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         htmltools::tags$a(
           class = "dropdown-item",
           href = x$href,
+          target = x$target,
           textTags,
           "aria-label" = x$`aria-label` %||% NULL
         )
@@ -266,6 +301,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
       htmltools::tags$a(
         class = "nav-link",
         href = x$href,
+        target = x$target,
         textTags,
         "aria-label" = x$`aria-label` %||% NULL
       )
@@ -306,7 +342,8 @@ pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
       src_path = file_temp(),
       meta = meta,
       vignettes = vignettes,
-      repo = list(url = list(home = github_url))
+      repo = list(url = list(home = github_url)),
+      bs_version = 5
     ),
     class = "pkgdown"
   )

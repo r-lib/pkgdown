@@ -14,24 +14,27 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
-    data$index <- linkify(pkg$desc$get("Description")[[1]])
+    data$index <- linkify(pkg$desc$get_field("Description", ""))
   } else {
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown_body(src_path, pkg = pkg)
+    data$index <- markdown_body(src_path)
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- isTRUE(pkg$meta$home$strip_header)
+  hide_badges <- pkg$development$mode == "release" && !pkg$development$in_dev
 
   update_html(
     dst_path,
     tweak_homepage_html,
     strip_header = strip_header,
     sidebar = !isFALSE(pkg$meta$home$sidebar),
+    show_badges = !hide_badges,
     bs_version = pkg$bs_version,
     logo = logo_path(pkg, depth = 0)
   )
 
+  copy_figures(pkg)
   check_missing_images(pkg, path_rel(src_path, pkg$src_path), "index.html")
 
   invisible()
@@ -42,16 +45,16 @@ data_home <- function(pkg = ".") {
 
   print_yaml(list(
     pagetitle = pkg$meta$home[["title"]] %||%
-      cran_unquote(pkg$desc$get("Title")[[1]]),
+      cran_unquote(pkg$desc$get_field("Title", "")),
     sidebar = data_home_sidebar(pkg),
     opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get("Description")[[1]])),
+                       cran_unquote(pkg$desc$get_field("Description", ""))),
     has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
   ))
 }
 
 
-data_home_sidebar <- function(pkg = ".") {
+data_home_sidebar <- function(pkg = ".", call = caller_env()) {
 
   pkg <- as_pkgdown(pkg)
   if (isFALSE(pkg$meta$home$sidebar))
@@ -61,13 +64,21 @@ data_home_sidebar <- function(pkg = ".") {
 
   if (length(html_path)) {
     if (!file.exists(html_path)) {
-      abort(
-        sprintf(
-          "Can't find file '%s' specified by %s.",
-          pkg$meta$home$sidebar$html,
-          pkgdown_field(pkg = pkg, "home", "sidebar", "html")
-        )
+      rel_html_path <- fs::path_rel(html_path, pkg$src_path)
+
+      msg_fld <- pkgdown_field(
+        pkg, c('home', 'sidebar', 'html'), fmt = TRUE, cfg = TRUE
       )
+
+      cli::cli_abort(
+        c(
+          "Can't locate {.file {rel_html_path}}.",
+          x = paste0(msg_fld, " is misconfigured.")
+        ),
+        call = call
+      )
+
+
     }
     return(read_file(html_path))
   }
@@ -99,25 +110,26 @@ data_home_sidebar <- function(pkg = ".") {
 
   sidebar_components <- utils::modifyList(
     sidebar_components,
-    purrr::map2(
+    unwrap_purrr_error(purrr::map2(
       components,
       names(components),
       data_home_component,
-      pkg = pkg
-      ) %>%
+      pkg = pkg,
+      call = call
+    )) %>%
       set_names(names(components))
   )
 
-  check_components(
-    needed = sidebar_structure,
-    present = names(sidebar_components),
+  check_yaml_has(
+    setdiff(sidebar_structure, names(sidebar_components)),
     where = c("home", "sidebar", "components"),
-    pkg = pkg
+    pkg = pkg,
+    call = call
   )
 
   sidebar_final_components <- purrr::compact(
     sidebar_components[sidebar_structure]
-    )
+  )
 
   paste0(sidebar_final_components, collapse = "\n")
 
@@ -128,18 +140,18 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component, component_name, pkg) {
+data_home_component <- function(component, component_name, pkg, call = caller_env()) {
 
-  check_components(
-    needed = c("title", "text"),
-    present = names(component),
+  check_yaml_has(
+    setdiff(c("title", "text"), names(component)),
     where = c("home", "sidebar", "components", component_name),
-    pkg = pkg
+    pkg = pkg,
+    call = call
   )
 
   sidebar_section(
     component$title,
-    bullets = markdown_text_block(component$text, pkg = pkg)
+    bullets = markdown_text_block(component$text)
   )
 }
 
@@ -214,10 +226,10 @@ check_missing_images <- function(pkg, src_path, dst_path) {
   exists <- fs::file_exists(path(pkg$dst_path, rel_path))
 
   if (any(!exists)) {
-    paths <- encodeString(rel_src[!exists], quote = "'")
-    warn(c(
-      paste0("Missing images in '", src_path, "': ", paste0(paths, collapse = ", ")),
-      i = "pkgdown can only use images in 'man/figures' and 'vignettes'"
+    paths <- rel_src[!exists]
+    cli::cli_warn(c(
+      "Missing images in {.file {src_path}}: {.file {paths}}",
+      i = "pkgdown can only use images in {.file man/figures} and {.file vignettes}"
     ))
   }
 }

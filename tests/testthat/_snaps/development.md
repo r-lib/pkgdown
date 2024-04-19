@@ -2,6 +2,8 @@
 
     Code
       check_mode("foo")
-    Error <rlang_error>
-      `development.mode` in `_pkgdown.yml` must be one of auto, default, release, devel, unreleased
+    Condition
+      Error in `check_mode()`:
+      ! development.mode must be one of auto, default, release, devel, or unreleased.
+      i Use an approriate value in `_pkgdown.yml`
 

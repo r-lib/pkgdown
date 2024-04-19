@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="contents col-md-9">
+  <main id="main" class="col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{pagetitle}}</h1>
@@ -8,13 +8,12 @@
 
 {{{body}}}
 
-  </div>
+  </main>
 
-  <div class="col-md-3" id="pkgdown-sidebar">
+  <aside class="col-md-3">
     <nav id="toc">
-      <h2 data-toc-skip>Contents</h2>
+      <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
-  </div>
+  </aside>
 
 </div>
-

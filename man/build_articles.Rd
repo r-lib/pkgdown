@@ -10,11 +10,20 @@ build_articles(
   pkg = ".",
   quiet = TRUE,
   lazy = TRUE,
+  seed = 1014L,
   override = list(),
   preview = NA
 )
 
-build_article(name, pkg = ".", data = list(), lazy = FALSE, quiet = TRUE)
+build_article(
+  name,
+  pkg = ".",
+  data = list(),
+  lazy = FALSE,
+  seed = 1014L,
+  new_process = TRUE,
+  quiet = TRUE
+)
 
 build_articles_index(pkg = ".")
 }
@@ -27,6 +36,9 @@ pandoc. This is useful when debugging.}
 \item{lazy}{If \code{TRUE}, will only re-build article if input file has been
 modified more recently than the output file.}
 
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
+
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
 
@@ -37,14 +49,17 @@ freshly generated section in browser.}
 relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
 
 \item{data}{Additional data to pass on to template.}
+
+\item{new_process}{Build the article in a clean R process? The default,
+\code{TRUE}, ensures that every article is build in a fresh environment, but
+you may want to set it to \code{FALSE} to make debugging easier.}
 }
 \description{
 \code{build_articles()} renders each R Markdown file underneath \verb{vignettes/} and
 saves it to \verb{articles/}. There are two exceptions:
 \itemize{
 \item Files that start with \verb{_} (e.g., \verb{_index.Rmd}) are ignored,
-enabling the use of child documents in
-\href{https://bookdown.org/yihui/bookdown/}{bookdown}
+enabling the use of child documents.
 \item Files in \code{vignettes/tutorials} are handled by \code{\link[=build_tutorials]{build_tutorials()}}
 }
 
@@ -60,8 +75,11 @@ you are primarily working on the text of an article.
 }
 \section{Index and navbar}{
 
-You can control the articles index and navbar with a \code{articles} section in
-your \verb{_pkgdown.yaml}. It defines a list of sections, each of which
+You can control the articles index and navbar with a \code{articles} field in
+your \verb{_pkgdown.yml}. If you use it, pkgdown will check that all articles
+are included, and will error if you have missed any.
+
+The \code{articles} field defines a list of sections, each of which
 can contain four fields:
 \itemize{
 \item \code{title} (required): title of section, which appears as a heading on the
@@ -81,7 +99,9 @@ found at \code{vignettes/pizza/slice.Rmd} is \code{pizza/slice}.
 The title and description of individual vignettes displayed on the index
 comes from \code{title} and \code{description} fields of the YAML header in the Rmds.
 
-For example, this yaml might be used for some version of dplyr:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
+For example, this yaml might be used for some version of dplyr:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{articles:
 - title: Main verbs
   navbar: ~
   contents:
@@ -129,7 +149,9 @@ assumption when most vignettes were PDFs) and only copies files explicitly
 listed in \code{.install_extras}. pkgdown takes a different approach based on
 \code{\link[rmarkdown:find_external_resources]{rmarkdown::find_external_resources()}}, and it will also copy any images that
 you link to. If for some reason the automatic detection doesn't work, you
-will need to add a \code{resource_files} field to the yaml metadata, e.g.:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
+will need to add a \code{resource_files} field to the yaml metadata, e.g.:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{---
 title: My Document
 resource_files:
   - data/mydata.csv
@@ -160,12 +182,16 @@ your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
 Because of the challenges of combining two sources of HTML/CSS/JS, there is
 limited support for other output formats and you have to opt-in by setting
-the \code{as_is} field in your \code{.Rmd} metadata:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+the \code{as_is} field in your \code{.Rmd} metadata:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
 }\if{html}{\out{</div>}}
 
 If the output format produces a PDF, you'll also need to specify the
-\code{extension} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
+\code{extension} field:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{pkgdown:
   as_is: true
   extension: pdf
 }\if{html}{\out{</div>}}
@@ -193,7 +219,9 @@ present: if you do not want this, you will need to customise the navbar. See
 
 
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []

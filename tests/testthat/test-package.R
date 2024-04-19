@@ -14,10 +14,49 @@ test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
 })
 
 test_that("check_bootstrap_version() gives informative error otherwise", {
-  expect_snapshot(check_bootstrap_version(1), error = TRUE)
+  local_edition(3)
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
+
+  expect_snapshot(check_bootstrap_version(1, pkg), error = TRUE)
 })
 
+test_that("package_vignettes() moves vignettes/articles up one level", {
+  dir <- withr::local_tempdir()
+  dir_create(path(dir, "vignettes", "articles"))
+  file_create(path(dir, "vignettes", "articles", "test.Rmd"))
 
+  pkg_vig <- package_vignettes(dir)
+  expect_equal(as.character(pkg_vig$file_out), "articles/test.html")
+  expect_equal(pkg_vig$depth, 1L)
+})
+
+test_that("package_vignettes() detects conflicts in final article paths", {
+  dir <- withr::local_tempdir()
+  dir_create(path(dir, "vignettes", "articles"))
+  file_create(path(dir, "vignettes", "test.Rmd"))
+  file_create(path(dir, "vignettes", "articles", "test.Rmd"))
+
+  expect_error(package_vignettes(dir))
+})
+
+test_that("package_vignettes() sorts articles alphabetically by file name", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  expect_equal(
+    order(basename(pkg$vignettes$file_out)),
+    seq_len(nrow(pkg$vignettes))
+  )
+})
+
+test_that("override works correctly for as_pkgdown", {
+  pkgdown <- as_pkgdown("assets/man-figures")
+  expected_list <- list(figures = list(dev = "jpeg", fig.ext = "jpg", fig.width = 3, fig.asp = 1))
+  expect_equal(pkgdown$meta, expected_list)
+  modified_pkgdown <- as_pkgdown(pkgdown, override = list(figures = list(dev = "png")))
+  modified_list <- list(figures = list(dev = "png", fig.ext = "jpg", fig.width = 3, fig.asp = 1))
+  modified_pkgdown$meta
+  expect_equal(modified_pkgdown$meta, modified_list)
+})
 # titles ------------------------------------------------------------------
 
 test_that("multiline titles are collapsed", {

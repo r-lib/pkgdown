@@ -36,7 +36,7 @@ pkgdown_print.htmlwidget <- function(x, visible = TRUE) {
   }
 
   settings <- fig_settings()
-  x$width <- x$width %||% settings$fig.width * settings$dpi
-  x$height <- x$height %||% settings$fig.height * settings$dpi
+  x$width <- x$width %||% (settings$fig.width * settings$dpi)
+  x$height <- x$height %||% (settings$fig.height * settings$dpi)
   x
 }

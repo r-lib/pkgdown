@@ -1,16 +1,16 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, new_process = TRUE, quiet = TRUE, call = caller_env()) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
 
   if (!file_exists(input_path)) {
-    stop("Can't find ", src_path(input), call. = FALSE)
+    cli::cli_abort("Can't find {src_path(input).", call = caller_env())
   }
 
-  cat_line("Reading ", src_path(input))
+  cli::cli_inform("Reading {src_path(input)}")
   digest <- file_digest(output_path)
 
   args <- list(
@@ -19,31 +19,38 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     output_dir = path_dir(output_path),
     intermediates_dir = tempdir(),
     encoding = "UTF-8",
-    envir = globalenv(),
+    seed = seed,
     ...,
     quiet = quiet
   )
 
-  path <- tryCatch(
-    callr::r_safe(
-      function(...) rmarkdown::render(...),
-      args = args,
-      show = !quiet,
-      env = c(
-        callr::rcmd_safe_env(),
-        BSTINPUTS = bst_paths(input_path),
-        TEXINPUTS = tex_paths(input_path),
-        BIBINPUTS = bib_paths(input_path),
-        R_CLI_NUM_COLORS = 256
-      )
-    ),
-    error = function(cnd) {
-      rule("RMarkdown error")
-      cat(gsub("\r", "", cnd$stderr, fixed = TRUE))
-      rule()
-      abort("Failed to render RMarkdown", parent = cnd)
-    }
+  withr::local_envvar(
+    callr::rcmd_safe_env(),
+    BSTINPUTS = bst_paths(input_path),
+    TEXINPUTS = tex_paths(input_path),
+    BIBINPUTS = bib_paths(input_path),
+    R_CLI_NUM_COLORS = 256
   )
+
+  if (new_process) {
+    path <- withCallingHandlers(
+      callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
+      error = function(cnd) {
+        lines <- strsplit(cnd$stderr, "\r?\n")[[1]]
+        cli::cli_abort(
+          c(
+            x = "Failed to render RMarkdown document.",
+            set_names(lines, " ")
+          ),
+          parent = cnd$parent %||% cnd,
+          trace = cnd$parent$trace,
+          call = call
+        )
+      }
+    )
+  } else {
+    path <- inject(rmarkdown_render_with_seed(!!!args))
+  }
 
   if (identical(path_ext(path)[[1]], "html")) {
     update_html(
@@ -54,12 +61,22 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
     )
   }
   if (digest != file_digest(output_path)) {
-    cat_line("Writing ", dst_path(output))
+    writing_file(path_rel(output_path, pkg$dst_path), output)
   }
 
   # Copy over images needed by the document
   if (copy_images) {
-    ext <- rmarkdown::find_external_resources(input_path)
+    ext_src <- rmarkdown::find_external_resources(input_path)
+
+    # temporarily copy the rendered html into the input path directory and scan
+    # again for additional external resources that may be been included by R code
+    tempfile_in_input_dir <- file_temp(ext = "html", tmp_dir = path_dir(input_path))
+    file_copy(path, tempfile_in_input_dir)
+    withr::defer(unlink(tempfile_in_input_dir))
+    ext_post <- rmarkdown::find_external_resources(tempfile_in_input_dir)
+
+    ext <- rbind(ext_src, ext_post)
+    ext <- ext[!duplicated(ext$path), ]
 
     # copy web + explicit files beneath vignettes/
     is_child <- path_has_parent(ext$path, ".")
@@ -74,6 +91,25 @@ render_rmarkdown <- function(pkg, input, output, ..., copy_images = TRUE, quiet 
   check_missing_images(pkg, input, output)
 
   invisible(path)
+}
+
+
+rmarkdown_render_with_seed <- function(..., seed = NULL) {
+  if (!is.null(seed)) {
+    set.seed(seed)
+    if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+      htmlwidgets::setWidgetIdSeed(seed)
+    }
+
+    # since envir is copied from the parent fn into callr::r_safe(),
+    # set.seed() sets the seed in the wrong global env and we have to
+    # manually copy it over
+    # if (!identical(envir, globalenv())) {
+    #   envir$.Random.seed <- .GlobalEnv$.Random.seed
+    # }
+  }
+ 
+  rmarkdown::render(envir = globalenv(), ...)
 }
 
 # adapted from tools::texi2dvi
@@ -99,5 +135,4 @@ bib_paths <- function(path) {
     tex_paths(path)
   )
   paste(paths, collapse = .Platform$path.sep)
-
 }

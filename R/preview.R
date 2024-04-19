@@ -11,11 +11,23 @@ preview_site <- function(pkg = ".", path = ".", preview = NA) {
   }
 
   if (preview) {
-    rule("Previewing site")
+    cli::cli_alert_info("Previewing site")
     utils::browseURL(path(pkg$dst_path, path, "index.html"))
   }
 
   invisible()
+}
+
+#' Preview a local pkgdown page in the browser
+#'
+#' Only works when rendering the working directory, as this is the most
+#' common interactive workflow.
+#'
+#' @export
+#' @keywords internal
+preview_page <- function(path, pkg = ".") {
+  pkg <- as_pkgdown(".")
+  utils::browseURL(path_abs(path(pkg$dst_path, path)))
 }
 
 is_testing <- function() {

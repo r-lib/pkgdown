@@ -1,9 +1,8 @@
 test_that("missing logo generates message", {
   pkg <- local_pkgdown_site(test_path("assets/site-empty"))
 
-  expect_error(
-    expect_output(build_favicons(pkg)),
-    "Can't find package logo"
+  expect_snapshot(error = TRUE,
+    expect_output(build_favicons(pkg), "Building favicons")
   )
 })
 

@@ -28,7 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map(x, as_html, ...))
   # split at line breaks for everything except blocks
   empty <- purrr::map_lgl(x, purrr::is_empty)
   needs_split <- !is_block & !empty
@@ -58,7 +58,7 @@ flatten_para <- function(x, ...) {
 flatten_text <- function(x, ...) {
   if (length(x) == 0) return("")
 
-  html <- purrr::map_chr(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map_chr(x, as_html, ...))
   paste(html, collapse = "")
 }
 
@@ -130,7 +130,7 @@ as_html.tag_deqn <- function(x, ...) {
 as_html.tag_url <- function(x, ...) {
   if (length(x) != 1) {
     if (length(x) == 0) {
-      msg <- "Check for empty \\url{} tags."
+      msg <- "Check for empty \\url{{}} tags."
     } else {
       msg <- "This may be caused by a \\url tag that spans a line break."
     }
@@ -146,6 +146,9 @@ as_html.tag_href <- function(x, ...) {
 }
 #' @export
 as_html.tag_email <- function(x, ...) {
+  if (length(x) != 1) {
+    stop_bad_tag("email", "empty {}")
+  }
   paste0("<a href='mailto:", x[[1]], "'>", x[[1]], "</a>")
 }
 
@@ -201,10 +204,14 @@ as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
 method_usage <- function(x, type) {
   fun <- as_html(x[[1]])
   class <- as_html(x[[2]])
-  paste0(
-    sprintf(tr_("# %s method for %s"), type, class),
-    "\n", fun
-  )
+
+  if (x[[2]] == "default") {
+    method <- sprintf(tr_("# Default %s method"), type)
+  } else {
+    method <- sprintf(tr_("# %s method for class '%s'"), type, class)
+  }
+  
+  paste0(method, "\n", fun)
 }
 
 # Conditionals and Sexprs ----------------------------------------------------
@@ -226,7 +233,10 @@ as_html.tag_Sexpr <- function(x, ...) {
     text = as.character(res),
     rd = flatten_text(rd_text(as.character(res))),
     hide = "",
-    stop("\\Sexpr{result=", results, "} not yet supported", call. = FALSE)
+    cli::cli_abort(
+      "\\\\Sexpr{{result={results}}} not yet supported",
+      call = NULL
+    )
   )
 }
 
@@ -303,7 +313,7 @@ as_html.tag_tabular <- function(x, ...) {
   # Negative maintains correct ordering once reversed
   cell_grp <- rev(cumsum(-rev(sep)))
   cells <- unname(split(contents, cell_grp))
-  # Remove tailing content (that does not match the dimensions of the table)
+  # Remove trailing content (that does not match the dimensions of the table)
   cells <- cells[seq_len(length(cells) - length(cells)%%length(align))]
   cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
@@ -325,7 +335,7 @@ as_html.tag_figure <- function(x, ...) {
   if (n == 1) {
     paste0("<img src='figures/", path, "' alt='' />")
   } else if (n == 2) {
-    opt <- as.character(x[[2]])
+    opt <- paste(trimws(as.character(x[[2]])), collapse = " ")
     if (substr(opt, 1, 9) == "options: ") {
       extra <- substr(opt, 9, nchar(opt))
       paste0("<img src='figures/", path, "'",  extra, " />")
@@ -479,7 +489,7 @@ as_html.tag_dots <-  function(x, ...) "..."
 #' @export
 as_html.tag_ldots <- function(x, ...) "..."
 #' @export
-as_html.tag_cr <-    function(x, ...) "<br >"
+as_html.tag_cr <-    function(x, ...) "<br>"
 
 # First element of enc is the encoded version (second is the ascii version)
 #' @export
@@ -496,8 +506,6 @@ as_html.tag_enc <- function(x, ...) {
 #' @export
 as_html.tag_tab <-      function(x, ...) ""
 #' @export
-as_html.tag_cr <-       function(x, ...) "<br />"
-#' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export
 as_html.tag_renewcommand <- function(x, ...) ""
@@ -507,7 +515,7 @@ as_html.tag <- function(x, ...) {
   if (identical(class(x), "tag")) {
     flatten_text(x, ...)
   } else {
-    message("Unknown tag: ", paste(class(x), collapse = "/"))
+    cli::cli_inform("Unknown tag: {.cls {class(x)}}")
     ""
   }
 }
@@ -563,10 +571,9 @@ parse_opts <- function(string) {
 }
 
 stop_bad_tag <- function(tag, msg = NULL) {
-  abort(c(
-    paste0("Failed to parse \\", tag, "{}."),
-    i = msg
-  ))
+  bad_tag <- paste0("\\", tag, "{}")
+  msg_abort <- 'Failed to parse tag {.val {bad_tag}}.'
+  cli::cli_abort(c(msg_abort, i = msg), call = NULL)
 }
 
 is_newline <- function(x, trim = FALSE) {

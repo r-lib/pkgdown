@@ -89,10 +89,7 @@
 #' `-starts_with("foo")`.
 #'
 #' pkgdown will check that all non-internal topics are included on
-#' the reference index page, and will generate a warning if you have missed any.
-#' When the code is run in a continuous integration environment (i.e. when the
-#' CI envar is "true"), this is an error so that the build will fail if you
-#' forget to include topics in the index.
+#' the reference index page, and error if you have missed any.
 #'
 #' ## Missing topics
 #'
@@ -103,7 +100,7 @@
 #'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
-#' a top-level `icons` directory. This should contain {.png} files that are
+#' a top-level `icons` directory. This should contain `.png` files that are
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
@@ -142,8 +139,6 @@
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
-#' @param seed Seed used to initialize so that random examples are
-#'   reproducible.
 #' @param devel Determines how code is loaded in order to run examples.
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
@@ -156,7 +151,7 @@ build_reference <- function(pkg = ".",
                             lazy = TRUE,
                             examples = TRUE,
                             run_dont_run = FALSE,
-                            seed = 1014,
+                            seed = 1014L,
                             override = list(),
                             preview = NA,
                             devel = TRUE,
@@ -164,12 +159,16 @@ build_reference <- function(pkg = ".",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
 
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+  if (document != "DEPRECATED") {
+    lifecycle::deprecate_warn(
+      "1.4.0",
+      "build_site(document)",
+      details = "build_site(devel)"
+    )
     devel <- document
   }
 
-  rule("Building function reference")
+  cli::cli_rule("Building function reference")
   build_reference_index(pkg)
 
   copy_figures(pkg)
@@ -188,13 +187,14 @@ build_reference <- function(pkg = ".",
     topics <- purrr::transpose(pkg$topics)
   }
 
-  purrr::map(topics,
+  unwrap_purrr_error(purrr::map(
+    topics,
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )
+  )) 
 
   preview_site(pkg, "reference", preview = preview)
 }
@@ -208,7 +208,7 @@ copy_figures <- function(pkg) {
   }
 }
 
-examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame()) {
+examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
   # Re-loading pkgdown while it's running causes weird behaviour with
   # the context cache
   if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
@@ -225,7 +225,10 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
   width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
   withr::local_options(width = width, .local_envir = envir)
-  withr::local_seed(seed)
+  withr::local_seed(seed, .local_envir = envir)
+  if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+    htmlwidgets::setWidgetIdSeed(seed)
+  }
 
   examples_env <- child_env(globalenv())
   if (file_exists(pre_path)) {
@@ -242,7 +245,7 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
   pkg <- section_init(pkg, depth = 1L)
-  dir_create(path(pkg$dst_path, "reference"))
+  create_subdir(pkg, "reference")
 
   # Copy icons, if needed
   src_icons <- path(pkg$src_path, "icons")
@@ -265,8 +268,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples_env = globalenv(),
-                                  run_dont_run = FALSE
-                                  ) {
+                                  run_dont_run = FALSE) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
@@ -274,7 +276,7 @@ build_reference_topic <- function(topic,
   if (lazy && !out_of_date(in_path, out_path))
     return(invisible())
 
-  cat_line("Reading ", src_path("man", topic$file_in))
+  cli::cli_inform("Reading {src_path(path('man', topic$file_in))}")
 
   data <- withCallingHandlers(
     data_reference_topic(
@@ -284,29 +286,32 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
-      msg <- c(
-        paste0("Failed to parse Rd in ", topic$file_in),
-        i = err$message
+      cli::cli_abort(
+        "Failed to parse Rd in {.file {topic$file_in}}", 
+        parent = err,
+        call = quote(build_reference())
       )
-      abort(msg, parent = err)
     }
   )
 
   deps <- data$dependencies
   data$has_deps <- !is.null(deps)
   if (data$has_deps) {
+    deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::copyDependencyToDir,
       outputDir = file.path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::makeDependencyRelative,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
-    data$dependencies <- htmltools::renderDependencies(deps, "file")
+    data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))
   }
 
   render_page(
@@ -325,6 +330,7 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples_env = globalenv(),
                                  run_dont_run = FALSE) {
+
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 
@@ -350,7 +356,13 @@ data_reference_topic <- function(topic,
   # Sections that contain arbitrary text and need cross-referencing
   out$description <- as_data(tags$tag_description[[1]])
   out$opengraph <- list(description = strip_html_tags(out$description$contents))
-  out$usage <- as_data(tags$tag_usage[[1]])
+  if (length(tags$tag_usage[[1]])) {
+    out$usage <- list(
+      title = tr_("Usage"),
+      contents = as_data(tags$tag_usage[[1]])
+    )
+  }
+
 
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(
@@ -392,5 +404,5 @@ make_slug <- function(x) {
 }
 
 get_rdname <- function(topics) {
-  fs::path_ext_remove(topics$file_in)
+  gsub("\\.[Rr]d$", "", topics$file_in)
 }

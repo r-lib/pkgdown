@@ -12,7 +12,7 @@ home:
 
 These are drawn from seven built-in components:
 
--   `links`: automated links generated from `URL` and `BugReports` `DESCRIPTION` fields plus manual links from the `home.links` field:
+-   `links`: automated links generated from `URL` and `BugReports` fields from `DESCRIPTION` plus manual links from the `home.links` field:
 
     ``` yaml
     home:
@@ -27,11 +27,11 @@ These are drawn from seven built-in components:
 
 -   `community`: links to to `.github/CONTRIBUTING.md`, `.github/CODE_OF_CONDUCT.md`, etc.
 
--   `citation`: link to the package citation if it exists.
+-   `citation`: link to package citation information. Uses either `inst/CITATION` or, if absent, information from the `DESCRIPTION`.
 
 -   `authors`: selected authors from the `DESCRIPTION`.
 
--   `dev`: development status badges found in `README.md`/`index.md`.
+-   `dev`: development status badges extracted from `README.md`/`index.md`. This is only shown for "development" versions of websites; see "Development mode" in `?build_site` for details. 
 
 -   `toc`: a table of contents for the README (not shown by default).
 

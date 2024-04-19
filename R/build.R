@@ -58,16 +58,19 @@
 #'   * everything else -> release.
 #'
 #' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring.
+#'   Version in navbar gets the default colouring. Development badges are
+#'   not shown in the sidebar (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are
 #'   docs for an in-development version of the package. The `noindex` meta tag
 #'   is used to ensure that these packages are not indexed by search engines.
+#'   Development badges are shown in the sidebar (see `?build_home`).
 #'
 #' * **unreleased** (`mode: unreleased`). Site is written to `docs/`.
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
+#'   Development badges are shown in the sidebar (see `?build_home`).
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
@@ -119,20 +122,16 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Navigation bar:
-#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
-#' ```
+#' ## Page layout
 #'
-#' You can also customise the colour scheme of the navbar by using the `type`
-#' and `bg` parameters. See `vignette("customise")` for more details.
-#'
-#' @section Footer:
-#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
-#' ```
+#' The `navbar`, `footer`, and `sidebar` fields control the appearance
+#' of the navbar, footer, and sidebar respectively. They have many individual
+#' options which are documented in the **Layout** section of
+#' `vignette("customise")`.
 #'
 #' @section Search:
-#' The `search` field controls the built-in search. See `vignette("search")`
-#' for details.
+#' The `search` field controls the built-in search and is
+#' documented in `vignette("search")`.
 #'
 #' @section Template:
 #' The `template` field is mostly used to control the appearance of the site.
@@ -169,33 +168,26 @@
 #'
 #' @section Analytics:
 #'
-#' To capture usage of your site with a web analytics platform, you can make
-#' use of the `includes` field to add the HTML supplied to you by the platform.
-#' Typically these are either placed `after_body` or `in_header`. I include
-#' a few examples below, but I highly recommend getting the recommended HTML
-#' directly from the platform.
+#' To capture usage of your site with a web analytics tool, you can make
+#' use of the `includes` field to add the special HTML they need. This HTML
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`, 
+#' or `after_body`. 
+#' You can learn more about how includes work in pkgdown at
+#' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' *   [counter.dev](https://counter.dev)
+#' I include a few examples of popular analytics platforms below, but we 
+#' recommend getting the HTML directly from the tool:
 #'
-#'     ```yaml
-#'     template:
-#'       includes:
-#'         after_body: >
-#'           <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){
-#'          fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{YOUR USERNAME}",
-#'        utcoffset:"1"}))};sessionStorage.setItem("_swa","1");</script>
-#'     ```
-#'
-#' *   [GoatCounter](https://www.goatcounter.com):
+#' *   [plausible.io](https://plausible.io):
 #'
 #'     ```yaml
 #'     template:
 #'       includes:
-#'         after_body: >
-#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
+#'         in_header: |
+#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
 #'     ```
 #'
-#' *   [Google analytics](https://analytics.google.com):
+#' *   [Google analytics](https://analytics.google.com/analytics/web/):
 #'
 #'     ```yaml
 #'     template:
@@ -211,15 +203,15 @@
 #'              gtag('config', '{YOUR TRACKING ID}');
 #'            </script>
 #'     ```
-#'
-#' *   [plausible.io](https://plausible.io):
+#' *   [GoatCounter](https://www.goatcounter.com):
 #'
 #'     ```yaml
-#'     templates:
+#'     template:
 #'       includes:
-#'         in_header: |
-#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
+#'         after_body: >
+#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
+#'
 #'
 #' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
@@ -266,7 +258,7 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
 #' @section Deployment (`deploy`):
 #' There is a single `deploy` field
@@ -329,7 +321,7 @@
 build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
-                       seed = 1014,
+                       seed = 1014L,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
@@ -339,14 +331,18 @@ build_site <- function(pkg = ".",
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg, override = override)
 
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
+  if (document != "DEPRECATED") {
+    lifecycle::deprecate_warn(
+      "1.4.0",
+      "build_site(document)",
+      details = "build_site(devel)"
+    )
     devel <- document
   }
 
   if (install) {
     withr::local_temp_libpaths()
-    rule("Installing package into temporary library")
+    cli::cli_rule("Installing package {.pkg {pkg$package}} into temporary library")
     # Keep source, so that e.g. pillar can show the source code
     # of its functions in its articles
     withr::with_options(
@@ -383,11 +379,12 @@ build_site <- function(pkg = ".",
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
                                 run_dont_run = FALSE,
-                                seed = 1014,
+                                seed = 1014L,
                                 lazy = FALSE,
                                 override = list(),
                                 preview = NA,
                                 devel = TRUE) {
+  pkg <- as_pkgdown(pkg, override = override)
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -399,15 +396,16 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
-    crayon_enabled = crayon::has_color(),
-    crayon_colors = crayon::num_colors(),
+    cli_colors = cli::num_ansi_colors(),
+    hyperlinks = cli::ansi_has_hyperlink_support(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks, pkgdown_internet) {
       options(
-        crayon.enabled = crayon_enabled,
-        crayon.colors = crayon_colors,
+        cli.num_colors = cli_colors,
+        cli.hyperlink = hyperlinks,
+        cli.hyperlink_run = hyperlinks,
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)
@@ -417,30 +415,32 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+
   preview_site(pkg, preview = preview)
   invisible()
 }
 
 build_site_local <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = TRUE
-                       ) {
+                             examples = TRUE,
+                             run_dont_run = FALSE,
+                             seed = 1014L,
+                             lazy = FALSE,
+                             override = list(),
+                             preview = NA,
+                             devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0, override = override)
 
-  rule("Building pkgdown site", line = "=")
-  cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
-  cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
+  cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
+  cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
-  build_reference(pkg,
+  build_reference(
+    pkg,
     lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
@@ -460,6 +460,6 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  rule("DONE", line = "=")
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }

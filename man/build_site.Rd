@@ -8,7 +8,7 @@ build_site(
   pkg = ".",
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   lazy = FALSE,
   override = list(),
   preview = NA,
@@ -25,8 +25,8 @@ build_site(
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
@@ -80,7 +80,9 @@ whole site.
 \itemize{
 \item \code{destination} controls where the site will be generated, defaulting to
 \verb{docs/}. Paths are relative to the package root.
-\item \code{url} is optional, but strongly recommended.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
+\item \code{url} is optional, but strongly recommended.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{url: https://pkgdown.r-lib.org
 }\if{html}{\out{</div>}}
 
 It specifies where the site will be published and is used to allow other
@@ -97,7 +99,9 @@ It's used in the page title and default navbar.
 
 The \code{development} field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
-need to set the development \code{mode}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
+need to set the development \code{mode}:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   mode: auto
 }\if{html}{\out{</div>}}
 \subsection{Setting development mode}{
@@ -115,14 +119,17 @@ version number:
 \item everything else -> release.
 }
 \item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
-Version in navbar gets the default colouring.
+Version in navbar gets the default colouring. Development badges are
+not shown in the sidebar (see \code{?build_home}).
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The \code{noindex} meta tag
 is used to ensure that these packages are not indexed by search engines.
+Development badges are shown in the sidebar (see \code{?build_home}).
 \item \strong{unreleased} (\code{mode: unreleased}). Site is written to \verb{docs/}.
 Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
+Development badges are shown in the sidebar (see \code{?build_home}).
 }
 
 You can override the mode specified in the \verb{_pkgdown.yml} by setting
@@ -136,7 +143,9 @@ class \code{pkgdown-devel} or \code{pkgdown-release}. This is most easily access
 from \code{.Rmd} files where you can use pandoc's \verb{<div>} syntax to control
 where a block of markdown will display. For example, you can use the
 following markdown in your README to only show GitHub install instructions
-on the development version of your site:\if{html}{\out{<div class="sourceCode md">}}\preformatted{::: \{.pkgdown-devel\}
+on the development version of your site:
+
+\if{html}{\out{<div class="sourceCode md">}}\preformatted{::: \{.pkgdown-devel\}
 You can install the development version of pkgdown from GitHub with:
 `remotes::install_github("r-lib/pkgdown")`
 :::
@@ -144,7 +153,9 @@ You can install the development version of pkgdown from GitHub with:
 
 You can use a similar technique to control where badges are displayed.
 This markdown show the CRAN status badge on the site for the released
-package and the GitHub check status for the development package:\if{html}{\out{<div class="sourceCode md">}}\preformatted{[![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
+package and the GitHub check status for the development package:
+
+\if{html}{\out{<div class="sourceCode md">}}\preformatted{[![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
   (https://cran.r-project.org/package=pkgdown)\{.pkgdown-release\}
 [![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)]
   (https://github.com/r-lib/pkgdown/actions)\{.pkgdown-devel\}
@@ -153,7 +164,9 @@ package and the GitHub check status for the development package:\if{html}{\out{<
 
 \subsection{Other options}{
 
-There are three other options that you can control:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
+There are three other options that you can control:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{development:
   destination: dev
   version_label: danger
   version_tooltip: "Custom message here"
@@ -168,114 +181,20 @@ theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
+
+\subsection{Page layout}{
+
+The \code{navbar}, \code{footer}, and \code{sidebar} fields control the appearance
+of the navbar, footer, and sidebar respectively. They have many individual
+options which are documented in the \strong{Layout} section of
+\code{vignette("customise")}.
 }
-
-\section{Navigation bar}{
-
-You can customise the navigation bar that appears at the top of the page with the \code{navbar} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
-
-This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
-}\if{html}{\out{</div>}}
-
-It makes use of the the six built-in components:
-\itemize{
-\item \code{intro}: "Get Started", which links to a vignette with the same name as the package.
-\item \code{reference}, if there are any \code{.Rd} files.
-\item \code{articles}, if there are any vignettes or articles.
-\item \code{tutorials}, if there any tutorials.
-\item \code{news}, if \code{NEWS.md} exists.
-\item \code{search}, the search box (see \code{vignette("search")} for more details).
-\item \code{github}, a link to the source repository (with an icon), if it can be automatically determined from the \code{DESCRIPTION}.
-}
-
-You can use the \code{structure} field to reorganise the navbar without changing the default contents:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    left:  [search]
-    right: [reference, articles]
-}\if{html}{\out{</div>}}
-
-You can use \code{components} to override the default content.
-For example, this yaml provides a custom articles menu:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
- components:
-   articles:
-    text: Articles
-    menu:
-    - text: Category A
-    - text: Title A1
-      href: articles/a1.html
-    - text: Title A2
-      href: articles/a2.html
-    - text: -------
-    - text: "Category B"
-    - text: Article B1
-      href: articles/b1.html
-}\if{html}{\out{</div>}}
-
-Components uses the same syntax as \href{https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation}{RMarkdown menus}.
-The elements of \code{menu} can be:
-\itemize{
-\item A link (\code{text} + \code{href})
-\item A heading (just \code{text})
-\item A separator (\verb{text: ——–})
-}
-
-Instead of text, you can also use the name of an \code{icon}s from \href{https://fontawesome.com/icons?d=gallery}{fontawesome}.
-You should also provide a textual description in the \code{aria-label} field for screenreader users.
-
-To add a new component to the navbar, you need to modify both \code{structure} and \code{components}.
-For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/hadleywickham
-      aria-label: Twitter
-}\if{html}{\out{</div>}}
-
-You can also customise the colour scheme of the navbar by using the \code{type}
-and \code{bg} parameters. See \code{vignette("customise")} for more details.
-}
-
-\section{Footer}{
-
-You can customise the footer with the \code{footer} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
-
-This is the default structure:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: developed_by
-    right: built_with
-}\if{html}{\out{</div>}}
-
-Which draws from the two built-in components:
-\itemize{
-\item \code{developed_by}, a sentence describing the main authors of the package. (See \code{?build_home} if you want to tweak \emph{which} authors appear in the footer.)
-\item \code{built_with}, a sentence advertising pkgdown
-}
-
-You can override these defaults with the \code{footer} field.
-The example below puts the authors information on the right along with a legal disclaimer, and puts the pkgdown link on the left.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{footer:
-  structure: 
-    left: pkgdown
-    right: [authors, legal]
-  components:
-    legal: Provided without **any warranty**.
-}\if{html}{\out{</div>}}
-
-Each side is pasted into a single string (separated by \code{" "}) and then converted from markdown to HTML.
 }
 
 \section{Search}{
 
-The \code{search} field controls the built-in search. See \code{vignette("search")}
-for details.
+The \code{search} field controls the built-in search and is
+documented in \code{vignette("search")}.
 }
 
 \section{Template}{
@@ -286,18 +205,24 @@ See \code{vignette("customise")} for details.
 There are two other \code{template} fields that control other aspects of the
 site:
 \itemize{
-\item \code{noindex: true} will suppress indexing of your pages by search engines:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \code{noindex: true} will suppress indexing of your pages by search engines:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     noindex: true
 }\if{html}{\out{</div>}}
-\item \code{google_site_verification} allows you to verify your site with google:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \code{google_site_verification} allows you to verify your site with google:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   params:
     google_site_verification: _nn6ile-a6x6lctOW
 }\if{html}{\out{</div>}}
 \item \code{trailing_slash_redirect: true} will automatically redirect
 \code{your-package-url.com} to \verb{your-package-url.com/}, using a JS script
 added to the \verb{<head>} of the home page. This is useful in certain
-redirect scenarios.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+redirect scenarios.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   trailing_slash_redirect: true
 }\if{html}{\out{</div>}}
 }
@@ -306,25 +231,26 @@ redirect scenarios.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{t
 \section{Analytics}{
 
 
-To capture usage of your site with a web analytics platform, you can make
-use of the \code{includes} field to add the HTML supplied to you by the platform.
-Typically these are either placed \code{after_body} or \code{in_header}. I include
-a few examples below, but I highly recommend getting the recommended HTML
-directly from the platform.
+To capture usage of your site with a web analytics tool, you can make
+use of the \code{includes} field to add the special HTML they need. This HTML
+is typically placed \code{in_header} (actually in the \verb{<head>}), \code{before_body},
+or \code{after_body}.
+You can learn more about how includes work in pkgdown at
+\url{https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files}.
+
+I include a few examples of popular analytics platforms below, but we
+recommend getting the HTML directly from the tool:
 \itemize{
-\item \href{https://counter.dev}{counter.dev}\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \href{https://plausible.io}{plausible.io}:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    after_body: >
-      <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0)\{
-     fetch("https://counter.dev/track?"+new URLSearchParams(\{referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"\{YOUR USERNAME\}",
-   utcoffset:"1"\}))\};sessionStorage.setItem("_swa","1");</script>
+    in_header: |
+      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
 }\if{html}{\out{</div>}}
-\item \href{https://www.goatcounter.com}{GoatCounter}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
-  includes:
-    after_body: >
-      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
-}\if{html}{\out{</div>}}
-\item \href{https://analytics.google.com}{Google analytics}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
+\item \href{https://analytics.google.com/analytics/web/}{Google analytics}:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
     in_header: |
        <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -337,10 +263,12 @@ directly from the platform.
          gtag('config', '\{YOUR TRACKING ID\}');
        </script>
 }\if{html}{\out{</div>}}
-\item \href{https://plausible.io}{plausible.io}:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{templates:
+\item \href{https://www.goatcounter.com}{GoatCounter}:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    in_header: |
-      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
+    after_body: >
+      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
 }
 }
@@ -354,7 +282,9 @@ numbers and user names). pkgdown can automatically figure out the necessary
 URLs if you link to a GitHub or GitLab repo in your \code{BugReports} or \code{URL}
 field.
 
-Otherwise, you can supply your own in the \code{repo} field:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
+Otherwise, you can supply your own in the \code{repo} field:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   url:
     home: https://github.com/r-lib/pkgdown/
     source: https://github.com/r-lib/pkgdown/blob/HEAD/
@@ -373,7 +303,9 @@ the end of these URLs so they should have trailing \code{/}s.
 
 pkgdown can automatically link to Jira issues as well if specify both a
 custom \code{issue} URL as well Jira project names to auto-link in
-\code{jira_projects}. You can specify as many projects as you would like:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
+\code{jira_projects}. You can specify as many projects as you would like:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   jira_projects: [this_project, another_project]
   url:
     issue: https://jira.organisation.com/jira/browse/
@@ -381,7 +313,9 @@ custom \code{issue} URL as well Jira project names to auto-link in
 
 pkgdown defaults to using the "HEAD" branch for source file URLs. This can
 be configured to use a specific branch when linking to source files by
-specifying a branch name:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
+specifying a branch name:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
   branch: devel
 }\if{html}{\out{</div>}}
 }
@@ -394,7 +328,9 @@ There is a single \code{deploy} field
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
-time (e.g. because behind a firewall or requires auth).\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{deploy:
+time (e.g. because behind a firewall or requires auth).
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{deploy:
   install_metadata: true
 }\if{html}{\out{</div>}}
 }
@@ -406,7 +342,9 @@ If you change the structure of your documentation (by renaming vignettes or help
 One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
 This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.
 
-The syntax is the following, with old paths on the left, and new paths or URLs on the right.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{redirects:
+The syntax is the following, with old paths on the left, and new paths or URLs on the right.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{redirects:
   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
   - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]

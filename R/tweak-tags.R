@@ -43,10 +43,12 @@ tweak_link_md <- function(html) {
     return()
 
   hrefs <- xml2::xml_attr(links, "href")
-  needs_tweak <- grepl("\\.md$", hrefs) & xml2::url_parse(hrefs)$scheme == ""
+
+  urls <- xml2::url_parse(hrefs)
+  needs_tweak <- urls$scheme == "" & grepl("\\.md$", urls$path)
 
   fix_links <- function(x) {
-    x <- gsub("\\.md$", ".html", x)
+    x <- gsub("\\.md\\b", ".html", x)
     x <- gsub("\\.github/", "", x)
     x
   }
@@ -81,11 +83,19 @@ tweak_link_external <- function(html, pkg = list()) {
 
 # Fix relative image links
 tweak_img_src <- function(html) {
-  imgs <- xml2::xml_find_all(html, ".//img")
-  urls <- xml2::xml_attr(imgs, "src")
-  new_urls <- gsub("(^|/)vignettes/", "\\1articles/", urls, perl = TRUE)
-  new_urls <- gsub("(^|/)man/figures/", "\\1reference/figures/", new_urls, perl = TRUE)
-  purrr::map2(imgs, new_urls, ~ xml2::xml_set_attr(.x, "src", .y))
+  fix_path <- function(x) {
+    x <- gsub("(^|/)vignettes/", "\\1articles/", x, perl = TRUE)
+    x <- gsub("(^|/)man/figures/", "\\1reference/figures/", x, perl = TRUE)
+    x
+  }
+
+  imgs <- xml2::xml_find_all(html, ".//img[not(starts-with(@src, 'http'))]")
+  urls <- fix_path(xml2::xml_attr(imgs, "src"))
+  purrr::map2(imgs, urls, ~ xml2::xml_set_attr(.x, "src", .y))
+
+  imgs <- xml2::xml_find_all(html, ".//source[not(starts-with(@srcset, 'http'))]")
+  urls <- fix_path(xml2::xml_attr(imgs, "srcset"))
+  purrr::map2(imgs, urls, ~ xml2::xml_set_attr(.x, "srcset", .y))
 
   invisible()
 }
@@ -144,7 +154,7 @@ tweak_tables <- function(html) {
 
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
-  container <- xml2::xml_find_all(html, ".//div[@class='footnotes']")
+  container <- xml2::xml_find_all(html, ".//div[contains(@class, 'footnotes')]")
   if (length(container) != 1) {
     return()
   }
@@ -153,7 +163,7 @@ tweak_footnotes <- function(html) {
   id <- xml2::xml_attr(footnotes, "id")
   xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
   contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
-    as.character(xml2::xml_children(x), options = character())
+    paste(as.character(xml2::xml_children(x), options = character()), collapse = "\n")
   })
   # Add popover attributes to links
   for (i in seq_along(id)) {

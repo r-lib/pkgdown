@@ -15,10 +15,9 @@ knitr::opts_chunk$set(
 # pkgdown <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)](https://cran.r-project.org/package=pkgdown){.pkgdown-release}
 [![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}
-[![Codecov test coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for your package. You can see pkgdown in action at <https://pkgdown.r-lib.org>: this is the output of pkgdown applied to the latest version of pkgdown. Learn more in `vignette("pkgdown")` or `?build_site`.
@@ -35,7 +34,8 @@ install.packages("pkgdown")
 ::: .pkgdown-devel
 ```{r, eval = FALSE}
 # Install development version from GitHub
-devtools::install_github("r-lib/pkgdown")
+# install.packages("pak")
+pak::pak("r-lib/pkgdown")
 ```
 :::
 
@@ -58,7 +58,7 @@ This generates a `docs/` directory containing a website. Your `README.md` become
 
 ### pkgdown 2.0.0 and Bootstrap 5
 
-pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which is accompanied by a whole bunch of minor UI improvements. If you've heavily customised your site, there's a small chance that this will break your site, so everyone needs to explicitly opt-in to the upgrade by adding the following to `_pkgdown.yaml`:
+pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which is accompanied by a whole bunch of minor UI improvements. If you've heavily customised your site, there's a small chance that this will break your site, so everyone needs to explicitly opt-in to the upgrade by adding the following to `_pkgdown.yml`:
 
 ```yaml
 template:
@@ -69,7 +69,7 @@ Then learn about the many new ways to customise your site in `vignette("customis
 
 ## In the wild
 
-At last count, pkgdown is used [by over 6,000 packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code). Here are a few examples created by contributors to pkgdown:
+At last count, pkgdown is used [by over 11,000 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML). Here are a few examples created by contributors to pkgdown:
 
 * [bayesplot](http://mc-stan.org/bayesplot/index.html)
   ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
@@ -80,7 +80,7 @@ At last count, pkgdown is used [by over 6,000 packages](https://github.com/searc
   ([source](https://github.com/rnabioco/valr)): 
   read and manipulate genome intervals and signals.
 
-* [mkin](http://jranke.github.io/mkin/)
+* [mkin](https://pkgdown.jrwb.de/mkin/)
   ([source](https://github.com/jranke/mkin)):
   calculation routines based on the FOCUS Kinetics Report
 

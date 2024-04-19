@@ -23,7 +23,7 @@ test_that("create_meta can read DESCRIPTION with an Encoding", {
 
 test_that("source link is added to citation page", {
   pkg <- local_pkgdown_site(test_path("assets/site-citation/encoding-UTF-8"))
-  expect_output(build_home(pkg))
+  expect_snapshot(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
@@ -32,4 +32,16 @@ test_that("source link is added to citation page", {
 test_that("multiple citations all have HTML and BibTeX formats", {
   citations <- data_citations(test_path("assets/site-citation/multi"))
   expect_snapshot_output(citations)
+})
+
+test_that("links in curly braces in authors comments are escaped", {
+  pkg_dir <- withr::local_tempdir()
+  desc <- desc::description$new(cmd = "!new")
+  desc$add_author("Jane", "Doe", comment = "reviewed see <https://github.com/r-lib/pkgdown/pulls>")
+  desc$write(file.path(pkg_dir, "DESCRIPTION"))
+  authors_data <- data_authors(pkg_dir)
+  expect_equal(
+    authors_data$all[[2]]$comment,
+    "reviewed see &lt;<a href='https://github.com/r-lib/pkgdown/pulls'>https://github.com/r-lib/pkgdown/pulls</a>&gt;"
+  )
 })

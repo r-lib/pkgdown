@@ -8,7 +8,7 @@
 #'
 #' It is designed to be run in CI, so by default it:
 #'
-#' * Clean out the old site.
+#' * Cleans out the old site.
 #' * Does not install the package.
 #' * Runs [build_site()] in process.
 #'
@@ -25,7 +25,7 @@ build_site_github_pages <- function(pkg = ".",
  pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
 
   if (clean) {
-    rule("Cleaning files from old site", line = 1)
+    cli::cli_rule("Cleaning files from old site")
     clean_site(pkg)
   }
 
@@ -36,7 +36,7 @@ build_site_github_pages <- function(pkg = ".",
 }
 
 build_github_pages <- function(pkg = ".") {
-  rule("Extra files for GitHub pages")
+  cli::cli_rule("Extra files for GitHub pages")
   pkg <- as_pkgdown(pkg)
 
   # Add .nojekyll since site is static HTML

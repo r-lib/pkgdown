@@ -1,14 +1,14 @@
 <div class="row">
-  <div class="contents col-md-9">
+  <main id="main" class="col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
     </div>
 
     {{#rows}}<div id="{{slug}}" class="section level2">
-      {{#title}}<h2>{{.}}</h2>{{/title}}
-      {{#subtitle}}<h3>{{.}}</h3>{{/subtitle}}
-      {{#desc}}<p class="section-desc">{{{desc}}}</p>{{/desc}}
+      {{#title}}<h2>{{{.}}}</h2>{{/title}}
+      {{#subtitle}}<h3>{{{.}}}</h3>{{/subtitle}}
+      {{#desc}}<div class="section-desc">{{{desc}}}</div>{{/desc}}
 
       {{#topics}}<dl>
         <dt>
@@ -18,11 +18,11 @@
         <dd>{{{title}}}</dd>
       </dl>{{/topics}}
     </div>{{/rows}}
-  </div>
+  </main>
 
-  <div class="col-md-3" id="pkgdown-sidebar">
+  <aside class="col-md-3">
     <nav id="toc">
       <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
-  </div>
+  </aside>
 </div>

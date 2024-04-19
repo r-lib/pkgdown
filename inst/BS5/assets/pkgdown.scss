@@ -1,7 +1,7 @@
 /* control page width ====================================================== */
 
 // Ensure contents never become unreadably wide
-.contents {
+.row > main {
   max-width: 50rem;
 }
 // Put extra space between content and navbar
@@ -21,6 +21,12 @@
 .navbar-nav .nav-item > .nav-link {
   @include border-radius($border-radius);
   padding: 0.5rem;
+}
+
+// Align baselines of package name, version, and nav items
+.navbar > .container {
+  align-items: baseline;
+  -webkit-align-items: baseline;
 }
 
 .navbar-light .navbar-nav .active > .nav-link {
@@ -63,7 +69,7 @@ input[type="search"] {
 // doesn't overlap them when visible
 $pkgdown-nav-height: 56px !default;
 
-.contents, #pkgdown-sidebar {
+.row > main, .row > aside {
   margin-top: $pkgdown-nav-height;
 }
 html, body {
@@ -82,7 +88,7 @@ html, body {
 
 /* sidebar ================================================================== */
 
-#pkgdown-sidebar {
+aside {
   h2 {
     margin-top: 1.5rem;
     font-size: $font-size-lg;
@@ -97,7 +103,8 @@ html, body {
 
 // Add some visual distinction between content and "sidebar" on mobile
 @include media-breakpoint-down(sm) {
-  #pkgdown-sidebar {
+  // Additional specificity needed to override bootstrap width on .row > *
+  .row > aside {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
     background-color: $gray-100;
@@ -159,6 +166,7 @@ $pkgdown-footer-border-width: $border-width !default;
 
 footer {
   margin: 1rem 0 1rem 0;
+  padding-top: 1rem;
   font-size: .875em;
   border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
   background: $pkgdown-footer-bg;
@@ -204,11 +212,11 @@ body > .container .row {
 }
 
 // Ensure in-page images don't run outside their container
-.contents img {
+main img {
   max-width: 100%;
   height: auto;
 }
-.contents table {
+main table {
   display: block;
   overflow: auto;
 }
@@ -245,12 +253,12 @@ details {
 a.anchor {
   display: none;
   margin-left: 5px;
-  width: 20px;
-  height: 20px;
+  width: Min(0.9em, 20px);
+  height: Min(0.9em, 20px);
 
   background-image: url(../../link.svg);
   background-repeat: no-repeat;
-  background-size: 20px 20px;
+  background-size: Min(0.9em, 20px) Min(0.9em, 20px);
   background-position: center center;
 }
 h2, h3, h4, h5, h6 {
@@ -303,6 +311,16 @@ img.logo {
 .icon {
   float: right;
   img {width: 40px;}
+}
+
+// Ensure skip link is visible if focussed
+a[href='#main'] {
+  position: absolute;
+  margin: 4px;
+  padding: 0.75rem;
+  background-color: $body-bg;
+  text-decoration: none;
+  z-index: 2000;
 }
 
 /* Footnotes ---------------------------------------------------------------- */
@@ -374,8 +392,13 @@ div.csl-indent {
 /* code ===================================================================== */
 
 pre, pre code {
-  white-space: pre-wrap;
-  word-break: break-all;
+  // override bootstrap deafult that causes problems in old safari + IE
+  // https://github.com/rstudio/shiny/issues/2233
+  word-wrap: normal;
+}
+
+code {
+  // break long functions into multiple lines
   overflow-wrap: break-word;
 }
 
@@ -413,14 +436,15 @@ pre {
   }
 }
 
+code a:any-link {
+  color: inherit;
+  text-decoration-color: $gray-600;
+}
+
 pre code {
   padding: 0;
   background: transparent;
 
-  a:any-link {
-    color: inherit;
-    text-decoration-color: $gray-600;
-  }
   .error, .warning {font-weight: bolder;}
 }
 
@@ -430,7 +454,6 @@ pre .img, pre .r-plt {
     background-color: #fff;
   }
 }
-
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */

@@ -1,35 +1,32 @@
-markdown_text <- function(text, pkg = list(), ...) {
+markdown_text <- function(text, ...) {
   if (identical(text, NA_character_) || is.null(text)) {
     return(NULL)
   }
 
   md_path <- withr::local_tempfile()
   write_lines(text, md_path)
-  markdown_path_html(md_path, ..., pkg = pkg)
+  markdown_path_html(md_path, ...)
 }
 
-markdown_text_inline <- function(text, pkg = list(), where = "<inline>", ...) {
-  html <- markdown_text(text, pkg = pkg, ...)
+markdown_text_inline <- function(text, where = "<inline>", ...) {
+  html <- markdown_text(text, ...)
   if (is.null(html)) {
     return()
   }
 
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   if (length(children) > 1) {
-    abort(
-      sprintf(
-        "Can't use a block element here, need an inline element: \n %s \n%s",
-        what = pkgdown_field(pkg = pkg, where),
-        text
-      )
+    cli::cli_abort(
+      "Can't use a block element in {.var {where}}, need an inline element: {.var {text}}",
+      call = caller_env()
     )
   }
 
   paste0(xml2::xml_contents(children), collapse="")
 }
 
-markdown_text_block <- function(text, pkg = list(), ...) {
-  html <- markdown_text(text, pkg = pkg, ...)
+markdown_text_block <- function(text, ...) {
+  html <- markdown_text(text, ...)
   if (is.null(html)) {
     return()
   }
@@ -38,8 +35,12 @@ markdown_text_block <- function(text, pkg = list(), ...) {
   paste0(as.character(children, options = character()), collapse = "")
 }
 
-markdown_body <- function(path, strip_header = FALSE, pkg = list()) {
-  xml <- markdown_path_html(path, strip_header = strip_header, pkg = pkg)
+markdown_body <- function(path, strip_header = FALSE) {
+  xml <- markdown_path_html(path, strip_header = strip_header)
+
+  if (is.null(xml)) {
+    return(NULL)
+  }
 
   # Extract body of html - as.character renders as xml which adds
   # significant whitespace in tags like pre
@@ -58,7 +59,7 @@ markdown_body <- function(path, strip_header = FALSE, pkg = list()) {
   )
 }
 
-markdown_path_html <- function(path, strip_header = FALSE, pkg = list()) {
+markdown_path_html <- function(path, strip_header = FALSE) {
   html_path <- withr::local_tempfile()
   convert_markdown_to_html(path, html_path)
   xml <- xml2::read_html(html_path, encoding = "UTF-8")
@@ -98,7 +99,11 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
   } else if (rmarkdown::pandoc_available("1.12.3")) {
     from <- "markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes"
   } else {
-    stop("Pandoc not available", call. = FALSE)
+    if (is_testing()) {
+      testthat::skip("Pandoc not available")
+    } else {
+      cli::cli_abort("Pandoc not available")
+    }
   }
 
   rmarkdown::pandoc_convert(
@@ -111,6 +116,7 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
       if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
       "--indented-code-classes=R",
       "--section-divs",
+      "--wrap=none",
       ...
     ))
   )

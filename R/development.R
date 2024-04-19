@@ -13,23 +13,12 @@ meta_development <- function(meta, version, bs_version = 3) {
       version_label <- "danger"
     }
   }
-  version_tooltip <- purrr::pluck(development, "version_tooltip")
-  if (is.null(version_tooltip)) {
-    version_tooltip <- switch(mode,
-      default = "",
-      release = tr_("Released version"),
-      devel = tr_("In-development version"),
-      unreleased = tr_("Unreleased version")
-    )
-  }
-
   in_dev <- mode == "devel"
 
   list(
     destination = destination,
     mode = mode,
     version_label = version_label,
-    version_tooltip = version_tooltip,
     in_dev = in_dev
   )
 }
@@ -69,9 +58,19 @@ dev_mode_auto <- function(version) {
 check_mode <- function(mode) {
   valid_mode <- c("auto", "default", "release", "devel", "unreleased")
   if (!mode %in% valid_mode) {
-    abort(paste0(
-      "`development.mode` in `_pkgdown.yml` must be one of ",
-      paste(valid_mode, collapse = ", ")
+    cli::cli_abort(c(
+      "{.field development.mode} must be one of {.or {valid_mode}}.",
+      i = "Use an approriate value in {.run [_pkgdown.yml](usethis::edit_pkgdown_config())}"
     ))
   }
+}
+
+# Called in render_page() so that LANG env var set up
+version_tooltip <- function(mode) {
+  switch(mode,
+    default = "",
+    release = tr_("Released version"),
+    devel = tr_("In-development version"),
+    unreleased = tr_("Unreleased version")
+  )
 }

@@ -18,9 +18,9 @@ tweak_tabset <- function(div) {
 
   # Add empty ul for nav and div for content
   nav_class <- if (has_class(div, "tabset-pills")) {
-    "nav nav-pills nav-row"
+    "nav nav-pills"
   } else {
-    "nav nav-tabs nav-row"
+    "nav nav-tabs"
   }
   fade <- has_class(div, "tabset-fade")
 
@@ -34,7 +34,9 @@ tweak_tabset <- function(div) {
 
   # if not tabs active, activate the first tab
   if (!any(has_class(xml2::xml_children(content), "active"))) {
-    tweak_class_prepend(xml2::xml_find_first(nav, ".//li/a"), "active")
+    first_tab <- xml2::xml_find_first(nav, ".//li/button")
+    tweak_class_prepend(first_tab, "active")
+    xml2::xml_attr(first_tab, "aria-selected") <- "true"
 
     tab_class <- paste("active", if (has_class(div, "tabset-fade")) "show")
     tweak_class_prepend(xml2::xml_child(content), tab_class)
@@ -44,24 +46,37 @@ tweak_tabset <- function(div) {
 # Add an item (tab) to the tablist
 tablist_item <- function(tab, nav, parent_id) {
   id <- section_id(tab)
-  title <- xml_text1(xml2::xml_child(tab))
+  title <- tablist_title(tab)
 
   # Activate (if there was "{.active}" in the source Rmd)
   active <- has_class(tab, "active")
   li_class <- paste0("nav-link", if (active) " active")
-
   li <- xml2::xml_add_child(nav, "li", role = "presentation", class = "nav-item")
-  xml2::xml_add_child(li, "a", title,
+  button <- xml2::xml_add_child(li, "button",
     `data-bs-toggle` = "tab",
+    `data-bs-target` = paste0("#", id),
     id = paste0(id, "-tab"),
-    href = paste0("#", id),
+    type = "button",
     role = "tab",
     `aria-controls` = id,
     `aria-selected` = tolower(active),
     class = li_class
   )
 
+  # Preserve html in title by adding from xml_nodeset item by item
+  for (title_item in title) {
+    xml2::xml_add_child(button, title_item)
+  }
+
   invisible()
+}
+
+tablist_title <- function(tab) {
+  # remove anchor link from tab heading
+  tab_heading_anchor <- xml2::xml_find_first(tab, ".//a[@class = 'anchor']")
+  xml2::xml_remove(tab_heading_anchor)
+
+  xml2::xml_contents(xml2::xml_child(tab))
 }
 
 # Add content of a tab to a tabset

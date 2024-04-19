@@ -16,11 +16,10 @@
 #'
 #'   See the full contents by running [data_template()].
 #' @param path Location to create file; relative to destination directory.
-#'   If `""` (the default), prints to standard out.
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
 #' @export
-render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = FALSE) {
+render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -39,32 +38,21 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
 }
 
 render_page_html <- function(pkg, name, data = list(), depth = 0L) {
-  data <- utils::modifyList(data, data_template(pkg, depth = depth))
-  data$logo <- list(src = logo_path(pkg, depth = depth))
-  data$has_favicons <- has_favicons(pkg)
-  data$opengraph <- utils::modifyList(data_open_graph(pkg), data$opengraph %||% list())
-  data$footer <- data_footer(pkg)
-
-  # Dependencies for head
-  if (pkg$bs_version > 3) {
-    data$headdeps <- data_deps(pkg = pkg, depth = depth)
-  }
+  data <- utils::modifyList(data_template(pkg, depth = depth), data)
 
   # render template components
   pieces <- c(
-    "head", "navbar", "header", "content", "docsearch", "footer",
-    "in-header", "before-body", "after-body"
+    "head",
+    "in-header",
+    "before-body",
+    "navbar",
+    "content",
+    "footer",
+    "after-body",
+    if (pkg$bs_version == 3) c("header", "docsearch")
   )
 
-  if (pkg$bs_version > 3) {
-    pieces <- pieces[pieces != "docsearch"]
-  }
-
-  templates <- purrr::map_chr(
-    pieces, find_template, name,
-    templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version
-  )
+  templates <- purrr::map_chr(pieces, find_template, name = name, pkg = pkg)
   components <- purrr::map(templates, render_template, data = data)
   components <- purrr::set_names(components, pieces)
   components$template <- name
@@ -72,11 +60,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   components$translate <- data$translate
 
   # render complete layout
-  template <- find_template(
-    "layout", name,
-    templates_dir = templates_dir(pkg),
-    bs_version = pkg$bs_version
-  )
+  template <- find_template("layout", name, pkg = pkg)
   rendered <- render_template(template, components)
 
   xml2::read_html(rendered, encoding = "UTF-8")
@@ -86,48 +70,58 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
 #' @rdname render_page
 data_template <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
+  out <- list()
 
+  # Basic metadata
+  out$package <- list(
+    name = pkg$package,
+    version = as.character(pkg$version)
+  )
+  out$logo <- list(src = logo_path(pkg, depth = depth))
+  out$site <- list(
+    root = up_path(depth),
+    title = pkg$meta$title %||% pkg$package
+  )
+  out$year <- strftime(Sys.time(), "%Y")
+
+  # Language and translations
+  out$lang <- pkg$lang
+  out$translate <- list(
+    skip = tr_("Skip to contents"),
+    toggle_nav = tr_("Toggle navigation"),
+    on_this_page = tr_("On this page"),
+    source = tr_("Source"),
+    abstract = tr_("Abstract"),
+    authors = tr_("Authors"),
+    version = tr_("Version"),
+    examples = tr_("Examples"),
+    citation = tr_("Citation")
+  )
+
+  # Components that mostly end up in the <head>
+  out$has_favicons <- has_favicons(pkg)
+  out$opengraph <- data_open_graph(pkg)
+  out$extra <- list(
+    css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
+    js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
+  )
+  out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
+  out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
-  yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
-  yaml$.present <- TRUE
+  out$yaml$.present <- TRUE
+  if (pkg$bs_version > 3) {
+    out$headdeps <- data_deps(pkg = pkg, depth = depth)
+  }
 
-  includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
+  # Development settings; tooltip needs to be generated at render time
+  out$development <- pkg$development
+  out$development$version_tooltip <- version_tooltip(pkg$development$mode)
 
-  # Look for extra assets to add
-  extra <- list()
-  extra$css <- path_first_existing(pkg$src_path, "pkgdown", "extra.css")
-  extra$js <- path_first_existing(pkg$src_path, "pkgdown", "extra.js")
+  out$navbar <- data_navbar(pkg, depth = depth)
+  out$footer <- data_footer(pkg)
 
-  print_yaml(list(
-    lang = pkg$lang,
-    year = strftime(Sys.time(), "%Y"),
-    package = list(
-      name = pkg$package,
-      version = as.character(pkg$version)
-    ),
-    development = pkg$development,
-    site = list(
-      root = up_path(depth),
-      title = pkg$meta$title %||% pkg$package
-    ),
-    dev = pkg$use_dev,
-    extra = extra,
-    navbar = data_navbar(pkg, depth = depth),
-    includes = includes,
-    yaml = yaml,
-    translate = list(
-      skip = tr_("Skip to contents"),
-      toggle_nav = tr_("Toggle navigation"),
-      search_for = tr_("Search for"),
-      on_this_page = tr_("On this page"),
-      source = tr_("Source"),
-      abstract = tr_("Abstract"),
-      authors = tr_("Authors"),
-      version = tr_("Version"),
-      examples = tr_("Examples")
-    )
-  ))
+  print_yaml(out)
 }
 
 data_open_graph <- function(pkg = ".") {
@@ -153,47 +147,51 @@ data_open_graph <- function(pkg = ".") {
 
 check_open_graph <- function(og) {
   if (!is.list(og)) {
-    abort(paste("`opengraph` must be a list, not", friendly_type_of(og)))
+    fog <- friendly_type_of(og)
+    cli::cli_abort(
+      "{.var opengraph} must be a list, not {.val fog}.",
+      call = caller_env()
+    )
   }
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
-    warn(paste0(
-      "Unsupported `opengraph` field(s): ",
-      paste(unsupported_fields, collapse = ", ")
-    ))
+    cli::cli_warn(
+      "Unsupported {.var opengraph} field{?s}: {.val unsupported_fields}."
+    )
   }
   if ("twitter" %in% names(og)) {
     if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
-      abort(paste(
-        "The `opengraph: twitter` option must be a list. Did you mean this?",
-        "opengraph:",
-        "  twitter:",
-        paste("    creator:", og$twitter),
-        sep = "\n"
-      ))
+      cli::cli_abort(
+        "The {.var opengraph: twitter} option must be a list.",
+        call = caller_env()
+      )
     }
     if (!is.list(og$twitter)) {
-      abort("The `opengraph: twitter` option must be a list.")
+      cli::cli_abort(
+        "The {.var opengraph: twitter} option must be a list.",
+        call = caller_env()
+      )
     }
     if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
-      abort(
-        "The `opengraph: twitter` option must include either 'creator' or 'site'."
+      cli::cli_abort(
+        "{.var opengraph: twitter} must include either {.val creator} or {.val site}.",
+        call = caller_env()
       )
     }
   }
   if ("image" %in% names(og)) {
     if (is.character(og$image) && length(og$image) == 1) {
-      abort(paste(
-        "The `opengraph: image` option must be a list. Did you mean this?",
-        "opengraph",
-        "  image:",
-        paste("    src:", og$image),
-        sep = "\n"
-      ))
+      cli::cli_abort(
+        "The {.var opengraph: image} option must be a list.",
+        call = caller_env()
+      )
     }
     if (!is.list(og$image)) {
-      abort("The `opengraph: image` option must be a list.")
+      cli::cli_abort(
+        "The {.var opengraph: image} option must be a list.",
+        call = caller_env()
+      )
     }
   }
   og[intersect(supported_fields, names(og))]
@@ -213,7 +211,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
 
   if (check && !made_by_pkgdown(full_path)) {
     if (!quiet) {
-      message("Skipping '", path, "': not generated by pkgdown")
+      cli::cli_inform("Skipping {.file {path}}: not generated by pkgdown")
     }
     return(FALSE)
   }
@@ -226,8 +224,9 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   }
 
   if (!quiet) {
-    cat_line("Writing ", dst_path(path))
+    writing_file(path_rel(full_path, pkg$dst_path), path)
   }
+
   write_lines(contents, path = full_path)
   TRUE
 }

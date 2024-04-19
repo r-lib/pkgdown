@@ -8,6 +8,12 @@ authors:
     href: https://hesselberthlab.org
   Maëlle Salmon:
     href: https://masalmon.eu
+  Hadley Wickham:
+    href: http://hadley.nz
+  Posit Software, PBC:
+    href: https://www.posit.co
+    html: >-
+      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
 
 template:
   bootstrap: 5
@@ -15,15 +21,9 @@ template:
     primary: "#0054AD"
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
-
-  params:
-    ganalytics: UA-115082821-1
   includes:
     in_header:
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
-
-code:
-  width: 72
 
 development:
   mode: auto
@@ -32,11 +32,15 @@ articles:
 - title: Customise your site
   navbar: ~
   contents:
-  - pkgdown
   - customise
   - linking
   - search
   - metadata
+
+- title: Advanced techniques
+  contents:
+  - how-to-update-released-site
+
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not
@@ -64,6 +68,7 @@ reference:
   contents:
   - starts_with("deploy_")
   - build_site_github_pages
+  - check_pkgdown
 
 - title: Templates
   contents:
@@ -83,6 +88,8 @@ reference:
 
 news:
   releases:
+  - text: "Version 2.0.0"
+    href: https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/
   - text: "Version 1.6.0"
     href: https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/
   - text: "Version 1.5.0"

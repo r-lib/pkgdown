@@ -21,7 +21,7 @@ test_that("can control articles navbar through articles meta", {
     pkg_navbar(vignettes = vig, meta = list(...))
   }
 
-  "Default: show all alpabetically"
+  "Default: show all alphabetically"
   expect_snapshot(navbar_articles(pkg()))
 
   "No navbar sections: link to index"
@@ -67,23 +67,82 @@ test_that("can control articles navbar through articles meta", {
 })
 
 test_that("data_navbar() works by default", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
+  pkg <- local_pkgdown_site(meta = list(
+    news = list(one_page = FALSE, cran_dates = FALSE),
+    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
+  ))
+  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
+    "# testpackage 2.0", "",
+    "* bullet (#222 @someone)"
+  ))
+
+  pkg <- local_pkgdown_site(pkg)
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() can re-order default elements", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
-  pkg$meta$navbar$structure$right <- c("news")
-  pkg$meta$navbar$structure$left <- c("github", "reference")
+  pkg <- local_pkgdown_site(meta = "
+    template: 
+      bootstrap: 5
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
+
+    navbar:
+      structure:
+        left: [github, search]
+        right: [news]
+  ")
+  file.create(file.path(pkg$src_path, "NEWS.md"))
+
+  expect_snapshot(data_navbar(pkg)[c("left", "right")])
+})
+
+test_that("data_navbar() can remove elements", {
+  pkg <- local_pkgdown_site(meta = "
+    repo:
+      url:
+        home: https://github.com/r-lib/pkgdown/
+
+    navbar:
+      structure:
+        left: github
+        right: ~
+  ")
+
   expect_snapshot(data_navbar(pkg))
 })
 
-test_that("data_navbar()can remove elements", {
-  pkg <- as_pkgdown(test_path("assets/news-multi-page"))
-  pkg$meta$navbar$structure$left <- c("github")
-  pkg$meta$navbar$structure$right <- c("reference")
-  expect_snapshot(data_navbar(pkg))
+test_that("data_navbar() works with empty side", {
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      structure:
+        left: []
+        right: []
+  ")
+
+   expect_snapshot(data_navbar(pkg))
+ })
+
+test_that("data_navbar() errors with bad side specifications", {
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      structure:
+        left: 1
+  ")
+
+   expect_snapshot(data_navbar(pkg), error = TRUE)
 })
+
+test_that("data_navbar() errors with bad left/right", {
+  pkg <- local_pkgdown_site(meta = "
+    navbar:
+      right: [github]
+  ")
+
+   expect_snapshot(data_navbar(pkg), error = TRUE)
+})
+
 
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
@@ -117,8 +176,9 @@ test_that("render_navbar_links BS3 & BS4 default", {
     ),
     news = list(text = "News", href = "news/index.html")
   )
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 3)))
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
+
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 3))))
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
 })
 
 test_that("render_navbar_links BS4 no divider before first element", {
@@ -136,5 +196,23 @@ test_that("render_navbar_links BS4 no divider before first element", {
       )
     )
   )
-  expect_snapshot(cat(render_navbar_links(x, bs_version = 4)))
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
+})
+
+test_that("can specific link target", {
+  expect_snapshot({
+    bs4_navbar_links_tags(
+      list(menu = list(text = "text", href = "href", target = '_blank'))
+    )
+    bs4_navbar_links_tags(
+      list(menu = list(text = "text", href = "href", target = '_blank')),
+      depth = 1
+    )
+  })
+})
+
+test_that("can render search helper", {
+  expect_snapshot({
+    bs4_navbar_links_tags(list(menu = list(search = TRUE)))
+  })
 })

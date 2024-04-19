@@ -5,9 +5,9 @@
     </h1>
     
     
-    <ul class="nav nav-pills nav-row" id="tabset" role="tablist">
-    <li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-1-tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false" class="active nav-link">Tab 1</a></li>
-    <li role="presentation" class="nav-item"><a data-bs-toggle="tab" id="tab-2-tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</a></li>
+    <ul class="nav nav-pills" id="tabset" role="tablist">
+    <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-1" id="tab-1-tab" type="button" role="tab" aria-controls="tab-1" aria-selected="true" class="active nav-link">Tab 1</button></li>
+    <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tab-2" id="tab-2-tab" type="button" role="tab" aria-controls="tab-2" aria-selected="false" class="nav-link">Tab 2</button></li>
     </ul>
     <div class="tab-content">
     <div class="active  tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">

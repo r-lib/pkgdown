@@ -89,7 +89,7 @@ NULL
 #' @family tests
 #' @examples
 #' \dontrun{
-#'   stop("This is an error!", call. = FALSE)
+#'   abort("This is an error!")
 #' }
 #'
 #' # Inline \donttest is silently ommitted
@@ -183,17 +183,18 @@ NULL
 #' @family tests
 #'
 #' @examples
-#' cat(crayon::red("This is red"), "\n")
-#' cat(crayon::blue("This is blue"), "\n")
+#' cat(cli::col_red("This is red"), "\n")
+#' cat(cli::col_blue("This is blue"), "\n")
 #'
-#' message(crayon::green("This is green"))
+#' message(cli::col_green("This is green"))
 #'
-#' warning(crayon::bold("This is bold"))
+#' warning(cli::style_bold("This is bold"))
 NULL
 
 #' Test case: preformatted blocks & syntax highlighting
 #'
 #' Manual test cases for various ways of embedding code in sections.
+#' All code blocks should have copy and paste button.
 #'
 #' # Should be highlighted
 #'
@@ -211,7 +212,7 @@ NULL
 #'
 #' R code in `r` block:
 #'
-#' ```R
+#' ```r
 #' mean(a + 1)
 #' ```
 #'

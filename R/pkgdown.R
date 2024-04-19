@@ -7,7 +7,7 @@
 
 release_bullets <- function() {
   c(
-    "Check that 'test/widget.html' responds to mouse clicks"
+    "Check that [test/widget.html](https://pkgdown.r-lib.org/dev/articles/) responds to mouse clicks on 5/10/50"
   )
 }
 
@@ -31,26 +31,47 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   )
 }
 
-local_pkgdown_site <- function(path, meta = NULL, env = parent.frame()) {
-  if (!is.null(meta)) {
+local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
+  if (is.null(path)) {
+    path <- withr::local_tempdir(.local_envir = env)
+    desc <- desc::desc("!new")
+    desc$set("Package", "testpackage")
+    desc$set("Title", "A test package")
+    desc$write(file = file.path(path, "DESCRIPTION"))
+  }
+
+  if (is.character(meta)) {
     meta <- yaml::yaml.load(meta)
-  } else {
+  } else if (is.null(meta)) {
     meta <- list()
   }
   pkg <- as_pkgdown(path, meta)
+  pkg$dst_path <- withr::local_tempdir(.local_envir = env)
 
-
-  clean_up <- function(path) {
-    if (!fs::dir_exists(path)) {
-      return()
-    }
-    fs::dir_delete(path)
-  }
-  if (pkg$development$in_dev) {
-    withr::defer(clean_up(path_dir(pkg$dst_path)), envir = env)
-  } else {
-    withr::defer(clean_up(pkg$dst_path), envir = env)
-  }
+  withr::defer(unlink(pkg$dst_path, recursive = TRUE), envir = env)
 
   pkg
 }
+
+local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.frame()) {
+  if (is.null(path)) {
+    path <- withr::local_tempdir(.local_envir = env)
+    desc <- desc::desc("!new")
+    desc$set("Package", "templatepackage")
+    desc$set("Title", "A test template package")
+    desc$write(file = file.path(path, "DESCRIPTION"))
+  }
+
+  if (!is.null(meta)) {
+    path_pkgdown_yml <- fs::path(path, "inst", "pkgdown", "_pkgdown.yml")
+    fs::dir_create(fs::path_dir(path_pkgdown_yml))
+    yaml::write_yaml(meta, path_pkgdown_yml)
+  }
+
+  rlang::check_installed("pkgload")
+  pkgload::load_all(path)
+  withr::defer(pkgload::unload("templatepackage"), envir = env)
+
+  path
+}
+
