@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pkgdown 2.0.6.9000\n"
-"POT-Creation-Date: 2022-11-25 22:59+0100\n"
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
+"POT-Creation-Date: 2024-04-19 08:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: build-404.R:11
@@ -18,11 +18,11 @@ msgstr ""
 msgid "Content not found. Please use links in the navbar."
 msgstr ""
 
-#: build-articles.R:381 navbar.R:136 navbar.R:143 navbar.R:158
+#: build-articles.R:395 navbar.R:147 navbar.R:154 navbar.R:169
 msgid "Articles"
 msgstr ""
 
-#: build-articles.R:430
+#: build-articles.R:446
 msgid "All vignettes"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
-#: build-home-authors.R:77 render.R:96
+#: build-home-authors.R:77 render.R:95
 msgid "Authors"
 msgstr ""
 
@@ -90,11 +90,15 @@ msgstr ""
 msgid "translator"
 msgstr ""
 
-#: build-home-citation.R:36
+#: build-home-citation.R:37 build-home-citation.R:94 render.R:98
+msgid "Citation"
+msgstr ""
+
+#: build-home-citation.R:38
 msgid "Citing %s"
 msgstr ""
 
-#: build-home-citation.R:91
+#: build-home-citation.R:93
 msgid "Authors and Citation"
 msgstr ""
 
@@ -114,27 +118,27 @@ msgstr ""
 msgid "Community"
 msgstr ""
 
-#: build-home-index.R:88
+#: build-home-index.R:96
 msgid "Dev Status"
 msgstr ""
 
-#: build-home-index.R:154
+#: build-home-index.R:165
 msgid "View on %s"
 msgstr ""
 
-#: build-home-index.R:155
+#: build-home-index.R:166
 msgid "Browse source code"
 msgstr ""
 
-#: build-home-index.R:156
+#: build-home-index.R:167
 msgid "Report a bug"
 msgstr ""
 
-#: build-home-index.R:160
+#: build-home-index.R:171
 msgid "Links"
 msgstr ""
 
-#: build-home-index.R:165
+#: build-home-index.R:176
 msgid "Table of contents"
 msgstr ""
 
@@ -146,7 +150,7 @@ msgstr ""
 msgid "Full license"
 msgstr ""
 
-#: build-news.R:101 build-news.R:246 build-news.R:251
+#: build-news.R:101 build-news.R:257 build-news.R:262
 msgid "Changelog"
 msgstr ""
 
@@ -154,31 +158,31 @@ msgstr ""
 msgid "Version %s"
 msgstr ""
 
-#: build-news.R:138 build-news.R:240
+#: build-news.R:138 build-news.R:251
 msgid "News"
 msgstr ""
 
-#: build-news.R:242
+#: build-news.R:253
 msgid "Releases"
 msgstr ""
 
-#: build-news.R:298
+#: build-news.R:309
 msgid "CRAN release: %s"
 msgstr ""
 
-#: build-reference-index.R:20
+#: build-reference-index.R:22
 msgid "Function reference"
 msgstr ""
 
-#: build-reference-index.R:130
+#: build-reference-index.R:132
 msgid "All functions"
 msgstr ""
 
-#: build-reference.R:353
+#: build-reference.R:361
 msgid "Usage"
 msgstr ""
 
-#: build-tutorials.R:46 navbar.R:102
+#: build-tutorials.R:46 navbar.R:113
 msgid "Tutorials"
 msgstr ""
 
@@ -194,16 +198,24 @@ msgstr ""
 msgid "Unreleased version"
 msgstr ""
 
-#: navbar.R:99
+#: navbar.R:105
 msgid "Reference"
 msgstr ""
 
-#: navbar.R:130
+#: navbar.R:141
 msgid "Get started"
 msgstr ""
 
-#: navbar.R:156
+#: navbar.R:167
 msgid "More articles..."
+msgstr ""
+
+#: navbar.R:208
+msgid "Search site"
+msgstr ""
+
+#: navbar.R:209
+msgid "Search for"
 msgstr ""
 
 #: rd-data.R:33
@@ -218,7 +230,7 @@ msgstr ""
 msgid "References"
 msgstr ""
 
-#: rd-data.R:45 render.R:94
+#: rd-data.R:45 render.R:93
 msgid "Source"
 msgstr ""
 
@@ -259,33 +271,25 @@ msgid "Toggle navigation"
 msgstr ""
 
 #: render.R:92
-msgid "Search for"
-msgstr ""
-
-#: render.R:93
 msgid "On this page"
 msgstr ""
 
-#: render.R:95
+#: render.R:94
 msgid "Abstract"
 msgstr ""
 
-#: render.R:97
+#: render.R:96
 msgid "Version"
 msgstr ""
 
-#: render.R:98
+#: render.R:97
 msgid "Examples"
-msgstr ""
-
-#: render.R:99
-msgid "Citation"
 msgstr ""
 
 #: repo.R:33
 msgid "Source:"
 msgstr ""
 
-#: tweak-homepage.R:60
+#: tweak-homepage.R:61
 msgid "Dev status"
 msgstr ""
