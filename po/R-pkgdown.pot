@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 2.0.9.9000\n"
-"POT-Creation-Date: 2024-04-18 17:22-0500\n"
+"POT-Creation-Date: 2024-04-19 08:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Content not found. Please use links in the navbar."
 msgstr ""
 
-#: build-articles.R:395 navbar.R:142 navbar.R:149 navbar.R:164
+#: build-articles.R:395 navbar.R:147 navbar.R:154 navbar.R:169
 msgid "Articles"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
-#: build-home-authors.R:77 render.R:96
+#: build-home-authors.R:77 render.R:95
 msgid "Authors"
 msgstr ""
 
@@ -90,7 +90,7 @@ msgstr ""
 msgid "translator"
 msgstr ""
 
-#: build-home-citation.R:37 build-home-citation.R:94 render.R:99
+#: build-home-citation.R:37 build-home-citation.R:94 render.R:98
 msgid "Citation"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: build-tutorials.R:46 navbar.R:108
+#: build-tutorials.R:46 navbar.R:113
 msgid "Tutorials"
 msgstr ""
 
@@ -202,12 +202,20 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
-#: navbar.R:136
+#: navbar.R:141
 msgid "Get started"
 msgstr ""
 
-#: navbar.R:162
+#: navbar.R:167
 msgid "More articles..."
+msgstr ""
+
+#: navbar.R:208
+msgid "Search site"
+msgstr ""
+
+#: navbar.R:209
+msgid "Search for"
 msgstr ""
 
 #: rd-data.R:33
@@ -222,7 +230,7 @@ msgstr ""
 msgid "References"
 msgstr ""
 
-#: rd-data.R:45 render.R:94
+#: rd-data.R:45 render.R:93
 msgid "Source"
 msgstr ""
 
@@ -250,8 +258,12 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: rd-html.R:208
-msgid "# %s method for %s"
+#: rd-html.R:209
+msgid "# Default %s method"
+msgstr ""
+
+#: rd-html.R:211
+msgid "# %s method for class '%s'"
 msgstr ""
 
 #: render.R:90
@@ -263,22 +275,18 @@ msgid "Toggle navigation"
 msgstr ""
 
 #: render.R:92
-msgid "Search for"
-msgstr ""
-
-#: render.R:93
 msgid "On this page"
 msgstr ""
 
-#: render.R:95
+#: render.R:94
 msgid "Abstract"
 msgstr ""
 
-#: render.R:97
+#: render.R:96
 msgid "Version"
 msgstr ""
 
-#: render.R:98
+#: render.R:97
 msgid "Examples"
 msgstr ""
 

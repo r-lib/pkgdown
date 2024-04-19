@@ -102,7 +102,7 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
     if (is_testing()) {
       testthat::skip("Pandoc not available")
     } else {
-      abort("Pandoc not available")
+      cli::cli_abort("Pandoc not available")
     }
   }
 
