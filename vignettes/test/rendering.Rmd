@@ -10,7 +10,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 This vignette tests pkgdown output rendering for several use cases.
-Ccccccccccccaaaaaaaaaaaaaaatttttttttttttttttssssssssssssssss 
 
 ## Footnotes
 
@@ -199,3 +198,9 @@ Guten tag.
 #### Heading 4
 
 ##### Heading 5
+
+## Very long words
+
+This word should be broken across multiple lines on mobile, rather than making the page scroll horizontally:
+
+Ccccccccccccaaaaaaaaaaaaaaatttttttttttttttttssssssssssssssss 

@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
 * `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
 * New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
