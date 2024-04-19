@@ -23,7 +23,6 @@
     translate:
       skip: Skip to contents
       toggle_nav: Toggle navigation
-      search_for: Search for
       on_this_page: On this page
       source: Source
       abstract: Abstract
