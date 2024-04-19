@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* The mobile version of pkgdown sites no longer has a scrollburglar (a small small amount of vertical scroll) (#2179).
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
 
 # pkgdown 2.0.9
 
