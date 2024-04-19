@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320).
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
 
 # pkgdown 2.0.9
 

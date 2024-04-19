@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pkgdown 2.0.8.9000\n"
-"POT-Creation-Date: 2024-04-16 15:34-0500\n"
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
+"POT-Creation-Date: 2024-04-19 08:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Content not found. Please use links in the navbar."
 msgstr ""
 
-#: build-articles.R:395 navbar.R:141 navbar.R:148 navbar.R:163
+#: build-articles.R:395 navbar.R:147 navbar.R:154 navbar.R:169
 msgid "Articles"
 msgstr ""
 
@@ -170,19 +170,19 @@ msgstr ""
 msgid "CRAN release: %s"
 msgstr ""
 
-#: build-reference-index.R:20
+#: build-reference-index.R:22
 msgid "Function reference"
 msgstr ""
 
-#: build-reference-index.R:122
+#: build-reference-index.R:132
 msgid "All functions"
 msgstr ""
 
-#: build-reference.R:357
+#: build-reference.R:361
 msgid "Usage"
 msgstr ""
 
-#: build-tutorials.R:46 navbar.R:107
+#: build-tutorials.R:46 navbar.R:113
 msgid "Tutorials"
 msgstr ""
 
@@ -198,23 +198,23 @@ msgstr ""
 msgid "Unreleased version"
 msgstr ""
 
-#: navbar.R:99
+#: navbar.R:105
 msgid "Reference"
 msgstr ""
 
-#: navbar.R:135
+#: navbar.R:141
 msgid "Get started"
 msgstr ""
 
-#: navbar.R:161
+#: navbar.R:167
 msgid "More articles..."
 msgstr ""
 
-#: navbar.R:202
+#: navbar.R:208
 msgid "Search site"
 msgstr ""
 
-#: navbar.R:203
+#: navbar.R:209
 msgid "Search for"
 msgstr ""
 
