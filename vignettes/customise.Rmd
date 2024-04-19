@@ -159,7 +159,7 @@ template:
     base_font: proxima-nova
 ```
 
-Depending on where the font is from (and if you paid money for it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the browser developer console is a good place to start.
+Depending on where the font is from (and if you paid money for it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
 
 When iterating on fonts, you'll need to run `build_home_index(); init_site()` then refresh you browser to see the update.
 
