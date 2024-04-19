@@ -1,7 +1,33 @@
-test_that("check_bootswatch_theme() works", {
-  expect_equal(check_bootswatch_theme("_default", 4, list()), NULL)
-  expect_equal(check_bootswatch_theme("lux", 4, list()), "lux")
-  expect_snapshot_error(check_bootswatch_theme("paper", 4, list()))
+test_that("check_bslib_theme() works", {
+  pkg <- as_pkgdown(test_path("assets/reference"))
+  expect_equal(check_bslib_theme("_default", pkg, bs_version = 4), "default")
+  expect_equal(check_bslib_theme("lux", pkg, bs_version = 4), "lux")
+  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4))
+  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset")))
+})
+
+test_that("get_bslib_theme() works with template.bslib.preset", {
+  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
+    template:
+      bootstrap: 5
+      bslib:
+        preset: shiny
+        enable-shadows: true
+  ')
+
+  expect_equal(get_bslib_theme(pkg), "shiny")
+  expect_no_error(bs_theme(pkg))
+
+  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
+    template:
+      bootstrap: 5
+      bslib:
+        preset: lux
+        enable-shadows: true
+  ')
+
+  expect_equal(get_bslib_theme(pkg), "lux")
+  expect_no_error(bs_theme(pkg))
 })
 
 test_that("capture data_template()", {
@@ -13,6 +39,7 @@ test_that("capture data_template()", {
 })
 
 test_that("can include text in header, before body, and after body", {
+  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:
       includes:
@@ -34,7 +61,7 @@ test_that("can include text in header, before body, and after body", {
   )
 
   pkg$bs_version <- 5
-  expect_output(init_site(pkg))
+  expect_message(init_site(pkg))
   html <- render_page_html(pkg, "title-body")
   expect_equal(
     xpath_text(html, ".//test"),

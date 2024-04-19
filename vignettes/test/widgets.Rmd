@@ -14,11 +14,6 @@ knitr::opts_chunk$set(
 Test spacing above widget.
 
 ```{r, echo=FALSE}
-# set seed for reproducible widget id
-if (requireNamespace("htmltools", quietly = TRUE)) {
-  htmlwidgets::setWidgetIdSeed(42)
-}
-
 path1 <- tempfile()
 writeLines(letters, path1)
 path2 <- tempfile()

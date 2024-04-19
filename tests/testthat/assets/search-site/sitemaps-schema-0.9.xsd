@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" targetNamespace="http://www.sitemaps.org/schemas/sitemap/0.9" elementFormDefault="qualified">
   <xsd:annotation>
     <xsd:documentation>
-XML Schema for Sitemap files. Last Modifed 2008-03-26
+XML Schema for Sitemap files. Last Modified 2008-03-26
 </xsd:documentation>
   </xsd:annotation>
   <xsd:element name="urlset">

@@ -12,7 +12,10 @@ build_bslib <- function(pkg = ".") {
 
 data_deps <- function(pkg, depth) {
   if (!file.exists(data_deps_path(pkg))) {
-    abort("Run pkgdown::init_site() first.")
+    cli::cli_abort(
+      "Run {.fn pkgdown::init_site} first.",
+      call = caller_env()
+    )
   }
 
   deps_path <- paste0(up_path(depth), "deps")
@@ -31,14 +34,12 @@ data_deps_path <- function(pkg) {
 bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  theme <- get_bootswatch_theme(pkg)
-  theme <- check_bootswatch_theme(theme, pkg$bs_version, pkg)
+  bs_theme_args <- pkg$meta$template$bslib %||% list()
+  bs_theme_args[["version"]] <- pkg$bs_version
+  bs_theme_args[["preset"]] <- get_bslib_theme(pkg)
 
-  bs_theme <- exec(bslib::bs_theme,
-    version = pkg$bs_version,
-    bootswatch = theme,
-    !!!pkg$meta$template$bslib
-  )
+  bs_theme <- exec(bslib::bs_theme, !!!bs_theme_args)
+
   # Drop bs3 compat files added for shiny/RMarkdown
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
@@ -56,10 +57,10 @@ bs_theme_rules <- function(pkg) {
   theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
-    abort(c(
-      paste0("Unknown theme '", theme, "'"),
-      i = paste0("Valid themes are: ", paste0(highlight_styles(), collapse = ", "))
-    ))
+    cli::cli_abort(c(
+      "Unknown theme: {.val {theme}}",
+      i = "Valid themes are: {.val highlight_styles()}"
+    ), call = caller_env())
   }
   paths <- c(paths, theme_path)
 
@@ -89,29 +90,54 @@ highlight_styles <- function() {
   path_ext_remove(path_file(paths))
 }
 
-get_bootswatch_theme <- function(pkg) {
-  pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    "_default"
-}
+get_bslib_theme <- function(pkg) {
+  preset <- pkg$meta[["template"]]$bslib$preset
 
-check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (bootswatch_theme == "_default") {
-    NULL
-  } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    bootswatch_theme
-  } else {
-    abort(
-      sprintf(
-        "Can't find Bootswatch theme '%s' (%s) for Bootstrap version '%s' (%s).",
-        bootswatch_theme,
-        pkgdown_field(pkg, c("template", "bootswatch")),
-        bs_version,
-        pkgdown_field(pkg, c("template", "bootstrap"))
-      )
-    )
+  if (!is.null(preset)) {
+    check_bslib_theme(preset, pkg, c("template", "bslib", "preset"))
+    return(preset)
   }
 
+  bootswatch <-
+    pkg$meta[["template"]]$bootswatch %||%
+    # Historically (< 0.2.0), bootswatch wasn't a top-level template field
+    pkg$meta[["template"]]$params$bootswatch
+
+  if (!is.null(bootswatch)) {
+    check_bslib_theme(bootswatch, pkg, c("template", "bootswatch"))
+    return(bootswatch)
+  }
+
+  "default"
+}
+
+check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
+  if (theme %in% c("_default", "default")) {
+    return("default")
+  }
+
+  bslib_themes <- c(
+    bslib::bootswatch_themes(bs_version),
+    bslib::builtin_themes(bs_version),
+    # bs_theme() recognizes both below as bare bootstrap
+    "default",
+    "bootstrap"
+  )
+
+  if (theme %in% bslib_themes) {
+    return(theme)
+  }
+
+  cli::cli_abort(c(
+    sprintf(
+      "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
+      theme,
+      pkgdown_field(pkg, field),
+      bs_version,
+      pkgdown_field(pkg, c("template", "bootstrap"))
+    ),
+    x = "Edit settings in {pkgdown_config_href({pkg$src_path})}"
+  ), call = caller_env())
 }
 
 bs_theme_deps_suppress <- function(deps = list()) {

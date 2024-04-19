@@ -1,5 +1,111 @@
 # pkgdown (development version)
 
+* `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
+* `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
+* New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
+* You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320). If you have made your own template with a custom `navbar`, you will need to remove the `<form>` with `role="search"` to avoid getting two search boxes.
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
+
+# pkgdown 2.0.9
+
+* Fixes for regressions in 2.0.8:
+
+  * Output links generated when building the site work once again (#2435).
+  
+  * pkgdown once again uses Bootstrap version specified in a template 
+    package (@gadenbuie, #2443).
+
+* Front-end improvements:
+
+  * The skip link now becomes visible when focussed (#2138). Thanks to @glin 
+    for the styles!
+
+  * The left and right footers no longer contain an extra empty paragraph tag 
+    and the footer gains additional padding-top to keep the whitespace constant 
+    (#2381).
+
+  * Clipboard buttons report their action again ("Copied!") (#2462)
+
+* It is now easier to preview parts of the website locally interactively. 
+  `build_reference_index()` and friends will call `init_site()` automatically
+  instead of erroring (@olivroy, #2329).
+
+* `build_article()` gains a new `new_process` argument which allows to build a
+   vignette in the current process for debugging purposes. We've also improved 
+   the error messages and tracebacks if an article fails to build, hopefully 
+   also making debugging easier (#2438).
+
+* `build_article_index()` and `build_reference_index()` use an improved BS5 
+  template that correctly wraps each section description in a `<div>`, rather 
+  than a `<p>`. This eliminates an empty pargraph tag that preceded each section 
+  description (#2352).
+
+* `build_home()` no longer errors when you have an empty `.md` file (#2309).
+  It alos no longer renders Github issue and pull request templates 
+  (@hsloot, #2362)
+
+* `build_news()` now warns if it doesn't find any version headings, suggesting 
+  that that `NEWS.md` is structured incorrectly (#2213).
+
+* `build_readme()` now correctly tweaks links to markdown files that use an 
+  anchor, e.g. `foo.md#heading-name` (#2313).
+
+* `build_reference_index()` gives more informative errors if your `contents` 
+  field is malformed (#2323).
+
+* `check_pkgdown()` no longer errors if your intro vignette is an article is 
+  not listed in `_pkgdown.yml` (@olivroy #2150).
+
+* `data_template()` gives a more informative error if you've misspecified the navbar (#2312).
+
+# pkgdown 2.0.8
+
+* pkgdown is now compatible with (and requires) bslib >= 0.5.1 
+  (@gadenbuie, #2395), including a fix to BS5 navbar template to get 
+  `navbar.type: dark` to work with Bootstrap 5.3+ (@tanho63, #2388)
+
+* Now uses [cli](https://github.com/r-lib/cli) to provide interactive feedback. 
+
+* Avoid unwanted linebreaks from parsing `DESCRIPTION` (@salim-b, #2247).
+
+* Translations  
+  * New Catalan translation (@jmaspons, #2333). 
+  * Citation sections are correctly translated (@eliocamp, #2410).
+
+* `build_article_index()` now sorts vignettes and non-vignette articles 
+   alphabetically by their filename (literally, their `basename()`), by default 
+   (@jennybc, #2253).
+
+* Deprecated `build_favicon()` was removed (`build_favicons()` remains).
+
+* `build_articles()` now sets RNG seed by default. Use 
+  `build_articles(seed = NULL)` for the old (unreproducible) behaviour. 
+  (@salim-b, #2354).
+
+* `build_articles()` will process `.qmd` articles with the quarto vignette
+  builder (@rcannood, #2404).
+
+* `build_articles()` and `build_reference()` now set RNG seed for htmlwidgets 
+  IDs. This reduces noise in final HTML output, both for articles and examples 
+  that contain htmlwidgets (@salim-b, #2294, #2354).
+
+* `build_news()` correctly parses  of github profiles and issues into links 
+  when present at the beginning of list items (@pearsonca, #2122)
+
+* `build_reference()` sets `seed` correctly; it was previously reset too early
+   (@salim-b, #2355)
+
+* Rd -> html translation
+  * `\cr` is now translated to `<br>` not `<br />` (#2400).
+  * Correct usage for S3 methods with non-syntactic class names (#2384).
+  * Preserve Markdown code blocks with class rmd from roxygen2 docs (@salim-b, #2298).
+
+* `build_reference_index()` no longer generates redundant entries when multiple 
+  explicit `@usage` tags are provided (@klmr, #2302)
+
+* `build_reference_index()` correctly handles topic names that conflict with 
+  selector functions (@dmurdoch, #2397).
+
 # pkgdown 2.0.7
 
 * Fix topic match selection when there is an unmatched selection followed by a matched selection (@bundfussr, #2234)
@@ -64,7 +170,7 @@ Markdown code with chunks) (@idavydov, #2237).
     * Package logos will be automatically stripped from the `.Rd` you don't end 
       up with two on one page. (#2083).
 
-    * `\figure{file}{alternative text}` with multline alt text is now parsed
+    * `\figure{file}{alternative text}` with multiline alt text is now parsed
       correctly (#2080)
 
     * roxygen 7.2.0 output for generic code blocks (#2092, @jabenninghoff) is
@@ -246,9 +352,9 @@ Markdown code with chunks) (@idavydov, #2237).
     pkgdown includes translations for:
     
     * `es`, Spanish, thanks to @edgararuiz-zz, @dieghernan, @rivaquiroga.
-    * `de`, German, thnaks to @hfrick.
+    * `de`, German, thanks to @hfrick.
     * `fr`, French, thanks to @romainfrancois, @lionel-, @jplecavalier, and @maelle.
-    * `pt`, Portoguese, thanks to @rich-iannone.
+    * `pt`, Portuguese, thanks to @rich-iannone.
     * `tr`, Turkish, thanks to @mine-cetinkaya-rundel.
     * `zh_CN`, simplified Chinese, thanks to @yitao.
   
@@ -653,7 +759,7 @@ Markdown code with chunks) (@idavydov, #2237).
     (#1045). 
 
 * There's much richer control over Open Graph and Twitter metadata for the 
-  whote site and for individual articles. See new `vignette("metadata")` for 
+  whole site and for individual articles. See new `vignette("metadata")` for 
   details (@gadenbuie, #936).
 
 * New `deploy_to_branch()` function to build and deploy a site to a branch,

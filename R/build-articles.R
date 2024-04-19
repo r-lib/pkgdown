@@ -5,8 +5,7 @@
 #' saves it to `articles/`. There are two exceptions:
 #'
 #' * Files that start with `_` (e.g., `_index.Rmd`) are ignored,
-#'   enabling the use of child documents in
-#'   [bookdown](https://bookdown.org/yihui/bookdown/)
+#'   enabling the use of child documents.
 #'
 #' * Files in `vignettes/tutorials` are handled by [build_tutorials()]
 #'
@@ -163,12 +162,15 @@
 #'   pandoc. This is useful when debugging.
 #' @param lazy If `TRUE`, will only re-build article if input file has been
 #'   modified more recently than the output file.
+#' @param seed Seed used to initialize random number generation in order to
+#'   make article output reproducible. An integer scalar or `NULL` for no seed.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
+                           seed = 1014L,
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
@@ -177,14 +179,16 @@ build_articles <- function(pkg = ".",
     return(invisible())
   }
 
-  rule("Building articles")
+  cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
   purrr::walk(
-    pkg$vignettes$name, build_article,
+    pkg$vignettes$name,
+    build_article,
     pkg = pkg,
-    quiet = quiet,
-    lazy = lazy
+    lazy = lazy,
+    seed = seed,
+    quiet = quiet
   )
 
   preview_site(pkg, "articles", preview = preview)
@@ -195,19 +199,27 @@ build_articles <- function(pkg = ".",
 #' @param name Name of article to render. This should be either a path
 #'   relative to `vignettes/` without extension, or `index` or `README`.
 #' @param data Additional data to pass on to template.
+#' @param new_process Build the article in a clean R process? The default,
+#'   `TRUE`, ensures that every article is build in a fresh environment, but
+#'   you may want to set it to `FALSE` to make debugging easier.
 build_article <- function(name,
-                           pkg = ".",
-                           data = list(),
-                           lazy = FALSE,
-                           quiet = TRUE) {
+                          pkg = ".",
+                          data = list(),
+                          lazy = FALSE,
+                          seed = 1014L,
+                          new_process = TRUE,
+                          quiet = TRUE) {
+
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
-  # specification of depth, output destination, and other parmaters that
+  # specification of depth, output destination, and other parameters that
   # allow code sharing with building of the index.
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {
-    stop("Can't find article called ", src_path(name), call. = FALSE)
+    cli::cli_abort(
+      "Can't find article {.file {name}}"
+    )
   }
 
   input <- pkg$vignettes$file_in[vig]
@@ -283,6 +295,8 @@ build_article <- function(name,
     output = output_file,
     output_format = format,
     output_options = options,
+    seed = seed,
+    new_process = new_process,
     quiet = quiet
   )
 }
@@ -341,7 +355,7 @@ rmarkdown_template <- function(pkg, name, data, depth) {
 build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  dir_create(path(pkg$dst_path, "articles"))
+  create_subdir(pkg, "articles")
   render_page(
     pkg,
     "article-index",
@@ -365,15 +379,15 @@ data_articles_index <- function(pkg = ".") {
     purrr::flatten_chr() %>%
     unique()
 
-  missing <- setdiff(pkg$vignettes$name, c(listed, pkg$package))
+  missing <- setdiff(pkg$vignettes$name, listed)
+  # Exclude get started vignette or article #2150
+  missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
   if (length(missing) > 0) {
-    abort(
-      paste0(
-        "Vignettes missing from index: ",
-        paste(missing, collapse = ", ")
-      ),
-      call. = FALSE
+    cli::cli_abort(
+      "{length(missing)} vignette{?s} missing from index in \\
+      {pkgdown_config_href({pkg$src_path})}: {.val {missing}}.",
+      call = caller_env()
     )
   }
 
@@ -385,7 +399,10 @@ data_articles_index <- function(pkg = ".") {
 
 data_articles_index_section <- function(section, pkg) {
   if (!set_contains(names(section), c("title", "contents"))) {
-    abort("Section must have components `title`, `contents`")
+    cli::cli_abort(
+      "Section must have components {.field title}, {.field contents}",
+      call = caller_env()
+    )
   }
 
   # Match topics against any aliases
@@ -423,7 +440,6 @@ default_articles_index <- function(pkg = ".") {
   if (nrow(pkg$vignettes) == 0L) {
     return(NULL)
   }
-
 
   print_yaml(list(
     list(

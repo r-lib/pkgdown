@@ -1,4 +1,4 @@
-data_reference_index <- function(pkg = ".") {
+data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
@@ -6,14 +6,16 @@ data_reference_index <- function(pkg = ".") {
     return(list())
   }
 
-  rows <- meta %>%
-    purrr::imap(data_reference_index_rows, pkg = pkg) %>%
-    purrr::compact() %>%
-    unlist(recursive = FALSE)
+  unwrap_purrr_error(
+    rows <- meta %>%
+      purrr::imap(data_reference_index_rows, pkg = pkg) %>%
+      purrr::compact() %>%
+      unlist(recursive = FALSE)
+  )
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
-  check_missing_topics(rows, pkg)
+  check_missing_topics(rows, pkg, error_call = error_call)
   rows <- Filter(function(x) !x$is_internal, rows)
 
   print_yaml(list(
@@ -47,7 +49,8 @@ data_reference_index_rows <- function(section, index, pkg) {
 
 
   if (has_name(section, "contents")) {
-    check_all_characters(section$contents, index, pkg)
+    id <- section$title %||% section$subtitle %||% index
+    check_contents(section$contents, id, pkg)
     topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
 
     names <- topics$name
@@ -64,43 +67,42 @@ data_reference_index_rows <- function(section, index, pkg) {
   purrr::compact(rows)
 }
 
-check_all_characters <- function(contents, index, pkg) {
-  null <- purrr::map_lgl(contents, is.null)
-  any_null <- any(null)
+check_contents <- function(contents, id, pkg) {
+  malformed <- "This typically indicates that your {pkgdown_config_href(pkg$src_path)} is malformed."
+  call <- quote(build_reference_index())
 
-  if (any_null) {
-    abort(
+  if (length(contents) == 0) {
+    cli::cli_abort(
       c(
-        sprintf(
-          "Item %s in section %s in %s is empty.",
-          toString(which(null)),
-          index,
-          pkgdown_field(pkg, "reference")
-        ),
-        i = "Either delete the empty line or add a function name."
-      )
-    )
-  }
-
-  not_char <- !purrr::map_lgl(contents, is.character)
-  any_not_char <- any(not_char)
-
-  if (!any_not_char) {
-    return(invisible())
-  }
-
-  abort(
-    c(
-      sprintf(
-        "Item %s in section %s in %s must be a character.",
-        toString(which(not_char)),
-        index,
-        pkgdown_field(pkg, "reference")
+        "Section {.val {id}}: {.field contents} is empty.",
+        i = malformed
       ),
-      i = "You might need to add '' around e.g. - 'N' or - 'off'."
+      call = call
     )
-  )
+  }
 
+  is_null <- purrr::map_lgl(contents, is.null)
+  if (any(is_null)) {
+    cli::cli_abort(
+      c(
+        "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
+        i = malformed
+      ),
+      call = call
+    )
+  }
+
+  is_char <- purrr::map_lgl(contents, is.character)
+  if (!all(is_char)) {
+    cli::cli_abort(
+      c(
+        "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
+        i = "You might need to add '' around special values like 'N' or 'off'",
+        i = malformed
+      ), 
+      call = call
+    )
+  }
 }
 
 find_icons <- function(x, path) {
@@ -133,7 +135,7 @@ default_reference_index <- function(pkg = ".") {
   ))
 }
 
-check_missing_topics <- function(rows, pkg) {
+check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
   all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
   in_index <- pkg$topics$name %in% all_topics
@@ -141,11 +143,11 @@ check_missing_topics <- function(rows, pkg) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
-    topics <- paste0(pkg$topics$name[missing], collapse = ", ")
-    abort(c(
+    cli::cli_abort(c(
       "All topics must be included in reference index",
-      `x` = paste0("Missing topics: ", topics),
-      i = "Either add to _pkgdown.yml or use @keywords internal"
-    ))
+      "x" = "Missing topics: {pkg$topics$name[missing]}",
+      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
+    ),
+    call = error_call)
   }
 }

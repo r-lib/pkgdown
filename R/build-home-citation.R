@@ -15,6 +15,8 @@ create_citation_meta <- function(path) {
     meta$Encoding <- "UTF-8"
   }
 
+  if (!is.null(meta$Title)) meta$Title <- str_squish(meta$Title)
+
   meta
 }
 
@@ -32,7 +34,7 @@ data_home_sidebar_citation <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   sidebar_section(
-    heading = "Citation",
+    heading = tr_("Citation"),
     bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html#citation")
   )
 }
@@ -45,7 +47,6 @@ data_citations <- function(pkg = ".") {
   }
 
   citation_auto(pkg)
-
 }
 
 citation_provided <- function(src_path) {
@@ -70,6 +71,7 @@ citation_auto <- function(pkg) {
     lib.loc = path_dir(pkg$src_path)
   )
   cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
+  if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
 
   cit <- utils::citation(auto = cit_info)
   list(
@@ -89,6 +91,7 @@ build_citation_authors <- function(pkg = ".") {
 
   data <- list(
     pagetitle = tr_("Authors and Citation"),
+    citationtitle = tr_("Citation"),
     citations = data_citations(pkg),
     authors = unname(data_authors(pkg)$all),
     source = source

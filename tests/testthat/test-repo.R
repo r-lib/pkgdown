@@ -10,12 +10,21 @@ test_that("authors are automatically linked", {
   expect_equal(repo_auto_link(pkg, "@y"), "<a href='TEST/y'>@y</a>")
   expect_equal(repo_auto_link(pkg, " @y"), " <a href='TEST/y'>@y</a>")
   expect_equal(repo_auto_link(pkg, "(@y)"), "(<a href='TEST/y'>@y</a>)")
+
+  expect_equal(repo_auto_link(pkg, "<p>@y some other text.</p>"), "<p><a href='TEST/y'>@y</a> some other text.</p>")
 })
 
 test_that("issues are automatically linked", {
   pkg <- list(repo = repo_meta(issue = "TEST/"))
   expect_equal(repo_auto_link(pkg, "(#123"), "(<a href='TEST/123'>#123</a>")
   expect_equal(repo_auto_link(pkg, "in #123"), "in <a href='TEST/123'>#123</a>")
+  expect_equal(repo_auto_link(pkg, "<p>#123 some other text.</p>"), "<p><a href='TEST/123'>#123</a> some other text.</p>")
+  expect_equal(repo_auto_link(pkg, "<p><a href='TEST/123/'>#123</a></p>"), "<p><a href='TEST/123/'>#123</a></p>")
+})
+
+test_that("already linked issues aren't re-linked", {
+  pkg <- list(repo = repo_meta(issue = "TEST/"))
+  expect_equal(repo_auto_link(pkg, "<p><a href='NOT/ABC/'>#123</a></p>"), "<p><a href='NOT/ABC/'>#123</a></p>")
 })
 
 test_that("URLs with hash (#) are preserved", {

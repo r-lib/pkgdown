@@ -40,7 +40,7 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 
 ## Theming
 
-There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with bslib.
+There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
 ### Bootswatch themes
@@ -56,13 +56,14 @@ template:
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
 
-Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable:
+Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable.
+Because Bootswatch themes are provided by the [bslib](https://rstudio.github.io/bslib/) R package, you can also nest the `bootswatch` field under the `bslib` field.
 
 ``` yaml
 template:
   bootstrap: 5
-  bootswatch: lux
   bslib:
+    bootswatch: lux
     pkgdown-nav-height: 100px
 ```
 
@@ -94,8 +95,24 @@ For example, `table-border-color` defaults to `border-color` which defaults to `
 If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
 
+Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
+As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
+
+``` yaml
+template:
+  bslib:
+    version: 5
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#306cc9"
+```
+
+While iterating on colours and other variables you only need to rerun `init_site()` and refresh your browser to see the changes.
+
+### Fonts
+
 You can also override the default fonts used for the majority of the text (`base_font`), for headings (`heading_font`) and for code (`code_font`).
-The easiest way is to supply the name of a [Google font](https://fonts.google.com):
+The easiest way is to supply the name of a [Google font](https://fonts.google.com) with the following syntax:
 
 ``` yaml
 template:
@@ -106,7 +123,46 @@ template:
     code_font: {google: "JetBrains Mono"}
 ```
 
-While iterating on colours and other variables you only need to rerun `init_site()` and refresh your browser; when iterating on fonts, you'll need to run `build_home_index(); init_site()`.
+If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yaml`. There are two ways you might get the CSS:
+
+* As a block of CSS which you should put in `pkgdown/extra.scss` or `pkgdown/extra.css`. The CSS will look something like this:
+
+    ```css
+    @font-face {
+      font-family: "proxima-nova";
+      src: 
+        local("Proxima Nova Regular"), 
+        local("ProximaNova-Regular"),
+        url("https://example.com/ProximaNova-Regular.eot?#iefix") format("embedded-opentype"),
+        url("https://example.com/fonts/proxima/ProximaNova-Regular.woff2") format("woff2"),
+        url("https://example.com/fonts/proxima/ProximaNova-Regular.woff") format("woff"),
+        url("https://example.com/fonts/proxima/ProximaNova-Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: fallback;
+    }
+    ```
+
+* As a link to a style file, which you'll need to add to the `<head>` using this syntax:
+
+    ```yaml
+    template:
+    includes:
+      in_header: <link rel="stylesheet" type="text/css" href="https://..." />
+    ```
+
+Then in `_pkgdown.yml` you can use the name of the font you just specified:
+
+```yaml
+template:
+  bslib:
+    base_font: proxima-nova
+```
+
+Depending on where the font is from (and if you paid money for it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
+
+When iterating on fonts, you'll need to run `build_home_index(); init_site()` then refresh you browser to see the update.
+
 
 ### Syntax highlighting
 
@@ -162,7 +218,7 @@ Because the navbar is styled with HTML, you'll need to `build_home_index(); init
 You can customise the contents of the navbar, footer, and home page sidebar using the `navbar`, `footer`, and `sidebar` fields.
 They all use a similar structure that separately defines the overall `structure` and the individual `components`.
 
-### Navbar
+### Navbar {#navbar-heading}
 
 ```{r child="../man/rmd-fragments/navbar-configuration.Rmd"}
 ```
@@ -185,7 +241,7 @@ If you need to include additional HTML, you can add it in the following location
 template:
   includes:
     in_header: <!-- inserted at the end of the head -->
-    before_body: <!-- inserted at the beginging of the body -->
+    before_body: <!-- inserted at the beginning of the body -->
     after_body: <!-- inserted at the end of the body -->
     before_title: <!-- inserted before the package title in the header ->
     before_navbar: <!-- inserted before the navbar links -->
@@ -212,23 +268,26 @@ It can contain any of the following:
 -   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
 -   Templates in `inst/pkgdown/templates/` will override the default templates.
 -   Assets in `inst/pkgdown/assets/` will be copied in to the destination directory.
+    (Note these files are only copied; you'll need to reference them in your stylesheet or elsewhere in order for them to be actually used.)
 -   `inst/pkgdown/extra.scss` will be added to the bslib ruleset.
+    (Note that `extra.css` is not supported in templates.)
 
-Any configuration/files supplied will override the pkgdown defaults, but will be overridden by site specific settings.
+The pkgdown defaults will be overriden by these template files, which are in turn overridden by package specific settings.
 
-Once you have created your template package `theverybest`, you can use it by:
+Once you have created your template package `theverybest`, you need to set it as your site's theme:
 
--   Setting it as your sites theme:
+``` yaml
+template:
+  package: theverybest
+```
 
-    ``` yaml
-    template:
-      package: theverybest
-    ```
+You then also need to make sure it's available when your site is build. Typically, you won't want to publish this package to CRAN, but you will want to publish to GitHub. Once you've done that, and assuming you're using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
 
--   If you're building your site using GitHub actions or other similar tool, you'll also need to installed `theverybest`.
-    If you're using the r-lib [pkgdown workflow](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site), you can add the following line to your `DESCRIPTION`:
+```yaml
+Config/Needs/website: myorg/theverybest
+```
 
-        Config/Needs/website: theverybest
+This will ensure that the GitHub action will automatically install it from GitHub when building your pkgdown site.
 
 To get some sense of how a theming package works, you can look at:
 

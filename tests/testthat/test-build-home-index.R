@@ -9,14 +9,15 @@ test_that("title and description come from DESCRIPTION by default", {
 })
 
 test_that("math is handled", {
-  withr::local_envvar("PKGDOWN_PANDOC_FAIL_IF_WARNING" = "blabla")
+  withr::local_envvar("PKGDOWN_PANDOC_FAIL_IF_WARNING" = "TRUE")
+
   pkg_dir <- withr::local_tempdir()
   fs::dir_copy(test_path("assets/home-old-skool"), pkg_dir)
   write_lines(
     c("", "blabla $\\sqrt{blop}$", ""),
     file.path(pkg_dir, "home-old-skool", "README.md")
   )
-  expect_output(init_site(file.path(pkg_dir, "home-old-skool")))
+  init_site(file.path(pkg_dir, "home-old-skool"))
   expect_snapshot(
     build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE),
     error = FALSE
@@ -27,7 +28,7 @@ test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  expect_output(init_site(pkg))
+  suppressMessages(expect_message(init_site(pkg)))
   build_home_index(pkg, quiet = TRUE)
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
@@ -95,29 +96,30 @@ test_that("data_home_sidebar() can add a README", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
+  local_edition(3)
   pkg <- as_pkgdown(test_path("assets/sidebar"))
 
   # no component definition for a component named in structure
   pkg$meta$home$sidebar <- list(structure = "fancy")
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 
   # no component definition for two components named in structure
   pkg$meta$home$sidebar <- list(structure = c("fancy", "cool"))
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 
   # no title
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
     components = list(fancy = list(text = "bla"))
   )
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 
   # no title nor text
   pkg$meta$home$sidebar <- list(
     structure = c("fancy"),
     components = list(fancy = list(html = "bla"))
   )
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 
 test_that("package repo verification", {

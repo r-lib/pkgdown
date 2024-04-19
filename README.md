@@ -37,7 +37,8 @@ install.packages("pkgdown")
 
 ``` r
 # Install development version from GitHub
-devtools::install_github("r-lib/pkgdown")
+# install.packages("pak")
+pak::pak("r-lib/pkgdown")
 ```
 
 </div>
@@ -81,8 +82,8 @@ Then learn about the many new ways to customise your site in
 
 ## In the wild
 
-At last count, pkgdown is used [by over 6,000
-packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
+At last count, pkgdown is used [by over 11,000
+packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
 Here are a few examples created by contributors to pkgdown:
 
 - [bayesplot](http://mc-stan.org/bayesplot/index.html)

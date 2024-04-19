@@ -186,8 +186,8 @@ role_lookup <- function(abbr) {
 
   out <- unname(roles[abbr])
   if (any(is.na(out))) {
-    missing <- paste0("'", abbr[is.na(out)], "'", collapse = ", ")
-    warn(paste0("Unknown MARC role abbreviation ", missing))
+    missing <- abbr[is.na(out)]
+    cli::cli_warn("Unknown MARC role abbreviation{?s}: {.field {missing}}")
     out[is.na(out)] <- abbr[is.na(out)]
   }
   out
