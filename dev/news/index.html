@@ -72,6 +72,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/build_reference.html">build_reference()</a></code> matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (<a href="https://github.com/r-lib/pkgdown/issues/2187" class="external-link">#2187</a>).</li>
+<li>
 <code>&lt;source&gt;</code> tags now have their <code>srcref</code> attributes tweaked in the same way that the <code>src</code> attributes of <code>&lt;img&gt;</code> tags are (<a href="https://github.com/r-lib/pkgdown/issues/2402" class="external-link">#2402</a>).</li>
 <li>New translation for “Search site”, the label applied to the search box for screenreaders. This was previously incorrectly labelled as “Toggle navigation” (<a href="https://github.com/r-lib/pkgdown/issues/2320" class="external-link">#2320</a>).</li>
 <li>You can now choose where the search box is placed with the “search” navbar component. This has been documented for a very long time, but as far as I can tell, never worked (<a href="https://github.com/r-lib/pkgdown/issues/2320" class="external-link">#2320</a>). If you have made your own template with a custom <code>navbar</code>, you will need to remove the <code>&lt;form&gt;</code> with <code>role="search"</code> to avoid getting two search boxes.</li>
