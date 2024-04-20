@@ -100,7 +100,7 @@
 #'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
-#' a top-level `icons` directory. This should contain {.png} files that are
+#' a top-level `icons` directory. This should contain `.png` files that are
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
@@ -139,8 +139,6 @@
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
 #' @param run_dont_run Run examples that are surrounded in \\dontrun?
 #' @param examples Run examples?
-#' @param seed Seed used to initialize random number generation so that
-#'   examples are reproducible.
 #' @param devel Determines how code is loaded in order to run examples.
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
@@ -153,7 +151,7 @@ build_reference <- function(pkg = ".",
                             lazy = TRUE,
                             examples = TRUE,
                             run_dont_run = FALSE,
-                            seed = 1014,
+                            seed = 1014L,
                             override = list(),
                             preview = NA,
                             devel = TRUE,
@@ -189,13 +187,14 @@ build_reference <- function(pkg = ".",
     topics <- purrr::transpose(pkg$topics)
   }
 
-  purrr::map(topics,
+  unwrap_purrr_error(purrr::map(
+    topics,
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )
+  )) 
 
   preview_site(pkg, "reference", preview = preview)
 }
@@ -209,7 +208,7 @@ copy_figures <- function(pkg) {
   }
 }
 
-examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame()) {
+examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
   # Re-loading pkgdown while it's running causes weird behaviour with
   # the context cache
   if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
@@ -226,7 +225,7 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
   width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
   withr::local_options(width = width, .local_envir = envir)
-  withr::local_seed(seed)
+  withr::local_seed(seed, .local_envir = envir)
   if (requireNamespace("htmlwidgets", quietly = TRUE)) {
     htmlwidgets::setWidgetIdSeed(seed)
   }
@@ -246,7 +245,7 @@ examples_env <- function(pkg, seed = 1014, devel = TRUE, envir = parent.frame())
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
   pkg <- section_init(pkg, depth = 1L)
-  dir_create(path(pkg$dst_path, "reference"))
+  create_subdir(pkg, "reference")
 
   # Copy icons, if needed
   src_icons <- path(pkg$src_path, "icons")
@@ -269,8 +268,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples_env = globalenv(),
-                                  run_dont_run = FALSE
-                                  ) {
+                                  run_dont_run = FALSE) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
@@ -288,7 +286,11 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
-      cli::cli_abort("Failed to parse Rd in {.file {topic$file_in}}", parent = err)
+      cli::cli_abort(
+        "Failed to parse Rd in {.file {topic$file_in}}", 
+        parent = err,
+        call = quote(build_reference())
+      )
     }
   )
 
@@ -297,12 +299,14 @@ build_reference_topic <- function(topic,
   if (data$has_deps) {
     deps <- bs_theme_deps_suppress(deps)
     deps <- htmltools::resolveDependencies(deps)
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::copyDependencyToDir,
       outputDir = file.path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
-    deps <- purrr::map(deps,
+    deps <- purrr::map(
+      deps,
       htmltools::makeDependencyRelative,
       basepath = file.path(pkg$dst_path, "reference"),
       mustWork = FALSE
@@ -326,6 +330,7 @@ data_reference_topic <- function(topic,
                                  pkg,
                                  examples_env = globalenv(),
                                  run_dont_run = FALSE) {
+
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 

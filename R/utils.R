@@ -42,6 +42,15 @@ str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
 
+unwrap_purrr_error <- function(code) {
+  withCallingHandlers(
+    code,
+    purrr_error_indexed = function(err) {
+      cnd_signal(err$parent)
+    }
+  )
+}
+
 # devtools metadata -------------------------------------------------------
 
 system_file <- function(..., package) {
@@ -67,6 +76,12 @@ src_path <- cli::combine_ansi_styles(
   cli::style_bold, cli::col_green
 )
 
+writing_file <- function(path, show) {
+  path <- as.character(path)
+  text <- dst_path(as.character(show))
+  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
+}
+
 skip_if_no_pandoc <- function(version = "1.12.3") {
   testthat::skip_if_not(rmarkdown::pandoc_available(version))
 }
@@ -86,7 +101,9 @@ isFALSE <- function(x) {
 }
 
 modify_list <- function(x, y) {
-  if (is.null(y)) {
+  if (is.null(x)) {
+    return(y)
+  } else if (is.null(y)) {
     return(x)
   }
 

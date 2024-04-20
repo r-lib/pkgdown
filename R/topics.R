@@ -5,13 +5,17 @@ select_topics <- function(match_strings, topics, check = FALSE) {
     return(integer())
   }
 
-  indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
+  unwrap_purrr_error(
+    indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
+  )
 
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      cli::cli_abort(
-        "No topics matched in {.file _pkgdown.yml}. No topics selected.",
+      cli::cli_abort(c(
+        "No topics matched in pkgdown config. No topics selected.",
+        i = "Run {.run usethis::edit_pkgdown_config()} to edit."
+        ),
         call = caller_env()
       )
     }
@@ -61,10 +65,11 @@ all_sign <- function(x, text) {
 }
 
 match_env <- function(topics) {
-  out <- env(empty_env(),
+  fns <- env(empty_env(),
     "-" = function(x) -x,
     "c" = function(...) c(...)
   )
+  out <- env(fns)
 
   topic_index <- seq_along(topics$name)
 
@@ -99,36 +104,55 @@ match_env <- function(topics) {
   is_public <- function(internal) {
     if (!internal) !topics$internal else rep(TRUE, nrow(topics))
   }
-  out$starts_with <- function(x, internal = FALSE) {
+  fns$starts_with <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(paste0("^", x), .), .internal = internal)
   }
-  out$ends_with <- function(x, internal = FALSE) {
+  fns$ends_with <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
   }
-  out$matches <- function(x, internal = FALSE) {
+  fns$matches <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(x, .), .internal = internal)
   }
-  out$contains <- function(x, internal = FALSE) {
+  fns$contains <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+   
     any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
   }
-  out$has_keyword <- function(x) {
+  fns$has_keyword <- function(x) {
+    check_character(x)
     which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
   }
-  out$has_concept <- function(x, internal = FALSE) {
+  fns$has_concept <- function(x, internal = FALSE) {
+    check_string(x)
+    check_bool(internal)
+
     match <- topics$concepts %>%
       purrr::map(~ str_trim(.) == x) %>%
       purrr::map_lgl(any)
 
     which(match & is_public(internal))
   }
-  out$lacks_concepts <- function(x, internal = FALSE) {
+  fns$lacks_concepts <- function(x, internal = FALSE) {
+    check_character(x)
+    check_bool(internal)
+   
     nomatch <- topics$concepts %>%
       purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
       purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
 
     which(nomatch & is_public(internal))
   }
-  out$lacks_concept <- out$lacks_concepts
+  fns$lacks_concept <- fns$lacks_concepts
   out
 }
 
@@ -164,10 +188,14 @@ match_eval <- function(string, env) {
       topic_must("be a known topic name or alias", string)
     }
   } else if (is_call(expr)) {
-    tryCatch(
+    withCallingHandlers(
       eval(expr, env),
       error = function(e) {
-        topic_must("be a known selector function", string, parent = e)
+        cli::cli_abort(
+          "Failed to evaluate topic selector {.val {string}}.", 
+          parent = e,
+          call = NULL
+        )
       }
     )
   } else {
@@ -176,8 +204,10 @@ match_eval <- function(string, env) {
 }
 
 topic_must <- function(message, topic, ..., call = NULL) {
-  cli::cli_abort(
-    "In {.file _pkgdown.yml}, topic must {message}, not {.val {topic}}.",
+  cli::cli_abort(c(
+    "Topic must {message}, not {.val {topic}}.",
+    i = "Run {.run usethis::edit_pkgdown_config()} to edit."
+    ),
     ...,
     call = call
   )
