@@ -56,17 +56,12 @@ parse_usage <- function(x) {
   }
 
   exprs <- tryCatch(
-    {
-      parse_exprs(r)
-    },
+    parse_exprs(r),
     error = function(e) {
-      cli::cli_warn(
-        "Failed to parse usage: {.code {r}}"
-      )
+      cli::cli_warn("Failed to parse usage: {.code {r}}")
       list()
     }
   )
-
   purrr::map(exprs, usage_type)
 }
 
