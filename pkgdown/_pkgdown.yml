@@ -32,12 +32,15 @@ articles:
 - title: Customise your site
   navbar: ~
   contents:
-  - pkgdown
   - customise
   - linking
   - search
   - metadata
+
+- title: Advanced techniques
+  contents:
   - how-to-update-released-site
+
 - title: Testing
   desc: >
     These articles are used to test various pkgdown features that can not
