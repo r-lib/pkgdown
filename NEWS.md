@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* The `repo.source.url` field no longer requires a trailing slash (#2017).
 * `build_article()` no longer generates the wrong source link when you build your site outside of the root directory (#2172).
 * `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
