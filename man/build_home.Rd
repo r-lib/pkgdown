@@ -233,10 +233,11 @@ consider using a custom sidebar/footer component
 }
 
 \section{Sidebar}{
-
 You can customise the homepage sidebar with the \code{home.sidebar} field.
-It's made up of two pieces: \code{structure}, which defines the overall layout, and \code{components}, which defines what each piece looks like.
-This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
+It's made up of two pieces: \code{structure}, which defines the overall layout,
+and \code{components}, which defines what each piece looks like. This organisation
+makes it easy to mix and match the pkgdown defaults with your own
+customisations.
 
 This is the default structure:
 
@@ -247,7 +248,8 @@ This is the default structure:
 
 These are drawn from seven built-in components:
 \itemize{
-\item \code{links}: automated links generated from \code{URL} and \code{BugReports} fields from \code{DESCRIPTION} plus manual links from the \code{home.links} field:
+\item \code{links}: automated links generated from \code{URL} and \code{BugReports} fields
+from \code{DESCRIPTION} plus manual links from the \code{home.links} field:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{home:
   links:
@@ -256,11 +258,16 @@ These are drawn from seven built-in components:
   - text: Roadmap
     href: /roadmap.html
 }\if{html}{\out{</div>}}
-\item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or \code{LICENSE.md}/\code{LICENCE.md} files are present.
-\item \code{community}: links to to \code{.github/CONTRIBUTING.md}, \code{.github/CODE_OF_CONDUCT.md}, etc.
-\item \code{citation}: link to package citation information. Uses either \code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
+\item \code{license}: Licensing information if \code{LICENSE}/\code{LICENCE} or
+\code{LICENSE.md}/\code{LICENCE.md} files are present.
+\item \code{community}: links to to \code{.github/CONTRIBUTING.md},
+\code{.github/CODE_OF_CONDUCT.md}, etc.
+\item \code{citation}: link to package citation information. Uses either
+\code{inst/CITATION} or, if absent, information from the \code{DESCRIPTION}.
 \item \code{authors}: selected authors from the \code{DESCRIPTION}.
-\item \code{dev}: development status badges extracted from \code{README.md}/\code{index.md}. This is only shown for "development" versions of websites; see "Development mode" in \code{?build_site} for details.
+\item \code{dev}: development status badges extracted from \code{README.md}/\code{index.md}.
+This is only shown for "development" versions of websites; see
+"Development mode" in \code{?build_site} for details.
 \item \code{toc}: a table of contents for the README (not shown by default).
 }
 
