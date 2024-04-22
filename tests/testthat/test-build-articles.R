@@ -124,7 +124,7 @@ test_that("BS5 article laid out correctly with and without TOC", {
       bootstrap: 5
   ")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(toc_true_path <- build_article("standard", pkg))
   expect_snapshot(toc_false_path <- build_article("toc-false", pkg))
 
@@ -175,7 +175,7 @@ test_that("pkgdown deps are included only once in articles", {
       bootstrap: 5
   ")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("html-deps", pkg))
 
   html <- xml2::read_html(path)

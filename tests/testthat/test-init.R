@@ -1,13 +1,13 @@
 test_that("extra.css and extra.js copied and linked", {
   pkg <- local_pkgdown_site(test_path("assets/init-extra-2"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
   expect_true(file_exists(path(pkg$dst_path, "extra.js")))
 
   skip_if_no_pandoc()
   # Now check they actually get used .
-  suppressMessages(expect_message(build_home(pkg)))
+  suppressMessages(build_home(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
   paths <- xpath_attr(html, ".//link", "href")
@@ -17,14 +17,14 @@ test_that("extra.css and extra.js copied and linked", {
 
 test_that("single extra.css correctly copied", {
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
 })
 
 test_that("asset subdirectories are copied", {
   pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "file1.txt")))
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "subdir2", "file2.txt")))

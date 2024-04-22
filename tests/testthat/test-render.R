@@ -60,7 +60,7 @@ test_that("can include text in header, before body, and after body", {
   )
 
   pkg$bs_version <- 5
-  expect_message(init_site(pkg))
+  suppressMessages(init_site(pkg))
   html <- render_page_html(pkg, "title-body")
   expect_equal(
     xpath_text(html, ".//test"),

@@ -32,7 +32,7 @@ test_that("examples_env sets width", {
 
 test_that("test usage ok on rendered page", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
-  suppressMessages(expect_message(build_reference(pkg, topics = "c")))
+  suppressMessages(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
   clean_site(pkg, quiet = TRUE)
@@ -41,8 +41,8 @@ test_that("test usage ok on rendered page", {
       template:
         bootstrap: 5
     ")
-  suppressMessages(expect_message(init_site(pkg)))
-  suppressMessages(expect_message(build_reference(pkg, topics = "c")))
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")
@@ -59,7 +59,7 @@ test_that(".Rd without usage doesn't get Usage section", {
       template:
         bootstrap: 5
     ")
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
   # tweak_anchors() moves id into <h2>
@@ -68,7 +68,7 @@ test_that(".Rd without usage doesn't get Usage section", {
 
 test_that("pkgdown html dependencies are suppressed from examples in references", {
   pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(build_reference(pkg, topics = "a"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
 
