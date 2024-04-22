@@ -1,3 +1,10 @@
+test_that("is_pkgdown checks its inputs", {
+  expect_snapshot(error = TRUE, {
+    as_pkgdown(1)
+    as_pkgdown(override = 1)
+  })
+
+})
 
 test_that("package_vignettes() doesn't trip over directories", {
   dir <- withr::local_tempdir()
