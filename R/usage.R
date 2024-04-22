@@ -24,7 +24,7 @@ method_usage <- function(x, type) {
   } else {
     method <- sprintf(tr_("# %s method for class '%s'"), type, class)
   }
-  
+
   paste0(method, "\n", fun)
 }
 
@@ -61,7 +61,7 @@ parse_usage <- function(x) {
       cli::cli_warn("Failed to parse usage: {.code {r}}")
       list()
     }
-  )
+  )  
   purrr::map(exprs, usage_type)
 }
 
@@ -89,7 +89,6 @@ short_name <- function(name, type, signature) {
 }
 
 # Given single expression generated from usage_code, extract
-
 usage_type <- function(x) {
   if (is_symbol(x)) {
     list(type = "data", name = as.character(x))
