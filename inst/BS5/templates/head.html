@@ -6,7 +6,7 @@
 <meta name="description" content="{{.}}" />
 {{/description}}
 {{/opengraph}}
-<title>{{pagetitle}} • {{#site}}{{title}}{{/site}}</title>
+<title>{{{pagetitle}}} • {{#site}}{{title}}{{/site}}</title>
 
 {{#has_favicons}}
 <!-- favicons -->
@@ -46,7 +46,7 @@
   {{#js}}<script src="{{#site}}{{root}}{{/site}}extra.js"></script>{{/js}}
 {{/extra}}
 
-<meta property="og:title" content="{{pagetitle}}" />
+<meta property="og:title" content="{{{pagetitle}}}" />
 {{#opengraph}}
 {{#description}}
 <meta property="og:description" content="{{.}}" />
