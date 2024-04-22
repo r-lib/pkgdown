@@ -27,7 +27,6 @@ test_that("links to man/figures are automatically relocated", {
 })
 
 test_that("warns about missing images", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_articles(pkg))
 })
@@ -171,7 +170,6 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 })
 
 test_that("pkgdown deps are included only once in articles", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/articles"), "
     template:
       bootstrap: 5

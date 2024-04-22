@@ -80,7 +80,6 @@ test_that("data_home_sidebar() can add a README", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
-  local_edition(3)
   pkg <- as_pkgdown(test_path("assets/sidebar"))
 
   # no component definition for a component named in structure

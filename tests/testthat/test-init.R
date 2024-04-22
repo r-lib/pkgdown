@@ -1,5 +1,4 @@
 test_that("extra.css and extra.js copied and linked", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-2"))
   suppressMessages(expect_message(init_site(pkg)))
 
@@ -17,7 +16,6 @@ test_that("extra.css and extra.js copied and linked", {
 })
 
 test_that("single extra.css correctly copied", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
   suppressMessages(expect_message(init_site(pkg)))
 
@@ -25,7 +23,6 @@ test_that("single extra.css correctly copied", {
 })
 
 test_that("asset subdirectories are copied", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
   suppressMessages(expect_message(init_site(pkg)))
 
@@ -34,7 +31,6 @@ test_that("asset subdirectories are copied", {
 })
 
 test_that("site meta doesn't break unexpectedly", {
-  local_edition(3)
   pkgdown <- as_pkgdown(test_path("assets/reference"))
 
   # null out components that will vary

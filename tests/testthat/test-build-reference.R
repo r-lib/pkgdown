@@ -1,6 +1,5 @@
 test_that("parse failures include file name", {
   skip_if_not(getRversion() >= "4.0.0")
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference-fail"))
   expect_snapshot(build_reference(pkg), error = TRUE)
 })
@@ -32,7 +31,6 @@ test_that("examples_env sets width", {
 
 
 test_that("test usage ok on rendered page", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference"))
   suppressMessages(expect_message(build_reference(pkg, topics = "c")))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "c.html"))
@@ -51,7 +49,6 @@ test_that("test usage ok on rendered page", {
 })
 
 test_that(".Rd without usage doesn't get Usage section", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/reference"))
   expect_snapshot(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(file.path(pkg$dst_path, "reference", "e.html"))
