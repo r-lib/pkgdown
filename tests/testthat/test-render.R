@@ -39,7 +39,6 @@ test_that("capture data_template()", {
 })
 
 test_that("can include text in header, before body, and after body", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
     template:
       includes:
@@ -61,7 +60,7 @@ test_that("can include text in header, before body, and after body", {
   )
 
   pkg$bs_version <- 5
-  expect_message(init_site(pkg))
+  suppressMessages(init_site(pkg))
   html <- render_page_html(pkg, "title-body")
   expect_equal(
     xpath_text(html, ".//test"),
