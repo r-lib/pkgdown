@@ -1,3 +1,35 @@
+# Reference page ---------------------------------------------------------------
+
+#' @export
+as_data.tag_usage <- function(x, ...) {
+  text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
+  text <- str_trim(text)
+
+  highlight_text(text)
+}
+
+#' @export
+as_html.tag_method <- function(x, ...) method_usage(x, "S3")
+#' @export
+as_html.tag_S3method <- function(x, ...) method_usage(x, "S3")
+#' @export
+as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
+
+method_usage <- function(x, type) {
+  fun <- as_html(x[[1]])
+  class <- as_html(x[[2]])
+
+  if (x[[2]] == "default") {
+    method <- sprintf(tr_("# Default %s method"), type)
+  } else {
+    method <- sprintf(tr_("# %s method for class '%s'"), type, class)
+  }
+  
+  paste0(method, "\n", fun)
+}
+
+# Reference index --------------------------------------------------------------
+
 topic_funs <- function(rd) {
   funs <- parse_usage(rd)
 
