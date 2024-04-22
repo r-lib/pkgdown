@@ -182,18 +182,16 @@ check_bootstrap_version <- function(version, pkg) {
 pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
-    c("_pkgdown.yml",
-      "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml",
-      "inst/_pkgdown.yml"
+    c(
+      "_pkgdown.yml", "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
     )
   )
 }
 pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
-  )
+  config <- pkgdown_config_path(path) %||% "_pkgdown.yml"
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 read_meta <- function(path) {
