@@ -140,10 +140,13 @@ By default, pkgdown will display author information in three places:
 \item the author page.
 }
 
-This documentation describes how to customise the overall author display. See \code{?build_home} and \code{?build_site} for details about changing the location of the authors information within the home sidebar and the site footer.
+This documentation describes how to customise the overall author display.
+See \code{?build_home} and \code{?build_site} for details about changing the location
+of the authors information within the home sidebar and the site footer.
 \subsection{Authors ORCID and bio}{
 
-Author ORCID identification numbers in the \code{DESCRIPTION} are linked using the ORCID logo:
+Author ORCID identification numbers in the \code{DESCRIPTION} are linked using
+the ORCID logo:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
@@ -155,8 +158,9 @@ Author ORCID identification numbers in the \code{DESCRIPTION} are linked using t
   )
 }\if{html}{\out{</div>}}
 
-If you want to add more details about authors or their involvement with the package,
-you can use the comment field, which will be rendered on the authors page.
+If you want to add more details about authors or their involvement with the
+package, you can use the comment field, which will be rendered on the
+authors page.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
@@ -180,18 +184,16 @@ You can tweak a few things via the \code{authors} YAML field:
 \item text before and after authors on the authors page.
 }
 
-You can modify how each author's name is displayed
-by adding a subsection for \code{authors}.
-Each entry in \code{authors} should be named
-with the author's name (matching \code{DESCRIPTION})
-and can contain \code{href} and/or \code{html} fields:
+You can modify how each author's name is displayed by adding a subsection
+for \code{authors}. Each entry in \code{authors} should be named the author's name
+(matching \code{DESCRIPTION}) and can contain \code{href} and/or \code{html} fields:
 \itemize{
 \item If \code{href} is provided, the author's name will be linked to this URL.
 \item If \code{html} is provided, it will be shown instead of the author's name.
 This is particularly useful if you want to display the logo of a corporate
-sponsor. Use an absolute URL to an image, not a relative link.
-Use an empty alternative text rather than no alternative text so a screen-reader
-would skip over it.
+sponsor. Use an absolute URL to an image, not a relative link. Use an empty
+alternative text rather than no alternative text so a screen-reader would
+skip over it.
 }
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{authors:
@@ -200,12 +202,13 @@ would skip over it.
     html: "<img src='https://website.com/name-picture.png' width=72 alt=''>"
 }\if{html}{\out{</div>}}
 
-By default, the "developers" list shown in the sidebar and footer is populated by the maintainer ("cre"), authors
-("aut"), and funder ("fnd") from the \code{DESCRIPTION}.
-You could choose other roles for filtering.
+By default, the "developers" list shown in the sidebar and footer is
+populated by the maintainer ("cre"), authors ("aut"), and funder ("fnd")
+from the \code{DESCRIPTION}. You could choose other roles for filtering.
 With the configuration below:
 \itemize{
-\item only the maintainer and funder(s) appear in the footer, after the text "Crafted by",
+\item only the maintainer and funder(s) appear in the footer, after the text
+"Crafted by",
 \item all authors and contributors appear in the sidebar,
 \item the authors list on the sidebar is preceded and followed by some text,
 \item the authors list on the authors page is preceded and followed by some text.
