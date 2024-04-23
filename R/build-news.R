@@ -124,7 +124,7 @@ build_news_multi <- function(pkg = ".") {
       "news",
       list(
         version = version,
-        contents = rev(purrr::transpose(contents)), 
+        contents = rev(purrr::transpose(contents)),
         pagetitle = sprintf(tr_("Version %s"), version)
       ),
       path("news", file_out),
