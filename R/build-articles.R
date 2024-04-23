@@ -174,6 +174,9 @@ build_articles <- function(pkg = ".",
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(quiet)
+  check_bool(lazy)
+  check_number_whole(seed, allow_null = TRUE)
 
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
