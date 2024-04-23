@@ -1,5 +1,5 @@
 ---
-title: "How to update a released site, very important advice, as it can get cumbersome"
+title: "How to update a released site"
 output: rmarkdown::html_vignette
 description: >
   A guide to updating the "released" version of your pkgdown site without

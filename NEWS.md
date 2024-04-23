@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
 * The `repo.source.url` field no longer requires a trailing slash (#2017).
 * Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
 * pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).

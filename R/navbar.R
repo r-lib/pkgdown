@@ -74,15 +74,15 @@ navbar_links <- function(pkg, depth = 0L) {
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, pkg) {
+render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
   if (!is.list(x)) {
     cli::cli_abort(
       "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
       call = quote(data_template())
     )
   }
-
-  stopifnot(is.integer(depth), depth >= 0L)
+  check_number_whole(depth, min = 0)
+  side <- arg_match(side)
 
   tweak <- function(x) {
     if (!is.null(x$menu)) {
