@@ -1,7 +1,7 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, quiet = TRUE) {
+render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, new_process = TRUE, quiet = TRUE, call = caller_env()) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
@@ -19,47 +19,38 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     output_dir = path_dir(output_path),
     intermediates_dir = tempdir(),
     encoding = "UTF-8",
-    envir = globalenv(),
     seed = seed,
     ...,
     quiet = quiet
   )
 
-  path <- tryCatch(
-    callr::r_safe(
-      function(seed, envir, ...) {
-        if (!is.null(seed)) {
-          # since envir is copied from the parent fn into callr::r_safe(),
-          # set.seed() sets the seed in the wrong global env and we have to
-          # manually copy it over
-          set.seed(seed)
-          envir$.Random.seed <- .GlobalEnv$.Random.seed
-          if (requireNamespace("htmlwidgets", quietly = TRUE)) {
-            htmlwidgets::setWidgetIdSeed(seed)
-          }
-        }
-        rmarkdown::render(envir = envir, ...)
-      },
-      args = args,
-      show = !quiet,
-      env = c(
-        callr::rcmd_safe_env(),
-        BSTINPUTS = bst_paths(input_path),
-        TEXINPUTS = tex_paths(input_path),
-        BIBINPUTS = bib_paths(input_path),
-        R_CLI_NUM_COLORS = 256
-      )
-    ),
-    error = function(cnd) {
-      cli::cli_abort(
-        c(
-          "Failed to render RMarkdown document.",
-          x = gsub("\r", "", cnd$stderr, fixed = TRUE)
-        ),
-        parent = cnd
-      )
-    }
+  withr::local_envvar(
+    callr::rcmd_safe_env(),
+    BSTINPUTS = bst_paths(input_path),
+    TEXINPUTS = tex_paths(input_path),
+    BIBINPUTS = bib_paths(input_path),
+    R_CLI_NUM_COLORS = 256
   )
+
+  if (new_process) {
+    path <- withCallingHandlers(
+      callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
+      error = function(cnd) {
+        lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
+        cli::cli_abort(
+          c(
+            "!" = "Failed to render {.path {input}}.",
+            set_names(lines, "x")
+          ),
+          parent = cnd$parent %||% cnd,
+          trace = cnd$parent$trace,
+          call = call
+        )
+      }
+    )
+  } else {
+    path <- inject(rmarkdown_render_with_seed(!!!args))
+  }
 
   if (identical(path_ext(path)[[1]], "html")) {
     update_html(
@@ -70,8 +61,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     )
   }
   if (digest != file_digest(output_path)) {
-    href <- paste0("ide:run:pkgdown::preview_page('", path_rel(output_path, pkg$dst_path), "')")
-    cli::cli_inform("Writing {cli::style_hyperlink(dst_path(output), href)}")
+    writing_file(path_rel(output_path, pkg$dst_path), output)
   }
 
   # Copy over images needed by the document
@@ -103,6 +93,25 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
   invisible(path)
 }
 
+
+rmarkdown_render_with_seed <- function(..., seed = NULL) {
+  if (!is.null(seed)) {
+    set.seed(seed)
+    if (requireNamespace("htmlwidgets", quietly = TRUE)) {
+      htmlwidgets::setWidgetIdSeed(seed)
+    }
+
+    # since envir is copied from the parent fn into callr::r_safe(),
+    # set.seed() sets the seed in the wrong global env and we have to
+    # manually copy it over
+    # if (!identical(envir, globalenv())) {
+    #   envir$.Random.seed <- .GlobalEnv$.Random.seed
+    # }
+  }
+ 
+  rmarkdown::render(envir = globalenv(), ...)
+}
+
 # adapted from tools::texi2dvi
 bst_paths <- function(path) {
   paths <- c(
@@ -126,5 +135,4 @@ bib_paths <- function(path) {
     tex_paths(path)
   )
   paste(paths, collapse = .Platform$path.sep)
-
 }

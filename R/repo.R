@@ -20,9 +20,11 @@ repo_source <- function(pkg, paths) {
     return()
   }
 
+  needs_slash <- !grepl("/$", url$source) & !grepl("^/", paths)
+
   links <- a(
     paste0("<code>", escape_html(paths), "</code>"),
-    paste0(url$source, paths)
+    paste0(url$source, ifelse(needs_slash, "/", ""), paths)
   )
 
   n <- length(links)

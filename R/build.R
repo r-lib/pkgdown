@@ -14,7 +14,7 @@
 #' that aspect of the site. This page documents options that affect the
 #' whole site.
 #'
-#' @section General config:
+#' # General config
 #' *  `destination` controls where the site will be generated, defaulting to
 #'    `docs/`. Paths are relative to the package root.
 #'
@@ -32,6 +32,17 @@
 #'
 #' *  `title` overrides the default site title, which is the package name.
 #'    It's used in the page title and default navbar.
+#'
+#' # Navbar and footer
+#'
+#' The `navbar` and `footer` fields control the appearance of the navbar
+#' footer which appear on every page. Learn more about these fields in 
+#' `vignette("customise")`.
+#'
+#' # Search
+#'
+#' The `search` field controls the built-in search and is
+#' documented in `vignette("search")`.
 #'
 #' @section Development mode:
 #' The `development` field allows you to generate different sites for the
@@ -122,17 +133,6 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' ## Page layout
-#'
-#' The `navbar`, `footer`, and `sidebar` fields control the appearance
-#' of the navbar, footer, and sidebar respectively. They have many individual
-#' options which are documented in the **Layout** section of
-#' `vignette("customise")`.
-#'
-#' @section Search:
-#' The `search` field controls the built-in search and is
-#' documented in `vignette("search")`.
-#'
 #' @section Template:
 #' The `template` field is mostly used to control the appearance of the site.
 #' See `vignette("customise")` for details.
@@ -168,19 +168,23 @@
 #'
 #' @section Analytics:
 #'
-#' To capture usage of your site with a web analytics platform, you can make
-#' use of the `includes` field to add the HTML supplied to you by the platform.
-#' Typically these are either placed `after_body` or `in_header`. I include
-#' a few examples below, but I highly recommend getting the recommended HTML
-#' directly from the platform.
+#' To capture usage of your site with a web analytics tool, you can make
+#' use of the `includes` field to add the special HTML they need. This HTML
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`, 
+#' or `after_body`. 
+#' You can learn more about how includes work in pkgdown at
+#' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' *   [GoatCounter](https://www.goatcounter.com):
+#' I include a few examples of popular analytics platforms below, but we 
+#' recommend getting the HTML directly from the tool:
+#'
+#' *   [plausible.io](https://plausible.io):
 #'
 #'     ```yaml
 #'     template:
 #'       includes:
-#'         after_body: >
-#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
+#'         in_header: |
+#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
 #'     ```
 #'
 #' *   [Google analytics](https://analytics.google.com/analytics/web/):
@@ -199,15 +203,15 @@
 #'              gtag('config', '{YOUR TRACKING ID}');
 #'            </script>
 #'     ```
-#'
-#' *   [plausible.io](https://plausible.io):
+#' *   [GoatCounter](https://www.goatcounter.com):
 #'
 #'     ```yaml
-#'     templates:
+#'     template:
 #'       includes:
-#'         in_header: |
-#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
+#'         after_body: >
+#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
+#'
 #'
 #' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
@@ -254,7 +258,7 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
 #' @section Deployment (`deploy`):
 #' There is a single `deploy` field
@@ -271,8 +275,25 @@
 #'    ```
 #'
 #' @section Redirects:
-#' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
+#' If you change the structure of your documentation (by renaming vignettes or 
+#' help topics) you can setup redirects from the old content to the new content.
+#' One or several now-absent pages can be redirected to a new page (or to a new 
+#' section of a new page). This works by creating a html page that performs a 
+#' "meta refresh", which isn't the best way of doing a redirect but works 
+#' everywhere that you might deploy your site.
+#' 
+#' The syntax is the following, with old paths on the left, and new paths or 
+#' URLs on the right.
+#' 
+#' ```yaml
+#' redirects:
+#'   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
+#'   - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
+#'   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
 #' ```
+#' 
+#' If for some reason you choose to redirect an existing page make sure to 
+#' exclude it from the search index, see `?build_search`.
 #'
 #' @section Options:
 #' Users with limited internet connectivity can disable CRAN checks by setting
@@ -326,6 +347,9 @@ build_site <- function(pkg = ".",
                        install = !devel,
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg, override = override)
+  check_bool(devel)
+  check_bool(new_process)
+  check_bool(install)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(
@@ -393,13 +417,15 @@ build_site_external <- function(pkg = ".",
     new_process = FALSE,
     devel = devel,
     cli_colors = cli::num_ansi_colors(),
+    hyperlinks = cli::ansi_has_hyperlink_support(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., cli_colors, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks, pkgdown_internet) {
       options(
         cli.num_colors = cli_colors,
-        crayon.colors = cli_colors, # backward compatibility
+        cli.hyperlink = hyperlinks,
+        cli.hyperlink_run = hyperlinks,
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)

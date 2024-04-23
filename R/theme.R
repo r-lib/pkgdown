@@ -34,14 +34,14 @@ data_deps_path <- function(pkg) {
 bs_theme <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  theme <- get_bootswatch_theme(pkg)
-  theme <- check_bootswatch_theme(theme, pkg$bs_version, pkg)
+  bs_theme_args <- pkg$meta$template$bslib %||% list()
+  bs_theme_args[["version"]] <- pkg$bs_version
+  # In bslib >= 0.5.1, bs_theme() takes bootstrap preset theme via `preset`
+  bs_theme_args[["preset"]] <- get_bslib_theme(pkg)
+  bs_theme_args[["bootswatch"]] <- NULL
 
-  bs_theme <- exec(bslib::bs_theme,
-    version = pkg$bs_version,
-    bootswatch = theme,
-    !!!pkg$meta$template$bslib
-  )
+  bs_theme <- exec(bslib::bs_theme, !!!bs_theme_args)
+
   # Drop bs3 compat files added for shiny/RMarkdown
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
@@ -92,30 +92,58 @@ highlight_styles <- function() {
   path_ext_remove(path_file(paths))
 }
 
-get_bootswatch_theme <- function(pkg) {
-  pkg$meta[["template"]]$bootswatch %||%
-    pkg$meta[["template"]]$params$bootswatch %||%
-    "_default"
-}
+get_bslib_theme <- function(pkg) {
+  themes <- list(
+    "template.bslib.preset" = pkg$meta[["template"]]$bslib$preset,
+    "template.bslib.bootswatch" = pkg$meta[["template"]]$bslib$bootswatch,
+    "template.bootswatch" = pkg$meta[["template"]]$bootswatch,
+    # Historically (< 0.2.0), bootswatch wasn't a top-level template field
+    "template.params.bootswatch" = pkg$meta[["template"]]$params$bootswatch
+  )
 
-check_bootswatch_theme <- function(bootswatch_theme, bs_version, pkg) {
-  if (bootswatch_theme == "_default") {
-    NULL
-  } else if (bootswatch_theme %in% bslib::bootswatch_themes(bs_version)) {
-    bootswatch_theme
-  } else {
-    cli::cli_abort(c(
-      sprintf(
-        "Can't find Bootswatch theme {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
-        bootswatch_theme,
-        pkgdown_field(pkg, c("template", "bootswatch")),
-        bs_version,
-        pkgdown_field(pkg, c("template", "bootstrap"))
-      ),
-      x = "Edit settings in {.file {pkgdown_config_relpath(pkg)}}"
-    ), call = caller_env())
+  is_present <- !purrr::map_lgl(themes, is.null)
+  n_present <- sum(is_present)
+  n_unique <- length(unique(themes[is_present]))
+
+  if (n_present == 0) {
+    return("default")
   }
 
+  if (n_present > 1 && n_unique > 1) {
+    cli::cli_warn(c(
+      "Multiple Bootstrap preset themes were set. Using {.val {themes[is_present][[1]]}} from {.field {names(themes)[is_present][1]}}.",
+      x = "Found {.and {.field {names(themes)[is_present]}}}.",
+      i = "Remove extraneous theme declarations to avoid this warning."
+    ))
+  }
+
+  field <- names(themes)[which(is_present)[1]]
+  check_bslib_theme(themes[[field]], pkg, strsplit(field, ".")[[1]])
+}
+
+check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
+  bslib_themes <- c(
+    bslib::bootswatch_themes(bs_version),
+    bslib::builtin_themes(bs_version),
+    # bs_theme() recognizes both below as bare bootstrap
+    "default",
+    "bootstrap"
+  )
+
+  if (theme %in% bslib_themes) {
+    return(theme)
+  }
+
+  cli::cli_abort(c(
+    sprintf(
+      "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
+      theme,
+      pkgdown_field(pkg, field),
+      bs_version,
+      pkgdown_field(pkg, c("template", "bootstrap"))
+    ),
+    x = "Edit settings in {pkgdown_config_href({pkg$src_path})}"
+  ), call = caller_env())
 }
 
 bs_theme_deps_suppress <- function(deps = list()) {

@@ -57,7 +57,7 @@ context_get <- function(name) {
   if (env_has(context, name)) {
     env_get(context, name)
   } else {
-    abort(paste0("Context `", name, "` has not been initialised"))
+    cli::cli_abort("Context {.str name} has not been initialised")
   }
 }
 

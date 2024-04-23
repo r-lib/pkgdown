@@ -154,7 +154,7 @@ displayed on the reference index.
 \subsection{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level \code{icons} directory. This should contain {.png} files that are
+a top-level \code{icons} directory. This should contain \code{.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }

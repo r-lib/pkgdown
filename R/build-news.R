@@ -79,7 +79,7 @@ build_news <- function(pkg = ".",
     return()
 
   cli::cli_rule("Building news")
-  dir_create(path(pkg$dst_path, "news"))
+  create_subdir(pkg, "news")
 
   switch(news_style(pkg$meta),
     single = build_news_single(pkg),
@@ -117,6 +117,8 @@ build_news_multi <- function(pkg = ".") {
   )
 
   render_news <- function(version, file_out, contents) {
+    # Older, major, versions first on each page
+    # https://github.com/r-lib/pkgdown/issues/2285#issuecomment-2070966518
     render_page(
       pkg,
       "news",
@@ -178,6 +180,14 @@ data_news <- function(pkg = list()) {
 
   versions <- news_version(titles, pkg$package)
   sections <- sections[!is.na(versions)]
+
+  if (length(sections) == 0) {
+    cli::cli_warn(c( 
+      "No version headings found in {src_path('NEWS.md')}",
+      i = "See {.help pkgdown::build_news} for expected structure."
+    ))
+  }
+ 
   versions <- versions[!is.na(versions)]
 
   show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())

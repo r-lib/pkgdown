@@ -100,7 +100,7 @@
 #'
 #' ## Icons
 #' You can optionally supply an icon for each help topic. To do so, you'll need
-#' a top-level `icons` directory. This should contain {.png} files that are
+#' a top-level `icons` directory. This should contain `.png` files that are
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
@@ -158,6 +158,12 @@ build_reference <- function(pkg = ".",
                             document = "DEPRECATED",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(lazy)
+  check_bool(examples)
+  check_bool(run_dont_run)
+  check_number_whole(seed, allow_null = TRUE)
+  check_bool(devel)
+  check_character(topics, allow_null = TRUE)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(
@@ -187,14 +193,14 @@ build_reference <- function(pkg = ".",
     topics <- purrr::transpose(pkg$topics)
   }
 
-  purrr::map(
+  unwrap_purrr_error(purrr::map(
     topics,
     build_reference_topic,
     pkg = pkg,
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )
+  )) 
 
   preview_site(pkg, "reference", preview = preview)
 }
@@ -245,7 +251,7 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
 #' @rdname build_reference
 build_reference_index <- function(pkg = ".") {
   pkg <- section_init(pkg, depth = 1L)
-  dir_create(path(pkg$dst_path, "reference"))
+  create_subdir(pkg, "reference")
 
   # Copy icons, if needed
   src_icons <- path(pkg$src_path, "icons")
@@ -268,7 +274,7 @@ build_reference_topic <- function(topic,
                                   pkg,
                                   lazy = TRUE,
                                   examples_env = globalenv(),
-                                  run_dont_run = FALSE ) {
+                                  run_dont_run = FALSE) {
 
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
@@ -286,7 +292,11 @@ build_reference_topic <- function(topic,
       run_dont_run = run_dont_run
     ),
     error = function(err) {
-      cli::cli_abort("Failed to parse Rd in {.file {topic$file_in}}", parent = err)
+      cli::cli_abort(
+        "Failed to parse Rd in {.file {topic$file_in}}", 
+        parent = err,
+        call = quote(build_reference())
+      )
     }
   )
 

@@ -54,7 +54,7 @@ data_home <- function(pkg = ".") {
 }
 
 
-data_home_sidebar <- function(pkg = ".") {
+data_home_sidebar <- function(pkg = ".", call = caller_env()) {
 
   pkg <- as_pkgdown(pkg)
   if (isFALSE(pkg$meta$home$sidebar))
@@ -75,7 +75,7 @@ data_home_sidebar <- function(pkg = ".") {
           "Can't locate {.file {rel_html_path}}.",
           x = paste0(msg_fld, " is misconfigured.")
         ),
-        call = caller_env()
+        call = call
       )
 
 
@@ -110,19 +110,21 @@ data_home_sidebar <- function(pkg = ".") {
 
   sidebar_components <- utils::modifyList(
     sidebar_components,
-    purrr::map2(
+    unwrap_purrr_error(purrr::map2(
       components,
       names(components),
       data_home_component,
-      pkg = pkg
-      ) %>%
+      pkg = pkg,
+      call = call
+    )) %>%
       set_names(names(components))
   )
 
   check_yaml_has(
     setdiff(sidebar_structure, names(sidebar_components)),
     where = c("home", "sidebar", "components"),
-    pkg = pkg
+    pkg = pkg,
+    call = call
   )
 
   sidebar_final_components <- purrr::compact(
@@ -138,12 +140,13 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component, component_name, pkg) {
+data_home_component <- function(component, component_name, pkg, call = caller_env()) {
 
   check_yaml_has(
     setdiff(c("title", "text"), names(component)),
     where = c("home", "sidebar", "components", component_name),
-    pkg = pkg
+    pkg = pkg,
+    call = call
   )
 
   sidebar_section(

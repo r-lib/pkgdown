@@ -15,6 +15,19 @@ test_that("bad inputs give informative warnings", {
   })
 })
 
+test_that("selector functions validate their inputs", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
+  )
+
+  expect_snapshot(error = TRUE, {
+    t <- select_topics("starts_with('x', 'y')", topics)
+    t <- select_topics("starts_with(c('x', 'y'))", topics)
+  })
+})
+
+
 test_that("empty input returns empty vector", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,  ~concepts,

@@ -103,7 +103,8 @@ aside {
 
 // Add some visual distinction between content and "sidebar" on mobile
 @include media-breakpoint-down(sm) {
-  aside {
+  // Additional specificity needed to override bootstrap width on .row > *
+  .row > aside {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
     background-color: $gray-100;
@@ -165,6 +166,7 @@ $pkgdown-footer-border-width: $border-width !default;
 
 footer {
   margin: 1rem 0 1rem 0;
+  padding-top: 1rem;
   font-size: .875em;
   border-top: $pkgdown-footer-border-width solid $pkgdown-footer-border-color;
   background: $pkgdown-footer-bg;
@@ -204,10 +206,6 @@ body > .container .row {
 }
 
 /* General typography ======================================================= */
-
-::selection {
-  background-color: mix($primary, $body-bg, 20%);
-}
 
 // Ensure in-page images don't run outside their container
 main img {
@@ -309,6 +307,16 @@ img.logo {
 .icon {
   float: right;
   img {width: 40px;}
+}
+
+// Ensure skip link is visible if focussed
+a[href='#main'] {
+  position: absolute;
+  margin: 4px;
+  padding: 0.75rem;
+  background-color: $body-bg;
+  text-decoration: none;
+  z-index: 2000;
 }
 
 /* Footnotes ---------------------------------------------------------------- */

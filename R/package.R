@@ -8,26 +8,46 @@
 #'   values in `_pkgdown.yml`
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
+  if (!is.list(override)) {
+    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+  }
+
   if (is_pkgdown(pkg)) {
     pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
+  check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort(
-      "{.file {pkg}} is not an existing directory",
-      call = caller_env()
-    )
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
   meta <- read_meta(pkg)
   meta <- modify_list(meta, override)
 
+  # A local Bootstrap version, when provided, may drive the template choice
+  config_path <- pkgdown_config_path(pkg)
+  config_path <- if (!is.null(config_path)) fs::path_rel(config_path, pkg)
+  bs_version_local <- get_bootstrap_version(
+    template = meta$template,
+    config_path = config_path
+  )
+
   template_config <- find_template_config(
     package = meta$template$package,
-    bs_version = meta$template$bootstrap
+    bs_version = bs_version_local
   )
+
+  bs_version_template <-
+    if (is.null(bs_version_local)) {
+      get_bootstrap_version(
+        template = template_config$template,
+        config_path = config_path,
+        package = meta$template$package
+      )
+    }
+
   meta <- modify_list(template_config, meta)
 
   # Ensure the URL has no trailing slash
@@ -38,7 +58,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   package <- desc$get_field("Package")
   version <- desc$get_field("Version")
 
-  bs_version <- check_bootstrap_version(meta$template$bootstrap, pkg)
+  # Check the final Bootstrap version, possibly filled in by template pkg
+  bs_version <- check_bootstrap_version(
+    bs_version_local %||% bs_version_template,
+    pkg
+  )
 
   development <- meta_development(meta, version, bs_version)
 
@@ -98,6 +122,43 @@ read_desc <- function(path = ".") {
   desc::description$new(path)
 }
 
+get_bootstrap_version <- function(template, config_path = NULL, package = NULL) {
+  if (is.null(template)) {
+    return(NULL)
+  }
+
+  template_bootstrap <- template[["bootstrap"]]
+  template_bslib <- template[["bslib"]][["version"]]
+
+  if (!is.null(template_bootstrap) && !is.null(template_bslib)) {
+    instructions <-
+      if (!is.null(package)) {
+        paste0(
+          "Update the pkgdown config in {.pkg ", package, "}, ",
+          "or set a Bootstrap version in your {.file ",
+          if (is.null(config_path)) "_pkgdown.yml" else config_path,
+          "}."
+        )
+      } else if (!is.null(config_path)) {
+        paste("Remove one of them from {.file", config_path, "}")
+      }
+
+    cli::cli_abort(
+      c(
+        sprintf(
+          "Both {.field %s} and {.field %s} are set.",
+          pkgdown_field(list(), c("template", "bootstrap")),
+          pkgdown_field(list(), c("template", "bslib", "version"))
+        ),
+        i = instructions
+      ),
+      call = caller_env()
+    )
+  }
+
+  template_bootstrap %||% template_bslib
+}
+
 check_bootstrap_version <- function(version, pkg) {
   if (is.null(version)) {
     3
@@ -123,18 +184,19 @@ check_bootstrap_version <- function(version, pkg) {
 pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
-    c("_pkgdown.yml",
-      "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml",
-      "inst/_pkgdown.yml"
+    c(
+      "_pkgdown.yml", "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
     )
   )
 }
 pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
-  )
+  config <- pkgdown_config_path(path)
+  if (is.null(config)) {
+    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
+  }
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 read_meta <- function(path) {

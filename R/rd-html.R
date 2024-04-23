@@ -28,7 +28,7 @@ flatten_para <- function(x, ...) {
   after_break <- c(FALSE, before_break[-length(x)])
   groups <- cumsum(before_break | after_break)
 
-  html <- purrr::map(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map(x, as_html, ...))
   # split at line breaks for everything except blocks
   empty <- purrr::map_lgl(x, purrr::is_empty)
   needs_split <- !is_block & !empty
@@ -58,7 +58,7 @@ flatten_para <- function(x, ...) {
 flatten_text <- function(x, ...) {
   if (length(x) == 0) return("")
 
-  html <- purrr::map_chr(x, as_html, ...)
+  unwrap_purrr_error(html <- purrr::map_chr(x, as_html, ...))
   paste(html, collapse = "")
 }
 
@@ -192,24 +192,6 @@ as_html.tag_linkS4class <- function(x, ...) {
   a(text, href = href)
 }
 
-# Miscellaneous --------------------------------------------------------------
-
-#' @export
-as_html.tag_method <- function(x, ...) method_usage(x, "S3")
-#' @export
-as_html.tag_S3method <- function(x, ...) method_usage(x, "S3")
-#' @export
-as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
-
-method_usage <- function(x, type) {
-  fun <- as_html(x[[1]])
-  class <- as_html(x[[2]])
-  paste0(
-    sprintf(tr_("# %s method for %s"), type, class),
-    "\n", fun
-  )
-}
-
 # Conditionals and Sexprs ----------------------------------------------------
 
 #' @export
@@ -231,7 +213,7 @@ as_html.tag_Sexpr <- function(x, ...) {
     hide = "",
     cli::cli_abort(
       "\\\\Sexpr{{result={results}}} not yet supported",
-      call = caller_env()
+      call = NULL
     )
   )
 }

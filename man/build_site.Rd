@@ -76,7 +76,6 @@ that aspect of the site. This page documents options that affect the
 whole site.
 }
 \section{General config}{
-
 \itemize{
 \item \code{destination} controls where the site will be generated, defaulting to
 \verb{docs/}. Paths are relative to the package root.
@@ -93,6 +92,17 @@ rich social "media cards" (\code{vignette("metadata")}), and more.
 \item \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
 }
+}
+
+\section{Navbar and footer}{
+The \code{navbar} and \code{footer} fields control the appearance of the navbar
+footer which appear on every page. Learn more about these fields in
+\code{vignette("customise")}.
+}
+
+\section{Search}{
+The \code{search} field controls the built-in search and is
+documented in \code{vignette("search")}.
 }
 
 \section{Development mode}{
@@ -181,20 +191,6 @@ theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
-
-\subsection{Page layout}{
-
-The \code{navbar}, \code{footer}, and \code{sidebar} fields control the appearance
-of the navbar, footer, and sidebar respectively. They have many individual
-options which are documented in the \strong{Layout} section of
-\code{vignette("customise")}.
-}
-}
-
-\section{Search}{
-
-The \code{search} field controls the built-in search and is
-documented in \code{vignette("search")}.
 }
 
 \section{Template}{
@@ -231,18 +227,22 @@ redirect scenarios.
 \section{Analytics}{
 
 
-To capture usage of your site with a web analytics platform, you can make
-use of the \code{includes} field to add the HTML supplied to you by the platform.
-Typically these are either placed \code{after_body} or \code{in_header}. I include
-a few examples below, but I highly recommend getting the recommended HTML
-directly from the platform.
+To capture usage of your site with a web analytics tool, you can make
+use of the \code{includes} field to add the special HTML they need. This HTML
+is typically placed \code{in_header} (actually in the \verb{<head>}), \code{before_body},
+or \code{after_body}.
+You can learn more about how includes work in pkgdown at
+\url{https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files}.
+
+I include a few examples of popular analytics platforms below, but we
+recommend getting the HTML directly from the tool:
 \itemize{
-\item \href{https://www.goatcounter.com}{GoatCounter}:
+\item \href{https://plausible.io}{plausible.io}:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    after_body: >
-      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
+    in_header: |
+      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
 }\if{html}{\out{</div>}}
 \item \href{https://analytics.google.com/analytics/web/}{Google analytics}:
 
@@ -259,12 +259,12 @@ directly from the platform.
          gtag('config', '\{YOUR TRACKING ID\}');
        </script>
 }\if{html}{\out{</div>}}
-\item \href{https://plausible.io}{plausible.io}:
+\item \href{https://www.goatcounter.com}{GoatCounter}:
 
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{templates:
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{template:
   includes:
-    in_header: |
-      <script defer data-domain="\{YOUR DOMAIN\}" src="https://plausible.io/js/plausible.js"></script>
+    after_body: >
+      <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
 }
 }
@@ -334,11 +334,15 @@ time (e.g. because behind a firewall or requires auth).
 
 \section{Redirects}{
 
-If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
-One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
-This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.
+If you change the structure of your documentation (by renaming vignettes or
+help topics) you can setup redirects from the old content to the new content.
+One or several now-absent pages can be redirected to a new page (or to a new
+section of a new page). This works by creating a html page that performs a
+"meta refresh", which isn't the best way of doing a redirect but works
+everywhere that you might deploy your site.
 
-The syntax is the following, with old paths on the left, and new paths or URLs on the right.
+The syntax is the following, with old paths on the left, and new paths or
+URLs on the right.
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{redirects:
   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
@@ -346,7 +350,8 @@ The syntax is the following, with old paths on the left, and new paths or URLs o
   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
 }\if{html}{\out{</div>}}
 
-If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see \code{?build_search}.
+If for some reason you choose to redirect an existing page make sure to
+exclude it from the search index, see \code{?build_search}.
 }
 
 \section{Options}{
