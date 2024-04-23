@@ -60,12 +60,22 @@ navbar_links <- function(pkg, depth = 0L) {
   right <- navbar$right %||% components[right_comp]
 
   list(
-    left = render_navbar_links(left, depth = depth, bs_version = pkg$bs_version),
-    right = render_navbar_links(right, depth = depth, bs_version = pkg$bs_version)
+    left = render_navbar_links(
+      left,
+      depth = depth,
+      bs_version = pkg$bs_version,
+      side = "left"
+    ),
+    right = render_navbar_links(
+      right,
+      depth = depth,
+      bs_version = pkg$bs_version,
+      side = "right"
+    )
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
+render_navbar_links <- function(x, depth = 0L, bs_version = 3, side) {
   stopifnot(is.integer(depth), depth >= 0L)
 
   tweak <- function(x) {
@@ -86,7 +96,7 @@ render_navbar_links <- function(x, depth = 0L, bs_version = 3) {
   if (bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
-    bs4_navbar_links_html(x)
+    bs4_navbar_links_html(x, side = side)
   }
 }
 
@@ -185,11 +195,11 @@ menu_spacer <- function() {
   menu_text("---------")
 }
 
-bs4_navbar_links_html <- function(links) {
-  as.character(bs4_navbar_links_tags(links), options = character())
+bs4_navbar_links_html <- function(links, side = c("left", "right")) {
+  as.character(bs4_navbar_links_tags(links, side = side), options = character())
 }
 
-bs4_navbar_links_tags <- function(links, depth = 0L) {
+bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
   rlang::check_installed("htmltools")
 
   if (is.null(links)) {
@@ -212,7 +222,16 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         link_text <- bs4_navbar_link_text(x)
       }
 
-      submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+      submenuLinks <- bs4_navbar_links_tags(
+        x$menu,
+        depth = depth + 1L,
+        side = side
+      )
+
+      dropdown_class <- "dropdown-menu"
+      if (side == "right") {
+        dropdown_class <- paste(dropdown_class, "dropdown-menu-end")
+      }
 
       return(
         htmltools::tags$li(
@@ -226,7 +245,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
-            class = "dropdown-menu",
+            class = dropdown_class,
             `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
             submenuLinks
           )
