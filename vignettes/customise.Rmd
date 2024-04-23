@@ -123,7 +123,7 @@ template:
     code_font: {google: "JetBrains Mono"}
 ```
 
-If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yaml`. There are two ways you might get the CSS:
+If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yml`. There are two ways you might get the CSS:
 
 * As a block of CSS which you should put in `pkgdown/extra.scss` or `pkgdown/extra.css`. The CSS will look something like this:
 
