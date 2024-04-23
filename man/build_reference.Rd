@@ -56,7 +56,6 @@ alphabetical order. To override this, provide a \code{reference} section in your
 \verb{_pkgdown.yml} as described below.
 }
 \section{Reference index}{
-
 To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}.
 It can contain three different types of element:
 \itemize{
@@ -167,8 +166,6 @@ can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
 }
 
 \section{Figures}{
-
-
 You can control the default rendering of figures by specifying the \code{figures}
 field in \verb{_pkgdown.yml}. The default settings are equivalent to:
 

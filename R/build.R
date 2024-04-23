@@ -44,7 +44,7 @@
 #' The `search` field controls the built-in search and is
 #' documented in `vignette("search")`.
 #'
-#' @section Development mode:
+#' # Development mode
 #' The `development` field allows you to generate different sites for the
 #' development and released versions of your package. To use it, you first
 #' need to set the development `mode`:
@@ -133,7 +133,7 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Template:
+#' # Template
 #' The `template` field is mostly used to control the appearance of the site.
 #' See `vignette("customise")` for details.
 #'
@@ -166,7 +166,7 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
-#' @section Analytics:
+#' # Analytics
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
@@ -213,7 +213,7 @@
 #'     ```
 #'
 #'
-#' @section Source repository:
+#' # Source repository
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
@@ -260,7 +260,7 @@
 #'   branch: devel
 #' ```
 #'
-#' @section Deployment (`deploy`):
+#' # Deployment (`deploy`)
 #' There is a single `deploy` field
 #'
 #' *  `install_metadata` allows you to install package index metadata into
@@ -274,7 +274,7 @@
 #'      install_metadata: true
 #'    ```
 #'
-#' @section Redirects:
+#' # Redirects
 #' If you change the structure of your documentation (by renaming vignettes or 
 #' help topics) you can setup redirects from the old content to the new content.
 #' One or several now-absent pages can be redirected to a new page (or to a new 
@@ -295,7 +295,7 @@
 #' If for some reason you choose to redirect an existing page make sure to 
 #' exclude it from the search index, see `?build_search`.
 #'
-#' @section Options:
+#' # Options
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used

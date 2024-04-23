@@ -19,7 +19,7 @@
 #' package, not the current source version. This makes iteration quicker when
 #' you are primarily working on the text of an article.
 #'
-#' @section Index and navbar:
+#' # Index and navbar
 #' You can control the articles index and navbar with a `articles` field in
 #' your `_pkgdown.yml`. If you use it, pkgdown will check that all articles
 #' are included, and will error if you have missed any.
@@ -77,7 +77,7 @@
 #' the navbar, it will link directly to the articles index instead of
 #' providing a drop-down.
 #'
-#' @section Get started:
+#' # Get started
 #' Note that a vignette with the same name as the package (e.g.,
 #' `vignettes/pkgdown.Rmd` or `vignettes/articles/pkgdown.Rmd`) automatically
 #' becomes a top-level "Get started" link, and will not appear in the articles
@@ -86,7 +86,7 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
-#' @section External files:
+#' # External files
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
 #' assumption when most vignettes were PDFs) and only copies files explicitly
@@ -107,7 +107,7 @@
 #' Note that you can not use the `fig.path` to change the output directory of
 #' generated figures as its default value is a strong assumption of rmarkdown.
 #'
-#' @section Embedding Shiny apps:
+#' # Embedding Shiny apps
 #' If you would like to embed a Shiny app into an article, the app will have
 #' to be hosted independently, (e.g. <https://www.shinyapps.io>). Then, you
 #' can embed the app into your article using an `<iframe>`, e.g.
@@ -116,7 +116,7 @@
 #' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
 #' some hints on how to customise the appearance with CSS.
 #'
-#' @section Output formats:
+#' # Output formats
 #' By default, pkgdown builds all articles using the
 #' [rmarkdown::html_document()] `output` format, ignoring whatever is set in
 #' your YAML metadata. This is necessary because pkgdown has to integrate the
@@ -148,14 +148,14 @@
 #'
 #' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
-#' @inheritSection build_reference Figures
-#'
-#' @section Suppressing vignettes:
+#' # Suppressing vignettes
 #' If you want articles that are not vignettes, either put them in
 #' subdirectories or list in `.Rbuildignore`. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
+#'
+#' @inheritSection build_reference Figures
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and

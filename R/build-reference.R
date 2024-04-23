@@ -4,7 +4,7 @@
 #' alphabetical order. To override this, provide a `reference` section in your
 #' `_pkgdown.yml` as described below.
 #'
-#' @section Reference index:
+#' # Reference index
 #' To tweak the index page, add a section called `reference` to `_pkgdown.yml`.
 #' It can contain three different types of element:
 #'
@@ -109,7 +109,7 @@
 #' If you need to run extra code before or after all examples are run, you
 #' can create `pkgdown/pre-reference.R` and `pkgdown/post-reference.R`.
 #'
-#' @section Figures:
+#' # Figures
 #'
 #' You can control the default rendering of figures by specifying the `figures`
 #' field in `_pkgdown.yml`. The default settings are equivalent to:

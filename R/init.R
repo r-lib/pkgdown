@@ -11,7 +11,7 @@
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
-#' @section Build-ignored files:
+#' # Build-ignored files
 #' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
 #' `_pkgdown.yml`. If use another directory, or create the site manually,
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
