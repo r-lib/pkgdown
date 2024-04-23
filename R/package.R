@@ -336,12 +336,7 @@ find_template_config <- function(package, bs_version = NULL) {
     return(list())
   }
 
-  config <- path_package_pkgdown(
-    "_pkgdown.yml",
-    package = package,
-    bs_version = bs_version
-  )
-
+  config <- path_package_pkgdown("_pkgdown.yml", package, bs_version)
   if (!file_exists(config)) {
     return(list())
   }
