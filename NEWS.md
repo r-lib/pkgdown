@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
 * The `repo.source.url` field no longer requires a trailing slash (#2017).
 * Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
 * pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
