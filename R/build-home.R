@@ -68,12 +68,7 @@
 #' 
 #' [init_site()] will also automatically create a favicon set from your package logo.
 #' 
-#' ## YAML config - home
-#' 
-#' To tweak the home page, you need a section of the configuration file called 
-#' `home`.
-#' 
-#' ### Page title and description
+#' ## YAML config - title and description
 #' 
 #' By default, the page title and description are extracted automatically from
 #' the `Title` and `Description` fields `DESCRIPTION` (stripping single quotes
@@ -91,7 +86,8 @@
 #'     to your growing collection.
 #' ```
 #' 
-#' (Note the use of YAML's `>` i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)
+#' (Note the use of YAML's `>` i.e. "YAML pipes"; this is a convenient way of 
+#' writing paragraphs of text.)
 #' 
 #' ## Dev badges
 #' 
@@ -154,16 +150,16 @@
 #'   )
 #' ```
 #' 
-#' ## YAML config - authors
+#' ## Additional control via YAML
 #' 
-#' You can tweak a few things via the `authors` YAML field:
+#' You can control additinal aspects of the authors display via the `authors` 
+#' YAML field:
 #' 
 #' * display of each author in the footer, sidebar and authors page,
 #' * which authors (by role) are displayed in the sidebar and footer,
 #' * text before authors in the footer, 
 #' * text before and after authors in the sidebar,
 #' * text before and after authors on the authors page.
-#' 
 #' 
 #' You can modify how each author's name is displayed by adding a subsection 
 #' for `authors`. Each entry in `authors` should be named the author's name 

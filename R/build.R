@@ -135,9 +135,11 @@
 #'
 #' # Template
 #' The `template` field is mostly used to control the appearance of the site.
-#' See `vignette("customise")` for details.
+#' See `vignette("customise")` for details. But it's also used to control
 #'
-#' There are two other `template` fields that control other aspects of the
+#' ## Other aspects
+#'
+#' There are a few other `template` fields that control other aspects of the
 #' site:
 #'
 #' *   `noindex: true` will suppress indexing of your pages by search engines:
@@ -166,7 +168,7 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
-#' # Analytics
+#' ## Analytics
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
@@ -212,8 +214,8 @@
 #'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
 #'
-#'
 #' # Source repository
+#'
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue

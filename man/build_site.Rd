@@ -194,9 +194,10 @@ to danger). Finally, you can choose to override the default tooltip with
 
 \section{Template}{
 The \code{template} field is mostly used to control the appearance of the site.
-See \code{vignette("customise")} for details.
+See \code{vignette("customise")} for details. But it's also used to control
+\subsection{Other aspects}{
 
-There are two other \code{template} fields that control other aspects of the
+There are a few other \code{template} fields that control other aspects of the
 site:
 \itemize{
 \item \code{noindex: true} will suppress indexing of your pages by search engines:
@@ -222,7 +223,8 @@ redirect scenarios.
 }
 }
 
-\section{Analytics}{
+\subsection{Analytics}{
+
 To capture usage of your site with a web analytics tool, you can make
 use of the \code{includes} field to add the special HTML they need. This HTML
 is typically placed \code{in_header} (actually in the \verb{<head>}), \code{before_body},
@@ -262,6 +264,7 @@ recommend getting the HTML directly from the tool:
     after_body: >
       <script data-goatcounter="https://\{YOUR CODE\}.goatcounter.com/count" data-goatcounter-settings="\{YOUR SETTINGS\}" async src="https://gc.zgo.at/count.js"></script>
 }\if{html}{\out{</div>}}
+}
 }
 }
 

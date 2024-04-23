@@ -157,12 +157,11 @@ a top-level \code{icons} directory. This should contain \code{.png} files that a
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }
+}
 
-\subsection{Examples}{
-
+\section{Examples}{
 If you need to run extra code before or after all examples are run, you
 can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
-}
 }
 
 \section{Figures}{
