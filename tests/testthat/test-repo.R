@@ -59,12 +59,12 @@ test_that("repo_source() truncates automatically", {
 test_that("repo_source() is robust to trailing slash", {
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
-  dummy_meta <- function(x) {
+  meta <- function(x) {
     list(repo = list(url = list(source = x)))
   } 
   source <- "Source: <a href='http://example.com/a'><code>a</code></a>"
-  expect_equal(repo_source(dummy_meta("http://example.com"), "a"), source)
-  expect_equal(repo_source(dummy_meta("http://example.com/"), "a"), source)
+  expect_equal(repo_source(meta("http://example.com"), "a"), source)
+  expect_equal(repo_source(meta("http://example.com/"), "a"), source)
 })
 
 # repo_source with alternate default branch -------------------------------
