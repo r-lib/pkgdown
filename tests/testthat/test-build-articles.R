@@ -214,6 +214,16 @@ test_that("check doesn't include getting started vignette", {
   expect_error(data_articles_index(pkg), NA)
 })
 
+test_that("titles are escaped when needed", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
+
+  html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
+  expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
+  expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
+})
+
+
 test_that("output is reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(build_article(pkg = pkg, name = "random"))
