@@ -174,6 +174,9 @@ build_articles <- function(pkg = ".",
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(quiet)
+  check_bool(lazy)
+  check_number_whole(seed, allow_null = TRUE)
 
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
@@ -248,7 +251,7 @@ build_article <- function(name,
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   default_data <- list(
-    pagetitle = front$title,
+    pagetitle = escape_html(front$title),
     toc = toc <- front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, input),

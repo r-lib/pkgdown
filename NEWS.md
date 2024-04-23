@@ -1,12 +1,16 @@
 # pkgdown (development version)
 
 * The `repo.source.url` field no longer requires a trailing slash (#2017).
+* Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
+* pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
+* `build_article()` now escapes html characters in the title (#2286).
 * `build_article()` no longer generates the wrong source link when you build your site outside of the root directory (#2172).
 * `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
 * New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
 * You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320). If you have made your own template with a custom `navbar`, you will need to remove the `<form>` with `role="search"` to avoid getting two search boxes.
 * The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
+* The `template.bslib` item now also accepts a `bootswatch` key (@gadenbuie, #2483).
 
 # pkgdown 2.0.9
 
