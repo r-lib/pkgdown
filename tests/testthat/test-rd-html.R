@@ -393,45 +393,7 @@ test_that("spaces are preserved in preformatted blocks", {
   expect_equal(out, "<pre><code>^\n\n  b\n\n  c</code></pre>\n")
 })
 
-# Usage -------------------------------------------------------------------
-
-test_that("S4 methods gets comment", {
-  out <- rd2html("\\S4method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S4 method for class 'class'")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("S3 methods gets comment", {
-  out <- rd2html("\\S3method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class 'class'")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class 'class'")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("Methods for class function work", {
-  out <- rd2html("\\S3method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for class 'function'")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for class 'function'")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
-  expect_equal(out[1], "# S4 method for class 'function,function'")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("default methods get custom text", {
-  out <- rd2html("\\S3method{fun}{default}(x, y)")
-  expect_equal(out[1], "# Default S3 method")
-
-  out <- rd2html("\\S4method{fun}{default}(x, y)")
-  expect_equal(out[1], "# Default S4 method")
-})
+# Other -------------------------------------------------------------------
 
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")

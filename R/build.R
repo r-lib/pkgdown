@@ -330,6 +330,9 @@ build_site <- function(pkg = ".",
                        install = !devel,
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg, override = override)
+  check_bool(devel)
+  check_bool(new_process)
+  check_bool(install)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(

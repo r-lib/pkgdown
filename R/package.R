@@ -8,16 +8,18 @@
 #'   values in `_pkgdown.yml`
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
+  if (!is.list(override)) {
+    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+  }
+
   if (is_pkgdown(pkg)) {
     pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
+  check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort(
-      "{.file {pkg}} is not an existing directory",
-      call = caller_env()
-    )
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
