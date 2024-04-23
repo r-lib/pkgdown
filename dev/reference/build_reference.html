@@ -151,9 +151,7 @@ and <code>preview</code> to <code>FALSE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="reference-index">Reference index<a class="anchor" aria-label="anchor" href="#reference-index"></a></h2>
-    
-
-<p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>.
+    <p>To tweak the index page, add a section called <code>reference</code> to <code>_pkgdown.yml</code>.
 It can contain three different types of element:</p><ul><li><p>A <strong>title</strong> (<code>title</code> + <code>desc</code>), which generates an row containing an <code>&lt;h2&gt;</code>
 with optional paragraph description.</p></li>
 <li><p>A <strong>subtitle</strong> (<code>subtitle</code> + <code>desc</code>), which generates an row containing an
@@ -241,21 +239,15 @@ either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.</p>
 </div>
 
-<div class="section">
-<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
-
-
-<p>If you need to run extra code before or after all examples are run, you
+    </div>
+    <div class="section level2">
+    <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
+    <p>If you need to run extra code before or after all examples are run, you
 can create <code>pkgdown/pre-reference.R</code> and <code>pkgdown/post-reference.R</code>.</p>
-</div>
-
     </div>
     <div class="section level2">
     <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
-    
-
-
-<p>You can control the default rendering of figures by specifying the <code>figures</code>
+    <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>

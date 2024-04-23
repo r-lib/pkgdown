@@ -185,9 +185,7 @@ you may want to set it to <code>FALSE</code> to make debugging easier.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="index-and-navbar">Index and navbar<a class="anchor" aria-label="anchor" href="#index-and-navbar"></a></h2>
-    
-
-<p>You can control the articles index and navbar with a <code>articles</code> field in
+    <p>You can control the articles index and navbar with a <code>articles</code> field in
 your <code>_pkgdown.yml</code>. If you use it, pkgdown will check that all articles
 are included, and will error if you have missed any.</p>
 <p>The <code>articles</code> field defines a list of sections, each of which
@@ -233,9 +231,7 @@ providing a drop-down.</p>
     </div>
     <div class="section level2">
     <h2 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a></h2>
-    
-
-<p>Note that a vignette with the same name as the package (e.g.,
+    <p>Note that a vignette with the same name as the package (e.g.,
 <code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>) automatically
 becomes a top-level "Get started" link, and will not appear in the articles
 drop-down.</p>
@@ -244,9 +240,7 @@ vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
     </div>
     <div class="section level2">
     <h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a></h2>
-    
-
-<p>pkgdown differs from base R in its handling of external files. When building
+    <p>pkgdown differs from base R in its handling of external files. When building
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
 listed in <code>.install_extras</code>. pkgdown takes a different approach based on
@@ -264,9 +258,7 @@ generated figures as its default value is a strong assumption of rmarkdown.</p>
     </div>
     <div class="section level2">
     <h2 id="embedding-shiny-apps">Embedding Shiny apps<a class="anchor" aria-label="anchor" href="#embedding-shiny-apps"></a></h2>
-    
-
-<p>If you would like to embed a Shiny app into an article, the app will have
+    <p>If you would like to embed a Shiny app into an article, the app will have
 to be hosted independently, (e.g. <a href="https://www.shinyapps.io" class="external-link">https://www.shinyapps.io</a>). Then, you
 can embed the app into your article using an <code>&lt;iframe&gt;</code>, e.g.
 <code>&lt;iframe src = "https://gallery.shinyapps.io/083-front-page" class="shiny-app"&gt;</code>.</p>
@@ -275,9 +267,7 @@ some hints on how to customise the appearance with CSS.</p>
     </div>
     <div class="section level2">
     <h2 id="output-formats">Output formats<a class="anchor" aria-label="anchor" href="#output-formats"></a></h2>
-    
-
-<p>By default, pkgdown builds all articles using the
+    <p>By default, pkgdown builds all articles using the
 <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html" class="external-link">rmarkdown::html_document()</a></code> <code>output</code> format, ignoring whatever is set in
 your YAML metadata. This is necessary because pkgdown has to integrate the
 HTML/CSS/JS from the vignette with the HTML/CSS/JS from rest of the site.
@@ -301,9 +291,7 @@ you'll still need to add <code>as_is: true</code> to each individual vignette.</
     </div>
     <div class="section level2">
     <h2 id="suppressing-vignettes">Suppressing vignettes<a class="anchor" aria-label="anchor" href="#suppressing-vignettes"></a></h2>
-    
-
-<p>If you want articles that are not vignettes, either put them in
+    <p>If you want articles that are not vignettes, either put them in
 subdirectories or list in <code>.Rbuildignore</code>. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
@@ -311,10 +299,7 @@ present: if you do not want this, you will need to customise the navbar. See
     </div>
     <div class="section level2">
     <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
-    
-
-
-<p>You can control the default rendering of figures by specifying the <code>figures</code>
+    <p>You can control the default rendering of figures by specifying the <code>figures</code>
 field in <code>_pkgdown.yml</code>. The default settings are equivalent to:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">figures</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> ragg::agg_png</span></span>

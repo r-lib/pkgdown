@@ -211,9 +211,7 @@ documented in <code><a href="../articles/search.html">vignette("search")</a></co
     </div>
     <div class="section level2">
     <h2 id="development-mode">Development mode<a class="anchor" aria-label="anchor" href="#development-mode"></a></h2>
-    
-
-<p>The <code>development</code> field allows you to generate different sites for the
+    <p>The <code>development</code> field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
 need to set the development <code>mode</code>:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
@@ -290,11 +288,12 @@ to danger). Finally, you can choose to override the default tooltip with
     </div>
     <div class="section level2">
     <h2 id="template">Template<a class="anchor" aria-label="anchor" href="#template"></a></h2>
-    
+    <p>The <code>template</code> field is mostly used to control the appearance of the site.
+See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details. But it's also used to control</p><div class="section">
+<h3 id="other-aspects">Other aspects<a class="anchor" aria-label="anchor" href="#other-aspects"></a></h3>
 
-<p>The <code>template</code> field is mostly used to control the appearance of the site.
-See <code><a href="../articles/customise.html">vignette("customise")</a></code> for details.</p>
-<p>There are two other <code>template</code> fields that control other aspects of the
+
+<p>There are a few other <code>template</code> fields that control other aspects of the
 site:</p><ul><li><p><code>noindex: true</code> will suppress indexing of your pages by search engines:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">params</span><span class="kw">:</span></span>
@@ -310,9 +309,9 @@ redirect scenarios.</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">trailing_slash_redirect</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="analytics">Analytics<a class="anchor" aria-label="anchor" href="#analytics"></a></h2>
-    
+
+<div class="section">
+<h3 id="analytics">Analytics<a class="anchor" aria-label="anchor" href="#analytics"></a></h3>
 
 
 <p>To capture usage of your site with a web analytics tool, you can make
@@ -346,11 +345,11 @@ recommend getting the HTML directly from the tool:</p><ul><li><p><a href="https:
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="ch">&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      &lt;script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"&gt;&lt;/script&gt;</span></code></pre><p></p></div></li>
 </ul></div>
+
+    </div>
     <div class="section level2">
     <h2 id="source-repository">Source repository<a class="anchor" aria-label="anchor" href="#source-repository"></a></h2>
-    
-
-<p>Use the <code>repo</code> field to override pkgdown's automatically discovery
+    <p>Use the <code>repo</code> field to override pkgdown's automatically discovery
 of your source repository. This is used in the navbar, on the homepage,
 in articles and reference topics, and in the changelog (to link to issue
 numbers and user names). pkgdown can automatically figure out the necessary
@@ -383,9 +382,7 @@ specifying a branch name:</p>
     </div>
     <div class="section level2">
     <h2 id="deployment-deploy-">Deployment (<code>deploy</code>)<a class="anchor" aria-label="anchor" href="#deployment-deploy-"></a></h2>
-    
-
-<p>There is a single <code>deploy</code> field</p><ul><li><p><code>install_metadata</code> allows you to install package index metadata into
+    <p>There is a single <code>deploy</code> field</p><ul><li><p><code>install_metadata</code> allows you to install package index metadata into
 the package itself. Normally this metadata is made available on the
 published site; installing it into your package means that it's
 available for autolinking even if your website is not reachable at build
@@ -395,9 +392,7 @@ time (e.g. because behind a firewall or requires auth).</p>
 </ul></div>
     <div class="section level2">
     <h2 id="redirects">Redirects<a class="anchor" aria-label="anchor" href="#redirects"></a></h2>
-    
-
-<p>If you change the structure of your documentation (by renaming vignettes or
+    <p>If you change the structure of your documentation (by renaming vignettes or
 help topics) you can setup redirects from the old content to the new content.
 One or several now-absent pages can be redirected to a new page (or to a new
 section of a new page). This works by creating a html page that performs a
@@ -414,9 +409,7 @@ exclude it from the search index, see <code><a href="build_search.html">?build_s
     </div>
     <div class="section level2">
     <h2 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a></h2>
-    
-
-<p>Users with limited internet connectivity can disable CRAN checks by setting
+    <p>Users with limited internet connectivity can disable CRAN checks by setting
 <code>options(pkgdown.internet = FALSE)</code>. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
 to build docs for a package that requires internet connectivity in examples
