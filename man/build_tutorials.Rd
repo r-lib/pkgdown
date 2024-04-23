@@ -24,7 +24,6 @@ Tutorials are automatically discovered from published tutorials in
 list in \verb{_pkgdown.yml} as described below.
 }
 \section{YAML config}{
-
 To override the default discovery process, you can provide a \code{tutorials}
 section. This should be a list where each element specifies:
 \itemize{

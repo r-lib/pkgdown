@@ -106,7 +106,6 @@ documented in \code{vignette("search")}.
 }
 
 \section{Development mode}{
-
 The \code{development} field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
 need to set the development \code{mode}:
@@ -194,11 +193,11 @@ to danger). Finally, you can choose to override the default tooltip with
 }
 
 \section{Template}{
-
 The \code{template} field is mostly used to control the appearance of the site.
-See \code{vignette("customise")} for details.
+See \code{vignette("customise")} for details. But it's also used to control
+\subsection{Other aspects}{
 
-There are two other \code{template} fields that control other aspects of the
+There are a few other \code{template} fields that control other aspects of the
 site:
 \itemize{
 \item \code{noindex: true} will suppress indexing of your pages by search engines:
@@ -224,8 +223,7 @@ redirect scenarios.
 }
 }
 
-\section{Analytics}{
-
+\subsection{Analytics}{
 
 To capture usage of your site with a web analytics tool, you can make
 use of the \code{includes} field to add the special HTML they need. This HTML
@@ -268,9 +266,9 @@ recommend getting the HTML directly from the tool:
 }\if{html}{\out{</div>}}
 }
 }
+}
 
 \section{Source repository}{
-
 Use the \code{repo} field to override pkgdown's automatically discovery
 of your source repository. This is used in the navbar, on the homepage,
 in articles and reference topics, and in the changelog (to link to issue
@@ -317,7 +315,6 @@ specifying a branch name:
 }
 
 \section{Deployment (\code{deploy})}{
-
 There is a single \code{deploy} field
 \itemize{
 \item \code{install_metadata} allows you to install package index metadata into
@@ -333,7 +330,6 @@ time (e.g. because behind a firewall or requires auth).
 }
 
 \section{Redirects}{
-
 If you change the structure of your documentation (by renaming vignettes or
 help topics) you can setup redirects from the old content to the new content.
 One or several now-absent pages can be redirected to a new page (or to a new
@@ -355,7 +351,6 @@ exclude it from the search index, see \code{?build_search}.
 }
 
 \section{Options}{
-
 Users with limited internet connectivity can disable CRAN checks by setting
 \code{options(pkgdown.internet = FALSE)}. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used

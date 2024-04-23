@@ -87,11 +87,7 @@ in a level-one heading:
 \code{\link[=init_site]{init_site()}} will also automatically create a favicon set from your package logo.
 }
 
-\subsection{YAML config - home}{
-
-To tweak the home page, you need a section of the configuration file called
-\code{home}.
-\subsection{Page title and description}{
+\subsection{YAML config - title and description}{
 
 By default, the page title and description are extracted automatically from
 the \code{Title} and \code{Description} fields \code{DESCRIPTION} (stripping single quotes
@@ -108,9 +104,8 @@ findable on search engines, it's good practice to override the \code{title} and
     to your growing collection.
 }\if{html}{\out{</div>}}
 
-(Note the use of YAML's \code{>} i.e. "YAML pipes"; this is a convenient way of writing paragraphs of text.)
-}
-
+(Note the use of YAML's \code{>} i.e. "YAML pipes"; this is a convenient way of
+writing paragraphs of text.)
 }
 
 \subsection{Dev badges}{
@@ -173,9 +168,10 @@ authors page.
 }\if{html}{\out{</div>}}
 }
 
-\subsection{YAML config - authors}{
+\subsection{Additional control via YAML}{
 
-You can tweak a few things via the \code{authors} YAML field:
+You can control additinal aspects of the authors display via the \code{authors}
+YAML field:
 \itemize{
 \item display of each author in the footer, sidebar and authors page,
 \item which authors (by role) are displayed in the sidebar and footer,
