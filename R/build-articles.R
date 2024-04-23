@@ -248,7 +248,7 @@ build_article <- function(name,
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   default_data <- list(
-    pagetitle = front$title,
+    pagetitle = escape_html(front$title),
     toc = toc <- front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, input),
