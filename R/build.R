@@ -14,7 +14,7 @@
 #' that aspect of the site. This page documents options that affect the
 #' whole site.
 #'
-#' @section General config:
+#' # General config
 #' *  `destination` controls where the site will be generated, defaulting to
 #'    `docs/`. Paths are relative to the package root.
 #'
@@ -32,6 +32,17 @@
 #'
 #' *  `title` overrides the default site title, which is the package name.
 #'    It's used in the page title and default navbar.
+#'
+#' # Navbar and footer
+#'
+#' The `navbar` and `footer` fields control the appearance of the navbar
+#' footer which appear on every page. Learn more about these fields in 
+#' `vignette("customise")`.
+#'
+#' # Search
+#'
+#' The `search` field controls the built-in search and is
+#' documented in `vignette("search")`.
 #'
 #' @section Development mode:
 #' The `development` field allows you to generate different sites for the
@@ -121,17 +132,6 @@
 #' theme, but become progressively more eye catching as you go from default
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
-#'
-#' ## Page layout
-#'
-#' The `navbar`, `footer`, and `sidebar` fields control the appearance
-#' of the navbar, footer, and sidebar respectively. They have many individual
-#' options which are documented in the **Layout** section of
-#' `vignette("customise")`.
-#'
-#' @section Search:
-#' The `search` field controls the built-in search and is
-#' documented in `vignette("search")`.
 #'
 #' @section Template:
 #' The `template` field is mostly used to control the appearance of the site.

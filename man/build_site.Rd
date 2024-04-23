@@ -76,7 +76,6 @@ that aspect of the site. This page documents options that affect the
 whole site.
 }
 \section{General config}{
-
 \itemize{
 \item \code{destination} controls where the site will be generated, defaulting to
 \verb{docs/}. Paths are relative to the package root.
@@ -93,6 +92,17 @@ rich social "media cards" (\code{vignette("metadata")}), and more.
 \item \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.
 }
+}
+
+\section{Navbar and footer}{
+The \code{navbar} and \code{footer} fields control the appearance of the navbar
+footer which appear on every page. Learn more about these fields in
+\code{vignette("customise")}.
+}
+
+\section{Search}{
+The \code{search} field controls the built-in search and is
+documented in \code{vignette("search")}.
 }
 
 \section{Development mode}{
@@ -181,20 +191,6 @@ theme, but become progressively more eye catching as you go from default
 to danger). Finally, you can choose to override the default tooltip with
 \code{version_tooltip}.
 }
-
-\subsection{Page layout}{
-
-The \code{navbar}, \code{footer}, and \code{sidebar} fields control the appearance
-of the navbar, footer, and sidebar respectively. They have many individual
-options which are documented in the \strong{Layout} section of
-\code{vignette("customise")}.
-}
-}
-
-\section{Search}{
-
-The \code{search} field controls the built-in search and is
-documented in \code{vignette("search")}.
 }
 
 \section{Template}{
