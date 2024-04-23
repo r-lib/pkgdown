@@ -68,7 +68,7 @@ jobs:
       - name: Deploy to Netlify
         if: contains(env.isPush, 'false')
         id: netlify-deploy
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: './docs'
           production-branch: master
