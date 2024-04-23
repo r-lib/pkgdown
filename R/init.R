@@ -28,8 +28,7 @@ init_site <- function(pkg = ".") {
       "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
       "!" = "Make sure it contains no important information \\
              and use {.run pkgdown::clean_site()} to delete its contents."
-      ),
-      call = caller_env()
+      )
     )
   }
 

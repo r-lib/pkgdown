@@ -1,3 +1,62 @@
+
+# Reference --------------------------------------------------------------------
+
+test_that("usage escapes special characters", {
+
+  usage2html <- function(x) {
+    rd <- rd_text(paste0("\\usage{", x, "}"), FALSE)[[1]]
+    as_data(rd)  
+  }
+
+  expect_snapshot({
+    "Parseable"
+    cat(strip_html_tags(usage2html("# <>\nx")))
+    "Unparseable"
+    cat(strip_html_tags(usage2html("# <>\n<")))
+  })  
+})
+
+test_that("S4 methods gets comment", {
+  out <- rd2html("\\S4method{fun}{class}(x, y)")
+  expect_equal(out[1], "# S4 method for class 'class'")
+  expect_equal(out[2], "fun(x, y)")
+})
+
+test_that("S3 methods gets comment", {
+  out <- rd2html("\\S3method{fun}{class}(x, y)")
+  expect_equal(out[1], "# S3 method for class 'class'")
+  expect_equal(out[2], "fun(x, y)")
+
+  out <- rd2html("\\method{fun}{class}(x, y)")
+  expect_equal(out[1], "# S3 method for class 'class'")
+  expect_equal(out[2], "fun(x, y)")
+})
+
+test_that("Methods for class function work", {
+  out <- rd2html("\\S3method{fun}{function}(x, y)")
+  expect_equal(out[1], "# S3 method for class 'function'")
+  expect_equal(out[2], "fun(x, y)")
+
+  out <- rd2html("\\method{fun}{function}(x, y)")
+  expect_equal(out[1], "# S3 method for class 'function'")
+  expect_equal(out[2], "fun(x, y)")
+
+  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
+  expect_equal(out[1], "# S4 method for class 'function,function'")
+  expect_equal(out[2], "fun(x, y)")
+})
+
+test_that("default methods get custom text", {
+  out <- rd2html("\\S3method{fun}{default}(x, y)")
+  expect_equal(out[1], "# Default S3 method")
+
+  out <- rd2html("\\S4method{fun}{default}(x, y)")
+  expect_equal(out[1], "# Default S4 method")
+})
+
+
+# Reference index --------------------------------------------------------------
+
 test_that("can parse data", {
   usage <- parse_usage("f")[[1]]
   expect_equal(usage, list(type = "data", name = "f"))

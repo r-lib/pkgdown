@@ -36,7 +36,9 @@ bs_theme <- function(pkg = ".") {
 
   bs_theme_args <- pkg$meta$template$bslib %||% list()
   bs_theme_args[["version"]] <- pkg$bs_version
+  # In bslib >= 0.5.1, bs_theme() takes bootstrap preset theme via `preset`
   bs_theme_args[["preset"]] <- get_bslib_theme(pkg)
+  bs_theme_args[["bootswatch"]] <- NULL
 
   bs_theme <- exec(bslib::bs_theme, !!!bs_theme_args)
 
@@ -91,31 +93,35 @@ highlight_styles <- function() {
 }
 
 get_bslib_theme <- function(pkg) {
-  preset <- pkg$meta[["template"]]$bslib$preset
-
-  if (!is.null(preset)) {
-    check_bslib_theme(preset, pkg, c("template", "bslib", "preset"))
-    return(preset)
-  }
-
-  bootswatch <-
-    pkg$meta[["template"]]$bootswatch %||%
+  themes <- list(
+    "template.bslib.preset" = pkg$meta[["template"]]$bslib$preset,
+    "template.bslib.bootswatch" = pkg$meta[["template"]]$bslib$bootswatch,
+    "template.bootswatch" = pkg$meta[["template"]]$bootswatch,
     # Historically (< 0.2.0), bootswatch wasn't a top-level template field
-    pkg$meta[["template"]]$params$bootswatch
+    "template.params.bootswatch" = pkg$meta[["template"]]$params$bootswatch
+  )
 
-  if (!is.null(bootswatch)) {
-    check_bslib_theme(bootswatch, pkg, c("template", "bootswatch"))
-    return(bootswatch)
-  }
+  is_present <- !purrr::map_lgl(themes, is.null)
+  n_present <- sum(is_present)
+  n_unique <- length(unique(themes[is_present]))
 
-  "default"
-}
-
-check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
-  if (theme %in% c("_default", "default")) {
+  if (n_present == 0) {
     return("default")
   }
 
+  if (n_present > 1 && n_unique > 1) {
+    cli::cli_warn(c(
+      "Multiple Bootstrap preset themes were set. Using {.val {themes[is_present][[1]]}} from {.field {names(themes)[is_present][1]}}.",
+      x = "Found {.and {.field {names(themes)[is_present]}}}.",
+      i = "Remove extraneous theme declarations to avoid this warning."
+    ))
+  }
+
+  field <- names(themes)[which(is_present)[1]]
+  check_bslib_theme(themes[[field]], pkg, strsplit(field, ".")[[1]])
+}
+
+check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
