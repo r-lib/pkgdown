@@ -344,10 +344,11 @@ changing this parameter.</p>
 <div class="section level2">
 <h2 id="layout">Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
 </h2>
-<p>You can customise the contents of the navbar, footer, and home page
-sidebar using the <code>navbar</code>, <code>footer</code>, and
-<code>sidebar</code> fields. They all use a similar structure that
-separately defines the overall <code>structure</code> and the individual
+<p>You can customise the contents of the navbar, footer, using the
+<code>navbar</code> and <code>footer</code> fields. See
+<code><a href="../reference/build_home.html">?build_home</a></code> for how to customise the sidebar on the
+homepage. They all use a similar structure that separately defines the
+overall <code>structure</code> and the individual
 <code>components</code>.</p>
 <div class="section level3">
 <h3 id="navbar-heading">Navbar<a class="anchor" aria-label="anchor" href="#navbar-heading"></a>
@@ -483,83 +484,20 @@ a legal disclaimer, and puts the pkgdown link on the left.</p>
 <p>Each side is pasted into a single string (separated by
 <code>" "</code>) and then converted from markdown to HTML.</p>
 </div>
-<div class="section level3">
-<h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
-</h3>
-<p>You can customise the homepage sidebar with the
-<code>home.sidebar</code> field. It’s made up of two pieces:
-<code>structure</code>, which defines the overall layout, and
-<code>components</code>, which defines what each piece looks like. This
-organisation makes it easy to mix and match the pkgdown defaults with
-your own customisations.</p>
-<p>This is the default structure:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">links</span><span class="kw">,</span><span class="at"> license</span><span class="kw">,</span><span class="at"> community</span><span class="kw">,</span><span class="at"> citation</span><span class="kw">,</span><span class="at"> authors</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span></code></pre></div>
-<p>These are drawn from seven built-in components:</p>
-<ul>
-<li>
-<p><code>links</code>: automated links generated from
-<code>URL</code> and <code>BugReports</code> fields from
-<code>DESCRIPTION</code> plus manual links from the
-<code>home.links</code> field:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="at">  </span><span class="fu">links</span><span class="kw">:</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Link text</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://website.com</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Roadmap</span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="at">    </span><span class="fu">href</span><span class="kw">:</span><span class="at"> /roadmap.html</span></span></code></pre></div>
-</li>
-<li><p><code>license</code>: Licensing information if
-<code>LICENSE</code>/<code>LICENCE</code> or
-<code>LICENSE.md</code>/<code>LICENCE.md</code> files are
-present.</p></li>
-<li><p><code>community</code>: links to to
-<code>.github/CONTRIBUTING.md</code>,
-<code>.github/CODE_OF_CONDUCT.md</code>, etc.</p></li>
-<li><p><code>citation</code>: link to package citation information. Uses
-either <code>inst/CITATION</code> or, if absent, information from the
-<code>DESCRIPTION</code>.</p></li>
-<li><p><code>authors</code>: selected authors from the
-<code>DESCRIPTION</code>.</p></li>
-<li><p><code>dev</code>: development status badges extracted from
-<code>README.md</code>/<code>index.md</code>. This is only shown for
-“development” versions of websites; see “Development mode” in
-<code><a href="../reference/build_site.html">?build_site</a></code> for details.</p></li>
-<li><p><code>toc</code>: a table of contents for the README (not shown
-by default).</p></li>
-</ul>
-<p>You can also add your own components, where <code>text</code> is
-markdown text:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="at">    </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">authors</span><span class="kw">,</span><span class="at"> custom</span><span class="kw">,</span><span class="at"> toc</span><span class="kw">,</span><span class="at"> dev</span><span class="kw">]</span></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="at">    </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="at">      </span><span class="fu">custom</span><span class="kw">:</span></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="at">        </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Funding</span></span>
-<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> We are *grateful* for funding!</span></span></code></pre></div>
-<p>Alternatively, you can provide a ready-made sidebar HTML:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="at">    </span><span class="fu">html</span><span class="kw">:</span><span class="at"> path-to-sidebar.html</span></span></code></pre></div>
-<p>Or completely remove it:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">home</span><span class="kw">:</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
-</div>
 </div>
 <div class="section level2">
 <h2 id="additional-html-and-files">Additional HTML and files<a class="anchor" aria-label="anchor" href="#additional-html-and-files"></a>
 </h2>
 <p>If you need to include additional HTML, you can add it in the
 following locations:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the head --</span><span class="ch">&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="fu">    before_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the beginning of the body --</span><span class="ch">&gt;</span></span>
-<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the body --</span><span class="ch">&gt;</span></span>
-<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
-<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
-<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the head --</span><span class="ch">&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="fu">    before_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the beginning of the body --</span><span class="ch">&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the body --</span><span class="ch">&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
 <p>You can include additional files by putting them in the right
 place:</p>
 <ul>
@@ -602,15 +540,15 @@ templates.)</li>
 are in turn overridden by package specific settings.</p>
 <p>Once you have created your template package <code>theverybest</code>,
 you need to set it as your site’s theme:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 <p>You then also need to make sure it’s available when your site is
 build. Typically, you won’t want to publish this package to CRAN, but
 you will want to publish to GitHub. Once you’ve done that, and assuming
 you’re using the <a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis
 workflow</a>, add the following line to your
 <code>DESCRIPTION</code>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> myorg/theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> myorg/theverybest</span></span></code></pre></div>
 <p>This will ensure that the GitHub action will automatically install it
 from GitHub when building your pkgdown site.</p>
 <p>To get some sense of how a theming package works, you can look

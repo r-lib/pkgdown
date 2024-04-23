@@ -186,7 +186,6 @@ so it is available for vignettes.</p></dd>
     <div class="section level2">
     <h2 id="general-config">General config<a class="anchor" aria-label="anchor" href="#general-config"></a></h2>
     
-
 <ul><li><p><code>destination</code> controls where the site will be generated, defaulting to
 <code>docs/</code>. Paths are relative to the package root.</p></li>
 <li><p><code>url</code> is optional, but strongly recommended.</p>
@@ -199,6 +198,17 @@ rich social "media cards" (<code><a href="../articles/metadata.html">vignette("m
 <li><p><code>title</code> overrides the default site title, which is the package name.
 It's used in the page title and default navbar.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="navbar-and-footer">Navbar and footer<a class="anchor" aria-label="anchor" href="#navbar-and-footer"></a></h2>
+    <p>The <code>navbar</code> and <code>footer</code> fields control the appearance of the navbar
+footer which appear on every page. Learn more about these fields in
+<code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="search">Search<a class="anchor" aria-label="anchor" href="#search"></a></h2>
+    <p>The <code>search</code> field controls the built-in search and is
+documented in <code><a href="../articles/search.html">vignette("search")</a></code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="development-mode">Development mode<a class="anchor" aria-label="anchor" href="#development-mode"></a></h2>
     
@@ -277,23 +287,6 @@ to danger). Finally, you can choose to override the default tooltip with
 <code>version_tooltip</code>.</p>
 </div>
 
-<div class="section">
-<h3 id="page-layout">Page layout<a class="anchor" aria-label="anchor" href="#page-layout"></a></h3>
-
-
-<p>The <code>navbar</code>, <code>footer</code>, and <code>sidebar</code> fields control the appearance
-of the navbar, footer, and sidebar respectively. They have many individual
-options which are documented in the <strong>Layout</strong> section of
-<code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
-</div>
-
-    </div>
-    <div class="section level2">
-    <h2 id="search">Search<a class="anchor" aria-label="anchor" href="#search"></a></h2>
-    
-
-<p>The <code>search</code> field controls the built-in search and is
-documented in <code><a href="../articles/search.html">vignette("search")</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="template">Template<a class="anchor" aria-label="anchor" href="#template"></a></h2>
@@ -404,15 +397,20 @@ time (e.g. because behind a firewall or requires auth).</p>
     <h2 id="redirects">Redirects<a class="anchor" aria-label="anchor" href="#redirects"></a></h2>
     
 
-<p>If you change the structure of your documentation (by renaming vignettes or help topics) you can setup redirects from the old content to the new content.
-One or several now-absent pages can be redirected to a new page (or to a new section of a new page).
-This works by creating a html page that performs a "meta refresh", which isn't the best way of doing a redirect but works everywhere that you might deploy your site.</p>
-<p>The syntax is the following, with old paths on the left, and new paths or URLs on the right.</p>
+<p>If you change the structure of your documentation (by renaming vignettes or
+help topics) you can setup redirects from the old content to the new content.
+One or several now-absent pages can be redirected to a new page (or to a new
+section of a new page). This works by creating a html page that performs a
+"meta refresh", which isn't the best way of doing a redirect but works
+everywhere that you might deploy your site.</p>
+<p>The syntax is the following, with old paths on the left, and new paths or
+URLs on the right.</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre><p></p></div>
-<p>If for some reason you choose to redirect an existing page make sure to exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
+<p>If for some reason you choose to redirect an existing page make sure to
+exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a></h2>
