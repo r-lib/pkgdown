@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* The `repo.source.url` field no longer requires a trailing slash (#2017).
 * Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
 * pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
 * `build_article()` now escapes html characters in the title (#2286).
