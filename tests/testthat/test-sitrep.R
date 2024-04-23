@@ -1,6 +1,4 @@
 test_that("pkgdown_sitrep works", {
-  local_edition(3)
-
   # URL not in the pkgdown config
   pkg <- test_path("assets/figure")
   expect_snapshot(pkgdown_sitrep(pkg))

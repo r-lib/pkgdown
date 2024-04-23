@@ -14,9 +14,9 @@
       Reading assets/pandoc-fail.Rmd
     Condition
       Error:
-      x Failed to render RMarkdown document.
-        [WARNING] Could not fetch resource path-to-image.png
-        Failing because there were warnings.
+      ! Failed to render 'assets/pandoc-fail.Rmd'.
+      x [WARNING] Could not fetch resource path-to-image.png
+      x Failing because there were warnings.
       Caused by error:
       ! pandoc document conversion failed with error 3
 
@@ -30,9 +30,8 @@
     Output
       <error/rlang_error>
       Error:
-      x Failed to render RMarkdown document.
-        
-        Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+      ! Failed to render 'assets/r-fail.Rmd'.
+      x Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
       Caused by error:
       ! Error!
       ---

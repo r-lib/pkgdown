@@ -1,6 +1,5 @@
 test_that("can override defaults in _pkgdown.yml", {
   skip_if_no_pandoc()
-  local_edition(3)
   withr::local_temp_libpaths()
 
   pkg <- local_pkgdown_site(test_path("assets/figure"))

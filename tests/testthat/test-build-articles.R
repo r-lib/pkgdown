@@ -27,7 +27,6 @@ test_that("links to man/figures are automatically relocated", {
 })
 
 test_that("warns about missing images", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_articles(pkg))
 })
@@ -125,7 +124,7 @@ test_that("BS5 article laid out correctly with and without TOC", {
       bootstrap: 5
   ")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(toc_true_path <- build_article("standard", pkg))
   expect_snapshot(toc_false_path <- build_article("toc-false", pkg))
 
@@ -171,13 +170,12 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 })
 
 test_that("pkgdown deps are included only once in articles", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/articles"), "
     template:
       bootstrap: 5
   ")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("html-deps", pkg))
 
   html <- xml2::read_html(path)
@@ -215,6 +213,16 @@ test_that("check doesn't include getting started vignette", {
 
   expect_error(data_articles_index(pkg), NA)
 })
+
+test_that("titles are escaped when needed", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
+
+  html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
+  expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
+  expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
+})
+
 
 test_that("output is reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))

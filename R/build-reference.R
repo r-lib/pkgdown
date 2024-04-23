@@ -158,6 +158,12 @@ build_reference <- function(pkg = ".",
                             document = "DEPRECATED",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(lazy)
+  check_bool(examples)
+  check_bool(run_dont_run)
+  check_number_whole(seed, allow_null = TRUE)
+  check_bool(devel)
+  check_character(topics, allow_null = TRUE)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(

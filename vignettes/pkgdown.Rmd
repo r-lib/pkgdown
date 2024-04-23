@@ -34,7 +34,7 @@ You'll learn about the main components of the site (the home page, reference, ar
 You can override pkgdown's defaults with a YAML file called `_pkgdown.yml`[^1].
 The most important field is `url`, which gives the final location of the site:
 
-[^1]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep the package root clutter-free, or in `inst/_pkgdown.yml` if you want to make it available when your package is installed.
+[^1]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep the package root clutter-free, or in `inst/_pkgdown.yml` if you want to make it available when your package is installed. You can also use `.yaml` as the extension if desired.
 
 ``` yaml
 url: https://pkgdown.r-lib.org
