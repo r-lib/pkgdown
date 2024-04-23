@@ -2,7 +2,7 @@
 
 * pkgdown no longer overrides the default selection colours. This improves 
   accessibility for users who have set their own colours in their browser 
-  settings (#2139).
+  settings (#2139, @glin).
 * `build_article()` no longer generates the wrong source link when you build your site outside of the root directory (#2172).
 * `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
