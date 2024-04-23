@@ -117,6 +117,8 @@ build_news_multi <- function(pkg = ".") {
   )
 
   render_news <- function(version, file_out, contents) {
+    # Older, major, versions first on each page
+    # https://github.com/r-lib/pkgdown/issues/2285#issuecomment-2070966518
     render_page(
       pkg,
       "news",

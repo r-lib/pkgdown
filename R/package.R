@@ -8,16 +8,18 @@
 #'   values in `_pkgdown.yml`
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
+  if (!is.list(override)) {
+    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+  }
+
   if (is_pkgdown(pkg)) {
     pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
+  check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort(
-      "{.file {pkg}} is not an existing directory",
-      call = caller_env()
-    )
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
@@ -182,18 +184,19 @@ check_bootstrap_version <- function(version, pkg) {
 pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
-    c("_pkgdown.yml",
-      "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml",
-      "inst/_pkgdown.yml"
+    c(
+      "_pkgdown.yml", "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
     )
   )
 }
 pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
-  )
+  config <- pkgdown_config_path(path)
+  if (is.null(config)) {
+    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
+  }
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 read_meta <- function(path) {

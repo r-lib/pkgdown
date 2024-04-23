@@ -7,16 +7,6 @@ as_data.NULL <- function(x, ...) {
   NULL
 }
 
-# Usage -------------------------------------------------------------------
-
-#' @export
-as_data.tag_usage <- function(x, ...) {
-  text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
-  text <- str_trim(text)
-
-  highlight_text(text)
-}
-
 # Sections ----------------------------------------------------------------
 
 parse_section <- function(x, title, ...) {

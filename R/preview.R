@@ -5,6 +5,8 @@
 #' @export
 preview_site <- function(pkg = ".", path = ".", preview = NA) {
   pkg <- as_pkgdown(pkg)
+  check_string(path)
+  check_bool(preview, allow_na = TRUE)
 
   if (is.na(preview)) {
     preview <- interactive() && !is_testing()

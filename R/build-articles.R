@@ -174,6 +174,9 @@ build_articles <- function(pkg = ".",
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(quiet)
+  check_bool(lazy)
+  check_number_whole(seed, allow_null = TRUE)
 
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
@@ -182,14 +185,14 @@ build_articles <- function(pkg = ".",
   cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
-  purrr::walk(
+  unwrap_purrr_error(purrr::walk(
     pkg$vignettes$name,
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
-  )
+  ))
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -248,10 +251,10 @@ build_article <- function(name,
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   default_data <- list(
-    pagetitle = front$title,
+    pagetitle = escape_html(front$title),
     toc = toc <- front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
-    source = repo_source(pkg, path_rel(input, pkg$src_path)),
+    source = repo_source(pkg, input),
     filename = path_file(input),
     output_file = output_file,
     as_is = as_is
@@ -297,7 +300,8 @@ build_article <- function(name,
     output_options = options,
     seed = seed,
     new_process = new_process,
-    quiet = quiet
+    quiet = quiet,
+    call = quote(build_article())
   )
 }
 

@@ -16,3 +16,9 @@
       Error in `as_pkgdown()`:
       ! Both template.bootstrap and template.bslib.version are set.
 
+# Warns when Bootstrap theme is specified in multiple locations
+
+    Multiple Bootstrap preset themes were set. Using "flatly" from template.bslib.preset.
+    x Found template.bslib.preset, template.bslib.bootswatch, template.bootswatch, and template.params.bootswatch.
+    i Remove extraneous theme declarations to avoid this warning.
+
