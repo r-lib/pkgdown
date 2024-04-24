@@ -5,5 +5,5 @@
     Condition
       Error:
       ! Template package "missing" is not installed.
-      i Please install before continuing
+      i Please install before continuing.
 
