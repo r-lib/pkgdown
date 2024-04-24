@@ -96,8 +96,21 @@ path_first_existing <- function(...) {
   NULL
 }
 
-path_package_pkgdown <- function(path, package, bs_version) {
-  check_installed(package)
+path_package_pkgdown <- function(path,
+                                 package,
+                                 bs_version,
+                                 error_call = caller_env()) {
+  # package will usually be a github package, and check_installed()
+  # tries to install from CRAN, which is highly likely to fail.
+  if (!is_installed(package)) {
+    cli::cli_abort(
+      c(
+        "Template package {.val {package}} is not installed.",
+        i = "Please install before continuing."
+      ),
+      call = error_call
+    )
+  }
   base <- system_file("pkgdown", package = package)
 
   # If bs_version supplied, first try for versioned template
