@@ -331,12 +331,19 @@ package_vignettes <- function(path = ".") {
   out[order(basename(out$file_out)), ]
 }
 
-find_template_config <- function(package, bs_version = NULL) {
+find_template_config <- function(package,
+                                 bs_version = NULL,
+                                 error_call = caller_env()) {
   if (is.null(package)) {
     return(list())
   }
 
-  config <- path_package_pkgdown("_pkgdown.yml", package, bs_version)
+  config <- path_package_pkgdown(
+    "_pkgdown.yml",
+    package,
+    bs_version,
+    error_call = error_call
+  )
   if (!file_exists(config)) {
     return(list())
   }
