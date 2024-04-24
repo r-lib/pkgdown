@@ -109,11 +109,12 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 copy_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  favicons <- path(pkg$src_path, "pkgdown", "favicon")
-  if (!dir_exists(favicons))
-    return()
-
-  dir_copy_to(pkg, favicons, pkg$dst_path)
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "pkgdown", "favicon"),
+    src_root = pkg$src_path,
+    dst_dir = pkg$dst_path,
+    dst_root = pkg$dst_path
+  )
 }
 
 has_favicons <- function(pkg = ".") {

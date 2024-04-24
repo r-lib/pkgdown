@@ -12,7 +12,7 @@ test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   build_home_index(pkg, quiet = TRUE)
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
@@ -80,7 +80,6 @@ test_that("data_home_sidebar() can add a README", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
-  local_edition(3)
   pkg <- as_pkgdown(test_path("assets/sidebar"))
 
   # no component definition for a component named in structure

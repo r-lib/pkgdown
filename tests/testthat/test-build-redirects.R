@@ -17,7 +17,6 @@ test_that("build_redirect() works", {
 })
 
 test_that("build_redirect() errors if one entry is not right.", {
-  local_edition(3)
   pkg <- list(
     src_path = withr::local_tempdir(),
     dst_path = withr::local_tempdir(),
