@@ -71,7 +71,7 @@ copy_assets <- function(pkg = ".") {
     copy_asset_dir(
       pkg, 
       path_package_pkgdown("assets", template$package, pkg$bs_version),
-      src_root = system_file(package = template_package),
+      src_root = system_file(package = template$package),
       src_label = paste0("<", template$package, ">/")
     )
   }
