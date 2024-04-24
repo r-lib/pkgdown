@@ -482,6 +482,8 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
+  check_built_site(pkg)
+  
   cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }

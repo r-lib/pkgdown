@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
 * Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
 * The `repo.source.url` field no longer requires a trailing slash (#2017).
 * Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).

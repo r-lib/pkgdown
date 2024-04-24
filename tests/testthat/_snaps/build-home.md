@@ -16,20 +16,6 @@
       Writing `authors.html`
       Writing `404.html`
 
-# warns about missing images
-
-    Code
-      build_home(pkg)
-    Message
-      -- Building home ---------------------------------------------------------------
-      Writing `authors.html`
-    Condition
-      Warning:
-      Missing images in 'README.md': 'foo.png'
-      i pkgdown can only use images in 'man/figures' and 'vignettes'
-    Message
-      Writing `404.html`
-
 # can build site even if no Authors@R present
 
     Code
