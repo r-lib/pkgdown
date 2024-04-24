@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).
 * `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
 * `init_site()` once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (#2445).
 * Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).

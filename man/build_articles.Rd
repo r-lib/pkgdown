@@ -137,6 +137,13 @@ drop-down.
 
 (If your package name includes a \code{.}, e.g. \code{pack.down}, use a \code{-} in the
 vignette name, e.g. \code{pack-down.Rmd}.)
+\subsection{Missing topics}{
+
+pkgdown will warn if there are (non-internal) articles that not listed
+in the articles index. You can suppress these warnings by listing the
+articles in a section with "title: internal" (case sensitive); this section
+will not be display on the index page.
+}
 }
 
 \section{External files}{

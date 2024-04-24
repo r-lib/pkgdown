@@ -86,6 +86,13 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
+#' ## Missing topics
+#'
+#' pkgdown will warn if there are (non-internal) articles that not listed
+#' in the articles index. You can suppress these warnings by listing the
+#' articles in a section with "title: internal" (case sensitive); this section
+#' will not be display on the index page.
+#'
 #' # External files
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
@@ -394,6 +401,9 @@ data_articles_index <- function(pkg = ".") {
       call = caller_env()
     )
   }
+
+  # Remove internal section after missing vignettes check
+  sections <- Filter(function(x) x$title != "internal", sections)
 
   print_yaml(list(
     pagetitle = tr_("Articles"),
