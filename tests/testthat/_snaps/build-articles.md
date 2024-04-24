@@ -3,8 +3,7 @@
     Code
       copy_figures(pkg)
     Message
-      Copying man/figures/kitten.jpg
-      to reference/figures/kitten.jpg
+      Copying man/figures/kitten.jpg to reference/figures/kitten.jpg
 
 ---
 

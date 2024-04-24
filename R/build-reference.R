@@ -207,11 +207,12 @@ build_reference <- function(pkg = ".",
 
 copy_figures <- function(pkg) {
   # copy everything from man/figures to docs/reference/figures
-  src_figures <- path(pkg$src_path, "man", "figures")
-  dst_figures <- path(pkg$dst_path, "reference", "figures")
-  if (file_exists(src_figures)) {
-    dir_copy_to(pkg, src_figures, dst_figures)
-  }
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "man", "figures"),
+    src_root = pkg$src_path,
+    dst_dir = path(pkg$dst_path, "reference", "figures"),
+    dst_root = pkg$dst_path
+  )
 }
 
 examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
@@ -254,11 +255,12 @@ build_reference_index <- function(pkg = ".") {
   create_subdir(pkg, "reference")
 
   # Copy icons, if needed
-  src_icons <- path(pkg$src_path, "icons")
-  dst_icons <- path(pkg$dst_path, "reference", "icons")
-  if (file_exists(src_icons)) {
-    dir_copy_to(pkg, src_icons, dst_icons)
-  }
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "icons"),
+    src_root = pkg$src_path,
+    dst_dir = path(pkg$dst_path, "reference", "icons"),
+    dst_root = pkg$dst_path
+  )
 
   render_page(
     pkg, "reference-index",
