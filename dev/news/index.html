@@ -72,6 +72,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code>as.pkgdown()</code> will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (<a href="https://github.com/r-lib/pkgdown/issues/2076" class="external-link">#2076</a>).</li>
+<li>
 <code><a href="../reference/init_site.html">init_site()</a></code> once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (<a href="https://github.com/r-lib/pkgdown/issues/2445" class="external-link">#2445</a>).</li>
 <li>Very wide words are now automatically broken across lines and hyphenated (when possible) when they’d otherwise create a horizontal scrollbar on mobile (<a href="https://github.com/r-lib/pkgdown/issues/1888" class="external-link">#1888</a>).</li>
 <li>The <code>repo.source.url</code> field no longer requires a trailing slash (<a href="https://github.com/r-lib/pkgdown/issues/2017" class="external-link">#2017</a>).</li>
