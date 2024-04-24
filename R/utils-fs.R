@@ -106,7 +106,7 @@ path_package_pkgdown <- function(path,
     cli::cli_abort(
       c(
         "Template package {.val {package}} is not installed.",
-        i = "Please install before continuing"
+        i = "Please install before continuing."
       ),
       call = error_call
     )
