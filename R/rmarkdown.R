@@ -56,7 +56,8 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     update_html(
       path,
       tweak_rmarkdown_html,
-      input_path = path_dir(input_path),
+      output_dir = path_dir(output_path),
+      input_dir = path_dir(input_path),
       pkg = pkg
     )
   }

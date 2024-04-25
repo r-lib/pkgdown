@@ -37,19 +37,37 @@ tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
   }
 }
 
-tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
+tweak_rmarkdown_html <- function(html, input_dir, output_dir, pkg = list(bs_version = 3)) {
   # Tweak classes of navbar
   toc <- xml2::xml_find_all(html, ".//div[@id='tocnav']//ul")
   xml2::xml_attr(toc, "class") <- "nav nav-pills nav-stacked"
 
-  # Make sure all images use relative paths
   img <- xml2::xml_find_all(html, "//img")
   src <- xml2::xml_attr(img, "src")
+
+  # Drop the logo and any inline images
+  is_ok <- !grepl("^data:", src) & xml2::xml_attr(img, "class", default = "") != "logo"
+  img <- img[is_ok]
+  src <- src[is_ok]
+
+  # Fix up absoluate paths to be relative to input_dir
   abs_src <- is_absolute_path(src)
   if (any(abs_src)) {
     purrr::walk2(
       img[abs_src],
-      path_rel(src[abs_src], input_path),
+      path_rel(src[abs_src], input_dir),
+      xml2::xml_set_attr,
+      attr = "src"
+    )
+  }
+
+  # Fix up paths that are relative to input_dir instead of output_dir
+  input_abs_path <- path_tidy(path(input_dir, src))
+  up_path <- !abs_src & path_has_parent(input_abs_path, output_dir)
+  if (any(up_path)) {
+    purrr::walk2(
+      img[up_path],
+      path_rel(path(input_dir, src[up_path]), output_dir),
       xml2::xml_set_attr,
       attr = "src"
     )
