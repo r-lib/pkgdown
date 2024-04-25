@@ -22,7 +22,7 @@ tweak_anchors <- function(html) {
   xml2::xml_attr(headings, "id") <- new_id
 
   # Insert anchors
-  anchor <- anchor_html(id)
+  anchor <- anchor_html(new_id)
   for (i in seq_along(headings)) {
     heading <- headings[[i]]
     if (length(xml2::xml_contents(heading)) == 0) {
