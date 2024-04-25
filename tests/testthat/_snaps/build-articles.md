@@ -115,6 +115,7 @@
       build_redirects(pkg)
     Message
       -- Building redirects ----------------------------------------------------------
+      Adding redirect from articles/articles/nested.html to articles/nested.html.
 
 # pkgdown deps are included only once in articles
 
