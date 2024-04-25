@@ -4,17 +4,17 @@ pkgdown_sha: ~
 articles:
   customise: customise.html
   how-to-update-released-site: how-to-update-released-site.html
-  jss: test/jss.pdf
+  test/jss: test/jss.pdf
   linking: linking.html
-  long-toc: test/long-toc.html
+  test/long-toc: test/long-toc.html
   metadata: metadata.html
-  pdf: test/pdf.pdf
+  test/pdf: test/pdf.pdf
   pkgdown: pkgdown.html
-  rendering: test/rendering.html
+  test/rendering: test/rendering.html
   search: search.html
-  short: test/short.html
-  widgets: test/widgets.html
-last_built: 2024-04-24T19:43Z
+  test/short: test/short.html
+  test/widgets: test/widgets.html
+last_built: 2024-04-25T13:42Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
