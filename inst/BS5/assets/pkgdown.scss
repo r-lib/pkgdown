@@ -253,7 +253,9 @@ details {
 // Section anchors
 a.anchor {
   display: none;
-  margin-left: 5px;
+  // style like a footnote
+  margin-left: 2px;
+  vertical-align: top;
   width: Min(0.9em, 20px);
   height: Min(0.9em, 20px);
 
@@ -263,19 +265,19 @@ a.anchor {
   background-position: center center;
 }
 h2, h3, h4, h5, h6, dt {
-  &:hover .anchor {display: inline-block;}
+  &:hover .anchor, &:target .anchor {display: inline-block;}
 }
 
 // Give targetted arguments some visual distinction
 dt:target, dt:target + dd {
-  border-left: 0.5rem solid $info;
+  border-left: 0.25rem solid $primary;
   margin-left: -0.75rem;
 }
 dt:target {
-  padding-left: 0.25rem;
+  padding-left: 0.5rem;
 }
 dt:target + dd {
-  padding-left: 1.75rem;
+  padding-left: 2rem;
 }
 
 // orcid badge
