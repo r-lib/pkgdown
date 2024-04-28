@@ -124,6 +124,14 @@
       Reading vignettes/html-deps.Rmd
       Writing `articles/html-deps.html`
 
+# warns about articles missing from index
+
+    Code
+      . <- data_articles_index(pkg)
+    Condition
+      Error:
+      ! 1 vignette missing from index in _pkgdown.yml: "c".
+
 # output is reproducible by default, i.e. 'seed' is respected
 
     Code
