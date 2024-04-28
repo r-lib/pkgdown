@@ -139,10 +139,10 @@ drop-down.
 vignette name, e.g. \code{pack-down.Rmd}.)
 \subsection{Missing topics}{
 
-pkgdown will warn if there are (non-internal) articles that not listed
-in the articles index. You can suppress these warnings by listing the
-articles in a section with "title: internal" (case sensitive); this section
-will not be display on the index page.
+pkgdown will warn if there are (non-internal) articles that aren't listed
+in the articles index. You can suppress such warnings by listing the
+affected articles in a section with \code{title: internal} (case sensitive);
+this section will not be displayed on the index page.
 }
 }
 
