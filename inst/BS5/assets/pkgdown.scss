@@ -3,7 +3,7 @@
 .row > main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
-  
+
   // And that we can break and hypenate very long words
   overflow-wrap: break-word;
   hyphens: auto;
@@ -509,6 +509,186 @@ mark {
 }
 
 /* ---- Dark Mode ---- */
+
+@include media-breakpoint-down(sm) {
+  aside {
+    background-color: var(--bs-tertiary-bg);
+    border-color: var(--bs-border-color);
+  }
+}
+
+@media (min-width: 800px) {
+  .usage {
+    display: flex;
+    * {
+      flex: 1;
+    }
+  }
+}
+
+p a {
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: from-font;
+}
+
+a:focus, a:hover {
+  text-decoration: underline;
+}
+
+.navbar-light .navbar-nav .active>.nav-link {
+  background: #D0E5FC;
+}
+
+table.dataTable.table-bordered {
+  border-collapse: collapse !important;
+}
+
+main h2 {
+  margin-top: 1lh;
+}
+
+.html-widget {
+  margin-bottom: 0;
+}
+
+/* ---- Callouts ---- */
+.callout {
+  position: relative;
+  border: 1px solid gray;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: var(--bs-border-radius);
+}
+
+.callout > :last-child {
+  margin-bottom: 0;
+}
+
+.callout > h3 {
+  position: relative;
+  margin: -1rem;
+  margin-bottom: 10px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.callout > h3 > .anchor {
+  display: none;
+}
+
+.callout.callout-warning {
+  --callout--border-color: #ffd700;
+  --callout--header-bg: #fffae0;
+  --callout--header-color: #473D00;
+
+  [data-bs-theme="dark"]  & {
+    --callout--border-color: #473D00;
+    --callout--header-color: #fffae0;
+    --callout--header-bg: #473D00;
+  }
+
+  border-color: var(--callout--border-color);
+
+  > h3 {
+    color: var(--callout--header-color);
+    background-color: var(--callout--header-bg);
+
+    &:before {
+      content: "!";
+      font-weight: bold;
+      font-size: 1.25rem;
+      font-family: serif;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      background-color: #ffd70080;
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+
+.callout.callout-note {
+  --callout--header-color: #373a3c;
+  --callout--header-bg: #e9f2fc;
+  --callout--border-color: #bdccdc;
+
+  [data-bs-theme="dark"]  & {
+    --callout--header-color: #e9f2fc;
+    --callout--header-bg: #1b425d;
+    --callout--border-color: #1b425d;
+  }
+
+  border-color: var(--callout--border-color);
+
+  > h3 {
+    color: var(--callout--header-color);
+    background-color: var(--callout--header-bg);
+
+    &:before {
+      content: "i";
+      font-weight: bold;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-family: serif;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      background-color: #bdccdc80;
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+
+iframe, .bslib-page-fill {
+  height: 500px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+iframe.resizable {
+  resize: vertical;
+  min-height: 200px;
+}
+
+aside .roles,
+footer {
+  color: rgba(var(--bs-emphasis-color-rgb), 0.6);
+}
+
+/* pkgdown fixes for dark mode */
+// these could probably end up in pkgdown?
+
+.card-footer.bg-white {
+  --bs-bg-opacity: 0.1;
+}
+
+.navbar a {
+  text-decoration: none !important;
+}
+
+.navbar-nav .nav-item>.nav-link:hover,
+#toc>.nav a.nav-link:hover,
+#toc>.nav a.nav-link:focus {
+  color: var(--bs-body-color);
+  background-color: rgba(var(--bs-info-rgb), 0.45);
+}
+
+#toc>.nav a.nav-link.active {
+  [data-bs-theme="dark"] {
+    color: var(--bs-body-bg);
+  }
+  background-color: rgba(var(--bs-info-rgb), 0.75);
+}
+
 [data-bs-theme="dark"] {
   .navbar.bg-info {
     background-color: #333f48 !important;
