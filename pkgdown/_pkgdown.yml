@@ -31,7 +31,7 @@ navbar:
   bg: info
   type: light
   structure:
-    right: [github, dark-mode]
+    right: [search, github, dark-mode]
   components:
     dark-mode:
       href: "#dark-mode"
