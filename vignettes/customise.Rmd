@@ -220,6 +220,11 @@ You can use the dark mode introduced in [Bootstrap v5.3](https://getbootstrap.co
 Modify your `_pkgdown.yml` configuration file with:
 
 ``` yaml
+template:
+  includes:
+    in_header:
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css">
+      
 navbar:
   structure:
     right: [dark-mode]
