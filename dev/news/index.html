@@ -72,6 +72,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/build_articles.html">build_articles()</a></code> now drops a section called “internal”. This allows you to have articles that either aren’t indexed at all or are included manually elsewhere in the navbar (<a href="https://github.com/r-lib/pkgdown/issues/2205" class="external-link">#2205</a>).</li>
+<li>
 <code>as.pkgdown()</code> will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (<a href="https://github.com/r-lib/pkgdown/issues/2076" class="external-link">#2076</a>).</li>
 <li>
 <code><a href="../reference/init_site.html">init_site()</a></code> once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (<a href="https://github.com/r-lib/pkgdown/issues/2445" class="external-link">#2445</a>).</li>
