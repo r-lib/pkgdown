@@ -72,6 +72,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/build_redirects.html">build_redirects()</a></code> is now exported to make it easier to document (<a href="https://github.com/r-lib/pkgdown/issues/2500" class="external-link">#2500</a>).</li>
+<li>
 <code><a href="../reference/build_reference.html">build_reference()</a></code> now automatically renders any tables created by gt (<a href="https://github.com/r-lib/pkgdown/issues/2326" class="external-link">#2326</a>).</li>
 <li>
 <code><a href="../reference/build_articles.html">build_articles()</a></code> now drops a section called “internal”. This allows you to have articles that either aren’t indexed at all or are included manually elsewhere in the navbar (<a href="https://github.com/r-lib/pkgdown/issues/2205" class="external-link">#2205</a>).</li>
@@ -359,7 +361,7 @@
 <li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> now correctly handles links to images in <code>man/figures</code> (which have the form <code>../man/figures</code>) (<a href="https://github.com/r-lib/pkgdown/issues/1472" class="external-link">#1472</a>).</p></li>
 <li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> again sets the <code>theme</code> argument of the document format to <code>NULL</code> when <code>as_is: true</code> but lets users override this via the <code>theme</code> argument of the output format.</p></li>
 <li><p><code><a href="../reference/build_articles.html">build_articles()</a></code> and <code><a href="../reference/build_home.html">build_home()</a></code> now warn if you have images that won’t render on the website because they’re in unsupported directories (<a href="https://github.com/r-lib/pkgdown/issues/1810" class="external-link">#1810</a>). Generally, it’s only safe to refer to figures in <code>man/figures</code> and <code>vignettes</code>.</p></li>
-<li><p>Articles stored in <code>vignettes/articles</code> are moved up one level so that they appear in <code>articles/</code> on the website. Previously, they would appear in <code>articles/articles</code>, so <code>build_redirects()</code> automatically adds redirects for any articles in the <code>vignettes/articles</code> directory (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a> <a href="https://github.com/r-lib/pkgdown/issues/1911" class="external-link">#1911</a>).</p></li>
+<li><p>Articles stored in <code>vignettes/articles</code> are moved up one level so that they appear in <code>articles/</code> on the website. Previously, they would appear in <code>articles/articles</code>, so <code><a href="../reference/build_redirects.html">build_redirects()</a></code> automatically adds redirects for any articles in the <code>vignettes/articles</code> directory (<a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a> <a href="https://github.com/r-lib/pkgdown/issues/1911" class="external-link">#1911</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="html-css-and-js-2-0-0">HTML, CSS and JS<a class="anchor" aria-label="anchor" href="#html-css-and-js-2-0-0"></a></h3>

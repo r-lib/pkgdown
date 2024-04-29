@@ -6,6 +6,7 @@ build_reference()
 build_articles()
 build_tutorials()
 build_news()
+build_redirects()
 
 
 See the documentation for the each function to learn how to control
@@ -17,6 +18,7 @@ build_reference()
 build_articles()
 build_tutorials()
 build_news()
+build_redirects()
 
 
 See the documentation for the each function to learn how to control
@@ -99,6 +101,7 @@ whole site."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.p
 <li><p><code><a href="build_articles.html">build_articles()</a></code></p></li>
 <li><p><code><a href="build_tutorials.html">build_tutorials()</a></code></p></li>
 <li><p><code><a href="build_news.html">build_news()</a></code></p></li>
+<li><p><code><a href="build_redirects.html">build_redirects()</a></code></p></li>
 </ul><p>See the documentation for the each function to learn how to control
 that aspect of the site. This page documents options that affect the
 whole site.</p>
@@ -390,23 +393,6 @@ time (e.g. because behind a firewall or requires auth).</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="redirects">Redirects<a class="anchor" aria-label="anchor" href="#redirects"></a></h2>
-    <p>If you change the structure of your documentation (by renaming vignettes or
-help topics) you can setup redirects from the old content to the new content.
-One or several now-absent pages can be redirected to a new page (or to a new
-section of a new page). This works by creating a html page that performs a
-"meta refresh", which isn't the best way of doing a redirect but works
-everywhere that you might deploy your site.</p>
-<p>The syntax is the following, with old paths on the left, and new paths or
-URLs on the right.</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">redirects</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"articles/new-vignette-name.html"</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre><p></p></div>
-<p>If for some reason you choose to redirect an existing page make sure to
-exclude it from the search index, see <code><a href="build_search.html">?build_search</a></code>.</p>
-    </div>
     <div class="section level2">
     <h2 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a></h2>
     <p>Users with limited internet connectivity can disable CRAN checks by setting
