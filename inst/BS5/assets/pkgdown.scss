@@ -435,6 +435,12 @@ pre {
   padding: 1rem 0.5rem;
 }
 
+// Spacing tweaks for gt table
+pre div.gt-table {
+  white-space: normal;
+  margin-top: 1rem;
+}
+
 // "Pop" code out of page margins on small screens to give a little more room
 @include media-breakpoint-down(sm) {
   // div.section div.sourceCode pre
