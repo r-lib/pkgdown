@@ -45,6 +45,7 @@ Suggests:
     diffviewer,
     evaluate,
     gert,
+    gt,
     htmltools,
     htmlwidgets,
     knitr,
