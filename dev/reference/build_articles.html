@@ -139,45 +139,45 @@ you are primarily working on the text of an article.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pkg</dt>
+    <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
 
 
-<dt>quiet</dt>
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>Set to <code>FALSE</code> to display output of knitr and
 pandoc. This is useful when debugging.</p></dd>
 
 
-<dt>lazy</dt>
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
 <dd><p>If <code>TRUE</code>, will only re-build article if input file has been
 modified more recently than the output file.</p></dd>
 
 
-<dt>seed</dt>
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed used to initialize random number generation in order to
 make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
-<dt>override</dt>
+<dt id="arg-override">override<a class="anchor" aria-label="anchor" href="#arg-override"></a></dt>
 <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
 
 
-<dt>preview</dt>
+<dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
 <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
 
 
-<dt>name</dt>
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>Name of article to render. This should be either a path
 relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></dd>
 
 
-<dt>data</dt>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>Additional data to pass on to template.</p></dd>
 
 
-<dt>new_process</dt>
+<dt id="arg-new-process">new_process<a class="anchor" aria-label="anchor" href="#arg-new-process"></a></dt>
 <dd><p>Build the article in a clean R process? The default,
 <code>TRUE</code>, ensures that every article is build in a fresh environment, but
 you may want to set it to <code>FALSE</code> to make debugging easier.</p></dd>

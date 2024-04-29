@@ -116,48 +116,48 @@ website to any desired branch.</p></li>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pkg</dt>
+    <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
 
 
-<dt>install</dt>
+<dt id="arg-install">install<a class="anchor" aria-label="anchor" href="#arg-install"></a></dt>
 <dd><p>Optionally, opt-out of automatic installation. This is
 necessary if the package you're documenting is a dependency of pkgdown</p></dd>
 
 
-<dt>tarball</dt>
+<dt id="arg-tarball">tarball<a class="anchor" aria-label="anchor" href="#arg-tarball"></a></dt>
 <dd><p>The location of the built package tarball. The default Travis
 configuration for R packages sets <code>PKG_TARBALL</code> to this path.</p></dd>
 
 
-<dt>ssh_id</dt>
+<dt id="arg-ssh-id">ssh_id<a class="anchor" aria-label="anchor" href="#arg-ssh-id"></a></dt>
 <dd><p>The private id to use, a base64 encoded content of the private
 pem file. This should <em>not</em> be your personal private key. Instead create a
 new keypair specifically for deploying the site. The easiest way is to use
 <code>travis::use_travis_deploy()</code>.</p></dd>
 
 
-<dt>commit_message</dt>
+<dt id="arg-commit-message">commit_message<a class="anchor" aria-label="anchor" href="#arg-commit-message"></a></dt>
 <dd><p>The commit message to be used for the commit.</p></dd>
 
 
-<dt>clean</dt>
+<dt id="arg-clean">clean<a class="anchor" aria-label="anchor" href="#arg-clean"></a></dt>
 <dd><p>Clean all files from old site.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Print verbose output</p></dd>
 
 
-<dt>host</dt>
+<dt id="arg-host">host<a class="anchor" aria-label="anchor" href="#arg-host"></a></dt>
 <dd><p>The GitHub host url.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
 
 
-<dt>repo_slug</dt>
+<dt id="arg-repo-slug">repo_slug<a class="anchor" aria-label="anchor" href="#arg-repo-slug"></a></dt>
 <dd><p>The <code>user/repo</code> slug for the repository.</p></dd>
 
 </dl></div>

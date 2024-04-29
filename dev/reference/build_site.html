@@ -126,39 +126,39 @@ whole site.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pkg</dt>
+    <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
 
 
-<dt>examples</dt>
+<dt id="arg-examples">examples<a class="anchor" aria-label="anchor" href="#arg-examples"></a></dt>
 <dd><p>Run examples?</p></dd>
 
 
-<dt>run_dont_run</dt>
+<dt id="arg-run-dont-run">run_dont_run<a class="anchor" aria-label="anchor" href="#arg-run-dont-run"></a></dt>
 <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
 
 
-<dt>seed</dt>
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed used to initialize random number generation in order to
 make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
-<dt>lazy</dt>
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
 <dd><p>If <code>TRUE</code>, will only rebuild articles and reference pages
 if the source is newer than the destination.</p></dd>
 
 
-<dt>override</dt>
+<dt id="arg-override">override<a class="anchor" aria-label="anchor" href="#arg-override"></a></dt>
 <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
 
 
-<dt>preview</dt>
+<dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
 <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
 
 
-<dt>devel</dt>
+<dt id="arg-devel">devel<a class="anchor" aria-label="anchor" href="#arg-devel"></a></dt>
 <dd><p>Use development or deployment process?</p>
 <p>If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
@@ -171,18 +171,18 @@ outputs when you building the complete site; <code><a href="build_reference.html
 rapidly iterate during development.</p></dd>
 
 
-<dt>new_process</dt>
+<dt id="arg-new-process">new_process<a class="anchor" aria-label="anchor" href="#arg-new-process"></a></dt>
 <dd><p>If <code>TRUE</code>, will run <code>build_site()</code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></dd>
 
 
-<dt>install</dt>
+<dt id="arg-install">install<a class="anchor" aria-label="anchor" href="#arg-install"></a></dt>
 <dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
 
 
-<dt>document</dt>
+<dt id="arg-document">document<a class="anchor" aria-label="anchor" href="#arg-document"></a></dt>
 <dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
 
 </dl></div>

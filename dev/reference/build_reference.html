@@ -100,51 +100,51 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pkg</dt>
+    <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
 
 
-<dt>lazy</dt>
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
 <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
 rapidly prototype. It is set to <code>FALSE</code> by <code><a href="build_site.html">build_site()</a></code>.</p></dd>
 
 
-<dt>examples</dt>
+<dt id="arg-examples">examples<a class="anchor" aria-label="anchor" href="#arg-examples"></a></dt>
 <dd><p>Run examples?</p></dd>
 
 
-<dt>run_dont_run</dt>
+<dt id="arg-run-dont-run">run_dont_run<a class="anchor" aria-label="anchor" href="#arg-run-dont-run"></a></dt>
 <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
 
 
-<dt>seed</dt>
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed used to initialize random number generation in order to
 make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
 
-<dt>override</dt>
+<dt id="arg-override">override<a class="anchor" aria-label="anchor" href="#arg-override"></a></dt>
 <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
 
 
-<dt>preview</dt>
+<dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
 <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
 
 
-<dt>devel</dt>
+<dt id="arg-devel">devel<a class="anchor" aria-label="anchor" href="#arg-devel"></a></dt>
 <dd><p>Determines how code is loaded in order to run examples.
 If <code>TRUE</code> (the default), assumes you are in a live development
 environment, and loads source package with <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code>.
 If <code>FALSE</code>, uses the installed version of the package.</p></dd>
 
 
-<dt>document</dt>
+<dt id="arg-document">document<a class="anchor" aria-label="anchor" href="#arg-document"></a></dt>
 <dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
 
 
-<dt>topics</dt>
+<dt id="arg-topics">topics<a class="anchor" aria-label="anchor" href="#arg-topics"></a></dt>
 <dd><p>Build only specified topics. If supplied, sets <code>lazy</code>
 and <code>preview</code> to <code>FALSE</code>.</p></dd>
 
