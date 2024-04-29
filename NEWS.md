@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Anchors are displayed when they're the target of a link.
+* `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
 * `build_redirects()` is now exported to make it easier to document (#2500).
 * `build_reference()` now automatically renders any tables created by gt (#2326).
 * `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).

@@ -4,7 +4,14 @@
 \alias{a}
 \title{A}
 \usage{
-a()
+a(a, b, c)
+}
+\arguments{
+\item{a}{a letter}
+
+\item{b}{a a number}
+
+\item{c}{a logical}
 }
 \description{
 A
