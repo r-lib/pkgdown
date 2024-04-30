@@ -22,7 +22,6 @@ See \code{vignette("customise")} for the various ways you can customise the
 display of your site.
 }
 \section{Build-ignored files}{
-
 We recommend using \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown()}} to build-ignore \verb{docs/} and
 \verb{_pkgdown.yml}. If use another directory, or create the site manually,
 you'll need to add them to \code{.Rbuildignore} yourself. A \code{NOTE} about

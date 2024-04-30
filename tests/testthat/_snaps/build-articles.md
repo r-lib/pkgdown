@@ -1,21 +1,3 @@
-# links to man/figures are automatically relocated
-
-    Code
-      copy_figures(pkg)
-    Message
-      Copying man/figures/kitten.jpg
-      to reference/figures/kitten.jpg
-
----
-
-    Code
-      build_articles(pkg, lazy = FALSE)
-    Message
-      -- Building articles -----------------------------------------------------------
-      Writing `articles/index.html`
-      Reading vignettes/kitten.Rmd
-      Writing `articles/kitten.html`
-
 # warns about missing images
 
     Code
@@ -124,6 +106,14 @@
     Message
       Reading vignettes/html-deps.Rmd
       Writing `articles/html-deps.html`
+
+# warns about articles missing from index
+
+    Code
+      . <- data_articles_index(pkg)
+    Condition
+      Error:
+      ! 1 vignette missing from index in _pkgdown.yml: "c".
 
 # output is reproducible by default, i.e. 'seed' is respected
 

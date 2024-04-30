@@ -7,7 +7,7 @@
 #' `inst/tutorials` and `vignettes/tutorials`. Alternatively, you can
 #' list in `_pkgdown.yml` as described below.
 #'
-#' @section YAML config:
+#' # YAML config
 #' To override the default discovery process, you can provide a `tutorials`
 #' section. This should be a list where each element specifies:
 #'
@@ -29,6 +29,7 @@
 #' @export
 build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+
   tutorials <- pkg$tutorials
 
   if (nrow(tutorials) == 0) {

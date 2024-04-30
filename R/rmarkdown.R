@@ -36,11 +36,11 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     path <- withCallingHandlers(
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
       error = function(cnd) {
-        lines <- strsplit(cnd$stderr, "\r?\n")[[1]]
+        lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
         cli::cli_abort(
           c(
-            x = "Failed to render RMarkdown document.",
-            set_names(lines, " ")
+            "!" = "Failed to render {.path {input}}.",
+            set_names(lines, "x")
           ),
           parent = cnd$parent %||% cnd,
           trace = cnd$parent$trace,
@@ -108,7 +108,10 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     #   envir$.Random.seed <- .GlobalEnv$.Random.seed
     # }
   }
- 
+  # Ensure paths from output are not made relative to input
+  # https://github.com/yihui/knitr/issues/2171
+  options(knitr.graphics.rel_path = FALSE)
+
   rmarkdown::render(envir = globalenv(), ...)
 }
 

@@ -82,6 +82,15 @@ NULL
 #' text(2, 5, "Hello", srt = 30, cex = 2)
 NULL
 
+#' Test case: tables
+#'
+#' @name test-tables
+#' @keywords internal
+#' @family tests
+#' @examples
+#' gt::gt(head(mtcars))
+NULL
+
 #' Test case: don't
 #'
 #' @name test-dont
