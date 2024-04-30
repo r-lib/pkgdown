@@ -5,21 +5,28 @@ test_that("can recognise intro variants", {
   expect_true(article_is_intro("articles/pack-age", "pack.age"))
 })
 
-test_that("links to man/figures are automatically relocated", {
+test_that("image links relative to output", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
-  pkg <- local_pkgdown_site(test_path("assets/man-figures"))
+  pkg <- local_pkgdown_site(test_path("assets/articles-images"))
 
-  expect_snapshot(copy_figures(pkg))
-  expect_snapshot(build_articles(pkg, lazy = FALSE))
+  suppressMessages(copy_figures(pkg))
+  suppressMessages(build_article("kitten", pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
   src <- xpath_attr(html, "//img", "src")
 
   expect_equal(src, c(
+    # knitr::include_graphics()
     "../reference/figures/kitten.jpg",
+    "another-kitten.jpg",
+    # rmarkdown image 
     "../reference/figures/kitten.jpg",
-    "another-kitten.jpg"
+    "another-kitten.jpg",
+    # magick::image_read()
+    "kitten_files/figure-html/magick-1.png",
+    # figure
+    "kitten_files/figure-html/plot-1.jpg"
   ))
 
   # And files aren't copied

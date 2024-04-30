@@ -62,12 +62,13 @@ tweak_rmarkdown_html <- function(html, input_dir, output_dir, pkg = list(bs_vers
   }
 
   # Fix up paths that are relative to input_dir instead of output_dir
-  input_abs_path <- path_tidy(path(input_dir, src))
+  output_dir <- path_real(output_dir)
+  input_abs_path <- purrr::map_chr(src, ~ path_abs(., input_dir))
   up_path <- !abs_src & path_has_parent(input_abs_path, output_dir)
   if (any(up_path)) {
     purrr::walk2(
       img[up_path],
-      path_rel(path(input_dir, src[up_path]), output_dir),
+      path_rel(path_abs(src[up_path], input_dir), output_dir),
       xml2::xml_set_attr,
       attr = "src"
     )
