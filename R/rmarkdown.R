@@ -29,7 +29,10 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     BSTINPUTS = bst_paths(input_path),
     TEXINPUTS = tex_paths(input_path),
     BIBINPUTS = bib_paths(input_path),
-    R_CLI_NUM_COLORS = 256
+    R_CLI_NUM_COLORS = 256,
+    # Ensure paths from output are not made relative to input
+    # https://github.com/yihui/knitr/issues/2171
+    R_KNITR_OPTIONS = "knitr.graphics.rel_path=FALSE"
   )
 
   if (new_process) {
@@ -108,7 +111,7 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     #   envir$.Random.seed <- .GlobalEnv$.Random.seed
     # }
   }
- 
+
   rmarkdown::render(envir = globalenv(), ...)
 }
 
