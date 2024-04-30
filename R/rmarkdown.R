@@ -56,8 +56,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     update_html(
       path,
       tweak_rmarkdown_html,
-      output_dir = path_dir(output_path),
-      input_dir = path_dir(input_path),
+      input_path = path_dir(input_path),
       pkg = pkg
     )
   }
@@ -109,7 +108,8 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     #   envir$.Random.seed <- .GlobalEnv$.Random.seed
     # }
   }
- 
+  options(knitr.graphics.rel_path = FALSE)
+
   rmarkdown::render(envir = globalenv(), ...)
 }
 
