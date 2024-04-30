@@ -109,7 +109,7 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     # }
   }
   # Ensure paths from output are not made relative to input
-  #µ https://github.com/yihui/knitr/issues/2171
+  # https://github.com/yihui/knitr/issues/2171
   options(knitr.graphics.rel_path = FALSE)
 
   rmarkdown::render(envir = globalenv(), ...)
