@@ -125,7 +125,7 @@ test_that("h1 section headings adjusted to h2 (and so on)", {
       <h1>2</h1>
     </div>
   ")
-  tweak_rmarkdown_html(html, input_dir = ".", output_dir = ".")
+  tweak_rmarkdown_html(html)
   expect_equal(xpath_text(html, ".//h1"), "Title")
   expect_equal(xpath_text(html, ".//h2"), c("1", "2"))
   expect_equal(xpath_text(html, ".//h3"), "1.1")
