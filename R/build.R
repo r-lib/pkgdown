@@ -56,9 +56,11 @@
 #'   * four version components: development.
 #'   * everything else -> release.
 #'
-#' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring. Development badges are
-#'   not shown in the sidebar (see `?build_home`).
+#' * **release** (`mode: release`), the default. Site is written to `docs/`
+#'   and styled like a released package, even if the content is for an 
+#'   unreleased or development version. Version in navbar gets the default 
+#'   colouring. Development badges are not shown in the sidebar 
+#'   (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are

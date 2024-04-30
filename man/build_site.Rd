@@ -106,8 +106,8 @@ need to set the development \code{mode}:
 }\if{html}{\out{</div>}}
 \subsection{Setting development mode}{
 
-The development \code{mode} of a site controls where the site is built
-and the styling of the site (i.e. the colour of the package version in the
+The development \code{mode} of a site controls where the built site is placed
+and how it is styled (i.e. the colour of the package version in the
 navbar, the version tooltip), and whether or not the site is indexed by
 search engines. There are four possible modes:
 \itemize{
@@ -117,9 +117,11 @@ search engines. There are four possible modes:
 \item four version components: development.
 \item everything else -> release.
 }
-\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
-Version in navbar gets the default colouring. Development badges are
-not shown in the sidebar (see \code{?build_home}).
+\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}
+and styled like a released package, even if the content is for an
+unreleased or development version. Version in navbar gets the default
+colouring. Development badges are not shown in the sidebar
+(see \code{?build_home}).
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The \code{noindex} meta tag
