@@ -45,8 +45,8 @@
 #'
 #' ### Setting development mode
 #'
-#' The development `mode` of a site controls where the site is built
-#' and the styling of the site (i.e. the colour of the package version in the 
+#' The development `mode` of a site controls where the built site is placed
+#' and how it is styled (i.e. the colour of the package version in the 
 #' navbar, the version tooltip), and whether or not the site is indexed by 
 #' search engines. There are four possible modes:
 #'
