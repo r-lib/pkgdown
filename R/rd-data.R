@@ -65,7 +65,7 @@ as_data.tag_section <- function(x, ...) {
 as_data.tag_arguments <- function(x, ...) {
   list(
     title = tr_("Arguments"),
-    contents = describe_contents(x, ...)
+    contents = describe_contents(x, ..., id_prefix = "arg-")
   )
 }
 
@@ -77,7 +77,7 @@ as_data.tag_value <- function(x, ...) {
   )
 }
 
-describe_contents <- function(x, ...) {
+describe_contents <- function(x, ..., id_prefix = NULL) {
   # Drop pure whitespace nodes between items
   is_ws <- purrr::map_lgl(x, is_whitespace)
 
@@ -90,7 +90,7 @@ describe_contents <- function(x, ...) {
     if (length(x) == 0) {
       NULL
     } else if (any(purrr::map_lgl(x, inherits, "tag_item"))) {
-      paste0("<dl>\n", parse_descriptions(x, ...), "</dl>")
+      paste0("<dl>\n", parse_descriptions(x, ..., id_prefix = id_prefix), "</dl>")
     } else {
       flatten_para(x, ...)
     }

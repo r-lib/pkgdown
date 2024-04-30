@@ -206,6 +206,38 @@ test_that("pkgdown deps are included only once in articles", {
   expect_length(bs_css_href, 1)
 })
 
+test_that("warns about articles missing from index", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
+    articles:
+    - title: External
+      contents: [a, b]
+  ")
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_snapshot(. <- data_articles_index(pkg), error = TRUE)
+})
+
+test_that("internal articles aren't included and don't trigger warning", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
+    articles:
+    - title: External
+      contents: [a, b]
+    - title: internal
+      contents: c
+  ")
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_no_error(index <- data_articles_index(pkg))
+  expect_length(index$sections, 1)
+  expect_length(index$sections[[1]]$contents, 2)
+})
+
 test_that("check doesn't include getting started vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
   getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))

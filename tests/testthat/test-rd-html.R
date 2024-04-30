@@ -355,6 +355,14 @@ test_that("\\describe items can contain multiple paragraphs", {
   expect_snapshot_output(cat(out, sep = "\n"))
 })
 
+test_that("can add ids to descriptions", {
+  out <- rd2html("\\describe{
+    \\item{abc}{Contents 1}
+    \\item{xyz}{Contents 2}
+  }", id_prefix = "foo")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
 test_that("\\describe items can contain multiple paragraphs", {
   out <- rd2html("\\describe{
     \\item{Label}{
