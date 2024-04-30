@@ -37,17 +37,6 @@ test_that("Data authors can accept different filtering", {
   expect_length(data_authors(pkg, roles = "cre")$main, 1)
 })
 
-test_that("Text can be added", {
-  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
-  expect_null(data_authors_page(pkg)$after)
-  expect_null(data_authors_page(pkg)$before)
-
-  pkg$meta$authors$before <- "Dream team:"
-  pkg$meta$authors$after <- "You are welcome!"
-  expect_equal(data_authors_page(pkg)$before, "<p>Dream team:</p>")
-  expect_equal(data_authors_page(pkg)$after, "<p>You are welcome!</p>")
-})
-
 test_that("data_home_sidebar_authors() works with text", {
   pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
   pkg$meta$authors$sidebar$before <- "yay"

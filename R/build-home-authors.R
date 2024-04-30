@@ -2,6 +2,13 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   pkg <- as_pkgdown(pkg)
   author_info <- pkg$meta$authors %||% list()
 
+  inst_path <- path(pkg$src_path, "inst", "AUTHORS")
+  if (file_exists(inst_path)) {
+    inst <- read_lines(inst_path)
+  } else {
+    inst <- NULL
+  }
+
   all <- pkg %>%
     pkg_authors() %>%
     purrr::map(author_list, author_info, pkg = pkg)
@@ -22,7 +29,8 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   print_yaml(list(
     all = all,
     main = main,
-    needs_page = more_authors || comments
+    inst = inst,
+    needs_page = more_authors || comments || !is.null(inst)
   ))
 }
 
@@ -70,18 +78,6 @@ data_home_sidebar_authors <- function(pkg = ".") {
   }
 
   sidebar_section(tr_("Developers"), bullets)
-}
-
-data_authors_page <- function(pkg) {
-  data <- list(
-    pagetitle = tr_("Authors"),
-    authors = data_authors(pkg)$all
-  )
-
-  data$before <- markdown_text_block(pkg$meta$authors$before)
-  data$after <- markdown_text_block(pkg$meta$authors$after)
-
-  return(data)
 }
 
 author_name <- function(x, authors, pkg) {
