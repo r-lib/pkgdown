@@ -29,6 +29,7 @@ build_sitemap <- function(pkg = ".") {
     return()
   }
 
+  cli::cli_rule("Building sitemap")
   if (pkg$development$in_dev && pkg$bs_version > 3) {
     url <- paste0(url, pkg$prefix)
   }
@@ -38,8 +39,8 @@ build_sitemap <- function(pkg = ".") {
   doc <- xml2::read_xml(
     paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   )
-
-  url_nodes <- purrr::map(urls, url_node)
+  
+  url_nodes <- unwrap_purrr_error(purrr::map(urls, url_node))
   for (url in url_nodes) {
     xml2::xml_add_child(doc, url)
   }
@@ -53,8 +54,13 @@ build_sitemap <- function(pkg = ".") {
 }
 
 url_node <- function(url) {
-  xml2::read_xml(
-    paste0("<url><loc>", url, "</loc></url>")
+  withCallingHandlers(
+    xml2::read_xml(
+      paste0("<url><loc>", url, "</loc></url>")
+    ),
+    error = function(err) {
+      cli::cli_abort("Failed to wrap URL {.str {url}}", parent = err)
+    }
   )
 }
 
@@ -62,7 +68,7 @@ url_node <- function(url) {
 #'
 #' Build a JSON file encompassing all HTML pages, for use by the search script.
 #'
-#' @section YAML config:
+#' # YAML config
 #' You can exclude some paths from the search index.
 #' Below we exclude the changelog from the search index.
 #'
@@ -70,7 +76,7 @@ url_node <- function(url) {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Debugging and local testing:
+#' # Debugging and local testing
 #'
 #' Locally (as opposed to on GitHub Pages or Netlify for instance),
 #' search won't work if you simply use pkgdown preview of the static files.

@@ -9,12 +9,13 @@
 #' * [build_articles()]
 #' * [build_tutorials()]
 #' * [build_news()]
+#' * [build_redirects()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the
 #' whole site.
 #'
-#' @section General config:
+#' # General config
 #' *  `destination` controls where the site will be generated, defaulting to
 #'    `docs/`. Paths are relative to the package root.
 #'
@@ -33,7 +34,18 @@
 #' *  `title` overrides the default site title, which is the package name.
 #'    It's used in the page title and default navbar.
 #'
-#' @section Development mode:
+#' # Navbar and footer
+#'
+#' The `navbar` and `footer` fields control the appearance of the navbar
+#' footer which appear on every page. Learn more about these fields in 
+#' `vignette("customise")`.
+#'
+#' # Search
+#'
+#' The `search` field controls the built-in search and is
+#' documented in `vignette("search")`.
+#'
+#' # Development mode
 #' The `development` field allows you to generate different sites for the
 #' development and released versions of your package. To use it, you first
 #' need to set the development `mode`:
@@ -122,22 +134,13 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' ## Page layout
-#'
-#' The `navbar`, `footer`, and `sidebar` fields control the appearance
-#' of the navbar, footer, and sidebar respectively. They have many individual
-#' options which are documented in the **Layout** section of
-#' `vignette("customise")`.
-#'
-#' @section Search:
-#' The `search` field controls the built-in search and is
-#' documented in `vignette("search")`.
-#'
-#' @section Template:
+#' # Template
 #' The `template` field is mostly used to control the appearance of the site.
-#' See `vignette("customise")` for details.
+#' See `vignette("customise")` for details. But it's also used to control
 #'
-#' There are two other `template` fields that control other aspects of the
+#' ## Other aspects
+#'
+#' There are a few other `template` fields that control other aspects of the
 #' site:
 #'
 #' *   `noindex: true` will suppress indexing of your pages by search engines:
@@ -166,7 +169,7 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
-#' @section Analytics:
+#' ## Analytics
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
@@ -212,8 +215,8 @@
 #'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
 #'
+#' # Source repository
 #'
-#' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
@@ -260,7 +263,7 @@
 #'   branch: devel
 #' ```
 #'
-#' @section Deployment (`deploy`):
+#' # Deployment (`deploy`)
 #' There is a single `deploy` field
 #'
 #' *  `install_metadata` allows you to install package index metadata into
@@ -274,11 +277,7 @@
 #'      install_metadata: true
 #'    ```
 #'
-#' @section Redirects:
-#' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
-#' ```
-#'
-#' @section Options:
+#' # Options
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used
@@ -330,6 +329,9 @@ build_site <- function(pkg = ".",
                        install = !devel,
                        document = "DEPRECATED") {
   pkg <- as_pkgdown(pkg, override = override)
+  check_bool(devel)
+  check_bool(new_process)
+  check_bool(install)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(

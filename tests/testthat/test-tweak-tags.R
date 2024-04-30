@@ -198,6 +198,18 @@ test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
   )
 })
 
+
+test_that("tweak_img_src() updates img and source tags", {
+  html <- xml2::read_html('<body>
+    <source srcset="man/figures/foo.png" />
+    <img src="man/figures/bar.png" />
+  </body>')
+
+  tweak_img_src(html)
+  expect_equal(xpath_attr(html, ".//img", "src"), "reference/figures/bar.png")
+  expect_equal(xpath_attr(html, ".//source", "srcset"), "reference/figures/foo.png")
+})
+
 test_that("tweak_img_src() doesn't modify absolute links", {
   html <- xml2::read_html('<body>
     <img src="https://raw.githubusercontent.com/OWNER/REPO/main/vignettes/foo" />
@@ -211,7 +223,6 @@ test_that("tweak_img_src() doesn't modify absolute links", {
     urls_before
   )
 })
-
 
 # stripped divs etc -------------------------------------------------------
 

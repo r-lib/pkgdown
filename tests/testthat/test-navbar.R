@@ -82,18 +82,20 @@ test_that("data_navbar() works by default", {
 
 test_that("data_navbar() can re-order default elements", {
   pkg <- local_pkgdown_site(meta = "
+    template: 
+      bootstrap: 5
     repo:
       url:
         home: https://github.com/r-lib/pkgdown/
 
     navbar:
       structure:
-        left: [github, reference]
-        right: news
+        left: [github, search]
+        right: [news]
   ")
   file.create(file.path(pkg$src_path, "NEWS.md"))
 
-  expect_snapshot(data_navbar(pkg))
+  expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
 
 test_that("data_navbar() can remove elements", {
@@ -137,6 +139,7 @@ test_that("data_navbar() errors with bad left/right", {
     navbar:
       right: [github]
   ")
+  file.create(path(pkg$src_path, "_pkgdown.yml"))
 
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })
@@ -206,5 +209,11 @@ test_that("can specific link target", {
       list(menu = list(text = "text", href = "href", target = '_blank')),
       depth = 1
     )
+  })
+})
+
+test_that("can render search helper", {
+  expect_snapshot({
+    bs4_navbar_links_tags(list(menu = list(search = TRUE)))
   })
 })

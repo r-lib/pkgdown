@@ -89,7 +89,6 @@ data_template <- function(pkg = ".", depth = 0L) {
   out$translate <- list(
     skip = tr_("Skip to contents"),
     toggle_nav = tr_("Toggle navigation"),
-    search_for = tr_("Search for"),
     on_this_page = tr_("On this page"),
     source = tr_("Source"),
     abstract = tr_("Abstract"),

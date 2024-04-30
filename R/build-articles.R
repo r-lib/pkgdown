@@ -19,7 +19,7 @@
 #' package, not the current source version. This makes iteration quicker when
 #' you are primarily working on the text of an article.
 #'
-#' @section Index and navbar:
+#' # Index and navbar
 #' You can control the articles index and navbar with a `articles` field in
 #' your `_pkgdown.yml`. If you use it, pkgdown will check that all articles
 #' are included, and will error if you have missed any.
@@ -77,7 +77,7 @@
 #' the navbar, it will link directly to the articles index instead of
 #' providing a drop-down.
 #'
-#' @section Get started:
+#' # Get started
 #' Note that a vignette with the same name as the package (e.g.,
 #' `vignettes/pkgdown.Rmd` or `vignettes/articles/pkgdown.Rmd`) automatically
 #' becomes a top-level "Get started" link, and will not appear in the articles
@@ -86,7 +86,14 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
-#' @section External files:
+#' ## Missing topics
+#'
+#' pkgdown will warn if there are (non-internal) articles that aren't listed 
+#' in the articles index. You can suppress such warnings by listing the 
+#' affected articles in a section with `title: internal` (case sensitive); 
+#' this section will not be displayed on the index page.
+#'
+#' # External files
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
 #' assumption when most vignettes were PDFs) and only copies files explicitly
@@ -107,7 +114,7 @@
 #' Note that you can not use the `fig.path` to change the output directory of
 #' generated figures as its default value is a strong assumption of rmarkdown.
 #'
-#' @section Embedding Shiny apps:
+#' # Embedding Shiny apps
 #' If you would like to embed a Shiny app into an article, the app will have
 #' to be hosted independently, (e.g. <https://www.shinyapps.io>). Then, you
 #' can embed the app into your article using an `<iframe>`, e.g.
@@ -116,7 +123,7 @@
 #' See <https://github.com/r-lib/pkgdown/issues/838#issuecomment-430473856> for
 #' some hints on how to customise the appearance with CSS.
 #'
-#' @section Output formats:
+#' # Output formats
 #' By default, pkgdown builds all articles using the
 #' [rmarkdown::html_document()] `output` format, ignoring whatever is set in
 #' your YAML metadata. This is necessary because pkgdown has to integrate the
@@ -148,14 +155,14 @@
 #'
 #' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
-#' @inheritSection build_reference Figures
-#'
-#' @section Suppressing vignettes:
+#' # Suppressing vignettes
 #' If you want articles that are not vignettes, either put them in
 #' subdirectories or list in `.Rbuildignore`. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
+#'
+#' @inheritSection build_reference Figures
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and
@@ -174,6 +181,9 @@ build_articles <- function(pkg = ".",
                            override = list(),
                            preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(quiet)
+  check_bool(lazy)
+  check_number_whole(seed, allow_null = TRUE)
 
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
@@ -182,14 +192,14 @@ build_articles <- function(pkg = ".",
   cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
-  purrr::walk(
+  unwrap_purrr_error(purrr::walk(
     pkg$vignettes$name,
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
-  )
+  ))
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -248,10 +258,10 @@ build_article <- function(name,
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   default_data <- list(
-    pagetitle = front$title,
+    pagetitle = escape_html(front$title),
     toc = toc <- front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
-    source = repo_source(pkg, path_rel(input, pkg$src_path)),
+    source = repo_source(pkg, input),
     filename = path_file(input),
     output_file = output_file,
     as_is = as_is
@@ -297,7 +307,8 @@ build_article <- function(name,
     output_options = options,
     seed = seed,
     new_process = new_process,
-    quiet = quiet
+    quiet = quiet,
+    call = quote(build_article())
   )
 }
 
@@ -390,6 +401,9 @@ data_articles_index <- function(pkg = ".") {
       call = caller_env()
     )
   }
+
+  # Remove internal section after missing vignettes check
+  sections <- Filter(function(x) x$title != "internal", sections)
 
   print_yaml(list(
     pagetitle = tr_("Articles"),

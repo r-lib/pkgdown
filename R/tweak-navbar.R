@@ -24,7 +24,7 @@ navbar_links_haystack <- function(html, pkg, path) {
   get_hrefs <- function(nav_item, pkg = pkg) {
     href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
 
-    if (href != "#") {
+    if (!is.na(href) && href != "#") {
       links <- href
     } else {
       # links in a drop-down
