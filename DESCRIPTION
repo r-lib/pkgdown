@@ -50,6 +50,7 @@ Suggests:
     htmlwidgets,
     knitr,
     lifecycle,
+    magick,
     methods,
     openssl,
     pkgload (>= 1.0.2),
