@@ -4,7 +4,7 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  msg_flds <- pkgdown_field(pkg, missing_components, fmt = FALSE, cfg = FALSE)
+  msg_flds <- pkgdown_field(missing_components)
 
   cli::cli_abort(c(
     "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
@@ -22,7 +22,7 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    fld <- pkgdown_field(pkg, where, fmt = TRUE)
+    fld <- pkgdown_field(where, fmt = TRUE)
     cli::cli_abort(
       paste0(fld, " must be a character vector."),
       call = caller_env()
@@ -30,27 +30,14 @@ yaml_character <- function(pkg, where) {
   }
 }
 
-pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
-
+pkgdown_field <- function(fields, fmt = FALSE) {
   if (!is.list(fields)) fields <- list(fields)
 
   flds <- purrr::map_chr(fields, ~ paste0(.x, collapse = "."))
   if (fmt) {
     flds <- paste0("{.field ", flds, "}")
   }
-
-  if (cfg) {
-    if (fmt) {
-      config_path <- cli::format_inline(config_path(pkg))
-    } else {
-      config_path <- pkgdown_config_relpath(pkg)
-    }
-
-    paste0(flds, " in ", config_path)
-  } else {
-
-    flds
-  }
+  flds
 }
 
 config_path <- function(pkg) {

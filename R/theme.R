@@ -134,9 +134,9 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
     sprintf(
       "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
       theme,
-      pkgdown_field(pkg, field),
+      pkgdown_field(field),
       bs_version,
-      pkgdown_field(pkg, c("template", "bootstrap"))
+      pkgdown_field(c("template", "bootstrap"))
     ),
     x = "Edit settings in {config_path(pkg)}"
   ), call = caller_env())
