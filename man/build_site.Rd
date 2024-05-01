@@ -116,21 +116,22 @@ need to set the development \code{mode}:
 }\if{html}{\out{</div>}}
 \subsection{Setting development mode}{
 
-The development \code{mode} of a site controls where the site is built,
-the colour of the package version in the navbar, the version tooltip,
-and whether or not the site is indexed by search engines. There are
-four possible modes:
+The development \code{mode} of a site controls where the built site is placed
+and how it is styled (i.e. the colour of the package version in the
+navbar, the version tooltip), and whether or not the site is indexed by
+search engines. There are four possible modes:
 \itemize{
-\item \strong{automatic} (\code{mode: auto}): automatically determines the mode based on the
-version number:
+\item \strong{automatic} (\code{mode: auto}): determines the mode based on the version:
 \itemize{
 \item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased.
 \item four version components: development.
 \item everything else -> release.
 }
-\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
-Version in navbar gets the default colouring. Development badges are
-not shown in the sidebar (see \code{?build_home}).
+\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}
+and styled like a released package, even if the content is for an
+unreleased or development version. Version in navbar gets the default
+colouring. Development badges are not shown in the sidebar
+(see \code{?build_home}).
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The \code{noindex} meta tag
@@ -141,6 +142,10 @@ Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
 Development badges are shown in the sidebar (see \code{?build_home}).
 }
+
+Use \code{mode: auto} if you want both a released and a dev site, and
+\code{mode: release} if you just want a single site. It is very rare that you
+will need either devel or unreleased modes.
 
 You can override the mode specified in the \verb{_pkgdown.yml} by setting
 by setting \code{PKGDOWN_DEV_MODE} to \code{devel} or \code{release}.
