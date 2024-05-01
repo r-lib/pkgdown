@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
 * The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
 * Anchors are displayed when they're the target of a link.
 * `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
