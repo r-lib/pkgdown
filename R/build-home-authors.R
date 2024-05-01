@@ -3,7 +3,7 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   author_info <- pkg$meta$authors %||% list()
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
-  if (file_exists(inst_path)) {
+  if (length(inst_path) == 1 && file_exists(inst_path)) {
     inst <- read_lines(inst_path)
   } else {
     inst <- NULL
