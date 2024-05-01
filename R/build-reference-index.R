@@ -68,7 +68,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_contents <- function(contents, id, pkg) {
-  malformed <- "This typically indicates that your {pkgdown_config_href(pkg$src_path)} is malformed."
+  malformed <- "This typically indicates that your {config_path(pkg)} is malformed."
   call <- quote(build_reference_index())
 
   if (length(contents) == 0) {
@@ -146,7 +146,7 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
     cli::cli_abort(c(
       "All topics must be included in reference index",
       "x" = "Missing topics: {pkg$topics$name[missing]}",
-      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
+      i = "Either add to {config_path(pkg)} or use @keywords internal"
     ),
     call = error_call)
   }

@@ -8,7 +8,7 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
 
   cli::cli_abort(c(
     "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
-    i = "Edit {pkgdown_config_href({pkg$src_path})} to define {cli::qty(missing)} {?it/them}."
+    i = "Edit {config_path(pkg)} to define {cli::qty(missing)} {?it/them}."
     ),
     call = call
   )
@@ -41,7 +41,7 @@ pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
 
   if (cfg) {
     if (fmt) {
-      config_path <- cli::format_inline(pkgdown_config_href(pkg$src_path))
+      config_path <- cli::format_inline(config_path(pkg))
     } else {
       config_path <- pkgdown_config_relpath(pkg)
     }
@@ -51,6 +51,14 @@ pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
 
     flds
   }
+}
+
+config_path <- function(pkg) {
+  config <- pkgdown_config_path(pkg$src_path)
+  if (is.null(config)) {
+    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
+  }
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 # print helper ------------------------------------------------------------

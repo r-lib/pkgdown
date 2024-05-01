@@ -191,13 +191,6 @@ pkgdown_config_path <- function(path) {
     )
   )
 }
-pkgdown_config_href <- function(path) {
-  config <- pkgdown_config_path(path)
-  if (is.null(config)) {
-    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
-  }
-  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
-}
 
 read_meta <- function(path) {
   path <- pkgdown_config_path(path)

@@ -138,7 +138,7 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
       bs_version,
       pkgdown_field(pkg, c("template", "bootstrap"))
     ),
-    x = "Edit settings in {pkgdown_config_href({pkg$src_path})}"
+    x = "Edit settings in {config_path(pkg)}"
   ), call = caller_env())
 }
 

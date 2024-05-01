@@ -67,7 +67,7 @@ navbar_links <- function(pkg, depth = 0L) {
 render_navbar_links <- function(x, depth = 0L, pkg) {
   if (!is.list(x)) {
     cli::cli_abort(
-      "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
+      "Invalid navbar specification in {config_path(pkg)}.", 
       call = quote(data_template())
     )
   }

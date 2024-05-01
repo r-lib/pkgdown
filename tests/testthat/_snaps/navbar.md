@@ -188,7 +188,7 @@
       data_navbar(pkg)
     Condition
       Error in `data_template()`:
-      ! Invalid navbar specification in _pkgdown.yml
+      ! Invalid navbar specification in _pkgdown.yml.
 
 # render_navbar_links BS3 & BS4 default
 
