@@ -29,6 +29,15 @@ test_that("source link is added to citation page", {
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
 })
 
+test_that("citation page includes inst/AUTHORS", {
+  pkg <- local_pkgdown_site(test_path("assets/inst-authors"))
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_citation_authors(pkg))
+
+  lines <- read_lines(path(pkg$dst_path, "authors.html"))
+  expect_true(any(grepl("<pre>Hello</pre>", lines)))
+})
+
 test_that("multiple citations all have HTML and BibTeX formats", {
   citations <- data_citations(test_path("assets/site-citation/multi"))
   expect_snapshot_output(citations)
@@ -45,3 +54,4 @@ test_that("links in curly braces in authors comments are escaped", {
     "reviewed see &lt;<a href='https://github.com/r-lib/pkgdown/pulls'>https://github.com/r-lib/pkgdown/pulls</a>&gt;"
   )
 })
+
