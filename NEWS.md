@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_redirects()` now automatically adds redirects for topic 
+aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).
+* `build_redirects()` now reports which redirects it is generating.
 * The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
 * Anchors are displayed when they're the target of a link.
 * `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
