@@ -71,7 +71,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>The addin now runs <code><a href="../reference/build_site.html">build_site()</a></code> instead of <code>build_site_external()</code>, which generally should be more reliable (<a href="https://github.com/r-lib/pkgdown/issues/2252" class="external-link">#2252</a>).</li>
+<ul><li>
+<code><a href="../reference/build_redirects.html">build_redirects()</a></code> now automatically adds redirects for topic aliases. This matches the behaviour of <code>?</code> and will help keep links stable in the long term (<a href="https://github.com/r-lib/pkgdown/issues/1876" class="external-link">#1876</a>).</li>
+<li>
+<code><a href="../reference/build_redirects.html">build_redirects()</a></code> now reports which redirects it is generating.</li>
+<li>The addin now runs <code><a href="../reference/build_site.html">build_site()</a></code> instead of <code>build_site_external()</code>, which generally should be more reliable (<a href="https://github.com/r-lib/pkgdown/issues/2252" class="external-link">#2252</a>).</li>
 <li>Anchors are displayed when they’re the target of a link.</li>
 <li>
 <code><a href="../reference/build_reference.html">build_reference()</a></code> adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (<a href="https://github.com/r-lib/pkgdown/issues/2228" class="external-link">#2228</a>).</li>

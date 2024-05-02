@@ -14,7 +14,7 @@ articles:
   search: search.html
   test/short: test/short.html
   test/widgets: test/widgets.html
-last_built: 2024-05-01T00:45Z
+last_built: 2024-05-02T19:14Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
