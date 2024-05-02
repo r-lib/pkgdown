@@ -1,20 +1,3 @@
-# links to man/figures are automatically relocated
-
-    Code
-      copy_figures(pkg)
-    Message
-      Copying man/figures/kitten.jpg to reference/figures/kitten.jpg
-
----
-
-    Code
-      build_articles(pkg, lazy = FALSE)
-    Message
-      -- Building articles -----------------------------------------------------------
-      Writing `articles/index.html`
-      Reading vignettes/kitten.Rmd
-      Writing `articles/kitten.html`
-
 # warns about missing images
 
     Code
