@@ -67,7 +67,7 @@ config_path <- function(pkg) {
 # print helper ------------------------------------------------------------
 
 print_yaml <- function(x) {
-  structure(x, class = "print_yµaml")
+  structure(x, class = "print_yaml")
 }
 #' @export
 print.print_yaml <- function(x, ...) {
