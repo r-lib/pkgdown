@@ -1,6 +1,19 @@
 # pkgdown (development version)
 
 * If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
+* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+* `build_redirects()` now automatically adds redirects for topic 
+aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).
+* `build_redirects()` now reports which redirects it is generating.
+* The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
+* Anchors are displayed when they're the target of a link.
+* `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
+* `build_redirects()` is now exported to make it easier to document (#2500).
+* `build_reference()` now automatically renders any tables created by gt (#2326).
+* `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).
+* `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
+* `init_site()` once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (#2445).
+* Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
 * The `repo.source.url` field no longer requires a trailing slash (#2017).
 * Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
 * pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).

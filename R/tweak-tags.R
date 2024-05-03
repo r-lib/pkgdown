@@ -22,9 +22,7 @@ tweak_anchors <- function(html) {
   xml2::xml_attr(headings, "id") <- new_id
 
   # Insert anchors
-  anchor <- paste0(
-    "<a class='anchor' aria-label='anchor' href='#", new_id, "'></a>"
-  )
+  anchor <- anchor_html(new_id)
   for (i in seq_along(headings)) {
     heading <- headings[[i]]
     if (length(xml2::xml_contents(heading)) == 0) {
@@ -35,6 +33,10 @@ tweak_anchors <- function(html) {
     xml2::xml_add_child(heading, xml2::read_xml(anchor[[i]]))
   }
   invisible()
+}
+
+anchor_html <- function(id) {
+  paste0("<a class='anchor' aria-label='anchor' href='#", id, "'></a>")
 }
 
 tweak_link_md <- function(html) {

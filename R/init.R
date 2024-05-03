@@ -11,7 +11,7 @@
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
-#' @section Build-ignored files:
+#' # Build-ignored files
 #' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
 #' `_pkgdown.yml`. If use another directory, or create the site manually,
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
@@ -58,23 +58,22 @@ copy_assets <- function(pkg = ".") {
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown(paste0("BS", pkg$bs_version), "assets"))
-  }
-
-  # manually specified directory: I don't think this is documented
-  # and no longer seems important, so I suspect it could be removed
-  if (!is.null(template$assets)) {
-    copy_asset_dir(pkg, template$assets)
+    copy_asset_dir(
+      pkg, 
+      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")), 
+      src_root = path_pkgdown(),
+      src_label = "<pkgdown>/"
+    )
   }
 
   # package assets
   if (!is.null(template$package)) {
-    assets <- path_package_pkgdown(
-      "assets",
-      package = template$package,
-      bs_version = pkg$bs_version
+    copy_asset_dir(
+      pkg, 
+      path_package_pkgdown("assets", template$package, pkg$bs_version),
+      src_root = system_file(package = template$package),
+      src_label = paste0("<", template$package, ">/")
     )
-    copy_asset_dir(pkg, assets)
   }
 
   # extras
@@ -85,27 +84,32 @@ copy_assets <- function(pkg = ".") {
   invisible()
 }
 
-copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
-  if (length(from_dir) == 0) {
+copy_asset_dir <- function(pkg,
+                           dir,
+                           src_root = pkg$src_path,
+                           src_label = "",
+                           file_regexp = NULL) {
+  src_dir <- path_abs(dir, pkg$src_path)
+  if (!file_exists(src_dir)) {
     return(character())
   }
-  from_path <- path_abs(from_dir, pkg$src_path)
-  if (!file_exists(from_path)) {
-    return(character())
-  }
 
-  files <- dir_ls(from_path, recurse = TRUE)
-
-  # Remove directories from files
-  files <- files[!fs::is_dir(files)]
-
+  src_paths <- dir_ls(src_dir, recurse = TRUE)
+  src_paths <- src_paths[!fs::is_dir(src_paths)]
   if (!is.null(file_regexp)) {
-    files <- files[grepl(file_regexp, path_file(files))]
+    src_paths <- src_paths[grepl(file_regexp, path_file(src_paths))]
   }
-  # Handled in bs_theme()
-  files <- files[path_ext(files) != "scss"]
+  src_paths <- src_paths[path_ext(src_paths) != "scss"] # Handled in bs_theme()
 
-  file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
+  dst_paths <- path(pkg$dst_path, path_rel(src_paths, src_dir))
+
+  file_copy_to(
+    src_paths = src_paths,
+    src_root = src_root,
+    src_label = src_label,
+    dst_paths = dst_paths,
+    dst_root = pkg$dst_path
+  )
 }
 
 timestamp <- function(time = Sys.time()) {

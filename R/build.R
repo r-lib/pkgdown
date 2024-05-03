@@ -9,6 +9,7 @@
 #' * [build_articles()]
 #' * [build_tutorials()]
 #' * [build_news()]
+#' * [build_redirects()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the
@@ -44,7 +45,7 @@
 #' The `search` field controls the built-in search and is
 #' documented in `vignette("search")`.
 #'
-#' @section Development mode:
+#' # Development mode
 #' The `development` field allows you to generate different sites for the
 #' development and released versions of your package. To use it, you first
 #' need to set the development `mode`:
@@ -56,21 +57,22 @@
 #'
 #' ### Setting development mode
 #'
-#' The development `mode` of a site controls where the site is built,
-#' the colour of the package version in the navbar, the version tooltip,
-#' and whether or not the site is indexed by search engines. There are
-#' four possible modes:
+#' The development `mode` of a site controls where the built site is placed
+#' and how it is styled (i.e. the colour of the package version in the 
+#' navbar, the version tooltip), and whether or not the site is indexed by 
+#' search engines. There are four possible modes:
 #'
-#' * **automatic** (`mode: auto`): automatically determines the mode based on the
-#'   version number:
+#' * **automatic** (`mode: auto`): determines the mode based on the version:
 #'
 #'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
 #'   * four version components: development.
 #'   * everything else -> release.
 #'
-#' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring. Development badges are
-#'   not shown in the sidebar (see `?build_home`).
+#' * **release** (`mode: release`), the default. Site is written to `docs/`
+#'   and styled like a released package, even if the content is for an 
+#'   unreleased or development version. Version in navbar gets the default 
+#'   colouring. Development badges are not shown in the sidebar 
+#'   (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are
@@ -82,6 +84,10 @@
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
 #'   Development badges are shown in the sidebar (see `?build_home`).
+#'
+#' Use `mode: auto` if you want both a released and a dev site, and 
+#' `mode: release` if you just want a single site. It is very rare that you 
+#' will need either devel or unreleased modes.
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
@@ -133,11 +139,13 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Template:
+#' # Template
 #' The `template` field is mostly used to control the appearance of the site.
-#' See `vignette("customise")` for details.
+#' See `vignette("customise")` for details. But it's also used to control
 #'
-#' There are two other `template` fields that control other aspects of the
+#' ## Other aspects
+#'
+#' There are a few other `template` fields that control other aspects of the
 #' site:
 #'
 #' *   `noindex: true` will suppress indexing of your pages by search engines:
@@ -166,7 +174,7 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
-#' @section Analytics:
+#' ## Analytics
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
@@ -212,8 +220,8 @@
 #'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
 #'
+#' # Source repository
 #'
-#' @section Source repository:
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
@@ -260,7 +268,7 @@
 #'   branch: devel
 #' ```
 #'
-#' @section Deployment (`deploy`):
+#' # Deployment (`deploy`)
 #' There is a single `deploy` field
 #'
 #' *  `install_metadata` allows you to install package index metadata into
@@ -274,28 +282,7 @@
 #'      install_metadata: true
 #'    ```
 #'
-#' @section Redirects:
-#' If you change the structure of your documentation (by renaming vignettes or 
-#' help topics) you can setup redirects from the old content to the new content.
-#' One or several now-absent pages can be redirected to a new page (or to a new 
-#' section of a new page). This works by creating a html page that performs a 
-#' "meta refresh", which isn't the best way of doing a redirect but works 
-#' everywhere that you might deploy your site.
-#' 
-#' The syntax is the following, with old paths on the left, and new paths or 
-#' URLs on the right.
-#' 
-#' ```yaml
-#' redirects:
-#'   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
-#'   - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
-#'   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-#' ```
-#' 
-#' If for some reason you choose to redirect an existing page make sure to 
-#' exclude it from the search index, see `?build_search`.
-#'
-#' @section Options:
+#' # Options
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used

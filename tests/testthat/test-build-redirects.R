@@ -7,7 +7,9 @@ test_that("build_redirect() works", {
     bs_version = 5
   )
   pkg <- structure(pkg, class = "pkgdown")
-  build_redirect(c("old.html", "new.html#section"), 1, pkg = pkg)
+  expect_snapshot(
+    build_redirect(c("old.html", "new.html#section"), 1, pkg = pkg)
+  )
 
   html <- xml2::read_html(path(pkg$dst_path, "old.html"))
   expect_equal(
@@ -45,3 +47,48 @@ test_that("article_redirects() creates redirects for vignettes in vignettes/arti
     list(c("articles/articles/test.html", "articles/test.html"))
   )
 })
+
+# reference_redirects ----------------------------------------------------------
+
+test_that("generates redirects only for non-name aliases", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      alias = list("foo", c("bar", "baz")),
+      name = c("foo", "bar"),
+      file_out = c("foo.html", "bar.html")
+    )
+  )
+  expect_equal(
+    reference_redirects(pkg),
+    list(c("reference/baz.html", "reference/bar.html"))
+  )
+})
+
+test_that("never redirects away from existing topic", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      alias = list("foo", c("bar", "foo")),
+      name = c("foo", "bar"),
+      file_out = c("foo.html", "bar.html")
+    )
+  )
+  expect_equal(
+    reference_redirects(pkg),
+    list()
+  )
+})
+
+test_that("no redirects if no aliases", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      alias = list(c("foo", "bar")),
+      name = c("foo", "bar"),
+      file_out = c("foo.html", "bar.html")
+    )
+  )
+  expect_equal(reference_redirects(pkg), list())
+})
+

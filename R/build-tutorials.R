@@ -7,7 +7,7 @@
 #' `inst/tutorials` and `vignettes/tutorials`. Alternatively, you can
 #' list in `_pkgdown.yml` as described below.
 #'
-#' @section YAML config:
+#' # YAML config
 #' To override the default discovery process, you can provide a `tutorials`
 #' section. This should be a list where each element specifies:
 #'

@@ -54,7 +54,7 @@ templates_dir <- function(pkg = list()) {
     }
     path_abs(template$path, start = pkg$src_path)
   } else if (!is.null(template$package)) {
-    path_package_pkgdown("templates", package = template$package, bs_version = pkg$bs_version)
+    path_package_pkgdown("templates", template$package, pkg$bs_version)
   } else {
     path(pkg$src_path, "pkgdown", "templates")
   }

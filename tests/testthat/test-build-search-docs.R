@@ -50,3 +50,7 @@ test_that("build_search() builds the expected search.json with no URL", {
   jsonlite::write_json(build_search_index(pkg), json_path, pretty = TRUE)
   expect_snapshot_file(json_path, "search-no-url.json")
 })
+
+test_that("url_node gives informative error", {
+  expect_snapshot(url_node("<"), error = TRUE)
+})
