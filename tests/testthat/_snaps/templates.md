@@ -15,6 +15,7 @@
     Condition
       Error in `as_pkgdown()`:
       ! Both template.bootstrap and template.bslib.version are set.
+      i Remove one of them from '_pkgdown.yml '
 
 # Warns when Bootstrap theme is specified in multiple locations
 

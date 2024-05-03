@@ -130,7 +130,8 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
     return(theme)
   }
 
-  cli::cli_abort(c(
+  config_abort(
+    pkg,
     sprintf(
       "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
       theme,
@@ -138,8 +139,8 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
       bs_version,
       pkgdown_field(c("template", "bootstrap"))
     ),
-    x = "Edit settings in {config_path(pkg)}"
-  ), call = caller_env())
+    call = caller_env()
+  )
 }
 
 bs_theme_deps_suppress <- function(deps = list()) {

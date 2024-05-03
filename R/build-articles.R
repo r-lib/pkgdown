@@ -395,9 +395,9 @@ data_articles_index <- function(pkg = ".") {
   missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
   if (length(missing) > 0) {
-    cli::cli_abort(
-      "{length(missing)} vignette{?s} missing from index in \\
-      {config_path(pkg)}: {.val {missing}}.",
+    config_abort(
+      pkg,
+      "{length(missing)} vignette{?s} missing from index: {.val {missing}}",
       call = caller_env()
     )
   }

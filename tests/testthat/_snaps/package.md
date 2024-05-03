@@ -18,6 +18,6 @@
     Condition
       Error:
       ! Boostrap version must be 3 or 5.
-      x You set a value of 1 to template.bootstrap.
+      x You set a value of 1 in template.bootstrap.
       i Edit _pkgdown.yml to fix the problem.
 

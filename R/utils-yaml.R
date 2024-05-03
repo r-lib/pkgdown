@@ -6,10 +6,9 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   missing_components <- lapply(missing, function(x) c(where, x))
   msg_flds <- pkgdown_field(missing_components)
 
-  cli::cli_abort(c(
+  config_abort(
+    pkg, 
     "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
-    i = "Edit {config_path(pkg)} to define {cli::qty(missing)} {?it/them}."
-    ),
     call = call
   )
 }
@@ -23,7 +22,8 @@ yaml_character <- function(pkg, where) {
     x
   } else {
     fld <- pkgdown_field(where, fmt = TRUE)
-    cli::cli_abort(
+    config_abort(
+      pkg,
       paste0(fld, " must be a character vector."),
       call = caller_env()
     )
@@ -38,6 +38,22 @@ pkgdown_field <- function(fields, fmt = FALSE) {
     flds <- paste0("{.field ", flds, "}")
   }
   flds
+}
+
+config_abort <- function(pkg,
+                         message,
+                         ...,
+                         call = caller_env(),
+                         .envir = caller_env()) {
+  cli::cli_abort(
+    c(
+      message,
+      i = "Edit {config_path(pkg)} to fix the problem."
+    ),
+    ...,
+    call = call,
+    .envir = .envir
+  )
 }
 
 config_path <- function(pkg) {

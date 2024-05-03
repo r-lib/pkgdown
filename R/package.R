@@ -136,7 +136,7 @@ get_bootstrap_version <- function(template, config_path = NULL, package = NULL) 
         paste0(
           "Update the pkgdown config in {.pkg ", package, "}, ",
           "or set a Bootstrap version in your {.file ",
-          if (is.null(config_path)) "_pkgdown.yml" else config_path,
+          config_path %||% "_pkgdown.yml",
           "}."
         )
       } else if (!is.null(config_path)) {
@@ -169,11 +169,11 @@ check_bootstrap_version <- function(version, pkg) {
     5
   } else {
     msg_fld <- pkgdown_field(c("template", "bootstrap"), fmt = TRUE)
-    cli::cli_abort(
+    config_abort(
+      pkg,
       c(
         "Boostrap version must be 3 or 5.",
-        x = paste0("You set a value of {.val {version}} to ", msg_fld, "."),
-        i = "Edit {config_path(pkg)} to fix the problem."
+        x = paste0("You set a value of {.val {version}} in ", msg_fld, ".")
       ),
       call = caller_env()
     )

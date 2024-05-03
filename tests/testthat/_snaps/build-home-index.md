@@ -50,7 +50,7 @@
 
     Can't locate 'file.html'.
     x home.sidebar.html is misconfigured.
-    i Fix the problem in _pkgdown.yml.
+    i Edit _pkgdown.yml to fix the problem.
 
 # data_home_sidebar() can get a custom markdown formatted component
 
@@ -77,7 +77,7 @@
     Condition
       Error:
       ! Can't find component home.sidebar.components.fancy.
-      i Edit _pkgdown.yml to define it.
+      i Edit _pkgdown.yml to fix the problem.
 
 ---
 
@@ -86,7 +86,7 @@
     Condition
       Error:
       ! Can't find components home.sidebar.components.fancy and home.sidebar.components.cool.
-      i Edit _pkgdown.yml to define them.
+      i Edit _pkgdown.yml to fix the problem.
 
 ---
 
@@ -95,7 +95,7 @@
     Condition
       Error:
       ! Can't find component home.sidebar.components.fancy.title.
-      i Edit _pkgdown.yml to define it.
+      i Edit _pkgdown.yml to fix the problem.
 
 ---
 
@@ -104,5 +104,5 @@
     Condition
       Error:
       ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text.
-      i Edit _pkgdown.yml to define them.
+      i Edit _pkgdown.yml to fix the problem.
 

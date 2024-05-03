@@ -19,7 +19,5 @@ check_pkgdown <- function(pkg = ".") {
   data_articles_index(pkg)
   data_reference_index(pkg)
 
-  cli::cli_inform(c(
-    "v" = "No problems found in {config_path(pkg)}."
-  ))
+  cli::cli_inform(c("v" = "No problems found."))
 }

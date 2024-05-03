@@ -68,38 +68,33 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_contents <- function(contents, id, pkg) {
-  malformed <- "This typically indicates that your {config_path(pkg)} is malformed."
   call <- quote(build_reference_index())
 
   if (length(contents) == 0) {
-    cli::cli_abort(
-      c(
-        "Section {.val {id}}: {.field contents} is empty.",
-        i = malformed
-      ),
+    config_abort(
+      pkg,
+      "Section {.val {id}}: {.field contents} is empty.",
       call = call
     )
   }
 
   is_null <- purrr::map_lgl(contents, is.null)
   if (any(is_null)) {
-    cli::cli_abort(
-      c(
-        "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
-        i = malformed
-      ),
+    config_abort(
+      pkg,
+      "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
       call = call
     )
   }
 
   is_char <- purrr::map_lgl(contents, is.character)
   if (!all(is_char)) {
-    cli::cli_abort(
+    config_abort(
+      pkg,
       c(
         "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
-        i = "You might need to add '' around special values like 'N' or 'off'",
-        i = malformed
-      ), 
+        i = "You might need to add '' around special values like 'N' or 'off'"
+      ),
       call = call
     )
   }
@@ -143,11 +138,10 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
-    cli::cli_abort(c(
-      "All topics must be included in reference index",
-      "x" = "Missing topics: {pkg$topics$name[missing]}",
-      i = "Either add to {config_path(pkg)} or use @keywords internal"
-    ),
-    call = error_call)
+    config_abort(
+      pkg, 
+      "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}",
+      call = error_call
+    )
   }
 }
