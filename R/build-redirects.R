@@ -38,7 +38,7 @@ build_redirects <- function(pkg = ".",
 
   cli::cli_rule("Building redirects")
   if (is.null(pkg$meta$url)) {
-    msg_fld <- pkgdown_field("url", fmt = TRUE)
+    msg_fld <- config_field("url", fmt = TRUE)
     config_abort(
       pkg,
       paste0(msg_fld, " is required to generate redirects.")
@@ -54,7 +54,7 @@ build_redirects <- function(pkg = ".",
 
 build_redirect <- function(entry, index, pkg) {
   if (!is.character(entry) || length(entry) != 2) {
-    msg_fld <- pkgdown_field("redirects")
+    msg_fld <- config_field("redirects")
     config_abort(
       pkg,
       "{.field {msg_fld}[[{index}]]} must be a character vector of length 2.",

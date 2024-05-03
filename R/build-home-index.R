@@ -66,7 +66,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     if (!file.exists(html_path)) {
       rel_html_path <- fs::path_rel(html_path, pkg$src_path)
 
-      msg_fld <- pkgdown_field(c('home', 'sidebar', 'html'), fmt = TRUE)
+      msg_fld <- config_field(c('home', 'sidebar', 'html'), fmt = TRUE)
 
       config_abort(pkg,
         c(

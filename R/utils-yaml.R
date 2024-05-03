@@ -4,7 +4,7 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  msg_flds <- pkgdown_field(missing_components)
+  msg_flds <- config_field(missing_components)
 
   config_abort(
     pkg, 
@@ -21,7 +21,7 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    fld <- pkgdown_field(where, fmt = TRUE)
+    fld <- config_field(where, fmt = TRUE)
     config_abort(
       pkg,
       paste0(fld, " must be a character vector."),
@@ -30,7 +30,7 @@ yaml_character <- function(pkg, where) {
   }
 }
 
-pkgdown_field <- function(fields, fmt = FALSE) {
+config_field <- function(fields, fmt = FALSE) {
   if (!is.list(fields)) fields <- list(fields)
 
   flds <- purrr::map_chr(fields, ~ paste0(.x, collapse = "."))
@@ -67,7 +67,7 @@ config_path <- function(pkg) {
 # print helper ------------------------------------------------------------
 
 print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
+  structure(x, class = "print_yµaml")
 }
 #' @export
 print.print_yaml <- function(x, ...) {

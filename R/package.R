@@ -147,8 +147,8 @@ get_bootstrap_version <- function(template, config_path = NULL, package = NULL) 
       c(
         sprintf(
           "Both {.field %s} and {.field %s} are set.",
-          pkgdown_field(c("template", "bootstrap")),
-          pkgdown_field(c("template", "bslib", "version"))
+          config_field(c("template", "bootstrap")),
+          config_field(c("template", "bslib", "version"))
         ),
         i = instructions
       ),
@@ -168,7 +168,7 @@ check_bootstrap_version <- function(version, pkg) {
     cli::cli_warn("{.var bootstrap: 4} no longer supported, using {.var bootstrap: 5} instead")
     5
   } else {
-    msg_fld <- pkgdown_field(c("template", "bootstrap"), fmt = TRUE)
+    msg_fld <- config_field(c("template", "bootstrap"), fmt = TRUE)
     config_abort(
       pkg,
       c(

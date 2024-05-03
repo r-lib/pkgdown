@@ -1,4 +1,4 @@
-# pkgdown_field produces useful description
+# config_field produces useful description
 
     Code
       check_yaml_has("x", where = "a", pkg = pkg)
