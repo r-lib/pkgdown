@@ -3,7 +3,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: A
         slug: a
@@ -100,7 +100,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: bla
         slug: bla
@@ -160,7 +160,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: bla
         slug: bla
