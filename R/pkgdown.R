@@ -38,6 +38,7 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
     desc$set("Package", "testpackage")
     desc$set("Title", "A test package")
     desc$write(file = file.path(path, "DESCRIPTION"))
+    
     file_create(path(path, "_pkgdown.yml"))
   }
 

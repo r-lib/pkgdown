@@ -17,8 +17,10 @@ pkgdown_sitrep <- function(pkg = ".") {
   warns <- c()
 
   if (is.null(pkg$meta[["url"]])) {
-    msg_fld <- config_field("url", fmt = TRUE)
-    warns <- c(warns, x = paste0(msg_fld, " is absent. See {.vignette pkgdown::metadata}."))
+    warns <- c(
+      warns,
+      x = "{.field url} is absent. See {.vignette pkgdown::metadata}."
+    )
   }
 
   desc_urls <- pkg$desc$get_urls()

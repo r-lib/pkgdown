@@ -4,17 +4,17 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
 
   all <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+    purrr::map(author_list, author_info)
 
   main <- pkg %>%
     pkg_authors(roles) %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+    purrr::map(author_list, author_info)
 
   more_authors <- length(main) != length(all)
 
   comments <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg) %>%
+    purrr::map(author_list, author_info) %>%
     purrr::map("comment") %>%
     purrr::compact() %>%
     length() > 0
@@ -53,16 +53,11 @@ data_home_sidebar_authors <- function(pkg = ".") {
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
+  sidebar <- pkg$meta$authors$sidebar
   bullets <- c(
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$before,
-      config_field(c("authors", "sidebar", "before"))
-    ),
+    markdown_text_inline(sidebar$before, "authors.sidebar.before"),
     authors,
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$after,
-      config_field(c("authors", "sidebar", "after"))
-    )
+    markdown_text_inline(sidebar$after, "authors.sidebar.after")
   )
 
   if (data$needs_page) {
@@ -94,10 +89,7 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text_inline(
-      author$html,
-      config_field(c("authors", name, "html"))
-    )
+    name <- markdown_text_inline(author$html, paste0("authors.", name, ".html"))
   }
 
   if (is.null(author$href)) {
@@ -117,8 +109,8 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
-  name <- author_name(x, authors_info, pkg = pkg)
+author_list <- function(x, authors_info = NULL, comment = FALSE) {
+  name <- author_name(x, authors_info)
 
   roles <- paste0(role_lookup(x$role), collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))

@@ -1,4 +1,4 @@
-# config_field produces useful description
+# check_yaml_has produces informative errors
 
     Code
       check_yaml_has("x", where = "a", pkg = pkg)

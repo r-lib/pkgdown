@@ -65,14 +65,9 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   if (length(html_path)) {
     if (!file.exists(html_path)) {
       rel_html_path <- fs::path_rel(html_path, pkg$src_path)
-
-      msg_fld <- config_field(c('home', 'sidebar', 'html'), fmt = TRUE)
-
-      config_abort(pkg,
-        c(
-          "Can't locate {.file {rel_html_path}}.",
-          x = paste0(msg_fld, " is misconfigured.")
-        ),
+      config_abort(
+        pkg,
+        "Path specified in {.field home.sidebar.html} ({.file {rel_html_path}}) doesn't exist.",
         call = call
       )
 

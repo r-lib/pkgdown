@@ -17,7 +17,7 @@ markdown_text_inline <- function(text, where = "<inline>", ...) {
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   if (length(children) > 1) {
     cli::cli_abort(
-      "Can't use a block element in {.var {where}}, need an inline element: {.var {text}}",
+      "{.field {where}} must supply an inline element, not a block element.",
       call = caller_env()
     )
   }

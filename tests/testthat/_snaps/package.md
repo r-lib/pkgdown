@@ -17,7 +17,6 @@
       check_bootstrap_version(1, pkg)
     Condition
       Error:
-      ! Boostrap version must be 3 or 5.
-      x You set a value of 1 in template.bootstrap.
+      ! template.bootstrap must be 3 or 5, not 1.
       i Edit _pkgdown.yml to fix the problem.
 

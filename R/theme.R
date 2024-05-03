@@ -114,10 +114,10 @@ get_bslib_theme <- function(pkg) {
   }
 
   field <- names(themes)[which(is_present)[1]]
-  check_bslib_theme(themes[[field]], pkg, strsplit(field, ".")[[1]])
+  check_bslib_theme(themes[[field]], pkg, field)
 }
 
-check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
+check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
@@ -132,12 +132,9 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
 
   config_abort(
     pkg,
-    sprintf(
-      "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
-      theme,
-      config_field(field),
-      bs_version,
-      config_field(c("template", "bootstrap"))
+    c(
+      x = "Can't find Bootswatch/bslib theme preset {.val {theme}} ({.field {field}}).",
+      i = "Using Bootstrap version {.val {bs_version}} ({.field template.bootstrap})."
     ),
     call = caller_env()
   )

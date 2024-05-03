@@ -4,7 +4,7 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  msg_flds <- config_field(missing_components)
+  msg_flds <- purrr::map_chr(missing_components, paste, collapse = ".")
 
   config_abort(
     pkg, 
@@ -21,23 +21,13 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    fld <- config_field(where, fmt = TRUE)
+    path <- paste0(where, collapse = ".")
     config_abort(
       pkg,
-      paste0(fld, " must be a character vector."),
+      "{.field {path}} must be a character vector.",
       call = caller_env()
     )
   }
-}
-
-config_field <- function(fields, fmt = FALSE) {
-  if (!is.list(fields)) fields <- list(fields)
-
-  flds <- purrr::map_chr(fields, ~ paste0(.x, collapse = "."))
-  if (fmt) {
-    flds <- paste0("{.field ", flds, "}")
-  }
-  flds
 }
 
 config_abort <- function(pkg,
