@@ -19,7 +19,7 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   rows <- Filter(function(x) !x$is_internal, rows)
 
   print_yaml(list(
-    pagetitle = tr_("Function reference"),
+    pagetitle = tr_("Package index"),
     rows = rows,
     has_icons = has_icons
   ))
