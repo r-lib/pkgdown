@@ -34,7 +34,7 @@ test_that("warn about missing images in readme", {
 test_that("readme can use images from vignettes", {
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   file_copy(
-    test_path("assets/man-figures/man/figures/kitten.jpg"),
+    test_path("assets/articles-images/man/figures/kitten.jpg"),
     path(pkg$src_path, "vignettes/kitten.jpg")
   )
   withr::defer(unlink(path(pkg$src_path, "vignettes/kitten.jpg")))
@@ -42,5 +42,5 @@ test_that("readme can use images from vignettes", {
   suppressMessages(build_home(pkg))
   suppressMessages(build_articles(pkg))
 
-  expect_snapshot(check_built_site(pkg))
+  suppressMessages(expect_no_warning(check_built_site(pkg)))
 })
