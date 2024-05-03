@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
 * The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
 * `build_redirects()` now automatically adds redirects for topic 
 aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).

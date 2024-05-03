@@ -59,20 +59,30 @@ navbar_links <- function(pkg, depth = 0L) {
   right <- navbar$right %||% components[right_comp]
 
   list(
-    left = render_navbar_links(left, depth = depth, pkg = pkg),
-    right = render_navbar_links(right, depth = depth, pkg = pkg)
+    left = render_navbar_links(
+      left,
+      depth = depth,
+      pkg = pkg,
+      side = "left"
+    ),
+    right = render_navbar_links(
+      right,
+      depth = depth,
+      pkg = pkg,
+      side = "right"
+    )
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, pkg) {
+render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
   if (!is.list(x)) {
     cli::cli_abort(
       "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
       call = quote(data_template())
     )
   }
-
-  stopifnot(is.integer(depth), depth >= 0L)
+  check_number_whole(depth, min = 0)
+  side <- arg_match(side)
 
   tweak <- function(x) {
     if (!is.null(x$menu)) {
@@ -92,7 +102,7 @@ render_navbar_links <- function(x, depth = 0L, pkg) {
   if (pkg$bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
-    bs4_navbar_links_html(x)
+    bs4_navbar_links_html(x, side = side)
   }
 }
 
@@ -213,11 +223,11 @@ menu_search <- function(depth = 0) {
   )
 }
 
-bs4_navbar_links_html <- function(links) {
-  as.character(bs4_navbar_links_tags(links), options = character())
+bs4_navbar_links_html <- function(links, side = c("left", "right")) {
+  as.character(bs4_navbar_links_tags(links, side = side), options = character())
 }
 
-bs4_navbar_links_tags <- function(links, depth = 0L) {
+bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
   rlang::check_installed("htmltools")
 
   if (is.null(links)) {
@@ -244,7 +254,16 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         link_text <- bs4_navbar_link_text(x)
       }
 
-      submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+      submenuLinks <- bs4_navbar_links_tags(
+        x$menu,
+        depth = depth + 1L,
+        side = side
+      )
+
+      dropdown_class <- "dropdown-menu"
+      if (side == "right") {
+        dropdown_class <- paste(dropdown_class, "dropdown-menu-end")
+      }
 
       return(
         htmltools::tags$li(
@@ -258,7 +277,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
-            class = "dropdown-menu",
+            class = dropdown_class,
             `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
             submenuLinks
           )
