@@ -4,17 +4,17 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
 
   all <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
 
   main <- pkg %>%
     pkg_authors(roles) %>%
-    purrr::map(author_list, author_info)
+    purrr::map(author_list, author_info, pkg = pkg)
 
   more_authors <- length(main) != length(all)
 
   comments <- pkg %>%
     pkg_authors() %>%
-    purrr::map(author_list, author_info) %>%
+    purrr::map(author_list, author_info, pkg = pkg) %>%
     purrr::map("comment") %>%
     purrr::compact() %>%
     length() > 0
@@ -55,9 +55,9 @@ data_home_sidebar_authors <- function(pkg = ".") {
 
   sidebar <- pkg$meta$authors$sidebar
   bullets <- c(
-    markdown_text_inline(sidebar$before, "authors.sidebar.before"),
+    markdown_text_inline(sidebar$before, "authors.sidebar.before", pkg = pkg),
     authors,
-    markdown_text_inline(sidebar$after, "authors.sidebar.after")
+    markdown_text_inline(sidebar$after, "authors.sidebar.after", pkg = pkg)
   )
 
   if (data$needs_page) {
@@ -89,7 +89,11 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text_inline(author$html, paste0("authors.", name, ".html"))
+    name <- markdown_text_inline(
+      author$html,
+      paste0("authors.", name, ".html"),
+      pkg = pkg
+    )
   }
 
   if (is.null(author$href)) {
@@ -109,8 +113,8 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE) {
-  name <- author_name(x, authors_info)
+author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
+  name <- author_name(x, authors_info, pkg = pkg)
 
   roles <- paste0(role_lookup(x$role), collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
