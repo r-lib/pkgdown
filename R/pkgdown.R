@@ -62,7 +62,6 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
     desc$set("Package", "templatepackage")
     desc$set("Title", "A test template package")
     desc$write(file = file.path(path, "DESCRIPTION"))
-    file.create(path(path, "_pkgdown.yaml"))
   }
 
   if (!is.null(meta)) {

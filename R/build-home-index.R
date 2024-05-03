@@ -67,11 +67,9 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
       rel_html_path <- fs::path_rel(html_path, pkg$src_path)
       config_abort(
         pkg,
-        "Path specified in {.field home.sidebar.html} ({.file {rel_html_path}}) doesn't exist.",
+        "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {rel_html_path}}).",
         call = call
       )
-
-
     }
     return(read_file(html_path))
   }

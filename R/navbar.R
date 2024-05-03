@@ -68,7 +68,7 @@ render_navbar_links <- function(x, depth = 0L, pkg) {
   if (!is.list(x)) {
     config_abort(
       pkg,
-      "Invalid navbar specification.", 
+      "{.field navbar} is incorrectly specified.",
       call = quote(data_template())
     )
   }

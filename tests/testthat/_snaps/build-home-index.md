@@ -48,7 +48,7 @@
 
 # data_home_sidebar() errors well when no HTML file
 
-    Path specified in home.sidebar.html ('file.html') doesn't exist.
+    home.sidebar.html specifies a file that doesn't exist ('file.html').
     i Edit _pkgdown.yml to fix the problem.
 
 # data_home_sidebar() can get a custom markdown formatted component
