@@ -366,16 +366,27 @@ parse_items <- function(rd, ...) {
     paste(collapse = "")
 }
 
-parse_descriptions <- function(rd, ...) {
+parse_descriptions <- function(rd, ..., id_prefix = NULL) {
   if (length(rd) == 0) {
     return(character())
   }
 
   parse_item <- function(x) {
     if (inherits(x, "tag_item")) {
+      term <- flatten_text(x[[1]], ...)
+      def <- flatten_para(x[[2]], ...)
+    
+      if (!is.null(id_prefix)) {
+        id <- paste0(id_prefix, make_slug(term))
+        id_attr <- paste0(" id='", id, "'")
+        anchor <- anchor_html(id)
+      } else {
+        id_attr <- ""
+        anchor <- ""
+      }
       paste0(
-        "<dt>", flatten_text(x[[1]], ...), "</dt>\n",
-        "<dd>", flatten_para(x[[2]], ...), "</dd>\n"
+        "<dt", id_attr, ">", term, anchor, "</dt>\n",
+        "<dd>", def , "</dd>\n"
       )
     } else {
       flatten_text(x, ...)

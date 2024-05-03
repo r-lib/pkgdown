@@ -228,9 +228,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
-
-  file_out <- gsub("\\.Rd$", ".html", file_in)
-  file_out[file_out == "index.html"] <- "index-topic.html"
+  file_out <- rd_output_path(file_in)
 
   funs <- purrr::map(rd, topic_funs)
 
@@ -247,6 +245,12 @@ package_topics <- function(path = ".", package = "pkgdown") {
     concepts = concepts,
     internal = internal
   )
+}
+
+rd_output_path <- function(x) {
+  x <- gsub("\\.Rd$", ".html", x)
+  x[x == "index.html"] <- "index-topic.html"
+  x
 }
 
 package_rd <- function(path = ".") {
@@ -331,17 +335,19 @@ package_vignettes <- function(path = ".") {
   out[order(basename(out$file_out)), ]
 }
 
-find_template_config <- function(package, bs_version = NULL) {
+find_template_config <- function(package,
+                                 bs_version = NULL,
+                                 error_call = caller_env()) {
   if (is.null(package)) {
     return(list())
   }
 
   config <- path_package_pkgdown(
     "_pkgdown.yml",
-    package = package,
-    bs_version = bs_version
+    package,
+    bs_version,
+    error_call = error_call
   )
-
   if (!file_exists(config)) {
     return(list())
   }

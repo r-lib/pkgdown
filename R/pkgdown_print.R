@@ -40,3 +40,15 @@ pkgdown_print.htmlwidget <- function(x, visible = TRUE) {
   x$height <- x$height %||% (settings$fig.height * settings$dpi)
   x
 }
+
+#' @export
+pkgdown_print.gt_tbl <- function(x, visible = TRUE) {
+  if (!visible) {
+    return(invisible())
+  }
+
+  htmltools::div(
+    class = "gt-table",
+    gt::as_raw_html(x)
+  )
+}

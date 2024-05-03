@@ -69,6 +69,7 @@ so it is available for vignettes.}
 \item \code{\link[=build_articles]{build_articles()}}
 \item \code{\link[=build_tutorials]{build_tutorials()}}
 \item \code{\link[=build_news]{build_news()}}
+\item \code{\link[=build_redirects]{build_redirects()}}
 }
 
 See the documentation for the each function to learn how to control
@@ -106,7 +107,6 @@ documented in \code{vignette("search")}.
 }
 
 \section{Development mode}{
-
 The \code{development} field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
 need to set the development \code{mode}:
@@ -116,21 +116,22 @@ need to set the development \code{mode}:
 }\if{html}{\out{</div>}}
 \subsection{Setting development mode}{
 
-The development \code{mode} of a site controls where the site is built,
-the colour of the package version in the navbar, the version tooltip,
-and whether or not the site is indexed by search engines. There are
-four possible modes:
+The development \code{mode} of a site controls where the built site is placed
+and how it is styled (i.e. the colour of the package version in the
+navbar, the version tooltip), and whether or not the site is indexed by
+search engines. There are four possible modes:
 \itemize{
-\item \strong{automatic} (\code{mode: auto}): automatically determines the mode based on the
-version number:
+\item \strong{automatic} (\code{mode: auto}): determines the mode based on the version:
 \itemize{
 \item \verb{0.0.0.9000} (\verb{0.0.0.*}): unreleased.
 \item four version components: development.
 \item everything else -> release.
 }
-\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}.
-Version in navbar gets the default colouring. Development badges are
-not shown in the sidebar (see \code{?build_home}).
+\item \strong{release} (\code{mode: release}), the default. Site is written to \verb{docs/}
+and styled like a released package, even if the content is for an
+unreleased or development version. Version in navbar gets the default
+colouring. Development badges are not shown in the sidebar
+(see \code{?build_home}).
 \item \strong{development} (\code{mode: devel}). Site is written to \verb{docs/dev/}.
 The navbar version gets a "danger" class and a tooltip stating these are
 docs for an in-development version of the package. The \code{noindex} meta tag
@@ -141,6 +142,10 @@ Version in navbar gets the "danger" class, and a message indicating the
 package is not yet on CRAN.
 Development badges are shown in the sidebar (see \code{?build_home}).
 }
+
+Use \code{mode: auto} if you want both a released and a dev site, and
+\code{mode: release} if you just want a single site. It is very rare that you
+will need either devel or unreleased modes.
 
 You can override the mode specified in the \verb{_pkgdown.yml} by setting
 by setting \code{PKGDOWN_DEV_MODE} to \code{devel} or \code{release}.
@@ -194,11 +199,11 @@ to danger). Finally, you can choose to override the default tooltip with
 }
 
 \section{Template}{
-
 The \code{template} field is mostly used to control the appearance of the site.
-See \code{vignette("customise")} for details.
+See \code{vignette("customise")} for details. But it's also used to control
+\subsection{Other aspects}{
 
-There are two other \code{template} fields that control other aspects of the
+There are a few other \code{template} fields that control other aspects of the
 site:
 \itemize{
 \item \code{noindex: true} will suppress indexing of your pages by search engines:
@@ -224,8 +229,7 @@ redirect scenarios.
 }
 }
 
-\section{Analytics}{
-
+\subsection{Analytics}{
 
 To capture usage of your site with a web analytics tool, you can make
 use of the \code{includes} field to add the special HTML they need. This HTML
@@ -268,9 +272,9 @@ recommend getting the HTML directly from the tool:
 }\if{html}{\out{</div>}}
 }
 }
+}
 
 \section{Source repository}{
-
 Use the \code{repo} field to override pkgdown's automatically discovery
 of your source repository. This is used in the navbar, on the homepage,
 in articles and reference topics, and in the changelog (to link to issue
@@ -317,7 +321,6 @@ specifying a branch name:
 }
 
 \section{Deployment (\code{deploy})}{
-
 There is a single \code{deploy} field
 \itemize{
 \item \code{install_metadata} allows you to install package index metadata into
@@ -332,30 +335,7 @@ time (e.g. because behind a firewall or requires auth).
 }
 }
 
-\section{Redirects}{
-
-If you change the structure of your documentation (by renaming vignettes or
-help topics) you can setup redirects from the old content to the new content.
-One or several now-absent pages can be redirected to a new page (or to a new
-section of a new page). This works by creating a html page that performs a
-"meta refresh", which isn't the best way of doing a redirect but works
-everywhere that you might deploy your site.
-
-The syntax is the following, with old paths on the left, and new paths or
-URLs on the right.
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{redirects:
-  - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
-  - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
-  - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-}\if{html}{\out{</div>}}
-
-If for some reason you choose to redirect an existing page make sure to
-exclude it from the search index, see \code{?build_search}.
-}
-
 \section{Options}{
-
 Users with limited internet connectivity can disable CRAN checks by setting
 \code{options(pkgdown.internet = FALSE)}. This will also disable some features
 from pkgdown that requires an internet connectivity. However, if it is used
