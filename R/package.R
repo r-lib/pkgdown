@@ -27,11 +27,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- modify_list(meta, override)
 
   # A local Bootstrap version, when provided, may drive the template choice
-  config_path <- pkgdown_config_path(pkg)
-  config_path <- if (!is.null(config_path)) fs::path_rel(config_path, pkg)
   bs_version_local <- get_bootstrap_version(
     template = meta$template,
-    config_path = config_path
+    pkg = list(src_path = pkg)
   )
 
   template_config <- find_template_config(
@@ -43,7 +41,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     if (is.null(bs_version_local)) {
       get_bootstrap_version(
         template = template_config$template,
-        config_path = config_path,
+        pkg = list(src_path = pkg),
         package = meta$template$package
       )
     }
@@ -61,7 +59,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   # Check the final Bootstrap version, possibly filled in by template pkg
   bs_version <- check_bootstrap_version(
     bs_version_local %||% bs_version_template,
-    pkg
+    pkg = list(src_path = pkg)
   )
 
   development <- meta_development(meta, version, bs_version)
@@ -122,7 +120,7 @@ read_desc <- function(path = ".") {
   desc::description$new(path)
 }
 
-get_bootstrap_version <- function(template, config_path = NULL, package = NULL) {
+get_bootstrap_version <- function(template, package = NULL, pkg) {
   if (is.null(template)) {
     return(NULL)
   }
@@ -131,22 +129,17 @@ get_bootstrap_version <- function(template, config_path = NULL, package = NULL) 
   template_bslib <- template[["bslib"]][["version"]]
 
   if (!is.null(template_bootstrap) && !is.null(template_bslib)) {
-    instructions <-
-      if (!is.null(package)) {
-        paste0(
-          "Update the pkgdown config in {.pkg ", package, "}, ",
-          "or set a Bootstrap version in your {.file ",
-          config_path %||% "_pkgdown.yml",
-          "}."
-        )
-      } else if (!is.null(config_path)) {
-        paste("Remove one of them from {.file", config_path, "}")
-      }
+    if (!is.null(package)) {
+      hint <- "Specified locally and in template package {.pkg {package}}."
+    } else {
+      hint <- NULL
+    }
 
-    cli::cli_abort(
+    config_abort(
+      pkg,
       c(
         "Must set one only of {.field template.bootstrap} and {.field template.bslib.version}.",
-        i = instructions
+        i = hint
       ),
       call = caller_env()
     )
