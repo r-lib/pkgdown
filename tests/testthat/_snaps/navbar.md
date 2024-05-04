@@ -190,6 +190,7 @@
     Condition
       Error in `data_template()`:
       ! navbar is incorrectly specified.
+      i See details in `vignette(pkgdown::customise)`.
       i Edit _pkgdown.yml to fix the problem.
 
 # render_navbar_links BS3 & BS4 default

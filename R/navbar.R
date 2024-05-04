@@ -68,7 +68,10 @@ render_navbar_links <- function(x, depth = 0L, pkg) {
   if (!is.list(x)) {
     config_abort(
       pkg,
-      "{.field navbar} is incorrectly specified.",
+      c(
+        "{.field navbar} is incorrectly specified.",
+        i = "See details in {.vignette pkgdown::customise}."
+      ),
       call = quote(data_template())
     )
   }

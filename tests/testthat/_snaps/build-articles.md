@@ -113,7 +113,7 @@
       . <- data_articles_index(pkg)
     Condition
       Error:
-      ! 1 vignette missing from index: "c"
+      ! 1 vignette missing from index: "c".
       i Edit _pkgdown.yml to fix the problem.
 
 # output is reproducible by default, i.e. 'seed' is respected

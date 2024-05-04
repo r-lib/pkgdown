@@ -51,7 +51,7 @@
       data_reference_index(pkg)
     Condition
       Error:
-      ! 3 topics missing from index: "c", "e", and "?"
+      ! 3 topics missing from index: "c", "e", and "?".
       i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry is empty
@@ -66,7 +66,7 @@
     Condition
       Error in `build_reference_index()`:
       ! Section "bla": 2 must be a character.
-      i You might need to add '' around special values like 'N' or 'off'
+      i You might need to add '' around special YAML values like 'N' or 'off'
       i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content is totally empty
