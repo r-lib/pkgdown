@@ -95,7 +95,8 @@ data_template <- function(pkg = ".", depth = 0L) {
     authors = tr_("Authors"),
     version = tr_("Version"),
     examples = tr_("Examples"),
-    citation = tr_("Citation")
+    citation = tr_("Citation"),
+    author_details = tr_("Additional details")
   )
 
   # Components that mostly end up in the <head>

@@ -2,6 +2,13 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   pkg <- as_pkgdown(pkg)
   author_info <- pkg$meta$authors %||% list()
 
+  inst_path <- path(pkg$src_path, "inst", "AUTHORS")
+  if (file_exists(inst_path)) {
+    inst <- read_lines(inst_path)
+  } else {
+    inst <- NULL
+  }
+
   all <- pkg %>%
     pkg_authors() %>%
     purrr::map(author_list, author_info, pkg = pkg)
@@ -22,7 +29,8 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
   print_yaml(list(
     all = all,
     main = main,
-    needs_page = more_authors || comments
+    inst = inst,
+    needs_page = more_authors || comments || !is.null(inst)
   ))
 }
 
@@ -53,16 +61,11 @@ data_home_sidebar_authors <- function(pkg = ".") {
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
+  sidebar <- pkg$meta$authors$sidebar
   bullets <- c(
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$before,
-      pkgdown_field(pkg, c("authors", "sidebar", "before"))
-    ),
+    markdown_text_inline(sidebar$before, "authors.sidebar.before", pkg = pkg),
     authors,
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$after,
-      pkgdown_field(pkg, c("authors", "sidebar", "after"))
-    )
+    markdown_text_inline(sidebar$after, "authors.sidebar.after", pkg = pkg)
   )
 
   if (data$needs_page) {
@@ -70,18 +73,6 @@ data_home_sidebar_authors <- function(pkg = ".") {
   }
 
   sidebar_section(tr_("Developers"), bullets)
-}
-
-data_authors_page <- function(pkg) {
-  data <- list(
-    pagetitle = tr_("Authors"),
-    authors = data_authors(pkg)$all
-  )
-
-  data$before <- markdown_text_block(pkg$meta$authors$before)
-  data$after <- markdown_text_block(pkg$meta$authors$after)
-
-  return(data)
 }
 
 author_name <- function(x, authors, pkg) {
@@ -96,7 +87,8 @@ author_name <- function(x, authors, pkg) {
   if (!is.null(author$html)) {
     name <- markdown_text_inline(
       author$html,
-      pkgdown_field(pkg, c("authors", name, "html"))
+      paste0("authors.", name, ".html"),
+      pkg = pkg
     )
   }
 
@@ -117,7 +109,7 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
+author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   name <- author_name(x, authors_info, pkg = pkg)
 
   roles <- paste0(role_lookup(x$role), collapse = ", ")

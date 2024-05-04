@@ -131,7 +131,7 @@ test_that("data_navbar() errors with bad side specifications", {
         left: 1
   ")
 
-   expect_snapshot(data_navbar(pkg), error = TRUE)
+  expect_snapshot(data_navbar(pkg), error = TRUE)
 })
 
 test_that("data_navbar() errors with bad left/right", {
@@ -139,7 +139,6 @@ test_that("data_navbar() errors with bad left/right", {
     navbar:
       right: [github]
   ")
-  file.create(path(pkg$src_path, "_pkgdown.yml"))
 
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })

@@ -181,6 +181,7 @@
     Condition
       Error in `navbar_links()`:
       ! navbar.structure.left must be a character vector.
+      i Edit _pkgdown.yml to fix the problem.
 
 # data_navbar() errors with bad left/right
 
@@ -188,7 +189,9 @@
       data_navbar(pkg)
     Condition
       Error in `data_template()`:
-      ! Invalid navbar specification in _pkgdown.yml
+      ! navbar is incorrectly specified.
+      i See details in `vignette(pkgdown::customise)`.
+      i Edit _pkgdown.yml to fix the problem.
 
 # render_navbar_links BS3 & BS4 default
 

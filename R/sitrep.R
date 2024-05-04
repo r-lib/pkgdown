@@ -17,8 +17,10 @@ pkgdown_sitrep <- function(pkg = ".") {
   warns <- c()
 
   if (is.null(pkg$meta[["url"]])) {
-    msg_fld <- pkgdown_field(pkg, "url", cfg = TRUE, fmt = TRUE)
-    warns <- c(warns, x = paste0(msg_fld, " is absent. See {.vignette pkgdown::metadata}."))
+    warns <- c(
+      warns,
+      x = "{.field url} is absent. See {.vignette pkgdown::metadata}."
+    )
   }
 
   desc_urls <- pkg$desc$get_urls()
@@ -31,7 +33,7 @@ pkgdown_sitrep <- function(pkg = ".") {
     cli::cli_inform(c(
       "v" = "pkgdown situation report: {.emph {cli::col_green('all clear')}}",
        "!" = "{.emph Double-check the following URLs:}",
-       " " = "{pkgdown_config_href({pkg$src_path})} contains URL {.url {pkg$meta['url']}}",
+       " " = "{config_path(pkg)} contains URL {.url {pkg$meta['url']}}",
        " " = "{.file DESCRIPTION} contains URL{?s} {.url {desc_urls}}"
     ))
   } else {
