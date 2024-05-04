@@ -28,9 +28,14 @@ build_redirects <- function(pkg = ".",
   pkg <- section_init(pkg, depth = 1L, override = override)
 
   redirects <- c(
+    reference_redirects(pkg),
     article_redirects(pkg),
     pkg$meta$redirects
   )
+
+  # Ensure user redirects override automatic ones
+  from <- purrr::map_chr(redirects, 1)
+  redirects <- redirects[!duplicated(from)]
 
   if (is.null(redirects)) {
     return(invisible())
@@ -73,6 +78,10 @@ build_redirect <- function(entry, index, pkg) {
   url <- sprintf("%s/%s%s", pkg$meta$url, pkg$prefix, new)
   lines <- whisker::whisker.render(template, list(url = url))
   dir_create(path_dir(old))
+
+  if (!file_exists(old)) {
+    cli::cli_inform("Adding redirect from {entry[1]} to {entry[2]}.")
+  }
   write_lines(lines, old)
 }
 
@@ -88,4 +97,26 @@ article_redirects <- function(pkg) {
 
   articles <- pkg$vignettes$file_out[is_vig_in_articles]
   purrr::map(articles, ~ paste0(c("articles/", ""), .x))
+}
+
+reference_redirects <- function(pkg) {
+  if (is.null(pkg$meta$url)) {
+    return(NULL)
+  }
+
+  aliases <- unname(pkg$topics$alias)
+  aliases <- purrr::map2(aliases, pkg$topics$name, setdiff)
+  names(aliases) <- pkg$topics$file_out
+
+  redirects <- invert_index(aliases)
+  if (length(redirects) == 0) {
+    return(list())
+  }
+
+  names(redirects) <- paste0(names(redirects), ".html")
+
+  # Ensure we don't override an existing file
+  redirects <- redirects[setdiff(names(redirects), pkg$topics$file_out)]
+
+  unname(purrr::imap(redirects, function(to, from) paste0("reference/", c(from, to))))
 }
