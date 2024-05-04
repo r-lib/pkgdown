@@ -47,11 +47,11 @@ navbar_links <- function(pkg, depth = 0L) {
   # Combine default structure with user supplied
   pkg$meta$navbar$structure <- modify_list(navbar_structure(), pkg$meta$navbar$structure)
   right_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "right")),
+    config_pluck_character(pkg, "navbar.structure.right"),
     names(components)
   )
   left_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "left")),
+    config_pluck_character(pkg, "navbar.structure.left"),
     names(components)
   )
   # Backward compatibility

@@ -13,7 +13,10 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   )
 }
 
-yaml_character <- function(pkg, where) {
+config_pluck_character <- function(pkg, path, call = caller_env()) {
+  check_string(path, allow_empty = FALSE)
+
+  where <- strsplit(path, ".", fixed = TRUE)[[1]]
   x <- purrr::pluck(pkg$meta, !!!where)
 
   if (identical(x, list()) || is.null(x)) {
@@ -21,11 +24,11 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    path <- paste0(where, collapse = ".")
+    not <- obj_type_friendly(x)
     config_abort(
       pkg,
-      "{.field {path}} must be a character vector.",
-      call = caller_env()
+      "{.field {path}} must be a character vector, {not}.",
+      call = call
     )
   }
 }

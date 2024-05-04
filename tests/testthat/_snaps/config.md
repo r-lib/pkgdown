@@ -13,3 +13,12 @@
       ! Can't find components a.x and a.y.
       i Edit _pkgdown.yml to fix the problem.
 
+# config_pluck_yaml generates informative error
+
+    Code
+      config_pluck_character(pkg, "x")
+    Condition
+      Error:
+      ! x must be a character vector, the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+
