@@ -18,7 +18,9 @@ test_that("header attributes are parsed", {
 
 test_that("markdown_text_inline() works with inline markdown", {
   expect_equal(markdown_text_inline("**lala**"), "<strong>lala</strong>")
-  expect_snapshot_error(markdown_text_inline("x\n\ny"))
+
+  pkg <- local_pkgdown_site()
+  expect_snapshot_error(markdown_text_inline("x\n\ny", pkg = pkg))
 })
 
 test_that("markdown_text_block() works with inline and block markdown", {

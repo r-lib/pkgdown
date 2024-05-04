@@ -5,7 +5,7 @@
     Condition
       Warning:
       pkgdown situation report: configuration error
-      x url in _pkgdown.yml is absent. See `vignette(pkgdown::metadata)`.
+      x url is absent. See `vignette(pkgdown::metadata)`.
       x 'DESCRIPTION' URL is empty.
 
 ---

@@ -61,16 +61,11 @@ data_home_sidebar_authors <- function(pkg = ".") {
 
   authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
 
+  sidebar <- pkg$meta$authors$sidebar
   bullets <- c(
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$before,
-      pkgdown_field(pkg, c("authors", "sidebar", "before"))
-    ),
+    markdown_text_inline(sidebar$before, "authors.sidebar.before", pkg = pkg),
     authors,
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$after,
-      pkgdown_field(pkg, c("authors", "sidebar", "after"))
-    )
+    markdown_text_inline(sidebar$after, "authors.sidebar.after", pkg = pkg)
   )
 
   if (data$needs_page) {
@@ -92,7 +87,8 @@ author_name <- function(x, authors, pkg) {
   if (!is.null(author$html)) {
     name <- markdown_text_inline(
       author$html,
-      pkgdown_field(pkg, c("authors", name, "html"))
+      paste0("authors.", name, ".html"),
+      pkg = pkg
     )
   }
 
@@ -113,7 +109,7 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
+author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   name <- author_name(x, authors_info, pkg = pkg)
 
   roles <- paste0(role_lookup(x$role), collapse = ", ")

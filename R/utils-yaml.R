@@ -4,12 +4,11 @@ check_yaml_has <- function(missing, where, pkg, call = caller_env()) {
   }
 
   missing_components <- lapply(missing, function(x) c(where, x))
-  msg_flds <- pkgdown_field(pkg, missing_components, fmt = FALSE, cfg = FALSE)
+  msg_flds <- purrr::map_chr(missing_components, paste, collapse = ".")
 
-  cli::cli_abort(c(
+  config_abort(
+    pkg, 
     "Can't find {cli::qty(missing)} component{?s} {.field {msg_flds}}.",
-    i = "Edit {pkgdown_config_href({pkg$src_path})} to define {cli::qty(missing)} {?it/them}."
-    ),
     call = call
   )
 }
@@ -22,35 +21,37 @@ yaml_character <- function(pkg, where) {
   } else if (is.character(x)) {
     x
   } else {
-    fld <- pkgdown_field(pkg, where, fmt = TRUE)
-    cli::cli_abort(
-      paste0(fld, " must be a character vector."),
+    path <- paste0(where, collapse = ".")
+    config_abort(
+      pkg,
+      "{.field {path}} must be a character vector.",
       call = caller_env()
     )
   }
 }
 
-pkgdown_field <- function(pkg, fields, cfg = FALSE, fmt = FALSE) {
+config_abort <- function(pkg,
+                         message,
+                         ...,
+                         call = caller_env(),
+                         .envir = caller_env()) {
+  cli::cli_abort(
+    c(
+      message,
+      i = "Edit {config_path(pkg)} to fix the problem."
+    ),
+    ...,
+    call = call,
+    .envir = .envir
+  )
+}
 
-  if (!is.list(fields)) fields <- list(fields)
-
-  flds <- purrr::map_chr(fields, ~ paste0(.x, collapse = "."))
-  if (fmt) {
-    flds <- paste0("{.field ", flds, "}")
+config_path <- function(pkg) {
+  config <- pkgdown_config_path(pkg$src_path)
+  if (is.null(config)) {
+    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
   }
-
-  if (cfg) {
-    if (fmt) {
-      config_path <- cli::format_inline(pkgdown_config_href(pkg$src_path))
-    } else {
-      config_path <- pkgdown_config_relpath(pkg)
-    }
-
-    paste0(flds, " in ", config_path)
-  } else {
-
-    flds
-  }
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 # print helper ------------------------------------------------------------

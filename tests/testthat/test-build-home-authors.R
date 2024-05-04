@@ -9,7 +9,7 @@ test_that("ORCID can be identified from all comment styles", {
     '  )'
   ))
   authors <- unclass(desc$get_authors())
-  authors <- purrr::map(authors, author_list, list(), pkg = list())
+  authors <- purrr::map(authors, author_list, list())
   orcid <- purrr::map(authors, "orcid")
   expect_equal(orcid, list(NULL, NULL, NULL, orcid_link("1"), orcid_link("2")))
 })

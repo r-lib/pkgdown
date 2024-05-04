@@ -31,7 +31,7 @@ data_reference_index_rows <- function(section, index, pkg) {
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
-      title = markdown_text_inline(section$title),
+      title = markdown_text_inline(section$title, pkg = pkg),
       slug = make_slug(section$title),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
@@ -40,7 +40,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "subtitle")) {
     rows[[2]] <- list(
-      subtitle = markdown_text_inline(section$subtitle),
+      subtitle = markdown_text_inline(section$subtitle, pkg = pkg),
       slug = make_slug(section$subtitle),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
@@ -68,38 +68,33 @@ data_reference_index_rows <- function(section, index, pkg) {
 }
 
 check_contents <- function(contents, id, pkg) {
-  malformed <- "This typically indicates that your {pkgdown_config_href(pkg$src_path)} is malformed."
   call <- quote(build_reference_index())
 
   if (length(contents) == 0) {
-    cli::cli_abort(
-      c(
-        "Section {.val {id}}: {.field contents} is empty.",
-        i = malformed
-      ),
+    config_abort(
+      pkg,
+      "Section {.val {id}}: {.field contents} is empty.",
       call = call
     )
   }
 
   is_null <- purrr::map_lgl(contents, is.null)
   if (any(is_null)) {
-    cli::cli_abort(
-      c(
-        "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
-        i = malformed
-      ),
+    config_abort(
+      pkg,
+      "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
       call = call
     )
   }
 
   is_char <- purrr::map_lgl(contents, is.character)
   if (!all(is_char)) {
-    cli::cli_abort(
+    config_abort(
+      pkg,
       c(
         "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
-        i = "You might need to add '' around special values like 'N' or 'off'",
-        i = malformed
-      ), 
+        i = "You might need to add '' around special YAML values like 'N' or 'off'"
+      ),
       call = call
     )
   }
@@ -143,11 +138,13 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
-    cli::cli_abort(c(
-      "All topics must be included in reference index",
-      "x" = "Missing topics: {pkg$topics$name[missing]}",
-      i = "Either add to {pkgdown_config_href({pkg$src_path})} or use @keywords internal"
-    ),
-    call = error_call)
+    config_abort(
+      pkg, 
+      c(
+        "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
+        i = "Either use {.code @keywords internal} to drop from index, or"
+      ),
+      call = error_call
+    )
   }
 }

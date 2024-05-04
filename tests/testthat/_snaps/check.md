@@ -4,9 +4,9 @@
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! All topics must be included in reference index
-      x Missing topics: ?
-      i Either add to _pkgdown.yml or use @keywords internal
+      ! 1 topic missing from index: "?".
+      i Either use `@keywords internal` to drop from index, or
+      i Edit _pkgdown.yml to fix the problem.
 
 # fails if article index incomplete
 
@@ -14,12 +14,13 @@
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! 2 vignettes missing from index in _pkgdown.yml: "articles/nested" and "width".
+      ! 2 vignettes missing from index: "articles/nested" and "width".
+      i Edit _pkgdown.yml to fix the problem.
 
 # informs if everything is ok
 
     Code
       check_pkgdown(pkg)
     Message
-      v No problems found in _pkgdown.yml
+      v No problems found.
 

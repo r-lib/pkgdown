@@ -76,8 +76,12 @@ navbar_links <- function(pkg, depth = 0L) {
 
 render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
   if (!is.list(x)) {
-    cli::cli_abort(
-      "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
+    config_abort(
+      pkg,
+      c(
+        "{.field navbar} is incorrectly specified.",
+        i = "See details in {.vignette pkgdown::customise}."
+      ),
       call = quote(data_template())
     )
   }
