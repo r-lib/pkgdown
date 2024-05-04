@@ -89,11 +89,12 @@ build_citation_authors <- function(pkg = ".") {
     repo_source(pkg, "DESCRIPTION")
   }
 
+  authors <- data_authors(pkg)
   data <- list(
     pagetitle = tr_("Authors and Citation"),
-    citationtitle = tr_("Citation"),
     citations = data_citations(pkg),
-    authors = unname(data_authors(pkg)$all),
+    authors = unname(authors$all),
+    inst = authors$inst,
     source = source
   )
 
