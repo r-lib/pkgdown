@@ -1,3 +1,10 @@
+# build_redirect() works
+
+    Code
+      build_redirect(c("old.html", "new.html#section"), 1, pkg = pkg)
+    Message
+      Adding redirect from old.html to new.html#section.
+
 # build_redirect() errors if one entry is not right.
 
     Code

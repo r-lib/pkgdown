@@ -1,5 +1,10 @@
 # pkgdown (development version)
 
+* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
+* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+* `build_redirects()` now automatically adds redirects for topic 
+aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).
+* `build_redirects()` now reports which redirects it is generating.
 * The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
 * Anchors are displayed when they're the target of a link.
 * `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
