@@ -53,19 +53,3 @@ config_path <- function(pkg) {
   }
   cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
-
-# print helper ------------------------------------------------------------
-
-print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
-}
-#' @export
-print.print_yaml <- function(x, ...) {
-  cat(yaml::as.yaml(x), "\n", sep = "")
-}
-
-# IO ----------------------------------------------------------------------
-
-write_yaml <- function(x, path) {
-  write_lines(yaml::as.yaml(x), path = path)
-}
