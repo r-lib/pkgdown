@@ -46,7 +46,6 @@ jobs:
           deploy-message:
             'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'
           # these default to 'true'
-          enable-pull-request-comment: false
           enable-commit-comment: false
           enable-github-deployment: false
         env:
