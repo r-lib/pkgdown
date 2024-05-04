@@ -66,16 +66,14 @@ jobs:
       - name: Deploy to Netlify
         if: contains(env.isPush, 'false')
         id: netlify-deploy
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: './docs'
-          production-branch: master
+          production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message:
             'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'
-          # these all default to 'true'
+          # these default to 'true'
           enable-pull-request-comment: false
           enable-commit-comment: false
-          # enable-commit-status: true
-          # overwrites-pull-request-comment: true
         timeout-minutes: 1
