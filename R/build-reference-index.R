@@ -93,7 +93,7 @@ check_contents <- function(contents, id, pkg) {
       pkg,
       c(
         "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
-        i = "You might need to add '' around special values like 'N' or 'off'"
+        i = "You might need to add '' around special YAML values like 'N' or 'off'"
       ),
       call = call
     )
@@ -140,7 +140,7 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   if (any(missing)) {
     config_abort(
       pkg, 
-      "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}",
+      "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
       call = error_call
     )
   }

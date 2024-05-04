@@ -397,7 +397,7 @@ data_articles_index <- function(pkg = ".") {
   if (length(missing) > 0) {
     config_abort(
       pkg,
-      "{length(missing)} vignette{?s} missing from index: {.val {missing}}",
+      "{length(missing)} vignette{?s} missing from index: {.val {missing}}.",
       call = caller_env()
     )
   }
