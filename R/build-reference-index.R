@@ -140,7 +140,10 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   if (any(missing)) {
     config_abort(
       pkg, 
-      "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
+      c(
+        "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
+        i = "Either use {.code @keywords internal} to drop from index, or"
+      ),
       call = error_call
     )
   }

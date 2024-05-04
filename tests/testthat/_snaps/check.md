@@ -5,6 +5,7 @@
     Condition
       Error in `check_pkgdown()`:
       ! 1 topic missing from index: "?".
+      i Either use `@keywords internal` to drop from index, or
       i Edit _pkgdown.yml to fix the problem.
 
 # fails if article index incomplete

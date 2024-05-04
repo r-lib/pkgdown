@@ -52,6 +52,7 @@
     Condition
       Error:
       ! 3 topics missing from index: "c", "e", and "?".
+      i Either use `@keywords internal` to drop from index, or
       i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry is empty
