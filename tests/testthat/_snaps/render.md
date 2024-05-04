@@ -30,6 +30,7 @@
       version: Version
       examples: Examples
       citation: Citation
+      author_details: Additional details
     has_favicons: no
     opengraph: []
     extra:

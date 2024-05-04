@@ -3,6 +3,5 @@
     Code
       copy_logo(pkg)
     Message
-      Copying man/figures/logo.svg
-      to logo.svg
+      Copying man/figures/logo.svg to logo.svg
 

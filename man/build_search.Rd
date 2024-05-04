@@ -16,7 +16,6 @@ values in \verb{_pkgdown.yml}}
 Build a JSON file encompassing all HTML pages, for use by the search script.
 }
 \section{YAML config}{
-
 You can exclude some paths from the search index.
 Below we exclude the changelog from the search index.
 
@@ -26,8 +25,6 @@ Below we exclude the changelog from the search index.
 }
 
 \section{Debugging and local testing}{
-
-
 Locally (as opposed to on GitHub Pages or Netlify for instance),
 search won't work if you simply use pkgdown preview of the static files.
 You can use \code{servr::httw("docs")} instead.

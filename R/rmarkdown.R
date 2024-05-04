@@ -100,15 +100,12 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     if (requireNamespace("htmlwidgets", quietly = TRUE)) {
       htmlwidgets::setWidgetIdSeed(seed)
     }
-
-    # since envir is copied from the parent fn into callr::r_safe(),
-    # set.seed() sets the seed in the wrong global env and we have to
-    # manually copy it over
-    # if (!identical(envir, globalenv())) {
-    #   envir$.Random.seed <- .GlobalEnv$.Random.seed
-    # }
   }
- 
+
+  # Ensure paths from output are not made relative to input
+  # https://github.com/yihui/knitr/issues/2171
+  options(knitr.graphics.rel_path = FALSE)
+
   rmarkdown::render(envir = globalenv(), ...)
 }
 

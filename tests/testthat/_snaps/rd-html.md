@@ -88,6 +88,18 @@
     
     </dl>
 
+# can add ids to descriptions
+
+    <dl>
+    <dt id='fooabc'>abc<a class='anchor' aria-label='anchor' href='#fooabc'></a></dt>
+    <dd><p>Contents 1</p></dd>
+    
+    <dt id='fooxyz'>xyz<a class='anchor' aria-label='anchor' href='#fooxyz'></a></dt>
+    <dd><p>Contents 2</p></dd>
+    
+    
+    </dl>
+
 # nested item with whitespace parsed correctly
 
     <dl>

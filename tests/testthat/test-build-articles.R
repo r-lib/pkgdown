@@ -5,21 +5,28 @@ test_that("can recognise intro variants", {
   expect_true(article_is_intro("articles/pack-age", "pack.age"))
 })
 
-test_that("links to man/figures are automatically relocated", {
+test_that("image links relative to output", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
-  pkg <- local_pkgdown_site(test_path("assets/man-figures"))
+  pkg <- local_pkgdown_site(test_path("assets/articles-images"))
 
-  expect_snapshot(copy_figures(pkg))
-  expect_snapshot(build_articles(pkg, lazy = FALSE))
+  suppressMessages(copy_figures(pkg))
+  suppressMessages(build_article("kitten", pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
   src <- xpath_attr(html, "//img", "src")
 
   expect_equal(src, c(
+    # knitr::include_graphics()
     "../reference/figures/kitten.jpg",
+    "another-kitten.jpg",
+    # rmarkdown image 
     "../reference/figures/kitten.jpg",
-    "another-kitten.jpg"
+    "another-kitten.jpg",
+    # magick::image_read()
+    "kitten_files/figure-html/magick-1.png",
+    # figure
+    "kitten_files/figure-html/plot-1.jpg"
   ))
 
   # And files aren't copied
@@ -199,6 +206,38 @@ test_that("pkgdown deps are included only once in articles", {
   expect_length(bs_css_href, 1)
 })
 
+test_that("warns about articles missing from index", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
+    articles:
+    - title: External
+      contents: [a, b]
+  ")
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_snapshot(. <- data_articles_index(pkg), error = TRUE)
+})
+
+test_that("internal articles aren't included and don't trigger warning", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
+    articles:
+    - title: External
+      contents: [a, b]
+    - title: internal
+      contents: c
+  ")
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_no_error(index <- data_articles_index(pkg))
+  expect_length(index$sections, 1)
+  expect_length(index$sections[[1]]$contents, 2)
+})
+
 test_that("check doesn't include getting started vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
   getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))
@@ -213,6 +252,16 @@ test_that("check doesn't include getting started vignette", {
 
   expect_error(data_articles_index(pkg), NA)
 })
+
+test_that("titles are escaped when needed", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
+
+  html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
+  expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
+  expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
+})
+
 
 test_that("output is reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))

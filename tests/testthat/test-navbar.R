@@ -139,6 +139,7 @@ test_that("data_navbar() errors with bad left/right", {
     navbar:
       right: [github]
   ")
+  file.create(path(pkg$src_path, "_pkgdown.yml"))
 
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })
@@ -197,6 +198,26 @@ test_that("render_navbar_links BS4 no divider before first element", {
     )
   )
   expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
+})
+
+test_that("dropdowns on right are right-aligned", {
+  x <- list(
+    articles = list(
+      text = "Articles",
+      menu = list(
+        list(text = "A"),
+        list(text = "B"),
+        list(text = "C")
+      )
+    )
+  )
+  pkg <- list(bs_version = 5)
+  
+  right <- xml2::read_html(render_navbar_links(x, pkg = pkg, side = "right"))
+  left <-  xml2::read_html(render_navbar_links(x, pkg = pkg, side = "left"))
+
+  expect_equal(xpath_attr(right, ".//div", "class"), "dropdown-menu dropdown-menu-end")
+  expect_equal(xpath_attr(left, ".//div", "class"), "dropdown-menu")
 })
 
 test_that("can specific link target", {

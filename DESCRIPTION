@@ -34,7 +34,7 @@ Imports:
     purrr (>= 1.0.0),
     ragg,
     rlang (>= 1.1.0),
-    rmarkdown (>= 1.1.9007),
+    rmarkdown (>= 2.26.2),
     tibble,
     whisker,
     withr (>= 2.4.3),
@@ -45,10 +45,12 @@ Suggests:
     diffviewer,
     evaluate,
     gert,
+    gt,
     htmltools,
     htmlwidgets,
     knitr,
     lifecycle,
+    magick,
     methods,
     openssl,
     pkgload (>= 1.0.2),
@@ -70,3 +72,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 SystemRequirements: pandoc
+Remotes:  
+    rstudio/rmarkdown

@@ -53,13 +53,8 @@ reference:
   desc:  Build a complete site or one of its components.
   contents:
   - build_site
-  - build_articles
-  - build_favicons
-  - build_home
-  - build_news
-  - build_tutorials
-  - build_reference
-  - build_search
+  - starts_with("build_")
+  - -build_site_github_pages
   - init_site
   - preview_site
   - pkgdown_sitrep

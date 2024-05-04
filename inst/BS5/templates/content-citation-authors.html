@@ -5,7 +5,7 @@
       <h1>{{{pagetitle}}}</h1>
     </div>
 
-    <div class="section level2 citation">
+    <div class="section level2">
       <h2>{{#translate}}{{authors}}{{/translate}}</h2>
       {{{before}}}
       <ul class="list-unstyled">
@@ -19,7 +19,7 @@
       {{{after}}}
     </div>
 
-    <div class="section level2 citation">
+    <div class="section level2">
       <h2 id="citation">{{#translate}}{{citation}}{{/translate}}</h2>
       <p>{{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}</p>
 
@@ -28,6 +28,13 @@
       <pre>{{{bibtex}}}</pre>
       {{/citations}}
     </div>
+
+    {{#inst}}
+    <div class="section level2">
+      <h2>{{#translate}}{{author_details}}{{/translate}}</h2>
+      <pre>{{.}}</pre>
+    </div>
+    {{/inst}}
   </main>
 
   <aside class="col-md-3">

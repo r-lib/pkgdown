@@ -104,6 +104,24 @@ test_that("examples are reproducible by default, i.e. 'seed' is respected", {
   expect_snapshot(cat(examples))
 })
 
+test_that("arguments get individual ids", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(build_reference(pkg, topics = "a"))
+
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "a.html"))
+  expect_equal(xpath_attr(html, "//dt", "id"), c("arg-a", "arg-b", "arg-c"))
+
+})
+
+test_that("title and page title escapes html", {
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(build_reference(pkg, topics = "g"))
+  
+  html <- xml2::read_html(file.path(pkg$dst_path, "reference", "g.html"))
+  expect_equal(xpath_text(html, "//title", trim = TRUE), "g <-> h — g • testpackage")
+  expect_equal(xpath_text(html, "//h1", trim = TRUE), "g <-> h")
+})
+
 test_that("get_rdname handles edge cases", {
   expect_equal(get_rdname(list(file_in = "foo..Rd")), "foo.")
   expect_equal(get_rdname(list(file_in = "foo.rd")), "foo")

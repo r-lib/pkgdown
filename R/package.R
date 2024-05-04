@@ -8,16 +8,18 @@
 #'   values in `_pkgdown.yml`
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
+  if (!is.list(override)) {
+    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+  }
+
   if (is_pkgdown(pkg)) {
     pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
+  check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort(
-      "{.file {pkg}} is not an existing directory",
-      call = caller_env()
-    )
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
@@ -182,18 +184,19 @@ check_bootstrap_version <- function(version, pkg) {
 pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
-    c("_pkgdown.yml",
-      "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml",
-      "inst/_pkgdown.yml"
+    c(
+      "_pkgdown.yml", "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
     )
   )
 }
 pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
-  )
+  config <- pkgdown_config_path(path)
+  if (is.null(config)) {
+    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
+  }
+  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
 }
 
 read_meta <- function(path) {
@@ -225,9 +228,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
-
-  file_out <- gsub("\\.Rd$", ".html", file_in)
-  file_out[file_out == "index.html"] <- "index-topic.html"
+  file_out <- rd_output_path(file_in)
 
   funs <- purrr::map(rd, topic_funs)
 
@@ -244,6 +245,12 @@ package_topics <- function(path = ".", package = "pkgdown") {
     concepts = concepts,
     internal = internal
   )
+}
+
+rd_output_path <- function(x) {
+  x <- gsub("\\.Rd$", ".html", x)
+  x[x == "index.html"] <- "index-topic.html"
+  x
 }
 
 package_rd <- function(path = ".") {
@@ -328,17 +335,19 @@ package_vignettes <- function(path = ".") {
   out[order(basename(out$file_out)), ]
 }
 
-find_template_config <- function(package, bs_version = NULL) {
+find_template_config <- function(package,
+                                 bs_version = NULL,
+                                 error_call = caller_env()) {
   if (is.null(package)) {
     return(list())
   }
 
   config <- path_package_pkgdown(
     "_pkgdown.yml",
-    package = package,
-    bs_version = bs_version
+    package,
+    bs_version,
+    error_call = error_call
   )
-
   if (!file_exists(config)) {
     return(list())
   }

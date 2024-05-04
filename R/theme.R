@@ -68,11 +68,7 @@ bs_theme_rules <- function(pkg) {
 
   package <- purrr::pluck(pkg, "meta", "template", "package")
   if (!is.null(package)) {
-    package_extra <- path_package_pkgdown(
-      "extra.scss",
-      package = package,
-      bs_version = pkg$bs_version
-    )
+    package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
     if (file_exists(package_extra)) {
       paths <- c(paths, package_extra)
     }
