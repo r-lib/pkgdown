@@ -12,15 +12,15 @@ test_that("config_check_list gives informative errors", {
     config_check_list(
       1,
       "x",
-      error_path = "path",
-      error_pkg = pkg
+      error_pkg = pkg,
+      error_path = "path"
     )
    
     config_check_list(
       list(x = 1, y = 1),
       c("y", "z"),
-      error_path = "path",
-      error_pkg = pkg
+      error_pkg = pkg,
+      error_path = "path"
     )
   })
 }) 
