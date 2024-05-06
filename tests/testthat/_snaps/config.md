@@ -14,7 +14,7 @@
       1 missing component: "z".
       i Edit _pkgdown.yml to fix the problem.
 
-# config_pluck_yaml generates informative error
+# config_pluck_character generates informative error
 
     Code
       config_pluck_character(pkg, "x")

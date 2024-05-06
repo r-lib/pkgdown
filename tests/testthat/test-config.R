@@ -25,13 +25,13 @@ test_that("config_check_list gives informative errors", {
   })
 }) 
 
-test_that("config_pluck_yaml coerces empty value to character", {
+test_that("config_pluck_character coerces empty values to character", {
   pkg <- local_pkgdown_site(meta = list(x = NULL))
   expect_equal(config_pluck_character(pkg, "x"), character())
   expect_equal(config_pluck_character(pkg, "y"), character())
 })
 
-test_that("config_pluck_yaml generates informative error", {
+test_that("config_pluck_character generates informative error", {
   pkg <- local_pkgdown_site(meta = list(x = 1))
   expect_snapshot(config_pluck_character(pkg, "x"), error = TRUE)
 })
