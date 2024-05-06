@@ -154,7 +154,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   repo <- cran_link(pkg$package)
-  links <- config_pluck_character(pkg, "home.links")
+  links <- config_pluck(pkg, "home.links")
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
