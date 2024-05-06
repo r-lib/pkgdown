@@ -91,7 +91,7 @@ config_check_list <- function(x,
       config_abort(
         error_pkg,
         c(
-          "{.field {error_path}} must have components {.str {names}}.",
+          "{.field {error_path}} must have {cli::qty(names)} component{?s} {.str {names}}.",
           "{length(missing)} missing component{?s}: {.str {missing}}."
         ),
         call = error_call

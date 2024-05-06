@@ -75,7 +75,7 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! home.sidebar.components must have components "fancy".
+      ! home.sidebar.components must have component "fancy".
       1 missing component: "fancy".
       i Edit _pkgdown.yml to fix the problem.
 
