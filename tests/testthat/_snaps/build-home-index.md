@@ -75,7 +75,8 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! Can't find component home.sidebar.components.fancy.
+      ! home.sidebar.components must have components "fancy".
+      1 missing component: "fancy".
       i Edit _pkgdown.yml to fix the problem.
 
 ---
@@ -84,7 +85,8 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! Can't find components home.sidebar.components.fancy and home.sidebar.components.cool.
+      ! home.sidebar.components must have components "fancy" and "cool".
+      2 missing components: "fancy" and "cool".
       i Edit _pkgdown.yml to fix the problem.
 
 ---
@@ -93,7 +95,7 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! Can't find component home.sidebar.components.fancy.title.
+      ! home.sidebar.components.fancy.title must be a string, not `NULL`.
       i Edit _pkgdown.yml to fix the problem.
 
 ---
@@ -102,6 +104,6 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text.
+      ! home.sidebar.components.fancy.title must be a string, not `NULL`.
       i Edit _pkgdown.yml to fix the problem.
 
