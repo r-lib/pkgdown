@@ -1,3 +1,30 @@
+test_that("config_check_list() returns list if ok", {
+  x <- list(x = 1, y = 2)
+  expect_equal(config_check_list(x), x)
+  expect_equal(config_check_list(x, "x"), x)
+  expect_equal(config_check_list(x, c("x", "y")), x)
+})
+
+test_that("config_check_list gives informative errors", {
+  pkg <- local_pkgdown_site()
+
+  expect_snapshot(error = TRUE, {
+    config_check_list(
+      1,
+      "x",
+      error_path = "path",
+      error_pkg = pkg
+    )
+   
+    config_check_list(
+      list(x = 1, y = 1),
+      c("y", "z"),
+      error_path = "path",
+      error_pkg = pkg
+    )
+  })
+}) 
+
 test_that("config_pluck_yaml coerces empty value to character", {
   pkg <- local_pkgdown_site(meta = list(x = NULL))
   expect_equal(config_pluck_character(pkg, "x"), character())

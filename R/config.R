@@ -21,13 +21,6 @@ config_check_list <- function(x, names, error_path, error_pkg, error_call = call
       call = error_call
     )
   }
-
-  if (identical(x, list()) || is.null(x)) {
-    character()
-  } else if (is.character(x)) {
-    x
-  } else {
-  }
 }
 
 
