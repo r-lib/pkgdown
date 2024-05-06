@@ -18,6 +18,19 @@ config_pluck_character <- function(pkg,
   )
 }
 
+config_pluck_string <- function(pkg,
+                                path,
+                                default = "",
+                                call = caller_env()) {
+  x <- config_pluck(pkg, path, default)
+  config_check_string(
+    x,
+    error_path = path,
+    error_pkg = pkg,
+    error_call = call
+  )
+}
+
 # checks ---------------------------------------------------------------------
 
 config_check_character <- function(x,
@@ -29,11 +42,12 @@ config_check_character <- function(x,
   } else if (identical(x, list())) {
     character()
   } else {
-    not <- obj_type_friendly(x)
-    config_abort(
-      error_pkg,
-      "{.field {error_path}} must be a character vector, not {not}.",
-      call = error_call
+    config_abort_type(
+      must_be = "a character vector",
+      not = x,
+      error_pkg = error_pkg,
+      error_path = error_path,
+      error_call = error_call
     )
   }
 }
@@ -42,16 +56,28 @@ config_check_string <- function(x,
                                 error_pkg,
                                 error_path,
                                 error_call = caller_env()) {
+
   if (is_string(x)) {
     x
   } else {
-    not <- obj_type_friendly(x)
-    config_abort(
-      error_pkg,
-      "{.field {error_path}} must be a string, not {not}.",
-      call = error_call
+    config_abort_type(
+      must_be = "a string",
+      not = x,
+      error_pkg = error_pkg,
+      error_path = error_path,
+      error_call = error_call
     )
   }
+}
+
+config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
+  not_str <- obj_type_friendly(not)
+  config_abort(
+    error_pkg,
+    "{.field {error_path}} must be {must_be}, not {not_str}.",
+    call = error_call
+  )
+
 }
 
 config_check_list <- function(x,

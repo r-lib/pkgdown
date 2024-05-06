@@ -1,7 +1,7 @@
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
+  navbar <- config_pluck(pkg, "navbar")
 
   style <- navbar_style(
     navbar = navbar,
@@ -36,7 +36,7 @@ navbar_structure <- function() {
 }
 
 navbar_links <- function(pkg, depth = 0L) {
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
+  navbar <- config_pluck(pkg, "navbar")
 
   # Combine default components with user supplied
   components <- navbar_components(pkg)

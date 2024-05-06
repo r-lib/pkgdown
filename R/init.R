@@ -54,7 +54,7 @@ init_site <- function(pkg = ".") {
 
 copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  template <- purrr::pluck(pkg$meta, "template", .default = list())
+  template <- config_pluck(pkg, "template")
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {

@@ -102,8 +102,8 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     function(comp) {
       data_home_component(
         custom[[comp]],
-        error_path = paste0("home.sidebar.components.", comp),
         error_pkg = pkg,
+        error_path = paste0("home.sidebar.components.", comp),
         error_call = call
       )
     }
@@ -131,20 +131,20 @@ default_sidebar_structure <- function() {
 }
 
 data_home_component <- function(component,
-                                error_path,
                                 error_pkg,
+                                error_path,
                                 error_call = caller_env()) {
   title <- config_check_string(
     component$title,
-    paste0(error_path, ".title"),
-    error_pkg,
-    error_call
+    error_pkg = error_pkg,
+    error_path = paste0(error_path, ".title"),
+    error_call = error_call
   )
   text <- config_check_string(
     component$text,
-    paste0(error_path, ".text"),
-    error_pkg,
-    error_call
+    error_pkg = error_pkg,
+    error_path = paste0(error_path, ".text"),
+    error_call = error_call
   )
 
   sidebar_section(title, bullets = markdown_text_block(text))
@@ -154,7 +154,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   repo <- cran_link(pkg$package)
-  links <- purrr::pluck(pkg, "meta", "home", "links")
+  links <- config_pluck_character(pkg, "home.links")
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
