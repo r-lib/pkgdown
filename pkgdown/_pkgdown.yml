@@ -1,3 +1,4 @@
+url: https://pkgdown.r-lib.org
 
 home:
   title: Build websites for R packages
@@ -33,6 +34,7 @@ articles:
   contents:
   - customise
   - linking
+  - search
   - metadata
 
 - title: Advanced techniques
