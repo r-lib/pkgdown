@@ -140,7 +140,7 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
 
   orcid <- purrr::pluck(x$comment, "ORCID")
-  x$comment <- remove_name(x$comment, "ORCID")
+  x$comment <- remove_orcid(x$comment)
 
   list(
     name = name,
@@ -205,23 +205,6 @@ role_lookup <- function(abbr) {
     missing <- abbr[is.na(out)]
     cli::cli_warn("Unknown MARC role abbreviation{?s}: {.field {missing}}")
     out[is.na(out)] <- abbr[is.na(out)]
-  }
-  out
-}
-
-# helpers -----------------------------------------------------------------
-
-remove_name <- function(x, name) {
-  stopifnot(is.character(name), length(name) == 1)
-
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(x)
-  }
-
-  out <- x[!(nms %in% name)]
-  if (all(names(out) == "")) {
-    names(out) <- NULL
   }
   out
 }
@@ -307,4 +290,15 @@ citation_auto <- function(pkg) {
     html = format(cit, style = "html"),
     bibtex = format(cit, style = "bibtex")
   )
+}
+
+# helpers -----------------------------------------------------------------
+
+# Not strictly necessary, but produces a simpler data structure testing
+remove_orcid <- function(x) {
+  out <- x[names2(x) != "ORCID"]
+  if (all(names(out) == "")) {
+    names(out) <- NULL
+  }
+  out
 }

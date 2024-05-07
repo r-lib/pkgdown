@@ -1,4 +1,4 @@
-# data_home_sidebar_authors() works with text
+# sidebar can accept additional before and after text
 
     Code
       cat(data_home_sidebar_authors(pkg))
