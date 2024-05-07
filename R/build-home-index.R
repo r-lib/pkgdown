@@ -3,13 +3,7 @@
 build_home_index <- function(pkg = ".", quiet = TRUE) {
   pkg <- section_init(pkg, depth = 0L)
 
-  src_path <- path_first_existing(
-    pkg$src_path,
-    c("pkgdown/index.md",
-      "index.md",
-      "README.md"
-    )
-  )
+  src_path <- path_index(pkg)
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
 
@@ -34,10 +28,17 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     logo = logo_path(pkg, depth = 0)
   )
 
-  copy_figures(pkg)
-  check_missing_images(pkg, path_rel(src_path, pkg$src_path), "index.html")
-
   invisible()
+}
+
+path_index <- function(pkg) {
+  path_first_existing(
+    pkg$src_path,
+    c("pkgdown/index.md",
+      "index.md",
+      "README.md"
+    )
+  )
 }
 
 data_home <- function(pkg = ".") {
@@ -206,21 +207,3 @@ cran_link <- memoise(function(pkg) {
 
   NULL
 })
-
-
-check_missing_images <- function(pkg, src_path, dst_path) {
-  html <- xml2::read_html(path(pkg$dst_path, dst_path), encoding = "UTF-8")
-  src <- xml2::xml_attr(xml2::xml_find_all(html, ".//img"), "src")
-
-  rel_src <- src[xml2::url_parse(src)$scheme == ""]
-  rel_path <- fs::path_norm(path(fs::path_dir(dst_path), rel_src))
-  exists <- fs::file_exists(path(pkg$dst_path, rel_path))
-
-  if (any(!exists)) {
-    paths <- rel_src[!exists]
-    cli::cli_warn(c(
-      "Missing images in {.file {src_path}}: {.file {paths}}",
-      i = "pkgdown can only use images in {.file man/figures} and {.file vignettes}"
-    ))
-  }
-}

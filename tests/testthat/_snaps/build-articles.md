@@ -9,7 +9,7 @@
       Writing `articles/html-vignette.html`
     Condition
       Warning:
-      Missing images in 'vignettes/html-vignette.Rmd': 'foo.png'
+      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
 
 # articles don't include header-attrs.js script
