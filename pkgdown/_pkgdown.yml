@@ -82,15 +82,6 @@ reference:
   contents:
   - starts_with("test", internal = TRUE)
 
-navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/hadleywickham
-      aria-label: Twitter
-
 news:
   releases:
   - text: "Version 2.0.0"
