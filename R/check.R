@@ -34,7 +34,7 @@ check_pkgdown <- function(pkg = ".") {
 pkgdown_sitrep <- function(pkg = ".") {
   cli::cli_rule("Sitrep")
 
-  error_to_sitrep("Package structure", pkg <- as_pkgdown(pkg))
+  pkg <- as_pkgdown(pkg)
   error_to_sitrep("URLs", check_urls(pkg))
   error_to_sitrep("Open graph metadata", data_open_graph(pkg))
   error_to_sitrep("Articles metadata", data_articles_index(pkg))
@@ -57,14 +57,20 @@ error_to_sitrep <- function(title, code) {
 
 check_urls <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
+  details <- c(i = "See details in {.vignette pkgdown::metadata}.")
+  
+  if (identical(pkg$meta, list())) {
+    cli::cli_abort(
+      c("No {.path _pkgdown.yml} found.", details),
+      call = call
+    )
+  }
+
   url <- pkg$meta[["url"]]
 
   if (is.null(url)) {
     cli::cli_abort(
-      c(
-        x = "{config_path(pkg)} lacks {.field url}.",
-        i = "See details in {.vignette pkgdown::metadata}."
-      ),
+      c("{config_path(pkg)} lacks {.field url}.", details),
       call = call
     )
   } else {
@@ -73,10 +79,7 @@ check_urls <- function(pkg = ".", call = caller_env()) {
     
     if (!pkg$meta[["url"]] %in% desc_urls) {
       cli::cli_abort(
-        c(
-          x = "{.file DESCRIPTION} {.field URL} lacks package url ({url}).",
-          i = "See details in {.vignette pkgdown::metadata}."
-        ),
+        c("{.file DESCRIPTION} {.field URL} lacks package url ({url}).", details),
         call = call
       )
     } 
