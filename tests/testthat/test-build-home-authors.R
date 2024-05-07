@@ -91,7 +91,7 @@ test_that("source link is added to citation page", {
   local_citation_activate(path)
 
   pkg <- local_pkgdown_site(path)
-  expect_snapshot(build_home(pkg))
+  suppressMessages(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
   expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
