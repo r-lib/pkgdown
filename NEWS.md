@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
+* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
 * `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
 * `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
 * If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
