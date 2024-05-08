@@ -1,0 +1,22 @@
+[
+    {
+        "label": "1.0.0.9000 (dev)",
+        "version": "1.0.0.9000",
+        "path": "/dev"
+    },
+    {
+        "label": "1.0.0 (release)",
+        "version": "1.0.0",
+        "path": "/"
+    },
+    {
+        "label": "0.9",
+        "version": "0.9.0",
+        "path": "/0.9"
+    },
+    {
+        "label": "0.8 is old",
+        "version": "0.8.1",
+        "path": "/0.8"
+    }
+]
