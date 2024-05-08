@@ -7,7 +7,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
   output_path <- path_abs(output, pkg$dst_path)
 
   if (!file_exists(input_path)) {
-    cli::cli_abort("Can't find {src_path(input).", call = caller_env())
+    cli::cli_abort("Can't find {src_path(input)}.", call = call)
   }
 
   cli::cli_inform("Reading {src_path(input)}")
