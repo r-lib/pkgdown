@@ -7,10 +7,19 @@
       Writing `articles/index.html`
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
-    Condition
-      Warning:
-      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
+      x Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
+
+# warns about missing alt-text
+
+    Code
+      build_article("missing-images", pkg)
+    Message
+      Reading vignettes/missing-images.Rmd
+      Writing `articles/missing-images.html`
+      x Missing alt-text in 'vignettes/missing-images.Rmd'
+      * kitten.jpg
+      * missing-images_files/figure-html/unnamed-chunk-1-1.png
 
 # articles don't include header-attrs.js script
 
