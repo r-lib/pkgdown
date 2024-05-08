@@ -34,6 +34,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - accessibility
   - linking
   - search
   - metadata
