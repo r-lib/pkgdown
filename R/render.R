@@ -63,6 +63,9 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   template <- find_template("layout", name, pkg = pkg)
   rendered <- render_template(template, components)
 
+  # Strip trailing whitespace
+  rendered <- gsub("\\s+\n", "\n", rendered, perl = TRUE)
+  
   xml2::read_html(rendered, encoding = "UTF-8")
 }
 

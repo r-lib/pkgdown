@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* Improve HTML5 compliance (#2369):
+  * No longer support IE9 or earlier
+  * Strip trailing whitespace
+  * Label `<nav>`s and improve navbar html.
 * `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
 * `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
 * `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
