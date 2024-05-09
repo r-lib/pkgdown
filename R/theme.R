@@ -2,9 +2,25 @@ build_bslib <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   bs_theme <- bs_theme(pkg)
 
+  cur_deps <- find_deps(pkg)
+  cur_digest <- purrr::map_chr(cur_deps, file_digest)
+
   deps <- bslib::bs_theme_dependencies(bs_theme)
   deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
+
+  new_deps <- find_deps(pkg)
+  new_digest <- purrr::map_chr(cur_deps, file_digest)
+
+  all_deps <- union(new_deps, cur_deps)
+  diff <- cur_digest[all_deps] == new_digest[all_deps]
+  changed <- all_deps[!diff | is.na(diff)]
+
+  if (length(changed) > 0) {
+    purrr::walk(changed, function(dst) {
+      cli::cli_inform("Updating {dst_path(path_rel(dst, pkg$dst_path))}")
+    })
+  }
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
   write_lines(head, data_deps_path(pkg))
@@ -29,6 +45,15 @@ data_deps <- function(pkg, depth) {
 
 data_deps_path <- function(pkg) {
   file.path(pkg$dst_path, "deps", "data-deps.txt")
+}
+
+find_deps <- function(pkg) {
+  deps_path <- path(pkg$dst_path, "deps")
+  if (!dir_exists(deps_path)) {
+    character()
+  } else {
+    dir_ls(deps_path, type = "file", recurse = TRUE)
+  }
 }
 
 bs_theme <- function(pkg = ".") {
