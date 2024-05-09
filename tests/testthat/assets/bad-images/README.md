@@ -1,2 +1,2 @@
 
-![](foo.png)
+![](vignettes/kitten.jpg)

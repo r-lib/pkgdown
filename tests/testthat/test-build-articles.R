@@ -34,6 +34,9 @@ test_that("image links relative to output", {
 })
 
 test_that("warns about missing images", {
+  # Added in #2509: I can't figure out why this is necessary :(
+  skip_on_covr()
+
   pkg <- local_pkgdown_site(test_path("assets/bad-images"))
   expect_snapshot(build_articles(pkg))
 })

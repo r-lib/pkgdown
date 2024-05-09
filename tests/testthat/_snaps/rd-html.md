@@ -32,14 +32,6 @@
       </div>
       </div>
 
-# Sexprs with multiple args are parsed
-
-    Code
-      rd2html("\\Sexpr[results=verbatim]{1}")
-    Condition
-      Error:
-      ! \\Sexpr{result=verbatim} not yet supported
-
 # bad specs throw errors
 
     Code

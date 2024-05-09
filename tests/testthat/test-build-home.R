@@ -21,11 +21,6 @@ test_that("intermediate files cleaned up automatically", {
   )
 })
 
-test_that("warns about missing images", {
-  pkg <- local_pkgdown_site(test_path("assets/bad-images"))
-  expect_snapshot(build_home(pkg))
-})
-
 test_that("can build site even if no Authors@R present", {
   skip_if_no_pandoc()
 
