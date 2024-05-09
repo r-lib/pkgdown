@@ -63,7 +63,7 @@ test_that("@examplesIf", {
     "answer <- 43",
     "}"
   )
-  expect_warning(
+  expect_message(
     expect_equal(rd2ex(rd), exp),
     "@examplesIf condition"
   )

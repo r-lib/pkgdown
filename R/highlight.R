@@ -31,8 +31,16 @@ highlight_examples <- function(code, topic, env = globalenv()) {
   out <- downlit::evaluate_and_highlight(
     code,
     fig_save = fig_save_topic,
-    env = child_env(env),
-    output_handler = evaluate::new_output_handler(value = pkgdown_print)
+    env = env(env, DONTSHOW = invisible),
+    output_handler = evaluate::new_output_handler(source = function(x, ...) {
+      # Doesn't work because the return value of output_handler() is not
+      # currently used
+      if (grepl("DONTSHOW", x$src)) {
+        list(src = "")
+      } else {
+        x
+      }
+    }, value = pkgdown_print) 
   )
   structure(
     sourceCode(pre(out, r_code = TRUE)),

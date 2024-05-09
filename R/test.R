@@ -118,21 +118,25 @@ NULL
 #' }
 #'
 #' answer <- 1
+#' # Change answer with a don't show
+#' \dontshow{answer <- 42}
+#' stopifnot(answer == 42)
+#' 
+#' # Inline value
+#' \dontshow{1 + 1}
+#' # Block value
 #' \dontshow{
-#' answer <- 42
+#'   1 + 1
 #' }
-#' answer # should be 42
 #'
-#' # To hide the \dontshow part, for conditional examples
-#' \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' @examplesIf FALSE
+#' # Should never see me
 #' answer <- 43
-#' \dontshow{\}) # examplesIf}
-#' answer # should be still 42
 #'
-#' # But this one runs, and the condition is hidden
-#' \dontshow{if (TRUE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+#' @examplesIf TRUE
+#' # Should always see me
 #' answer <- 43
-#' \dontshow{\}) # examplesIf}
+#' @examples
 #' answer
 
 NULL

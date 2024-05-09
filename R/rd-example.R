@@ -1,15 +1,3 @@
-rd2ex <- function(x, ...) {
-  x <- rd_text(paste0("\\examples{", x, "}"), fragment = FALSE)[[1]]
-  x <- process_conditional_examples(x)
-  x <- flatten_ex(x, ...)
-
-  if (grepl("\n", x)) {
-    strsplit(x, "\n")[[1]]
-  } else {
-    x
-  }
-}
-
 run_examples <- function(x,
                          topic = "unknown",
                          env = globalenv(),
@@ -40,63 +28,60 @@ run_examples <- function(x,
 }
 
 process_conditional_examples <- function(rd) {
-  if (is.list(rd)) {
-    which_exif <- which(purrr::map_lgl(rd, function(x) {
-      "tag_dontshow" %in% class(x) &&
-        is.character(x[[1]]) &&
-        grepl("# examplesIf$", x[[1]])
-    }))
-    if (length(which_exif) == 0) return(rd)
-    if (length(which_exif) %% 2 != 0) {
-      cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
-    }
-    remove <- integer()
-    modes <- c("begin", "end")
-    for (idx in which_exif) {
-      if (rd[[idx]] != "}) # examplesIf") {
-        # Start of @examplesIf
-        if (modes[1] == "end") {
-          cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
-        }
-        cond_expr <- parse(text = paste0(rd[[idx]], "\n})"))[[1]][[2]]
-        cond <- eval(cond_expr)
-        if (isTRUE(cond)) {
-          remove <- c(remove, idx, idx + 1L)
-        } else {
-          cond_expr_str <- paste(deparse(cond_expr), collapse = " ")
-          is_false <- cond_expr_str == "FALSE"
-          if (!is_false) {
-            new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
-            cli::cli_warn(
-              "@examplesIf condition {.val {cond_expr_str}} is {.val FALSE}"
-            )
-          } else {
-            new_cond <- "if (FALSE) {"
-          }
-          rd[[idx]] <- structure(list(new_cond), class = c("RCODE", "tag"))
-        }
-      } else {
-        # End of @examplesIf
-        if (modes[1] == "begin") {
-          cli::cli_abort("@examplesIf error, closed twice?", call = caller_env())
-        }
-        if (isTRUE(cond)) {
-          remove <- c(remove, idx, idx + 1L)
-        } else {
-          rd[[idx]] <- structure(list("}"), class = c("RCODE", "tag"))
-        }
-      }
-      modes <- rev(modes)
-    }
-    if (length(remove)) rd <- rd[-remove]
-    rd
-
-  } else {
-    rd
+  if (!is.list(rd)) {
+    return(rd)
   }
+  
+  which_exif <- which(purrr::map_lgl(rd, function(x) {
+    inherits(x, "tag_dontshow") &&
+      is.character(x[[1]]) &&
+      grepl("# examplesIf$", x[[1]])
+  }))
+  if (length(which_exif) == 0) return(rd)
+  if (length(which_exif) %% 2 != 0) {
+    cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+  }
+  
+  remove <- integer()
+  modes <- c("begin", "end")
+  for (idx in which_exif) {
+    if (rd[[idx]] != "}) # examplesIf") {
+      # Start of @examplesIf
+      if (modes[1] == "end") {
+        cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
+      }
+      cond_expr <- parse(text = paste0(rd[[idx]], "\n})"))[[1]][[2]]
+      
+      cond <- eval(cond_expr)
+      if (isTRUE(cond)) {
+        remove <- c(remove, idx, idx + 1L)
+      } else {
+        cond_expr_str <- paste(deparse(cond_expr), collapse = " ")
+        is_false <- cond_expr_str == "FALSE"
+        if (!is_false) {
+          new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
+          cli::cli_inform("@examplesIf condition {.val {cond_expr_str}} is {.val FALSE}")
+        } else {
+          new_cond <- "if (FALSE) {"
+        }
+        rd[[idx]] <- structure(list(new_cond), class = c("RCODE", "tag"))
+      }
+    } else {
+      # End of @examplesIf
+      if (modes[1] == "begin") {
+        cli::cli_abort("@examplesIf error, closed twice?", call = caller_env())
+      }
+      if (isTRUE(cond)) {
+        remove <- c(remove, idx, idx + 1L)
+      } else {
+        rd[[idx]] <- structure(list("}"), class = c("RCODE", "tag"))
+      }
+    }
+    modes <- rev(modes)
+  }
+  if (length(remove)) rd <- rd[-remove]
+  rd
 }
-
-
 
 # as_example --------------------------------------------------------------
 
@@ -142,7 +127,7 @@ as_example.tag_donttest <- function(x, run_dont_run = FALSE) {
 }
 #' @export
 as_example.tag_dontshow <- function(x, run_dont_run = FALSE) {
-  block_tag_to_comment("\\dontshow", x, run_dont_run = run_dont_run)
+  paste0("DONTSHOW({", flatten_ex(x, run_dont_run = run_dont_run), "})")
 }
 #' @export
 as_example.tag_testonly <- function(x, run_dont_run = FALSE) {
@@ -203,4 +188,16 @@ can_parse <- function(x) {
     parse(text = x)
     TRUE
   }, error = function(e) FALSE)
+}
+
+rd2ex <- function(x, ...) {
+  x <- rd_text(paste0("\\examples{", x, "}"), fragment = FALSE)[[1]]
+  x <- process_conditional_examples(x)
+  x <- flatten_ex(x, ...)
+
+  if (grepl("\n", x)) {
+    strsplit(x, "\n")[[1]]
+  } else {
+    x
+  }
 }
