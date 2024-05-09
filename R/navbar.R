@@ -341,8 +341,14 @@ bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
 
 bs4_navbar_link_text <- function(x, ...) {
   if (!is.null(x$icon)) {
+    # Find the icon set
+    classes <- strsplit(x$icon, " ")[[1]]
+    icon_classes <- classes[grepl("-", classes)]
+    iconset <- purrr::map_chr(strsplit(icon_classes, "-"), 1)
+    class <- paste0(unique(c(iconset, classes)), collapse = " ")
+
     text <- paste0(if (!is.null(x$text)) " ", x$text)
-    htmltools::tagList(htmltools::tags$span(class = x$icon), text, ...)
+    htmltools::tagList(htmltools::tags$span(class = class), text, ...)
   } else {
     htmltools::tagList(x$text, ...)
   }

@@ -138,7 +138,7 @@
       data_navbar(pkg)[c("left", "right")]
     Output
       $left
-      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"github\">\n    <span class=\"fab fa fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>\n<li><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
+      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"github\">\n    <span class=\"fa fab fa-github fa-lg\"></span>\n  </a>\n</li>\n<li><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
       
       $right
       [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"news/index.html\">Changelog</a>\n</li>"
@@ -245,7 +245,7 @@
         <a class="nav-link" href="reference/index.html">Reference</a>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <button href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</button>
         <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
           <a class="dropdown-item" href="articles/search.html">Search</a>
@@ -265,7 +265,7 @@
       cat(render_navbar_links(x, pkg = list(bs_version = 4)))
     Output
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+        <button href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" type="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</button>
         <div class="dropdown-menu" aria-labelledby="dropdown-articles">
           <h6 class="dropdown-header" data-toc-skip>First section</h6>
           <a class="dropdown-item" href="articles/search.html">Search</a>

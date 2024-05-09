@@ -236,3 +236,14 @@ test_that("can render search helper", {
     bs4_navbar_links_tags(list(menu = list(search = TRUE)))
   })
 })
+
+test_that("icons extract icon set", {
+  expect_equal(
+    as.character(bs4_navbar_link_text(menu_icon("github", ""))),
+    '<span class="fa fas fa-github fa-lg"></span>'
+  )
+  expect_equal(
+    as.character(bs4_navbar_link_text(menu_icon("github", "", style = "fab"))),
+    '<span class="fa fab fa-github fa-lg"></span>'
+  )
+})
