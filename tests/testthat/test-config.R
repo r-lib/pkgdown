@@ -1,27 +1,20 @@
 test_that("config_check_list() returns list if ok", {
   x <- list(x = 1, y = 2)
   expect_equal(config_check_list(x), x)
-  expect_equal(config_check_list(x, "x"), x)
-  expect_equal(config_check_list(x, c("x", "y")), x)
+  expect_equal(config_check_list(x, has_names = "x"), x)
+  expect_equal(config_check_list(x, has_names = c("x", "y")), x)
 })
 
 test_that("config_check_list gives informative errors", {
+  # Avoid showing unneeded call details in snapshot
   pkg <- local_pkgdown_site()
+  config_check_list_ <- function(...) {
+    config_check_list(..., error_pkg = pkg, error_path = "path")
+  } 
 
   expect_snapshot(error = TRUE, {
-    config_check_list(
-      1,
-      "x",
-      error_pkg = pkg,
-      error_path = "path"
-    )
-   
-    config_check_list(
-      list(x = 1, y = 1),
-      c("y", "z"),
-      error_pkg = pkg,
-      error_path = "path"
-    )
+    config_check_list_(1, has_names = "x")
+    config_check_list_(list(x = 1, y = 1), has_names = c("y", "z"))
   })
 }) 
 

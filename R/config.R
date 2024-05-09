@@ -81,17 +81,17 @@ config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
 }
 
 config_check_list <- function(x,
-                              names = NULL,
+                              has_names = NULL,
                               error_pkg,
                               error_path,
                               error_call = caller_env()) {
   if (is_list(x)) {
-    if (!is.null(names) && !all(has_name(x, names))) {
-      missing <- setdiff(names, names(x))
+    if (!is.null(has_names) && !all(has_name(x, has_names))) {
+      missing <- setdiff(has_names, names(x))
       config_abort(
         error_pkg,
         c(
-          "{.field {error_path}} must have {cli::qty(names)} component{?s} {.str {names}}.",
+          "{.field {error_path}} must have {cli::qty(has_names)} component{?s} {.str {has_names}}.",
           "{length(missing)} missing component{?s}: {.str {missing}}."
         ),
         call = error_call

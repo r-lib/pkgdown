@@ -112,7 +112,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
 
   config_check_list(
     sidebar_components,
-    sidebar_structure,
+    has_names = sidebar_structure,
     error_pkg = pkg,
     error_path = "home.sidebar.components",
     error_call = call

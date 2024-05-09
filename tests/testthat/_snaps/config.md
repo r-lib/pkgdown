@@ -1,15 +1,15 @@
 # config_check_list gives informative errors
 
     Code
-      config_check_list(1, "x", error_pkg = pkg, error_path = "path")
+      config_check_list_(1, has_names = "x")
     Condition
-      Error:
+      Error in `config_check_list_()`:
       ! path must be a list, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
     Code
-      config_check_list(list(x = 1, y = 1), c("y", "z"), error_pkg = pkg, error_path = "path")
+      config_check_list_(list(x = 1, y = 1), has_names = c("y", "z"))
     Condition
-      Error:
+      Error in `config_check_list_()`:
       ! path must have components "y" and "z".
       1 missing component: "z".
       i Edit _pkgdown.yml to fix the problem.
