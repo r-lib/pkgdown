@@ -37,6 +37,9 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
       error = function(cnd) {
         lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
+        lines <- lines[nchar(lines) >0]
+        lines <- gsub("{", "{{", lines, fixed = TRUE)
+        lines <- gsub("}", "}}", lines, fixed = TRUE)
         cli::cli_abort(
           c(
             "!" = "Failed to render {.path {input}}.",
