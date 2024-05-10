@@ -81,7 +81,16 @@ as_html.character <- function(x, ..., escape = TRUE) {
   }
 }
 #' @export
-as_html.TEXT <-  as_html.character
+as_html.TEXT <-  function(x, ..., escape = TRUE) { 
+  # tools:::htmlify
+  x <- gsub("---", "\u2014", x)
+  x <- gsub("--", "\u2013", x)
+  x <- gsub("``", "\u201c", x)
+  x <- gsub("''", "\u201d", x)
+
+  x <- as_html.character(x, ..., escape = escape)
+  x
+}
 #' @export
 as_html.RCODE <- as_html.character
 #' @export
@@ -204,18 +213,33 @@ as_html.tag_Sexpr <- function(x, ...) {
   on.exit(setwd(old_wd), add = TRUE)
 
   # Environment shared across a file
-  res <- eval(parse(text = code), context_get("sexpr_env"))
+  env <- context_get("sexpr_env")
 
   results <- options$results %||% "rd"
-  switch(results,
-    text = as.character(res),
-    rd = flatten_text(rd_text(as.character(res))),
-    hide = "",
-    cli::cli_abort(
-      "\\\\Sexpr{{result={results}}} not yet supported",
-      call = NULL
+  if (results == "verbatim") {
+    outlines <- utils::capture.output({
+      out <- withVisible(eval(parse(text = code), env))
+      res <- out$value
+      if (out$visible)
+        print(res)
+    })
+    paste0(
+      "<pre>\n",
+      paste0(escape_html(outlines), collapse = "\n"),
+      "\n</pre>\n"
     )
-  )
+  } else {
+    res <- eval(parse(text = code), env)
+    switch(results,
+      text = as.character(res),
+      rd = flatten_text(rd_text(as.character(res))),
+      hide = "",
+      cli::cli_abort(
+        "unknown \\Sexpr option: results={results}",
+        call = NULL
+      )
+    )
+  }
 }
 
 #' @export
