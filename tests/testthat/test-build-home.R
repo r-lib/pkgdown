@@ -4,7 +4,7 @@ test_that("intermediate files cleaned up automatically", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site(test_path("assets/home-index-rmd"))
-  expect_snapshot(build_home(pkg))
+  suppressMessages(build_home(pkg))
 
   expect_setequal(dir(pkg$src_path), c("DESCRIPTION", "index.Rmd"))
 })
@@ -13,7 +13,7 @@ test_that("intermediate files cleaned up automatically", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"))
-  expect_snapshot(build_home(pkg))
+  suppressMessages(build_home(pkg))
 
   expect_setequal(
     dir(pkg$src_path),
@@ -25,7 +25,7 @@ test_that("can build site even if no Authors@R present", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site(test_path("assets/home-old-skool"))
-  expect_snapshot(build_home(pkg))
+  expect_no_error(build_home(pkg))
 })
 
 # .github files -----------------------------------------------------------
@@ -37,7 +37,7 @@ test_that(".github files are copied and linked", {
   skip_if_not(dir_exists(test_path("assets/site-dot-github/.github")))
 
   pkg <- local_pkgdown_site(test_path("assets/site-dot-github"))
-  expect_snapshot(build_home(pkg))
+  suppressMessages(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))

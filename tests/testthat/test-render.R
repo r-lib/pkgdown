@@ -2,8 +2,10 @@ test_that("check_bslib_theme() works", {
   pkg <- as_pkgdown(test_path("assets/reference"))
   expect_equal(check_bslib_theme("default", pkg, bs_version = 4), "default")
   expect_equal(check_bslib_theme("lux", pkg, bs_version = 4), "lux")
-  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4))
-  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset")))
+  expect_snapshot(error = TRUE, {
+    check_bslib_theme("paper", pkg, bs_version = 4))
+    check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
+  })
 })
 
 test_that("get_bslib_theme() works with template.bslib.preset", {
