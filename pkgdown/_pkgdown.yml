@@ -21,6 +21,7 @@ template:
     primary: "#0054AD"
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
+    danger: "#A6081A"
   includes:
     in_header:
       <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
@@ -33,6 +34,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - accessibility
   - linking
   - search
   - metadata
