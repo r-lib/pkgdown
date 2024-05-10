@@ -1,3 +1,10 @@
+# converts Rd unicode shortcuts
+
+    Code
+      rd2html("``a -- b --- c''")
+    Output
+      [1] "“a – b — c”"
+
 # subsection generates h3
 
     Code
@@ -31,14 +38,6 @@
       
       </div>
       </div>
-
-# Sexprs with multiple args are parsed
-
-    Code
-      rd2html("\\Sexpr[results=verbatim]{1}")
-    Condition
-      Error:
-      ! \\Sexpr{result=verbatim} not yet supported
 
 # bad specs throw errors
 

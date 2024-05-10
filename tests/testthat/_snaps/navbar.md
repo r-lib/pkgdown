@@ -144,21 +144,6 @@
       [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"news/index.html\">Changelog</a>\n</li>"
       
 
-# data_navbar() can remove elements
-
-    Code
-      data_navbar(pkg)
-    Output
-      $type
-      [1] "default"
-      
-      $left
-      [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
-      
-      $right
-      [1] ""
-      
-
 # data_navbar() works with empty side
 
     Code
@@ -180,7 +165,7 @@
       data_navbar(pkg)
     Condition
       Error in `navbar_links()`:
-      ! navbar.structure.left must be a character vector.
+      ! navbar.structure.left must be a character vector, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
 
 # data_navbar() errors with bad left/right

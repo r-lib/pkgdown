@@ -1,6 +1,12 @@
 test_that("informative print method", {
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
   expect_snapshot(init_site(pkg))
+
+  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"), meta = "
+    template:
+      bootstrap: 5
+  ")
+  expect_snapshot(init_site(pkg))
 })
 
 test_that("extra.css and extra.js copied and linked", {
