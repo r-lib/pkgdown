@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-pkgdown automates as many accessibility details as possible, so that your package website is readible by as many people as possible. This vignette describes the additional details that can't be automated away and you need to be aware of.
+pkgdown automates as many accessibility details as possible, so that your package website is readable by as many people as possible. This vignette describes the additional details that can't be automated away and you need to be aware of.
 
 ```{r setup}
 library(pkgdown)
@@ -37,7 +37,7 @@ library(pkgdown)
 
 ## Images
 
-To make your site fully accessible, the place where you are likely to need to do the most work is adding alt text to any images that you create. Unfortunately, there's currently no way to do this for plots you generate in examples, but you can and should add alt text to plots in vignettes using the `fig.alt` chunk option:
+To make your site fully accessible, the place where you are likely to need to do the most work is adding alternative text to any images that you create. Unfortunately, there's currently no way to do this for plots you generate in examples, but you can and should add alternative text to plots in vignettes using the `fig.alt` chunk option:
 
 ````{verbatim}
 ```{r}
