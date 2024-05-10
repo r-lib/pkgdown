@@ -49,9 +49,9 @@ check_missing_images <- function(pkg, src_path, dst_path) {
   }
 
   alt <- xml2::xml_attr(img, "alt")
-  if (any(is.na(alt))) {
+  if (anyNA(alt)) {
     problems <- src[is.na(alt)]
-    problems[grepl("^data:image", problems)] <- "<base64 encoded image"
+    problems[grepl("^data:image", problems)] <- "<base64 encoded image>"
     cli::cli_inform(c(
       x = "Missing alt-text in {.file {path_rel(src_path, pkg$src_path)}}",
       set_names(problems, "*")
