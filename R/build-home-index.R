@@ -97,26 +97,26 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     return(sidebar_html)
   }
 
-  # compute any custom component
-  components <- pkg$meta$home$sidebar$components
+  custom <- pkg$meta$home$sidebar$components
+  sidebar_custom <- unwrap_purrr_error(purrr::map(
+    set_names(names2(custom)),
+    function(comp) {
+      data_home_component(
+        custom[[comp]],
+        error_pkg = pkg,
+        error_path = paste0("home.sidebar.components.", comp),
+        error_call = call
+      )
+    }
+  ))
+  sidebar_components <- utils::modifyList(sidebar_components, sidebar_custom)
 
-  sidebar_components <- utils::modifyList(
+  config_check_list(
     sidebar_components,
-    unwrap_purrr_error(purrr::map2(
-      components,
-      names(components),
-      data_home_component,
-      pkg = pkg,
-      call = call
-    )) %>%
-      set_names(names(components))
-  )
-
-  check_yaml_has(
-    setdiff(sidebar_structure, names(sidebar_components)),
-    where = c("home", "sidebar", "components"),
-    pkg = pkg,
-    call = call
+    has_names = sidebar_structure,
+    error_pkg = pkg,
+    error_path = "home.sidebar.components",
+    error_call = call
   )
 
   sidebar_final_components <- purrr::compact(
@@ -124,7 +124,6 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   )
 
   paste0(sidebar_final_components, collapse = "\n")
-
 }
 
 # Update sidebar-configuration.Rmd if this changes
@@ -132,26 +131,31 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component, component_name, pkg, call = caller_env()) {
-
-  check_yaml_has(
-    setdiff(c("title", "text"), names(component)),
-    where = c("home", "sidebar", "components", component_name),
-    pkg = pkg,
-    call = call
-  )
-
-  sidebar_section(
+data_home_component <- function(component,
+                                error_pkg,
+                                error_path,
+                                error_call = caller_env()) {
+  title <- config_check_string(
     component$title,
-    bullets = markdown_text_block(component$text)
+    error_pkg = error_pkg,
+    error_path = paste0(error_path, ".title"),
+    error_call = error_call
   )
+  text <- config_check_string(
+    component$text,
+    error_pkg = error_pkg,
+    error_path = paste0(error_path, ".text"),
+    error_call = error_call
+  )
+
+  sidebar_section(title, bullets = markdown_text_block(text))
 }
 
 data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   repo <- cran_link(pkg$package)
-  links <- purrr::pluck(pkg, "meta", "home", "links")
+  links <- config_pluck(pkg, "home.links")
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),

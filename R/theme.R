@@ -56,7 +56,7 @@ bs_theme <- function(pkg = ".") {
 bs_theme_rules <- function(pkg) {
   paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
-  theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
+  theme <- config_pluck_string(pkg, "template.theme", default = "arrow-light")
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
     cli::cli_abort(c(
@@ -66,8 +66,8 @@ bs_theme_rules <- function(pkg) {
   }
   paths <- c(paths, theme_path)
 
-  package <- purrr::pluck(pkg, "meta", "template", "package")
-  if (!is.null(package)) {
+  package <- config_pluck_string(pkg, "template.package")
+  if (package != "") {
     package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
     if (file_exists(package_extra)) {
       paths <- c(paths, package_extra)

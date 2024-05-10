@@ -38,7 +38,6 @@
     extra:
       css: ~
       js: ~
-    includes: []
     yaml:
       .present: yes
     development:
