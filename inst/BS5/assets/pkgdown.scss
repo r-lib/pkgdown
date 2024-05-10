@@ -62,7 +62,7 @@ input[type="search"] {
 
 // When navbar is a dropdown:
 @include media-breakpoint-down(lg) {
-  // Make search amd sub-menus span full width
+  // Make search and sub-menus span full width
   .algolia-autocomplete, input[type="search"], #navbar .dropdown-menu {
     width: 100%;
   }
