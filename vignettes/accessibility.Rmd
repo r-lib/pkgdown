@@ -35,6 +35,13 @@ library(pkgdown)
 
 * If you use custom navbar entries that only display an icon, make sure to also use the `aria-label` field to provide an accessible label that describes the icon.
 
+    ```yaml
+    cran:
+      icon: fab fa-r-project
+      href: https://cloud.r-project.org/package=pkgdown
+      aria-label: View on CRAN
+    ```
+
 ## Images
 
 To make your site fully accessible, the place where you are likely to need to do the most work is adding alternative text to any images that you create. Unfortunately, there's currently no way to do this for plots you generate in examples, but you can and should add alternative text to plots in vignettes using the `fig.alt` chunk option:
