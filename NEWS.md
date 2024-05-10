@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
 * Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
 * `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
 * `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
