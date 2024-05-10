@@ -3,7 +3,7 @@ test_that("check_bslib_theme() works", {
   expect_equal(check_bslib_theme("default", pkg, bs_version = 4), "default")
   expect_equal(check_bslib_theme("lux", pkg, bs_version = 4), "lux")
   expect_snapshot(error = TRUE, {
-    check_bslib_theme("paper", pkg, bs_version = 4))
+    check_bslib_theme("paper", pkg, bs_version = 4)
     check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
   })
 })
