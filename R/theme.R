@@ -13,7 +13,7 @@ build_bslib <- function(pkg = ".") {
   new_digest <- purrr::map_chr(cur_deps, file_digest)
 
   all_deps <- union(new_deps, cur_deps)
-  diff <- cur_digest[all_deps] == new_digest[all_deps]
+  diff <- (cur_digest[all_deps] == new_digest[all_deps])
   changed <- all_deps[!diff | is.na(diff)]
 
   if (length(changed) > 0) {
