@@ -43,6 +43,8 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
+Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
+
 ### Bootswatch themes
 
 The easiest way to change the entire appearance of your website is to use a [Bootswatch theme](https://bootswatch.com):
