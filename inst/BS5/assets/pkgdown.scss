@@ -60,6 +60,22 @@ input[type="search"] {
   width: 12rem;
 }
 
+// When navbar is a dropdown:
+@include media-breakpoint-down(lg) {
+  // Make search and sub-menus span full width
+  .algolia-autocomplete, input[type="search"], #navbar .dropdown-menu {
+    width: 100%;
+  }
+  // Allow text to wrap
+  #navbar .dropdown-item {
+    white-space: normal;
+  }
+  // Add a little margin
+  input[type="search"] {
+    margin: 0.25rem 0;
+  }
+}
+
 /* headroom.js -------------------------------------------------------------- */
 
 .headroom {

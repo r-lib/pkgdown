@@ -106,8 +106,8 @@ data_template <- function(pkg = ".", depth = 0L) {
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
   )
-  out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
-  out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
+  out$includes <- config_pluck(pkg, "template.includes")
+  out$yaml <- config_pluck(pkg, "template.params")
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
   out$yaml$.present <- TRUE

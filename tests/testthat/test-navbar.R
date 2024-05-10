@@ -110,7 +110,7 @@ test_that("data_navbar() can remove elements", {
         right: ~
   ")
 
-  expect_snapshot(data_navbar(pkg))
+  expect_equal(data_navbar(pkg)$right, "")
 })
 
 test_that("data_navbar() works with empty side", {
