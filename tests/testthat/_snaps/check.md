@@ -1,37 +1,58 @@
-# fails if reference index incomplete
+# sitrep reports all problems
+
+    Code
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      x URLs not ok.
+        'DESCRIPTION' URL lacks package url (http://test.org).
+        See details in `vignette(pkgdown::metadata)`.
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      x Reference metadata not ok.
+        1 topic missing from index: "?".
+        Either use `@keywords internal` to drop from index, or
+        Edit _pkgdown.yml to fix the problem.
+
+# checks fails on first problem
 
     Code
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! 1 topic missing from index: "?".
-      i Either use `@keywords internal` to drop from index, or
-      i Edit _pkgdown.yml to fix the problem.
+      ! 'DESCRIPTION' URL lacks package url (http://test.org).
+      i See details in `vignette(pkgdown::metadata)`.
 
-# fails if article index incomplete
+# both inform if everything is ok
 
     Code
-      check_pkgdown(pkg)
-    Condition
-      Error in `check_pkgdown()`:
-      ! 2 vignettes missing from index: "articles/nested" and "width".
-      i Edit _pkgdown.yml to fix the problem.
-
-# informs if everything is ok
-
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      v URLs ok.
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      v Reference metadata ok.
     Code
       check_pkgdown(pkg)
     Message
       v No problems found.
 
-# warn about missing images in readme
+# check_urls reports problems
 
     Code
-      check_built_site(pkg)
-    Message
-      -- Checking for problems -------------------------------------------------------
+      check_urls(pkg)
     Condition
-      Warning:
-      Missing images in 'README.md': 'articles/kitten.jpg'
-      i pkgdown can only use images in 'man/figures' and 'vignettes'
+      Error:
+      ! _pkgdown.yml lacks url.
+      i See details in `vignette(pkgdown::metadata)`.
+
+---
+
+    Code
+      check_urls(pkg)
+    Condition
+      Error:
+      ! 'DESCRIPTION' URL lacks package url (https://testpackage.r-lib.org).
+      i See details in `vignette(pkgdown::metadata)`.
 

@@ -379,9 +379,9 @@ data_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   meta <- pkg$meta$articles %||% default_articles_index(pkg)
-  sections <- meta %>%
-    purrr::map(data_articles_index_section, pkg = pkg) %>%
-    purrr::compact()
+  sections <- unwrap_purrr_error(meta %>%
+    purrr::imap(data_articles_index_section, pkg = pkg) %>%
+    purrr::compact())
 
   # Check for unlisted vignettes
   listed <- sections %>%
@@ -411,13 +411,9 @@ data_articles_index <- function(pkg = ".") {
   ))
 }
 
-data_articles_index_section <- function(section, pkg) {
-  if (!set_contains(names(section), c("title", "contents"))) {
-    cli::cli_abort(
-      "Section must have components {.field title}, {.field contents}",
-      call = caller_env()
-    )
-  }
+data_articles_index_section <- function(section, index, pkg) {
+  id <- section$title %||% section$subtitle %||% index
+  check_contents(section$contents, id, pkg, quote(build_articles()))
 
   # Match topics against any aliases
   in_section <- select_vignettes(section$contents, pkg$vignettes)
