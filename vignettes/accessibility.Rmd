@@ -2,7 +2,7 @@
 title: "Accessibility"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{accessibility}
+  %\VignetteIndexEntry{Accessibility}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
