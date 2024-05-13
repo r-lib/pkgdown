@@ -77,8 +77,6 @@ out_of_date <- function(source, target) {
 
 # Path helpers ------------------------------------------------------------
 
-file.path <- function(...) stop("Use path!")
-
 path_abs <- function(path, start = ".") {
   is_abs <- is_absolute_path(path)
 
