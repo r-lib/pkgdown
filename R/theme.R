@@ -6,7 +6,7 @@ build_bslib <- function(pkg = ".") {
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
   deps <- bslib::bs_theme_dependencies(bs_theme)
-  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
+  deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
   new_deps <- find_deps(pkg)
@@ -44,7 +44,7 @@ data_deps <- function(pkg, depth) {
 }
 
 data_deps_path <- function(pkg) {
-  file.path(pkg$dst_path, "deps", "data-deps.txt")
+  path(pkg$dst_path, "deps", "data-deps.txt")
 }
 
 find_deps <- function(pkg) {
