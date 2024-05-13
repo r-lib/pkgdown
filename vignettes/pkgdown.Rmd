@@ -75,6 +75,10 @@ Current available translations are:
 -   `tr`: Turkish
 -   `zh_CN`: Chinese (simplified)
 
+## Accessibility
+
+pkgdown's defaults work to ensure that your site is accessible to as many people as possible. But there are some accessibilty issues that only a human can solve, so make sure to also read `vignette("accessibility")` to learn about them.
+
 ## Home page
 
 The contents of the home page are automatically generated from `index.md` or `README.md`.

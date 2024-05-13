@@ -7,7 +7,7 @@
       Writing `articles/index.html`
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
-      x Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
+      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
 
 # warns about missing alt-text

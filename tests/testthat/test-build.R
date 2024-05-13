@@ -4,5 +4,5 @@ test_that("both versions of build_site have same arguments", {
 
 test_that("can build package without any index/readme", {
   pkg <- local_pkgdown_site(test_path("assets/site-empty"))
-  expect_output(build_site(pkg))
+  expect_no_error(suppressMessages(build_site(pkg, new_process = FALSE)))
 })
