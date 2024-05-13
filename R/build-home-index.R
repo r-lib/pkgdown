@@ -65,7 +65,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
 
   if (length(html_path)) {
     if (!file.exists(html_path)) {
-      rel_html_path <- fs::path_rel(html_path, pkg$src_path)
+      rel_html_path <- path_rel(html_path, pkg$src_path)
       config_abort(
         pkg,
         "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {rel_html_path}}).",
