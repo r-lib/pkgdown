@@ -310,13 +310,13 @@ build_reference_topic <- function(topic,
     deps <- purrr::map(
       deps,
       htmltools::copyDependencyToDir,
-      outputDir = file.path(pkg$dst_path, "reference", "libs"),
+      outputDir = path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
     deps <- purrr::map(
       deps,
       htmltools::makeDependencyRelative,
-      basepath = file.path(pkg$dst_path, "reference"),
+      basepath = path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
     data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))

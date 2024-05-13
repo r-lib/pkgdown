@@ -45,7 +45,7 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   pkg$meta$home$sidebar$html <- "sidebar.html"
   expect_equal(
     data_home_sidebar(pkg),
-    read_file(file.path(pkg$src_path, "sidebar.html"))
+    read_file(path(pkg$src_path, "sidebar.html"))
   )
 })
 

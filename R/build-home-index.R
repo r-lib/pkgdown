@@ -61,7 +61,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   if (isFALSE(pkg$meta$home$sidebar))
     return(pkg$meta$home$sidebar)
 
-  html_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
+  html_path <- path(pkg$src_path, pkg$meta$home$sidebar$html)
 
   if (length(html_path)) {
     if (!file.exists(html_path)) {
