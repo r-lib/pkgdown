@@ -50,7 +50,7 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "contents")) {
     id <- section$title %||% section$subtitle %||% index
-    check_contents(section$contents, id, pkg)
+    check_contents(section$contents, id, pkg, quote(build_reference_index()))
     topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
 
     names <- topics$name
@@ -67,9 +67,7 @@ data_reference_index_rows <- function(section, index, pkg) {
   purrr::compact(rows)
 }
 
-check_contents <- function(contents, id, pkg) {
-  call <- quote(build_reference_index())
-
+check_contents <- function(contents, id, pkg, call = caller_env()) {
   if (length(contents) == 0) {
     config_abort(
       pkg,
