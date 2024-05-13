@@ -1,10 +1,3 @@
-# math is handled
-
-    Code
-      build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE)
-    Message
-      Writing `index.html`
-
 # data_home_sidebar() works by default
 
     Code

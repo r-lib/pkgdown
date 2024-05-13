@@ -31,8 +31,7 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   )
 }
 
-local_pkgdown_site <- function(path = NULL, clone = FALSE, meta = NULL, env = parent.frame()) {
-  check_string(path, allow_null = TRUE)
+local_pkgdown_site <- function(path = NULL, meta = NULL, clone = FALSE, env = parent.frame()) {
   check_bool(clone)
 
   if (is.null(path)) {
