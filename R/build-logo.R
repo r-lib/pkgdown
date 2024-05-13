@@ -34,5 +34,5 @@ logo_path <- function(pkg, depth) {
     return()
   }
 
-  paste0(up_path(depth), fs::path_file(path))
+  paste0(up_path(depth), path_file(path))
 }
