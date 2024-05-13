@@ -19,4 +19,4 @@
 ^fake-index.html$
 ^CRAN-SUBMISSION$
 ^tools$
-^\.lintr$
+^\.lintr.R$
