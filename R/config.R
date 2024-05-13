@@ -132,5 +132,5 @@ config_path <- function(pkg) {
   if (is.null(config)) {
     cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
   }
-  cli::style_hyperlink(fs::path_file(config), paste0("file://", config))
+  cli::style_hyperlink(path_file(config), paste0("file://", config))
 }

@@ -65,7 +65,7 @@ deploy_site_github <- function(
   cli::cli_inform("Copying private key to {.file ssh_id_file}")
   write_lines(rawToChar(openssl::base64_decode(ssh_id)), ssh_id_file)
   cli::cli_inform("Setting private key permissions to 0600")
-  fs::file_chmod(ssh_id_file, "0600")
+  file_chmod(ssh_id_file, "0600")
 
   cli::cli_inform("Setting remote to use the ssh url")
 
@@ -110,8 +110,8 @@ deploy_to_branch <- function(pkg = ".",
                          github_pages = (branch == "gh-pages"),
                          ...,
                          subdir = NULL) {
-  dest_dir <- fs::dir_create(fs::file_temp())
-  on.exit(fs::dir_delete(dest_dir))
+  dest_dir <- dir_create(file_temp())
+  on.exit(dir_delete(dest_dir))
 
   if (!git_has_remote_branch(remote, branch)) {
     old_branch <- git_current_branch()
@@ -137,7 +137,7 @@ deploy_to_branch <- function(pkg = ".",
 
   site_dest_dir <-
     if (!is.null(subdir)) {
-      fs::dir_create(fs::path(dest_dir, subdir))
+      dir_create(path(dest_dir, subdir))
     } else {
       dest_dir
     }

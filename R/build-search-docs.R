@@ -171,11 +171,11 @@ file_search_index <- function(path, pkg) {
 }
 # Directory parts (where in the site)
 get_dir <- function(path) {
-  dir <- fs::path_dir(path)
+  dir <- path_dir(path)
   if (dir == ".") {
     return("")
   }
-  paste(capitalise(unlist(fs::path_split(dir))), collapse = " > ")
+  paste(capitalise(unlist(path_split(dir))), collapse = " > ")
 }
 # Headings (where in the page)
 get_headings <- function(section, depth) {
@@ -303,10 +303,10 @@ capitalise <- function(string) {
 }
 
 get_site_paths <- function(pkg) {
-  paths <- fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
-  paths_rel <- fs::path_rel(paths, pkg$dst_path)
+  paths <- dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
+  paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!fs::path_has_parent(paths_rel, "dev")]
+  paths_rel[!path_has_parent(paths_rel, "dev")]
 }
