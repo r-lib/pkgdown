@@ -27,7 +27,7 @@ test_that("build_redirect() errors if one entry is not right.", {
     bs_version = 5
   )
   pkg <- structure(pkg, class = "pkgdown")
-  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
+  file_touch(path(pkg$src_path, "_pkgdown.yml"))
 
   expect_snapshot(build_redirect(c("old.html"), 5, pkg), error = TRUE)
 })

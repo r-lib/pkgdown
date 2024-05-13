@@ -96,7 +96,7 @@ build_search <- function(pkg = ".",
   search_index <- build_search_index(pkg)
   jsonlite::write_json(
     search_index,
-    file.path(pkg$dst_path, "search.json"),
+    path(pkg$dst_path, "search.json"),
     auto_unbox = TRUE
   )
 }
@@ -127,7 +127,7 @@ build_search_index <- function(pkg) {
 }
 
 news_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
@@ -147,7 +147,7 @@ news_search_index <- function(path, pkg) {
 }
 
 file_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
   title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
     xml2::xml_attr("content")

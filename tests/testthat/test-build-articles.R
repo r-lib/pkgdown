@@ -159,7 +159,7 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 
   expect_equal(
     normalizePath(path),
-    normalizePath(file.path(pkg$dst_path, "articles", "nested.html"))
+    normalizePath(path(pkg$dst_path, "articles", "nested.html"))
   )
 
   # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
@@ -260,7 +260,7 @@ test_that("titles are escaped when needed", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
 
-  html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
+  html <- xml2::read_html(path(pkg$dst_path, "articles/needs-escape.html"))
   expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
   expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
 })
@@ -270,7 +270,7 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(build_article(pkg = pkg, name = "random"))
 
-  output <- xml2::read_html(file.path(pkg$dst_path, "articles/random.html")) %>%
+  output <- xml2::read_html(path(pkg$dst_path, "articles/random.html")) %>%
     rvest::html_node("div.contents > pre") %>%
     rvest::html_text() %>%
     # replace line feeds with whitespace to make output platform independent
