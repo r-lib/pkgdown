@@ -41,6 +41,11 @@ test_that("warns about missing images", {
   expect_snapshot(build_articles(pkg))
 })
 
+test_that("warns about missing alt-text", {
+  pkg <- local_pkgdown_site(test_path("assets/missing-alt"))
+  expect_snapshot(build_article("missing-images", pkg))
+})
+
 test_that("articles don't include header-attrs.js script", {
   pkg <- as_pkgdown(test_path("assets/articles"))
   withr::defer(clean_site(pkg, quiet = TRUE))
