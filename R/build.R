@@ -443,6 +443,8 @@ build_site_local <- function(pkg = ".",
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
   cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
+  pkgdown_sitrep(pkg)
+
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
