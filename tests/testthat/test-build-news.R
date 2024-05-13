@@ -206,7 +206,7 @@ test_that("clear error for bad hierarchy - bad nesting", {
     path(temp_pkg$src_path, "NEWS.md")
   )
 
-  expect_snapshot_error(data_news(temp_pkg))
+  expect_snapshot(data_news(temp_pkg), error = TRUE)
 })
 
 test_that("clear error for bad hierarchy - h3", {
@@ -227,7 +227,7 @@ test_that("clear error for bad hierarchy - h3", {
     path(temp_pkg$src_path, "NEWS.md")
   )
 
-  expect_snapshot_error(data_news(temp_pkg))
+  expect_snapshot(data_news(temp_pkg), error = TRUE)
 })
 
 test_that("news can contain footnotes", {

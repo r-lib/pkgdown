@@ -192,7 +192,7 @@ test_that("Warns when Bootstrap theme is specified in multiple locations", {
         bootswatch: darkly
   ')
 
-  expect_snapshot_warning(
+  expect_snapshot(
     get_bslib_theme(pkg)
   )
 })

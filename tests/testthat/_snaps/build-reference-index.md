@@ -57,8 +57,12 @@
 
 # errors well when a content entry is empty
 
-    Section "bla": contents 2 is empty.
-    i Edit _pkgdown.yml to fix the problem.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `build_reference_index()`:
+      ! Section "bla": contents 2 is empty.
+      i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry is not a character
 

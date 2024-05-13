@@ -50,7 +50,7 @@ test_that("test usage ok on rendered page", {
 
 test_that(".Rd without usage doesn't get Usage section", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
-  expect_snapshot(build_reference(pkg, topics = "e"))
+  suppressMessages(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "e.html"))
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
   clean_site(pkg, quiet = TRUE)
@@ -60,7 +60,7 @@ test_that(".Rd without usage doesn't get Usage section", {
         bootstrap: 5
     ")
   suppressMessages(init_site(pkg))
-  expect_snapshot(build_reference(pkg, topics = "e"))
+  suppressMessages(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "e.html"))
   # tweak_anchors() moves id into <h2>
   expect_equal(xpath_length(html, "//div[h2[@id='ref-usage']]"), 0)
@@ -69,7 +69,7 @@ test_that(".Rd without usage doesn't get Usage section", {
 test_that("pkgdown html dependencies are suppressed from examples in references", {
   pkg <- local_pkgdown_site(test_path("assets/reference-html-dep"))
   suppressMessages(init_site(pkg))
-  expect_snapshot(build_reference(pkg, topics = "a"))
+  suppressMessages(build_reference(pkg, topics = "a"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "a.html"))
 
   # jquery is only loaded once, even though it's included by an example
