@@ -66,43 +66,61 @@ test_that("default reference includes all functions", {
 })
 
 test_that("errors well when a content entry is empty", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - ")
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = meta)
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: bla
+      contents:
+      - aname
+      - 
+  ")
   suppressMessages(init_site(pkg))
-
-  expect_snapshot_error(build_reference_index(pkg))
+  
+  expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("errors well when a content entry is not a character", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = meta)
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: bla
+      contents:
+      - aname
+      - N
+    ")
   suppressMessages(init_site(pkg))
 
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("errors well when a content is totally empty", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents: ~")
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = meta)
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: bla
+      contents: ~
+  ")
   suppressMessages(init_site(pkg))
 
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
-
 test_that("errors well when a content entry refers to a not installed package", {
-  skip_if_not_installed("cli", "3.1.0")
-
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = meta)
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: bla
+      contents:
+      - notapackage::lala
+  ")
   suppressMessages(init_site(pkg))
 
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 
 test_that("errors well when a content entry refers to a non existing function", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - rlang::lala")
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = meta)
+  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
+    reference:
+    - title: bla
+      contents:
+      - rlang::lala
+  ")
   suppressMessages(init_site(pkg))
 
   expect_snapshot(build_reference_index(pkg), error = TRUE)

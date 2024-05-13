@@ -46,14 +46,14 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   pkg$meta$home$sidebar$html <- "sidebar.html"
   expect_equal(
     data_home_sidebar(pkg),
-    read_file(file.path(pkg$src_path, "sidebar.html"))
+    read_file(path(pkg$src_path, "sidebar.html"))
   )
 })
 
 test_that("data_home_sidebar() errors well when no HTML file", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
   pkg$meta$home$sidebar$html <- "file.html"
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 
 test_that("data_home_sidebar() can get a custom markdown formatted component", {

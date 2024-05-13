@@ -42,11 +42,16 @@ test_that("warns about missing images", {
   expect_snapshot(build_articles(pkg))
 })
 
+test_that("warns about missing alt-text", {
+  pkg <- local_pkgdown_site(test_path("assets/missing-alt"))
+  expect_snapshot(build_article("missing-images", pkg))
+})
+
 test_that("articles don't include header-attrs.js script", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
 
-  expect_snapshot(path <- build_article("standard", pkg))
+  suppressMessages(path <- build_article("standard", pkg))
 
   html <- xml2::read_html(path)
   js <- xpath_attr(html, ".//body//script", "src")
@@ -66,7 +71,7 @@ test_that("can build article that uses html_vignette", {
 test_that("can override html_document() options", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
-  expect_snapshot(path <- build_article("html-document", pkg))
+  suppressMessages(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
@@ -83,7 +88,7 @@ test_that("can override html_document() options", {
 test_that("html widgets get needed css/js", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
-  expect_snapshot(path <- build_article("widget", pkg))
+  suppressMessages(path <- build_article("widget", pkg))
 
   html <- xml2::read_html(path)
   css <- xpath_attr(html, ".//body//link", "href")
@@ -96,7 +101,7 @@ test_that("html widgets get needed css/js", {
 test_that("can override options with _output.yml", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
-  expect_snapshot(path <- build_article("html-document", pkg))
+  suppressMessages(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
@@ -110,7 +115,7 @@ test_that("can set width", {
   ")
   suppressMessages(init_site(pkg))
 
-  expect_snapshot(path <- build_article("width", pkg))
+  suppressMessages(path <- build_article("width", pkg))
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
@@ -120,7 +125,7 @@ test_that("finds external resources referenced by R code in the article html", {
   skip_on_cran()
   pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
 
-  expect_snapshot(path <- build_article("resources", pkg))
+  suppressMessages(path <- build_article("resources", pkg))
 
   # ensure that we the HTML references `<img src="external.png" />` directly
   expect_equal(
@@ -141,8 +146,8 @@ test_that("BS5 article laid out correctly with and without TOC", {
   ")
 
   suppressMessages(init_site(pkg))
-  expect_snapshot(toc_true_path <- build_article("standard", pkg))
-  expect_snapshot(toc_false_path <- build_article("toc-false", pkg))
+  suppressMessages(toc_true_path <- build_article("standard", pkg))
+  suppressMessages(toc_false_path <- build_article("toc-false", pkg))
 
   toc_true <- xml2::read_html(toc_true_path)
   toc_false <- xml2::read_html(toc_false_path)
@@ -162,11 +167,11 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 
   pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
-  expect_snapshot(path <- build_article("articles/nested", pkg))
+  suppressMessages(path <- build_article("articles/nested", pkg))
 
   expect_equal(
     normalizePath(path),
-    normalizePath(file.path(pkg$dst_path, "articles", "nested.html"))
+    normalizePath(path(pkg$dst_path, "articles", "nested.html"))
   )
 
   # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
@@ -193,7 +198,7 @@ test_that("pkgdown deps are included only once in articles", {
   ")
 
   suppressMessages(init_site(pkg))
-  expect_snapshot(path <- build_article("html-deps", pkg))
+  suppressMessages(path <- build_article("html-deps", pkg))
 
   html <- xml2::read_html(path)
 
@@ -268,7 +273,7 @@ test_that("titles are escaped when needed", {
   suppressMessages(init_site(pkg))
   suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
 
-  html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
+  html <- xml2::read_html(path(pkg$dst_path, "articles/needs-escape.html"))
   expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
   expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
 })
@@ -279,7 +284,7 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
   suppressMessages(init_site(pkg))
   suppressMessages(build_article(pkg = pkg, name = "random"))
 
-  output <- xml2::read_html(file.path(pkg$dst_path, "articles/random.html")) %>%
+  output <- xml2::read_html(path(pkg$dst_path, "articles/random.html")) %>%
     rvest::html_node("main > pre") %>%
     rvest::html_text() %>%
     # replace line feeds with whitespace to make output platform independent

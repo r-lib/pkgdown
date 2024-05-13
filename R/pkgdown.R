@@ -37,7 +37,7 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
     desc <- desc::desc("!new")
     desc$set("Package", "testpackage")
     desc$set("Title", "A test package")
-    desc$write(file = file.path(path, "DESCRIPTION"))
+    desc$write(file = path(path, "DESCRIPTION"))
     
     file_create(path(path, "_pkgdown.yml"))
   }
@@ -61,7 +61,7 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
     desc <- desc::desc("!new")
     desc$set("Package", "templatepackage")
     desc$set("Title", "A test template package")
-    desc$write(file = file.path(path, "DESCRIPTION"))
+    desc$write(file = path(path, "DESCRIPTION"))
   }
 
   if (!is.null(meta)) {
