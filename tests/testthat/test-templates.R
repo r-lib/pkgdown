@@ -73,9 +73,11 @@ test_that("find templates in local pkgdown first", {
 # Expected contents -------------------------------------------------------
 
 test_that("BS5 templates have main + aside", {
-  names <- dir_ls(path_pkgdown("bs5", "templates"), regexp = "content-")
+  names <- dir(path_pkgdown("bs5", "templates"), pattern = "content-")
   names <- path_ext_remove(path_file(names))
   names <- gsub("content-", "", names)
+
+  expect_length(names, 12)
 
   templates <- lapply(names, read_template_html,
     type = "content",
