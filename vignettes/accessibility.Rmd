@@ -55,3 +55,5 @@ To make your site fully accessible, the place where you are likely to need to do
 hist(faithful$waiting)
 ```
 ````
+
+If you forget to add alt text to your vignettes, pkgdown will automatically remind you.
