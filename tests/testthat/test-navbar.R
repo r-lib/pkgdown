@@ -93,7 +93,7 @@ test_that("data_navbar() can re-order default elements", {
         left: [github, search]
         right: [news]
   ")
-  file.create(path(pkg$src_path, "NEWS.md"))
+  file_create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })

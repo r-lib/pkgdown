@@ -6,7 +6,7 @@ test_that("handles empty inputs", {
   expect_equal(markdown_text_block(""), NULL)
 
   path <- withr::local_tempfile()
-  file.create(path)
+  file_create(path)
   expect_equal(markdown_body(path), NULL)
 })
 

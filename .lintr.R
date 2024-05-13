@@ -15,6 +15,16 @@ linters <- list(lintr::undesirable_function_linter(
     "cli_alert_warning" = "use cli::cli_inform()",
     # fs
     "file.path" = "use path()",
+    "dir" = "use dir_ls()",
+    "dir.create" = "use dir_create()",
+    "file.copy" = "use file_copy()",
+    "file.create" = "use file_create()",
+    "file.exists" = "use file_exists()",
+    "file.info" = "use file_info()",
+    "normalizePath" = "use path_real()",
+    "unlink" = "use file_delete()",
+    "basename" = "use path_file()",
+    "dirname" = "use path_dir()",
     # i/o
     "readLines" = "use read_lines()",
     "writeLines" = "use write_lines()"

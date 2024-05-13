@@ -72,7 +72,7 @@ out_of_date <- function(source, target) {
     )
   }
 
-  file.info(source)$mtime > file.info(target)$mtime
+  file_mtime(source) > file_mtime(target)
 }
 
 # Path helpers ------------------------------------------------------------
