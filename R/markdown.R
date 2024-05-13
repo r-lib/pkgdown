@@ -113,7 +113,6 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
     from = from,
     to = "html",
     options = purrr::compact(c(
-      if (nzchar(Sys.getenv("PKGDOWN_PANDOC_FAIL_IF_WARNING"))) "--fail-if-warnings",
       if (!rmarkdown::pandoc_available("2.0")) "--smart",
       if (rmarkdown::pandoc_available("2.0")) c("-t", "html4"),
       "--indented-code-classes=R",

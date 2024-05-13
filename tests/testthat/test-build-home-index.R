@@ -9,19 +9,14 @@ test_that("title and description come from DESCRIPTION by default", {
 })
 
 test_that("math is handled", {
-  withr::local_envvar("PKGDOWN_PANDOC_FAIL_IF_WARNING" = "TRUE")
+  pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
+  write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
+  
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_home_index(pkg))
 
-  pkg_dir <- withr::local_tempdir()
-  fs::dir_copy(test_path("assets/home-old-skool"), pkg_dir)
-  write_lines(
-    c("", "blabla $\\sqrt{blop}$", ""),
-    file.path(pkg_dir, "home-old-skool", "README.md")
-  )
-  init_site(file.path(pkg_dir, "home-old-skool"))
-  expect_snapshot(
-    build_home_index(file.path(pkg_dir, "home-old-skool"), quiet = FALSE),
-    error = FALSE
-  )
+  html <- xml2::read_html(path(pkg$dst_path, "index.html"))
+  expect_equal(xpath_text(html, ".//span[contains(@class, 'math')]"), "\\(1 + 1\\)")
 })
 
 test_that("version formatting in preserved", {
