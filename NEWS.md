@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* BS5 templates no longer include empty link to logo when none exists.
 * New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
 * `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
 * Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).

@@ -3,6 +3,7 @@ test_that("can override defaults in _pkgdown.yml", {
   withr::local_temp_libpaths()
 
   pkg <- local_pkgdown_site(test_path("assets/figure"))
+  suppressMessages(init_site(pkg))
 
   callr::rcmd("INSTALL", pkg$src_path, show = FALSE, fail_on_status = TRUE)
 

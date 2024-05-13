@@ -15,8 +15,6 @@
     package:
       name: testpackage
       version: 1.0.0
-    logo:
-      src: ~
     site:
       root: ''
       title: testpackage

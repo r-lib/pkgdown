@@ -10,11 +10,12 @@ test_that("image links relative to output", {
   skip_on_cran()
   pkg <- local_pkgdown_site(test_path("assets/articles-images"))
 
+  suppressMessages(init_site(pkg))
   suppressMessages(copy_figures(pkg))
   suppressMessages(build_article("kitten", pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
-  src <- xpath_attr(html, "//img", "src")
+  src <- xpath_attr(html, "//main//img", "src")
 
   expect_equal(src, c(
     # knitr::include_graphics()
@@ -42,8 +43,8 @@ test_that("warns about missing images", {
 })
 
 test_that("articles don't include header-attrs.js script", {
-  pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg, quiet = TRUE))
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
 
   expect_snapshot(path <- build_article("standard", pkg))
 
@@ -56,6 +57,7 @@ test_that("articles don't include header-attrs.js script", {
 
 test_that("can build article that uses html_vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
 
   # theme is not set since html_vignette doesn't support it
   expect_snapshot(expect_error(build_article("html-vignette", pkg), NA))
@@ -63,6 +65,7 @@ test_that("can build article that uses html_vignette", {
 
 test_that("can override html_document() options", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
@@ -79,6 +82,7 @@ test_that("can override html_document() options", {
 
 test_that("html widgets get needed css/js", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("widget", pkg))
 
   html <- xml2::read_html(path)
@@ -91,6 +95,7 @@ test_that("html widgets get needed css/js", {
 
 test_that("can override options with _output.yml", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("html-document", pkg))
 
   # Check that number_sections is respected
@@ -103,6 +108,7 @@ test_that("can set width", {
     code:
       width: 50
   ")
+  suppressMessages(init_site(pkg))
 
   expect_snapshot(path <- build_article("width", pkg))
   html <- xml2::read_html(path)
@@ -155,6 +161,7 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   skip_on_cran()
 
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   expect_snapshot(path <- build_article("articles/nested", pkg))
 
   expect_equal(
@@ -258,6 +265,7 @@ test_that("check doesn't include getting started vignette", {
 
 test_that("titles are escaped when needed", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
 
   html <- xml2::read_html(file.path(pkg$dst_path, "articles/needs-escape.html"))
@@ -268,10 +276,11 @@ test_that("titles are escaped when needed", {
 
 test_that("output is reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_article(pkg = pkg, name = "random"))
 
   output <- xml2::read_html(file.path(pkg$dst_path, "articles/random.html")) %>%
-    rvest::html_node("div.contents > pre") %>%
+    rvest::html_node("main > pre") %>%
     rvest::html_text() %>%
     # replace line feeds with whitespace to make output platform independent
     gsub("\r", "", .)
