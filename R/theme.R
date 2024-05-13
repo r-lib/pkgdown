@@ -2,9 +2,25 @@ build_bslib <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
   bs_theme <- bs_theme(pkg)
 
+  cur_deps <- find_deps(pkg)
+  cur_digest <- purrr::map_chr(cur_deps, file_digest)
+
   deps <- bslib::bs_theme_dependencies(bs_theme)
-  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
+  deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
+
+  new_deps <- find_deps(pkg)
+  new_digest <- purrr::map_chr(cur_deps, file_digest)
+
+  all_deps <- union(new_deps, cur_deps)
+  diff <- (cur_digest[all_deps] == new_digest[all_deps])
+  changed <- all_deps[!diff | is.na(diff)]
+
+  if (length(changed) > 0) {
+    purrr::walk(changed, function(dst) {
+      cli::cli_inform("Updating {dst_path(path_rel(dst, pkg$dst_path))}")
+    })
+  }
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
   write_lines(head, data_deps_path(pkg))
@@ -28,7 +44,16 @@ data_deps <- function(pkg, depth) {
 }
 
 data_deps_path <- function(pkg) {
-  file.path(pkg$dst_path, "deps", "data-deps.txt")
+  path(pkg$dst_path, "deps", "data-deps.txt")
+}
+
+find_deps <- function(pkg) {
+  deps_path <- path(pkg$dst_path, "deps")
+  if (!dir_exists(deps_path)) {
+    character()
+  } else {
+    dir_ls(deps_path, type = "file", recurse = TRUE)
+  }
 }
 
 bs_theme <- function(pkg = ".") {
@@ -36,7 +61,9 @@ bs_theme <- function(pkg = ".") {
 
   bs_theme_args <- pkg$meta$template$bslib %||% list()
   bs_theme_args[["version"]] <- pkg$bs_version
+  # In bslib >= 0.5.1, bs_theme() takes bootstrap preset theme via `preset`
   bs_theme_args[["preset"]] <- get_bslib_theme(pkg)
+  bs_theme_args[["bootswatch"]] <- NULL
 
   bs_theme <- exec(bslib::bs_theme, !!!bs_theme_args)
 
@@ -54,7 +81,7 @@ bs_theme <- function(pkg = ".") {
 bs_theme_rules <- function(pkg) {
   paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
-  theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
+  theme <- config_pluck_string(pkg, "template.theme", default = "arrow-light")
   theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
   if (!file_exists(theme_path)) {
     cli::cli_abort(c(
@@ -64,13 +91,9 @@ bs_theme_rules <- function(pkg) {
   }
   paths <- c(paths, theme_path)
 
-  package <- purrr::pluck(pkg, "meta", "template", "package")
-  if (!is.null(package)) {
-    package_extra <- path_package_pkgdown(
-      "extra.scss",
-      package = package,
-      bs_version = pkg$bs_version
-    )
+  package <- config_pluck_string(pkg, "template.package")
+  if (package != "") {
+    package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
     if (file_exists(package_extra)) {
       paths <- c(paths, package_extra)
     }
@@ -91,31 +114,35 @@ highlight_styles <- function() {
 }
 
 get_bslib_theme <- function(pkg) {
-  preset <- pkg$meta[["template"]]$bslib$preset
-
-  if (!is.null(preset)) {
-    check_bslib_theme(preset, pkg, c("template", "bslib", "preset"))
-    return(preset)
-  }
-
-  bootswatch <-
-    pkg$meta[["template"]]$bootswatch %||%
+  themes <- list(
+    "template.bslib.preset" = pkg$meta[["template"]]$bslib$preset,
+    "template.bslib.bootswatch" = pkg$meta[["template"]]$bslib$bootswatch,
+    "template.bootswatch" = pkg$meta[["template"]]$bootswatch,
     # Historically (< 0.2.0), bootswatch wasn't a top-level template field
-    pkg$meta[["template"]]$params$bootswatch
+    "template.params.bootswatch" = pkg$meta[["template"]]$params$bootswatch
+  )
 
-  if (!is.null(bootswatch)) {
-    check_bslib_theme(bootswatch, pkg, c("template", "bootswatch"))
-    return(bootswatch)
-  }
+  is_present <- !purrr::map_lgl(themes, is.null)
+  n_present <- sum(is_present)
+  n_unique <- length(unique(themes[is_present]))
 
-  "default"
-}
-
-check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), bs_version = pkg$bs_version) {
-  if (theme %in% c("_default", "default")) {
+  if (n_present == 0) {
     return("default")
   }
 
+  if (n_present > 1 && n_unique > 1) {
+    cli::cli_warn(c(
+      "Multiple Bootstrap preset themes were set. Using {.val {themes[is_present][[1]]}} from {.field {names(themes)[is_present][1]}}.",
+      x = "Found {.and {.field {names(themes)[is_present]}}}.",
+      i = "Remove extraneous theme declarations to avoid this warning."
+    ))
+  }
+
+  field <- names(themes)[which(is_present)[1]]
+  check_bslib_theme(themes[[field]], pkg, field)
+}
+
+check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
@@ -128,16 +155,14 @@ check_bslib_theme <- function(theme, pkg, field = c("template", "bootswatch"), b
     return(theme)
   }
 
-  cli::cli_abort(c(
-    sprintf(
-      "Can't find Bootswatch or bslib theme preset {.val %s} ({.field %s}) for Bootstrap version {.val %s} ({.field %s}).",
-      theme,
-      pkgdown_field(pkg, field),
-      bs_version,
-      pkgdown_field(pkg, c("template", "bootstrap"))
+  config_abort(
+    pkg,
+    c(
+      x = "Can't find Bootswatch/bslib theme preset {.val {theme}} ({.field {field}}).",
+      i = "Using Bootstrap version {.val {bs_version}} ({.field template.bootstrap})."
     ),
-    x = "Edit settings in {pkgdown_config_href({pkg$src_path})}"
-  ), call = caller_env())
+    call = caller_env()
+  )
 }
 
 bs_theme_deps_suppress <- function(deps = list()) {

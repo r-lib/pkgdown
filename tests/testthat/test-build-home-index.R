@@ -28,7 +28,7 @@ test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
   build_home_index(pkg, quiet = TRUE)
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
@@ -61,14 +61,14 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   pkg$meta$home$sidebar$html <- "sidebar.html"
   expect_equal(
     data_home_sidebar(pkg),
-    read_file(file.path(pkg$src_path, "sidebar.html"))
+    read_file(path(pkg$src_path, "sidebar.html"))
   )
 })
 
 test_that("data_home_sidebar() errors well when no HTML file", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
   pkg$meta$home$sidebar$html <- "file.html"
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 
 test_that("data_home_sidebar() can get a custom markdown formatted component", {
@@ -96,7 +96,6 @@ test_that("data_home_sidebar() can add a README", {
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
-  local_edition(3)
   pkg <- as_pkgdown(test_path("assets/sidebar"))
 
   # no component definition for a component named in structure

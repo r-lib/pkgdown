@@ -74,7 +74,6 @@ package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.
 }
 \section{Index and navbar}{
-
 You can control the articles index and navbar with a \code{articles} field in
 your \verb{_pkgdown.yml}. If you use it, pkgdown will check that all articles
 are included, and will error if you have missed any.
@@ -131,7 +130,6 @@ providing a drop-down.
 }
 
 \section{Get started}{
-
 Note that a vignette with the same name as the package (e.g.,
 \code{vignettes/pkgdown.Rmd} or \code{vignettes/articles/pkgdown.Rmd}) automatically
 becomes a top-level "Get started" link, and will not appear in the articles
@@ -139,10 +137,16 @@ drop-down.
 
 (If your package name includes a \code{.}, e.g. \code{pack.down}, use a \code{-} in the
 vignette name, e.g. \code{pack-down.Rmd}.)
+\subsection{Missing topics}{
+
+pkgdown will warn if there are (non-internal) articles that aren't listed
+in the articles index. You can suppress such warnings by listing the
+affected articles in a section with \code{title: internal} (case sensitive);
+this section will not be displayed on the index page.
+}
 }
 
 \section{External files}{
-
 pkgdown differs from base R in its handling of external files. When building
 vignettes, R assumes that vignettes are self-contained (a reasonable
 assumption when most vignettes were PDFs) and only copies files explicitly
@@ -164,7 +168,6 @@ generated figures as its default value is a strong assumption of rmarkdown.
 }
 
 \section{Embedding Shiny apps}{
-
 If you would like to embed a Shiny app into an article, the app will have
 to be hosted independently, (e.g. \url{https://www.shinyapps.io}). Then, you
 can embed the app into your article using an \verb{<iframe>}, e.g.
@@ -175,7 +178,6 @@ some hints on how to customise the appearance with CSS.
 }
 
 \section{Output formats}{
-
 By default, pkgdown builds all articles using the
 \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} \code{output} format, ignoring whatever is set in
 your YAML metadata. This is necessary because pkgdown has to integrate the
@@ -207,7 +209,6 @@ Additionally, htmlwidgets do not work when \code{as_is: true}.
 }
 
 \section{Suppressing vignettes}{
-
 If you want articles that are not vignettes, either put them in
 subdirectories or list in \code{.Rbuildignore}. An articles link will be
 automatically added to the default navbar if the vignettes directory is
@@ -216,8 +217,6 @@ present: if you do not want this, you will need to customise the navbar. See
 }
 
 \section{Figures}{
-
-
 You can control the default rendering of figures by specifying the \code{figures}
 field in \verb{_pkgdown.yml}. The default settings are equivalent to:
 

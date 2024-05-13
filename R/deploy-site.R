@@ -145,7 +145,7 @@ deploy_to_branch <- function(pkg = ".",
   pkg <- as_pkgdown(pkg, override = list(destination = site_dest_dir))
 
   if (!is.null(subdir) && !is.null(pkg$meta$url)) {
-    pkg$meta$url <- file.path(pkg$meta$url, subdir)
+    pkg$meta$url <- path(pkg$meta$url, subdir)
   }
 
   build_site_github_pages(pkg, ..., clean = clean)

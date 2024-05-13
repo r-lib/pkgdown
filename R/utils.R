@@ -181,6 +181,20 @@ section_id <- function(section) {
   xml2::xml_attr(h, "id")
 }
 
+# yaml ------------------------------------------------------------
+
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
+}
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
+}
+
+write_yaml <- function(x, path) {
+  write_lines(yaml::as.yaml(x), path = path)
+}
+
 # Helpers for testing -----------------------------------------------------
 
 xpath_xml <- function(x, xpath) {

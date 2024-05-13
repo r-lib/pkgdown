@@ -71,7 +71,7 @@ test_that("data_navbar() works by default", {
     news = list(one_page = FALSE, cran_dates = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
+  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
     "# testpackage 2.0", "",
     "* bullet (#222 @someone)"
   ))
@@ -93,7 +93,7 @@ test_that("data_navbar() can re-order default elements", {
         left: [github, search]
         right: [news]
   ")
-  file.create(file.path(pkg$src_path, "NEWS.md"))
+  file.create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
@@ -110,7 +110,7 @@ test_that("data_navbar() can remove elements", {
         right: ~
   ")
 
-  expect_snapshot(data_navbar(pkg))
+  expect_equal(data_navbar(pkg)$right, "")
 })
 
 test_that("data_navbar() works with empty side", {
@@ -131,7 +131,7 @@ test_that("data_navbar() errors with bad side specifications", {
         left: 1
   ")
 
-   expect_snapshot(data_navbar(pkg), error = TRUE)
+  expect_snapshot(data_navbar(pkg), error = TRUE)
 })
 
 test_that("data_navbar() errors with bad left/right", {
@@ -197,6 +197,26 @@ test_that("render_navbar_links BS4 no divider before first element", {
     )
   )
   expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
+})
+
+test_that("dropdowns on right are right-aligned", {
+  x <- list(
+    articles = list(
+      text = "Articles",
+      menu = list(
+        list(text = "A"),
+        list(text = "B"),
+        list(text = "C")
+      )
+    )
+  )
+  pkg <- list(bs_version = 5)
+  
+  right <- xml2::read_html(render_navbar_links(x, pkg = pkg, side = "right"))
+  left <-  xml2::read_html(render_navbar_links(x, pkg = pkg, side = "left"))
+
+  expect_equal(xpath_attr(right, ".//div", "class"), "dropdown-menu dropdown-menu-end")
+  expect_equal(xpath_attr(left, ".//div", "class"), "dropdown-menu")
 })
 
 test_that("can specific link target", {

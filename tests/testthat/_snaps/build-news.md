@@ -55,15 +55,23 @@
 
 # clear error for bad hierarchy - bad nesting
 
-    Invalid NEWS.md: inconsistent use of section headings.
-    i Top-level headings must be either all <h1> or all <h2>.
-    i See `?pkgdown::build_news()` for more details.
+    Code
+      data_news(temp_pkg)
+    Condition
+      Error:
+      ! Invalid NEWS.md: inconsistent use of section headings.
+      i Top-level headings must be either all <h1> or all <h2>.
+      i See `?pkgdown::build_news()` for more details.
 
 # clear error for bad hierarchy - h3
 
-    Invalid NEWS.md: inconsistent use of section headings.
-    i Top-level headings must be either all <h1> or all <h2>.
-    i See `?pkgdown::build_news()` for more details.
+    Code
+      data_news(temp_pkg)
+    Condition
+      Error:
+      ! Invalid NEWS.md: inconsistent use of section headings.
+      i Top-level headings must be either all <h1> or all <h2>.
+      i See `?pkgdown::build_news()` for more details.
 
 # news can contain footnotes
 

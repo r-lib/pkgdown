@@ -43,6 +43,8 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
+Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
+
 ### Bootswatch themes
 
 The easiest way to change the entire appearance of your website is to use a [Bootswatch theme](https://bootswatch.com):
@@ -93,7 +95,7 @@ template:
 You can customise other components by setting more specific bslib variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
 If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
-You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
+You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
 
 Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
 As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
@@ -123,7 +125,7 @@ template:
     code_font: {google: "JetBrains Mono"}
 ```
 
-If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yaml`. There are two ways you might get the CSS:
+If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yml`. There are two ways you might get the CSS:
 
 * As a block of CSS which you should put in `pkgdown/extra.scss` or `pkgdown/extra.css`. The CSS will look something like this:
 
@@ -215,23 +217,141 @@ Because the navbar is styled with HTML, you'll need to `build_home_index(); init
 
 ## Layout {#layout}
 
-You can customise the contents of the navbar, footer, and home page sidebar using the `navbar`, `footer`, and `sidebar` fields.
+You can customise the contents of the navbar, footer, using the `navbar` and `footer` fields.
+See `?build_home` for how to customise the sidebar on the homepage.
 They all use a similar structure that separately defines the overall `structure` and the individual `components`.
 
 ### Navbar {#navbar-heading}
 
-```{r child="../man/rmd-fragments/navbar-configuration.Rmd"}
+You can customise the navigation bar that appears at the top of the page with the `navbar` field.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
+
+This is the default structure:
+
+``` yaml
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
 ```
+
+It makes use of the the six built-in components:
+
+-   `intro`: "Get Started", which links to a vignette or article with the same name as the package[^dots].
+-   `reference`, if there are any `.Rd` files.
+-   `articles`, if there are any vignettes or articles.
+-   `tutorials`, if there any tutorials.
+-   `news`, if `NEWS.md` exists.
+-   `search`, the search box (see `vignette("search")` for more details).
+-   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
+
+[^dots]: Note that dots (`.`) in the package name need to be replaced by hyphens (`-`) in the vignette filename to be recognized as the intro. That means for a
+    package `foo.bar` the intro needs to be named `foo-bar.Rmd`.
+
+You can use the `structure` field to reorganise the navbar without changing the default contents:
+
+``` yaml
+navbar:
+  structure:
+    left:  [search]
+    right: [reference, articles]
+```
+
+You can use `components` to override the default content.
+For example, this yaml provides a custom articles menu:
+
+``` yaml
+navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Article B1
+      href: articles/b1.html
+```
+
+Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+The elements of `menu` can be:
+
+-   A link (`text` + `href`)
+
+-   A heading (just `text`)
+
+-   A separator (`text: ——–`)
+
+Instead of text, you can also use the name of an `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
+You should also provide a textual description in the `aria-label` field for screenreader users.
+
+To add a new component to the navbar, you need to modify both `structure` and `components`.
+For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.
+
+``` yaml
+navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/hadleywickham
+      aria-label: Twitter
+```
+
+Finally, you can add arbitrary HTML to three locations in the navbar:
+
+```yaml
+template:
+  includes:
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
+```
+
+These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
+
+You can also customise the colour scheme of the navbar by using the `type` and `bg` parameters. See above for details.
 
 ### Footer
 
-```{r child="../man/rmd-fragments/footer-configuration.Rmd"}
+You can customise the footer with the `footer` field.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
+
+This is the default structure:
+
+``` yaml
+footer:
+  structure: 
+    left: developed_by
+    right: built_with
 ```
 
-### Sidebar
+Which uses two of the three built-in components:
 
-```{r child = "../man/rmd-fragments/sidebar-configuration.Rmd"}
+-   `developed_by`, a sentence describing the main authors of the package. (See `?build_home` if you want to tweak *which* authors appear in the footer.)
+-   `built_with`, a sentence advertising pkgdown.
+-   `package`, the name of the package.
+
+You can override these defaults with the `footer` field.
+The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
+
+``` yaml
+footer:
+  structure: 
+    left: pkgdown
+    right: [developed_by, legal]
+  components:
+    legal: Provided without **any warranty**.
 ```
+
+Each side is pasted into a single string (separated by `" "`) and then converted from markdown to HTML.
 
 ## Additional HTML and files
 

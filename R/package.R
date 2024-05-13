@@ -8,16 +8,18 @@
 #'   values in `_pkgdown.yml`
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
+  if (!is.list(override)) {
+    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+  }
+
   if (is_pkgdown(pkg)) {
     pkg$meta <- modify_list(pkg$meta, override)
     return(pkg)
   }
 
+  check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort(
-      "{.file {pkg}} is not an existing directory",
-      call = caller_env()
-    )
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
   desc <- read_desc(pkg)
@@ -25,11 +27,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   meta <- modify_list(meta, override)
 
   # A local Bootstrap version, when provided, may drive the template choice
-  config_path <- pkgdown_config_path(pkg)
-  config_path <- if (!is.null(config_path)) fs::path_rel(config_path, pkg)
   bs_version_local <- get_bootstrap_version(
     template = meta$template,
-    config_path = config_path
+    pkg = list(src_path = pkg)
   )
 
   template_config <- find_template_config(
@@ -41,7 +41,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     if (is.null(bs_version_local)) {
       get_bootstrap_version(
         template = template_config$template,
-        config_path = config_path,
+        pkg = list(src_path = pkg),
         package = meta$template$package
       )
     }
@@ -59,7 +59,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   # Check the final Bootstrap version, possibly filled in by template pkg
   bs_version <- check_bootstrap_version(
     bs_version_local %||% bs_version_template,
-    pkg
+    pkg = list(src_path = pkg)
   )
 
   development <- meta_development(meta, version, bs_version)
@@ -120,7 +120,7 @@ read_desc <- function(path = ".") {
   desc::description$new(path)
 }
 
-get_bootstrap_version <- function(template, config_path = NULL, package = NULL) {
+get_bootstrap_version <- function(template, package = NULL, pkg) {
   if (is.null(template)) {
     return(NULL)
   }
@@ -129,26 +129,17 @@ get_bootstrap_version <- function(template, config_path = NULL, package = NULL) 
   template_bslib <- template[["bslib"]][["version"]]
 
   if (!is.null(template_bootstrap) && !is.null(template_bslib)) {
-    instructions <-
-      if (!is.null(package)) {
-        paste0(
-          "Update the pkgdown config in {.pkg ", package, "}, ",
-          "or set a Bootstrap version in your {.file ",
-          if (is.null(config_path)) "_pkgdown.yml" else config_path,
-          "}."
-        )
-      } else if (!is.null(config_path)) {
-        paste("Remove one of them from {.file", config_path, "}")
-      }
+    if (!is.null(package)) {
+      hint <- "Specified locally and in template package {.pkg {package}}."
+    } else {
+      hint <- NULL
+    }
 
-    cli::cli_abort(
+    config_abort(
+      pkg,
       c(
-        sprintf(
-          "Both {.field %s} and {.field %s} are set.",
-          pkgdown_field(list(), c("template", "bootstrap")),
-          pkgdown_field(list(), c("template", "bslib", "version"))
-        ),
-        i = instructions
+        "Must set one only of {.field template.bootstrap} and {.field template.bslib.version}.",
+        i = hint
       ),
       call = caller_env()
     )
@@ -166,12 +157,9 @@ check_bootstrap_version <- function(version, pkg) {
     cli::cli_warn("{.var bootstrap: 4} no longer supported, using {.var bootstrap: 5} instead")
     5
   } else {
-    msg_fld <- pkgdown_field(pkg, c("template", "bootstrap"), cfg = TRUE, fmt = TRUE)
-    cli::cli_abort(
-      c(
-        "Boostrap version must be 3 or 5.",
-        x = paste0("You set a value of {.val {version}} to ", msg_fld, ".")
-      ),
+    config_abort(
+      pkg,
+      "{.field template.bootstrap} must be 3 or 5, not {.val {version}}.",
       call = caller_env()
     )
   }
@@ -182,17 +170,11 @@ check_bootstrap_version <- function(version, pkg) {
 pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
-    c("_pkgdown.yml",
-      "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml",
-      "inst/_pkgdown.yml"
+    c(
+      "_pkgdown.yml", "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
     )
-  )
-}
-pkgdown_config_href <- function(path) {
-  cli::style_hyperlink(
-    text = "_pkgdown.yml",
-    url = paste0("file://", pkgdown_config_path(path))
   )
 }
 
@@ -225,9 +207,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   source <- purrr::map(rd, extract_source)
 
   file_in <- names(rd)
-
-  file_out <- gsub("\\.Rd$", ".html", file_in)
-  file_out[file_out == "index.html"] <- "index-topic.html"
+  file_out <- rd_output_path(file_in)
 
   funs <- purrr::map(rd, topic_funs)
 
@@ -244,6 +224,12 @@ package_topics <- function(path = ".", package = "pkgdown") {
     concepts = concepts,
     internal = internal
   )
+}
+
+rd_output_path <- function(x) {
+  x <- gsub("\\.Rd$", ".html", x)
+  x[x == "index.html"] <- "index-topic.html"
+  x
 }
 
 package_rd <- function(path = ".") {
@@ -328,17 +314,19 @@ package_vignettes <- function(path = ".") {
   out[order(basename(out$file_out)), ]
 }
 
-find_template_config <- function(package, bs_version = NULL) {
+find_template_config <- function(package,
+                                 bs_version = NULL,
+                                 error_call = caller_env()) {
   if (is.null(package)) {
     return(list())
   }
 
   config <- path_package_pkgdown(
     "_pkgdown.yml",
-    package = package,
-    bs_version = bs_version
+    package,
+    bs_version,
+    error_call = error_call
   )
-
   if (!file_exists(config)) {
     return(list())
   }

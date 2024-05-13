@@ -1,7 +1,7 @@
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
+  navbar <- config_pluck(pkg, "navbar")
 
   style <- navbar_style(
     navbar = navbar,
@@ -36,43 +36,59 @@ navbar_structure <- function() {
 }
 
 navbar_links <- function(pkg, depth = 0L) {
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
-
   # Combine default components with user supplied
-  components <- navbar_components(pkg)
-  components_meta <- navbar$components %||% list()
-  components[names(components_meta)] <- components_meta
-  components <- purrr::compact(components)
+  components <- modify_list(
+    navbar_components(pkg),
+    config_pluck(pkg, "navbar.components")
+  )
 
   # Combine default structure with user supplied
-  pkg$meta$navbar$structure <- modify_list(navbar_structure(), pkg$meta$navbar$structure)
+  # (must preserve NULLs in yaml to mean display nothing)
+  pkg$meta$navbar$structure <- modify_list(
+    navbar_structure(),
+    config_pluck(pkg, "navbar.structure")
+  )
   right_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "right")),
+    config_pluck_character(pkg, "navbar.structure.right"),
     names(components)
   )
   left_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "left")),
+    config_pluck_character(pkg, "navbar.structure.left"),
     names(components)
   )
   # Backward compatibility
-  left <- navbar$left %||% components[left_comp]
-  right <- navbar$right %||% components[right_comp]
+  left <- config_pluck(pkg, "navbar.left") %||% components[left_comp]
+  right <- config_pluck(pkg, "navbar.right") %||% components[right_comp]
 
   list(
-    left = render_navbar_links(left, depth = depth, pkg = pkg),
-    right = render_navbar_links(right, depth = depth, pkg = pkg)
+    left = render_navbar_links(
+      left,
+      depth = depth,
+      pkg = pkg,
+      side = "left"
+    ),
+    right = render_navbar_links(
+      right,
+      depth = depth,
+      pkg = pkg,
+      side = "right"
+    )
   )
 }
 
-render_navbar_links <- function(x, depth = 0L, pkg) {
+render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
   if (!is.list(x)) {
-    cli::cli_abort(
-      "Invalid navbar specification in {pkgdown_config_href({pkg$src_path})}", 
+    config_abort(
+      pkg,
+      c(
+        "{.field navbar} is incorrectly specified.",
+        i = "See details in {.vignette pkgdown::customise}."
+      ),
       call = quote(data_template())
     )
   }
-
-  stopifnot(is.integer(depth), depth >= 0L)
+  check_number_whole(depth, min = 0)
+  side <- arg_match(side)
 
   tweak <- function(x) {
     if (!is.null(x$menu)) {
@@ -92,7 +108,7 @@ render_navbar_links <- function(x, depth = 0L, pkg) {
   if (pkg$bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
-    bs4_navbar_links_html(x)
+    bs4_navbar_links_html(x, side = side)
   }
 }
 
@@ -213,11 +229,11 @@ menu_search <- function(depth = 0) {
   )
 }
 
-bs4_navbar_links_html <- function(links) {
-  as.character(bs4_navbar_links_tags(links), options = character())
+bs4_navbar_links_html <- function(links, side = c("left", "right")) {
+  as.character(bs4_navbar_links_tags(links, side = side), options = character())
 }
 
-bs4_navbar_links_tags <- function(links, depth = 0L) {
+bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
   rlang::check_installed("htmltools")
 
   if (is.null(links)) {
@@ -244,7 +260,16 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
         link_text <- bs4_navbar_link_text(x)
       }
 
-      submenuLinks <- bs4_navbar_links_tags(x$menu, depth = depth + 1L)
+      submenuLinks <- bs4_navbar_links_tags(
+        x$menu,
+        depth = depth + 1L,
+        side = side
+      )
+
+      dropdown_class <- "dropdown-menu"
+      if (side == "right") {
+        dropdown_class <- paste(dropdown_class, "dropdown-menu-end")
+      }
 
       return(
         htmltools::tags$li(
@@ -258,7 +283,7 @@ bs4_navbar_links_tags <- function(links, depth = 0L) {
           "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
-            class = "dropdown-menu",
+            class = dropdown_class,
             `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
             submenuLinks
           )

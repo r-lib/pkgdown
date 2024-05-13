@@ -3,7 +3,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: A
         slug: a
@@ -51,14 +51,18 @@
       data_reference_index(pkg)
     Condition
       Error:
-      ! All topics must be included in reference index
-      x Missing topics: c, e, and ?
-      i Either add to _pkgdown.yml or use @keywords internal
+      ! 3 topics missing from index: "c", "e", and "?".
+      i Either use `@keywords internal` to drop from index, or
+      i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry is empty
 
-    Section "bla": contents 2 is empty.
-    i This typically indicates that your _pkgdown.yml is malformed.
+    Code
+      build_reference_index(pkg)
+    Condition
+      Error in `build_reference_index()`:
+      ! Section "bla": contents 2 is empty.
+      i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry is not a character
 
@@ -67,8 +71,8 @@
     Condition
       Error in `build_reference_index()`:
       ! Section "bla": 2 must be a character.
-      i You might need to add '' around special values like 'N' or 'off'
-      i This typically indicates that your _pkgdown.yml is malformed.
+      i You might need to add '' around special YAML values like 'N' or 'off'
+      i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content is totally empty
 
@@ -77,7 +81,7 @@
     Condition
       Error in `build_reference_index()`:
       ! Section "bla": contents is empty.
-      i This typically indicates that your _pkgdown.yml is malformed.
+      i Edit _pkgdown.yml to fix the problem.
 
 # errors well when a content entry refers to a not installed package
 
@@ -100,7 +104,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: bla
         slug: bla
@@ -160,7 +164,7 @@
     Code
       data_reference_index(pkg)
     Output
-      pagetitle: Function reference
+      pagetitle: Package index
       rows:
       - title: bla
         slug: bla

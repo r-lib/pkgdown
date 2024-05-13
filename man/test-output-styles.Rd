@@ -33,6 +33,7 @@ Other tests:
 \code{\link{test-long-lines}},
 \code{\link{test-params}},
 \code{\link{test-sexpr-title}},
+\code{\link{test-tables}},
 \code{\link{test-verbatim}}
 }
 \concept{tests}
