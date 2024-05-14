@@ -4,7 +4,6 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   pkg <- section_init(pkg, depth = 0L)
 
   src_path <- path_index(pkg)
-
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
 
