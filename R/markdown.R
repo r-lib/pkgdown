@@ -118,6 +118,7 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
       "--indented-code-classes=R",
       "--section-divs",
       "--wrap=none",
+      "--mathjax",
       ...
     ))
   )

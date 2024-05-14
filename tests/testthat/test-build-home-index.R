@@ -8,6 +8,17 @@ test_that("title and description come from DESCRIPTION by default", {
   expect_equal(data_home(pkg)$opengraph$description, "Y")
 })
 
+test_that("math is handled", {
+  pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
+  write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
+  
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_home_index(pkg))
+
+  html <- xml2::read_html(path(pkg$dst_path, "index.html"))
+  expect_equal(xpath_text(html, ".//span[contains(@class, 'math')]"), "\\(1 + 1\\)")
+})
+
 test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")

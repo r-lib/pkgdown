@@ -31,13 +31,32 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   )
 }
 
-local_pkgdown_site <- function(path = NULL, meta = NULL, env = parent.frame()) {
+local_pkgdown_site <- function(path = NULL, meta = NULL, clone = FALSE, env = parent.frame()) {
+  check_bool(clone)
+
   if (is.null(path)) {
     path <- withr::local_tempdir(.local_envir = env)
     desc <- desc::desc("!new")
     desc$set("Package", "testpackage")
     desc$set("Title", "A test package")
     desc$write(file = path(path, "DESCRIPTION"))
+  } 
+
+  if (clone) {
+    if (is.null(path)) {
+      cli::cli_abort("Can only clone when {.arg path} is set.")
+    } else {
+      src_paths <- dir_ls(path, recurse = TRUE)
+      is_dir <- is_dir(src_paths)
+
+      dst <- withr::local_tempdir("pkgdown", .local_envir = env)
+      dst_paths <- path(dst, path_rel(src_paths, path))
+
+      dir_create(dst_paths[is_dir])
+      file_copy(src_paths[!is_dir], dst_paths[!is_dir])
+
+      path <- dst
+    }
   }
 
   if (is.character(meta)) {

@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_home_index()` now renders math if you use it in your home page (#2263).
 * `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
 * BS5 templates no longer include empty link to logo when none exists (#2536).
 * `build_articles()` now reports if you are missing alt-text for any images (#2357).
