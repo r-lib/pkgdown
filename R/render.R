@@ -77,7 +77,9 @@ data_template <- function(pkg = ".", depth = 0L) {
     name = pkg$package,
     version = as.character(pkg$version)
   )
-  out$logo <- list(src = logo_path(pkg, depth = depth))
+  if (has_logo(pkg)) {
+    out$logo <- list(src = logo_path(pkg, depth = depth))
+  }
   out$site <- list(
     root = up_path(depth),
     title = pkg$meta$title %||% pkg$package

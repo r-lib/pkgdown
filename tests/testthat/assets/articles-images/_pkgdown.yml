@@ -1,3 +1,6 @@
+template:
+  bootstrap: 5
+
 figures:
   dev: "jpeg"
   fig.ext: "jpg"
