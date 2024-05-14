@@ -274,13 +274,16 @@ bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
       return(
         htmltools::tags$li(
           class = menu_class,
-          htmltools::tags$a(
-            href = "#", class = "nav-link dropdown-toggle",
-            `data-bs-toggle` = "dropdown", role = "button",
-            `aria-expanded` = "false", `aria-haspopup` = "true",
+          htmltools::tags$button(
+            href = "#",
+            class = "nav-link dropdown-toggle",
+            `data-bs-toggle` = "dropdown",
+            type = "button",
+            `aria-expanded` = "false",
+            `aria-haspopup` = "true",
             link_text,
             id = paste0("dropdown-", make_slug(link_text)),
-          "aria-label" = x$`aria-label` %||% NULL
+            "aria-label" = x$`aria-label` %||% NULL
           ),
           htmltools::tags$div(
             class = dropdown_class,
@@ -336,24 +339,21 @@ bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
 
   tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
   htmltools::tagList(tags)
-
 }
 
 bs4_navbar_link_text <- function(x, ...) {
-
   if (!is.null(x$icon)) {
-    # find the iconset
-    split <- strsplit(x$icon, "-")
-    if (length(split[[1]]) > 1) {
-      iconset <- split[[1]][[1]]
-    }
-    else {
-      iconset <- ""
-    }
-    htmltools::tagList(htmltools::tags$span(class = paste(iconset, x$icon)), " ", x$text, ...)
-  }
-  else
+    # Find the icon set
+    classes <- strsplit(x$icon, " ")[[1]]
+    icon_classes <- classes[grepl("-", classes)]
+    iconset <- purrr::map_chr(strsplit(icon_classes, "-"), 1)
+    class <- paste0(unique(c(iconset, classes)), collapse = " ")
+
+    text <- paste0(if (!is.null(x$text)) " ", x$text)
+    htmltools::tagList(htmltools::tags$span(class = class), text, ...)
+  } else {
     htmltools::tagList(x$text, ...)
+  }
 }
 
 # Testing helpers ---------------------------------------------------------
