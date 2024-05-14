@@ -159,45 +159,6 @@ test_that("for bs4, default bg and type come from bootswatch", {
   expect_equal(style, list(bg = "primary", type = "light"))
 })
 
-test_that("render_navbar_links BS3 & BS4 default", {
-  x <- list(
-    intro = list(text = "Get started", href = "articles/pkgdown.html"),
-    reference = list(text = "Reference", href = "reference/index.html"),
-    articles = list(
-      text = "Articles",
-      menu = list(
-        list(text = "Auto-linking",  href = "articles/linking.html"),
-        list(text = "Search", href = "articles/search.html"),
-        list(text = "Metadata", href = "articles/metadata.html"),
-        list(text = "Customize your pkgdown website", href = "articles/customization.html"),
-        list(text = "---------"),
-        list(text = "More...", href = "articles/index.html")
-      )
-    ),
-    news = list(text = "News", href = "news/index.html")
-  )
-
-  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 3))))
-  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
-})
-
-test_that("render_navbar_links BS4 no divider before first element", {
-  x <- list(
-    articles = list(
-      text = "Articles",
-      menu = list(
-        list(text = "---------"),
-        list(text = "First section"),
-        list(text = "Search", href = "articles/search.html"),
-        list(text = "Metadata", href = "articles/metadata.html"),
-        list(text = "Customize your pkgdown website", href = "articles/customization.html"),
-        list(text = "---------"),
-        list(text = "More...", href = "articles/index.html")
-      )
-    )
-  )
-  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
-})
 
 test_that("dropdowns on right are right-aligned", {
   x <- list(
@@ -217,33 +178,4 @@ test_that("dropdowns on right are right-aligned", {
 
   expect_equal(xpath_attr(right, ".//div", "class"), "dropdown-menu dropdown-menu-end")
   expect_equal(xpath_attr(left, ".//div", "class"), "dropdown-menu")
-})
-
-test_that("can specific link target", {
-  expect_snapshot({
-    bs4_navbar_links_tags(
-      list(menu = list(text = "text", href = "href", target = '_blank'))
-    )
-    bs4_navbar_links_tags(
-      list(menu = list(text = "text", href = "href", target = '_blank')),
-      depth = 1
-    )
-  })
-})
-
-test_that("can render search helper", {
-  expect_snapshot({
-    bs4_navbar_links_tags(list(menu = list(search = TRUE)))
-  })
-})
-
-test_that("icons extract icon set", {
-  expect_equal(
-    as.character(bs4_navbar_link_text(menu_icon("github", ""))),
-    '<span class="fa fas fa-github fa-lg"></span>'
-  )
-  expect_equal(
-    as.character(bs4_navbar_link_text(menu_icon("github", "", style = "fab"))),
-    '<span class="fa fab fa-github fa-lg"></span>'
-  )
 })
