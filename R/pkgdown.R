@@ -84,8 +84,8 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
   }
 
   if (!is.null(meta)) {
-    path_pkgdown_yml <- fs::path(path, "inst", "pkgdown", "_pkgdown.yml")
-    fs::dir_create(fs::path_dir(path_pkgdown_yml))
+    path_pkgdown_yml <- path(path, "inst", "pkgdown", "_pkgdown.yml")
+    dir_create(path_dir(path_pkgdown_yml))
     yaml::write_yaml(meta, path_pkgdown_yml)
   }
 

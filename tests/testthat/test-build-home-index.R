@@ -40,6 +40,7 @@ test_that("data_home_sidebar() works by default", {
 
 test_that("data_home_sidebar() can be removed", {
   pkg <- local_pkgdown_site(test_path("assets/sidebar"))
+  suppressMessages(init_site(pkg))
   pkg$meta$home$sidebar <- FALSE
   # not built by data_home_sidebar()
   expect_false(data_home_sidebar(pkg))

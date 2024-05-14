@@ -29,18 +29,19 @@ test_that("examples_env sets width", {
   expect_equal(getOption("width"), 50)
 })
 
-
 test_that("test usage ok on rendered page", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  pkg <- local_pkgdown_site(test_path("assets/reference"), "
+      template:
+        bootstrap: 3
+    ")
+  suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "c"))
+
   html <- xml2::read_html(path(pkg$dst_path, "reference", "c.html"))
   expect_equal(xpath_text(html, "//div[@id='ref-usage']", trim = TRUE), "c()")
   clean_site(pkg, quiet = TRUE)
 
-  pkg <- local_pkgdown_site(test_path("assets/reference"), "
-      template:
-        bootstrap: 5
-    ")
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "c.html"))
@@ -50,7 +51,9 @@ test_that("test usage ok on rendered page", {
 
 test_that(".Rd without usage doesn't get Usage section", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "e"))
+  
   html <- xml2::read_html(path(pkg$dst_path, "reference", "e.html"))
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
   clean_site(pkg, quiet = TRUE)
@@ -93,10 +96,11 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
 
 test_that("examples are reproducible by default, i.e. 'seed' is respected", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "f"))
 
   examples <- xml2::read_html(path(pkg$dst_path, "reference", "f.html")) %>%
-    rvest::html_node("div#ref-examples div.sourceCode") %>%
+    rvest::html_node("code .r-out") %>%
     rvest::html_text() %>%
     # replace line feeds with whitespace to make output platform independent
     gsub("\r", "", .)
@@ -106,6 +110,7 @@ test_that("examples are reproducible by default, i.e. 'seed' is respected", {
 
 test_that("arguments get individual ids", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "a"))
 
   html <- xml2::read_html(path(pkg$dst_path, "reference", "a.html"))
@@ -115,6 +120,7 @@ test_that("arguments get individual ids", {
 
 test_that("title and page title escapes html", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
+  suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "g"))
   
   html <- xml2::read_html(path(pkg$dst_path, "reference", "g.html"))
