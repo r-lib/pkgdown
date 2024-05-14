@@ -123,7 +123,8 @@ test_that("bibtex is escaped", {
     '  title="test special HTML characters: <&>",',
     '  author="x",',
     '  journal="x",',
-    '  year="2017"',
+    '  year="2017",',
+    '  textVersion = ""',
     ')'
   ))
   
