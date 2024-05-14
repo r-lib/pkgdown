@@ -128,9 +128,7 @@ config_abort <- function(pkg,
 }
 
 config_path <- function(pkg) {
-  config <- pkgdown_config_path(pkg$src_path)
-  if (is.null(config)) {
-    cli::cli_abort("Can't find {.file _pkgdown.yml}.", .internal = TRUE)
-  }
-  cli::style_hyperlink(path_file(config), paste0("file://", config))
+  # Not all projects necessary have a _pkgdown.yml (#2542)
+  config <- pkgdown_config_path(pkg$src_path) %||% "_pkgdown.yml"
+  cli::style_hyperlink(path_file(config), paste0("file://", config))  
 }
