@@ -13,6 +13,9 @@
     <loc>https://pkgdown.r-lib.org/dev/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://pkgdown.r-lib.org/dev/articles/accessibility.html</loc>
+  </url>
+  <url>
     <loc>https://pkgdown.r-lib.org/dev/articles/customise.html</loc>
   </url>
   <url>
@@ -122,9 +125,6 @@
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/pkgdown_print.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/dev/reference/pkgdown_sitrep.html</loc>
   </url>
   <url>
     <loc>https://pkgdown.r-lib.org/dev/reference/preview_page.html</loc>

@@ -28,6 +28,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/customise.html">Customise your site</a>
+    <a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a>
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
@@ -72,6 +73,25 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/build_home.html">build_home_index()</a></code> now renders math if you use it in your home page (<a href="https://github.com/r-lib/pkgdown/issues/2263" class="external-link">#2263</a>).</li>
+<li>
+<code><a href="../reference/build_home.html">build_home()</a></code> now correctly escapes special HTML characters in the bibtex citation (<a href="https://github.com/r-lib/pkgdown/issues/2022" class="external-link">#2022</a>).</li>
+<li>BS5 templates no longer include empty link to logo when none exists (<a href="https://github.com/r-lib/pkgdown/issues/2536" class="external-link">#2536</a>).</li>
+<li>
+<code><a href="../reference/build_articles.html">build_articles()</a></code> now reports if you are missing alt-text for any images (<a href="https://github.com/r-lib/pkgdown/issues/2357" class="external-link">#2357</a>).</li>
+<li>
+<code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> and <code><a href="../reference/check_pkgdown.html">pkgdown_sitrep()</a></code> have been unified so that they both report on the same problems. They now only differ in the style of their output: <code><a href="../reference/check_pkgdown.html">pkgdown_sitrep()</a></code> reports whether each category is ok or not ok, while <code><a href="../reference/check_pkgdown.html">check_pkgdown()</a></code> errors on the first issue (<a href="https://github.com/r-lib/pkgdown/issues/2463" class="external-link">#2463</a>).</li>
+<li>
+<code><a href="../reference/build_site.html">build_site()</a></code> automatically runs <code><a href="../reference/check_pkgdown.html">pkgdown_sitrep()</a></code> at the start of the process (<a href="https://github.com/r-lib/pkgdown/issues/2380" class="external-link">#2380</a>).</li>
+<li>New <code><a href="../articles/accessibility.html">vignette("accessibility")</a></code> describes what manual tasks you need to perform to make your site as accessible as possible (<a href="https://github.com/r-lib/pkgdown/issues/2344" class="external-link">#2344</a>).</li>
+<li>
+<code><a href="../reference/build_reference.html">build_reference()</a></code> now automatically translates <code>--</code>, <code>---</code>, <code>``</code>, and <code>''</code> to their unicode equivalents (<a href="https://github.com/r-lib/pkgdown/issues/2530" class="external-link">#2530</a>).</li>
+<li>Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (<a href="https://github.com/r-lib/pkgdown/issues/2512" class="external-link">#2512</a>).</li>
+<li>
+<code><a href="../reference/build_reference.html">build_reference()</a></code> now supports <code>\Sexpr[results=verbatim]</code> (<a href="https://github.com/bastistician" class="external-link">@bastistician</a>, <a href="https://github.com/r-lib/pkgdown/issues/2510" class="external-link">#2510</a>).</li>
+<li>
+<code><a href="../reference/build_home.html">build_home()</a></code> no longer checks if the README is missing any images. This check is now performed in <code><a href="../reference/build_site.html">build_site()</a></code>, after <code><a href="../reference/build_articles.html">build_articles()</a></code> so you can refer to images created by vignettes with warnings (<a href="https://github.com/r-lib/pkgdown/issues/2194" class="external-link">#2194</a>).</li>
+<li>
 <code><a href="../reference/build_home.html">build_home()</a></code> now includes the contents of <code>inst/AUTHORS</code> on the authors page (<a href="https://github.com/r-lib/pkgdown/issues/2506" class="external-link">#2506</a>).</li>
 <li>If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (<a href="https://github.com/r-lib/pkgdown/issues/2421" class="external-link">#2421</a>).</li>
 <li>The title for the “Reference” page is now “Package index” since this page might contain more than just function details (<a href="https://github.com/r-lib/pkgdown/issues/2181" class="external-link">#2181</a>).</li>
@@ -340,7 +360,7 @@
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="st">"articles/yet-another-old-vignette-name.html"</span><span class="kw">,</span><span class="at"> </span><span class="st">"https://pkgdown.r-lib.org/dev"</span><span class="kw">]</span></span></code></pre></div>
 </li>
 <li><p>Use HTML classes <code>pkgdown-devel</code> or <code>pkgdown-release</code> to declare that certain content should appear only on the devel or release site. Use the class <code>pkgdown-hide</code> for content that should only appear only on GitHub/CRAN (<a href="https://github.com/r-lib/pkgdown/issues/1299" class="external-link">#1299</a>).</p></li>
-<li><p>New <code><a href="../reference/pkgdown_sitrep.html">pkgdown_sitrep()</a></code> function reports whether the site is set up correctly; in particularly it currently reports if auto-linking will work (<a href="https://github.com/r-lib/pkgdown/issues/1478" class="external-link">#1478</a>).</p></li>
+<li><p>New <code><a href="../reference/check_pkgdown.html">pkgdown_sitrep()</a></code> function reports whether the site is set up correctly; in particularly it currently reports if auto-linking will work (<a href="https://github.com/r-lib/pkgdown/issues/1478" class="external-link">#1478</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="code-2-0-0">Code<a class="anchor" aria-label="anchor" href="#code-2-0-0"></a></h3>
@@ -501,7 +521,7 @@
 <ul><li><p>Examples and Rmd now use exactly the same syntax highlighting strategy.</p></li>
 <li><p>In examples and Rmd, calls of the form <code>current_package::foo</code> now get a local link (<a href="https://github.com/r-lib/pkgdown/issues/1262" class="external-link">#1262</a>).</p></li>
 <li><p><code>\preformatted{}</code> blocks are now highlighted and linked if they parse as R code (<a href="https://github.com/r-lib/pkgdown/issues/1180" class="external-link">#1180</a>).</p></li>
-<li><p><code><a href="https://pkgdown.r-lib.org">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1161" class="external-link">#1161</a>).</p></li>
+<li><p><code><a href="https://pkgdown.r-lib.org/">library(pkgdown)</a></code> is now automatically linked to the reference index for “pkgdown” not the documentation for <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1161" class="external-link">#1161</a>).</p></li>
 <li><p><code>help("topic")</code> is now automatically linked to the documentation for “topic”, not to the documentation for <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code> (<a href="https://github.com/r-lib/pkgdown/issues/1210" class="external-link">#1210</a>)</p></li>
 </ul></div>
 <div class="section level3">

@@ -55,6 +55,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/customise.html">Customise your site</a>
+    <a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a>
     <a class="dropdown-item" href="../articles/linking.html">Auto-linking</a>
     <a class="dropdown-item" href="../articles/search.html">Search</a>
     <a class="dropdown-item" href="../articles/metadata.html">Metadata</a>
@@ -117,7 +118,7 @@ discuss how to add additional HTML and other files. Next, we’ll discuss
 how to give multiple sites the same style using a package, then finish
 up with some workflow advice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org">pkgdown</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdown.r-lib.org/">pkgdown</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -138,6 +139,10 @@ has a low chance of breaking your site unless you were using your <a href="#temp
 <code>_pkgdown.yml</code>: using a pre-packaged bootswatch theme or
 customising theme variables with <a href="https://rstudio.github.io/bslib/" class="external-link">bslib</a>. The following
 sections show you how.</p>
+<p>Please note that pkgdown’s default theme has been carefully optimised
+to be accessible, so if you make changes, make sure that to also read
+<code><a href="../articles/accessibility.html">vignette("accessibility")</a></code> to learn about potential
+accessibility pitfalls.</p>
 <div class="section level3">
 <h3 id="bootswatch-themes">Bootswatch themes<a class="anchor" aria-label="anchor" href="#bootswatch-themes"></a>
 </h3>
@@ -204,7 +209,8 @@ which defaults to <code>gray-300</code>. If you want to change the
 colour of all borders, you can set <code>border-color</code>; if you
 just want to change the colour of table borders, you can set
 <code>table-border-color</code>. You can find a full list of variables
-in <code>vignette("bs5-variables", package = "bslib")</code>.</p>
+in the <a href="https://rstudio.github.io/bslib/articles/bs5-variables/index.html" class="external-link">bslib
+docs</a>.</p>
 <p>Theming with bslib is powered by <code><a href="https://rdrr.io/pkg/bslib/man/bs_theme.html" class="external-link">bslib::bs_theme()</a></code> and
 the <code>bslib</code> field is a direct translation of the arguments to
 that function. As a result, you can fully specify a bslib theme using
