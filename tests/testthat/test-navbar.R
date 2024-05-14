@@ -71,7 +71,7 @@ test_that("data_navbar() works by default", {
     news = list(one_page = FALSE, cran_dates = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
+  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
     "# testpackage 2.0", "",
     "* bullet (#222 @someone)"
   ))
@@ -93,7 +93,7 @@ test_that("data_navbar() can re-order default elements", {
         left: [github, search]
         right: [news]
   ")
-  file.create(file.path(pkg$src_path, "NEWS.md"))
+  file.create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
@@ -110,7 +110,7 @@ test_that("data_navbar() can remove elements", {
         right: ~
   ")
 
-  expect_snapshot(data_navbar(pkg))
+  expect_equal(data_navbar(pkg)$right, "")
 })
 
 test_that("data_navbar() works with empty side", {

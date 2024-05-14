@@ -43,6 +43,8 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
+Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
+
 ### Bootswatch themes
 
 The easiest way to change the entire appearance of your website is to use a [Bootswatch theme](https://bootswatch.com):
@@ -93,7 +95,7 @@ template:
 You can customise other components by setting more specific bslib variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
 If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
-You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
+You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
 
 Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
 As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).

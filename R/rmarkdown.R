@@ -37,6 +37,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
       error = function(cnd) {
         lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
+        lines <- escape_cli(lines)
         cli::cli_abort(
           c(
             "!" = "Failed to render {.path {input}}.",
@@ -97,6 +98,17 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
   invisible(path)
 }
 
+#' Escapes a cli msg
+#'
+#' Removes empty lines and escapes braces
+#' @param msg A character vector with messages to be escaped
+#' @noRd
+escape_cli <- function(msg) {
+  msg <- msg[nchar(msg) >0]
+  msg <- gsub("{", "{{", msg, fixed = TRUE)
+  msg <- gsub("}", "}}", msg, fixed = TRUE)
+  msg
+}
 
 rmarkdown_render_with_seed <- function(..., seed = NULL) {
   if (!is.null(seed)) {

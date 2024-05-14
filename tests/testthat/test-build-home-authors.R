@@ -109,3 +109,28 @@ test_that("multiple citations all have HTML and BibTeX formats", {
   citations <- data_citations(path)
   expect_snapshot_output(citations)
 })
+
+test_that("bibtex is escaped", {
+  pkg <- local_pkgdown_site(meta = "
+    template:
+      bslib:
+        version: 5
+  ")
+  dir_create(path(pkg$src_path, "inst"))
+  write_lines(path = path(pkg$src_path, "inst", "CITATION"), c(
+    'citEntry(',
+    '  entry = "Article",',
+    '  title="test special HTML characters: <&>",',
+    '  author="x",',
+    '  journal="x",',
+    '  year="2017",',
+    '  textVersion = ""',
+    ')'
+  ))
+  
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_citation_authors(pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "authors.html"))
+  
+  expect_match(xpath_text(html, "//pre"), "<&>", fixed = TRUE)
+})

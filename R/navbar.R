@@ -1,7 +1,7 @@
 data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
+  navbar <- config_pluck(pkg, "navbar")
 
   style <- navbar_style(
     navbar = navbar,
@@ -36,27 +36,29 @@ navbar_structure <- function() {
 }
 
 navbar_links <- function(pkg, depth = 0L) {
-  navbar <- purrr::pluck(pkg, "meta", "navbar")
-
   # Combine default components with user supplied
-  components <- navbar_components(pkg)
-  components_meta <- navbar$components %||% list()
-  components[names(components_meta)] <- components_meta
-  components <- purrr::compact(components)
+  components <- modify_list(
+    navbar_components(pkg),
+    config_pluck(pkg, "navbar.components")
+  )
 
   # Combine default structure with user supplied
-  pkg$meta$navbar$structure <- modify_list(navbar_structure(), pkg$meta$navbar$structure)
+  # (must preserve NULLs in yaml to mean display nothing)
+  pkg$meta$navbar$structure <- modify_list(
+    navbar_structure(),
+    config_pluck(pkg, "navbar.structure")
+  )
   right_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "right")),
+    config_pluck_character(pkg, "navbar.structure.right"),
     names(components)
   )
   left_comp <- intersect(
-    yaml_character(pkg, c("navbar", "structure", "left")),
+    config_pluck_character(pkg, "navbar.structure.left"),
     names(components)
   )
   # Backward compatibility
-  left <- navbar$left %||% components[left_comp]
-  right <- navbar$right %||% components[right_comp]
+  left <- config_pluck(pkg, "navbar.left") %||% components[left_comp]
+  right <- config_pluck(pkg, "navbar.right") %||% components[right_comp]
 
   list(
     left = render_navbar_links(

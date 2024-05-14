@@ -20,7 +20,7 @@ test_that("markdown_text_inline() works with inline markdown", {
   expect_equal(markdown_text_inline("**lala**"), "<strong>lala</strong>")
 
   pkg <- local_pkgdown_site()
-  expect_snapshot_error(markdown_text_inline("x\n\ny", pkg = pkg))
+  expect_snapshot(markdown_text_inline("x\n\ny", pkg = pkg), error = TRUE)
 })
 
 test_that("markdown_text_block() works with inline and block markdown", {

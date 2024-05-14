@@ -1,3 +1,10 @@
+# converts Rd unicode shortcuts
+
+    Code
+      rd2html("``a -- b --- c''")
+    Output
+      [1] "“a – b — c”"
+
 # subsection generates h3
 
     Code

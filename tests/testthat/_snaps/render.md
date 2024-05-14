@@ -1,22 +1,25 @@
 # check_bslib_theme() works
 
-    x Can't find Bootswatch/bslib theme preset "paper" (template.bootswatch).
-    i Using Bootstrap version 4 (template.bootstrap).
-    i Edit _pkgdown.yml to fix the problem.
-
----
-
-    x Can't find Bootswatch/bslib theme preset "paper" (template and preset).
-    i Using Bootstrap version 4 (template.bootstrap).
-    i Edit _pkgdown.yml to fix the problem.
+    Code
+      check_bslib_theme("paper", pkg, bs_version = 4)
+    Condition
+      Error:
+      x Can't find Bootswatch/bslib theme preset "paper" (template.bootswatch).
+      i Using Bootstrap version 4 (template.bootstrap).
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
+    Condition
+      Error:
+      x Can't find Bootswatch/bslib theme preset "paper" (template and preset).
+      i Using Bootstrap version 4 (template.bootstrap).
+      i Edit _pkgdown.yml to fix the problem.
 
 # capture data_template()
 
     package:
       name: testpackage
       version: 1.0.0
-    logo:
-      src: ~
     site:
       root: ''
       title: testpackage
@@ -38,7 +41,6 @@
     extra:
       css: ~
       js: ~
-    includes: []
     yaml:
       .present: yes
     development:

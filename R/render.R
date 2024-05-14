@@ -80,7 +80,9 @@ data_template <- function(pkg = ".", depth = 0L) {
     name = pkg$package,
     version = as.character(pkg$version)
   )
-  out$logo <- list(src = logo_path(pkg, depth = depth))
+  if (has_logo(pkg)) {
+    out$logo <- list(src = logo_path(pkg, depth = depth))
+  }
   out$site <- list(
     root = up_path(depth),
     title = pkg$meta$title %||% pkg$package
@@ -109,8 +111,8 @@ data_template <- function(pkg = ".", depth = 0L) {
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
   )
-  out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
-  out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
+  out$includes <- config_pluck(pkg, "template.includes")
+  out$yaml <- config_pluck(pkg, "template.params")
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
   out$yaml$.present <- TRUE
@@ -223,7 +225,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   if (same_contents(full_path, contents)) {
     # touching the file to update its modification time
     # which is important for proper lazy behavior
-    fs::file_touch(full_path)
+    file_touch(full_path)
     return(FALSE)
   }
 

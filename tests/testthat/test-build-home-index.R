@@ -8,6 +8,17 @@ test_that("title and description come from DESCRIPTION by default", {
   expect_equal(data_home(pkg)$opengraph$description, "Y")
 })
 
+test_that("math is handled", {
+  pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
+  write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
+  
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_home_index(pkg))
+
+  html <- xml2::read_html(path(pkg$dst_path, "index.html"))
+  expect_equal(xpath_text(html, ".//span[contains(@class, 'math')]"), "\\(1 + 1\\)")
+})
+
 test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
@@ -29,6 +40,7 @@ test_that("data_home_sidebar() works by default", {
 
 test_that("data_home_sidebar() can be removed", {
   pkg <- local_pkgdown_site(test_path("assets/sidebar"))
+  suppressMessages(init_site(pkg))
   pkg$meta$home$sidebar <- FALSE
   # not built by data_home_sidebar()
   expect_false(data_home_sidebar(pkg))
@@ -45,14 +57,14 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   pkg$meta$home$sidebar$html <- "sidebar.html"
   expect_equal(
     data_home_sidebar(pkg),
-    read_file(file.path(pkg$src_path, "sidebar.html"))
+    read_file(path(pkg$src_path, "sidebar.html"))
   )
 })
 
 test_that("data_home_sidebar() errors well when no HTML file", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
   pkg$meta$home$sidebar$html <- "file.html"
-  expect_snapshot_error(data_home_sidebar(pkg))
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 
 test_that("data_home_sidebar() can get a custom markdown formatted component", {

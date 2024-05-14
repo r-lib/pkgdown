@@ -3,5 +3,6 @@ title: "Test: Figures"
 ---
 
 ```{r}
+#| fig-alt: A scatterplot of the numbers 1-10.
 plot(1:10)
 ```

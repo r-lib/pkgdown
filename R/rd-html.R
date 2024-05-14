@@ -81,7 +81,16 @@ as_html.character <- function(x, ..., escape = TRUE) {
   }
 }
 #' @export
-as_html.TEXT <-  as_html.character
+as_html.TEXT <-  function(x, ..., escape = TRUE) { 
+  # tools:::htmlify
+  x <- gsub("---", "\u2014", x)
+  x <- gsub("--", "\u2013", x)
+  x <- gsub("``", "\u201c", x)
+  x <- gsub("''", "\u201d", x)
+
+  x <- as_html.character(x, ..., escape = escape)
+  x
+}
 #' @export
 as_html.RCODE <- as_html.character
 #' @export

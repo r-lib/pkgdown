@@ -42,7 +42,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     i = "Building favicons with {.url https://realfavicongenerator.net} ..."
   ))
 
-  logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
+  logo <- readBin(logo_path, what = "raw", n = file_info(logo_path)$size)
 
   json_request <- list(
     "favicon_generation" = list(

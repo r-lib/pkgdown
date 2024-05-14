@@ -4,6 +4,15 @@
   * No longer support IE9 or earlier
   * Strip trailing whitespace
   * Label `<nav>`s and improve navbar html.
+* `build_home_index()` now renders math if you use it in your home page (#2263).
+* `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
+* BS5 templates no longer include empty link to logo when none exists (#2536).
+* `build_articles()` now reports if you are missing alt-text for any images (#2357).
+* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
+* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
+* New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
+* `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
+* Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
 * `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
 * `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
 * `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).

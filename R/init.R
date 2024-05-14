@@ -54,7 +54,7 @@ init_site <- function(pkg = ".") {
 
 copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  template <- purrr::pluck(pkg$meta, "template", .default = list())
+  template <- config_pluck(pkg, "template")
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
@@ -95,7 +95,7 @@ copy_asset_dir <- function(pkg,
   }
 
   src_paths <- dir_ls(src_dir, recurse = TRUE)
-  src_paths <- src_paths[!fs::is_dir(src_paths)]
+  src_paths <- src_paths[!is_dir(src_paths)]
   if (!is.null(file_regexp)) {
     src_paths <- src_paths[grepl(file_regexp, path_file(src_paths))]
   }
