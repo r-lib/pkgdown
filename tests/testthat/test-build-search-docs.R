@@ -1,4 +1,4 @@
-test_that("docsearch.json and sitemap.xml are valid", {
+test_that("docsearch.json and sitemap.xml are valid for BS 3 site", {
   pkg <- local_pkgdown_site(test_path("assets/search-site"))
 
   suppressMessages(build_site(pkg, new_process = FALSE))
@@ -10,7 +10,7 @@ test_that("docsearch.json and sitemap.xml are valid", {
   expect_true(xml2::xml_validate(xml2::read_xml(xml), schema))
 })
 
-test_that("build_search() builds the expected search`.json with an URL", {
+test_that("build_search() builds the expected search.json with an URL", {
   pkg <- local_pkgdown_site(test_path("assets/news"), '
     url: https://example.com
     template:
