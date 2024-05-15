@@ -52,7 +52,7 @@
     Output
       articles:
         text: Articles
-        children:
+        menu:
         - text: Title a
           href: a.html
         - text: Title b
@@ -77,7 +77,7 @@
     Output
       articles:
         text: Articles
-        children:
+        menu:
         - text: Title a
           href: a.html
         - text: Title b
@@ -92,7 +92,7 @@
     Output
       articles:
         text: Articles
-        children:
+        menu:
         - text: '---------'
         - text: Label
         - text: Title a
@@ -109,7 +109,7 @@
     Output
       articles:
         text: Articles
-        children:
+        menu:
         - text: Title a
           href: a.html
         - text: '---------'
@@ -138,7 +138,7 @@
       data_navbar(pkg)[c("left", "right")]
     Output
       $left
-      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"GitHub\"><span class=\"fa fab fa-github fa-lg\"></span></a></li>\n<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"GitHub\"><span class=\"fa fab fa-github fa-lg\"></span></a></li>\n<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n <input class=\"form-control\" type=\"search\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\"> \n</form></li>"
       
       $right
       [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"news/index.html\">Changelog</a></li>"
@@ -189,7 +189,31 @@
       <li>
         <a href="reference/index.html">Reference</a>
       </li>
-      <li class="dropdown-header">Articles</li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Articles
+           
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a href="articles/linking.html">Auto-linking</a>
+          </li>
+          <li>
+            <a href="articles/search.html">Search</a>
+          </li>
+          <li>
+            <a href="articles/metadata.html">Metadata</a>
+          </li>
+          <li>
+            <a href="articles/customization.html">Customize your pkgdown website</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="articles/index.html">More...</a>
+          </li>
+        </ul>
+      </li>
       <li>
         <a href="news/index.html">News</a>
       </li>

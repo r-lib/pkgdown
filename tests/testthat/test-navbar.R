@@ -184,14 +184,7 @@ test_that("render_navbar_links BS3 & BS4 default", {
 
 test_that("dropdowns on right are right-aligned", {
   x <- list(
-    articles = list(
-      text = "Articles",
-      children = list(
-        list(text = "A"),
-        list(text = "B"),
-        list(text = "C")
-      )
-    )
+    articles = menu_submenu("Articles", list(menu_heading("A"), menu_heading("B")))
   )
   pkg <- list(bs_version = 5)
   
