@@ -19,7 +19,7 @@ Yay[^footnote]
 
 ## Figures
 
-```{r}
+```{r, fig.alt="simple plot"}
 plot(1:10)
 ```
 
@@ -30,7 +30,7 @@ x <- readLines("test.txt")
 x
 ```
 
-![](bacon.jpg)
+![bacon](bacon.jpg)
 
 ## Details tag
 
@@ -169,7 +169,7 @@ blop
 
 something nice
 
-```{r}
+```{r, fig.alt="A nice plot"}
 plot(1:42)
 ```
 
