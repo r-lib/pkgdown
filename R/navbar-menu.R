@@ -22,11 +22,12 @@ menu_icon <- function(icon, href, label) {
 }
 
 menu_type <- function(x) {
-  if (is.null(x)) {
-    "NULL"
+  if (!is.list(x) || !is_named(x)) {
+    not <- obj_type_friendly(x)
+    cli::cli_abort("Navbar components must be named lists, not {not}.")
   } else if (!is.null(x$menu)) {
     # https://github.com/twbs/bootstrap/pull/6342
-    cli::cli_abort("Nested menus are not supported in BS5.")
+    cli::cli_abort("Nested menus are not supported.")
   } else if (!is.null(x$children)) {
     "menu"
   } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
@@ -46,48 +47,46 @@ menu_type <- function(x) {
 
 # Menu renderers --------------------------------------------------------------
 
-navbar_html <- function(x, path_depth = 0L, depth = 0L, side = c("left", "right")) {
+navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "right")) {
+  if (is.null(x)) {
+    return("")
+  }
+
   side <- arg_match(side)
   type <- menu_type(x)
 
-  if (type == "NULL") {
-    return("")
-  } else if (type == "list") {
-    return(navbar_html_list(x, depth = depth, path_depth = path_depth, side = side))
-  }
-
   text <- switch(type, 
-    menu = navbar_html_menu(x, depth = depth, path_depth = path_depth, side = side),
+    menu = navbar_html_menu(x, menu_depth = menu_depth, path_depth = path_depth, side = side),
     heading = navbar_html_heading(x),
-    link = navbar_html_link(x, depth = depth),
+    link = navbar_html_link(x, menu_depth = menu_depth),
     separator = navbar_html_separator(),
     search = navbar_html_search(x, path_depth = path_depth)
   )
 
   class <- c(
-    if (depth == 0L) "nav-item",
+    if (menu_depth == 0L) "nav-item",
     if (type == "menu") "dropdown"
   )
   html_tag("li", class = class, text)
 }
 
-navbar_html_list <- function(x, path_depth = 0L, depth = 0L, side = "left") {
+navbar_html_list <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
   tags <- purrr::map_chr(
     x,
     navbar_html,
     path_depth = path_depth,
-    depth = depth,
+    menu_depth = menu_depth,
     side = side
   )
   paste0(tags, collapse = "\n")
 }
 
-navbar_html_menu <- function(x, path_depth = 0L, depth = 0L, side = "left") {
+navbar_html_menu <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
   id <- paste0("dropdown-", make_slug(x$text))
 
   button <- html_tag("button",
     type = "button",
-    class = c(if (depth == 0L) "nav-link", "dropdown-toggle"),
+    class = c(if (menu_depth == 0L) "nav-link", "dropdown-toggle"),
     id = id,
     `data-bs-toggle` = "dropdown",
     "aria-expanded" = "false",
@@ -99,7 +98,7 @@ navbar_html_menu <- function(x, path_depth = 0L, depth = 0L, side = "left") {
   li <- navbar_html_list(
     x$children,
     path_depth = path_depth,
-    depth = depth + 1,
+    menu_depth = menu_depth + 1,
     side = side
   )
   ul <- html_tag(
@@ -112,10 +111,10 @@ navbar_html_menu <- function(x, path_depth = 0L, depth = 0L, side = "left") {
   paste0("\n", indent(paste0(button, "\n", ul), "  "), "\n")
 }
 
-navbar_html_link <- function(x, depth = 0) {
+navbar_html_link <- function(x, menu_depth = 0) {
   html_tag(
     "a",
-    class = if (depth == 0) "nav-link" else "dropdown-item",
+    class = if (menu_depth == 0) "nav-link" else "dropdown-item",
     href = x$href,
     target = x$target,
     "aria-label" = x$`aria-label`,

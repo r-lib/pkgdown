@@ -20,12 +20,12 @@ test_that("can construct bullets", {
 
 test_that("bullet class varies based on depth", {
   expect_equal(
-    navbar_html(menu_separator(), depth = 0),
+    navbar_html(menu_separator(), menu_depth = 0),
     '<li class="nav-item"><hr class="dropdown-divider"></li>'
   )
 
   expect_equal(
-    navbar_html(menu_separator(), depth = 1),
+    navbar_html(menu_separator(), menu_depth = 1),
     '<li><hr class="dropdown-divider"></li>'
   )
 })
