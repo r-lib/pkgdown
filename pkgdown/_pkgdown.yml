@@ -50,24 +50,6 @@ articles:
   contents:
   - starts_with("test")
 
-navbar:
-  structure:
-    right: [search, github, special]  
-  components:
-    special:
-      text: Articles
-      menu:
-      - text: Category A
-      - text: Title A1
-        href: articles/a1.html
-      - text: Title A2
-        href: articles/a2.html
-      - text: -------
-      - text: "Category B"
-      - text: Article B1
-        href: articles/b1.html
-        icon: fab-github
-
 reference:
 - title: Build
   desc:  Build a complete site or one of its components.
