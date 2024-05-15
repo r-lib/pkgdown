@@ -12,6 +12,14 @@
         </ul>
       </li>
 
+# submenus give clear error
+
+    Code
+      navbar_html(menu)
+    Condition
+      Error in `menu_type()`:
+      ! Nested menus are not supported.
+
 # can construct bullets
 
     Code

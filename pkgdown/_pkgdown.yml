@@ -66,6 +66,7 @@ navbar:
       - text: "Category B"
       - text: Article B1
         href: articles/b1.html
+        icon: fab-github
 
 reference:
 - title: Build

@@ -1,11 +1,11 @@
 # Menu constructors -----------------------------------------------------------
 
 # Helpers for use within pkgdown itself
-menu_submenu <- function(text, children) {
-  if (length(children) == 0) {
+menu_submenu <- function(text, menu) {
+  if (length(menu) == 0) {
     return()
   } else {
-    list(text = text, children = children)
+    list(text = text, menu = menu)
   }
 }
 menu_link <- function(text, href, target = NULL) {
@@ -21,14 +21,17 @@ menu_icon <- function(icon, href, label) {
   list(icon = icon, href = href, "aria-label" = label)
 }
 
-menu_type <- function(x) {
+menu_type <- function(x, menu_depth = 0L) {
   if (!is.list(x) || !is_named(x)) {
     not <- obj_type_friendly(x)
     cli::cli_abort("Navbar components must be named lists, not {not}.")
   } else if (!is.null(x$menu)) {
-    # https://github.com/twbs/bootstrap/pull/6342
-    cli::cli_abort("Nested menus are not supported.")
-  } else if (!is.null(x$children)) {
+# https://github.com/twbs/bootstrap/pull/6342
+
+    if (menu_depth > 0) {
+      cli::cli_abort("Nested menus are not supported.")
+    }
+
     "menu"
   } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
     "separator"
@@ -53,7 +56,7 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
   }
 
   side <- arg_match(side)
-  type <- menu_type(x)
+  type <- menu_type(x, menu_depth = menu_depth)
 
   text <- switch(type, 
     menu = navbar_html_menu(x, menu_depth = menu_depth, path_depth = path_depth, side = side),
@@ -71,13 +74,13 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
 }
 
 navbar_html_list <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
-  tags <- purrr::map_chr(
+  tags <- unwrap_purrr_error(purrr::map_chr(
     x,
     navbar_html,
     path_depth = path_depth,
     menu_depth = menu_depth,
     side = side
-  )
+  ))
   paste0(tags, collapse = "\n")
 }
 
@@ -96,7 +99,7 @@ navbar_html_menu <- function(x, path_depth = 0L, menu_depth = 0L, side = "left")
   )
 
   li <- navbar_html_list(
-    x$children,
+    x$menu,
     path_depth = path_depth,
     menu_depth = menu_depth + 1,
     side = side
