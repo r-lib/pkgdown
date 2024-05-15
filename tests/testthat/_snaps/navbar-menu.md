@@ -45,6 +45,6 @@
       cat(navbar_html(menu_search()))
     Output
       <li class="nav-item"><form class="form-inline" role="search">
-      <input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+       <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"> 
       </form></li>
 

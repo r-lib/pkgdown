@@ -136,20 +136,19 @@ navbar_html_separator <- function() {
 }
 
 navbar_html_search <- function(x, path_depth = 0) {
-  paste0(
-    '<form class="form-inline" role="search">\n',
-    '<input ',
-      'type="search" ',
-      'class="form-control" ',
-      'name="search-input" ', 
-      'id="search-input" ',
-      'autocomplete="off" ',
-      'aria-label="', tr_("Search site"), '" ',
-      'placeholder="', tr_("Search for"), '" ',
-      'data-search-index="', paste0(up_path(path_depth), "search.json"), '"',
-    '>\n',
-    '</form>'
+  input <- html_tag(
+    "input",
+    type = "search",
+    class = "form-control",
+    name = "search-input",
+    id = "search-input",
+    autocomplete = "off",
+    "aria-label" = tr_("Search site"),
+    placeholder = tr_("Search for"),
+    "data-search-index" = paste0(up_path(path_depth), "search.json")
   )
+
+  html_tag("form", class = "form-inline", role = "search", "\n", input, "\n")
 }
 
 # Reused HTML components -----------------------------------------------------
@@ -173,10 +172,15 @@ html_tag <- function(tag, ..., class = NULL) {
   } else {
     html_attr <- ""
   }
-
+ 
   html_child <- paste0(purrr::compact(dots_child), collapse = " ")
+  needs_close <- !tag %in% "input"
 
-  paste0("<", tag, html_attr, ">", html_child, "</", tag, ">")
+  paste0(
+    "<", tag, html_attr, ">",
+    html_child,
+    if (needs_close) paste0("</", tag, ">")
+  )
 }
 
 navbar_html_text <- function(x) {
