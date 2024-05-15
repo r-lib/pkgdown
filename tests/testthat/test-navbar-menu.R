@@ -10,20 +10,6 @@ test_that("can construct menu with children", {
   expect_snapshot(cat(navbar_html(menu)))
 })
 
-test_that("can construct nested menu", {
-  menu <- menu_submenu(
-    "Title",
-    list(
-      menu_heading("Heading"),
-      menu_submenu("Submenu", list(
-        menu_link("Link", "https://example.com")
-      ))
-    )
-  )
-  expect_snapshot(cat(navbar_html(menu)))
-})
-
-
 test_that("can construct bullets", {
   expect_snapshot({
     cat(navbar_html(menu_icon("fa-question", "https://example.com", "label")))
@@ -40,7 +26,7 @@ test_that("bullet class varies based on depth", {
 
   expect_equal(
     navbar_html(menu_separator(), depth = 1),
-    '<li class="dropdown-item"><hr class="dropdown-divider"></li>'
+    '<li><hr class="dropdown-divider"></li>'
   )
 })
 

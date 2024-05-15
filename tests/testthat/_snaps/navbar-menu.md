@@ -6,27 +6,9 @@
       <li class="nav-item dropdown">
         <button class="nav-link dropdown-toggle" type="button" id="dropdown-title" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Title</button>
         <ul class="dropdown-menu" aria-labelledby="dropdown-title">
-          <li class="dropdown-item"><h6 class="dropdown-header" data-toc-skip>Heading</h6></li>
-          <li class="dropdown-item"><hr class="dropdown-divider"></li>
-          <li class="dropdown-item"><a class="dropdown-item" href="https://example.com">Link</a></li>
-        </ul>
-      </li>
-
-# can construct nested menu
-
-    Code
-      cat(navbar_html(menu))
-    Output
-      <li class="nav-item dropdown">
-        <button class="nav-link dropdown-toggle" type="button" id="dropdown-title" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Title</button>
-        <ul class="dropdown-menu" aria-labelledby="dropdown-title">
-          <li class="dropdown-item"><h6 class="dropdown-header" data-toc-skip>Heading</h6></li>
-          <li class="dropdown">
-            <button class="dropdown-toggle" type="button" id="dropdown-submenu" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Submenu</button>
-            <ul class="dropdown-menu" aria-labelledby="dropdown-submenu">
-              <li class="dropdown-item"><a class="dropdown-item" href="https://example.com">Link</a></li>
-            </ul>
-          </li>
+          <li><h6 class="dropdown-header" data-toc-skip>Heading</h6></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="https://example.com">Link</a></li>
         </ul>
       </li>
 

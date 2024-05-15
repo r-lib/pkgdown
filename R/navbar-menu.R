@@ -13,7 +13,7 @@ menu_links <- function(text, href) {
   purrr::map2(text, href, menu_link)
 }
 menu_heading <- function(text, ...) list(text = text, ...)
-menu_separator <- function() list(text = "----")
+menu_separator <- function() list(text = "---------")
 menu_search <- function() list(search = list())
 menu_icon <- function(icon, href, label) {
   list(icon = icon, href = href, "aria-label" = label)
@@ -22,6 +22,9 @@ menu_icon <- function(icon, href, label) {
 menu_type <- function(x) {
   if (is.null(x)) {
     "NULL"
+  } else if (!is.null(x$menu)) {
+    # https://github.com/twbs/bootstrap/pull/6342
+    cli::cli_abort("Nested menus are not supported in BS5.")
   } else if (!is.null(x$children)) {
     "menu"
   } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
@@ -59,11 +62,10 @@ navbar_html <- function(x, path_depth = 0L, depth = 0L, side = c("left", "right"
     search = navbar_html_search(x, path_depth = path_depth)
   )
 
-  if (type == "menu") {
-    class <- c(if (depth == 0L) "nav-item", "dropdown")
-  } else {
-    class <- if (depth == 0L) "nav-item" else "dropdown-item"
-  }
+  class <- c(
+    if (depth == 0L) "nav-item",
+    if (type == "menu") "dropdown"
+  )
   html_tag("li", class = class, text)
 }
 
@@ -92,7 +94,7 @@ navbar_html_menu <- function(x, path_depth = 0L, depth = 0L, side = "left") {
     navbar_html_text(x),
   )
 
-  li <- navbar_html(
+  li <- navbar_html_list(
     x$children,
     path_depth = path_depth,
     depth = depth + 1,

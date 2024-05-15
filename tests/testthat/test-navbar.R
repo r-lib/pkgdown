@@ -164,7 +164,7 @@ test_that("dropdowns on right are right-aligned", {
   x <- list(
     articles = list(
       text = "Articles",
-      menu = list(
+      children = list(
         list(text = "A"),
         list(text = "B"),
         list(text = "C")
@@ -176,6 +176,6 @@ test_that("dropdowns on right are right-aligned", {
   right <- xml2::read_html(render_navbar_links(x, pkg = pkg, side = "right"))
   left <-  xml2::read_html(render_navbar_links(x, pkg = pkg, side = "left"))
 
-  expect_equal(xpath_attr(right, ".//div", "class"), "dropdown-menu dropdown-menu-end")
-  expect_equal(xpath_attr(left, ".//div", "class"), "dropdown-menu")
+  expect_equal(xpath_attr(right, ".//ul", "class"), "dropdown-menu dropdown-menu-end")
+  expect_equal(xpath_attr(left, ".//ul", "class"), "dropdown-menu")
 })

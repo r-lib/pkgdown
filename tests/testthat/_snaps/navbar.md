@@ -4,7 +4,7 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     
 
 ---
@@ -13,11 +13,11 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/r-lib/pkgdown
-      aria-label: github
+      aria-label: GitHub
     
 
 ---
@@ -26,11 +26,11 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     github:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
-      aria-label: gitlab
+      aria-label: GitLab
     
 
 # vignette with package name turns into getting started
@@ -39,7 +39,7 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     intro:
       text: Get started
       href: test.html
@@ -52,7 +52,7 @@
     Output
       articles:
         text: Articles
-        menu:
+        children:
         - text: Title a
           href: a.html
         - text: Title b
@@ -77,7 +77,7 @@
     Output
       articles:
         text: Articles
-        menu:
+        children:
         - text: Title a
           href: a.html
         - text: Title b
@@ -92,7 +92,7 @@
     Output
       articles:
         text: Articles
-        menu:
+        children:
         - text: '---------'
         - text: Label
         - text: Title a
@@ -109,7 +109,7 @@
     Output
       articles:
         text: Articles
-        menu:
+        children:
         - text: Title a
           href: a.html
         - text: '---------'
@@ -138,10 +138,10 @@
       data_navbar(pkg)[c("left", "right")]
     Output
       $left
-      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"github\">\n    <span class=\"fa fab fa-github fa-lg\"></span>\n  </a>\n</li>\n<li><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"GitHub\"><span class=\"fa fab fa-github fa-lg\"></span></a></li>\n<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
       
       $right
-      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"news/index.html\">Changelog</a>\n</li>"
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"news/index.html\">Changelog</a></li>"
       
 
 # data_navbar() works with empty side
