@@ -30,21 +30,21 @@
 # simple components don't change without warning
 
     Code
-      cat(navbar_html_heading(menu_heading("a")))
+      cat(navbar_html(menu_heading("a")))
     Output
-      <h6 class="dropdown-header" data-toc-skip>a</h6>
+      <li class="nav-item"><h6 class="dropdown-header" data-toc-skip>a</h6></li>
     Code
-      cat(navbar_html_link(menu_link("a", "b")))
+      cat(navbar_html(menu_link("a", "b")))
     Output
-      <a class="nav-link" href="b">a</a>
+      <li class="nav-item"><a class="nav-link" href="b">a</a></li>
     Code
-      cat(navbar_html_separator())
+      cat(navbar_html(menu_separator()))
     Output
-      <hr class="dropdown-divider">
+      <li class="nav-item"><hr class="dropdown-divider"></li>
     Code
-      cat(navbar_html_search())
+      cat(navbar_html(menu_search()))
     Output
-      <form class="form-inline" role="search">
+      <li class="nav-item"><form class="form-inline" role="search">
       <input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
-      </form>
+      </form></li>
 

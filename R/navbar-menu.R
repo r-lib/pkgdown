@@ -8,7 +8,9 @@ menu_submenu <- function(text, children) {
     list(text = text, children = children)
   }
 }
-menu_link <- function(text, href) list(text = text, href = href)
+menu_link <- function(text, href, target = NULL) {
+  purrr::compact(list(text = text, href = href, target = target))
+}
 menu_links <- function(text, href) {
   purrr::map2(text, href, menu_link)
 }
@@ -115,6 +117,7 @@ navbar_html_link <- function(x, depth = 0) {
     "a",
     class = if (depth == 0) "nav-link" else "dropdown-item",
     href = x$href,
+    target = x$target,
     "aria-label" = x$`aria-label`,
     navbar_html_text(x)
   )

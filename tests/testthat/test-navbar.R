@@ -160,6 +160,28 @@ test_that("for bs4, default bg and type come from bootswatch", {
 })
 
 
+test_that("render_navbar_links BS3 & BS4 default", {
+  x <- list(
+    intro =  menu_link("Get started", "articles/pkgdown.html"),
+    reference = menu_link("Reference", "reference/index.html"),
+    articles = menu_submenu(
+      "Articles",
+      list(
+        menu_link("Auto-linking", "articles/linking.html"),
+        menu_link("Search", "articles/search.html"),
+        menu_link("Metadata", "articles/metadata.html"),
+        menu_link("Customize your pkgdown website", "articles/customization.html"),
+        menu_separator(),
+        menu_link("More...", "articles/index.html")
+      )
+    ),
+    news = menu_link("News", "news/index.html")
+  )
+
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 3))))
+  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
+})
+
 test_that("dropdowns on right are right-aligned", {
   x <- list(
     articles = list(

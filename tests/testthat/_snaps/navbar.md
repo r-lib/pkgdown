@@ -178,3 +178,39 @@
       i See details in `vignette(pkgdown::customise)`.
       i Edit _pkgdown.yml to fix the problem.
 
+# render_navbar_links BS3 & BS4 default
+
+    Code
+      cat(render_navbar_links(x, pkg = list(bs_version = 3)))
+    Output
+      <li>
+        <a href="articles/pkgdown.html">Get started</a>
+      </li>
+      <li>
+        <a href="reference/index.html">Reference</a>
+      </li>
+      <li class="dropdown-header">Articles</li>
+      <li>
+        <a href="news/index.html">News</a>
+      </li>
+
+---
+
+    Code
+      cat(render_navbar_links(x, pkg = list(bs_version = 4)))
+    Output
+      <li class="nav-item"><a class="nav-link" href="articles/pkgdown.html">Get started</a></li>
+      <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+      <li class="nav-item dropdown">
+        <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+          <li><a class="dropdown-item" href="articles/linking.html">Auto-linking</a></li>
+          <li><a class="dropdown-item" href="articles/search.html">Search</a></li>
+          <li><a class="dropdown-item" href="articles/metadata.html">Metadata</a></li>
+          <li><a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="articles/index.html">More...</a></li>
+        </ul>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="news/index.html">News</a></li>
+
