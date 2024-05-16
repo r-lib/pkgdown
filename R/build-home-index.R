@@ -159,6 +159,14 @@ data_home_component <- function(component,
                                 error_pkg,
                                 error_path,
                                 error_call = caller_env()) {
+
+  config_check_list(
+    component,
+    has_names = c("title", "text"),
+    error_pkg = error_pkg,
+    error_path = error_path,
+    error_call = error_call
+  )
   title <- config_check_string(
     component$title,
     error_pkg = error_pkg,

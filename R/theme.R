@@ -92,7 +92,7 @@ bs_theme_rules <- function(pkg) {
   paths <- c(paths, theme_path)
 
   package <- config_pluck_string(pkg, "template.package")
-  if (package != "") {
+  if (!is.null(package)) {
     package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
     if (file_exists(package_extra)) {
       paths <- c(paths, package_extra)

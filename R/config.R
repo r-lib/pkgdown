@@ -38,7 +38,7 @@ config_pluck_character <- function(pkg,
 
 config_pluck_string <- function(pkg,
                                 path,
-                                default = "",
+                                default = NULL,
                                 call = caller_env()) {
   x <- config_pluck(pkg, path, default)
   config_check_string(
@@ -68,7 +68,7 @@ config_check_character <- function(x,
                                    error_pkg,
                                    error_path,
                                    error_call = caller_env()) {
-  if (is.character(x)) {
+  if (is.character(x) || is.null(x)) {
     x
   } else if (identical(x, list())) {
     character()
@@ -88,7 +88,7 @@ config_check_string <- function(x,
                                 error_path,
                                 error_call = caller_env()) {
 
-  if (is_string(x)) {
+  if (is_string(x) || is.null(x)) {
     x
   } else {
     config_abort_type(
@@ -106,7 +106,7 @@ config_check_bool <- function(x,
                               error_path,
                               error_call = caller_env()) {
 
-  if (is_bool(x)) {
+  if (is_bool(x) || is.null(x)) {
     x
   } else {
     config_abort_type(
@@ -119,25 +119,12 @@ config_check_bool <- function(x,
   }
 }
 
-
-config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
-  not_str <- obj_type_friendly(not)
-  config_abort(
-    error_pkg,
-    "{.field {error_path}} must be {must_be}, not {not_str}.",
-    call = error_call
-  )
-
-}
-
 config_check_list <- function(x,
                               has_names = NULL,
                               error_pkg,
                               error_path,
                               error_call = caller_env()) {
-  if (is.null(x)) {
-    return()
-  } else if (is_list(x)) {
+  if (is_list(x) || is.null(x)) {
     if (!is.null(has_names) && !all(has_name(x, has_names))) {
       missing <- setdiff(has_names, names(x))
       config_abort(
@@ -159,6 +146,15 @@ config_check_list <- function(x,
       call = error_call
     )
   }
+}
+
+config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
+  not_str <- obj_type_friendly(not)
+  config_abort(
+    error_pkg,
+    "{.field {error_path}} must be {must_be}, not {not_str}.",
+    call = error_call
+  )
 }
 
 # generic error ---------------------------------------------------------------

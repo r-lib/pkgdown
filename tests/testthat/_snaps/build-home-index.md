@@ -126,7 +126,8 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! home.sidebar.components.fancy.title must be a string, not `NULL`.
+      ! home.sidebar.components.fancy must have components "title" and "text".
+      1 missing component: "title".
       i Edit _pkgdown.yml to fix the problem.
 
 ---
@@ -135,6 +136,7 @@
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! home.sidebar.components.fancy.title must be a string, not `NULL`.
+      ! home.sidebar.components.fancy must have components "title" and "text".
+      2 missing components: "title" and "text".
       i Edit _pkgdown.yml to fix the problem.
 
