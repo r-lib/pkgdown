@@ -92,7 +92,7 @@ config_check_bool <- function(x,
     x
   } else {
     config_abort_type(
-      must_be = "TRUE or FALSE",
+      must_be = "true or false",
       not = x,
       error_pkg = error_pkg,
       error_path = error_path,
@@ -117,7 +117,9 @@ config_check_list <- function(x,
                               error_pkg,
                               error_path,
                               error_call = caller_env()) {
-  if (is_list(x)) {
+  if (is.null(x)) {
+    return()
+  } else if (is_list(x)) {
     if (!is.null(has_names) && !all(has_name(x, has_names))) {
       missing <- setdiff(has_names, names(x))
       config_abort(

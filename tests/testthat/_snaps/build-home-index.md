@@ -1,3 +1,30 @@
+# data_home() validates yaml metadata
+
+    Code
+      data_home_(home = 1)
+    Condition
+      Error in `data_home_()`:
+      ! home must be a list, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_home_(home = list(title = 1))
+    Condition
+      Error in `data_home_()`:
+      ! home.title must be a string, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_home_(home = list(description = 1))
+    Condition
+      Error in `data_home_()`:
+      ! home.description must be a string, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_home_(template = list(trailing_slash_redirect = 1))
+    Condition
+      Error in `data_home_()`:
+      ! template.trailing_slash_redirect must be true or false, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+
 # data_home_sidebar() works by default
 
     Code

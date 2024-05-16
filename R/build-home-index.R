@@ -41,16 +41,40 @@ path_index <- function(pkg) {
   )
 }
 
-data_home <- function(pkg = ".") {
+data_home <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
+  config_check_list(
+    pkg$meta$home,
+    error_pkg = pkg,
+    error_call = call,
+    error_path = "home"
+  )
+
+  title <- config_pluck_string(
+    pkg,
+    "home.title",
+    default = cran_unquote(pkg$desc$get_field("Title", "")),
+    call = call
+  )
+  description <- config_pluck_string(
+    pkg,
+    "home.description",
+    default = cran_unquote(pkg$desc$get_field("Description", "")),
+    call = call
+  )
+  trailing_slash <- config_pluck_bool(
+    pkg,
+    "template.trailing_slash_redirect",
+    default = FALSE,
+    call = call
+  )
+
   print_yaml(list(
-    pagetitle = pkg$meta$home[["title"]] %||%
-      cran_unquote(pkg$desc$get_field("Title", "")),
+    pagetitle = title,
     sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get_field("Description", ""))),
-    has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
+    opengraph = list(description = description),
+    has_trailingslash = trailing_slash
   ))
 }
 

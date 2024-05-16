@@ -19,6 +19,20 @@ test_that("math is handled", {
   expect_equal(xpath_text(html, ".//span[contains(@class, 'math')]"), "\\(1 + 1\\)")
 })
 
+test_that("data_home() validates yaml metadata", {  
+  data_home_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_home(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_home_(home = 1)
+    data_home_(home = list(title = 1))
+    data_home_(home = list(description = 1))
+    data_home_(template = list(trailing_slash_redirect = 1))
+  })
+})
+
 test_that("version formatting in preserved", {
   pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
   expect_equal(pkg$version, "1.0.0-9000")
