@@ -10,14 +10,18 @@ test_that("can construct menu with children", {
   expect_snapshot(cat(navbar_html(menu)))
 })
 
-test_that("submenus give clear error", {
-  menu <- menu_submenu(
+test_that("bad inputs give clear error", {
+  submenu <- menu_submenu(
     "Title",
     list(
       menu_submenu("Heading", list(menu_heading("Hi")))
     )
   )
-  expect_snapshot(navbar_html(menu), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    navbar_html(1)
+    navbar_html(list(foo = 1))
+    navbar_html(submenu)
+  })
 })
 
 test_that("can construct bullets", {

@@ -12,10 +12,20 @@
         </ul>
       </li>
 
-# submenus give clear error
+# bad inputs give clear error
 
     Code
-      navbar_html(menu)
+      navbar_html(1)
+    Condition
+      Error in `menu_type()`:
+      ! Navbar components must be named lists, not the number 1.
+    Code
+      navbar_html(list(foo = 1))
+    Condition
+      Error in `menu_type()`:
+      ! Unknown navbar component with names foo.
+    Code
+      navbar_html(submenu)
     Condition
       Error in `menu_type()`:
       ! Nested menus are not supported.
