@@ -54,3 +54,11 @@
     Output
       ## [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
 
+# reports on bad open graph meta-data
+
+    Code
+      build_article(pkg = pkg, name = "bad-opengraph")
+    Condition
+      Error in `build_article()`:
+      ! 'vignettes/bad-opengraph.Rmd': `opengraph.twitter` must be a list, not an integer vector.
+
