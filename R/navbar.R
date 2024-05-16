@@ -108,7 +108,7 @@ render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
   if (pkg$bs_version == 3) {
     rmarkdown::navbar_links_html(x)
   } else {
-    bs4_navbar_links_html(x, side = side)
+    navbar_html_list(x, path_depth = depth, side = side)
   }
 }
 
@@ -122,11 +122,12 @@ navbar_components <- function(pkg = ".") {
 
   # in BS3, search is hardcoded in the template
   if (pkg$bs_version == 5) {
-    menu$search <- list(search = NULL)
+    menu$search <- menu_search()
   }
   
   if (!is.null(pkg$tutorials)) {
-    menu$tutorials <- menu(tr_("Tutorials"),
+    menu$tutorials <- menu_submenu(
+      tr_("Tutorials"),
       menu_links(pkg$tutorials$title, pkg$tutorials$file_out)
     )
   }
@@ -134,8 +135,8 @@ navbar_components <- function(pkg = ".") {
 
   menu$github <- switch(
     repo_type(pkg),
-    github = menu_icon("github", repo_home(pkg), style = "fab"),
-    gitlab = menu_icon("gitlab", repo_home(pkg), style = "fab"),
+    github = menu_icon("fab fa-github fa-lg", repo_home(pkg), "GitHub"),
+    gitlab = menu_icon("fab fa-gitlab fa-lg", repo_home(pkg), "GitLab"),
     NULL
   )
 
@@ -160,7 +161,10 @@ navbar_articles <- function(pkg = ".") {
   meta <- pkg$meta
   if (!has_name(meta, "articles")) {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
-    menu$articles <- menu(tr_("Articles"), menu_links(vignettes$title, vignettes$file_out))
+    menu$articles <- menu_submenu(
+      tr_("Articles"),
+      menu_links(vignettes$title, vignettes$file_out)
+    )
   } else {
     articles <- meta$articles
 
@@ -173,187 +177,25 @@ navbar_articles <- function(pkg = ".") {
         vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
-          if (!is.null(section$navbar)) list(menu_spacer(), menu_text(section$navbar)),
+          if (!is.null(section$navbar)) list(menu_separator(), menu_heading(section$navbar)),
           menu_links(vig$title, vig$file_out)
         )
       })
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
       if (length(navbar) != length(articles)) {
-        children <- c(children, list(menu_spacer(), menu_link(tr_("More articles..."), "articles/index.html")))
+        children <- c(
+          children,
+          list(
+            menu_separator(),
+            menu_link(tr_("More articles..."), "articles/index.html")
+          )
+        )
       }
-      menu$articles <- menu(tr_("Articles"), children)
+      menu$articles <- menu_submenu(tr_("Articles"), children)
     }
   }
   print_yaml(menu)
-}
-
-
-# Menu helpers -------------------------------------------------------------
-
-menu <- function(text, children) {
-  if (length(children) == 0)
-    return()
-  list(text = text, menu = children)
-}
-menu_link <- function(text, href) {
-  list(text = text, href = href)
-}
-menu_links <- function(text, href) {
-  purrr::map2(text, href, ~ list(text = .x, href = .y))
-}
-menu_icon <- function(icon, href, style = "fas") {
-  list(icon = paste0(style, " fa-", icon, " fa-lg"), href = href, "aria-label" = icon)
-}
-menu_text <- function(text) {
-  list(text = text)
-}
-menu_spacer <- function() {
-  menu_text("---------")
-}
-
-menu_search <- function(depth = 0) {
-  paste0(
-    '<li><form class="form-inline" role="search">\n',
-    '<input ',
-      'type="search" ',
-      'class="form-control" ',
-      'name="search-input" ', 
-      'id="search-input" ',
-      'autocomplete="off" ',
-      'aria-label="', tr_("Search site"), '" ',
-      'placeholder="', tr_("Search for"), '" ',
-      'data-search-index="', paste0(up_path(depth), "search.json"), '"',
-    '>\n',
-    '</form></li>'
-  )
-}
-
-bs4_navbar_links_html <- function(links, side = c("left", "right")) {
-  as.character(bs4_navbar_links_tags(links, side = side), options = character())
-}
-
-bs4_navbar_links_tags <- function(links, depth = 0L, side = "left") {
-  rlang::check_installed("htmltools")
-
-  if (is.null(links)) {
-    return(htmltools::tagList())
-  }
-
-  # sub-menu
-  is_submenu <- (depth > 0L)
-
-  # function for links
-  tackle_link <- function(x, index, is_submenu, depth) {
-
-    if (has_name(x, "search")) {
-      return(htmltools::HTML(menu_search(depth)))
-    }
-
-    if (!is.null(x$menu)) {
-
-      if (is_submenu) {
-        menu_class <- "dropdown-item"
-        link_text <- bs4_navbar_link_text(x)
-      } else {
-        menu_class <- "nav-item dropdown"
-        link_text <- bs4_navbar_link_text(x)
-      }
-
-      submenuLinks <- bs4_navbar_links_tags(
-        x$menu,
-        depth = depth + 1L,
-        side = side
-      )
-
-      dropdown_class <- "dropdown-menu"
-      if (side == "right") {
-        dropdown_class <- paste(dropdown_class, "dropdown-menu-end")
-      }
-
-      return(
-        htmltools::tags$li(
-          class = menu_class,
-          htmltools::tags$button(
-            href = "#",
-            class = "nav-link dropdown-toggle",
-            `data-bs-toggle` = "dropdown",
-            type = "button",
-            `aria-expanded` = "false",
-            `aria-haspopup` = "true",
-            link_text,
-            id = paste0("dropdown-", make_slug(link_text)),
-            "aria-label" = x$`aria-label` %||% NULL
-          ),
-          htmltools::tags$div(
-            class = dropdown_class,
-            `aria-labelledby` = paste0("dropdown-", make_slug(link_text)),
-            submenuLinks
-          )
-        )
-      )
-
-    }
-
-    if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
-
-      if (index == 1) {
-        return(htmltools::tagList())
-      } else {
-        return(htmltools::tags$div(class = "dropdown-divider"))
-      }
-    }
-
-    if (!is.null(x$text) && is.null(x$href)) {
-      # header
-      return(htmltools::tags$h6(class = "dropdown-header", `data-toc-skip` = NA, x$text))
-    }
-
-    # standard menu item
-    textTags <- bs4_navbar_link_text(x)
-
-    if (is_submenu) {
-      return(
-        htmltools::tags$a(
-          class = "dropdown-item",
-          href = x$href,
-          target = x$target,
-          textTags,
-          "aria-label" = x$`aria-label` %||% NULL
-        )
-      )
-    }
-
-    htmltools::tags$li(
-      class = "nav-item",
-      htmltools::tags$a(
-        class = "nav-link",
-        href = x$href,
-        target = x$target,
-        textTags,
-        "aria-label" = x$`aria-label` %||% NULL
-      )
-    )
-
-  }
-
-  tags <- purrr::map2(links, seq_along(links), tackle_link, is_submenu = is_submenu, depth = depth)
-  htmltools::tagList(tags)
-}
-
-bs4_navbar_link_text <- function(x, ...) {
-  if (!is.null(x$icon)) {
-    # Find the icon set
-    classes <- strsplit(x$icon, " ")[[1]]
-    icon_classes <- classes[grepl("-", classes)]
-    iconset <- purrr::map_chr(strsplit(icon_classes, "-"), 1)
-    class <- paste0(unique(c(iconset, classes)), collapse = " ")
-
-    text <- paste0(if (!is.null(x$text)) " ", x$text)
-    htmltools::tagList(htmltools::tags$span(class = class), text, ...)
-  } else {
-    htmltools::tagList(x$text, ...)
-  }
 }
 
 # Testing helpers ---------------------------------------------------------

@@ -281,14 +281,15 @@ navbar:
 Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 The elements of `menu` can be:
 
--   A link (`text` + `href`)
+-   Linked text (`text`, `href`, and an optional `target`). 
 
--   A heading (just `text`)
+-   A linked icon (`icon`, `aria-label`, `href`, and an optional `target`). 
+    You can find a list of available icons at [fontawesome](https://fontawesome.com/icons?d=gallery). Provide a text description of the icon in the `aria-label` field
+    for screenreader users.
 
--   A separator (`text: ——–`)
+-   A heading (just `text`).
 
-Instead of text, you can also use the name of an `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
-You should also provide a textual description in the `aria-label` field for screenreader users.
+-   A separator (`text: ——–`).
 
 To add a new component to the navbar, you need to modify both `structure` and `components`.
 For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.
