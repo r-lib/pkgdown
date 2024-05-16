@@ -1,3 +1,11 @@
+test_that("sitrep complains about BS3", {
+  pkg <- local_pkgdown_site(test_path("assets/open-graph"), meta = "
+    template: 
+      bootstrap: 3
+  ")
+  expect_snapshot(pkgdown_sitrep(pkg))
+})
+
 test_that("sitrep reports all problems", {
   pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
     reference:
