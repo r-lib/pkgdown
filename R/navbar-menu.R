@@ -1,6 +1,7 @@
 # Menu constructors -----------------------------------------------------------
 
-# Helpers for use within pkgdown itself
+# Helpers for use within pkgdown itself - these must stay the same as the
+# yaml structure defined in vignette("customise")
 menu_submenu <- function(text, menu) {
   if (length(menu) == 0) {
     return()
