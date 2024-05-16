@@ -5,6 +5,24 @@ config_pluck <- function(pkg, path, default = NULL) {
   purrr::pluck(pkg$meta, !!!where, .default = default)
 }
 
+config_pluck_list <- function(pkg,
+                              path,
+                              has_names = NULL,
+                              default = NULL,
+                              call = caller_env()) {
+  check_string(path, allow_empty = FALSE, .internal = TRUE)
+
+  x <- config_pluck(pkg, path, default)
+  config_check_list(
+    x,
+    has_names = has_names,
+    error_path = path,
+    error_pkg = pkg,
+    error_call = call
+  )
+}
+
+
 config_pluck_character <- function(pkg,
                                    path,
                                    default = character(),
