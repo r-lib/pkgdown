@@ -158,8 +158,8 @@ navbar_html_search <- function(x, path_depth = 0) {
 
 html_tag <- function(tag, ..., class = NULL) {
   dots <- list2(...)
-  dots_attr <- dots[names2(dots) != ""]
-  dots_child <- dots[names2(dots) == ""]
+  dots_attr <- dots[have_name(dots)]
+  dots_child <- dots[!have_name(dots)]
 
   if (!is.null(class)) {
     class <- paste0(class, collapse = " ")
