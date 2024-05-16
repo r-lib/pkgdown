@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Bootstrap 3 has been deprecated. It was superseded in Dec 2021, and now we're starting to more directly encourage folks to move away from it.
+* Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
 * `build_home_index()` now renders math if you use it in your home page (#2263).
 * `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
 * BS5 templates no longer include empty link to logo when none exists (#2536).
