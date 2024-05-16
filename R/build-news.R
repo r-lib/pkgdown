@@ -81,11 +81,12 @@ build_news <- function(pkg = ".",
   cli::cli_rule("Building news")
   create_subdir(pkg, "news")
 
-  switch(news_style(pkg$meta),
-    single = build_news_single(pkg),
-    multi = build_news_multi(pkg)
-  )
-
+  one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
+  if (one_page) {
+    build_news_single(pkg)
+  } else {
+    build_news_multi(pkg)
+  }
   preview_site(pkg, "news", preview = preview)
 }
 
@@ -190,7 +191,7 @@ data_news <- function(pkg = list()) {
  
   versions <- versions[!is.na(versions)]
 
-  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())
+  show_dates <- config_pluck_bool(pkg, "news.cran_dates", default = !is_testing())
   if (show_dates) {
     timeline <- pkg_timeline(pkg$package)
   } else {
@@ -350,10 +351,7 @@ tweak_section_levels <- function(html) {
   invisible()
 }
 
-news_style <- function(meta) {
-  one_page <- purrr::pluck(meta, "news", "one_page") %||%
-    purrr::pluck(meta, "news", 1, "one_page") %||%
-    TRUE
-
+news_style <- function(pkg) {
+  one_page <- config_pluck_bool(pkg, "new.one_page")
   if (one_page) "single" else "multi"
 }

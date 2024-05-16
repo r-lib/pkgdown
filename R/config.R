@@ -31,6 +31,19 @@ config_pluck_string <- function(pkg,
   )
 }
 
+config_pluck_bool <- function(pkg,
+                              path,
+                              default = NULL,
+                              call = caller_env()) {
+  x <- config_pluck(pkg, path, default)
+  config_check_bool(
+    x,
+    error_path = path,
+    error_pkg = pkg,
+    error_call = call
+  )
+}
+
 # checks ---------------------------------------------------------------------
 
 config_check_character <- function(x,
@@ -69,6 +82,25 @@ config_check_string <- function(x,
     )
   }
 }
+
+config_check_bool <- function(x,
+                              error_pkg,
+                              error_path,
+                              error_call = caller_env()) {
+
+  if (is_bool(x)) {
+    x
+  } else {
+    config_abort_type(
+      must_be = "TRUE or FALSE",
+      not = x,
+      error_pkg = error_pkg,
+      error_path = error_path,
+      error_call = error_call
+    )
+  }
+}
+
 
 config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
   not_str <- obj_type_friendly(not)
