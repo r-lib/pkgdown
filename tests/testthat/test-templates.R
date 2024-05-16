@@ -73,7 +73,7 @@ test_that("find templates in local pkgdown first", {
 # Expected contents -------------------------------------------------------
 
 test_that("BS5 templates have main + aside", {
-  names <- dir(path_pkgdown("bs5", "templates"), pattern = "content-")
+  names <- dir(path_pkgdown("BS5", "templates"), pattern = "content-")
   names <- path_ext_remove(path_file(names))
   names <- gsub("content-", "", names)
 
