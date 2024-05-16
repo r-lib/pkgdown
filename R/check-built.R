@@ -32,7 +32,8 @@ check_missing_images <- function(pkg, src_path, dst_path) {
     problems[grepl("^data:image", problems)] <- "<base64 encoded image>"
     cli::cli_inform(c(
       x = "Missing alt-text in {.file {path_rel(src_path, pkg$src_path)}}",
-      set_names(problems, "*")
+      set_names(problems, "*"),
+      i = "Learn more in {.vignette accessibility}."
     ))
   }
 }
