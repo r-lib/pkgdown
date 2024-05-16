@@ -11,7 +11,7 @@ test_that("readme can use images from vignettes", {
     test_path("assets/articles-images/man/figures/kitten.jpg"),
     path(pkg$src_path, "vignettes/kitten.jpg")
   )
-  withr::defer(unlink(path(pkg$src_path, "vignettes/kitten.jpg")))
+  withr::defer(file_delete(path(pkg$src_path, "vignettes/kitten.jpg")))
 
   suppressMessages(build_home(pkg))
   suppressMessages(build_articles(pkg))

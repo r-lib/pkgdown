@@ -79,7 +79,7 @@ deploy_site_github <- function(
     ...
   )
 
-  cli::cli_alert_success("Deploy completed")
+  cli::cli_inform(c(v = "Deploy completed"))
 }
 
 #' Build and deploy a site locally
@@ -199,10 +199,9 @@ git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
-construct_commit_message <- function(pkg, commit = ci_commit_sha()) {
+construct_commit_message <- function(pkg = ".", commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
-  commit <- sprintf("%s@%s", pkg$version, substr(commit, 1, 7))
-  cli::cli_alert_success("Built site for {cli::col_yellow(pkg$package)}: {.emph {cli::col_green(commit)}}")
+  cli::format_inline("Built site for {pkg$package}@{pkg$version}: {substr(commit, 1, 7)}")
 }
 
 ci_commit_sha <- function() {

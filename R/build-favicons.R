@@ -84,8 +84,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     cli::cli_abort("API request failed.", .internal = TRUE)
   }
 
-  tmp <- tempfile()
-  on.exit(unlink(tmp))
+  tmp <- withr::local_tempdir()
   result <- httr::RETRY(
     "GET",
     result$favicon$package_url,
@@ -120,5 +119,5 @@ copy_favicons <- function(pkg = ".") {
 has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  file.exists(path(pkg$src_path, "pkgdown", "favicon"))
+  unname(file_exists(path(pkg$src_path, "pkgdown", "favicon")))
 }

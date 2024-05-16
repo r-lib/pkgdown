@@ -27,7 +27,7 @@ build_bslib <- function(pkg = ".") {
 }
 
 data_deps <- function(pkg, depth) {
-  if (!file.exists(data_deps_path(pkg))) {
+  if (!file_exists(data_deps_path(pkg))) {
     cli::cli_abort(
       "Run {.fn pkgdown::init_site} first.",
       call = caller_env()
