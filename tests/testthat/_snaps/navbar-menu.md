@@ -45,6 +45,15 @@
     Output
       <li class="nav-item"><a class="nav-link" href="https://example.com">Hi</a></li>
 
+# icons warn if no aria-label
+
+    Code
+      . <- navbar_html(menu_icon("fa-question", "https://example.com", NULL))
+    Message
+      x Icon "fa-question" lacks an `aria-label`.
+      i Specify `aria-label` to make the icon accessible to screen readers.
+      This message is displayed once every 8 hours.
+
 # simple components don't change without warning
 
     Code

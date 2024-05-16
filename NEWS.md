@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
 * Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
 * Improve HTML5 compliance (#2369):
   * No longer support IE9 or earlier
