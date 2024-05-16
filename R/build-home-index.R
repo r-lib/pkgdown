@@ -72,7 +72,7 @@ data_home <- function(pkg = ".", call = caller_env()) {
 
   print_yaml(list(
     pagetitle = title,
-    sidebar = data_home_sidebar(pkg),
+    sidebar = data_home_sidebar(pkg, call = call),
     opengraph = list(description = description),
     has_trailingslash = trailing_slash
   ))
@@ -80,27 +80,32 @@ data_home <- function(pkg = ".", call = caller_env()) {
 
 
 data_home_sidebar <- function(pkg = ".", call = caller_env()) {
-
   pkg <- as_pkgdown(pkg)
-  if (isFALSE(pkg$meta$home$sidebar))
-    return(pkg$meta$home$sidebar)
 
-  html_path <- path(pkg$src_path, pkg$meta$home$sidebar$html)
+  sidebar <- config_pluck(pkg, "home.sidebar")
+  if (isFALSE(sidebar)) {
+    return(FALSE)
+  }
 
-  if (length(html_path)) {
-    if (!file_exists(html_path)) {
-      rel_html_path <- path_rel(html_path, pkg$src_path)
+  html_path <- config_pluck_string(pkg, "home.sidebar.html")
+  if (!is.null(html_path)) {
+    html_path_abs <- path(pkg$src_path, html_path)
+
+    if (!file_exists(html_path_abs)) {
       config_abort(
         pkg,
-        "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {rel_html_path}}).",
+        "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {html_path}}).",
         call = call
       )
     }
-    return(read_file(html_path))
+    return(read_file(html_path_abs))
   }
 
-  sidebar_structure <- pkg$meta$home$sidebar$structure %||%
-    default_sidebar_structure()
+  sidebar_structure <- config_pluck_character(
+    pkg, 
+    "home.sidebar.structure",
+    default = default_sidebar_structure()
+  ) 
 
   # compute all default sections
   sidebar_components <- list(

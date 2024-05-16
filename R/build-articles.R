@@ -378,7 +378,11 @@ build_articles_index <- function(pkg = ".") {
 data_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  meta <- pkg$meta$articles %||% default_articles_index(pkg)
+  meta <- config_pluck_list(
+    pkg,
+    "articles",
+    default = default_articles_index(pkg)
+  )
   sections <- unwrap_purrr_error(meta %>%
     purrr::imap(data_articles_index_section, pkg = pkg) %>%
     purrr::compact())

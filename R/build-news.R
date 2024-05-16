@@ -249,16 +249,14 @@ version_page <- function(x) {
 }
 
 navbar_news <- function(pkg) {
-  releases_meta <- pkg$meta$news$releases
+  releases_meta <- config_pluck_list(pkg, "news.releases")
   if (!is.null(releases_meta)) {
     menu_submenu(tr_("News"),
-      c(
-        list(menu_heading(tr_("Releases"))),
-        releases_meta,
-        list(
-          menu_separator(),
-          menu_link(tr_("Changelog"), "news/index.html")
-        )
+      list2(
+        menu_heading(tr_("Releases")),
+        !!!releases_meta,
+        menu_separator(),
+        menu_link(tr_("Changelog"), "news/index.html")
       )
     )
   } else if (has_news(pkg$src_path)) {

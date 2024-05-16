@@ -75,12 +75,6 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
   )
 })
 
-test_that("data_home_sidebar() errors well when no HTML file", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-  pkg$meta$home$sidebar$html <- "file.html"
-  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
-})
-
 test_that("data_home_sidebar() can get a custom markdown formatted component", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
   pkg$meta$home$sidebar <- list(
@@ -107,27 +101,24 @@ test_that("data_home_sidebar() can add a README", {
 
 test_that("data_home_sidebar() outputs informative error messages", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
+  data_home_sidebar_ <- function(...) {
+    pkg$meta$home$sidebar <- list(...)
+    data_home_sidebar(pkg)
+  }
 
-  # no component definition for a component named in structure
-  pkg$meta$home$sidebar <- list(structure = "fancy")
-  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_home_sidebar_(html = 1)
+    data_home_sidebar_(structure = 1)
+    data_home_sidebar_(structure = "fancy")
+    data_home_sidebar_(structure = c("fancy", "cool"))
+    data_home_sidebar_(structure = "fancy", components = list(fancy = list(text = "bla")))
+    data_home_sidebar_(structure = "fancy", components = list(fancy = list()))
+  })
+})
 
-  # no component definition for two components named in structure
-  pkg$meta$home$sidebar <- list(structure = c("fancy", "cool"))
-  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
-
-  # no title
-  pkg$meta$home$sidebar <- list(
-    structure = c("fancy"),
-    components = list(fancy = list(text = "bla"))
-  )
-  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
-
-  # no title nor text
-  pkg$meta$home$sidebar <- list(
-    structure = c("fancy"),
-    components = list(fancy = list(html = "bla"))
-  )
+test_that("data_home_sidebar() errors well when no HTML file", {
+  pkg <- as_pkgdown(test_path("assets/sidebar"))
+  pkg$meta$home$sidebar$html <- "file.html"
   expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 

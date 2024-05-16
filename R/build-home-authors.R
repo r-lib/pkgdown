@@ -13,18 +13,17 @@ build_citation_authors <- function(pkg = ".") {
     citations = data_citations(pkg),
     authors = unname(authors$all),
     inst = authors$inst,
+    before = authors$before,
+    after = authors$after,
     source = source
   )
-
-  data$before <- markdown_text_block(pkg$meta$authors$before)
-  data$after <- markdown_text_block(pkg$meta$authors$after)
 
   render_page(pkg, "citation-authors", data, "authors.html")
 }
 
-data_authors <- function(pkg = ".", roles = default_roles()) {
+data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  author_info <- pkg$meta$authors %||% list()
+  author_info <- config_pluck_list(pkg, "authors", default = list())
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
@@ -54,7 +53,9 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
     all = all,
     main = main,
     inst = inst,
-    needs_page = more_authors || comments || !is.null(inst)
+    needs_page = more_authors || comments || !is.null(inst),
+    before = config_pluck_markdown_block(pkg, "template.authors.before", call = call),
+    after = config_pluck_markdown_block(pkg, "template.authors.after", call = call)
   ))
 }
 
@@ -78,20 +79,24 @@ pkg_authors <- function(pkg, role = NULL) {
   }
 }
 
-data_home_sidebar_authors <- function(pkg = ".") {
+data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
-  data <- data_authors(pkg, roles)
 
-  authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
+  config_pluck_list(pkg, "authors.sidebar")
 
-  sidebar <- pkg$meta$authors$sidebar
-  bullets <- c(
-    markdown_text_inline(sidebar$before, "authors.sidebar.before", pkg = pkg),
-    authors,
-    markdown_text_inline(sidebar$after, "authors.sidebar.after", pkg = pkg)
+  roles <- config_pluck_character(
+    pkg,
+    "authors.sidebar.roles",
+    default = default_roles(),
+    call = call
   )
-
+  data <- data_authors(pkg, roles)
+  authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
+  
+  before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
+  after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
+  
+  bullets <- c(before, authors, after)
   if (data$needs_page) {
     bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
   }

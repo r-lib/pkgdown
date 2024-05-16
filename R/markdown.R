@@ -8,7 +8,11 @@ markdown_text <- function(text, ...) {
   markdown_path_html(md_path, ...)
 }
 
-markdown_text_inline <- function(text, where = "<inline>", pkg, ...) {
+markdown_text_inline <- function(text,
+                                 where = "<inline>",
+                                 pkg,
+                                 call = caller_env(),
+                                 ...) {
   html <- markdown_text(text, ...)
   if (is.null(html)) {
     return()
@@ -19,7 +23,7 @@ markdown_text_inline <- function(text, where = "<inline>", pkg, ...) {
     config_abort(
       pkg,
       "{.field {where}} must supply an inline element, not a block element.",
-      call = caller_env()
+      call = call
     )
   }
 

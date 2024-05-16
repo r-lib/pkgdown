@@ -49,6 +49,24 @@ config_pluck_string <- function(pkg,
   )
 }
 
+config_pluck_markdown_inline <- function(pkg,
+                                         path,
+                                         default = NULL,
+                                         call = caller_env()) {
+  
+  text <- config_pluck_string(pkg, path, default, call = call)
+  markdown_text_inline(text, where = path, pkg = pkg, call = call)
+}
+
+config_pluck_markdown_block <- function(pkg,
+                                        path,
+                                        default = NULL,
+                                        call = caller_env()) {
+  
+  text <- config_pluck_string(pkg, path, default, call = call)
+  markdown_text_block(text)
+}
+
 config_pluck_bool <- function(pkg,
                               path,
                               default = NULL,
