@@ -93,7 +93,7 @@ test_that("data_navbar() can re-order default elements", {
         left: [github, search]
         right: [news]
   ")
-  file.create(path(pkg$src_path, "NEWS.md"))
+  file_create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
@@ -235,4 +235,15 @@ test_that("can render search helper", {
   expect_snapshot({
     bs4_navbar_links_tags(list(menu = list(search = TRUE)))
   })
+})
+
+test_that("icons extract icon set", {
+  expect_equal(
+    as.character(bs4_navbar_link_text(menu_icon("github", ""))),
+    '<span class="fa fas fa-github fa-lg"></span>'
+  )
+  expect_equal(
+    as.character(bs4_navbar_link_text(menu_icon("github", "", style = "fab"))),
+    '<span class="fa fab fa-github fa-lg"></span>'
+  )
 })

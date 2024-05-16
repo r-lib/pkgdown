@@ -36,6 +36,8 @@
       examples: Examples
       citation: Citation
       author_details: Additional details
+      toc: Table of contents
+      site_nav: Site navigation
     has_favicons: no
     opengraph: []
     extra:

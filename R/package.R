@@ -311,7 +311,7 @@ package_vignettes <- function(path = ".") {
     description = desc,
     depth = dir_depth(file_out)
   )
-  out[order(basename(out$file_out)), ]
+  out[order(path_file(out$file_out)), ]
 }
 
 find_template_config <- function(package,

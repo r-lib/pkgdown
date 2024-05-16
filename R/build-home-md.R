@@ -38,7 +38,7 @@ render_md <- function(pkg, filename) {
   cli::cli_inform("Reading {src_path(path_rel(filename, pkg$src_path))}")
 
   body <- markdown_body(filename, strip_header = TRUE)
-  path <- path_ext_set(basename(filename), "html")
+  path <- path_ext_set(path_file(filename), "html")
 
   render_page(pkg, "title-body",
     data = list(

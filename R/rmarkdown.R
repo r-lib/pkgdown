@@ -72,10 +72,10 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
 
     # temporarily copy the rendered html into the input path directory and scan
     # again for additional external resources that may be been included by R code
-    tempfile_in_input_dir <- file_temp(ext = "html", tmp_dir = path_dir(input_path))
-    file_copy(path, tempfile_in_input_dir)
-    withr::defer(unlink(tempfile_in_input_dir))
-    ext_post <- rmarkdown::find_external_resources(tempfile_in_input_dir)
+    tempfile <- path(path_dir(input_path), "--find-assets.html")
+    withr::defer(try(file_delete(tempfile)))
+    file_copy(path, tempfile)
+    ext_post <- rmarkdown::find_external_resources(tempfile)
 
     ext <- rbind(ext_src, ext_post)
     ext <- ext[!duplicated(ext$path), ]
