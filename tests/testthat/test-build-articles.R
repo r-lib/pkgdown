@@ -125,6 +125,20 @@ test_that("bad width gives nice error", {
   expect_snapshot(build_rmarkdown_format(pkg, "article"), error = TRUE)
 })
 
+test_that("validates articles yaml", {
+  data_articles_index_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(articles = x))
+    data_articles_index(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_articles_index_(1)
+    data_articles_index_(list(1))
+    data_articles_index_(list(list(title = 1)))
+    data_articles_index_(list(list(title = "a", contents = 1)))
+  })
+})
+
 test_that("finds external resources referenced by R code in the article html", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()

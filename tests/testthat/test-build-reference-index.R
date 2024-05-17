@@ -65,65 +65,24 @@ test_that("default reference includes all functions", {
   expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
 })
 
-test_that("errors well when a content entry is empty", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: bla
-      contents:
-      - aname
-      - 
-  ")
-  suppressMessages(init_site(pkg))
-  
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
+test_that("gives informative errors", {
+  data_reference_index_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(reference = x))
+    data_reference_index(pkg)
+  }
 
-test_that("errors well when a content entry is not a character", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: bla
-      contents:
-      - aname
-      - N
-    ")
-  suppressMessages(init_site(pkg))
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-test_that("errors well when a content is totally empty", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: bla
-      contents: ~
-  ")
-  suppressMessages(init_site(pkg))
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-test_that("errors well when a content entry refers to a not installed package", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: bla
-      contents:
-      - notapackage::lala
-  ")
-  suppressMessages(init_site(pkg))
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-test_that("errors well when a content entry refers to a non existing function", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: bla
-      contents:
-      - rlang::lala
-  ")
-  suppressMessages(init_site(pkg))
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_reference_index_(1)
+    data_reference_index_(list(1))
+    data_reference_index_(list(list(title = 1)))
+    data_reference_index_(list(list(subtitle = 1)))
+    data_reference_index_(list(list(title = "bla", contents = 1)))
+    data_reference_index_(list(list(title = "bla", contents = NULL)) )
+    data_reference_index_(list(list(title = "bla", contents = list("a", NULL))))
+    data_reference_index_(list(list(title = "bla", contents = list())))
+    data_reference_index_(list(list(title = "bla", contents = "notapackage::lala")))
+    data_reference_index_(list(list(title = "bla", contents = "rlang::lala")))
+  })
 })
 
 test_that("can exclude topics", {

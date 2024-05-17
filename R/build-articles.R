@@ -377,16 +377,18 @@ build_articles_index <- function(pkg = ".") {
   )
 }
 
-data_articles_index <- function(pkg = ".") {
+data_articles_index <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   meta <- config_pluck_list(
     pkg,
     "articles",
-    default = default_articles_index(pkg)
+    default = default_articles_index(pkg),
+    call = call
   )
+
   sections <- unwrap_purrr_error(meta %>%
-    purrr::imap(data_articles_index_section, pkg = pkg) %>%
+    purrr::imap(data_articles_index_section, pkg = pkg, call = call) %>%
     purrr::compact())
 
   # Check for unlisted vignettes
@@ -417,9 +419,32 @@ data_articles_index <- function(pkg = ".") {
   ))
 }
 
-data_articles_index_section <- function(section, index, pkg) {
-  id <- section$title %||% section$subtitle %||% index
-  check_contents(section$contents, id, pkg, quote(build_articles()))
+data_articles_index_section <- function(section, index, pkg, call = caller_env()) {
+  config_check_list(
+    section,
+    error_path = paste0("articles[", index, "]"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  config_check_string(
+    section$title,
+    error_path = paste0("articles[", index, "].title"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  config_check_string(
+    section$desc,
+    error_path = paste0("articles[", index, "].desc"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  check_contents(
+    section$contents,
+    index,
+    pkg,
+    prefix = "articles",
+    quote(build_articles())
+  )
 
   # Match topics against any aliases
   in_section <- select_vignettes(section$contents, pkg$vignettes)
