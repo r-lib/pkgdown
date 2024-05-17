@@ -121,18 +121,10 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     return(sidebar_html)
   }
 
-  custom <- pkg$meta$home$sidebar$components
-  sidebar_custom <- unwrap_purrr_error(purrr::map(
-    set_names(names2(custom)),
-    function(comp) {
-      data_home_component(
-        custom[[comp]],
-        error_pkg = pkg,
-        error_path = paste0("home.sidebar.components.", comp),
-        error_call = call
-      )
-    }
-  ))
+  custom <- config_pluck_sidebar_components(pkg, call = call)
+  sidebar_custom <- purrr::map(custom, function(x) {
+    sidebar_section(x$title, bullets = markdown_text_block(x$text))
+  })
   sidebar_components <- utils::modifyList(sidebar_components, sidebar_custom)
 
   config_check_list(
@@ -155,32 +147,25 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component,
-                                error_pkg,
-                                error_path,
-                                error_call = caller_env()) {
+config_pluck_sidebar_components <- function(pkg, call = caller_env()) {
+  base_path <- "home.sidebar.components"
+  components <- config_pluck(pkg, base_path, default = list())
 
-  config_check_list(
-    component,
-    has_names = c("title", "text"),
-    error_pkg = error_pkg,
-    error_path = error_path,
-    error_call = error_call
-  )
-  title <- config_check_string(
-    component$title,
-    error_pkg = error_pkg,
-    error_path = paste0(error_path, ".title"),
-    error_call = error_call
-  )
-  text <- config_check_string(
-    component$text,
-    error_pkg = error_pkg,
-    error_path = paste0(error_path, ".text"),
-    error_call = error_call
-  )
+  if (!is_dictionaryish(components)) {
+    msg <- "The components of {.field home.sidebar.components} must be named uniquely."
+    config_abort(pkg, msg, call = call)
+  }
 
-  sidebar_section(title, bullets = markdown_text_block(text))
+  for (name in names(components)) {
+    component <- components[[name]]
+    component_path <- paste0(base_path, ".", name)
+    
+    config_pluck_list(pkg, component_path, has_names = c("title", "text"), call = call)
+    config_pluck_string(pkg, paste0(component_path, ".title"), call = call)
+    config_pluck_string(pkg, paste0(component_path, ".text"), call = call)
+  }
+
+  components
 }
 
 data_home_sidebar_links <- function(pkg = ".") {
