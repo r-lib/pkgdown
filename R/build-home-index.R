@@ -82,28 +82,27 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     return(FALSE)
   }
 
+  config_pluck_list(pkg, "home")
   html_path <- config_pluck_string(pkg, "home.sidebar.html")
   if (!is.null(html_path)) {
     html_path_abs <- path(pkg$src_path, html_path)
 
     if (!file_exists(html_path_abs)) {
-      config_abort(
-        pkg,
-        "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {html_path}}).",
-        call = call
-      )
+      msg <- "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {html_path}})."
+      config_abort(pkg, msg, call = call)
     }
     return(read_file(html_path_abs))
   }
 
-  sidebar_structure <- config_pluck_character(
-    pkg, 
+  structure <- config_pluck_character(
+    pkg,
     "home.sidebar.structure",
-    default = default_sidebar_structure()
+    default = default_sidebar_structure(),
+    call = call
   ) 
 
   # compute all default sections
-  sidebar_components <- list(
+  default_components <- list(
     links = data_home_sidebar_links(pkg),
     license = data_home_sidebar_license(pkg),
     community = data_home_sidebar_community(pkg),
@@ -113,33 +112,15 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     toc = data_home_toc(pkg)
   )
 
-  if (is.null(pkg$meta$home$sidebar$structure)) {
-    sidebar_html <- paste0(
-      purrr::compact(sidebar_components[default_sidebar_structure()]),
-      collapse = "\n"
-    )
-    return(sidebar_html)
-  }
-
-  custom <- config_pluck_sidebar_components(pkg, call = call)
-  sidebar_custom <- purrr::map(custom, function(x) {
-    sidebar_section(x$title, bullets = markdown_text_block(x$text))
+  needs_components <- setdiff(structure, names(default_components))
+  custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
+  custom_components <- purrr::map(custom_yaml, function(x) {
+    sidebar_section(x$title, markdown_text_block(x$text))
   })
-  sidebar_components <- utils::modifyList(sidebar_components, sidebar_custom)
+  components <- utils::modifyList(default_components, custom_components)
 
-  config_check_list(
-    sidebar_components,
-    has_names = sidebar_structure,
-    error_pkg = pkg,
-    error_path = "home.sidebar.components",
-    error_call = call
-  )
-
-  sidebar_final_components <- purrr::compact(
-    sidebar_components[sidebar_structure]
-  )
-
-  paste0(sidebar_final_components, collapse = "\n")
+  sidebar <- purrr::compact(components[structure])
+  paste0(sidebar, collapse = "\n")
 }
 
 # Update sidebar-configuration.Rmd if this changes
@@ -147,15 +128,10 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-config_pluck_sidebar_components <- function(pkg, call = caller_env()) {
+config_pluck_sidebar_components <- function(pkg, new_components, call = caller_env()) {
   base_path <- "home.sidebar.components"
-  components <- config_pluck(pkg, base_path, default = list())
-
-  if (!is_dictionaryish(components)) {
-    msg <- "The components of {.field home.sidebar.components} must be named uniquely."
-    config_abort(pkg, msg, call = call)
-  }
-
+  components <- config_pluck_list(pkg, base_path, has_names = new_components, call = call)
+  
   for (name in names(components)) {
     component <- components[[name]]
     component_path <- paste0(base_path, ".", name)
@@ -164,7 +140,6 @@ config_pluck_sidebar_components <- function(pkg, call = caller_env()) {
     config_pluck_string(pkg, paste0(component_path, ".title"), call = call)
     config_pluck_string(pkg, paste0(component_path, ".text"), call = call)
   }
-
   components
 }
 
