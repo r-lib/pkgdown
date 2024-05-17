@@ -15,7 +15,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   }
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
-  strip_header <- isTRUE(pkg$meta$home$strip_header)
+  strip_header <- config_pluck_bool(pkg, "home.strip_header", default = FALSE)
   hide_badges <- pkg$development$mode == "release" && !pkg$development$in_dev
 
   update_html(
@@ -44,12 +44,7 @@ path_index <- function(pkg) {
 data_home <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  config_check_list(
-    pkg$meta$home,
-    error_pkg = pkg,
-    error_call = call,
-    error_path = "home"
-  )
+  config_pluck_list(pkg, "home", call = call)
 
   title <- config_pluck_string(
     pkg,

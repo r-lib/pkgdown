@@ -22,6 +22,20 @@ config_pluck_list <- function(pkg,
   )
 }
 
+config_pluck_list_of_named_lists <- function(pkg,
+                                             path,
+                                             names,
+                                             default = NULL,
+                                             call = caller_env()) {
+  x <- config_pluck(pkg, path, default)
+  config_check_list_of_named_lists(
+    x,
+    names,
+    error_path = path,
+    error_pkg = pkg,
+    error_call = call
+  )
+}
 
 config_pluck_character <- function(pkg,
                                    path,
@@ -165,6 +179,39 @@ config_check_list <- function(x,
     )
   }
 }
+
+config_check_list_of_named_lists <- function(x,
+                                             names = NULL,
+                                             error_pkg,
+                                             error_path,
+                                             error_call = caller_env()) {
+  
+  config_check_list(
+    x,
+    error_pkg = error_pkg,
+    error_path = error_path,
+    error_call = error_call
+  )
+
+  if (has_names(x)) {
+    config_abort(
+      error_pkg,
+      "The children of {.field {error_path}} must not be named.",
+      call = error_call
+    )
+  }
+
+  for (i in seq_along(x)) {
+    config_check_list(
+      x[[i]],
+      names,
+      error_pkg = error_pkg,
+      error_path = paste0(error_path, "[", i, "]"),
+      error_call
+    )
+  }
+}
+
 
 config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
   not_str <- obj_type_friendly(not)

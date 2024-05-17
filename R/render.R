@@ -85,7 +85,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   }
   out$site <- list(
     root = up_path(depth),
-    title = pkg$meta$title %||% pkg$package
+    title = config_pluck_string(pkg, "title", default = pkg$package)
   )
   out$year <- strftime(Sys.time(), "%Y")
 
@@ -134,13 +134,13 @@ data_template <- function(pkg = ".", depth = 0L) {
 
 data_open_graph <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  og <- pkg$meta$template$opengraph %||% list()
+  og <- config_pluck_list(pkg, "template.opengraph", default = list())
   og <- check_open_graph(og)
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
     og$image <- list(src = path_file(find_logo(pkg$src_path)))
   }
   if (!is.null(og$image) && !grepl("^http", og$image$src)) {
-    site_url <- pkg$meta$url %||% "/"
+    site_url <- config_pluck(pkg, "url", default = "/")
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
@@ -157,7 +157,7 @@ check_open_graph <- function(og) {
   if (!is.list(og)) {
     fog <- friendly_type_of(og)
     cli::cli_abort(
-      "{.var opengraph} must be a list, not {.val fog}.",
+      "{.var opengraph} must be a list, not {.val {fog}}.",
       call = caller_env()
     )
   }

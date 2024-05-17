@@ -26,31 +26,27 @@
 build_redirects <- function(pkg = ".",
                             override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  has_url <- !is.null(config_pluck_string(pkg, "url"))
 
   redirects <- c(
-    reference_redirects(pkg),
-    article_redirects(pkg),
-    pkg$meta$redirects
+    if (has_url) reference_redirects(pkg),
+    if (has_url) article_redirects(pkg),
+    config_pluck_list(pkg, "redirects")
   )
+  if (length(redirects) == 0) {
+    return(invisible())
+  }
+
+  cli::cli_rule("Building redirects")
+  if (!has_url) {
+    config_abort(pkg, "{.field url} is required to generate redirects.")
+  }
 
   # Ensure user redirects override automatic ones
   from <- purrr::map_chr(redirects, 1)
   redirects <- redirects[!duplicated(from)]
 
-  if (is.null(redirects)) {
-    return(invisible())
-  }
-
-  cli::cli_rule("Building redirects")
-  if (is.null(pkg$meta$url)) {
-    config_abort(pkg, "{.field url} is required to generate redirects.")
-  }
-
-  purrr::iwalk(
-    redirects,
-    build_redirect,
-    pkg = pkg
-  )
+  purrr::iwalk(redirects, build_redirect, pkg = pkg)
 }
 
 build_redirect <- function(entry, index, pkg) {
@@ -68,7 +64,7 @@ build_redirect <- function(entry, index, pkg) {
   path <- find_template("layout", "redirect", pkg = pkg)
   template <- read_file(path)
 
-  url <- sprintf("%s/%s%s", pkg$meta$url, pkg$prefix, new)
+  url <- sprintf("%s/%s%s", config_pluck_string(pkg, "url"), pkg$prefix, new)
   lines <- whisker::whisker.render(template, list(url = url))
   dir_create(path_dir(old))
 
@@ -79,10 +75,6 @@ build_redirect <- function(entry, index, pkg) {
 }
 
 article_redirects <- function(pkg) {
-  if (is.null(pkg$meta$url)) {
-    return(NULL)
-  }
-
   is_vig_in_articles <- path_has_parent(pkg$vignettes$name, "articles")
   if (!any(is_vig_in_articles)) {
     return(NULL)
@@ -93,10 +85,6 @@ article_redirects <- function(pkg) {
 }
 
 reference_redirects <- function(pkg) {
-  if (is.null(pkg$meta$url)) {
-    return(NULL)
-  }
-
   aliases <- unname(pkg$topics$alias)
   aliases <- purrr::map2(aliases, pkg$topics$name, setdiff)
   names(aliases) <- pkg$topics$file_out

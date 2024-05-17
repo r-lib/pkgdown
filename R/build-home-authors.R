@@ -224,17 +224,17 @@ create_citation_meta <- function(path) {
   path <- path(path, "DESCRIPTION")
 
   dcf <- read.dcf(path)
-  meta <- as.list(dcf[1, ])
+  desc <- as.list(dcf[1, ])
 
-  if (!is.null(meta$Encoding)) {
-    meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  if (!is.null(desc$Encoding)) {
+    desc <- lapply(desc, iconv, from = desc$Encoding, to = "UTF-8")
   } else {
-    meta$Encoding <- "UTF-8"
+    desc$Encoding <- "UTF-8"
   }
 
-  if (!is.null(meta$Title)) meta$Title <- str_squish(meta$Title)
+  if (!is.null(desc$Title)) desc$Title <- str_squish(desc$Title)
 
-  meta
+  desc
 }
 
 read_citation <- function(path = ".") {

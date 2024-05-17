@@ -138,7 +138,7 @@ build_site_meta <- function(pkg = ".") {
 site_meta <- function(pkg) {
   article_index <- article_index(pkg)
 
-  meta <- list(
+  yaml <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
@@ -146,14 +146,15 @@ site_meta <- function(pkg) {
     last_built = timestamp()
   )
 
-  if (!is.null(pkg$meta$url)) {
-    meta$urls <- list(
-      reference = paste0(pkg$meta$url, "/reference"),
-      article = paste0(pkg$meta$url, "/articles")
+  url <- config_pluck_string(pkg, "url")
+  if (!is.null(url)) {
+    yaml$urls <- list(
+      reference = paste0(url, "/reference"),
+      article = paste0(url, "/articles")
     )
   }
 
-  print_yaml(meta)
+  print_yaml(yaml)
 }
 
 is_non_pkgdown_site <- function(dst_path) {
