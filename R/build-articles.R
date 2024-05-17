@@ -332,8 +332,10 @@ build_rmarkdown_format <- function(pkg,
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
   old_pre <- out$pre_knit
+  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
+
   out$pre_knit <- function(...) {
-    options(width = purrr::pluck(pkg, "meta", "code", "width", .default = 80))
+    options(width = width)
     if (is.function(old_pre)) {
       old_pre(...)
     }

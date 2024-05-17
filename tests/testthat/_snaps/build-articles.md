@@ -30,6 +30,15 @@
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
 
+# bad width gives nice error
+
+    Code
+      build_rmarkdown_format(pkg, "article")
+    Condition
+      Error in `build_rmarkdown_format()`:
+      ! code.width must be a whole number, not the string "abc".
+      i Edit _pkgdown.yml to fix the problem.
+
 # articles in vignettes/articles/ are unnested into articles/
 
     Code
@@ -53,4 +62,12 @@
       cat(output)
     Output
       ## [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
+
+# reports on bad open graph meta-data
+
+    Code
+      build_article(pkg = pkg, name = "bad-opengraph")
+    Condition
+      Error in `build_article()`:
+      ! Can't find article 'bad-opengraph'
 

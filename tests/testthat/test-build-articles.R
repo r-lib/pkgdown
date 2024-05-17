@@ -120,6 +120,11 @@ test_that("can set width", {
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
 
+test_that("bad width gives nice error", {
+  pkg <- local_pkgdown_site(meta = list(code = list(width = "abc")))
+  expect_snapshot(build_rmarkdown_format(pkg, "article"), error = TRUE)
+})
+
 test_that("finds external resources referenced by R code in the article html", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
@@ -291,4 +296,10 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
     gsub("\r", "", .)
 
   expect_snapshot(cat(output))
+})
+
+test_that("reports on bad open graph meta-data", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
+  expect_snapshot(build_article(pkg = pkg, name = "bad-opengraph"), error = TRUE)
 })

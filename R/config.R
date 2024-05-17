@@ -94,6 +94,19 @@ config_pluck_bool <- function(pkg,
   )
 }
 
+config_pluck_number_whole <- function(pkg,
+                                      path,
+                                      default = NULL,
+                                      call = caller_env()) {
+  x <- config_pluck(pkg, path, default)
+  config_check_number_whole(
+    x,
+    error_path = path,
+    error_pkg = pkg,
+    error_call = call
+  )
+}
+
 # checks ---------------------------------------------------------------------
 
 config_check_character <- function(x,
@@ -143,6 +156,35 @@ config_check_bool <- function(x,
   } else {
     config_abort_type(
       must_be = "true or false",
+      not = x,
+      error_pkg = error_pkg,
+      error_path = error_path,
+      error_call = error_call
+    )
+  }
+}
+
+config_check_number_whole <- function(x,
+                                      error_pkg,
+                                      error_path,
+                                      error_call = caller_env()) {
+
+  is_whole <- (0 == (exit_code <- .standalone_types_check_dot_call(
+    ffi_standalone_check_number_1.0.7,
+    x,
+    allow_decimal = FALSE,
+    min = NULL,
+    max = NULL,
+    allow_infinite = FALSE,
+    allow_na = FALSE,
+    allow_null = TRUE
+  )))
+
+  if (is_whole) {
+    x
+  } else {
+    config_abort_type(
+      must_be = "a whole number",
       not = x,
       error_pkg = error_pkg,
       error_path = error_path,
