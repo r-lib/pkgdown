@@ -82,3 +82,14 @@ test_that("titles don't get autolinked code", {
   rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<code>foo()</code>")
 })
+
+test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
+  file <- test_path("assets", "bad-yaml", "_pkgdown.yml")
+  expect_snapshot(
+    error = TRUE,
+    read_meta(
+      file,
+      check_path = FALSE
+    )
+  )
+})

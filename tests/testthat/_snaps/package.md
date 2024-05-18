@@ -20,3 +20,16 @@
       ! template.bootstrap must be 3 or 5, not 1.
       i Edit _pkgdown.yml to fix the problem.
 
+# read_meta() errors gracefully if _pkgdown.yml failed to parse
+
+    Code
+      read_meta(file, check_path = FALSE)
+    Condition
+      Error in `read_meta()`:
+      ! The url: field failed to parse.
+      i Error occured between lines 1 and 9.
+      i Edit 'assets/bad-yaml/_pkgdown.yml' to fix the problem.
+      i Did not find the expected keys at line 9 while parsing a block mapping.
+      Caused by error in `yaml.load()`:
+      ! (assets/bad-yaml/_pkgdown.yml) Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 9, column 3
+

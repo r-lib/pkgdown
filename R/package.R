@@ -178,13 +178,97 @@ pkgdown_config_path <- function(path) {
   )
 }
 
-read_meta <- function(path) {
-  path <- pkgdown_config_path(path)
+read_meta <- function(path, check_path = TRUE) {
+  if (check_path) {
+    # check_path = FALSE can be used to supply a direct path to
+    # read_meta instead of a pkgdown object.
+    path <- pkgdown_config_path(path)
+  }
 
+  # If parsing fails, it will say Error in read_meta()
+  call <- current_env()
   if (is.null(path)) {
     yaml <- list()
   } else {
-    yaml <- yaml::yaml.load_file(path) %||% list()
+    yaml <- withCallingHandlers(
+      yaml::yaml.load_file(path),
+      error = function(e) {
+        yaml_error_msg <- conditionMessage(e)
+        # Create a clickable path, in case we end up
+        # just rethrowing the original message
+        yaml_error_msg <- gsub(
+          "\\(([^\\)]+)\\)",
+          "({.path \\1})",
+          yaml_error_msg
+        )
+
+        # trying to extract the parsing error type?
+        # like block mapping, block collection?
+        what <- regmatches(
+          yaml_error_msg,
+          m = regexpr("block\\s[[:alpha:]]+", yaml_error_msg)
+        )
+        # search for all occurences of digits (1 to 4 digits long)
+        # I would not see a _pkgdown.yml file containing >9999 lines.
+        error_locations <- regmatches(
+          yaml_error_msg,
+          m = gregexpr("\\d{1,4}", yaml_error_msg)
+        )
+        error_locations <- unlist(error_locations, use.names = FALSE)
+        if (length(error_locations) != 4 || !is_string(what)) {
+          # can't parse the error message properly,
+          # just rethrow it cli style
+          cli::cli_abort(yaml_error_msg, call = call)
+        }
+        # yaml throws its message like this:
+        # ! (./pkgdown/_pkgdown.yml) Parser error: while parsing
+        # a block mapping at line 1, column 1
+        # did not find expected key at line 9, column 3
+        block_line <- error_locations[1]
+        block_col <- error_locations[2]
+        error_line <- error_locations[3]
+        error_col <- error_locations[4]
+
+        # try to identify the faulty block / field name to add a hint
+        block_name <- withCallingHandlers(
+          readLines(path, warn = FALSE, n = block_line, encoding = "UTF-8"),
+          error = function(e) NULL
+        )
+        if (!is.null(block_name)) {
+          block_name <- block_name[length(block_name)]
+          block_name <- gsub(":.*$", ":", block_name)
+        }
+
+        block_pos <- cli::style_hyperlink(
+          paste0(block_line),
+          url = paste0("file://", path),
+          params = list(
+            line = as.integer(block_line),
+            col = as.integer(block_col)
+          )
+        )
+        error_pos <- cli::style_hyperlink(
+          paste0(error_line),
+          url = paste0("file://", path),
+          params = list(
+            line = as.integer(error_line),
+            col = as.integer(error_col)
+          )
+        )
+        cli::cli_abort(
+          c(
+            "!" = "The {.field {block_name}} field failed to parse.",
+            "i" = "Error occured between lines {block_pos} and {error_pos}.",
+            "i" = "Edit {.path {path}} to fix the problem.",
+            # repeat the yaml error
+            "i" = "Did not find the expected keys at line {error_pos} while parsing a {what}."
+          ),
+          call = call,
+          parent = e
+        )
+      }
+    )
+    yaml <- yaml %||% list()
   }
 
   yaml

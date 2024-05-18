@@ -1,0 +1,16 @@
+url: https://pkgdown.r-lib.org
+
+home:
+  title: Build websites for R packages
+
+authors:
+   Jay Hesselberth:
+    href: https://hesselberthlab.org
+  Maëlle Salmon:
+    href: https://masalmon.eu
+  Hadley Wickham:
+    href: http://hadley.nz
+  Posit Software, PBC:
+    href: https://www.posit.co
+    html: >-
+      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
