@@ -230,8 +230,11 @@ read_meta <- function(path, check_path = TRUE) {
         error_col <- error_locations[4]
 
         # try to identify the faulty block / field name to add a hint
+        # i.e. the block at where the parser gives his first error.
+        # but it may be more accurate to try to detect a field / block
+        # looking backward from the second position mentioned in the error.
         block_name <- withCallingHandlers(
-          readLines(path, warn = FALSE, n = block_line, encoding = "UTF-8"),
+          read_lines(path, n = block_line),
           error = function(e) NULL
         )
         if (!is.null(block_name)) {
