@@ -84,12 +84,8 @@ test_that("titles don't get autolinked code", {
 })
 
 test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
-  file <- test_path("assets", "bad-yaml", "_pkgdown.yml")
   expect_snapshot(
     error = TRUE,
-    read_meta(
-      file,
-      check_path = FALSE
-    )
+    as_pkgdown(test_path("assets/bad-yaml"))
   )
 })

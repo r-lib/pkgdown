@@ -178,13 +178,8 @@ pkgdown_config_path <- function(path) {
   )
 }
 
-read_meta <- function(path, check_path = TRUE, call = caller_env()) {
-  if (check_path) {
-    # check_path = FALSE can be used to supply a direct path to
-    # read_meta instead of a pkgdown object.
-    path <- pkgdown_config_path(path)
-  }
-
+read_meta <- function(path, call = caller_env()) {
+  path <- pkgdown_config_path(path)
   if (is.null(path)) {
     yaml <- list()
   } else {
