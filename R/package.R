@@ -196,7 +196,7 @@ read_meta <- function(path, check_path = TRUE, call = caller_env()) {
         # (<<path>>) Parser error: <<parsing error>>
         yaml_err <- conditionMessage(e)
         # extract parsing error from original error (i.e. remove the path)
-        parsing_error <- sub("[^\\)]+\\)", "", yaml_err)
+        parsing_error <- sub("[^\\)]+\\)\\s", "", yaml_err)
         # Extract path from original error
         path_yaml <- regmatches(yaml_err, m = regexpr("\\(([^\\)]+)\\)", yaml_err))
         path_yaml <- gsub("\\(([^\\)]+)\\)", "\\1", path_yaml)
