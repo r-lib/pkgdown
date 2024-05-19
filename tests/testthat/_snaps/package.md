@@ -27,6 +27,6 @@
     Condition
       Error in `as_pkgdown()`:
       x Could not parse the config file.
-      ! Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 9, column 3
+      ! Scanner error: mapping values are not allowed in this context at line 2, column 8
       i Edit 'assets/bad-yaml/_pkgdown.yml' to fix the problem.
 

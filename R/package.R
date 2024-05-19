@@ -180,6 +180,7 @@ pkgdown_config_path <- function(path) {
 
 read_meta <- function(path, call = caller_env()) {
   path <- pkgdown_config_path(path)
+
   if (is.null(path)) {
     yaml <- list()
   } else {
@@ -191,7 +192,7 @@ read_meta <- function(path, call = caller_env()) {
         # (<<path>>) Parser error: <<parsing error>>
         yaml_err <- conditionMessage(e)
         # extract parsing error from original error (i.e. remove the path)
-        parsing_error <- sub("[^\\)]+\\)\\s", "", yaml_err)
+        parsing_error <- sub("[^\\)]+\\)\\s?", "", yaml_err)
         # Extract path from original error
         path_yaml <- regmatches(yaml_err, m = regexpr("\\(([^\\)]+)\\)", yaml_err))
         path_yaml <- gsub("\\(([^\\)]+)\\)", "\\1", path_yaml)
@@ -205,6 +206,7 @@ read_meta <- function(path, call = caller_env()) {
         )
       })
   }
+
   yaml
 }
 
