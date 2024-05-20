@@ -170,10 +170,10 @@ See `?build_news` for more customisation options including how to:
 
 If you use GitHub, there are two ways to publish your site on GitHub Pages:
 
--   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-
 -   Use GitHub actions to automatically build and publish the site every time you make a change.
-    The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`.
+    The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`, and if you need to customize the action, see [README.md r-lib/actions](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site).
+
+-   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
 ## Promoting
 
@@ -189,4 +189,4 @@ Once your finalized site is built and published on the web, you should publicize
 
     (`usethis::use_pkgdown_github_pages()` does this for you.)
 
-3.  On Twitter (make sure to include `#rstats`).
+3.  On social media (make sure to include `#rstats`).
