@@ -66,9 +66,6 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, clone = FALSE, env = pa
   }
   pkg <- as_pkgdown(path, meta)
   pkg$dst_path <- withr::local_tempdir(.local_envir = env)
-
-  withr::defer(unlink(pkg$dst_path, recursive = TRUE), envir = env)
-
   pkg
 }
 

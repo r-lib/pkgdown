@@ -250,12 +250,12 @@ version_page <- function(x) {
 navbar_news <- function(pkg) {
   releases_meta <- pkg$meta$news$releases
   if (!is.null(releases_meta)) {
-    menu(tr_("News"),
+    menu_submenu(tr_("News"),
       c(
-        list(menu_text(tr_("Releases"))),
+        list(menu_heading(tr_("Releases"))),
         releases_meta,
         list(
-          menu_spacer(),
+          menu_separator(),
           menu_link(tr_("Changelog"), "news/index.html")
         )
       )

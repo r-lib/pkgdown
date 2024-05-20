@@ -56,7 +56,7 @@ test_that("articles don't include header-attrs.js script", {
   html <- xml2::read_html(path)
   js <- xpath_attr(html, ".//body//script", "src")
   # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
-  js <- js[basename(js) != "empty-anchor.js"]
+  js <- js[path_file(js) != "empty-anchor.js"]
   expect_equal(js, character())
 })
 
@@ -94,8 +94,8 @@ test_that("html widgets get needed css/js", {
   css <- xpath_attr(html, ".//body//link", "href")
   js <- xpath_attr(html, ".//body//script", "src")
 
-  expect_true("diffviewer.css" %in% basename(css))
-  expect_true("diffviewer.js" %in% basename(js))
+  expect_true("diffviewer.css" %in% path_file(css))
+  expect_true("diffviewer.js" %in% path_file(js))
 })
 
 test_that("can override options with _output.yml", {
@@ -170,8 +170,8 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   suppressMessages(path <- build_article("articles/nested", pkg))
 
   expect_equal(
-    normalizePath(path),
-    normalizePath(path(pkg$dst_path, "articles", "nested.html"))
+    path_real(path),
+    path_real(path(pkg$dst_path, "articles", "nested.html"))
   )
 
   # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
@@ -257,7 +257,7 @@ test_that("check doesn't include getting started vignette", {
   pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
   getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))
   file_create(getting_started)
-  withr::defer(unlink(getting_started))
+  withr::defer(file_delete(getting_started))
 
   pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = "
     articles:

@@ -1,3 +1,16 @@
+# sitrep complains about BS3
+
+    Code
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      x Bootstrap 3 is deprecated; please switch to Bootstrap 5.
+      i Learn more at <https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5>.
+      v URLs ok.
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      v Reference metadata ok.
+
 # sitrep reports all problems
 
     Code
