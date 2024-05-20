@@ -161,7 +161,12 @@ check_open_graph <- function(og, path, call = caller_env()) {
   is_yaml <- path_ext(path) %in% c("yml", "yaml")
   base_path <- if (is_yaml) "template.opengraph" else "opengraph"
 
-  check_open_graph_list(og, path, base_path, call)
+  check_open_graph_list(
+    og,
+    file_path = path,
+    error_path = base_path,
+    error_call = call
+  )
 
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
@@ -171,18 +176,24 @@ check_open_graph <- function(og, path, call = caller_env()) {
       call = call
     )
   }
-  if ("twitter" %in% names(og)) {
-    check_open_graph_list(og$twitter, path, paste0(base_path, ".twitter"), call)
-    if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
-      cli::cli_abort(
-        "{.file {path}}: {.field opengraph.twitter} must include either {.field creator} or {.field site}.",
-        call = call
-      )
-    }
+  check_open_graph_list(
+    og$twitter,
+    file_path = path,
+    error_path = paste0(base_path, ".twitter"),
+    error_call = call
+  )
+  if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+    cli::cli_abort(
+      "{.file {path}}: {.field opengraph.twitter} must include either {.field creator} or {.field site}.",
+      call = call
+    )
   }
-  if ("image" %in% names(og)) {
-    check_open_graph_list(og$image, path, paste0(base_path, ".image"), call)
-  }
+  check_open_graph_list(
+    og$image,
+    file_path = path,
+    error_path = paste0(base_path, ".image"),
+    error_call = call
+  )
   og[intersect(supported_fields, names(og))]
 }
 
@@ -194,12 +205,18 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
-check_open_graph_list <- function(x, path, error_path, error_call = caller_env()) {
-  if (is.list(x)) {
+check_open_graph_list <- function(x,
+                                  file_path,
+                                  error_path,
+                                  error_call = caller_env()) {
+  if (is.list(x) || is.null(x)) {
     return()
   }
   not <- friendly_type_of(x)
-  cli::cli_abort("{.file {path}}: {.field {error_path}} must be a list, not {not}.", call = error_call)
+  cli::cli_abort(
+    "{.file {file_path}}: {.field {error_path}} must be a list, not {not}.",
+    call = error_call
+  )
 }
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
