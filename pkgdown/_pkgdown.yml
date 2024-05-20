@@ -52,7 +52,8 @@ articles:
 
 reference:
 - title: Site components
-  desc:  Build a complete site or one of its components.
+  desc:  Build a complete site or one of its components. See `vignette("pkgdown")`
+    for an overview of site components.
   contents:
   - build_site
   - starts_with("build_")
@@ -60,7 +61,7 @@ reference:
   - pkgdown_sitrep
 
 - title: Deployment and Build
-  desc: Build or deploy the full site.
+  desc: Build or deploy the site.
   contents:
   - init_site
   - preview_site
@@ -68,6 +69,7 @@ reference:
   - build_site_github_pages
 
 - title: Templates
+  desc: Helpers to create and preview templates.
   contents:
   - template_navbar
   - render_page
