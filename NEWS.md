@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
 * Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
 * Improve HTML5 compliance (#2369):
   * No longer support IE9 or earlier

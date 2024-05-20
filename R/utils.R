@@ -181,6 +181,10 @@ section_id <- function(section) {
   xml2::xml_attr(h, "id")
 }
 
+on_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI", "false")))
+}
+
 # yaml ------------------------------------------------------------
 
 print_yaml <- function(x) {
