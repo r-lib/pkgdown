@@ -87,7 +87,7 @@
       check_open_graph_(list(twitter = list()))
     Condition
       Error in `check_open_graph_()`:
-      ! opengraph.twitter must include either creator or site.
+      ! '_pkgdown.yml': opengraph.twitter must include either creator or site.
     Code
       check_open_graph_(list(image = 1))
     Condition

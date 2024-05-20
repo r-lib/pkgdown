@@ -108,7 +108,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Components that mostly end up in the <head>
   out$has_favicons <- has_favicons(pkg)
-  out$opengraph <- data_open_graph(pkg, pkgdown_config_path(pkg))
+  out$opengraph <- data_open_graph(pkg)
   out$extra <- list(
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
@@ -175,7 +175,7 @@ check_open_graph <- function(og, path, call = caller_env()) {
     check_open_graph_list(og$twitter, path, paste0(base_path, ".twitter"), call)
     if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
       cli::cli_abort(
-        "{.field opengraph.twitter} must include either {.field creator} or {.field site}.",
+        "{.file {path}}: {.field opengraph.twitter} must include either {.field creator} or {.field site}.",
         call = call
       )
     }
