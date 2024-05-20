@@ -3,7 +3,7 @@
     Code
       data_authors_(authors = 1)
     Condition
-      Error in `data_authors()`:
+      Error in `data_authors_()`:
       ! authors must be a list, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
     Code

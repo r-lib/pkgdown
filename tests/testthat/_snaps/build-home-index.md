@@ -96,7 +96,7 @@
     Code
       data_home_sidebar_(html = 1)
     Condition
-      Error in `data_home_sidebar()`:
+      Error in `data_home_sidebar_()`:
       ! home.sidebar.html must be a string, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
     Code

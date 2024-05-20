@@ -82,8 +82,8 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     return(FALSE)
   }
 
-  config_pluck_list(pkg, "home")
-  html_path <- config_pluck_string(pkg, "home.sidebar.html")
+  config_pluck_list(pkg, "home", call = call)
+  html_path <- config_pluck_string(pkg, "home.sidebar.html", call = call)
   if (!is.null(html_path)) {
     html_path_abs <- path(pkg$src_path, html_path)
 

@@ -23,7 +23,7 @@ build_citation_authors <- function(pkg = ".") {
 
 data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  author_info <- config_pluck_list(pkg, "authors", default = list())
+  author_info <- config_pluck_list(pkg, "authors", default = list(), call = call)
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
