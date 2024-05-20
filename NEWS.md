@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
 * Improve HTML5 compliance (#2369):
   * No longer support IE9 or earlier
