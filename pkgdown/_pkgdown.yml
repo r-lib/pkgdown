@@ -51,18 +51,19 @@ articles:
   - starts_with("test")
 
 reference:
-- title: Build
+- title: Site components
   desc:  Build a complete site or one of its components.
   contents:
   - build_site
   - starts_with("build_")
   - -build_site_github_pages
-  - init_site
-  - preview_site
   - pkgdown_sitrep
 
-- title: Deployment
+- title: Deployment and Build
+  desc: Build or deploy the full site.
   contents:
+  - init_site
+  - preview_site
   - starts_with("deploy_")
   - build_site_github_pages
 
