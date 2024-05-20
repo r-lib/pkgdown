@@ -167,7 +167,7 @@ check_open_graph <- function(og, path, call = caller_env()) {
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
     cli::cli_warn(
-      "{.file {path}}: Unsupported {.var {base_path}} {cli::qty(unsupported_fields)} field{?s}: {.val {unsupported_fields}}.",
+      "{.file {path}}: Unsupported {.field {base_path}} {cli::qty(unsupported_fields)} field{?s}: {.val {unsupported_fields}}.",
       call = call
     )
   }
@@ -175,7 +175,7 @@ check_open_graph <- function(og, path, call = caller_env()) {
     check_open_graph_list(og$twitter, path, paste0(base_path, ".twitter"), call)
     if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
       cli::cli_abort(
-        "{.var opengraph.twitter} must include either {.var creator} or {.var site}.",
+        "{.field opengraph.twitter} must include either {.field creator} or {.field site}.",
         call = call
       )
     }
@@ -199,7 +199,7 @@ check_open_graph_list <- function(x, path, error_path, error_call = caller_env()
     return()
   }
   not <- friendly_type_of(x)
-  cli::cli_abort("{.file {path}}: {.var {error_path}} must be a list, not {not}.", call = error_call)
+  cli::cli_abort("{.file {path}}: {.field {error_path}} must be a list, not {not}.", call = error_call)
 }
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
