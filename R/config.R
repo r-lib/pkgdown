@@ -22,21 +22,6 @@ config_pluck_list <- function(pkg,
   )
 }
 
-config_pluck_list_of_named_lists <- function(pkg,
-                                             path,
-                                             names,
-                                             default = NULL,
-                                             call = caller_env()) {
-  x <- config_pluck(pkg, path, default)
-  config_check_list_of_named_lists(
-    x,
-    names,
-    error_path = path,
-    error_pkg = pkg,
-    error_call = call
-  )
-}
-
 config_pluck_character <- function(pkg,
                                    path,
                                    default = character(),
