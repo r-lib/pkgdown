@@ -9,9 +9,9 @@ authors:
   Maëlle Salmon:
     href: https://masalmon.eu
   Hadley Wickham:
-    href: http://hadley.nz
+    href: https://hadley.nz
   Posit Software, PBC:
-    href: https://www.posit.co
+    href: https://posit.co
     html: >-
       <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
 
@@ -65,7 +65,6 @@ reference:
   contents:
   - starts_with("deploy_")
   - build_site_github_pages
-  - check_pkgdown
 
 - title: Templates
   contents:

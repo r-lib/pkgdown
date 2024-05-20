@@ -28,7 +28,7 @@
 #'    It specifies where the site will be published and is used to allow other
 #'    pkgdown sites to link to your site when needed (`vignette("linking")`),
 #'    generate a `sitemap.xml`, automatically generate a `CNAME` when
-#'    [deploying to github][deploy_site_github], generate the metadata needed
+#'    [deploying to github][build_site_github_pages()], generate the metadata needed
 #'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
 #' *  `title` overrides the default site title, which is the package name.
@@ -37,7 +37,7 @@
 #' # Navbar and footer
 #'
 #' The `navbar` and `footer` fields control the appearance of the navbar
-#' footer which appear on every page. Learn more about these fields in 
+#' footer which appear on every page. Learn more about these fields in
 #' `vignette("customise")`.
 #'
 #' # Search
@@ -58,8 +58,8 @@
 #' ### Setting development mode
 #'
 #' The development `mode` of a site controls where the built site is placed
-#' and how it is styled (i.e. the colour of the package version in the 
-#' navbar, the version tooltip), and whether or not the site is indexed by 
+#' and how it is styled (i.e. the colour of the package version in the
+#' navbar, the version tooltip), and whether or not the site is indexed by
 #' search engines. There are four possible modes:
 #'
 #' * **automatic** (`mode: auto`): determines the mode based on the version:
@@ -69,9 +69,9 @@
 #'   * everything else -> release.
 #'
 #' * **release** (`mode: release`), the default. Site is written to `docs/`
-#'   and styled like a released package, even if the content is for an 
-#'   unreleased or development version. Version in navbar gets the default 
-#'   colouring. Development badges are not shown in the sidebar 
+#'   and styled like a released package, even if the content is for an
+#'   unreleased or development version. Version in navbar gets the default
+#'   colouring. Development badges are not shown in the sidebar
 #'   (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
@@ -85,8 +85,8 @@
 #'   package is not yet on CRAN.
 #'   Development badges are shown in the sidebar (see `?build_home`).
 #'
-#' Use `mode: auto` if you want both a released and a dev site, and 
-#' `mode: release` if you just want a single site. It is very rare that you 
+#' Use `mode: auto` if you want both a released and a dev site, and
+#' `mode: release` if you just want a single site. It is very rare that you
 #' will need either devel or unreleased modes.
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
@@ -178,12 +178,12 @@
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
-#' is typically placed `in_header` (actually in the `<head>`), `before_body`, 
-#' or `after_body`. 
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`,
+#' or `after_body`.
 #' You can learn more about how includes work in pkgdown at
 #' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' I include a few examples of popular analytics platforms below, but we 
+#' I include a few examples of popular analytics platforms below, but we
 #' recommend getting the HTML directly from the tool:
 #'
 #' *   [plausible.io](https://plausible.io):
@@ -470,7 +470,7 @@ build_site_local <- function(pkg = ".",
   }
 
   check_built_site(pkg)
-  
+
   cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }
