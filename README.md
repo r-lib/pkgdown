@@ -84,7 +84,7 @@ Then learn about the many new ways to customise your site in
 
 At last count, pkgdown is used [by over 11,000
 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
-Here are a few examples created by contributors to pkgdown:
+Here are a few examples:
 
 - [bayesplot](http://mc-stan.org/bayesplot/index.html)
   ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
@@ -102,6 +102,9 @@ Here are a few examples created by contributors to pkgdown:
 - [NMF](http://renozao.github.io/NMF/master/index.html)
   ([source](https://github.com/renozao/NMF)): a framework to perform
   non-negative matrix factorization (NMF).
+
+- [tidyverse and r-lib packages
+  source](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code)
 
 Comparing the source and output of these sites is a great way to learn
 new pkgdown techniques.
