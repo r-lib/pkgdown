@@ -37,7 +37,7 @@
       data_home_sidebar_authors_(authors = list(sidebar = list(before = "x\n\ny")))
     Condition
       Error in `data_home_sidebar_authors_()`:
-      ! authors.sidebar.before must supply an inline element, not a block element.
+      ! authors.sidebar.before must be inline markdown.
       i Edit _pkgdown.yml to fix the problem.
 
 # sidebar can accept additional before and after text

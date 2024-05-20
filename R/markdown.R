@@ -9,9 +9,9 @@ markdown_text <- function(text, ...) {
 }
 
 markdown_text_inline <- function(text,
-                                 where = "<inline>",
-                                 pkg,
-                                 call = caller_env(),
+                                 error_path,
+                                 error_pkg,
+                                 error_call = caller_env(),
                                  ...) {
   html <- markdown_text(text, ...)
   if (is.null(html)) {
@@ -21,9 +21,9 @@ markdown_text_inline <- function(text,
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   if (length(children) > 1) {
     config_abort(
-      pkg,
-      "{.field {where}} must supply an inline element, not a block element.",
-      call = call
+      error_pkg,
+      "{.field {error_path}} must be inline markdown.",
+      call = error_call
     )
   }
 

@@ -8,7 +8,7 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
 
   unwrap_purrr_error(
     rows <- meta %>%
-      purrr::imap(data_reference_index_rows, pkg = pkg) %>%
+      purrr::imap(data_reference_index_rows, pkg = pkg, call = error_call) %>%
       purrr::compact() %>%
       unlist(recursive = FALSE)
   )
@@ -82,13 +82,18 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
 }
 
 
-data_reference_index_rows <- function(section, index, pkg) {
+data_reference_index_rows <- function(section, index, pkg, call = caller_env()) {
   is_internal <- identical(section$title, "internal")
 
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
-      title = markdown_text_inline(section$title, pkg = pkg),
+      title = markdown_text_inline(
+        section$title,
+        error_path = paste0("reference[", index, "].title"),
+        error_call = call,
+        error_pkg = pkg
+      ),
       slug = make_slug(section$title),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
@@ -97,7 +102,12 @@ data_reference_index_rows <- function(section, index, pkg) {
 
   if (has_name(section, "subtitle")) {
     rows[[2]] <- list(
-      subtitle = markdown_text_inline(section$subtitle, pkg = pkg),
+      subtitle = markdown_text_inline(
+        section$subtitle,
+        error_path = paste0("reference[", index, "].subtitle"),
+        error_call = call,
+        error_pkg = pkg
+      ),
       slug = make_slug(section$subtitle),
       desc = markdown_text_block(section$desc),
       is_internal = is_internal
@@ -105,7 +115,6 @@ data_reference_index_rows <- function(section, index, pkg) {
   }
 
   if (has_name(section, "contents")) {
-    id <- section$title %||% section$subtitle %||% index
     topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
 
     names <- topics$name

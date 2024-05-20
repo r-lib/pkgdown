@@ -76,10 +76,22 @@
       ! reference[1].title must be a string, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
     Code
+      data_reference_index_(list(list(title = "a\n\nb")))
+    Condition
+      Error in `data_reference_index_()`:
+      ! reference[1].title must be inline markdown.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
       data_reference_index_(list(list(subtitle = 1)))
     Condition
       Error in `data_reference_index_()`:
       ! reference[1].subtitle must be a string, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_reference_index_(list(list(subtitle = "a\n\nb")))
+    Condition
+      Error in `data_reference_index_()`:
+      ! reference[1].subtitle must be inline markdown.
       i Edit _pkgdown.yml to fix the problem.
     Code
       data_reference_index_(list(list(title = "bla", contents = 1)))

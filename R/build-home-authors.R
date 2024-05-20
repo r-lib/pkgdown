@@ -116,8 +116,8 @@ author_name <- function(x, authors, pkg) {
   if (!is.null(author$html)) {
     name <- markdown_text_inline(
       author$html,
-      paste0("authors.", name, ".html"),
-      pkg = pkg
+      error_path = paste0("authors.", name, ".html"),
+      error_pkg = pkg
     )
   }
 

@@ -432,6 +432,13 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
     error_pkg = pkg,
     error_call = call
   )
+  title <- markdown_text_inline(
+    section$title,
+    error_path = paste0("articles[", index, "].title"),
+    error_pkg = pkg,
+    error_call = call
+  )
+
   config_check_string(
     section$desc,
     error_path = paste0("articles[", index, "].desc"),
@@ -456,8 +463,9 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
     description = lapply(section_vignettes$description, markdown_text_block),
   )
 
+
   list(
-    title = markdown_text_inline(section$title),
+    title = title,
     desc = markdown_text_block(section$desc),
     class = section$class,
     contents = purrr::transpose(contents)

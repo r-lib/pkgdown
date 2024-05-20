@@ -135,6 +135,7 @@ test_that("validates articles yaml", {
     data_articles_index_(1)
     data_articles_index_(list(1))
     data_articles_index_(list(list(title = 1)))
+    data_articles_index_(list(list(title = "a\n\nb")))
     data_articles_index_(list(list(title = "a", contents = 1)))
   })
 })
