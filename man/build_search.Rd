@@ -34,3 +34,6 @@ common issues such as the absence of URL in the pkgdown configuration file
 of your package.
 }
 
+\seealso{
+\code{vignette("search")}
+}

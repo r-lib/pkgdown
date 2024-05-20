@@ -39,7 +39,7 @@ build_sitemap <- function(pkg = ".") {
   doc <- xml2::read_xml(
     paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   )
-  
+
   url_nodes <- unwrap_purrr_error(purrr::map(urls, url_node))
   for (url in url_nodes) {
     xml2::xml_add_child(doc, url)
@@ -88,7 +88,7 @@ url_node <- function(url) {
 #'
 #' @inheritParams build_articles
 #' @export
-#'
+#' @seealso `vignette("search")`
 build_search <- function(pkg = ".",
                          override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
