@@ -11,9 +11,8 @@ markdown_text <- function(text, ...) {
 markdown_text_inline <- function(text,
                                  error_path,
                                  error_pkg,
-                                 error_call = caller_env(),
-                                 ...) {
-  html <- markdown_text(text, ...)
+                                 error_call = caller_env()) {
+  html <- markdown_text(text)
   if (is.null(html)) {
     return()
   }
@@ -27,7 +26,7 @@ markdown_text_inline <- function(text,
     )
   }
 
-  paste0(xml2::xml_contents(children), collapse="")
+  paste0(xml2::xml_contents(children), collapse = "")
 }
 
 markdown_text_block <- function(text, ...) {
