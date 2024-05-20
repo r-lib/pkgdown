@@ -88,9 +88,9 @@
 #'
 #' ## Missing topics
 #'
-#' pkgdown will warn if there are (non-internal) articles that aren't listed 
-#' in the articles index. You can suppress such warnings by listing the 
-#' affected articles in a section with `title: internal` (case sensitive); 
+#' pkgdown will warn if there are (non-internal) articles that aren't listed
+#' in the articles index. You can suppress such warnings by listing the
+#' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
 #'
 #' # External files
@@ -156,7 +156,8 @@
 #' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
 #' # Suppressing vignettes
-#' If you want articles that are not vignettes, either put them in
+#' If you want [articles](https://r-pkgs.org/vignettes.html#sec-vignettes-article)
+#'  that are not vignettes, use `usethis::use_article()` either put them in
 #' subdirectories or list in `.Rbuildignore`. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See

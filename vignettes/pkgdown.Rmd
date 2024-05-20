@@ -134,10 +134,12 @@ It just re-builds the index page, making it faster to quickly change `_pkgdown.y
 ## Articles
 
 pkgdown will automatically build all vignettes found in `vignettes/`, translating them to HTML files in `articles/`.
-Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
+It is recommended to name your intro article with your package name to generate a Get Started page automatically.
+
+Due to the way that pkgdown has to integrate R Markdown generated HTML with its own HTML, relatively little control is available over the output format.
 You can see the details in `?build_articles`.
 
-If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header).
+If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header). See also `usethis::use_article()` for an automated way to do this.
 In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
 ## News
