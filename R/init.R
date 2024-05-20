@@ -40,8 +40,8 @@ init_site <- function(pkg = ".") {
     build_bslib(pkg)
   }
 
-  if (has_logo(pkg) && !has_favicons(pkg)) {
-    # Building favicons is expensive, so we hopefully only do it once.
+  # Building favicons is expensive, so we hopefully only do it once, locally
+  if (has_logo(pkg) && !has_favicons(pkg) && !on_ci()) {
     build_favicons(pkg)
   }
   copy_favicons(pkg)
