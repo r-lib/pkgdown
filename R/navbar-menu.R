@@ -59,7 +59,7 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
   side <- arg_match(side)
   type <- menu_type(x, menu_depth = menu_depth)
 
-  text <- switch(type, 
+  text <- switch(type,
     menu = navbar_html_menu(x, menu_depth = menu_depth, path_depth = path_depth, side = side),
     heading = navbar_html_heading(x),
     link = navbar_html_link(x, menu_depth = menu_depth),
@@ -168,7 +168,7 @@ html_tag <- function(tag, ..., class = NULL) {
   attr <- purrr::compact(c(list(class = class), dots_attr))
   if (length(attr) > 0) {
     html_attr <- ifelse(
-      is.na(attr), 
+      is.na(attr),
       names(attr),
       paste0(names(attr), '="', attr, '"')
     )
@@ -176,7 +176,7 @@ html_tag <- function(tag, ..., class = NULL) {
   } else {
     html_attr <- ""
   }
- 
+
   html_child <- paste0(purrr::compact(dots_child), collapse = " ")
   needs_close <- !tag %in% "input"
 
@@ -195,8 +195,20 @@ navbar_html_text <- function(x) {
     classes <- strsplit(x$icon, " ")[[1]]
     icon_classes <- classes[grepl("-", classes)]
     iconset <- purrr::map_chr(strsplit(icon_classes, "-"), 1)
-    
+
     icon <- html_tag("span", class = unique(c(iconset, classes)))
+
+    if (is.null(x$`aria-label`)) {
+      cli::cli_inform(
+        c(
+          x = "Icon {.str {x$icon}} lacks an {.var aria-label}.",
+          i = "Specify {.var aria-label} to make the icon accessible to screen readers.",
+          i = "Learn more in {.vignette accessibility}."
+        ),
+        .frequency = "regularly",
+        .frequency_id = "icon-aria-label"
+      )
+    }
   }
 
   paste0(

@@ -168,6 +168,10 @@ check_bootstrap_version <- function(version, pkg) {
 # Metadata ----------------------------------------------------------------
 
 pkgdown_config_path <- function(path) {
+  if (is_pkgdown(path)) {
+    path <- path$src_path
+  }
+
   path_first_existing(
     path,
     c(

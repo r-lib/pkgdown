@@ -1,3 +1,12 @@
+test_that("messages about reading and writing", {
+  pkg <- local_pkgdown_site(test_path("assets/home-index-rmd"))
+
+  expect_snapshot({
+    build_home_index(pkg)
+    build_home_index(pkg)
+  })
+})
+
 test_that("title and description come from DESCRIPTION by default", {
   pkg <- as_pkgdown(test_path("assets/home-index-rmd"))
   expect_equal(data_home(pkg)$pagetitle, "A test package")
@@ -11,7 +20,7 @@ test_that("title and description come from DESCRIPTION by default", {
 test_that("math is handled", {
   pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
   write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
-  
+
   suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
 
@@ -24,7 +33,7 @@ test_that("version formatting in preserved", {
   expect_equal(pkg$version, "1.0.0-9000")
 
   suppressMessages(init_site(pkg))
-  build_home_index(pkg, quiet = TRUE)
+  suppressMessages(build_home_index(pkg))
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
 })
@@ -47,7 +56,7 @@ test_that("data_home_sidebar() can be removed", {
 
   # nor later -- so probably not to be tested here?!
   dir_create(path(pkg$dst_path))
-  build_home_index(pkg)
+  suppressMessages(build_home_index(pkg))
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
   expect_equal(xpath_length(html, ".//aside/*"), 0)
 })

@@ -88,9 +88,9 @@
 #'
 #' ## Missing topics
 #'
-#' pkgdown will warn if there are (non-internal) articles that aren't listed 
-#' in the articles index. You can suppress such warnings by listing the 
-#' affected articles in a section with `title: internal` (case sensitive); 
+#' pkgdown will warn if there are (non-internal) articles that aren't listed
+#' in the articles index. You can suppress such warnings by listing the
+#' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
 #'
 #' # External files
@@ -248,10 +248,8 @@ build_article <- function(name,
 
   front <- rmarkdown::yaml_front_matter(input_path)
   # Take opengraph from article's yaml front matter
-  front_opengraph <- check_open_graph(front$opengraph %||% list())
-  data$opengraph <- utils::modifyList(
-    data$opengraph %||% list(), front_opengraph
-  )
+  front_opengraph <- check_open_graph(front$opengraph, input)
+  data$opengraph <- modify_list(data$opengraph, front_opengraph)
 
   # Allow users to opt-in to their own template
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")

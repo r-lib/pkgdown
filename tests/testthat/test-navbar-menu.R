@@ -44,6 +44,14 @@ test_that("bullet class varies based on depth", {
   )
 })
 
+test_that("icons warn if no aria-label", {
+  reset_message_verbosity("icon-aria-label")
+
+  expect_snapshot({
+    . <- navbar_html(menu_icon("fa-question", "https://example.com", NULL))
+  })
+})
+
 test_that("icons extract base iconset class automatically", {
   expect_match(
     navbar_html(menu_icon("fa-question", "https://example.com", "label")),
@@ -80,11 +88,11 @@ test_that("simple components don't change without warning", {
 test_that("navbar_html_text() combines icons and text", {
   expect_equal(navbar_html_text(list(text = "a")), 'a')
   expect_equal(
-    navbar_html_text(list(icon = "fas-github")),
+    navbar_html_text(list(icon = "fas-github", `aria-label` = "github")),
     '<span class="fas fas-github"></span>'
   )
   expect_equal(
-    navbar_html_text(list(text = "a", icon = "fas-github")),
+    navbar_html_text(list(text = "a", icon = "fas-github", `aria-label` = "github")),
     '<span class="fas fas-github"></span> a'
   )
 })
