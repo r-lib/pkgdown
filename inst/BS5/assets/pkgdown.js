@@ -180,33 +180,32 @@ const setTheme = theme => {
   }
 }
 
-setTheme(getPreferredTheme())
-
 function bsSetupThemeToggle () {
   'use strict'
 
   const showActiveTheme = (theme, focus = false) => {
-    const themeSwitcher = document.querySelector('#bd-theme')
+    var activeLabel, activeIcon;
 
+    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+      const buttonTheme = element.getAttribute('data-bs-theme-value')
+      const isActive = buttonTheme == theme
+      
+      element.classList.toggle('active', isActive)
+      element.setAttribute('aria-pressed', isActive)
+
+      if (isActive) {
+        activeLabel = element.textContent;
+        activeIcon = element.querySelector('span').classList.value;
+      }
+    })
+
+    const themeSwitcher = document.querySelector('#dropdown-lightswitch')
     if (!themeSwitcher) {
       return
     }
 
-    const themeSwitcherText = document.querySelector('#bd-theme-text')
-    const activeThemeIcon = document.querySelector('.theme-icon-active')
-    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-    const svgOfActiveBtn = btnToActive.querySelector('.theme-icon').innerHTML
-
-    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-      element.classList.remove('active')
-      element.setAttribute('aria-pressed', 'false')
-    })
-
-    btnToActive.classList.add('active')
-    btnToActive.setAttribute('aria-pressed', 'true')
-    activeThemeIcon.innerHTML = svgOfActiveBtn
-    const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
-    themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
+    themeSwitcher.setAttribute('aria-label', activeLabel)
+    themeSwitcher.querySelector('span').classList.value = activeIcon;
 
     if (focus) {
       themeSwitcher.focus()
@@ -223,60 +222,18 @@ function bsSetupThemeToggle () {
   window.addEventListener('DOMContentLoaded', () => {
     showActiveTheme(getPreferredTheme())
 
-    document.querySelectorAll('[data-bs-theme-value]')
+    document
+      .querySelectorAll('[data-bs-theme-value]')
       .forEach(toggle => {
         toggle.addEventListener('click', () => {
           const theme = toggle.getAttribute('data-bs-theme-value')
-          setStoredTheme(theme)
           setTheme(theme)
+          setStoredTheme(theme)
           showActiveTheme(theme, true)
         })
       })
   })
 }
 
-function colorPickerMarkup () {
-
-  const icons = {
-    "sun-fill": `<i class="bi bi-sun-fill"></i>`,
-    "moon-stars-fill": `<i class="bi bi-moon-stars-fill"></i>`,
-    "circle-half": `<i class="bi bi-circle-half"></i>`
-  }
-
-  return `<button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
-    <span class="theme-icon-active">${icons['sun-fill']}</span>
-    <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
-    <li>
-      <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="true">
-        <span class="me-2 opacity-50 theme-icon">${icons['sun-fill']}</span>
-        Light
-        <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
-      </button>
-    </li>
-    <li>
-      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-        <span class="me-2 opacity-50 theme-icon">${icons['moon-stars-fill']}</span>
-        Dark
-        <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
-      </button>
-    </li>
-    <li>
-      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
-        <span class="me-2 opacity-50 theme-icon">${icons['circle-half']}</span>
-        Auto
-        <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
-      </button>
-    </li>
-  </ul>`
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const switcher = document.querySelector('.navbar [href$="#dark-mode"]')
-  if (!switcher) return
-
-  switcher.parentElement.classList.add('dropdown')
-  switcher.parentElement.innerHTML = colorPickerMarkup()
-  bsSetupThemeToggle()
-})
+setTheme(getPreferredTheme());
+bsSetupThemeToggle();

@@ -4,7 +4,24 @@
       text: Reference
       href: reference/index.html
     search:
-      search: []
+      special: search
+    lightswitch:
+      icon: fa-sun
+      aria-label: Lightswitch
+      id: lightswitch
+      menu:
+      - text: Light
+        href: '#'
+        theme: light
+        icon: fa-sun
+      - text: Dark
+        href: '#'
+        theme: dark
+        icon: fa-moon
+      - text: Auto
+        href: '#'
+        theme: auto
+        icon: fa-adjust
     
 
 ---
@@ -13,7 +30,24 @@
       text: Reference
       href: reference/index.html
     search:
-      search: []
+      special: search
+    lightswitch:
+      icon: fa-sun
+      aria-label: Lightswitch
+      id: lightswitch
+      menu:
+      - text: Light
+        href: '#'
+        theme: light
+        icon: fa-sun
+      - text: Dark
+        href: '#'
+        theme: dark
+        icon: fa-moon
+      - text: Auto
+        href: '#'
+        theme: auto
+        icon: fa-adjust
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/r-lib/pkgdown
@@ -26,7 +60,24 @@
       text: Reference
       href: reference/index.html
     search:
-      search: []
+      special: search
+    lightswitch:
+      icon: fa-sun
+      aria-label: Lightswitch
+      id: lightswitch
+      menu:
+      - text: Light
+        href: '#'
+        theme: light
+        icon: fa-sun
+      - text: Dark
+        href: '#'
+        theme: dark
+        icon: fa-moon
+      - text: Auto
+        href: '#'
+        theme: auto
+        icon: fa-adjust
     github:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
@@ -39,7 +90,24 @@
       text: Reference
       href: reference/index.html
     search:
-      search: []
+      special: search
+    lightswitch:
+      icon: fa-sun
+      aria-label: Lightswitch
+      id: lightswitch
+      menu:
+      - text: Light
+        href: '#'
+        theme: light
+        icon: fa-sun
+      - text: Dark
+        href: '#'
+        theme: dark
+        icon: fa-moon
+      - text: Auto
+        href: '#'
+        theme: auto
+        icon: fa-adjust
     intro:
       text: Get started
       href: test.html

@@ -31,11 +31,6 @@ template:
 navbar:
   bg: info
   type: light
-  structure:
-    right: [search, github, dark-mode]
-  components:
-    dark-mode:
-      href: "#dark-mode"
 
 development:
   mode: auto

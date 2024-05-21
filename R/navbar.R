@@ -31,7 +31,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
 navbar_structure <- function() {
   print_yaml(list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
-    right = c("search", "github")
+    right = c("search", "github", "lightswitch")
   ))
 }
 
@@ -119,10 +119,23 @@ navbar_components <- function(pkg = ".") {
 
   menu <- list()
   menu$reference <- menu_link(tr_("Reference"), "reference/index.html")
-
-  # in BS3, search is hardcoded in the template
+  
   if (pkg$bs_version == 5) {
+    # in BS3, search is hardcoded in the template
     menu$search <- menu_search()
+
+    # TODO: only add if both light and dark theme specified?
+    menu$lightswitch <- menu_submenu(
+      text = NULL,
+      icon = "fa-sun",
+      label = tr_("Lightswitch"),
+      id = "lightswitch",
+      list(
+        menu_theme(tr_("Light"), icon = "fa-sun", theme = "light"),
+        menu_theme(tr_("Dark"), icon = "fa-moon", theme = "dark"),
+        menu_theme(tr_("Auto"), icon = "fa-adjust", theme = "auto")
+      )
+    )
   }
 
   if (!is.null(pkg$tutorials)) {
