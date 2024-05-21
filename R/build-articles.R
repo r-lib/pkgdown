@@ -264,7 +264,7 @@ build_article <- function(name,
     output_file = output_file,
     as_is = as_is
   )
-  data <- utils::modifyList(default_data, data)
+  data <- modify_list(default_data, data)
 
   if (as_is) {
     format <- NULL

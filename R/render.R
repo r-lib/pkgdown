@@ -38,7 +38,7 @@ render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE
 }
 
 render_page_html <- function(pkg, name, data = list(), depth = 0L) {
-  data <- utils::modifyList(data_template(pkg, depth = depth), data)
+  data <- modify_list(data_template(pkg, depth = depth), data)
 
   # render template components
   pieces <- c(
