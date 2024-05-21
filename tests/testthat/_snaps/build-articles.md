@@ -60,5 +60,5 @@
       build_article(pkg = pkg, name = "bad-opengraph")
     Condition
       Error in `build_article()`:
-      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not an integer vector.
+      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not an integer.
 
