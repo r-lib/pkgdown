@@ -191,10 +191,8 @@ read_meta <- function(path, call = caller_env()) {
     yaml <- withCallingHandlers(
       yaml::yaml.load_file(path, error.label = NULL) %||% list(),
       error = function(e) {
-        cli::cli_abort(c(
-          "x" = "Could not parse the config file.",
-          "i" = "Edit {.path {path}} to fix the probkem."
-          ),
+        cli::cli_abort(
+          "Could not parse config file at {.path {path}}.",
           call = call,
           parent = e
         )

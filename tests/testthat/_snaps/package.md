@@ -26,8 +26,7 @@
       as_pkgdown(test_path("assets/bad-yaml"))
     Condition
       Error in `as_pkgdown()`:
-      x Could not parse the config file.
-      i Edit 'assets/bad-yaml/_pkgdown.yml' to fix the probkem.
+      ! Could not parse config file at 'assets/bad-yaml/_pkgdown.yml'.
       Caused by error in `yaml.load()`:
       ! Scanner error: mapping values are not allowed in this context at line 2, column 8
 
