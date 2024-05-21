@@ -63,3 +63,35 @@
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     
 
+# check_opengraph validates inputs
+
+    Code
+      check_open_graph_(list(foo = list()), )
+    Condition
+      Warning in `check_open_graph_()`:
+      '_pkgdown.yml': Unsupported template.opengraph field: "foo".
+    Output
+      named list()
+    Code
+      check_open_graph_(list(foo = list(), bar = list()))
+    Condition
+      Warning in `check_open_graph_()`:
+      '_pkgdown.yml': Unsupported template.opengraph fields: "foo" and "bar".
+    Output
+      named list()
+    Code
+      check_open_graph_(list(twitter = 1))
+    Condition
+      Error in `check_open_graph_()`:
+      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not the number 1.
+    Code
+      check_open_graph_(list(twitter = list()))
+    Condition
+      Error in `check_open_graph_()`:
+      ! '_pkgdown.yml': opengraph.twitter must include either creator or site.
+    Code
+      check_open_graph_(list(image = 1))
+    Condition
+      Error in `check_open_graph_()`:
+      ! '_pkgdown.yml': template.opengraph.image must be a list, not the number 1.
+

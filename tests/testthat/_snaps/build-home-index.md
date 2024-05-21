@@ -1,3 +1,15 @@
+# messages about reading and writing
+
+    Code
+      build_home_index(pkg)
+    Message
+      Reading 'DESCRIPTION'
+      Writing `index.html`
+    Code
+      build_home_index(pkg)
+    Message
+      Reading 'DESCRIPTION'
+
 # data_home() validates yaml metadata
 
     Code

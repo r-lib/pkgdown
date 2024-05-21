@@ -8,11 +8,15 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
+    cli::cli_inform("Reading {.file DESCRIPTION}")
     data$index <- linkify(pkg$desc$get_field("Description", ""))
   } else {
+    cli::cli_inform("Reading {src_path(path_rel(src_path, pkg$src_path))}")
     local_options_link(pkg, depth = 0L)
     data$index <- markdown_body(src_path)
   }
+
+  cur_digest <- file_digest(dst_path)
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
   strip_header <- config_pluck_bool(pkg, "home.strip_header", default = FALSE)
@@ -27,6 +31,11 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
     bs_version = pkg$bs_version,
     logo = logo_path(pkg, depth = 0)
   )
+
+  new_digest <- file_digest(dst_path)
+  if (cur_digest != new_digest) {
+    writing_file(path_rel(dst_path, pkg$dst_path), "index.html")
+  }
 
   invisible()
 }

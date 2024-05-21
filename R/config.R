@@ -241,6 +241,6 @@ config_abort <- function(pkg,
 
 config_path <- function(pkg) {
   # Not all projects necessary have a _pkgdown.yml (#2542)
-  config <- pkgdown_config_path(pkg$src_path) %||% "_pkgdown.yml"
+  config <- pkgdown_config_path(pkg) %||% "_pkgdown.yml"
   cli::style_hyperlink(path_file(config), paste0("file://", config))  
 }

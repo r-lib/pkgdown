@@ -21,7 +21,7 @@ test_that("image links relative to output", {
     # knitr::include_graphics()
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
-    # rmarkdown image 
+    # rmarkdown image
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
     # magick::image_read()
@@ -311,4 +311,10 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
     gsub("\r", "", .)
 
   expect_snapshot(cat(output))
+})
+
+test_that("reports on bad open graph meta-data", {
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  suppressMessages(init_site(pkg))
+  expect_snapshot(build_article(pkg = pkg, name = "bad-opengraph"), error = TRUE)
 })

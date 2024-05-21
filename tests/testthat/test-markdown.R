@@ -1,13 +1,12 @@
-test_that("handles empty inputs", {
-  expect_equal(markdown_text_inline(""), NULL)
-  expect_equal(markdown_text_inline(NULL), NULL)
-
-  expect_equal(markdown_text_block(NULL), NULL)
-  expect_equal(markdown_text_block(""), NULL)
+test_that("handles empty inputs (returns NULL)", {
+  expect_null(markdown_text_inline(""))
+  expect_null(markdown_text_inline(NULL))
+  expect_null(markdown_text_block(NULL))
+  expect_null(markdown_text_block(""))
 
   path <- withr::local_tempfile()
   file_create(path)
-  expect_equal(markdown_body(path), NULL)
+  expect_null(markdown_body(path))
 })
 
 test_that("header attributes are parsed", {

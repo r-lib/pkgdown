@@ -124,7 +124,7 @@ navbar_components <- function(pkg = ".") {
   if (pkg$bs_version == 5) {
     menu$search <- menu_search()
   }
-  
+
   if (!is.null(pkg$tutorials)) {
     menu$tutorials <- menu_submenu(
       tr_("Tutorials"),
