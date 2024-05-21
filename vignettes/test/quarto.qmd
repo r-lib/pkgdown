@@ -7,3 +7,19 @@ vignette: >
 ---
 
 Example of rendering a quarto vignette.
+
+## Figure numbers
+
+```{r, cross-ref}
+#| include: false
+set.seed(42)
+plot(rnorm(100))
+```
+
+See \@ref(fig:cross-ref) for a plot.
+
+## Figure cross-references
+
+![bacon](bacon.jpg){#fig-bacon}
+
+See @fig-bacon for an illustration.
