@@ -1,0 +1,9 @@
+---
+title: "Quarto vignette"
+vignette: >
+  %\VignetteIndexEntry{Quarto vignette}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+Example of rendering a quarto vignette.
