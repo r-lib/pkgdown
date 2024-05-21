@@ -5,7 +5,7 @@ test_that("usage escapes special characters", {
 
   usage2html <- function(x) {
     rd <- rd_text(paste0("\\usage{", x, "}"), FALSE)[[1]]
-    as_data(rd)  
+    as_data(rd)
   }
 
   expect_snapshot({
@@ -13,7 +13,7 @@ test_that("usage escapes special characters", {
     cat(strip_html_tags(usage2html("# <>\nx")))
     "Unparseable"
     cat(strip_html_tags(usage2html("# <>\n<")))
-  })  
+  })
 })
 
 test_that("S4 methods gets comment", {

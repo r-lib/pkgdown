@@ -53,7 +53,7 @@ test_that(".Rd without usage doesn't get Usage section", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "e"))
-  
+
   html <- xml2::read_html(path(pkg$dst_path, "reference", "e.html"))
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
   clean_site(pkg, quiet = TRUE)
@@ -122,7 +122,7 @@ test_that("title and page title escapes html", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "g"))
-  
+
   html <- xml2::read_html(path(pkg$dst_path, "reference", "g.html"))
   expect_equal(xpath_text(html, "//title", trim = TRUE), "g <-> h — g • testpackage")
   expect_equal(xpath_text(html, "//h1", trim = TRUE), "g <-> h")
