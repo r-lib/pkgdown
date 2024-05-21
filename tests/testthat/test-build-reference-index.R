@@ -71,10 +71,10 @@ test_that("errors well when a content entry is empty", {
     - title: bla
       contents:
       - aname
-      - 
+      -
   ")
   suppressMessages(init_site(pkg))
-  
+
   expect_snapshot(build_reference_index(pkg), error = TRUE)
 })
 

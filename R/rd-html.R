@@ -81,7 +81,7 @@ as_html.character <- function(x, ..., escape = TRUE) {
   }
 }
 #' @export
-as_html.TEXT <-  function(x, ..., escape = TRUE) { 
+as_html.TEXT <-  function(x, ..., escape = TRUE) {
   # tools:::htmlify
   x <- gsub("---", "\u2014", x)
   x <- gsub("--", "\u2013", x)
@@ -399,7 +399,7 @@ parse_descriptions <- function(rd, ..., id_prefix = NULL) {
     if (inherits(x, "tag_item")) {
       term <- flatten_text(x[[1]], ...)
       def <- flatten_para(x[[2]], ...)
-    
+
       if (!is.null(id_prefix)) {
         id <- paste0(id_prefix, make_slug(term))
         id_attr <- paste0(" id='", id, "'")

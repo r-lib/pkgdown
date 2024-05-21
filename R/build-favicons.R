@@ -84,11 +84,11 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     cli::cli_abort("API request failed.", .internal = TRUE)
   }
 
-  tmp <- withr::local_tempdir()
+  tmp <- withr::local_tempfile()
   result <- httr::RETRY(
     "GET",
     result$favicon$package_url,
-    httr::write_disk(tmp),
+    httr::write_disk(tmp, overwrite = TRUE),
     quiet = TRUE
   )
 

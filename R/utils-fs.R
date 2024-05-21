@@ -1,5 +1,5 @@
-dir_copy_to <- function(src_dir, 
-                        dst_dir, 
+dir_copy_to <- function(src_dir,
+                        dst_dir,
                         src_root,
                         dst_root,
                         src_label = "",
@@ -13,7 +13,7 @@ dir_copy_to <- function(src_dir,
 
   src_paths <- dir_ls(src_dir, recurse = TRUE)
   is_dir <- is_dir(src_paths)
-  
+
   dst_paths <- path(dst_dir, path_rel(src_paths, src_dir))
 
   # First create directories
@@ -126,11 +126,4 @@ path_package_pkgdown <- function(path,
 
 path_pkgdown <- function(...) {
   system_file(..., package = "pkgdown")
-}
-
-pkgdown_config_relpath <- function(pkg) {
-  pkg <- as_pkgdown(pkg)
-  config_path <- pkgdown_config_path(pkg$src_path)
-
-  path_rel(config_path, pkg$src_path)
 }

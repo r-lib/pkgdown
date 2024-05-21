@@ -30,10 +30,10 @@ test_that("config_check_list gives informative errors", {
   pkg <- local_pkgdown_site()
   config_check_list_ <- function(...) {
     config_check_list(..., error_pkg = pkg, error_path = "path")
-  } 
+  }
 
   expect_snapshot(error = TRUE, {
     config_check_list_(1, has_names = "x")
     config_check_list_(list(x = 1, y = 1), has_names = c("y", "z"))
   })
-}) 
+})

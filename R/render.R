@@ -65,7 +65,7 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
 
   # Strip trailing whitespace
   rendered <- gsub("\\s+\n", "\n", rendered, perl = TRUE)
-  
+
   xml2::read_html(rendered, encoding = "UTF-8")
 }
 
@@ -132,10 +132,10 @@ data_template <- function(pkg = ".", depth = 0L) {
   print_yaml(out)
 }
 
-data_open_graph <- function(pkg = ".") {
+data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  og <- pkg$meta$template$opengraph %||% list()
-  og <- check_open_graph(og)
+  og <- pkg$meta$template$opengraph
+  og <- check_open_graph(og, pkgdown_config_path(pkg), call = call)
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
     og$image <- list(src = path_file(find_logo(pkg$src_path)))
   }
@@ -153,55 +153,47 @@ data_open_graph <- function(pkg = ".") {
   og
 }
 
-check_open_graph <- function(og) {
-  if (!is.list(og)) {
-    fog <- friendly_type_of(og)
-    cli::cli_abort(
-      "{.var opengraph} must be a list, not {.val fog}.",
-      call = caller_env()
-    )
+check_open_graph <- function(og, path, call = caller_env()) {
+  if (is.null(og)) {
+    return()
   }
+
+  is_yaml <- path_ext(path) %in% c("yml", "yaml")
+  base_path <- if (is_yaml) "template.opengraph" else "opengraph"
+
+  check_open_graph_list(
+    og,
+    file_path = path,
+    error_path = base_path,
+    error_call = call
+  )
+
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
     cli::cli_warn(
-      "Unsupported {.var opengraph} field{?s}: {.val unsupported_fields}."
+      "{.file {path}}: Unsupported {.field {base_path}} {cli::qty(unsupported_fields)} field{?s}: {.val {unsupported_fields}}.",
+      call = call
     )
   }
-  if ("twitter" %in% names(og)) {
-    if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
-      cli::cli_abort(
-        "The {.var opengraph: twitter} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (!is.list(og$twitter)) {
-      cli::cli_abort(
-        "The {.var opengraph: twitter} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
-      cli::cli_abort(
-        "{.var opengraph: twitter} must include either {.val creator} or {.val site}.",
-        call = caller_env()
-      )
-    }
+  check_open_graph_list(
+    og$twitter,
+    file_path = path,
+    error_path = paste0(base_path, ".twitter"),
+    error_call = call
+  )
+  if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+    cli::cli_abort(
+      "{.file {path}}: {.field opengraph.twitter} must include either {.field creator} or {.field site}.",
+      call = call
+    )
   }
-  if ("image" %in% names(og)) {
-    if (is.character(og$image) && length(og$image) == 1) {
-      cli::cli_abort(
-        "The {.var opengraph: image} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (!is.list(og$image)) {
-      cli::cli_abort(
-        "The {.var opengraph: image} option must be a list.",
-        call = caller_env()
-      )
-    }
-  }
+  check_open_graph_list(
+    og$image,
+    file_path = path,
+    error_path = paste0(base_path, ".image"),
+    error_call = call
+  )
   og[intersect(supported_fields, names(og))]
 }
 
@@ -211,6 +203,20 @@ render_template <- function(path, data) {
     return("")
 
   whisker::whisker.render(template, data)
+}
+
+check_open_graph_list <- function(x,
+                                  file_path,
+                                  error_path,
+                                  error_call = caller_env()) {
+  if (is.list(x) || is.null(x)) {
+    return()
+  }
+  not <- friendly_type_of(x)
+  cli::cli_abort(
+    "{.file {file_path}}: {.field {error_path}} must be a list, not {not}.",
+    call = error_call
+  )
 }
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
