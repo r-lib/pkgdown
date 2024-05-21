@@ -1,16 +1,3 @@
-#' @importFrom magrittr %>%
-#' @importFrom utils installed.packages
-#' @import rlang
-#' @import fs
-#' @keywords internal
-"_PACKAGE"
-
-release_bullets <- function() {
-  c(
-    "Check that [test/widget.html](https://pkgdown.r-lib.org/dev/articles/) responds to mouse clicks on 5/10/50"
-  )
-}
-
 #' Determine if code is executed by pkgdown
 #'
 #' This is occasionally useful when you need different behaviour by
@@ -90,4 +77,3 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
 
   path
 }
-
