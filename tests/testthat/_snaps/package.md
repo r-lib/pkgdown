@@ -23,10 +23,10 @@
 # read_meta() errors gracefully if _pkgdown.yml failed to parse
 
     Code
-      as_pkgdown(test_path("assets/bad-yaml"))
+      as_pkgdown(pkg$src_path)
     Condition
       Error in `as_pkgdown()`:
-      ! Could not parse config file at 'assets/bad-yaml/_pkgdown.yml'.
+      ! Could not parse config file at '<src>/_pkgdown.yml'.
       Caused by error in `yaml.load()`:
       ! Scanner error: mapping values are not allowed in this context at line 2, column 8
 

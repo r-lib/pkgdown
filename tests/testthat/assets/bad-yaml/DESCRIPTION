@@ -1,3 +1,0 @@
-Package: kittens
-Authors@R: person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
-VignetteBuilder: knitr
