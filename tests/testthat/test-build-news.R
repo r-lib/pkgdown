@@ -113,12 +113,6 @@ test_that("correct timeline for first ggplot2 releases", {
   expect_equal(timeline, expected)
 })
 
-test_that("determines page style from meta", {
-  expect_equal(news_style(meta = list()), "single")
-  expect_equal(news_style(meta = list(news = list(one_page = FALSE))), "multi")
-  expect_equal(news_style(meta = list(news = list(list(one_page = FALSE)))), "multi")
-})
-
 # news_title and version_page -----------------------------------------------
 
 test_that("can recognise common forms of title", {

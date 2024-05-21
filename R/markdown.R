@@ -8,8 +8,11 @@ markdown_text <- function(text, ...) {
   markdown_path_html(md_path, ...)
 }
 
-markdown_text_inline <- function(text, where = "<inline>", pkg, ...) {
-  html <- markdown_text(text, ...)
+markdown_text_inline <- function(text,
+                                 error_path,
+                                 error_pkg,
+                                 error_call = caller_env()) {
+  html <- markdown_text(text)
   if (is.null(html)) {
     return()
   }
@@ -17,13 +20,13 @@ markdown_text_inline <- function(text, where = "<inline>", pkg, ...) {
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   if (length(children) > 1) {
     config_abort(
-      pkg,
-      "{.field {where}} must supply an inline element, not a block element.",
-      call = caller_env()
+      error_pkg,
+      "{.field {error_path}} must be inline markdown.",
+      call = error_call
     )
   }
 
-  paste0(xml2::xml_contents(children), collapse="")
+  paste0(xml2::xml_contents(children), collapse = "")
 }
 
 markdown_text_block <- function(text, ...) {

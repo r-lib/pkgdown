@@ -30,6 +30,49 @@
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
 
+# bad width gives nice error
+
+    Code
+      build_rmarkdown_format(pkg, "article")
+    Condition
+      Error in `build_rmarkdown_format()`:
+      ! code.width must be a whole number, not the string "abc".
+      i Edit _pkgdown.yml to fix the problem.
+
+# validates articles yaml
+
+    Code
+      data_articles_index_(1)
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles must be a list, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_articles_index_(list(1))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1] must be a list, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_articles_index_(list(list(title = 1)))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1].title must be a string, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_articles_index_(list(list(title = "a\n\nb")))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1].title must be inline markdown.
+      i Edit _pkgdown.yml to fix the problem.
+    Code
+      data_articles_index_(list(list(title = "a", contents = 1)))
+    Condition
+      Error in `build_articles()`:
+      ! articles[1].contents[1] must be a string.
+      i You might need to add '' around special YAML values like 'N' or 'off'
+      i Edit _pkgdown.yml to fix the problem.
+
 # articles in vignettes/articles/ are unnested into articles/
 
     Code
@@ -60,5 +103,5 @@
       build_article(pkg = pkg, name = "bad-opengraph")
     Condition
       Error in `build_article()`:
-      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not an integer vector.
+      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not the number 1.
 

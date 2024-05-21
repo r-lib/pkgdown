@@ -7,6 +7,32 @@ test_that("authors page includes inst/AUTHORS", {
   expect_match(lines, "<pre>Hello</pre>", all = FALSE)
 })
 
+test_that("data_authors validates yaml inputs", {
+  data_authors_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_authors(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_authors_(authors = 1)
+    data_authors_(template = list(authors = list(before = 1)))
+    data_authors_(template = list(authors = list(after = 1)))
+  })
+})
+
+test_that("data_home_sidebar_authors validates yaml inputs", {
+  data_home_sidebar_authors_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_home_sidebar_authors(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_home_sidebar_authors_(authors = list(sidebar = list(roles = 1)))
+    data_home_sidebar_authors_(authors = list(sidebar = list(before = 1)))
+    data_home_sidebar_authors_(authors = list(sidebar = list(before = "x\n\ny")))
+  })
+})
+
 # authors --------------------------------------------------------------------
 
 test_that("ORCID can be identified & removed from all comment styles", {
