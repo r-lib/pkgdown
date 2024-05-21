@@ -38,6 +38,10 @@ rstudio_save_all <- function() {
 
 is_syntactic <- function(x) x == make.names(x)
 
+auto_quote <- function(x) {
+  ifelse(is_syntactic(x), x, paste0("`", x, "`"))
+}
+
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 str_squish <- function(x) str_trim(gsub("\\s+", " ", x))

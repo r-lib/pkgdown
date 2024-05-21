@@ -67,12 +67,7 @@ parse_usage <- function(x) {
 
 short_name <- function(name, type, signature) {
   name <- escape_html(name)
-
-  if (!is_syntactic(name)) {
-    qname <- paste0("`", name, "`")
-  } else {
-    qname <- name
-  }
+  qname <- auto_quote(name)
 
   if (type == "data") {
     qname

@@ -60,9 +60,9 @@ test_that("warns if missing topics", {
   expect_snapshot(data_reference_index(pkg), error = TRUE)
 })
 
-test_that("default reference includes all functions", {
+test_that("default reference includes all functions, only escaping non-syntactic", {
   ref <- default_reference_index(test_path("assets/reference"))
-  expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
+  expect_equal(ref[[1]]$contents, c("a", "b", "c", "e", "`?`"))
 })
 
 test_that("errors well when a content entry is empty", {
