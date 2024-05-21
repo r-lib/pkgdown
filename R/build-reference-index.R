@@ -156,7 +156,7 @@ default_reference_index <- function(pkg = ".") {
   print_yaml(list(
     list(
       title = tr_("All functions"),
-      contents = paste0('`', exported$name, '`')
+      contents = auto_quote(unname(exported$name))
     )
   ))
 }
