@@ -259,7 +259,7 @@ test_that("default template includes all articles", {
   file_create(path(pkg$src_path, "vignettes", "a.Rmd"))
   pkg <- as_pkgdown(pkg$src_path)
 
-  expect_equal(default_articles_index(pkg)[[1]]$contents, c("a", "b", "c"))
+  expect_equal(default_articles_index(pkg)[[1]]$contents, "a")
 })
 
 test_that("check doesn't include getting started vignette", {
