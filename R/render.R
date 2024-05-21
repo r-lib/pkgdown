@@ -85,7 +85,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   }
   out$site <- list(
     root = up_path(depth),
-    title = pkg$meta$title %||% pkg$package
+    title = config_pluck_string(pkg, "title", default = pkg$package)
   )
   out$year <- strftime(Sys.time(), "%Y")
 
@@ -134,13 +134,13 @@ data_template <- function(pkg = ".", depth = 0L) {
 
 data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  og <- pkg$meta$template$opengraph
-  og <- check_open_graph(og, pkgdown_config_path(pkg), call = call)
+  og <- config_pluck_list(pkg, "template.opengraph", default = list())
+  og <- check_open_graph(og, pkgdown_config_path(pkg) %||% "_pkgdown.yml", call = call)
   if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
     og$image <- list(src = path_file(find_logo(pkg$src_path)))
   }
   if (!is.null(og$image) && !grepl("^http", og$image$src)) {
-    site_url <- pkg$meta$url %||% "/"
+    site_url <- config_pluck(pkg, "url", default = "/")
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
@@ -212,7 +212,7 @@ check_open_graph_list <- function(x,
   if (is.list(x) || is.null(x)) {
     return()
   }
-  not <- friendly_type_of(x)
+  not <- obj_type_friendly(x)
   cli::cli_abort(
     "{.file {file_path}}: {.field {error_path}} must be a list, not {not}.",
     call = error_call

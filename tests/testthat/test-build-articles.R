@@ -120,6 +120,26 @@ test_that("can set width", {
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
 
+test_that("bad width gives nice error", {
+  pkg <- local_pkgdown_site(meta = list(code = list(width = "abc")))
+  expect_snapshot(build_rmarkdown_format(pkg, "article"), error = TRUE)
+})
+
+test_that("validates articles yaml", {
+  data_articles_index_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(articles = x))
+    data_articles_index(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_articles_index_(1)
+    data_articles_index_(list(1))
+    data_articles_index_(list(list(title = 1)))
+    data_articles_index_(list(list(title = "a\n\nb")))
+    data_articles_index_(list(list(title = "a", contents = 1)))
+  })
+})
+
 test_that("finds external resources referenced by R code in the article html", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
@@ -251,6 +271,15 @@ test_that("internal articles aren't included and don't trigger warning", {
   expect_no_error(index <- data_articles_index(pkg))
   expect_length(index$sections, 1)
   expect_length(index$sections[[1]]$contents, 2)
+})
+
+test_that("default template includes all articles", {
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", "a.Rmd"))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_equal(default_articles_index(pkg)[[1]]$contents, "a")
 })
 
 test_that("check doesn't include getting started vignette", {

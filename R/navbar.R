@@ -158,15 +158,14 @@ navbar_articles <- function(pkg = ".") {
     menu$intro <- menu_link(tr_("Get started"), intro$file_out)
   }
 
-  meta <- pkg$meta
-  if (!has_name(meta, "articles")) {
+  if (!has_name(pkg$meta, "articles")) {
     vignettes <- vignettes[!pkg_intro, , drop = FALSE]
     menu$articles <- menu_submenu(
       tr_("Articles"),
       menu_links(vignettes$title, vignettes$file_out)
     )
   } else {
-    articles <- meta$articles
+    articles <- config_pluck(pkg, "articles")
 
     navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
     if (length(navbar) == 0) {
