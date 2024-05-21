@@ -184,30 +184,31 @@ read_meta <- function(path, call = caller_env()) {
   if (is.null(path)) {
     yaml <- list()
   } else {
-    yaml <- withCallingHandlers(
-      yaml::yaml.load_file(path) %||% list(),
-      error = function(e) {
-        # Tweak the original message to put the location of the error at the end
-        # based on yaml 2.3.8 error message structure
-        # (<<path>>) Parser error: <<parsing error>>
-        yaml_err <- conditionMessage(e)
-        # extract parsing error from original error (i.e. remove the path)
-        parsing_error <- sub("[^\\)]+\\)\\s?", "", yaml_err)
-        # Extract path from original error
-        path_yaml <- regmatches(yaml_err, m = regexpr("\\(([^\\)]+)\\)", yaml_err))
-        path_yaml <- gsub("\\(([^\\)]+)\\)", "\\1", path_yaml)
-        # Rethrow cli-styled error!
-        cli::cli_abort(c(
-          "x" = "Could not parse the config file.",
-          "!" = parsing_error,
-          "i" = "Edit {.path {path_yaml}} to fix the problem."
-          ),
-          call = call
-        )
-      })
+    yaml <- cli_yaml_load(path, call = call) %||% list()
   }
-
   yaml
+}
+
+# Wrapper around yaml::yaml.load_file()
+cli_yaml_load <- function(path, call = caller_env()) {
+  # Tweak the original message to put the location of the error at the end
+  withCallingHandlers(
+    yaml::yaml.load_file(
+      path,
+      error.label = NULL # suppress path from message.
+    ),
+    error = function(e) {
+      yaml_err <- conditionMessage(e)
+      # Rethrow cli-styled error!
+      cli::cli_abort(c(
+          "x" = "Could not parse the config file.",
+          "!" = yaml_err,
+          "i" = "Edit {.path {path}} to fix the problem."
+        ),
+        call = call
+      )
+    }
+  )
 }
 
 # Topics ------------------------------------------------------------------
