@@ -9,6 +9,7 @@
 #' * [build_articles()]
 #' * [build_tutorials()]
 #' * [build_news()]
+#' * [build_redirects()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the
@@ -36,7 +37,7 @@
 #' # Navbar and footer
 #'
 #' The `navbar` and `footer` fields control the appearance of the navbar
-#' footer which appear on every page. Learn more about these fields in 
+#' footer which appear on every page. Learn more about these fields in
 #' `vignette("customise")`.
 #'
 #' # Search
@@ -56,21 +57,22 @@
 #'
 #' ### Setting development mode
 #'
-#' The development `mode` of a site controls where the site is built,
-#' the colour of the package version in the navbar, the version tooltip,
-#' and whether or not the site is indexed by search engines. There are
-#' four possible modes:
+#' The development `mode` of a site controls where the built site is placed
+#' and how it is styled (i.e. the colour of the package version in the
+#' navbar, the version tooltip), and whether or not the site is indexed by
+#' search engines. There are four possible modes:
 #'
-#' * **automatic** (`mode: auto`): automatically determines the mode based on the
-#'   version number:
+#' * **automatic** (`mode: auto`): determines the mode based on the version:
 #'
 #'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
 #'   * four version components: development.
 #'   * everything else -> release.
 #'
-#' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring. Development badges are
-#'   not shown in the sidebar (see `?build_home`).
+#' * **release** (`mode: release`), the default. Site is written to `docs/`
+#'   and styled like a released package, even if the content is for an
+#'   unreleased or development version. Version in navbar gets the default
+#'   colouring. Development badges are not shown in the sidebar
+#'   (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are
@@ -82,6 +84,10 @@
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
 #'   Development badges are shown in the sidebar (see `?build_home`).
+#'
+#' Use `mode: auto` if you want both a released and a dev site, and
+#' `mode: release` if you just want a single site. It is very rare that you
+#' will need either devel or unreleased modes.
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
@@ -172,12 +178,12 @@
 #'
 #' To capture usage of your site with a web analytics tool, you can make
 #' use of the `includes` field to add the special HTML they need. This HTML
-#' is typically placed `in_header` (actually in the `<head>`), `before_body`, 
-#' or `after_body`. 
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`,
+#' or `after_body`.
 #' You can learn more about how includes work in pkgdown at
 #' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' I include a few examples of popular analytics platforms below, but we 
+#' I include a few examples of popular analytics platforms below, but we
 #' recommend getting the HTML directly from the tool:
 #'
 #' *   [plausible.io](https://plausible.io):
@@ -275,27 +281,6 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#'
-#' # Redirects
-#' If you change the structure of your documentation (by renaming vignettes or 
-#' help topics) you can setup redirects from the old content to the new content.
-#' One or several now-absent pages can be redirected to a new page (or to a new 
-#' section of a new page). This works by creating a html page that performs a 
-#' "meta refresh", which isn't the best way of doing a redirect but works 
-#' everywhere that you might deploy your site.
-#' 
-#' The syntax is the following, with old paths on the left, and new paths or 
-#' URLs on the right.
-#' 
-#' ```yaml
-#' redirects:
-#'   - ["articles/old-vignette-name.html", "articles/new-vignette-name.html"]
-#'   - ["articles/another-old-vignette-name.html", "articles/new-vignette-name.html"]
-#'   - ["articles/yet-another-old-vignette-name.html", "https://pkgdown.r-lib.org/dev"]
-#' ```
-#' 
-#' If for some reason you choose to redirect an existing page make sure to 
-#' exclude it from the search index, see `?build_search`.
 #'
 #' # Options
 #' Users with limited internet connectivity can disable CRAN checks by setting
@@ -458,6 +443,8 @@ build_site_local <- function(pkg = ".",
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
   cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
+  pkgdown_sitrep(pkg)
+
   init_site(pkg)
 
   build_home(pkg, override = override, preview = FALSE)
@@ -481,6 +468,8 @@ build_site_local <- function(pkg = ".",
   } else {
     build_search(pkg, override = override)
   }
+
+  check_built_site(pkg)
 
   cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)

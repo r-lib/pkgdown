@@ -1,6 +1,39 @@
 # pkgdown (development version)
 
 * The dark mode introduced in Bootstrap 5.3 can now be used in pkgdown sites based on work in bslib by @gadenbuie. See the customization vignette for details.
+* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
+* `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
+* Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
+* `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
+* `build_home_index()` now reports when rendering the home page (#2544).
+* Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
+* Improve HTML5 compliance (#2369):
+  * No longer support IE9 or earlier
+  * Strip trailing whitespace
+  * Label `<nav>`s and improve navbar html.
+* `build_home_index()` now renders math if you use it in your home page (#2263).
+* `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
+* BS5 templates no longer include empty link to logo when none exists (#2536).
+* `build_articles()` now reports if you are missing alt-text for any images (#2357).
+* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
+* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
+* New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
+* `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
+* Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
+* `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
+* `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
+* `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
+* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
+* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+* `build_redirects()` now automatically adds redirects for topic 
+aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).
+* `build_redirects()` now reports which redirects it is generating.
+* The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
+* Anchors are displayed when they're the target of a link.
+* `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
+* `build_redirects()` is now exported to make it easier to document (#2500).
+* `build_reference()` now automatically renders any tables created by gt (#2326).
+* `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).
 * `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
 * `init_site()` once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (#2445).
 * Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).

@@ -12,5 +12,6 @@ vignette: >
 Some words, and then an image like this:
 
 ```{r, echo = FALSE}
+#| fig-alt: The pkgdown logo
 knitr::include_graphics("open-graph/logo.png")
 ```

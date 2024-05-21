@@ -2,20 +2,27 @@
 % Please edit documentation in R/check.R
 \name{check_pkgdown}
 \alias{check_pkgdown}
+\alias{pkgdown_sitrep}
 \title{Check \verb{_pkgdown.yml}}
 \usage{
 check_pkgdown(pkg = ".")
+
+pkgdown_sitrep(pkg = ".")
 }
 \arguments{
 \item{pkg}{Path to package.}
 }
 \description{
-Check that your \verb{_pkgdown.yml} is valid without building the whole
-site. Currently this:
+This pair of functions checks that your \verb{_pkgdown.yml} is valid without
+building the whole site. \code{check_pkgdown()} errors at the first problem;
+\code{pkgdown_sitrep()} reports the status of all checks.
+
+Currently they check that:
 \itemize{
-\item Checks the reference and article indexes to ensure that pkgdown can
-read them, and that every documentation topic and vignette/article is
-included in the index.
-\item Validates any opengraph metadata that you might have supplied
+\item There's a \code{url} in the pkgdown configuration, which is also recorded
+in the \code{URL} field of the \code{DESCRIPTION}.
+\item All opengraph metadata is valid.
+\item All reference topics are included in the index.
+\item All articles/vignettes are included in the index.
 }
 }

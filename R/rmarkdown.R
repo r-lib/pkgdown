@@ -7,7 +7,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
   output_path <- path_abs(output, pkg$dst_path)
 
   if (!file_exists(input_path)) {
-    cli::cli_abort("Can't find {src_path(input).", call = caller_env())
+    cli::cli_abort("Can't find {src_path(input)}.", call = call)
   }
 
   cli::cli_inform("Reading {src_path(input)}")
@@ -37,6 +37,7 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
       error = function(cnd) {
         lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
+        lines <- escape_cli(lines)
         cli::cli_abort(
           c(
             "!" = "Failed to render {.path {input}}.",
@@ -52,7 +53,8 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     path <- inject(rmarkdown_render_with_seed(!!!args))
   }
 
-  if (identical(path_ext(path)[[1]], "html")) {
+  is_html <- identical(path_ext(path)[[1]], "html")
+  if (is_html) {
     update_html(
       path,
       tweak_rmarkdown_html,
@@ -65,15 +67,15 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
   }
 
   # Copy over images needed by the document
-  if (copy_images) {
+  if (copy_images && is_html) {
     ext_src <- rmarkdown::find_external_resources(input_path)
 
     # temporarily copy the rendered html into the input path directory and scan
     # again for additional external resources that may be been included by R code
-    tempfile_in_input_dir <- file_temp(ext = "html", tmp_dir = path_dir(input_path))
-    file_copy(path, tempfile_in_input_dir)
-    withr::defer(unlink(tempfile_in_input_dir))
-    ext_post <- rmarkdown::find_external_resources(tempfile_in_input_dir)
+    tempfile <- path(path_dir(input_path), "--find-assets.html")
+    withr::defer(try(file_delete(tempfile)))
+    file_copy(path, tempfile)
+    ext_post <- rmarkdown::find_external_resources(tempfile)
 
     ext <- rbind(ext_src, ext_post)
     ext <- ext[!duplicated(ext$path), ]
@@ -88,11 +90,25 @@ render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images =
     dir_create(unique(path_dir(dst)))
     file_copy(src, dst, overwrite = TRUE)
   }
-  check_missing_images(pkg, input, output)
+
+  if (is_html) {
+    check_missing_images(pkg, input_path, output)
+  }
 
   invisible(path)
 }
 
+#' Escapes a cli msg
+#'
+#' Removes empty lines and escapes braces
+#' @param msg A character vector with messages to be escaped
+#' @noRd
+escape_cli <- function(msg) {
+  msg <- msg[nchar(msg) >0]
+  msg <- gsub("{", "{{", msg, fixed = TRUE)
+  msg <- gsub("}", "}}", msg, fixed = TRUE)
+  msg
+}
 
 rmarkdown_render_with_seed <- function(..., seed = NULL) {
   if (!is.null(seed)) {
@@ -100,15 +116,12 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
     if (requireNamespace("htmlwidgets", quietly = TRUE)) {
       htmlwidgets::setWidgetIdSeed(seed)
     }
-
-    # since envir is copied from the parent fn into callr::r_safe(),
-    # set.seed() sets the seed in the wrong global env and we have to
-    # manually copy it over
-    # if (!identical(envir, globalenv())) {
-    #   envir$.Random.seed <- .GlobalEnv$.Random.seed
-    # }
   }
- 
+
+  # Ensure paths from output are not made relative to input
+  # https://github.com/yihui/knitr/issues/2171
+  options(knitr.graphics.rel_path = FALSE)
+
   rmarkdown::render(envir = globalenv(), ...)
 }
 

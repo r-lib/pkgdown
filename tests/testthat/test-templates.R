@@ -73,8 +73,8 @@ test_that("find templates in local pkgdown first", {
 # Expected contents -------------------------------------------------------
 
 test_that("BS5 templates have main + aside", {
-  names <- dir(path_pkgdown("bs5", "templates"), pattern = "content-")
-  names <- path_ext_remove(names)
+  names <- dir_ls(path_pkgdown("BS5", "templates"), regexp = "content-")
+  names <- path_ext_remove(path_file(names))
   names <- gsub("content-", "", names)
 
   templates <- lapply(names, read_template_html,
@@ -192,7 +192,7 @@ test_that("Warns when Bootstrap theme is specified in multiple locations", {
         bootswatch: darkly
   ')
 
-  expect_snapshot_warning(
+  expect_snapshot(
     get_bslib_theme(pkg)
   )
 })

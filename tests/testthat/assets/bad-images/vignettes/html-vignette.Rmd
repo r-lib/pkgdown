@@ -6,4 +6,4 @@ title: "test"
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-![](foo.png)
+![picture of a cute kitten](kitten.jpg)

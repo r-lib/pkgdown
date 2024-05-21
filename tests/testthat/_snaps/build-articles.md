@@ -1,20 +1,3 @@
-# links to man/figures are automatically relocated
-
-    Code
-      copy_figures(pkg)
-    Message
-      Copying man/figures/kitten.jpg to reference/figures/kitten.jpg
-
----
-
-    Code
-      build_articles(pkg, lazy = FALSE)
-    Message
-      -- Building articles -----------------------------------------------------------
-      Writing `articles/index.html`
-      Reading vignettes/kitten.Rmd
-      Writing `articles/kitten.html`
-
 # warns about missing images
 
     Code
@@ -24,18 +7,20 @@
       Writing `articles/index.html`
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
-    Condition
-      Warning:
-      Missing images in 'vignettes/html-vignette.Rmd': 'foo.png'
+      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
 
-# articles don't include header-attrs.js script
+# warns about missing alt-text
 
     Code
-      path <- build_article("standard", pkg)
+      build_article("missing-images", pkg)
     Message
-      Reading vignettes/standard.Rmd
-      Writing `articles/standard.html`
+      Reading vignettes/missing-images.Rmd
+      Writing `articles/missing-images.html`
+      x Missing alt-text in 'vignettes/missing-images.Rmd'
+      * kitten.jpg
+      * missing-images_files/figure-html/unnamed-chunk-1-1.png
+      i Learn more in `vignette(accessibility)`.
 
 # can build article that uses html_vignette
 
@@ -45,84 +30,65 @@
       Reading vignettes/html-vignette.Rmd
       Writing `articles/html-vignette.html`
 
-# can override html_document() options
+# bad width gives nice error
 
     Code
-      path <- build_article("html-document", pkg)
-    Message
-      Reading vignettes/html-document.Rmd
-      Writing `articles/html-document.html`
+      build_rmarkdown_format(pkg, "article")
+    Condition
+      Error in `build_rmarkdown_format()`:
+      ! code.width must be a whole number, not the string "abc".
+      i Edit _pkgdown.yml to fix the problem.
 
-# html widgets get needed css/js
-
-    Code
-      path <- build_article("widget", pkg)
-    Message
-      Reading vignettes/widget.Rmd
-      Writing `articles/widget.html`
-
-# can override options with _output.yml
+# validates articles yaml
 
     Code
-      path <- build_article("html-document", pkg)
-    Message
-      Reading vignettes/html-document.Rmd
-      Writing `articles/html-document.html`
-
-# can set width
-
+      data_articles_index_(1)
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles must be a list, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
     Code
-      path <- build_article("width", pkg)
-    Message
-      Reading vignettes/width.Rmd
-      Writing `articles/width.html`
-
-# finds external resources referenced by R code in the article html
-
+      data_articles_index_(list(1))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1] must be a list, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
     Code
-      path <- build_article("resources", pkg)
-    Message
-      Reading vignettes/resources.Rmd
-      Writing `articles/resources.html`
-
-# BS5 article laid out correctly with and without TOC
-
+      data_articles_index_(list(list(title = 1)))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1].title must be a string, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
     Code
-      toc_true_path <- build_article("standard", pkg)
-    Message
-      Reading vignettes/standard.Rmd
-      Writing `articles/standard.html`
-
----
-
+      data_articles_index_(list(list(title = "a\n\nb")))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1].title must be inline markdown.
+      i Edit _pkgdown.yml to fix the problem.
     Code
-      toc_false_path <- build_article("toc-false", pkg)
-    Message
-      Reading vignettes/toc-false.Rmd
-      Writing `articles/toc-false.html`
+      data_articles_index_(list(list(title = "a", contents = 1)))
+    Condition
+      Error in `build_articles()`:
+      ! articles[1].contents[1] must be a string.
+      i You might need to add '' around special YAML values like 'N' or 'off'
+      i Edit _pkgdown.yml to fix the problem.
 
 # articles in vignettes/articles/ are unnested into articles/
-
-    Code
-      path <- build_article("articles/nested", pkg)
-    Message
-      Reading vignettes/articles/nested.Rmd
-      Writing `articles/nested.html`
-
----
 
     Code
       build_redirects(pkg)
     Message
       -- Building redirects ----------------------------------------------------------
+      Adding redirect from articles/articles/nested.html to articles/nested.html.
 
-# pkgdown deps are included only once in articles
+# warns about articles missing from index
 
     Code
-      path <- build_article("html-deps", pkg)
-    Message
-      Reading vignettes/html-deps.Rmd
-      Writing `articles/html-deps.html`
+      . <- data_articles_index(pkg)
+    Condition
+      Error:
+      ! 1 vignette missing from index: "c".
+      i Edit _pkgdown.yml to fix the problem.
 
 # output is reproducible by default, i.e. 'seed' is respected
 
@@ -130,4 +96,12 @@
       cat(output)
     Output
       ## [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
+
+# reports on bad open graph meta-data
+
+    Code
+      build_article(pkg = pkg, name = "bad-opengraph")
+    Condition
+      Error in `build_article()`:
+      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not the number 1.
 

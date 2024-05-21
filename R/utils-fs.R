@@ -1,5 +1,5 @@
-dir_copy_to <- function(src_dir, 
-                        dst_dir, 
+dir_copy_to <- function(src_dir,
+                        dst_dir,
                         src_root,
                         dst_root,
                         src_label = "",
@@ -12,8 +12,8 @@ dir_copy_to <- function(src_dir,
   }
 
   src_paths <- dir_ls(src_dir, recurse = TRUE)
-  is_dir <- fs::is_dir(src_paths)
-  
+  is_dir <- is_dir(src_paths)
+
   dst_paths <- path(dst_dir, path_rel(src_paths, src_dir))
 
   # First create directories
@@ -36,7 +36,7 @@ file_copy_to <- function(src_paths,
                          src_label = "",
                          dst_label = "") {
   # Ensure all the "to" directories exist
-  dst_dirs <- unique(fs::path_dir(dst_paths))
+  dst_dirs <- unique(path_dir(dst_paths))
   dir_create(dst_dirs)
 
   eq <- purrr::map2_lgl(src_paths, dst_paths, file_equal)
@@ -54,7 +54,7 @@ file_copy_to <- function(src_paths,
 
 # Checks init_site() first.
 create_subdir <- function(pkg, subdir) {
-  if (!fs::dir_exists(pkg$dst_path)) {
+  if (!dir_exists(pkg$dst_path)) {
     init_site(pkg)
   }
   dir_create(path(pkg$dst_path, subdir))
@@ -72,7 +72,7 @@ out_of_date <- function(source, target) {
     )
   }
 
-  file.info(source)$mtime > file.info(target)$mtime
+  file_info(source)$mtime > file_info(target)$mtime
 }
 
 # Path helpers ------------------------------------------------------------
@@ -126,11 +126,4 @@ path_package_pkgdown <- function(path,
 
 path_pkgdown <- function(...) {
   system_file(..., package = "pkgdown")
-}
-
-pkgdown_config_relpath <- function(pkg) {
-  pkg <- as_pkgdown(pkg)
-  config_path <- pkgdown_config_path(pkg$src_path)
-
-  fs::path_rel(config_path, pkg$src_path)
 }

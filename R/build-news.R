@@ -81,11 +81,12 @@ build_news <- function(pkg = ".",
   cli::cli_rule("Building news")
   create_subdir(pkg, "news")
 
-  switch(news_style(pkg$meta),
-    single = build_news_single(pkg),
-    multi = build_news_multi(pkg)
-  )
-
+  one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
+  if (one_page) {
+    build_news_single(pkg)
+  } else {
+    build_news_multi(pkg)
+  }
   preview_site(pkg, "news", preview = preview)
 }
 
@@ -182,15 +183,15 @@ data_news <- function(pkg = list()) {
   sections <- sections[!is.na(versions)]
 
   if (length(sections) == 0) {
-    cli::cli_warn(c( 
+    cli::cli_warn(c(
       "No version headings found in {src_path('NEWS.md')}",
       i = "See {.help pkgdown::build_news} for expected structure."
     ))
   }
- 
+
   versions <- versions[!is.na(versions)]
 
-  show_dates <- purrr::pluck(pkg, "meta", "news", "cran_dates", .default = !is_testing())
+  show_dates <- config_pluck_bool(pkg, "news.cran_dates", default = !is_testing())
   if (show_dates) {
     timeline <- pkg_timeline(pkg$package)
   } else {
@@ -248,16 +249,14 @@ version_page <- function(x) {
 }
 
 navbar_news <- function(pkg) {
-  releases_meta <- pkg$meta$news$releases
+  releases_meta <- config_pluck_list(pkg, "news.releases")
   if (!is.null(releases_meta)) {
-    menu(tr_("News"),
-      c(
-        list(menu_text(tr_("Releases"))),
-        releases_meta,
-        list(
-          menu_spacer(),
-          menu_link(tr_("Changelog"), "news/index.html")
-        )
+    menu_submenu(tr_("News"),
+      list2(
+        menu_heading(tr_("Releases")),
+        !!!releases_meta,
+        menu_separator(),
+        menu_link(tr_("Changelog"), "news/index.html")
       )
     )
   } else if (has_news(pkg$src_path)) {
@@ -350,10 +349,7 @@ tweak_section_levels <- function(html) {
   invisible()
 }
 
-news_style <- function(meta) {
-  one_page <- purrr::pluck(meta, "news", "one_page") %||%
-    purrr::pluck(meta, "news", 1, "one_page") %||%
-    TRUE
-
+news_style <- function(pkg) {
+  one_page <- config_pluck_bool(pkg, "new.one_page")
   if (one_page) "single" else "multi"
 }

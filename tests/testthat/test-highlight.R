@@ -1,5 +1,5 @@
 test_that("highlight_examples captures dependencies", {
-  withr::defer(unlink(test_path("Rplot001.png")))
+  withr::defer(file_delete(test_path("Rplot001.png")))
 
   dummy_dep <- htmltools::htmlDependency("dummy", "1.0.0", "dummy.js")
   widget <- htmlwidgets::createWidget("test", list(), dependencies = dummy_dep)
@@ -10,7 +10,7 @@ test_that("highlight_examples captures dependencies", {
 })
 
 test_that("highlight_text & highlight_examples include sourceCode div", {
-  withr::defer(unlink(test_path("Rplot001.png")))
+  withr::defer(file_delete(test_path("Rplot001.png")))
 
   html <- xml2::read_html(highlight_examples("a + a", "x"))
   expect_equal(xpath_attr(html, "./body/div", "class"), "sourceCode")

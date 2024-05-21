@@ -38,6 +38,10 @@ rstudio_save_all <- function() {
 
 is_syntactic <- function(x) x == make.names(x)
 
+auto_quote <- function(x) {
+  ifelse(is_syntactic(x), x, paste0("`", x, "`"))
+}
+
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
 str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
@@ -179,6 +183,24 @@ get_section_level <- function(section) {
 section_id <- function(section) {
   h <- xml2::xml_find_first(section, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
   xml2::xml_attr(h, "id")
+}
+
+on_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI", "false")))
+}
+
+# yaml ------------------------------------------------------------
+
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
+}
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
+}
+
+write_yaml <- function(x, path) {
+  write_lines(yaml::as.yaml(x), path = path)
 }
 
 # Helpers for testing -----------------------------------------------------

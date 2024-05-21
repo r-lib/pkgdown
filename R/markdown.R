@@ -8,21 +8,25 @@ markdown_text <- function(text, ...) {
   markdown_path_html(md_path, ...)
 }
 
-markdown_text_inline <- function(text, where = "<inline>", ...) {
-  html <- markdown_text(text, ...)
+markdown_text_inline <- function(text,
+                                 error_path,
+                                 error_pkg,
+                                 error_call = caller_env()) {
+  html <- markdown_text(text)
   if (is.null(html)) {
     return()
   }
 
   children <- xml2::xml_children(xml2::xml_find_first(html, ".//body"))
   if (length(children) > 1) {
-    cli::cli_abort(
-      "Can't use a block element in {.var {where}}, need an inline element: {.var {text}}",
-      call = caller_env()
+    config_abort(
+      error_pkg,
+      "{.field {error_path}} must be inline markdown.",
+      call = error_call
     )
   }
 
-  paste0(xml2::xml_contents(children), collapse="")
+  paste0(xml2::xml_contents(children), collapse = "")
 }
 
 markdown_text_block <- function(text, ...) {
@@ -117,6 +121,7 @@ convert_markdown_to_html <- function(in_path, out_path, ...) {
       "--indented-code-classes=R",
       "--section-divs",
       "--wrap=none",
+      "--mathjax",
       ...
     ))
   )

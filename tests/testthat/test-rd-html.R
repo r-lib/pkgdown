@@ -3,6 +3,10 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
+test_that("converts Rd unicode shortcuts", {
+  expect_snapshot(rd2html("``a -- b --- c''"))
+})
+
 test_that("simple tags translated to known good values", {
   # Simple insertions
   expect_equal(rd2html("\\ldots"), "...")
@@ -159,6 +163,18 @@ test_that("can control \\Sexpr output", {
   expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
   expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
   expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{1 + 2}"),
+    c("<pre>", "[1] 3", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat(42)}"),
+    c("<pre>", "42", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat('42!\n'); 3}"),
+    c("<pre>", "42!", "[1] 3", "</pre>")
+  )
 })
 
 test_that("Sexpr can contain multiple expressions", {
@@ -169,12 +185,6 @@ test_that("Sexpr can contain multiple expressions", {
 test_that("Sexprs with multiple args are parsed", {
   local_context_eval()
   expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
-})
-
-test_that("Sexprs with multiple args are parsed", {
-  skip_if_not(getRversion() >= "4.0.0")
-  local_context_eval()
-  expect_snapshot(rd2html("\\Sexpr[results=verbatim]{1}"), error = TRUE)
 })
 
 test_that("Sexprs in file share environment", {
@@ -352,6 +362,14 @@ test_that("\\describe items can contain multiple paragraphs", {
     \\item{Label 1}{Contents 1}
     \\item{Label 2}{Contents 2}
   }")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
+test_that("can add ids to descriptions", {
+  out <- rd2html("\\describe{
+    \\item{abc}{Contents 1}
+    \\item{xyz}{Contents 2}
+  }", id_prefix = "foo")
   expect_snapshot_output(cat(out, sep = "\n"))
 })
 

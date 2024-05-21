@@ -1,7 +1,7 @@
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  index_name <- pkg$meta$template$params$docsearch$index_name
+  index_name <- config_pluck_string(pkg, "template.params.docsearch.index_name")
   if (is.null(index_name)) {
     return()
   }
@@ -9,7 +9,7 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     index = index_name,
     package = pkg$package,
-    url = pkg$meta$url
+    url = config_pluck_string(pkg, "url")
   )
 
   template <- find_template("config", "docsearch", ext = ".json", pkg = pkg)
@@ -24,11 +24,12 @@ build_docsearch_json <- function(pkg = ".") {
 build_sitemap <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  url <- paste0(pkg$meta$url, "/")
+  url <- paste0(config_pluck_string(pkg, "url"), "/")
   if (is.null(url)) {
     return()
   }
 
+  cli::cli_rule("Building sitemap")
   if (pkg$development$in_dev && pkg$bs_version > 3) {
     url <- paste0(url, pkg$prefix)
   }
@@ -39,7 +40,7 @@ build_sitemap <- function(pkg = ".") {
     paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
   )
 
-  url_nodes <- purrr::map(urls, url_node)
+  url_nodes <- unwrap_purrr_error(purrr::map(urls, url_node))
   for (url in url_nodes) {
     xml2::xml_add_child(doc, url)
   }
@@ -53,8 +54,13 @@ build_sitemap <- function(pkg = ".") {
 }
 
 url_node <- function(url) {
-  xml2::read_xml(
-    paste0("<url><loc>", url, "</loc></url>")
+  withCallingHandlers(
+    xml2::read_xml(
+      paste0("<url><loc>", url, "</loc></url>")
+    ),
+    error = function(err) {
+      cli::cli_abort("Failed to wrap URL {.str {url}}", parent = err)
+    }
   )
 }
 
@@ -90,7 +96,7 @@ build_search <- function(pkg = ".",
   search_index <- build_search_index(pkg)
   jsonlite::write_json(
     search_index,
-    file.path(pkg$dst_path, "search.json"),
+    path(pkg$dst_path, "search.json"),
     auto_unbox = TRUE
   )
 }
@@ -100,7 +106,7 @@ build_search_index <- function(pkg) {
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
   # user-defined exclusions
-  paths <- paths[!paths %in% pkg$meta$search$exclude]
+  paths <- paths[!paths %in% config_pluck_character(pkg, "search.exclude")]
 
   if ("news/index.html" %in% paths) {
     index <- lapply(paths[paths != "news/index.html"], file_search_index, pkg = pkg)
@@ -112,7 +118,7 @@ build_search_index <- function(pkg) {
   }
 
   # Make URLs absolute if possible
-  url <- pkg$meta$url %||% ""
+  url <- config_pluck_string(pkg, "url", default = "")
   fix_path <- function(x) {
     x$path <- sprintf("%s%s", url, x$path)
     x
@@ -121,7 +127,7 @@ build_search_index <- function(pkg) {
 }
 
 news_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
@@ -141,7 +147,7 @@ news_search_index <- function(path, pkg) {
 }
 
 file_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
   title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
     xml2::xml_attr("content")
@@ -165,11 +171,11 @@ file_search_index <- function(path, pkg) {
 }
 # Directory parts (where in the site)
 get_dir <- function(path) {
-  dir <- fs::path_dir(path)
+  dir <- path_dir(path)
   if (dir == ".") {
     return("")
   }
-  paste(capitalise(unlist(fs::path_split(dir))), collapse = " > ")
+  paste(capitalise(unlist(path_split(dir))), collapse = " > ")
 }
 # Headings (where in the page)
 get_headings <- function(section, depth) {
@@ -297,10 +303,10 @@ capitalise <- function(string) {
 }
 
 get_site_paths <- function(pkg) {
-  paths <- fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
-  paths_rel <- fs::path_rel(paths, pkg$dst_path)
+  paths <- dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
+  paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!fs::path_has_parent(paths_rel, "dev")]
+  paths_rel[!path_has_parent(paths_rel, "dev")]
 }

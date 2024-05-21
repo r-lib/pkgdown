@@ -61,18 +61,13 @@ parse_usage <- function(x) {
       cli::cli_warn("Failed to parse usage: {.code {r}}")
       list()
     }
-  )  
+  )
   purrr::map(exprs, usage_type)
 }
 
 short_name <- function(name, type, signature) {
   name <- escape_html(name)
-
-  if (!is_syntactic(name)) {
-    qname <- paste0("`", name, "`")
-  } else {
-    qname <- name
-  }
+  qname <- auto_quote(name)
 
   if (type == "data") {
     qname

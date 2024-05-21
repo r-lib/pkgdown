@@ -1,0 +1,10 @@
+---
+title: "test"
+---
+
+![](kitten.jpg)
+
+
+```{r}
+plot(1:5)
+```

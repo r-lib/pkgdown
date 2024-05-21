@@ -86,6 +86,13 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
+#' ## Missing topics
+#'
+#' pkgdown will warn if there are (non-internal) articles that aren't listed
+#' in the articles index. You can suppress such warnings by listing the
+#' affected articles in a section with `title: internal` (case sensitive);
+#' this section will not be displayed on the index page.
+#'
 #' # External files
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable
@@ -241,10 +248,8 @@ build_article <- function(name,
 
   front <- rmarkdown::yaml_front_matter(input_path)
   # Take opengraph from article's yaml front matter
-  front_opengraph <- check_open_graph(front$opengraph %||% list())
-  data$opengraph <- utils::modifyList(
-    data$opengraph %||% list(), front_opengraph
-  )
+  front_opengraph <- check_open_graph(front$opengraph, input)
+  data$opengraph <- modify_list(data$opengraph, front_opengraph)
 
   # Allow users to opt-in to their own template
   ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
@@ -259,7 +264,7 @@ build_article <- function(name,
     output_file = output_file,
     as_is = as_is
   )
-  data <- utils::modifyList(default_data, data)
+  data <- modify_list(default_data, data)
 
   if (as_is) {
     format <- NULL
@@ -325,8 +330,10 @@ build_rmarkdown_format <- function(pkg,
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
 
   old_pre <- out$pre_knit
+  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
+
   out$pre_knit <- function(...) {
-    options(width = purrr::pluck(pkg, "meta", "code", "width", .default = 80))
+    options(width = width)
     if (is.function(old_pre)) {
       old_pre(...)
     }
@@ -368,13 +375,19 @@ build_articles_index <- function(pkg = ".") {
   )
 }
 
-data_articles_index <- function(pkg = ".") {
+data_articles_index <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- pkg$meta$articles %||% default_articles_index(pkg)
-  sections <- meta %>%
-    purrr::map(data_articles_index_section, pkg = pkg) %>%
-    purrr::compact()
+  meta <- config_pluck_list(
+    pkg,
+    "articles",
+    default = default_articles_index(pkg),
+    call = call
+  )
+
+  sections <- unwrap_purrr_error(meta %>%
+    purrr::imap(data_articles_index_section, pkg = pkg, call = call) %>%
+    purrr::compact())
 
   # Check for unlisted vignettes
   listed <- sections %>%
@@ -388,12 +401,15 @@ data_articles_index <- function(pkg = ".") {
   missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
   if (length(missing) > 0) {
-    cli::cli_abort(
-      "{length(missing)} vignette{?s} missing from index in \\
-      {pkgdown_config_href({pkg$src_path})}: {.val {missing}}.",
+    config_abort(
+      pkg,
+      "{length(missing)} vignette{?s} missing from index: {.val {missing}}.",
       call = caller_env()
     )
   }
+
+  # Remove internal section after missing vignettes check
+  sections <- Filter(function(x) x$title != "internal", sections)
 
   print_yaml(list(
     pagetitle = tr_("Articles"),
@@ -401,13 +417,39 @@ data_articles_index <- function(pkg = ".") {
   ))
 }
 
-data_articles_index_section <- function(section, pkg) {
-  if (!set_contains(names(section), c("title", "contents"))) {
-    cli::cli_abort(
-      "Section must have components {.field title}, {.field contents}",
-      call = caller_env()
-    )
-  }
+data_articles_index_section <- function(section, index, pkg, call = caller_env()) {
+  config_check_list(
+    section,
+    error_path = paste0("articles[", index, "]"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  config_check_string(
+    section$title,
+    error_path = paste0("articles[", index, "].title"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  title <- markdown_text_inline(
+    section$title,
+    error_path = paste0("articles[", index, "].title"),
+    error_pkg = pkg,
+    error_call = call
+  )
+
+  config_check_string(
+    section$desc,
+    error_path = paste0("articles[", index, "].desc"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  check_contents(
+    section$contents,
+    index,
+    pkg,
+    prefix = "articles",
+    quote(build_articles())
+  )
 
   # Match topics against any aliases
   in_section <- select_vignettes(section$contents, pkg$vignettes)
@@ -419,8 +461,9 @@ data_articles_index_section <- function(section, pkg) {
     description = lapply(section_vignettes$description, markdown_text_block),
   )
 
+
   list(
-    title = markdown_text_inline(section$title),
+    title = title,
     desc = markdown_text_block(section$desc),
     class = section$class,
     contents = purrr::transpose(contents)
@@ -449,7 +492,7 @@ default_articles_index <- function(pkg = ".") {
     list(
       title = tr_("All vignettes"),
       desc = NULL,
-      contents = paste0("`", pkg$vignettes$name, "`")
+      contents = auto_quote(unname(pkg$vignettes$name))
     )
   ))
 }

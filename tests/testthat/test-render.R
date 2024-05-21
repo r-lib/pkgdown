@@ -2,8 +2,10 @@ test_that("check_bslib_theme() works", {
   pkg <- as_pkgdown(test_path("assets/reference"))
   expect_equal(check_bslib_theme("default", pkg, bs_version = 4), "default")
   expect_equal(check_bslib_theme("lux", pkg, bs_version = 4), "lux")
-  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4))
-  expect_snapshot_error(check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset")))
+  expect_snapshot(error = TRUE, {
+    check_bslib_theme("paper", pkg, bs_version = 4)
+    check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
+  })
 })
 
 test_that("get_bslib_theme() works with template.bslib.preset", {
@@ -66,4 +68,18 @@ test_that("can include text in header, before body, and after body", {
     xpath_text(html, ".//test"),
     c("in header", "before body", "after body")
   )
+})
+
+test_that("check_opengraph validates inputs", {
+  check_open_graph_ <- function(...) {
+    check_open_graph(..., path = "_pkgdown.yml")
+  }
+
+  expect_snapshot(error = TRUE, {
+    check_open_graph_(list(foo = list()), )
+    check_open_graph_(list(foo = list(), bar = list()))
+    check_open_graph_(list(twitter = 1))
+    check_open_graph_(list(twitter = list()))
+    check_open_graph_(list(image = 1))
+  })
 })
