@@ -61,7 +61,7 @@ test_that("repo_source() is robust to trailing slash", {
 
   meta <- function(x) {
     list(repo = list(url = list(source = x)))
-  } 
+  }
   source <- "Source: <a href='http://example.com/a'><code>a</code></a>"
   expect_equal(repo_source(meta("http://example.com"), "a"), source)
   expect_equal(repo_source(meta("http://example.com/"), "a"), source)

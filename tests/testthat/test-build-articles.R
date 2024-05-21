@@ -21,7 +21,7 @@ test_that("image links relative to output", {
     # knitr::include_graphics()
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
-    # rmarkdown image 
+    # rmarkdown image
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
     # magick::image_read()

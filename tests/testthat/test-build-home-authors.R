@@ -127,10 +127,10 @@ test_that("bibtex is escaped", {
     '  textVersion = ""',
     ')'
   ))
-  
+
   suppressMessages(init_site(pkg))
   suppressMessages(build_citation_authors(pkg))
   html <- xml2::read_html(path(pkg$dst_path, "authors.html"))
-  
+
   expect_match(xpath_text(html, "//pre"), "<&>", fixed = TRUE)
 })

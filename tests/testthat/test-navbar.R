@@ -82,7 +82,7 @@ test_that("data_navbar() works by default", {
 
 test_that("data_navbar() can re-order default elements", {
   pkg <- local_pkgdown_site(meta = "
-    template: 
+    template:
       bootstrap: 5
     repo:
       url:
@@ -187,7 +187,7 @@ test_that("dropdowns on right are right-aligned", {
     articles = menu_submenu("Articles", list(menu_heading("A"), menu_heading("B")))
   )
   pkg <- list(bs_version = 5)
-  
+
   right <- xml2::read_html(render_navbar_links(x, pkg = pkg, side = "right"))
   left <-  xml2::read_html(render_navbar_links(x, pkg = pkg, side = "left"))
 

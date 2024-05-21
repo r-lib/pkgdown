@@ -20,7 +20,7 @@ test_that("title and description come from DESCRIPTION by default", {
 test_that("math is handled", {
   pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
   write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
-  
+
   suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
 
