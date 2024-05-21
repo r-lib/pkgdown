@@ -46,7 +46,9 @@
     </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>Custom navbars that specify <code>icon</code> but not <code>aria-label</code> will now generate a message reminding you to provide one for to improve accessibility (<a href="https://github.com/r-lib/pkgdown/issues/2533" class="external-link">#2533</a>).</li>
+<ul><li>
+<code><a href="../reference/templates.html">template_reference()</a></code> and <code>template_article()</code> now only add backticks to function names if needed (<a href="https://github.com/r-lib/pkgdown/issues/2561" class="external-link">#2561</a>).</li>
+<li>Custom navbars that specify <code>icon</code> but not <code>aria-label</code> will now generate a message reminding you to provide one for to improve accessibility (<a href="https://github.com/r-lib/pkgdown/issues/2533" class="external-link">#2533</a>).</li>
 <li>
 <code><a href="../reference/init_site.html">init_site()</a></code> will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (<a href="https://github.com/r-lib/pkgdown/issues/2553" class="external-link">#2553</a>).</li>
 <li>
