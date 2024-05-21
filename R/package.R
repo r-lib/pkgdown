@@ -188,31 +188,20 @@ read_meta <- function(path, call = caller_env()) {
   if (is.null(path)) {
     yaml <- list()
   } else {
-    yaml <- cli_yaml_load(path, call = call) %||% list()
+    yaml <- withCallingHandlers(
+      yaml::yaml.load_file(path, error.label = NULL) %||% list(),
+      error = function(e) {
+        cli::cli_abort(c(
+          "x" = "Could not parse the config file.",
+          "i" = "Edit {.path {path}} to fix the probkem."
+          ),
+          call = call,
+          parent = e
+        )
+      }
+    )
   }
   yaml
-}
-
-# Wrapper around yaml::yaml.load_file()
-cli_yaml_load <- function(path, call = caller_env()) {
-  # Tweak the original message to put the location of the error at the end
-  withCallingHandlers(
-    yaml::yaml.load_file(
-      path,
-      error.label = NULL # suppress path from message.
-    ),
-    error = function(e) {
-      yaml_err <- conditionMessage(e)
-      # Rethrow cli-styled error!
-      cli::cli_abort(c(
-          "x" = "Could not parse the config file.",
-          "!" = yaml_err,
-          "i" = "Edit {.path {path}} to fix the problem."
-        ),
-        call = call
-      )
-    }
-  )
 }
 
 # Topics ------------------------------------------------------------------
