@@ -82,3 +82,16 @@ test_that("titles don't get autolinked code", {
   rd <- rd_text("\\title{\\code{foo()}}", fragment = FALSE)
   expect_equal(extract_title(rd), "<code>foo()</code>")
 })
+
+test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
+  pkg <- local_pkgdown_site()
+  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), c(
+    "url: https://pkgdown.r-lib.org",
+    "  title: Build websites for R packages"
+  ))
+  expect_snapshot(
+    as_pkgdown(pkg$src_path),
+    error = TRUE,
+    transform = function(x) gsub(pkg$src_path, "<src>", x, fixed = TRUE)
+  )
+})
