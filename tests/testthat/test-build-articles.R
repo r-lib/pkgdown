@@ -21,7 +21,7 @@ test_that("image links relative to output", {
     # knitr::include_graphics()
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
-    # rmarkdown image 
+    # rmarkdown image
     "../reference/figures/kitten.jpg",
     "another-kitten.jpg",
     # magick::image_read()
@@ -251,6 +251,15 @@ test_that("internal articles aren't included and don't trigger warning", {
   expect_no_error(index <- data_articles_index(pkg))
   expect_length(index$sections, 1)
   expect_length(index$sections[[1]]$contents, 2)
+})
+
+test_that("default template includes all articles", {
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", "a.Rmd"))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  expect_equal(default_articles_index(pkg)[[1]]$contents, c("a", "b", "c"))
 })
 
 test_that("check doesn't include getting started vignette", {

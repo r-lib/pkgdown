@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
 * `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
 * `build_home_index()` now reports when rendering the home page (#2544).
 * Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.

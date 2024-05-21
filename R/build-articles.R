@@ -455,7 +455,7 @@ default_articles_index <- function(pkg = ".") {
     list(
       title = tr_("All vignettes"),
       desc = NULL,
-      contents = paste0("`", pkg$vignettes$name, "`")
+      contents = auto_quote(unname(pkg$vignettes$name))
     )
   ))
 }
