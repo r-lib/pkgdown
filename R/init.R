@@ -8,13 +8,6 @@
 #' * copies CSS/JS assets and extra files, and
 #' * runs `build_favicons()`, if needed.
 #'
-#' `build_favicons()`:
-#' * creates favicons from package logo.
-#' * auto-detects the location of your package logo (with the name `logo.svg`
-#'   (recommended format) or `logo.png`)
-#' * runs it through the <https://realfavicongenerator.net> API to build a complete
-#' set of favicons with different sizes, as needed for modern web usage.
-#'
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
@@ -27,7 +20,6 @@
 #'
 #' @inheritParams build_articles
 #' @export
-#' @order 1
 init_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -67,8 +59,8 @@ copy_assets <- function(pkg = ".") {
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
     copy_asset_dir(
-      pkg,
-      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")),
+      pkg, 
+      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")), 
       src_root = path_pkgdown(),
       src_label = "<pkgdown>/"
     )
@@ -77,7 +69,7 @@ copy_assets <- function(pkg = ".") {
   # package assets
   if (!is.null(template$package)) {
     copy_asset_dir(
-      pkg,
+      pkg, 
       path_package_pkgdown("assets", template$package, pkg$bs_version),
       src_root = system_file(package = template$package),
       src_label = paste0("<", template$package, ">/")

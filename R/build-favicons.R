@@ -1,13 +1,20 @@
-#' @details
+#' Create favicons from package logo
 #'
-#' You only need to run `build_favicons()` once. The favicon set will be stored in
-#' `pkgdown/favicon` and copied by `init_site()` to the relevant location when
+#' This function auto-detects the location of your package logo (with the name
+#' `logo.svg` (recommended format) or `logo.png`) and runs it through the
+#' <https://realfavicongenerator.net> API to build a complete set of favicons
+#' with different sizes, as needed for modern web usage.
+#'
+#' You only need to run the function once. The favicon set will be stored in
+#' `pkgdown/favicon` and copied by [init_site()] to the relevant location when
 #' the website is rebuilt.
+#'
+#' Once complete, you should add `pkgdown/` to `.Rbuildignore ` to avoid a NOTE
+#' during package checking.
 #'
 #' @inheritParams as_pkgdown
 #' @param overwrite If `TRUE`, re-create favicons from package logo.
 #' @export
-#' @rdname init_site
 build_favicons <- function(pkg = ".", overwrite = FALSE) {
   rlang::check_installed("openssl")
   pkg <- as_pkgdown(pkg)

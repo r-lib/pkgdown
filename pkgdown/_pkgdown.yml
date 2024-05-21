@@ -56,7 +56,7 @@ reference:
     for an overview.
   contents:
   - build_site
-    - init_site
+  - init_site
   - starts_with("build_")
   - -build_site_github_pages
   - -build_favicons

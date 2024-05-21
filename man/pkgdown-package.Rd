@@ -13,7 +13,7 @@ Generate an attractive and useful website from a source package. 'pkgdown' conve
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://pkgdown.r-lib.org}
+  \item \url{https://pkgdown.r-lib.org/}
   \item \url{https://github.com/r-lib/pkgdown}
   \item Report bugs at \url{https://github.com/r-lib/pkgdown/issues}
 }
