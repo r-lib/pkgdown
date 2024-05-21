@@ -212,9 +212,9 @@ check_open_graph_list <- function(x,
   if (is.list(x) || is.null(x)) {
     return()
   }
-  not <- friendly_type_of(x)
   cli::cli_abort(
-    "{.file {file_path}}: {.field {error_path}} must be a list, not {not}.",
+    "{.file {file_path}}: {.field {error_path}} must be a list,
+     not {.obj_type_friendly {x}}.",
     call = error_call
   )
 }

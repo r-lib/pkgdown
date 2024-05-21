@@ -82,7 +82,7 @@
       check_open_graph_(list(twitter = 1))
     Condition
       Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not a double vector.
+      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not a number.
     Code
       check_open_graph_(list(twitter = list()))
     Condition
@@ -92,5 +92,5 @@
       check_open_graph_(list(image = 1))
     Condition
       Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.image must be a list, not a double vector.
+      ! '_pkgdown.yml': template.opengraph.image must be a list, not a number.
 
