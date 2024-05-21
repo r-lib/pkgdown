@@ -1,9 +1,9 @@
 # markdown_text_inline() works with inline markdown
 
     Code
-      markdown_text_inline("x\n\ny", pkg = pkg)
+      markdown_text_inline("x\n\ny", error_pkg = pkg, error_path = "title")
     Condition
       Error:
-      ! <inline> must supply an inline element, not a block element.
+      ! title must be inline markdown.
       i Edit _pkgdown.yml to fix the problem.
 

@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
 * Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
 * `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).

@@ -43,7 +43,7 @@ build_github_pages <- function(pkg = ".") {
   write_if_different(pkg, "", ".nojekyll", check = FALSE)
 
   # Add CNAME if url present
-  cname <- cname_url(pkg$meta$url)
+  cname <- cname_url(config_pluck_string(pkg, "url"))
   if (is.null(cname)) {
     return(invisible())
   }

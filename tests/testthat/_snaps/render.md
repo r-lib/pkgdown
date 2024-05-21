@@ -39,6 +39,7 @@
       toc: Table of contents
       site_nav: Site navigation
     has_favicons: no
+    opengraph: []
     extra:
       css: ~
       js: ~
@@ -82,7 +83,7 @@
       check_open_graph_(list(twitter = 1))
     Condition
       Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not a double vector.
+      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not the number 1.
     Code
       check_open_graph_(list(twitter = list()))
     Condition
@@ -92,5 +93,5 @@
       check_open_graph_(list(image = 1))
     Condition
       Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.image must be a list, not a double vector.
+      ! '_pkgdown.yml': template.opengraph.image must be a list, not the number 1.
 

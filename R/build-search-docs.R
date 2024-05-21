@@ -1,7 +1,7 @@
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  index_name <- pkg$meta$template$params$docsearch$index_name
+  index_name <- config_pluck_string(pkg, "template.params.docsearch.index_name")
   if (is.null(index_name)) {
     return()
   }
@@ -9,7 +9,7 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     index = index_name,
     package = pkg$package,
-    url = pkg$meta$url
+    url = config_pluck_string(pkg, "url")
   )
 
   template <- find_template("config", "docsearch", ext = ".json", pkg = pkg)
@@ -24,7 +24,7 @@ build_docsearch_json <- function(pkg = ".") {
 build_sitemap <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  url <- paste0(pkg$meta$url, "/")
+  url <- paste0(config_pluck_string(pkg, "url"), "/")
   if (is.null(url)) {
     return()
   }
@@ -106,7 +106,7 @@ build_search_index <- function(pkg) {
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
   # user-defined exclusions
-  paths <- paths[!paths %in% pkg$meta$search$exclude]
+  paths <- paths[!paths %in% config_pluck_character(pkg, "search.exclude")]
 
   if ("news/index.html" %in% paths) {
     index <- lapply(paths[paths != "news/index.html"], file_search_index, pkg = pkg)
@@ -118,7 +118,7 @@ build_search_index <- function(pkg) {
   }
 
   # Make URLs absolute if possible
-  url <- pkg$meta$url %||% ""
+  url <- config_pluck_string(pkg, "url", default = "")
   fix_path <- function(x) {
     x$path <- sprintf("%s%s", url, x$path)
     x

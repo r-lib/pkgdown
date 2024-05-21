@@ -59,3 +59,17 @@ test_that("multiple components are pasted together", {
   expect_equal(data_footer(pkg)$left, "<p>a b</p>")
 })
 
+test_that("validates meta components", {
+  data_footer_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_footer(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_footer_(footer = 1)
+    data_footer_(footer = list(structure = 1))
+    data_footer_(footer = list(components = 1))
+    data_footer_(authors = list(footer = list(roles = 1)))
+    data_footer_(authors = list(footer = list(text = 1)))
+  })
+})
