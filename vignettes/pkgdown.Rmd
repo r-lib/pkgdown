@@ -139,7 +139,7 @@ It is recommended to name your intro article with your package name to generate 
 Due to the way that pkgdown has to integrate R Markdown generated HTML with its own HTML, relatively little control is available over the output format.
 You can see the details in `?build_articles`.
 
-If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header). See also `usethis::use_article()` for an automated way to do this.
+If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header). See `usethis::use_article()` for an automated way to do this.
 In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
 
 ## News
@@ -172,8 +172,6 @@ If you use GitHub, there are two ways to publish your site on GitHub Pages:
 
 -   Use GitHub actions to automatically build and publish the site every time you make a change.
     The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`, and if you need to customize the action, see [README.md r-lib/actions](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site).
-
--   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
 ## Promoting
 

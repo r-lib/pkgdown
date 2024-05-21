@@ -53,17 +53,18 @@ articles:
 reference:
 - title: Site components
   desc:  Build a complete site or one of its components. See `vignette("pkgdown")`
-    for an overview of site components.
+    for an overview.
   contents:
   - build_site
+    - init_site
   - starts_with("build_")
   - -build_site_github_pages
+  - -build_favicons
   - pkgdown_sitrep
 
 - title: Deployment and Build
   desc: Build or deploy the site.
   contents:
-  - init_site
   - preview_site
   - starts_with("deploy_")
   - build_site_github_pages
@@ -76,6 +77,7 @@ reference:
 
 - title: Helpers
   contents:
+  - build_favicons
   - clean_site
   - rd2html
   - as_pkgdown

@@ -88,7 +88,7 @@ url_node <- function(url) {
 #'
 #' @inheritParams build_articles
 #' @export
-#' @seealso `vignette("search")`
+#'
 build_search <- function(pkg = ".",
                          override = list()) {
   pkg <- section_init(pkg, depth = 1L, override = override)
