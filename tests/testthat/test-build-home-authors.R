@@ -4,7 +4,7 @@ test_that("authors page includes inst/AUTHORS", {
   suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
-  expect_true(any(grepl("<pre>Hello</pre>", lines)))
+  expect_match(lines, "<pre>Hello</pre>", all = FALSE)
 })
 
 # authors --------------------------------------------------------------------
