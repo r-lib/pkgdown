@@ -200,7 +200,7 @@ build_reference <- function(pkg = ".",
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )) 
+  ))
 
   preview_site(pkg, "reference", preview = preview)
 }
@@ -295,7 +295,7 @@ build_reference_topic <- function(topic,
     ),
     error = function(err) {
       cli::cli_abort(
-        "Failed to parse Rd in {.file {topic$file_in}}", 
+        "Failed to parse Rd in {.file {topic$file_in}}",
         parent = err,
         call = quote(build_reference())
       )

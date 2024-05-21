@@ -88,9 +88,9 @@
 #'
 #' ## Missing topics
 #'
-#' pkgdown will warn if there are (non-internal) articles that aren't listed 
-#' in the articles index. You can suppress such warnings by listing the 
-#' affected articles in a section with `title: internal` (case sensitive); 
+#' pkgdown will warn if there are (non-internal) articles that aren't listed
+#' in the articles index. You can suppress such warnings by listing the
+#' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
 #'
 #' # External files

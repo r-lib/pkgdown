@@ -292,7 +292,7 @@ citation_auto <- function(pkg) {
   )
 }
 
-# helpers -----------------------------------------------------------------
+# helpers -------------------------------------------------------------------------
 
 # Not strictly necessary, but produces a simpler data structure testing
 remove_orcid <- function(x) {

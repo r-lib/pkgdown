@@ -1,10 +1,10 @@
 #' Check `_pkgdown.yml`
 #'
 #' @description
-#' This pair of functions checks that your `_pkgdown.yml` is valid without 
+#' This pair of functions checks that your `_pkgdown.yml` is valid without
 #' building the whole site. `check_pkgdown()` errors at the first problem;
 #' `pkgdown_sitrep()` reports the status of all checks.
-#' 
+#'
 #' Currently they check that:
 #'
 #' * There's a `url` in the pkgdown configuration, which is also recorded
@@ -65,7 +65,7 @@ error_to_sitrep <- function(title, code) {
 check_urls <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
   details <- c(i = "See details in {.vignette pkgdown::metadata}.")
-  
+
   if (identical(pkg$meta, list())) {
     cli::cli_abort(
       c("No {.path _pkgdown.yml} found.", details),
@@ -83,12 +83,12 @@ check_urls <- function(pkg = ".", call = caller_env()) {
   } else {
     desc_urls <- pkg$desc$get_urls()
     desc_urls <- sub("/$", "", desc_urls)
-    
+
     if (!pkg$meta[["url"]] %in% desc_urls) {
       cli::cli_abort(
         c("{.file DESCRIPTION} {.field URL} lacks package url ({url}).", details),
         call = call
       )
-    } 
+    }
   }
 }

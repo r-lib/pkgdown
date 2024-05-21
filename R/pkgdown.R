@@ -40,7 +40,7 @@ local_pkgdown_site <- function(path = NULL, meta = NULL, clone = FALSE, env = pa
     desc$set("Package", "testpackage")
     desc$set("Title", "A test package")
     desc$write(file = path(path, "DESCRIPTION"))
-  } 
+  }
 
   if (clone) {
     if (is.null(path)) {

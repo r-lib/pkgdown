@@ -59,8 +59,8 @@ copy_assets <- function(pkg = ".") {
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
     copy_asset_dir(
-      pkg, 
-      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")), 
+      pkg,
+      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")),
       src_root = path_pkgdown(),
       src_label = "<pkgdown>/"
     )
@@ -69,7 +69,7 @@ copy_assets <- function(pkg = ".") {
   # package assets
   if (!is.null(template$package)) {
     copy_asset_dir(
-      pkg, 
+      pkg,
       path_package_pkgdown("assets", template$package, pkg$bs_version),
       src_root = system_file(package = template$package),
       src_label = paste0("<", template$package, ">/")
