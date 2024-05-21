@@ -126,7 +126,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   custom_components <- purrr::map(custom_yaml, function(x) {
     sidebar_section(x$title, markdown_text_block(x$text))
   })
-  components <- utils::modifyList(default_components, custom_components)
+  components <- modify_list(default_components, custom_components)
 
   sidebar <- purrr::compact(components[structure])
   paste0(sidebar, collapse = "\n")
