@@ -127,10 +127,3 @@ path_package_pkgdown <- function(path,
 path_pkgdown <- function(...) {
   system_file(..., package = "pkgdown")
 }
-
-pkgdown_config_relpath <- function(pkg) {
-  pkg <- as_pkgdown(pkg)
-  config_path <- pkgdown_config_path(pkg$src_path)
-
-  path_rel(config_path, pkg$src_path)
-}

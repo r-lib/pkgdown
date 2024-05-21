@@ -197,6 +197,18 @@ navbar_html_text <- function(x) {
     iconset <- purrr::map_chr(strsplit(icon_classes, "-"), 1)
     
     icon <- html_tag("span", class = unique(c(iconset, classes)))
+
+    if (is.null(x$`aria-label`)) {
+      cli::cli_inform(
+        c(
+          x = "Icon {.str {x$icon}} lacks an {.var aria-label}.",
+          i = "Specify {.var aria-label} to make the icon accessible to screen readers.",
+          i = "Learn more in {.vignette accessibility}."
+        ),
+        .frequency = "regularly",
+        .frequency_id = "icon-aria-label"
+      )
+    }
   }
 
   paste0(
