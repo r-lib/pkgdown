@@ -3,8 +3,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 
   navbar <- config_pluck(pkg, "navbar")
   
-  uses_lightswitch <- !is.null(config_pluck_string(pkg, "template.theme-dark"))
-  if (uses_lightswitch) {
+  if (uses_lightswitch(pkg)) {
     style <- NULL
   } else {
     style <- navbar_style(
@@ -17,6 +16,10 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   links <- navbar_links(pkg, depth = depth)
 
   c(style, links)
+}
+
+uses_lightswitch <- function(pkg) {
+  !is.null(config_pluck_string(pkg, "template.theme-dark"))
 }
 
 # Default navbar ----------------------------------------------------------
@@ -125,11 +128,12 @@ navbar_components <- function(pkg = ".") {
   menu <- list()
   menu$reference <- menu_link(tr_("Reference"), "reference/index.html")
   
+  # in BS3, search is hardcoded in the template
   if (pkg$bs_version == 5) {
-    # in BS3, search is hardcoded in the template
     menu$search <- menu_search()
+  }
 
-    # TODO: only add if both light and dark theme specified?
+  if (uses_lightswitch(pkg)) {
     menu$lightswitch <- menu_submenu(
       text = NULL,
       icon = "fa-sun",
