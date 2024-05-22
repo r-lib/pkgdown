@@ -101,11 +101,6 @@ footer which appear on every page. Learn more about these fields in
 \code{vignette("customise")}.
 }
 
-\section{Search}{
-The \code{search} field controls the built-in search and is
-documented in \code{vignette("search")}.
-}
-
 \section{Development mode}{
 The \code{development} field allows you to generate different sites for the
 development and released versions of your package. To use it, you first
