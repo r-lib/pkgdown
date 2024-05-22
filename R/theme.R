@@ -131,10 +131,7 @@ check_theme <- function(theme,
    }
    config_abort(
      error_pkg,
-     c(
-       "{.field error_path} uses theme {.val {theme}}",
-       i = "Valid themes are: {.val highlight_styles()}"
-     ),
+     "{.field {error_path}} uses theme {.val {theme}}",
      call = error_call
    )
 }
