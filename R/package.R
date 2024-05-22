@@ -182,15 +182,23 @@ pkgdown_config_path <- function(path) {
   )
 }
 
-read_meta <- function(path) {
+read_meta <- function(path, call = caller_env()) {
   path <- pkgdown_config_path(path)
 
   if (is.null(path)) {
     yaml <- list()
   } else {
-    yaml <- yaml::yaml.load_file(path) %||% list()
+    yaml <- withCallingHandlers(
+      yaml::yaml.load_file(path, error.label = NULL) %||% list(),
+      error = function(e) {
+        cli::cli_abort(
+          "Could not parse config file at {.path {path}}.",
+          call = call,
+          parent = e
+        )
+      }
+    )
   }
-
   yaml
 }
 
