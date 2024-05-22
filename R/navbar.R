@@ -24,7 +24,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     bg <- navbar$bg %||% bootswatch_bg[[theme]] %||% "light"
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
-    list(bg = bg, is_dark = type == "dark")
+    list(bg = bg, type = type)
   }
 }
 
