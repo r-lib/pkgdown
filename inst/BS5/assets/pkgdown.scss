@@ -114,14 +114,11 @@ aside {
     font-size: $font-size-lg;
   }
   .roles {
-    color: mix($body-color, $body-bg, 80%);
+    color: RGBA(var(--bs-body-color-rgb), 0.8);
   }
 
   .list-unstyled li { margin-bottom: 0.5rem; }
   .dev-status .list-unstyled li { margin-bottom: 0.1rem; }
-}
-[data-bs-theme="dark"] aside .roles {
-  color: mix($body-color-dark, $body-bg-dark, 80%);
 }
 
 // Add some visual distinction between content and "sidebar" on mobile
@@ -182,8 +179,7 @@ body {position: relative;}
 
 /* footer  ================================================================== */
 
-$pkgdown-footer-color: mix($body-color, $body-bg, 80%) !default;
-$pkgdown-footer-color-dark: mix($body-color-dark, $body-bg-dark, 80%) !default;
+$pkgdown-footer-color: RGBA(var(--bs-body-color-rgb), 0.8) !default;
 $pkgdown-footer-bg: transparent !default;
 $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
@@ -197,9 +193,6 @@ footer {
   color: $pkgdown-footer-color;
   display: flex;
   column-gap: 1rem;
-}
-[data-bs-theme="dark"] footer {
-  color: $pkgdown-footer-color-dark;
 }
 
 @include media-breakpoint-down(sm) {
@@ -562,8 +555,5 @@ mark {
   font-weight: bolder;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $body-bg, 10%);
-}
-[bs-theme-dark] .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $body-bg-dark, 10%);
+  background-color: RGBA(var(--bs-primary-rgb), 0.1);
 }
