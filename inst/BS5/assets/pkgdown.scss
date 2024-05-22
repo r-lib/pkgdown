@@ -3,7 +3,7 @@
 .row > main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
-
+  
   // And that we can break and hypenate very long words
   overflow-wrap: break-word;
   hyphens: auto;
@@ -33,31 +33,35 @@
   -webkit-align-items: baseline;
 }
 
-// .navbar-light .navbar-nav .active > .nav-link {
-//   background: $gray-200;
-//   color:      $body-color;
-// }
-// .navbar-dark .navbar-nav .active > .nav-link {
-//   background: $gray-800;
-//   color:      $body-bg;
-// }
+.navbar-light .navbar-nav .active > .nav-link {
+  background: $gray-200;
+  color:      $body-color;
+}
+.navbar-dark .navbar-nav .active > .nav-link {
+  background: $gray-800;
+  color:      $body-bg;
+}
 
-// .navbar-dark .navbar-nav .nav-item > .nav-link:hover,
-// .navbar-light .navbar-nav .nav-item > .nav-link:hover {
-//   background: change-color($primary, $alpha: 0.1);
-// }
+.navbar-dark .navbar-nav .nav-item > .nav-link:hover,
+.navbar-light .navbar-nav .nav-item > .nav-link:hover {
+  background: change-color($primary, $alpha: 0.1);
+}
 
-// .navbar-dark {
-//   input[type="search"] {
-//     border-color: $gray-600;
-//     background-color: $gray-900;
-//     color: $gray-200;
-//   }
-// }
+.navbar-dark {
+  input[type="search"] {
+    border-color: $gray-600;
+    background-color: $gray-900;
+    color: $gray-200;
+  }
+}
 
 input[type="search"] {
-  // border-color: $border-color;
+  border-color: $border-color;
   width: 12rem;
+}
+
+[aria-labelledby=dropdown-lightswitch] span.fa {
+  opacity: 0.5;
 }
 
 // When navbar is a dropdown:
@@ -120,6 +124,9 @@ aside {
   .list-unstyled li { margin-bottom: 0.5rem; }
   .dev-status .list-unstyled li { margin-bottom: 0.1rem; }
 }
+[data-bs-theme="dark"] aside .roles {
+  color: mix($body-color-dark, $body-bg-dark, 80%);
+}
 
 // Add some visual distinction between content and "sidebar" on mobile
 @include media-breakpoint-down(sm) {
@@ -180,6 +187,7 @@ body {position: relative;}
 /* footer  ================================================================== */
 
 $pkgdown-footer-color: mix($body-color, $body-bg, 80%) !default;
+$pkgdown-footer-color-dark: mix($body-color-dark, $body-bg-dark, 80%) !default;
 $pkgdown-footer-bg: transparent !default;
 $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
@@ -193,6 +201,9 @@ footer {
   color: $pkgdown-footer-color;
   display: flex;
   column-gap: 1rem;
+}
+[data-bs-theme="dark"] footer {
+  color: $pkgdown-footer-color-dark;
 }
 
 @include media-breakpoint-down(sm) {
@@ -428,6 +439,11 @@ pre, pre code {
   word-wrap: normal;
 }
 
+[data-bs-theme="dark"] pre {
+  background-color: mix($body-color, $body-bg, 90%);
+  border-color: mix($body-color, $body-bg, 95%);
+}
+
 code {
   // break long functions into multiple lines
   overflow-wrap: break-word;
@@ -491,6 +507,13 @@ pre .img, pre .r-plt {
     background-color: #fff;
   }
 }
+// low-tech plot softening in dark mode
+[data-bs-theme="dark"] pre img {
+  opacity: 0.66;
+  transition: opacity 250ms ease-in-out;
+
+  &:hover, &:focus, &:active {opacity: 1;}
+}
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
@@ -544,235 +567,6 @@ mark {
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
   background-color: mix($primary, $body-bg, 10%);
 }
-
-/* ---- Dark Mode ---- */
-
-@include media-breakpoint-down(sm) {
-  aside {
-    background-color: var(--bs-tertiary-bg);
-    border-color: var(--bs-border-color);
-  }
-}
-
-@media (min-width: 800px) {
-  .usage {
-    display: flex;
-    * {
-      flex: 1;
-    }
-  }
-}
-
-p a {
-  text-decoration-skip-ink: none;
-  text-decoration-thickness: from-font;
-}
-
-a:focus, a:hover {
-  text-decoration: underline;
-}
-
-.navbar-light .navbar-nav .active>.nav-link {
-  background: #D0E5FC;
-}
-
-table.dataTable.table-bordered {
-  border-collapse: collapse !important;
-}
-
-main h2 {
-  margin-top: 1lh;
-}
-
-.html-widget {
-  margin-bottom: 0;
-}
-
-/* ---- Callouts ---- */
-.callout {
-  position: relative;
-  border: 1px solid gray;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: var(--bs-border-radius);
-}
-
-.callout > :last-child {
-  margin-bottom: 0;
-}
-
-.callout > h3 {
-  position: relative;
-  margin: -1rem;
-  margin-bottom: 10px;
-  padding: 1rem;
-  font-size: 1.5rem;
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-}
-
-.callout > h3 > .anchor {
-  display: none;
-}
-
-.callout.callout-warning {
-  --callout--border-color: #ffd700;
-  --callout--header-bg: #fffae0;
-  --callout--header-color: #473D00;
-
-  [data-bs-theme="dark"]  & {
-    --callout--border-color: #473D00;
-    --callout--header-color: #fffae0;
-    --callout--header-bg: #473D00;
-  }
-
-  border-color: var(--callout--border-color);
-
-  > h3 {
-    color: var(--callout--header-color);
-    background-color: var(--callout--header-bg);
-
-    &:before {
-      content: "!";
-      font-weight: bold;
-      font-size: 1.25rem;
-      font-family: serif;
-      margin-right: 0.5rem;
-      border-radius: 50%;
-      background-color: #ffd70080;
-      width: 2rem;
-      height: 2rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-}
-
-
-.callout.callout-note {
-  --callout--header-color: #373a3c;
-  --callout--header-bg: #e9f2fc;
-  --callout--border-color: #bdccdc;
-
-  [data-bs-theme="dark"]  & {
-    --callout--header-color: #e9f2fc;
-    --callout--header-bg: #1b425d;
-    --callout--border-color: #1b425d;
-  }
-
-  border-color: var(--callout--border-color);
-
-  > h3 {
-    color: var(--callout--header-color);
-    background-color: var(--callout--header-bg);
-
-    &:before {
-      content: "i";
-      font-weight: bold;
-      font-size: 1.25rem;
-      font-style: italic;
-      font-family: serif;
-      margin-right: 0.5rem;
-      border-radius: 50%;
-      background-color: #bdccdc80;
-      width: 2rem;
-      height: 2rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-}
-
-iframe, .bslib-page-fill {
-  height: 500px;
-  border: var(--bs-border-width) solid var(--bs-border-color);
-}
-
-iframe.resizable {
-  resize: vertical;
-  min-height: 200px;
-}
-
-aside .roles,
-footer {
-  color: rgba(var(--bs-emphasis-color-rgb), 0.6);
-}
-
-/* pkgdown fixes for dark mode */
-// these could probably end up in pkgdown?
-
-.card-footer.bg-white {
-  --bs-bg-opacity: 0.1;
-}
-
-// .navbar a {
-//   text-decoration: none !important;
-// }
-
-// .navbar-nav .nav-item>.nav-link:hover,
-// #toc>.nav a.nav-link:hover,
-// #toc>.nav a.nav-link:focus {
-//   color: var(--bs-body-color);
-//   background-color: rgba(var(--bs-info-rgb), 0.45);
-// }
-
-// #toc>.nav a.nav-link.active {
-//   [data-bs-theme="dark"] {
-//     color: var(--bs-body-bg);
-//   }
-//   background-color: rgba(var(--bs-info-rgb), 0.75);
-// }
-
-[data-bs-theme="dark"] {
-  // .navbar.bg-light {
-  //   background-color: $body-bg;
-  // }
-
-  pre {
-    background-color: mix($body-color, $body-bg, 90%);
-    border-color: mix($body-color, $body-bg, 95%);
-  }
-
-  // low-tech plot softening in dark mode
-  .sourceCode img {
-    opacity: 0.66;
-    transition: opacity 250ms ease-in-out;
-    
-    &:hover, &:focus, &:active {opacity: 1;}
-  }
-
-  // github-dark.css //
-  pre code         /* Normal         */ {color:#e1e4e8}
-  pre code span.al /* Alert          */ {color:#ff5555; font-weight: bold}
-  pre code span.an /* Annotation     */ {color:#6a737d}
-  pre code span.at /* Attribute      */ {color:#f97583}
-  pre code span.bn /* BaseN          */ {color:#79b8ff}
-  pre code span.bu /* BuiltIn        */ {color:#f97583}
-  pre code span.cf /* ControlFlow    */ {color:#f97583}
-  pre code span.ch /* Char           */ {color:#9ecbff}
-  pre code span.cn /* Constant       */ {color:#79b8ff}
-  pre code span.co /* Comment        */ {color:#6a737d}
-  pre code span.cv /* CommentVar     */ {color:#6a737d}
-  pre code span.do /* Documentation  */ {color:#6a737d}
-  pre code span.dt /* DataType       */ {color:#f97583}
-  pre code span.dv /* DecVal         */ {color:#79b8ff}
-  pre code span.er /* Error          */ {color:#ff5555; text-decoration: underline}
-  pre code span.ex /* Extension      */ {color:#f97583; font-weight: bold}
-  pre code span.fl /* Float          */ {color:#79b8ff}
-  pre code span.fu /* Function       */ {color:#b392f0}
-  pre code span.im /* Import         */ {color:#9ecbff}
-  pre code span.in /* Information    */ {color:#6a737d}
-  pre code span.kw /* Keyword        */ {color:#f97583}
-  pre code span.op /* Operator       */ {color:#e1e4e8}
-  pre code span.ot /* Others         */ {color:#b392f0}
-  pre code span.pp /* Preprocessor   */ {color:#f97583}
-  pre code span.re /* RegionMarker   */ {color:#6a737d}
-  pre code span.sc /* SpecialChar    */ {color:#79b8ff}
-  pre code span.ss /* SpecialString  */ {color:#9ecbff}
-  pre code span.st /* String         */ {color:#9ecbff}
-  pre code span.va /* Variable       */ {color:#ffab70}
-  pre code span.vs /* VerbatimString */ {color:#9ecbff}
-  pre code span.wa /* Warning        */ {color:#ff5555}
+[bs-theme-dark] .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: mix($primary, $body-bg-dark, 10%);
 }
