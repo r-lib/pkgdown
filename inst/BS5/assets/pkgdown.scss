@@ -22,14 +22,14 @@
 
 // make both the active nav and the hovered nav more clear by mixing the
 // background colour with the body and primary colours respectively 
-.navbar-nav .nav-item > a {
+.nav-item .nav-link {
   @include border-radius($border-radius);
 }
-.nav-item.active > a       { background: mix($body-bg, $body-color, 90%); }
-.nav-item        > a:hover { background: mix($body-bg, $primary, 90%); }
+.nav-item.active .nav-link       { background: mix($body-bg, $body-color, 90%); }
+.nav-item        .nav-link:hover { background: mix($body-bg, $primary, 90%); }
 [data-bs-theme="dark"] {
-  .nav-item.active > a       { background: mix($body-bg-dark, $body-color-dark, 90%); }
-  .nav-item        > a:hover { background: mix($body-bg-dark, $primary, 90%); }
+  .nav-item.active .nav-link       { background: mix($body-bg-dark, $body-color-dark, 90%); }
+  .nav-item        .nav-link:hover { background: mix($body-bg-dark, $primary, 90%); }
 }
 
 // Align baselines of package name, version, and nav items
