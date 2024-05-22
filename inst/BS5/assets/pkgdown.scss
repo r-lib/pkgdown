@@ -20,6 +20,12 @@
 
 /* navbar =================================================================== */
 
+.navbar {
+  background: mix(mix($body-bg, $body-color, 95%), $primary, 98%);
+}
+[data-bs-theme="dark"] .navbar {
+  background: mix(mix($body-bg-dark, $body-color-dark, 95%), $primary, 98%);
+}
 // make both the active nav and the hovered nav more clear by mixing the
 // background colour with the body and primary colours respectively 
 .nav-item .nav-link {

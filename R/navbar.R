@@ -2,13 +2,18 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   navbar <- config_pluck(pkg, "navbar")
-
-  style <- navbar_style(
-    navbar = navbar,
-    theme = get_bslib_theme(pkg),
-    bs_version = pkg$bs_version
-  )
-
+  
+  uses_lightswitch <- !is.null(config_pluck_string(pkg, "template.theme-dark"))
+  if (uses_lightswitch) {
+    style <- NULL
+  } else {
+    style <- navbar_style(
+      navbar = navbar,
+      theme = get_bslib_theme(pkg),
+      bs_version = pkg$bs_version
+    )
+  }
+  
   links <- navbar_links(pkg, depth = depth)
 
   c(style, links)
