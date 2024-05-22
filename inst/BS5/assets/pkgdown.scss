@@ -433,8 +433,8 @@ pre, pre code {
 }
 
 [data-bs-theme="dark"] pre {
-  background-color: mix($body-color, $body-bg, 90%);
-  border-color: mix($body-color, $body-bg, 95%);
+  background-color: mix($body-bg-dark, $body-color-dark, 90%);
+  border-color: mix($body-bg-dark, $body-color-dark, 80%);
 }
 
 code {
@@ -457,7 +457,8 @@ code {
 }
 // Ensure there's enough space for the copy button
 pre {
-  padding: 1rem 0.5rem;
+  min-height: 3rem;
+  // padding: 1rem 0.5rem;
 }
 
 // Spacing tweaks for gt table

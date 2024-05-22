@@ -27,8 +27,7 @@ menu_theme <- function(text, icon, theme) {
 
 menu_heading <- function(text, ...) list(text = text, ...)
 menu_separator <- function() list(text = "---------")
-menu_search <- function() list(special = "search")
-menu_lightswitch <- function() list(special = "lightswitch")
+menu_search <- function() list(search = list())
 menu_icon <- function(icon, href, label) {
   list(icon = icon, href = href, "aria-label" = label)
 }
@@ -51,8 +50,8 @@ menu_type <- function(x, menu_depth = 0L) {
     "heading"
   } else if ((!is.null(x$text) || !is.null(x$icon)) && !is.null(x$href)) {
     "link"
-  } else if (!is.null(x$special)) {
-    x$special
+  } else if (!is.null(x$search)) {
+    "search"
   } else if (!is_named(x)) {
     "list"
   } else {
