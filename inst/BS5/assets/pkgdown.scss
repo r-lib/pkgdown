@@ -491,39 +491,31 @@ a.sourceLine:hover {
 
 mark {
   background: linear-gradient(-100deg,
-    change-color($info, $alpha: 0.2),
-    change-color($info, $alpha: 0.7) 95%,
-    change-color($info, $alpha: 0.1)
+    RGBA(var(--bs-info-rgb), 0.2),
+    RGBA(var(--bs-info-rgb), 0.7) 95%,
+    RGBA(var(--bs-info-rgb), 0.1)
   )
 }
 
-.algolia-autocomplete .aa-hint {
-  color: $gray-900;
-}
-
-/* "Max" needed until libsass supports https://sass-lang.com/documentation/syntax/special-functions#min-and-max */
 .algolia-autocomplete .aa-dropdown-menu {
-  width: Max(100%, 20rem);
-  background-color: $body-bg;
-  border: $border-width solid $table-border-color;
-  margin-top: 2px;
-
+  margin-top: 0.5rem;
+  width: MAX(100%, 20rem); // force computation in css, not sass
   max-height: 50vh;
   overflow-y: auto;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-  cursor: pointer;
-  padding: 5px 4px;
-  border-bottom: 1px $gray-200 solid;
-  font-size: 0.9rem;
-  color: $gray-900;
-}
-.search-details {
-  font-size: 0.9rem;
-  color: $primary;
-  display: inline;
-  font-weight: bolder;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: mix($primary, $body-bg, 10%);
+
+  background-color: var(--bs-body-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  @include border-radius($border-radius);
+
+  .aa-suggestion {
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: var(--bs-dropdown-font-size);
+
+    .search-details {
+      color: var(--bs-primary);
+      font-weight: bolder;
+      display: inline; // algolia makes it a div
+    }
+  }
 }
