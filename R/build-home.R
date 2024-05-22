@@ -293,7 +293,7 @@ build_home <- function(pkg = ".",
   check_bool(quiet)
 
   cli::cli_rule("Building home")
-  dir_create(pkg$dst_path)
+  create_subdir(pkg, "")
 
   build_citation_authors(pkg)
 
