@@ -127,7 +127,7 @@ navbar_components <- function(pkg = ".") {
 
   menu <- list()
   menu$reference <- menu_link(tr_("Reference"), "reference/index.html")
-  
+
   # in BS3, search is hardcoded in the template
   if (pkg$bs_version == 5) {
     menu$search <- menu_search()
