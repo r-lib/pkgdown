@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
 * YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
 * Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
