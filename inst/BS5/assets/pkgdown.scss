@@ -20,12 +20,16 @@
 
 /* navbar =================================================================== */
 
+// BS navbars appears to be designed with the idea that you have a coloured
+// navbar that looks the same in both light and dark mode. We prefer a mildly
+// coloured navbar that's just different enough from the body to stand out.
 .navbar {
   background: mix(mix($body-bg, $body-color, 95%), $primary, 98%);
 }
 [data-bs-theme="dark"] .navbar {
   background: mix(mix($body-bg-dark, $body-color-dark, 95%), $primary, 98%);
 }
+
 // make both the active nav and the hovered nav more clear by mixing the
 // background colour with the body and primary colours respectively 
 .nav-item .nav-link {
