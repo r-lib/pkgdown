@@ -22,7 +22,7 @@ menu_links <- function(text, href) {
   purrr::map2(text, href, menu_link)
 }
 menu_theme <- function(text, icon, theme) {
-  purrr::compact(list(text = text, href = "#", theme = theme, icon = icon))
+  purrr::compact(list(text = text, theme = theme, icon = icon))
 }
 
 menu_heading <- function(text, ...) list(text = text, ...)
@@ -46,6 +46,8 @@ menu_type <- function(x, menu_depth = 0L) {
     "menu"
   } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
     "separator"
+  } else if (!is.null(x$theme)) {
+    "theme"
   } else if (!is.null(x$text) && is.null(x$href)) {
     "heading"
   } else if ((!is.null(x$text) || !is.null(x$icon)) && !is.null(x$href)) {
@@ -75,7 +77,7 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
     link = navbar_html_link(x, menu_depth = menu_depth),
     separator = navbar_html_separator(),
     search = navbar_html_search(x, path_depth = path_depth),
-    lightswitch = navbar_html_lightswitch()
+    theme = navbar_html_theme(x)
   )
 
   class <- c(
@@ -132,6 +134,15 @@ navbar_html_link <- function(x, menu_depth = 0) {
     class = if (menu_depth == 0) "nav-link" else "dropdown-item",
     href = x$href,
     target = x$target,
+    "aria-label" = x$`aria-label`,
+    navbar_html_text(x)
+  )
+}
+
+navbar_html_theme <- function(x) {
+  html_tag(
+    "button",
+    class = "dropdown-item",
     "aria-label" = x$`aria-label`,
     "data-bs-theme-value" = x$theme,
     navbar_html_text(x)
