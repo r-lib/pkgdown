@@ -17,7 +17,7 @@ authors:
 
 template:
   bootstrap: 5
-  theme-dark: arrow-dark
+  light-switch: true
   bslib:
     primary: "#0054AD"
     border-radius: 0.5rem

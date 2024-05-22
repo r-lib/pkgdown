@@ -210,7 +210,7 @@ navbar_html_text <- function(x) {
 
     icon <- html_tag("span", class = unique(c(iconset, classes)))
 
-    if (is.null(x$`aria-label`)) {
+    if (is.null(x$`aria-label`) && is.null(x$text)) {
       cli::cli_inform(
         c(
           x = "Icon {.str {x$icon}} lacks an {.var aria-label}.",

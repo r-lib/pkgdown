@@ -75,9 +75,9 @@ bs_theme <- function(pkg = ".", call = caller_env()) {
   files <- lapply(rules, sass::sass_file)
   bs_theme <- bslib::bs_add_rules(bs_theme, files)
 
-  # Add dark theme, if present
-  dark_theme <- config_pluck_string(pkg, "template.theme-dark")
-  if (!is.null(dark_theme)) {
+  # Add dark theme if needed
+  if (uses_lightswitch(pkg)) {
+   dark_theme <- config_pluck_string(pkg, "template.theme-dark", default = "arrow-dark")
     check_theme(
       dark_theme,
       error_pkg = pkg,

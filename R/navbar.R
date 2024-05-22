@@ -19,7 +19,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
 }
 
 uses_lightswitch <- function(pkg) {
-  !is.null(config_pluck_string(pkg, "template.theme-dark"))
+  config_pluck_bool(pkg, "template.light-switch", default = FALSE)
 }
 
 # Default navbar ----------------------------------------------------------
@@ -137,7 +137,7 @@ navbar_components <- function(pkg = ".") {
     menu$lightswitch <- menu_submenu(
       text = NULL,
       icon = "fa-sun",
-      label = tr_("Lightswitch"),
+      label = tr_("Light switch"),
       id = "lightswitch",
       list(
         menu_theme(tr_("Light"), icon = "fa-sun", theme = "light"),

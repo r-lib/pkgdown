@@ -45,6 +45,17 @@ The following sections show you how.
 
 Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
 
+### Light switch
+
+You can provide a "light switch" to allow your uses to switch between dark and light themes by setting the `light-switch` template option to true:
+
+```yaml
+template:
+  light-switch: true
+```
+
+This will add a `lightswitch` component to the navbar, which defaults to appearing at the far right. This allows the user to select light mode, dark mode, or auto mode (which follows the system setting). The modes are applied using Bootstrap 5.3's [colours modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) so are not separate themes, but a thin layer of colour customisation applied via CSS.
+
 ### Bootswatch themes
 
 The easiest way to change the entire appearance of your website is to use a [Bootswatch theme](https://bootswatch.com):
@@ -54,6 +65,8 @@ template:
   bootstrap: 5
   bootswatch: materia
 ```
+
+(Themes are unlikely to work with the light switch, but you can try it and see.)
 
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
@@ -96,6 +109,8 @@ You can customise other components by setting more specific bslib variables, tak
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
 If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+
+If you're using the light switch, [many colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables) are available for customisation specifically for the dark theme.
 
 Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
 As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
@@ -185,6 +200,15 @@ template:
   bootstrap: 5
   bootswatch: cyborg
   theme: arrow-dark
+```
+
+If you're using the light switch, you will want to provide a `theme` and a `theme-dark`:
+
+```yaml
+template:
+  light-switch: true
+  theme: gruvbox-light
+  theme-dark: gruvbox-dark
 ```
 
 The foreground and background colours used for inline code are controlled by `code-color` and `code-bg` bslib variables.
