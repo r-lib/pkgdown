@@ -21,10 +21,10 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     list(type = navbar$type %||% "default")
   } else {
     # bg is usually light, dark, or primary, but can use any .bg-*
-    bg <- navbar$bg %||% purrr::pluck(bootswatch_bg, theme, .default = "light")
+    bg <- navbar$bg %||% bootswatch_bg[[theme]] %||% "light"
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
-    list(bg = bg, type = type)
+    list(bg = bg, is_dark = type == "dark")
   }
 }
 
@@ -229,7 +229,7 @@ pkg_navbar_vignettes <- function(name = character(),
 
 # Scraped from bootswatch preivews, see code in
 # <https://github.com/r-lib/pkgdown/issues/1758>
-bootswatch_bg <- c(
+bootswatch_bg <- list(
   "_default" = "light",
   cerulean = "primary",
   cosmo = "primary",

@@ -143,22 +143,20 @@ test_that("data_navbar() errors with bad left/right", {
    expect_snapshot(data_navbar(pkg), error = TRUE)
 })
 
-
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
-  expect_equal(style, list(bg = "light", type = "light"))
+  expect_equal(style, list(bg = "light", is_dark = FALSE))
 
   style <- navbar_style(theme = "cyborg", bs_version = 5)
-  expect_equal(style, list(bg = "dark", type = "dark"))
+  expect_equal(style, list(bg = "dark", is_dark = TRUE))
 
   # but can override
   style <- navbar_style(list(bg = "primary"), bs_version = 5)
-  expect_equal(style, list(bg = "primary", type = "dark"))
+  expect_equal(style, list(bg = "primary", is_dark = TRUE))
 
   style <- navbar_style(list(bg = "primary", type = "light"), bs_version = 5)
-  expect_equal(style, list(bg = "primary", type = "light"))
+  expect_equal(style, list(bg = "primary", is_dark = FALSE))
 })
-
 
 test_that("render_navbar_links BS3 & BS4 default", {
   x <- list(
