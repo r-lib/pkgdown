@@ -137,12 +137,26 @@ drop-down.
 
 (If your package name includes a \code{.}, e.g. \code{pack.down}, use a \code{-} in the
 vignette name, e.g. \code{pack-down.Rmd}.)
-\subsection{Missing topics}{
+\subsection{Missing articles}{
 
 pkgdown will warn if there are (non-internal) articles that aren't listed
 in the articles index. You can suppress such warnings by listing the
 affected articles in a section with \code{title: internal} (case sensitive);
 this section will not be displayed on the index page.
+}
+
+\subsection{External articles}{
+
+You can link to arbitrary additional articles by adding an
+\code{external-articles} entry to \verb{_pkgdown.yml}. It should contain an array
+of objects with fields \code{name}, \code{title}, \code{href}, and \code{description}.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{external-articles:
+- name: subsampling
+  title: Subsampling for Class Imbalances
+  description: Improve model performance in imbalanced data sets through undersampling or oversampling.
+  href: https://www.tidymodels.org/learn/models/sub-sampling/
+}\if{html}{\out{</div>}}
 }
 }
 

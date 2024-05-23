@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
 * `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
 * YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).

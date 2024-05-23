@@ -165,24 +165,25 @@ navbar_articles <- function(pkg = ".") {
       menu_links(vignettes$title, vignettes$file_out)
     )
   } else {
-    articles <- config_pluck(pkg, "articles")
+    articles_index <- config_pluck(pkg, "articles")
+    articles <- data_articles(pkg)
 
-    navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
+    navbar <- purrr::keep(articles_index, ~ has_name(.x, "navbar"))
     if (length(navbar) == 0) {
       # No articles to be included in navbar so just link to index
       menu$articles <- menu_link(tr_("Articles"), "articles/index.html")
     } else {
       sections <- lapply(navbar, function(section) {
-        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
+        vig <- articles[select_topics(section$contents, articles), , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) list(menu_separator(), menu_heading(section$navbar)),
-          menu_links(vig$title, vig$file_out)
+          menu_links(vig$title, vig$href)
         )
       })
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
-      if (length(navbar) != length(articles)) {
+      if (length(navbar) != length(articles_index)) {
         children <- c(
           children,
           list(
@@ -221,7 +222,7 @@ pkg_navbar_vignettes <- function(name = character(),
   title <- title %||% paste0("Title ", name)
   file_out <- file_out %||% paste0(name, ".html")
 
-  tibble::tibble(name = name, title = title, file_out)
+  tibble::tibble(name = name, title = title, file_out, description = "desc")
 }
 
 
