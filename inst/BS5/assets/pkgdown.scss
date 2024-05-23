@@ -136,12 +136,6 @@ aside {
 }
 
 /* table of contents -------------------------------------------------------- */
-$pkgdown-toc-border-width: 0 !default;
-$pkgdown-toc-border-color: $border-color !default;
-$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
-$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
-$pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
-$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 
 // needed for scrollspy
 body {position: relative;}
@@ -154,15 +148,12 @@ body {position: relative;}
     padding: 0.25rem 0.5rem;
     margin-bottom: 2px;
     @include border-radius($border-radius);
-    border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 
     &:hover, &:focus {
-      background-color: $pkgdown-toc-hover-bg;
-      color: $pkgdown-toc-hover-color;
+      background-color: RGBA(var(--bs-primary-rgb), 0.1);
     }
     &.active {
-      background-color: $pkgdown-toc-active-bg;
-      color: $pkgdown-toc-active-color;
+      background-color: RGBA(var(--bs-body-color-rgb), 0.1);
     }
   }
 
