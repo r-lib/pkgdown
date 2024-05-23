@@ -83,7 +83,7 @@ reference:
   - starts_with("test", internal = TRUE)
 
 redirects:
-- ["/articles/search.html", "/reference/build_search.html"]
+- ["articles/search.html", "reference/build_search.html"]
 
 news:
   releases:
