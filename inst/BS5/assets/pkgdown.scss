@@ -36,12 +36,8 @@ $pkgdown-navbar-bg: null !default;
 .nav-item .nav-link {
   @include border-radius($border-radius);
 }
-.nav-item.active .nav-link       { background: mix($body-bg, $body-color, 90%); }
-.nav-item        .nav-link:hover { background: mix($body-bg, $primary, 90%); }
-[data-bs-theme="dark"] {
-  .nav-item.active .nav-link       { background: mix($body-bg-dark, $body-color-dark, 90%); }
-  .nav-item        .nav-link:hover { background: mix($body-bg-dark, $primary, 90%); }
-}
+.nav-item.active .nav-link       { background: RGBA(var(--bs-body-color-rgb), 0.1); }
+.nav-item        .nav-link:hover { background: RGBA(var(--bs-primary-rgb), 0.1); }
 
 // Align baselines of package name, version, and nav items
 .navbar > .container {
