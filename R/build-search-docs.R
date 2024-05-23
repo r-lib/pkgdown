@@ -65,12 +65,19 @@ url_node <- function(url) {
 }
 
 #' Build search index
+#' 
+#' @description
+#' Generate a JSON search index from the built site. This is used by 
+#' [fuse.js](https://www.fusejs.io/) to provide a javascript powered search for
+#' BS5 powered pkgdown sites.
 #'
-#' Build a JSON file encompassing all HTML pages, for use by the search script.
+#' NB: `build_search()` is called automatically by [build_site()]; you don't 
+#' need call it yourself. This page documents how it works and its customisation
+#' options.
 #'
 #' # YAML config
-#' You can exclude some paths from the search index.
-#' Below we exclude the changelog from the search index.
+#' You can exclude some paths from the search index using `search.exclude`.
+#' Below we exclude the changelog from the search index:
 #'
 #' ```yaml
 #' search:

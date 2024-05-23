@@ -13,11 +13,17 @@ build_search(pkg = ".", override = list())
 values in \verb{_pkgdown.yml}}
 }
 \description{
-Build a JSON file encompassing all HTML pages, for use by the search script.
+Generate a JSON search index from the built site. This is used by
+\href{https://www.fusejs.io/}{fuse.js} to provide a javascript powered search for
+BS5 powered pkgdown sites.
+
+NB: \code{build_search()} is called automatically by \code{\link[=build_site]{build_site()}}; you don't
+need call it yourself. This page documents how it works and its customisation
+options.
 }
 \section{YAML config}{
-You can exclude some paths from the search index.
-Below we exclude the changelog from the search index.
+You can exclude some paths from the search index using \code{search.exclude}.
+Below we exclude the changelog from the search index:
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{search:
   exclude: ['news/index.html']

@@ -40,11 +40,6 @@
 #' footer which appear on every page. Learn more about these fields in
 #' `vignette("customise")`.
 #'
-#' # Search
-#'
-#' The `search` field controls the built-in search and is
-#' documented in `vignette("search")`.
-#'
 #' # Development mode
 #' The `development` field allows you to generate different sites for the
 #' development and released versions of your package. To use it, you first
