@@ -1,6 +1,6 @@
-build_bslib <- function(pkg = ".") {
+build_bslib <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  bs_theme <- bs_theme(pkg)
+  bs_theme <- bs_theme(pkg, call = call)
 
   cur_deps <- find_deps(pkg)
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
@@ -56,7 +56,7 @@ find_deps <- function(pkg) {
   }
 }
 
-bs_theme <- function(pkg = ".") {
+bs_theme <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   bs_theme_args <- pkg$meta$template$bslib %||% list()
@@ -71,26 +71,39 @@ bs_theme <- function(pkg = ".") {
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
   # Add additional pkgdown rules
-  rules <- bs_theme_rules(pkg)
+  rules <- bs_theme_rules(pkg, call = call)
   files <- lapply(rules, sass::sass_file)
   bs_theme <- bslib::bs_add_rules(bs_theme, files)
+
+  # Add dark theme if needed
+  if (uses_lightswitch(pkg)) {
+   dark_theme <- config_pluck_string(pkg, "template.theme-dark", default = "arrow-dark")
+    check_theme(
+      dark_theme,
+      error_pkg = pkg,
+      error_path = "template.theme-dark",
+      error_call = call
+    )
+    path <- highlight_path(dark_theme)
+    css <- c('[data-bs-theme="dark"] {', read_lines(path), '}')
+    bs_theme <- bslib::bs_add_rules(bs_theme, css)
+  }
 
   bs_theme
 }
 
-bs_theme_rules <- function(pkg) {
+bs_theme_rules <- function(pkg, call = caller_env()) {
   paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
   theme <- config_pluck_string(pkg, "template.theme", default = "arrow-light")
-  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
-  if (!file_exists(theme_path)) {
-    cli::cli_abort(c(
-      "Unknown theme: {.val {theme}}",
-      i = "Valid themes are: {.val highlight_styles()}"
-    ), call = caller_env())
-  }
-  paths <- c(paths, theme_path)
-
+  check_theme(
+    theme,
+    error_pkg = pkg,
+    error_path = "template.theme",
+    error_call = call
+  )
+  paths <- c(paths, highlight_path(theme))
+  
   package <- config_pluck_string(pkg, "template.package")
   if (!is.null(package)) {
     package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
@@ -106,6 +119,25 @@ bs_theme_rules <- function(pkg) {
   }
 
   paths
+}
+
+check_theme <- function(theme,
+                        error_pkg,
+                        error_path,
+                        error_call = caller_env()) {
+
+   if (theme %in% highlight_styles()) {
+    return()
+   }
+   config_abort(
+     error_pkg,
+     "{.field {error_path}} uses theme {.val {theme}}",
+     call = error_call
+   )
+}
+
+highlight_path <- function(theme) {
+  path_pkgdown("highlight-styles", paste0(theme, ".scss"))
 }
 
 highlight_styles <- function() {

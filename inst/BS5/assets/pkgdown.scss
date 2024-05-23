@@ -20,17 +20,30 @@
 
 /* navbar =================================================================== */
 
+$pkgdown-navbar-bg: null !default;
+$pkgdown-navbar-bg-dark: null !default;
+
+// BS navbars appears to be designed with the idea that you have a coloured
+// navbar that looks the same in both light and dark mode. We prefer a mildly
+// coloured navbar that's just different enough from the body to stand out.
+//
+// Relies on CSS fallback rules
+.navbar {
+  background: RGBA(var(--bs-body-color-rgb), 0.1);
+  background: color-mix(in oklab, color-mix(in oklab, var(--bs-body-bg) 95%, var(--bs-primary)) 95%, var(--bs-body-color));
+  background: $pkgdown-navbar-bg;
+}
+[data-bs-theme="dark"] .navbar {
+  background: $pkgdown-navbar-bg-dark;
+}
+
 // make both the active nav and the hovered nav more clear by mixing the
 // background colour with the body and primary colours respectively 
 .nav-item .nav-link {
   @include border-radius($border-radius);
 }
-.nav-item.active .nav-link       { background: mix($body-bg, $body-color, 90%); }
-.nav-item        .nav-link:hover { background: mix($body-bg, $primary, 90%); }
-[data-bs-theme="dark"] {
-  .nav-item.active .nav-link       { background: mix($body-bg-dark, $body-color-dark, 90%); }
-  .nav-item        .nav-link:hover { background: mix($body-bg-dark, $primary, 90%); }
-}
+.nav-item.active .nav-link       { background: RGBA(var(--bs-body-color-rgb), 0.1); }
+.nav-item        .nav-link:hover { background: RGBA(var(--bs-primary-rgb), 0.1); }
 
 // Align baselines of package name, version, and nav items
 .navbar > .container {
@@ -41,6 +54,10 @@
 // Make search a little narrower than the default
 input[type="search"] {
   width: 12rem;
+}
+
+[aria-labelledby=dropdown-lightswitch] span.fa {
+  opacity: 0.5;
 }
 
 // When navbar is a dropdown:
@@ -97,7 +114,7 @@ aside {
     font-size: $font-size-lg;
   }
   .roles {
-    color: mix($body-color, $body-bg, 80%);
+    color: RGBA(var(--bs-body-color-rgb), 0.8);
   }
 
   .list-unstyled li { margin-bottom: 0.5rem; }
@@ -121,12 +138,6 @@ aside {
 }
 
 /* table of contents -------------------------------------------------------- */
-$pkgdown-toc-border-width: 0 !default;
-$pkgdown-toc-border-color: $border-color !default;
-$pkgdown-toc-active-bg: mix($body-color, $body-bg, 10%) !default;
-$pkgdown-toc-active-color: color-contrast($pkgdown-toc-active-bg) !default;
-$pkgdown-toc-hover-bg: change-color($primary, $alpha: 0.1) !default;
-$pkgdown-toc-hover-color: color-contrast($pkgdown-toc-active-bg) !default;
 
 // needed for scrollspy
 body {position: relative;}
@@ -139,15 +150,12 @@ body {position: relative;}
     padding: 0.25rem 0.5rem;
     margin-bottom: 2px;
     @include border-radius($border-radius);
-    border: $pkgdown-toc-border-width solid $pkgdown-toc-border-color;
 
     &:hover, &:focus {
-      background-color: $pkgdown-toc-hover-bg;
-      color: $pkgdown-toc-hover-color;
+      background-color: RGBA(var(--bs-primary-rgb), 0.1);
     }
     &.active {
-      background-color: $pkgdown-toc-active-bg;
-      color: $pkgdown-toc-active-color;
+      background-color: RGBA(var(--bs-body-color-rgb), 0.1);
     }
   }
 
@@ -162,7 +170,7 @@ body {position: relative;}
 
 /* footer  ================================================================== */
 
-$pkgdown-footer-color: mix($body-color, $body-bg, 80%) !default;
+$pkgdown-footer-color: RGBA(var(--bs-body-color-rgb), 0.8) !default;
 $pkgdown-footer-bg: transparent !default;
 $pkgdown-footer-border-color: $border-color !default;
 $pkgdown-footer-border-width: $border-width !default;
@@ -411,6 +419,11 @@ pre, pre code {
   word-wrap: normal;
 }
 
+[data-bs-theme="dark"] pre {
+  background-color: mix($body-bg-dark, $body-color-dark, 90%);
+  border-color: mix($body-bg-dark, $body-color-dark, 80%);
+}
+
 code {
   // break long functions into multiple lines
   overflow-wrap: break-word;
@@ -474,6 +487,13 @@ pre .img, pre .r-plt {
     background-color: #fff;
   }
 }
+// low-tech plot softening in dark mode
+[data-bs-theme="dark"] pre img {
+  opacity: 0.66;
+  transition: opacity 250ms ease-in-out;
+
+  &:hover, &:focus, &:active {opacity: 1;}
+}
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
@@ -497,8 +517,10 @@ mark {
   )
 }
 
+// Mimic the style of the navbar dropdowns
 .algolia-autocomplete .aa-dropdown-menu {
   margin-top: 0.5rem;
+  padding: 0.5rem 0.25rem;
   width: MAX(100%, 20rem); // force computation in css, not sass
   max-height: 50vh;
   overflow-y: auto;
@@ -509,12 +531,17 @@ mark {
 
   .aa-suggestion {
     cursor: pointer;
-    padding: 0.5rem;
-    font-size: var(--bs-dropdown-font-size);
+    font-size: 1rem;
+    padding: 0.5rem 0.25rem;
+    line-height: 1.3;
+
+    &:hover {
+      background-color: var(--bs-tertiary-bg);
+      color: var(--bs-body-color);
+    }
 
     .search-details {
-      color: var(--bs-primary);
-      font-weight: bolder;
+      text-decoration: underline;
       display: inline; // algolia makes it a div
     }
   }

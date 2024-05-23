@@ -2,11 +2,17 @@
 
 # Helpers for use within pkgdown itself - these must stay the same as the
 # yaml structure defined in vignette("customise")
-menu_submenu <- function(text, menu) {
+menu_submenu <- function(text, menu, icon = NULL, label = NULL, id = NULL) {
   if (length(menu) == 0) {
     return()
   } else {
-    list(text = text, menu = menu)
+    purrr::compact(list(
+      text = text,
+      icon = icon,
+      "aria-label" = label,
+      id = id,
+      menu = menu
+    ))
   }
 }
 menu_link <- function(text, href, target = NULL) {
@@ -15,6 +21,10 @@ menu_link <- function(text, href, target = NULL) {
 menu_links <- function(text, href) {
   purrr::map2(text, href, menu_link)
 }
+menu_theme <- function(text, icon, theme) {
+  purrr::compact(list(text = text, theme = theme, icon = icon))
+}
+
 menu_heading <- function(text, ...) list(text = text, ...)
 menu_separator <- function() list(text = "---------")
 menu_search <- function() list(search = list())
@@ -36,6 +46,8 @@ menu_type <- function(x, menu_depth = 0L) {
     "menu"
   } else if (!is.null(x$text) && grepl("^\\s*-{3,}\\s*$", x$text)) {
     "separator"
+  } else if (!is.null(x$theme)) {
+    "theme"
   } else if (!is.null(x$text) && is.null(x$href)) {
     "heading"
   } else if ((!is.null(x$text) || !is.null(x$icon)) && !is.null(x$href)) {
@@ -64,7 +76,8 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
     heading = navbar_html_heading(x),
     link = navbar_html_link(x, menu_depth = menu_depth),
     separator = navbar_html_separator(),
-    search = navbar_html_search(x, path_depth = path_depth)
+    search = navbar_html_search(x, path_depth = path_depth),
+    theme = navbar_html_theme(x)
   )
 
   class <- c(
@@ -86,7 +99,7 @@ navbar_html_list <- function(x, path_depth = 0L, menu_depth = 0L, side = "left")
 }
 
 navbar_html_menu <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
-  id <- paste0("dropdown-", make_slug(x$text))
+  id <- paste0("dropdown-", x$id %||% make_slug(x$text))
 
   button <- html_tag("button",
     type = "button",
@@ -122,6 +135,16 @@ navbar_html_link <- function(x, menu_depth = 0) {
     href = x$href,
     target = x$target,
     "aria-label" = x$`aria-label`,
+    navbar_html_text(x)
+  )
+}
+
+navbar_html_theme <- function(x) {
+  html_tag(
+    "button",
+    class = "dropdown-item",
+    "aria-label" = x$`aria-label`,
+    "data-bs-theme-value" = x$theme,
     navbar_html_text(x)
   )
 }
@@ -198,7 +221,7 @@ navbar_html_text <- function(x) {
 
     icon <- html_tag("span", class = unique(c(iconset, classes)))
 
-    if (is.null(x$`aria-label`)) {
+    if (is.null(x$`aria-label`) && is.null(x$text)) {
       cli::cli_inform(
         c(
           x = "Icon {.str {x$icon}} lacks an {.var aria-label}.",
