@@ -134,6 +134,7 @@ test_that("validates articles yaml", {
   expect_snapshot(error = TRUE, {
     data_articles_index_(1)
     data_articles_index_(list(1))
+    data_articles_index_(list(list()))
     data_articles_index_(list(list(title = 1, contents = 1)))
     data_articles_index_(list(list(title = "a\n\nb", contents = 1)))
     data_articles_index_(list(list(title = "a", contents = 1)))

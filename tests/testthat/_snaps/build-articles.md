@@ -54,6 +54,13 @@
       ! articles[1] must be a list, not the number 1.
       i Edit _pkgdown.yml to fix the problem.
     Code
+      data_articles_index_(list(list()))
+    Condition
+      Error in `data_articles_index_()`:
+      ! articles[1] must have components "title" and "contents".
+      2 missing components: "title" and "contents".
+      i Edit _pkgdown.yml to fix the problem.
+    Code
       data_articles_index_(list(list(title = 1, contents = 1)))
     Condition
       Error in `data_articles_index_()`:
