@@ -127,9 +127,8 @@ in the navbar drop-down list and others do not, the list will automatically
 include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.
-}
+\subsection{Get started}{
 
-\section{Get started}{
 Note that a vignette with the same name as the package (e.g.,
 \code{vignettes/pkgdown.Rmd} or \code{vignettes/articles/pkgdown.Rmd}) automatically
 becomes a top-level "Get started" link, and will not appear in the articles
@@ -137,6 +136,8 @@ drop-down.
 
 (If your package name includes a \code{.}, e.g. \code{pack.down}, use a \code{-} in the
 vignette name, e.g. \code{pack-down.Rmd}.)
+}
+
 \subsection{Missing articles}{
 
 pkgdown will warn if there are (non-internal) articles that aren't listed
