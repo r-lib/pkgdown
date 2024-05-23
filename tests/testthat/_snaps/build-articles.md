@@ -68,7 +68,7 @@
     Code
       data_articles_index_(list(list(title = "a", contents = 1)))
     Condition
-      Error in `build_articles()`:
+      Error in `data_articles_index_()`:
       ! articles[1].contents[1] must be a string.
       i You might need to add '' around special YAML values like 'N' or 'off'
       i Edit _pkgdown.yml to fix the problem.

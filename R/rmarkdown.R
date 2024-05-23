@@ -1,7 +1,15 @@
 #' Render RMarkdown document in a fresh session
 #'
 #' @noRd
-render_rmarkdown <- function(pkg, input, output, ..., seed = NULL, copy_images = TRUE, new_process = TRUE, quiet = TRUE, call = caller_env()) {
+render_rmarkdown <- function(pkg,
+                             input,
+                             output,
+                             ...,
+                             seed = NULL,
+                             copy_images = TRUE,
+                             new_process = TRUE,
+                             quiet = TRUE,
+                             call = caller_env()) {
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output, pkg$dst_path)
