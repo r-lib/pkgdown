@@ -517,6 +517,7 @@ mark {
 
 .algolia-autocomplete .aa-dropdown-menu {
   margin-top: 0.5rem;
+  padding: 1rem;
   width: MAX(100%, 20rem); // force computation in css, not sass
   max-height: 50vh;
   overflow-y: auto;
@@ -527,11 +528,16 @@ mark {
 
   .aa-suggestion {
     cursor: pointer;
-    padding: 0.5rem;
-    font-size: var(--bs-dropdown-font-size);
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.3;
+
+    &:hover {
+      background-color: var(--bs-tertiary-bg);
+      color: var(--bs-body-color);
+    }
 
     .search-details {
-      color: var(--bs-primary);
       font-weight: bolder;
       display: inline; // algolia makes it a div
     }
