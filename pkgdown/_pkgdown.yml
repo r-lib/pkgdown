@@ -36,7 +36,6 @@ articles:
   - customise
   - accessibility
   - linking
-  - search
   - metadata
 
 - title: Advanced techniques
@@ -82,6 +81,9 @@ reference:
 - title: Regression tests
   contents:
   - starts_with("test", internal = TRUE)
+
+redirects:
+- ["articles/search.html", "reference/build_search.html"]
 
 news:
   releases:

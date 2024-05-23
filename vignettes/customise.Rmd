@@ -243,7 +243,7 @@ It makes use of the the six built-in components:
 -   `articles`, if there are any vignettes or articles.
 -   `tutorials`, if there any tutorials.
 -   `news`, if `NEWS.md` exists.
--   `search`, the search box (see `vignette("search")` for more details).
+-   `search`, the search box (see `?build_search` for more details).
 -   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
 
 [^dots]: Note that dots (`.`) in the package name need to be replaced by hyphens (`-`) in the vignette filename to be recognized as the intro. That means for a
