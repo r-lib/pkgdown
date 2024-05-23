@@ -520,7 +520,7 @@ mark {
 // Mimic the style of the navbar dropdowns
 .algolia-autocomplete .aa-dropdown-menu {
   margin-top: 0.5rem;
-  padding: 0.25rem;
+  padding: 0.5rem 0.25rem;
   width: MAX(100%, 20rem); // force computation in css, not sass
   max-height: 50vh;
   overflow-y: auto;
@@ -532,7 +532,7 @@ mark {
   .aa-suggestion {
     cursor: pointer;
     font-size: 1rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 0.25rem;
     line-height: 1.3;
 
     &:hover {
