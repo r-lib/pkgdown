@@ -21,14 +21,20 @@
 /* navbar =================================================================== */
 
 $pkgdown-navbar-bg: null !default;
+$pkgdown-navbar-bg-dark: null !default;
 
 // BS navbars appears to be designed with the idea that you have a coloured
 // navbar that looks the same in both light and dark mode. We prefer a mildly
 // coloured navbar that's just different enough from the body to stand out.
+//
+// Relies on CSS fallback rules
 .navbar {
   background: RGBA(var(--bs-body-color-rgb), 0.1);
-  background: color-mix(in oklab, color-mix(in oklab, var(--bs-body-bg) 95%, var(--bs-body-color)) 98%, var(--bs-primary));
+  background: color-mix(in oklab, color-mix(in oklab, var(--bs-body-bg) 95%, var(--bs-primary)) 95%, var(--bs-body-color));
   background: $pkgdown-navbar-bg;
+}
+[data-bs-theme="dark"] .navbar {
+  background: $pkgdown-navbar-bg-dark;
 }
 
 // make both the active nav and the hovered nav more clear by mixing the
