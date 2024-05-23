@@ -159,7 +159,6 @@ test_that("for bs4, default bg and type come from bootswatch", {
   expect_equal(style, list(bg = "primary", type = "light"))
 })
 
-
 test_that("render_navbar_links BS3 & BS4 default", {
   x <- list(
     intro =  menu_link("Get started", "articles/pkgdown.html"),
