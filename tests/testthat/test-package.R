@@ -95,3 +95,19 @@ test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
     transform = function(x) gsub(pkg$src_path, "<src>", x, fixed = TRUE)
   )
 })
+
+# lifecycle ---------------------------------------------------------------
+
+test_that("can extract lifecycle badges", {
+  expect_equal(
+    extract_lifecycle(rd_text(lifecycle::badge("deprecated"))), 
+    "deprecated"
+  )
+})
+
+test_that("malformed figures fail gracefully", {
+  rd_lifecycle <- function(x) extract_lifecycle(rd_text(x))
+
+  expect_null(rd_lifecycle("{\\figure{deprecated.svg}}"))
+  expect_null(rd_lifecycle("{\\figure{}}"))
+})

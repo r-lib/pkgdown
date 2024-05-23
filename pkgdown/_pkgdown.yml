@@ -83,6 +83,10 @@ reference:
   contents:
   - starts_with("test", internal = TRUE)
 
+- title: Deprecated functions
+  contents:
+  - has_lifecycle("deprecated")
+
 redirects:
 - ["articles/search.html", "reference/build_search.html"]
 
