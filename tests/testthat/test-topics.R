@@ -119,6 +119,16 @@ test_that("can select by keyword", {
   expect_equal(select_topics("has_keyword('c')", topics), integer())
 })
 
+test_that("can select by lifecycle", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~keywords, ~lifecycle,
+    "b1",  "b1",          FALSE,      "a",         list("stable"),
+    "b2",  "b2",          FALSE,      c("a", "b"), NULL
+  )
+  expect_equal(select_topics("has_lifecycle('stable')", topics), 1)
+  expect_equal(select_topics("has_lifecycle('deprecated')", topics), integer())
+})
+
 test_that("can combine positive and negative selections", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,
