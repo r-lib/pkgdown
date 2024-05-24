@@ -295,7 +295,7 @@ extract_lifecycle <- function(x) {
       name <- gsub("lifecycle-", "", path)
       name <- path_ext_remove(name)
 
-      return(list(name = name, class = lifecycle_class(name)))
+      return(name)
     }
   }
   NULL
@@ -313,16 +313,6 @@ extract_figure <- function(elements) {
     }
   }
   NULL
-}
-
-lifecycle_class <- function(x) {
-  switch(x, 
-    superseded =  "badge text-bg-info",
-    experimental = ,
-    deprecated = "badge text-bg-warning",
-    stable = "badge text-bg-primary",
-    "badge text-bg-secondary"
-  )
 }
 
 # Vignettes ---------------------------------------------------------------

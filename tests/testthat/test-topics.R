@@ -152,9 +152,9 @@ test_that("an unmatched selection generates a warning", {
 
 test_that("uses funs or aliases", {
   topics <- tibble::tribble(
-    ~name, ~funs,         ~alias,        ~file_out, ~title,
-    "x",   character(),   c("x1", "x2"), "x.html",  "X",
-    "y",   c("y1", "y2"), "y3",          "y.html",   "Y"
+    ~name, ~funs,         ~alias,        ~file_out, ~title, ~lifecycle,
+    "x",   character(),   c("x1", "x2"), "x.html",  "X", NULL,
+    "y",   c("y1", "y2"), "y3",          "y.html",  "Y", NULL
   )
 
   out <- section_topics(c("x", "y"), topics, ".")
