@@ -107,6 +107,9 @@
 #'   href: https://www.tidymodels.org/learn/models/sub-sampling/
 #' ```
 #' 
+#' If you've defined a custom articles index, you'll need to include the name
+#' in one of the `contents` fields.
+#'
 #' # External files
 #' pkgdown differs from base R in its handling of external files. When building
 #' vignettes, R assumes that vignettes are self-contained (a reasonable

@@ -158,6 +158,9 @@ of objects with fields \code{name}, \code{title}, \code{href}, and \code{descrip
   description: Improve model performance in imbalanced data sets through undersampling or oversampling.
   href: https://www.tidymodels.org/learn/models/sub-sampling/
 }\if{html}{\out{</div>}}
+
+If you've defined a custom articles index, you'll need to include the name
+in one of the \code{contents} fields.
 }
 }
 
