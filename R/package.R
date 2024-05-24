@@ -317,8 +317,8 @@ package_vignettes <- function(path = ".") {
 
   out <- tibble::tibble(
     name = as.character(path_ext_remove(vig_path)),
-    file_in = file_in,
-    file_out = file_out,
+    file_in = as.character(file_in),
+    file_out = as.character(file_out),
     title = title,
     description = desc,
     depth = dir_depth(file_out)
