@@ -134,9 +134,26 @@ test_that("validates articles yaml", {
   expect_snapshot(error = TRUE, {
     data_articles_index_(1)
     data_articles_index_(list(1))
-    data_articles_index_(list(list(title = 1)))
-    data_articles_index_(list(list(title = "a\n\nb")))
+    data_articles_index_(list(list()))
+    data_articles_index_(list(list(title = 1, contents = 1)))
+    data_articles_index_(list(list(title = "a\n\nb", contents = 1)))
     data_articles_index_(list(list(title = "a", contents = 1)))
+  })
+})
+
+test_that("validates external-articles", {
+  data_articles_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(`external-articles` = x))
+    data_articles(pkg)
+  }
+  expect_snapshot(error = TRUE, {
+    data_articles_(1)
+    data_articles_(list(1))
+    data_articles_(list(list(name = "x")))
+    data_articles_(list(list(name = 1, title = "x", href = "x", description = "x")))
+    data_articles_(list(list(name = "x", title = 1, href = "x", description = "x")))
+    data_articles_(list(list(name = "x", title = "x", href = 1, description = "x")))
+    data_articles_(list(list(name = "x", title = "x", href = "x", description = 1)))
   })
 })
 
@@ -179,6 +196,22 @@ test_that("BS5 article laid out correctly with and without TOC", {
   # The no sidebar without toc
   expect_equal(xpath_length(toc_true, ".//aside"), 1)
   expect_equal(xpath_length(toc_false, ".//aside"), 0)
+})
+
+test_that("data_articles includes external articles", {
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "vignettes"))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:2], ".Rmd")))
+  pkg <- as_pkgdown(pkg$src_path, override = list(
+    `external-articles` = list(
+      list(name = "c", title = "c", href = "c", description = "*c*")
+    )
+  ))
+
+  articles <- data_articles(pkg)
+  expect_equal(articles$name, c("a", "b", "c"))
+  expect_equal(articles$internal, rep(FALSE, 3))
+  expect_equal(articles$description, list(NULL, NULL, "<p><em>c</em></p>"))
 })
 
 test_that("articles in vignettes/articles/ are unnested into articles/", {
