@@ -68,7 +68,7 @@ test_that("build_search() builds the expected search.json with no URL", {
 
 test_that("build_sitemap() handles special xml characters", {
   pkg <- local_pkgdown_site()
-  file_create(path(pkg$dst_path, "<.html"))
+  file_create(path(pkg$dst_path, "[<-.foo.html"))
 
   suppressMessages(build_sitemap(pkg))
   expect_no_error(xml2::read_xml(path(pkg$dst_path, "sitemap.xml")))
