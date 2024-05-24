@@ -296,12 +296,12 @@ extract_lifecycle <- function(x) {
       name <- path_ext_remove(name)
 
       # Translate the most common lifecylce names
-      name <- switch(
+      name <- switch(name,
         deprecated = tr_("deprecated"),
         superseded = tr_("superseded"),
         experimental = tr_("experimental"),
         stable = tr_("stable"),
-        name,
+        name
       )
 
       return(name)
