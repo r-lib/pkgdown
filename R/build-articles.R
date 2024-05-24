@@ -191,6 +191,7 @@
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
+#' @order 1
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
@@ -221,164 +222,11 @@ build_articles <- function(pkg = ".",
   preview_site(pkg, "articles", preview = preview)
 }
 
-#' @export
-#' @rdname build_articles
-#' @param name Name of article to render. This should be either a path
-#'   relative to `vignettes/` without extension, or `index` or `README`.
-#' @param data Additional data to pass on to template.
-#' @param new_process Build the article in a clean R process? The default,
-#'   `TRUE`, ensures that every article is build in a fresh environment, but
-#'   you may want to set it to `FALSE` to make debugging easier.
-build_article <- function(name,
-                          pkg = ".",
-                          data = list(),
-                          lazy = FALSE,
-                          seed = 1014L,
-                          new_process = TRUE,
-                          quiet = TRUE) {
-
-  pkg <- as_pkgdown(pkg)
-
-  # Look up in pkg vignette data - this allows convenient automatic
-  # specification of depth, output destination, and other parameters that
-  # allow code sharing with building of the index.
-  vig <- match(name, pkg$vignettes$name)
-  if (is.na(vig)) {
-    cli::cli_abort(
-      "Can't find article {.file {name}}"
-    )
-  }
-
-  input <- pkg$vignettes$file_in[vig]
-  output_file <- pkg$vignettes$file_out[vig]
-  depth <- pkg$vignettes$depth[vig]
-
-  input_path <- path_abs(input, pkg$src_path)
-  output_path <- path_abs(output_file, pkg$dst_path)
-
-  if (lazy && !out_of_date(input_path, output_path)) {
-    return(invisible())
-  }
-
-  local_envvar_pkgdown(pkg)
-  local_options_link(pkg, depth = depth)
-
-  front <- rmarkdown::yaml_front_matter(input_path)
-  # Take opengraph from article's yaml front matter
-  front_opengraph <- check_open_graph(front$opengraph, input)
-  data$opengraph <- modify_list(data$opengraph, front_opengraph)
-
-  # Allow users to opt-in to their own template
-  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
-  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
-
-  default_data <- list(
-    pagetitle = escape_html(front$title),
-    toc = toc <- front$toc %||% TRUE,
-    opengraph = list(description = front$description %||% pkg$package),
-    source = repo_source(pkg, input),
-    filename = path_file(input),
-    output_file = output_file,
-    as_is = as_is
-  )
-  data <- modify_list(default_data, data)
-
-  if (as_is) {
-    format <- NULL
-
-    if (identical(ext, "html")) {
-      data$as_is <- TRUE
-      template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
-      output <- rmarkdown::default_output_format(input_path)
-
-      # Override defaults & values supplied in metadata
-      options <- list(
-        template = template$path,
-        self_contained = FALSE
-      )
-      if (output$name != "rmarkdown::html_vignette") {
-        # Force to NULL unless overridden by user
-        options$theme <- output$options$theme
-      }
-    } else {
-      options <- list()
-    }
-  } else {
-    format <- build_rmarkdown_format(
-      pkg = pkg,
-      name = "article",
-      depth = depth,
-      data = data,
-      toc = TRUE
-    )
-    options <- NULL
-  }
-
-  render_rmarkdown(
-    pkg,
-    input = input,
-    output = output_file,
-    output_format = format,
-    output_options = options,
-    seed = seed,
-    new_process = new_process,
-    quiet = quiet
-  )
-}
-
-build_rmarkdown_format <- function(pkg,
-                                   name,
-                                   depth = 1L,
-                                   data = list(),
-                                   toc = TRUE) {
-
-  template <- rmarkdown_template(pkg, name, depth = depth, data = data)
-
-  out <- rmarkdown::html_document(
-    toc = toc,
-    toc_depth = 2,
-    self_contained = FALSE,
-    theme = NULL,
-    template = template$path,
-    anchor_sections = FALSE,
-    extra_dependencies = bs_theme_deps_suppress()
-  )
-  out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
-
-  old_pre <- out$pre_knit
-  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
-
-  out$pre_knit <- function(...) {
-    options(width = width)
-    if (is.function(old_pre)) {
-      old_pre(...)
-    }
-  }
-
-  attr(out, "__cleanup") <- template$cleanup
-
-  out
-}
-
-# Generates pandoc template format by rendering
-# inst/template/article-vignette.html
-# Output is a path + environment; when the environment is garbage collected
-# the path will be deleted
-rmarkdown_template <- function(pkg, name, data, depth) {
-  path <- tempfile(fileext = ".html")
-  render_page(pkg, name, data, path, depth = depth, quiet = TRUE)
-
-  # Remove template file when format object is GC'd
-  e <- env()
-  reg.finalizer(e, function(e) file_delete(path))
-
-  list(path = path, cleanup = e)
-}
-
 # Articles index ----------------------------------------------------------
 
 #' @export
 #' @rdname build_articles
+#' @order 3
 build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
