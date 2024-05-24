@@ -1,7 +1,7 @@
 # pkgdown (development version)
 
 * New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
-* The search drop-down has been tweaked to look more like the other navbar menu items (#2338).
+* The search dropdown has been tweaked to look more like the other navbar menu items (#2338).
 * `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
 * YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
