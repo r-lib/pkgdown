@@ -31,6 +31,21 @@ test_that("build_search() builds the expected search.json with an URL", {
   expect_snapshot_file(json_path, "search.json")
 })
 
+test_that("build sitemap only messages when it updates", {
+  pkg <- local_pkgdown_site(test_path("assets/news"), '
+    url: https://example.com
+    template:
+      bootstrap: 5
+  ')
+
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_home(pkg))
+  expect_snapshot({
+    build_sitemap(pkg)
+    build_sitemap(pkg)
+  })
+})
+
 test_that("build_search() builds the expected search.json with no URL", {
   pkg <- local_pkgdown_site(test_path("assets/news"), '
     template:
@@ -51,6 +66,10 @@ test_that("build_search() builds the expected search.json with no URL", {
   expect_snapshot_file(json_path, "search-no-url.json")
 })
 
-test_that("url_node gives informative error", {
-  expect_snapshot(url_node("<"), error = TRUE)
+test_that("build_sitemap() handles special xml characters", {
+  pkg <- local_pkgdown_site()
+  file_create(path(pkg$dst_path, "<.html"))
+
+  suppressMessages(build_sitemap(pkg))
+  expect_no_error(xml2::read_xml(path(pkg$dst_path, "sitemap.xml")))
 })
