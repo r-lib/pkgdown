@@ -61,18 +61,15 @@ create_subdir <- function(pkg, subdir) {
 
 }
 
-out_of_date <- function(source, target) {
-  if (!file_exists(target))
+out_of_date <- function(source, target, call = caller_env()) {
+  if (!file_exists(target)) {
     return(TRUE)
-
+  }
   if (!file_exists(source)) {
-    cli::cli_abort(
-      "{.fn {source}} does not exist",
-      call = caller_env()
-    )
+    cli::cli_abort("{.path {source}} does not exist", call = call)
   }
 
-  file_info(source)$mtime > file_info(target)$mtime
+  file_info(source)$modification_time > file_info(target)$modification_time
 }
 
 # Path helpers ------------------------------------------------------------

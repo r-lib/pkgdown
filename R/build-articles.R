@@ -77,7 +77,7 @@
 #' the navbar, it will link directly to the articles index instead of
 #' providing a drop-down.
 #'
-#' # Get started
+#' ## Get started
 #' Note that a vignette with the same name as the package (e.g.,
 #' `vignettes/pkgdown.Rmd` or `vignettes/articles/pkgdown.Rmd`) automatically
 #' becomes a top-level "Get started" link, and will not appear in the articles
@@ -86,12 +86,29 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
-#' ## Missing topics
+#' ## Missing articles
 #'
 #' pkgdown will warn if there are (non-internal) articles that aren't listed
 #' in the articles index. You can suppress such warnings by listing the
 #' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
+#' 
+#' ## External articles
+#'
+#' You can link to arbitrary additional articles by adding an 
+#' `external-articles` entry to `_pkgdown.yml`. It should contain an array
+#' of objects with fields `name`, `title`, `href`, and `description`. 
+#'
+#' ```yaml
+#' external-articles:
+#' - name: subsampling
+#'   title: Subsampling for Class Imbalances
+#'   description: Improve model performance in imbalanced data sets through undersampling or oversampling.
+#'   href: https://www.tidymodels.org/learn/models/sub-sampling/
+#' ```
+#' 
+#' If you've defined a custom articles index, you'll need to include the name
+#' in one of the `contents` fields.
 #'
 #' # External files
 #' pkgdown differs from base R in its handling of external files. When building
@@ -378,16 +395,16 @@ build_articles_index <- function(pkg = ".") {
 data_articles_index <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- config_pluck_list(
-    pkg,
-    "articles",
-    default = default_articles_index(pkg),
+  articles <- data_articles(pkg, is_index = TRUE, call = call)
+  index <- config_pluck_list(pkg, "articles", call = call) %||%
+    default_articles_index(pkg)
+  sections <- unwrap_purrr_error(purrr::imap(
+    index,
+    data_articles_index_section,
+    articles = articles,
+    pkg = pkg,
     call = call
-  )
-
-  sections <- unwrap_purrr_error(meta %>%
-    purrr::imap(data_articles_index_section, pkg = pkg, call = call) %>%
-    purrr::compact())
+  ))
 
   # Check for unlisted vignettes
   listed <- sections %>%
@@ -396,7 +413,7 @@ data_articles_index <- function(pkg = ".", call = caller_env()) {
     purrr::flatten_chr() %>%
     unique()
 
-  missing <- setdiff(pkg$vignettes$name, listed)
+  missing <- setdiff(articles$name, listed)
   # Exclude get started vignette or article #2150
   missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
@@ -417,10 +434,89 @@ data_articles_index <- function(pkg = ".", call = caller_env()) {
   ))
 }
 
-data_articles_index_section <- function(section, index, pkg, call = caller_env()) {
+data_articles <- function(pkg = ".", is_index = FALSE, call = caller_env()) {
+  pkg <- as_pkgdown(pkg)
+
+  internal <- tibble::tibble(
+    name = pkg$vignettes$name,
+    title = pkg$vignettes$title,
+    href = pkg$vignettes$file_out,
+    description = pkg$vignettes$description,
+  )
+  if (is_index) {
+    internal$href <- path_rel(internal$href, "articles")
+  }
+
+  external <- config_pluck_external_articles(pkg, call = call)
+  articles <- rbind(internal, external)
+
+  articles$description <- lapply(articles$description, markdown_text_block)
+
+  # Hack data structure so we can use select_topics()
+  articles$alias <- as.list(articles$name)
+  articles$internal <- FALSE
+
+  articles
+}
+
+config_pluck_external_articles <- function(pkg, call = caller_env()) {
+  external <- config_pluck_list(pkg, "external-articles", call = call)
+  if (is.null(external)) {
+    return(tibble::tibble(
+      name = character(),
+      title = character(),
+      href = character(),
+      description = character()
+    ))
+  }
+
+  for (i in seq_along(external)) {
+    config_check_list(
+      external[[i]],
+      has_names = c("name", "title", "href", "description"),
+      error_path = paste0("external-articles[", i, "]"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$name,
+      error_path = paste0("external-articles[", i, "].name"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$title,
+      error_path = paste0("external-articles[", i, "].title"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$href,
+      error_path = paste0("external-articles[", i, "].href"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$description,
+      error_path = paste0("external-articles[", i, "].description"),
+      error_pkg = pkg,
+      error_call = call
+    )
+  }
+
+  tibble::tibble(
+    name = purrr::map_chr(external, "name"),
+    title = purrr::map_chr(external, "title"),
+    href = purrr::map_chr(external, "href"),
+    description = purrr::map_chr(external, "description")
+  )
+}
+
+data_articles_index_section <- function(section, index, articles, pkg, call = caller_env()) {
   config_check_list(
     section,
     error_path = paste0("articles[", index, "]"),
+    has_names = c("title", "contents"),
     error_pkg = pkg,
     error_call = call
   )
@@ -452,15 +548,7 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
   )
 
   # Match topics against any aliases
-  in_section <- select_vignettes(section$contents, pkg$vignettes)
-  section_vignettes <- pkg$vignettes[in_section, ]
-  contents <- tibble::tibble(
-    name = section_vignettes$name,
-    path = path_rel(section_vignettes$file_out, "articles"),
-    title = section_vignettes$title,
-    description = lapply(section_vignettes$description, markdown_text_block),
-  )
-
+  contents <- articles[select_topics(section$contents, articles), ]
 
   list(
     title = title,
@@ -468,17 +556,6 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
     class = section$class,
     contents = purrr::transpose(contents)
   )
-}
-
-# Quick hack: create the same structure as for topics so we can use
-# the existing select_topics()
-select_vignettes <- function(match_strings, vignettes) {
-  topics <- tibble::tibble(
-    name = vignettes$name,
-    alias = as.list(vignettes$name),
-    internal = FALSE
-  )
-  select_topics(match_strings, topics)
 }
 
 default_articles_index <- function(pkg = ".") {

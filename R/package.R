@@ -346,7 +346,7 @@ package_vignettes <- function(path = ".") {
   check_unique_article_paths(file_in, file_out)
 
   out <- tibble::tibble(
-    name = path_ext_remove(vig_path),
+    name = as.character(path_ext_remove(vig_path)),
     file_in = file_in,
     file_out = file_out,
     title = title,
