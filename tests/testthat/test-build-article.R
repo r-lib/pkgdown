@@ -1,4 +1,3 @@
-
 test_that("image links relative to output", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
@@ -27,7 +26,6 @@ test_that("image links relative to output", {
   # And files aren't copied
   expect_false(dir_exists(path(pkg$dst_path, "man")))
 })
-
 
 test_that("warns about missing images", {
   # Added in #2509: I can't figure out why this is necessary :(
@@ -119,7 +117,6 @@ test_that("bad width gives nice error", {
   pkg <- local_pkgdown_site(meta = list(code = list(width = "abc")))
   expect_snapshot(build_rmarkdown_format(pkg, "article"), error = TRUE)
 })
-
 
 test_that("finds external resources referenced by R code in the article html", {
   # weird path differences that I don't have the energy to dig into
@@ -222,6 +219,7 @@ test_that("reports on bad open graph meta-data", {
   suppressMessages(init_site(pkg))
   expect_snapshot(build_article(pkg = pkg, name = "bad-opengraph"), error = TRUE)
 })
+
 # render_markdown --------------------------------------------------------------
 
 test_that("render_rmarkdown copies image files in subdirectories", {
