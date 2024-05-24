@@ -295,6 +295,15 @@ extract_lifecycle <- function(x) {
       name <- gsub("lifecycle-", "", path)
       name <- path_ext_remove(name)
 
+      # Translate the most common lifecylce names
+      name <- switch(
+        deprecated = tr_("deprecated"),
+        superseded = tr_("superseded"),
+        experimental = tr_("experimental"),
+        stable = tr_("stable"),
+        name,
+      )
+
       return(name)
     }
   }
