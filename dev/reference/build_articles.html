@@ -183,21 +183,34 @@ vignettes are not available through the navbar. If some vignettes appear
 in the navbar drop-down list and others do not, the list will automatically
 include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
-providing a drop-down.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a></h2>
-    <p>Note that a vignette with the same name as the package (e.g.,
+providing a drop-down.</p><div class="section">
+<h3 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a></h3>
+<p>Note that a vignette with the same name as the package (e.g.,
 <code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>) automatically
 becomes a top-level "Get started" link, and will not appear in the articles
 drop-down.</p>
 <p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code>-</code> in the
-vignette name, e.g. <code>pack-down.Rmd</code>.)</p><div class="section">
-<h3 id="missing-topics">Missing topics<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3>
+vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
+</div>
+<div class="section">
+<h3 id="missing-articles">Missing articles<a class="anchor" aria-label="anchor" href="#missing-articles"></a></h3>
 <p>pkgdown will warn if there are (non-internal) articles that aren't listed
 in the articles index. You can suppress such warnings by listing the
 affected articles in a section with <code>title: internal</code> (case sensitive);
 this section will not be displayed on the index page.</p>
+</div>
+<div class="section">
+<h3 id="external-articles">External articles<a class="anchor" aria-label="anchor" href="#external-articles"></a></h3>
+<p>You can link to arbitrary additional articles by adding an
+<code>external-articles</code> entry to <code>_pkgdown.yml</code>. It should contain an array
+of objects with fields <code>name</code>, <code>title</code>, <code>href</code>, and <code>description</code>.</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">external-articles</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> subsampling</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Subsampling for Class Imbalances</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Improve model performance in imbalanced data sets through undersampling or oversampling.</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://www.tidymodels.org/learn/models/sub-sampling/</span></span></code></pre><p></p></div>
+<p>If you've defined a custom articles index, you'll need to include the name
+in one of the <code>contents</code> fields.</p>
 </div>
     </div>
     <div class="section level2">
