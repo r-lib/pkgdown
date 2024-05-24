@@ -322,8 +322,7 @@ build_article <- function(name,
     output_options = options,
     seed = seed,
     new_process = new_process,
-    quiet = quiet,
-    call = quote(build_article())
+    quiet = quiet
   )
 }
 
@@ -390,6 +389,7 @@ build_articles_index <- function(pkg = ".") {
     data = data_articles_index(pkg),
     path = path("articles", "index.html")
   )
+  invisible()
 }
 
 data_articles_index <- function(pkg = ".", call = caller_env()) {
@@ -539,7 +539,13 @@ data_articles_index_section <- function(section, index, articles, pkg, call = ca
     error_pkg = pkg,
     error_call = call
   )
-  check_contents(section$contents, index, pkg, prefix = "articles", call = call)
+  check_contents(
+    section$contents,
+    index,
+    pkg,
+    prefix = "articles",
+    call = call
+  )
 
   # Match topics against any aliases
   contents <- articles[select_topics(section$contents, articles), ]

@@ -2,16 +2,24 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   navbar <- config_pluck(pkg, "navbar")
-
-  style <- navbar_style(
-    navbar = navbar,
-    theme = get_bslib_theme(pkg),
-    bs_version = pkg$bs_version
-  )
-
+  
+  if (uses_lightswitch(pkg)) {
+    style <- NULL
+  } else {
+    style <- navbar_style(
+      navbar = navbar,
+      theme = get_bslib_theme(pkg),
+      bs_version = pkg$bs_version
+    )
+  }
+  
   links <- navbar_links(pkg, depth = depth)
 
   c(style, links)
+}
+
+uses_lightswitch <- function(pkg) {
+  config_pluck_bool(pkg, "template.light-switch", default = FALSE)
 }
 
 # Default navbar ----------------------------------------------------------
@@ -31,7 +39,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
 navbar_structure <- function() {
   print_yaml(list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
-    right = c("search", "github")
+    right = c("search", "github", "lightswitch")
   ))
 }
 
@@ -123,6 +131,20 @@ navbar_components <- function(pkg = ".") {
   # in BS3, search is hardcoded in the template
   if (pkg$bs_version == 5) {
     menu$search <- menu_search()
+  }
+
+  if (uses_lightswitch(pkg)) {
+    menu$lightswitch <- menu_submenu(
+      text = NULL,
+      icon = "fa-sun",
+      label = tr_("Light switch"),
+      id = "lightswitch",
+      list(
+        menu_theme(tr_("Light"), icon = "fa-sun", theme = "light"),
+        menu_theme(tr_("Dark"), icon = "fa-moon", theme = "dark"),
+        menu_theme(tr_("Auto"), icon = "fa-adjust", theme = "auto")
+      )
+    )
   }
 
   if (!is.null(pkg$tutorials)) {
