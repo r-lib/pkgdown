@@ -345,6 +345,16 @@ a[href='#main'] {
   z-index: 2000;
 }
 
+.lifecycle {
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-secondary-bg);  // backup just in case we don't know the name
+  border-radius: 5px;
+}
+.lifecycle-stable       { background-color: rgb(16, 128, 1);  color: var(--bs-white);}
+.lifecycle-superseded   { background-color: rgb(7, 64, 128);  color: var(--bs-white);}
+.lifecycle-experimental, 
+.lifecycle-deprecated   { background-color: rgb(253, 128, 8); color: var(--bs-black);}
+
 /* Footnotes ---------------------------------------------------------------- */
 
 a.footnote-ref {

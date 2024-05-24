@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_reference_index()` now displays lifecycle badges next to the function name (#2123). You can now also use `has_lifecycle()` to select functions by their lifecycle status.
 * `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
 * New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
 * The search dropdown has been tweaked to look more like the other navbar menu items (#2338).

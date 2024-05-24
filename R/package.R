@@ -217,6 +217,7 @@ package_topics <- function(path = ".", package = "pkgdown") {
   keywords <- unname(purrr::map(rd, extract_tag, "tag_keyword"))
   internal <- purrr::map_lgl(keywords, ~ "internal" %in% .)
   source <- purrr::map(rd, extract_source)
+  lifecycle <- unname(purrr::map(rd, extract_lifecycle))
 
   file_in <- names(rd)
   file_out <- rd_output_path(file_in)
@@ -234,7 +235,8 @@ package_topics <- function(path = ".", package = "pkgdown") {
     source = source,
     keywords = keywords,
     concepts = concepts,
-    internal = internal
+    internal = internal,
+    lifecycle = lifecycle
   )
 }
 
@@ -283,6 +285,43 @@ extract_source <- function(x) {
 
   m <- gregexpr("R/[^ ]+\\.[rR]", text)
   regmatches(text, m)[[1]]
+}
+
+extract_lifecycle <- function(x) {
+  fig <- extract_figure(x)
+  if (!is.null(fig) && length(fig) > 0 && length(fig[[1]]) > 0) {
+    path <- as.character(fig[[1]][[1]])  
+    if (grepl("lifecycle", path)) {
+      name <- gsub("lifecycle-", "", path)
+      name <- path_ext_remove(name)
+
+      # Translate the most common lifecylce names
+      name <- switch(name,
+        deprecated = tr_("deprecated"),
+        superseded = tr_("superseded"),
+        experimental = tr_("experimental"),
+        stable = tr_("stable"),
+        name
+      )
+
+      return(name)
+    }
+  }
+  NULL
+}
+
+extract_figure <- function(elements) {
+  for (element in elements) {
+    if (inherits(element, "tag_figure")) {
+      return(element)
+    } else if (inherits(element, "tag")) {
+      child <- extract_figure(element)
+      if (!is.null(child)) {
+        return(child)
+      }
+    }
+  }
+  NULL
 }
 
 # Vignettes ---------------------------------------------------------------

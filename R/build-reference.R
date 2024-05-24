@@ -80,6 +80,8 @@
 #'    captured by `has_concepts()`.
 #' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
 #'  or `sass::font_face` (topic name).
+#' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
+#'   deprecated.
 #'
 #' All functions (except for `has_keywords()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include

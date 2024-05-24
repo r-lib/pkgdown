@@ -132,6 +132,10 @@ match_env <- function(topics) {
     check_character(x)
     which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
   }
+  fns$has_lifecycle <- function(x) {
+    check_string(x)
+    which(purrr::map_lgl(topics$lifecycle, ~ any(. %in% x)))
+  }
   fns$has_concept <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
@@ -224,6 +228,7 @@ section_topics <- function(match_strings, topics, src_path) {
     name = selected$name,
     path = selected$file_out,
     title = selected$title,
+    lifecycle = selected$lifecycle,
     aliases = purrr::map2(selected$funs, selected$alias, ~ if (length(.x) > 0) .x else .y),
     icon = find_icons(selected$alias, path(src_path, "icons"))
   )

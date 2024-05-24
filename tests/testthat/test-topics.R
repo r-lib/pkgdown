@@ -119,6 +119,16 @@ test_that("can select by keyword", {
   expect_equal(select_topics("has_keyword('c')", topics), integer())
 })
 
+test_that("can select by lifecycle", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~keywords, ~lifecycle,
+    "b1",  "b1",          FALSE,      "a",         list("stable"),
+    "b2",  "b2",          FALSE,      c("a", "b"), NULL
+  )
+  expect_equal(select_topics("has_lifecycle('stable')", topics), 1)
+  expect_equal(select_topics("has_lifecycle('deprecated')", topics), integer())
+})
+
 test_that("can combine positive and negative selections", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,
@@ -152,9 +162,9 @@ test_that("an unmatched selection generates a warning", {
 
 test_that("uses funs or aliases", {
   topics <- tibble::tribble(
-    ~name, ~funs,         ~alias,        ~file_out, ~title,
-    "x",   character(),   c("x1", "x2"), "x.html",  "X",
-    "y",   c("y1", "y2"), "y3",          "y.html",   "Y"
+    ~name, ~funs,         ~alias,        ~file_out, ~title, ~lifecycle,
+    "x",   character(),   c("x1", "x2"), "x.html",  "X", NULL,
+    "y",   c("y1", "y2"), "y3",          "y.html",  "Y", NULL
   )
 
   out <- section_topics(c("x", "y"), topics, ".")

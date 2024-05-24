@@ -16,22 +16,27 @@
       - topics:
         - path: a.html
           title: A
+          lifecycle: ~
           aliases: a()
           icon: ~
         - path: b.html
           title: B
+          lifecycle: ~
           aliases: b()
           icon: ~
         - path: c.html
           title: C
+          lifecycle: ~
           aliases: c()
           icon: ~
         - path: e.html
           title: E
+          lifecycle: ~
           aliases: e
           icon: ~
         - path: help.html
           title: D
+          lifecycle: ~
           aliases: '`?`()'
           icon: ~
         names:
@@ -143,32 +148,39 @@
       - topics:
         - path: a.html
           title: A
+          lifecycle: ~
           aliases: a()
           icon: ~
         - path: b.html
           title: B
+          lifecycle: ~
           aliases: b()
           icon: ~
         - path: c.html
           title: C
+          lifecycle: ~
           aliases: c()
           icon: ~
         - path: e.html
           title: E
+          lifecycle: ~
           aliases: e
           icon: ~
         - path: help.html
           title: D
+          lifecycle: ~
           aliases: '`?`()'
           icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
           title: Are packages installed in any of the libraries? (from rlang)
+          lifecycle: ~
           aliases:
           - is_installed()
           - check_installed()
           icon: ~
         - path: https://rdrr.io/pkg/bslib/man/bs_bundle.html
           title: Add low-level theming customizations (from bslib)
+          lifecycle: ~
           aliases:
           - bs_add_variables()
           - bs_add_rules()
@@ -203,10 +215,12 @@
       - topics:
         - path: matches.html
           title: matches
+          lifecycle: ~
           aliases: matches()
           icon: ~
         - path: A.html
           title: A
+          lifecycle: ~
           aliases: A()
           icon: ~
         names:
