@@ -14,7 +14,7 @@
         <dt>
           {{#has_icons}}{{#icon}}<a class="icon" href="{{path}}"><img src="icons/{{{.}}}" alt=""/></a>{{/icon}}{{/has_icons}}
           {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}
-          {{#lifecycle}}<img src="figures/lifecycle-{{.}}.svg">{{/lifecycle}}
+          {{#lifecycle}}<span class="badge lifecycle lifecycle-{{name}}">{{name}}</span>{{/lifecycle}}
         </dt>
         <dd>{{{title}}}</dd>
       </dl>{{/topics}}

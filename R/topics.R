@@ -134,7 +134,7 @@ match_env <- function(topics) {
   }
   fns$has_lifecycle <- function(x) {
     check_string(x)
-    which(purrr::map_lgl(topics$lifecycle, ~ any(. %in% x)))
+    which(purrr::map_lgl(topics$lifecycle, ~ any(.$name %in% x)))
   }
   fns$has_concept <- function(x, internal = FALSE) {
     check_string(x)
