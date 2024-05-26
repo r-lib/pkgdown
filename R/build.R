@@ -151,23 +151,23 @@
 #'         noindex: true
 #'     ```
 #'
-#' *   `google_site_verification` allows you to verify your site with google:
+#' * `google_site_verification` allows you to verify your site with google:
 #'
-#'     ```yaml
-#'     template:
-#'       params:
-#'         google_site_verification: _nn6ile-a6x6lctOW
-#'     ```
+#'      ```yaml
+#'      template:
+#'        params:
+#'          google_site_verification: _nn6ile-a6x6lctOW
+#'      ```
 #'
 #' *   `trailing_slash_redirect: true` will automatically redirect
 #'     `your-package-url.com` to `your-package-url.com/`, using a JS script
-#'     added to the `<head>` of the home page. This is useful in certain
-#'     redirect scenarios.
+#'      added to the `<head>` of the home page. This is useful in certain
+#'      redirect scenarios.
 #'
-#'     ```yaml
-#'     template:
-#'       trailing_slash_redirect: true
-#'     ```
+#'      ```yaml
+#'      template:
+#'        trailing_slash_redirect: true
+#'      ```
 #'
 #' ## Analytics
 #'
