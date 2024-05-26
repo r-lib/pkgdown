@@ -4,7 +4,7 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     
 
 ---
@@ -13,11 +13,11 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/r-lib/pkgdown
-      aria-label: github
+      aria-label: GitHub
     
 
 ---
@@ -26,11 +26,11 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     github:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
-      aria-label: gitlab
+      aria-label: GitLab
     
 
 # vignette with package name turns into getting started
@@ -39,7 +39,7 @@
       text: Reference
       href: reference/index.html
     search:
-      search: ~
+      search: []
     intro:
       text: Get started
       href: test.html
@@ -138,25 +138,10 @@
       data_navbar(pkg)[c("left", "right")]
     Output
       $left
-      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"github\">\n    <span class=\"fab fa fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>\n<li><form class=\"form-inline\" role=\"search\">\n<input type=\"search\" class=\"form-control\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">\n</form></li>"
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"GitHub\"><span class=\"fa fab fa-github fa-lg\"></span></a></li>\n<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n <input class=\"form-control\" type=\"search\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\"> \n</form></li>"
       
       $right
-      [1] "<li class=\"nav-item\">\n  <a class=\"nav-link\" href=\"news/index.html\">Changelog</a>\n</li>"
-      
-
-# data_navbar() can remove elements
-
-    Code
-      data_navbar(pkg)
-    Output
-      $type
-      [1] "default"
-      
-      $left
-      [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
-      
-      $right
-      [1] ""
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"news/index.html\">Changelog</a></li>"
       
 
 # data_navbar() works with empty side
@@ -180,7 +165,8 @@
       data_navbar(pkg)
     Condition
       Error in `navbar_links()`:
-      ! navbar.structure.left must be a character vector.
+      ! navbar.structure.left must be a character vector, not the number 1.
+      i Edit _pkgdown.yml to fix the problem.
 
 # data_navbar() errors with bad left/right
 
@@ -188,7 +174,9 @@
       data_navbar(pkg)
     Condition
       Error in `data_template()`:
-      ! Invalid navbar specification in _pkgdown.yml
+      ! navbar is incorrectly specified.
+      i See details in `vignette(pkgdown::customise)`.
+      i Edit _pkgdown.yml to fix the problem.
 
 # render_navbar_links BS3 & BS4 default
 
@@ -235,64 +223,18 @@
     Code
       cat(render_navbar_links(x, pkg = list(bs_version = 4)))
     Output
-      <li class="nav-item">
-        <a class="nav-link" href="articles/pkgdown.html">Get started</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="reference/index.html">Reference</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" href="articles/pkgdown.html">Get started</a></li>
+      <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-          <a class="dropdown-item" href="articles/linking.html">Auto-linking</a>
-          <a class="dropdown-item" href="articles/search.html">Search</a>
-          <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
-          <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="articles/index.html">More...</a>
-        </div>
+        <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+          <li><a class="dropdown-item" href="articles/linking.html">Auto-linking</a></li>
+          <li><a class="dropdown-item" href="articles/search.html">Search</a></li>
+          <li><a class="dropdown-item" href="articles/metadata.html">Metadata</a></li>
+          <li><a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="articles/index.html">More...</a></li>
+        </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="news/index.html">News</a>
-      </li>
-
-# render_navbar_links BS4 no divider before first element
-
-    Code
-      cat(render_navbar_links(x, pkg = list(bs_version = 4)))
-    Output
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-          <h6 class="dropdown-header" data-toc-skip>First section</h6>
-          <a class="dropdown-item" href="articles/search.html">Search</a>
-          <a class="dropdown-item" href="articles/metadata.html">Metadata</a>
-          <a class="dropdown-item" href="articles/customization.html">Customize your pkgdown website</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="articles/index.html">More...</a>
-        </div>
-      </li>
-
-# can specific link target
-
-    Code
-      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")))
-    Output
-      <li class="nav-item">
-        <a class="nav-link" href="href" target="_blank">text</a>
-      </li>
-    Code
-      bs4_navbar_links_tags(list(menu = list(text = "text", href = "href", target = "_blank")),
-      depth = 1)
-    Output
-      <a class="dropdown-item" href="href" target="_blank">text</a>
-
-# can render search helper
-
-    Code
-      bs4_navbar_links_tags(list(menu = list(search = TRUE)))
-    Output
-      <li><form class="form-inline" role="search">
-      <input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
-      </form></li>
+      <li class="nav-item"><a class="nav-link" href="news/index.html">News</a></li>
 

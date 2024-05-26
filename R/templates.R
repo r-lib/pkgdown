@@ -41,20 +41,18 @@ template_candidates <- function(type, name, ext = ".html", pkg = list()) {
 # * path supplied in `template.path`
 # * package supplied in `template.package`
 # * templates in package itself
-templates_dir <- function(pkg = list()) {
-  template <- pkg$meta$template
+templates_dir <- function(pkg = list(), call = caller_env()) {
+  config_pluck_list(pkg, "template")
+  path <- config_pluck_string(pkg, "template.path")
+  package <- config_pluck_string(pkg, "templates.package")
 
-  if (!is.null(template$path)) {
-    # Directory specified in yaml doesn't exist, so eagerly error
-    if (!dir_exists(template$path)) {
-      cli::cli_abort(
-        "Can't find templates path: {src_path(template$path)}",
-        call = caller_env()
-      )
+  if (!is.null(path)) {
+    if (!dir_exists(path)) {
+      cli::cli_abort("Can't find templates path: {src_path(path)}", call = call)
     }
-    path_abs(template$path, start = pkg$src_path)
-  } else if (!is.null(template$package)) {
-    path_package_pkgdown("templates", package = template$package, bs_version = pkg$bs_version)
+    path_abs(path, start = pkg$src_path)
+  } else if (!is.null(package)) {
+    path_package_pkgdown("templates", package, pkg$bs_version)
   } else {
     path(pkg$src_path, "pkgdown", "templates")
   }

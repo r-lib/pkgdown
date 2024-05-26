@@ -7,7 +7,7 @@
 #' `inst/tutorials` and `vignettes/tutorials`. Alternatively, you can
 #' list in `_pkgdown.yml` as described below.
 #'
-#' @section YAML config:
+#' # YAML config
 #' To override the default discovery process, you can provide a `tutorials`
 #' section. This should be a list where each element specifies:
 #'
@@ -29,6 +29,7 @@
 #' @export
 build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+
   tutorials <- pkg$tutorials
 
   if (nrow(tutorials) == 0) {
@@ -99,15 +100,15 @@ find_tutorials <- function(path = ".") {
 }
 
 tutorial_info <- function(path, base_path) {
-  meta <- rmarkdown::yaml_front_matter(path)
-  title <- meta$title
+  yaml <- rmarkdown::yaml_front_matter(path)
+  title <- yaml$title
   if (is.null(title)) {
     return()
   }
 
   # Must have "runtime: shiny". Partial implementation of full algorithm:
   # https://github.com/rstudio/rmarkdown/blob/master/R/shiny.R#L72-L100
-  runtime <- meta$runtime
+  runtime <- yaml$runtime
   if (is.null(runtime) || !grepl("^shiny", runtime)) {
     return()
   }
@@ -125,7 +126,7 @@ tutorial_info <- function(path, base_path) {
 
   list(
     name = as.character(path_ext_remove(path_file(path))),
-    title = meta$title,
+    title = yaml$title,
     url = url
     # source = as.character(path_rel(path, base_path))
   )

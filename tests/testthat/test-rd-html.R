@@ -3,6 +3,10 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
+test_that("converts Rd unicode shortcuts", {
+  expect_snapshot(rd2html("``a -- b --- c''"))
+})
+
 test_that("simple tags translated to known good values", {
   # Simple insertions
   expect_equal(rd2html("\\ldots"), "...")
@@ -25,12 +29,10 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("subsection generates h3", {
-  local_edition(3)
   expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{B}")))
 })
 
 test_that("subsection generates h3", {
-  local_edition(3)
   expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{
     p1
 
@@ -48,7 +50,6 @@ test_that("subsection generates generated anchor", {
 })
 
 test_that("nested subsection generates h4", {
-  local_edition(3)
   expect_snapshot(cli::cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
 })
 
@@ -162,6 +163,18 @@ test_that("can control \\Sexpr output", {
   expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
   expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
   expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{1 + 2}"),
+    c("<pre>", "[1] 3", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat(42)}"),
+    c("<pre>", "42", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat('42!\n'); 3}"),
+    c("<pre>", "42!", "[1] 3", "</pre>")
+  )
 })
 
 test_that("Sexpr can contain multiple expressions", {
@@ -172,13 +185,6 @@ test_that("Sexpr can contain multiple expressions", {
 test_that("Sexprs with multiple args are parsed", {
   local_context_eval()
   expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
-})
-
-test_that("Sexprs with multiple args are parsed", {
-  skip_if_not(getRversion() >= "4.0.0")
-  local_edition(3)
-  local_context_eval()
-  expect_snapshot(rd2html("\\Sexpr[results=verbatim]{1}"), error = TRUE)
 })
 
 test_that("Sexprs in file share environment", {
@@ -284,7 +290,6 @@ test_that("link to non-existing functions return label", {
 })
 
 test_that("bad specs throw errors", {
-  local_edition(3)
   expect_snapshot(error = TRUE, {
     rd2html("\\url{}")
     rd2html("\\url{a\nb}")
@@ -360,6 +365,14 @@ test_that("\\describe items can contain multiple paragraphs", {
   expect_snapshot_output(cat(out, sep = "\n"))
 })
 
+test_that("can add ids to descriptions", {
+  out <- rd2html("\\describe{
+    \\item{abc}{Contents 1}
+    \\item{xyz}{Contents 2}
+  }", id_prefix = "foo")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
 test_that("\\describe items can contain multiple paragraphs", {
   out <- rd2html("\\describe{
     \\item{Label}{
@@ -398,37 +411,7 @@ test_that("spaces are preserved in preformatted blocks", {
   expect_equal(out, "<pre><code>^\n\n  b\n\n  c</code></pre>\n")
 })
 
-# Usage -------------------------------------------------------------------
-
-test_that("S4 methods gets comment", {
-  out <- rd2html("\\S4method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S4 method for class")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("S3 methods gets comment", {
-  out <- rd2html("\\S3method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("Methods for class function work", {
-  out <- rd2html("\\S3method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for function")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for function")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
-  expect_equal(out[1], "# S4 method for function,function")
-  expect_equal(out[2], "fun(x, y)")
-})
+# Other -------------------------------------------------------------------
 
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")

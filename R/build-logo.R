@@ -3,7 +3,12 @@ copy_logo <- function(pkg = ".") {
 
   logo_path <- find_logo(pkg$src_path)
   if (!is.null(logo_path)) {
-    file_copy_to(pkg, logo_path, from_dir = path_dir(logo_path))
+    file_copy_to(
+      src_paths = logo_path,
+      src_root = pkg$src_path,
+      dst_paths = path(pkg$dst_path, path_file(logo_path)),
+      dst_root = pkg$dst_path
+    )
   }
 }
 
@@ -29,5 +34,5 @@ logo_path <- function(pkg, depth) {
     return()
   }
 
-  paste0(up_path(depth), fs::path_file(path))
+  paste0(up_path(depth), path_file(path))
 }

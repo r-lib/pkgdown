@@ -1,1 +1,4 @@
 url: http://test.org
+
+template:
+  bootstrap: 5

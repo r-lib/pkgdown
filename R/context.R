@@ -57,7 +57,7 @@ context_get <- function(name) {
   if (env_has(context, name)) {
     env_get(context, name)
   } else {
-    abort(paste0("Context `", name, "` has not been initialised"))
+    cli::cli_abort("Context {.str name} has not been initialised")
   }
 }
 
@@ -68,7 +68,7 @@ context_set_scoped <- function(name, value, scope = parent.frame()) {
 
 article_index <- function(pkg) {
   set_names(
-    fs::path_rel(pkg$vignettes$file_out, "articles"),
-    path_file(pkg$vignettes$name)
+    path_rel(pkg$vignettes$file_out, "articles"),
+    pkg$vignettes$name
   )
 }

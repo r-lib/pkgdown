@@ -1,14 +1,24 @@
+test_that("informative print method", {
+  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
+  expect_snapshot(init_site(pkg))
+
+  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"), meta = "
+    template:
+      bootstrap: 5
+  ")
+  expect_snapshot(init_site(pkg))
+})
+
 test_that("extra.css and extra.js copied and linked", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-2"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
   expect_true(file_exists(path(pkg$dst_path, "extra.js")))
 
   skip_if_no_pandoc()
   # Now check they actually get used .
-  suppressMessages(expect_message(build_home(pkg)))
+  suppressMessages(build_home(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
   paths <- xpath_attr(html, ".//link", "href")
@@ -17,24 +27,21 @@ test_that("extra.css and extra.js copied and linked", {
 })
 
 test_that("single extra.css correctly copied", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
 })
 
 test_that("asset subdirectories are copied", {
-  local_edition(3)
   pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
-  suppressMessages(expect_message(init_site(pkg)))
+  suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "file1.txt")))
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "subdir2", "file2.txt")))
 })
 
 test_that("site meta doesn't break unexpectedly", {
-  local_edition(3)
   pkgdown <- as_pkgdown(test_path("assets/reference"))
 
   # null out components that will vary
@@ -45,4 +52,16 @@ test_that("site meta doesn't break unexpectedly", {
   yaml$last_built <- timestamp(as.POSIXct("2020-01-01", tz = "UTC"))
 
   expect_snapshot(yaml)
+})
+
+test_that("site meta includes vignette subdirectories", {
+  pkg <- local_pkgdown_site()
+
+  vig_path <- path(pkg$src_path, "vignettes")
+  dir_create(path(vig_path, "a"))
+  file_create(path(vig_path, "a", c("a.Rmd", "b.Rmd")))
+  pkg <- as_pkgdown(pkg$src_path)
+
+  meta <- site_meta(pkg)
+  expect_equal(meta$articles, list("a/a" = "a/a.html", "a/b" = "a/b.html"))
 })

@@ -5,13 +5,15 @@
 #' @export
 preview_site <- function(pkg = ".", path = ".", preview = NA) {
   pkg <- as_pkgdown(pkg)
+  check_string(path)
+  check_bool(preview, allow_na = TRUE)
 
   if (is.na(preview)) {
     preview <- interactive() && !is_testing()
   }
 
   if (preview) {
-    cli::cli_alert_info("Previewing site")
+    cli::cli_inform(c(i = "Previewing site"))
     utils::browseURL(path(pkg$dst_path, path, "index.html"))
   }
 

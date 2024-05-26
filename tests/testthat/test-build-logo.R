@@ -1,5 +1,4 @@
 test_that("can handle logo in subdir", {
-  local_edition(3)
 
   src <- withr::local_tempdir()
   dst <- withr::local_tempdir()
@@ -9,7 +8,7 @@ test_that("can handle logo in subdir", {
   pkg <- structure(list(src_path = src, dst_path = dst), class = "pkgdown")
   expect_true(has_logo(pkg))
 
-  expect_snapshot(copy_logo(pkg))
+  suppressMessages(copy_logo(pkg))
   expect_true(file_exists(path(dst, "logo.svg")))
 
   expect_equal(logo_path(pkg, 0), "logo.svg")

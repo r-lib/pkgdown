@@ -107,30 +107,34 @@ match_env <- function(topics) {
   fns$starts_with <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(paste0("^", x), .), .internal = internal)
   }
   fns$ends_with <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
   }
   fns$matches <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(x, .), .internal = internal)
   }
   fns$contains <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
   }
   fns$has_keyword <- function(x) {
     check_character(x)
     which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
+  }
+  fns$has_lifecycle <- function(x) {
+    check_string(x)
+    which(purrr::map_lgl(topics$lifecycle, ~ any(. %in% x)))
   }
   fns$has_concept <- function(x, internal = FALSE) {
     check_string(x)
@@ -145,7 +149,7 @@ match_env <- function(topics) {
   fns$lacks_concepts <- function(x, internal = FALSE) {
     check_character(x)
     check_bool(internal)
-   
+
     nomatch <- topics$concepts %>%
       purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
       purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
@@ -192,7 +196,7 @@ match_eval <- function(string, env) {
       eval(expr, env),
       error = function(e) {
         cli::cli_abort(
-          "Failed to evaluate topic selector {.val {string}}.", 
+          "Failed to evaluate topic selector {.val {string}}.",
           parent = e,
           call = NULL
         )
@@ -224,6 +228,7 @@ section_topics <- function(match_strings, topics, src_path) {
     name = selected$name,
     path = selected$file_out,
     title = selected$title,
+    lifecycle = selected$lifecycle,
     aliases = purrr::map2(selected$funs, selected$alias, ~ if (length(.x) > 0) .x else .y),
     icon = find_icons(selected$alias, path(src_path, "icons"))
   )

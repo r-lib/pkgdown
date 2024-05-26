@@ -4,7 +4,7 @@
 #' alphabetical order. To override this, provide a `reference` section in your
 #' `_pkgdown.yml` as described below.
 #'
-#' @section Reference index:
+#' # Reference index
 #' To tweak the index page, add a section called `reference` to `_pkgdown.yml`.
 #' It can contain three different types of element:
 #'
@@ -80,6 +80,8 @@
 #'    captured by `has_concepts()`.
 #' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
 #'  or `sass::font_face` (topic name).
+#' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
+#'   deprecated.
 #'
 #' All functions (except for `has_keywords()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include
@@ -104,12 +106,12 @@
 #' either 30x30 (for regular display) or 60x60 (if you want retina display).
 #' Icons are matched to topics by aliases.
 #'
-#' ## Examples
+#' # Examples
 #'
 #' If you need to run extra code before or after all examples are run, you
 #' can create `pkgdown/pre-reference.R` and `pkgdown/post-reference.R`.
 #'
-#' @section Figures:
+#' # Figures
 #'
 #' You can control the default rendering of figures by specifying the `figures`
 #' field in `_pkgdown.yml`. The default settings are equivalent to:
@@ -158,6 +160,12 @@ build_reference <- function(pkg = ".",
                             document = "DEPRECATED",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
+  check_bool(lazy)
+  check_bool(examples)
+  check_bool(run_dont_run)
+  check_number_whole(seed, allow_null = TRUE)
+  check_bool(devel)
+  check_character(topics, allow_null = TRUE)
 
   if (document != "DEPRECATED") {
     lifecycle::deprecate_warn(
@@ -194,18 +202,19 @@ build_reference <- function(pkg = ".",
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )) 
+  ))
 
   preview_site(pkg, "reference", preview = preview)
 }
 
 copy_figures <- function(pkg) {
   # copy everything from man/figures to docs/reference/figures
-  src_figures <- path(pkg$src_path, "man", "figures")
-  dst_figures <- path(pkg$dst_path, "reference", "figures")
-  if (file_exists(src_figures)) {
-    dir_copy_to(pkg, src_figures, dst_figures)
-  }
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "man", "figures"),
+    src_root = pkg$src_path,
+    dst_dir = path(pkg$dst_path, "reference", "figures"),
+    dst_root = pkg$dst_path
+  )
 }
 
 examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
@@ -223,7 +232,7 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
   post_path <- path_abs(path(pkg$src_path, "pkgdown", "post-reference.R"))
 
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
-  width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
+  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
   withr::local_options(width = width, .local_envir = envir)
   withr::local_seed(seed, .local_envir = envir)
   if (requireNamespace("htmlwidgets", quietly = TRUE)) {
@@ -248,11 +257,12 @@ build_reference_index <- function(pkg = ".") {
   create_subdir(pkg, "reference")
 
   # Copy icons, if needed
-  src_icons <- path(pkg$src_path, "icons")
-  dst_icons <- path(pkg$dst_path, "reference", "icons")
-  if (file_exists(src_icons)) {
-    dir_copy_to(pkg, src_icons, dst_icons)
-  }
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "icons"),
+    src_root = pkg$src_path,
+    dst_dir = path(pkg$dst_path, "reference", "icons"),
+    dst_root = pkg$dst_path
+  )
 
   render_page(
     pkg, "reference-index",
@@ -287,7 +297,7 @@ build_reference_topic <- function(topic,
     ),
     error = function(err) {
       cli::cli_abort(
-        "Failed to parse Rd in {.file {topic$file_in}}", 
+        "Failed to parse Rd in {.file {topic$file_in}}",
         parent = err,
         call = quote(build_reference())
       )
@@ -302,13 +312,13 @@ build_reference_topic <- function(topic,
     deps <- purrr::map(
       deps,
       htmltools::copyDependencyToDir,
-      outputDir = file.path(pkg$dst_path, "reference", "libs"),
+      outputDir = path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
     deps <- purrr::map(
       deps,
       htmltools::makeDependencyRelative,
-      basepath = file.path(pkg$dst_path, "reference"),
+      basepath = path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
     data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))

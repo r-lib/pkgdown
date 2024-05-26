@@ -1,3 +1,35 @@
+# Reference page ---------------------------------------------------------------
+
+#' @export
+as_data.tag_usage <- function(x, ...) {
+  text <- paste(flatten_text(x, ..., escape = FALSE), collapse = "\n")
+  text <- str_trim(text)
+
+  highlight_text(text)
+}
+
+#' @export
+as_html.tag_method <- function(x, ...) method_usage(x, "S3")
+#' @export
+as_html.tag_S3method <- function(x, ...) method_usage(x, "S3")
+#' @export
+as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
+
+method_usage <- function(x, type) {
+  fun <- as_html(x[[1]])
+  class <- as_html(x[[2]])
+
+  if (x[[2]] == "default") {
+    method <- sprintf(tr_("# Default %s method"), type)
+  } else {
+    method <- sprintf(tr_("# %s method for class '%s'"), type, class)
+  }
+
+  paste0(method, "\n", fun)
+}
+
+# Reference index --------------------------------------------------------------
+
 topic_funs <- function(rd) {
   funs <- parse_usage(rd)
 
@@ -24,28 +56,18 @@ parse_usage <- function(x) {
   }
 
   exprs <- tryCatch(
-    {
-      parse_exprs(r)
-    },
+    parse_exprs(r),
     error = function(e) {
-      cli::cli_warn(
-        "Failed to parse usage: {.code {r}}"
-      )
+      cli::cli_warn("Failed to parse usage: {.code {r}}")
       list()
     }
   )
-
   purrr::map(exprs, usage_type)
 }
 
 short_name <- function(name, type, signature) {
   name <- escape_html(name)
-
-  if (!is_syntactic(name)) {
-    qname <- paste0("`", name, "`")
-  } else {
-    qname <- name
-  }
+  qname <- auto_quote(name)
 
   if (type == "data") {
     qname
@@ -62,7 +84,6 @@ short_name <- function(name, type, signature) {
 }
 
 # Given single expression generated from usage_code, extract
-
 usage_type <- function(x) {
   if (is_symbol(x)) {
     list(type = "data", name = as.character(x))

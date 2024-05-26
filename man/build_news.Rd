@@ -54,8 +54,6 @@ be added to the heading (see below for how to suppress); if not
 available on CRAN, "Unreleased" will be added.
 }
 \section{YAML config}{
-
-
 To automatically link to release announcements, include a \code{releases}
 section.
 

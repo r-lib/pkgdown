@@ -1,3 +1,10 @@
+# converts Rd unicode shortcuts
+
+    Code
+      rd2html("``a -- b --- c''")
+    Output
+      [1] "“a – b — c”"
+
 # subsection generates h3
 
     Code
@@ -31,14 +38,6 @@
       
       </div>
       </div>
-
-# Sexprs with multiple args are parsed
-
-    Code
-      rd2html("\\Sexpr[results=verbatim]{1}")
-    Condition
-      Error:
-      ! \\Sexpr{result=verbatim} not yet supported
 
 # bad specs throw errors
 
@@ -84,6 +83,18 @@
     <dt>Label</dt>
     <dd><p>Paragraph 1</p>
     <p>Paragraph 2</p></dd>
+    
+    
+    </dl>
+
+# can add ids to descriptions
+
+    <dl>
+    <dt id='fooabc'>abc<a class='anchor' aria-label='anchor' href='#fooabc'></a></dt>
+    <dd><p>Contents 1</p></dd>
+    
+    <dt id='fooxyz'>xyz<a class='anchor' aria-label='anchor' href='#fooxyz'></a></dt>
+    <dd><p>Contents 2</p></dd>
     
     
     </dl>

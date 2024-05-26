@@ -16,24 +16,23 @@ test_that("data_news works as expected for h1 & h2", {
       bootstrap: 5
   ")
 
-  write_lines(lines_h1, file.path(pkg$src_path, "NEWS.md"))
+  write_lines(lines_h1, path(pkg$src_path, "NEWS.md"))
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 
-  write_lines(lines_h2, file.path(pkg$src_path, "NEWS.md"))
+  write_lines(lines_h2, path(pkg$src_path, "NEWS.md"))
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 })
 
 
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
-  local_edition(3)
 
   pkg <- local_pkgdown_site(meta = "
     news:
       one_page: false
     "
   )
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
+  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
     "# testpackage 2.0", "",
     "* bullet (#222 @someone)", "",
     "# testpackage 1.1", "",
@@ -81,7 +80,7 @@ test_that("github links are added to news items", {
       "- Bug fixes (@hadley, #100)", "",
       "- Merges (@josue-rodriguez)"
     ),
-    file.path(temp_pkg$src_path, "NEWS.md")
+    path(temp_pkg$src_path, "NEWS.md")
   )
   news_tbl <- data_news(temp_pkg)
   html <- xml2::read_xml(news_tbl$html)
@@ -112,12 +111,6 @@ test_that("correct timeline for first ggplot2 releases", {
   )
 
   expect_equal(timeline, expected)
-})
-
-test_that("determines page style from meta", {
-  expect_equal(news_style(meta = list()), "single")
-  expect_equal(news_style(meta = list(news = list(one_page = FALSE))), "multi")
-  expect_equal(news_style(meta = list(news = list(list(one_page = FALSE)))), "multi")
 })
 
 # news_title and version_page -----------------------------------------------
@@ -204,10 +197,10 @@ test_that("clear error for bad hierarchy - bad nesting", {
       "* first thing (#111 @githubuser)", "",
       "* second thing", ""
     ),
-    file.path(temp_pkg$src_path, "NEWS.md")
+    path(temp_pkg$src_path, "NEWS.md")
   )
 
-  expect_snapshot_error(data_news(temp_pkg))
+  expect_snapshot(data_news(temp_pkg), error = TRUE)
 })
 
 test_that("clear error for bad hierarchy - h3", {
@@ -225,15 +218,15 @@ test_that("clear error for bad hierarchy - h3", {
       "* first thing (#111 @githubuser)", "",
       "* second thing", ""
     ),
-    file.path(temp_pkg$src_path, "NEWS.md")
+    path(temp_pkg$src_path, "NEWS.md")
   )
 
-  expect_snapshot_error(data_news(temp_pkg))
+  expect_snapshot(data_news(temp_pkg), error = TRUE)
 })
 
 test_that("news can contain footnotes", {
   pkg <- local_pkgdown_site()
-  write_lines(path = file.path(pkg$src_path, "NEWS.md"), c(
+  write_lines(path = path(pkg$src_path, "NEWS.md"), c(
     "## testpackage 1.0.0.9000",
     "",
     "* bullet",
@@ -258,6 +251,6 @@ test_that("data_news warns if no headings found", {
       bootstrap: 5
   ")
 
-  write_lines(lines, file.path(pkg$src_path, "NEWS.md"))
+  write_lines(lines, path(pkg$src_path, "NEWS.md"))
   expect_snapshot(. <- data_news(pkg))
 })

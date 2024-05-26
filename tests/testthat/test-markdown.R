@@ -1,13 +1,12 @@
-test_that("handles empty inputs", {
-  expect_equal(markdown_text_inline(""), NULL)
-  expect_equal(markdown_text_inline(NULL), NULL)
-
-  expect_equal(markdown_text_block(NULL), NULL)
-  expect_equal(markdown_text_block(""), NULL)
+test_that("handles empty inputs (returns NULL)", {
+  expect_null(markdown_text_inline(""))
+  expect_null(markdown_text_inline(NULL))
+  expect_null(markdown_text_block(NULL))
+  expect_null(markdown_text_block(""))
 
   path <- withr::local_tempfile()
-  file.create(path)
-  expect_equal(markdown_body(path), NULL)
+  file_create(path)
+  expect_null(markdown_body(path))
 })
 
 test_that("header attributes are parsed", {
@@ -18,7 +17,11 @@ test_that("header attributes are parsed", {
 
 test_that("markdown_text_inline() works with inline markdown", {
   expect_equal(markdown_text_inline("**lala**"), "<strong>lala</strong>")
-  expect_snapshot_error(markdown_text_inline("x\n\ny"))
+
+  pkg <- local_pkgdown_site()
+  expect_snapshot(error = TRUE, {
+    markdown_text_inline("x\n\ny", error_pkg = pkg, error_path = "title")
+  })
 })
 
 test_that("markdown_text_block() works with inline and block markdown", {

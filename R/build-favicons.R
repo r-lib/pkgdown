@@ -42,7 +42,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     i = "Building favicons with {.url https://realfavicongenerator.net} ..."
   ))
 
-  logo <- readBin(logo_path, what = "raw", n = fs::file_info(logo_path)$size)
+  logo <- readBin(logo_path, what = "raw", n = file_info(logo_path)$size)
 
   json_request <- list(
     "favicon_generation" = list(
@@ -84,12 +84,11 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
     cli::cli_abort("API request failed.", .internal = TRUE)
   }
 
-  tmp <- tempfile()
-  on.exit(unlink(tmp))
+  tmp <- withr::local_tempfile()
   result <- httr::RETRY(
     "GET",
     result$favicon$package_url,
-    httr::write_disk(tmp),
+    httr::write_disk(tmp, overwrite = TRUE),
     quiet = TRUE
   )
 
@@ -109,15 +108,16 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
 copy_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  favicons <- path(pkg$src_path, "pkgdown", "favicon")
-  if (!dir_exists(favicons))
-    return()
-
-  dir_copy_to(pkg, favicons, pkg$dst_path)
+  dir_copy_to(
+    src_dir = path(pkg$src_path, "pkgdown", "favicon"),
+    src_root = pkg$src_path,
+    dst_dir = pkg$dst_path,
+    dst_root = pkg$dst_path
+  )
 }
 
 has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  file.exists(path(pkg$src_path, "pkgdown", "favicon"))
+  unname(file_exists(path(pkg$src_path, "pkgdown", "favicon")))
 }
