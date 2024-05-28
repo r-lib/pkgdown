@@ -7,7 +7,8 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
 
   deps <- c(
     bslib::bs_theme_dependencies(bs_theme),
-    list(fontawesome::fa_html_dependency())
+    list(fontawesome::fa_html_dependency()),
+    external_dependencies()
   )
   
   deps <- lapply(deps, htmltools::copyDependencyToDir, path_deps(pkg))
@@ -27,14 +28,6 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   }
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
-
-  # include additional external assets
-  head <- paste(
-    head,
-    paste0(assemble_ext_assets(pkg), collapse = "\n"),
-    sep = "\n"
-  )
-
   write_lines(head, path_data_deps(pkg))
 }
 
