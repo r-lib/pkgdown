@@ -375,8 +375,8 @@ own customisations.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span></code></pre></div>
-<p>It makes use of the the six built-in components:</p>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span></code></pre></div>
+<p>It makes use of the the following built-in components:</p>
 <ul>
 <li>
 <code>intro</code>: “Get Started”, which links to a vignette or
@@ -401,6 +401,9 @@ for more details).</li>
 <code>github</code>, a link to the source repository (with an icon),
 if it can be automatically determined from the
 <code>DESCRIPTION</code>.</li>
+<li>
+<code>lightswitch</code>, a <a href="#light-switch">“light
+switch”</a> to select light mode, dark mode, or auto mode.</li>
 </ul>
 <p>You can use the <code>structure</code> field to reorganise the navbar
 without changing the default contents:</p>
