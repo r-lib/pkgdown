@@ -77,7 +77,7 @@ cached_dependency <- function(name, version, files) {
   for (file in files) {
     cache_path <- path(cache_dir, path_file(file$url))
     if (!file_exists(cache_path)) {
-      download.file(file$url, cache_path, quiet = TRUE, mode = "wb")
+      utils::download.file(file$url, cache_path, quiet = TRUE, mode = "wb")
       check_integrity(cache_path, file$integrity)
     }
   }
