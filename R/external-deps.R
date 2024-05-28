@@ -81,7 +81,7 @@ cached_dependency <- function(name, version, files) {
       check_integrity(cache_path, file$integrity)
     }
   }
-  dep_files <- dir(cache_dir)
+  dep_files <- path_rel(dir_ls(cache_dir), cache_dir)
 
   htmltools::htmlDependency(
     name = name,
