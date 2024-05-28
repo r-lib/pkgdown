@@ -52,7 +52,7 @@ build_article <- function(name,
 
   default_data <- list(
     pagetitle = escape_html(front$title),
-    toc = toc <- front$toc %||% TRUE,
+    toc = front$toc %||% TRUE,
     opengraph = list(description = front$description %||% pkg$package),
     source = repo_source(pkg, input),
     filename = path_file(input),

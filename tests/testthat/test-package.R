@@ -98,11 +98,18 @@ test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
 
 # lifecycle ---------------------------------------------------------------
 
-test_that("can extract lifecycle badges", {
-  expect_equal(
-    extract_lifecycle(rd_text(lifecycle::badge("deprecated"))), 
-    "deprecated"
+test_that("can extract lifecycle badges from description", {
+  rd_desc <- rd_text(
+    paste0("\\description{", lifecycle::badge("deprecated"), "}"),
+    fragment = FALSE
   )
+  rd_param <- rd_text(
+    paste0("\\arguments{\\item{pkg}{", lifecycle::badge("deprecated"), "}}"),
+    fragment = FALSE
+  )
+
+  expect_equal(extract_lifecycle(rd_desc), "deprecated")
+  expect_equal(extract_lifecycle(rd_param), NULL)
 })
 
 test_that("malformed figures fail gracefully", {
