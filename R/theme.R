@@ -5,7 +5,7 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   cur_deps <- find_deps(pkg)
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
-  deps <- bslib::bs_theme_dependencies(bs_theme)
+  deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies())
   deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
@@ -17,7 +17,8 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   changed <- all_deps[!diff | is.na(diff)]
 
   if (length(changed) > 0) {
-    purrr::walk(changed, function(dst) {
+    withr::local_locale(LC_COLLATE = "C")
+    purrr::walk(sort(changed), function(dst) {
       cli::cli_inform("Updating {dst_path(path_rel(dst, pkg$dst_path))}")
     })
   }

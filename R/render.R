@@ -128,6 +128,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
+  out$lightswitch <- uses_lightswitch(pkg)
 
   print_yaml(out)
 }

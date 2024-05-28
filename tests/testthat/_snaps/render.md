@@ -61,6 +61,7 @@
     footer:
       left: <p>Developed by Hadley Wickham, RStudio.</p>
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
+    lightswitch: no
     
 
 # check_opengraph validates inputs
