@@ -73,3 +73,12 @@ test_that("build_sitemap() handles special xml characters", {
   suppressMessages(build_sitemap(pkg))
   expect_no_error(xml2::read_xml(path(pkg$dst_path, "sitemap.xml")))
 })
+
+test_that("sitemap excludes redirects", {
+  pkg <- local_pkgdown_site(meta = list(
+    url = "https://example.com",
+    redirects = list(c("a.html", "b.html"))
+  ))
+  suppressMessages(build_redirects(pkg))
+  expect_equal(get_site_paths(pkg), character())
+})

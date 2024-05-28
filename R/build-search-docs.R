@@ -296,5 +296,9 @@ get_site_paths <- function(pkg) {
 
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!path_has_parent(paths_rel, "dev")]
+  paths_rel <- paths_rel[!path_has_parent(paths_rel, "dev")]
+
+  # do not include redirects
+  redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)
+  setdiff(paths_rel, redirects)
 }
