@@ -17,7 +17,8 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   changed <- all_deps[!diff | is.na(diff)]
 
   if (length(changed) > 0) {
-    purrr::walk(changed, function(dst) {
+    withr::local_locale(LC_COLLATE = "C")
+    purrr::walk(sort(changed), function(dst) {
       cli::cli_inform("Updating {dst_path(path_rel(dst, pkg$dst_path))}")
     })
   }
