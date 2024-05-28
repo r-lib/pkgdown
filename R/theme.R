@@ -5,12 +5,8 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   cur_deps <- find_deps(pkg)
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
-  deps <- c(
-    bslib::bs_theme_dependencies(bs_theme),
-    external_dependencies()
-  )
-  
-  deps <- lapply(deps, htmltools::copyDependencyToDir, path_deps(pkg))
+  deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies())
+  deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
   new_deps <- find_deps(pkg)
@@ -27,11 +23,11 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   }
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
-  write_lines(head, path_data_deps(pkg))
+  write_lines(head, data_deps_path(pkg))
 }
 
 data_deps <- function(pkg, depth) {
-  if (!file_exists(path_data_deps(pkg))) {
+  if (!file_exists(data_deps_path(pkg))) {
     cli::cli_abort(
       "Run {.fn pkgdown::init_site} first.",
       call = caller_env()
@@ -40,19 +36,15 @@ data_deps <- function(pkg, depth) {
 
   deps_path <- paste0(up_path(depth), "deps")
 
-  data_deps <- read_lines(path_data_deps(pkg))
+  data_deps <- read_lines(data_deps_path(pkg))
   data_deps <- gsub('src="deps', sprintf('src="%s', deps_path), data_deps)
   data_deps <- gsub('href="deps', sprintf('href="%s', deps_path), data_deps)
 
   paste0(data_deps, collapse = "")
 }
 
-path_deps <- function(pkg, ...) {
-  file.path(pkg$dst_path, "deps", ...)
-}
-
-path_data_deps <- function(pkg) {
-  file.path(path_deps(pkg), "data-deps.txt")
+data_deps_path <- function(pkg) {
+  path(pkg$dst_path, "deps", "data-deps.txt")
 }
 
 find_deps <- function(pkg) {
