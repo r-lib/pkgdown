@@ -1,5 +1,6 @@
 external_dependencies <- function() {
   list(
+    fontawesome::fa_html_dependency(),
     cached_dependency(
       name = "headroom",
       version = "0.11.0",

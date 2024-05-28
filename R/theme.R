@@ -7,7 +7,6 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
 
   deps <- c(
     bslib::bs_theme_dependencies(bs_theme),
-    list(fontawesome::fa_html_dependency()),
     external_dependencies()
   )
   
