@@ -288,7 +288,9 @@ extract_source <- function(x) {
 }
 
 extract_lifecycle <- function(x) {
-  fig <- extract_figure(x)
+  desc <- purrr::keep(x, inherits, "tag_description")
+  fig <- extract_figure(desc)
+
   if (!is.null(fig) && length(fig) > 0 && length(fig[[1]]) > 0) {
     path <- as.character(fig[[1]][[1]])  
     if (grepl("lifecycle", path)) {
