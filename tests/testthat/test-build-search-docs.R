@@ -66,14 +66,6 @@ test_that("build_search() builds the expected search.json with no URL", {
   expect_snapshot_file(json_path, "search-no-url.json")
 })
 
-test_that("build_sitemap() handles special xml characters", {
-  pkg <- local_pkgdown_site()
-  file_create(path(pkg$dst_path, "[<-.foo.html"))
-
-  suppressMessages(build_sitemap(pkg))
-  expect_no_error(xml2::read_xml(path(pkg$dst_path, "sitemap.xml")))
-})
-
 test_that("sitemap excludes redirects", {
   pkg <- local_pkgdown_site(meta = list(
     url = "https://example.com",

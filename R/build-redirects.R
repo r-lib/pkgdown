@@ -82,6 +82,9 @@ reference_redirects <- function(pkg) {
 
   names(redirects) <- paste0(names(redirects), ".html")
 
+  # Ensure we don't create an invalid file name
+  redirects <- redirects[grepl("^[a-zA-Z0-9._-]+$", names(redirects))]
+
   # Ensure we don't override an existing file
   redirects <- redirects[setdiff(names(redirects), pkg$topics$file_out)]
 
