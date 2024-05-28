@@ -127,8 +127,8 @@ aside {
   .row > aside {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
-    background-color: $gray-100;
-    border-color: $border-color;
+    background-color: RGBA(var(--bs-body-color-rgb), 0.1);
+    border-color: var(--bs-border-color);
     @include border-radius($border-radius);
 
     h2:first-child {
