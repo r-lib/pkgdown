@@ -5,7 +5,11 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   cur_deps <- find_deps(pkg)
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
-  deps <- bslib::bs_theme_dependencies(bs_theme)
+  deps <- c(
+    bslib::bs_theme_dependencies(bs_theme),
+    list(fontawesome::fa_html_dependency())
+  )
+  
   deps <- lapply(deps, htmltools::copyDependencyToDir, path_deps(pkg))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
@@ -68,29 +72,6 @@ assemble_ext_assets <- function(pkg) {
         "integrity} value of {.val {(.x$integrity)}}. Asset URL is: {.url ",
         "{(.x$url)}}"
       ))
-    }
-
-    # download subresources (webfonts etc.) if necessary
-    if (isTRUE(.x$has_subresources)) {
-      file_content <- read_file(path)
-      pos <- gregexpr("(?<=\\burl\\((?!(data|https?):))[^)?#]*", file_content, perl = TRUE)
-      urls <- unique(unlist(regmatches(file_content, pos)))
-      subdirs <- unique(fs::path_dir(urls))
-      fs::dir_create(
-        fs::path_norm(fs::path(path_deps(pkg), subdirs)),
-        recurse = TRUE
-      )
-      url_parsed <- xml2::url_parse(.x$url)
-      url_excl_scheme <- fs::path(url_parsed$server, url_parsed$path)
-      remote_urls <- paste0(
-        url_parsed$scheme, "://",
-        fs::path_norm(fs::path(fs::path_dir(url_excl_scheme), urls))
-      )
-      purrr::walk2(
-        remote_urls,
-        urls,
-        ~ download.file(.x, fs::path_norm(path_deps(pkg, .y)), quiet = TRUE, mode = "wb")
-      )
     }
     .x$url <- fs::path_rel(path, pkg$dst_path)
 

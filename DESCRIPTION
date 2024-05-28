@@ -26,6 +26,7 @@ Imports:
     desc (>= 1.4.0),
     digest,
     downlit (>= 0.4.0),
+    fontawesome,
     fs (>= 1.4.0),
     httr (>= 1.4.2),
     jsonlite,

@@ -25,6 +25,18 @@
       Updating deps/bootstrap-5.3.1/bootstrap.bundle.min.js
       Updating deps/bootstrap-5.3.1/bootstrap.bundle.min.js.map
       Updating deps/bootstrap-5.3.1/bootstrap.min.css
+      Updating deps/font-awesome-6.4.2/css/all.css
+      Updating deps/font-awesome-6.4.2/css/all.min.css
+      Updating deps/font-awesome-6.4.2/css/v4-shims.css
+      Updating deps/font-awesome-6.4.2/css/v4-shims.min.css
+      Updating deps/font-awesome-6.4.2/webfonts/fa-brands-400.ttf
+      Updating deps/font-awesome-6.4.2/webfonts/fa-brands-400.woff2
+      Updating deps/font-awesome-6.4.2/webfonts/fa-regular-400.ttf
+      Updating deps/font-awesome-6.4.2/webfonts/fa-regular-400.woff2
+      Updating deps/font-awesome-6.4.2/webfonts/fa-solid-900.ttf
+      Updating deps/font-awesome-6.4.2/webfonts/fa-solid-900.woff2
+      Updating deps/font-awesome-6.4.2/webfonts/fa-v4compatibility.ttf
+      Updating deps/font-awesome-6.4.2/webfonts/fa-v4compatibility.woff2
       Updating deps/jquery-3.6.0/jquery-3.6.0.js
       Updating deps/jquery-3.6.0/jquery-3.6.0.min.js
       Updating deps/jquery-3.6.0/jquery-3.6.0.min.map
