@@ -119,6 +119,7 @@ build_rmarkdown_format <- function(pkg,
     theme = NULL,
     template = template$path,
     anchor_sections = FALSE,
+    math_method = config_math_rendering(pkg),
     extra_dependencies = bs_theme_deps_suppress()
   )
   out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)

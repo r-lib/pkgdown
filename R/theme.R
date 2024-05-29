@@ -5,7 +5,7 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   cur_deps <- find_deps(pkg)
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
-  deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies())
+  deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies(pkg))
   deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
