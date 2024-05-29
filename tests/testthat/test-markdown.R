@@ -53,3 +53,14 @@ test_that("markdown_text_*() handles UTF-8 correctly", {
   expect_equal(markdown_text_block(pkg, "\u00f8"), "<p>\u00f8</p>")
   expect_equal(markdown_text_inline(pkg, "\u00f8"), "\u00f8")
 })
+
+test_that("validates math yaml", {
+  config_math_rendering_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(template = list(...)))
+    config_math_rendering(pkg)
+  }
+  expect_snapshot(error = TRUE, {
+    config_math_rendering_(`math-rendering` = 1)
+    config_math_rendering_(`math-rendering` = "math")
+  })
+})
