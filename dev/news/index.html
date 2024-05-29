@@ -51,7 +51,9 @@
     </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (<a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/r-lib/pkgdown/issues/2249" class="external-link">#2249</a>)</li>
+<ul><li>
+<code>build_sitemap()</code> no longer includes redirected pages (<a href="https://github.com/r-lib/pkgdown/issues/2582" class="external-link">#2582</a>).</li>
+<li>All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (<a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/r-lib/pkgdown/issues/2249" class="external-link">#2249</a>)</li>
 <li>
 <code><a href="../reference/build_reference.html">build_reference_index()</a></code> now displays function lifecycle badges next to the function name (<a href="https://github.com/r-lib/pkgdown/issues/2123" class="external-link">#2123</a>). The badges are extracted only from the function description. You can now also use <code>has_lifecycle()</code> to select functions by their lifecycle status.</li>
 <li>
