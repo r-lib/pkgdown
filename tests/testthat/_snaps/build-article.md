@@ -20,7 +20,7 @@
       x Missing alt-text in 'vignettes/missing-images.Rmd'
       * kitten.jpg
       * missing-images_files/figure-html/unnamed-chunk-1-1.png
-      i Learn more in `vignette(accessibility)`.
+      i Learn more in `vignette(pkgdown::accessibility)`.
 
 # can build article that uses html_vignette
 
