@@ -222,6 +222,15 @@ template:
     code-bg: "#2b2b2b"
 ```
 
+### Math rendering
+
+By default, pkgdown will render math using mathml. mathml is the official standard for rendering math on the web, and requires no additional javascript or css dependencies. However, browser support for complex math is not always that good, so if you are including complex equations in your documentation, you may want to switch to either [`katex`](https://katex.org) or [`mathjax`](https://www.mathjax.org) by using the `template.math-rendering` field:
+
+```yaml
+template:
+  math-rendering: katex
+```
+
 ### Navbar style
 
 The primary navbar colours are determined by HTML classes, not CSS, and can be customized using the `navbar` fields `bg` and `type` which control the background and foreground colours respectively.
