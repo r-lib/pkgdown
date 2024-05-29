@@ -13,9 +13,9 @@ test_that("handles CoC and SUPPORT if present", {
 })
 
 test_that("empty site doesn't have community asserts", {
-  expect_false(has_contributing(test_path("assets/site-empty")))
-  expect_false(has_coc(test_path("assets/site-empty")))
+  pkg <- local_pkgdown_site()
 
-  text <- data_home_sidebar_community(test_path("assets/site-empty"))
-  expect_equal(text, "")
+  expect_false(has_contributing(pkg$src_path))
+  expect_false(has_coc(pkg$src_path))
+  expect_equal(data_home_sidebar_community(pkg$src_path), "")
 })

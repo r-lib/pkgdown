@@ -1,18 +1,15 @@
 test_that("informative print method", {
-  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
-  expect_snapshot(init_site(pkg))
-
-  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"), meta = "
-    template:
-      bootstrap: 5
-  ")
+  pkg <- local_pkgdown_site()
   expect_snapshot(init_site(pkg))
 })
 
 test_that("extra.css and extra.js copied and linked", {
-  pkg <- local_pkgdown_site(test_path("assets/init-extra-2"))
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "pkgdown"))
+  file_create(path(pkg$src_path, "pkgdown", "extra.css"))
+  file_create(path(pkg$src_path, "pkgdown", "extra.js"))
+  
   suppressMessages(init_site(pkg))
-
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
   expect_true(file_exists(path(pkg$dst_path, "extra.js")))
 
@@ -27,7 +24,9 @@ test_that("extra.css and extra.js copied and linked", {
 })
 
 test_that("single extra.css correctly copied", {
-  pkg <- local_pkgdown_site(test_path("assets/init-extra-1"))
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "pkgdown"))
+  file_create(path(pkg$src_path, "pkgdown", "extra.css"))
   suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))

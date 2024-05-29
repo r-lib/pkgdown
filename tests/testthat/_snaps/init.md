@@ -4,25 +4,9 @@
       init_site(pkg)
     Message
       -- Initialising site -----------------------------------------------------------
-      Copying <pkgdown>/BS3/assets/bootstrap-toc.css to bootstrap-toc.css
-      Copying <pkgdown>/BS3/assets/bootstrap-toc.js to bootstrap-toc.js
-      Copying <pkgdown>/BS3/assets/docsearch.css to docsearch.css
-      Copying <pkgdown>/BS3/assets/docsearch.js to docsearch.js
-      Copying <pkgdown>/BS3/assets/link.svg to link.svg
-      Copying <pkgdown>/BS3/assets/pkgdown.css to pkgdown.css
-      Copying <pkgdown>/BS3/assets/pkgdown.js to pkgdown.js
-      Copying pkgdown/extra.css to extra.css
-
----
-
-    Code
-      init_site(pkg)
-    Message
-      -- Initialising site -----------------------------------------------------------
       Copying <pkgdown>/BS5/assets/lightswitch.js to lightswitch.js
       Copying <pkgdown>/BS5/assets/link.svg to link.svg
       Copying <pkgdown>/BS5/assets/pkgdown.js to pkgdown.js
-      Copying pkgdown/extra.css to extra.css
       Updating deps/MathJax-2.7.5/MathJax.js
       Updating deps/MathJax-2.7.5/TeX-AMS-MML_HTMLorMML.js
       Updating deps/bootstrap-5.3.1/bootstrap.bundle.min.js

@@ -116,11 +116,13 @@ test_that("check doesn't include getting started vignette", {
   file_create(getting_started)
   withr::defer(file_delete(getting_started))
 
-  pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = "
-    articles:
-     - title: Title
-       contents: resources
-  ")
+  pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = 
+    list(
+      articles = list(
+        list(title = "Getting Started", contents = "resources")
+      )
+    )
+  )
 
   expect_error(data_articles_index(pkg), NA)
 })

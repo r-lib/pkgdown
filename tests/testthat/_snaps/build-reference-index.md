@@ -146,31 +146,6 @@
         desc: ~
         is_internal: no
       - topics:
-        - path: a.html
-          title: A
-          lifecycle: ~
-          aliases: a()
-          icon: ~
-        - path: b.html
-          title: B
-          lifecycle: ~
-          aliases: b()
-          icon: ~
-        - path: c.html
-          title: C
-          lifecycle: ~
-          aliases: c()
-          icon: ~
-        - path: e.html
-          title: E
-          lifecycle: ~
-          aliases: e
-          icon: ~
-        - path: help.html
-          title: D
-          lifecycle: ~
-          aliases: '`?`()'
-          icon: ~
         - path: https://rlang.r-lib.org/reference/is_installed.html
           title: Are packages installed in any of the libraries? (from rlang)
           lifecycle: ~
@@ -189,11 +164,6 @@
           - bs_bundle()
           icon: ~
         names:
-        - a
-        - b
-        - c
-        - e
-        - '?'
         - rlang::is_installed()
         - bslib::bs_add_rules
         row_has_icons: no

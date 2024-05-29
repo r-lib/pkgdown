@@ -289,11 +289,11 @@ build_home <- function(pkg = ".",
                        preview = NA,
                        quiet = TRUE) {
 
+  create_subdir(pkg, "")
   pkg <- section_init(pkg, depth = 0L, override = override)
   check_bool(quiet)
 
   cli::cli_rule("Building home")
-  create_subdir(pkg, "")
 
   build_citation_authors(pkg)
 

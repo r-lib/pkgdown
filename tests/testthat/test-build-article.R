@@ -102,10 +102,10 @@ test_that("can override options with _output.yml", {
 })
 
 test_that("can set width", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"), "
-    code:
-      width: 50
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/articles"),
+    list(code = list(width = 50))
+  )
   suppressMessages(init_site(pkg))
 
   suppressMessages(path <- build_article("width", pkg))
@@ -138,12 +138,9 @@ test_that("finds external resources referenced by R code in the article html", {
 })
 
 test_that("BS5 article laid out correctly with and without TOC", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"), "
-    template:
-      bootstrap: 5
-  ")
-
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
+  
   suppressMessages(toc_true_path <- build_article("standard", pkg))
   suppressMessages(toc_false_path <- build_article("toc-false", pkg))
 
@@ -160,14 +157,10 @@ test_that("BS5 article laid out correctly with and without TOC", {
 })
 
 test_that("pkgdown deps are included only once in articles", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"), "
-    template:
-      bootstrap: 5
-  ")
-
+  pkg <- local_pkgdown_site(test_path("assets/articles"))
   suppressMessages(init_site(pkg))
+  
   suppressMessages(path <- build_article("html-deps", pkg))
-
   html <- xml2::read_html(path)
 
   # jquery is only loaded once, even though it's also added by code in the article

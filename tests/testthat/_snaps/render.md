@@ -45,21 +45,23 @@
       js: ~
     yaml:
       .present: yes
+    headdeps: ''
     development:
       destination: dev
       mode: default
-      version_label: default
+      version_label: muted
       in_dev: no
       version_tooltip: ''
     navbar:
-      type: default
-      left: |-
-        <li>
-          <a href="reference/index.html">Reference</a>
-        </li>
-      right: ''
+      bg: light
+      type: light
+      left: <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+      right: "<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n <input
+        class=\"form-control\" type=\"search\" name=\"search-input\" id=\"search-input\"
+        autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\">
+        \n</form></li>"
     footer:
-      left: <p>Developed by Hadley Wickham, RStudio.</p>
+      left: <p>Developed by Jo Doe.</p>
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     lightswitch: no
     
