@@ -16,7 +16,6 @@ authors:
       <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
 
 template:
-  math-rendering: katex
   bootstrap: 5
   light-switch: true
   bslib:
