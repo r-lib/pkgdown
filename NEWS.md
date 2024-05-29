@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_sitemap()` no longer includes redirected pages (#2582).
 * All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
 * `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
 * `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
