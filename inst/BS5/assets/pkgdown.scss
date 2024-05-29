@@ -329,6 +329,11 @@ img.logo {
   dt {font-weight: normal;}
   // Don't allow breaking within a function name
   code {word-wrap: normal;}
+  // Underline top-level reference topics ("titles") to better distinguish them from second-level ones ("subtitles")
+  main h2 {
+    text-decoration-line: underline;
+    text-underline-offset: 0.33em;
+  }
 }
 .icon {
   float: right;
