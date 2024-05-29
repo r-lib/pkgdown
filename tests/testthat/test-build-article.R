@@ -220,6 +220,36 @@ test_that("reports on bad open graph meta-data", {
   expect_snapshot(build_article(pkg = pkg, name = "bad-opengraph"), error = TRUE)
 })
 
+test_that("can control math mode", {
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "vignettes"))
+  write_lines(c("$1 + 1$"), path(pkg$src_path, "vignettes", "math.Rmd"))
+  pkg <- as_pkgdown(pkg$src_path, override = list(template = list(bootstrap = 5)))
+
+  pkg$meta$template$`math-rendering` <- "mathml"
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_article("math", pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  expect_equal(xpath_length(html, ".//math"), 1)
+
+  pkg$meta$template$`math-rendering` <- "mathjax"
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_article("math", pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
+  
+
+  pkg$meta$template$`math-rendering` <- "katex"
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_article("math", pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
+  expect_contains(
+    path_file(xpath_attr(html, ".//script", "src")),
+    c("katex-auto.js", "katex.min.js")
+  )
+})
+
 # render_markdown --------------------------------------------------------------
 
 test_that("render_rmarkdown copies image files in subdirectories", {
