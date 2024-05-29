@@ -189,26 +189,35 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   )
 }
 
-#' @importFrom memoise memoise
-NULL
-
-cran_link <- memoise(function(pkg) {
+cran_link <- function(pkg) {
   if (!has_internet()) {
     return(NULL)
   }
 
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
-
-  if (!httr::http_error(cran_url)) {
+  req <- httr2::request(cran_url)
+  req <- httr2::req_cache(req, path = http_cache_dir(), max_age = 86400)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  resp <- httr2::req_perform(req)
+  if (!httr2::resp_is_error(resp)) {
     return(list(repo = "CRAN", url = cran_url))
   }
 
   # bioconductor always returns a 200 status, redirecting to /removed-packages/
   bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
-  req <- httr::RETRY("HEAD", bioc_url, quiet = TRUE)
-  if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
+  req <- httr2::request(bioc_url)
+  req <- httr2::req_cache(req, path = http_cache_dir(), max_age = 86400)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  req <- httr2::req_retry(req, max_tries = 3)
+  resp <- httr2::req_perform(req)
+
+  if (!httr2::resp_is_error(resp) && !grepl("removed-packages", httr2::resp_url(resp))) {
     return(list(repo = "Bioconductor", url = bioc_url))
   }
 
   NULL
-})
+}
+
+http_cache_dir <- function() {
+  dir_create(path(tools::R_user_dir("pkgdown", "cache"), "http"))
+}
