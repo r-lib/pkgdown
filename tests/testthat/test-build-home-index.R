@@ -25,7 +25,7 @@ test_that("math is handled", {
   suppressMessages(build_home_index(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
-  expect_equal(xpath_text(html, ".//span[contains(@class, 'math')]"), "\\(1 + 1\\)")
+  expect_equal(xpath_length(html, ".//math"), 1)
 })
 
 test_that("data_home() validates yaml metadata", {  

@@ -89,13 +89,13 @@ data_reference_index_rows <- function(section, index, pkg, call = caller_env()) 
   if (has_name(section, "title")) {
     rows[[1]] <- list(
       title = markdown_text_inline(
+        pkg,
         section$title,
         error_path = paste0("reference[", index, "].title"),
-        error_call = call,
-        error_pkg = pkg
+        error_call = call
       ),
       slug = make_slug(section$title),
-      desc = markdown_text_block(section$desc),
+      desc = markdown_text_block(pkg, section$desc),
       is_internal = is_internal
     )
   }
@@ -103,13 +103,13 @@ data_reference_index_rows <- function(section, index, pkg, call = caller_env()) 
   if (has_name(section, "subtitle")) {
     rows[[2]] <- list(
       subtitle = markdown_text_inline(
+        pkg,
         section$subtitle,
         error_path = paste0("reference[", index, "].subtitle"),
-        error_call = call,
-        error_pkg = pkg
+        error_call = call
       ),
       slug = make_slug(section$subtitle),
-      desc = markdown_text_block(section$desc),
+      desc = markdown_text_block(pkg, section$desc),
       is_internal = is_internal
     )
   }

@@ -249,8 +249,8 @@ test_that("selectively remove hide- divs", {
 
 test_that("can process footnote with code", {
   skip_if_no_pandoc("2.17.1")
-
-  html <- markdown_to_html("
+  pkg <- local_pkgdown_site()
+  html <- markdown_to_html(pkg, "
 Hooray[^1]
 
 [^1]: Including code:
