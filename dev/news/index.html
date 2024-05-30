@@ -51,7 +51,8 @@
     </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>New <code>template.math-rendering</code> allows you to control how math is rendered across your site. The default uses <code>mathml</code> which is low-dependency, but has the lowest fidelity. You can also use <code>mathjax</code>, the previous default, and <code>katex</code>, a faster alternative. (<a href="https://github.com/r-lib/pkgdown/issues/1966" class="external-link">#1966</a>).</li>
+<ul><li>pkgdown now uses httr2 instead of httr (<a href="https://github.com/r-lib/pkgdown/issues/2600" class="external-link">#2600</a>).</li>
+<li>New <code>template.math-rendering</code> allows you to control how math is rendered across your site. The default uses <code>mathml</code> which is low-dependency, but has the lowest fidelity. You can also use <code>mathjax</code>, the previous default, and <code>katex</code>, a faster alternative. (<a href="https://github.com/r-lib/pkgdown/issues/1966" class="external-link">#1966</a>).</li>
 <li>Mathjax now uses version 3.2.2.</li>
 <li>
 <code>build_sitemap()</code> no longer includes redirected pages (<a href="https://github.com/r-lib/pkgdown/issues/2582" class="external-link">#2582</a>).</li>
