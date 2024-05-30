@@ -33,7 +33,7 @@ test_that("warns about missing images", {
 
   pkg <- local_pkgdown_site()
   write_lines("![foo](kitten.jpg)", path(pkg$src_path, "vignettes", "kitten.Rmd"))
-  pkg <- as_pkgdown(pkg$src_path)
+  pkg <- update_vignettes(pkg)
 
   expect_snapshot(build_articles(pkg))
 })

@@ -38,14 +38,13 @@ test_that("validates external-articles", {
 })
 
 test_that("data_articles includes external articles", {
-  pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes"))
-  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:2], ".Rmd")))
-  pkg <- as_pkgdown(pkg$src_path, override = list(
+  pkg <- local_pkgdown_site(meta = list(
     `external-articles` = list(
       list(name = "c", title = "c", href = "c", description = "*c*")
     )
   ))
+  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:2], ".Rmd")))
+  pkg <- update_vignettes(pkg)
 
   articles <- data_articles(pkg)
   expect_equal(articles$name, c("a", "b", "c"))
@@ -70,31 +69,28 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 })
 
 test_that("warns about articles missing from index", {
-  pkg <- local_pkgdown_site()
-  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
-    articles:
-    - title: External
-      contents: [a, b]
-  ")
-  dir_create(path(pkg$src_path, "vignettes"))
+  pkg <- local_pkgdown_site(meta = list(
+    articles = list(
+      list(title = "External", contents = c("a", "b"))
+    )
+  ))
   file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
-  pkg <- as_pkgdown(pkg$src_path)
+  pkg <- update_vignettes(pkg)
 
   expect_snapshot(. <- data_articles_index(pkg), error = TRUE)
 })
 
 test_that("internal articles aren't included and don't trigger warning", {
-  pkg <- local_pkgdown_site()
-  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), "
-    articles:
-    - title: External
-      contents: [a, b]
-    - title: internal
-      contents: c
-  ")
-  dir_create(path(pkg$src_path, "vignettes"))
+  pkg <- local_pkgdown_site(meta = 
+    list(articles = 
+      list(
+        list(title = "External", contents = c("a", "b")),
+        list(title = "internal", contents = "c")
+      )
+    )
+  )
   file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
-  pkg <- as_pkgdown(pkg$src_path)
+  pkg <- update_vignettes(pkg)
 
   expect_no_error(index <- data_articles_index(pkg))
   expect_length(index$sections, 1)
@@ -103,9 +99,8 @@ test_that("internal articles aren't included and don't trigger warning", {
 
 test_that("default template includes all articles", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes"))
   file_create(path(pkg$src_path, "vignettes", "a.Rmd"))
-  pkg <- as_pkgdown(pkg$src_path)
+  pkg <- update_vignettes(pkg)
 
   expect_equal(default_articles_index(pkg)[[1]]$contents, "a")
 })

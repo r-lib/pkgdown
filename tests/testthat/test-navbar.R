@@ -68,15 +68,10 @@ test_that("can control articles navbar through articles meta", {
 
 test_that("data_navbar() works by default", {
   pkg <- local_pkgdown_site(meta = list(
-    news = list(one_page = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
-    "# testpackage 2.0", "",
-    "* bullet (#222 @someone)"
-  ))
+  file_touch(path(pkg$src_path, "NEWS.md"))
 
-  pkg <- as_pkgdown(pkg$src_path)
   expect_snapshot(data_navbar(pkg))
 })
 
