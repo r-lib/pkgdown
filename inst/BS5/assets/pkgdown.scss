@@ -32,6 +32,8 @@ $pkgdown-navbar-bg-dark: null !default;
   background: RGBA(var(--bs-body-color-rgb), 0.1);
   background: color-mix(in oklab, color-mix(in oklab, var(--bs-body-bg) 95%, var(--bs-primary)) 95%, var(--bs-body-color));
   background: $pkgdown-navbar-bg;
+  // Harmonize alignment of navbar elements (search field vs. rest)
+  line-height: initial;
 }
 [data-bs-theme="dark"] .navbar {
   background: $pkgdown-navbar-bg-dark;
