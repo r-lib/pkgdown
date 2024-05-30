@@ -1,0 +1,79 @@
+---
+title: "Non-English sites"
+output: rmarkdown::html_vignette
+description: > 
+  If your documentation is written in a language other than English, you can 
+  generate text in your language using the `lang` field. You will also learn
+  how to provide your own translations if your language isn't currently 
+  supported by pkgdown.
+vignette: >
+  %\VignetteIndexEntry{Non-English sites}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+If your documentation (`.Rd` and `.Rmd`) is written in a language other than English, declare it by setting setting `lang` to the [two letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
+
+``` yaml
+lang: fr
+```
+
+This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
+Current available translations are:
+
+-   `ca`: Catalan
+-   `de`: German
+-   `dk`: Danish
+-   `es`: Spanish
+-   `fr`: French
+-   `ko`: Korean
+-   `pt`: Portuguese
+-   `tr`: Turkish
+-   `zh_CN`: Chinese (simplified)
+
+## Translations
+
+Translations are contributed by community members so if your language is not currently available, you could be the one to add it! 
+
+To get started, first install [potools](https://michaelchirico.github.io/potools) and [usethis](https://usethis.r-lib.org):
+
+```{r}
+#| eval: false
+install.packages(c("potools", "usethis"))
+```
+
+You'll then need to familiarise yourself with the basics of [translations with potools](https://michaelchirico.github.io/potools/articles/translators.html) and [creating pull requests](https://usethis.r-lib.org/articles/pr-functions.html) with usethis.
+
+If you don't already know it, you'll need to look up the ISO 639-1 two letter abbreviation for the language on [wikipedia](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes). In the examples below, I'll pretend I'm providing translations for Zulu, which has code `zu`.
+
+Start by initialising a pull request:
+
+```{r}
+#| eval: false
+usethis::pr_init("translation-zu")
+```
+
+Then create the translation file by running `potools::po_create("zu")`, open `po/R-zu.po`, and starting filling in the translations. 
+
+You can check your work by adding `lang: zu` to your `_pkgdown.yml` then running:
+
+```{r}
+#| eval: false
+potools::po_compile()
+devtools::load_all()
+build_site("~/path/to/your/site")
+```
+
+Once you're happy with your work, make sure to compile the changes with `potools::po_compile()`, commit your changes to Git, then submit your pull request for review:
+
+```{r}
+#| eval: false
+usethis::pr_submit()
+```

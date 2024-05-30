@@ -35,6 +35,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - non-english
   - accessibility
   - linking
   - metadata

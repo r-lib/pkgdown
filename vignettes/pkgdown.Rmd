@@ -54,27 +54,6 @@ template:
 
 You can learn more about controlling the appearance of your site in `vignette("customise")`.
 
-### Language
-
-If your documentation (`.Rd` and `.Rmd`) is written in a language other than English, declare it by setting setting `lang` to the [two letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
-
-``` yaml
-lang: fr
-```
-
-This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
-Current available translations are:
-
--   `ca`: Catalan
--   `de`: German
--   `dk`: Danish
--   `es`: Spanish
--   `fr`: French
--   `ko`: Korean
--   `pt`: Portuguese
--   `tr`: Turkish
--   `zh_CN`: Chinese (simplified)
-
 ## Accessibility
 
 pkgdown's defaults work to ensure that your site is accessible to as many people as possible. But there are some accessibilty issues that only a human can solve, so make sure to also read `vignette("accessibility")` to learn about them.
