@@ -32,10 +32,8 @@ local_pkgdown_site <- function(path = NULL, meta = list(), env = caller_env()) {
     desc$set("Title", "A test package")
     desc$write(file = path(path, "DESCRIPTION"))
 
-    # Default to BS5 if template not specified
-    if (is.null(meta$template)) {
-      meta$template <- list(bootstrap = 5)
-    }
+    # Default to BS5 only if template not specified
+    meta$template <- meta$template %||% list(bootstrap = 5)
 
     # Record meta in case we re-run as_pkgdown()
     yaml::write_yaml(meta, path(path, "_pkgdown.yml"))
