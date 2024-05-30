@@ -201,12 +201,8 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
   suppressMessages(init_site(pkg))
   suppressMessages(build_article(pkg = pkg, name = "random"))
 
-  output <- xml2::read_html(path(pkg$dst_path, "articles/random.html")) %>%
-    rvest::html_node("main > pre") %>%
-    rvest::html_text() %>%
-    # replace line feeds with whitespace to make output platform independent
-    gsub("\r", "", .)
-
+  html <- xml2::read_html(path(pkg$dst_path, "articles/random.html"))
+  output <- xpath_text(html, "//main//pre")[[2]]
   expect_snapshot(cat(output))
 })
 

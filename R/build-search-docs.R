@@ -137,8 +137,8 @@ news_search_index <- function(path, pkg) {
 file_search_index <- function(path, pkg) {
   html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
-  title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
-    xml2::xml_attr("content")
+  title_element <- xml2::xml_find_first(html, ".//meta[@property='og:title']")
+  title <- xml2::xml_attr(title_element, "content")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")

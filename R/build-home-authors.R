@@ -32,28 +32,20 @@ data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()
     inst <- NULL
   }
 
-  all <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+  authors_all <- pkg_authors(pkg)
+  authors_main <- pkg_authors(pkg, roles)
 
-  main <- pkg %>%
-    pkg_authors(roles) %>%
-    purrr::map(author_list, author_info, pkg = pkg)
-
+  all <- purrr::map(authors_all, author_list, author_info, pkg = pkg)
+  main <- purrr::map(authors_main, author_list, author_info, pkg = pkg)
   more_authors <- length(main) != length(all)
 
-  comments <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg) %>%
-    purrr::map("comment") %>%
-    purrr::compact() %>%
-    length() > 0
+  comments <- purrr::compact(purrr::map(all, "comment"))
 
   print_yaml(list(
     all = all,
     main = main,
     inst = inst,
-    needs_page = more_authors || comments || !is.null(inst),
+    needs_page = more_authors || length(comments) > 0 || !is.null(inst),
     before = config_pluck_markdown_block(pkg, "template.authors.before", call = call),
     after = config_pluck_markdown_block(pkg, "template.authors.after", call = call)
   ))

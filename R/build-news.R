@@ -114,7 +114,7 @@ build_news_multi <- function(pkg = ".") {
   news_paged <- tibble::tibble(
     version = levels(page),
     file_out = paste0("news-", version, ".html"),
-    contents = news[c("html", "version", "anchor")] %>% split(page)
+    contents = split(news[c("html", "version", "anchor")], page)
   )
 
   render_news <- function(version, file_out, contents) {
@@ -131,13 +131,13 @@ build_news_multi <- function(pkg = ".") {
       path("news", file_out),
     )
   }
-  news_paged %>% purrr::pmap(render_news)
+  purrr::pwalk(news_paged, render_news)
 
   render_page(
     pkg,
     "news-index",
     list(
-      versions = news_paged %>% purrr::transpose(),
+      versions = purrr::transpose(news_paged),
       pagetitle = tr_("News")
     ),
     path("news", "index.html")
@@ -158,9 +158,8 @@ data_news <- function(pkg = list()) {
   }
   sections <- sections[!footnotes]
 
-  levels <- sections %>%
-    xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
-    xml2::xml_name()
+  headings <- xml2::xml_find_first(sections, ".//h1|.//h2|.//h3|.//h4|.//h5")
+  levels <- xml2::xml_name(headings)
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
     cli::cli_abort(
@@ -197,16 +196,16 @@ data_news <- function(pkg = list()) {
   } else {
     timeline <- NULL
   }
-
-  html <- sections %>%
-    purrr::walk2(
-      versions,
-      tweak_news_heading,
-      timeline = timeline,
-      bs_version = pkg$bs_version
-    ) %>%
-    purrr::map_chr(as.character, options = character()) %>%
-    purrr::map_chr(repo_auto_link, pkg = pkg)
+  
+  purrr::walk2(
+    sections,
+    versions,
+    tweak_news_heading,
+    timeline = timeline,
+    bs_version = pkg$bs_version
+  )
+  html <- purrr::map_chr(sections, as.character, options = character())
+  html <- purrr::map_chr(html, repo_auto_link, pkg = pkg)
 
   anchors <- xml2::xml_attr(sections, "id")
   news <- tibble::tibble(

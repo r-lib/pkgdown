@@ -394,16 +394,12 @@ data_reference_topic <- function(topic,
     "seealso", "section", "author"
   ))
   sections <- topic$rd[tag_names %in% section_tags]
-  out$sections <- sections %>%
-    purrr::map(as_data) %>%
-    purrr::map(add_slug)
-
+  out$sections <- purrr::map(sections, function(section) {
+    data <- as_data(section)
+    data$slug <- make_slug(data$title)
+    data
+  })
   out
-}
-
-add_slug <- function(x) {
-  x$slug <- make_slug(x$title)
-  x
 }
 
 make_slug <- function(x) {
