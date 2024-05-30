@@ -52,32 +52,40 @@ articles:
 
 reference:
 - title: Build
-  desc:  Build a complete site or one of its components.
+  
+- subtitle: Build the complete site
   contents:
   - build_site
-  - starts_with("build_")
-  - -build_site_github_pages
-  - init_site
+  - clean_site
   - preview_site
   - pkgdown_sitrep
+  
+- subtitle: Build part of a site
+  desc: These functions are useful for rapid iteration when you're working on a
+    specific part of your site.
+  contents:
+  - starts_with("build_")
+  - -build_site
+  - -build_site_github_pages
+  - init_site
 
-- title: Deployment
+- subtitle: Customisation
+  contents:
+  - template_navbar
+
+- title: For expert use
+
+- subtitle: Deployment
   contents:
   - starts_with("deploy_")
   - build_site_github_pages
-  - check_pkgdown
 
-- title: Templates
+- subtitle: Other helpers
   contents:
-  - template_navbar
-  - render_page
-
-- title: Helpers
-  contents:
-  - clean_site
   - rd2html
   - as_pkgdown
   - in_pkgdown
+  - render_page
 
 - title: Regression tests
   contents:
