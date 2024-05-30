@@ -21,6 +21,8 @@ We'll start by discussing two techniques that only require tweaks to your `_pkgd
 We'll then discuss how to add additional HTML and other files.
 Next, we'll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.
 
+In terms of your `_pkgdown.yml`, this vignette focusses on the most important fields nested under `template` and `navbar`. To learn more about customising other aspect of the site, see the documentation for the indiviudal functions like `build_reference()`, `build_articles()`,  `build_home()`, `build_redirects()`, and `init_site()`. To learn about less important fields nested under `template`, see `build_site()`.
+
 ```{r setup}
 library(pkgdown)
 ```
