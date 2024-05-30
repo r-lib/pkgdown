@@ -52,7 +52,7 @@
     Message
       x Icon "fa-question" lacks an `aria-label`.
       i Specify `aria-label` to make the icon accessible to screen readers.
-      i Learn more in `vignette(accessibility)`.
+      i Learn more in `vignette(pkgdown::accessibility)`.
       This message is displayed once every 8 hours.
 
 # can construct theme menu

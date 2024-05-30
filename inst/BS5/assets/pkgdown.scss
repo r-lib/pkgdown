@@ -122,7 +122,7 @@ aside {
 }
 
 // Add some visual distinction between content and "sidebar" on mobile
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   // Additional specificity needed to override bootstrap width on .row > *
   .row > aside {
     margin: 0.5rem;

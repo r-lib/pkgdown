@@ -254,8 +254,8 @@ same_contents <- function(path, contents) {
   new_hash <- digest::digest(contents, serialize = FALSE)
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
-  cur_hash <-  digest::digest(cur_contents, serialize = FALSE)
-
+  cur_hash <- digest::digest(cur_contents, serialize = FALSE)
+  
   identical(new_hash, cur_hash)
 }
 

@@ -35,33 +35,14 @@ build_sitemap <- function(pkg = ".") {
   }
 
   urls <- paste0(url, get_site_paths(pkg))
-
-  doc <- xml2::read_xml(
-    paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
+  doc <- paste0(
+    "<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>\n",
+    paste0("<url><loc>", escape_html(urls), "</loc></url>\n", collapse = ""),
+    "</urlset>\n"
   )
 
-  url_nodes <- unwrap_purrr_error(purrr::map(urls, url_node))
-  for (url in url_nodes) {
-    xml2::xml_add_child(doc, url)
-  }
-
-  xml_path <- path(pkg$dst_path, "sitemap.xml")
-  cli::cli_inform("Writing {dst_path(path_rel(xml_path, pkg$dst_path))}")
-
-  xml2::write_xml(doc, file = xml_path)
-
+  write_if_different(pkg, doc, "sitemap.xml", check = FALSE)
   invisible()
-}
-
-url_node <- function(url) {
-  withCallingHandlers(
-    xml2::read_xml(
-      paste0("<url><loc>", url, "</loc></url>")
-    ),
-    error = function(err) {
-      cli::cli_abort("Failed to wrap URL {.str {url}}", parent = err)
-    }
-  )
 }
 
 #' Build search index
@@ -315,5 +296,9 @@ get_site_paths <- function(pkg) {
 
   # do not include dev package website in search index / sitemap
   dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!path_has_parent(paths_rel, "dev")]
+  paths_rel <- paths_rel[!path_has_parent(paths_rel, "dev")]
+
+  # do not include redirects
+  redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)
+  setdiff(paths_rel, redirects)
 }
