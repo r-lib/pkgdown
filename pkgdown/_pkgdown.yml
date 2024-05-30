@@ -52,9 +52,11 @@ articles:
 
 reference:
 - title: Build
-  subtitle: Build the complete site
+  
+- subtitle: Build the complete site
   contents:
   - build_site
+  - clean_site
   - preview_site
   - pkgdown_sitrep
   
@@ -67,22 +69,23 @@ reference:
   - -build_site_github_pages
   - init_site
 
-- title: Deployment
+- subtitle: Customisation
+  contents:
+  - template_navbar
+
+- title: For expert use
+
+- subtitle: Deployment
   contents:
   - starts_with("deploy_")
   - build_site_github_pages
 
-- title: Templates
+- subtitle: Other helpers
   contents:
-  - template_navbar
-  - render_page
-
-- title: Helpers
-  contents:
-  - clean_site
   - rd2html
   - as_pkgdown
   - in_pkgdown
+  - render_page
 
 - title: Regression tests
   contents:
