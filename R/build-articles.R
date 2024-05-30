@@ -298,7 +298,7 @@ data_articles <- function(pkg = ".", is_index = FALSE, call = caller_env()) {
   external <- config_pluck_external_articles(pkg, call = call)
   articles <- rbind(internal, external)
 
-  articles$description <- lapply(articles$description, markdown_text_block)
+  articles$description <- lapply(articles$description, markdown_text_block, pkg = pkg)
 
   # Hack data structure so we can use select_topics()
   articles$alias <- as.list(articles$name)
@@ -375,9 +375,9 @@ data_articles_index_section <- function(section, index, articles, pkg, call = ca
     error_call = call
   )
   title <- markdown_text_inline(
+    pkg,
     section$title,
     error_path = paste0("articles[", index, "].title"),
-    error_pkg = pkg,
     error_call = call
   )
 
@@ -400,7 +400,7 @@ data_articles_index_section <- function(section, index, articles, pkg, call = ca
 
   list(
     title = title,
-    desc = markdown_text_block(section$desc),
+    desc = markdown_text_block(pkg, section$desc),
     class = section$class,
     contents = purrr::transpose(contents)
   )

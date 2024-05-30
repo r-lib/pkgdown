@@ -147,7 +147,7 @@ build_news_multi <- function(pkg = ".") {
 utils::globalVariables(".")
 
 data_news <- function(pkg = list()) {
-  html <- markdown_body(path(pkg$src_path, "NEWS.md"))
+  html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 

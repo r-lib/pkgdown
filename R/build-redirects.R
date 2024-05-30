@@ -82,10 +82,17 @@ reference_redirects <- function(pkg) {
 
   names(redirects) <- paste0(names(redirects), ".html")
 
+  # Ensure we don't create an invalid file name
+  redirects <- redirects[valid_filename(names(redirects))]
+
   # Ensure we don't override an existing file
   redirects <- redirects[setdiff(names(redirects), pkg$topics$file_out)]
 
   unname(purrr::imap(redirects, function(to, from) paste0("reference/", c(from, to))))
+}
+
+valid_filename <- function(x) {
+  x == path_sanitize(x)
 }
 
 article_redirects <- function(pkg) {

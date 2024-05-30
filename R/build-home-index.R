@@ -13,7 +13,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   } else {
     cli::cli_inform("Reading {src_path(path_rel(src_path, pkg$src_path))}")
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown_body(src_path)
+    data$index <- markdown_body(pkg, src_path)
   }
 
   cur_digest <- file_digest(dst_path)
@@ -124,7 +124,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   needs_components <- setdiff(structure, names(default_components))
   custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
   custom_components <- purrr::map(custom_yaml, function(x) {
-    sidebar_section(x$title, markdown_text_block(x$text))
+    sidebar_section(x$title, markdown_text_block(pkg, x$text))
   })
   components <- modify_list(default_components, custom_components)
 

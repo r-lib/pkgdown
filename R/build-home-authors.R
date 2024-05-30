@@ -114,11 +114,8 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text_inline(
-      author$html,
-      error_path = paste0("authors.", name, ".html"),
-      error_pkg = pkg
-    )
+    error_path <- paste0("authors.", name, ".html")
+    name <- markdown_text_inline(pkg, author$html, error_path = error_path)
   }
 
   if (is.null(author$href)) {

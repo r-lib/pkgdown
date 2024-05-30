@@ -63,6 +63,21 @@ test_that("generates redirects only for non-name aliases", {
   )
 })
 
+test_that("doesn't generates redirect for aliases that can't be file names", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      name = "bar",
+      alias = list(c("bar", "baz", "[<-.baz")),
+      file_out = "bar.html"
+    )
+  )
+  expect_equal(
+    reference_redirects(pkg),
+    list(c("reference/baz.html", "reference/bar.html"))
+  )
+})
+
 test_that("never redirects away from existing topic", {
   pkg <- list(
     meta = list(url = "http://foo.com"),
@@ -89,4 +104,3 @@ test_that("no redirects if no aliases", {
   )
   expect_equal(reference_redirects(pkg), list())
 })
-

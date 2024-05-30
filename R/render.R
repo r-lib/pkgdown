@@ -129,6 +129,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
   out$lightswitch <- uses_lightswitch(pkg)
+  out$uses_katex <- config_math_rendering(pkg) == "katex"
 
   print_yaml(out)
 }
@@ -253,8 +254,8 @@ same_contents <- function(path, contents) {
   new_hash <- digest::digest(contents, serialize = FALSE)
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
-  cur_hash <-  digest::digest(cur_contents, serialize = FALSE)
-
+  cur_hash <- digest::digest(cur_contents, serialize = FALSE)
+  
   identical(new_hash, cur_hash)
 }
 
