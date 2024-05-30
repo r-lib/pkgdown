@@ -245,11 +245,11 @@ body {
 
 // Use an indent for defintions rather than horitzonal space
 dl {margin-bottom: 0;}
-dd {padding-left: 1.5rem;}
+dd {padding-left: 1.5rem; margin-bottom: 0.25rem}
 
 // Use margins rather than size to distinguish headings
 h2, .h2 { font-size: 1.75rem; margin-top: 1.5rem;}
-h3, .h3 { font-size: 1.2rem; margin-top: 0.5rem;}
+h3, .h3 { font-size: 1.2rem; margin-top: 0.75rem;}
 h4, .h4 { font-size: 1.1rem}
 h5, .h5 { font-size: 1rem}
 
