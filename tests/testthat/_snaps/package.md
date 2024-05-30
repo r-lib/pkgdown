@@ -17,8 +17,7 @@
       check_bootstrap_version(1, pkg)
     Condition
       Error:
-      ! template.bootstrap must be 3 or 5, not 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, template.bootstrap must be 3 or 5, not 1.
 
 # read_meta() errors gracefully if _pkgdown.yml failed to parse
 

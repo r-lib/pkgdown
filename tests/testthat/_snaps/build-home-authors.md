@@ -4,20 +4,17 @@
       data_authors_(authors = 1)
     Condition
       Error in `data_authors_()`:
-      ! authors must be a list, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, authors must be a list, not the number 1.
     Code
       data_authors_(template = list(authors = list(before = 1)))
     Condition
       Error in `data_authors_()`:
-      ! template.authors.before must be a string, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, template.authors.before must be a string, not the number 1.
     Code
       data_authors_(template = list(authors = list(after = 1)))
     Condition
       Error in `data_authors_()`:
-      ! template.authors.after must be a string, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, template.authors.after must be a string, not the number 1.
 
 # data_home_sidebar_authors validates yaml inputs
 
@@ -25,20 +22,17 @@
       data_home_sidebar_authors_(authors = list(sidebar = list(roles = 1)))
     Condition
       Error in `data_home_sidebar_authors_()`:
-      ! authors.sidebar.roles must be a character vector, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, authors.sidebar.roles must be a character vector, not the number 1.
     Code
       data_home_sidebar_authors_(authors = list(sidebar = list(before = 1)))
     Condition
       Error in `data_home_sidebar_authors_()`:
-      ! authors.sidebar.before must be a string, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, authors.sidebar.before must be a string, not the number 1.
     Code
       data_home_sidebar_authors_(authors = list(sidebar = list(before = "x\n\ny")))
     Condition
       Error in `data_home_sidebar_authors_()`:
-      ! authors.sidebar.before must be inline markdown.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, authors.sidebar.before must be inline markdown.
 
 # sidebar can accept additional before and after text
 

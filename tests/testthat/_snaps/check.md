@@ -23,9 +23,8 @@
       v Open graph metadata ok.
       v Articles metadata ok.
       x Reference metadata not ok.
-        1 topic missing from index: "?".
+        In _pkgdown.yml, 1 topic missing from index: "?".
         Either use `@keywords internal` to drop from index, or
-        Edit _pkgdown.yml to fix the problem.
 
 # checks fails on first problem
 

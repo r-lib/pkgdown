@@ -4,9 +4,8 @@
       local_pkgdown_site(meta = list(template = list(package = "templatepackage")))
     Condition
       Error in `as_pkgdown()`:
-      ! Must set one only of template.bootstrap and template.bslib.version.
+      ! In _pkgdown.yml, Must set one only of template.bootstrap and template.bslib.version.
       i Specified locally and in template package templatepackage.
-      i Edit _pkgdown.yml to fix the problem.
 
 # Invalid bootstrap version spec in _pkgdown.yml
 
@@ -15,8 +14,7 @@
         version = 5))))
     Condition
       Error in `as_pkgdown()`:
-      ! Must set one only of template.bootstrap and template.bslib.version.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, Must set one only of template.bootstrap and template.bslib.version.
 
 # Warns when Bootstrap theme is specified in multiple locations
 

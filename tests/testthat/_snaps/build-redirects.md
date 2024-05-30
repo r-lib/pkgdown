@@ -11,12 +11,10 @@
       data_redirects_(redirects = "old.html")
     Condition
       Error in `data_redirects_()`:
-      ! redirects must be a list, not the string "old.html".
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, redirects must be a list, not the string "old.html".
     Code
       data_redirects_(redirects = list("old.html"))
     Condition
       Error in `data_redirects_()`:
-      ! redirects[1] must be a character vector of length 2, not the string "old.html".
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, redirects[1] must be a character vector of length 2, not the string "old.html".
 
