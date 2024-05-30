@@ -1,26 +1,30 @@
 test_that("sitrep complains about BS3", {
-  pkg <- local_pkgdown_site(test_path("assets/open-graph"), meta = "
-    template:
-      bootstrap: 3
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/open-graph"),
+    list(template = list(bootstrap = 3))
+  )
   expect_snapshot(pkgdown_sitrep(pkg))
 })
 
 test_that("sitrep reports all problems", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-     - title: Title
-       contents: [a, b, c, e]
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(reference = list(
+      list(title = "Title", contents = c("a", "b", "c", "e"))
+    ))
+  )
+  
   expect_snapshot(pkgdown_sitrep(pkg))
 })
 
 test_that("checks fails on first problem", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-     - title: Title
-       contents: [a, b, c, e]
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(reference = list(
+      list(title = "Title", contents = c("a", "b", "c", "e"))
+    ))
+  )
+  
   expect_snapshot(check_pkgdown(pkg), error = TRUE)
 })
 

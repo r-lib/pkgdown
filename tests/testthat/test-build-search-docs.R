@@ -11,15 +11,10 @@ test_that("docsearch.json and sitemap.xml are valid for BS 3 site", {
 })
 
 test_that("build_search() builds the expected search.json with an URL", {
-  pkg <- local_pkgdown_site(test_path("assets/news"), '
-    url: https://example.com
-    template:
-      bootstrap: 5
-    news:
-      cran_dates: false
-    development:
-      mode: devel
-  ')
+  pkg <- local_pkgdown_site(
+    test_path("assets/news"),
+    list(url = "https://example.com", development = list(mode = "devel"))
+  )
 
   suppressMessages(init_site(pkg))
   suppressMessages(build_news(pkg))
@@ -32,11 +27,10 @@ test_that("build_search() builds the expected search.json with an URL", {
 })
 
 test_that("build sitemap only messages when it updates", {
-  pkg <- local_pkgdown_site(test_path("assets/news"), '
-    url: https://example.com
-    template:
-      bootstrap: 5
-  ')
+  pkg <- local_pkgdown_site(
+    test_path("assets/news"),
+    list(url = "https://example.com")
+  )
 
   suppressMessages(init_site(pkg))
   suppressMessages(build_home(pkg))
@@ -47,14 +41,10 @@ test_that("build sitemap only messages when it updates", {
 })
 
 test_that("build_search() builds the expected search.json with no URL", {
-  pkg <- local_pkgdown_site(test_path("assets/news"), '
-    template:
-      bootstrap: 5
-    news:
-      cran_dates: false
-    development:
-      mode: devel
-  ')
+  pkg <- local_pkgdown_site(
+    test_path("assets/news"),
+    list(development = list(mode = "devel"))
+  )
 
   suppressMessages(init_site(pkg))
   suppressMessages(build_news(pkg))

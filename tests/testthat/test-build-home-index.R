@@ -1,5 +1,5 @@
 test_that("messages about reading and writing", {
-  pkg <- local_pkgdown_site(test_path("assets/home-index-rmd"))
+  pkg <- local_pkgdown_site()
 
   expect_snapshot({
     build_home_index(pkg)
@@ -18,10 +18,8 @@ test_that("title and description come from DESCRIPTION by default", {
 })
 
 test_that("math is handled", {
-  pkg <- local_pkgdown_site(test_path("assets/home-readme-rmd"), clone = TRUE)
+  pkg <- local_pkgdown_site()
   write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
-
-  suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))

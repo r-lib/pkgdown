@@ -9,31 +9,25 @@ test_that("check_bslib_theme() works", {
 })
 
 test_that("get_bslib_theme() works with template.bslib.preset", {
-  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
-    template:
-      bootstrap: 5
-      bslib:
-        preset: shiny
-        enable-shadows: true
-  ')
-
+  pkg <- local_pkgdown_site(
+    meta = list(
+      template = list(bslib = list(preset = "shiny"), bootstrap = 5)
+    )
+  )
   expect_equal(get_bslib_theme(pkg), "shiny")
   expect_no_error(bs_theme(pkg))
 
-  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
-    template:
-      bootstrap: 5
-      bslib:
-        preset: lux
-        enable-shadows: true
-  ')
-
+  pkg <- local_pkgdown_site(
+    meta = list(
+      template = list(bslib = list(preset = "lux"), bootstrap = 5)
+    )
+  )
   expect_equal(get_bslib_theme(pkg), "lux")
   expect_no_error(bs_theme(pkg))
 })
 
 test_that("capture data_template()", {
-  pkg <- as_pkgdown(test_path("assets/site-empty"))
+  pkg <- local_pkgdown_site()
   data <- data_template(pkg)
   data$year <- "<year>"
   data$footer$right <- gsub(packageVersion("pkgdown"), "{version}", data$footer$right, fixed = TRUE)
@@ -41,13 +35,15 @@ test_that("capture data_template()", {
 })
 
 test_that("can include text in header, before body, and after body", {
-  pkg <- local_pkgdown_site(test_path("assets/site-empty"), '
-    template:
-      includes:
-        in_header: <test>in header</test>
-        before_body: <test>before body</test>
-        after_body: <test>after body</test>
-  ')
+  pkg <- local_pkgdown_site(meta = list(
+    template = list(
+      includes = list(
+        in_header = "<test>in header</test>",
+        before_body = "<test>before body</test>",
+        after_body = "<test>after body</test>"
+      )
+    )
+  ))
 
   expect_named(
     data_template(pkg)$includes,
