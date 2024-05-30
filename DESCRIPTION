@@ -28,7 +28,7 @@ Imports:
     downlit (>= 0.4.0),
     fontawesome,
     fs (>= 1.4.0),
-    httr2,
+    httr2 (>= 1.0.0),
     jsonlite,
     magrittr,
     openssl,

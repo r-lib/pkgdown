@@ -94,7 +94,7 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
       cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
     }
   )
-  cli::cli_inform(c("v" = "Added {.path {sort(path_file(paths))}}"))
+  cli::cli_inform(c("v" = "Added {.path {sort(path_file(paths))}}."))
 
   invisible()
 }
