@@ -138,8 +138,10 @@ data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
   og <- config_pluck_list(pkg, "template.opengraph", default = list())
   og <- check_open_graph(og, pkgdown_config_path(pkg) %||% "_pkgdown.yml", call = call)
-  if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
-    og$image <- list(src = path_file(find_logo(pkg$src_path)))
+
+  logo <- find_logo(pkg$src_path)
+  if (is.null(og$image) && !is.null(logo)) {
+    og$image <- list(src = path_file(logo))
   }
   if (!is.null(og$image) && !grepl("^http", og$image$src)) {
     site_url <- config_pluck(pkg, "url", default = "/")
@@ -150,8 +152,12 @@ data_open_graph <- function(pkg = ".", call = caller_env()) {
     og$image$src <- paste0(site_url, og$image$src)
   }
 
-  og$twitter$creator <- og$twitter$creator %||% og$twitter$site
-  og$twitter$site <- og$twitter$site %||% og$twitter$creator
+  if (!is.null(og$twitter)) {
+    og$twitter$card <- og$twitter$card %||% "summary"
+    og$twitter$creator <- og$twitter$creator %||% og$twitter$site
+    og$twitter$site <- og$twitter$site %||% og$twitter$creator
+  }
+
   og
 }
 
