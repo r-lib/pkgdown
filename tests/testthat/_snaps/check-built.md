@@ -1,4 +1,4 @@
-# warn about missing images in readme
+# check images in readme
 
     Code
       check_built_site(pkg)

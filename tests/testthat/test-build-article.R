@@ -31,7 +31,10 @@ test_that("warns about missing images", {
   # Added in #2509: I can't figure out why this is necessary :(
   skip_on_covr()
 
-  pkg <- local_pkgdown_site(test_path("assets/bad-images"))
+  pkg <- local_pkgdown_site()
+  write_lines("![foo](kitten.jpg)", path(pkg$src_path, "vignettes", "kitten.Rmd"))
+  pkg <- as_pkgdown(pkg$src_path)
+
   expect_snapshot(build_articles(pkg))
 })
 

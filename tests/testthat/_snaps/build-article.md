@@ -5,9 +5,9 @@
     Message
       -- Building articles -----------------------------------------------------------
       Writing `articles/index.html`
-      Reading vignettes/html-vignette.Rmd
-      Writing `articles/html-vignette.html`
-      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
+      Reading vignettes/kitten.Rmd
+      Writing `articles/kitten.html`
+      Missing images in 'vignettes/kitten.Rmd': 'kitten.jpg'
       i pkgdown can only use images in 'man/figures' and 'vignettes'
 
 # warns about missing alt-text
