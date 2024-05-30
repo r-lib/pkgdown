@@ -64,6 +64,7 @@
       left: <p>Developed by Jo Doe.</p>
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     lightswitch: no
+    uses_katex: no
     
 
 # check_opengraph validates inputs

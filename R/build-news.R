@@ -147,7 +147,7 @@ build_news_multi <- function(pkg = ".") {
 utils::globalVariables(".")
 
 data_news <- function(pkg = list()) {
-  html <- markdown_body(path(pkg$src_path, "NEWS.md"))
+  html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
@@ -274,13 +274,16 @@ pkg_timeline <- function(package) {
   }
 
   url <- paste0("https://crandb.r-pkg.org/", package, "/all")
+  req <- httr2::request(url)
+  req <- httr2::req_retry(req, max_tries = 3)
+  req <- httr2::req_error(req, function(resp) FALSE)
 
-  resp <- httr::RETRY("GET", url, quiet = TRUE)
-  if (httr::http_error(resp)) {
+  resp <- httr2::req_perform(req)
+  if (httr2::resp_is_error(resp)) {
     return(NULL)
   }
 
-  content <- httr::content(resp)
+  content <- httr2::resp_body_json(resp)
   timeline <- content$timeline
 
   data.frame(

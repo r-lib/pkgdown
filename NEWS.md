@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* pkgdown now uses httr2 instead of httr (#2600).
+* New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
+* Mathjax now uses version 3.2.2.
 * `build_sitemap()` no longer includes redirected pages (#2582).
 * All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
 * `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
