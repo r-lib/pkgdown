@@ -220,31 +220,38 @@ config_abort_type <- function(must_be, not, error_pkg, error_path, error_call) {
 
 config_abort <- function(pkg,
                          message,
-                         path = pkgdown_config_path(pkg) %||% "_pkgdown.yml",
+                         path = NULL,
                          ...,
                          call = caller_env(),
                          .envir = caller_env()) {
   
+  message <- config_message(pkg, message, path)
+  cli::cli_abort(message, ..., call = call, .envir = .envir)
+}
+
+config_warn <- function(pkg,
+                        message,
+                        path = NULL,
+                        ...,
+                        call = caller_env(),
+                        .envir = caller_env()) {
+  
+  message <- config_message(pkg, message, path)
+  cli::cli_warn(message, ..., call = call, .envir = .envir)
+}
+
+config_message <- function(pkg, message, path = NULL) {
+
+  path <- path %||% pkgdown_config_path(pkg) %||% "_pkgdown.yml"
   if (is_absolute_path(path)) {
     path_label <- path_rel(path, pkg$src_path)
   } else {
     path_label <- path
   }
-
+  
   link <- cli::style_hyperlink(path_label, paste0("file://", path))  
   message[[1]] <- paste0("In ", link, ", ", message[[1]])
-  cli::cli_abort(message, ..., call = call, .envir = .envir)
-}
-config_warn <- function(pkg,
-                         message,
-                         path = pkgdown_config_path(pkg) %||% "_pkgdown.yml",
-                         ...,
-                         call = caller_env(),
-                         .envir = caller_env()) {
-  
-  link <- cli::style_hyperlink(path_rel(path, pkg$src_path), paste0("file://", path))  
-  message[[1]] <- paste0("In ", link, ", ", message[[1]])
-  cli::cli_warn(message, ..., call = call, .envir = .envir)
+  message
 }
 
 config_path <- function(pkg) {
