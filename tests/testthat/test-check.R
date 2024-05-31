@@ -56,6 +56,7 @@ test_that("check_urls reports problems", {
 
 test_that("check_favicons reports problems", {
   pkg <- local_pkgdown_site()
+
   # no logo no problems
   expect_no_error(check_favicons(pkg))
 
