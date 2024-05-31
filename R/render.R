@@ -137,7 +137,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
   og <- config_pluck_list(pkg, "template.opengraph", default = list())
-  og <- check_open_graph(pkg, og, pkgdown_config_path(pkg) %||% "_pkgdown.yml", call = call)
+  og <- check_open_graph(pkg, og, call = call)
 
   logo <- find_logo(pkg$src_path)
   if (is.null(og$image) && !is.null(logo)) {
@@ -161,12 +161,12 @@ data_open_graph <- function(pkg = ".", call = caller_env()) {
   og
 }
 
-check_open_graph <- function(pkg, og, file_path, call = caller_env()) {
+check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
   if (is.null(og)) {
     return()
   }
-
-  is_yaml <- path_ext(file_path) %in% c("yml", "yaml")
+  
+  is_yaml <- is.null(file_path)
   base_path <- if (is_yaml) "template.opengraph" else "opengraph"
 
   check_open_graph_list(

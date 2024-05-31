@@ -76,19 +76,14 @@ check_urls <- function(pkg = ".", call = caller_env()) {
   url <- pkg$meta[["url"]]
 
   if (is.null(url)) {
-    cli::cli_abort(
-      c("{config_path(pkg)} lacks {.field url}.", details),
-      call = call
-    )
+    config_abort(pkg, c("{.field url} is missing.", details), call = call)
   } else {
     desc_urls <- pkg$desc$get_urls()
     desc_urls <- sub("/$", "", desc_urls)
 
     if (!pkg$meta[["url"]] %in% desc_urls) {
-      cli::cli_abort(
-        c("{.file DESCRIPTION} {.field URL} lacks package url ({url}).", details),
-        call = call
-      )
+      msg <- "{.field URL} is missing package url ({url})."
+      config_abort(pkg, c(msg, details), path = "DESCRIPTION", call = call)
     }
   }
 }

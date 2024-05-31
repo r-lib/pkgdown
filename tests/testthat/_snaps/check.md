@@ -18,7 +18,7 @@
     Message
       -- Sitrep ----------------------------------------------------------------------
       x URLs not ok.
-        'DESCRIPTION' URL lacks package url (http://test.org).
+        In DESCRIPTION, URL is missing package url (http://test.org).
         See details in `vignette(pkgdown::metadata)`.
       v Open graph metadata ok.
       v Articles metadata ok.
@@ -32,7 +32,7 @@
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! 'DESCRIPTION' URL lacks package url (http://test.org).
+      ! In DESCRIPTION, URL is missing package url (http://test.org).
       i See details in `vignette(pkgdown::metadata)`.
 
 # both inform if everything is ok
@@ -56,7 +56,7 @@
       check_urls(pkg)
     Condition
       Error:
-      ! _pkgdown.yml lacks url.
+      ! In _pkgdown.yml, url is missing.
       i See details in `vignette(pkgdown::metadata)`.
 
 ---
@@ -65,6 +65,6 @@
       check_urls(pkg)
     Condition
       Error:
-      ! 'DESCRIPTION' URL lacks package url (https://testpackage.r-lib.org).
+      ! In DESCRIPTION, URL is missing package url (https://testpackage.r-lib.org).
       i See details in `vignette(pkgdown::metadata)`.
 

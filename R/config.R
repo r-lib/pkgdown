@@ -241,7 +241,7 @@ config_warn <- function(pkg,
 }
 
 config_message <- function(pkg, message, path = NULL) {
-
+  # Not all projects necessary have a _pkgdown.yml (#2542)
   path <- path %||% pkgdown_config_path(pkg) %||% "_pkgdown.yml"
   if (is_absolute_path(path)) {
     path_label <- path_rel(path, pkg$src_path)
@@ -252,10 +252,4 @@ config_message <- function(pkg, message, path = NULL) {
   link <- cli::style_hyperlink(path_label, paste0("file://", path))  
   message[[1]] <- paste0("In ", link, ", ", message[[1]])
   message
-}
-
-config_path <- function(pkg) {
-  # Not all projects necessary have a _pkgdown.yml (#2542)
-  config <- pkgdown_config_path(pkg) %||% "_pkgdown.yml"
-  cli::style_hyperlink(path_file(config), paste0("file://", config))  
 }
