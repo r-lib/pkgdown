@@ -227,16 +227,12 @@ package_rd <- function(path = ".") {
 }
 
 extract_tag <- function(x, tag) {
-  x %>%
-    purrr::keep(inherits, tag) %>%
-    purrr::map_chr(c(1, 1))
+  purrr::map_chr(purrr::keep(x, inherits, tag), c(1, 1))
 }
 
 extract_title <- function(x) {
-  x %>%
-    purrr::detect(inherits, "tag_title") %>%
-    flatten_text(auto_link = FALSE) %>%
-    str_squish()
+  title <- purrr::detect(x, inherits, "tag_title")
+  str_squish(flatten_text(title, auto_link = FALSE))
 }
 
 extract_source <- function(x) {

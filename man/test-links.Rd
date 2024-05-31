@@ -4,15 +4,15 @@
 \alias{test-links}
 \title{Test case: links}
 \description{
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{magrittr::subtract(10, 1)
-#> [1] 9
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{jsonlite::minify("\{\}")
+#> \{\}
 }\if{html}{\out{</div>}}
 }
 \examples{
-magrittr::subtract(10, 1)
+jsonlite::minify("{}")
 
-library(magrittr, warn.conflicts = FALSE)
-subtract(10, 1)
+library(jsonlite, warn.conflicts = FALSE)
+minify("{}")
 }
 \seealso{
 Other tests: 

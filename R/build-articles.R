@@ -255,11 +255,10 @@ data_articles_index <- function(pkg = ".", call = caller_env()) {
   ))
 
   # Check for unlisted vignettes
-  listed <- sections %>%
-    purrr::map("contents") %>%
-    purrr::map(. %>% purrr::map_chr("name")) %>%
-    purrr::flatten_chr() %>%
-    unique()
+  all_names <- purrr::map(sections, function(section) {
+    purrr::map_chr(section$contents, "name")
+  })
+  listed <- unique(purrr::list_c(all_names))
 
   missing <- setdiff(articles$name, listed)
   # Exclude get started vignette or article #2150

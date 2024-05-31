@@ -27,29 +27,26 @@ test_that("pre() can produce needed range of outputs", {
 })
 
 test_that("tweak_highlight_other() renders generic code blocks for roxygen2 >= 7.2.0", {
-  div <- xml2::read_html('<div class="sourceCode"><pre><code>1+1\n</code></pre></div>') %>%
-    xml2::xml_find_first("//div")
+  html <- xml2::read_html('<div class="sourceCode"><pre><code>1+1\n</code></pre></div>')
+  div <- xml2::xml_find_first(html, "//div")
+    
   tweak_highlight_other(div)
-  expect_equal(
-    xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
-    "1+1"
-  )
+  expect_equal(xpath_text(div, "pre/code"), "1+1")
 })
 
 test_that("tweak_highlight_other() renders nested code blocks for roxygen2 >= 7.2.0", {
-  div <- xml2::read_html(
-"<div class='sourceCode markdown'><pre><code>
-blablabla
+  html <- xml2::read_html(dedent("
+    <div class='sourceCode markdown'><pre><code>
+    blablabla
 
-```{r results='asis'}
-lalala
-```
+    ```{r results='asis'}
+    lalala
+    ```
 
-</code></pre></div>") %>%
-    xml2::xml_find_first("//div")
+    </code></pre></div>
+  "))
+  div <- xml2::xml_find_first(html, "//div")
+
   tweak_highlight_other(div)
-  expect_match(
-    xml2::xml_text(xml2::xml_find_first(div, "pre/code")),
-    "```.?\\n"
-  )
+  expect_snapshot(cat(xpath_text(div, "pre/code")))
 })
