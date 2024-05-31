@@ -6,12 +6,8 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
     return(list())
   }
 
-  unwrap_purrr_error(
-    rows <- meta %>%
-      purrr::imap(data_reference_index_rows, pkg = pkg, call = error_call) %>%
-      purrr::compact() %>%
-      unlist(recursive = FALSE)
-  )
+  rows <- unwrap_purrr_error(purrr::imap(meta, data_reference_index_rows, pkg = pkg, call = error_call))
+  rows <- purrr::list_c(rows)
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
@@ -163,7 +159,7 @@ default_reference_index <- function(pkg = ".") {
 
 check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
-  all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
+  all_topics <- purrr::list_c(purrr::map(rows, "names"))
   in_index <- pkg$topics$name %in% all_topics
 
   missing <- !in_index & !pkg$topics$internal

@@ -137,8 +137,8 @@ news_search_index <- function(path, pkg) {
 file_search_index <- function(path, pkg) {
   html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
-  title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
-    xml2::xml_attr("content")
+  title_element <- xml2::xml_find_first(html, ".//meta[@property='og:title']")
+  title <- xml2::xml_attr(title_element, "content")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
@@ -295,8 +295,7 @@ get_site_paths <- function(pkg) {
   paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
-  dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel <- paths_rel[!path_has_parent(paths_rel, "dev")]
+  paths_rel <- paths_rel[!path_has_parent(paths_rel, pkg$development$destination)]
 
   # do not include redirects
   redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)

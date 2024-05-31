@@ -90,13 +90,11 @@ match_env <- function(topics) {
   # dplyr-like matching functions
 
   any_alias <- function(f, ..., .internal = FALSE) {
-    alias_match <- topics$alias %>%
-      unname() %>%
-      purrr::map(f, ...) %>%
-      purrr::map_lgl(any)
-
-    name_match <- topics$name %>%
-      purrr::map_lgl(f, ...)
+    f <- as_function(f)
+    alias_match <- purrr::map_lgl(unname(topics$alias), function(x) {
+      any(f(x, ...))
+    })
+    name_match <- purrr::map_lgl(topics$name, f, ...)
 
     which((alias_match | name_match) & is_public(.internal))
   }
@@ -140,26 +138,19 @@ match_env <- function(topics) {
     check_string(x)
     check_bool(internal)
 
-    match <- topics$concepts %>%
-      purrr::map(~ str_trim(.) == x) %>%
-      purrr::map_lgl(any)
-
+    match <- purrr::map_lgl(topics$concepts, ~ any(str_trim(.) == x))
     which(match & is_public(internal))
   }
   fns$lacks_concepts <- function(x, internal = FALSE) {
     check_character(x)
     check_bool(internal)
-
-    nomatch <- topics$concepts %>%
-      purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
-      purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
-
-    which(nomatch & is_public(internal))
+    
+    match <- purrr::map_lgl(topics$concepts, ~ any(str_trim(.) == x))
+    which(!match & is_public(internal))
   }
   fns$lacks_concept <- fns$lacks_concepts
   out
 }
-
 
 match_eval <- function(string, env) {
   # Early return in case string already matches symbol

@@ -34,10 +34,9 @@ flatten_para <- function(x, ...) {
   needs_split <- !is_block & !empty
   html[needs_split] <- purrr::map(html[needs_split], split_at_linebreaks)
 
-  blocks <- html %>%
-    split(groups) %>%
-    purrr::map(unlist) %>%
-    purrr::map_chr(paste, collapse = "")
+  blocks <- purrr::map_chr(split(html, groups), function(x) {
+    paste(unlist(x), collapse = "")
+  })
 
   # There are three types of blocks:
   # 1. Combined text and inline tags
@@ -45,10 +44,7 @@ flatten_para <- function(x, ...) {
   # 3. Block-level tags
   #
   # Need to wrap 1 in <p>
-  needs_p <- (!(is_nl | is_block)) %>%
-    split(groups) %>%
-    purrr::map_lgl(any)
-
+  needs_p <- purrr::map_lgl(split(!(is_nl | is_block), groups), any)
   blocks[needs_p] <- paste0("<p>", str_trim(blocks[needs_p]), "</p>")
 
   paste0(blocks, collapse = "")
@@ -384,10 +380,7 @@ parse_items <- function(rd, ...) {
     paste0("<li>", flatten_para(x, ...), "</li>\n")
   }
 
-  rd %>%
-    split(group) %>%
-    purrr::map_chr(parse_item) %>%
-    paste(collapse = "")
+  paste(purrr::map_chr(split(rd, group), parse_item), collapse = "")
 }
 
 parse_descriptions <- function(rd, ..., id_prefix = NULL) {
@@ -417,9 +410,7 @@ parse_descriptions <- function(rd, ..., id_prefix = NULL) {
     }
   }
 
-  rd %>%
-    purrr::map_chr(parse_item) %>%
-    paste(collapse = "")
+  paste(purrr::map_chr(rd, parse_item), collapse = "")
 }
 
 # Marking text ------------------------------------------------------------

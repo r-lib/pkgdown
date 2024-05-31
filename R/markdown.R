@@ -46,9 +46,8 @@ markdown_body <- function(pkg, path, strip_header = FALSE) {
   # Extract body of html - as.character renders as xml which adds
   # significant whitespace in tags like pre
   transformed_path <- withr::local_tempfile()
-  xml %>%
-    xml2::xml_find_first(".//body") %>%
-    xml2::write_html(transformed_path, format = FALSE)
+  body <- xml2::xml_find_first(xml, ".//body")
+  xml2::write_html(body, transformed_path, format = FALSE)
 
   lines <- read_lines(transformed_path)
   lines <- sub("<body>", "", lines, fixed = TRUE)
@@ -80,7 +79,7 @@ markdown_path_html <- function(pkg, path, strip_header = FALSE) {
 
 markdown_to_html <- function(pkg, text, dedent = 4, bs_version = 3) {
   if (dedent) {
-    text <- gsub(paste0("($|\n)", strrep(" ", dedent)), "\\1", text, perl = TRUE)
+    text <- dedent(text, dedent)
   }
 
   md_path <- withr::local_tempfile()
@@ -92,6 +91,10 @@ markdown_to_html <- function(pkg, text, dedent = 4, bs_version = 3) {
   html <- xml2::read_html(html_path, encoding = "UTF-8")
   tweak_page(html, "markdown", list(bs_version = bs_version))
   html
+}
+
+dedent <- function(x, n = 4) {
+  gsub(paste0("($|\n)", strrep(" ", n)), "\\1", x, perl = TRUE)
 }
 
 convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {

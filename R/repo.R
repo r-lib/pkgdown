@@ -59,21 +59,25 @@ repo_auto_link <- function(pkg, text) {
 
 # Package data -------------------------------------------------------------
 
-package_repo <- function(desc, meta) {
+package_repo <- function(pkg) {
   # Use metadata if available
-  if (has_name(meta, "repo") && has_name(meta[["repo"]], "url")) {
-    return(meta[["repo"]])
+  repo <- config_pluck_list(pkg, "repo")
+  url <- config_pluck_list(pkg, "repo.url")
+  branch <- config_pluck_string(pkg, "repo.branch", default = "HEAD")
+
+  if (!is.null(url)) {
+    return(repo)
   }
 
   # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
-    desc$get_urls()
+    sub("/issues/?", "/", pkg$desc$get_field("BugReports", default = character())),
+    pkg$desc$get_urls()
   )
 
   gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    return(repo_meta_gh_like(gh_links[[1]], meta[["repo"]][["branch"]]))
+    return(repo_meta_gh_like(gh_links[[1]], branch))
   }
 
   NULL

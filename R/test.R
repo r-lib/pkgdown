@@ -53,17 +53,17 @@ NULL
 #' Test case: links
 #'
 #' ```{r}
-#' magrittr::subtract(10, 1)
+#' jsonlite::minify("{}")
 #' ```
 #'
 #' @name test-links
 #' @keywords internal
 #' @family tests
 #' @examples
-#' magrittr::subtract(10, 1)
+#' jsonlite::minify("{}")
 #'
-#' library(magrittr, warn.conflicts = FALSE)
-#' subtract(10, 1)
+#' library(jsonlite, warn.conflicts = FALSE)
+#' minify("{}")
 NULL
 
 #' Test case: figures
