@@ -7,6 +7,9 @@
       x Bootstrap 3 is deprecated; please switch to Bootstrap 5.
       i Learn more at <https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5>.
       v URLs ok.
+      x Favicons not ok.
+        Found package logo but not favicons.
+        Do you need to run `build_favicons()`?
       v Open graph metadata ok.
       v Articles metadata ok.
       v Reference metadata ok.
@@ -20,6 +23,7 @@
       x URLs not ok.
         In DESCRIPTION, URL is missing package url (http://test.org).
         See details in `vignette(pkgdown::metadata)`.
+      v Favicons ok.
       v Open graph metadata ok.
       v Articles metadata ok.
       x Reference metadata not ok.
@@ -42,6 +46,7 @@
     Message
       -- Sitrep ----------------------------------------------------------------------
       v URLs ok.
+      v Favicons ok.
       v Open graph metadata ok.
       v Articles metadata ok.
       v Reference metadata ok.
@@ -67,4 +72,22 @@
       Error:
       ! In DESCRIPTION, URL is missing package url (https://testpackage.r-lib.org).
       i See details in `vignette(pkgdown::metadata)`.
+
+# check_favicons reports problems
+
+    Code
+      check_favicons(pkg)
+    Condition
+      Error in `check_favicons()`:
+      ! Found package logo but not favicons.
+      i Do you need to run `build_favicons()`?
+
+---
+
+    Code
+      check_favicons(pkg)
+    Condition
+      Error in `check_favicons()`:
+      ! Package logo is newer than favicons.
+      i Do you need to rerun `build_favicons()`?
 

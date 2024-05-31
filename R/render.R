@@ -275,7 +275,6 @@ file_digest <- function(path) {
   }
 }
 
-
 made_by_pkgdown <- function(path) {
   if (!file_exists(path)) return(TRUE)
 
