@@ -171,15 +171,13 @@
       data_navbar_(navbar = list(structure = list(left = 1)))
     Condition
       Error in `navbar_links()`:
-      ! navbar.structure.left must be a character vector, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, navbar.structure.left must be a character vector, not the number 1.
     Code
       data_navbar_(navbar = list(right = "github"))
     Condition
       Error in `data_template()`:
-      ! navbar is incorrectly specified.
+      ! In _pkgdown.yml, navbar is incorrectly specified.
       i See details in `vignette(pkgdown::customise)`.
-      i Edit _pkgdown.yml to fix the problem.
 
 # render_navbar_links BS3 & BS4 default
 

@@ -59,7 +59,7 @@
       data_news(temp_pkg)
     Condition
       Error:
-      ! Invalid NEWS.md: inconsistent use of section headings.
+      ! In NEWS.md, inconsistent use of section headings.
       i Top-level headings must be either all <h1> or all <h2>.
       i See `?pkgdown::build_news()` for more details.
 
@@ -69,7 +69,7 @@
       data_news(temp_pkg)
     Condition
       Error:
-      ! Invalid NEWS.md: inconsistent use of section headings.
+      ! In NEWS.md, inconsistent use of section headings.
       i Top-level headings must be either all <h1> or all <h2>.
       i See `?pkgdown::build_news()` for more details.
 
@@ -87,6 +87,6 @@
       . <- data_news(pkg)
     Condition
       Warning:
-      No version headings found in NEWS.md
+      In NEWS.md, no version headings found
       i See `?pkgdown::build_news()` for expected structure.
 

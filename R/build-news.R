@@ -146,7 +146,7 @@ build_news_multi <- function(pkg = ".") {
 
 utils::globalVariables(".")
 
-data_news <- function(pkg = list()) {
+data_news <- function(pkg = list(), call = caller_env() ) {
   html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
@@ -163,14 +163,12 @@ data_news <- function(pkg = list()) {
     xml2::xml_name()
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
-    cli::cli_abort(
-      c(
-        "Invalid NEWS.md: inconsistent use of section headings.",
-        i = "Top-level headings must be either all <h1> or all <h2>.",
-        i = "See {.help pkgdown::build_news} for more details."
-      ),
-      call = caller_env()
+    msg <- c(
+      "inconsistent use of section headings.",
+      i = "Top-level headings must be either all <h1> or all <h2>.",
+      i = "See {.help pkgdown::build_news} for more details."
     )
+    config_abort(pkg, msg, path = "NEWS.md", call = call)
   }
   if (ulevels == "h1") {
     # Bump every heading down a level so to get a single <h1> for the page title
@@ -183,10 +181,11 @@ data_news <- function(pkg = list()) {
   sections <- sections[!is.na(versions)]
 
   if (length(sections) == 0) {
-    cli::cli_warn(c(
-      "No version headings found in {src_path('NEWS.md')}",
+    msg <- c(
+      "no version headings found",
       i = "See {.help pkgdown::build_news} for expected structure."
-    ))
+    )
+    config_warn(pkg, msg, path = "NEWS.md", call = call)
   }
 
   versions <- versions[!is.na(versions)]

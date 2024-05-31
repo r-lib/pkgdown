@@ -36,8 +36,7 @@
       build_rmarkdown_format(pkg, "article")
     Condition
       Error in `build_rmarkdown_format()`:
-      ! code.width must be a whole number, not the string "abc".
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, code.width must be a whole number, not the string "abc".
 
 # output is reproducible by default, i.e. 'seed' is respected
 
@@ -52,7 +51,7 @@
       build_article(pkg = pkg, name = "bad-opengraph")
     Condition
       Error in `build_article()`:
-      ! 'vignettes/bad-opengraph.Rmd': opengraph.twitter must be a list, not the number 1.
+      ! In vignettes/bad-opengraph.Rmd, opengraph.twitter must be a list, not the number 1.
 
 # render_rmarkdown copies image files in subdirectories
 

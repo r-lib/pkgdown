@@ -137,7 +137,7 @@ data_template <- function(pkg = ".", depth = 0L) {
 data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
   og <- config_pluck_list(pkg, "template.opengraph", default = list())
-  og <- check_open_graph(og, pkgdown_config_path(pkg) %||% "_pkgdown.yml", call = call)
+  og <- check_open_graph(pkg, og, call = call)
 
   logo <- find_logo(pkg$src_path)
   if (is.null(og$image) && !is.null(logo)) {
@@ -161,17 +161,18 @@ data_open_graph <- function(pkg = ".", call = caller_env()) {
   og
 }
 
-check_open_graph <- function(og, path, call = caller_env()) {
+check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
   if (is.null(og)) {
     return()
   }
-
-  is_yaml <- path_ext(path) %in% c("yml", "yaml")
+  
+  is_yaml <- is.null(file_path)
   base_path <- if (is_yaml) "template.opengraph" else "opengraph"
 
   check_open_graph_list(
+    pkg,
     og,
-    file_path = path,
+    file_path = file_path,
     error_path = base_path,
     error_call = call
   )
@@ -179,26 +180,24 @@ check_open_graph <- function(og, path, call = caller_env()) {
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
-    cli::cli_warn(
-      "{.file {path}}: Unsupported {.field {base_path}} {cli::qty(unsupported_fields)} field{?s}: {.val {unsupported_fields}}.",
-      call = call
-    )
+    msg <- "{.field {base_path}} contains unsupported fields {.val {unsupported_fields}}."
+    config_warn(pkg, msg, path = file_path, call = call)
   }
   check_open_graph_list(
+    pkg,
     og$twitter,
-    file_path = path,
+    file_path = file_path,
     error_path = paste0(base_path, ".twitter"),
     error_call = call
   )
   if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
-    cli::cli_abort(
-      "{.file {path}}: {.field opengraph.twitter} must include either {.field creator} or {.field site}.",
-      call = call
-    )
+    msg <- "{.field opengraph.twitter} must include either {.field creator} or {.field site}."
+    config_abort(pkg, msg, path = file_path, call = call)
   }
   check_open_graph_list(
+    pkg,
     og$image,
-    file_path = path,
+    file_path = file_path,
     error_path = paste0(base_path, ".image"),
     error_call = call
   )
@@ -213,7 +212,8 @@ render_template <- function(path, data) {
   whisker::whisker.render(template, data)
 }
 
-check_open_graph_list <- function(x,
+check_open_graph_list <- function(pkg,
+                                  x,
                                   file_path,
                                   error_path,
                                   error_call = caller_env()) {
@@ -221,8 +221,10 @@ check_open_graph_list <- function(x,
     return()
   }
   not <- obj_type_friendly(x)
-  cli::cli_abort(
-    "{.file {file_path}}: {.field {error_path}} must be a list, not {not}.",
+  config_abort(
+    pkg, 
+    "{.field {error_path}} must be a list, not {not}.",
+    path = file_path,
     call = error_call
   )
 }

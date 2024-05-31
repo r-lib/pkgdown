@@ -1,20 +1,3 @@
-# check_bslib_theme() works
-
-    Code
-      check_bslib_theme("paper", pkg, bs_version = 4)
-    Condition
-      Error:
-      x Can't find Bootswatch/bslib theme preset "paper" (template.bootswatch).
-      i Using Bootstrap version 4 (template.bootstrap).
-      i Edit _pkgdown.yml to fix the problem.
-    Code
-      check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
-    Condition
-      Error:
-      x Can't find Bootswatch/bslib theme preset "paper" (template and preset).
-      i Using Bootstrap version 4 (template.bootstrap).
-      i Edit _pkgdown.yml to fix the problem.
-
 # capture data_template()
 
     package:
@@ -70,32 +53,28 @@
 # check_opengraph validates inputs
 
     Code
-      check_open_graph_(list(foo = list()), )
+      data_open_graph_(list(foo = list()))
     Condition
-      Warning in `check_open_graph_()`:
-      '_pkgdown.yml': Unsupported template.opengraph field: "foo".
-    Output
-      named list()
+      Warning in `data_open_graph_()`:
+      In _pkgdown.yml, template.opengraph contains unsupported fields "foo".
     Code
-      check_open_graph_(list(foo = list(), bar = list()))
+      data_open_graph_(list(foo = list(), bar = list()))
     Condition
-      Warning in `check_open_graph_()`:
-      '_pkgdown.yml': Unsupported template.opengraph fields: "foo" and "bar".
-    Output
-      named list()
+      Warning in `data_open_graph_()`:
+      In _pkgdown.yml, template.opengraph contains unsupported fields "foo" and "bar".
     Code
-      check_open_graph_(list(twitter = 1))
+      data_open_graph_(list(twitter = 1))
     Condition
-      Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.twitter must be a list, not the number 1.
+      Error in `data_open_graph_()`:
+      ! In _pkgdown.yml, template.opengraph.twitter must be a list, not the number 1.
     Code
-      check_open_graph_(list(twitter = list()))
+      data_open_graph_(list(twitter = list()))
     Condition
-      Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': opengraph.twitter must include either creator or site.
+      Error in `data_open_graph_()`:
+      ! In _pkgdown.yml, opengraph.twitter must include either creator or site.
     Code
-      check_open_graph_(list(image = 1))
+      data_open_graph_(list(image = 1))
     Condition
-      Error in `check_open_graph_()`:
-      ! '_pkgdown.yml': template.opengraph.image must be a list, not the number 1.
+      Error in `data_open_graph_()`:
+      ! In _pkgdown.yml, template.opengraph.image must be a list, not the number 1.
 
