@@ -138,7 +138,7 @@ get_bootstrap_version <- function(template, package = NULL, pkg) {
     config_abort(
       pkg,
       c(
-        "Must set one only of {.field template.bootstrap} and {.field template.bslib.version}.",
+        "must set only one of {.field template.bootstrap} and {.field template.bslib.version}.",
         i = hint
       ),
       call = caller_env()
