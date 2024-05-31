@@ -59,9 +59,9 @@ fig_save_args <- function() {
   default
 }
 
-meta_figures <- function(meta = list()) {
+meta_figures <- function(pkg) {
   default <- fig_save_args()
-  figures <- purrr::pluck(meta, "figures", .default = list())
+  figures <- config_pluck_list(pkg, "figures")
 
   print_yaml(modify_list(default, figures))
 }
