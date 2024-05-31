@@ -60,8 +60,8 @@
     Code
       select_topics_("c::a", topics)
     Condition
-      Error in `.f()`:
-      ! object 's' not found
+      Error in `select_topics_()`:
+      ! In _pkgdown.yml, reference[1].contents[1] (c::a) must be a known topic name or alias.
 
 # can combine positive and negative selections
 
@@ -78,3 +78,4 @@
     Condition
       Error in `select_topics_()`:
       ! In _pkgdown.yml, reference[1].contents (starts_with('unmatched')) must match a function or concept.
+
