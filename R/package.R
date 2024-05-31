@@ -75,7 +75,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   pkg$install_metadata <- config_pluck_bool(pkg, "deploy.install_metadata", FALSE)
   pkg$figures <- meta_figures(pkg)
   pkg$repo <- package_repo(pkg)
-  pkg$topics <- package_topics(src_path, package)
+  pkg$topics <- package_topics(src_path)
   pkg$tutorials <- package_tutorials(src_path, meta)
   pkg$vignettes <- package_vignettes(src_path)
 
@@ -172,7 +172,7 @@ read_meta <- function(path, call = caller_env()) {
 
 # Topics ------------------------------------------------------------------
 
-package_topics <- function(path = ".", package = "pkgdown") {
+package_topics <- function(path = ".") {
   # Needed if title contains sexpr
   local_context_eval()
 
