@@ -6,12 +6,6 @@
       Error:
       x In _pkgdown.yml, template.bootswatch contains unknown Bootswatch/bslib theme "paper".
       i Using Bootstrap version 4 (template.bootstrap).
-    Code
-      check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
-    Condition
-      Error:
-      x In _pkgdown.yml, template and preset contains unknown Bootswatch/bslib theme "paper".
-      i Using Bootstrap version 4 (template.bootstrap).
 
 # validations yaml specification
 
