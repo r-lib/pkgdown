@@ -395,7 +395,14 @@ data_articles_index_section <- function(section, index, articles, pkg, call = ca
   )
 
   # Match topics against any aliases
-  contents <- articles[select_topics(section$contents, articles), ]
+  idx <- select_topics(
+    section$contents,
+    articles,
+    error_path = paste0("articles[", index, "].contents"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  contents <- articles[idx, , drop = FALSE]
 
   list(
     title = title,

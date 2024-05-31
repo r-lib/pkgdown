@@ -111,7 +111,11 @@ data_reference_index_rows <- function(section, index, pkg, call = caller_env()) 
   }
 
   if (has_name(section, "contents")) {
-    topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
+    topics <- section_topics(pkg,
+      section$contents,
+      error_path = paste0("reference[", index, "].contents"),
+      error_call = call
+    )
 
     names <- topics$name
     topics$name <- NULL
