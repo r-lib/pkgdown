@@ -213,7 +213,7 @@ match_eval <- function(string, index, env, error_pkg, error_path, error_call = c
         error_call = error_call
       )
     }
-  } else if (is_call(expr, "::")) {s
+  } else if (is_call(expr, "::")) {
     name <- paste0(expr[[2]], "::", expr[[3]])
     val <- env_get(env, name, default = NULL)
     if (is.integer(val)) {
