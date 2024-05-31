@@ -106,13 +106,13 @@ check_favicons <- function(pkg) {
     if (out_of_date(logo, favicon)) {
       cli::cli_abort(c(
         "Package logo is newer than favicons.",
-        i = "Do you need to rerun {.fn build_favicons}?"
+        i = "Do you need to rerun {.run [build_favicons()](pkgdown::build_favicons())}?"
       ))
     }
   } else {
     cli::cli_abort(c(
       "Found package logo but not favicons.",
-      i = "Do you need to run {.fn build_favicons}?"
+      i = "Do you need to run {.run [build_favicons()](pkgdown::build_favicons())}?"
     ))
   }
 }
