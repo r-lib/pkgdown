@@ -34,6 +34,7 @@
       mode: default
       version_label: muted
       in_dev: no
+      prefix: ''
       version_tooltip: ''
     navbar:
       bg: light

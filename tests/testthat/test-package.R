@@ -15,9 +15,11 @@ test_that("package_vignettes() doesn't trip over directories", {
 })
 
 test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
-  expect_equal(check_bootstrap_version(3), 3)
-  expect_warning(expect_equal(check_bootstrap_version(4), 5))
-  expect_equal(check_bootstrap_version(5), 5)
+  pkg <- local_pkgdown_site()
+
+  expect_equal(check_bootstrap_version(3, pkg), 3)
+  expect_snapshot(expect_equal(check_bootstrap_version(4, pkg), 5))
+  expect_equal(check_bootstrap_version(5, pkg), 5)
 })
 
 test_that("check_bootstrap_version() gives informative error otherwise", {
