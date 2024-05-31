@@ -1,18 +1,3 @@
-# check_bslib_theme() works
-
-    Code
-      check_bslib_theme("paper", pkg, bs_version = 4)
-    Condition
-      Error:
-      x In _pkgdown.yml, Can't find Bootswatch/bslib theme preset "paper" (template.bootswatch).
-      i Using Bootstrap version 4 (template.bootstrap).
-    Code
-      check_bslib_theme("paper", pkg, bs_version = 4, field = c("template", "preset"))
-    Condition
-      Error:
-      x In _pkgdown.yml, Can't find Bootswatch/bslib theme preset "paper" (template and preset).
-      i Using Bootstrap version 4 (template.bootstrap).
-
 # capture data_template()
 
     package:
@@ -71,12 +56,12 @@
       data_open_graph_(list(foo = list()))
     Condition
       Warning in `data_open_graph_()`:
-      In _pkgdown.yml, Unsupported template.opengraph field: "foo".
+      In _pkgdown.yml, template.opengraph contains unsupported fields "foo".
     Code
       data_open_graph_(list(foo = list(), bar = list()))
     Condition
       Warning in `data_open_graph_()`:
-      In _pkgdown.yml, Unsupported template.opengraph fields: "foo" and "bar".
+      In _pkgdown.yml, template.opengraph contains unsupported fields "foo" and "bar".
     Code
       data_open_graph_(list(twitter = 1))
     Condition

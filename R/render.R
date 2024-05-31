@@ -180,7 +180,7 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
-    msg <- "Unsupported {.field {base_path}} {cli::qty(unsupported_fields)} field{?s}: {.val {unsupported_fields}}."
+    msg <- "{.field {base_path}} contains unsupported fields {.val {unsupported_fields}}."
     config_warn(pkg, msg, path = file_path, call = call)
   }
   check_open_graph_list(
