@@ -13,328 +13,328 @@ msgstr ""
 
 #: build-404.R:11
 msgid "Page not found (404)"
-msgstr ""
+msgstr "Az oldal nem található (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr ""
+msgstr "A tartalom nem található. Kérjük, használja a navigációs sávban lévő linkeket."
 
 #: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
 msgid "Articles"
-msgstr ""
+msgstr "Cikkek"
 
 #: build-articles.R:570
 msgid "All vignettes"
-msgstr ""
+msgstr "Minden vignetta"
 
 #: build-footer.R:34
 msgid "Developed by"
-msgstr ""
+msgstr "Fejlesztette"
 
 #: build-footer.R:41
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
-msgstr ""
+msgstr "Az oldalt a <a href=\"%s\">pkgdown</a> %s segítségével építették."
 
 #: build-home-authors.R:12
 msgid "Authors and Citation"
-msgstr ""
+msgstr "Szerzők és hivatkozás"
 
 #: build-home-authors.R:101
 msgid "More about authors..."
-msgstr ""
+msgstr "További információk a szerzőkről..."
 
 #: build-home-authors.R:104
 msgid "Developers"
-msgstr ""
+msgstr "Fejlesztők"
 
 #: build-home-authors.R:190
 msgid "author"
-msgstr ""
+msgstr "szerző"
 
 #: build-home-authors.R:191
 msgid "compiler"
-msgstr ""
+msgstr "összeállító"
 
 #: build-home-authors.R:192
 msgid "contractor"
-msgstr ""
+msgstr "vállalkozó"
 
 #: build-home-authors.R:193
 msgid "contributor"
-msgstr ""
+msgstr "hozzájáruló"
 
 #: build-home-authors.R:194
 msgid "copyright holder"
-msgstr ""
+msgstr "szerzői jog tulajdonosa"
 
 #: build-home-authors.R:195
 msgid "maintainer"
-msgstr ""
+msgstr "karbantartó"
 
 #: build-home-authors.R:196
 msgid "data contributor"
-msgstr ""
+msgstr "adatközlő"
 
 #: build-home-authors.R:197
 msgid "funder"
-msgstr ""
+msgstr "támogató"
 
 #: build-home-authors.R:198
 msgid "reviewer"
-msgstr ""
+msgstr "lektor"
 
 #: build-home-authors.R:199
 msgid "thesis advisor"
-msgstr ""
+msgstr "szakdolgozati tanácsadó"
 
 #: build-home-authors.R:200
 msgid "translator"
-msgstr ""
+msgstr "fordító"
 
 #: build-home-authors.R:254 render.R:103
 msgid "Citation"
-msgstr ""
+msgstr "Hivatkozás"
 
 #: build-home-authors.R:255
 msgid "Citing %s"
-msgstr ""
+msgstr "%s hivatkozása"
 
 #: build-home-community.R:23
 msgid "Contributing guide"
-msgstr ""
+msgstr "Hozzájárulási útmutató"
 
 #: build-home-community.R:27
 msgid "Code of conduct"
-msgstr ""
+msgstr "Magatartási kódex"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "Segítség kérése"
 
 #: build-home-community.R:38
 msgid "Community"
-msgstr ""
+msgstr "Közösség"
 
 #: build-home-index.R:120
 msgid "Dev Status"
-msgstr ""
+msgstr "Fejlesztési állapot"
 
 #: build-home-index.R:162
 msgid "View on %s"
-msgstr ""
+msgstr "Megtekintés %s-en"
 
 #: build-home-index.R:163
 msgid "Browse source code"
-msgstr ""
+msgstr "Forráskód böngészése"
 
 #: build-home-index.R:164
 msgid "Report a bug"
-msgstr ""
+msgstr "Hiba jelentése"
 
 #: build-home-index.R:168
 msgid "Links"
-msgstr ""
+msgstr "Linkek"
 
 #: build-home-index.R:173 render.R:105
 msgid "Table of contents"
-msgstr ""
+msgstr "Tartalomjegyzék"
 
 #: build-home-license.R:12 build-home-license.R:34
 msgid "License"
-msgstr ""
+msgstr "Licenc"
 
 #: build-home-license.R:29
 msgid "Full license"
-msgstr ""
+msgstr "Teljes licenc"
 
 #: build-news.R:102 build-news.R:259 build-news.R:263
 msgid "Changelog"
-msgstr ""
+msgstr "Változási napló"
 
 #: build-news.R:129
 msgid "Version %s"
-msgstr ""
+msgstr "%s verzió"
 
 #: build-news.R:141 build-news.R:254
 msgid "News"
-msgstr ""
+msgstr "Hírek"
 
 #: build-news.R:256
 msgid "Releases"
-msgstr ""
+msgstr "Kiadások"
 
 #: build-news.R:310
 msgid "CRAN release: %s"
-msgstr ""
+msgstr "CRAN kiadás: %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "Csomag index"
 
 #: build-reference-index.R:158
 msgid "All functions"
-msgstr ""
+msgstr "Minden függvény"
 
 #: build-reference.R:371
 msgid "Usage"
-msgstr ""
+msgstr "Használat"
 
 #: build-tutorials.R:47 navbar.R:152
 msgid "Tutorials"
-msgstr ""
+msgstr "Oktatóanyagok"
 
 #: development.R:72
 msgid "Released version"
-msgstr ""
+msgstr "Kiadott verzió"
 
 #: development.R:73
 msgid "In-development version"
-msgstr ""
+msgstr "Fejlesztés alatt álló verzió"
 
 #: development.R:74
 msgid "Unreleased version"
-msgstr ""
+msgstr "Kiadatlan verzió"
 
 #: navbar-menu.R:173
 msgid "Search site"
-msgstr ""
+msgstr "Oldal keresése"
 
 #: navbar-menu.R:174
 msgid "Search for"
-msgstr ""
+msgstr "Keresés erre"
 
 #: navbar.R:129
 msgid "Reference"
-msgstr ""
+msgstr "Referenciák"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+msgstr "Fénykapcsoló"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "Világos"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "Sötét"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "Automatikus"
 
 #: navbar.R:180
 msgid "Get started"
-msgstr ""
+msgstr "Kezdje el"
 
 #: navbar.R:213
 msgid "More articles..."
-msgstr ""
+msgstr "További cikkek..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "elavult"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "felülírt"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "kísérleti"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "stabil"
 
 #: rd-data.R:23
 msgid "Details"
-msgstr ""
+msgstr "Részletek"
 
 #: rd-data.R:27
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: rd-data.R:31
 msgid "References"
-msgstr ""
+msgstr "Hivatkozások"
 
 #: rd-data.R:35 render.R:98
 msgid "Source"
-msgstr ""
+msgstr "Forrás"
 
 #: rd-data.R:39
 msgid "Format"
-msgstr ""
+msgstr "Formátum"
 
 #: rd-data.R:43
 msgid "Note"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: rd-data.R:47
 msgid "Author"
-msgstr ""
+msgstr "Szerző"
 
 #: rd-data.R:51
 msgid "See also"
-msgstr ""
+msgstr "Lásd még"
 
 #: rd-data.R:67
 msgid "Arguments"
-msgstr ""
+msgstr "Argumentumok"
 
 #: rd-data.R:75
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
 #: render.R:95
 msgid "Skip to contents"
-msgstr ""
+msgstr "Ugrás a tartalomra"
 
 #: render.R:96
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Navigáció átkapcsolása"
 
 #: render.R:97
 msgid "On this page"
-msgstr ""
+msgstr "Ezen az oldalon"
 
 #: render.R:99
 msgid "Abstract"
-msgstr ""
+msgstr "Kivonat"
 
 #: render.R:100
 msgid "Authors"
-msgstr ""
+msgstr "Szerzők"
 
 #: render.R:101
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #: render.R:102
 msgid "Examples"
-msgstr ""
+msgstr "Példák"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "További részletek"
 
 #: render.R:106
 msgid "Site navigation"
-msgstr ""
+msgstr "Oldal navigáció"
 
 #: repo.R:35
 msgid "Source:"
-msgstr ""
+msgstr "Forrás:"
 
 #: tweak-homepage.R:61
 msgid "Dev status"
-msgstr ""
+msgstr "Fejlesztési állapot"
 
 #: usage.R:23
 msgid "# Default %s method"
-msgstr ""
+msgstr "# Alap értelmezett %s metódus"
 
 #: usage.R:25
 msgid "# %s method for class '%s'"
-msgstr ""
+msgstr "# %s metódus a(z) '%s' osztályhoz"
