@@ -60,7 +60,7 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
   is_null <- purrr::map_lgl(contents, is.null)
   if (any(is_null)) {
     j <- which(is_null)[1]
-    config_abort(pkg, "{.field {prefix}[{index}].contents}[{j}] is empty.", call = call)
+    config_abort(pkg, "{.field {prefix}[{index}].contents[{j}]} is empty.", call = call)
   }
 
   is_char <- purrr::map_lgl(contents, is.character)
@@ -69,7 +69,7 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
     config_abort(
       pkg,
       c(
-        "{.field {prefix}[{index}].contents}[{j}] must be a string.",
+        "{.field {prefix}[{index}].contents[{j}]} must be a string.",
         i = "You might need to add '' around special YAML values like 'N' or 'off'"
       ),
       call = call
